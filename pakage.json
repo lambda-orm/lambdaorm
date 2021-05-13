@@ -1,0 +1,35 @@
+{
+    "name": "js-orm",
+    "version": "0.0.1",
+    "description": "ORM",
+    "main": "./lib/js-orm",
+    "bin": {
+      "config-extends": "bin/js-orm"
+    },
+    "scripts": {
+      "test": "mocha"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/FlavioLionelRita/js-orm.git"
+    },
+    "keywords": [
+      "orm",
+      "sql",
+      "database",
+      "data access"
+    ],
+    "author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/FlavioLionelRita/js-orm/issues"
+    },
+    "homepage": "https://github.com/FlavioLionelRita/js-orm#readme",
+    "dependencies": {
+      "config-extends": "^1.0.3"
+    },
+    "devDependencies": {
+      "mocha": "^8.2.1",
+      "chai": "^4.2.0"
+    }
+  }
