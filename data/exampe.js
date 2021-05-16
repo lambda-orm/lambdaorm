@@ -32,17 +32,17 @@ orm = new Orm()
 
 
 
- 
+
 
 //example query with having
-orm.exec(()=> Product.select(p=> {category=p.category.name,total=sum(p.cost)})
+orm.exec(()=> Product.select(p=> ({category:p.category.name,total:sum(p.cost)}) )
                      .where(p=> p.category != a )                     
                      .having(p=> p.total > 100 )
-                     .sort(p=> desc(p.category) ) 
+                     .sort(p=> desc(p.category) )
         ,{a:1} );
 
 // Filter using subquery 
-orm.exec(()=> Product.select(p=> {category=p.category.name,total=sum(p.cost)})
+orm.exec(()=> Product.select(p=> p.category.name,as(sum(p.cost),'total'))
         .where( p=> p.category != a && !exists(Blacklist.where(q=> q.categoryId == p.categoryId))  )                     
         .having(p=> p.total > 100 )
         .sort(p=> desc(p.category) ) 
