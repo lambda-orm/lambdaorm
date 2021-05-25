@@ -1,3 +1,7 @@
+others:
+  variable: ':{name}'
+  field: '{enityAlias}.{name}'
+  from: 'FROM {name} as {alias} '
 operators:
   unary:
     '-': '- {0}'
@@ -14,7 +18,7 @@ operators:
     '&': 'BitAnd({0},{1})'
     '|': 'BitOr({0},{1})'
     '^': 'bitXor({0},{1})'
-    '<<':'{0} << {1}'
+    '<<': '{0} << {1}'
     '>>': '{0} >> {1}'
     '==': '{0} = {1}'
     '!=': '{0} <> {1}'
@@ -40,7 +44,6 @@ operators:
     '>>=': 'SET {0} = {0} >> {1}'
   ternary:    
     '?': 'IF {0} THEN {1} ELSE {2} END'
-
 functions:
   foreach: 'N/A'
   map: 'SELECT {0} '

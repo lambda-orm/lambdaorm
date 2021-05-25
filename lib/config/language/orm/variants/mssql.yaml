@@ -1,0 +1,4 @@
+language: orm
+variant: mssql
+name: mssql
+_extends: [base]

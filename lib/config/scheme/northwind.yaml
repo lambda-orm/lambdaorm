@@ -1,0 +1,125 @@
+name: northwind
+abstract:
+  Address:
+    properties:
+      address: Address
+      city : City
+      region : Region
+      postalCode : PostalCode
+      country : Country 
+enum:
+entity:
+  Employee:
+    _extends: [northwind.abstract.Address]
+    name: Employees
+    properties:      
+      id: EmployeeID
+      lastName: LastName
+      firstName: FirstName
+      title: Title
+      titleOfCourtesy: TitleOfCourtesy
+      birthDate : BirthDate
+      hireDate : HireDate
+      phone: HomePhone
+      reportsToId: ReportsTo
+    oneToMany:  
+      reportsTo:
+        from: reportsToId
+        to: Employee.id
+  Category:
+    name: Categories
+    properties:
+      id: CategoryID
+      name: CategoryName
+      description: Description
+  Customer:
+    _extends: [northwind.abstract.Address]
+    name: Customers
+    properties:
+      id: CustomerID
+      name: CompanyName
+      contact: ContactName
+      phone: ContactTitle
+    manyToOne:  
+      orders: 
+        from: id
+        to: Order.customerId
+  Shipper:
+    name: Shippers
+    properties:
+      id: ShipperID
+      name: CompanyName
+      phone: Phone
+  Supplier:
+    _extends: [northwind.abstract.Address]
+    name: Suppliers
+    properties:
+      id: SupplierID
+      name: CompanyName
+      contact: ContactName
+      phone: Phone
+      homepage: HomePage  
+  Product:
+    name: Products
+    properties:
+      id: ProductID 
+      name: ProductName
+      supplierId: SupplierID
+      categoryId: CategoryID
+      quantity: QuantityPerUnit
+      price: UnitPrice
+      inStock: UnitsInStock
+      onOrder: UnitsOnOrder
+      reorderLevel: ReorderLevel
+      discontinued: Discontinued
+    oneToMany:  
+      supplier: 
+        from: supplierId
+        to: Supplier.id 
+      category: 
+        from: categoryId
+        to: Category.id
+  Order:
+    _extends: [northwind.abstract.Address]
+    name: Orders
+    properties:
+      id: OrderID 
+      customerId: CustomerID
+      employeeId: EmployeeID 
+      orderDate: OrderDate 
+      requiredDate: RequiredDate
+      shippedDate: ShippedDate 
+      shipViaId: ShipVia
+      freight: Freight
+    oneToMany:    
+      customer: 
+        from: customerId
+        to: Customer.id 
+      employee: 
+        from: employeeId
+        to: Employee.id 
+    manyToOne:  
+      details:
+        from: id
+        to: OrderDetail.orderId  
+  OrderDetail:
+    name: OrderDetails
+    properties:
+      id: OrderDetailID
+      orderId: OrderID
+      productId: ProductID
+      unitPrice: UnitPrice
+      quantity: Quantity
+      discount: Discount
+    oneToMany:   
+      order: 
+        from: customerId
+        to: Customer.id 
+      product: 
+        from: productId
+        to: Product.id 
+
+	 
+
+
+

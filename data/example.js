@@ -37,7 +37,7 @@ orm = new Orm()
 //example query with having
 orm.exec(()=> Product.select(p=> ({category:p.category.name,total:sum(p.cost)}) )
                      .where(p=> p.category != a )                     
-                     .having(p=> p.total > 100 )
+                     .having(p=> p.total > 100  )
                      .sort(p=> desc(p.category) )
         ,{a:1} );
 

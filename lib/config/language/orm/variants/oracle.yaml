@@ -1,0 +1,4 @@
+language: orm
+variant: oracle
+name: oracle
+_extends: [base]
