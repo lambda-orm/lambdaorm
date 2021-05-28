@@ -22,8 +22,9 @@ entity:
       hireDate : HireDate
       phone: HomePhone
       reportsToId: ReportsTo
-    oneToMany:  
+    relations:
       reportsTo:
+        type: oneToMany
         from: reportsToId
         to: Employee.id
   Category:
@@ -40,8 +41,9 @@ entity:
       name: CompanyName
       contact: ContactName
       phone: ContactTitle
-    manyToOne:  
-      orders: 
+    relations:  
+      orders:
+        type: manyToOne 
         from: id
         to: Order.customerId
   Shipper:
@@ -72,11 +74,13 @@ entity:
       onOrder: UnitsOnOrder
       reorderLevel: ReorderLevel
       discontinued: Discontinued
-    oneToMany:  
-      supplier: 
+    relations:    
+      supplier:
+        type: oneToMany 
         from: supplierId
         to: Supplier.id 
-      category: 
+      category:
+        type: oneToMany  
         from: categoryId
         to: Category.id
   Order:
@@ -91,15 +95,17 @@ entity:
       shippedDate: ShippedDate 
       shipViaId: ShipVia
       freight: Freight
-    oneToMany:    
-      customer: 
+    relations:    
+      customer:
+        type: oneToMany  
         from: customerId
         to: Customer.id 
-      employee: 
+      employee:
+        type: oneToMany  
         from: employeeId
         to: Employee.id 
-    manyToOne:  
       details:
+        type: manyToOne 
         from: id
         to: OrderDetail.orderId  
   OrderDetail:
@@ -111,11 +117,13 @@ entity:
       unitPrice: UnitPrice
       quantity: Quantity
       discount: Discount
-    oneToMany:   
-      order: 
+    relations:   
+      order:
+        type: oneToMany 
         from: customerId
         to: Customer.id 
-      product: 
+      product:
+        type: oneToMany 
         from: productId
         to: Product.id 
 

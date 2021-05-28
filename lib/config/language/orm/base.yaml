@@ -2,6 +2,9 @@ others:
   variable: ':{name}'
   field: '{enityAlias}.{name}'
   from: 'FROM {name} as {alias} '
+  join: 'INNER JOIN {name} {alias} ON  {alias}.{field} = {relatedAlias}.{relatedField}'
+  false: '0'
+  true: '1'
 operators:
   unary:
     '-': '- {0}'
@@ -45,14 +48,23 @@ operators:
   ternary:    
     '?': 'IF {0} THEN {1} ELSE {2} END'
 functions:
-  foreach: 'N/A'
-  map: 'SELECT {0} '
-  first: 'SELECT TOP 1 {0} '
-  filter: 'WHERE {0} '
-  having: 'HAVING {0} '
-  reverse: 'ORDER BY ({0}) DESC'
-  sort: 'ORDER BY {0} '
-  insert: 'INSERT INTO {0}({1}) VALUES({2}) '
-  insertfrom: 'INSERT INTO {0}({1}) {2} '
-  update: 'UPDATE {0} SET {1} ' 
-  delete: 'DELETE {0} ' 
+  general:
+    as: '{value} AS {alias}'
+  multiple:
+    concat: '{acumulated} || {value}'  
+  arrow:
+    foreach: 'N/A'
+    map: 'SELECT {0} '
+    first: 'SELECT TOP 1 {0} '
+    filter: 'WHERE {0} '
+    having: 'HAVING {0} '
+    reverse: 'ORDER BY ({0}) DESC'
+    sort: 'ORDER BY {0} '
+    insert: 'INSERT INTO {0}({1}) VALUES({2}) '
+    insertfrom: 'INSERT INTO {0}({1}) {2} '
+    update: 'UPDATE {0} SET {1} ' 
+    delete: 'DELETE {0} '
+  
+  
+
+  
