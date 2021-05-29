@@ -120,8 +120,8 @@ entity:
     relations:   
       order:
         type: oneToMany 
-        from: customerId
-        to: Customer.id 
+        from: orderId
+        to: Order.id 
       product:
         type: oneToMany 
         from: productId
