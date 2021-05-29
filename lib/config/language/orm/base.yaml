@@ -97,7 +97,10 @@ functions:
   convert:
   # TODO
   null:
-    # TODO  
+    nvl: 'NVL({0},{1})'
+    nvl2: 'NVL2({0},{1},{2})' 
+    isNull: '({0} IS NULL)' 
+    isNotNull: '({0} IS NOT NULL)' 
   multiple:
     concat: '{acumulated} || {value}'
   group:    
