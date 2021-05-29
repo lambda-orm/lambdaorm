@@ -1,9 +1,10 @@
+# https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions001.htm
 others:
   variable: ':{name}'
   field: '{enityAlias}.{name}'
   column: '{name}'
-  from: 'FROM {name} as {alias} '
-  join: 'INNER JOIN {name} {alias} ON  {alias}.{field} = {relatedAlias}.{relatedField}'
+  from: 'FROM {name} {alias} '
+  join: 'INNER JOIN {name} {alias} ON {relation}'
   false: '0'
   true: '1'
 operators:
@@ -16,12 +17,12 @@ operators:
     '-': '({0} - {1})'
     '*': '({0} * {1})'
     '/': '({0} / {1})'
-    '**': '({0} ^ {1})'
-    '//': '({0} ^ (1/{1}))'
+    '**': 'POWER({0},{1})'
+    '//': 'POWER({0},(1/{1}))'
     '%': MOD({0},{1})
-    '&': 'BitAnd({0},{1})'
-    '|': 'BitOr({0},{1})'
-    '^': 'bitXor({0},{1})'
+    '&': 'BITAND({0},{1})'
+    '|': 'BITOR({0},{1})'
+    '^': 'BITXOR({0},{1})'
     '<<': '{0} << {1}'
     '>>': '{0} >> {1}'
     '==': '{0} = {1}'
@@ -38,12 +39,12 @@ operators:
     '-=': 'SET {0} = ({0} - {1})'
     '*=': 'SET {0} = ({0} * {1})'
     '/=': 'SET {0} = ({0} / {1})'
-    '**=': 'SET {0} = ({0} ^ {1})'
-    '//=': 'SET {0} = ({0} ^ (1/{1}))'
+    '**=': 'SET {0} = POWER({0},{1})'
+    '//=': 'SET {0} = POWER({0},(1/{1}))'
     '%=': 'SET {0} = MOD({0},{1})'
-    '&=': 'SET {0} = BitAnd({0},{1})'
-    '|=': 'SET {0} = BitOr({0},{1})'
-    '^=': 'SET {0} = BitXor({0},{1})'
+    '&=': 'SET {0} = BITAND({0},{1})'
+    '|=': 'SET {0} = BITOR({0},{1})'
+    '^=': 'SET {0} = BITXOR({0},{1})'
     '<<=': 'SET {0} = {0} << {1}'
     '>>=': 'SET {0} = {0} >> {1}'
   ternary:    
@@ -54,23 +55,72 @@ functions:
     desc: '{0} desc'
     asc: '{0} asc'
     between: '{0} BETWEEN {1} AND {2}'
+  numeric:
+    abs: 'ABS({0})'
+    acos: 'ACOS({0})'
+    asin: 'ASIN({0})'
+    atan: 'ATAN({0})'
+    atan2: 'ATAN2({0},{1})'
+    ceil: 'CEIL({0})'
+    cos: 'COS({0})'
+    cosh: 'COSH({0})'
+    exp: 'EXP({0})'
+    floor: 'FLOOR({0})'
+    ln: 'LN({0})'
+    log: 'LOG({0},{1})'
+    nanvl: 'NANVL({0},{1})'
+    remainder: 'REMAINDER({0},{1})'
+    round: 'ROUND({0})'
+    sign: 'SIGN({0})'
+    sin: 'SIN({0})'
+    sinh: 'SINH({0})'
+    tan: 'TAN({0})'
+    tanh: 'TANH({0})'
+    trunc: 'TRUNC({0})'
+  string:
+    chr: 'CHR({0})'
+    initcap: 'INITCAP({0})'
+    lower: 'LOWER({0})'
+    lpad: 'LPAD({0})'
+    ltrim: 'LTRIM({0})'
+    regExpReplace: 'REGEXP_REPLACE({0},{1})'
+    regExpSubstr: 'REGEXP_SUBSTR({0},{1})'
+    replace: 'REPLACE({0},{1},{2})'
+    rpad: 'RPAD({0},{1},{2})'
+    strim: 'RTRIM({0},{1})'
+    substr: 'SUBSTR({0},{1},{2})'
+    trim: 'TRIM({0})'
+    upper: 'UPPER({0})'
+    length: 'LENGTH({0})'
+  datetime:
+  # TODO
+  convert:
+  # TODO
+  null:
+    # TODO  
   multiple:
     concat: '{acumulated} || {value}'
-  group:
-    sum: SUM({0})    
-  arrow:
-    foreach: 'N/A'
-    map: 'SELECT {0} '
-    first: 'SELECT TOP 1 {0} '
-    filter: 'WHERE {0} '
-    groupBy: 'GROUP BY {0} '
-    having: 'HAVING {0} '
-    reverse: 'ORDER BY ({0}) DESC'
-    sort: 'ORDER BY {0} '
-    insert: 'INSERT INTO {0}({1}) VALUES({2}) '
-    insertFrom: 'INSERT INTO {0}({1}) {2} '
-    update: 'UPDATE {0} SET {1} ' 
-    delete: 'DELETE {0} '
+  group:    
+    avg: AVG({0})
+    count: COUNT({0})
+    first: FIRST({0})
+    last: LAST({0})
+    max: MAX({0})
+    min: MIN({0})
+    sum: SUM({0})
+arrows:
+  foreach: 'N/A'
+  map: 'SELECT {0} '
+  first: 'SELECT TOP 1 {0} '
+  filter: 'WHERE {0} '
+  groupBy: 'GROUP BY {0} '
+  having: 'HAVING {0} '
+  reverse: 'ORDER BY ({0}) DESC'
+  sort: 'ORDER BY {0} '
+  insert: 'INSERT INTO {0}({1}) VALUES({2}) '
+  insertFrom: 'INSERT INTO {0}({1}) {2} '
+  update: 'UPDATE {0} SET {1} ' 
+  delete: 'DELETE {0} '
   
   
 
