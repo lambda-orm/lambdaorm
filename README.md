@@ -1,2 +1,6 @@
-# js-orm
-orm, data access, sentences
+
+
+# Test
+```
+npx mocha
+```
