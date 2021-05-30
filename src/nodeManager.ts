@@ -1,29 +1,35 @@
-const {Node,Model,Library} = require("./base.js")
+import {Node} from './base'
 
-module.exports = class NodeManager
+export default class NodeManager
 {
-    constructor(model){
+    protected _model:any
+    
+    constructor(model:any){
         this._model = model;  
     }
-    serialize(node){
+    serialize(node:Node):any
+    {
         let children = []                
         for(const p in node.children)
             children.push(this.serialize(node.children[p]));
         if(children.length == 0) return {'n':node.name,'t':node.type};     
         return {'n':node.name,'t':node.type,'c':children}; 
     }
-    deserialize(serialized){
+    deserialize(serialized:any):Node
+    {
         let node = this._deserialize(serialized)
         return this.setParent(node);
     }
-    _deserialize(serialized){
+    _deserialize(serialized:any):Node
+    {
         let children = []
         if(serialized.c)
             for(const p in serialized.c)
                 children.push(this._deserialize(p));
-        return Node(serialized['n'],serialized['t'],children);
+        return new Node(serialized['n'],serialized['t'],children);
     }
-    setParent(node,parent=null,index=0){
+    setParent(node:Node,parent=null,index=0)
+    {
         try{
             if(parent){
                 node.id = parent.id +'.'+index.toString();

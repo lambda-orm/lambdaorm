@@ -1,27 +1,27 @@
-const {Node,Model,Library} = require("./base.js")
+import {Node} from './base'
 
-module.exports =  class Parser{
-    constructor(model){
+export default class Parser{
+
+    public doubleOperators:string[]
+    public tripleOperators:string[]
+    public assigmentOperators:string[]
+    protected _model:any
+
+    constructor(model:any){
          this._model = model;
-         this._tripleOperators = [];
-         this._doubleOperators = [] ;
-         this._assigmentOperators = [];
+         this.tripleOperators = [];
+         this.doubleOperators = [] ;
+         this.assigmentOperators = [];
          this.refresh();     
-     }     
-     get doubleOperators(){
-         return this._doubleOperators;
-     }   
-     get  tripleOperators(){
-         return this._tripleOperators;  
      } 
      refresh(){
          for(const key in this._model.operators){
-             if( key.length==2) this._doubleOperators.push(key);
-             else if(key.length==3) this._tripleOperators.push(key);
+             if( key.length==2) this.doubleOperators.push(key);
+             else if(key.length==3) this.tripleOperators.push(key);
 
             let operator = this._model.operators[key];
             if(operator[2] && operator[2].category == 'assignment')
-                   this._assigmentOperators.push(key);
+                   this.assigmentOperators.push(key);
          }
      }   
      priority(name,cardinality){
@@ -55,6 +55,16 @@ module.exports =  class Parser{
  }
  
  class _Parser{
+
+     private mgr:any
+     private reAlphanumeric:RegExp
+     private reInt:RegExp
+     private reFloat:RegExp
+     private buffer:string[]
+     private length:number
+     private index:number
+
+
      constructor(mgr,expression){
          this.mgr = mgr
          this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') ;
@@ -73,7 +83,8 @@ module.exports =  class Parser{
      get previous(){
          return this.buffer[this.index-1]; 
      }
-     get current(){
+     get current():any
+     {
          return this.buffer[this.index] ;
      } 
      get next(){
@@ -153,7 +164,7 @@ module.exports =  class Parser{
             char = this.current;   
          }
          if(this.reAlphanumeric.test(char)){    
-             let value=  this.getValue();
+             let value:any=  this.getValue();
              if(value=='if' && this.current == '('){
                  this.index+=1;
                  operand = this.getIfBlock();
@@ -212,7 +223,7 @@ module.exports =  class Parser{
                  operand = new Node(true,'const');
              }
              else if( value=='false'){                
-                 operand = new Node( false,'const')
+                 operand = new Node(false,'const')
              }
              else if( this.mgr.isEnum(value)){               
                  operand= this.getEnum(value);
@@ -338,7 +349,7 @@ module.exports =  class Parser{
      getBlock(){
          let lines= [];
          while(true){
-             line= this.getExpression(null,null,';}')
+             let line= this.getExpression(null,null,';}')
              if(line != null)lines.push(line)
              if(this.previous=='}')break; 
          }       
@@ -357,7 +368,7 @@ module.exports =  class Parser{
          let nextValue=this.getValue(false);
          let elseblock=null;
          if(nextValue=='else'){
-             this.index+=len(nextValue)
+             this.index+=nextValue.length
              if(this.current == '{'){
                  this.index+=1;  
                  elseblock= this.getBlock();

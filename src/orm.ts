@@ -1,19 +1,27 @@
-const Parser = require("./parser.js");
-const Minifier = require("./minifier.js");
-const {Node,Model,Operand} = require("./base.js");
-const NodeManager= require("./nodeManager.js");
-const SourceManager= require("./sourceManager.js");
-const ConfigExtends = require("config-extends");
+import Parser from './parser'
+import Minifier from './minifier'
+import {Context,Node,Model,Operand} from './base'
+import NodeManager from './nodeManager'
+import SourceManager from './sourceManager'
 
-const {DefaultLanguage} = require("./language/default.js");
-const {SqlLanguage} = require("./language/sql.js");
-const CoreLib= require("./coreLib.js");
+import {DefaultLanguage} from './language/default'
+import {SqlLanguage} from './language/sql'
+import CoreLib from './coreLib'
+import modelConfig from './config/model.json'
+import sqlConfig  from './config/sql.json'
 
 // class ModelException extends Error {}
 // class ExpressionException extends Error {}
 
 class Orm {
-    constructor(model){
+
+    public model:any
+    public minifier:Minifier
+    public parser:Parser
+    public nodeManager:NodeManager
+    public sourceManager:SourceManager
+
+    constructor(model:any){
         this.model = model;
         this.minifier = new Minifier();
         this.parser =  new Parser(this.model);
@@ -76,7 +84,7 @@ class Orm {
             if(expression instanceof Operand)
                 operand=expression;
             else if (expression instanceof Node)                
-                operand =this.sourceManager.compile(expression,cnx.language);                   
+                operand =this.sourceManager.compile(expression,scheme,language);                   
             else if (typeof expression == 'string'){
                 let node = this.parse(expression);
                 operand =this.sourceManager.compile(node,scheme,language);
@@ -92,9 +100,9 @@ class Orm {
                 throw 'expression: '+expression+' error: '+error.toString(); 
         }
     }
-    run(cnx,expression,context={}){
-        try{
-            let operand=null;
+    run(cnx,expression,context:Context=null){
+        let operand=null;
+        try{            
             if(expression instanceof Operand)
                 operand=expression;
             else if (expression instanceof Node)                
@@ -108,26 +116,27 @@ class Orm {
             return this.sourceManager.run(cnx,operand,context);
         }
         catch(error){
-            throw 'operand: '+operand.name+' error: '+error.toString();
+            if(operand)
+                throw 'operand: '+operand.name+' error: '+error.toString();
+            else 
+                throw 'expression: '+expression+' error: '+error.toString(); 
         }
     }
 }
 
 
 var orm = null;
-module.exports = (function() {
+export = (function() {
     if(!orm){
 
-        let data = require("../lib/config/model.json");//   await ConfigExtends.apply('lib/config/language/model.yaml');
         let model = new Model();
-        model.load(data);
+        model.load(modelConfig);
         
         orm= new Orm(model);    
         orm.addLanguage(new DefaultLanguage());
         orm.addLibrary(new CoreLib());
 
         orm.addLanguage(new SqlLanguage());
-        let sqlConfig = require("../lib/config/sql.json");// await ConfigExtends.apply('lib/config/language/sql');        
         orm.addLibrary({language:'sql',name:'sql',variants:sqlConfig.variants});        
 
     }

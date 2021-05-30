@@ -1,34 +1,30 @@
-const {Context,Language,Operand,Constant,Variable,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block} = require("../base");
+import {Node,Context,Language,Operand,Constant,Variable,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block} from '../base'
 
 
 class SqlConstant extends Constant
 {   
     build(metadata){
-        switch (this._type) {
+        switch (this.type) {
             case 'string':
-                return  '\''+this._name+'\'';
+                return  '\''+this.name+'\'';
             case 'boolean':
-                return metadata.other(this._name)     
+                return metadata.other(this.name)     
             default:
-                return this._name;
+                return this.name;
         }
     }
 }
 class SqlVariable extends Variable
 {
-    constructor(name,language,children=[]){
-        super(name,language,children);
+    public _number?:number    
+    constructor(name,children=[]){
+        super(name,children);
         this._number  = null; 
     }    
-    get number(){
-        return this._number;
-    }
-    set number(value){
-        this._number=value;
-    }
-    build(metadata){
+    
+    build(metadata:any){
         let text = metadata.other('variable');
-        text =text.replace('{name}',this._name);
+        text =text.replace('{name}',this.name);
         text =text.replace('{number}',this._number);
         return text;
     }
@@ -37,7 +33,7 @@ class SqlVariable extends Variable
 class SqlField extends Operand
 {
     build(metadata){
-        let parts = this._name.split('.');
+        let parts = this.name.split('.');
         if(parts.length == 1){
             let name = parts[0];
             return metadata.other('column').replace('{name}',name);
@@ -54,7 +50,8 @@ class SqlField extends Operand
 
 class SqlKeyValue extends KeyValue
 {
-    build(metadata){
+    build(metadata):any
+    {
         return this.children[0].build(metadata);
     }
 }
@@ -62,8 +59,8 @@ class SqlArray extends Array
 {
     build(metadata){
         let text = ''
-        for(let i=0;i<this._children.length;i++){
-            text += (i>0?', ':'')+this._children[i].build(metadata);              
+        for(let i=0;i<this.children.length;i++){
+            text += (i>0?', ':'')+this.children[i].build(metadata);              
         }
         return text;
     } 
@@ -73,10 +70,10 @@ class SqlObject extends Object
     build(metadata){       
         let text= '';
         let template = metadata.function('as').template;
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             let value = this.children[i].build(metadata);
             let fieldText = template.replace('{value}',value);
-            fieldText = fieldText.replace('{alias}',this._children[i].name);
+            fieldText = fieldText.replace('{alias}',this.children[i].name);
             text += (i>0?', ':'')+fieldText;
         }
         return text;
@@ -86,7 +83,7 @@ class SqlBlock extends Block
 {
     build(metadata){
         let text = ''
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             text += (this.children[i].build(metadata)+';');    
         }
         return text;
@@ -98,8 +95,8 @@ class SqlOperator extends Operator
         super(name,language,children);
     }    
     build(metadata){
-        let text = metadata.operator(this._name,this._children.length);
-        for(let i=0;i<this._children.length;i++){
+        let text = metadata.operator(this.name,this.children.length);
+        for(let i=0;i<this.children.length;i++){
             text = text.replace('{'+i+'}',this.children[i].build(metadata));
         }
         return text;  
@@ -111,18 +108,18 @@ class SqlFunctionRef extends FunctionRef
         super(name,language,children); 
     }    
     build(metadata){       
-        let funcData = metadata.function(this._name);
+        let funcData = metadata.function(this.name);
         let text= '';
         if(funcData.type == 'multiple'){
             let template = funcData.template;
-            text = this._children[0].build(metadata);    
-            for(let i=1;i<this._children.length;i++){
+            text = this.children[0].build(metadata);    
+            for(let i=1;i<this.children.length;i++){
                 text =template.replace('{acumulated}',text);
                 text = text.replace('{value}',this.children[i].build(metadata));
             }
         }else{
             text = funcData.template;
-            for(let i=0;i<this._children.length;i++){
+            for(let i=0;i<this.children.length;i++){
                 text =text.replace('{'+i+'}',this.children[i].build(metadata));
             }
         }
@@ -133,37 +130,39 @@ class SqlFunctionRef extends FunctionRef
 
 class SqlSentence extends FunctionRef 
 {
+    public fields?:string[]
+
     constructor(name,language,children=[]){
         super(name,language,children);
-        this._fields=null;
+        this.fields=null;
     }    
     build(metadata){   
 
-        let map =  this._children.find(p=> p.name=='map');   
-        let first = this._children.find(p=> p.name=='first'); 
-        let filter = this._children.find(p=> p.name=='filter'); 
-        let groupBy = this._children.find(p=> p.name=='groupBy');
-        let having = this._children.find(p=> p.name=='having'); 
-        let sort = this._children.find(p=> p.name=='sort'); 
-        let insert = this._children.find(p=> p.name=='insert'); 
-        let insertFrom = this._children.find(p=> p.name=='insertFrom');
-        let update = this._children.find(p=> p.name=='update');
-        let _delete = this._children.find(p=> p.name=='delete');
+        let map =  this.children.find(p=> p.name=='map');   
+        let first = this.children.find(p=> p.name=='first'); 
+        let filter = this.children.find(p=> p.name=='filter'); 
+        let groupBy = this.children.find(p=> p.name=='groupBy');
+        let having = this.children.find(p=> p.name=='having'); 
+        let sort = this.children.find(p=> p.name=='sort'); 
+        let insert = this.children.find(p=> p.name=='insert'); 
+        let insertFrom = this.children.find(p=> p.name=='insertFrom');
+        let update = this.children.find(p=> p.name=='update');
+        let _delete = this.children.find(p=> p.name=='delete');
 
         let text = '';
         if(map || first){
             // if(insertFrom) text = insertFrom+' ';
-            let from = this._children.find(p=> p instanceof SqlFrom);
-            let joins = this._children.filter(p=> p instanceof SqlJoin).sort(p=> p.name);
+            let from = this.children.find(p=> p instanceof SqlFrom);
+            let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
 
             let select = first?first:map;
             text = select.build(metadata) + '\n' + this.solveFrom(from,metadata) + '\n' +  this.solveJoins(joins,metadata);
             // this._fields= select.fields(metadata);
            
         }else if(update){
-            text = update;
+            text = update.build(metadata);
         }else if(_delete){
-            text = _delete;
+            text = _delete.build(metadata);
         }         
         text = text + (filter?filter.build(metadata)+'\n':'');
         text = text + (groupBy?groupBy.build(metadata)+'\n':'');        
@@ -203,8 +202,8 @@ class SqlArrowFunction extends ArrowFunction
         super(name,language,children); 
     }    
     build(metadata){       
-        let template = metadata.arrow(this._name);
-        for(let i=0;i<this._children.length;i++){
+        let template = metadata.arrow(this.name);
+        for(let i=0;i<this.children.length;i++){
             template =template.replace('{'+i+'}',this.children[i].build(metadata));
         }
         return template; 
@@ -224,8 +223,14 @@ class SqlDelete extends SqlArrowFunction {}
 
 class SqlLanguageVariant 
 {
-    constructor(name){
-        this._name = name;
+    public name:string
+    private _operators?:any={}
+    private _functions?:any={}
+    private _others?:any={}
+    private _arrows?:any={}
+
+    constructor(name:string){
+        this.name = name;
         this._operators={};
         this._functions={};
         this._others={};
@@ -295,9 +300,10 @@ class SqlLanguageVariant
 
 class SqlScheme
 {
-    constructor(scheme){
+    private _scheme:any
+
+    constructor(scheme:any){
         this._scheme = scheme;
-      
     }
     field(entityName,name){
         let entity =this.getEntity(entityName);
@@ -343,6 +349,8 @@ class SqlScheme
 
 class SqlLanguage extends Language
 {
+    private _variants:any
+
     constructor(){
         super('sql');
         this._variants={};
@@ -377,26 +385,26 @@ class SqlLanguage extends Language
     createOperand(node,children,scheme,context){
         switch(node.type){
             case 'const':
-                return new SqlConstant(node.name,this._name,children);
+                return new SqlConstant(node.name,children);
             case 'var':
                 let parts = node.name.split('.');
                 if(parts[0] == context.current.arrowVar){
                     if(parts.length == 1){
-                        return new SqlField(context.current.alias+'.*',this._name); 
+                        return new SqlField(context.current.alias+'.*'); 
                     }
                     else if(parts.length == 2){
                         if(context.current.fields.includes(parts[1])){
-                            return new SqlField(parts[1],this._name); 
+                            return new SqlField(parts[1]); 
                         }else{
                             let field= scheme.field(context.current.entity,parts[1]);
                             if(field){
-                                return new SqlField(context.current.alias+'.'+field,this._name); 
+                                return new SqlField(context.current.alias+'.'+field); 
                             }else{
                                 let relationInfo= scheme.getRelation(context.current.entity,parts[1]);
                                 if(relationInfo){
                                     let relation =  this.addJoins(parts,parts.length,context); 
                                     let relationAlias=context.current.joins[relation];
-                                    return new SqlField(relationAlias+'.*',this._name); 
+                                    return new SqlField(relationAlias+'.*'); 
                                 }else{
                                     throw 'Property '+parts[1]+' not fount in '+context.current.entity;
                                 }
@@ -410,13 +418,13 @@ class SqlLanguage extends Language
                         let relationAlias=context.current.joins[relation];
                         let relationField = info.relationScheme.properties[propertyName]; 
                         if(relationField){
-                            return new SqlField(relationAlias+'.'+relationField,this._name);
+                            return new SqlField(relationAlias+'.'+relationField);
                         }else{
                             let relationName = info.relationScheme.relations[propertyName];
                             if(relationName){
                                 let relation2 =  this.addJoins(parts,parts.length,context);
                                 let relationAlias2=context.current.joins[relation2];                               
-                                return new SqlField(relationAlias2+'.*',this._name);
+                                return new SqlField(relationAlias2+'.*');
                             }else{
                                 throw 'Property '+propertyName+' not fount in '+relation;
                             } 
@@ -424,19 +432,19 @@ class SqlLanguage extends Language
                     }
                 }
                 else
-                    return new  SqlVariable(node.name,this._name,children);                           
+                    return new  SqlVariable(node.name,children);                           
             case 'keyVal':
-                return new SqlKeyValue(node.name,this._name,children);
+                return new SqlKeyValue(node.name,children);
             case 'array':
-                return new SqlArray(node.name,this._name,children);
+                return new SqlArray(node.name,children);
             case 'obj':
-                return new SqlObject(node.name,this._name,children);
+                return new SqlObject(node.name,children);
             case 'oper':
-                return new SqlOperator(node.name,this._name,children);
+                return new SqlOperator(node.name,children);
             case 'funcRef':
-                return new SqlFunctionRef(node.name,this._name,children);
+                return new SqlFunctionRef(node.name,children);
             case 'block':
-                return  new SqlBlock(node.name,this._name,children);
+                return  new SqlBlock(node.name,children);
             default:
                 throw 'node name: '+node.name +' type: '+node.type+' not supported';
         }
@@ -446,18 +454,18 @@ class SqlLanguage extends Language
             switch(node.name){
                 case 'map': 
                 case 'first': 
-                    return new SqlMap(node.name,this._name,children);
+                    return new SqlMap(node.name,children);
                 case 'filter': 
-                    return new SqlFilter(node.name,this._name,children);
+                    return new SqlFilter(node.name,children);
                 case 'having': 
-                    return new SqlHaving(node.name,this._name,children);
+                    return new SqlHaving(node.name,children);
                 case 'sort': 
-                    return new SqlSort(node.name,this._name,children);
-                case 'insert': return new SqlInsert(node.name,this._name,children);
-                case 'insertFrom': return new SqlInsertFrom(node.name,this._name,children);
-                case 'update': return new SqlUpdate(node.name,this._name,children);
-                case 'updateFrom': return new SqlUpdateFrom(node.name,this._name,children);
-                case 'delete': return new SqlDelete(node.name,this._name,children);
+                    return new SqlSort(node.name,children);
+                case 'insert': return new SqlInsert(node.name,children);
+                case 'insertFrom': return new SqlInsertFrom(node.name,children);
+                case 'update': return new SqlUpdate(node.name,children);
+                case 'updateFrom': return new SqlUpdateFrom(node.name,children);
+                case 'delete': return new SqlDelete(node.name,children);
                 default:
                     throw'arrow function : '+node.name+' not supported'; 
             }            
@@ -471,14 +479,14 @@ class SqlLanguage extends Language
         let child = this.nodeToOperand(clause.children[2],scheme,context);
         return this.createArrowFunction(clause,[child]);
     }
-    nodeToOperand(node,scheme,context){
+    nodeToOperand(node:Node,scheme,context){
 
         if(node.type == 'arrow'){
             context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
             if(context.parent)
                context.parent.children.push(context.current);            
 
-            let sentence = {}; 
+            let sentence:any = {}; 
             let current = node;
             while(current){
                 let name =current.type == 'var'?'from':current.name;
@@ -497,7 +505,7 @@ class SqlLanguage extends Language
             if(sentence['from']){
                 let clause = sentence['from'];
                 let tableName = scheme.table(clause.name);
-                operand =new SqlFrom(tableName+'.'+context.current.alias,this._name);
+                operand =new SqlFrom(tableName+'.'+context.current.alias);
                 children.push(operand);
             }
             if(sentence['filter'] ){
@@ -518,10 +526,10 @@ class SqlLanguage extends Language
                     fields.push( this.clone(context.current.groupByFields[i]));
                 }
                 if(fields.length==1){
-                    operand = new SqlGroupBy('groupBy',this._name,fields);
+                    operand = new SqlGroupBy('groupBy',fields);
                 }else{
-                    let array = new SqlArray('array',this._name,fields);
-                    operand = new SqlGroupBy('groupBy',this._name,array);
+                    let array = new SqlArray('array',fields);
+                    operand = new SqlGroupBy('groupBy',array);
                 } 
                 children.push(operand); 
             }
@@ -545,13 +553,13 @@ class SqlLanguage extends Language
                 let relationAlias =context.current.joins[key];;
                 let relationFieldName = info.relationScheme.properties[info.relationData.to.split('.')[1]];
 
-                let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName,this._name);
-                let relationField = new SqlField(relationAlias+'.'+relationFieldName,this._name); 
-                let equal = new SqlOperator('==',this._name,[relationField,relatedField])
-                operand = new SqlJoin(relationTable+'.'+relationAlias,this._name,[equal]);
+                let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName);
+                let relationField = new SqlField(relationAlias+'.'+relationFieldName); 
+                let equal = new SqlOperator('==',[relationField,relatedField])
+                operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
                 children.push(operand);   
             }
-            return new SqlSentence('sentence',this._name,children,null);
+            return new SqlSentence('sentence',children,null);
 
         }else{
             let children = [];
@@ -573,7 +581,7 @@ class SqlLanguage extends Language
     _groupByFields(operand,data){
         if(operand instanceof SqlField){
             data.fields.push(operand);
-        }else if(operand instanceof SqlFunctionRef && ['avg','count','first','last','max','min','sum'].includes(operand.name)){
+        }else if(operand instanceof SqlFunctionRef && ['avg','count','first','last','max','min','sum'].indexOf(operand.name)>-1){
             data.groupBy = true;
         }else if(!(operand instanceof SqlSentence)){
             for(const k in operand.children){
@@ -591,7 +599,7 @@ class SqlLanguage extends Language
                 children.push(child);
             }
         }
-        return new obj.constructor(obj.name,this._name,children);
+        return new obj.constructor(obj.name,children);
     } 
     
     fieldsInSelect(operand){
@@ -674,20 +682,19 @@ class SqlLanguage extends Language
             throw error; 
         }
     }
-    run(operand,context,scheme,cnx){          
-        let sentence = this.sentence(operand,scheme,cnx.variant);
+    run(operand:Operand,context:object,scheme:any,cnx:any){          
+        let sentence = this.sentence(operand,cnx.variant);
         return this.execute(sentence,context,cnx);
     }
 }
 
-
-module.exports = {   
-    SqlKeyValue: SqlKeyValue,
-    SqlArray: SqlArray,
-    SqlObject: SqlObject,
-    SqlOperator: SqlOperator,
-    SqlFunctionRef: SqlFunctionRef,
-    SqlArrowFunction: SqlArrowFunction,
-    SqlBlock: SqlBlock,
-    SqlLanguage: SqlLanguage
+export  {   
+    SqlKeyValue,
+    SqlArray,
+    SqlObject,
+    SqlOperator,
+    SqlFunctionRef,
+    SqlArrowFunction,
+    SqlBlock,
+    SqlLanguage
 }

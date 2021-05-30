@@ -1,33 +1,33 @@
-const {Context,Language,Operand,Constant,Variable,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block} = require("../base");
+import * as base from './../base';
 
-class DefaultKeyValue extends KeyValue
+class DefaultKeyValue extends base.KeyValue
 {
     eval(){
         return this.children[0].eval();
     }
 }
-class DefaultArray extends Array
+class DefaultArray extends base.Array
 {
     eval(){
         let values = [];
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             values.push(this.children[i].eval());    
         }
         return values;
     } 
 }
-class DefaultObject extends Object
+class DefaultObject extends base.Object
 {
     eval(){        
         let dic= {}
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             let value = this.children[i].eval();
-            dic[this._children[i].name]=value;
+            dic[this.children[i].name]=value;
         }
         return dic;
     }
 } 
-class DefaultOperator extends Operator
+class DefaultOperator extends base.Operator
 {
     constructor(name,children=[],_function=null){
         super(name,children); 
@@ -35,13 +35,13 @@ class DefaultOperator extends Operator
     }    
     eval(){        
         let args= []
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             args.push(this.children[i].eval()); 
         }
         return this._function(...args);  
     }
 }                             
-class DefaultFunctionRef extends FunctionRef
+class DefaultFunctionRef extends base.FunctionRef
 {
     constructor(name,language,children=[],_function=null){
         super(name,language,children); 
@@ -49,28 +49,28 @@ class DefaultFunctionRef extends FunctionRef
     }    
     eval(){        
         let args= []
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             args.push(this.children[i].eval()); 
         }
         return this._function(...args);  
     }
 }
-class DefaultArrowFunction extends ArrowFunction {}
-class DefaultBlock extends Block
+class DefaultArrowFunction extends base.ArrowFunction {}
+class DefaultBlock extends base.Block
 {
     eval(){
-        for(let i=0;i<this._children.length;i++){
+        for(let i=0;i<this.children.length;i++){
             this.children[i].eval();    
         }
     } 
 }
 
-class DefaultLanguage extends Language
+class DefaultLanguage extends base.Language
 {
     constructor(){
         super('default');
-        this._operators={};
-        this._functions={};
+        this.operators={};
+        this.functions={};
     }
     addLibrary(library){
         this._libraries[library.name] =library;
@@ -79,19 +79,19 @@ class DefaultLanguage extends Language
             let operator= library.operators[name];
             for(const operands in operator){
                 let metadata = operator[operands];
-                if(!this._operators[name])this._operators[name]= {}; 
-                this._operators[name][operands] = metadata;
+                if(!this.operators[name])this.operators[name]= {}; 
+                this.operators[name][operands] = metadata;
             }
         }
         for(const name in library.functions){
             let metadata = library.functions[name];
-            this._functions[name] = metadata; 
+            this.functions[name] = metadata; 
         }
     }
     getOperatorMetadata(name,operands){
         try{          
-            if(this._operators[name]){
-                let operator = this._operators[name];
+            if(this.operators[name]){
+                let operator = this.operators[name];
                 if(operator[operands])
                     return operator[operands];
             }
@@ -103,25 +103,25 @@ class DefaultLanguage extends Language
     } 
     getFunctionMetadata(name){
         try{
-            if(this._functions[name])
-                return this._functions[name];
+            if(this.functions[name])
+                return this.functions[name];
             return null
         }
         catch(error){
             throw 'error with function: '+name;
         }
     }
-    createOperand(name,type,children){
+    createOperand(name:string,type:string,children:base.Operand[]){
         if ( type == 'const')
-            return new Constant(name,this._name,children);
+            return new base.Constant(name,children);
         else if ( type == 'var')
-            return new  Variable(name,this._name,children);
+            return new  base.Variable(name,children);
         else if ( type == 'keyVal')
-            return new DefaultKeyValue(name,this._name,children);
+            return new DefaultKeyValue(name,children);
         else if ( type == 'array')
-            return new DefaultArray(name,this._name,children);
+            return new DefaultArray(name,children);
         else if ( type == 'obj')
-            return new DefaultObject(name,this._name,children);
+            return new DefaultObject(name,children);
         else if ( type == 'oper')
             return this.createOperator(name,children);
         else if ( type == 'funcRef')
@@ -129,7 +129,7 @@ class DefaultLanguage extends Language
         else if ( type == 'arrow')
             return this.createArrowFunction(name,children);
         else if ( type == 'block')
-            return  new DefaultBlock(name,this._name,children);
+            return  new DefaultBlock(name,children);
         else
             throw 'node: '+name +' not supported';
     }
@@ -138,9 +138,9 @@ class DefaultLanguage extends Language
             let operands =children.length;
             let metadata = this.getOperatorMetadata(name,operands);
             if(metadata.custom)                   
-                return new metadata.custom(name,this._name,children,metadata['customFunction']); 
+                return new metadata.custom(name,children,metadata['customFunction']); 
             else
-                return new DefaultOperator(name,this._name,children,metadata.function);
+                return new DefaultOperator(name,children,metadata.function);
         }
         catch(error){
             throw 'create operator: '+name+' error: '+error.toString();    
@@ -150,9 +150,9 @@ class DefaultLanguage extends Language
         try{          
             let metadata = this.getFunctionMetadata(name);
             if(metadata.custom)                 
-                return new metadata.custom(name,this._name,children); 
+                return new metadata.custom(name,children); 
             else
-                return new DefaultFunctionRef(name,this._name,children,metadata.function);
+                return new DefaultFunctionRef(name,children,metadata.function);
         }
         catch(error){
             throw'cretae function ref: '+name+' error: '+error.toString(); 
@@ -162,30 +162,30 @@ class DefaultLanguage extends Language
         try{           
             let metadata = this.getFunctionMetadata(name)
             if(metadata['custom']){                    
-                return new metadata['custom'](name,this._name,children);
+                return new metadata['custom'](name,children);
             } 
             else{
                 let _function= metadata['function'];
-                return new DefaultArrowFunction(name,this._name,children,_function);
+                return new DefaultArrowFunction(name,children,_function);
             }
         } 
         catch(error){
             throw'cretae arrow function: '+name+' error: '+error.toString(); 
         }
     }
-    reduce(operand){
-        if(operand instanceof Operator){        
+    reduce(operand:base.Operand){
+        if(operand instanceof base.Operator){        
             let allConstants=true;              
             for(const k in operand.children){
                 const p = operand.children[k];
-                if( !(p instanceof Constant)){
+                if( !(p instanceof base.Constant)){
                     allConstants=false;
                     break;
                 }
             }
             if(allConstants){
                 let value = operand.eval();                
-                let constant= new Constant(value);
+                let constant= new base.Constant(value);
                 constant.parent = operand.parent;
                 constant.index = operand.index;
                 return constant;
@@ -193,7 +193,7 @@ class DefaultLanguage extends Language
             else{
                 for(let i = 0;i< operand.children.length;i++){
                    const p = operand.children[i];
-                   operand.children[i]=this.reduce(p,language);
+                   operand.children[i]=this.reduce(p);
                 }
             }
         }
@@ -212,12 +212,12 @@ class DefaultLanguage extends Language
     }
     setContext(operand,context){
         let current = context;
-        if( operand.prototype instanceof ArrowFunction){
+        if( operand.prototype instanceof base.ArrowFunction){
             let childContext=current.newContext();
             operand.context = childContext;
             current = childContext;
         }
-        else if(operand.prototype instanceof Variable){
+        else if(operand.prototype instanceof base.Variable){
             operand.context = current;
         }       
         for(const k in operand.children){
@@ -225,27 +225,29 @@ class DefaultLanguage extends Language
             this.setContext(p,current);
         } 
     }
-    compile(node,scheme){
-        let operand = this.nodeToOperand(node);
+    public compile(node:base.Node,scheme:any=null):base.Operand
+    {
+        let operand:base.Operand = this.nodeToOperand(node);
         operand = this.reduce(operand);
         operand =this.setParent(operand);
         return operand;
     }
-    sentence(operand,variant){
+    sentence(operand:base.Operand,variant:any){
         return '';
     } 
     run(operand,context,cnx){          
-        if(context)this.setContext(operand,new Context(context));
+        if(context)this.setContext(operand,new base.Context(context));
         return operand.eval();
     }
 }
-module.exports = {   
-    DefaultKeyValue: DefaultKeyValue,
-    DefaultArray: DefaultArray,
-    DefaultObject: DefaultObject,
-    DefaultOperator: DefaultOperator,
-    DefaultFunctionRef: DefaultFunctionRef,
-    DefaultArrowFunction: DefaultArrowFunction,
-    DefaultBlock: DefaultBlock,
-    DefaultLanguage: DefaultLanguage
+
+export {   
+    DefaultKeyValue,
+    DefaultArray,
+    DefaultObject,
+    DefaultOperator,
+    DefaultFunctionRef,
+    DefaultArrowFunction,
+    DefaultBlock,
+    DefaultLanguage
 }

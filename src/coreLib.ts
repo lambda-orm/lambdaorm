@@ -1,7 +1,7 @@
-const {Library} = require("./base.js");
-const {DefaultOperator,DefaultArrowFunction} = require("./language/default.js");
+import {Library} from './base'
+import  {DefaultOperator,DefaultArrowFunction} from './language/default';
 
-module.exports = class CoreLib extends Library
+export default class CoreLib extends Library
 {
     constructor(){
        super('core','default'); 
@@ -74,16 +74,16 @@ class Operators{
 }
 class And extends DefaultOperator
 {
-    eval(){
-        if(!this._children[0].eval())return false;
-        return this._children[1].eval()
+    eval():any{
+        if(!this.children[0].eval())return false;
+        return this.children[1].eval()
     }
 }
 class Or extends DefaultOperator
 {
-    eval(){
-        if(this._children[0].eval())return true;
-        return this._children[1].eval()
+    eval():any{
+        if(this.children[0].eval())return true;
+        return this.children[1].eval()
     }
 }
 
@@ -96,13 +96,13 @@ class ArrowFunctions{
 
 class Map extends DefaultArrowFunction
 {
-    eval(){
+    eval():any{
         let rows = [];
-        let list = this._children[0].eval();
+        let list:any[] = this.children[0].eval();
         for(let i=0;i<list.length;i++){
             let p = list[i];
-            this._children[1].set(p);
-            let row = this._children[2].eval();
+            this.children[1].set(p);
+            let row = this.children[2].eval();
             rows.push(row);
         }
         return rows; 
@@ -110,11 +110,11 @@ class Map extends DefaultArrowFunction
 }
 class Filter extends DefaultArrowFunction
 {
-    eval(){}
+    eval():any{}
 
 }
 class Sort extends DefaultArrowFunction
 {
-    eval(){}
+    eval():any{}
 
 }

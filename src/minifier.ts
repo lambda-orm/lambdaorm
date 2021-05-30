@@ -1,10 +1,13 @@
 
-module.exports =class Minifier
+export default class Minifier
 {
+    private reAlphanumeric:RegExp
+
     constructor(){
         this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$');
     }
-    minify(expression){
+    minify(expression:string):string[]
+    {
         let isString=false;
         let quotes='';
         let buffer = expression.split('');
