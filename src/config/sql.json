@@ -139,7 +139,7 @@
   },
   "variants": {
     "mssql": {
-      "language": "orm",
+      "language": "sql",
       "variant": "mssql",
       "name": "mssql",
       "others": {
@@ -280,7 +280,7 @@
       }
     },
     "mysql": {
-      "language": "orm",
+      "language": "sql",
       "variant": "mysql",
       "name": "mysql",
       "others": {
@@ -421,7 +421,7 @@
       }
     },
     "oracle": {
-      "language": "orm",
+      "language": "sql",
       "variant": "oracle",
       "name": "oracle",
       "others": {
@@ -562,7 +562,7 @@
       }
     },
     "postgresql": {
-      "language": "orm",
+      "language": "sql",
       "variant": "postgresql",
       "name": "postgresql",
       "others": {
