@@ -1,18 +1,18 @@
 const assert = require('assert');
 const ConfigExtends = require("config-extends");
+const orm = require("../lib/orm.js");
 
 describe('queries', function() {
-    let exp= null;
     let scheme = 'northwind';
     let language = 'sql';
     let variant = 'oracle';
 
     before(async function() {
-        exp = await require("../lib/exp.js");
+        
         let schemes =  await ConfigExtends.apply('test/config/scheme');
         for(const p in schemes){
             let scheme =  schemes[p];
-            exp.addScheme(scheme);
+            orm.addScheme(scheme);
         }
     });
     describe('select from join whrere order by', function() {        
@@ -29,7 +29,7 @@ WHERE p.Discontinued <> 0
 ORDER BY category, name desc 
 `;
         it(expression, function() {
-            let sentence = exp.sentence(expression,scheme,language,variant);
+            let sentence = orm.sentence(expression,scheme,language,variant);
             assert.strictEqual(sentence,expected);
         });
     });
@@ -50,7 +50,7 @@ WHERE o1.ShippedDate BETWEEN '19970101' AND '19971231'
 ORDER BY category, product 
 `;
         it(expression, function() {
-            let sentence = exp.sentence(expression,scheme,language,variant);
+            let sentence = orm.sentence(expression,scheme,language,variant);
             assert.strictEqual(sentence,expected);
         });
     });
@@ -64,7 +64,7 @@ FROM OrderDetails o
 GROUP BY o.OrderDetailID 
 `;
         it(expression, function() {
-            let sentence = exp.sentence(expression,scheme,language,variant);
+            let sentence = orm.sentence(expression,scheme,language,variant);
             assert.strictEqual(sentence,expected);
         });
     });

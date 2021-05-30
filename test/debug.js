@@ -1,12 +1,12 @@
 const ConfigExtends = require("config-extends");
-(async () => { 
+const orm = require("../lib/orm.js");
 
-const exp = await require("../lib/exp.js");
+(async () => { 
 
 let schemes =  await ConfigExtends.apply('test/config/scheme');
 for(const p in schemes){
     let scheme =  schemes[p];
-    exp.addScheme(scheme);
+    orm.addScheme(scheme);
 }
 
 let expression =
@@ -17,7 +17,7 @@ Product.filter(p=> p.discontinued != false )
 `;
 
 
-let sentence = exp.sentence(expression,'northwind','sql','oracle');
+let sentence = orm.sentence(expression,'northwind','sql','oracle');
 console.log(sentence);
 
 })();
