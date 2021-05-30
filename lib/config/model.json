@@ -1,0 +1,211 @@
+{
+  "operators": {
+    "unary": {
+      "-": {
+        "name": "negative",
+        "category": "arithmetic",
+        "priority": 8
+      },
+      "~": {
+        "name": "bitNot",
+        "category": "bitwise",
+        "priority": 4
+      },
+      "!": {
+        "name": "not",
+        "category": "logical",
+        "priority": 4
+      }
+    },
+    "binary": {
+      "+": {
+        "name": "addition",
+        "category": "arithmetic",
+        "priority": 4
+      },
+      "-": {
+        "name": "subtraction",
+        "category": "arithmetic",
+        "priority": 4
+      },
+      "*": {
+        "name": "multiplication",
+        "category": "arithmetic",
+        "priority": 5
+      },
+      "/": {
+        "name": "division",
+        "category": "arithmetic",
+        "priority": 5
+      },
+      "**": {
+        "name": "exponentiation",
+        "category": "arithmetic",
+        "priority": 6
+      },
+      "//": {
+        "name": "floorDivision",
+        "category": "arithmetic",
+        "priority": 6
+      },
+      "%": {
+        "name": "mod",
+        "category": "arithmetic",
+        "priority": 7
+      },
+      "&": {
+        "name": "bitAnd",
+        "category": "bitwise",
+        "priority": 4
+      },
+      "|": {
+        "name": "bitOr",
+        "category": "bitwise",
+        "priority": 4
+      },
+      "^": {
+        "name": "bitXor",
+        "category": "bitwise",
+        "priority": 4
+      },
+      "<<": {
+        "name": "leftShift",
+        "category": "bitwise",
+        "priority": 4
+      },
+      ">>": {
+        "name": "rightShift",
+        "category": "bitwise",
+        "priority": 4
+      },
+      "==": {
+        "name": "equal",
+        "category": "comparison",
+        "priority": 3
+      },
+      "!=": {
+        "name": "notEqual",
+        "category": "comparison",
+        "priority": 3
+      },
+      ">": {
+        "name": "greaterThan",
+        "category": "comparison",
+        "priority": 3
+      },
+      "<": {
+        "name": "lessThan",
+        "category": "comparison",
+        "priority": 3
+      },
+      ">=": {
+        "name": "greaterThanOrEqual",
+        "category": "comparison",
+        "priority": 3
+      },
+      "<=": {
+        "name": "lessThanOrEqual",
+        "category": "comparison",
+        "priority": 3
+      },
+      "&&": {
+        "name": "and",
+        "category": "logical",
+        "priority": 3
+      },
+      "||": {
+        "name": "or",
+        "category": "logical",
+        "priority": 3
+      },
+      "[]": {
+        "name": "item",
+        "category": "list",
+        "priority": 2
+      },
+      "=": {
+        "name": "assigment",
+        "category": "assignment",
+        "priority": 1
+      },
+      "+=": {
+        "name": "assigmentAddition",
+        "category": "assignment",
+        "priority": 1
+      },
+      "-=": {
+        "name": "assigmentSubtraction",
+        "category": "assignment",
+        "priority": 1
+      },
+      "*=": {
+        "name": "assigmentMultiplication",
+        "category": "assignment",
+        "priority": 1
+      },
+      "/=": {
+        "name": "assigmentDivision",
+        "category": "assignment",
+        "priority": 1
+      },
+      "**=": {
+        "name": "assigmentExponentiation",
+        "category": "assignment",
+        "priority": 1
+      },
+      "//=": {
+        "name": "assigmentFloorDivision",
+        "category": "assignment",
+        "priority": 1
+      },
+      "%=": {
+        "name": "assigmentMod",
+        "category": "assignment",
+        "priority": 1
+      },
+      "&=": {
+        "name": "assigmentBitAnd",
+        "category": "assignment",
+        "priority": 1
+      },
+      "|=": {
+        "name": "assigmentBitOr",
+        "category": "assignment",
+        "priority": 1
+      },
+      "^=": {
+        "name": "assigmentBitXor",
+        "category": "assignment",
+        "priority": 1
+      },
+      "<<=": {
+        "name": "assigmentLeftShift",
+        "category": "assignment",
+        "priority": 1
+      },
+      ">>=": {
+        "name": "assigmentRightShift",
+        "category": "assignment",
+        "priority": 1
+      }
+    },
+    "ternary": {
+      "?": {
+        "name": "condicional",
+        "category": "flowcontrol",
+        "priority": 1
+      }
+    }
+  },
+  "enums": {
+    "DayOfWeek": {
+      "Sunday": 0,
+      "Monday": 1,
+      "Tuesday": 2,
+      "Wednesday": 3,
+      "Thursday": 4,
+      "Friday": 5,
+      "Saturday": 6
+    }
+  }
+}

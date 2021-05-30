@@ -1,4 +1,4 @@
-language: orm
+language: sql
 variant: mysql
 name: mysql
 _extends: [base]

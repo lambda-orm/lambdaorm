@@ -1,4 +1,4 @@
-language: orm
+language: sql
 variant: postgresql
 name: postgresql
 _extends: [base]

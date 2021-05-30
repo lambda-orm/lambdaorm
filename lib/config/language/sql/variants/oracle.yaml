@@ -1,4 +1,4 @@
-language: orm
+language: sql
 variant: oracle
 name: oracle
 _extends: [base]
