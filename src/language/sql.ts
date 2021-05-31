@@ -3,7 +3,7 @@ import {Node,Context,Language,Operand,Constant,Variable,KeyValue,Array,Obj,Opera
 
 class SqlConstant extends Constant
 {   
-    build(metadata){
+    build(metadata:SqlLanguageVariant){ 
         switch (this.type) {
             case 'string':
                 return  '\''+this.name+'\'';
@@ -17,7 +17,7 @@ class SqlConstant extends Constant
 class SqlVariable extends Variable
 {
     public _number?:number    
-    constructor(name,children=[]){
+    constructor(name:string,children:Operand[]=[]){
         super(name,children);
         this._number  = null; 
     }    
@@ -32,7 +32,7 @@ class SqlVariable extends Variable
 
 class SqlField extends Operand
 {
-    build(metadata){
+    build(metadata:SqlLanguageVariant){ 
         let parts = this.name.split('.');
         if(parts.length == 1){
             let name = parts[0];
@@ -57,7 +57,7 @@ class SqlKeyValue extends KeyValue
 }
 class SqlArray extends Array
 {
-    build(metadata){
+    build(metadata:SqlLanguageVariant){ 
         let text = ''
         for(let i=0;i<this.children.length;i++){
             text += (i>0?', ':'')+this.children[i].build(metadata);              
@@ -67,7 +67,7 @@ class SqlArray extends Array
 }
 class SqlObject extends Obj
 {
-    build(metadata){       
+    build(metadata:SqlLanguageVariant){       
         let text= '';
         let template = metadata.function('as').template;
         for(let i=0;i<this.children.length;i++){
@@ -81,20 +81,20 @@ class SqlObject extends Obj
 } 
 class SqlBlock extends Block
 {
-    build(metadata){
+    build(metadata:SqlLanguageVariant){ 
         let text = ''
         for(let i=0;i<this.children.length;i++){
-            text += (this.children[i].build(metadata)+';');    
+            text += (this.children[i].build(metadata)+'\n;');    
         }
         return text;
     } 
 }
 class SqlOperator extends Operator
 {
-    constructor(name,language,children=[]){
-        super(name,language,children);
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children);
     }    
-    build(metadata){
+    build(metadata:SqlLanguageVariant){ 
         let text = metadata.operator(this.name,this.children.length);
         for(let i=0;i<this.children.length;i++){
             text = text.replace('{'+i+'}',this.children[i].build(metadata));
@@ -104,10 +104,10 @@ class SqlOperator extends Operator
 }                             
 class SqlFunctionRef extends FunctionRef
 {
-    constructor(name,language,children=[]){
-        super(name,language,children); 
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children); 
     }    
-    build(metadata){       
+    build(metadata:SqlLanguageVariant){       
         let funcData = metadata.function(this.name);
         let text= '';
         if(funcData.type == 'multiple'){
@@ -127,16 +127,28 @@ class SqlFunctionRef extends FunctionRef
     }
 }
 
+class SqlCompose extends FunctionRef
+{
+    build(metadata:SqlLanguageVariant){
+        let text = ''
+        for(let i=0;i<this.children.length;i++){
+            text += (this.children[i].build(metadata).trim()+'\n;\n');    
+        }        
+        return text;
+    } 
+}
 
 class SqlSentence extends FunctionRef 
 {
-    public fields?:string[]
+    public fields:string[]
+    public entity:string
 
-    constructor(name,language,children=[]){
-        super(name,language,children);
-        this.fields=null;
+    constructor(name:string,children:Operand[]=[],entity:string,fields:string[]){
+        super(name,children);
+        this.entity=entity;
+        this.fields=fields;
     }    
-    build(metadata){   
+    build(metadata:SqlLanguageVariant){   
 
         let map =  this.children.find(p=> p.name=='map');   
         let first = this.children.find(p=> p.name=='first'); 
@@ -156,7 +168,7 @@ class SqlSentence extends FunctionRef
             let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
 
             let select = first?first:map;
-            text = select.build(metadata) + '\n' + this.solveFrom(from,metadata) + '\n' +  this.solveJoins(joins,metadata);
+            text = select.build(metadata) + '\n' + this.solveFrom(from,metadata)+ '\n' +  this.solveJoins(joins,metadata);
             // this._fields= select.fields(metadata);
            
         }else if(update){
@@ -180,7 +192,7 @@ class SqlSentence extends FunctionRef
             let parts = join.name.split('.');
             let joinText  = template.replace('{name}',parts[0]);         
             joinText =joinText.replace('{alias}',parts[1]);
-            joinText =joinText.replace('{relation}',join.children[0].build(metadata));           
+            joinText =joinText.replace('{relation}',join.children[0].build(metadata)).trim();           
             text= text + joinText+'\n';
         }
         return text;
@@ -190,23 +202,23 @@ class SqlSentence extends FunctionRef
         let parts = from.name.split('.');
         template =template.replace('{name}',parts[0]); 
         template =template.replace('{alias}',parts[1]);
-        return template;
+        return template.trim();
     }   
 }
 class SqlFrom extends Operand{}
-class SqlJoin extends Operand {}
+class SqlJoin extends Operand{}
 
 class SqlArrowFunction extends ArrowFunction 
 {
-    constructor(name,language,children=[]){
-        super(name,language,children); 
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children); 
     }    
-    build(metadata){       
+    build(metadata:SqlLanguageVariant){       
         let template = metadata.arrow(this.name);
         for(let i=0;i<this.children.length;i++){
             template =template.replace('{'+i+'}',this.children[i].build(metadata));
         }
-        return template; 
+        return template.trim(); 
     }
 }
 class SqlMap extends SqlArrowFunction {}
@@ -474,14 +486,25 @@ class SqlLanguage extends Language
             throw'cretae arrow function: '+node.name+' error: '+error.toString(); 
         }
     }
-    createClause(clause,scheme,context){
+    createClause(clause:Node,scheme:SqlScheme,context:any){
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],scheme,context);
         return this.createArrowFunction(clause,[child]);
     }
-    nodeToOperand(node:Node,scheme,context){
+    nodeToOperand(node:Node,scheme:SqlScheme,context:any){
 
-        if(node.type == 'arrow'){
+        if (node.type == 'childFunc' && node.name == 'includes'){
+            let children = []
+            let main = this.nodeToOperand(node.children[0],scheme,context);
+            children.push(main);
+            for (let i=1; i< node.children.length;i++) {
+                let p = node.children[i];
+                let child = this.nodeToOperand(p, scheme, context);
+                children.push(child);
+            }
+            return new SqlCompose('compose',children);
+
+        }else if(node.type == 'arrow'){
             context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
             if(context.parent)
                context.parent.children.push(context.current);            
@@ -528,8 +551,8 @@ class SqlLanguage extends Language
                 if(fields.length==1){
                     operand = new SqlGroupBy('groupBy',fields);
                 }else{
-                    let array = new SqlArray('array',fields);
-                    operand = new SqlGroupBy('groupBy',array);
+                    let array:Operand = new SqlArray('array',fields);
+                    operand = new SqlGroupBy('groupBy',[array]);
                 } 
                 children.push(operand); 
             }
@@ -559,7 +582,7 @@ class SqlLanguage extends Language
                 operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
                 children.push(operand);   
             }
-            return new SqlSentence('sentence',children,null);
+            return new SqlSentence('sentence',children,context.current.entity,context.current.fields);
 
         }else{
             let children = [];

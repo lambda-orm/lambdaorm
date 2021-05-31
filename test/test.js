@@ -22,11 +22,11 @@ describe('queries', function() {
                 .sort(p=> [p.category,desc(p.name)])
         `;
         let expected =
-`SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock 
-FROM Products p 
+`SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock
+FROM Products p
 INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-WHERE p.Discontinued <> 0 
-ORDER BY category, name desc 
+WHERE p.Discontinued <> 0
+ORDER BY category, name desc
 `;
         it(expression, function() {
             let sentence = orm.sentence(expression,scheme,language,variant);
@@ -41,13 +41,13 @@ ORDER BY category, name desc
                     .sort(p=> [p.category,p.product])
         `;
         let expected =
-`SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity 
-FROM OrderDetails o 
+`SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity
+FROM OrderDetails o
 INNER JOIN Orders o1 ON o1.OrderID = o.OrderID
 INNER JOIN Products p ON p.ProductID = o.ProductID
 INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-WHERE o1.ShippedDate BETWEEN '19970101' AND '19971231' 
-ORDER BY category, product 
+WHERE o1.ShippedDate BETWEEN '19970101' AND '19971231'
+ORDER BY category, product
 `;
         it(expression, function() {
             let sentence = orm.sentence(expression,scheme,language,variant);
@@ -59,9 +59,9 @@ ORDER BY category, product
         let expression =
         `OrderDetail.map(p=> {order: p.id,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) })`;
         let expected =
-`SELECT o.OrderDetailID AS order, SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal 
-FROM OrderDetails o 
-GROUP BY o.OrderDetailID 
+`SELECT o.OrderDetailID AS order, SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal
+FROM OrderDetails o
+GROUP BY o.OrderDetailID
 `;
         it(expression, function() {
             let sentence = orm.sentence(expression,scheme,language,variant);
