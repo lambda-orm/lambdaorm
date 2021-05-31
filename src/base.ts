@@ -148,7 +148,7 @@ class Language
     compile(node:Node,scheme:any=null):Operand{
         throw 'NotImplemented';
     }
-    eval(operand:Operand,context:object){  
+    eval(operand:Operand,context:any){  
         throw 'NotImplemented';      
     }
     setParent(operand:Operand,index:number=0,parent:Operand=null){        
@@ -310,7 +310,7 @@ class Array extends Operand
         return values;
     } 
 }
-class Object extends Operand
+class Obj extends Operand
 {
     eval():any{        
         let dic= {}
@@ -374,7 +374,7 @@ export {
     Variable,
     KeyValue,
     Array,
-    Object,
+    Obj,
     Operator,
     FunctionRef,
     ArrowFunction,

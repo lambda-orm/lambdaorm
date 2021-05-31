@@ -1,5 +1,5 @@
 const ConfigExtends = require("config-extends");
-const orm = require("../lib/orm.js");
+const orm = require("../dist/orm.js");
 
 (async () => { 
 

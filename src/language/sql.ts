@@ -1,4 +1,4 @@
-import {Node,Context,Language,Operand,Constant,Variable,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block} from '../base'
+import {Node,Context,Language,Operand,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../base'
 
 
 class SqlConstant extends Constant
@@ -65,7 +65,7 @@ class SqlArray extends Array
         return text;
     } 
 }
-class SqlObject extends Object
+class SqlObject extends Obj
 {
     build(metadata){       
         let text= '';
@@ -682,7 +682,7 @@ class SqlLanguage extends Language
             throw error; 
         }
     }
-    run(operand:Operand,context:object,scheme:any,cnx:any){          
+    run(operand:Operand,context:any,scheme:any,cnx:any){          
         let sentence = this.sentence(operand,cnx.variant);
         return this.execute(sentence,context,cnx);
     }

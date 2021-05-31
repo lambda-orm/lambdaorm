@@ -16,7 +16,7 @@ class DefaultArray extends base.Array
         return values;
     } 
 }
-class DefaultObject extends base.Object
+class DefaultObject extends base.Obj
 {
     eval(){        
         let dic= {}
