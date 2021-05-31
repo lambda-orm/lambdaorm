@@ -1,6 +1,6 @@
 const assert = require('assert');
 const ConfigExtends = require("config-extends");
-const orm = require("../lib/orm.js");
+const orm = require("../dist/orm.js");
 
 describe('queries', function() {
     let scheme = 'northwind';
