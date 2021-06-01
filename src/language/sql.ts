@@ -142,10 +142,12 @@ class SqlSentence extends FunctionRef
 {
     public fields:string[]
     public entity:string
+    public alias:string
 
-    constructor(name:string,children:Operand[]=[],entity:string,fields:string[]){
+    constructor(name:string,children:Operand[]=[],entity:string,alias:string,fields:string[]){
         super(name,children);
         this.entity=entity;
+        this.alias=alias;
         this.fields=fields;
     }    
     build(metadata:SqlLanguageVariant){   
@@ -495,11 +497,30 @@ class SqlLanguage extends Language
 
         if (node.type == 'childFunc' && node.name == 'includes'){
             let children = []
-            let main = this.nodeToOperand(node.children[0],scheme,context);
+            let main = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
+            let mainEntity=scheme.getEntity(main.entity);
             children.push(main);
             for (let i=1; i< node.children.length;i++) {
                 let p = node.children[i];
-                let child = this.nodeToOperand(p, scheme, context);
+                let child = this.nodeToOperand(p, scheme, context) as SqlSentence;;
+
+                let relation = mainEntity.relations[child.entity];
+                let parts = relation.to.split('.');
+                let toEntity=scheme.getEntity(parts[0]);
+                let toField = toEntity.properties[parts[1]];
+                let childFrom = child.children.find(p => p instanceof SqlFrom);
+                child.entity= parts[0];
+                childFrom.name= parts[0]+'.'+child.alias;
+                let childFilter= child.children.find(p=> p.name == 'filter');
+                if(!childFilter){
+                   let fieldRelation = new SqlField(child.alias + '.' + toField);
+                   let varRelation = new SqlVariable('ids',);
+                   let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
+                   let childFilter = new SqlFilter('filter',[filterInclude]);
+                   child.children.push(childFilter);
+                }else{
+                    //TODO
+                } 
                 children.push(child);
             }
             return new SqlCompose('compose',children);
@@ -582,7 +603,7 @@ class SqlLanguage extends Language
                 operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
                 children.push(operand);   
             }
-            return new SqlSentence('sentence',children,context.current.entity,context.current.fields);
+            return new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
 
         }else{
             let children = [];

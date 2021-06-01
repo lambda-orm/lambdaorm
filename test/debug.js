@@ -13,7 +13,7 @@ let expression =
 `
 Order.filter(p=> p.id = id )                     
      .map(p=> p )
-     .includes(OrderDetail.map(p=> p),Customer.map(p=> p))
+     .includes(details.map(p=> p),customer.map(p=> p))
 `;
 
 let node = orm.parse(expression);
