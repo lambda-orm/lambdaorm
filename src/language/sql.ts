@@ -519,7 +519,7 @@ class SqlLanguage extends Language
                    let childFilter = new SqlFilter('filter',[filterInclude]);
                    child.children.push(childFilter);
                 }else{
-                    //TODO
+                    //TODO: pendiente generar AND {0} IN ({1}) para el caso que el child tenga un filtro
                 } 
                 children.push(child);
             }
