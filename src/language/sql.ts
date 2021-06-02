@@ -494,13 +494,33 @@ class SqlLanguage extends Language
         return this.createArrowFunction(clause,[child]);
     }
     createMapClause(clause:Node,scheme:SqlScheme,context:any){
-        if(clause.children.length>1){
-            context.current.arrowVar = clause.children[1].name;                    
-            let child = this.nodeToOperand(clause.children[2],scheme,context);
+        if(clause.children.length==3){
+            context.current.arrowVar = clause.children[1].name;
+            let fields = clause.children[2];
+            let child =null;
+            if(fields.children.length==0 && fields.name == context.current.arrowVar){
+                let fields = this.createNodeFields(context.current.entity,'p',scheme)
+                child = this.nodeToOperand(fields,scheme,context);
+            }else{
+                child = this.nodeToOperand(clause.children[2],scheme,context);
+            }  
             return this.createArrowFunction(clause,[child]);
         }else{
-            return this.createArrowFunction(clause, []);
+            context.current.arrowVar = 'p';
+            let fields = this.createNodeFields(context.current.entity,'p',scheme)
+            let child = this.nodeToOperand(fields,scheme,context);
+            return this.createArrowFunction(clause, [child]);
         }
+    }
+    createNodeFields(entityName:string,arrowVar:string,scheme:SqlScheme){
+        let obj = new Node('obj', 'obj', []);
+        let entity=scheme.getEntity(entityName);
+        for(let name in entity.properties){
+            let field = new Node(arrowVar+'.'+name, 'var', []);
+            let keyVal = new Node(name, 'keyVal', [field])
+            obj.children.push(keyVal);
+        }
+        return obj;
     }
     nodeToOperand(node:Node,scheme:SqlScheme,context:any){
 
