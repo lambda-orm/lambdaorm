@@ -11,8 +11,7 @@ for(const p in schemes){
 
 let expression =
 `
-Order.filter(p=> p.id == id )                     
-     .map(p=> p )
+Order.filter(p=> p.id == id ) 
      .includes(details ,customer.filter(p=>p.name != "pedro"))
 `;
 
