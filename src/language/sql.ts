@@ -488,29 +488,54 @@ class SqlLanguage extends Language
             throw'cretae arrow function: '+node.name+' error: '+error.toString(); 
         }
     }
-    createClause(clause:Node,scheme:SqlScheme,context:any){
+    createClause(clause:Node,scheme:SqlScheme,context:any){        
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],scheme,context);
         return this.createArrowFunction(clause,[child]);
     }
+    createMapClause(clause:Node,scheme:SqlScheme,context:any){
+        if(clause.children.length>1){
+            context.current.arrowVar = clause.children[1].name;                    
+            let child = this.nodeToOperand(clause.children[2],scheme,context);
+            return this.createArrowFunction(clause,[child]);
+        }else{
+            return this.createArrowFunction(clause, []);
+        }
+    }
     nodeToOperand(node:Node,scheme:SqlScheme,context:any){
 
         if (node.type == 'childFunc' && node.name == 'includes'){
-            let children = []
+            let children = [],child:SqlSentence,relation:any;
             let main = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
             let mainEntity=scheme.getEntity(main.entity);
             children.push(main);
             for (let i=1; i< node.children.length;i++) {
-                let p = node.children[i];
-                let child = this.nodeToOperand(p, scheme, context) as SqlSentence;;
-
-                let relation = mainEntity.relations[child.entity];
+                let p = node.children[i]; 
+                if(p.type =='arrow'){
+                    let current = p;
+                    while (current) {
+                        if(current.type == 'var'){
+                            relation = mainEntity.relations[current.name];                            
+                            current.name = relation.to.split('.')[0];
+                            break;
+                        }
+                        if (current.children.length > 0)
+                            current = current.children[0];
+                        else
+                            break;
+                    }
+                    child = this.nodeToOperand(p, scheme, context) as SqlSentence;
+                }else{  
+                    let varArrow = new Node('p', 'var', []);
+                    let varAll = new Node('p', 'var', []);
+                    relation = mainEntity.relations[p.name];
+                    p.name = relation.to.split('.')[0];
+                    let map = new Node('map','arrow',[p,varArrow,varAll]);
+                    child = this.nodeToOperand(map, scheme, context) as SqlSentence;
+                } 
                 let parts = relation.to.split('.');
                 let toEntity=scheme.getEntity(parts[0]);
                 let toField = toEntity.properties[parts[1]];
-                let childFrom = child.children.find(p => p instanceof SqlFrom);
-                child.entity= parts[0];
-                childFrom.name= parts[0]+'.'+child.alias;
                 let childFilter= child.children.find(p=> p.name == 'filter');
                 if(!childFilter){
                    let fieldRelation = new SqlField(child.alias + '.' + toField);
@@ -534,12 +559,11 @@ class SqlLanguage extends Language
             let current = node;
             while(current){
                 let name =current.type == 'var'?'from':current.name;
-
                 sentence[name] =  current;
                 if(current.children.length > 0)
                    current = current.children[0]
                 else
-                  current=null;  
+                  break;  
             }            
             context.current.entity=sentence.from.name;
             context.current.alias = this.createAlias(context,context.current.entity);            
@@ -559,7 +583,7 @@ class SqlLanguage extends Language
             }
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
-                operand = this.createClause(clause,scheme,context);
+                operand = this.createMapClause(clause,scheme,context);
                 context.current.fields = this.fieldsInSelect(operand);
                 context.current.groupByFields = this.groupByFields(operand);
                 children.push(operand); 

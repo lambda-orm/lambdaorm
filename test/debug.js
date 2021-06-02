@@ -13,11 +13,11 @@ let expression =
 `
 Order.filter(p=> p.id = id )                     
      .map(p=> p )
-     .includes(details.map(p=> p),customer.map(p=> p))
+     .includes(details,customer.map(p=> p).filter(p=>p.name != "pedro"))
 `;
 
 let node = orm.parse(expression);
-// console.log(orm.serialize(node));
+console.log(orm.serialize(node));
 
 let sentence = orm.sentence(expression,'northwind','sql','oracle');
 console.log(sentence);
