@@ -126,31 +126,28 @@ class SqlFunctionRef extends FunctionRef
         return text;
     }
 }
-
-class SqlCompose extends FunctionRef
-{
-    build(metadata:SqlLanguageVariant){
-        let text = ''
-        for(let i=0;i<this.children.length;i++){
-            text += (this.children[i].build(metadata).trim()+'\n;\n');    
-        }        
-        return text;
-    } 
-}
-
 class SqlSentence extends FunctionRef 
 {
     public fields:string[]
     public entity:string
     public alias:string
+    public includes:SqlSentence[];
 
     constructor(name:string,children:Operand[]=[],entity:string,alias:string,fields:string[]){
         super(name,children);
         this.entity=entity;
         this.alias=alias;
         this.fields=fields;
+        this.includes=[];
     }    
     build(metadata:SqlLanguageVariant){   
+        let text = this.buildMain(metadata).trim();
+        for(let i=0;i<this.includes.length;i++){
+            text += '\n;\n'+(this.includes[i].build(metadata).trim());    
+        }        
+        return text;      
+    }
+    buildMain(metadata:SqlLanguageVariant){
 
         let map =  this.children.find(p=> p.name=='map');   
         let first = this.children.find(p=> p.name=='first'); 
@@ -522,87 +519,102 @@ class SqlLanguage extends Language
         }
         return obj;
     }
-    nodeToOperand(node:Node,scheme:SqlScheme,context:any){
-
-        if (node.type == 'childFunc' && node.name == 'includes'){
-            let children = [],child:SqlSentence,relation:any;
-            let main = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
-            let mainEntity=scheme.getEntity(main.entity);
-            children.push(main);
-            for (let i=1; i< node.children.length;i++) {
-                let p = node.children[i]; 
-                if(p.type =='arrow'){
-                    let current = p;
-                    while (current) {
-                        if(current.type == 'var'){
-                            relation = mainEntity.relations[current.name];                            
-                            current.name = relation.to.split('.')[0];
-                            break;
-                        }
-                        if (current.children.length > 0)
-                            current = current.children[0];
-                        else
-                            break;
+    addIncludes(node:Node,scheme:SqlScheme,context:any){
+        let children = [],child:SqlSentence,relation:any;
+        let sentence = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
+        let mainEntity=scheme.getEntity(sentence.entity);
+        // children.push(main);
+        for (let i=1; i< node.children.length;i++) {
+            let p = node.children[i]; 
+            if(p.type =='arrow'){
+                let current = p;
+                while (current) {
+                    if(current.type == 'var'){
+                        relation = mainEntity.relations[current.name];                            
+                        current.name = relation.to.split('.')[0];
+                        break;
                     }
-                    child = this.nodeToOperand(p, scheme, context) as SqlSentence;
-                }else{  
-                    let varArrow = new Node('p', 'var', []);
-                    let varAll = new Node('p', 'var', []);
-                    relation = mainEntity.relations[p.name];
-                    p.name = relation.to.split('.')[0];
-                    let map = new Node('map','arrow',[p,varArrow,varAll]);
-                    child = this.nodeToOperand(map, scheme, context) as SqlSentence;
-                } 
-                let parts = relation.to.split('.');
-                let toEntity=scheme.getEntity(parts[0]);
-                let toField = toEntity.properties[parts[1]];
-                let childFilter= child.children.find(p=> p.name == 'filter');
-                if(!childFilter){
-                   let fieldRelation = new SqlField(child.alias + '.' + toField);
-                   let varRelation = new SqlVariable('ids',);
-                   let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
-                   let childFilter = new SqlFilter('filter',[filterInclude]);
-                   child.children.push(childFilter);
-                }else{
-                    //TODO: pendiente generar AND {0} IN ({1}) para el caso que el child tenga un filtro
-                } 
-                children.push(child);
-            }
-            return new SqlCompose('compose',children);
+                    if (current.children.length > 0)
+                        current = current.children[0];
+                    else
+                        break;
+                }
+                child = this.nodeToOperand(p, scheme, context) as SqlSentence;
+            }else{  
+                let varArrow = new Node('p', 'var', []);
+                let varAll = new Node('p', 'var', []);
+                relation = mainEntity.relations[p.name];
+                p.name = relation.to.split('.')[0];
+                let map = new Node('map','arrow',[p,varArrow,varAll]);
+                child = this.nodeToOperand(map, scheme, context) as SqlSentence;
+            } 
+            let parts = relation.to.split('.');
+            let toEntity=scheme.getEntity(parts[0]);
+            let toField = toEntity.properties[parts[1]];
+            let fieldRelation = new SqlField(child.alias + '.' + toField);
+            let varRelation = new SqlVariable('includeIds',);
+            let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
+            let childFilter= child.children.find(p=> p.name == 'filter');
+            if(!childFilter){
+                let childFilter = new SqlFilter('filter',[filterInclude]);
+                child.children.push(childFilter);
+            }else{
+                childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
+            } 
+            sentence.includes.push(child);
+        }
+        return sentence;
+    }
+    createSentence(node:Node,scheme:SqlScheme,context:any){
+        context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
+        if(context.parent)
+            context.parent.children.push(context.current);            
 
-        }else if(node.type == 'arrow'){
-            context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
-            if(context.parent)
-               context.parent.children.push(context.current);            
+        let sentence:any = {}; 
+        let current = node;
+        while(current){
+            let name =current.type == 'var'?'from':current.name;
+            sentence[name] =  current;
+            if(current.children.length > 0)
+                current = current.children[0]
+            else
+                break;  
+        }            
+        context.current.entity=sentence.from.name;
+        context.current.alias = this.createAlias(context,context.current.entity);            
+        let children = [];
+        let operand= null;
 
-            let sentence:any = {}; 
-            let current = node;
-            while(current){
-                let name =current.type == 'var'?'from':current.name;
-                sentence[name] =  current;
-                if(current.children.length > 0)
-                   current = current.children[0]
-                else
-                  break;  
-            }            
-            context.current.entity=sentence.from.name;
-            context.current.alias = this.createAlias(context,context.current.entity);            
-            let children = [];
-            let operand= null;
+        if(sentence['filter'] ){
+            let clause = sentence['filter'];
+            operand = this.createClause(clause,scheme,context);
+            children.push(operand); 
+        }
 
+        if(sentence['delete']){
+            //TODO
+        }else if (sentence['insert']){
+            //TODO
+        }else if (sentence['update']){
+            //TODO 
+        }else{
             if(sentence['from']){
                 let clause = sentence['from'];
                 let tableName = scheme.table(clause.name);
                 operand =new SqlFrom(tableName+'.'+context.current.alias);
                 children.push(operand);
             }
-            if(sentence['filter'] ){
-                let clause = sentence['filter'];
-                operand = this.createClause(clause,scheme,context);
-                children.push(operand); 
-            }
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
+                operand = this.createMapClause(clause,scheme,context);
+                context.current.fields = this.fieldsInSelect(operand);
+                context.current.groupByFields = this.groupByFields(operand);
+                children.push(operand); 
+            }else{
+                let varEntity = new Node(context.current.entity, 'var', []);
+                let varArrow = new Node('p', 'var', []);
+                let varAll = new Node('p', 'var', []);               
+                let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
                 operand = this.createMapClause(clause,scheme,context);
                 context.current.fields = this.fieldsInSelect(operand);
                 context.current.groupByFields = this.groupByFields(operand);
@@ -631,24 +643,31 @@ class SqlLanguage extends Language
                 operand = this.createClause(clause,scheme,context);
                 children.push(operand); 
             }
-            for(const key in context.current.joins){
+        }
+        for(const key in context.current.joins){
 
-                let info = scheme.getRelation(context.current.entity,key);
- 
-                let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
-                let relatedFieldName = info.previousScheme.properties[info.relationData.from];
-                let relationTable = info.relationScheme.name;
-                let relationAlias =context.current.joins[key];;
-                let relationFieldName = info.relationScheme.properties[info.relationData.to.split('.')[1]];
+            let info = scheme.getRelation(context.current.entity,key);
 
-                let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName);
-                let relationField = new SqlField(relationAlias+'.'+relationFieldName); 
-                let equal = new SqlOperator('==',[relationField,relatedField])
-                operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
-                children.push(operand);   
-            }
-            return new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
+            let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
+            let relatedFieldName = info.previousScheme.properties[info.relationData.from];
+            let relationTable = info.relationScheme.name;
+            let relationAlias =context.current.joins[key];;
+            let relationFieldName = info.relationScheme.properties[info.relationData.to.split('.')[1]];
 
+            let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName);
+            let relationField = new SqlField(relationAlias+'.'+relationFieldName); 
+            let equal = new SqlOperator('==',[relationField,relatedField])
+            operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
+            children.push(operand);   
+        }
+        return new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
+    }
+    nodeToOperand(node:Node,scheme:SqlScheme,context:any){
+
+        if (node.type == 'childFunc' && node.name == 'includes'){
+            return this.addIncludes(node,scheme,context);
+        }else if(node.type == 'arrow'){
+            return this.createSentence(node,scheme,context);
         }else{
             let children = [];
             if(node.children){
@@ -661,6 +680,8 @@ class SqlLanguage extends Language
             return this.createOperand(node,children,scheme,context);
         }
     }
+
+    
     groupByFields(operand){
         let data = {fields:[],groupBy:false};
         this._groupByFields(operand,data);
