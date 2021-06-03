@@ -520,7 +520,7 @@ class SqlLanguage extends Language
         return obj;
     }
     addIncludes(node:Node,scheme:SqlScheme,context:any){
-        let children = [],child:SqlSentence,relation:any;
+        let child:SqlSentence,relation:any;
         let sentence = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
         let mainEntity=scheme.getEntity(sentence.entity);
         // children.push(main);
@@ -540,14 +540,30 @@ class SqlLanguage extends Language
                         break;
                 }
                 child = this.nodeToOperand(p, scheme, context) as SqlSentence;
-            }else{  
+            }else if (p.type == 'var') {
                 let varArrow = new Node('p', 'var', []);
                 let varAll = new Node('p', 'var', []);
                 relation = mainEntity.relations[p.name];
                 p.name = relation.to.split('.')[0];
                 let map = new Node('map','arrow',[p,varArrow,varAll]);
                 child = this.nodeToOperand(map, scheme, context) as SqlSentence;
-            } 
+            }else if (p.type == 'childFunc' && p.name == 'includes') {
+                let current = p;
+                while (current) {
+                    if (current.type == 'var') {
+                        relation = mainEntity.relations[current.name];
+                        current.name = relation.to.split('.')[0];
+                        break;
+                    }
+                    if (current.children.length > 0)
+                        current = current.children[0];
+                    else
+                        break;
+                }
+                child= this.addIncludes(p, scheme, context);
+            }else{
+                throw 'Error to add include node '+p.type+':'+p.name; 
+            }
             let parts = relation.to.split('.');
             let toEntity=scheme.getEntity(parts[0]);
             let toField = toEntity.properties[parts[1]];

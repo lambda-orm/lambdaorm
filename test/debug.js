@@ -12,7 +12,7 @@ for(const p in schemes){
 let expression =
 `
 Order.filter(p=> p.id == id ) 
-     .includes(details ,customer.filter(p=>p.name != "pedro"))
+     .includes(details.map(p=>p).includes(product) ,customer.filter(p=>p.name != "pedro"))
 `;
 
 let node = orm.parse(expression);
