@@ -1,0 +1,19 @@
+version: '2'
+services:
+  mariadb:
+    image: monstrenyatko/rpi-mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=admin
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - mariadb-log:/var/log/mysql
+    ports:
+      - 3306:3306
+    # restart: unless-stopped
+volumes:
+    mariadb-data:
+    mariadb-log:

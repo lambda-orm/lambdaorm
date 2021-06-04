@@ -2,132 +2,313 @@ name: northwind
 abstract:
   Address:
     properties:
-      address: Address
-      city : City
-      region : Region
-      postalCode : PostalCode
-      country : Country 
+      address: 
+        field: Address
+        type: string
+        length: 80
+      city : 
+        field: City
+        type: string
+        length: 80
+      region : 
+        field: Region
+        type: string
+        length: 80
+      postalCode : 
+        field: PostalCode
+        type: string
+        length: 20
+      country : 
+        field: Country
+        type: string
+        length: 80 
 enum:
 entity:
   Employee:
     _extends: [northwind.abstract.Address]
-    name: Employees
+    table: Employees
     properties:      
-      id: EmployeeID
-      lastName: LastName
-      firstName: FirstName
-      title: Title
-      titleOfCourtesy: TitleOfCourtesy
-      birthDate : BirthDate
-      hireDate : HireDate
-      phone: HomePhone
-      reportsToId: ReportsTo
+      id: 
+        field: EmployeeID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      lastName: 
+        field: LastName
+        nullable: false
+        type: string
+        length: 80
+      firstName: 
+        field: FirstName
+        nullable: false
+        type: string
+        length: 80
+      title: 
+        field: Title
+        type: string
+        length: 80
+      titleOfCourtesy: 
+        field: TitleOfCourtesy
+        type: string
+        length: 80
+      birthDate : 
+        field: BirthDate
+        type: datetime
+      hireDate : 
+        field: HireDate
+        type: datetime
+      phone: 
+        field:  HomePhone
+        type: string
+        length: 80
+      reportsToId: 
+        field:  ReportsTo
+        type: integer
     relations:
       reportsTo:
         type: oneToMany
         from: reportsToId
-        to: Employee.id
+        to: 
+          entity: Employee
+          property: id
   Category:
-    name: Categories
+    table: Categories
     properties:
-      id: CategoryID
-      name: CategoryName
-      description: Description
+      id: 
+        field: CategoryID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      name: 
+        field: CategoryName
+        nullable: false
+        type: string
+        length: 80
+      description: 
+        field: Description
+        type: string
+        length: 1000
   Customer:
     _extends: [northwind.abstract.Address]
-    name: Customers
+    table: Customers
     properties:
-      id: CustomerID
-      name: CompanyName
-      contact: ContactName
-      phone: ContactTitle
+      id: 
+        field: CustomerID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      name: 
+        field: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      contact: 
+        field: ContactName
+        type: string
+        length: 80
+      phone: 
+        field: ContactTitle
+        type: string
+        length: 80
     relations:  
       orders:
         type: manyToOne 
         from: id
-        to: Order.customerId
+        to: 
+          entity: Order
+          property: customerId
   Shipper:
-    name: Shippers
+    table: Shippers
     properties:
-      id: ShipperID
-      name: CompanyName
-      phone: Phone
+      id: 
+        field: ShipperID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      name: 
+        field: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      phone: 
+        field: Phone
+        type: string
+        length: 20
   Supplier:
     _extends: [northwind.abstract.Address]
-    name: Suppliers
+    table: Suppliers
     properties:
-      id: SupplierID
-      name: CompanyName
-      contact: ContactName
-      phone: Phone
-      homepage: HomePage  
+      id: 
+        field: SupplierID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      name: 
+        field: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      contact: 
+        field: ContactName
+        type: string
+        length: 80
+      phone: 
+        field: Phone
+        type: string
+        length: 20
+      homepage: 
+        field: HomePage
+        type: string
+        length: 80  
   Product:
-    name: Products
+    table: Products
     properties:
-      id: ProductID 
-      name: ProductName
-      supplierId: SupplierID
-      categoryId: CategoryID
-      quantity: QuantityPerUnit
-      price: UnitPrice
-      inStock: UnitsInStock
-      onOrder: UnitsOnOrder
-      reorderLevel: ReorderLevel
-      discontinued: Discontinued
+      id: 
+        field: ProductID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true 
+      name: 
+        field: ProductName
+        nullable: false
+        type: string
+        length: 80
+      supplierId: 
+        field: SupplierID
+        type: integer
+      categoryId: 
+        field: CategoryID
+        type: integer
+      quantity: 
+        field: QuantityPerUnit
+        type: decimal
+      price: 
+        field: UnitPrice
+        type: decimal
+        default: 0
+      inStock: 
+        field: UnitsInStock
+        type: decimal
+        default: 0
+      onOrder: 
+        field: UnitsOnOrder
+        type: decimal
+        default: 0
+      reorderLevel: 
+        field: ReorderLevel
+        type: decimal
+        default: 0
+      discontinued: 
+        field: Discontinued
+        type: bool
+        default: false
     relations:    
       supplier:
         type: oneToMany 
         from: supplierId
-        to: Supplier.id 
+        to: 
+          entity: Supplier
+          property: id 
       category:
         type: oneToMany  
         from: categoryId
-        to: Category.id
+        to: 
+          entity: Category
+          property: id
   Order:
     _extends: [northwind.abstract.Address]
-    name: Orders
+    table: Orders
     properties:
-      id: OrderID 
-      customerId: CustomerID
-      employeeId: EmployeeID 
-      orderDate: OrderDate 
-      requiredDate: RequiredDate
-      shippedDate: ShippedDate 
-      shipViaId: ShipVia
-      freight: Freight
+      id: 
+        field: OrderID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true 
+      customerId: 
+        field: CustomerID
+        nullable: false
+        type: integer
+      employeeId: 
+        field: EmployeeID
+        nullable: false
+        type: integer 
+      orderDate: 
+        field: OrderDate
+        type: datetime 
+      requiredDate: 
+        field: RequiredDate
+        type: datetime
+      shippedDate: 
+        field: ShippedDate
+        type: datetime 
+      shipViaId: 
+        field: ShipVia
+        type: integer
+      freight: 
+        field: Freight
+        type: decimal
     relations:    
       customer:
         type: oneToMany  
         from: customerId
-        to: Customer.id 
+        to: 
+          entity: Customer
+          property: id 
       employee:
         type: oneToMany  
         from: employeeId
-        to: Employee.id 
+        to: 
+          entity: Employee
+          property: id 
       details:
         type: manyToOne 
         from: id
-        to: OrderDetail.orderId  
+        to: 
+          entity: OrderDetail
+          property: orderId  
   OrderDetail:
-    name: OrderDetails
+    table: OrderDetails
     properties:
-      id: OrderDetailID
-      orderId: OrderID
-      productId: ProductID
-      unitPrice: UnitPrice
-      quantity: Quantity
-      discount: Discount
+      id: 
+        field: OrderDetailID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      orderId: 
+        field: OrderID
+        nullable: false
+        type: integer
+      productId: 
+        field: ProductID
+        nullable: false
+        type: integer
+      unitPrice: 
+        field: UnitPrice
+        type: decimal
+      quantity: 
+        field: Quantity
+        type: decimal
+      discount: 
+        field: Discount
+        type: bool
     relations:   
       order:
         type: oneToMany 
         from: orderId
-        to: Order.id 
+        to: 
+          entity: Order
+          property: id 
       product:
         type: oneToMany 
         from: productId
-        to: Product.id 
-
-	 
-
-
-
+        to: 
+          entity: Product
+          property: id 

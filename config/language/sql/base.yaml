@@ -1,5 +1,14 @@
 # https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions001.htm
+types:
+  bool: BIT
+  integer: INTEGER
+  decimal: DECIMAL(10,4)
+  string: VARCHAR({0})
+  datetime: DATETIME
+
 others:
+  notNullable: NOT NULL
+  autoincrement: AUTO_INCREMENT 
   variable: ':{name}'
   field: '{enityAlias}.{name}'
   column: '{name}'
