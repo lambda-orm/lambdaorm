@@ -14,19 +14,24 @@ export default class SqlLanguageVariant
         this._others={};
         this._arrows={};
     }
-    operator(name,operands){
+    public operator(name:string,operands:number):any
+    {
         return this._operators[name][operands];
     }
-    function(name){
+    public function(name:string):any
+    {
         return this._functions[name];
     }
-    arrow(name){
+    public arrow(name:string):any
+    {
         return this._arrows[name];
     }
-    other(name){
+    public other(name:string):any
+    {
         return this._others[name];
     }
-    addVariant(variant){
+    public addVariant(variant:any):void
+    {
         for(const type in variant.operators){
             let operands = type == 'ternary'?3:type=='binary'?2:1;
             for(const name in variant.operators[type]){
@@ -50,7 +55,8 @@ export default class SqlLanguageVariant
             this._arrows[name] = template; 
         }
     }
-    getOperatorMetadata(name,operands){
+    public getOperatorMetadata(name:string,operands:number):any
+    {
         try{          
             if(this._operators[name]){
                 let operator = this._operators[name];
@@ -63,7 +69,8 @@ export default class SqlLanguageVariant
             throw 'error with operator: '+name;
         }
     } 
-    getFunctionMetadata(name){
+    public getFunctionMetadata(name:string):any
+    {
         try{
             if(this._functions[name])
                 return this._functions[name];

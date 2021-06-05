@@ -1,7 +1,6 @@
 import {Node,Context,Operand} from '../../base'
 import Language from '../language'
 import SqlScheme from './scheme'
-
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlInsertFrom,SqlUpdate,SqlUpdateFrom,SqlDelete} from './operands'
 import SqlLanguageVariant from './variant'
@@ -14,7 +13,8 @@ export default class SqlLanguage extends Language
         super('sql');
         this._variants={};
     }
-    public addLibrary(library){
+    public addLibrary(library:any):void
+    {
         this._libraries[library.name] =library;
 
         for(const p in library.variants){
@@ -23,8 +23,7 @@ export default class SqlLanguage extends Language
             variant.addVariant(data);
             this._variants[data.variant] =variant 
         }
-    }
-    
+    }    
     public compile(node:Node,scheme:any):Operand
     {
         try{
@@ -40,7 +39,8 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public sentence(operand:Operand,variant:string):any{
+    public sentence(operand:Operand,variant:string):any
+    {
         try{
             let _variant = this._variants[variant];
             return operand.build(_variant);
@@ -50,18 +50,50 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public run(operand:Operand,context:any,scheme?:any,cnx?:any):any{          
+    public run(operand:Operand,context:any,scheme?:any,cnx?:any):any
+    {          
         let sentence = this.sentence(operand,cnx.variant);
         return this.execute(sentence,context,cnx);
     }
-    protected createAlias(context,name,relation=null){
+    protected reduce(operand:Operand):Operand
+    {
+        return operand
+    }
+    protected setContext(operand,context)
+    {
+        // let current = context;
+        // if( operand.prototype instanceof ArrowFunction){
+        //     let childContext=current.newContext();
+        //     operand.context = childContext;
+        //     current = childContext;
+        // }
+        // else if(operand.prototype instanceof Variable){
+        //     operand.context = current;
+        // }       
+        // for(const k in operand.children){
+        //     const p = operand.children[k];
+        //     this.setContext(p,current);
+        // } 
+    }
+    protected execute(sentence,context,cnx)
+    {
+        //TODO
+        return [];
+    }
+    protected _deserialize(serialized:any,language:string):Operand
+    {
+        throw 'NotImplemented';
+    }
+    protected createAlias(context:any,name:string,relation?:string):string
+    {
         let c= name.charAt(0).toLowerCase();
         let alias = c;
         for(let i=1;context.aliases[alias];i++)alias=alias+i;
         context.aliases[alias] = relation?relation:name;
         return alias;        
     }    
-    protected createOperand(node,children,scheme,context){
+    protected createOperand(node:Node,children:Operand[],scheme:SqlScheme,context:any):Operand
+    {
         switch(node.type){
             case 'const':
                 return new SqlConstant(node.name,children);
@@ -128,7 +160,8 @@ export default class SqlLanguage extends Language
                 throw 'node name: '+node.name +' type: '+node.type+' not supported';
         }
     }    
-    protected createArrowFunction(node,children){
+    protected createArrowFunction(node:Node,children:Operand[]):Operand
+    {
         try{
             switch(node.name){
                 case 'map': 
@@ -153,12 +186,14 @@ export default class SqlLanguage extends Language
             throw'cretae arrow function: '+node.name+' error: '+error.toString(); 
         }
     }
-    protected createClause(clause:Node,scheme:SqlScheme,context:any){        
+    protected createClause(clause:Node,scheme:SqlScheme,context:any):Operand
+    {        
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],scheme,context);
         return this.createArrowFunction(clause,[child]);
     }
-    protected createMapClause(clause:Node,scheme:SqlScheme,context:any){
+    protected createMapClause(clause:Node,scheme:SqlScheme,context:any):Operand
+    {
         if(clause.children.length==3){
             context.current.arrowVar = clause.children[1].name;
             let fields = clause.children[2];
@@ -177,7 +212,8 @@ export default class SqlLanguage extends Language
             return this.createArrowFunction(clause, [child]);
         }
     }
-    protected createNodeFields(entityName:string,arrowVar:string,scheme:SqlScheme){
+    protected createNodeFields(entityName:string,arrowVar:string,scheme:SqlScheme):any
+    {
         let obj = new Node('obj', 'obj', []);
         let entity=scheme.getEntity(entityName);
         for(let name in entity.properties){
@@ -187,7 +223,8 @@ export default class SqlLanguage extends Language
         }
         return obj;
     }
-    protected addIncludes(node:Node,scheme:SqlScheme,context:any){
+    protected addIncludes(node:Node,scheme:SqlScheme,context:any):any
+    {
         let child:SqlSentence,relation:any;
         let sentence = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
         let mainEntity=scheme.getEntity(sentence.entity);
@@ -248,7 +285,8 @@ export default class SqlLanguage extends Language
         }
         return sentence;
     }
-    protected createSentence(node:Node,scheme:SqlScheme,context:any){
+    protected createSentence(node:Node,scheme:SqlScheme,context:any):SqlSentence
+    {
         context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
         if(context.parent)
             context.parent.children.push(context.current);            
@@ -345,7 +383,8 @@ export default class SqlLanguage extends Language
         }
         return new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
     }
-    protected nodeToOperand(node:Node,scheme:SqlScheme,context:any){
+    protected nodeToOperand(node:Node,scheme:SqlScheme,context:any):Operand
+    {
 
         if (node.type == 'childFunc' && node.name == 'includes'){
             return this.addIncludes(node,scheme,context);
@@ -363,7 +402,8 @@ export default class SqlLanguage extends Language
             return this.createOperand(node,children,scheme,context);
         }
     }
-    protected addJoins(parts,to,context){
+    protected addJoins(parts:string[],to:number,context:any):string
+    {
         let relation = '';
         for(let i=1;i<to;i++){
             relation= (i>1?relation+'.':'')+parts[i];
@@ -373,12 +413,14 @@ export default class SqlLanguage extends Language
         }
         return relation;
     }    
-    protected groupByFields(operand){
+    protected groupByFields(operand:Operand):string[]
+    {
         let data = {fields:[],groupBy:false};
         this._groupByFields(operand,data);
         return data.groupBy?data.fields:[]; 
     }
-    protected _groupByFields(operand,data){
+    protected _groupByFields(operand:Operand,data:any):void
+    {
         if(operand instanceof SqlField){
             data.fields.push(operand);
         }else if(operand instanceof SqlFunctionRef && ['avg','count','first','last','max','min','sum'].indexOf(operand.name)>-1){
@@ -390,7 +432,8 @@ export default class SqlLanguage extends Language
             }
         }
     }
-    protected clone(obj){
+    protected clone(obj:any):any
+    {
         let children = [];
         if(obj.children){
             for(const k in obj.children){
@@ -401,7 +444,8 @@ export default class SqlLanguage extends Language
         }
         return new obj.constructor(obj.name,children);
     } 
-    protected fieldsInSelect(operand){
+    protected fieldsInSelect(operand:Operand)
+    {
         //TODO: hay que resolver si es un obj, un array o un campo y obtener los nombres de los fields que se crean,
         // para poder utilizarlos en el order by.
         let fields = [];
@@ -433,30 +477,5 @@ export default class SqlLanguage extends Language
         }
         return fields;
         
-    }
-    protected _deserialize(serialized:any,language:string):Operand{
-        throw 'NotImplemented';
-    }
-    protected reduce(operand:Operand):Operand{
-        return operand
-    }
-    protected setContext(operand,context){
-        // let current = context;
-        // if( operand.prototype instanceof ArrowFunction){
-        //     let childContext=current.newContext();
-        //     operand.context = childContext;
-        //     current = childContext;
-        // }
-        // else if(operand.prototype instanceof Variable){
-        //     operand.context = current;
-        // }       
-        // for(const k in operand.children){
-        //     const p = operand.children[k];
-        //     this.setContext(p,current);
-        // } 
-    }
-    protected execute(sentence,context,cnx){
-        //TODO
-        return [];
     }
 }

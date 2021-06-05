@@ -7,20 +7,24 @@ export default class SqlScheme
     constructor(scheme:any){
         this._scheme = scheme;
     }
-    field(entityName,name){
+    public field(entityName:string,name:string):any
+    {
         let entity =this.getEntity(entityName);
         if(!entity)return null;
         return entity.properties[name].field;
     }
-    table(entityName){
+    public table(entityName:string):string
+    {
         let entity =this.getEntity(entityName);
         return entity?entity.table:null;
     }
-    getEntity(name){
+    public getEntity(name:string):any
+    {
         if(!this._scheme)return null;
         return this._scheme.entity[name];
     }
-    getRelation(entity,relation){
+    public getRelation(entity:string,relation:string):any
+    {
         let previousEntity,previousScheme,relationData,relationEntity,relationScheme;
         let parts = relation.split('.');   
         for(let i=0;i<parts.length;i++){
@@ -38,14 +42,12 @@ export default class SqlScheme
             relationEntity = relationData.to.entity;
             relationScheme = this.getEntity(relationEntity);
         }
-
         return {
             previousRelation: parts.length>1?parts.slice(0,parts.length-1).join('.'):'',
             previousScheme: previousScheme,
             relationScheme: relationScheme,
             relationData: relationData
         };
-
     }
 }
 
