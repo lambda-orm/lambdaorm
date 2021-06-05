@@ -1,6 +1,6 @@
 
 
-class SqlScheme
+export default class SqlScheme
 {
     private _scheme:any
 

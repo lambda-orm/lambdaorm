@@ -6,7 +6,7 @@ export default class Minifier
     constructor(){
         this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$');
     }
-    minify(expression:string):string[]
+    public minify(expression:string):string[]
     {
         let isString=false;
         let quotes='';

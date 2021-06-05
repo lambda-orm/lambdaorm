@@ -1,5 +1,5 @@
-import {Library} from './base'
-import  {DefaultOperator,DefaultArrowFunction} from './language/default';
+import Library from '../library'
+import  {DefaultOperator,DefaultArrowFunction} from './operands';
 
 export default class CoreLib extends Library
 {

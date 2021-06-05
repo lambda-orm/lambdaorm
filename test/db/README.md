@@ -34,7 +34,6 @@ container
 docker exec -it mariadb mysql -h localhost -u root -p 
 ```
 
-
 # references
 - [mariadb docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
 - [mariadb-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)

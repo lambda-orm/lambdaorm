@@ -1,5 +1,4 @@
 
-
 class Node
 {
     
@@ -151,8 +150,6 @@ class Operand
     set(value:any){}
     build(metadata:any):any{}
 }
-
-
 
 export {
     Node,

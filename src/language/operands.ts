@@ -1,6 +1,5 @@
 import {Context,Operand} from '../base'
 
-
 class Constant extends Operand
 {
     public type:string

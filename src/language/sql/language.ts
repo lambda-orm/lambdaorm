@@ -1,5 +1,7 @@
 import {Node,Context,Operand} from '../../base'
 import Language from '../language'
+import SqlScheme from './scheme'
+
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlInsertFrom,SqlUpdate,SqlUpdateFrom,SqlDelete} from './operands'
 import SqlLanguageVariant from './variant'

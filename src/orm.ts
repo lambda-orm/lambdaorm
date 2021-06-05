@@ -2,7 +2,7 @@ import Parser from './parser'
 import {Context,Node,Model,Operand} from './base'
 import DefaultLanguage from './language/default/language'
 import SqlLanguage from './language/sql/language'
-import CoreLib from './coreLib'
+import CoreLib from './language/default/coreLib'
 import modelConfig from './config/model.json'
 import sqlConfig  from './config/sql.json'
 
@@ -58,7 +58,8 @@ class Orm {
             throw 'eval: '+expression+' error: '+error.toString(); 
         }
     } 
-    public sentence(operand:Operand,language:string,variant:string):any{
+    public sentence(expression:string,scheme:string,language:string,variant:string):any{
+        let operand = this.compile(expression,scheme,language);
         return this.languages[language].sentence(operand,variant);
     }
 }
