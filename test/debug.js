@@ -18,7 +18,7 @@ Order.filter(p=> p.id == id )
 let node = orm.parse(expression);
 // console.log(orm.serialize(node));
 
-let sentence = orm.sentence(expression,'northwind','sql','oracle');
+let sentence = orm.sentence(expression,'northwind','sql','mysql');
 console.log(sentence);
 
 })();

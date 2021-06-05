@@ -323,7 +323,7 @@ class SqlScheme
     }
     table(entityName){
         let entity =this.getEntity(entityName);
-        return entity?entity.name:null;
+        return entity?entity.table:null;
     }
     getEntity(name){
         if(!this._scheme)return null;
@@ -357,6 +357,9 @@ class SqlScheme
 
     }
 }
+
+
+
 
 class SqlLanguage extends Language
 {

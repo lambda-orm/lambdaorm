@@ -1,11 +1,20 @@
 {
   "base": {
+    "types": {
+      "bool": "BIT",
+      "integer": "INTEGER",
+      "decimal": "DECIMAL(10,4)",
+      "string": "VARCHAR({0})",
+      "datetime": "DATETIME"
+    },
     "others": {
+      "notNullable": "NOT NULL",
+      "autoincrement": "AUTO_INCREMENT",
       "variable": ":{name}",
       "field": "{enityAlias}.{name}",
       "column": "{name}",
-      "from": "FROM {name} {alias} ",
-      "join": "INNER JOIN {name} {alias} ON {relation}",
+      "from": "FROM `{name}` {alias} ",
+      "join": "INNER JOIN `{name}` {alias} ON {relation}",
       "false": "0",
       "true": "1"
     },
@@ -143,12 +152,21 @@
       "language": "sql",
       "variant": "mssql",
       "name": "mssql",
+      "types": {
+        "bool": "BIT",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME"
+      },
       "others": {
+        "notNullable": "NOT NULL",
+        "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "from": "FROM `{name}` {alias} ",
+        "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },
@@ -285,12 +303,21 @@
       "language": "sql",
       "variant": "mysql",
       "name": "mysql",
+      "types": {
+        "bool": "BIT",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME"
+      },
       "others": {
+        "notNullable": "NOT NULL",
+        "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "from": "FROM `{name}` {alias} ",
+        "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },
@@ -427,12 +454,21 @@
       "language": "sql",
       "variant": "oracle",
       "name": "oracle",
+      "types": {
+        "bool": "BIT",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME"
+      },
       "others": {
+        "notNullable": "NOT NULL",
+        "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "from": "FROM `{name}` {alias} ",
+        "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },
@@ -569,12 +605,21 @@
       "language": "sql",
       "variant": "postgresql",
       "name": "postgresql",
+      "types": {
+        "bool": "BIT",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME"
+      },
       "others": {
+        "notNullable": "NOT NULL",
+        "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "from": "FROM `{name}` {alias} ",
+        "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },

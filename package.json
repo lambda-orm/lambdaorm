@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/FlavioLionelRita/js-orm#readme",
   "dependencies": {
-    "config-extends": "^1.0.3"
+    "config-extends": "^1.0.3",
+    "mysql2": "^2.2.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",

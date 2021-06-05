@@ -222,7 +222,6 @@ entity:
           entity: Category
           property: id
   Order:
-    _extends: [northwind.abstract.Address]
     table: Orders
     properties:
       id: 
@@ -254,6 +253,30 @@ entity:
       freight: 
         field: Freight
         type: decimal
+      name: 
+        field: ShipName
+        type: string
+        length: 80  
+      address: 
+        field: ShipAddress
+        type: string
+        length: 80
+      city : 
+        field: ShipCity
+        type: string
+        length: 80
+      region : 
+        field: ShipRegion
+        type: string
+        length: 80
+      postalCode : 
+        field: ShipPostalCode
+        type: string
+        length: 20
+      country : 
+        field: ShipCountry
+        type: string
+        length: 80 
     relations:    
       customer:
         type: oneToMany  
@@ -274,21 +297,17 @@ entity:
           entity: OrderDetail
           property: orderId  
   OrderDetail:
-    table: OrderDetails
+    table: Order Details
     properties:
-      id: 
-        field: OrderDetailID
-        type: integer
-        nullable: false
-        primaryKey: true
-        autoincrement: true
       orderId: 
         field: OrderID
         nullable: false
+        primaryKey: true
         type: integer
       productId: 
         field: ProductID
         nullable: false
+        primaryKey: true          
         type: integer
       unitPrice: 
         field: UnitPrice
