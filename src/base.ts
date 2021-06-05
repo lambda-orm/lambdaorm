@@ -1,3 +1,5 @@
+
+
 class Node
 {
     
@@ -17,7 +19,6 @@ class Node
         this.index = null;
     }    
 }
-
 class Model
 {
     public operators: any
@@ -127,120 +128,6 @@ class Context
         this._data[name]=value; 
     } 
 }
-
-class Language
-{
-    protected _name:string
-    protected _libraries:any
-    protected operators?:any;
-    protected functions:any;
-
-    constructor(name:string){
-        this._name = name;
-        this._libraries={};
-    }
-    get name(){
-        return this._name;
-    }
-    addLibrary(library:any){
-        throw 'NotImplemented';
-    }
-    compile(node:Node,scheme:any=null):Operand{
-        throw 'NotImplemented';
-    }
-    eval(operand:Operand,context:any){  
-        throw 'NotImplemented';      
-    }
-    setParent(operand:Operand,index:number=0,parent:Operand=null){        
-        try{
-            if(parent){
-                operand.id = parent.id +'.'+index;
-                operand.parent = parent;
-                operand.index = index;
-                operand.level = parent.level +1;
-            }  
-            else{
-                operand.id = '0';
-                operand.parent = null;
-                operand.index = 0;
-                operand.level = 0;
-            }
-            for(let i = 0;i< operand.children.length;i++){
-                const p = operand.children[i];
-                this.setParent(p,i,operand); 
-            }          
-            return operand;
-        }
-        catch(error){
-            throw 'set parent: '+operand.name+' error: '+error.toString();
-        }
-    }
-}
-
-
-
-class Library
-{
-    public name:string
-    public language:string
-    public enums:any
-    public operators:any
-    public functions:any
-
-    constructor(name:string,language:string){
-        this.name = name;
-        this.language = language;
-        this.enums={};
-        this.operators={};
-        this.functions={};
-    }    
-    addEnum(key:string,source:any){        
-        this.enums[key] =source;
-    }
-    addFunction(name:string,source:any,custom:any=null,isArrowFunction:boolean=false){      
-        let metadata = this.getMetadata(source);
-        metadata['lib'] =this.name;
-        metadata['language '] =this.language;  
-        metadata['isArrowFunction'] =isArrowFunction;        
-        this.functions[name]={'function':source,'metadata':metadata,'custom':custom}; 
-    }
-    addOperator(name:string,source:any,custom:any=null,customFunction:any=null){
-        if(!this.operators[name])this.operators[name]= {}
-        let metadata = this.getMetadata(source);
-        let operands = metadata['args'].length;  
-        metadata['lib'] =this.name;
-        metadata['language '] =this.language; 
-        this.operators[name][operands]={'function':source,'metadata':metadata,'custom':custom,'customFunction':customFunction};
-    }
-    getMetadata(source:any){        
-        let args=[];
-        let _args = this.getArgs(source);
-        for(const k in _args){
-            const p = _args[k];
-            let data = p.split('=');             
-            let arg = {'name':data[0]
-                  ,'default':data.length>1?data[1]:null
-                  }
-            args.push(arg)
-        }
-        return {
-            'originalName': source.name,
-            'signature': '('+_args.toString()+')',
-            'doc':null,
-            'args': args
-        }
-    }
-    getArgs(source){
-        let args = f => f.toString ().replace (/[\r\n\s]+/g, ' ').
-              match (/(?:function\s*\w*)?\s*(?:\((.*?)\)|([^\s]+))/).
-              slice (1,3).
-              join ('').
-              split (/\s*,\s*/);
-        return args(source);      
-    }
-
-}
-
 class Operand
 {
     public name: string
@@ -264,119 +151,12 @@ class Operand
     set(value:any){}
     build(metadata:any):any{}
 }
-class Constant extends Operand
-{
-    public type:string
 
-    constructor(name:string,children=[]){
-      super(name,children);  
-      this.type  = typeof name;
-    }   
-  
-    eval():any{
-        return this.name;
-    }
-    
-}
-class Variable extends Operand
-{
-    public context?: Context
 
-    constructor(name:string,children:Operand[]=[]){
-        super(name,children);  
-        this.context  = null;
-    }    
-    eval():any{
-        return this.context.get(this.name);
-    }
-    set(value:any){
-        this.context.set(this.name,value);
-    }
-}   
-
-class KeyValue extends Operand
-{
-    eval():any{
-        return this.children[0].eval();
-    }
-}
-class Array extends Operand
-{
-    eval():any{
-        let values = [];
-        for(let i=0;i<this.children.length;i++){
-            values.push(this.children[i].eval());    
-        }
-        return values;
-    } 
-}
-class Obj extends Operand
-{
-    eval():any{        
-        let dic= {}
-        for(let i=0;i<this.children.length;i++){
-            let value = this.children[i].eval();
-            dic[this.children[i].name]=value;
-        }
-        return dic;
-    }
-} 
-class Operator extends Operand
-{
-    protected _function:any
-
-    constructor(name:string,children:Operand[]=[],_function:any=null){
-        super(name,children); 
-        this._function = _function;
-    }    
-    eval():any{        
-        let args= []
-        for(let i=0;i<this.children.length;i++){
-            args.push(this.children[i].eval()); 
-        }
-        return this._function(...args);  
-    }
-}                             
-class FunctionRef extends Operand
-{
-    protected _function:any
-
-    constructor(name:string,children:Operand[]=[],_function:any=null){
-        super(name,children); 
-        this._function = _function;
-    }    
-    eval():any{        
-        let args= []
-        for(let i=0;i<this.children.length;i++){
-            args.push(this.children[i].eval()); 
-        }
-        return this._function(...args);  
-    }
-}
-class ArrowFunction extends FunctionRef {}
-class Block extends Operand
-{
-    eval():any{
-        for(let i=0;i<this.children.length;i++){
-            this.children[i].eval();    
-        }
-    } 
-}
 
 export {
     Node,
-    Model,
-    Language,
-    Library,
-    Context,
     Operand,
-    Constant,
-    Variable,
-    KeyValue,
-    Array,
-    Obj,
-    Operator,
-    FunctionRef,
-    ArrowFunction,
-    Block   
+    Model,
+    Context  
 }

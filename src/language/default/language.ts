@@ -1,71 +1,9 @@
-import * as base from './../base';
+import {Node,Context,Operand} from '../../base'
+import Language from '../language'
+import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
+import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 
-class DefaultKeyValue extends base.KeyValue
-{
-    eval(){
-        return this.children[0].eval();
-    }
-}
-class DefaultArray extends base.Array
-{
-    eval(){
-        let values = [];
-        for(let i=0;i<this.children.length;i++){
-            values.push(this.children[i].eval());    
-        }
-        return values;
-    } 
-}
-class DefaultObject extends base.Obj
-{
-    eval(){        
-        let dic= {}
-        for(let i=0;i<this.children.length;i++){
-            let value = this.children[i].eval();
-            dic[this.children[i].name]=value;
-        }
-        return dic;
-    }
-} 
-class DefaultOperator extends base.Operator
-{
-    constructor(name,children=[],_function=null){
-        super(name,children); 
-        this._function = _function;
-    }    
-    eval(){        
-        let args= []
-        for(let i=0;i<this.children.length;i++){
-            args.push(this.children[i].eval()); 
-        }
-        return this._function(...args);  
-    }
-}                             
-class DefaultFunctionRef extends base.FunctionRef
-{
-    constructor(name,language,children=[],_function=null){
-        super(name,language,children); 
-        this._function = _function;
-    }    
-    eval(){        
-        let args= []
-        for(let i=0;i<this.children.length;i++){
-            args.push(this.children[i].eval()); 
-        }
-        return this._function(...args);  
-    }
-}
-class DefaultArrowFunction extends base.ArrowFunction {}
-class DefaultBlock extends base.Block
-{
-    eval(){
-        for(let i=0;i<this.children.length;i++){
-            this.children[i].eval();    
-        }
-    } 
-}
-
-class DefaultLanguage extends base.Language
+export default class DefaultLanguage extends Language
 {
     constructor(){
         super('default');
@@ -111,11 +49,11 @@ class DefaultLanguage extends base.Language
             throw 'error with function: '+name;
         }
     }
-    createOperand(name:string,type:string,children:base.Operand[]){
+    createOperand(name:string,type:string,children:Operand[]){
         if ( type == 'const')
-            return new base.Constant(name,children);
+            return new Constant(name,children);
         else if ( type == 'var')
-            return new  base.Variable(name,children);
+            return new  Variable(name,children);
         else if ( type == 'keyVal')
             return new DefaultKeyValue(name,children);
         else if ( type == 'array')
@@ -173,19 +111,29 @@ class DefaultLanguage extends base.Language
             throw'cretae arrow function: '+name+' error: '+error.toString(); 
         }
     }
-    reduce(operand:base.Operand){
-        if(operand instanceof base.Operator){        
+    protected _deserialize(serialized:any,language:string):Operand
+    {
+        let children = []
+        if(serialized.c)
+            for(const k in serialized.c){
+                const p = serialized.c[k];
+                children.push(this._deserialize(p,language));
+            }
+        return this.createOperand(serialized['n'],serialized['t'],children)
+    }
+    reduce(operand:Operand){
+        if(operand instanceof Operator){        
             let allConstants=true;              
             for(const k in operand.children){
                 const p = operand.children[k];
-                if( !(p instanceof base.Constant)){
+                if( !(p instanceof Constant)){
                     allConstants=false;
                     break;
                 }
             }
             if(allConstants){
                 let value = operand.eval();                
-                let constant= new base.Constant(value);
+                let constant= new Constant(value);
                 constant.parent = operand.parent;
                 constant.index = operand.index;
                 return constant;
@@ -212,12 +160,12 @@ class DefaultLanguage extends base.Language
     }
     setContext(operand,context){
         let current = context;
-        if( operand.prototype instanceof base.ArrowFunction){
+        if( operand.prototype instanceof ArrowFunction){
             let childContext=current.newContext();
             operand.context = childContext;
             current = childContext;
         }
-        else if(operand.prototype instanceof base.Variable){
+        else if(operand.prototype instanceof Variable){
             operand.context = current;
         }       
         for(const k in operand.children){
@@ -225,29 +173,18 @@ class DefaultLanguage extends base.Language
             this.setContext(p,current);
         } 
     }
-    public compile(node:base.Node,scheme:any=null):base.Operand
+    public compile(node:Node,scheme:any):Operand
     {
-        let operand:base.Operand = this.nodeToOperand(node);
+        let operand:Operand = this.nodeToOperand(node);
         operand = this.reduce(operand);
         operand =this.setParent(operand);
         return operand;
     }
-    sentence(operand:base.Operand,variant:any){
-        return '';
+    public sentence(operand:Operand,variant:string):any{
+        throw 'NotImplemented';
     } 
-    run(operand,context,cnx){          
-        if(context)this.setContext(operand,new base.Context(context));
+    public run(operand:Operand,context:any,scheme?:any,cnx?:any):any{          
+        if(context)this.setContext(operand,new Context(context));
         return operand.eval();
     }
-}
-
-export {   
-    DefaultKeyValue,
-    DefaultArray,
-    DefaultObject,
-    DefaultOperator,
-    DefaultFunctionRef,
-    DefaultArrowFunction,
-    DefaultBlock,
-    DefaultLanguage
 }

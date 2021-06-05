@@ -1,11 +1,7 @@
 import Parser from './parser'
-import Minifier from './minifier'
 import {Context,Node,Model,Operand} from './base'
-import NodeManager from './nodeManager'
-import SourceManager from './sourceManager'
-
-import {DefaultLanguage} from './language/default'
-import {SqlLanguage} from './language/sql'
+import DefaultLanguage from './language/default/language'
+import SqlLanguage from './language/sql/language'
 import CoreLib from './coreLib'
 import modelConfig from './config/model.json'
 import sqlConfig  from './config/sql.json'
@@ -15,120 +11,60 @@ import sqlConfig  from './config/sql.json'
 
 class Orm {
 
-    public model:any
-    public minifier:Minifier
-    public parser:Parser
-    public nodeManager:NodeManager
-    public sourceManager:SourceManager
+    private model:any
+    private parser:Parser
+    private languages:any
+    private schemes:any
 
     constructor(model:any){
         this.model = model;
-        this.minifier = new Minifier();
         this.parser =  new Parser(this.model);
-        this.nodeManager = new NodeManager(this.model);
-        this.sourceManager = new SourceManager();        
+        this.languages={};
+        this.schemes={};        
     }
-    addLanguage(value){
-        this.sourceManager.addLanguage(value);
+    public addLanguage(value:any){
+        this.languages[value.name] =value;
     }
-    addLibrary(value){
-        this.sourceManager.addLibrary(value);
+    public addLibrary(value:any){
+        this.languages[value.language].addLibrary(value);        
     }
-    addScheme(value){
-        this.sourceManager.addScheme(value);
-    }
-    serialize(value){
-        let json = null;        
-        if(value instanceof Node){
-            json= this.nodeManager.serialize(value);
-        }
-        else if (value instanceof Operand){
-            json =this.sourceManager.serialize(value);
-        }
-        
-        if(json)return JSON.stringify(json);
-        return null; 
-    }
-    minify(expression){
-        return this.minifier.minify(expression);
-    }      
-    parse(expression){
+    public addScheme(value:any){
+        this.schemes[value.name] =value;
+    }    
+    public compile(expression:string,scheme:string,language:string){
         try{
-            let minified = this.minifier.minify(expression); 
-            let node= this.parser.parse(minified);            
-            this.nodeManager.setParent(node)
-            return node
+            let node:Node= this.parser.parse(expression);
+            let _scheme =  this.schemes[scheme];
+            let operand= this.languages[language].compile(node,_scheme);
+            return operand;            
         }
         catch(error){
             throw 'expression: '+expression+' error: '+error.toString();
         }
     }
-    compile(expression,scheme,language='default'){
+    public run(cnx:any,operand:Operand,context:Context):any{
         try{
-            let node=null;
-            if(expression instanceof Node)
-                node=expression;                
-            else if (typeof expression == 'string')
-                node = this.parse(expression);
-            else
-               throw 'not possible to compile'; 
-            return this.sourceManager.compile(node,scheme,language);
-        }
-        catch(error){
-            throw 'expression: '+expression+' error: '+error.toString();
+            let scheme =  this.schemes[cnx.scheme];
+            return this.languages[cnx.language].run(operand,context,scheme,cnx);
+        }catch(error){
+            throw 'run: '+Operand.name+' error: '+error.toString(); 
         }
     }
-    sentence(expression,scheme,language,variant){
-        let operand=null;
+    public eval(cnx:any,expression:string,scheme:string,language:string,context:Context):any{
         try{
-            if(expression instanceof Operand)
-                operand=expression;
-            else if (expression instanceof Node)                
-                operand =this.sourceManager.compile(expression,scheme,language);                   
-            else if (typeof expression == 'string'){
-                let node = this.parse(expression);
-                operand =this.sourceManager.compile(node,scheme,language);
-            } 
-            else
-               throw 'not possible to run';
-            return this.sourceManager.sentence(operand,language,variant);            
+            let operand = this.compile(expression,scheme,language);
+            return this.run(cnx,operand,context);
+        }catch(error){
+            throw 'eval: '+expression+' error: '+error.toString(); 
         }
-        catch(error){
-            if(operand)
-                throw 'operand: '+operand.name+' error: '+error.toString();
-            else 
-                throw 'expression: '+expression+' error: '+error.toString(); 
-        }
-    }
-    run(cnx,expression,context:Context=null){
-        let operand=null;
-        try{            
-            if(expression instanceof Operand)
-                operand=expression;
-            else if (expression instanceof Node)                
-                operand =this.sourceManager.compile(expression,cnx.scheme,cnx.language);                   
-            else if (typeof expression == 'string'){
-                let node = this.parse(expression);
-                operand =this.sourceManager.compile(node,cnx.scheme,cnx.language);
-            } 
-            else
-               throw 'not possible to run';
-            return this.sourceManager.run(cnx,operand,context);
-        }
-        catch(error){
-            if(operand)
-                throw 'operand: '+operand.name+' error: '+error.toString();
-            else 
-                throw 'expression: '+expression+' error: '+error.toString(); 
-        }
+    } 
+    public sentence(operand:Operand,language:string,variant:string):any{
+        return this.languages[language].sentence(operand,variant);
     }
 }
-
-
 var orm = null;
 export = (function() {
     if(!orm){
-
         let model = new Model();
         model.load(modelConfig);
         
@@ -137,8 +73,7 @@ export = (function() {
         orm.addLibrary(new CoreLib());
 
         orm.addLanguage(new SqlLanguage());
-        orm.addLibrary({language:'sql',name:'sql',variants:sqlConfig.variants});        
-
+        orm.addLibrary({language:'sql',name:'sql',variants:sqlConfig.variants}); 
     }
     return orm;
 })();

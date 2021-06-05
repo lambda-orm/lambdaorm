@@ -6,29 +6,17 @@ export default class NodeManager
     
     constructor(model:any){
         this._model = model;  
+    }    
+    public serialize(value:Node):string{
+        let json =this._serialize(value);
+        return json? JSON.stringify(json):null;
     }
-    serialize(node:Node):any
-    {
-        let children = []                
-        for(const p in node.children)
-            children.push(this.serialize(node.children[p]));
-        if(children.length == 0) return {'n':node.name,'t':node.type};     
-        return {'n':node.name,'t':node.type,'c':children}; 
-    }
-    deserialize(serialized:any):Node
+    public deserialize(serialized:any):Node
     {
         let node = this._deserialize(serialized)
         return this.setParent(node);
     }
-    _deserialize(serialized:any):Node
-    {
-        let children = []
-        if(serialized.c)
-            for(const p in serialized.c)
-                children.push(this._deserialize(p));
-        return new Node(serialized['n'],serialized['t'],children);
-    }
-    setParent(node:Node,parent=null,index=0)
+    public setParent(node:Node,parent=null,index=0)
     {
         try{
             if(parent){
@@ -51,5 +39,22 @@ export default class NodeManager
             throw 'set parent: '+node.name+' error: '+error.toString();
         }       
         return node; 
-    }   
+    } 
+    protected _serialize(node:Node):any
+    {
+        let children = []                
+        for(const p in node.children)
+            children.push(this._serialize(node.children[p]));
+        if(children.length == 0) return {'n':node.name,'t':node.type};     
+        return {'n':node.name,'t':node.type,'c':children}; 
+    }    
+    protected _deserialize(serialized:any):Node
+    {
+        let children = []
+        if(serialized.c)
+            for(const p in serialized.c)
+                children.push(this._deserialize(p));
+        return new Node(serialized['n'],serialized['t'],children);
+    }
+      
 }
