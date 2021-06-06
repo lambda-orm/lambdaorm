@@ -1,11 +1,15 @@
-abstract class Connection
+export default abstract class Connection
 {
-    constructor(){}
-    public abstract connect(data:any):void;
-    public abstract query(sentences:any[]):any;
-    public abstract exec(sentences:any[]):any;
-}
+    protected data:any;
 
-export{
-    Connection
+    constructor(data:any){        
+        this.data = data;        
+    }
+    public get name(){return this.data.name;}
+    public get language(){return this.data.language;}
+    public get variant(){return this.data.variant;}
+    public get scheme(){return this.data.scheme;}
+    public abstract query(query:string,params:any[]):any;
+    public abstract queries(sentences:any[]):any;
+    public abstract exec(sentences:any[]):any;
 }

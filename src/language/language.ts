@@ -15,9 +15,8 @@ export default abstract class Language
         return this._name;
     }
     public abstract addLibrary(library:any):void
-    public abstract compile(node:Node,scheme:any):Operand
-    public abstract sentence(operand:Operand,variant:string):any
-    public abstract run(operand:Operand,context:any,scheme?:any,cnx?:any):any
+    public abstract compile(node:Node,scheme?:any,variant?:string):Operand
+    public abstract run(operand:Operand,context:any,cnx?:any):any
 
     protected setParent(operand:Operand,index:number=0,parent:Operand=null){        
         try{

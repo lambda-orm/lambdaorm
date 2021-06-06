@@ -27,9 +27,10 @@
   "homepage": "https://github.com/FlavioLionelRita/js-orm#readme",
   "dependencies": {
     "config-extends": "^1.0.3",
-    "mysql2": "^2.2.5"
+    "mysql": "github:mysqljs/mysql"
   },
   "devDependencies": {
+    "@types/mysql": "^2.15.18",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "typescript": "^4.3.2"

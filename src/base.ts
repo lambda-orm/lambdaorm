@@ -94,15 +94,28 @@ class Context
         this._data = data;
         this._parent= parent;
     }
-    newContext(){        
+    newContext():Context
+    {        
         return new Context({},this)
     }
-    getContext(variable:string){
+    getContext(variable:string):any
+    {
         if(this._data[variable] || this._parent == null)return this._data
         let _context =this._parent.getContext(variable);
         return  _context?_context:this._data;
     }
-    get(name:string){
+    contains(name:string):boolean
+    {
+        let names=name.split('.');
+        let value = this.getContext(names[0]); 
+        for(let n in names){
+            if(!value[n]) return false;
+            value=value[n];
+        }
+        return true;
+    }
+    get(name:string):any
+    {
         let names=name.split('.');
         let value = this.getContext(names[0]); 
         for(let n in names){
@@ -111,7 +124,8 @@ class Context
         }
         return value;
     }
-    set(name:string,value:any){
+    set(name:string,value:any):void
+    {
         let names=name.split('.') ;       
         let level = names.length -1;
         let list = this.getContext(names[0]);
@@ -123,7 +137,8 @@ class Context
                 list=list[p];
         }
     }
-    init(name,value){
+    init(name:string,value:any):void
+    {
         this._data[name]=value; 
     } 
 }

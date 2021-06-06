@@ -139,16 +139,17 @@ class SqlArrowFunction extends ArrowFunction
 }
 class SqlSentence extends FunctionRef 
 {
-    public fields:string[]
+    public columns:string[]
+    public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
     public alias:string
-    public includes:SqlSentence[];
+    public includes:SqlSentenceInclude[];
 
-    constructor(name:string,children:Operand[]=[],entity:string,alias:string,fields:string[]){
+    constructor(name:string,children:Operand[]=[],entity:string,alias:string,columns:string[]){
         super(name,children);
         this.entity=entity;
         this.alias=alias;
-        this.fields=fields;
+        this.columns=columns;
         this.includes=[];
     }    
     build(metadata:SqlLanguageVariant){   
@@ -179,7 +180,7 @@ class SqlSentence extends FunctionRef
 
             let select = first?first:map;
             text = select.build(metadata) + '\n' + this.solveFrom(from,metadata)+ '\n' +  this.solveJoins(joins,metadata);
-            // this._fields= select.fields(metadata);
+            // this.columns= select.columns(metadata);
            
         }else if(update){
             text = update.build(metadata);
@@ -215,6 +216,17 @@ class SqlSentence extends FunctionRef
         return template.trim();
     }   
 }
+class SqlSentenceInclude extends Operand
+{
+    public relation:any
+    public variable:string
+
+    constructor(name:string,children:Operand[]=[],relation:any,variable:string){
+        super(name,children);
+        this.relation=relation;
+        this.variable=variable;
+    }
+}
 class SqlFrom extends Operand
 {}
 class SqlJoin extends Operand
@@ -230,6 +242,30 @@ class SqlUpdate extends SqlArrowFunction {}
 class SqlUpdateFrom extends SqlArrowFunction {}
 class SqlDelete extends SqlArrowFunction {}
 
+class SqlQuery extends Operand
+{
+    public sentence:string
+    public columns:string[]
+    public variables:string[]
+    
+    constructor(name:string,children:Operand[]=[],sentence:string,columns:string[],variables:string[]){
+        super(name,children);
+        this.sentence=sentence;
+        this.columns=columns;
+        this.variables=variables;
+    }
+}
+class SqlInclude extends Operand
+{
+    public relation:any
+    public variable:string
+
+    constructor(name:string,children:Operand[]=[],variable:string,relation:any){
+        super(name,children);
+        this.relation=relation;
+        this.variable=variable;
+    }
+}
 
 export  { 
     SqlConstant,
@@ -254,5 +290,10 @@ export  {
     SqlInsertFrom,
     SqlUpdate,
     SqlUpdateFrom,
-    SqlDelete
+    SqlDelete,
+    SqlSentenceInclude,
+    SqlQuery,
+    SqlInclude
 }
+
+

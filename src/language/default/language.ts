@@ -1,5 +1,6 @@
 import {Node,Context,Operand} from '../../base'
 import Language from '../language'
+import Connection  from './../../connection/base'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 
@@ -183,7 +184,7 @@ export default class DefaultLanguage extends Language
     public sentence(operand:Operand,variant:string):any{
         throw 'NotImplemented';
     } 
-    public run(operand:Operand,context:any,scheme?:any,cnx?:any):any{          
+    public run(operand:Operand,context:any,scheme?:any,connection?:Connection):any{          
         if(context)this.setContext(operand,new Context(context));
         return operand.eval();
     }

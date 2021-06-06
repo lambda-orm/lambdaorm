@@ -5,6 +5,8 @@ import SqlLanguage from './language/sql/language'
 import CoreLib from './language/default/coreLib'
 import modelConfig from './config/model.json'
 import sqlConfig  from './config/sql.json'
+import Connection  from './connection/base'
+import MySqlConnection  from './connection/mysql'
 
 // class ModelException extends Error {}
 // class ExpressionException extends Error {}
@@ -15,12 +17,16 @@ class Orm {
     private parser:Parser
     private languages:any
     private schemes:any
+    private connectionTypes:any
+    private connections:any
 
     constructor(model:any){
         this.model = model;
         this.parser =  new Parser(this.model);
         this.languages={};
-        this.schemes={};        
+        this.schemes={};
+        this.connectionTypes={}; 
+        this.connections={};       
     }
     public addLanguage(value:any){
         this.languages[value.name] =value;
@@ -30,38 +36,52 @@ class Orm {
     }
     public addScheme(value:any){
         this.schemes[value.name] =value;
-    }    
-    public compile(expression:string,scheme:string,language:string){
+    }
+    public addConnectionType(name:string,value:any){
+        this.connectionTypes[name] =value;
+    }
+    public addConnection(value:any){
+        let ConnectionType = this.connectionTypes[value.variant]; 
+        let cnx = new ConnectionType(value) as Connection;        
+        this.connections[value.name] = cnx;
+    }     
+    public compile(expression:string,language:string,variant?:string,scheme?:string){
         try{
             let node:Node= this.parser.parse(expression);
-            let _scheme =  this.schemes[scheme];
-            let operand= this.languages[language].compile(node,_scheme);
-            return operand;            
+            let _scheme = scheme!=null?this.schemes[scheme]:null;
+            let operand= this.languages[language].compile(node,_scheme,variant);
+            return operand; 
         }
         catch(error){
             throw 'expression: '+expression+' error: '+error.toString();
         }
     }
-    public run(cnx:any,operand:Operand,context:Context):any{
+    public run(operand:Operand,context:Context,connectionName?:string):any{
         try{
-            let scheme =  this.schemes[cnx.scheme];
-            return this.languages[cnx.language].run(operand,context,scheme,cnx);
+            if(connectionName){
+                let connection = this.connections[connectionName]; 
+                return this.languages[connection.language].run(operand,context,connection);
+            }else{
+                return this.languages['default'].run(operand,context);
+            }            
         }catch(error){
-            throw 'run: '+Operand.name+' error: '+error.toString(); 
+            throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public eval(cnx:any,expression:string,scheme:string,language:string,context:Context):any{
+    public eval(expression:string,context:Context,connectionName?:string):any{
         try{
-            let operand = this.compile(expression,scheme,language);
-            return this.run(cnx,operand,context);
+            if(connectionName){
+                let connection = this.connections[connectionName]; 
+                let operand = this.compile(expression,connection.language,connection.variant,connection.scheme);
+                return this.run(operand,context,connectionName);
+            }else{
+                let operand = this.compile(expression,'default');
+                return this.run(operand,context);
+            }
         }catch(error){
             throw 'eval: '+expression+' error: '+error.toString(); 
         }
     } 
-    public sentence(expression:string,scheme:string,language:string,variant:string):any{
-        let operand = this.compile(expression,scheme,language);
-        return this.languages[language].sentence(operand,variant);
-    }
 }
 var orm = null;
 export = (function() {
@@ -75,6 +95,8 @@ export = (function() {
 
         orm.addLanguage(new SqlLanguage());
         orm.addLibrary({language:'sql',name:'sql',variants:sqlConfig.variants}); 
+
+        orm.addConnectionType('mysql',MySqlConnection);
     }
     return orm;
 })();

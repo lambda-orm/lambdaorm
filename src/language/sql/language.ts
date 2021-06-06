@@ -1,9 +1,16 @@
 import {Node,Context,Operand} from '../../base'
+import Connection  from './../../connection/base'
 import Language from '../language'
 import SqlScheme from './scheme'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
-SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlInsertFrom,SqlUpdate,SqlUpdateFrom,SqlDelete} from './operands'
+SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlInsertFrom,SqlUpdate,SqlUpdateFrom,SqlDelete,
+SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import SqlLanguageVariant from './variant'
+
+
+
+
+
 
 export default class SqlLanguage extends Language
 {
@@ -24,62 +31,90 @@ export default class SqlLanguage extends Language
             this._variants[data.variant] =variant 
         }
     }    
-    public compile(node:Node,scheme:any):Operand
+    public compile(node:Node,scheme?:any,variant?:string):Operand
     {
         try{
             let context = {aliases:{},current:null};
             let sqlScheme = new SqlScheme(scheme);
             let operand = this.nodeToOperand(node,sqlScheme,context);
             operand = this.reduce(operand);
-            operand =this.setParent(operand);
-            return operand;
+            let metadata = this._variants[variant];
+            let sqlSquery = this.createQuery(operand as SqlSentence,metadata);            
+            return this.setParent(sqlSquery);
         } 
         catch(error){
             console.error(error);
             throw error; 
         }
     }
-    public sentence(operand:Operand,variant:string):any
-    {
-        try{
-            let _variant = this._variants[variant];
-            return operand.build(_variant);
-        } 
-        catch(error){
-            console.error(error);
-            throw error; 
-        }
-    }
-    public run(operand:Operand,context:any,scheme?:any,cnx?:any):any
+    public run(operand:Operand,context:any,connection?:Connection):any
     {          
-        let sentence = this.sentence(operand,cnx.variant);
-        return this.execute(sentence,context,cnx);
+        return this.execute(operand as SqlQuery,context,connection);
     }
     protected reduce(operand:Operand):Operand
     {
         return operand
     }
-    protected setContext(operand,context)
-    {
-        // let current = context;
-        // if( operand.prototype instanceof ArrowFunction){
-        //     let childContext=current.newContext();
-        //     operand.context = childContext;
-        //     current = childContext;
-        // }
-        // else if(operand.prototype instanceof Variable){
-        //     operand.context = current;
-        // }       
-        // for(const k in operand.children){
-        //     const p = operand.children[k];
-        //     this.setContext(p,current);
-        // } 
+    protected createQuery(sqlSentence:SqlSentence,metadata:SqlLanguageVariant):SqlQuery
+    {       
+       let children=[];
+       for(const p in sqlSentence.includes){          
+          let include =  sqlSentence.includes[p];
+          let query = this.createQuery(include.children[0] as SqlSentence,metadata);
+          let sqlInclude = new SqlInclude(include.name,[query],include.relation,include.variable); 
+          children.push(sqlInclude);            
+       }
+       let sentence = sqlSentence.build(metadata);
+       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.columns,sqlSentence.variables);
     }
-    protected execute(sentence,context,cnx)
-    {
-        //TODO
-        return [];
+    protected execute(query:SqlQuery,context:Context,connection?:Connection):any
+    {           
+        let mainResult = this.executeQuery(query,context,connection);
+        for(const p in query.children){
+            let include = query.children[p] as SqlSentenceInclude;
+            if(!context.contains(include.variable)){
+                let ids = [];
+                for(let i=0;i< mainResult.length;i++){
+                    let id = mainResult[i][include.relation.from];
+                    if(!ids.includes(id))
+                    ids.push(id)
+                }
+                context.set(include.variable,ids);
+            }
+            let includeResult= this.execute(include.children[0] as SqlQuery,context,connection);
+            for(let i=0;i< mainResult.length;i++){
+                let element = mainResult[i];
+                let relationId = element[include.relation.from];
+                mainResult[i][include.relation.name] = (include.relation.type== 'manyToOne')
+                                                        ?includeResult.filter(p => p[include.relation.to.property] == relationId)
+                                                        :includeResult.find(p => p[include.relation.to.property] == relationId)
+                                                        
+            }            
+        }
+        return mainResult;
     }
+    protected executeQuery(query:SqlQuery,context:Context,connection?:Connection):any[]
+    {   
+        let params=[];
+        for(const p in query.variables)
+            params.push(context.get(p));
+
+        let records = connection.query(query.sentence,params);
+
+        let list =[];
+        for(let i=0;i< records.length;i++){
+            let record = records[i];
+            let obj={};
+            for(let j=0;j< record.length;j++){
+                let value = record[j];
+                let name = query.columns[j];
+                obj[name]= value;                
+            }
+            list.push(obj);
+        }
+        return list;
+    }
+   
     protected _deserialize(serialized:any,language:string):Operand
     {
         throw 'NotImplemented';
@@ -225,7 +260,7 @@ export default class SqlLanguage extends Language
     }
     protected addIncludes(node:Node,scheme:SqlScheme,context:any):any
     {
-        let child:SqlSentence,relation:any;
+        let child:SqlSentence,relation:any,relationName:string;        
         let sentence = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
         let mainEntity=scheme.getEntity(sentence.entity);
         // children.push(main);
@@ -235,7 +270,8 @@ export default class SqlLanguage extends Language
                 let current = p;
                 while (current) {
                     if(current.type == 'var'){
-                        relation = mainEntity.relations[current.name];                            
+                        relationName=current.name;
+                        relation = mainEntity.relations[relationName];                            
                         current.name = relation.to.entity;
                         break;
                     }
@@ -248,7 +284,8 @@ export default class SqlLanguage extends Language
             }else if (p.type == 'var') {
                 let varArrow = new Node('p', 'var', []);
                 let varAll = new Node('p', 'var', []);
-                relation = mainEntity.relations[p.name];
+                relationName=p.name;
+                relation = mainEntity.relations[relationName];
                 p.name = relation.to.entity;
                 let map = new Node('map','arrow',[p,varArrow,varAll]);
                 child = this.nodeToOperand(map, scheme, context) as SqlSentence;
@@ -256,7 +293,8 @@ export default class SqlLanguage extends Language
                 let current = p;
                 while (current) {
                     if (current.type == 'var') {
-                        relation = mainEntity.relations[current.name];
+                        relationName=current.name;
+                        relation = mainEntity.relations[relationName];
                         current.name = relation.to.entity;
                         break;
                     }
@@ -270,9 +308,12 @@ export default class SqlLanguage extends Language
                 throw 'Error to add include node '+p.type+':'+p.name; 
             }            
             let toEntity=scheme.getEntity(relation.to.entity);
+            
             let toField = toEntity.properties[relation.to.property].field;
+
             let fieldRelation = new SqlField(child.alias + '.' + toField);
-            let varRelation = new SqlVariable('includeIds',);
+            let variableName = 'list_'+relation.to.property;
+            let varRelation = new SqlVariable(variableName);
             let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
             let childFilter= child.children.find(p=> p.name == 'filter');
             if(!childFilter){
@@ -280,8 +321,9 @@ export default class SqlLanguage extends Language
                 child.children.push(childFilter);
             }else{
                 childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
-            } 
-            sentence.includes.push(child);
+            }
+            let include = new SqlSentenceInclude(relationName,[child],relation,variableName);
+            sentence.includes.push(include);
         }
         return sentence;
     }

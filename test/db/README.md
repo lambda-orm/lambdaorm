@@ -38,3 +38,4 @@ docker exec -it mariadb mysql -h localhost -u root -p
 - [mariadb docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
 - [mariadb-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)
 - [mysql in nodejs](https://evertpot.com/executing-a-mysql-query-in-nodejs/)
+- [module to connect mysql](https://www.npmjs.com/package/mysq)

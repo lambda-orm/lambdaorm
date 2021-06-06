@@ -9,13 +9,19 @@ for(const p in schemes){
     orm.addScheme(scheme);
 }
 
+let cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',database:'northwind'};
+orm.addConnection(cnx);
+
 let expression =
 `
 Order.filter(p=> p.id == id ) 
      .includes(details.map(p=>p).includes(product) ,customer.filter(p=>p.name != "pedro"))
 `;
 
-let sentence = orm.sentence(expression,'northwind','sql','mysql');
-console.log(sentence);
+let operand = orm.compile(expression,'sql','mysql','northwind');
+let serialized = orm.serialize(operand,'sql');
+console.log(serialized);
+
+let result = orm.run()
 
 })();
