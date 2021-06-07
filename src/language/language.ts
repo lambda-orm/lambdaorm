@@ -17,7 +17,14 @@ export default abstract class Language
     public abstract addLibrary(library:any):void
     public abstract compile(node:Node,scheme?:any,variant?:string):Operand
     public abstract run(operand:Operand,context:any,cnx?:any):any
-
+    public deserialize(serialized:any,language:string){
+        let operand = this._deserialize(serialized,language);
+        return this.setParent(operand);
+    }
+    public serialize(value:Operand):string{
+        let json =this._serialize(value);
+        return json? JSON.stringify(json):null;
+    }
     protected setParent(operand:Operand,index:number=0,parent:Operand=null){        
         try{
             if(parent){
@@ -42,21 +49,13 @@ export default abstract class Language
             throw 'set parent: '+operand.name+' error: '+error.toString();
         }
     }
-    serialize(value:Operand):string{
-        let json =this._serialize(value);
-        return json? JSON.stringify(json):null;
-    }
-    _serialize(operand:Operand){
+    protected _serialize(operand:Operand){
         let children = []                
         for(const k in operand.children){
             children.push(this._serialize(operand.children[k]));
         }
         if(children.length == 0) return {'n':operand.name,'t':operand.constructor.name};     
         return {'n':operand.name,'t':operand.constructor.name,'c':children}; 
-    }
-    deserialize(serialized:any,language:string){
-        let operand = this._deserialize(serialized,language);
-        return this.setParent(operand);
     }
     protected abstract _deserialize(serialized:any,language:string):Operand
     

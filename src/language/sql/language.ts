@@ -114,7 +114,22 @@ export default class SqlLanguage extends Language
         }
         return list;
     }
-   
+    protected _serialize(operand:Operand){
+        let children = [];    
+        if(operand instanceof SqlQuery){
+            let query = operand as SqlQuery;
+            for(const k in query.children){
+                children.push(this._serialize(query.children[k]));
+            }
+            return {'n':query.name,'t':query.constructor.name,'c':children,'s':query.sentence,'cols':query.columns,'v':query.variables};
+        }else if(operand instanceof SqlInclude){
+            let include = operand as SqlInclude;
+            for(const k in include.children){
+                children.push(this._serialize(include.children[k]));
+            }
+            return {'n':include.name,'t':include.constructor.name,'c':children,'r':include.relation,'v':include.variable}; 
+        }
+    }
     protected _deserialize(serialized:any,language:string):Operand
     {
         throw 'NotImplemented';
