@@ -4,12 +4,7 @@ name: mysql
 _extends: [base]
 types:
   bool: TINYINT(1)
-  integer: INTEGER
-  decimal: DECIMAL(10,4)
-  string: VARCHAR({0})
-  datetime: DATETIME
 others:
-  notNullable: NOT NULL
   autoincrement: AUTO_INCREMENT 
   variable: '?'
   field: '{enityAlias}.`{name}`'
