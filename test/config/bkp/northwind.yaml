@@ -126,8 +126,3 @@ entity:
         type: oneToMany 
         from: productId
         to: Product.id 
-
-	 
-
-
-
