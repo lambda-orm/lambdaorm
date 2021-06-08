@@ -42,7 +42,7 @@ class Orm {
     }
     public addConnection(value:any){
         let ConnectionType = this.connectionTypes[value.variant]; 
-        let cnx = new ConnectionType(value) as Connection;        
+        let cnx = new ConnectionType(value) as Connection;  
         this.connections[value.name] = cnx;
     }     
     public compile(expression:string,language:string,variant?:string,scheme?:string){

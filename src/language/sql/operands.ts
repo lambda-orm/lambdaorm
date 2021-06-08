@@ -40,7 +40,7 @@ class SqlField extends Operand
             let aliasEntity = parts[0];
             let name = parts[1];
             let text = metadata.other('field');
-            text =text.replace('{enityAlias}',aliasEntity);
+            text =text.replace('{entityAlias}',aliasEntity);
             text =text.replace('{name}',name);
             return text;
         }       

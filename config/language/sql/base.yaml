@@ -10,7 +10,7 @@ others:
   notNullable: NOT NULL
   autoincrement: AUTO_INCREMENT 
   variable: ':{name}'
-  field: '{enityAlias}.{name}'
+  field: '{entityAlias}.{name}'
   column: '{name}'
   from: 'FROM {name} {alias} '
   join: 'INNER JOIN {name} {alias} ON {relation}'

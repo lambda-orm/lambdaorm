@@ -7,7 +7,7 @@ types:
 others:
   autoincrement: AUTO_INCREMENT 
   variable: '?'
-  field: '{enityAlias}.`{name}`'
+  field: '{entityAlias}.`{name}`'
   column: '`{name}`'
   from: 'FROM `{name}` {alias} '
   join: 'INNER JOIN `{name}` {alias} ON {relation}'
