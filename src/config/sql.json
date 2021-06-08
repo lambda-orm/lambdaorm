@@ -11,7 +11,7 @@
       "notNullable": "NOT NULL",
       "autoincrement": "AUTO_INCREMENT",
       "variable": ":{name}",
-      "field": "{enityAlias}.{name}",
+      "field": "{entityAlias}.{name}",
       "column": "{name}",
       "from": "FROM {name} {alias} ",
       "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -163,7 +163,7 @@
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
-        "field": "{enityAlias}.{name}",
+        "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -311,15 +311,15 @@
         "datetime": "DATETIME"
       },
       "others": {
-        "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": "?",
-        "field": "{enityAlias}.`{name}`",
+        "field": "{entityAlias}.`{name}`",
         "column": "`{name}`",
         "from": "FROM `{name}` {alias} ",
         "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "FALSE",
-        "true": "TRUE"
+        "true": "TRUE",
+        "notNullable": "NOT NULL"
       },
       "operators": {
         "unary": {
@@ -465,7 +465,7 @@
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
-        "field": "{enityAlias}.{name}",
+        "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -616,7 +616,7 @@
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
-        "field": "{enityAlias}.{name}",
+        "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
