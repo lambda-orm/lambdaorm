@@ -13,8 +13,8 @@
       "variable": ":{name}",
       "field": "{enityAlias}.{name}",
       "column": "{name}",
-      "from": "FROM `{name}` {alias} ",
-      "join": "INNER JOIN `{name}` {alias} ON {relation}",
+      "from": "FROM {name} {alias} ",
+      "join": "INNER JOIN {name} {alias} ON {relation}",
       "false": "0",
       "true": "1"
     },
@@ -165,8 +165,8 @@
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM `{name}` {alias} ",
-        "join": "INNER JOIN `{name}` {alias} ON {relation}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },
@@ -304,7 +304,7 @@
       "variant": "mysql",
       "name": "mysql",
       "types": {
-        "bool": "BIT",
+        "bool": "TINYINT(1)",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -313,13 +313,13 @@
       "others": {
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
-        "variable": ":{name}",
-        "field": "{enityAlias}.{name}",
-        "column": "{name}",
+        "variable": "?",
+        "field": "{enityAlias}.`{name}`",
+        "column": "`{name}`",
         "from": "FROM `{name}` {alias} ",
         "join": "INNER JOIN `{name}` {alias} ON {relation}",
-        "false": "0",
-        "true": "1"
+        "false": "FALSE",
+        "true": "TRUE"
       },
       "operators": {
         "unary": {
@@ -467,8 +467,8 @@
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM `{name}` {alias} ",
-        "join": "INNER JOIN `{name}` {alias} ON {relation}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },
@@ -618,8 +618,8 @@
         "variable": ":{name}",
         "field": "{enityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM `{name}` {alias} ",
-        "join": "INNER JOIN `{name}` {alias} ON {relation}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "0",
         "true": "1"
       },

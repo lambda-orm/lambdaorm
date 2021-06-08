@@ -151,15 +151,16 @@ class SqlSentence extends FunctionRef
         this.alias=alias;
         this.columns=columns;
         this.includes=[];
+        this.variables=[];
     }    
-    build(metadata:SqlLanguageVariant){   
-        let text = this.buildMain(metadata).trim();
-        for(let i=0;i<this.includes.length;i++){
-            text += '\n;\n'+(this.includes[i].build(metadata).trim());    
-        }        
-        return text;      
-    }
-    buildMain(metadata:SqlLanguageVariant){
+    // build(metadata:SqlLanguageVariant){   
+    //     let text = this.buildMain(metadata).trim();
+    //     for(let i=0;i<this.includes.length;i++){
+    //         text += '\n;\n'+(this.includes[i].build(metadata).trim());    
+    //     }        
+    //     return text;      
+    // }
+    public build(metadata:SqlLanguageVariant){
 
         let map =  this.children.find(p=> p.name=='map');   
         let first = this.children.find(p=> p.name=='first'); 
@@ -172,6 +173,8 @@ class SqlSentence extends FunctionRef
         let update = this.children.find(p=> p.name=='update');
         let _delete = this.children.find(p=> p.name=='delete');
 
+
+
         let text = '';
         if(map || first){
             // if(insertFrom) text = insertFrom+' ';
@@ -180,21 +183,36 @@ class SqlSentence extends FunctionRef
 
             let select = first?first:map;
             text = select.build(metadata) + '\n' + this.solveFrom(from,metadata)+ '\n' +  this.solveJoins(joins,metadata);
+            this.loadVariables(select,this.variables);
             // this.columns= select.columns(metadata);
            
         }else if(update){
             text = update.build(metadata);
+            this.loadVariables(update,this.variables);
         }else if(_delete){
             text = _delete.build(metadata);
-        }         
-        text = text + (filter?filter.build(metadata)+'\n':'');
-        text = text + (groupBy?groupBy.build(metadata)+'\n':'');        
-        text = text + (having?having.build(metadata)+'\n':'');
-        text = text + (sort?sort.build(metadata)+'\n':'');
-        
+            this.loadVariables(_delete,this.variables);            
+        }
+        if(filter){
+            text = text + filter.build(metadata)+'\n';
+            this.loadVariables(filter,this.variables);
+        }
+        if(groupBy){
+            text = text + groupBy.build(metadata)+'\n';
+            this.loadVariables(groupBy,this.variables);
+        }
+        if(having){
+            text = text + having.build(metadata)+'\n';
+            this.loadVariables(having,this.variables);
+        }
+        if(sort){
+            text = text + sort.build(metadata)+'\n';
+            this.loadVariables(sort,this.variables);
+        }        
         return text;
     }
-    solveJoins(joins,metadata){
+    protected solveJoins(joins,metadata)
+    {
         let text = '';
         
         let template = metadata.other('join');
@@ -208,12 +226,23 @@ class SqlSentence extends FunctionRef
         }
         return text;
     }
-    solveFrom(from,metadata){
+    protected solveFrom(from,metadata)
+    {
         let template = metadata.other('from');
         let parts = from.name.split('.');
         template =template.replace('{name}',parts[0]); 
         template =template.replace('{alias}',parts[1]);
         return template.trim();
+    }
+    protected loadVariables(operand:Operand,variables:string[])
+    {        
+        if(operand instanceof Variable){
+            variables.push(operand.name);
+        }       
+        for(const k in operand.children){
+            const p = operand.children[k];
+            this.loadVariables(p,variables);
+        } 
     }   
 }
 class SqlSentenceInclude extends Operand
@@ -260,7 +289,7 @@ class SqlInclude extends Operand
     public relation:any
     public variable:string
 
-    constructor(name:string,children:Operand[]=[],variable:string,relation:any){
+    constructor(name:string,children:Operand[]=[],relation:any,variable:string){
         super(name,children);
         this.relation=relation;
         this.variable=variable;

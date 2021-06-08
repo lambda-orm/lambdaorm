@@ -118,9 +118,10 @@ class Context
     {
         let names=name.split('.');
         let value = this.getContext(names[0]); 
-        for(let n in names){
-            if(value[n]) return null;
-            value=value[n];
+        for(let p in names){
+            let name = names[p]
+            if(!value[name]) return null;
+            value=value[name];
         }
         return value;
     }

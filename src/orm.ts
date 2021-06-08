@@ -56,19 +56,41 @@ class Orm {
             throw 'expression: '+expression+' error: '+error.toString();
         }
     }
-    public run(operand:Operand,context:Context,connectionName?:string):any{
+    public serialize(operand:Operand,language:string):string
+    {
+        try
+        {
+            return this.languages[language].serialize(operand);
+        }
+        catch(error){
+            throw 'serialize: '+operand.name+' error: '+error.toString(); 
+        }
+    }
+    public deserialize(serialized:string,language:string):Operand
+    {
+        try
+        {
+            return this.languages[language].deserialize(serialized);
+        }
+        catch(error){
+            throw 'deserialize: '+serialized+' error: '+error.toString(); 
+        }
+    }
+    public async run(operand:Operand,context:any,connectionName?:string)
+    {
         try{
+            let _context = new Context(context);
             if(connectionName){
                 let connection = this.connections[connectionName]; 
-                return this.languages[connection.language].run(operand,context,connection);
+                return await this.languages[connection.language].run(operand,_context,connection);
             }else{
-                return this.languages['default'].run(operand,context);
+                return await this.languages['default'].run(operand,_context);
             }            
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public eval(expression:string,context:Context,connectionName?:string):any{
+    public eval(expression:string,context:any,connectionName?:string):any{
         try{
             if(connectionName){
                 let connection = this.connections[connectionName]; 

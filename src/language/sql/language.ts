@@ -47,9 +47,9 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public run(operand:Operand,context:any,connection?:Connection):any
+    public async run(operand:Operand,context:any,connection?:Connection)
     {          
-        return this.execute(operand as SqlQuery,context,connection);
+        return await this.execute(operand as SqlQuery,context,connection);
     }
     protected reduce(operand:Operand):Operand
     {
@@ -67,9 +67,9 @@ export default class SqlLanguage extends Language
        let sentence = sqlSentence.build(metadata);
        return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.columns,sqlSentence.variables);
     }
-    protected execute(query:SqlQuery,context:Context,connection?:Connection):any
+    protected async execute(query:SqlQuery,context:Context,connection?:Connection)
     {           
-        let mainResult = this.executeQuery(query,context,connection);
+        let mainResult = await this.executeQuery(query,context,connection);
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
             if(!context.contains(include.variable)){
@@ -81,7 +81,7 @@ export default class SqlLanguage extends Language
                 }
                 context.set(include.variable,ids);
             }
-            let includeResult= this.execute(include.children[0] as SqlQuery,context,connection);
+            let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
             for(let i=0;i< mainResult.length;i++){
                 let element = mainResult[i];
                 let relationId = element[include.relation.from];
@@ -93,26 +93,28 @@ export default class SqlLanguage extends Language
         }
         return mainResult;
     }
-    protected executeQuery(query:SqlQuery,context:Context,connection?:Connection):any[]
+    protected async executeQuery(query:SqlQuery,context:Context,connection?:Connection)
     {   
         let params=[];
-        for(const p in query.variables)
-            params.push(context.get(p));
-
-        let records = connection.query(query.sentence,params);
-
-        let list =[];
-        for(let i=0;i< records.length;i++){
-            let record = records[i];
-            let obj={};
-            for(let j=0;j< record.length;j++){
-                let value = record[j];
-                let name = query.columns[j];
-                obj[name]= value;                
-            }
-            list.push(obj);
+        for(const p in query.variables){
+            let variable = query.variables[p];
+            params.push(context.get(variable));
         }
-        return list;
+            
+        return await connection.query(query.sentence,params);
+        // let records = await connection.query(query.sentence,params);
+
+        // let list =[];
+        // for(let i=0;i< records.length;i++){
+        //     let record = records[i];
+        //     let obj={};
+        //     for(let j=0;j< record.length;j++){
+        //         let value = record[j];
+        //         let name = query.columns[j];
+        //         obj[name]= value;                
+        //     }
+        // }
+        // return list;
     }
     protected _serialize(operand:Operand){
         let children = [];    
@@ -502,9 +504,7 @@ export default class SqlLanguage extends Language
         return new obj.constructor(obj.name,children);
     } 
     protected fieldsInSelect(operand:Operand)
-    {
-        //TODO: hay que resolver si es un obj, un array o un campo y obtener los nombres de los fields que se crean,
-        // para poder utilizarlos en el order by.
+    {       
         let fields = [];
         if(operand.children.length==1){
             if(operand.children[0] instanceof SqlObject){

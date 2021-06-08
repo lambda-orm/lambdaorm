@@ -22,6 +22,8 @@ let operand = orm.compile(expression,'sql','mysql','northwind');
 let serialized = orm.serialize(operand,'sql');
 console.log(serialized);
 
-let result = orm.run()
+let context = {id:10582}
+let result = await orm.run(operand,context,'northwind');
+console.log(JSON.stringify(result));
 
 })();
