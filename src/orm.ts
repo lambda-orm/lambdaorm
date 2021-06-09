@@ -8,9 +8,6 @@ import sqlConfig  from './config/sql.json'
 import Connection  from './connection/base'
 import MySqlConnection  from './connection/mysql'
 
-// class ModelException extends Error {}
-// class ExpressionException extends Error {}
-
 class Orm {
 
     private model:any
@@ -90,18 +87,27 @@ class Orm {
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public eval(expression:string,context:any,connectionName?:string):any{
+    public async eval(expression:string,context:any,connectionName?:string)
+    {
         try{
             if(connectionName){
                 let connection = this.connections[connectionName]; 
                 let operand = this.compile(expression,connection.language,connection.variant,connection.scheme);
-                return this.run(operand,context,connectionName);
+                return await this.run(operand,context,connectionName);
             }else{
                 let operand = this.compile(expression,'default');
-                return this.run(operand,context);
+                return await this.run(operand,context);
             }
         }catch(error){
             throw 'eval: '+expression+' error: '+error.toString(); 
+        }
+    } 
+    public async exec(func:Function,context:any,connectionName?:string)
+    {
+        try{
+            return await this.eval(func.toString().replace('()=>',''),context,connectionName);
+        }catch(error){
+            throw 'error: '+error.toString(); 
         }
     } 
 }
