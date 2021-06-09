@@ -11,7 +11,7 @@ export default class DefaultLanguage extends Language
         this.operators={};
         this.functions={};
     }
-    addLibrary(library){
+    addLibrary(library:any){
         this._libraries[library.name] =library;
 
         for(const name in library.operators){
@@ -27,7 +27,7 @@ export default class DefaultLanguage extends Language
             this.functions[name] = metadata; 
         }
     }
-    getOperatorMetadata(name,operands){
+    getOperatorMetadata(name:string,operands:number){
         try{          
             if(this.operators[name]){
                 let operator = this.operators[name];
@@ -40,7 +40,7 @@ export default class DefaultLanguage extends Language
             throw 'error with operator: '+name;
         }
     } 
-    getFunctionMetadata(name){
+    getFunctionMetadata(name:string){
         try{
             if(this.functions[name])
                 return this.functions[name];
@@ -50,7 +50,7 @@ export default class DefaultLanguage extends Language
             throw 'error with function: '+name;
         }
     }
-    createOperand(name:string,type:string,children:Operand[]){
+    createOperand(name:string,type:string,children:Operand[]=[]){
         if ( type == 'const')
             return new Constant(name,children);
         else if ( type == 'var')
@@ -72,7 +72,7 @@ export default class DefaultLanguage extends Language
         else
             throw 'node: '+name +' not supported';
     }
-    createOperator(name,children){
+    createOperator(name:string,children:Operand[]=[]){
         try{
             let operands =children.length;
             let metadata = this.getOperatorMetadata(name,operands);
@@ -85,7 +85,7 @@ export default class DefaultLanguage extends Language
             throw 'create operator: '+name+' error: '+error.toString();    
         }
     } 
-    createFunctionRef(name,children){
+    createFunctionRef(name:string,children:Operand[]=[]){
         try{          
             let metadata = this.getFunctionMetadata(name);
             if(metadata.custom)                 
@@ -97,7 +97,7 @@ export default class DefaultLanguage extends Language
             throw'cretae function ref: '+name+' error: '+error.toString(); 
         }
     }
-    createArrowFunction(name,children){
+    createArrowFunction(name:string,children:Operand[]=[]){
         try{           
             let metadata = this.getFunctionMetadata(name)
             if(metadata['custom']){                    
@@ -148,7 +148,8 @@ export default class DefaultLanguage extends Language
         }
         return operand;
     } 
-    nodeToOperand(node){
+    nodeToOperand(node:Node):Operand
+    {
         let children = [];
         if(node.children){
             for(let k in node.children){
@@ -159,14 +160,15 @@ export default class DefaultLanguage extends Language
         }
         return this.createOperand(node.name,node.type,children);
     }
-    setContext(operand,context){
+    setContext(operand:Operand,context:Context){
         let current = context;
-        if( operand.prototype instanceof ArrowFunction){
+        if( operand instanceof ArrowFunction){
+            let arrow = operand as ArrowFunction;
             let childContext=current.newContext();
-            operand.context = childContext;
+            arrow.context   = childContext;
             current = childContext;
         }
-        else if(operand.prototype instanceof Variable){
+        else if(operand instanceof Variable){
             operand.context = current;
         }       
         for(const k in operand.children){

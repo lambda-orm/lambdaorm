@@ -1,7 +1,6 @@
 
 class Node
-{
-    
+{ 
     public name: any
     public type: string
     public children: Node[]
@@ -14,8 +13,8 @@ class Node
         this.name = name;
         this.type = type;         
         this.children  = children;
-        this.parent = null;
-        this.index = null;
+        this.parent = undefined;
+        this.index = undefined;
     }    
 }
 class Model
@@ -29,7 +28,7 @@ class Model
         this.enums={};
         this.functions={};
     } 
-    addEnum(key,source){
+    addEnum(key:string,source:any){
         this.enums[key]=source;
     }
     isEnum(name:string){    
@@ -90,7 +89,7 @@ class Context
     protected _data: any
     protected _parent: any 
 
-    constructor(data:any,parent=null){
+    constructor(data:any,parent?:Context){
         this._data = data;
         this._parent= parent;
     }
@@ -146,17 +145,17 @@ class Context
 class Operand
 {
     public name: string
-    public id: string
+    public id?: string
     public parent?:Operand
     public index?:number
     public level?:number
-    public children?:Operand[]
+    public children:Operand[]
 
     constructor(name:string,children:Operand[]=[]){
         this.name = name;
         this.children  = children;        
-        this.id = null;
-        this.parent = null;
+        this.id = undefined;
+        this.parent = undefined;
         this.index = 0;
         this.level = 0;
     }    

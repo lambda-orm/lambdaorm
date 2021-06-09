@@ -7,27 +7,28 @@ export default class NodeManager
     constructor(model:any){
         this._model = model;  
     }    
-    public serialize(value:Node):string{
+    public serialize(value:Node):string
+    {
         let json =this._serialize(value);
-        return json? JSON.stringify(json):null;
+        return json? JSON.stringify(json):"";
     }
     public deserialize(serialized:any):Node
     {
         let node = this._deserialize(serialized)
         return this.setParent(node);
     }
-    public setParent(node:Node,parent=null,index=0)
+    public setParent(node:Node,parent?:Node,index:number=0)
     {
         try{
             if(parent){
                 node.id = parent.id +'.'+index.toString();
                 node.parent = parent;
                 node.index = index;
-                node.level = parent.level +1;
+                node.level =parent.level?parent.level+1:0;
             }  
             else{
                 node.id = '0';
-                node.parent = null;
+                node.parent = undefined;
                 node.index = 0;
                 node.level = 0 ;
             } 

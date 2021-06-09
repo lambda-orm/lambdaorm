@@ -19,7 +19,7 @@ class SqlVariable extends Variable
     public _number?:number    
     constructor(name:string,children:Operand[]=[]){
         super(name,children);
-        this._number  = null; 
+        this._number  = undefined; 
     }    
     
     build(metadata:any){
@@ -48,7 +48,7 @@ class SqlField extends Operand
 }
 class SqlKeyValue extends KeyValue
 {
-    build(metadata):any
+    build(metadata:SqlLanguageVariant):any
     {
         return this.children[0].build(metadata);
     }
@@ -178,10 +178,10 @@ class SqlSentence extends FunctionRef
         let text = '';
         if(map || first){
             // if(insertFrom) text = insertFrom+' ';
-            let from = this.children.find(p=> p instanceof SqlFrom);
+            let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
 
-            let select = first?first:map;
+            let select = (first?first:map) as Operand;
             text = select.build(metadata) + '\n' + this.solveFrom(from,metadata)+ '\n' +  this.solveJoins(joins,metadata);
             this.loadVariables(select,this.variables);
             // this.columns= select.columns(metadata);
@@ -211,7 +211,7 @@ class SqlSentence extends FunctionRef
         }        
         return text;
     }
-    protected solveJoins(joins,metadata)
+    protected solveJoins(joins:Operand[],metadata:SqlLanguageVariant)
     {
         let text = '';
         
@@ -226,7 +226,7 @@ class SqlSentence extends FunctionRef
         }
         return text;
     }
-    protected solveFrom(from,metadata)
+    protected solveFrom(from:Operand,metadata:SqlLanguageVariant)
     {
         let template = metadata.other('from');
         let parts = from.name.split('.');

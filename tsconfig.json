@@ -8,6 +8,7 @@
         "target": "es2020",
         "module": "commonjs",
         "outDir": "./dist",
+        "strict": true,
         "baseUrl": "./src",        
         "typeRoots": [
             "node_modules/@types"

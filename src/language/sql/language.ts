@@ -26,7 +26,7 @@ export default class SqlLanguage extends Language
             this._variants[data.variant] =variant 
         }
     }    
-    public compile(node:Node,scheme?:any,variant?:string):Operand
+    public compile(node:Node,scheme:any,variant:string):Operand
     {
         try{
             let context = {aliases:{},current:null};
@@ -42,7 +42,7 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public async run(operand:Operand,context:any,connection?:Connection)
+    public async run(operand:Operand,context:any,connection:Connection)
     {          
         return await this.execute(operand as SqlQuery,context,connection);
     }
@@ -62,13 +62,13 @@ export default class SqlLanguage extends Language
        let sentence = sqlSentence.build(metadata);
        return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.columns,sqlSentence.variables);
     }
-    protected async execute(query:SqlQuery,context:Context,connection?:Connection)
+    protected async execute(query:SqlQuery,context:Context,connection:Connection)
     {           
         let mainResult = await this.executeQuery(query,context,connection);
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
             if(!context.contains(include.variable)){
-                let ids = [];
+                let ids:any[] = [];
                 for(let i=0;i< mainResult.length;i++){
                     let id = mainResult[i][include.relation.from];
                     if(!ids.includes(id))
@@ -81,14 +81,14 @@ export default class SqlLanguage extends Language
                 let element = mainResult[i];
                 let relationId = element[include.relation.from];
                 element[include.name] = (include.relation.type== 'manyToOne')
-                                                        ?includeResult.filter(p => p[include.relation.to.property] == relationId)
-                                                        :includeResult.find(p => p[include.relation.to.property] == relationId)
+                                                        ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
+                                                        :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
                                                         
             }            
         }
         return mainResult;
     }
-    protected async executeQuery(query:SqlQuery,context:Context,connection?:Connection)
+    protected async executeQuery(query:SqlQuery,context:Context,connection:Connection)
     {   
         let params=[];
         for(const p in query.variables){
@@ -97,7 +97,8 @@ export default class SqlLanguage extends Language
         }  
         return await connection.query(query.sentence,params);
     }
-    protected _serialize(operand:Operand){
+    protected _serialize(operand:Operand):any
+    {
         let children = [];    
         if(operand instanceof SqlQuery){
             let query = operand as SqlQuery;
@@ -258,7 +259,7 @@ export default class SqlLanguage extends Language
     }
     protected addIncludes(node:Node,scheme:SqlScheme,context:any):any
     {
-        let child:SqlSentence,relation:any,relationName:string;        
+        let child:SqlSentence,relation:any,relationName:string="";        
         let sentence = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
         let mainEntity=scheme.getEntity(sentence.entity);
         for (let i=1; i< node.children.length;i++) {

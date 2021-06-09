@@ -16,11 +16,15 @@
   "keywords": [
     "orm",
     "sql",
+    "query",
+    "builder",
+    "expression",
+    "parser",
     "database",
     "data access"
   ],
   "author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0 License",
   "bugs": {
     "url": "https://github.com/FlavioLionelRita/js-orm/issues"
   },

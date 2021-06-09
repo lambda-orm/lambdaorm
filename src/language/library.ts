@@ -18,7 +18,7 @@ export default class Library
         this.enums[key] =source;
     }
     addFunction(name:string,source:any,custom:any=null,isArrowFunction:boolean=false){      
-        let metadata = this.getMetadata(source);
+        let metadata: {[k: string]: any}  = this.getMetadata(source);
         metadata['lib'] =this.name;
         metadata['language '] =this.language;  
         metadata['isArrowFunction'] =isArrowFunction;        
@@ -26,7 +26,7 @@ export default class Library
     }
     addOperator(name:string,source:any,custom:any=null,customFunction:any=null){
         if(!this.operators[name])this.operators[name]= {}
-        let metadata = this.getMetadata(source);
+        let metadata: {[k: string]: any}  = this.getMetadata(source);
         let operands = metadata['args'].length;  
         metadata['lib'] =this.name;
         metadata['language '] =this.language; 
@@ -50,8 +50,8 @@ export default class Library
             'args': args
         }
     }
-    getArgs(source){
-        let args = f => f.toString ().replace (/[\r\n\s]+/g, ' ').
+    getArgs(source:string){
+        let args = (f:any) => f.toString().replace (/[\r\n\s]+/g, ' ').
               match (/(?:function\s*\w*)?\s*(?:\((.*?)\)|([^\s]+))/).
               slice (1,3).
               join ('').

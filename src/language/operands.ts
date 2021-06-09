@@ -3,30 +3,28 @@ import {Context,Operand} from '../base'
 class Constant extends Operand
 {
     public type:string
-
-    constructor(name:string,children=[]){
+    constructor(name:string,children:Operand[]=[]){
       super(name,children);  
       this.type  = typeof name;
-    }   
-  
-    eval():any{
+    }
+    eval():any
+    {
         return this.name;
     }
-    
 }
 class Variable extends Operand
 {
     public context?: Context
-
     constructor(name:string,children:Operand[]=[]){
         super(name,children);  
-        this.context  = null;
+        this.context  = undefined;
     }    
     eval():any{
-        return this.context.get(this.name);
+        return this.context?this.context.get(this.name):null;
     }
     set(value:any){
-        this.context.set(this.name,value);
+        if(this.context)
+          this.context.set(this.name,value);
     }
 } 
 class KeyValue extends Operand
@@ -48,12 +46,12 @@ class Array extends Operand
 class Obj extends Operand
 {
     eval():any{        
-        let dic= {}
+        let obj:{[k: string]: any} = {};
         for(let i=0;i<this.children.length;i++){
             let value = this.children[i].eval();
-            dic[this.children[i].name]=value;
+            obj[this.children[i].name]=value;
         }
-        return dic;
+        return obj;
     }
 } 
 class Operator extends Operand
@@ -75,7 +73,6 @@ class Operator extends Operand
 class FunctionRef extends Operand
 {
     protected _function:any
-
     constructor(name:string,children:Operand[]=[],_function:any=null){
         super(name,children); 
         this._function = _function;
@@ -88,7 +85,14 @@ class FunctionRef extends Operand
         return this._function(...args);  
     }
 }
-class ArrowFunction extends FunctionRef {}
+class ArrowFunction extends FunctionRef 
+{
+    public context?: Context
+    constructor(name:string,children:Operand[]=[],_function:any=null){
+        super(name,children,_function); 
+        this.context = undefined;
+    } 
+}
 class Block extends Operand
 {
     eval():any{
