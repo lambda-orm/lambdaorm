@@ -8,6 +8,7 @@ import sqlConfig  from './config/sql.json'
 import Connection  from './connection/base'
 import MySqlConnection  from './connection/mysql'
 
+
 class Orm {
 
     private model:any
@@ -30,12 +31,31 @@ class Orm {
     }
     public addLibrary(value:any){
         this.languages[value.language].addLibrary(value);        
-    }
-    public addScheme(value:any){
-        this.schemes[value.name] =value;
-    }
+    }    
     public addConnectionType(name:string,value:any){
         this.connectionTypes[name] =value;
+    }
+    public addScheme(value:any){
+
+        value.entity = {};
+        for(const p in value.entities){
+            let entity = value.entities[p];
+            entity.property={};    
+            for(const q in entity.properties){
+                let property = entity.properties[q];
+                entity.property[property.name] = property;
+            }
+            entity.relation={};    
+            for(const q in entity.relations){
+                let relation = entity.relations[q];
+                entity.relation[relation.name] = relation;
+            }
+            value.entity[entity.name] = entity
+            delete entity.properties;
+            delete entity.relations;
+        } 
+        delete value.entities;
+        this.schemes[value.name] =value;
     }
     public addConnection(value:any){
         let ConnectionType = this.connectionTypes[value.variant]; 

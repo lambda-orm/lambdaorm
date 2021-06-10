@@ -11,7 +11,7 @@ export default class SqlScheme
     {
         let entity =this.getEntity(entityName);
         if(!entity)return null;
-        return entity.properties[name].field;
+        return entity.property[name].field;
     }
     public table(entityName:string):string
     {
@@ -36,7 +36,7 @@ export default class SqlScheme
                 previousEntity = relationEntity;
                 previousScheme =relationScheme
             }                      
-            relationData= previousScheme.relations[part];
+            relationData= previousScheme.relation[part];
             if(!relationData)
                 throw 'relation '+part+' not found in '+previousScheme.name;
             relationEntity = relationData.to.entity;

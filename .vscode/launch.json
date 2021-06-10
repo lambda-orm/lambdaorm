@@ -34,7 +34,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/config/index.js"
+            "program": "${workspaceFolder}/config/build.js"
         }
     ]
 }

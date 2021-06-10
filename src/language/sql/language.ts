@@ -161,11 +161,11 @@ export default class SqlLanguage extends Language
                         let relation =  this.addJoins(parts,parts.length-1,context); 
                         let info = scheme.getRelation(context.current.entity,relation);                        
                         let relationAlias=context.current.joins[relation];
-                        let relationField = info.relationScheme.properties[propertyName].field; 
+                        let relationField = info.relationScheme.property[propertyName].field; 
                         if(relationField){
                             return new SqlField(relationAlias+'.'+relationField);
                         }else{
-                            let relationName = info.relationScheme.relations[propertyName];
+                            let relationName = info.relationScheme.relation[propertyName];
                             if(relationName){
                                 let relation2 =  this.addJoins(parts,parts.length,context);
                                 let relationAlias2=context.current.joins[relation2];                               
@@ -250,7 +250,7 @@ export default class SqlLanguage extends Language
     {
         let obj = new Node('obj', 'obj', []);
         let entity=scheme.getEntity(entityName);
-        for(let name in entity.properties){
+        for(let name in entity.property){
             let field = new Node(arrowVar+'.'+name, 'var', []);
             let keyVal = new Node(name, 'keyVal', [field])
             obj.children.push(keyVal);
@@ -270,7 +270,7 @@ export default class SqlLanguage extends Language
                 while (current) {
                     if(current.type == 'var'){
                         relationName=current.name;
-                        relation = mainEntity.relations[relationName];                            
+                        relation = mainEntity.relation[relationName];                            
                         current.name = relation.to.entity;
                         break;
                     }
@@ -286,7 +286,7 @@ export default class SqlLanguage extends Language
                 let varArrow = new Node('p', 'var', []);
                 let varAll = new Node('p', 'var', []);
                 relationName=p.name;
-                relation = mainEntity.relations[relationName];
+                relation = mainEntity.relation[relationName];
                 p.name = relation.to.entity;
                 let map = new Node('map','arrow',[p,varArrow,varAll]);
                 child = this.nodeToOperand(map, scheme, context) as SqlSentence;
@@ -297,7 +297,7 @@ export default class SqlLanguage extends Language
                 let varArrow = new Node('p', 'var', []);
                 let varAll = new Node('p', 'var', []);
                 relationName=varRelation.name;
-                relation = mainEntity.relations[relationName];
+                relation = mainEntity.relation[relationName];
                 varRelation.name = relation.to.entity;
                 let map = new Node('map','arrow',[varRelation,varArrow,varAll]);
                 p.children[0] = map;
@@ -308,7 +308,7 @@ export default class SqlLanguage extends Language
                 while (current) {
                     if (current.type == 'var') {
                         relationName=current.name;
-                        relation = mainEntity.relations[relationName];
+                        relation = mainEntity.relation[relationName];
                         current.name = relation.to.entity;
                         break;
                     }
@@ -322,7 +322,7 @@ export default class SqlLanguage extends Language
                 throw 'Error to add include node '+p.type+':'+p.name; 
             }            
             let toEntity=scheme.getEntity(relation.to.entity);
-            let toField = toEntity.properties[relation.to.property].field;
+            let toField = toEntity.property[relation.to.property].field;
             let fieldRelation = new SqlField(child.alias + '.' + toField);
             let variableName = 'list_'+relation.to.property;
             let varRelation = new SqlVariable(variableName);
@@ -424,10 +424,10 @@ export default class SqlLanguage extends Language
             let info = scheme.getRelation(context.current.entity,key);
 
             let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
-            let relatedFieldName = info.previousScheme.properties[info.relationData.from].field;
+            let relatedFieldName = info.previousScheme.property[info.relationData.from].field;
             let relationTable = info.relationScheme.name;
             let relationAlias =context.current.joins[key];;
-            let relationFieldName = info.relationScheme.properties[info.relationData.to.property].field;
+            let relationFieldName = info.relationScheme.property[info.relationData.to.property].field;
 
             let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName);
             let relationField = new SqlField(relationAlias+'.'+relationFieldName); 

@@ -1,0 +1,227 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"PingResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Property": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"field": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"length": {
+						"type": "number",
+						"format": "double"
+					},
+					"nullable": {
+						"type": "boolean"
+					},
+					"primaryKey": {
+						"type": "boolean"
+					},
+					"autoincrement": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"field",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RelationTo": {
+				"properties": {
+					"entity": {
+						"type": "string"
+					},
+					"property": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"entity",
+					"property"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Relation": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"$ref": "#/components/schemas/RelationTo"
+					}
+				},
+				"required": [
+					"name",
+					"type",
+					"from",
+					"to"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Entity": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"table": {
+						"type": "string"
+					},
+					"properties": {
+						"items": {
+							"$ref": "#/components/schemas/Property"
+						},
+						"type": "array"
+					},
+					"relations": {
+						"items": {
+							"$ref": "#/components/schemas/Relation"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"table",
+					"properties",
+					"relations"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Enum": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"values": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"values"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Schema": {
+				"properties": {
+					"entities": {
+						"items": {
+							"$ref": "#/components/schemas/Entity"
+						},
+						"type": "array"
+					},
+					"enums": {
+						"items": {
+							"$ref": "#/components/schemas/Enum"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"entities",
+					"enums"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "js-orm",
+		"version": "0.0.1",
+		"description": "ORM",
+		"license": {
+			"name": "Apache-2.0 License"
+		},
+		"contact": {
+			"name": "Flavio Lionel Rita ",
+			"email": "flaviolrita@hotmail.com"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/ping": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PingResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/schema": {
+			"post": {
+				"operationId": "Post",
+				"responses": {
+					"201": {
+						"description": "Created"
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Schema"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
