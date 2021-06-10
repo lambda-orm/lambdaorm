@@ -1,0 +1,333 @@
+name: northwind
+abstract:
+  Address:
+    properties:
+      - name: address 
+        field: Address
+        type: string
+        length: 80
+      - name: city 
+        field: City
+        type: string
+        length: 80
+      - name: region 
+        field: Region
+        type: string
+        length: 80
+      - name: postalCode 
+        field: PostalCode
+        type: string
+        length: 20
+      - name: country 
+        field: Country
+        type: string
+        length: 80 
+enums:
+entities:
+  - name: Employee
+    _extends: [northwind.abstract.Address]       
+    table: Employees
+    properties:
+      - name: id 
+        field: EmployeeID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      - name: lastName 
+        field: LastName
+        nullable: false
+        type: string
+        length: 80
+      - name: firstName
+        field: FirstName
+        nullable: false
+        type: string
+        length: 80
+      - name: title
+        field: Title
+        type: string
+        length: 80
+      - name: titleOfCourtesy
+        field: TitleOfCourtesy
+        type: string
+        length: 80
+      - name: birthDate
+        field: BirthDate
+        type: datetime
+      - name: hireDate
+        field: HireDate
+        type: datetime
+      - name: phone
+        field:  HomePhone
+        type: string
+        length: 80
+      - name: reportsToId 
+        field:  ReportsTo
+        type: integer
+    relations:
+      - name: reportsTo
+        type: oneToMany
+        from: reportsToId
+        to: 
+          entity: Employee
+          property: id
+  - name: Category
+    table: Categories
+    properties:
+      - name: id
+        field: CategoryID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      - name: name
+        field: CategoryName
+        nullable: false
+        type: string
+        length: 80
+      - name: description
+        field: Description
+        type: string
+        length: 1000
+  - name: Customer
+    _extends: [northwind.abstract.Address]
+    table: Customers
+    properties:
+      - name: id
+        field: CustomerID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      - name: name
+        field: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: contact 
+        field: ContactName
+        type: string
+        length: 80
+      - name: phone
+        field: ContactTitle
+        type: string
+        length: 80
+    relations:  
+      - name: orders
+        type: manyToOne 
+        from: id
+        to: 
+          entity: Order
+          property: customerId
+  - name: Shipper
+    table: Shippers
+    properties:
+      - name: id 
+        field: ShipperID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      - name: name 
+        field: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: phone
+        field: Phone
+        type: string
+        length: 20
+  - name: Supplier
+    _extends: [northwind.abstract.Address]
+    table: Suppliers
+    properties:
+      - name: id
+        field: SupplierID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true
+      - name: name
+        field: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: contact
+        field: ContactName
+        type: string
+        length: 80
+      - name: phone
+        field: Phone
+        type: string
+        length: 20
+      - name: homepage 
+        field: HomePage
+        type: string
+        length: 80  
+  - name: Product
+    table: Products
+    properties:
+      - name: id 
+        field: ProductID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true 
+      - name: name 
+        field: ProductName
+        nullable: false
+        type: string
+        length: 80
+      - name: supplierId 
+        field: SupplierID
+        type: integer
+      - name: categoryId
+        field: CategoryID
+        type: integer
+      - name: quantity 
+        field: QuantityPerUnit
+        type: decimal
+      - name: price
+        field: UnitPrice
+        type: decimal
+        default: 0
+      - name: inStock
+        field: UnitsInStock
+        type: decimal
+        default: 0
+      - name: onOrder 
+        field: UnitsOnOrder
+        type: decimal
+        default: 0
+      - name: reorderLevel
+        field: ReorderLevel
+        type: decimal
+        default: 0
+      - name: discontinued
+        field: Discontinued
+        type: bool
+        default: false
+    relations:    
+      - name: supplier
+        type: oneToMany 
+        from: supplierId
+        to: 
+          entity: Supplier
+          property: id 
+      - name: category
+        type: oneToMany  
+        from: categoryId
+        to: 
+          entity: Category
+          property: id
+  - name: Order
+    table: Orders
+    properties:
+      - name: id
+        field: OrderID
+        type: integer
+        nullable: false
+        primaryKey: true
+        autoincrement: true 
+      - name: customerId 
+        field: CustomerID
+        nullable: false
+        type: integer
+      - name: employeeId 
+        field: EmployeeID
+        nullable: false
+        type: integer 
+      - name: orderDate
+        field: OrderDate
+        type: datetime 
+      - name: requiredDate 
+        field: RequiredDate
+        type: datetime
+      - name: shippedDate 
+        field: ShippedDate
+        type: datetime 
+      - name: shipViaId 
+        field: ShipVia
+        type: integer
+      - name: freight 
+        field: Freight
+        type: decimal
+      - name: name
+        field: ShipName
+        type: string
+        length: 80  
+      - name: address 
+        field: ShipAddress
+        type: string
+        length: 80
+      - name: city 
+        field: ShipCity
+        type: string
+        length: 80
+      - name: region
+        field: ShipRegion
+        type: string
+        length: 80
+      - name: postalCode
+        field: ShipPostalCode
+        type: string
+        length: 20
+      - name: country
+        field: ShipCountry
+        type: string
+        length: 80 
+    relations:    
+      - name: customer
+        type: oneToMany  
+        from: customerId
+        to: 
+          entity: Customer
+          property: id 
+      - name: employee
+        type: oneToMany  
+        from: employeeId
+        to: 
+          entity: Employee
+          property: id 
+      - name: details
+        type: manyToOne 
+        from: id
+        to: 
+          entity: OrderDetail
+          property: orderId  
+  - name: OrderDetail
+    table: Order Details
+    properties:
+      - name: orderId 
+        field: OrderID
+        nullable: false
+        primaryKey: true
+        type: integer
+      - name: productId 
+        field: ProductID
+        nullable: false
+        primaryKey: true          
+        type: integer
+      - name: unitPrice
+        field: UnitPrice
+        type: decimal
+      - name: quantity 
+        field: Quantity
+        type: decimal
+      - name: discount 
+        field: Discount
+        type: bool
+    relations:   
+      - name: order
+        type: oneToMany 
+        from: orderId
+        to: 
+          entity: Order
+          property: id 
+      - name: product
+        type: oneToMany 
+        from: productId
+        to: 
+          entity: Product
+          property: id 
