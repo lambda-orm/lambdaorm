@@ -6,13 +6,13 @@ const orm = require("../dist/orm.js");
 
 let context,result,operand,serialized,expression,cnx;
 
-let schemes =  await ConfigExtends.apply('test/config/scheme');
-for(const p in schemes){
-    let scheme =  schemes[p];
-    orm.addScheme(scheme);
+let schemas =  await ConfigExtends.apply('test/config/schema');
+for(const p in schemas){
+    let schema =  schemas[p];
+    orm.applySchema(schema);
 }
 
-cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',scheme:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.addConnection(cnx);
 
 

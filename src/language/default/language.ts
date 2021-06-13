@@ -1,4 +1,7 @@
-import {Node,Context,Operand} from '../../base'
+import Node from './../../base/node'
+import Context from './../../base/context'
+import Operand from './../../base/operand'
+import Schema from './../../base/schema'
 import Language from '../language'
 import Connection  from './../../connection/base'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
@@ -176,7 +179,7 @@ export default class DefaultLanguage extends Language
             this.setContext(p,current);
         } 
     }
-    public compile(node:Node,scheme:any):Operand
+    public compile(node:Node,scheme:Schema):Operand
     {
         let operand:Operand = this.nodeToOperand(node);
         operand = this.reduce(operand);

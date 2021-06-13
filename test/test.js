@@ -3,16 +3,16 @@ const ConfigExtends = require("config-extends");
 const orm = require("../dist/orm.js");
 
 describe('queries', function() {
-    let scheme = 'northwind';
+    let schema = 'northwind';
     let language = 'sql';
     let variant = 'oracle';
 
     before(async function() {
         
-        let schemes =  await ConfigExtends.apply('test/config/scheme');
-        for(const p in schemes){
-            let scheme =  schemes[p];
-            orm.addScheme(scheme);
+        let schemas =  await ConfigExtends.apply('test/config/schema');
+        for(const p in schemas){
+            let schema =  schemas[p];
+            orm.applySchema(schema);
         }
     });
     describe('select from join whrere order by', function() {        

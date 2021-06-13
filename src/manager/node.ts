@@ -1,4 +1,5 @@
-import {Node} from './base'
+
+import Node from './../base/node'
 
 export default class NodeManager
 {

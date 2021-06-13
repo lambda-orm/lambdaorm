@@ -3,67 +3,67 @@ abstract:
   Address:
     properties:
       - name: address 
-        field: Address
+        mapping: Address
         type: string
         length: 80
       - name: city 
-        field: City
+        mapping: City
         type: string
         length: 80
       - name: region 
-        field: Region
+        mapping: Region
         type: string
         length: 80
       - name: postalCode 
-        field: PostalCode
+        mapping: PostalCode
         type: string
         length: 20
       - name: country 
-        field: Country
+        mapping: Country
         type: string
         length: 80 
 enums:
 entities:
   - name: Employee
     _extends: [northwind.abstract.Address]       
-    table: Employees
+    mapping: Employees
     properties:
       - name: id 
-        field: EmployeeID
+        mapping: EmployeeID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
       - name: lastName 
-        field: LastName
+        mapping: LastName
         nullable: false
         type: string
         length: 80
       - name: firstName
-        field: FirstName
+        mapping: FirstName
         nullable: false
         type: string
         length: 80
       - name: title
-        field: Title
+        mapping: Title
         type: string
         length: 80
       - name: titleOfCourtesy
-        field: TitleOfCourtesy
+        mapping: TitleOfCourtesy
         type: string
         length: 80
       - name: birthDate
-        field: BirthDate
+        mapping: BirthDate
         type: datetime
       - name: hireDate
-        field: HireDate
+        mapping: HireDate
         type: datetime
       - name: phone
-        field:  HomePhone
+        mapping:  HomePhone
         type: string
         length: 80
       - name: reportsToId 
-        field:  ReportsTo
+        mapping:  ReportsTo
         type: integer
     relations:
       - name: reportsTo
@@ -73,44 +73,44 @@ entities:
           entity: Employee
           property: id
   - name: Category
-    table: Categories
+    mapping: Categories
     properties:
       - name: id
-        field: CategoryID
+        mapping: CategoryID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
       - name: name
-        field: CategoryName
+        mapping: CategoryName
         nullable: false
         type: string
         length: 80
       - name: description
-        field: Description
+        mapping: Description
         type: string
         length: 1000
   - name: Customer
     _extends: [northwind.abstract.Address]
-    table: Customers
+    mapping: Customers
     properties:
       - name: id
-        field: CustomerID
+        mapping: CustomerID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
       - name: name
-        field: CompanyName
+        mapping: CompanyName
         nullable: false
         type: string
         length: 80
       - name: contact 
-        field: ContactName
+        mapping: ContactName
         type: string
         length: 80
       - name: phone
-        field: ContactTitle
+        mapping: ContactTitle
         type: string
         length: 80
     relations:  
@@ -121,91 +121,91 @@ entities:
           entity: Order
           property: customerId
   - name: Shipper
-    table: Shippers
+    mapping: Shippers
     properties:
       - name: id 
-        field: ShipperID
+        mapping: ShipperID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
       - name: name 
-        field: CompanyName
+        mapping: CompanyName
         nullable: false
         type: string
         length: 80
       - name: phone
-        field: Phone
+        mapping: Phone
         type: string
         length: 20
   - name: Supplier
     _extends: [northwind.abstract.Address]
-    table: Suppliers
+    mapping: Suppliers
     properties:
       - name: id
-        field: SupplierID
+        mapping: SupplierID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
       - name: name
-        field: CompanyName
+        mapping: CompanyName
         nullable: false
         type: string
         length: 80
       - name: contact
-        field: ContactName
+        mapping: ContactName
         type: string
         length: 80
       - name: phone
-        field: Phone
+        mapping: Phone
         type: string
         length: 20
       - name: homepage 
-        field: HomePage
+        mapping: HomePage
         type: string
         length: 80  
   - name: Product
-    table: Products
+    mapping: Products
     properties:
       - name: id 
-        field: ProductID
+        mapping: ProductID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true 
       - name: name 
-        field: ProductName
+        mapping: ProductName
         nullable: false
         type: string
         length: 80
       - name: supplierId 
-        field: SupplierID
+        mapping: SupplierID
         type: integer
       - name: categoryId
-        field: CategoryID
+        mapping: CategoryID
         type: integer
       - name: quantity 
-        field: QuantityPerUnit
+        mapping: QuantityPerUnit
         type: decimal
       - name: price
-        field: UnitPrice
+        mapping: UnitPrice
         type: decimal
         default: 0
       - name: inStock
-        field: UnitsInStock
+        mapping: UnitsInStock
         type: decimal
         default: 0
       - name: onOrder 
-        field: UnitsOnOrder
+        mapping: UnitsOnOrder
         type: decimal
         default: 0
       - name: reorderLevel
-        field: ReorderLevel
+        mapping: ReorderLevel
         type: decimal
         default: 0
       - name: discontinued
-        field: Discontinued
+        mapping: Discontinued
         type: bool
         default: false
     relations:    
@@ -222,59 +222,59 @@ entities:
           entity: Category
           property: id
   - name: Order
-    table: Orders
+    mapping: Orders
     properties:
       - name: id
-        field: OrderID
+        mapping: OrderID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true 
       - name: customerId 
-        field: CustomerID
+        mapping: CustomerID
         nullable: false
         type: integer
       - name: employeeId 
-        field: EmployeeID
+        mapping: EmployeeID
         nullable: false
         type: integer 
       - name: orderDate
-        field: OrderDate
+        mapping: OrderDate
         type: datetime 
       - name: requiredDate 
-        field: RequiredDate
+        mapping: RequiredDate
         type: datetime
       - name: shippedDate 
-        field: ShippedDate
+        mapping: ShippedDate
         type: datetime 
       - name: shipViaId 
-        field: ShipVia
+        mapping: ShipVia
         type: integer
       - name: freight 
-        field: Freight
+        mapping: Freight
         type: decimal
       - name: name
-        field: ShipName
+        mapping: ShipName
         type: string
         length: 80  
       - name: address 
-        field: ShipAddress
+        mapping: ShipAddress
         type: string
         length: 80
       - name: city 
-        field: ShipCity
+        mapping: ShipCity
         type: string
         length: 80
       - name: region
-        field: ShipRegion
+        mapping: ShipRegion
         type: string
         length: 80
       - name: postalCode
-        field: ShipPostalCode
+        mapping: ShipPostalCode
         type: string
         length: 20
       - name: country
-        field: ShipCountry
+        mapping: ShipCountry
         type: string
         length: 80 
     relations:    
@@ -297,26 +297,26 @@ entities:
           entity: OrderDetail
           property: orderId  
   - name: OrderDetail
-    table: Order Details
+    mapping: Order Details
     properties:
       - name: orderId 
-        field: OrderID
+        mapping: OrderID
         nullable: false
         primaryKey: true
         type: integer
       - name: productId 
-        field: ProductID
+        mapping: ProductID
         nullable: false
         primaryKey: true          
         type: integer
       - name: unitPrice
-        field: UnitPrice
+        mapping: UnitPrice
         type: decimal
       - name: quantity 
-        field: Quantity
+        mapping: Quantity
         type: decimal
       - name: discount 
-        field: Discount
+        mapping: Discount
         type: bool
     relations:   
       - name: order

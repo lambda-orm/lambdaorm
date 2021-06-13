@@ -1,7 +1,9 @@
-import {Node,Context,Operand} from '../../base'
+import Node from './../../base/node'
+import Context from './../../base/context'
+import Operand from './../../base/operand'
 import Connection  from './../../connection/base'
 import Language from '../language'
-import SqlScheme from './scheme'
+import Schema from '../../base/schema'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlInsertFrom,SqlUpdate,SqlUpdateFrom,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
@@ -26,12 +28,11 @@ export default class SqlLanguage extends Language
             this._variants[data.variant] =variant 
         }
     }    
-    public compile(node:Node,scheme:any,variant:string):Operand
+    public compile(node:Node,schema:Schema,variant:string):Operand
     {
         try{
             let context = {aliases:{},current:null};
-            let sqlScheme = new SqlScheme(scheme);
-            let operand = this.nodeToOperand(node,sqlScheme,context);
+            let operand = this.nodeToOperand(node,schema,context);
             operand = this.reduce(operand);
             let metadata = this._variants[variant];
             let sqlSquery = this.createQuery(operand as SqlSentence,metadata);            
@@ -126,7 +127,7 @@ export default class SqlLanguage extends Language
         context.aliases[alias] = relation?relation:name;
         return alias;        
     }    
-    protected createOperand(node:Node,children:Operand[],scheme:SqlScheme,context:any):Operand
+    protected createOperand(node:Node,children:Operand[],schema:Schema,context:any):Operand
     {
         switch(node.type){
             case 'const':
@@ -141,11 +142,11 @@ export default class SqlLanguage extends Language
                         if(context.current.fields.includes(parts[1])){
                             return new SqlField(parts[1]); 
                         }else{
-                            let field= scheme.field(context.current.entity,parts[1]);
+                            let field= schema.propertyMapping(context.current.entity,parts[1]);
                             if(field){
                                 return new SqlField(context.current.alias+'.'+field); 
                             }else{
-                                let relationInfo= scheme.getRelation(context.current.entity,parts[1]);
+                                let relationInfo= schema.getRelation(context.current.entity,parts[1]);
                                 if(relationInfo){
                                     let relation =  this.addJoins(parts,parts.length,context); 
                                     let relationAlias=context.current.joins[relation];
@@ -159,13 +160,13 @@ export default class SqlLanguage extends Language
                     }else{
                         let propertyName = parts[parts.length-1];
                         let relation =  this.addJoins(parts,parts.length-1,context); 
-                        let info = scheme.getRelation(context.current.entity,relation);                        
+                        let info = schema.getRelation(context.current.entity,relation);                        
                         let relationAlias=context.current.joins[relation];
-                        let relationField = info.relationScheme.property[propertyName].field; 
+                        let relationField = info.relationSchema.property[propertyName].mapping; 
                         if(relationField){
                             return new SqlField(relationAlias+'.'+relationField);
                         }else{
-                            let relationName = info.relationScheme.relation[propertyName];
+                            let relationName = info.relationSchema.relation[propertyName];
                             if(relationName){
                                 let relation2 =  this.addJoins(parts,parts.length,context);
                                 let relationAlias2=context.current.joins[relation2];                               
@@ -220,36 +221,36 @@ export default class SqlLanguage extends Language
             throw'cretae arrow function: '+node.name+' error: '+error.toString(); 
         }
     }
-    protected createClause(clause:Node,scheme:SqlScheme,context:any):Operand
+    protected createClause(clause:Node,schema:Schema,context:any):Operand
     {        
         context.current.arrowVar = clause.children[1].name;                    
-        let child = this.nodeToOperand(clause.children[2],scheme,context);
+        let child = this.nodeToOperand(clause.children[2],schema,context);
         return this.createArrowFunction(clause,[child]);
     }
-    protected createMapClause(clause:Node,scheme:SqlScheme,context:any):Operand
+    protected createMapClause(clause:Node,schema:Schema,context:any):Operand
     {
         if(clause.children.length==3){
             context.current.arrowVar = clause.children[1].name;
             let fields = clause.children[2];
             let child =null;
             if(fields.children.length==0 && fields.name == context.current.arrowVar){
-                let fields = this.createNodeFields(context.current.entity,'p',scheme)
-                child = this.nodeToOperand(fields,scheme,context);
+                let fields = this.createNodeFields(context.current.entity,'p',schema)
+                child = this.nodeToOperand(fields,schema,context);
             }else{
-                child = this.nodeToOperand(clause.children[2],scheme,context);
+                child = this.nodeToOperand(clause.children[2],schema,context);
             }  
             return this.createArrowFunction(clause,[child]);
         }else{
             context.current.arrowVar = 'p';
-            let fields = this.createNodeFields(context.current.entity,'p',scheme)
-            let child = this.nodeToOperand(fields,scheme,context);
+            let fields = this.createNodeFields(context.current.entity,'p',schema)
+            let child = this.nodeToOperand(fields,schema,context);
             return this.createArrowFunction(clause, [child]);
         }
     }
-    protected createNodeFields(entityName:string,arrowVar:string,scheme:SqlScheme):any
+    protected createNodeFields(entityName:string,arrowVar:string,schema:Schema):any
     {
         let obj = new Node('obj', 'obj', []);
-        let entity=scheme.getEntity(entityName);
+        let entity=schema.getEntity(entityName);
         for(let name in entity.property){
             let field = new Node(arrowVar+'.'+name, 'var', []);
             let keyVal = new Node(name, 'keyVal', [field])
@@ -257,11 +258,11 @@ export default class SqlLanguage extends Language
         }
         return obj;
     }
-    protected addIncludes(node:Node,scheme:SqlScheme,context:any):any
+    protected addIncludes(node:Node,schema:Schema,context:any):any
     {
         let child:SqlSentence,relation:any,relationName:string="";        
-        let sentence = this.nodeToOperand(node.children[0],scheme,context) as SqlSentence;
-        let mainEntity=scheme.getEntity(sentence.entity);
+        let sentence = this.nodeToOperand(node.children[0],schema,context) as SqlSentence;
+        let mainEntity=schema.getEntity(sentence.entity);
         for (let i=1; i< node.children.length;i++) {
             let p = node.children[i];
             if(p.type =='arrow'){
@@ -279,7 +280,7 @@ export default class SqlLanguage extends Language
                     else
                         break;
                 }
-                child = this.nodeToOperand(p, scheme, context) as SqlSentence;
+                child = this.nodeToOperand(p, schema, context) as SqlSentence;
             }else if (p.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .includes(details)  
             // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p))      
@@ -289,7 +290,7 @@ export default class SqlLanguage extends Language
                 relation = mainEntity.relation[relationName];
                 p.name = relation.to.entity;
                 let map = new Node('map','arrow',[p,varArrow,varAll]);
-                child = this.nodeToOperand(map, scheme, context) as SqlSentence;
+                child = this.nodeToOperand(map, schema, context) as SqlSentence;
             }else if (i==1 && p.type == 'childFunc' && p.name == 'includes') {
             // resuelve cuando una variable dento de un includes a su vez tiene otra , ejemplo:  
             // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p).includes(product))       
@@ -301,7 +302,7 @@ export default class SqlLanguage extends Language
                 varRelation.name = relation.to.entity;
                 let map = new Node('map','arrow',[varRelation,varArrow,varAll]);
                 p.children[0] = map;
-                child = this.addIncludes(p, scheme, context) as SqlSentence;
+                child = this.addIncludes(p, schema, context) as SqlSentence;
             }else if (p.type == 'childFunc' && p.name == 'includes') {
             //resuelve el siguiente caso  .includes(details.map(p=>p).includes(product)))      
                 let current = p;
@@ -317,12 +318,12 @@ export default class SqlLanguage extends Language
                     else
                         break;
                 }
-                child= this.addIncludes(p, scheme, context);
+                child= this.addIncludes(p, schema, context);
             }else{
                 throw 'Error to add include node '+p.type+':'+p.name; 
             }            
-            let toEntity=scheme.getEntity(relation.to.entity);
-            let toField = toEntity.property[relation.to.property].field;
+            let toEntity=schema.getEntity(relation.to.entity);
+            let toField = toEntity.property[relation.to.property].mapping;
             let fieldRelation = new SqlField(child.alias + '.' + toField);
             let variableName = 'list_'+relation.to.property;
             let varRelation = new SqlVariable(variableName);
@@ -339,7 +340,7 @@ export default class SqlLanguage extends Language
         }
         return sentence;
     }
-    protected createSentence(node:Node,scheme:SqlScheme,context:any):SqlSentence
+    protected createSentence(node:Node,schema:Schema,context:any):SqlSentence
     {
         context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
         if(context.parent)
@@ -362,7 +363,7 @@ export default class SqlLanguage extends Language
 
         if(sentence['filter'] ){
             let clause = sentence['filter'];
-            operand = this.createClause(clause,scheme,context);
+            operand = this.createClause(clause,schema,context);
             children.push(operand); 
         }
 
@@ -375,13 +376,13 @@ export default class SqlLanguage extends Language
         }else{
             if(sentence['from']){
                 let clause = sentence['from'];
-                let tableName = scheme.table(clause.name);
+                let tableName = schema.entityMapping(clause.name);
                 operand =new SqlFrom(tableName+'.'+context.current.alias);
                 children.push(operand);
             }
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
-                operand = this.createMapClause(clause,scheme,context);
+                operand = this.createMapClause(clause,schema,context);
                 context.current.fields = this.fieldsInSelect(operand);
                 context.current.groupByFields = this.groupByFields(operand);
                 children.push(operand); 
@@ -390,7 +391,7 @@ export default class SqlLanguage extends Language
                 let varArrow = new Node('p', 'var', []);
                 let varAll = new Node('p', 'var', []);               
                 let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
-                operand = this.createMapClause(clause,scheme,context);
+                operand = this.createMapClause(clause,schema,context);
                 context.current.fields = this.fieldsInSelect(operand);
                 context.current.groupByFields = this.groupByFields(operand);
                 children.push(operand); 
@@ -410,24 +411,24 @@ export default class SqlLanguage extends Language
             }
             if(sentence['having']){
                 let clause = sentence['having'];
-                operand = this.createClause(clause,scheme,context);
+                operand = this.createClause(clause,schema,context);
                 children.push(operand); 
             }
             if(sentence['sort'] ){
                 let clause = sentence['sort'];
-                operand = this.createClause(clause,scheme,context);
+                operand = this.createClause(clause,schema,context);
                 children.push(operand); 
             }
         }
         for(const key in context.current.joins){
 
-            let info = scheme.getRelation(context.current.entity,key);
+            let info = schema.getRelation(context.current.entity,key);
 
             let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
-            let relatedFieldName = info.previousScheme.property[info.relationData.from].field;
-            let relationTable = info.relationScheme.name;
+            let relatedFieldName = info.previousSchema.property[info.relationData.from].mapping;
+            let relationTable = info.relationSchema.name;
             let relationAlias =context.current.joins[key];;
-            let relationFieldName = info.relationScheme.property[info.relationData.to.property].field;
+            let relationFieldName = info.relationSchema.property[info.relationData.to.property].mapping;
 
             let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName);
             let relationField = new SqlField(relationAlias+'.'+relationFieldName); 
@@ -437,22 +438,22 @@ export default class SqlLanguage extends Language
         }
         return new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
     }
-    protected nodeToOperand(node:Node,scheme:SqlScheme,context:any):Operand
+    protected nodeToOperand(node:Node,schema:Schema,context:any):Operand
     {
         if (node.type == 'childFunc' && node.name == 'includes'){
-            return this.addIncludes(node,scheme,context);
+            return this.addIncludes(node,schema,context);
         }else if(node.type == 'arrow'){
-            return this.createSentence(node,scheme,context);
+            return this.createSentence(node,schema,context);
         }else{
             let children = [];
             if(node.children){
                 for(const k in node.children){
                     let p = node.children[k];
-                    let child = this.nodeToOperand(p,scheme,context);
+                    let child = this.nodeToOperand(p,schema,context);
                     children.push(child);
                 }
             }
-            return this.createOperand(node,children,scheme,context);
+            return this.createOperand(node,children,schema,context);
         }
     }
     protected addJoins(parts:string[],to:number,context:any):string

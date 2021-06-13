@@ -1,5 +1,5 @@
-
 interface Schema {
+    name: string
     entities: Entity[]
     enums: Enum[]
 }
@@ -9,13 +9,13 @@ interface Enum {
 }
 interface Entity {
     name: string
-    table: string
+    mapping?: string
     properties:Property[]
     relations:Relation[]
 }
 interface Property {
     name: string 
-    field: string
+    mapping?: string
     type: string
     length?: number
     nullable?: boolean
@@ -32,7 +32,6 @@ interface RelationTo {
     entity: string
     property: string
 }
-
 export {
     Schema,
     Enum,

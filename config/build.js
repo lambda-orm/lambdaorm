@@ -1,5 +1,5 @@
 const ConfigExtends = require("config-extends");
 (async () => { 
-    await ConfigExtends.apply('config/language/model.yaml','src/config/model.json');
-    await ConfigExtends.apply('config/language/sql','src/config/sql.json');
+    await ConfigExtends.apply('config/language/model.yaml','src/base/model.json');
+    await ConfigExtends.apply('config/language/sql','src/language/sql/sql.json');
 })();

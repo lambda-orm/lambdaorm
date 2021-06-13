@@ -1,4 +1,6 @@
-import {Node,Context,Operand} from '../base'
+import Node from './../base/node'
+import Operand from './../base/operand'
+import Schema  from './../base/schema'
 
 export default abstract class Language
 {
@@ -15,7 +17,7 @@ export default abstract class Language
         return this._name;
     }
     public abstract addLibrary(library:any):void
-    public abstract compile(node:Node,scheme?:any,variant?:string):Operand
+    public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
     public abstract run(operand:Operand,context:any,cnx?:any):any
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
@@ -60,5 +62,4 @@ export default abstract class Language
         return {'n':operand.name,'t':operand.constructor.name,'c':children}; 
     }
     protected abstract _deserialize(serialized:any,language:string):Operand
-    
 }

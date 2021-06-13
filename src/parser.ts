@@ -1,6 +1,6 @@
-import {Node, Operand} from './base'
+import Node from './base/node'
 import Minifier from './minifier'
-import NodeManager from './nodeManager'
+import NodeManager from './manager/node'
 
 export default class Parser{
 
