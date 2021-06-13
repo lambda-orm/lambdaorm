@@ -189,7 +189,7 @@ export default class DefaultLanguage extends Language
     public sentence(operand:Operand,variant:string):any{
         throw 'NotImplemented';
     } 
-    public run(operand:Operand,context:any,scheme?:any,connection?:Connection):any{          
+    public eval(operand:Operand,context:any,scheme?:any,connection?:Connection):any{          
         if(context)this.setContext(operand,new Context(context));
         return operand.eval();
     }

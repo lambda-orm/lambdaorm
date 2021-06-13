@@ -6,8 +6,8 @@ import Model from './base/model'
 import DefaultLanguage from './language/default/language'
 import SqlLanguage from './language/sql/language'
 import CoreLib from './language/default/coreLib'
-import modelConfig from './base/model.json'
-import sqlConfig  from './language/sql/sql.json'
+import modelConfig from './base/config.json'
+import sqlConfig  from './language/sql/config.json'
 import Connection  from './connection/base'
 import MySqlConnection  from './connection/mysql'
 import * as model from './model/schema'
@@ -53,7 +53,7 @@ class Orm {
     {
         return this.schemaManager.get(name);
     }
-    public listSchema(name:string):model.Schema[]
+    public listSchema():model.Schema[]
     {
         return this.schemaManager.list();
     } 
@@ -93,30 +93,30 @@ class Orm {
             throw 'deserialize: '+serialized+' error: '+error.toString(); 
         }
     }
-    public async run(operand:Operand,context:any,connectionName?:string)
+    public async eval(operand:Operand,context:any,connectionName?:string)
     {
         try{
             let _context = new Context(context);
             if(connectionName){
                 let connection = this.connections[connectionName]; 
-                return await this.languages[connection.language].run(operand,_context,connection);
+                return await this.languages[connection.language].eval(operand,_context,connection);
             }else{
-                return await this.languages['default'].run(operand,_context);
+                return await this.languages['default'].eval(operand,_context);
             }            
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async eval(expression:string,context:any,connectionName?:string)
+    public async run(expression:string,context:any,connectionName?:string)
     {
         try{
             if(connectionName){
                 let connection = this.connections[connectionName]; 
                 let operand = this.compile(expression,connection.language,connection.variant,connection.schema);
-                return await this.run(operand,context,connectionName);
+                return await this.eval(operand,context,connectionName);
             }else{
                 let operand = this.compile(expression,'default');
-                return await this.run(operand,context);
+                return await this.eval(operand,context);
             }
         }catch(error){
             throw 'eval: '+expression+' error: '+error.toString(); 
@@ -125,7 +125,7 @@ class Orm {
     public async exec(func:Function,context:any,connectionName?:string)
     {
         try{
-            return await this.eval(func.toString().replace('()=>',''),context,connectionName);
+            return await this.run(func.toString().replace('()=>',''),context,connectionName);
         }catch(error){
             throw 'error: '+error.toString(); 
         }

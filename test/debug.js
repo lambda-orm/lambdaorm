@@ -18,8 +18,7 @@ orm.addConnection(cnx);
 
 expression =
 `
-Order.filter(p=> p.id == id ) 
-     .includes(details.includes(product),customer )
+Order.filter(p=>p.id==id).includes(details.includes(product),customer)
 `;
 
 
@@ -33,12 +32,12 @@ Order.filter(p=> p.id == id )
 // // console.log(serialized);
 
 
-operand = orm.compile(expression,'sql','mysql','northwind');
-serialized = orm.serialize(operand,'sql');
-console.log(serialized);
+// operand = orm.compile(expression,'sql','mysql','northwind');
+// serialized = orm.serialize(operand,'sql');
+// console.log(serialized);
 
 context = {id:10582}
-result = await orm.run(operand,context,'northwind');
+result = await orm.run(expression,context,'northwind');
 console.log(JSON.stringify(result));
 
 // context = {id:10582}

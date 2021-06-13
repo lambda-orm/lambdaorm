@@ -62,7 +62,7 @@ export default class SchemaManager
                                             ,relations:[]
                                             };    
             for(const q in sourceEntity.property){
-                let sourceProperty = sourceEntity.properties[q];
+                let sourceProperty = sourceEntity.property[q];
                 let targetProperty:model.Property = {
                     name: sourceProperty.name, 
                     mapping: sourceProperty.mapping,
@@ -75,7 +75,7 @@ export default class SchemaManager
                 targetEntity.properties.push(targetProperty);                 
             }            
             for(const q in sourceEntity.relations){
-                let sourceRelation = sourceEntity.relations[q];
+                let sourceRelation = sourceEntity.relation[q];
                 let targetRelationj:model.Relation = {
                     name: sourceRelation.name,
                     type: sourceRelation.type,

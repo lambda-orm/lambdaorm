@@ -23,7 +23,7 @@
 					"name": {
 						"type": "string"
 					},
-					"field": {
+					"mapping": {
 						"type": "string"
 					},
 					"type": {
@@ -45,7 +45,6 @@
 				},
 				"required": [
 					"name",
-					"field",
 					"type"
 				],
 				"type": "object",
@@ -96,7 +95,7 @@
 					"name": {
 						"type": "string"
 					},
-					"table": {
+					"mapping": {
 						"type": "string"
 					},
 					"properties": {
@@ -114,7 +113,6 @@
 				},
 				"required": [
 					"name",
-					"table",
 					"properties",
 					"relations"
 				],
@@ -140,6 +138,9 @@
 			},
 			"Schema": {
 				"properties": {
+					"name": {
+						"type": "string"
+					},
 					"entities": {
 						"items": {
 							"$ref": "#/components/schemas/Entity"
@@ -154,8 +155,22 @@
 					}
 				},
 				"required": [
+					"name",
 					"entities",
 					"enums"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ExpressionRequest": {
+				"properties": {
+					"expression": {
+						"type": "string"
+					},
+					"context": {}
+				},
+				"required": [
+					"expression"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -198,7 +213,7 @@
 		},
 		"/schema": {
 			"post": {
-				"operationId": "Post",
+				"operationId": "Apply",
 				"responses": {
 					"201": {
 						"description": "Created"
@@ -212,6 +227,161 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/Schema"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Schema"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/schema/{name}": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Schema"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/expression/compile/{schema}/{language}/{variant}": {
+			"post": {
+				"operationId": "Compile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "schema",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "language",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "variant",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ExpressionRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/expression/run/{connection}": {
+			"post": {
+				"operationId": "Run",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "connection",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ExpressionRequest"
 							}
 						}
 					}

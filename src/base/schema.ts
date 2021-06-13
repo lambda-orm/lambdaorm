@@ -1,4 +1,4 @@
-export default class Schema
+export default class SchemaHelper
 {
     private _schema:any
     constructor(schema:any){
