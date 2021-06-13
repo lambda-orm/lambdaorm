@@ -38,7 +38,7 @@ export default class SchemaManager
         target.name = source.name;
         for(const p in source.entities){
             let sourceEntity = source.entities[p];
-            let targetEntity:any = { property:{},relation:{}};    
+            let targetEntity:any = {name: sourceEntity.name,mapping:sourceEntity.mapping,property:{},relation:{}};    
             for(const q in sourceEntity.properties){
                 let sourceProperty = sourceEntity.properties[q];
                 targetEntity.property[sourceProperty.name] = sourceProperty;
