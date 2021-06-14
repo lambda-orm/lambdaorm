@@ -45,6 +45,10 @@ class Orm {
     {
         this.schemaManager.apply(value);
     }
+    public introspectSchema(path:string):void
+    {
+       //TODO
+    }
     public deleteSchema(name:string):void
     {
         return this.schemaManager.delete(name);
