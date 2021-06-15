@@ -71,6 +71,7 @@ interface Entity<T> {
     reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
 
 
-    a(callbackfn: (value: T, index: number, array: T[]) => unknown, thisArg?: any):T[];
+    // include(callbackfn: (value: T, index: number, array: T[]) => unknown, thisArg?: any):T[];
+    include(...args:string[]):T[];
 }
 
