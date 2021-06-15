@@ -69,5 +69,8 @@ interface Entity<T> {
      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
      */
     reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+
+
+    a(callbackfn: (value: T, index: number, array: T[]) => unknown, thisArg?: any):T[];
 }
 

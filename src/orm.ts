@@ -14,6 +14,8 @@ import * as model from './model/schema'
 import SchemaManager  from './manager/schema'
 import Schema  from './base/schema'
 
+// import { Orders,OrderDetails,Customers} from './lab/model'
+
 
 class Orm {
 
@@ -30,7 +32,7 @@ class Orm {
         this.languages={};
         this.schemaManager=new SchemaManager();
         this.connectionTypes={}; 
-        this.connections={};       
+        this.connections={};  
     }
     public addLanguage(value:any){
         this.languages[value.name] =value;

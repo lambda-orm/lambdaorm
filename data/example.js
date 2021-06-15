@@ -6,7 +6,9 @@
 //https://www.fullstackpython.com/object-relational-mappers-orms.html
 //https://www.dabapps.com/blog/django-models-and-encapsulation/
 
+const orm = require("../dist/orm");
 
+// mikri-orm , prisma , typeorm
 
 
 

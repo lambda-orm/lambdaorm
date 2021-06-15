@@ -32,13 +32,13 @@ Order.filter(p=>p.id==id).includes(details.includes(product),customer)
 // // console.log(serialized);
 
 
-// operand = orm.compile(expression,'sql','mysql','northwind');
-// serialized = orm.serialize(operand,'sql');
-// console.log(serialized);
+operand = orm.compile(expression,'sql','mysql','northwind');
+serialized = orm.serialize(operand,'sql');
+console.log(serialized);
 
-context = {id:10582}
-result = await orm.run(expression,context,'northwind');
-console.log(JSON.stringify(result));
+//context = {id:10582}
+//result = await orm.run(expression,context,'northwind');
+//console.log(JSON.stringify(result));
 
 // context = {id:10582}
 // result = await orm.exec(()=> Order.filter(p=> p.id == id ).includes(details.includes(product),customer),context,'northwind');

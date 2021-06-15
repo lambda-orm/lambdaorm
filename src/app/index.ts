@@ -39,7 +39,7 @@ app.use(express.static("public"));
       app.use(router);
 
       app.listen(port);
-      console.log('Server running at: '+host+':'+port); 
+      console.log('Server running at: '+host+':'+port+'/docs'); 
       process.exitCode = 0;
       return 0;
     }

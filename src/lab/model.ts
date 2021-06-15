@@ -1,41 +1,42 @@
-import {Mapping,NotNull,PrimaryKey,Autoincrement,Relation,RelationType} from './decorators'
+// import {Entity,Property,Relation} from './decorators'
 
-@Mapping('Customer')
-class Customer
-{
-    @Mapping('CustomerId') @NotNull() @PrimaryKey() @Autoincrement()    
-    public id?:number
-    @Mapping('Name')
-    public name?:string
-}
-const Customers:Entity<Customer> = []
+// @Entity('Customers')
+// class Customer
+// {
+//     @Property('CustomerId',false,true,true)  
+//     public id?:number
+//     @Property('Name')
+//     public name?:string
+// }
+// let Customers:Entity<Customer> = []
 
-@Mapping('OrderDetails')
-class OrderDetail
-{
-    @Mapping('OrderDetailId') @NotNull() @PrimaryKey() @Autoincrement()    
-    public id?:number
-    @Mapping('Name')
-    public orderId?:number
-}
-const OrderDetails:Entity<OrderDetail> = []
+// @Entity('OrderDetails')
+// class OrderDetail
+// {
+//     @Property('OrderDetailId',false,true,true)    
+//     public id?:number
+//     @Property('Name')
+//     public orderId?:number
+// }
+// let OrderDetails:Entity<OrderDetail> = []
 
-@Mapping('Orders')
-class Order
-{
-    @Mapping('OrderId')
-    public id?:number
-    @Mapping('Name')
-    public name?:string
-    @Mapping('CustomerId')
-    public customerId?:number    
-    @Relation(RelationType.ManyToOne,'customerId','id')
-    public customer:Customer=new Customer() 
-    @Relation(RelationType.OneToMany,'id','orderId')
-    public details?:OrderDetail[]
+// @Entity('Orders')
+// class Order
+// {
+//     @Property('OrderId',false,true,true)  
+//     public id?:number
+//     @Property('Name')
+//     public name?:string
+//     @Property('CustomerId')
+//     public customerId?:number    
+//     @Relation('manyToOne','customerId','id')
+//     public customer:Customer=new Customer() 
+//     @Relation('oneToMany','id','orderId')
+//     public details?:OrderDetail[]
 
-}
-const Orders:Entity<Order>= []
+// }
+// let Orders:Entity<Order>=[];
 
 
-export { Orders,OrderDetails,Customers}
+
+// export { Orders,OrderDetails,Customers}

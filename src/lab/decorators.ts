@@ -11,40 +11,25 @@ function Mapping(name: string) {
 }
 */
 
-
-  
-export function Mapping(value: string): Function
+export function Entity(mapping: string): ClassDecorator
+{  
+  return function (target) {
+    console.log("mapping:"+mapping);
+  };
+}  
+export function Property(mapping?:string,nullable:boolean=true,primaryKey:boolean=false,autoincrement:boolean=false): PropertyDecorator
 {
-    return () => {
-      return;
-    };
+  return function (object: Object, propertyName: string|Symbol) {
+    console.log("mapping:"+mapping);  
+    console.log("mapping:"+nullable);  
+    console.log("mapping:"+primaryKey);  
+    console.log("mapping:"+autoincrement);    
+  };
+  //  return function (object: Object, propertyName: string):void {
+  //   console.log("mapping:"+mapping);      
+  //   };
 }
-export function NotNull(): Function
-{
-    return () => {
-      return;
-    };
-}
-export function PrimaryKey(): Function
-{
-    return () => {
-      return;
-    };
-}
-export function Autoincrement(): Function
-{
-    return () => {
-      return;
-    };
-}
-
-export enum RelationType
-{OneToMany = 'oneToMany'
-,OneToOne = 'oneToOne'
-,ManyToOne = 'manyToOne'
-}
-
-export function Relation(type: RelationType,from:string,to:string): Function
+export function Relation(type:'oneToMany'| 'oneToOne'|'manyToOne' ,from:string,to:string): Function
 {
     return () => {
       return;
