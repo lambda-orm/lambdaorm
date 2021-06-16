@@ -10,12 +10,16 @@ result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as
 result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).includes(p=> [p.customer,p.details]).include('details.product') ,{id:0},'northwind');
 
 
+let query = (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]);
+result = orm.exec(query,{id:0},'northwind');
+
+
 interface a {
     category:string
     product:string
 }
 
-result = orm.exec( (id:number)=> 
+result = orm.exec(()=> 
 OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
             .map(p=> ({category:p.product.category.name,product:p.product.name}) )
             // .map(p=> [as(p.product.category.name,'category'),as(p.product.name,'product'),p.unitPrice,p.quantity])
