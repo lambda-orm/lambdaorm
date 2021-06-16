@@ -1,4 +1,4 @@
-import {Orders,OrderDetails,Customers} from './model'
+import {Products,Categories,Orders,OrderDetails,Customers,Product,Category,Customer,Order,OrderDetail} from './model'
 import orm  from "./../orm"  
 
 
@@ -7,17 +7,25 @@ import orm  from "./../orm"
 let result
 
 result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]) ,{id:0},'northwind');
-result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).includes(p=> [p.customer,p.details]).include('details.product') ,{id:0},'northwind');
+result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
+                                                                                                        .include(p=> p.product
+                                                                                                            .include(p=> p.category.map(p=> p.name))
+                                                                                                        .map(p=> p.name ))
+                                                                                                        .map(p=>[p.quantity,p.unitPrice])
+                                                                                                        ]) ,{id:0},'northwind');
 
+
+result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer,p.details.product.category]) ,{id:0},'northwind');
 
 let query = (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]);
 result = orm.exec(query,{id:0},'northwind');
 
 
-interface a {
-    category:string
-    product:string
-}
+
+let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id)
+result = orm.exec(updateCategory,{value:{id:1,name:'test'}},'northwind');
+
+
 
 result = orm.exec(()=> 
 OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
@@ -46,3 +54,13 @@ result = orm.exec( (id:number)=> OrderDetails.filter(p=> p.orderId == id )
 // FROM OrderDetails o
 // GROUP BY o.OrderID
 // `;
+
+
+
+// debtor-management
+
+// https://rarredondo:Beesion19@gitlab.com/bss-perimeter1/collection-portal.git
+
+// https://flrita:flrita1234@gitlab.com/bss-perimeter1/collection-portal.git
+
+// flrita flrita1234
