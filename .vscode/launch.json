@@ -7,6 +7,15 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "lab",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/dist/lab/test.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "app",
             "skipFiles": [
                 "<node_internals>/**"

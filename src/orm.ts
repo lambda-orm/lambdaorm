@@ -47,6 +47,10 @@ class Orm {
     {
         this.schemaManager.apply(value);
     }
+    public addMetadata(type:'entity'| 'property'|'relation',data:any):void
+    {
+       console.log(type+':'+JSON.stringify(data))
+    }
     public introspectSchema(path:string):void
     {
        //TODO
@@ -130,11 +134,12 @@ class Orm {
     } 
     public async exec(func:Function,context:any,connectionName?:string)
     {
-        try{
-            return await this.run(func.toString().replace('()=>',''),context,connectionName);
-        }catch(error){
-            throw 'error: '+error.toString(); 
-        }
+        console.log(func.toString());
+        // try{
+        //     return await this.run(func.toString().replace('()=>',''),context,connectionName);
+        // }catch(error){
+        //     throw 'error: '+error.toString(); 
+        // }
     } 
 }
 var orm = null;

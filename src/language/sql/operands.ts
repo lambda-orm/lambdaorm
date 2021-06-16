@@ -257,7 +257,7 @@ class SqlGroupBy extends SqlArrowFunction {}
 class SqlHaving extends SqlArrowFunction {}
 class SqlSort extends SqlArrowFunction {}
 class SqlInsert extends SqlArrowFunction {}
-class SqlInsertFrom extends SqlArrowFunction {}
+// class SqlInsertFrom extends SqlArrowFunction {}
 class SqlUpdate extends SqlArrowFunction {}
 class SqlUpdateFrom extends SqlArrowFunction {}
 class SqlDelete extends SqlArrowFunction {}
@@ -307,7 +307,7 @@ export  {
     SqlHaving,
     SqlSort,
     SqlInsert,
-    SqlInsertFrom,
+    // SqlInsertFrom,
     SqlUpdate,
     SqlUpdateFrom,
     SqlDelete,

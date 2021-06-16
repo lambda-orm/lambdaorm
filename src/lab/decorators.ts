@@ -1,3 +1,5 @@
+import orm  from "./../orm"
+
 /*
 interface Mappingdescriptor
 {
@@ -10,29 +12,29 @@ function Mapping(name: string) {
     };
 }
 */
+import 'reflect-metadata';
+
 
 export function Entity(mapping: string): ClassDecorator
 {  
   return function (target) {
-    console.log("mapping:"+mapping);
+    orm.addMetadata('entity',{name:target.name,mapping:mapping})
   };
 }  
-export function Property(mapping?:string,nullable:boolean=true,primaryKey:boolean=false,autoincrement:boolean=false): PropertyDecorator
+export function Property(mapping?:string,nullable:boolean=true,primaryKey:boolean=false,autoincrement:boolean=false)
 {
-  return function (object: Object, propertyName: string|Symbol) {
-    console.log("mapping:"+mapping);  
-    console.log("mapping:"+nullable);  
-    console.log("mapping:"+primaryKey);  
-    console.log("mapping:"+autoincrement);    
+  return function (target : any, key : string) {
+    const entity = target.constructor.name    
+    const type = Reflect.getOwnMetadata('design:type', target, key);
+    orm.addMetadata('property',{entity:entity,name:key,type:type,mapping:mapping,nullable:nullable,primaryKey:primaryKey,autoincrement:autoincrement})
   };
-  //  return function (object: Object, propertyName: string):void {
-  //   console.log("mapping:"+mapping);      
-  //   };
 }
-export function Relation(type:'oneToMany'| 'oneToOne'|'manyToOne' ,from:string,to:string): Function
+export function Relation(type:'oneToMany'| 'oneToOne'|'manyToOne' ,from:string,to:string)
 {
-    return () => {
-      return;
-    };
+  return function (target : any, key : string) {
+    const entity = target.constructor.name 
+    const toEntity = Reflect.getOwnMetadata('design:type', target, key);
+    orm.addMetadata('relation',{entity:entity,name:key,from:from,toEntity:toEntity,to:to})
+  };
 }
 

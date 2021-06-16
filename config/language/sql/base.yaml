@@ -64,7 +64,7 @@ functions:
     desc: '{0} desc'
     asc: '{0} asc'
     between: '{0} BETWEEN {1} AND {2}'
-    in: ' {0} IN ({1})'
+    includes: ' {0} IN ({1})'
   numeric:
     abs: 'ABS({0})'
     acos: 'ACOS({0})'
@@ -128,10 +128,8 @@ arrows:
   filter: 'WHERE {0} '
   groupBy: 'GROUP BY {0} '
   having: 'HAVING {0} '
-  reverse: 'ORDER BY ({0}) DESC'
   sort: 'ORDER BY {0} '
   insert: 'INSERT INTO {0}({1}) VALUES({2}) '
-  insertFrom: 'INSERT INTO {0}({1}) {2} '
   update: 'UPDATE {0} SET {1} ' 
   delete: 'DELETE {0} '
   

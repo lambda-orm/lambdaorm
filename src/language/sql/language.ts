@@ -5,7 +5,7 @@ import Connection  from './../../connection/base'
 import Language from '../language'
 import Schema from '../../base/schema'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
-SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlInsertFrom,SqlUpdate,SqlUpdateFrom,SqlDelete,
+SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlUpdateFrom,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import SqlLanguageVariant from './variant'
 
@@ -209,7 +209,7 @@ export default class SqlLanguage extends Language
                 case 'sort': 
                     return new SqlSort(node.name,children);
                 case 'insert': return new SqlInsert(node.name,children);
-                case 'insertFrom': return new SqlInsertFrom(node.name,children);
+                // case 'insertFrom': return new SqlInsertFrom(node.name,children);
                 case 'update': return new SqlUpdate(node.name,children);
                 case 'updateFrom': return new SqlUpdateFrom(node.name,children);
                 case 'delete': return new SqlDelete(node.name,children);

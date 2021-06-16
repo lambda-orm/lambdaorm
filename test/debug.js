@@ -1,6 +1,7 @@
 const ConfigExtends = require("config-extends");
 const orm = require("../dist/orm.js");
 
+// const model = require("../dist/lab/model");
 
 (async () => { 
 
@@ -14,6 +15,8 @@ for(const p in schemas){
 
 cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.addConnection(cnx);
+
+
 
 
 expression =
