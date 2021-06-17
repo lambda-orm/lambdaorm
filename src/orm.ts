@@ -71,8 +71,13 @@ class Orm {
         let ConnectionType = this.connectionTypes[value.variant]; 
         let cnx = new ConnectionType(value) as Connection;  
         this.connections[value.name] = cnx;
+    }
+    public getConnection(name:string):Connection
+    {
+        return this.connections[name];
     }     
-    public compile(expression:string,language:string,variant?:string,schemaName?:string){
+    public compile(expression:string,language:string,variant?:string,schemaName?:string)
+    {
         try{
             let node:Node= this.parser.parse(expression);
             let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
@@ -82,7 +87,7 @@ class Orm {
         catch(error){
             throw 'expression: '+expression+' error: '+error.toString();
         }
-    }
+    }    
     public serialize(operand:Operand,language:string):string
     {
         try
@@ -131,19 +136,28 @@ class Orm {
         }catch(error){
             throw 'eval: '+expression+' error: '+error.toString(); 
         }
-    } 
-    public async exec(func:Function,context:any,connectionName?:string)
+    }
+    public expr(value:Function):string
     {
-        console.log(func.toString());
-        // try{
-        //     return await this.run(func.toString().replace('()=>',''),context,connectionName);
-        // }catch(error){
-        //     throw 'error: '+error.toString(); 
-        // }
+        let str = value.toString();
+        let index = str.indexOf('=>')+2;
+        return str.substring(index,str.length);
     } 
+    // public async exec(func:Function,context:any,connectionName?:string)
+    // {
+    //     let str = func.toString();
+    //     let index = str.indexOf('=>')+2;
+    //     let expression =  str.substring(index,str.length);
+    //     console.log(expression);
+    //     // try{
+    //     //     return await this.run(func.toString().replace('()=>',''),context,connectionName);
+    //     // }catch(error){
+    //     //     throw 'error: '+error.toString(); 
+    //     // }
+    // } 
 }
 var orm = null;
-export = (function() {
+export =(function() {
     if(!orm){
         let model = new Model();
         model.load(modelConfig);

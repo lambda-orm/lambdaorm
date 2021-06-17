@@ -24,7 +24,7 @@ abstract:
         length: 80 
 enums:
 entities:
-  - name: Employee
+  - name: Employees
     _extends: [northwind.abstract.Address]       
     mapping: Employees
     properties:
@@ -70,9 +70,9 @@ entities:
         type: oneToMany
         from: reportsToId
         to: 
-          entity: Employee
+          entity: Employees
           property: id
-  - name: Category
+  - name: Categories
     mapping: Categories
     properties:
       - name: id
@@ -90,7 +90,7 @@ entities:
         mapping: Description
         type: string
         length: 1000
-  - name: Customer
+  - name: Customers
     _extends: [northwind.abstract.Address]
     mapping: Customers
     properties:
@@ -118,9 +118,9 @@ entities:
         type: manyToOne 
         from: id
         to: 
-          entity: Order
+          entity: Orders
           property: customerId
-  - name: Shipper
+  - name: Shippers
     mapping: Shippers
     properties:
       - name: id 
@@ -138,7 +138,7 @@ entities:
         mapping: Phone
         type: string
         length: 20
-  - name: Supplier
+  - name: Suppliers
     _extends: [northwind.abstract.Address]
     mapping: Suppliers
     properties:
@@ -165,7 +165,7 @@ entities:
         mapping: HomePage
         type: string
         length: 80  
-  - name: Product
+  - name: Products
     mapping: Products
     properties:
       - name: id 
@@ -213,15 +213,15 @@ entities:
         type: oneToMany 
         from: supplierId
         to: 
-          entity: Supplier
+          entity: Suppliers
           property: id 
       - name: category
         type: oneToMany  
         from: categoryId
         to: 
-          entity: Category
+          entity: Categories
           property: id
-  - name: Order
+  - name: Orders
     mapping: Orders
     properties:
       - name: id
@@ -282,21 +282,21 @@ entities:
         type: oneToMany  
         from: customerId
         to: 
-          entity: Customer
+          entity: Customers
           property: id 
       - name: employee
         type: oneToMany  
         from: employeeId
         to: 
-          entity: Employee
+          entity: Employees
           property: id 
       - name: details
         type: manyToOne 
         from: id
         to: 
-          entity: OrderDetail
+          entity: OrderDetails
           property: orderId  
-  - name: OrderDetail
+  - name: OrderDetails
     mapping: Order Details
     properties:
       - name: orderId 
@@ -323,11 +323,11 @@ entities:
         type: oneToMany 
         from: orderId
         to: 
-          entity: Order
+          entity: Orders
           property: id 
       - name: product
         type: oneToMany 
         from: productId
         to: 
-          entity: Product
+          entity: Products
           property: id 

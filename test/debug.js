@@ -21,7 +21,7 @@ orm.addConnection(cnx);
 
 expression =
 `
-Order.filter(p=>p.id==id).includes(details.includes(product),customer)
+Orders.filter(p=>p.id==id).includes(details,customer)
 `;
 
 
