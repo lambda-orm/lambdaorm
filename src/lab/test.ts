@@ -22,6 +22,7 @@ class Query
         let str = value.toString();
         let index = str.indexOf('=>')+2;
         this._expression = str.substring(index,str.length);
+        console.log(this._expression);
         return this;
     }
     public expression(expression:string):Query
@@ -36,6 +37,7 @@ class Query
        this._variant = variant;
        this._schema = schema;
        this._operand=orm.compile(this._expression,this._language,this._variant,this._schema);
+       console.log(this._operand);
        return this;
     }    
     public serialize():string
@@ -111,10 +113,10 @@ let query3= (id:number)=> OrderDetails.filter(p=> p.orderId == id )
 // `;                                                              
 let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id);
 
+let test =(id:number)=> Orders.filter(p=>p.id==id)
 
 
-
-result = new Query().query(query).compile('sql','mysql','northwind').serialize();
+result = new Query().query(test).compile('sql','mysql','northwind').serialize();
 console.log(result);
 // result = orm.compile(expr(query2),'sql','mysql','northwind');
 // result = orm.compile(expr(query3),'sql','mysql','northwind');
