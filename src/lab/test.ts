@@ -5,67 +5,6 @@ const ConfigExtends = require("config-extends");
 import './../sintaxis'
 import './model';
 
-import Node from './../base/node'
-import Context from './../base/context'
-import Operand from './../base/operand'
-
-class Query
-{
-    protected _expression?:string    
-    protected _operand?:Operand
-    protected _language?:string
-    protected _variant?:string
-    protected _schema?:string
-
-    public query(value:Function):Query
-    {
-        let str = value.toString();
-        let index = str.indexOf('=>')+2;
-        this._expression = str.substring(index,str.length);
-        console.log(this._expression);
-        return this;
-    }
-    public expression(expression:string):Query
-    {
-        this._expression = expression;
-        return this;
-    }  
-    public compile(language:string,variant:string,schema:string):Query 
-    {
-       if(!this._expression)throw 'Expression not defined';
-       this._language = language;
-       this._variant = variant;
-       this._schema = schema;
-       this._operand=orm.compile(this._expression,this._language,this._variant,this._schema);
-       console.log(this._operand);
-       return this;
-    }    
-    public serialize():string
-    {
-        if(!this._operand)throw 'Operand not defined';
-        if(!this._language)throw 'Language not defined';
-        return orm.serialize(this._operand,this._language );
-    }
-    public deserialize(serialized:string,language:string):Query
-    {
-       this._language = language;
-       this._operand=orm.deserialize(serialized,this._language);
-       return this;
-    }
-    public async run(context:any,connectionName:string)
-    {
-        if(!this._operand && !this._expression)
-            throw 'expression not defined';
-        if(!this._operand){
-            let connection = orm.getConnection(connectionName);
-            this._operand = orm.compile(this._expression as string,connection.language,connection.variant,connection.schema);   
-        }
-        return await orm.eval(this._operand as Operand,context,connectionName)
-    }
-}
-
-
-
 (async () => { 
 
 
@@ -116,10 +55,14 @@ let updateCategory = (value:Category)=>Categories.update({name:value.name}).filt
 let test =(id:number)=> Orders.filter(p=>p.id==id)
 
 
-result = new Query().query(test).compile('sql','mysql','northwind').serialize();
+
+result = orm.query(test).compile('sql','mysql','northwind').serialize();
 console.log(result);
-// result = orm.compile(expr(query2),'sql','mysql','northwind');
-// result = orm.compile(expr(query3),'sql','mysql','northwind');
-// result = orm.compile(expr(updateCategory),'sql','mysql','northwind');
+result = orm.query(query2).compile('sql','mysql','northwind').serialize();
+result = orm.query(query3).compile('sql','mysql','northwind').serialize();
+result = orm.query(updateCategory).compile('sql','mysql','northwind').serialize();
+
+let context = {id:1}
+result = await orm.query(test).run(context,'northwind');
 
 })();

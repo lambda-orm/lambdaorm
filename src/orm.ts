@@ -14,8 +14,59 @@ import * as model from './model/schema'
 import SchemaManager  from './manager/schema'
 import Schema  from './base/schema'
 
-// import { Orders,OrderDetails,Customers} from './lab/model'
 
+
+class Expression
+{
+    constructor(orm:Orm,expression:string){        
+        this.orm=orm
+        this.expression= expression;
+
+    }
+    protected orm:Orm 
+    protected expression:string    
+    protected language?:string
+    protected variant?:string
+    protected schema?:string
+    
+    public compile(language:string,variant:string,schema:string):CompiledExpression 
+    {
+       if(!this.expression)throw 'Expression not defined';
+       this.language = language;
+       this.variant = variant;
+       this.schema = schema;
+       let operand=this.orm.compile(this.expression,this.language,this.variant,this.schema);
+       return new CompiledExpression(this.orm,operand,this.language);
+    }  
+    public async run(context:any,connection:string)
+    {     
+        let cnx = this.orm.getConnection(connection);
+        let compiled = this.compile(cnx.language,cnx.variant,cnx.schema); 
+        return await compiled.run(context,connection) 
+    }
+}
+
+class CompiledExpression
+{
+    constructor(orm:Orm,operand:Operand,language:string){        
+        this.orm=orm
+        this.operand= operand;
+        this.language= language;
+
+    }
+    protected orm:Orm 
+    protected operand:Operand
+    protected language:string    
+       
+    public serialize():string
+    {
+        return this.orm.serialize(this.operand,this.language );
+    }    
+    public async run(context:any,connectionName:string)
+    {        
+        return await this.orm.eval(this.operand as Operand,context,connectionName)
+    }
+}
 
 class Orm {
 
@@ -75,7 +126,25 @@ class Orm {
     public getConnection(name:string):Connection
     {
         return this.connections[name];
-    }     
+    }
+    
+    public expression(value:string){
+        return new Expression(this,value)
+    }
+    public query(value:Function):Expression
+    {
+        let str = value.toString();
+        let index = str.indexOf('=>')+2;
+        let expression = str.substring(index,str.length);
+        return new Expression(this,expression)
+    }
+    // public deserialize(serialized:string,language:string):Expression
+    // {
+    //    this.language = language;
+    //    this.operand=this.orm.deserialize(serialized,this.language);
+    //    return this;
+    // }    
+
     public compile(expression:string,language:string,variant?:string,schemaName?:string)
     {
         try{
@@ -137,24 +206,6 @@ class Orm {
             throw 'eval: '+expression+' error: '+error.toString(); 
         }
     }
-    public expr(value:Function):string
-    {
-        let str = value.toString();
-        let index = str.indexOf('=>')+2;
-        return str.substring(index,str.length);
-    } 
-    // public async exec(func:Function,context:any,connectionName?:string)
-    // {
-    //     let str = func.toString();
-    //     let index = str.indexOf('=>')+2;
-    //     let expression =  str.substring(index,str.length);
-    //     console.log(expression);
-    //     // try{
-    //     //     return await this.run(func.toString().replace('()=>',''),context,connectionName);
-    //     // }catch(error){
-    //     //     throw 'error: '+error.toString(); 
-    //     // }
-    // } 
 }
 var orm = null;
 export =(function() {
