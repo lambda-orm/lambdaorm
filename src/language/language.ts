@@ -18,7 +18,7 @@ export default abstract class Language
     }
     public abstract addLibrary(library:any):void
     public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
-    public abstract eval(operand:Operand,context:any,cnx?:any):any
+    public abstract run(operand:Operand,context:any,cnx?:any):any
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
         return this.setParent(operand);

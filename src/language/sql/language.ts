@@ -43,7 +43,7 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public async eval(operand:Operand,context:any,connection:Connection)
+    public async run(operand:Operand,context:any,connection:Connection)
     {          
         return await this.execute(operand as SqlQuery,context,connection);
     }

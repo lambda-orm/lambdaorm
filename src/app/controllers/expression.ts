@@ -7,12 +7,11 @@ export default class ExpressionController {
     @Post("/compile/{schema}/{language}/{variant}")
     @SuccessResponse("200", "Ok")
     public async compile(@Path() schema:string,@Body() body: ExpressionRequest,@Path() language:string,@Path() variant:string): Promise<any> {
-        let operand = orm.compile(body.expression,language,variant,schema);
-        return orm.serialize(operand,language);
+        return orm.expression(body.expression).compile(language,variant,schema).serialize()
     }
     @Post("/run/{connection}") 
     @SuccessResponse("200", "Ok")
     public async run(@Body() body: ExpressionRequest,@Path() connection:string): Promise<any> {
-        return orm.run(body.expression,body.context,connection);
+        return await orm.expression(body.expression).run(body.context,connection)
     }
-}
+} 

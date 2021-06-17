@@ -33,6 +33,7 @@ let result
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer,p.details.product.category]) ,{id:0},'northwind');
 
 let query = (id:number)=> Orders.filter(p=> p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
+
 let query2 =  ()=> OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
                                .map(p=> ({category:p.product.category.name,product:p.product.name}) )
                                .sort(p=> [p.category,p.product]);
@@ -56,11 +57,11 @@ let test =(id:number)=> Orders.filter(p=>p.id==id)
 
 
 
-result = orm.query(test).compile('sql','mysql','northwind').serialize();
+result = orm.query(query).compile('sql','mysql','northwind').serialize();
 console.log(result);
-result = orm.query(query2).compile('sql','mysql','northwind').serialize();
-result = orm.query(query3).compile('sql','mysql','northwind').serialize();
-result = orm.query(updateCategory).compile('sql','mysql','northwind').serialize();
+// result = orm.query(query2).compile('sql','mysql','northwind').serialize();
+// result = orm.query(query3).compile('sql','mysql','northwind').serialize();
+// result = orm.query(updateCategory).compile('sql','mysql','northwind').serialize();
 
 let context = {id:1}
 result = await orm.query(test).run(context,'northwind');
