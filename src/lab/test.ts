@@ -22,12 +22,12 @@ import './model';
 let result
 
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]) ,{id:0},'northwind');
-// result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
-//                                                                                                         .include(p=> p.product
-//                                                                                                             .include(p=> p.category.map(p=> p.name))
-//                                                                                                         .map(p=> p.name ))
-//                                                                                                         .map(p=>[p.quantity,p.unitPrice])
-//                                                                                                         ]) ,{id:0},'northwind');
+result = orm.query( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
+                                                                                                        .include(p=> p.product
+                                                                                                            .include(p=> p.category.map(p=> p.name))
+                                                                                                        .map(p=> p.name ))
+                                                                                                        .map(p=>[p.quantity,p.unitPrice])
+                                                                                                        ])).run({id:0},'northwind');
 
 
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer,p.details.product.category]) ,{id:0},'northwind');
@@ -46,24 +46,30 @@ let query2 =  ()=> OrderDetails.filter(p=> between(p.order.shippedDate,'19970101
 // ORDER BY category, product
 // `;                               
 let query3= (id:number)=> OrderDetails.filter(p=> p.orderId == id )
-                               .map(p=> [p.orderId,as(sum((p.unitPrice*p.quantity*(1-p.discount/100))*100),'subTotal')]); 
+                               .map(p=> ({id:p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100)})); 
 // `SELECT o.OrderID AS order, SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal
 // FROM OrderDetails o
 // GROUP BY o.OrderID
 // `;                                                              
-let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id);
+// let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id);
 
-let test =(id:number)=> Orders.filter(p=>p.id==id)
+
+let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
 
 
 
 result = orm.query(query).compile('sql','mysql','northwind').serialize();
 console.log(result);
-// result = orm.query(query2).compile('sql','mysql','northwind').serialize();
-// result = orm.query(query3).compile('sql','mysql','northwind').serialize();
+result = orm.query(query2).compile('sql','mysql','northwind').serialize();
+console.log(result);
+result = orm.query(query3).compile('sql','mysql','northwind').serialize();
+console.log(result);
 // result = orm.query(updateCategory).compile('sql','mysql','northwind').serialize();
+// console.log(result);
 
-let context = {id:1}
-result = await orm.query(test).run(context,'northwind');
+let context = {id:10584}
+let query4 = (id:number)=> Orders.filter(p=>p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
+result = await orm.query(query4).run(context,'northwind');
+console.log(result);
 
 })();
