@@ -20,14 +20,17 @@ expression =
 `
 Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
 `;
+//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
 //Orders.filter(p=>p.id==id).includes(details.includes(product.includes(category)),customer)
-//plan
-// result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
-// console.log(result);
+//plan 
+result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
+console.log(result);
 //ejecucion
-let context = {id:10582}
-result = await orm.expression(expression).run(context,'northwind');
-console.log(JSON.stringify(result));
+// let context = {id:10582}
+// result = await orm.expression(expression).run(context,'northwind');
+// console.log(JSON.stringify(result));
 
 // `
 // Order.filter(p=> p.id == id ) 

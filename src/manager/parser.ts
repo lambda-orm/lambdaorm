@@ -182,7 +182,7 @@ export default class Parser{
                  if(value.includes('.')){
                      let names = value.split('.');
                      let name = names.pop();
-                     let variableName= names.join('');
+                     let variableName= names.join('.');
                      let variable = new Node(variableName,'var');
                      operand= this.getChildFunction(name,variable);
                  }

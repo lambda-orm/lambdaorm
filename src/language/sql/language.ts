@@ -260,12 +260,30 @@ export default class SqlLanguage extends Language
     }
 
     protected createSentenceInclude(node:Node,mainEntity:any,schema:Schema,context:any):SqlSentenceInclude
-    {   let child:SqlSentence,relation:any,relationName:string=""; 
-
+    {   
+        let child:SqlSentence,relation:any,relationName:string=""; 
         let p = node
-        if (p.type == 'var') {
-        // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
-        // entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))      
+        if(p.type =='arrow'){
+            //resuelve el siguiente caso  .includes(details.map(p=>p))     
+            let current = p;
+            while (current) {
+                if(current.type == 'var'){
+                    //p.details
+                    let parts = current.name.split('.');
+                    relationName=parts[1];
+                    relation = mainEntity.relation[relationName];                            
+                    current.name = relation.to.entity;
+                    break;
+                }
+                if (current.children.length > 0)
+                    current = current.children[0];
+                else
+                    break;
+            }
+            child = this.nodeToOperand(p, schema, context) as SqlSentence;
+        } else if (p.type == 'var') {
+            // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
+            // entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))      
             let varArrow = new Node('p', 'var', []);
             let varAll = new Node('p', 'var', []);
             let parts = p.name.split('.');
@@ -438,6 +456,11 @@ export default class SqlLanguage extends Language
                 operand =new SqlFrom(tableName+'.'+context.current.alias);
                 children.push(operand);
             }
+            if(sentence['include']){
+                let clause = sentence['include'];
+                operand = this.createClause(clause,schema,context);
+                children.push(operand); 
+            }
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
                 operand = this.createMapClause(clause,schema,context);
@@ -498,9 +521,7 @@ export default class SqlLanguage extends Language
     }
     protected nodeToOperand(node:Node,schema:Schema,context:any):Operand
     {
-        if (node.type == 'arrow' && node.name == 'include'){
-            return this.addInclude(node,schema,context);
-        }else if(node.type == 'arrow'){
+        if(node.type == 'arrow'){
             return this.createSentence(node,schema,context);
         }else{
             let children = [];
@@ -513,6 +534,21 @@ export default class SqlLanguage extends Language
             }
             return this.createOperand(node,children,schema,context);
         }
+        // if (node.type == 'arrow' && node.name == 'include'){
+        //     return this.addInclude(node,schema,context);
+        // }else if(node.type == 'arrow'){
+        //     return this.createSentence(node,schema,context);
+        // }else{
+        //     let children = [];
+        //     if(node.children){
+        //         for(const k in node.children){
+        //             let p = node.children[k];
+        //             let child = this.nodeToOperand(p,schema,context);
+        //             children.push(child);
+        //         }
+        //     }
+        //     return this.createOperand(node,children,schema,context);
+        // }
     }
     protected addJoins(parts:string[],to:number,context:any):string
     {

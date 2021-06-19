@@ -54,7 +54,7 @@ let query3= (id:number)=> OrderDetails.filter(p=> p.orderId == id )
 // let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id);
 
 
-let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
+let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
 
 
