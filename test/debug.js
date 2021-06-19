@@ -17,13 +17,15 @@ cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,
 orm.addConnection(cnx);
 
 expression =
-`
-Orders.filter(p=>p.id==id).include(p => p.details)
+` 
+Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 `;
 //Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
 //Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
 //Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
-//Orders.filter(p=>p.id==id).includes(details.includes(product.includes(category)),customer)
+//Orders.filter(p=>p.id==id).include(p => p.details)
 //plan 
 result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
 console.log(result);

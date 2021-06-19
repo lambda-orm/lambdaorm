@@ -56,7 +56,7 @@ let query3= (id:number)=> OrderDetails.filter(p=> p.orderId == id )
 
 let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
-
+let query6 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
 result = orm.query(query).compile('sql','mysql','northwind').serialize();
 console.log(result);

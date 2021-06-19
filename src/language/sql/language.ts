@@ -298,17 +298,16 @@ export default class SqlLanguage extends Language
 
     protected createSentenceInclude(node:Node,schema:Schema,context:SqlContext):SqlSentenceInclude
     {   
-        let child:SqlSentence,relation:any,relationName:string=""; 
-        let p = node
-        if(p.type =='arrow'){
+        let child:SqlSentence,relation:any,relationName:string="";
+        if(node.type =='arrow'){
             //resuelve el siguiente caso  .includes(details.map(p=>p))     
-            let current = p;
+            let current = node;
             while (current) {
                 if(current.type == 'var'){
                     //p.details
                     let parts = current.name.split('.');
                     relationName=parts[1];
-                    relation = context.aliases.metadata.relation[relationName];                            
+                    relation = context.current.metadata.relation[relationName];                            
                     current.name = relation.to.entity;
                     break;
                 }
@@ -317,20 +316,20 @@ export default class SqlLanguage extends Language
                 else
                     break;
             }
-            child = this.createSentence(p, schema, context);
-        } else if (p.type == 'var') {
+            child = this.createSentence(node, schema, context);
+        } else if (node.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
             // entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))      
             let varArrow = new Node('p', 'var', []);
             let varAll = new Node('p', 'var', []);
-            let parts = p.name.split('.');
+            let parts = node.name.split('.');
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
-            p.name = relation.to.entity;
-            let map = new Node('map','arrow',[p,varArrow,varAll]);
+            node.name = relation.to.entity;
+            let map = new Node('map','arrow',[node,varArrow,varAll]);
             child = this.createSentence(map, schema, context);
         }else{
-            throw 'Error to add include node '+p.type+':'+p.name; 
+            throw 'Error to add include node '+node.type+':'+node.name; 
         } 
         let toEntity=schema.getEntity(relation.to.entity);
         let toField = toEntity.property[relation.to.property].mapping;
@@ -494,17 +493,16 @@ export default class SqlLanguage extends Language
             if(sentence['include']){
                 let clause = sentence['include'];                
                 context.current.arrowVar = clause.children[1].name; 
-                let body = clause.children[2];
-                if (body.type == 'var') {
-                    let include = this.createSentenceInclude(body,schema,context)
-                    children.push(include);
-                }else if (body.type == 'array') {
+                let body = clause.children[2];                
+                if (body.type == 'array'){
                     for (let i=0; i< body.children.length;i++) {
                         let include = this.createSentenceInclude(body.children[i],schema,context)
                         children.push(include);
                     }
-                }else{
-                    throw 'Error to add include node '+body.type+':'+body.name; 
+                }
+                else{
+                    let include = this.createSentenceInclude(body,schema,context)
+                    children.push(include);    
                 }
             }
             if(sentence['map'] || sentence['first']){
