@@ -49,6 +49,7 @@ export default class LanguageManager
             return operand; 
         }
         catch(error){
+            console.log(error)
             throw 'expression: '+expression+' error: '+error.toString();
         }
     }    

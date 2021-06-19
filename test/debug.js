@@ -18,7 +18,7 @@ orm.addConnection(cnx);
 
 expression =
 `
-Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
+Orders.filter(p=>p.id==id).include(p => p.details)
 `;
 //Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 //Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])

@@ -143,15 +143,19 @@ class SqlSentence extends FunctionRef
     public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
     public alias:string
-    public includes:SqlSentenceInclude[];
+    // public includes:SqlSentenceInclude[];
 
     constructor(name:string,children:Operand[]=[],entity:string,alias:string,columns:string[]){
         super(name,children);
         this.entity=entity;
         this.alias=alias;
         this.columns=columns;
-        this.includes=[];
+        // this.includes=[];
         this.variables=[];
+    }
+    public getIncludes():Operand[]
+    {
+        return this.children.filter(p=> p instanceof SqlSentenceInclude);
     } 
     public build(metadata:SqlLanguageVariant){
 

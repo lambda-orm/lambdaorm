@@ -8,6 +8,43 @@ import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOper
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlUpdateFrom,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import SqlLanguageVariant from './variant'
+import { AnyARecord } from 'dns'
+
+class SqlEntityContext
+{    
+    public parent?:SqlEntityContext
+    public entity:string
+    public alias:string
+    public metadata:any
+    public children:SqlEntityContext[]
+    public joins:any
+    public fields:string[]
+    public groupByFields:string[]
+    public arrowVar:string
+    
+    constructor(parent?:SqlEntityContext){        
+        this.parent=parent
+        if(parent)parent.children.push(this)        
+        this.entity=''
+        this.alias=''
+        this.arrowVar=''
+        this.children=[]
+        this.joins={}
+        this.fields=[]
+        this.groupByFields=[]
+    }
+} 
+class SqlContext
+{
+    public aliases:any
+    public current:SqlEntityContext 
+    constructor(current:SqlEntityContext){
+        this.current = current
+        this.aliases={}
+    }
+}
+
+
 
 
 export default class SqlLanguage extends Language
@@ -31,8 +68,7 @@ export default class SqlLanguage extends Language
     public compile(node:Node,schema:Schema,variant:string):Operand
     {
         try{
-            let context = {aliases:{},current:null};
-            let operand = this.nodeToOperand(node,schema,context);
+            let operand = this.nodeToOperand(node,schema,new SqlContext(new SqlEntityContext()));
             operand = this.reduce(operand);
             let metadata = this._variants[variant];
             let sqlSquery = this.createQuery(operand as SqlSentence,metadata);            
@@ -52,10 +88,11 @@ export default class SqlLanguage extends Language
         return operand
     }
     protected createQuery(sqlSentence:SqlSentence,metadata:SqlLanguageVariant):SqlQuery
-    {       
+    { 
        let children=[];
-       for(const p in sqlSentence.includes){          
-          let include =  sqlSentence.includes[p];
+       let includes = sqlSentence.getIncludes();       
+       for(const p in includes){          
+          let include =  includes[p] as SqlSentenceInclude;
           let query = this.createQuery(include.children[0] as SqlSentence,metadata);
           let sqlInclude = new SqlInclude(include.name,[query],include.relation,include.variable); 
           children.push(sqlInclude);            
@@ -119,7 +156,7 @@ export default class SqlLanguage extends Language
     {
         throw 'NotImplemented';
     }
-    protected createAlias(context:any,name:string,relation?:string):string
+    protected createAlias(context:SqlContext,name:string,relation?:string):string
     {
         let c= name.charAt(0).toLowerCase();
         let alias = c;
@@ -127,7 +164,7 @@ export default class SqlLanguage extends Language
         context.aliases[alias] = relation?relation:name;
         return alias;        
     }    
-    protected createOperand(node:Node,children:Operand[],schema:Schema,context:any):Operand
+    protected createOperand(node:Node,children:Operand[],schema:Schema,context:SqlContext):Operand
     {
         switch(node.type){
             case 'const':
@@ -221,13 +258,13 @@ export default class SqlLanguage extends Language
             throw'cretae arrow function: '+node.name+' error: '+error.toString(); 
         }
     }
-    protected createClause(clause:Node,schema:Schema,context:any):Operand
+    protected createClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {        
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],schema,context);
         return this.createArrowFunction(clause,[child]);
     }
-    protected createMapClause(clause:Node,schema:Schema,context:any):Operand
+    protected createMapClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {
         if(clause.children.length==3){
             context.current.arrowVar = clause.children[1].name;
@@ -259,7 +296,7 @@ export default class SqlLanguage extends Language
         return obj;
     }
 
-    protected createSentenceInclude(node:Node,mainEntity:any,schema:Schema,context:any):SqlSentenceInclude
+    protected createSentenceInclude(node:Node,schema:Schema,context:SqlContext):SqlSentenceInclude
     {   
         let child:SqlSentence,relation:any,relationName:string=""; 
         let p = node
@@ -271,7 +308,7 @@ export default class SqlLanguage extends Language
                     //p.details
                     let parts = current.name.split('.');
                     relationName=parts[1];
-                    relation = mainEntity.relation[relationName];                            
+                    relation = context.aliases.metadata.relation[relationName];                            
                     current.name = relation.to.entity;
                     break;
                 }
@@ -280,7 +317,7 @@ export default class SqlLanguage extends Language
                 else
                     break;
             }
-            child = this.nodeToOperand(p, schema, context) as SqlSentence;
+            child = this.createSentence(p, schema, context);
         } else if (p.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
             // entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))      
@@ -288,10 +325,10 @@ export default class SqlLanguage extends Language
             let varAll = new Node('p', 'var', []);
             let parts = p.name.split('.');
             relationName=parts[1];
-            relation = mainEntity.relation[relationName];
+            relation = context.current.metadata.relation[relationName];
             p.name = relation.to.entity;
             let map = new Node('map','arrow',[p,varArrow,varAll]);
-            child = this.nodeToOperand(map, schema, context) as SqlSentence;
+            child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+p.type+':'+p.name; 
         } 
@@ -311,117 +348,114 @@ export default class SqlLanguage extends Language
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     }
 
-    protected addInclude(node:Node,schema:Schema,context:any):any
-    {
-        try{
+    // protected getIncludes(node:Node,schema:Schema,context:SqlContext):any
+    // {
+    //     try{
                    
-            let sentence = this.nodeToOperand(node.children[0],schema,context) as SqlSentence;
-            let mainEntity=schema.getEntity(sentence.entity);
+    //         let sentence = this.nodeToOperand(node.children[0],schema,context) as SqlSentence;
+    //         let mainEntity=schema.getEntity(sentence.entity);
 
-            context.current.arrowVar = node.children[1].name; 
-            let p = node.children[2];
-            if (p.type == 'var') {
-                let include = this.createSentenceInclude(p,mainEntity,schema,context)
-                sentence.includes.push(include);
-            }else if (p.type == 'array') {
-                for (let i=0; i< p.children.length;i++) {
-                    let include = this.createSentenceInclude(p.children[i],mainEntity,schema,context)
-                    sentence.includes.push(include);
-                }
-            }else{
-                throw 'Error to add include node '+p.type+':'+p.name; 
-            }             
-            return sentence;
-        } 
-        catch(error){
-            console.error(error);
-            throw error; 
-        }
+    //         context.current.arrowVar = node.children[1].name; 
+    //         let p = node.children[2];
+    //         if (p.type == 'var') {
+    //             let include = this.createSentenceInclude(p,mainEntity,schema,context)
+    //             sentence.includes.push(include);
+    //         }else if (p.type == 'array') {
+    //             for (let i=0; i< p.children.length;i++) {
+    //                 let include = this.createSentenceInclude(p.children[i],mainEntity,schema,context)
+    //                 sentence.includes.push(include);
+    //             }
+    //         }else{
+    //             throw 'Error to add include node '+p.type+':'+p.name; 
+    //         }             
+    //         return sentence;
+    //     } 
+    //     catch(error){
+    //         console.error(error);
+    //         throw error; 
+    //     }
 
 
-        // for (let i=1; i< node.children.length;i++) {
-        //     let p = node.children[i];
-        //     if(p.type =='arrow'){
-        //     //resuelve el siguiente caso  .includes(details.map(p=>p))     
-        //         let current = p;
-        //         while (current) {
-        //             if(current.type == 'var'){
-        //                 relationName=current.name;
-        //                 relation = mainEntity.relation[relationName];                            
-        //                 current.name = relation.to.entity;
-        //                 break;
-        //             }
-        //             if (current.children.length > 0)
-        //                 current = current.children[0];
-        //             else
-        //                 break;
-        //         }
-        //         child = this.nodeToOperand(p, schema, context) as SqlSentence;
-        //     }else if (p.type == 'var') {
-        //     // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .includes(details)  
-        //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p))      
-        //         let varArrow = new Node('p', 'var', []);
-        //         let varAll = new Node('p', 'var', []);
-        //         relationName=p.name;
-        //         relation = mainEntity.relation[relationName];
-        //         p.name = relation.to.entity;
-        //         let map = new Node('map','arrow',[p,varArrow,varAll]);
-        //         child = this.nodeToOperand(map, schema, context) as SqlSentence;
-        //     }else if (i==1 && p.type == 'arrow' && p.name == 'include') {
-        //     // resuelve cuando una variable dento de un includes a su vez tiene otra , ejemplo:  
-        //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p).includes(product))       
-        //         let varRelation = p.children[0];
-        //         let varArrow = new Node('p', 'var', []);
-        //         let varAll = new Node('p', 'var', []);
-        //         relationName=varRelation.name;
-        //         relation = mainEntity.relation[relationName];
-        //         varRelation.name = relation.to.entity;
-        //         let map = new Node('map','arrow',[varRelation,varArrow,varAll]);
-        //         p.children[0] = map;
-        //         child = this.addInclude(p, schema, context) as SqlSentence;
-        //     }else if (p.type == 'arrow' && p.name == 'include') {
-        //     //resuelve el siguiente caso  .includes(details.map(p=>p).includes(product)))      
-        //         let current = p;
-        //         while (current) {
-        //             if (current.type == 'var') {
-        //                 relationName=current.name;
-        //                 relation = mainEntity.relation[relationName];
-        //                 current.name = relation.to.entity;
-        //                 break;
-        //             }
-        //             if (current.children.length > 0)
-        //                 current = current.children[0];
-        //             else
-        //                 break;
-        //         }
-        //         child= this.addInclude(p, schema, context);
-        //     }else{
-        //         throw 'Error to add include node '+p.type+':'+p.name; 
-        //     }            
-        //     let toEntity=schema.getEntity(relation.to.entity);
-        //     let toField = toEntity.property[relation.to.property].mapping;
-        //     let fieldRelation = new SqlField(child.alias + '.' + toField);
-        //     let variableName = 'list_'+relation.to.property;
-        //     let varRelation = new SqlVariable(variableName);
-        //     let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
-        //     let childFilter= child.children.find(p=> p.name == 'filter');
-        //     if(!childFilter){
-        //         let childFilter = new SqlFilter('filter',[filterInclude]);
-        //         child.children.push(childFilter);
-        //     }else{
-        //         childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
-        //     }
-        //     let include = new SqlSentenceInclude(relationName,[child],relation,variableName);
-        //     sentence.includes.push(include);
-        // }
-        // return sentence;
-    }
-    protected createSentence(node:Node,schema:Schema,context:any):SqlSentence
+    //     // for (let i=1; i< node.children.length;i++) {
+    //     //     let p = node.children[i];
+    //     //     if(p.type =='arrow'){
+    //     //     //resuelve el siguiente caso  .includes(details.map(p=>p))     
+    //     //         let current = p;
+    //     //         while (current) {
+    //     //             if(current.type == 'var'){
+    //     //                 relationName=current.name;
+    //     //                 relation = mainEntity.relation[relationName];                            
+    //     //                 current.name = relation.to.entity;
+    //     //                 break;
+    //     //             }
+    //     //             if (current.children.length > 0)
+    //     //                 current = current.children[0];
+    //     //             else
+    //     //                 break;
+    //     //         }
+    //     //         child = this.nodeToOperand(p, schema, context) as SqlSentence;
+    //     //     }else if (p.type == 'var') {
+    //     //     // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .includes(details)  
+    //     //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p))      
+    //     //         let varArrow = new Node('p', 'var', []);
+    //     //         let varAll = new Node('p', 'var', []);
+    //     //         relationName=p.name;
+    //     //         relation = mainEntity.relation[relationName];
+    //     //         p.name = relation.to.entity;
+    //     //         let map = new Node('map','arrow',[p,varArrow,varAll]);
+    //     //         child = this.nodeToOperand(map, schema, context) as SqlSentence;
+    //     //     }else if (i==1 && p.type == 'arrow' && p.name == 'include') {
+    //     //     // resuelve cuando una variable dento de un includes a su vez tiene otra , ejemplo:  
+    //     //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p).includes(product))       
+    //     //         let varRelation = p.children[0];
+    //     //         let varArrow = new Node('p', 'var', []);
+    //     //         let varAll = new Node('p', 'var', []);
+    //     //         relationName=varRelation.name;
+    //     //         relation = mainEntity.relation[relationName];
+    //     //         varRelation.name = relation.to.entity;
+    //     //         let map = new Node('map','arrow',[varRelation,varArrow,varAll]);
+    //     //         p.children[0] = map;
+    //     //         child = this.addInclude(p, schema, context) as SqlSentence;
+    //     //     }else if (p.type == 'arrow' && p.name == 'include') {
+    //     //     //resuelve el siguiente caso  .includes(details.map(p=>p).includes(product)))      
+    //     //         let current = p;
+    //     //         while (current) {
+    //     //             if (current.type == 'var') {
+    //     //                 relationName=current.name;
+    //     //                 relation = mainEntity.relation[relationName];
+    //     //                 current.name = relation.to.entity;
+    //     //                 break;
+    //     //             }
+    //     //             if (current.children.length > 0)
+    //     //                 current = current.children[0];
+    //     //             else
+    //     //                 break;
+    //     //         }
+    //     //         child= this.addInclude(p, schema, context);
+    //     //     }else{
+    //     //         throw 'Error to add include node '+p.type+':'+p.name; 
+    //     //     }            
+    //     //     let toEntity=schema.getEntity(relation.to.entity);
+    //     //     let toField = toEntity.property[relation.to.property].mapping;
+    //     //     let fieldRelation = new SqlField(child.alias + '.' + toField);
+    //     //     let variableName = 'list_'+relation.to.property;
+    //     //     let varRelation = new SqlVariable(variableName);
+    //     //     let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
+    //     //     let childFilter= child.children.find(p=> p.name == 'filter');
+    //     //     if(!childFilter){
+    //     //         let childFilter = new SqlFilter('filter',[filterInclude]);
+    //     //         child.children.push(childFilter);
+    //     //     }else{
+    //     //         childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
+    //     //     }
+    //     //     let include = new SqlSentenceInclude(relationName,[child],relation,variableName);
+    //     //     sentence.includes.push(include);
+    //     // }
+    //     // return sentence;
+    // }
+    protected createSentence(node:Node,schema:Schema,context:SqlContext):SqlSentence
     {
-        context.current = {parent:context.current,children:[],joins:{},fields:[],groupByFields:[]};
-        if(context.parent)
-            context.parent.children.push(context.current);            
-
+        context.current = new SqlEntityContext(context.current)
         let sentence:any = {}; 
         let current = node;
         while(current){
@@ -433,6 +467,7 @@ export default class SqlLanguage extends Language
                 break;  
         }            
         context.current.entity=sentence.from.name;
+        context.current.metadata=schema.getEntity(context.current.entity);
         context.current.alias = this.createAlias(context,context.current.entity);            
         let children = [];
         let operand= null;
@@ -457,9 +492,20 @@ export default class SqlLanguage extends Language
                 children.push(operand);
             }
             if(sentence['include']){
-                let clause = sentence['include'];
-                operand = this.createClause(clause,schema,context);
-                children.push(operand); 
+                let clause = sentence['include'];                
+                context.current.arrowVar = clause.children[1].name; 
+                let body = clause.children[2];
+                if (body.type == 'var') {
+                    let include = this.createSentenceInclude(body,schema,context)
+                    children.push(include);
+                }else if (body.type == 'array') {
+                    for (let i=0; i< body.children.length;i++) {
+                        let include = this.createSentenceInclude(body.children[i],schema,context)
+                        children.push(include);
+                    }
+                }else{
+                    throw 'Error to add include node '+body.type+':'+body.name; 
+                }
             }
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
@@ -517,9 +563,11 @@ export default class SqlLanguage extends Language
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
         }
-        return new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
+        let sqlSentence = new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
+        context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
+        return sqlSentence   
     }
-    protected nodeToOperand(node:Node,schema:Schema,context:any):Operand
+    protected nodeToOperand(node:Node,schema:Schema,context:SqlContext):Operand
     {
         if(node.type == 'arrow'){
             return this.createSentence(node,schema,context);
@@ -550,7 +598,7 @@ export default class SqlLanguage extends Language
         //     return this.createOperand(node,children,schema,context);
         // }
     }
-    protected addJoins(parts:string[],to:number,context:any):string
+    protected addJoins(parts:string[],to:number,context:SqlContext):string
     {
         let relation = '';
         for(let i=1;i<to;i++){
