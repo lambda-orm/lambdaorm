@@ -53,6 +53,7 @@ let query3= (id:number)=> OrderDetails.filter(p=> p.orderId == id )
 // `;                                                              
 // let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id);
 
+OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
 
 let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 

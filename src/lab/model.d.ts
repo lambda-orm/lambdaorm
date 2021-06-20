@@ -15,6 +15,10 @@ class Product extends Entity<Product>
 {
     public id:number
     public name:string
+    public quantity:number
+    public inStock:number
+    public discontinued:boolean
+    public categoryId:number
     public category:Category
 }
 class Order extends Entity<Order>
@@ -29,7 +33,6 @@ class Order extends Entity<Order>
 }
 class OrderDetail extends Entity<OrderDetail>
 {
-    public id:number
     public orderId:number
     public productId:number
     public unitPrice:number

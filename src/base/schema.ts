@@ -7,8 +7,12 @@ export default class SchemaHelper
     public propertyMapping(entityName:string,name:string):any
     {
         let entity =this.getEntity(entityName);
-        if(!entity)return null;
-        return entity.property[name].mapping;
+        if(!entity)
+            throw 'Not exists entity:'+entityName;
+        let property= entity.property[name];
+        if(!property)
+            throw 'Not exists property: '+name+' in entity: '+entityName;
+        return property.mapping;     
     }
     public entityMapping(entityName:string):string
     {
@@ -17,7 +21,6 @@ export default class SchemaHelper
     }
     public getEntity(name:string):any
     {
-        if(!this._schema)return null;
         return this._schema.entity[name];
     }
     public getRelation(entity:string,relation:string):any

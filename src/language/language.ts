@@ -23,10 +23,9 @@ export default abstract class Language
         let operand = this._deserialize(serialized,language);
         return this.setParent(operand);
     }
-    public serialize(value:Operand):string
+    public serialize(value:Operand):any
     {
-        let json =this._serialize(value);
-        return json? JSON.stringify(json):"";
+        return this._serialize(value);
     }
     protected setParent(operand:Operand,index:number=0,parent?:Operand){        
         try{
@@ -58,8 +57,8 @@ export default abstract class Language
         for(const k in operand.children){
             children.push(this._serialize(operand.children[k]));
         }
-        if(children.length == 0) return {'n':operand.name,'t':operand.constructor.name};     
-        return {'n':operand.name,'t':operand.constructor.name,'c':children}; 
+        if(children.length == 0) return {n:operand.name,t:operand.constructor.name};     
+        return {n:operand.name,t:operand.constructor.name,c:children}; 
     }
     protected abstract _deserialize(serialized:any,language:string):Operand
 }

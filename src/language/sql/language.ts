@@ -143,13 +143,13 @@ export default class SqlLanguage extends Language
             for(const k in query.children){
                 children.push(this._serialize(query.children[k]));
             }
-            return {'n':query.name,'t':query.constructor.name,'c':children,'s':query.sentence,'cols':query.columns,'v':query.variables};
+            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,cols:query.columns,v:query.variables};
         }else if(operand instanceof SqlInclude){
             let include = operand as SqlInclude;
             for(const k in include.children){
                 children.push(this._serialize(include.children[k]));
             }
-            return {'n':include.name,'t':include.constructor.name,'c':children,'r':include.relation,'v':include.variable}; 
+            return {n:include.name,t:include.constructor.name,c:children,r:include.relation,v:include.variable}; 
         }
     }
     protected _deserialize(serialized:any,language:string):Operand
@@ -295,7 +295,6 @@ export default class SqlLanguage extends Language
         }
         return obj;
     }
-
     protected createSentenceInclude(node:Node,schema:Schema,context:SqlContext):SqlSentenceInclude
     {   
         let child:SqlSentence,relation:any,relationName:string="";
@@ -346,112 +345,6 @@ export default class SqlLanguage extends Language
         }
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     }
-
-    // protected getIncludes(node:Node,schema:Schema,context:SqlContext):any
-    // {
-    //     try{
-                   
-    //         let sentence = this.nodeToOperand(node.children[0],schema,context) as SqlSentence;
-    //         let mainEntity=schema.getEntity(sentence.entity);
-
-    //         context.current.arrowVar = node.children[1].name; 
-    //         let p = node.children[2];
-    //         if (p.type == 'var') {
-    //             let include = this.createSentenceInclude(p,mainEntity,schema,context)
-    //             sentence.includes.push(include);
-    //         }else if (p.type == 'array') {
-    //             for (let i=0; i< p.children.length;i++) {
-    //                 let include = this.createSentenceInclude(p.children[i],mainEntity,schema,context)
-    //                 sentence.includes.push(include);
-    //             }
-    //         }else{
-    //             throw 'Error to add include node '+p.type+':'+p.name; 
-    //         }             
-    //         return sentence;
-    //     } 
-    //     catch(error){
-    //         console.error(error);
-    //         throw error; 
-    //     }
-
-
-    //     // for (let i=1; i< node.children.length;i++) {
-    //     //     let p = node.children[i];
-    //     //     if(p.type =='arrow'){
-    //     //     //resuelve el siguiente caso  .includes(details.map(p=>p))     
-    //     //         let current = p;
-    //     //         while (current) {
-    //     //             if(current.type == 'var'){
-    //     //                 relationName=current.name;
-    //     //                 relation = mainEntity.relation[relationName];                            
-    //     //                 current.name = relation.to.entity;
-    //     //                 break;
-    //     //             }
-    //     //             if (current.children.length > 0)
-    //     //                 current = current.children[0];
-    //     //             else
-    //     //                 break;
-    //     //         }
-    //     //         child = this.nodeToOperand(p, schema, context) as SqlSentence;
-    //     //     }else if (p.type == 'var') {
-    //     //     // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .includes(details)  
-    //     //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p))      
-    //     //         let varArrow = new Node('p', 'var', []);
-    //     //         let varAll = new Node('p', 'var', []);
-    //     //         relationName=p.name;
-    //     //         relation = mainEntity.relation[relationName];
-    //     //         p.name = relation.to.entity;
-    //     //         let map = new Node('map','arrow',[p,varArrow,varAll]);
-    //     //         child = this.nodeToOperand(map, schema, context) as SqlSentence;
-    //     //     }else if (i==1 && p.type == 'arrow' && p.name == 'include') {
-    //     //     // resuelve cuando una variable dento de un includes a su vez tiene otra , ejemplo:  
-    //     //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p).includes(product))       
-    //     //         let varRelation = p.children[0];
-    //     //         let varArrow = new Node('p', 'var', []);
-    //     //         let varAll = new Node('p', 'var', []);
-    //     //         relationName=varRelation.name;
-    //     //         relation = mainEntity.relation[relationName];
-    //     //         varRelation.name = relation.to.entity;
-    //     //         let map = new Node('map','arrow',[varRelation,varArrow,varAll]);
-    //     //         p.children[0] = map;
-    //     //         child = this.addInclude(p, schema, context) as SqlSentence;
-    //     //     }else if (p.type == 'arrow' && p.name == 'include') {
-    //     //     //resuelve el siguiente caso  .includes(details.map(p=>p).includes(product)))      
-    //     //         let current = p;
-    //     //         while (current) {
-    //     //             if (current.type == 'var') {
-    //     //                 relationName=current.name;
-    //     //                 relation = mainEntity.relation[relationName];
-    //     //                 current.name = relation.to.entity;
-    //     //                 break;
-    //     //             }
-    //     //             if (current.children.length > 0)
-    //     //                 current = current.children[0];
-    //     //             else
-    //     //                 break;
-    //     //         }
-    //     //         child= this.addInclude(p, schema, context);
-    //     //     }else{
-    //     //         throw 'Error to add include node '+p.type+':'+p.name; 
-    //     //     }            
-    //     //     let toEntity=schema.getEntity(relation.to.entity);
-    //     //     let toField = toEntity.property[relation.to.property].mapping;
-    //     //     let fieldRelation = new SqlField(child.alias + '.' + toField);
-    //     //     let variableName = 'list_'+relation.to.property;
-    //     //     let varRelation = new SqlVariable(variableName);
-    //     //     let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
-    //     //     let childFilter= child.children.find(p=> p.name == 'filter');
-    //     //     if(!childFilter){
-    //     //         let childFilter = new SqlFilter('filter',[filterInclude]);
-    //     //         child.children.push(childFilter);
-    //     //     }else{
-    //     //         childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
-    //     //     }
-    //     //     let include = new SqlSentenceInclude(relationName,[child],relation,variableName);
-    //     //     sentence.includes.push(include);
-    //     // }
-    //     // return sentence;
-    // }
     protected createSentence(node:Node,schema:Schema,context:SqlContext):SqlSentence
     {
         context.current = new SqlEntityContext(context.current)
@@ -580,21 +473,6 @@ export default class SqlLanguage extends Language
             }
             return this.createOperand(node,children,schema,context);
         }
-        // if (node.type == 'arrow' && node.name == 'include'){
-        //     return this.addInclude(node,schema,context);
-        // }else if(node.type == 'arrow'){
-        //     return this.createSentence(node,schema,context);
-        // }else{
-        //     let children = [];
-        //     if(node.children){
-        //         for(const k in node.children){
-        //             let p = node.children[k];
-        //             let child = this.nodeToOperand(p,schema,context);
-        //             children.push(child);
-        //         }
-        //     }
-        //     return this.createOperand(node,children,schema,context);
-        // }
     }
     protected addJoins(parts:string[],to:number,context:SqlContext):string
     {
@@ -671,3 +549,111 @@ export default class SqlLanguage extends Language
         
     }
 }
+
+
+
+ // protected getIncludes(node:Node,schema:Schema,context:SqlContext):any
+    // {
+    //     try{
+                   
+    //         let sentence = this.nodeToOperand(node.children[0],schema,context) as SqlSentence;
+    //         let mainEntity=schema.getEntity(sentence.entity);
+
+    //         context.current.arrowVar = node.children[1].name; 
+    //         let p = node.children[2];
+    //         if (p.type == 'var') {
+    //             let include = this.createSentenceInclude(p,mainEntity,schema,context)
+    //             sentence.includes.push(include);
+    //         }else if (p.type == 'array') {
+    //             for (let i=0; i< p.children.length;i++) {
+    //                 let include = this.createSentenceInclude(p.children[i],mainEntity,schema,context)
+    //                 sentence.includes.push(include);
+    //             }
+    //         }else{
+    //             throw 'Error to add include node '+p.type+':'+p.name; 
+    //         }             
+    //         return sentence;
+    //     } 
+    //     catch(error){
+    //         console.error(error);
+    //         throw error; 
+    //     }
+
+
+    //     // for (let i=1; i< node.children.length;i++) {
+    //     //     let p = node.children[i];
+    //     //     if(p.type =='arrow'){
+    //     //     //resuelve el siguiente caso  .includes(details.map(p=>p))     
+    //     //         let current = p;
+    //     //         while (current) {
+    //     //             if(current.type == 'var'){
+    //     //                 relationName=current.name;
+    //     //                 relation = mainEntity.relation[relationName];                            
+    //     //                 current.name = relation.to.entity;
+    //     //                 break;
+    //     //             }
+    //     //             if (current.children.length > 0)
+    //     //                 current = current.children[0];
+    //     //             else
+    //     //                 break;
+    //     //         }
+    //     //         child = this.nodeToOperand(p, schema, context) as SqlSentence;
+    //     //     }else if (p.type == 'var') {
+    //     //     // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .includes(details)  
+    //     //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p))      
+    //     //         let varArrow = new Node('p', 'var', []);
+    //     //         let varAll = new Node('p', 'var', []);
+    //     //         relationName=p.name;
+    //     //         relation = mainEntity.relation[relationName];
+    //     //         p.name = relation.to.entity;
+    //     //         let map = new Node('map','arrow',[p,varArrow,varAll]);
+    //     //         child = this.nodeToOperand(map, schema, context) as SqlSentence;
+    //     //     }else if (i==1 && p.type == 'arrow' && p.name == 'include') {
+    //     //     // resuelve cuando una variable dento de un includes a su vez tiene otra , ejemplo:  
+    //     //     // entones agregar map(p=>p) a la variable convirtiendolo en .includes(details.map(p=>p).includes(product))       
+    //     //         let varRelation = p.children[0];
+    //     //         let varArrow = new Node('p', 'var', []);
+    //     //         let varAll = new Node('p', 'var', []);
+    //     //         relationName=varRelation.name;
+    //     //         relation = mainEntity.relation[relationName];
+    //     //         varRelation.name = relation.to.entity;
+    //     //         let map = new Node('map','arrow',[varRelation,varArrow,varAll]);
+    //     //         p.children[0] = map;
+    //     //         child = this.addInclude(p, schema, context) as SqlSentence;
+    //     //     }else if (p.type == 'arrow' && p.name == 'include') {
+    //     //     //resuelve el siguiente caso  .includes(details.map(p=>p).includes(product)))      
+    //     //         let current = p;
+    //     //         while (current) {
+    //     //             if (current.type == 'var') {
+    //     //                 relationName=current.name;
+    //     //                 relation = mainEntity.relation[relationName];
+    //     //                 current.name = relation.to.entity;
+    //     //                 break;
+    //     //             }
+    //     //             if (current.children.length > 0)
+    //     //                 current = current.children[0];
+    //     //             else
+    //     //                 break;
+    //     //         }
+    //     //         child= this.addInclude(p, schema, context);
+    //     //     }else{
+    //     //         throw 'Error to add include node '+p.type+':'+p.name; 
+    //     //     }            
+    //     //     let toEntity=schema.getEntity(relation.to.entity);
+    //     //     let toField = toEntity.property[relation.to.property].mapping;
+    //     //     let fieldRelation = new SqlField(child.alias + '.' + toField);
+    //     //     let variableName = 'list_'+relation.to.property;
+    //     //     let varRelation = new SqlVariable(variableName);
+    //     //     let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
+    //     //     let childFilter= child.children.find(p=> p.name == 'filter');
+    //     //     if(!childFilter){
+    //     //         let childFilter = new SqlFilter('filter',[filterInclude]);
+    //     //         child.children.push(childFilter);
+    //     //     }else{
+    //     //         childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
+    //     //     }
+    //     //     let include = new SqlSentenceInclude(relationName,[child],relation,variableName);
+    //     //     sentence.includes.push(include);
+    //     // }
+    //     // return sentence;
+    // }

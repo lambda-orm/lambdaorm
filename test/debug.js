@@ -18,37 +18,32 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+Orders.filter(p=>p.id==id).include(p => p.customer)
 `;
-//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
-//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
-//Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
-//Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
-//Orders.filter(p=>p.id==id).include(p => p.details)
 //plan 
 result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
-console.log(result);
+console.log(JSON.stringify(result));
 //ejecucion
 // let context = {id:10582}
 // result = await orm.expression(expression).run(context,'northwind');
 // console.log(JSON.stringify(result));
 
-// `
-// Order.filter(p=> p.id == id ) 
-//      .includes(details.map(p=>p).includes(product) ,customer)
-// `;
+//includes
+//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
+//Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
+//Orders.filter(p=>p.id==id).include(p => p.details)
+//Orders.filter(p=>p.id==id).include(p => p.customer)
 
-// let operand = orm.compile(expression,'sql','mysql','northwind');
-// let serialized = orm.serialize(operand,'sql');
-// // console.log(serialized);
-
-
-
-// context = {id:10582}
-// result = await orm.exec(()=> Order.filter(p=> p.id == id ).includes(details.includes(product),customer),context,'northwind');
-// console.log(JSON.stringify(result));
-
-
+//queries
+// Products.filter(p=> p.discontinued != false )                 
+//                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
+//                  .sort(p=> [p.category,desc(p.name)])
+// OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
+//                      .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
+//                      .sort(p=> [p.category,p.product])       
+// OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
 
 })();
