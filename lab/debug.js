@@ -18,7 +18,7 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.filter(p=>p.id==id).include(p => p.customer)
+Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
 `;
 //plan 
 result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
