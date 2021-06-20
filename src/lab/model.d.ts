@@ -15,7 +15,7 @@ class Product extends Entity<Product>
 {
     public id:number
     public name:string
-    public quantity:number
+    public quantity:string
     public inStock:number
     public discontinued:boolean
     public categoryId:number

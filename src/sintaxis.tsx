@@ -22,10 +22,8 @@ export function cosh(value:number):number{throw 'NotImplemented'}
 export function exp(value:number):number{throw 'NotImplemented'}
 export function floor(value:number):number{throw 'NotImplemented'}
 export function ln(value:number):number{throw 'NotImplemented'}
-export function log(a:number,b:number):number{throw 'NotImplemented'}
-export function nanvl(value:number,_default:number):number{throw 'NotImplemented'}
-export function remainder(a:number,b:number):number{throw 'NotImplemented'}
-export function round(value:number):number{throw 'NotImplemented'}
+export function log(value:number):number{throw 'NotImplemented'}
+export function round(value:number,decimals:number):number{throw 'NotImplemented'}
 export function sign(value:number):number{throw 'NotImplemented'}
 export function sin(value:number):number{throw 'NotImplemented'}
 export function sinh(value:number):number{throw 'NotImplemented'}

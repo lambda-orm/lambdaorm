@@ -29,7 +29,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/test/debug.js"
+            "program": "${workspaceFolder}/lab/debug.js"
         },           
         {
             "command": "npm run test",
