@@ -107,6 +107,7 @@ class SqlFunctionRef extends FunctionRef
     }    
     build(metadata:SqlLanguageVariant){       
         let funcData = metadata.function(this.name);
+        if(!funcData) throw 'Function '+this.name+' not found';        
         let text= '';
         if(funcData.type == 'multiple'){
             let template = funcData.template;

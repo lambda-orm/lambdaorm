@@ -41,10 +41,8 @@ declare function cosh(value:number):number
 declare function exp(value:number):number
 declare function floor(value:number):number
 declare function ln(value:number):number
-declare function log(a:number,b:number):number
-declare function nanvl(value:number,_default:number):number
-declare function remainder(a:number,b:number):number
-declare function round(value:number):number
+declare function log(value:number):number
+declare function round(value:number,decimals:number):number
 declare function sign(value:number):number
 declare function sin(value:number):number
 declare function sinh(value:number):number

@@ -335,7 +335,7 @@ export default class SqlLanguage extends Language
         let fieldRelation = new SqlField(child.alias + '.' + toField);
         let variableName = 'list_'+relation.to.property;
         let varRelation = new SqlVariable(variableName);
-        let filterInclude =new SqlFunctionRef('in', [fieldRelation,varRelation]);
+        let filterInclude =new SqlFunctionRef('includes', [fieldRelation,varRelation]);
         let childFilter= child.children.find(p=> p.name == 'filter');
         if(!childFilter){
             let childFilter = new SqlFilter('filter',[filterInclude]);

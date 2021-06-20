@@ -73,14 +73,14 @@ export default class Parser{
      private index:number
 
      constructor(mgr:Parser,buffer:string[]){
-         this.mgr = mgr
-         this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') ;
-         this.reInt = new RegExp('[0-9]+$');
-         this.reFloat = new RegExp('^[0-9]*[.][0-9]+$');//'d+(\.\d+)?$'
+         this.mgr = mgr;
+         this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') ; ///[a-zA-Z0-9_.]+$'/ //
+         this.reInt = /^[0-9]+$/; // new RegExp('^d+$');
+         this.reFloat = /^[0-9]*[.][0-9]+$/;  // new RegExp('^d+(\.\d+)?$/');//'d+(\.\d+)?$'
          this.buffer = [];
          this.buffer = buffer;
-         this.length= this.buffer.length
-         this.index=0
+         this.length= this.buffer.length;
+         this.index=0;
      }
      get previous(){
          return this.buffer[this.index-1]; 
