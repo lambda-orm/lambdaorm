@@ -18,18 +18,18 @@ class DefaultArray extends Array
 }
 class DefaultObject extends Obj
 {
-    eval(){        
-        let dic= {}
+    eval():any{        
+        let obj:{[k: string]: any} = {};
         for(let i=0;i<this.children.length;i++){
             let value = this.children[i].eval();
-            dic[this.children[i].name]=value;
+            obj[this.children[i].name]=value;
         }
-        return dic;
+        return obj;
     }
 } 
 class DefaultOperator extends Operator
 {
-    constructor(name,children=[],_function=null){
+    constructor(name:string,children:Operand[]=[],_function=null){
         super(name,children); 
         this._function = _function;
     }    
@@ -43,8 +43,8 @@ class DefaultOperator extends Operator
 }                             
 class DefaultFunctionRef extends FunctionRef
 {
-    constructor(name,language,children=[],_function=null){
-        super(name,language,children); 
+    constructor(name:string,children:Operand[]=[],_function=null){
+        super(name,children); 
         this._function = _function;
     }    
     eval(){        

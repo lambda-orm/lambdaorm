@@ -1,4 +1,6 @@
-import {Node,Context,Operand} from '../base'
+import Node from './../base/node'
+import Operand from './../base/operand'
+import Schema  from './../base/schema'
 
 export default abstract class Language
 {
@@ -15,27 +17,27 @@ export default abstract class Language
         return this._name;
     }
     public abstract addLibrary(library:any):void
-    public abstract compile(node:Node,scheme?:any,variant?:string):Operand
+    public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
     public abstract run(operand:Operand,context:any,cnx?:any):any
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
         return this.setParent(operand);
     }
-    public serialize(value:Operand):string{
-        let json =this._serialize(value);
-        return json? JSON.stringify(json):null;
+    public serialize(value:Operand):any
+    {
+        return this._serialize(value);
     }
-    protected setParent(operand:Operand,index:number=0,parent:Operand=null){        
+    protected setParent(operand:Operand,index:number=0,parent?:Operand){        
         try{
             if(parent){
                 operand.id = parent.id +'.'+index;
                 operand.parent = parent;
                 operand.index = index;
-                operand.level = parent.level +1;
+                operand.level = parent.level?parent.level+1:0;
             }  
             else{
                 operand.id = '0';
-                operand.parent = null;
+                operand.parent = undefined;
                 operand.index = 0;
                 operand.level = 0;
             }
@@ -49,14 +51,14 @@ export default abstract class Language
             throw 'set parent: '+operand.name+' error: '+error.toString();
         }
     }
-    protected _serialize(operand:Operand){
+    protected _serialize(operand:Operand):any
+    {
         let children = []                
         for(const k in operand.children){
             children.push(this._serialize(operand.children[k]));
         }
-        if(children.length == 0) return {'n':operand.name,'t':operand.constructor.name};     
-        return {'n':operand.name,'t':operand.constructor.name,'c':children}; 
+        if(children.length == 0) return {n:operand.name,t:operand.constructor.name};     
+        return {n:operand.name,t:operand.constructor.name,c:children}; 
     }
     protected abstract _deserialize(serialized:any,language:string):Operand
-    
 }

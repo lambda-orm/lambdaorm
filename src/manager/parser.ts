@@ -1,6 +1,6 @@
-import {Node} from './base'
+import Node from '../base/node'
 import Minifier from './minifier'
-import NodeManager from './nodeManager'
+import NodeManager from './node'
 
 export default class Parser{
 
@@ -42,7 +42,7 @@ export default class Parser{
      public isEnum(name:string){    
          return this._model.isEnum(name); 
      }
-     public getEnumValue(name,option){
+     public getEnumValue(name:string,option:any){
          return this._model.getEnumValue(name,option);
      }
      public getEnum(name:string){
@@ -96,9 +96,9 @@ export default class Parser{
          return this.index >= this.length;   
      }
      public parse(){
-        let nodes=[]
+        let nodes:Node[]=[]
         while(!this.end){
-            let node =this.getExpression(null,null,';')
+            let node =this.getExpression(undefined,undefined,';')
             if(!node)break;
             nodes.push(node)
         }
@@ -106,45 +106,47 @@ export default class Parser{
             return nodes[0];
         return new Node('block','block',nodes);        
     }
-    private char(index){
+    private char(index:number){
         return this.buffer[index];
     } 
-    private getExpression(operand1=null,operator=null,_break=''){
-         let expression = null
-         let operand2 = null
+    private getExpression(operand1?:Node,operator?:string,_break:string=''):Node
+    {
+         let expression = undefined
+         let operand2 = undefined
          let isbreak =  false               
          while(!this.end){
-             if(operand1 == null && operator  == null){
+             if(operand1 == undefined && operator  == undefined){
                  operand1=  this.getOperand()
-                 operator= this.getOperator()
-                 if(operator == null || _break.includes(operator)){ 
+                 operator= this.getOperator() as string
+                 if(operator == undefined || _break.includes(operator)){ 
                      expression = operand1;
                      isbreak= true;
                      break;
                  }
              }        
              operand2=  this.getOperand();
-             let nextOperator= this.getOperator();
-             if(nextOperator == null || _break.includes(nextOperator)){
-                 expression= new Node(operator,'oper',[operand1,operand2]);
+             let nextOperator= this.getOperator() as string;
+             if(nextOperator == undefined || _break.includes(nextOperator)){
+                 expression= new Node(operator,'oper',[operand1 as Node,operand2]);
                  isbreak= true;
                  break;
              }    
-             else if(this.mgr.priority(operator)>=this.mgr.priority(nextOperator)){
-                 operand1=new Node(operator,'oper',[operand1,operand2]);
+             else if(this.mgr.priority(operator as string)>=this.mgr.priority(nextOperator)){
+                 operand1=new Node(operator,'oper',[operand1 as Node,operand2]);
                  operator=nextOperator;
              }    
              else{
                  operand2 = this.getExpression(operand2,nextOperator,_break)
-                 expression= new Node(operator,'oper',[operand1,operand2]);
+                 expression= new Node(operator,'oper',[operand1 as Node,operand2]);
                  isbreak= true;
                  break;
              }
          }        
-         if(!isbreak) expression=new Node(operator,'oper',[operand1,operand2]);
-         return expression 
+         if(!isbreak) expression=new Node(operator,'oper',[operand1 as Node,operand2 as Node]);
+         return expression as Node
      } 
-     private getOperand(){     
+     private getOperand():Node
+     {     
          let isNegative= false;
          let isNot= false;
          let isBitNot= false;
@@ -180,7 +182,7 @@ export default class Parser{
                  if(value.includes('.')){
                      let names = value.split('.');
                      let name = names.pop();
-                     let variableName= names.join('');
+                     let variableName= names.join('.');
                      let variable = new Node(variableName,'var');
                      operand= this.getChildFunction(name,variable);
                  }
@@ -241,7 +243,7 @@ export default class Parser{
          }
          else if( char == '('){
              this.index+=1;
-             operand=  this.getExpression(null,null,')'); 
+             operand=  this.getExpression(undefined,undefined,')'); 
          }
          else if( char == '{'){
              this.index+=1;
@@ -252,13 +254,14 @@ export default class Parser{
              let elements=  this.getArgs(']');
              operand =  new Node('array','array',elements);
          } 
-         operand = this.solveChain(operand);
+         operand = this.solveChain(operand as Node);
          if(isNegative)operand= new Node('-','oper',[operand])
          if(isNot)operand=new Node('!','oper',[operand])
          if(isBitNot)operand=new Node('~','oper',[operand])  
          return operand;
      } 
-     private solveChain(operand){
+     private solveChain(operand:Node):Node
+     {
          if(!this.end &&  this.current=='.'){
              this.index+=1;
              let name=  this.getValue();
@@ -269,7 +272,8 @@ export default class Parser{
              return  operand; 
          } 
      } 
-     private getValue(increment=true){
+     private getValue(increment=true):string
+     {
          let buff=[]
          if(increment){
              while(!this.end && this.reAlphanumeric.test(this.current)){
@@ -286,7 +290,8 @@ export default class Parser{
          }      
          return buff.join('');
      }
-     private getOperator(){
+     private getOperator():any
+     {
          if(this.end)return null; 
          let op=null
          if(this.index+2 < this.length){
@@ -301,7 +306,8 @@ export default class Parser{
          this.index+= op.length;
          return op;
      }
-     private getString(char){
+     private getString(char:string):string
+     {
          let buff=[]       
          while(!this.end){
              if(this.current == char){
@@ -314,16 +320,18 @@ export default class Parser{
          this.index+=1    
          return buff.join('');
      }
-     private getArgs(end=')'){
+     private getArgs(end=')'):Node[]
+     {
          let args= []
          while(true){
-             let arg= this.getExpression(null,null,','+end);
+             let arg= this.getExpression(undefined,undefined,','+end);
              if(arg !=null)args.push(arg);
              if(this.previous==end) break;
          }
          return args
      }
-     private getObject(){
+     private getObject():Node
+     {
          let attributes= []
          while(true){
              let name=null
@@ -337,31 +345,33 @@ export default class Parser{
              if(this.current==':')this.index+=1
              else throw 'attribute '+name+' without value';
  
-             let value= this.getExpression(null,null,',}');
+             let value= this.getExpression(undefined,undefined,',}');
              let attribute = new Node(name,'keyVal',[value]);
              attributes.push(attribute);
              if(this.previous=='}')break;
          }    
          return  new Node('obj','obj',attributes)
      } 
-     private getBlock(){
+     private getBlock():Node
+     {
          let lines= [];
          while(true){
-             let line= this.getExpression(null,null,';}')
+             let line= this.getExpression(undefined,undefined,';}')
              if(line != null)lines.push(line)
              if(this.previous=='}')break; 
          }       
          return new Node('block','block',lines)
      }
-     private getIfBlock(){
+     private getIfBlock():Node
+     {
          let block=null;
-         let condition= this.getExpression(null,null,')');
+         let condition= this.getExpression(undefined,undefined,')');
          if(this.current == '{'){
              this.index+=1;  
              block= this.getBlock();
          }
          else{
-             block= this.getExpression(null,null,';'); 
+             block= this.getExpression(undefined,undefined,';'); 
          }
          let nextValue=this.getValue(false);
          let elseblock=null;
@@ -372,25 +382,26 @@ export default class Parser{
                  elseblock= this.getBlock();
              }
              else{
-                 elseblock= this.getExpression(null,null,';'); 
+                 elseblock= this.getExpression(undefined,undefined,';'); 
              }
          }
-         return new Node('if','if',[condition,block,elseblock]) 
+         return new Node('if','if',[condition,block,elseblock as Node]) 
      }
-     private getWhileBlock(){
+     private getWhileBlock():Node
+     {
          let block=null;
-         let condition= this.getExpression(null,null,')')
+         let condition= this.getExpression(undefined,undefined,')')
          if(this.current == '{'){
              this.index+=1;  
              block= this.getBlock();
          }
          else{
-             block= this.getExpression(null,null,';');
+             block= this.getExpression(undefined,undefined,';');
          }
          return new Node('while','while',[condition,block]) 
      }
-     private getChildFunction(name,parent){ 
-
+     private getChildFunction(name:string,parent:Node):Node
+     { 
         let isArrow = false; 
         let variableName= this.getValue(false);
         if(variableName != '' ){
@@ -400,7 +411,7 @@ export default class Parser{
         if(isArrow){
             this.index+=(variableName.length+2);
             let variable= new Node(variableName,'var');
-            let body= this.getExpression(null,null,')');
+            let body= this.getExpression(undefined,undefined,')');
             return new Node(name,'arrow',[parent,variable,body]);  
         }else{
             let args=  this.getArgs(')');
@@ -426,12 +437,14 @@ export default class Parser{
         //      return  new Node(name,'childFunc',args);
         //  }
      }
-     private getIndexOperand(name){
-         let idx= this.getExpression(null,null,']');
+     private getIndexOperand(name:string):Node
+     {
+         let idx= this.getExpression(undefined,undefined,']');
          let operand= new Node(name,'var');
          return new Node('[]','oper',[operand,idx]) 
      }
-     private getEnum(value){
+     private getEnum(value:string):Node
+     {
          if( value.includes('.')  && this.mgr.isEnum(value)){
              let names = value.split('.');
              let enumName = names[0];

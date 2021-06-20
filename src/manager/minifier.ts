@@ -26,7 +26,7 @@ export default class Minifier
             else if(p == ' '){
                 //solo deberia dejar los espacios cuando es entre caracteres alfanumericos. 
                 //por ejemplo en el caso de "} if" no deberia quedar un espacio 
-                if(i+1 < length && this.reAlphanumeric.test(buffer[i-1]) && this.reAlphanumeric.test(buffer[i+1]))
+                if(i+1 < length && i-1 >= 0 && this.reAlphanumeric.test(buffer[i-1]) && this.reAlphanumeric.test(buffer[i+1]))
                     result.push(p);
             }                        
             else if (p!='\n' && p!='\r' && p!='\t' )
