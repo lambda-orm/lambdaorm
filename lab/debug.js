@@ -18,15 +18,17 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
+Products.filter(p=> p.price>5 ).having(p=> p.largestPrice > 50).map(p=> {category:p.category.name,largestPrice:max(p.price)}).sort(p=> desc(p.largestPrice))
 `;
 //plan 
 result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
 console.log(JSON.stringify(result));
 //ejecucion
-// let context = {id:1}
-// result = await orm.expression(expression).run(context,'northwind');
-// console.log(JSON.stringify(result));
+let context = {id:1}
+result = await orm.expression(expression).run(context,'northwind');
+console.log(JSON.stringify(result));
+
+// Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
 
 
 // functions
