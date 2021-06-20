@@ -47,36 +47,36 @@ export default class CoreLib extends Library
     }
 }
 class Operators{      
-    static addition(a,b) {return a+b;}
-    static subtraction(a,b) {return a-b;}
-    static negative(a) {return a*-1;}
-    static multiplication(a,b) {return a*b;}
-    static division(a,b) {return a/b;}
-    static exponentiation(a,b) {return a**b;}
-    static floorDivision(a,b) {return  Math.pow(a,1/b);}
-    static mod(a,b) {return a%b;}
-    static bitAnd(a,b) {return a&b;}
-    static bitOr(a,b) {return a|b;}
-    static bitXor(a,b) {return a^b;}
-    static bitNot(a) {return ~a;}
-    static leftShift(a,b) {return a<<b;}
-    static rightShift(a,b) {return a>>b;}
-    static equal(a,b) {return a==b;}
-    static notEqual(a,b) {return a!=b;}
-    static greaterThan(a,b) {return a>b;}
-    static lessThan(a,b) {return a<b;}
-    static greaterThanOrEqual(a,b) {return a>=b;}
-    static lessThanOrEqual(a,b) {return a<=b;}
-    static and(a,b) {return a&&b;}
-    static or(a,b) {return a||b;}
-    static not(a) {return !a;}
-    static item(list,index) {return list[index];}    
+    static addition(a:number,b:number):number {return a+b;}
+    static subtraction(a:number,b:number):number {return a-b;}
+    static negative(a:number):number {return a*-1;}
+    static multiplication(a:number,b:number):number {return a*b;}
+    static division(a:number,b:number):number {return a/b;}
+    static exponentiation(a:number,b:number):number {return a**b;}
+    static floorDivision(a:number,b:number):number {return  Math.pow(a,1/b);}
+    static mod(a:number,b:number):number {return a%b;}
+    static bitAnd(a:number,b:number):number {return a&b;}
+    static bitOr(a:number,b:number):number {return a|b;}
+    static bitXor(a:number,b:number):number {return a^b;}
+    static bitNot(a:number):number {return ~a;}
+    static leftShift(a:number,b:number):number {return a<<b;}
+    static rightShift(a:number,b:number):number {return a>>b;}
+    static equal(a:number,b:number):boolean {return a==b;}
+    static notEqual(a:number,b:number):boolean {return a!=b;}
+    static greaterThan(a:number,b:number):boolean {return a>b;}
+    static lessThan(a:number,b:number):boolean {return a<b;}
+    static greaterThanOrEqual(a:number,b:number):boolean {return a>=b;}
+    static lessThanOrEqual(a:number,b:number):boolean {return a<=b;}
+    static and(a:boolean,b:boolean):boolean {return a&&b;}
+    static or(a:boolean,b:boolean):boolean {return a||b;}
+    static not(a:boolean):boolean {return !a;}
+    static item(list:any[],index:any) {return list[index];}    
 }
 class And extends DefaultOperator
 {
-    eval():any{
-        if(!this.children[0].eval())return false;
-        return this.children[1].eval()
+    eval():boolean{
+        if(!this.children[0].eval() as boolean)return false;
+        return this.children[1].eval() as boolean
     }
 }
 class Or extends DefaultOperator
@@ -89,9 +89,9 @@ class Or extends DefaultOperator
 
 
 class ArrowFunctions{
-    static map(list,item,method){}
-    static filter(list,item,method){}
-    static sort(list,item,method){}
+    static map(list:any,item:any,method:any){}
+    static filter(list:any,item:any,method:any){}
+    static sort(list:any,item:any,method:any){}
 }
 
 class Map extends DefaultArrowFunction

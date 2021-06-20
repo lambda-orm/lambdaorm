@@ -19,7 +19,7 @@ class SqlVariable extends Variable
     public _number?:number    
     constructor(name:string,children:Operand[]=[]){
         super(name,children);
-        this._number  = null; 
+        this._number  = undefined; 
     }    
     
     build(metadata:any){
@@ -48,7 +48,7 @@ class SqlField extends Operand
 }
 class SqlKeyValue extends KeyValue
 {
-    build(metadata):any
+    build(metadata:SqlLanguageVariant):any
     {
         return this.children[0].build(metadata);
     }
@@ -82,7 +82,7 @@ class SqlBlock extends Block
     build(metadata:SqlLanguageVariant){ 
         let text = ''
         for(let i=0;i<this.children.length;i++){
-            text += (this.children[i].build(metadata)+'\n;');    
+            text += (this.children[i].build(metadata)+';');    
         }
         return text;
     } 
@@ -143,23 +143,20 @@ class SqlSentence extends FunctionRef
     public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
     public alias:string
-    public includes:SqlSentenceInclude[];
+    // public includes:SqlSentenceInclude[];
 
     constructor(name:string,children:Operand[]=[],entity:string,alias:string,columns:string[]){
         super(name,children);
         this.entity=entity;
         this.alias=alias;
         this.columns=columns;
-        this.includes=[];
+        // this.includes=[];
         this.variables=[];
-    }    
-    // build(metadata:SqlLanguageVariant){   
-    //     let text = this.buildMain(metadata).trim();
-    //     for(let i=0;i<this.includes.length;i++){
-    //         text += '\n;\n'+(this.includes[i].build(metadata).trim());    
-    //     }        
-    //     return text;      
-    // }
+    }
+    public getIncludes():Operand[]
+    {
+        return this.children.filter(p=> p instanceof SqlSentenceInclude);
+    } 
     public build(metadata:SqlLanguageVariant){
 
         let map =  this.children.find(p=> p.name=='map');   
@@ -173,16 +170,14 @@ class SqlSentence extends FunctionRef
         let update = this.children.find(p=> p.name=='update');
         let _delete = this.children.find(p=> p.name=='delete');
 
-
-
         let text = '';
         if(map || first){
             // if(insertFrom) text = insertFrom+' ';
-            let from = this.children.find(p=> p instanceof SqlFrom);
+            let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
 
-            let select = first?first:map;
-            text = select.build(metadata) + '\n' + this.solveFrom(from,metadata)+ '\n' +  this.solveJoins(joins,metadata);
+            let select = (first?first:map) as Operand;
+            text = select.build(metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
             this.loadVariables(select,this.variables);
             // this.columns= select.columns(metadata);
            
@@ -194,24 +189,24 @@ class SqlSentence extends FunctionRef
             this.loadVariables(_delete,this.variables);            
         }
         if(filter){
-            text = text + filter.build(metadata)+'\n';
+            text = text + filter.build(metadata)+' ';
             this.loadVariables(filter,this.variables);
         }
         if(groupBy){
-            text = text + groupBy.build(metadata)+'\n';
+            text = text + groupBy.build(metadata)+' ';
             this.loadVariables(groupBy,this.variables);
         }
         if(having){
-            text = text + having.build(metadata)+'\n';
+            text = text + having.build(metadata)+' ';
             this.loadVariables(having,this.variables);
         }
         if(sort){
-            text = text + sort.build(metadata)+'\n';
+            text = text + sort.build(metadata)+' ';
             this.loadVariables(sort,this.variables);
         }        
         return text;
     }
-    protected solveJoins(joins,metadata)
+    protected solveJoins(joins:Operand[],metadata:SqlLanguageVariant)
     {
         let text = '';
         
@@ -222,11 +217,11 @@ class SqlSentence extends FunctionRef
             let joinText  = template.replace('{name}',parts[0]);         
             joinText =joinText.replace('{alias}',parts[1]);
             joinText =joinText.replace('{relation}',join.children[0].build(metadata)).trim();           
-            text= text + joinText+'\n';
+            text= text + joinText+' ';
         }
         return text;
     }
-    protected solveFrom(from,metadata)
+    protected solveFrom(from:Operand,metadata:SqlLanguageVariant)
     {
         let template = metadata.other('from');
         let parts = from.name.split('.');
@@ -266,7 +261,7 @@ class SqlGroupBy extends SqlArrowFunction {}
 class SqlHaving extends SqlArrowFunction {}
 class SqlSort extends SqlArrowFunction {}
 class SqlInsert extends SqlArrowFunction {}
-class SqlInsertFrom extends SqlArrowFunction {}
+// class SqlInsertFrom extends SqlArrowFunction {}
 class SqlUpdate extends SqlArrowFunction {}
 class SqlUpdateFrom extends SqlArrowFunction {}
 class SqlDelete extends SqlArrowFunction {}
@@ -316,7 +311,7 @@ export  {
     SqlHaving,
     SqlSort,
     SqlInsert,
-    SqlInsertFrom,
+    // SqlInsertFrom,
     SqlUpdate,
     SqlUpdateFrom,
     SqlDelete,

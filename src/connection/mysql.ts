@@ -5,7 +5,7 @@ export default class MySqlConnection extends Connection
 {       
     
     private isConnect:boolean;
-    private pool=null;    
+    private pool?:mysql.Pool;    
 
     constructor(data:any){        
         super(data);
@@ -32,15 +32,18 @@ export default class MySqlConnection extends Connection
         // return result.values;
         let me = this;
         return new Promise(function(resolve, reject) {           
-            if(!me.isConnect)me.connect();    
-            me.pool.query(query, params, function (err, rows, fields) {
-                // Call reject on error states,
-                // call resolve with results
-                if (err) {
-                    return reject(err);
-                }
-                resolve(rows);
-            });
+            if(!me.isConnect)me.connect();
+            if(me.pool)
+                me.pool.query(query, params, function (err, rows, fields) {
+                    // Call reject on error states,
+                    // call resolve with results
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(rows);
+                });
+            else
+              reject("pool undefined");    
         });
     }
     public async queries(sentences:any[])
@@ -49,16 +52,18 @@ export default class MySqlConnection extends Connection
         if(!this.isConnect)this.connect();  
         for(let i=0;i<sentences.length;i++){
             let sentence = sentences[i];
-            let result =await this.pool.query(sentence.query,sentence.params);
+            let result =this.pool?(await this.pool.query(sentence.query,sentence.params)):[];
             results.push(result.values);
         }
         return results; 
     }
-    public async  exec(sentences:any[])
+    public async exec(sentences:any[])
     {
+        //TODO: solve with Promise
+        /*
         let results =[];
         if(!this.isConnect)this.connect();  
-        const cnx = await this.pool.getConnection();
+        const cnx = await this.pool.getConnection() as;
         try {
             await cnx.beginTransaction();
             for(let i=0;i<sentences.length;i++){
@@ -75,5 +80,6 @@ export default class MySqlConnection extends Connection
             cnx.release();
             return results;
         }
+        */
     }
 }

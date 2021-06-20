@@ -2,330 +2,330 @@ name: northwind
 abstract:
   Address:
     properties:
-      address: 
+      - name: address 
         field: Address
         type: string
         length: 80
-      city : 
+      - name: city 
         field: City
         type: string
         length: 80
-      region : 
+      - name: region 
         field: Region
         type: string
         length: 80
-      postalCode : 
+      - name: postalCode 
         field: PostalCode
         type: string
         length: 20
-      country : 
+      - name: country 
         field: Country
         type: string
         length: 80 
-enum:
-entity:
-  Employee:
-    _extends: [northwind.abstract.Address]
+enums:
+entities:
+  - name: Employee
+    _extends: [northwind.abstract.Address]       
     table: Employees
-    properties:      
-      id: 
+    properties:
+      - name: id 
         field: EmployeeID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
-      lastName: 
+      - name: lastName 
         field: LastName
         nullable: false
         type: string
         length: 80
-      firstName: 
+      - name: firstName
         field: FirstName
         nullable: false
         type: string
         length: 80
-      title: 
+      - name: title
         field: Title
         type: string
         length: 80
-      titleOfCourtesy: 
+      - name: titleOfCourtesy
         field: TitleOfCourtesy
         type: string
         length: 80
-      birthDate : 
+      - name: birthDate
         field: BirthDate
         type: datetime
-      hireDate : 
+      - name: hireDate
         field: HireDate
         type: datetime
-      phone: 
+      - name: phone
         field:  HomePhone
         type: string
         length: 80
-      reportsToId: 
+      - name: reportsToId 
         field:  ReportsTo
         type: integer
     relations:
-      reportsTo:
+      - name: reportsTo
         type: oneToMany
         from: reportsToId
         to: 
           entity: Employee
           property: id
-  Category:
+  - name: Category
     table: Categories
     properties:
-      id: 
+      - name: id
         field: CategoryID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
-      name: 
+      - name: name
         field: CategoryName
         nullable: false
         type: string
         length: 80
-      description: 
+      - name: description
         field: Description
         type: string
         length: 1000
-  Customer:
+  - name: Customer
     _extends: [northwind.abstract.Address]
     table: Customers
     properties:
-      id: 
+      - name: id
         field: CustomerID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
-      name: 
+      - name: name
         field: CompanyName
         nullable: false
         type: string
         length: 80
-      contact: 
+      - name: contact 
         field: ContactName
         type: string
         length: 80
-      phone: 
+      - name: phone
         field: ContactTitle
         type: string
         length: 80
     relations:  
-      orders:
+      - name: orders
         type: manyToOne 
         from: id
         to: 
           entity: Order
           property: customerId
-  Shipper:
+  - name: Shipper
     table: Shippers
     properties:
-      id: 
+      - name: id 
         field: ShipperID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
-      name: 
+      - name: name 
         field: CompanyName
         nullable: false
         type: string
         length: 80
-      phone: 
+      - name: phone
         field: Phone
         type: string
         length: 20
-  Supplier:
+  - name: Supplier
     _extends: [northwind.abstract.Address]
     table: Suppliers
     properties:
-      id: 
+      - name: id
         field: SupplierID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true
-      name: 
+      - name: name
         field: CompanyName
         nullable: false
         type: string
         length: 80
-      contact: 
+      - name: contact
         field: ContactName
         type: string
         length: 80
-      phone: 
+      - name: phone
         field: Phone
         type: string
         length: 20
-      homepage: 
+      - name: homepage 
         field: HomePage
         type: string
         length: 80  
-  Product:
+  - name: Product
     table: Products
     properties:
-      id: 
+      - name: id 
         field: ProductID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true 
-      name: 
+      - name: name 
         field: ProductName
         nullable: false
         type: string
         length: 80
-      supplierId: 
+      - name: supplierId 
         field: SupplierID
         type: integer
-      categoryId: 
+      - name: categoryId
         field: CategoryID
         type: integer
-      quantity: 
+      - name: quantity 
         field: QuantityPerUnit
         type: decimal
-      price: 
+      - name: price
         field: UnitPrice
         type: decimal
         default: 0
-      inStock: 
+      - name: inStock
         field: UnitsInStock
         type: decimal
         default: 0
-      onOrder: 
+      - name: onOrder 
         field: UnitsOnOrder
         type: decimal
         default: 0
-      reorderLevel: 
+      - name: reorderLevel
         field: ReorderLevel
         type: decimal
         default: 0
-      discontinued: 
+      - name: discontinued
         field: Discontinued
         type: bool
         default: false
     relations:    
-      supplier:
+      - name: supplier
         type: oneToMany 
         from: supplierId
         to: 
           entity: Supplier
           property: id 
-      category:
+      - name: category
         type: oneToMany  
         from: categoryId
         to: 
           entity: Category
           property: id
-  Order:
+  - name: Order
     table: Orders
     properties:
-      id: 
+      - name: id
         field: OrderID
         type: integer
         nullable: false
         primaryKey: true
         autoincrement: true 
-      customerId: 
+      - name: customerId 
         field: CustomerID
         nullable: false
         type: integer
-      employeeId: 
+      - name: employeeId 
         field: EmployeeID
         nullable: false
         type: integer 
-      orderDate: 
+      - name: orderDate
         field: OrderDate
         type: datetime 
-      requiredDate: 
+      - name: requiredDate 
         field: RequiredDate
         type: datetime
-      shippedDate: 
+      - name: shippedDate 
         field: ShippedDate
         type: datetime 
-      shipViaId: 
+      - name: shipViaId 
         field: ShipVia
         type: integer
-      freight: 
+      - name: freight 
         field: Freight
         type: decimal
-      name: 
+      - name: name
         field: ShipName
         type: string
         length: 80  
-      address: 
+      - name: address 
         field: ShipAddress
         type: string
         length: 80
-      city : 
+      - name: city 
         field: ShipCity
         type: string
         length: 80
-      region : 
+      - name: region
         field: ShipRegion
         type: string
         length: 80
-      postalCode : 
+      - name: postalCode
         field: ShipPostalCode
         type: string
         length: 20
-      country : 
+      - name: country
         field: ShipCountry
         type: string
         length: 80 
     relations:    
-      customer:
+      - name: customer
         type: oneToMany  
         from: customerId
         to: 
           entity: Customer
           property: id 
-      employee:
+      - name: employee
         type: oneToMany  
         from: employeeId
         to: 
           entity: Employee
           property: id 
-      details:
+      - name: details
         type: manyToOne 
         from: id
         to: 
           entity: OrderDetail
           property: orderId  
-  OrderDetail:
+  - name: OrderDetail
     table: Order Details
     properties:
-      orderId: 
+      - name: orderId 
         field: OrderID
         nullable: false
         primaryKey: true
         type: integer
-      productId: 
+      - name: productId 
         field: ProductID
         nullable: false
         primaryKey: true          
         type: integer
-      unitPrice: 
+      - name: unitPrice
         field: UnitPrice
         type: decimal
-      quantity: 
+      - name: quantity 
         field: Quantity
         type: decimal
-      discount: 
+      - name: discount 
         field: Discount
         type: bool
     relations:   
-      order:
+      - name: order
         type: oneToMany 
         from: orderId
         to: 
           entity: Order
           property: id 
-      product:
+      - name: product
         type: oneToMany 
         from: productId
         to: 

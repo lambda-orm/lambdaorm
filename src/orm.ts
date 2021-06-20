@@ -1,118 +1,80 @@
-import Parser from './parser'
-import {Context,Node,Model,Operand} from './base'
+import Parser from './manager/parser'
+import Model from './base/model'
 import DefaultLanguage from './language/default/language'
 import SqlLanguage from './language/sql/language'
 import CoreLib from './language/default/coreLib'
-import modelConfig from './config/model.json'
-import sqlConfig  from './config/sql.json'
+import modelConfig from './base/config.json'
+import sqlConfig  from './language/sql/config.json'
 import Connection  from './connection/base'
 import MySqlConnection  from './connection/mysql'
+import {Schema} from './model/schema'
+import SchemaManager  from './manager/schema'
+import LanguageManager  from './manager/language'
+import {Expression,CompiledExpression} from './manager/expression'
 
 class Orm {
 
     private model:any
     private parser:Parser
-    private languages:any
-    private schemes:any
-    private connectionTypes:any
-    private connections:any
+    private schemaManager:SchemaManager
+    private languageManager:LanguageManager
 
     constructor(model:any){
         this.model = model;
         this.parser =  new Parser(this.model);
-        this.languages={};
-        this.schemes={};
-        this.connectionTypes={}; 
-        this.connections={};       
+        this.schemaManager=new SchemaManager();
+        this.languageManager = new LanguageManager(this.parser,this.schemaManager)
     }
     public addLanguage(value:any){
-        this.languages[value.name] =value;
+        this.languageManager.addLanguage(value);
     }
     public addLibrary(value:any){
-        this.languages[value.language].addLibrary(value);        
-    }
-    public addScheme(value:any){
-        this.schemes[value.name] =value;
+        this.languageManager.addLibrary(value);
     }
     public addConnectionType(name:string,value:any){
-        this.connectionTypes[name] =value;
+        this.languageManager.addConnectionType(name,value);
     }
-    public addConnection(value:any){
-        let ConnectionType = this.connectionTypes[value.variant]; 
-        let cnx = new ConnectionType(value) as Connection;  
-        this.connections[value.name] = cnx;
-    }     
-    public compile(expression:string,language:string,variant?:string,scheme?:string){
-        try{
-            let node:Node= this.parser.parse(expression);
-            let _scheme = scheme!=null?this.schemes[scheme]:null;
-            let operand= this.languages[language].compile(node,_scheme,variant);
-            return operand; 
-        }
-        catch(error){
-            throw 'expression: '+expression+' error: '+error.toString();
-        }
+    public addConnection(value:any){        
+        this.languageManager.addConnection(value);
     }
-    public serialize(operand:Operand,language:string):string
+    public getConnection(name:string):Connection
     {
-        try
-        {
-            return this.languages[language].serialize(operand);
-        }
-        catch(error){
-            throw 'serialize: '+operand.name+' error: '+error.toString(); 
-        }
+        return this.languageManager.getConnection(name);
     }
-    public deserialize(serialized:string,language:string):Operand
+    public applySchema(value:Schema):void
     {
-        try
-        {
-            return this.languages[language].deserialize(serialized);
-        }
-        catch(error){
-            throw 'deserialize: '+serialized+' error: '+error.toString(); 
-        }
+        this.schemaManager.apply(value);
     }
-    public async run(operand:Operand,context:any,connectionName?:string)
+    public deleteSchema(name:string):void
     {
-        try{
-            let _context = new Context(context);
-            if(connectionName){
-                let connection = this.connections[connectionName]; 
-                return await this.languages[connection.language].run(operand,_context,connection);
-            }else{
-                return await this.languages['default'].run(operand,_context);
-            }            
-        }catch(error){
-            throw 'run: '+operand.name+' error: '+error.toString(); 
-        }
+        return this.schemaManager.delete(name);
+    }  
+    public getSchema(name:string):Schema | undefined
+    {
+        return this.schemaManager.get(name);
     }
-    public async eval(expression:string,context:any,connectionName?:string)
+    public listSchema():Schema[]
     {
-        try{
-            if(connectionName){
-                let connection = this.connections[connectionName]; 
-                let operand = this.compile(expression,connection.language,connection.variant,connection.scheme);
-                return await this.run(operand,context,connectionName);
-            }else{
-                let operand = this.compile(expression,'default');
-                return await this.run(operand,context);
-            }
-        }catch(error){
-            throw 'eval: '+expression+' error: '+error.toString(); 
-        }
-    } 
-    public async exec(func:Function,context:any,connectionName?:string)
+        return this.schemaManager.list();
+    }
+    public expression(value:string){
+        return new Expression(this.languageManager,value)
+    }
+    public query(value:Function):Expression
     {
-        try{
-            return await this.eval(func.toString().replace('()=>',''),context,connectionName);
-        }catch(error){
-            throw 'error: '+error.toString(); 
-        }
+        let str = value.toString();
+        let index = str.indexOf('=>')+2;
+        let expression = str.substring(index,str.length);
+        return new Expression(this.languageManager,expression)
+    }
+    public deserialize(serialized:string,language:string):CompiledExpression
+    {
+       let operand= this.languageManager.deserialize(serialized,language);
+       return new CompiledExpression(this.languageManager,operand,language);
     } 
 }
 var orm = null;
-export = (function() {
+export =(function() {
     if(!orm){
         let model = new Model();
         model.load(modelConfig);
