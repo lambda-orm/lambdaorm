@@ -18,15 +18,15 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.filter(p=>p.id == id).map(p=>{name:p.name,source:0.50,result:atan2(0.25,1)})
+Orders.filter(p=>p.id==id).include(p => p.customer)
 `;
 //plan 
-// result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
-// console.log(JSON.stringify(result));
-//ejecucion
-let context = {id:1}
-result = await orm.expression(expression).run(context,'northwind');
+result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
 console.log(JSON.stringify(result));
+//ejecucion
+// let context = {id:1}
+// result = await orm.expression(expression).run(context,'northwind');
+// console.log(JSON.stringify(result));
 
 
 // functions
@@ -34,22 +34,12 @@ console.log(JSON.stringify(result));
 
 // Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
 
-// ceil: 'CEIL({0})'
-// cos: 'COS({0})'
-// cosh: 'COSH({0})'
-// exp: 'EXP({0})'
-// floor: 'FLOOR({0})'
-// ln: 'LN({0})'
-// log: 'LOG({0},{1})'
-// nanvl: 'NANVL({0},{1})'
+
+
+
+
 // remainder: 'REMAINDER({0},{1})'
-// round: 'ROUND({0})'
-// sign: 'SIGN({0})'
-// sin: 'SIN({0})'
-// sinh: 'SINH({0})'
-// tan: 'TAN({0})'
-// tanh: 'TANH({0})'
-// trunc: 'TRUNC({0})'
+
 
 
 //queries

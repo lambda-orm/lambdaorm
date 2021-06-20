@@ -13,3 +13,6 @@ others:
   join: 'INNER JOIN `{name}` {alias} ON {relation}'
   false: 'FALSE'
   true: 'TRUE'
+functions:
+  numeric:
+    trunc: 'TRUNCATE({0},{1})'  
