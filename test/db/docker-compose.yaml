@@ -14,6 +14,68 @@ services:
     ports:
       - 3306:3306
     # restart: unless-stopped
+  mysql:
+    image: biarms/mysql:5.7.33-beta-circleci
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tests
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    cap_add:
+      - SYS_NICE # CAP_SYS_NICE
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - '3307:3306'  
+  postgres:  
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=tests
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Adm1n_Adm1n
+    volumes:
+      - mssql:/var/opt/mssql
+    ports:
+      - '1433:1433'
+  mongo:
+    image: arm7/mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb:/data/db  
+  # oracle:
+  #   image: oracle/database:11.2.0.2-xe
+  #   ports:
+  #     - 1521:1521
+  #     - 8085:8080
+  #   shm_size: 1g
+  #   volumes:
+  #     - oracle:/u01/app/oracle/oradata
+  #   environment:
+  #     - ORACLE_PWD=admin
+  #   restart: unless-stopped                 
 volumes:
     mariadb-data:
     mariadb-log:
+    mysql:
+    postgres:
+    mssql:
+    mongodb:
+    oracle:          

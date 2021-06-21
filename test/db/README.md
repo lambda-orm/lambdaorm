@@ -7,12 +7,22 @@ linux:
 ```
 docker volume create --name mariadb-data --opt type=none --opt device=/home/pi/volumes/mariadb/data --opt o=bind
 docker volume create --name mariadb-log --opt type=none --opt device=/home/pi/volumes/mariadb/log --opt o=bind
+docker volume create --name mysql --opt type=none --opt device=/home/pi/volumes/mysql --opt o=bind
+docker volume create --name postgres --opt type=none --opt device=/home/pi/volumes/postgres --opt o=bind
+docker volume create --name mssql --opt type=none --opt device=/home/pi/volumes/mssql --opt o=bind
+docker volume create --name mongodb --opt type=none --opt device=/home/pi/volumes/mongodb --opt o=bind
+docker volume create --name oracle --opt type=none --opt device=/home/pi/volumes/oracle --opt o=bind
 ```
 
 windows:
 ```
 docker volume create --name mariadb-data --opt type=none --opt device=C:\Users\Beesion\volumes\mariadb\data --opt o=bind
 docker volume create --name mariadb-log --opt type=none --opt device=C:\Users\Beesion\volumes\mariadb\log --opt o=bind
+docker volume create --name mysql --opt type=none --opt device=C:\Users\Beesion\volumes\mysql --opt o=bind
+docker volume create --name postgres --opt type=none --opt device=C:\Users\Beesion\volumes\postgres --opt o=bind
+docker volume create --name mssql --opt type=none --opt device=C:\Users\Beesion\volumes\mssql --opt o=bind
+docker volume create --name mongodb --opt type=none --opt device=C:\Users\Beesion\volumes\mongodb --opt o=bind
+docker volume create --name oracle --opt type=none --opt device=C:\Users\Beesion\volumes\oracle --opt o=bind
 ```
 
 ## install database
