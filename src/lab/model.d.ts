@@ -1,54 +1,105 @@
 import './sintaxis';
 
 declare global {
-class Customer extends Entity<Customer>
+interface Customer 
 {
-    public id:number
-    public name:string
+    id:number
+    name:string
 }
-class Category extends Entity<Category>
+interface Category 
 {
-    public id:number
-    public name:string
+    id:number
+    name:string
 }
-class Product extends Entity<Product>
+interface Product 
 {
-    public id:number
-    public name:string
-    public quantity:string
-    public inStock:number
-    public discontinued:boolean
-    public categoryId:number
-    public category:Category
+    id:number
+    name:string
+    quantity:string
+    inStock:number
+    discontinued:boolean
+    categoryId:number
+    category:Category & OneToMany<Category>
 }
-class Order extends Entity<Order>
+interface Order 
 {
-    public id:number
-    public name:string
-    public customerId:number
-    public shippedDate:Date    
-    public customer:Customer
-    public details:OrderDetail
+    id:number
+    name:string
+    customerId:number
+    shippedDate:Date    
+    customer:Customer & OneToMany<Customer>
+    details: ManyToOne<OrderDetail>
+}
+interface OrderDetail 
+{
+    orderId:number
+    productId:number
+    unitPrice:number
+    quantity:number
+    discount:number
+    product:Product & OneToMany<Product>
+    order:Order & OneToMany<Order>
+}
+let Products:Entity<Product>;
+let Categories:Entity<Category>;
+let Customers:Entity<Customer>;
+let Orders:Entity<Order>;
+let OrderDetails:Entity<OrderDetail>;
+
+}
+
+
+// import './sintaxis';
+// declare global {
+// class Customer 
+// {
+//     public id:number
+//     public name:string
+// }
+// class Category 
+// {
+//     public id:number
+//     public name:string
+// }
+// class Product 
+// {
+//     public id:number
+//     public name:string
+//     public quantity:string
+//     public inStock:number
+//     public discontinued:boolean
+//     public categoryId:number
+//     public category:Category
+// }
+// class Order 
+// {
+//     public id:number
+//     public name:string
+//     public customerId:number
+//     public shippedDate:Date    
+//     public customer:Customer
+//     public details:OrderDetail
     
-}
-class OrderDetail extends Entity<OrderDetail>
-{
-    public orderId:number
-    public productId:number
-    public unitPrice:number
-    public quantity:number
-    public discount:number
-    public product:Product
-    public order:Order
-}
+// }
+// class OrderDetail 
+// {
+//     public orderId:number
+//     public productId:number
+//     public unitPrice:number
+//     public quantity:number
+//     public discount:number
+//     public product:Product
+//     public order:Order
+// }
 
-let Products:Product;
-let Categories:Category;
-let Customers:Customer;
-let Orders:Order;
-let OrderDetails:OrderDetail;
+// let Products:Entity<Product>;
+// let Categories:Entity<Category>;
+// let Customers:Entity<Customer>;
+// let Orders:Entity<Order>;
+// let OrderDetails:Entity<OrderDetail>;
 
-}
+// }
+
 
 // export {Products,Categories,Orders,OrderDetails,Customers,Product,Category,Customer,Order,OrderDetail}
 

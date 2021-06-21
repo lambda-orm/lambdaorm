@@ -21,6 +21,10 @@ import './model';
 
 let result
 
+
+let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.customer)
+let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).take(10)
+
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]) ,{id:0},'northwind');
 result = orm.query( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
                                                                                                         .include(p=> p.product
