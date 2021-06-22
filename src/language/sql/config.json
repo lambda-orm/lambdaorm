@@ -84,7 +84,7 @@
         "exp": "EXP({0})",
         "floor": "FLOOR({0})",
         "ln": "LN({0})",
-        "log": "LOG({0})",
+        "log": "LOG({0},{1})",
         "remainder": "REMAINDER({0},{1})",
         "round": "ROUND({0},{1})",
         "sign": "SIGN({0})",
@@ -132,7 +132,6 @@
       }
     },
     "arrows": {
-      "foreach": "N/A",
       "map": "SELECT {0} ",
       "first": "SELECT TOP 1 {0} ",
       "filter": "WHERE {0} ",
@@ -233,7 +232,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
-          "log": "LOG({0})",
+          "log": "LOG({0},{1})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -281,7 +280,6 @@
         }
       },
       "arrows": {
-        "foreach": "N/A",
         "map": "SELECT {0} ",
         "first": "SELECT TOP 1 {0} ",
         "filter": "WHERE {0} ",
@@ -317,19 +315,19 @@
       },
       "functions": {
         "numeric": {
+          "atan2": "ATAN({0},{1})",
+          "cosh": "((EXP({0}) + EXP(-{0})) / 2)",
           "trunc": "TRUNCATE({0},{1})",
           "abs": "ABS({0})",
           "acos": "ACOS({0})",
           "asin": "ASIN({0})",
           "atan": "ATAN({0})",
-          "atan2": "ATAN2({0},{1})",
           "ceil": "CEIL({0})",
           "cos": "COS({0})",
-          "cosh": "COSH({0})",
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
-          "log": "LOG({0})",
+          "log": "LOG({0},{1})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -429,7 +427,6 @@
         }
       },
       "arrows": {
-        "foreach": "N/A",
         "map": "SELECT {0} ",
         "first": "SELECT TOP 1 {0} ",
         "filter": "WHERE {0} ",
@@ -529,7 +526,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
-          "log": "LOG({0})",
+          "log": "LOG({0},{1})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -577,7 +574,6 @@
         }
       },
       "arrows": {
-        "foreach": "N/A",
         "map": "SELECT {0} ",
         "first": "SELECT TOP 1 {0} ",
         "filter": "WHERE {0} ",
@@ -677,7 +673,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
-          "log": "LOG({0})",
+          "log": "LOG({0},{1})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -725,7 +721,6 @@
         }
       },
       "arrows": {
-        "foreach": "N/A",
         "map": "SELECT {0} ",
         "first": "SELECT TOP 1 {0} ",
         "filter": "WHERE {0} ",

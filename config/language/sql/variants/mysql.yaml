@@ -15,4 +15,50 @@ others:
   true: 'TRUE'
 functions:
   numeric:
-    trunc: 'TRUNCATE({0},{1})'  
+    atan2: 'ATAN({0},{1})'
+    cosh: '((EXP({0}) + EXP(-{0})) / 2)'
+    remainder: '({0} - {1}*ROUND({0}/{1}))'
+    sinh: '((EXP({0}) - EXP(-{0})) / 2)'
+    tanh: '(EXP(2*{0}) - 1)/(EXP(2*{0}) + 1)'
+    trunc: 'TRUNCATE({0},{1})'
+  string:
+    chr: 'CHAR({0} USING ASCII)'
+    initcap: 'INITCAP({0})' #  https://stackoverflow.com/questions/12364086/how-can-i-achieve-initcap-functionality-in-mysql
+    length: 'CHAR_LENGTH({0})'
+  #   regExpReplace: 'REGEXP_REPLACE({0},{1})'
+  #   regExpSubstr: 'REGEXP_SUBSTR({0},{1})'
+  #   replace: 'REPLACE({0},{1},{2})'
+  datetime:
+  # https://www.w3schools.com/jsref/jsref_obj_date.asp
+  # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
+    curtime: 'CURTIME()'	
+    today: 'CURDATE()' 
+    now: 'NOW()'
+    time: 'TIME({0})'
+    date: 'DATE({0})'
+    year: 'EXTRACT(YEAR FROM {0})'	
+    month: 'EXTRACT(MONTH FROM {0})'
+    day: 'EXTRACT(DAY FROM {0})'
+    weekday: 'WEEKDAY({0})'
+    hours: 'EXTRACT(HOUR FROM {0})'
+    minutes: 'EXTRACT(MINUTE FROM {0})'
+    seconds: 'EXTRACT(SECOND FROM {0})'
+    addYear: 'DATE_ADD({0}, INTERVAL {1} YEAR)'	
+    addMonth: 'DATE_ADD({0}, INTERVAL {1} MONTH)'
+    addDay: 'DATE_ADD({0}, INTERVAL {1} DAY)'
+    addHours: 'DATE_ADD({0}, INTERVAL {1} HOUR)'
+    addMinutes: 'DATE_ADD({0}, INTERVAL {1} MINUTE)'
+    addSeconds: 'DATE_ADD({0}, INTERVAL {1} SECOND)'
+    addTime: 'ADDTIME({0},{1})'
+    dateDiff: 'DATEDIFF({0},{1})'
+    timeDiff: 'TIMEDIFF({0},{1})'
+    
+
+
+  # convert:
+  # # TODO
+  null:
+    nvl: 'IFNULL({0},{1})'
+    nvl2: 'CASE WHEN {0} NOT NULL THEN {1} ELSE {2} END' # https://www.simplilearn.com/tutorials/sql-tutorial/nvl-in-sql
+  multiple:
+    concat: 'CONCAT({acumulated},{value})'  # https://www.w3schools.com/Sql/func_mysql_concat.asp

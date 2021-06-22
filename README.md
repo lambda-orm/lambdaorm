@@ -6,6 +6,10 @@ npx mocha
 ```
 # References
 - [express-typescript](https://rsbh.dev/blog/rest-api-with-express-typescript)
+
+## sql variants equivalents
+- [oracle to mysql](https://sqlines.com/oracle-to-mysql)
+
 ## examples
 - [typeorm](https://github.com/typeorm/typeorm)
 - [mikro-orm](https://github.com/mikro-orm/mikro-orm)

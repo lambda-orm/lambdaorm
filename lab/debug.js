@@ -18,7 +18,7 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.filter(p=> p.price>5 ).having(p=> p.largestPrice > 50).map(p=> {category:p.category.name,largestPrice:max(p.price)}).sort(p=> desc(p.largestPrice))
+Products.filter(p=>p.id == id).map(p=>{name:p.name,m:10,n:20,result:log(10,20)})
 `;
 //plan 
 result = orm.expression(expression).compile('sql','mysql','northwind').serialize();

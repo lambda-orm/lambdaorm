@@ -115,15 +115,27 @@ describe('numeric functions', function() {
     });
     describe('log', function() {        
         let expression =
-        `Products.filter(p=>p.id == id).map(p=>{name:p.name,source:2,result:log(2)})
+        `Products.filter(p=>p.id == id).map(p=>{name:p.name,m:10,n:20,result:log(10,20)})
         `;
-        let expected =[{"name":"Chai","source":2,"result":0.6931471805599453}]; 
+        let expected =[{"name":"Chai","m":10,"n":20,"result":2.302585092994046}];
         it(expression, async function() {
             let context = {id:1}
             result = await orm.expression(expression).run(context,'northwind');
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
+    // describe('remainder', function() {   
+    //     //https://www.w3resource.com/oracle/oracle-numeric-functions/oracle-remainder-function.php     
+    //     let expression =
+    //     `Products.filter(p=>p.id == id).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
+    //     `;
+    //     let expected =[{"name":"Chai","source":135.375,"result":135.38}]; 
+    //     it(expression, async function() {
+    //         let context = {id:1}
+    //         result = await orm.expression(expression).run(context,'northwind');
+    //         assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
+    //     });
+    // });
     describe('round', function() {        
         let expression =
         `Products.filter(p=>p.id == id).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
