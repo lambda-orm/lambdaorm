@@ -9,7 +9,7 @@ npx mocha
 
 ## sql variants equivalents
 - [oracle to mysql](https://sqlines.com/oracle-to-mysql)
-
+- [mysql to oracle](https://sqlines.com/mysql-to-oracle)
 ## examples
 - [typeorm](https://github.com/typeorm/typeorm)
 - [mikro-orm](https://github.com/mikro-orm/mikro-orm)
