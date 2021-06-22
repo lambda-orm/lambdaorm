@@ -102,10 +102,40 @@ functions:
     upper: 'UPPER({0})'
     length: 'LENGTH({0})'
   datetime:
-  # TODO
-  ADD_MONTHS({0},{1})
+  # https://www.w3schools.com/jsref/jsref_obj_date.asp
+  # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
+    curtime: 'SYSTIMESTAMP'
+    today: 'TRUNC(SYSDATE)' 
+    now: 'SYSTIMESTAMP'
+
+    time: 'TIME({0})'
+    date: 'DATE({0})'
+    year: 'EXTRACT(YEAR FROM {0})'
+    month: 'EXTRACT(MONTH FROM {0})'
+    day: 'DAY(DAY FROM {0})'
+    weekday: "TO_NUMBER(TO_CHAR({0}, 'D'))"
+    hours: 'EXTRACT(HOUR FROM {0})'
+    minutes: 'EXTRACT(MINUTE FROM {0})'
+    seconds: 'EXTRACT(SECOND FROM {0})'
+    addYear: 'DATE_ADD({0}, INTERVAL {1} YEAR)'
+    addMonth: 'DATE_ADD({0}, INTERVAL {1} MONTH)'
+    addDay: 'DATE_ADD({0}, INTERVAL {1} DAY)'
+    addHours: 'DATE_ADD({0}, INTERVAL {1} HOUR)'
+    addMinutes: 'DATE_ADD({0}, INTERVAL {1} MINUTE)'
+    addSeconds: 'DATE_ADD({0}, INTERVAL {1} SECOND)'
+    addTime: 'ADDTIME({0},{1})'
+    dateDiff: 'DATEDIFF({0},{1})'
+    timeDiff: 'TIMEDIFF({0},{1})'
   convert:
-  # TODO
+    toString: 'CONVERT({0}, CHAR)'
+    toDate: 'CONVERT({0}, DATE)'
+    toDatetime: 'CONVERT({0}, DATETIME)'
+    toTime: 'CONVERT({0}, TIME)'
+    toJson: 'CONVERT({0}, JSON)'
+    toNumber: 'CONVERT({0}, DECIMAL)'
+  metadata:
+    user: 'USER'
+    database: "SYS_CONTEXT('USERENV','DB_NAME')"   
   null:
     nvl: 'NVL({0},{1})'
     nvl2: 'NVL2({0},{1},{2})' 

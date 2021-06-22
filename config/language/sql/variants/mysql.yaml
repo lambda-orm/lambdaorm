@@ -31,19 +31,19 @@ functions:
   datetime:
   # https://www.w3schools.com/jsref/jsref_obj_date.asp
   # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
-    curtime: 'CURTIME()'	
+    curtime: 'CURTIME()'
     today: 'CURDATE()' 
     now: 'NOW()'
     time: 'TIME({0})'
     date: 'DATE({0})'
-    year: 'EXTRACT(YEAR FROM {0})'	
+    year: 'EXTRACT(YEAR FROM {0})'
     month: 'EXTRACT(MONTH FROM {0})'
     day: 'EXTRACT(DAY FROM {0})'
     weekday: 'WEEKDAY({0})'
     hours: 'EXTRACT(HOUR FROM {0})'
     minutes: 'EXTRACT(MINUTE FROM {0})'
     seconds: 'EXTRACT(SECOND FROM {0})'
-    addYear: 'DATE_ADD({0}, INTERVAL {1} YEAR)'	
+    addYear: 'DATE_ADD({0}, INTERVAL {1} YEAR)'
     addMonth: 'DATE_ADD({0}, INTERVAL {1} MONTH)'
     addDay: 'DATE_ADD({0}, INTERVAL {1} DAY)'
     addHours: 'DATE_ADD({0}, INTERVAL {1} HOUR)'
@@ -52,11 +52,17 @@ functions:
     addTime: 'ADDTIME({0},{1})'
     dateDiff: 'DATEDIFF({0},{1})'
     timeDiff: 'TIMEDIFF({0},{1})'
-    
-
-
-  # convert:
-  # # TODO
+  convert:
+  # https://dev.mysql.com/doc/refman/5.7/en/cast-functions.html#function_convert
+    toString: 'CONVERT({0}, CHAR)'
+    toDate: 'CONVERT({0}, DATE)'
+    toDatetime: 'CONVERT({0}, DATETIME)'
+    toTime: 'CONVERT({0}, TIME)'
+    toJson: 'CONVERT({0}, JSON)'
+    toNumber: 'CONVERT({0}, DECIMAL)'
+  metadata:
+    user: 'CURRENT_USER()'
+    database: 'DATABASE()'    
   null:
     nvl: 'IFNULL({0},{1})'
     nvl2: 'CASE WHEN {0} NOT NULL THEN {1} ELSE {2} END' # https://www.simplilearn.com/tutorials/sql-tutorial/nvl-in-sql
