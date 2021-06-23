@@ -60,7 +60,7 @@ class Orm {
     public expression(value:string){
         return new Expression(this.languageManager,value)
     }
-    public query(value:Function):Expression
+    public lambda(value:Function):Expression
     {
         let str = value.toString();
         let index = str.indexOf('=>')+2;

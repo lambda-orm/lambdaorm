@@ -25,7 +25,7 @@ let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> 
 let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).take(10)
 
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]) ,{id:0},'northwind');
-result = orm.query( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
+result = orm.lambda( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
                                                                                                         .include(p=> p.product
                                                                                                             .include(p=> p.category.map(p=> p.name))
                                                                                                         .map(p=> p.name ))
@@ -62,18 +62,16 @@ let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.in
 
 let query6 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
-result = (await orm.query(query).compile('sql','mysql','northwind')).serialize();
+result = (await orm.lambda(query).compile('sql','mysql','northwind')).serialize();
 console.log(result);
-result = (await orm.query(query2).compile('sql','mysql','northwind')).serialize();
+result = (await orm.lambda(query2).compile('sql','mysql','northwind')).serialize();
 console.log(result);
-result = (await orm.query(query3).compile('sql','mysql','northwind')).serialize();
+result = (await orm.lambda(query3).compile('sql','mysql','northwind')).serialize();
 console.log(result);
-// result = orm.query(updateCategory).compile('sql','mysql','northwind').serialize();
-// console.log(result);
 
 let context = {id:10584}
 let query4 = (id:number)=> Orders.filter(p=>p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
-result = await orm.query(query4).run(context,'northwind');
+result = await orm.lambda(query4).run(context,'northwind');
 console.log(result);
 
 
