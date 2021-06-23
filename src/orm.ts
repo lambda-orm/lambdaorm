@@ -10,7 +10,8 @@ import MySqlConnection  from './connection/mysql'
 import {Schema} from './model/schema'
 import SchemaManager  from './manager/schema'
 import LanguageManager  from './manager/language'
-import {Expression,CompiledExpression} from './manager/expression'
+import Expression from './manager/expression'
+import CompiledExpression from './manager/compiledExpression'
 
 class Orm {
 

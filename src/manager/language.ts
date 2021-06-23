@@ -4,6 +4,7 @@ import Connection  from './../connection/base'
 import Node from './../base/node'
 import Context from './../base/context'
 import Operand from './../base/operand'
+import Language from './../language/language'
 
 export default class LanguageManager
 {
@@ -40,12 +41,13 @@ export default class LanguageManager
     {
         return this.connections[name];
     }
-    public compile(expression:string,language:string,variant?:string,schemaName?:string)
+    public async compile(expression:string,language:string,variant?:string,schemaName?:string):Promise<Operand>
     {
         try{
             let node:Node= this.parser.parse(expression);
             let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
-            let operand= this.languages[language].compile(node,schema,variant);
+            let _language = this.languages[language] as Language
+            let operand= _language.compile(node,schema,variant);
             return operand; 
         }
         catch(error){

@@ -9,7 +9,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT MAX(p.`UnitPrice`) AS maxPrice FROM `Products` p ","cols":["maxPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -19,7 +19,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT MIN(p.`UnitPrice`) AS minPrice FROM `Products` p ","cols":["minPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result =(await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -29,7 +29,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT SUM(p.`UnitPrice`) AS total FROM `Products` p ","cols":["total"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -39,7 +39,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT AVG(p.`UnitPrice`) AS average FROM `Products` p ","cols":["average"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -49,7 +49,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT COUNT(1) AS count FROM `Products` p ","cols":["count"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -59,7 +59,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT p.`CategoryID` AS category, MAX(p.`UnitPrice`) AS largestPrice FROM `Products` p GROUP BY p.`CategoryID` ","cols":["category","largestPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -69,7 +69,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, MAX(p.`UnitPrice`) AS largestPrice FROM `Products` p INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` GROUP BY c.`CategoryName` ","cols":["category","largestPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -80,7 +80,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, MAX(p.`UnitPrice`) AS largestPrice FROM `Products` p INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` GROUP BY c.`CategoryName` HAVING `largestPrice` > 100 ","cols":["category","largestPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -92,7 +92,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, MAX(p.`UnitPrice`) AS largestPrice FROM `Products` p INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` GROUP BY c.`CategoryName` HAVING `largestPrice` > 100 ORDER BY `largestPrice` desc ","cols":["category","largestPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -105,7 +105,7 @@ describe('groupBy', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, MAX(p.`UnitPrice`) AS largestPrice FROM `Products` p INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` WHERE p.`UnitPrice` > 5 GROUP BY c.`CategoryName` HAVING `largestPrice` > 50 ORDER BY `largestPrice` desc ","cols":["category","largestPrice"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });

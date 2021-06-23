@@ -11,7 +11,7 @@ describe('queries', function() {
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, p.`ProductName` AS name, p.`QuantityPerUnit` AS quantity, p.`UnitsInStock` AS inStock FROM `Products` p INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` WHERE p.`Discontinued` <> FALSE ORDER BY `category`, `name` desc ","cols":["category","name","quantity","inStock"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -23,7 +23,7 @@ describe('queries', function() {
         `;
         let expected = {"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, p.`ProductName` AS product, o.`UnitPrice` AS unitPrice, o.`Quantity` AS quantity FROM `Order Details` o INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` INNER JOIN `Orders` o1 ON o1.`OrderID` = o.`OrderID` INNER JOIN `Products` p ON p.`ProductID` = o.`ProductID` WHERE o1.`ShippedDate` BETWEEN '19970101' AND '19971231' ORDER BY `category`, `product` ","cols":["category","product","unitPrice","quantity"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });
@@ -33,7 +33,7 @@ describe('queries', function() {
         `;
         let expected = {"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT o.`OrderID` AS order, SUM((((o.`UnitPrice` * o.`Quantity`) * (1 - (o.`Discount` / 100))) * 100)) AS subTotal FROM `Order Details` o GROUP BY o.`OrderID` ","cols":["order","subTotal"],"v":[]};
         it(expression, async function() {
-            let result = orm.expression(expression).compile('sql',variant,'northwind').serialize();
+            let result = (await orm.expression(expression).compile('sql',variant,'northwind')).serialize();
             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
         });
     });

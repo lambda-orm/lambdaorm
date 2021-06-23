@@ -1,19 +1,19 @@
-interface Schema {
+export interface Schema {
     name: string
     entities: Entity[]
     enums: Enum[]
 }
-interface Enum {
+export interface Enum {
     name: string
     values: any[]
 }
-interface Entity {
+export interface Entity {
     name: string
     mapping?: string
     properties:Property[]
     relations:Relation[]
 }
-interface Property {
+export interface Property {
     name: string 
     mapping?: string
     type: string
@@ -22,21 +22,13 @@ interface Property {
     primaryKey?: boolean
     autoincrement?: boolean
 }
-interface Relation {
+export interface Relation {
     name: string
     type: string
     from: string
     to: RelationTo
 }    
-interface RelationTo {
+export interface RelationTo {
     entity: string
     property: string
-}
-export {
-    Schema,
-    Enum,
-    Entity,
-    Property,
-    Relation,
-    RelationTo  
 }
