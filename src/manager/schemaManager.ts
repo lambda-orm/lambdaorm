@@ -1,4 +1,4 @@
-import * as model from './../model/schema'
+import * as model from '../model/schema'
 import Schema from '../language/schema'
 
 export default class SchemaManager

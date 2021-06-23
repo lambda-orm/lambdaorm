@@ -1,4 +1,4 @@
-import LanguageManager from './language'
+import LanguageManager from './languageManager'
 import CompiledExpression from './compiledExpression'
 
 

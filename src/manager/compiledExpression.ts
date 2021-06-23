@@ -1,4 +1,4 @@
-import LanguageManager from './language'
+import LanguageManager from './languageManager'
 import Operand from '../language/operand'
 
 export default class CompiledExpression

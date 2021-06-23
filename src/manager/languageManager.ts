@@ -1,9 +1,9 @@
 import Parser from '../parser/parser'
-import SchemaManager  from './schema'
-import Connection  from './../connection/base'
+import SchemaManager  from './schemaManager'
+import Connection  from '../connection/base'
 import Context from '../language/context'
 import Operand from '../language/operand'
-import Language from './../language/language'
+import Language from '../language/language'
 
 export default class LanguageManager
 {
