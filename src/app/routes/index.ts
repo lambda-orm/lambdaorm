@@ -3,7 +3,8 @@ import PingController from "../controllers/ping";
 import SchemaController from "../controllers/schema";
 import ExpressionController from "../controllers/expression";
 import {Schema}  from './../../model/schema'
-import ExpressionRequest from  './../model/expressionRequest'
+import CompileRequest from  '../model/compileRequest'
+import RunRequest from  '../model/runRequest'
 
 const router = express.Router();
 
@@ -32,14 +33,24 @@ router.delete("/schema/:name", async (req, res) => {
   await controller.delete(req.params.name);
   return res.send();
 });
-router.post("/expression/compile/:schema/:language/:variant", async (req, res) => {
+router.post("/expression/compile", async (req, res) => {
   const controller = new ExpressionController();
-  const response = await controller.compile(req.params.schema,req.body as ExpressionRequest,req.params.language,req.params.variant);
+  const response = await controller.compile(req.body as CompileRequest);
+  return res.send(response);
+});
+router.post("/expression/query", async (req, res) => {
+  const controller = new ExpressionController();
+  const response = await controller.query(req.body as CompileRequest);
+  return res.send(response);
+});
+router.post("/expression/schema", async (req, res) => {
+  const controller = new ExpressionController();
+  const response = await controller.schema(req.body as CompileRequest);
   return res.send(response);
 });
 router.post("/expression/run/:connection", async (req, res) => {
   const controller = new ExpressionController();
-  const response = await controller.run(req.body as ExpressionRequest,req.params.connection);
+  const response = await controller.run(req.body as RunRequest);
   return res.send(response);
 });
 

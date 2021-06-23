@@ -162,15 +162,43 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ExpressionRequest": {
+			"CompileRequest": {
 				"properties": {
 					"expression": {
+						"type": "string"
+					},
+					"schema": {
+						"type": "string"
+					},
+					"language": {
+						"type": "string"
+					},
+					"variant": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"expression",
+					"schema",
+					"language",
+					"variant"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RunRequest": {
+				"properties": {
+					"expression": {
+						"type": "string"
+					},
+					"connection": {
 						"type": "string"
 					},
 					"context": {}
 				},
 				"required": [
-					"expression"
+					"expression",
+					"connection"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -300,7 +328,7 @@
 				]
 			}
 		},
-		"/expression/compile/{schema}/{language}/{variant}": {
+		"/expression/compile": {
 			"post": {
 				"operationId": "Compile",
 				"responses": {
@@ -314,45 +342,74 @@
 					}
 				},
 				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "schema",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "language",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "variant",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
+				"parameters": [],
 				"requestBody": {
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ExpressionRequest"
+								"$ref": "#/components/schemas/CompileRequest"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/expression/run/{connection}": {
+		"/expression/query": {
+			"post": {
+				"operationId": "Query",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CompileRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/expression/schema": {
+			"post": {
+				"operationId": "Schema",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CompileRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/expression/run": {
 			"post": {
 				"operationId": "Run",
 				"responses": {
@@ -366,22 +423,13 @@
 					}
 				},
 				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "connection",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
+				"parameters": [],
 				"requestBody": {
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ExpressionRequest"
+								"$ref": "#/components/schemas/RunRequest"
 							}
 						}
 					}

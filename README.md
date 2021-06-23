@@ -1,8 +1,7 @@
 
 
 # definition
-posibles names: lambda-orm, valentina-orm, flecha-orm, flecha
-
+posibles names: lambda-orm
 
 # Cache
 https://www.npmjs.com/package/cache-manager
