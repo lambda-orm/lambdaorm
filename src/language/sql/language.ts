@@ -1,9 +1,9 @@
-import Node from './../../base/node'
-import Context from './../../base/context'
-import Operand from './../../base/operand'
+import Node from '../../parser/node'
+import Context from '../context'
+import Operand from '../operand'
 import Connection  from './../../connection/base'
 import Language from '../language'
-import Schema from '../../base/schema'
+import Schema from '../schema'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlUpdateFrom,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
@@ -79,7 +79,7 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public async run(operand:Operand,context:any,connection:Connection)
+    public async run(operand:Operand,context:Context,connection:Connection)
     {          
         return await this.execute(operand as SqlQuery,context,connection);
     }

@@ -1,9 +1,9 @@
-import Parser from './manager/parser'
-import Model from './base/model'
+import Parser from './parser/parser'
+import Model from './parser/model'
 import DefaultLanguage from './language/default/language'
 import SqlLanguage from './language/sql/language'
-import CoreLib from './language/default/coreLib'
-import modelConfig from './base/config.json'
+import CoreLib from './language/default/coreLib' 
+import modelConfig from './parser/config.json'
 import sqlConfig  from './language/sql/config.json'
 import Connection  from './connection/base'
 import MySqlConnection  from './connection/mysql'
@@ -14,17 +14,12 @@ import Expression from './manager/expression'
 import CompiledExpression from './manager/compiledExpression'
 
 class Orm {
-
-    private model:any
-    private parser:Parser
     private schemaManager:SchemaManager
     private languageManager:LanguageManager
 
-    constructor(model:any){
-        this.model = model;
-        this.parser =  new Parser(this.model);
+    constructor(parser:Parser){
         this.schemaManager=new SchemaManager();
-        this.languageManager = new LanguageManager(this.parser,this.schemaManager)
+        this.languageManager = new LanguageManager(parser,this.schemaManager)
     }
     public addLanguage(value:any){
         this.languageManager.addLanguage(value);
@@ -79,8 +74,9 @@ export =(function() {
     if(!orm){
         let model = new Model();
         model.load(modelConfig);
-        
-        orm= new Orm(model);    
+        let parser =  new Parser(model);
+                
+        orm= new Orm(parser);    
         orm.addLanguage(new DefaultLanguage());
         orm.addLibrary(new CoreLib());
 

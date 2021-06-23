@@ -1,9 +1,8 @@
-import Parser from './parser'
+import Parser from '../parser/parser'
 import SchemaManager  from './schema'
 import Connection  from './../connection/base'
-import Node from './../base/node'
-import Context from './../base/context'
-import Operand from './../base/operand'
+import Context from '../language/context'
+import Operand from '../language/operand'
 import Language from './../language/language'
 
 export default class LanguageManager
@@ -44,7 +43,7 @@ export default class LanguageManager
     public async compile(expression:string,language:string,variant?:string,schemaName?:string):Promise<Operand>
     {
         try{
-            let node:Node= this.parser.parse(expression);
+            let node= this.parser.parse(expression);
             let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
             let _language = this.languages[language] as Language
             let operand= _language.compile(node,schema,variant);
@@ -80,8 +79,9 @@ export default class LanguageManager
         try{
             let _context = new Context(context);
             if(connectionName){
-                let connection = this.connections[connectionName]; 
-                return await this.languages[connection.language].run(operand,_context,connection);
+                let connection = this.connections[connectionName] as Connection;
+                let _language = this.languages[connection.language] as Language 
+                return await _language.run(operand,_context,connection);
             }else{
                 return await this.languages['default'].run(operand,_context);
             }            

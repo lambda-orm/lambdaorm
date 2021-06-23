@@ -1,18 +1,19 @@
-import Node from '../base/node'
+import Node from './node'
 import Minifier from './minifier'
-import NodeManager from './node'
+import NodeManager from './nodeManager'
+import Model from './model'
 
 export default class Parser{
 
     public doubleOperators:string[]
     public tripleOperators:string[]
     public assigmentOperators:string[]
-    private _model:any
+    private model:Model
     private minifier:Minifier
     private nodeManager:NodeManager
 
-    constructor(model:any){
-         this._model = model;
+    constructor(model:Model){
+         this.model = model;
          this.minifier = new Minifier();
          this.nodeManager = new NodeManager(model);
          this.tripleOperators = [];
@@ -21,18 +22,18 @@ export default class Parser{
          this.refresh();     
      } 
      public refresh(){
-         for(const key in this._model.operators){
+         for(const key in this.model.operators){
              if( key.length==2) this.doubleOperators.push(key);
              else if(key.length==3) this.tripleOperators.push(key);
 
-            let operator = this._model.operators[key];
+            let operator = this.model.operators[key];
             if(operator[2] && operator[2].category == 'assignment')
                    this.assigmentOperators.push(key);
          }
      }   
      public priority(name:string,cardinality:number=2){
          try{
-             let metadata = this._model.operators[name][cardinality];
+             let metadata = this.model.operators[name][cardinality];
              return  metadata?metadata.priority : -1
          }
          catch(error){
@@ -40,13 +41,13 @@ export default class Parser{
          }
      }
      public isEnum(name:string){    
-         return this._model.isEnum(name); 
+         return this.model.isEnum(name); 
      }
      public getEnumValue(name:string,option:any){
-         return this._model.getEnumValue(name,option);
+         return this.model.getEnumValue(name,option);
      }
      public getEnum(name:string){
-         return this._model.getEnum(name);
+         return this.model.getEnum(name);
      }
      public parse(expression:string):Node{
          try{

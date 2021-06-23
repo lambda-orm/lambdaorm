@@ -1,4 +1,4 @@
-export default class Operand
+export default abstract class Operand
 {
     public name: string
     public id?: string

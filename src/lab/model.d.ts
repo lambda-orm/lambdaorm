@@ -1,4 +1,4 @@
-import './sintaxis';
+import './../sintaxis';
 
 declare global {
 interface Customer 

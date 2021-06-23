@@ -1,6 +1,8 @@
-import Node from './../base/node'
-import Operand from './../base/operand'
-import Schema  from './../base/schema'
+import Node from '../parser/node'
+import Operand from './operand'
+import Schema  from './schema'
+import Context from './context'
+import Connection  from './../connection/base'
 
 export default abstract class Language
 {
@@ -18,7 +20,7 @@ export default abstract class Language
     }
     public abstract addLibrary(library:any):void
     public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
-    public abstract run(operand:Operand,context:any,cnx?:any):Promise<any>
+    public abstract run(operand:Operand,context:Context,connection?:Connection):Promise<any>
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
         return this.setParent(operand);

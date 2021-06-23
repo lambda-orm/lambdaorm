@@ -1,5 +1,5 @@
 import LanguageManager from './language'
-import Operand from './../base/operand'
+import Operand from '../language/operand'
 
 export default class CompiledExpression
 {
