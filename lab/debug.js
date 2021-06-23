@@ -3,6 +3,14 @@ const orm = require("../dist/orm.js");
 
 // const model = require("../dist/lab/model");
 
+async function exec(fn){
+    let t1= Date.now()
+    let result = await fn()
+    let t2= Date.now()
+    console.log(t2-t1)
+    console.log(JSON.stringify(result));  
+}
+
 (async () => { 
 
 let result,expression,cnx;
@@ -18,31 +26,22 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.filter(p=>p.id == id).map(p=>{name:p.name,m:10,n:20,result:log(10,20)})
+Products.filter(p=> p.discontinued != false )                 
+                 .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
+                 .sort(p=> [p.category,desc(p.name)])
 `;
-//plan 
-result = orm.expression(expression).compile('sql','mysql','northwind').serialize();
-console.log(JSON.stringify(result));
+//plan
+
+await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+
 //ejecucion
-let context = {id:1}
-result = await orm.expression(expression).run(context,'northwind');
-console.log(JSON.stringify(result));
+// let context = {id:1}
+// result = await orm.expression(expression).run(context,'northwind');
+// console.log(JSON.stringify(result));
 
 // Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
-
-
-// functions
-//  numeric:
-
 // Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
-
-
-
-
-
-// remainder: 'REMAINDER({0},{1})'
-
-
 
 //queries
 // Products.filter(p=> p.discontinued != false )                 

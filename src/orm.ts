@@ -12,14 +12,18 @@ import SchemaManager  from './manager/schemaManager'
 import LanguageManager  from './manager/languageManager'
 import Expression from './manager/expression'
 import CompiledExpression from './manager/compiledExpression'
+import {Cache} from './model/cache'
 
 class Orm {
     private schemaManager:SchemaManager
     private languageManager:LanguageManager
 
-    constructor(parser:Parser){
-        this.schemaManager=new SchemaManager();
-        this.languageManager = new LanguageManager(parser,this.schemaManager)
+    constructor(schemaManager:SchemaManager,languageManager:LanguageManager){
+        this.schemaManager=schemaManager
+        this.languageManager = languageManager
+    }
+    public setCache(value:Cache){
+        this.languageManager.addLanguage(value);
     }
     public addLanguage(value:any){
         this.languageManager.addLanguage(value);
@@ -75,8 +79,11 @@ export =(function() {
         let model = new Model();
         model.load(modelConfig);
         let parser =  new Parser(model);
+
+        let schemaManager=new SchemaManager();
+        let languageManager = new LanguageManager(parser,schemaManager)
                 
-        orm= new Orm(parser);    
+        orm= new Orm(schemaManager,languageManager);    
         orm.addLanguage(new DefaultLanguage());
         orm.addLibrary(new CoreLib());
 

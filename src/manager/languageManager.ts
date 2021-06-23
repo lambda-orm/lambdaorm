@@ -4,6 +4,7 @@ import Connection  from '../connection/base'
 import Context from '../language/context'
 import Operand from '../language/operand'
 import Language from '../language/language'
+import {Cache,MemoryCache} from './../model/cache'
 
 export default class LanguageManager
 {
@@ -12,15 +13,20 @@ export default class LanguageManager
     private schemaManager:SchemaManager
     private connectionTypes:any
     private connections:any
+    private cache:Cache
 
     constructor(parser:Parser,schemaManager:SchemaManager){
         this.parser =  parser
         this.schemaManager=schemaManager
         this.languages={};
         this.connectionTypes={}; 
-        this.connections={};  
+        this.connections={};
+        this.cache=new MemoryCache()  
     }
 
+    public setCache(value:Cache){
+        this.cache=value;
+    }
     public addLanguage(value:any){
         this.languages[value.name] =value;
     }
@@ -41,19 +47,24 @@ export default class LanguageManager
         return this.connections[name];
     }
     public async compile(expression:string,language:string,variant?:string,schemaName?:string):Promise<Operand>
-    {
-        try{
-            let node= this.parser.parse(expression);
-            let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
-            let _language = this.languages[language] as Language
-            let operand= _language.compile(node,schema,variant);
-            return operand; 
+    {       
+        try{       
+            let key = language+':'+variant+'-exp_'+expression
+            let operand= await this.cache.get(key)
+            if(!operand){
+                let node= this.parser.parse(expression);
+                let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
+                let _language = this.languages[language] as Language
+                operand= _language.compile(node,schema,variant);
+                await this.cache.set(key,operand)
+            }            
+            return operand as Operand; 
         }
         catch(error){
             console.log(error)
             throw 'expression: '+expression+' error: '+error.toString();
         }
-    }    
+    }   
     public serialize(operand:Operand,language:string):string
     {
         try
