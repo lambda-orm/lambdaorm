@@ -186,6 +186,14 @@ export default class DefaultLanguage extends Language
         operand =this.setParent(operand);
         return operand;
     }
+    public query(operand:Operand):string
+    {
+        throw 'NotImplemented';
+    }
+    public schema(operand:Operand):any
+    {
+        throw 'NotImplemented';
+    }
     public sentence(operand:Operand,variant:string):any{
         throw 'NotImplemented';
     } 

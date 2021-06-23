@@ -15,7 +15,15 @@ export default class CompiledExpression
     public serialize():string
     {
         return this.mgr.serialize(this.operand,this.language );
-    }    
+    }
+    public query():string
+    {
+        return this.mgr.query(this.operand,this.language );
+    }
+    public schema():any
+    {
+        return this.mgr.schema(this.operand,this.language);
+    }      
     public async run(context:any,connectionName:string)
     {        
         return await this.mgr.run(this.operand as Operand,context,connectionName)

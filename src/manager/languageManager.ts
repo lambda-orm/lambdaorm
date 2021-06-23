@@ -85,6 +85,26 @@ export default class LanguageManager
             throw 'deserialize: '+serialized+' error: '+error.toString(); 
         }
     }
+    public query(operand:Operand,language:string):string
+    {
+        try
+        {
+            return this.languages[language].query(operand);
+        }
+        catch(error){
+            throw 'query: '+operand.name+' error: '+error.toString(); 
+        }
+    }
+    public schema(operand:Operand,language:string):any
+    {
+        try
+        {
+            return this.languages[language].schema(operand);
+        }
+        catch(error){
+            throw 'query: '+operand.name+' error: '+error.toString(); 
+        }
+    }
     public async run(operand:Operand,context:any,connectionName?:string)
     {
         try{

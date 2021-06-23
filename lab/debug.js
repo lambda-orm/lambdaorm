@@ -8,12 +8,15 @@ async function exec(fn){
     let result = await fn()
     let t2= Date.now()
     console.log(t2-t1)
-    console.log(JSON.stringify(result));  
+    if(result){
+        if (typeof result === 'string' || result instanceof String)console.log(result);
+        else console.log(JSON.stringify(result));
+    }  
 }
 
 (async () => { 
 
-let result,expression,cnx;
+let expression,cnx;
 
 let schemas =  await ConfigExtends.apply('test/config/schema');
 for(const p in schemas){
@@ -30,10 +33,10 @@ Products.filter(p=> p.discontinued != false )
                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
                  .sort(p=> [p.category,desc(p.name)])
 `;
-//plan
-
-await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+// await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+// await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+// await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
+await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).schema())
 
 //ejecucion
 // let context = {id:1}
@@ -44,6 +47,8 @@ await exec( async()=>(await orm.expression(expression).compile('sql','mysql','no
 // Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
 
 //queries
+// Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
+
 // Products.filter(p=> p.discontinued != false )                 
 //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
 //                  .sort(p=> [p.category,desc(p.name)])

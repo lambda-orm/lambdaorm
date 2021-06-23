@@ -1,5 +1,6 @@
 import {Operand,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 import SqlLanguageVariant from './variant'
+import {Property} from './../../model/schema'
 
 class SqlConstant extends Constant
 {   
@@ -31,6 +32,12 @@ class SqlVariable extends Variable
 }
 class SqlField extends Operand
 {
+    public type:string 
+    constructor(name:string,type:string){
+        super(name,[]);
+        this.type = type; 
+    }
+
     build(metadata:SqlLanguageVariant){ 
         let parts = this.name.split('.');
         if(parts.length == 1){
@@ -140,13 +147,13 @@ class SqlArrowFunction extends ArrowFunction
 }
 class SqlSentence extends FunctionRef 
 {
-    public columns:string[]
+    public columns:Property[]
     public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
     public alias:string
     // public includes:SqlSentenceInclude[];
 
-    constructor(name:string,children:Operand[]=[],entity:string,alias:string,columns:string[]){
+    constructor(name:string,children:Operand[]=[],entity:string,alias:string,columns:Property[]){
         super(name,children);
         this.entity=entity;
         this.alias=alias;
@@ -270,10 +277,10 @@ class SqlDelete extends SqlArrowFunction {}
 class SqlQuery extends Operand
 {
     public sentence:string
-    public columns:string[]
+    public columns:Property[]
     public variables:string[]
     
-    constructor(name:string,children:Operand[]=[],sentence:string,columns:string[],variables:string[]){
+    constructor(name:string,children:Operand[]=[],sentence:string,columns:Property[],variables:string[]){
         super(name,children);
         this.sentence=sentence;
         this.columns=columns;

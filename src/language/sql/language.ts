@@ -8,6 +8,7 @@ import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOper
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlUpdateFrom,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import SqlLanguageVariant from './variant'
+import {Property} from './../../model/schema'
 import { AnyARecord } from 'dns'
 
 class SqlEntityContext
@@ -18,7 +19,7 @@ class SqlEntityContext
     public metadata:any
     public children:SqlEntityContext[]
     public joins:any
-    public fields:string[]
+    public fields:Property[]
     public groupByFields:string[]
     public arrowVar:string
     
@@ -82,6 +83,36 @@ export default class SqlLanguage extends Language
     public async run(operand:Operand,context:Context,connection:Connection)
     {          
         return await this.execute(operand as SqlQuery,context,connection);
+    }
+    public query(operand:Operand):string
+    {          
+        let query= operand as SqlQuery
+        let mainQuery = query.sentence+';';
+        for(const p in query.children){
+            let include = query.children[p] as SqlSentenceInclude;
+            let includemainQuery= this.query(include.children[0]);
+            mainQuery= mainQuery+'\n'+includemainQuery
+        }
+        return mainQuery;
+    }
+    public schema(operand:Operand):any
+    {
+        let query= operand as SqlQuery
+        let result:any = {}
+        for(let i=0;i<query.columns.length;i++){
+            let column = query.columns[i]
+            result[column.name]=column.type
+        }       
+        for(const p in query.children){
+            let include = query.children[p] as SqlSentenceInclude;
+            let childsSchema = this.schema(include.children[0]);
+            if(include.relation.type == 'manyToOne'){
+                result[include.name] = [childsSchema]
+            }else{
+                result[include.name]= childsSchema;
+            }
+        }
+        return result;
     }
     protected reduce(operand:Operand):Operand
     {
@@ -173,21 +204,24 @@ export default class SqlLanguage extends Language
                 let parts = node.name.split('.');
                 if(parts[0] == context.current.arrowVar){
                     if(parts.length == 1){
-                        return new SqlField(context.current.alias+'.*'); 
+                        // TODO, aqui se deberia retornar el array de fields 
+                        return new SqlField(context.current.alias+'.*','any'); 
                     }
                     else if(parts.length == 2){
-                        if(context.current.fields.includes(parts[1])){
-                            return new SqlField(parts[1]); 
-                        }else{
-                            let field= schema.propertyMapping(context.current.entity,parts[1]);
-                            if(field){
-                                return new SqlField(context.current.alias+'.'+field); 
+                        let _field = context.current.fields.find(p=> p.name == parts[1])
+                        if(_field){ 
+                            return new SqlField(_field.name,_field.type);                          
+                        }else{                            
+                            if(schema.existsProperty(context.current.entity,parts[1])){
+                                let property= schema.getProperty(context.current.entity,parts[1]);
+                                return new SqlField(context.current.alias+'.'+property.mapping,property.type); 
                             }else{
                                 let relationInfo= schema.getRelation(context.current.entity,parts[1]);
                                 if(relationInfo){
                                     let relation =  this.addJoins(parts,parts.length,context); 
                                     let relationAlias=context.current.joins[relation];
-                                    return new SqlField(relationAlias+'.*'); 
+                                    // TODO, aqui se deberia retornar el array de fields 
+                                    return new SqlField(relationAlias+'.*','any'); 
                                 }else{
                                     throw 'Property '+parts[1]+' not fount in '+context.current.entity;
                                 }
@@ -199,15 +233,16 @@ export default class SqlLanguage extends Language
                         let relation =  this.addJoins(parts,parts.length-1,context); 
                         let info = schema.getRelation(context.current.entity,relation);                        
                         let relationAlias=context.current.joins[relation];
-                        let relationField = info.relationSchema.property[propertyName].mapping; 
-                        if(relationField){
-                            return new SqlField(relationAlias+'.'+relationField);
+                        let property = info.relationSchema.property[propertyName]; 
+                        if(property){
+                            return new SqlField(relationAlias+'.'+property.mapping,property.type);
                         }else{
                             let relationName = info.relationSchema.relation[propertyName];
                             if(relationName){
                                 let relation2 =  this.addJoins(parts,parts.length,context);
-                                let relationAlias2=context.current.joins[relation2];                               
-                                return new SqlField(relationAlias2+'.*');
+                                let relationAlias2=context.current.joins[relation2];
+                                // TODO, aqui se deberia retornar el array de fields                                
+                                return new SqlField(relationAlias2+'.*','any');
                             }else{
                                 throw 'Property '+propertyName+' not fount in '+relation;
                             } 
@@ -331,8 +366,8 @@ export default class SqlLanguage extends Language
             throw 'Error to add include node '+node.type+':'+node.name; 
         } 
         let toEntity=schema.getEntity(relation.to.entity);
-        let toField = toEntity.property[relation.to.property].mapping;
-        let fieldRelation = new SqlField(child.alias + '.' + toField);
+        let toField = toEntity.property[relation.to.property];
+        let fieldRelation = new SqlField(child.alias + '.' + toField.mapping,toField.type);
         let variableName = 'list_'+relation.to.property;
         let varRelation = new SqlVariable(variableName);
         let filterInclude =new SqlFunctionRef('includes', [fieldRelation,varRelation]);
@@ -443,13 +478,13 @@ export default class SqlLanguage extends Language
             let info = schema.getRelation(context.current.entity,key);
 
             let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
-            let relatedFieldName = info.previousSchema.property[info.relationData.from].mapping;
+            let relatedProperty = info.previousSchema.property[info.relationData.from];
             let relationTable = info.relationSchema.name;
             let relationAlias =context.current.joins[key];;
-            let relationFieldName = info.relationSchema.property[info.relationData.to.property].mapping;
+            let relationProperty = info.relationSchema.property[info.relationData.to.property];
 
-            let relatedField = new SqlField(relatedAlias+'.'+relatedFieldName);
-            let relationField = new SqlField(relationAlias+'.'+relationFieldName); 
+            let relatedField = new SqlField(relatedAlias+'.'+relatedProperty.mapping,relatedProperty.type);
+            let relationField = new SqlField(relationAlias+'.'+relationProperty.mapping,relationProperty.type); 
             let equal = new SqlOperator('==',[relationField,relatedField])
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
@@ -516,15 +551,22 @@ export default class SqlLanguage extends Language
         }
         return new obj.constructor(obj.name,children);
     } 
-    protected fieldsInSelect(operand:Operand)
+    protected fieldsInSelect(operand:Operand):Property[]
     {       
-        let fields = [];
+        let fields:Property[] = [];
         if(operand.children.length==1){
             if(operand.children[0] instanceof SqlObject){
                 let obj = operand.children[0];
                 for(let p in obj.children){
                     let keyVal = obj.children[p];
-                    fields.push(keyVal.name); 
+                    if(keyVal.children[0] instanceof SqlField){
+                        let _field = keyVal.children[0] as SqlField
+                        let field = {name:keyVal.name,type:_field.type};
+                        fields.push(field);
+                    }else{
+                        let field = {name:keyVal.name,type:'any'};
+                        fields.push(field); 
+                    }                  
                 }    
             }else if(operand.children[0] instanceof SqlArray){
                 let array = operand.children[0];
@@ -532,17 +574,23 @@ export default class SqlLanguage extends Language
                     let element = array.children[i];
                     if(element instanceof SqlField){
                         let parts =element.name.split('.');
-                        fields.push(parts[parts.length-1]);
+                        let _field = element as SqlField                        
+                        let field = {name:parts[parts.length-1],type:_field.type};
+                        fields.push(field);
                     }else{
-                        fields.push('field'+i);
+                        let field = {name:'field'+i,type:'any'};
+                        fields.push(field);
                     } 
                 }    
             }else if(operand.children[0] instanceof SqlField){
                 let parts =operand.children[0].name.split('.');
-                fields.push(parts[parts.length-1]);
+                let _field = operand.children[0]  as SqlField 
+                let field = {name:parts[parts.length-1],type:_field.type};
+                fields.push(field);
             }
             else{
-                fields.push('field0');
+                let field = {name:'field0',type:'any'};
+                fields.push(field);
             }  
         }
         return fields;

@@ -20,6 +20,8 @@ export default abstract class Language
     }
     public abstract addLibrary(library:any):void
     public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
+    public abstract query(operand:Operand):string
+    public abstract schema(operand:Operand):any
     public abstract run(operand:Operand,context:Context,connection?:Connection):Promise<any>
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
