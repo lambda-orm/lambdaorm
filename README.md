@@ -25,6 +25,7 @@ npx mocha
 - https://portswigger.net/web-security/sql-injection
 - https://www.guru99.com/learn-sql-injection-with-practical-example.html
 - https://owasp.org/www-community/attacks/SQL_Injection
+- https://www.geeksforgeeks.org/how-to-save-connection-result-in-a-variable-in-node-js/
 
 
 
