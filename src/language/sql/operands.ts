@@ -177,7 +177,7 @@ class SqlSentence extends FunctionRef
         let having = this.children.find(p=> p.name=='having'); 
         let sort = this.children.find(p=> p.name=='sort'); 
         let insert = this.children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;//this.children.find(p=> p.name=='insert');
-        let update = this.children.find(p=> p.name=='update');
+        let update = this.children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;// this.children.find(p=> p.name=='update');
         let _delete = this.children.find(p=> p.name=='delete');
 
         
@@ -320,7 +320,7 @@ class SqlUpdate extends SqlArrowFunction
         }
         template =template.replace('{name}',this.name);
         template =template.replace('{assings}',assings.join(','));      
-        return template.trim(); 
+        return template.trim()+' '; 
     }
 }
 // class SqlUpdateFrom extends SqlArrowFunction {}

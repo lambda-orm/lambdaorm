@@ -29,11 +29,11 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.insert({name:"105 OR 1=1",customerId:105,shippedDate:o.shippedDate})
+Orders.update({name:entity.name}).include(p=> p.details.update({unitPrice:p.unitPrice,productId:p.productId })).filter(p=> p.id == entity.id)
 `;
 // await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
+await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+// await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).schema())
 
 //ejecucion
@@ -46,6 +46,10 @@ await exec(async()=>(await orm.expression(expression).compile('sql','mysql','nor
 
 //modify
 //  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
+
+//  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
+//  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
+
 //  Orders.delete().filter(p=> p.id == id)
 //  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
 

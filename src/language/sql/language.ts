@@ -304,6 +304,11 @@ export default class SqlLanguage extends Language
         let child = this.nodeToOperand(clause.children[1],schema,context);            
         return new SqlInsert(context.current.metadata.mapping,[child]);
     }
+    protected createUpdateClause(clause:Node,schema:Schema,context:SqlContext):Operand
+    {        
+        let child = this.nodeToOperand(clause.children[1],schema,context);            
+        return new SqlUpdate(context.current.metadata.mapping,[child]);
+    }
     protected createMapClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {
         if(clause.children.length==3){
@@ -439,9 +444,10 @@ export default class SqlLanguage extends Language
             let clause = sentence['insert'] as Node;
             operand= this.createInsertClause(clause,schema,context);
             children.push(operand);
-            //TODO
         }else if (sentence['update']){
-            //TODO 
+            let clause = sentence['update'] as Node;
+            operand= this.createUpdateClause(clause,schema,context);
+            children.push(operand);
         }else{           
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
