@@ -68,3 +68,13 @@ functions:
     nvl2: 'CASE WHEN {0} NOT NULL THEN {1} ELSE {2} END' # https://www.simplilearn.com/tutorials/sql-tutorial/nvl-in-sql
   multiple:
     concat: 'CONCAT({acumulated},{value})'  # https://www.w3schools.com/Sql/func_mysql_concat.asp
+arrows:
+  map: SELECT {0}
+  first: SELECT TOP 1 {0}
+  filter: WHERE {0}
+  groupBy: GROUP BY {0}
+  having: HAVING {0}
+  sort: ORDER BY {0}
+  insert: INSERT INTO `{name}`({fields}) VALUES({values})
+  update: UPDATE `{name}` SET {assings} 
+  delete: DELETE    

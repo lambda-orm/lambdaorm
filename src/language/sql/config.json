@@ -165,14 +165,14 @@
       }
     },
     "arrows": {
-      "map": "SELECT {0} ",
-      "first": "SELECT TOP 1 {0} ",
-      "filter": "WHERE {0} ",
-      "groupBy": "GROUP BY {0} ",
-      "having": "HAVING {0} ",
-      "sort": "ORDER BY {0} ",
-      "insert": "INSERT INTO {name}({fields}) VALUES({values}) ",
-      "update": "UPDATE {name} SET {assings} ",
+      "map": "SELECT {0}",
+      "first": "SELECT TOP 1 {0}",
+      "filter": "WHERE {0}",
+      "groupBy": "GROUP BY {0}",
+      "having": "HAVING {0}",
+      "sort": "ORDER BY {0}",
+      "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+      "update": "UPDATE {name} SET {assings}",
       "delete": "DELETE"
     }
   },
@@ -346,14 +346,14 @@
         }
       },
       "arrows": {
-        "map": "SELECT {0} ",
-        "first": "SELECT TOP 1 {0} ",
-        "filter": "WHERE {0} ",
-        "groupBy": "GROUP BY {0} ",
-        "having": "HAVING {0} ",
-        "sort": "ORDER BY {0} ",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values}) ",
-        "update": "UPDATE {name} SET {assings} ",
+        "map": "SELECT {0}",
+        "first": "SELECT TOP 1 {0}",
+        "filter": "WHERE {0}",
+        "groupBy": "GROUP BY {0}",
+        "having": "HAVING {0}",
+        "sort": "ORDER BY {0}",
+        "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "update": "UPDATE {name} SET {assings}",
         "delete": "DELETE"
       }
     },
@@ -479,6 +479,17 @@
           "sum": "SUM({0})"
         }
       },
+      "arrows": {
+        "map": "SELECT {0}",
+        "first": "SELECT TOP 1 {0}",
+        "filter": "WHERE {0}",
+        "groupBy": "GROUP BY {0}",
+        "having": "HAVING {0}",
+        "sort": "ORDER BY {0}",
+        "insert": "INSERT INTO `{name}`({fields}) VALUES({values})",
+        "update": "UPDATE `{name}` SET {assings}",
+        "delete": "DELETE"
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -524,17 +535,6 @@
         "ternary": {
           "?": "IF {0} THEN {1} ELSE {2} END"
         }
-      },
-      "arrows": {
-        "map": "SELECT {0} ",
-        "first": "SELECT TOP 1 {0} ",
-        "filter": "WHERE {0} ",
-        "groupBy": "GROUP BY {0} ",
-        "having": "HAVING {0} ",
-        "sort": "ORDER BY {0} ",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values}) ",
-        "update": "UPDATE {name} SET {assings} ",
-        "delete": "DELETE"
       }
     },
     "oracle": {
@@ -706,14 +706,14 @@
         }
       },
       "arrows": {
-        "map": "SELECT {0} ",
-        "first": "SELECT TOP 1 {0} ",
-        "filter": "WHERE {0} ",
-        "groupBy": "GROUP BY {0} ",
-        "having": "HAVING {0} ",
-        "sort": "ORDER BY {0} ",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values}) ",
-        "update": "UPDATE {name} SET {assings} ",
+        "map": "SELECT {0}",
+        "first": "SELECT TOP 1 {0}",
+        "filter": "WHERE {0}",
+        "groupBy": "GROUP BY {0}",
+        "having": "HAVING {0}",
+        "sort": "ORDER BY {0}",
+        "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "update": "UPDATE {name} SET {assings}",
         "delete": "DELETE"
       }
     },
@@ -886,14 +886,14 @@
         }
       },
       "arrows": {
-        "map": "SELECT {0} ",
-        "first": "SELECT TOP 1 {0} ",
-        "filter": "WHERE {0} ",
-        "groupBy": "GROUP BY {0} ",
-        "having": "HAVING {0} ",
-        "sort": "ORDER BY {0} ",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values}) ",
-        "update": "UPDATE {name} SET {assings} ",
+        "map": "SELECT {0}",
+        "first": "SELECT TOP 1 {0}",
+        "filter": "WHERE {0}",
+        "groupBy": "GROUP BY {0}",
+        "having": "HAVING {0}",
+        "sort": "ORDER BY {0}",
+        "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "update": "UPDATE {name} SET {assings}",
         "delete": "DELETE"
       }
     }

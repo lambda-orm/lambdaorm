@@ -43,19 +43,19 @@ operators:
     '&&': '({0} AND {1})'
     '||': '({0} OR {1})'
     '[]': 'N/A'
-    '=': 'SET {0} = {1}'
-    '+=': 'SET {0} = ({0} + {1})'
-    '-=': 'SET {0} = ({0} - {1})'
-    '*=': 'SET {0} = ({0} * {1})'
-    '/=': 'SET {0} = ({0} / {1})'
-    '**=': 'SET {0} = POWER({0},{1})'
-    '//=': 'SET {0} = POWER({0},(1/{1}))'
-    '%=': 'SET {0} = MOD({0},{1})'
-    '&=': 'SET {0} = BITAND({0},{1})'
-    '|=': 'SET {0} = BITOR({0},{1})'
-    '^=': 'SET {0} = BITXOR({0},{1})'
-    '<<=': 'SET {0} = {0} << {1}'
-    '>>=': 'SET {0} = {0} >> {1}'
+    '=': '{0} = {1}'
+    '+=': '{0} = ({0} + {1})'
+    '-=': '{0} = ({0} - {1})'
+    '*=': '{0} = ({0} * {1})'
+    '/=': '{0} = ({0} / {1})'
+    '**=': '{0} = POWER({0},{1})'
+    '//=': '{0} = POWER({0},(1/{1}))'
+    '%=': '{0} = MOD({0},{1})'
+    '&=': '{0} = BITAND({0},{1})'
+    '|=': '{0} = BITOR({0},{1})'
+    '^=': '{0} = BITXOR({0},{1})'
+    '<<=': '{0} = {0} << {1}'
+    '>>=': '{0} = {0} >> {1}'
   ternary:    
     '?': 'IF {0} THEN {1} ELSE {2} END'
 functions:
@@ -151,14 +151,14 @@ functions:
     min: MIN({0})
     sum: SUM({0})
 arrows:
-  map: 'SELECT {0} '
-  first: 'SELECT TOP 1 {0} '
-  filter: 'WHERE {0} '
-  groupBy: 'GROUP BY {0} '
-  having: 'HAVING {0} '
-  sort: 'ORDER BY {0} '
-  insert: 'INSERT INTO {name}({fields}) VALUES({values}) '
-  update: 'UPDATE {name} SET {assings} ' 
+  map: SELECT {0}
+  first: SELECT TOP 1 {0}
+  filter: WHERE {0}
+  groupBy: GROUP BY {0}
+  having: HAVING {0}
+  sort: ORDER BY {0}
+  insert: INSERT INTO {name}({fields}) VALUES({values})
+  update: UPDATE {name} SET {assings} 
   delete: DELETE 
   
   

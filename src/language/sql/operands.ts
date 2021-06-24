@@ -1,17 +1,20 @@
 import {Operand,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 import SqlLanguageVariant from './variant'
 import {Property} from './../../model/schema'
+const SqlString = require('sqlstring');
 
 class SqlConstant extends Constant
 {   
     build(metadata:SqlLanguageVariant){ 
         switch (this.type) {
             case 'string':
-                return  '\''+this.name+'\'';
+                return  SqlString.escape(this.name);
             case 'boolean':
-                return metadata.other(this.name)     
+                return metadata.other(this.name) 
+            case 'number':
+                return this.name;      
             default:
-                return this.name;
+                return SqlString.escape(this.name);
         }
     }
 }
@@ -199,9 +202,8 @@ class SqlSentence extends FunctionRef
             this.loadVariables(_delete,this.variables);            
         }else if(insert){
             text = insert.build(metadata);
-            // this.loadVariables(insert,this.variables);            
+            this.loadVariables(insert,this.variables);            
         }
-
         if(filter){
             text = text + filter.build(metadata)+' ';
             this.loadVariables(filter,this.variables);
@@ -278,14 +280,15 @@ class SqlInsert extends SqlArrowFunction
 {
     build(metadata:SqlLanguageVariant){       
         let template = metadata.arrow('insert');
+        let templateColumn = metadata.other('column');
         let fields:string[] = [];
         let values:any[] = [];
 
         if(this.children[0] instanceof SqlObject){
             let obj = this.children[0];
             for(let p in obj.children){
-                let keyVal = obj.children[p];
-                fields.push(keyVal.name);
+                let keyVal = obj.children[p];                
+                fields.push(templateColumn.replace('{name}',keyVal.name));
                 values.push(keyVal.children[0].build(metadata)); 
             }    
         }
@@ -296,7 +299,30 @@ class SqlInsert extends SqlArrowFunction
     }
 }
 // class SqlInsertFrom extends SqlArrowFunction {}
-class SqlUpdate extends SqlArrowFunction {}
+class SqlUpdate extends SqlArrowFunction
+{
+    build(metadata:SqlLanguageVariant){       
+        let template = metadata.arrow('update');
+        let templateColumn = metadata.other('column');
+        let templateAssing = metadata.operator('=',2);
+        let assings:string[] = [];
+
+        if(this.children[0] instanceof SqlObject){
+            let obj = this.children[0];
+            for(let p in obj.children){
+                let keyVal = obj.children[p];
+                let column = templateColumn.replace('{name}',keyVal.name);
+                let value = keyVal.children[0].build(metadata);
+                let assing= templateAssing.replace('{0}',column);
+                assing= assing.replace('{1}',value);
+                assings.push(assing);               
+            }    
+        }
+        template =template.replace('{name}',this.name);
+        template =template.replace('{assings}',assings.join(','));      
+        return template.trim(); 
+    }
+}
 // class SqlUpdateFrom extends SqlArrowFunction {}
 class SqlDelete extends SqlArrowFunction {}
 
