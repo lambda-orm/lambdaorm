@@ -5,7 +5,7 @@ import Connection  from './../../connection/base'
 import Language from '../language'
 import Schema from '../schema'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
-SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlUpdateFrom,SqlDelete,
+SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import SqlLanguageVariant from './variant'
 import {Property} from './../../model/schema'
@@ -283,7 +283,7 @@ export default class SqlLanguage extends Language
                 case 'insert': return new SqlInsert(node.name,children);
                 // case 'insertFrom': return new SqlInsertFrom(node.name,children);
                 case 'update': return new SqlUpdate(node.name,children);
-                case 'updateFrom': return new SqlUpdateFrom(node.name,children);
+                // case 'updateFrom': return new SqlUpdateFrom(node.name,children);
                 case 'delete': return new SqlDelete(node.name,children);
                 default:
                     throw'arrow function : '+node.name+' not supported'; 
@@ -404,35 +404,52 @@ export default class SqlLanguage extends Language
             operand = this.createClause(clause,schema,context);
             children.push(operand); 
         }
+        if(sentence['from']){
+            // let clause = sentence['from'];
+            let tableName = context.current.metadata.mapping;// schema.entityMapping(clause.name);
+            operand =new SqlFrom(tableName+'.'+context.current.alias);
+            children.push(operand);
+        }
+        if(sentence['include']){
+            let clause = sentence['include'];                
+            context.current.arrowVar = clause.children[1].name; 
+            let body = clause.children[2];                
+            if (body.type == 'array'){
+                for (let i=0; i< body.children.length;i++) {
+                    let include = this.createSentenceInclude(body.children[i],schema,context)
+                    children.push(include);
+                }
+            }
+            else{
+                let include = this.createSentenceInclude(body,schema,context)
+                children.push(include);    
+            }
+        }
 
         if(sentence['delete']){
-            //TODO
+            let clause = sentence['delete'];
+            operand =new SqlDelete(clause.name);
+            children.push(operand);
         }else if (sentence['insert']){
+            let clause = sentence['insert'] as Node;
+            let children = this.childrenToOperands(clause.children,schema,context);            
+            // if(clause.children.length==3){
+            //     context.current.arrowVar = clause.children[1].name;
+            //     let fields = clause.children[2];
+            //     let child =null;
+            //     if(fields.children.length==0 && fields.name == context.current.arrowVar){
+            //         let fields = this.createNodeFields(context.current.entity,'p',schema)
+            //         child = this.nodeToOperand(fields,schema,context);
+            //     }else{
+            //         child = this.nodeToOperand(clause.children[2],schema,context);
+            //     } 
+            // }               
+            operand =new SqlInsert(context.current.metadata.mapping,children);      
+            children.push(operand);
             //TODO
         }else if (sentence['update']){
             //TODO 
-        }else{
-            if(sentence['from']){
-                let clause = sentence['from'];
-                let tableName = schema.entityMapping(clause.name);
-                operand =new SqlFrom(tableName+'.'+context.current.alias);
-                children.push(operand);
-            }
-            if(sentence['include']){
-                let clause = sentence['include'];                
-                context.current.arrowVar = clause.children[1].name; 
-                let body = clause.children[2];                
-                if (body.type == 'array'){
-                    for (let i=0; i< body.children.length;i++) {
-                        let include = this.createSentenceInclude(body.children[i],schema,context)
-                        children.push(include);
-                    }
-                }
-                else{
-                    let include = this.createSentenceInclude(body,schema,context)
-                    children.push(include);    
-                }
-            }
+        }else{           
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
                 operand = this.createMapClause(clause,schema,context);
@@ -495,19 +512,31 @@ export default class SqlLanguage extends Language
     }
     protected nodeToOperand(node:Node,schema:Schema,context:SqlContext):Operand
     {
-        if(node.type == 'arrow'){
+        if(node.type == 'arrow' || node.type == 'childFunc' ){
             return this.createSentence(node,schema,context);
         }else{
-            let children = [];
-            if(node.children){
-                for(const k in node.children){
-                    let p = node.children[k];
-                    let child = this.nodeToOperand(p,schema,context);
-                    children.push(child);
-                }
-            }
+            let children = this.childrenToOperands(node.children,schema,context);
+            // if(node.children){
+            //     for(const k in node.children){
+            //         let p = node.children[k];
+            //         let child = this.nodeToOperand(p,schema,context);
+            //         children.push(child);
+            //     }
+            // }
             return this.createOperand(node,children,schema,context);
         }
+    }
+    protected childrenToOperands(children:Node[],schema:Schema,context:SqlContext):Operand[]
+    {
+        let operands:Operand[] = [];
+        if(children){
+            for(const k in children){
+                let p = children[k];
+                let child = this.nodeToOperand(p,schema,context);
+                operands.push(child);
+            }
+        }
+        return operands
     }
     protected addJoins(parts:string[],to:number,context:SqlContext):string
     {

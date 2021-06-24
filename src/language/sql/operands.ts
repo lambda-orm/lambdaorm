@@ -173,10 +173,11 @@ class SqlSentence extends FunctionRef
         let groupBy = this.children.find(p=> p.name=='groupBy');
         let having = this.children.find(p=> p.name=='having'); 
         let sort = this.children.find(p=> p.name=='sort'); 
-        let insert = this.children.find(p=> p.name=='insert'); 
-        let insertFrom = this.children.find(p=> p.name=='insertFrom');
+        let insert = this.children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;//this.children.find(p=> p.name=='insert');
         let update = this.children.find(p=> p.name=='update');
         let _delete = this.children.find(p=> p.name=='delete');
+
+        
 
         let text = '';
         if(map || first){
@@ -193,9 +194,14 @@ class SqlSentence extends FunctionRef
             text = update.build(metadata);
             this.loadVariables(update,this.variables);
         }else if(_delete){
-            text = _delete.build(metadata);
+            let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
+            text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata);            
             this.loadVariables(_delete,this.variables);            
+        }else if(insert){
+            text = insert.build(metadata);
+            // this.loadVariables(insert,this.variables);            
         }
+
         if(filter){
             text = text + filter.build(metadata)+' ';
             this.loadVariables(filter,this.variables);
@@ -268,10 +274,30 @@ class SqlFilter extends SqlArrowFunction {}
 class SqlGroupBy extends SqlArrowFunction {}
 class SqlHaving extends SqlArrowFunction {}
 class SqlSort extends SqlArrowFunction {}
-class SqlInsert extends SqlArrowFunction {}
+class SqlInsert extends SqlArrowFunction 
+{
+    build(metadata:SqlLanguageVariant){       
+        let template = metadata.arrow('insert');
+        let fields:string[] = [];
+        let values:any[] = [];
+
+        if(this.children[0] instanceof SqlObject){
+            let obj = this.children[0];
+            for(let p in obj.children){
+                let keyVal = obj.children[p];
+                fields.push(keyVal.name);
+                values.push(keyVal.children[0].build(metadata)); 
+            }    
+        }
+        template =template.replace('{name}',this.name);
+        template =template.replace('{fields}',fields.join(','));
+        template =template.replace('{values}',values.join(','));        
+        return template.trim(); 
+    }
+}
 // class SqlInsertFrom extends SqlArrowFunction {}
 class SqlUpdate extends SqlArrowFunction {}
-class SqlUpdateFrom extends SqlArrowFunction {}
+// class SqlUpdateFrom extends SqlArrowFunction {}
 class SqlDelete extends SqlArrowFunction {}
 
 class SqlQuery extends Operand
@@ -321,7 +347,7 @@ export  {
     SqlInsert,
     // SqlInsertFrom,
     SqlUpdate,
-    SqlUpdateFrom,
+    // SqlUpdateFrom,
     SqlDelete,
     SqlSentenceInclude,
     SqlQuery,

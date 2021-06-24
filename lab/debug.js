@@ -29,14 +29,12 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.filter(p=> p.discontinued != false )                 
-                 .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
-                 .sort(p=> [p.category,desc(p.name)])
+Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 `;
 // await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-// await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
-await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).schema())
+await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
+//await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).schema())
 
 //ejecucion
 // let context = {id:1}
@@ -45,6 +43,11 @@ await exec(async()=>(await orm.expression(expression).compile('sql','mysql','nor
 
 // Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
 // Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
+
+//modify
+//Orders.delete().filter(p=> p.id == id)
+//Orders.delete().filter(p=> p.id == id).include(p=> p.details)
+
 
 //queries
 // Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))

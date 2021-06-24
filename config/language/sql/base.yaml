@@ -157,9 +157,9 @@ arrows:
   groupBy: 'GROUP BY {0} '
   having: 'HAVING {0} '
   sort: 'ORDER BY {0} '
-  insert: 'INSERT INTO {0}({1}) VALUES({2}) '
-  update: 'UPDATE {0} SET {1} ' 
-  delete: 'DELETE {0} '
+  insert: 'INSERT INTO {name}({fields}) VALUES({values}) '
+  update: 'UPDATE {name} SET {assings} ' 
+  delete: DELETE 
   
   
 

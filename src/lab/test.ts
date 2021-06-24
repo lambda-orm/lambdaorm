@@ -21,7 +21,13 @@ import './model';
 
 let result;
 
-let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.customer )
+let qryInsert =(o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
+let qryInsert2 =(entity:Order)=> Orders.insert(entity).include(p=> p.details )
+let qrrUpdate =(entity:Order)=> Orders.update({name:entity.name})
+                                      .include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })) )
+                                      .filter(p=> p.id == entity.id )
+
+let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)
 let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).take(10)
 
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]) ,{id:0},'northwind');

@@ -22,6 +22,10 @@ declare abstract class ModifyClauses<T>  {
     public filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyFilterClauses<T>
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
 }
+
+
+
+
 declare abstract class HavingClauses<T> extends MapClauses<T>  {
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U> 
 }
@@ -41,8 +45,8 @@ declare abstract class Entity<T> extends MapClauses<T> {
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>   
     public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-    public insert(value: T): ModifyClauses<T>
-    public update(value:Object): ModifyClauses<T>
+    public insert(value: T|Object): ModifyClauses<T>
+    public update(value:T|Object): ModifyClauses<T>
     public delete(): ModifyClauses<T>
     // public include(...args:string[]):Entity<T>
 }
@@ -55,7 +59,8 @@ declare abstract class RelationIncludeClauses<T> {
 }
 declare abstract class Relation<T>  {
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-    public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T> 
+    public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
+    public update(callbackfn: (value: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void 
 }
 declare abstract class OneToMany<T> extends Relation<T> { }
 declare abstract class OneToOne<T> extends Relation<T> { }
