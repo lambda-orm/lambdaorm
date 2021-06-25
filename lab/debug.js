@@ -31,10 +31,10 @@ expression =
 ` 
 Orders.update({name:entity.name}).filter(p=> p.id == entity.id )
 `;
-// await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
-//await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).schema())
+// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+//await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
 //ejecucion
 // let context = {id:1}

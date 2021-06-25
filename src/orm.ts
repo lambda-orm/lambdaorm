@@ -13,6 +13,7 @@ import LanguageManager  from './manager/languageManager'
 import Expression from './manager/expression'
 import CompiledExpression from './manager/compiledExpression'
 import {Cache} from './model/cache'
+import Dialect from './model/dialect'
 
 class Orm {
     private schemaManager:SchemaManager
@@ -24,6 +25,9 @@ class Orm {
     }
     public setCache(value:Cache){
         this.languageManager.addLanguage(value);
+    }
+    public addDialect(dialect:string,value:Dialect){
+        this.languageManager.addDialect(dialect,value);
     }
     public addLanguage(value:any){
         this.languageManager.addLanguage(value);
@@ -91,6 +95,12 @@ export =(function() {
         orm.addLibrary({language:'sql',name:'sql',variants:sqlConfig.variants}); 
 
         orm.addConnectionType('mysql',MySqlConnection);
+
+        orm.addDialect('mysql',{language:'sql',variant:'mysql',connectionType:'mysql'});
+        orm.addDialect('oracle',{language:'sql',variant:'oracle',connectionType:'oracle'});
+        orm.addDialect('mmsql',{language:'sql',variant:'mmsql',connectionType:'mmsql'});
+        orm.addDialect('postgres',{language:'sql',variant:'postgres',connectionType:'postgres'});
+        orm.addDialect('memory',{language:'memory'});       
     }
     return orm;
 })();

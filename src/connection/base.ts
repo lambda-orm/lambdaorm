@@ -6,8 +6,7 @@ export default abstract class Connection
         this.data = data;        
     }
     public get name(){return this.data.name;}
-    public get language(){return this.data.language;}
-    public get variant(){return this.data.variant;}
+    public get dialect(){return this.data.dialect;}
     public get schema(){return this.data.schema;}
     public abstract query(query:string,params:any[]):any;
     public abstract queries(sentences:any[]):any;

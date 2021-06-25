@@ -8,17 +8,17 @@ export default class ExpressionController {
     @Post("/compile")
     @SuccessResponse("200", "Ok")
     public async compile(@Body() body: CompileRequest): Promise<any> {
-        return  (await orm.expression(body.expression).compile(body.language,body.variant,body.schema)).serialize()
+        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).serialize()
     }
     @Post("/query")
     @SuccessResponse("200", "Ok")
     public async query(@Body() body: CompileRequest): Promise<any> {
-        return  (await orm.expression(body.expression).compile(body.language,body.variant,body.schema)).query()
+        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).query()
     }
     @Post("/schema")
     @SuccessResponse("200", "Ok")
     public async schema(@Body() body: CompileRequest): Promise<any> {
-        return  (await orm.expression(body.expression).compile(body.language,body.variant,body.schema)).schema()
+        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).schema()
     }
     @Post("/run") 
     @SuccessResponse("200", "Ok")

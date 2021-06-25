@@ -12,7 +12,7 @@ import './model';
         let schema =  schemas[p];
         orm.applySchema(schema);
     }
-    const cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+    const cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
     orm.addConnection(cnx);
 let result;
 
@@ -66,11 +66,11 @@ let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.in
 
 let query6 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
-result = (await orm.lambda(query).compile('sql','mysql','northwind')).serialize();
+result = (await orm.lambda(query).compile('mysql','northwind')).serialize();
 console.log(result);
-result = (await orm.lambda(query2).compile('sql','mysql','northwind')).serialize();
+result = (await orm.lambda(query2).compile('mysql','northwind')).serialize();
 console.log(result);
-result = (await orm.lambda(query3).compile('sql','mysql','northwind')).serialize();
+result = (await orm.lambda(query3).compile('mysql','northwind')).serialize();
 console.log(result);
 
 let context = {id:10584}
