@@ -7,9 +7,6 @@ import './model';
 
 (async () => { 
 
-
-  
-
     let schemas =  await ConfigExtends.apply('test/config/schema');
     for(const p in schemas){
         let schema =  schemas[p];
@@ -17,15 +14,16 @@ import './model';
     }
     const cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
     orm.addConnection(cnx);
-
-
 let result;
+
 
 let qryInsert =(o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 let qryInsert2 =(entity:Order)=> Orders.insert(entity).include(p=> p.details )
-let qrrUpdate =(entity:Order)=> Orders.update({name:entity.name})
-                                      .include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })) )
-                                      .filter(p=> p.id == entity.id )
+
+let qryUpdate =(entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id )
+// let qryUpdate2 =(entity:Order)=> Orders.update({name:entity.name})
+//                                       .include(p=> p.details.update((p,q) => ({unitPrice:q.unitPrice,productId:p.productId })) )
+//                                       .filter(p=> p.id == entity.id )
 
 let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)
 let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).take(10)

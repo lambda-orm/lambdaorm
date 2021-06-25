@@ -60,7 +60,7 @@ declare abstract class RelationIncludeClauses<T> {
 declare abstract class Relation<T>  {
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
-    public update(callbackfn: (value: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+    // public update(callbackfn: (value: T,item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
     // public update(value:T|Object):void
 }
 declare abstract class OneToMany<T> extends Relation<T> { }

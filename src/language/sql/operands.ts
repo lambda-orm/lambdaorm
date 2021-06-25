@@ -154,15 +154,16 @@ class SqlSentence extends FunctionRef
     public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
     public alias:string
-    // public includes:SqlSentenceInclude[];
+    public clause:string
+    
 
     constructor(name:string,children:Operand[]=[],entity:string,alias:string,columns:Property[]){
         super(name,children);
         this.entity=entity;
         this.alias=alias;
         this.columns=columns;
-        // this.includes=[];
         this.variables=[];
+        this.clause='';
     }
     public getIncludes():Operand[]
     {
@@ -179,28 +180,28 @@ class SqlSentence extends FunctionRef
         let insert = this.children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;//this.children.find(p=> p.name=='insert');
         let update = this.children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;// this.children.find(p=> p.name=='update');
         let _delete = this.children.find(p=> p.name=='delete');
-
         
-
         let text = '';
         if(map || first){
-            // if(insertFrom) text = insertFrom+' ';
+            this.clause='select';
             let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
 
             let select = (first?first:map) as Operand;
             text = select.build(metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
             this.loadVariables(select,this.variables);
-            // this.columns= select.columns(metadata);
-           
+          
         }else if(update){
+            this.clause='update';
             text = update.build(metadata);
             this.loadVariables(update,this.variables);
         }else if(_delete){
+            this.clause='delete';
             let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata);            
             this.loadVariables(_delete,this.variables);            
         }else if(insert){
+            this.clause='insert';
             text = insert.build(metadata);
             this.loadVariables(insert,this.variables);            
         }
@@ -317,8 +318,10 @@ class SqlUpdate extends SqlArrowFunction
                 assing= assing.replace('{1}',value);
                 assings.push(assing);               
             }    
-        }
-        template =template.replace('{name}',this.name);
+        }        
+        let parts = this.name.split('.');
+        template =template.replace('{name}',parts[0]); 
+        template =template.replace('{alias}',parts[1]);
         template =template.replace('{assings}',assings.join(','));      
         return template.trim()+' '; 
     }

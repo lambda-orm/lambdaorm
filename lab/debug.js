@@ -29,11 +29,11 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.update({name:entity.name}).include(p=> p.details.update({unitPrice:p.unitPrice,productId:p.productId })).filter(p=> p.id == entity.id)
+Orders.update({name:entity.name}).filter(p=> p.id == entity.id )
 `;
 // await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
-// await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
+// await exec( async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).serialize())
+await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('sql','mysql','northwind')).schema())
 
 //ejecucion
