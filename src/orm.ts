@@ -98,7 +98,7 @@ export =(function() {
 
         orm.addDialect('mysql',{language:'sql',variant:'mysql',connectionType:'mysql'});
         orm.addDialect('oracle',{language:'sql',variant:'oracle',connectionType:'oracle'});
-        orm.addDialect('mmsql',{language:'sql',variant:'mmsql',connectionType:'mmsql'});
+        orm.addDialect('mssql',{language:'sql',variant:'mmsql',connectionType:'mmsql'});
         orm.addDialect('postgres',{language:'sql',variant:'postgres',connectionType:'postgres'});
         orm.addDialect('memory',{language:'memory'});       
     }
