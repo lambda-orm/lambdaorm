@@ -14,6 +14,7 @@ import Expression from './manager/expression'
 import CompiledExpression from './manager/compiledExpression'
 import {Cache} from './model/cache'
 import Dialect from './model/dialect'
+import ConnectionInfo  from './model/connectionInfo'
 
 class Orm {
     private schemaManager:SchemaManager
@@ -38,7 +39,7 @@ class Orm {
     public addConnectionType(name:string,value:any){
         this.languageManager.addConnectionType(name,value);
     }
-    public addConnection(value:any){        
+    public addConnection(value:ConnectionInfo){        
         this.languageManager.addConnection(value);
     }
     public getConnection(name:string):Connection

@@ -6,6 +6,7 @@ import Operand from '../language/operand'
 import Language from '../language/language'
 import {Cache,MemoryCache} from './../model/cache'
 import Dialect from './../model/dialect'
+import ConnectionInfo  from './../model/connectionInfo'
 
 export default class LanguageManager
 {
@@ -47,7 +48,7 @@ export default class LanguageManager
     public addConnectionType(name:string,value:any){
         this.connectionTypes[name] =value;
     }
-    public addConnection(value:any){
+    public addConnection(value:ConnectionInfo){
         
         let ConnectionType = this.connectionTypes[value.dialect]; 
         let cnx = new ConnectionType(value) as Connection;  

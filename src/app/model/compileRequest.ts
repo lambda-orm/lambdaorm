@@ -1,5 +1,5 @@
 export default interface CompileRequest {
     expression: string
     schema: string
-    dialect: string
+    dialect: 'mysql'| 'mssql'| 'oracle' | 'postgres' | 'nomgo'
 }

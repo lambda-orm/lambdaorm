@@ -170,18 +170,21 @@
 					"schema": {
 						"type": "string"
 					},
-					"language": {
-						"type": "string"
-					},
-					"variant": {
-						"type": "string"
+					"dialect": {
+						"type": "string",
+						"enum": [
+							"mysql",
+							"mssql",
+							"oracle",
+							"postgres",
+							"nomgo"
+						]
 					}
 				},
 				"required": [
 					"expression",
 					"schema",
-					"language",
-					"variant"
+					"dialect"
 				],
 				"type": "object",
 				"additionalProperties": false

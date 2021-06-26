@@ -1,5 +1,6 @@
 import mysql from 'mysql'
 import Connection from './base'
+import ConnectionInfo  from './../model/connectionInfo'
 
 export default class MySqlConnection extends Connection
 {       
@@ -7,17 +8,17 @@ export default class MySqlConnection extends Connection
     private isConnect:boolean;
     private pool?:mysql.Pool;    
 
-    constructor(data:any){        
-        super(data);
+    constructor(info:ConnectionInfo){        
+        super(info);
         this.isConnect= false;
     }
     private connect():void{
         this.pool = mysql.createPool({
-            host: this.data.host ,
-            port: this.data.port | 3306,
-            user: this.data.user,
-            password: this.data.password,
-            database: this.data.database,
+            host: this.info.host ,
+            port: this.info.port | 3306,
+            user: this.info.user,
+            password: this.info.password,
+            database: this.info.database,
             waitForConnections: true,
             connectionLimit: 10,
             queueLimit: 0

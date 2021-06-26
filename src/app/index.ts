@@ -19,7 +19,7 @@ app.use(express.static("public"));
           orm.applySchema(schema);
       }
 
-      let cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+      let cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
       orm.addConnection(cnx);
 
 
