@@ -26,6 +26,6 @@ export default class CompiledExpression
     }      
     public async run(context:any,connectionName:string)
     {        
-        return await this.mgr.run(this.operand,context,connectionName)
+        return await this.mgr.run(this.operand,this.dialect,context,connectionName)
     }
 }

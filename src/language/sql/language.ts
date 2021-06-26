@@ -134,26 +134,28 @@ export default class SqlLanguage extends Language
     protected async execute(query:SqlQuery,context:Context,connection:Connection)
     {           
         let mainResult = await this.executeQuery(query,context,connection);
-        for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
-            if(!context.contains(include.variable)){
-                let ids:any[] = [];
+        if(mainResult.length>0){
+            for(const p in query.children){
+                let include = query.children[p] as SqlSentenceInclude;
+                if(!context.contains(include.variable)){
+                    let ids:any[] = [];
+                    for(let i=0;i< mainResult.length;i++){
+                        let id = mainResult[i][include.relation.from];
+                        if(!ids.includes(id))
+                        ids.push(id)
+                    }
+                    context.set(include.variable,ids);
+                }                
+                let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
                 for(let i=0;i< mainResult.length;i++){
-                    let id = mainResult[i][include.relation.from];
-                    if(!ids.includes(id))
-                    ids.push(id)
-                }
-                context.set(include.variable,ids);
+                    let element = mainResult[i];
+                    let relationId = element[include.relation.from];
+                    element[include.name] = (include.relation.type== 'manyToOne')
+                                                            ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
+                                                            :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
+                                                            
+                }          
             }
-            let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
-            for(let i=0;i< mainResult.length;i++){
-                let element = mainResult[i];
-                let relationId = element[include.relation.from];
-                element[include.name] = (include.relation.type== 'manyToOne')
-                                                        ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
-                                                        :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
-                                                        
-            }            
         }
         return mainResult;
     }

@@ -26,8 +26,8 @@ class Orm {
     public setCache(value:Cache){
         this.languageManager.addLanguage(value);
     }
-    public addDialect(dialect:string,value:Dialect){
-        this.languageManager.addDialect(dialect,value);
+    public addDialect(value:Dialect){
+        this.languageManager.addDialect(value);
     }
     public addLanguage(value:any){
         this.languageManager.addLanguage(value);
@@ -96,11 +96,11 @@ export =(function() {
 
         orm.addConnectionType('mysql',MySqlConnection);
 
-        orm.addDialect('mysql',{language:'sql',variant:'mysql',connectionType:'mysql'});
-        orm.addDialect('oracle',{language:'sql',variant:'oracle',connectionType:'oracle'});
-        orm.addDialect('mssql',{language:'sql',variant:'mmsql',connectionType:'mmsql'});
-        orm.addDialect('postgres',{language:'sql',variant:'postgres',connectionType:'postgres'});
-        orm.addDialect('memory',{language:'memory'});       
+        orm.addDialect({name:'mysql',language:'sql',variant:'mysql',connectionType:'mysql'});
+        orm.addDialect({name:'oracle',language:'sql',variant:'oracle',connectionType:'oracle'});
+        orm.addDialect({name:'mssql',language:'sql',variant:'mmsql',connectionType:'mmsql'});
+        orm.addDialect({name:'postgres',language:'sql',variant:'postgres',connectionType:'postgres'});
+        orm.addDialect({name:'memory',language:'memory'});       
     }
     return orm;
 })();

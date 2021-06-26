@@ -11,12 +11,13 @@ async function exec(fn){
     if(result){
         if (typeof result === 'string' || result instanceof String)console.log(result);
         else console.log(JSON.stringify(result));
-    }  
+    }
+    return result;  
 }
 
 (async () => { 
 
-let expression,cnx;
+let expression,cnx,result;
 
 let schemas =  await ConfigExtends.apply('test/config/schema');
 for(const p in schemas){
@@ -24,22 +25,22 @@ for(const p in schemas){
     orm.applySchema(schema);
 }
 
-cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.update({name:entity.name}).filter(p=> p.id == entity.id )
+Orders.include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 `;
+
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
 //ejecucion
-// let context = {id:1}
-// result = await orm.expression(expression).run(context,'northwind');
-// console.log(JSON.stringify(result));
+result = await exec(async()=>(await orm.expression(expression).run({id:10248},'northwind')));
+console.log(result.length)
 
 // Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
 // Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )

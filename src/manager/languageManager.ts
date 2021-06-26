@@ -27,9 +27,9 @@ export default class LanguageManager
         this.cache=new MemoryCache()  
     }
 
-    public addDialect(dialect:string,value:Dialect):void
+    public addDialect(value:Dialect):void
     {
-        this.dialects[dialect] =value;
+        this.dialects[value.name] =value;
     }
     public getDialect(dialect:string):Dialect
     {
@@ -49,7 +49,7 @@ export default class LanguageManager
     }
     public addConnection(value:any){
         
-        let ConnectionType = this.connectionTypes[value.variant]; 
+        let ConnectionType = this.connectionTypes[value.dialect]; 
         let cnx = new ConnectionType(value) as Connection;  
         this.connections[value.name] = cnx;
     }
@@ -121,17 +121,17 @@ export default class LanguageManager
             throw 'query: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async run(operand:Operand,context:any,connectionName?:string)
+    public async run(operand:Operand,dialect:string,context:any,connectionName?:string)
     {
         try{
-            let _context = new Context(context);            
+            let _context = new Context(context);
+            let info =  this.getDialect(dialect); 
+            let _language = this.languages[info.language] as Language            
             if(connectionName){                
                 let connection = this.connections[connectionName] as Connection;
-                let info =  this.getDialect(connection.dialect);
-                let _language = this.languages[info.language] as Language 
                 return await _language.run(operand,_context,connection);
             }else{
-                return await this.languages['memory'].run(operand,_context);
+                return await _language.run(operand,_context);
             }            
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 
