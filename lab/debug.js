@@ -30,17 +30,20 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+Products.filter(p=> p.price>5 )
+                 .having(p=> p.largestPrice > 50)
+                 .map(p=> {category:p.category.name,largestPrice:max(p.price)})
+                 .sort(p=> desc(p.largestPrice))
 `;
 
+await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
 //ejecucion
-result = await exec(async()=>(await orm.expression(expression).run({id:10248},'northwind')));
-console.log(result.length)
+// result = await exec(async()=>(await orm.expression(expression).run({id:10248},'northwind')));
+// console.log(result.length)
 
 // Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
 // Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
