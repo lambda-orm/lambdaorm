@@ -64,11 +64,13 @@ declare abstract class Entity<T> extends MapClauses<T> {
     /**  */  
     public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
     /**  */
-    public insert(value: T|Object): ModifyClauses<T>
+    public insert(value?: T|Object): ModifyClauses<T>
     /**  */
-    public update(value:T|Object): ModifyClauses<T>
+    public update(value?:T|Object): ModifyClauses<T>
     /**  */
     public delete(): ModifyClauses<T>
+    /**  */
+    public sync(value?:T|Object): ModifyClauses<T>
     // public include(...args:string[]):Entity<T>
 }
 

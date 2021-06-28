@@ -18,17 +18,36 @@ let result;
 
 
 
-
 let qryInsert =(o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
+//en este caso la variable entity dentro del contexto es el objeto de tipo Order
 let qryInsert2 =(entity:Order)=> Orders.insert(entity).include(p=> p.details )
+let qryInsert3 =(entity:Order)=> Orders.insert(entity).include(p=> (p.details,p.customer))
+//en este caso se asume que el contexto sera directamente el objeto de tipo Order
+let qryInsert4 =()=> Orders.insert()
+let qryInsert5 =()=> Orders.insert().include(p=> (p.details,p.customer))
 
 let qryUpdate =(entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
-// let qryUpdate2 =(entity:Order)=> Orders.update({name:entity.name})
+let qryUpdate2 =(entity:Order)=> Orders.update({name:entity.name})
+                                      .include(p=> (p.details,p.customer))
+                                      .filter(p=> p.id == entity.id )
+//en este caso la variable entity dentro del contexto es el objeto de tipo Order
+let qryUpdate3 =(entity:Order)=> Orders.update(entity)                                     
+
+//en este caso se asume que el contexto sera directamente el objeto de tipo Order
+let qryUpdate4 =(entity:Order)=> Orders.update()
+let qryUpdate5 =(entity:Order)=> Orders.update().include(p=> (p.details,p.customer))
+
+// let qryUpdate6 =(entity:Order)=> Orders.update({name:entity.name})
 //                                       .include(p=> p.details.update((p,q) => ({unitPrice:q.unitPrice,productId:p.productId })) )
 //                                       .filter(p=> p.id == entity.id )
 
 let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)
 let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).take(10)
+
+//en este caso se asume que el contexto sera directamente el objeto de tipo Order
+let qrySync =(entity:Order)=> Orders.sync()
+let qrySync2 =(entity:Order)=> Orders.sync().include(p=> (p.details,p.customer))
+
 
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).map(p=> [p.id,as(p.customer.name,'customer')]) ,{id:0},'northwind');
 result = orm.lambda( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details
