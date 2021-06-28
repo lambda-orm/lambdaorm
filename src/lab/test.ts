@@ -19,7 +19,6 @@ let result;
 
 
 
-
 let qryInsert =(o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 let qryInsert2 =(entity:Order)=> Orders.insert(entity).include(p=> p.details )
 
@@ -68,6 +67,9 @@ OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-
 let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
 let query6 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+
+
+// let a =(await orm.lambda(query).parse()).serialize()
 
 result = (await orm.lambda(query).compile('mysql','northwind')).serialize();
 console.log(result);

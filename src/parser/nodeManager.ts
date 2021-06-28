@@ -8,14 +8,13 @@ export default class NodeManager
     constructor(model:any){
         this._model = model;  
     }    
-    public serialize(value:Node):string
+    public serialize(value:Node):any
     {
-        let json =this._serialize(value);
-        return json? JSON.stringify(json):"";
+        return this._serialize(value);
     }
-    public deserialize(serialized:any):Node
+    public deserialize(json:any):Node
     {
-        let node = this._deserialize(serialized)
+        let node = this._deserialize(json)
         return this.setParent(node);
     }
     public setParent(node:Node,parent?:Node,index:number=0)

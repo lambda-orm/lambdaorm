@@ -7,6 +7,7 @@ import Language from '../language/language'
 import {Cache,MemoryCache} from './../model/cache'
 import Dialect from './../model/dialect'
 import ConnectionInfo  from './../model/connectionInfo'
+import Node from './../parser/node'
 
 export default class LanguageManager
 {
@@ -58,6 +59,22 @@ export default class LanguageManager
     {
         return this.connections[name];
     }
+    public async parse(expression:string):Promise<Node>
+    {       
+        try{  
+            let key = 'parse_'+expression
+            let node= await this.cache.get(key)
+            if(!node){
+                node= this.parser.parse(expression);
+                await this.cache.set(key,node)
+            }            
+            return node as Node; 
+        }
+        catch(error){
+            console.log(error)
+            throw 'parse expression: '+expression+' error: '+error.toString();
+        }
+    } 
     public async compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>
     {       
         try{      
@@ -75,10 +92,19 @@ export default class LanguageManager
         }
         catch(error){
             console.log(error)
-            throw 'expression: '+expression+' error: '+error.toString();
+            throw 'compile expression: '+expression+' error: '+error.toString();
         }
-    }   
-    public serialize(operand:Operand,dialect:string):string
+    }
+    
+    public nodeSerialize(value:Node):any
+    {
+        return this.parser.serialize(value)
+    }
+    public nodeDeserialize(json:string):Node
+    {
+        return this.parser.deserialize(json)
+    }
+    public serialize(operand:Operand,dialect:string):any
     {
         try
         {
@@ -89,15 +115,15 @@ export default class LanguageManager
             throw 'serialize: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public deserialize(serialized:string,dialect:string):Operand
+    public deserialize(json:any,dialect:string):Operand
     {
         try
         {
             let info =  this.getDialect(dialect);
-            return this.languages[info.language].deserialize(serialized);
+            return this.languages[info.language].deserialize(json);
         }
         catch(error){
-            throw 'deserialize: '+serialized+' error: '+error.toString(); 
+            throw 'deserialize: '+json+' error: '+error.toString(); 
         }
     }
     public query(operand:Operand,dialect:string):string

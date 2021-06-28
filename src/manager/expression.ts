@@ -1,6 +1,6 @@
 import LanguageManager from './languageManager'
 import CompiledExpression from './compiledExpression'
-
+import NodeExpression from './nodeExpression'
 
 export default class Expression
 {
@@ -9,10 +9,16 @@ export default class Expression
     protected dialect?:string
     protected schema?:string
 
-    constructor(mgr:LanguageManager,expression:string){        
+    constructor(mgr:LanguageManager,expression:string)
+    {        
         this.mgr=mgr
         this.expression= expression;
-
+    }
+    public async parse():Promise<NodeExpression> 
+    {
+       if(!this.expression)throw 'Expression not defined';
+       let node = await this.mgr.parse(this.expression);
+       return new NodeExpression(this.mgr,node);
     }    
     public async compile(dialect:string,schema:string):Promise<CompiledExpression> 
     {

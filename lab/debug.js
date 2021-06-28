@@ -36,7 +36,9 @@ Products.filter(p=> p.price>5 )
                  .sort(p=> desc(p.largestPrice))
 `;
 
-await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+
+await exec( async()=>(await orm.expression(expression).parse()).serialize())
+// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())

@@ -61,6 +61,14 @@ export default class Parser{
              throw 'expression: '+expression+' error: '+error.toString();  
          } 
      }
+     public serialize(value:Node):any
+     {
+        return this.nodeManager.serialize(value);
+     }
+     public deserialize(json:any):Node
+     {
+        return this.nodeManager.deserialize(json);
+     }
  }
  
  class _Parser{
