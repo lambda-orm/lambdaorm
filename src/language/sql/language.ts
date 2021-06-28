@@ -303,8 +303,20 @@ export default class SqlLanguage extends Language
     }
     protected createInsertClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {        
-        let child = this.nodeToOperand(clause.children[1],schema,context);            
-        return new SqlInsert(context.current.metadata.mapping,[child]);
+        // let child = this.nodeToOperand(clause.children[1],schema,context);            
+        // return new SqlInsert(context.current.metadata.mapping,[child]);
+        if(clause.children.length== 1){
+            return new SqlInsert(context.current.metadata.mapping,[]);
+        }else if(clause.children.length== 2){
+            let child = this.nodeToOperand(clause.children[1],schema,context);            
+            return new SqlInsert(context.current.metadata.mapping,[child]);
+        }else if(clause.children.length== 3){
+            context.current.arrowVar = clause.children[1].name;                    
+            let child = this.nodeToOperand(clause.children[2],schema,context);           
+            return new SqlInsert(context.current.metadata.mapping,[child]);
+        }else{
+            throw 'Sentence Update incorrect!!!';
+        }
     }
     protected createUpdateClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {      
