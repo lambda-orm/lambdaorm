@@ -30,16 +30,13 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.filter(p=> p.price>5 )
-                 .having(p=> p.largestPrice > 50)
-                 .map(p=> {category:p.category.name,largestPrice:max(p.price)})
-                 .sort(p=> desc(p.largestPrice))
+Orders.update()  
 `;
 
 
-await exec( async()=>(await orm.expression(expression).parse()).serialize())
+// await exec( async()=>(await orm.expression(expression).parse()).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
