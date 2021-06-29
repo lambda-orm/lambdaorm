@@ -198,7 +198,7 @@ class SqlSentence extends FunctionRef
         }else if(_delete){
             this.clause='delete';
             let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
-            text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata);            
+            text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata)+' ';            
             this.loadVariables(_delete,this.variables);            
         }else if(insert){
             this.clause='insert';

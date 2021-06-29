@@ -304,23 +304,16 @@ export default class SqlLanguage extends Language
     protected createInsertClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {   
         if(clause.children.length== 1){
-            let fields = this.createNodeFields(context.current.entity,schema)
-            let child = this.nodeToOperand(fields,schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child]);
+            return new SqlInsert(context.current.metadata.mapping,[]);
         }else if(clause.children.length== 2){
             let child = this.nodeToOperand(clause.children[1],schema,context);
-            if(child instanceof SqlVariable){
-                let fields = this.createNodeFields(context.current.entity,schema,child.name)
-                child = this.nodeToOperand(fields,schema,context);
-                return new SqlInsert(context.current.metadata.mapping,[child]);
-            }else if(child instanceof SqlObject){
-                return new SqlInsert(context.current.metadata.mapping,[child]);
-            } 
+            return new SqlInsert(context.current.metadata.mapping,[child]);
+        }
         // }else if(clause.children.length== 3){
         //     context.current.arrowVar = clause.children[1].name;                    
         //     let child = this.nodeToOperand(clause.children[2],schema,context);           
         //     return new SqlInsert(context.current.metadata.mapping,[child]);
-        }
+        // }        
         throw 'Sentence Insert incorrect!!!';
     }
     protected createUpdateClause(clause:Node,schema:Schema,context:SqlContext):Operand
@@ -358,13 +351,13 @@ export default class SqlLanguage extends Language
             return this.createArrowFunction(clause, [child]);
         }
     }
-    protected createNodeFields(entityName:string,schema:Schema,parent?:string,excludeAutoincrement:boolean=false):any
+    protected createNodeFields(entityName:string,schema:Schema,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
     {
         let obj = new Node('obj', 'obj', []);
         let entity=schema.getEntity(entityName);
         for(let name in entity.property){
             let property = entity.property[name];
-            if(!property.autoincrement || !excludeAutoincrement ){
+            if((!property.autoincrement || !excludeAutoincrement) && (!property.primaryKey || !excludePrimaryKey) ){
                 let field = new Node(parent?parent+'.'+name:name, 'var', []);
                 let keyVal = new Node(name, 'keyVal', [field])
                 obj.children.push(keyVal);
@@ -393,7 +386,7 @@ export default class SqlLanguage extends Language
             let varEntity = new Node(context.current.entity, 'var', []);
             let varArrow = new Node('p', 'var', []);
             let filter= new Node('filter','arrow',[varEntity,varArrow,condition]);
-            return this.nodeToOperand(filter,schema,context);
+            return this.createClause(filter,schema,context);
         }
         throw 'Create Filter incorrect!!!';
     }
@@ -520,8 +513,7 @@ export default class SqlLanguage extends Language
         if(sentence['filter'] ){
             let clause = sentence['filter'];
             operand = this.createClause(clause,schema,context);
-            children.push(operand); 
-            
+            children.push(operand);
         }
         if(sentence['from']){
             // let clause = sentence['from'];
@@ -529,31 +521,79 @@ export default class SqlLanguage extends Language
             operand =new SqlFrom(tableName+'.'+context.current.alias);
             children.push(operand);
         }
-        if(sentence['delete']){
-            let clause = sentence['delete'];
+        if(sentence['deleteAll']){
+            // Only the DeleteAll can be an unfiltered delete.
+            // this is done for security to avoid deleting all records if the filter is forgotten
+            let clause = sentence['deleteAll'];
             operand =new SqlDelete(clause.name);
-            children.push(operand);
+        }else if(sentence['delete']){
+            let clause = sentence['delete'];
+            // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
+            if(!children.some(p=> p.name=='filter')){
+                let filter; 
+                if(clause.children.length== 1 )
+                    //Orders.delete() 
+                    filter = this.createFilter(context.current.entity,schema,context);
+                else if(clause.children.length== 2 && clause.children[1].type == 'var')
+                    //Orders.delete(entity)
+                    filter = this.createFilter(context.current.entity,schema,context,clause.children[1].name);    
+                else
+                    throw 'Delete without filter is wrong!!!';
+                children.push(filter);
+            }
+            operand =new SqlDelete(clause.name);
+            children.push(operand);             
         }else if (sentence['insert']){
             let clause = sentence['insert'] as Node;
             operand= this.createInsertClause(clause,schema,context);
+            if(operand.children.length== 0){
+                //Orders.insert() 
+                let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
+                let child = this.nodeToOperand(fields,schema,context);
+                operand.children.push(child);
+            }
+            else if(operand.children[0] instanceof SqlVariable){
+                 //Orders.insert(entity)
+                let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,false,true)
+                operand.children[0] = this.nodeToOperand(fields,schema,context);
+            }
             children.push(operand);
+        }else if (sentence['updateAll']){
+            // Only the updateAll can be an unfiltered update.
+            // this is done for security to avoid updated all records if the filter is forgotten
+            let clause = sentence['updateAll'] as Node;
+            operand= this.createUpdateClause(clause,schema,context);
+            children.push(operand);            
         }else if (sentence['update']){
             // createInclude= this.createUpdateInclude;
             let clause = sentence['update'] as Node;
             operand= this.createUpdateClause(clause,schema,context);
 
             if(operand.children.length== 0){
+                //Orders.update()
+                // In the case that the mapping is not defined, it assumes that the context will be the entity to update
                 let fields = this.createNodeFields(context.current.entity,schema,undefined,true)
                 let child = this.nodeToOperand(fields,schema,context);
                 operand.children.push(child);
-                let filter = this.createFilter(context.current.entity,schema,context);
-                children.push(filter); 
-            }
+                // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
+                if(!children.some(p=> p.name=='filter')){
+                    let filter = this.createFilter(context.current.entity,schema,context);
+                    children.push(filter);
+                }                  
+            } 
             else if(operand.children[0] instanceof SqlVariable){
+                //Orders.update(entity) 
+                // In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
                 let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,true)
                 operand.children[0] = this.nodeToOperand(fields,schema,context);
-                let filter = this.createFilter(context.current.entity,schema,context,operand.children[0].name);
-                children.push(filter); 
+                // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
+                if(!children.some(p=> p.name=='filter')){
+                    let filter = this.createFilter(context.current.entity,schema,context,operand.children[0].name);
+                    children.push(filter);
+                }
+            }
+            if(!children.some(p=> p.name=='filter')){
+                throw 'Update without filter is wrong!!!';
             }
             children.push(operand);            
         }else{
@@ -630,6 +670,9 @@ export default class SqlLanguage extends Language
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
         }
+
+
+
         let sqlSentence = new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   

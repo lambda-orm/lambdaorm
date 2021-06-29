@@ -17,7 +17,6 @@ import './model';
 let result;
 
 
-
 let qryInsert =(o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 //en este caso la variable entity dentro del contexto es el objeto de tipo Order
 let qryInsert2 =(entity:Order)=> Orders.insert(entity).include(p=> p.details )

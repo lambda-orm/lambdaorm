@@ -30,9 +30,8 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.update()  
+Orders.delete()  
 `;
-
 
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
