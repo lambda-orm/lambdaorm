@@ -20,21 +20,22 @@ let result;
 let qryInsert =(o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 //en este caso la variable entity dentro del contexto es el objeto de tipo Order
 let qryInsert2 =(entity:Order)=> Orders.insert(entity).include(p=> p.details )
-let qryInsert3 =(entity:Order)=> Orders.insert(entity).include(p=> (p.details,p.customer))
+let qryInsert3 =(entity:Order)=> Orders.insert(entity).include(p=> [p.details,p.customer])
 //en este caso se asume que el contexto sera directamente el objeto de tipo Order
 let qryInsert4 =()=> Orders.insert()
-let qryInsert5 =()=> Orders.insert().include(p=> (p.details,p.customer))
+let qryInsert5 =()=> Orders.insert().include(p=> [p.details,p.customer])
 
 let qryUpdate =(entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
 let qryUpdate2 =(entity:Order)=> Orders.update({name:entity.name})
-                                      .include(p=> (p.details,p.customer))
+                                      .include(p=> [p.details,p.customer])
                                       .filter(p=> p.id == entity.id )
 //en este caso la variable entity dentro del contexto es el objeto de tipo Order
 let qryUpdate3 =(entity:Order)=> Orders.update(entity)                                     
 
 //en este caso se asume que el contexto sera directamente el objeto de tipo Order
 let qryUpdate4 =(entity:Order)=> Orders.update()
-let qryUpdate5 =(entity:Order)=> Orders.update().include(p=> (p.details,p.customer))
+let qryUpdate5 =(entity:Order)=> Orders.update().include(p=> p.details)
+let qryUpdate6 =(entity:Order)=> Orders.update().include(p=> [p.details,p.customer])
 
 // let qryUpdate6 =(entity:Order)=> Orders.update({name:entity.name})
 //                                       .include(p=> p.details.update((p,q) => ({unitPrice:q.unitPrice,productId:p.productId })) )

@@ -30,7 +30,7 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.delete()  
+Orders.delete().include(p=> [p.details,p.customer])
 `;
 
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
