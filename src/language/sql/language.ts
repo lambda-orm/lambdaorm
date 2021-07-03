@@ -505,7 +505,7 @@ export default class SqlLanguage extends Language
             childFilter.children[0] =filterInclude;
         }
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
-    }    
+    }     
     protected createSentence(node:Node,schema:Schema,context:SqlContext):SqlSentence
     {
         context.current = new SqlEntityContext(context.current)
