@@ -383,17 +383,31 @@ export default class SqlLanguage extends Language
         //     let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,false,true)
         //     operand.children[0] = this.nodeToOperand(fields,schema,context);
         // }
-        
-
-
         throw 'Sentence Insert incorrect!!!';
     }
     protected createUpdateClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {      
         if(clause.children.length== 1){
-            return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[]);
+            //Orders.update()
+            // In the case that the mapping is not defined, it assumes that the context will be the entity to update
+            let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
+            let child = this.nodeToOperand(fields,schema,context);
+            return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
+
         }else if(clause.children.length== 2){
-            let child = this.nodeToOperand(clause.children[1],schema,context); 
+            let child:Operand;
+            if(clause.children[1].type == 'var'){
+                //Orders.update(entity) 
+                // In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
+                let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,true);
+                child = this.nodeToOperand(fields,schema,context);
+            }else if(clause.children[1].type == 'obj'){
+                //Orders.update({name:'test'}) 
+                child = this.nodeToOperand(clause.children[1],schema,context);
+            }
+            else{
+                throw 'Args incorrect in Sentence Update'; 
+            }
             return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
         }
         // else if(clause.children.length== 3){
@@ -436,6 +450,28 @@ export default class SqlLanguage extends Language
             }
         }
         return obj;
+    }
+    /**
+     * In the case that a filter is not defined, it is assumed that it will be filtered by the PK
+     * @param clause 
+     * @param children 
+     * @param schema 
+     * @param context 
+     */
+    protected createFilterIfNotExists(clause:Node,children:Operand[],schema:Schema,context:SqlContext)
+    {       
+        if(!children.some(p=> p.name=='filter')){ 
+            let filter:Operand; 
+            if(clause.children.length== 1 )
+                //Orders.delete() 
+                filter = this.createFilter(context.current.entity,schema,context);
+            else if(clause.children.length== 2 && clause.children[1].type == 'var')
+                //Orders.delete(entity)
+                filter = this.createFilter(context.current.entity,schema,context,clause.children[1].name);    
+            else
+                throw 'Sentence without filter is wrong!!!';
+            children.push(filter);
+        }        
     }
     protected createFilter(entityName:string,schema:Schema,context:SqlContext,parent?:string):any
     {
@@ -577,7 +613,7 @@ export default class SqlLanguage extends Language
             childFilter.children[0] =filterInclude;
         }
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
-    }     
+    } 
     protected createSentence(node:Node,schema:Schema,context:SqlContext):SqlSentence
     {
         context.current = new SqlEntityContext(context.current)
@@ -620,19 +656,7 @@ export default class SqlLanguage extends Language
             name='delete';
             createInclude= this.createDeleteInclude;
             let clause = sentence['delete'];
-            // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
-            if(!children.some(p=> p.name=='filter')){
-                let filter; 
-                if(clause.children.length== 1 )
-                    //Orders.delete() 
-                    filter = this.createFilter(context.current.entity,schema,context);
-                else if(clause.children.length== 2 && clause.children[1].type == 'var')
-                    //Orders.delete(entity)
-                    filter = this.createFilter(context.current.entity,schema,context,clause.children[1].name);    
-                else
-                    throw 'Delete without filter is wrong!!!';
-                children.push(filter);
-            }
+            this.createFilterIfNotExists(clause,children,schema,context);
             operand =new SqlDelete(clause.name);
             children.push(operand);             
         }else if (sentence['insert']){
@@ -640,6 +664,7 @@ export default class SqlLanguage extends Language
             createInclude= this.createInsertInclude;
             let clause = sentence['insert'] as Node;
             operand= this.createInsertClause(clause,schema,context);
+            context.current.fields = this.solveFieldsInModify(operand,context);
             children.push(operand);
         }else if (sentence['updateAll']){
             // Only the updateAll can be an unfiltered update.
@@ -647,39 +672,15 @@ export default class SqlLanguage extends Language
             name='update';
             let clause = sentence['updateAll'] as Node;
             operand= this.createUpdateClause(clause,schema,context);
+            context.current.fields = this.solveFieldsInModify(operand,context);
             children.push(operand);            
         }else if (sentence['update']){
+            name='update';
             createInclude= this.createUpdateInclude;
-            let clause = sentence['update'] as Node;
+            let clause = sentence['update'] as Node;           
             operand= this.createUpdateClause(clause,schema,context);
-
-            if(operand.children.length== 0){
-                name='update';
-                //Orders.update()
-                // In the case that the mapping is not defined, it assumes that the context will be the entity to update
-                let fields = this.createNodeFields(context.current.entity,schema,undefined,true)
-                let child = this.nodeToOperand(fields,schema,context);
-                operand.children.push(child);
-                // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
-                if(!children.some(p=> p.name=='filter')){
-                    let filter = this.createFilter(context.current.entity,schema,context);
-                    children.push(filter);
-                }                  
-            } 
-            else if(operand.children[0] instanceof SqlVariable){
-                //Orders.update(entity) 
-                // In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
-                let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,true)
-                operand.children[0] = this.nodeToOperand(fields,schema,context);
-                // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
-                if(!children.some(p=> p.name=='filter')){
-                    let filter = this.createFilter(context.current.entity,schema,context,operand.children[0].name);
-                    children.push(filter);
-                }
-            }
-            if(!children.some(p=> p.name=='filter')){
-                throw 'Update without filter is wrong!!!';
-            }
+            context.current.fields = this.solveFieldsInModify(operand,context);
+            this.createFilterIfNotExists(clause,children,schema,context);
             children.push(operand);            
         }else{
             name='select';
@@ -742,7 +743,6 @@ export default class SqlLanguage extends Language
                 children.push(include);    
             }
         }
-
         for(const key in context.current.joins){
 
             let info = schema.getRelation(context.current.entity,key);
@@ -759,9 +759,6 @@ export default class SqlLanguage extends Language
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
         }
-
-
-
         let sqlSentence = new SqlSentence(name,children,context.current.entity,context.current.alias,context.current.fields);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
@@ -872,7 +869,29 @@ export default class SqlLanguage extends Language
             }  
         }
         return fields;
-        
+    }
+    /**
+    * change name of property by mapping and return fields for clause update or insert
+    * @param operand clause update or update
+    * @param context current sqlContext
+    * @returns fields to execute query
+    */
+    protected solveFieldsInModify(operand:Operand,context:SqlContext):Property[]
+    {       
+        let fields:Property[] = [];
+        if(operand.children.length==1){
+            if(operand.children[0] instanceof SqlObject){
+                let obj = operand.children[0];
+                for(let p in obj.children){
+                    let keyVal = obj.children[p];
+                    let property =context.current.metadata.property[keyVal.name];
+                    let field = {name:keyVal.name,type:property.type};
+                    obj.children[p].name = property.mapping;
+                    fields.push(field);                  
+                }    
+            } 
+        }
+        return fields;
     }
 }
 

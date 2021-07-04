@@ -30,13 +30,13 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.insert()
+Orders.update(order)
 `;
 
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
 //ejecucion
@@ -63,6 +63,9 @@ let product = {
 // Orders.insert()
 //  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 
+//  Orders.update()
+//  Orders.update(entity)
+//  Orders.update({name:entity.name}) //da error por que preciso definir filter
 //  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
 //  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
 
