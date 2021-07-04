@@ -2,7 +2,6 @@ export default class Context
 {
     protected _data: any
     protected _parent: any 
-
     constructor(data:any,parent?:Context){
         this._data = data;
         this._parent= parent;
@@ -22,7 +21,7 @@ export default class Context
         let names=name.split('.');
         let value = this.getContext(names[0]); 
         for(let n in names){
-            if(!value[n]) return false;
+            if(value[n]===undefined) return false;
             value=value[n];
         }
         return true;
@@ -33,7 +32,7 @@ export default class Context
         let value = this.getContext(names[0]); 
         for(let p in names){
             let name = names[p]
-            if(!value[name]) return null;
+            if(value[name]===undefined) return null;
             value=value[name];
         }
         return value;

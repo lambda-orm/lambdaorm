@@ -9,7 +9,7 @@ SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlIns
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import SqlLanguageVariant from './variant'
 import {Property} from './../../model/schema'
-import { AnyARecord } from 'dns'
+
 
 class SqlEntityContext
 {    
@@ -45,15 +45,107 @@ class SqlContext
     }
 }
 
+class SqlExecutor
+{
+    public async run(operand:Operand,context:Context,connection:Connection):Promise<any>
+    {          
+        return await this.execute(operand as SqlQuery,context,connection);
+    }
+    protected async execute(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    {           
+        switch(query.name){
+            case 'select': return this.executeSelect(query,context,connection);
+            case 'insert': return this.executeInsert(query,context,connection);
+            case 'update': return this.executeUpdate(query,context,connection);
+            case 'delete': return this.executeDelete(query,context,connection);
+            default:  throw `sentence ${query.name} not implemented`;
+        }
+    }
+    protected async executeSelect(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    {           
+        let mainResult = await this.executeQuery(query,context,connection);
+        if(mainResult.length>0){
+            for(const p in query.children){
+                let include = query.children[p] as SqlSentenceInclude;
+                if(!context.contains(include.variable)){
+                    let ids:any[] = [];
+                    for(let i=0;i< mainResult.length;i++){
+                        let id = mainResult[i][include.relation.from];
+                        if(!ids.includes(id))
+                        ids.push(id)
+                    }
+                    context.set(include.variable,ids);
+                }                
+                let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
+                for(let i=0;i< mainResult.length;i++){
+                    let element = mainResult[i];
+                    let relationId = element[include.relation.from];
+                    element[include.name] = (include.relation.type== 'manyToOne')
+                                                            ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
+                                                            :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
+                                                            
+                }          
+            }
+        }
+        return mainResult;
+    }
+    protected async executeInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    {           
+        let mainResult = await this.executeQuery(query,context,connection);
+        if(mainResult.length>0){
+            for(const p in query.children){
+                let include = query.children[p] as SqlSentenceInclude;
+                if(!context.contains(include.variable)){
+                    let ids:any[] = [];
+                    for(let i=0;i< mainResult.length;i++){
+                        let id = mainResult[i][include.relation.from];
+                        if(!ids.includes(id))
+                        ids.push(id)
+                    }
+                    context.set(include.variable,ids);
+                }                
+                let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
+                for(let i=0;i< mainResult.length;i++){
+                    let element = mainResult[i];
+                    let relationId = element[include.relation.from];
+                    element[include.name] = (include.relation.type== 'manyToOne')
+                                                            ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
+                                                            :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
+                                                            
+                }          
+            }
+        }
+        return mainResult;
+    }
+    protected async executeUpdate(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    { 
+        throw 'NotImplemented'; 
+    }
+    protected async executeDelete(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    { 
+        throw 'NotImplemented'; 
+    }
+    protected async executeQuery(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    {   
+        let params=[];
+        for(const p in query.variables){
+            let variable = query.variables[p];
+            params.push(context.get(variable));
+        }  
+        return await connection.query(query.sentence,params);
+    }
+} 
 
 
 
 export default class SqlLanguage extends Language
 {
     private _variants:any
+    private executor:SqlExecutor
     constructor(){
         super('sql');
         this._variants={};
+        this.executor = new SqlExecutor();
     }
     public addLibrary(library:any):void
     {
@@ -80,9 +172,9 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public async run(operand:Operand,context:Context,connection:Connection)
+    public async run(operand:Operand,context:Context,connection:Connection):Promise<any>
     {          
-        return await this.execute(operand as SqlQuery,context,connection);
+        return await this.executor.run(operand,context,connection);
     }
     public query(operand:Operand):string
     {          
@@ -130,44 +222,7 @@ export default class SqlLanguage extends Language
        }
        let sentence = sqlSentence.build(metadata);
        return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.columns,sqlSentence.variables);
-    }
-    protected async execute(query:SqlQuery,context:Context,connection:Connection)
-    {           
-        let mainResult = await this.executeQuery(query,context,connection);
-        if(mainResult.length>0){
-            for(const p in query.children){
-                let include = query.children[p] as SqlSentenceInclude;
-                if(!context.contains(include.variable)){
-                    let ids:any[] = [];
-                    for(let i=0;i< mainResult.length;i++){
-                        let id = mainResult[i][include.relation.from];
-                        if(!ids.includes(id))
-                        ids.push(id)
-                    }
-                    context.set(include.variable,ids);
-                }                
-                let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
-                for(let i=0;i< mainResult.length;i++){
-                    let element = mainResult[i];
-                    let relationId = element[include.relation.from];
-                    element[include.name] = (include.relation.type== 'manyToOne')
-                                                            ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
-                                                            :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
-                                                            
-                }          
-            }
-        }
-        return mainResult;
-    }
-    protected async executeQuery(query:SqlQuery,context:Context,connection:Connection)
-    {   
-        let params=[];
-        for(const p in query.variables){
-            let variable = query.variables[p];
-            params.push(context.get(variable));
-        }  
-        return await connection.query(query.sentence,params);
-    }
+    }   
     protected _serialize(operand:Operand):any
     {
         let children = [];    
@@ -304,7 +359,9 @@ export default class SqlLanguage extends Language
     protected createInsertClause(clause:Node,schema:Schema,context:SqlContext):Operand
     {   
         if(clause.children.length== 1){
-            return new SqlInsert(context.current.metadata.mapping,[]);
+            let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
+            let child = this.nodeToOperand(fields,schema,context);
+            return new SqlInsert(context.current.metadata.mapping,[child]);
         }else if(clause.children.length== 2){
             let child = this.nodeToOperand(clause.children[1],schema,context);
             return new SqlInsert(context.current.metadata.mapping,[child]);
@@ -313,7 +370,22 @@ export default class SqlLanguage extends Language
         //     context.current.arrowVar = clause.children[1].name;                    
         //     let child = this.nodeToOperand(clause.children[2],schema,context);           
         //     return new SqlInsert(context.current.metadata.mapping,[child]);
-        // }        
+        // } 
+
+        // if(operand.children.length== 0){
+        //     //Orders.insert() 
+        //     let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
+        //     let child = this.nodeToOperand(fields,schema,context);
+        //     operand.children.push(child);
+        // }
+        // else if(operand.children[0] instanceof SqlVariable){
+        //      //Orders.insert(entity)
+        //     let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,false,true)
+        //     operand.children[0] = this.nodeToOperand(fields,schema,context);
+        // }
+        
+
+
         throw 'Sentence Insert incorrect!!!';
     }
     protected createUpdateClause(clause:Node,schema:Schema,context:SqlContext):Operand
@@ -522,7 +594,8 @@ export default class SqlLanguage extends Language
         }            
         context.current.entity=sentence.from.name;
         context.current.metadata=schema.getEntity(context.current.entity);
-        context.current.alias = this.createAlias(context,context.current.entity);            
+        context.current.alias = this.createAlias(context,context.current.entity); 
+        let name:string = "";           
         let children = [];
         let operand= null;
 
@@ -540,9 +613,11 @@ export default class SqlLanguage extends Language
         if(sentence['deleteAll']){
             // Only the DeleteAll can be an unfiltered delete.
             // this is done for security to avoid deleting all records if the filter is forgotten
+            name='delete';
             let clause = sentence['deleteAll'];
             operand =new SqlDelete(clause.name);
         }else if(sentence['delete']){
+            name='delete';
             createInclude= this.createDeleteInclude;
             let clause = sentence['delete'];
             // In the case that a filter for updated is not defined, it is assumed that it will be filtered by the PK
@@ -561,24 +636,15 @@ export default class SqlLanguage extends Language
             operand =new SqlDelete(clause.name);
             children.push(operand);             
         }else if (sentence['insert']){
+            name='insert';
             createInclude= this.createInsertInclude;
             let clause = sentence['insert'] as Node;
             operand= this.createInsertClause(clause,schema,context);
-            if(operand.children.length== 0){
-                //Orders.insert() 
-                let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
-                let child = this.nodeToOperand(fields,schema,context);
-                operand.children.push(child);
-            }
-            else if(operand.children[0] instanceof SqlVariable){
-                 //Orders.insert(entity)
-                let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,false,true)
-                operand.children[0] = this.nodeToOperand(fields,schema,context);
-            }
             children.push(operand);
         }else if (sentence['updateAll']){
             // Only the updateAll can be an unfiltered update.
             // this is done for security to avoid updated all records if the filter is forgotten
+            name='update';
             let clause = sentence['updateAll'] as Node;
             operand= this.createUpdateClause(clause,schema,context);
             children.push(operand);            
@@ -588,6 +654,7 @@ export default class SqlLanguage extends Language
             operand= this.createUpdateClause(clause,schema,context);
 
             if(operand.children.length== 0){
+                name='update';
                 //Orders.update()
                 // In the case that the mapping is not defined, it assumes that the context will be the entity to update
                 let fields = this.createNodeFields(context.current.entity,schema,undefined,true)
@@ -615,6 +682,7 @@ export default class SqlLanguage extends Language
             }
             children.push(operand);            
         }else{
+            name='select';
             createInclude= this.createSelectInclude;
             if(sentence['map'] || sentence['first']){
                 let clause = sentence['first']?sentence['first']:sentence['map'];
@@ -694,7 +762,7 @@ export default class SqlLanguage extends Language
 
 
 
-        let sqlSentence = new SqlSentence('sentence',children,context.current.entity,context.current.alias,context.current.fields);
+        let sqlSentence = new SqlSentence(name,children,context.current.entity,context.current.alias,context.current.fields);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
     }

@@ -30,23 +30,37 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.delete().include(p=> [p.details,p.customer])
+Orders.insert()
 `;
 
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
 //ejecucion
-// result = await exec(async()=>(await orm.expression(expression).run({id:10248},'northwind')));
+let product = {
+    "name": "Test",
+    "supplierId": 24,
+    "categoryId": 5,
+    "quantity": "16 - 2 kg boxes",
+    "price": 7,
+    "inStock": 38,
+    "onOrder": 0,
+    "reorderLevel": 25,
+    "discontinued": false
+}
+
+
+// result = await exec(async()=>(await orm.expression(expression).run(product,'northwind')));
 // console.log(result.length)
 
-// Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
-// Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
+
+
 
 //modify
+// Orders.insert()
 //  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
 
 //  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
@@ -57,6 +71,9 @@ await exec( async()=>(await orm.expression(expression).compile('mysql','northwin
 
 
 //queries
+//  Products.filter(p=>p.id==id)
+//  Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
+//  Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
 //  Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
 //  Products.filter(p=> p.discontinued != false )                 
 //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
