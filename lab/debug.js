@@ -30,7 +30,7 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.update(order)
+Products.insert()
 `;
 
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
@@ -60,14 +60,22 @@ let product = {
 
 
 //modify
-// Orders.insert()
+//  Products.insert()
+
+//  Orders.insert()
+//  Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate})
 //  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
+//  Orders.insert().include(p=> p.details)
+//  Orders.insert().include(p=> [p.details,p.customer])
+//  Orders.insert(entity).include(p=> [p.details,p.customer])
 
 //  Orders.update()
 //  Orders.update(entity)
 //  Orders.update({name:entity.name}) //da error por que preciso definir filter
 //  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
 //  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
+//  Orders.update().include(p=> p.details)
+//  Orders.update().include(p=> [p.details,p.customer])
 
 //  Orders.delete().filter(p=> p.id == id)
 //  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
