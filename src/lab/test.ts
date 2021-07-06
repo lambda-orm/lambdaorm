@@ -103,4 +103,8 @@ result = await orm.lambda(query4).run(context,'northwind');
 console.log(result);
 
 
+
+
+
+
 })();

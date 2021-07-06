@@ -52,14 +52,16 @@ class SqlExecutor
         return await this.execute(operand as SqlQuery,context,connection);
     }
     protected async execute(query:SqlQuery,context:Context,connection:Connection):Promise<any>
-    {           
+    {       
+        let result:any;    
         switch(query.name){
-            case 'select': return this.executeSelect(query,context,connection);
-            case 'insert': return this.executeInsert(query,context,connection);
-            case 'update': return this.executeUpdate(query,context,connection);
-            case 'delete': return this.executeDelete(query,context,connection);
+            case 'select': result= await this.executeSelect(query,context,connection);break;
+            case 'insert': result=  await this.executeInsert(query,context,connection);break;
+            case 'update': result=  await this.executeUpdate(query,context,connection);break;
+            case 'delete': result=  await this.executeDelete(query,context,connection);break;
             default:  throw `sentence ${query.name} not implemented`;
         }
+        return result;
     }
     protected async executeSelect(query:SqlQuery,context:Context,connection:Connection):Promise<any>
     {           
@@ -93,29 +95,24 @@ class SqlExecutor
     {           
         let mainResult = await this.executeQuery(query,context,connection);
         if(query.apk!="")
-           context.set(query.apk,mainResult.insertId);
-
-        
+           context.set(query.apk,mainResult.insertId);        
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-
             if(include.relation.type == 'manyToOne'){
                 let parentId = context.get(include.relation.from);
                 let childPropertyName = include.relation.to.property
-
                 let children = context.get(include.relation.name);
-                let childrenResult=[];
-                for(let i=0;i< children.length;i++){
-                    let child = children[i];
-                    child[childPropertyName]=parentId;
-                    let childContext = new Context(child,context)
-                    let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,connection);
-                    childrenResult.push(includeResult);                
+                if(children){
+                    for(let i=0;i< children.length;i++){
+                        let child = children[i];
+                        child[childPropertyName]=parentId;
+                        let childContext = new Context(child,context);
+                        let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,connection);
+                    }
                 }
-                context.set(include.relation.name,childrenResult);
             }                      
         }        
-        return context;
+        return mainResult.insertId;
     }
     protected async executeUpdate(query:SqlQuery,context:Context,connection:Connection):Promise<any>
     { 
@@ -132,7 +129,8 @@ class SqlExecutor
             let variable = query.variables[p];
             params.push(context.get(variable));
         }  
-        return await connection.query(query.sentence,params);
+        let result= await connection.query(query.sentence,params);
+        return result;
     }
     // protected async executeQueryInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
     // {   

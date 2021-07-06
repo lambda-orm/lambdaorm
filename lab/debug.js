@@ -33,6 +33,8 @@ expression =
 Orders.insert().include(p => p.details)
 `;
 
+//Orders.insert().include(p => p.details)
+
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
