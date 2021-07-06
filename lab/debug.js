@@ -30,7 +30,7 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Products.insert()
+Orders.insert().include(p => p.details)
 `;
 
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
@@ -39,23 +39,61 @@ await exec( async()=>(await orm.expression(expression).compile('mysql','northwin
 // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
 //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
-//ejecucion
-let product = {
-    "name": "Test",
-    "supplierId": 24,
-    "categoryId": 5,
-    "quantity": "16 - 2 kg boxes",
-    "price": 7,
-    "inStock": 38,
-    "onOrder": 0,
-    "reorderLevel": 25,
-    "discontinued": false
-}
+// //ejecucion
+// let product = {
+//     "name": "Test",
+//     "supplierId": 24,
+//     "categoryId": 5,
+//     "quantity": "16 - 2 kg boxes",
+//     "price": 7,
+//     "inStock": 38,
+//     "onOrder": 0,
+//     "reorderLevel": 25,
+//     "discontinued": false
+// }
+
+let order = {
+    "customerId": "VINET",
+    "employeeId": 5,
+    "orderDate": "1996-07-03T22:00:00.000Z",
+    "requiredDate": "1996-07-31T22:00:00.000Z",
+    "shippedDate": "1996-07-15T22:00:00.000Z",
+    "shipViaId": 3,
+    "freight": 32.38,
+    "name": "Vins et alcools Chevalier",
+    "address": "59 rue de l-Abbaye",
+    "city": "Reims",
+    "region": null,
+    "postalCode": "51100",
+    "country": "France",
+    "details": [
+      {
+        "productId": 11,
+        "unitPrice": 14,
+        "quantity": 12,
+        "discount": 0
+      },
+      {
+        "productId": 42,
+        "unitPrice": 9.8,
+        "quantity": 10,
+        "discount": 0
+      },
+      {
+        "productId": 72,
+        "unitPrice": 34.8,
+        "quantity": 5,
+        "discount": 0
+      }
+    ]
+  }
 
 
-// result = await exec(async()=>(await orm.expression(expression).run(product,'northwind')));
+result = await exec(async()=>(await orm.expression(expression).run(order,'northwind')));
 // console.log(result.length)
 
+// result = await exec(async()=>(await orm.expression(expression).run({id:10248},'northwind')));
+// console.log(result.length)
 
 
 

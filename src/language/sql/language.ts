@@ -92,30 +92,30 @@ class SqlExecutor
     protected async executeInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
     {           
         let mainResult = await this.executeQuery(query,context,connection);
-        if(mainResult.length>0){
-            for(const p in query.children){
-                let include = query.children[p] as SqlSentenceInclude;
-                if(!context.contains(include.variable)){
-                    let ids:any[] = [];
-                    for(let i=0;i< mainResult.length;i++){
-                        let id = mainResult[i][include.relation.from];
-                        if(!ids.includes(id))
-                        ids.push(id)
-                    }
-                    context.set(include.variable,ids);
-                }                
-                let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
-                for(let i=0;i< mainResult.length;i++){
-                    let element = mainResult[i];
-                    let relationId = element[include.relation.from];
-                    element[include.name] = (include.relation.type== 'manyToOne')
-                                                            ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
-                                                            :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
-                                                            
-                }          
-            }
-        }
-        return mainResult;
+        if(query.apk!="")
+           context.set(query.apk,mainResult.insertId);
+
+        
+        for(const p in query.children){
+            let include = query.children[p] as SqlSentenceInclude;
+
+            if(include.relation.type == 'manyToOne'){
+                let parentId = context.get(include.relation.from);
+                let childPropertyName = include.relation.to.property
+
+                let children = context.get(include.relation.name);
+                let childrenResult=[];
+                for(let i=0;i< children.length;i++){
+                    let child = children[i];
+                    child[childPropertyName]=parentId;
+                    let childContext = new Context(child,context)
+                    let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,connection);
+                    childrenResult.push(includeResult);                
+                }
+                context.set(include.relation.name,childrenResult);
+            }                      
+        }        
+        return context;
     }
     protected async executeUpdate(query:SqlQuery,context:Context,connection:Connection):Promise<any>
     { 
@@ -134,6 +134,15 @@ class SqlExecutor
         }  
         return await connection.query(query.sentence,params);
     }
+    // protected async executeQueryInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    // {   
+    //     let params=[];
+    //     for(const p in query.variables){
+    //         let variable = query.variables[p];
+    //         params.push(context.get(variable));
+    //     }  
+    //     return await connection.query(query.sentence,params);
+    // }
 } 
 
 
@@ -221,7 +230,7 @@ export default class SqlLanguage extends Language
           children.push(sqlInclude);            
        }
        let sentence = sqlSentence.build(metadata);
-       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.columns,sqlSentence.variables);
+       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.entity,sqlSentence.apk,sqlSentence.columns,sqlSentence.variables);
     }   
     protected _serialize(operand:Operand):any
     {
@@ -231,7 +240,7 @@ export default class SqlLanguage extends Language
             for(const k in query.children){
                 children.push(this._serialize(query.children[k]));
             }
-            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,cols:query.columns,v:query.variables};
+            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,cols:query.columns,v:query.variables,e:query.entity,apk:query.apk};
         }else if(operand instanceof SqlInclude){
             let include = operand as SqlInclude;
             for(const k in include.children){
@@ -630,7 +639,8 @@ export default class SqlLanguage extends Language
         }            
         context.current.entity=sentence.from.name;
         context.current.metadata=schema.getEntity(context.current.entity);
-        context.current.alias = this.createAlias(context,context.current.entity); 
+        context.current.alias = this.createAlias(context,context.current.entity);
+        let apk =  schema.getApk(context.current.entity);
         let name:string = "";           
         let children = [];
         let operand= null;
@@ -759,7 +769,7 @@ export default class SqlLanguage extends Language
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
         }
-        let sqlSentence = new SqlSentence(name,children,context.current.entity,context.current.alias,context.current.fields);
+        let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
     }

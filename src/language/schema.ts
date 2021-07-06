@@ -33,6 +33,18 @@ export default class SchemaHelper
     {
         return this._schema.entity[name];
     }
+    public getApk(entityName:string):string
+    {
+        let entity =this.getEntity(entityName);
+        if(!entity)
+            throw 'Not exists entity:'+entityName;
+        for(const name in entity.property){
+            const property = entity.property[name];
+            if(property.autoincrement)
+              return property.name;
+        }
+        return "";     
+    }
     // public getProperty(entity:string,name:string):Property| undefined
     // {
     //     let previousEntity,previousSchema,relationData,relationEntity,relationSchema,part;
