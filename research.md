@@ -47,6 +47,12 @@ npx mocha
 - [node pool](https://github.com/coopernurse/node-pool/tree/v2.5)
 - [sequelize-pool](https://github.com/sequelize/sequelize-pool)
 
+https://knowledgeacademy.io/node-js-mysql-transaction/
+https://www.npmjs.com/package/mysql2
+https://ddcode.net/2019/04/20/how-does-node-mysql2-promises-connection-pool-release-the-connection/
+https://stackoverflow.com/questions/15760067/node-js-mysql-transaction
+https://stackoverflow.com/questions/49529231/transaction-management-in-nodejs-with-mysql
+
 ### dialects
 - [mysql2](https://www.npmjs.com/package/mysql2)
 - [mariadb](https://www.npmjs.com/package/mariadb)
