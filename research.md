@@ -44,6 +44,7 @@ npx mocha
 
 ## connections
 ### pools
+- [generic-pool](https://www.npmjs.com/package/generic-pool)
 - [node pool](https://github.com/coopernurse/node-pool/tree/v2.5)
 - [sequelize-pool](https://github.com/sequelize/sequelize-pool)
 
