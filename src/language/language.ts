@@ -2,7 +2,7 @@ import Node from '../parser/node'
 import Operand from './operand'
 import Schema  from './schema'
 import Context from './context'
-import Connection  from './../connection/base'
+import { IExecutor } from './../drivers'
 
 export default abstract class Language
 {
@@ -22,7 +22,7 @@ export default abstract class Language
     public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
     public abstract query(operand:Operand):string
     public abstract schema(operand:Operand):any
-    public abstract run(operand:Operand,context:Context,connection?:Connection):Promise<any>
+    public abstract run(operand:Operand,context:Context,executor?:IExecutor):Promise<any>
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
         return this.setParent(operand);

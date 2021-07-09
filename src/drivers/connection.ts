@@ -1,9 +1,6 @@
-import mysql from 'mysql2/promise';
-import { promisify } from 'util';
-// import genericPool from 'generic-pool';
 const genericPool = require('generic-pool')
 
-interface ConnectionConfig {
+export interface ConnectionConfig {
     name:string
     dialect:string // "mysql"| "mssql"| "oracle" | "postgres" | "nomgo"
     schema:string
@@ -15,81 +12,27 @@ interface ConnectionConfig {
     max?:number
     min?:number
 }
-interface IExecutor {
+export interface IExecutor {
     execute(sql:string,params:any[]):Promise<any>
 }
-class Connection implements IExecutor
+export abstract class Connection implements IExecutor
 {
-  
     public config:ConnectionConfig
     public inTransaction:boolean
-    private cnx?:mysql.Connection
 
     constructor(config:ConnectionConfig){        
         this.config=config;
         this.inTransaction=false;
     }
-
-    
-    public async connect():Promise<void>
-    {
-        this.cnx = await mysql.createConnection({
-            host: this.config.host ,
-            port: this.config.port | 3306,
-            user: this.config.user,
-            password: this.config.password,
-            database: this.config.database,
-            waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0
-        });
-    }
-    public async disconnect():Promise<void>
-    {
-        // // Don't disconnect connections with CLOSED state
-        // if (this.cnx._closing) {
-        //   debug('connection tried to disconnect but was already at CLOSED state');
-        //   return;
-        // }
-        if(this.cnx)  
-          await promisify(callback => this.cnx?.end(callback))();
-    }
-    public async validate():Promise<Boolean> 
-    {
-        return !!this.cnx;
-    }
-    public async execute(sql:string,params:any[]):Promise<any>
-    {
-        if(!this.cnx){
-           if(!this.inTransaction)await this.connect()
-           else throw 'Connection is closed' 
-        }
-        let result = await this.cnx?.execute(sql,params);
-        return result?.values;
-    }
-    public async beginTransaction():Promise<void>
-    {
-        if(!this.cnx)await this.connect()
-        this.inTransaction=true;
-        await this.cnx?.beginTransaction();
-    }
-    public async commit():Promise<void>
-    {
-        if(!this.cnx)
-            throw 'Connection is closed'
-        await this.cnx.commit();
-        this.inTransaction=false;
-    }
-    public async rollback():Promise<void>
-    {
-        if(!this.cnx)
-            throw 'Connection is closed'
-        await this.cnx.rollback();
-        this.inTransaction=false;
-    }
+    public abstract connect():Promise<void>;
+    public abstract disconnect():Promise<void>;
+    public abstract validate():Promise<Boolean>;
+    public abstract execute(sql:string,params:any[]):Promise<any>;
+    public abstract beginTransaction():Promise<void>;
+    public abstract commit():Promise<void>;
+    public abstract rollback():Promise<void>;
 }
-
-class Transaction implements IExecutor
+export class Transaction implements IExecutor
 {
     private connectionManager:ConnectionManager
     private connectionName:string
@@ -124,8 +67,7 @@ class Transaction implements IExecutor
         await this.connectionManager.release(this.connection);
     }
 }
-
-class Executor implements IExecutor
+export class Executor implements IExecutor
 {
     private connectionManager:ConnectionManager
     private connectionName:string
@@ -141,7 +83,7 @@ class Executor implements IExecutor
         return result;
     }
 }
-class ConnectionManager
+export class ConnectionManager
 {    
     private connectionTypes:any
     private pools:any
@@ -162,7 +104,7 @@ class ConnectionManager
     {
         return this.configs[name];
     }
-    private createPool(config:ConnectionConfig):any
+    private createPool(config:ConnectionConfig)
     {        
         return genericPool.createPool({
                 create: async () => {
@@ -219,23 +161,3 @@ class ConnectionManager
         }        
     }    
 }
-
-
-(async () => { 
-    let manager = new ConnectionManager();
-
-    //ejecuciones separadas
-    await manager.execute('myConnection','select',[]);
-    await manager.execute('myConnection','select',[]);
-    await manager.execute('myConnection','select',[]);
-
-    //transaccion
-    await manager.transaction('myConnection',async function(tr){
-        await tr.execute('select',[]);
-        await tr.execute('select',[]);
-        await tr.execute('select',[]);
-        await tr.execute('select',[]);
-        await tr.execute('select',[]);
-    });
-
-})();

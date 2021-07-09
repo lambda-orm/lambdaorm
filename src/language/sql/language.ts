@@ -1,7 +1,7 @@
 import Node from '../../parser/node'
 import Context from '../context'
 import Operand from '../operand'
-import Connection  from './../../connection/base'
+import { IExecutor } from './../../drivers'
 import Language from '../language'
 import Schema from '../schema'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -47,25 +47,25 @@ class SqlContext
 
 class SqlExecutor
 {
-    public async run(operand:Operand,context:Context,connection:Connection):Promise<any>
+    public async run(operand:Operand,context:Context,executor:IExecutor):Promise<any>
     {          
-        return await this.execute(operand as SqlQuery,context,connection);
+        return await this.execute(operand as SqlQuery,context,executor);
     }
-    protected async execute(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    protected async execute(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {       
         let result:any;    
         switch(query.name){
-            case 'select': result= await this.executeSelect(query,context,connection);break;
-            case 'insert': result=  await this.executeInsert(query,context,connection);break;
-            case 'update': result=  await this.executeUpdate(query,context,connection);break;
-            case 'delete': result=  await this.executeDelete(query,context,connection);break;
+            case 'select': result= await this.executeSelect(query,context,executor);break;
+            case 'insert': result=  await this.executeInsert(query,context,executor);break;
+            case 'update': result=  await this.executeUpdate(query,context,executor);break;
+            case 'delete': result=  await this.executeDelete(query,context,executor);break;
             default:  throw `sentence ${query.name} not implemented`;
         }
         return result;
     }
-    protected async executeSelect(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    protected async executeSelect(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {           
-        let mainResult = await this.executeQuery(query,context,connection);
+        let mainResult = await this.executeQuery(query,context,executor);
         if(mainResult.length>0){
             for(const p in query.children){
                 let include = query.children[p] as SqlSentenceInclude;
@@ -78,7 +78,7 @@ class SqlExecutor
                     }
                     context.set(include.variable,ids);
                 }                
-                let includeResult= await this.execute(include.children[0] as SqlQuery,context,connection);
+                let includeResult= await this.execute(include.children[0] as SqlQuery,context,executor);
                 for(let i=0;i< mainResult.length;i++){
                     let element = mainResult[i];
                     let relationId = element[include.relation.from];
@@ -91,9 +91,9 @@ class SqlExecutor
         }
         return mainResult;
     }
-    protected async executeInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    protected async executeInsert(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {           
-        let mainResult = await this.executeQuery(query,context,connection);
+        let mainResult = await this.executeQuery(query,context,executor);
         if(query.apk!="")
            context.set(query.apk,mainResult.insertId);        
         for(const p in query.children){
@@ -107,29 +107,29 @@ class SqlExecutor
                         let child = children[i];
                         child[childPropertyName]=parentId;
                         let childContext = new Context(child,context);
-                        let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,connection);
+                        let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,executor);
                     }
                 }
             }                      
         }        
         return mainResult.insertId;
     }
-    protected async executeUpdate(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    protected async executeUpdate(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 
         throw 'NotImplemented'; 
     }
-    protected async executeDelete(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    protected async executeDelete(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 
         throw 'NotImplemented'; 
     }
-    protected async executeQuery(query:SqlQuery,context:Context,connection:Connection):Promise<any>
+    protected async executeQuery(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {   
         let params=[];
         for(const p in query.variables){
             let variable = query.variables[p];
             params.push(context.get(variable));
         }  
-        let result= await connection.query(query.sentence,params);
+        let result= await executor.execute(query.sentence,params);
         return result;
     }
     // protected async executeQueryInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
@@ -179,9 +179,9 @@ export default class SqlLanguage extends Language
             throw error; 
         }
     }
-    public async run(operand:Operand,context:Context,connection:Connection):Promise<any>
+    public async run(operand:Operand,context:Context,executor:IExecutor):Promise<any>
     {          
-        return await this.executor.run(operand,context,connection);
+        return await this.executor.run(operand,context,executor);
     }
     public query(operand:Operand):string
     {          

@@ -3,7 +3,7 @@ import Context from '../context'
 import Operand from '../operand'
 import Schema from '../schema'
 import Language from '../language'
-import Connection  from './../../connection/base'
+import { IExecutor } from './../../drivers'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 
@@ -197,7 +197,7 @@ export default class DefaultLanguage extends Language
     public sentence(operand:Operand,variant:string):any{
         throw 'NotImplemented';
     } 
-    public run(operand:Operand,context:Context,scheme?:any,connection?:Connection):any{          
+    public run(operand:Operand,context:Context,scheme?:any,executor?:IExecutor):any{          
         if(context)this.setContext(operand,new Context(context));
         return operand.eval();
     }
