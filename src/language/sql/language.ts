@@ -41,10 +41,6 @@ export class SqlContext
 }
 export class SqlExecutor
 {
-    // public async run(operand:Operand,context:Context,executor:IExecutor):Promise<any>
-    // {          
-    //     return await this.execute(operand as SqlQuery,context,executor);
-    // }
     public async execute(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {       
         let result:any;    
@@ -59,7 +55,7 @@ export class SqlExecutor
     }
     protected async executeSelect(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {           
-        let mainResult = await this.executeQuery(query,context,executor);
+        let mainResult = await executor.query(query.sentence,this.params(query.variables,context));
         if(mainResult.length>0){
             for(const p in query.children){
                 let include = query.children[p] as SqlSentenceInclude;
@@ -85,11 +81,11 @@ export class SqlExecutor
         }
         return mainResult;
     }
-    protected async executeInsert(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
+    protected async executeInsert(query:SqlQuery,context:Context,executor:IExecutor):Promise<number>
     {           
-        let mainResult = await this.executeQuery(query,context,executor);
+        let insertId = await executor.insert(query.sentence,this.params(query.variables,context));
         if(query.apk!="")
-           context.set(query.apk,mainResult.insertId);        
+           context.set(query.apk,insertId);        
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
             if(include.relation.type == 'manyToOne'){
@@ -106,7 +102,7 @@ export class SqlExecutor
                 }
             }                      
         }        
-        return mainResult.insertId;
+        return insertId;
     }
     protected async executeUpdate(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 
@@ -116,16 +112,26 @@ export class SqlExecutor
     { 
         throw 'NotImplemented'; 
     }
-    protected async executeQuery(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
+    protected  params(variables:string[],context:Context):any[]
     {   
         let params=[];
-        for(const p in query.variables){
-            let variable = query.variables[p];
+        for(const p in variables){
+            let variable = variables[p];
             params.push(context.get(variable));
-        }  
-        let result= await executor.execute(query.sentence,params);
-        return result;
+        }
+        return params;
     }
+
+    // protected async executeQuery(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
+    // {   
+    //     let params=[];
+    //     for(const p in query.variables){
+    //         let variable = query.variables[p];
+    //         params.push(context.get(variable));
+    //     }  
+    //     let result= await executor.execute(query.sentence,params);
+    //     return result;
+    // }
     // protected async executeQueryInsert(query:SqlQuery,context:Context,connection:Connection):Promise<any>
     // {   
     //     let params=[];

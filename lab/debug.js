@@ -30,7 +30,7 @@ orm.addConnection(cnx);
 
 expression =
 ` 
-Orders.filter(p=>p.id==id).include(p => p.customer)
+Orders.insert().include(p => p.details)
 `;
 
 //Orders.insert().include(p => p.details)
@@ -92,10 +92,10 @@ let order = {
   }
 
 
-// result = await exec(async()=>(await orm.expression(expression).execute(order,'northwind')));
-// console.log(result.length)
+result = await exec(async()=>(await orm.expression(expression).execute(order,'northwind')));
+console.log(result.length);
 
-result = await exec(async()=>(await orm.expression(expression).execute({id:10248},'northwind')));
+// result = await exec(async()=>(await orm.expression(expression).execute({id:10248},'northwind')));
 // console.log(result.length)
 
 

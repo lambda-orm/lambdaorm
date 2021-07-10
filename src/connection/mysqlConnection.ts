@@ -37,14 +37,43 @@ export class MySqlConnection extends Connection
     {
         return !!this.cnx;
     }
-    public async execute(sql:string,params:any[]):Promise<any>
+    public async query(sql:string,params:any[]):Promise<any>
     {
         if(!this.cnx){
            if(!this.inTransaction)await this.connect()
            else throw 'Connection is closed' 
         }
-        let result = await this.cnx?.execute(sql,params);
-        return result?.values;
+        let result = await this.cnx.execute(sql,params);
+        return result.values;
+    }
+    public async insert(sql:string,params:any[]):Promise<number>
+    {
+        if(!this.cnx){
+           if(!this.inTransaction)await this.connect()
+           else throw 'Connection is closed' 
+        }
+        let result = await this.cnx.execute(sql,params);
+        return result.insertId;
+    }
+    public async update(sql:string,params:any[]):Promise<number>
+    {
+        if(!this.cnx){
+           if(!this.inTransaction)await this.connect()
+           else throw 'Connection is closed' 
+        }
+        let result = await this.cnx.execute(sql,params);
+        // TODO: resolver cuantos registros fueron actualizados
+        return result.count;
+    }
+    public async delete(sql:string,params:any[]):Promise<number>
+    {
+        if(!this.cnx){
+           if(!this.inTransaction)await this.connect()
+           else throw 'Connection is closed' 
+        }
+        let result = await this.cnx.execute(sql,params);
+        // TODO: resolver cuantos registros fueron actualizados
+        return result.count;
     }
     public async beginTransaction():Promise<void>
     {

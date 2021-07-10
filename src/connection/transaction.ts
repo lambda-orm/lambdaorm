@@ -15,11 +15,29 @@ export class Transaction implements IExecutor
         this.connection = await this.connectionManager.acquire(this.connectionName);
         this.connection.beginTransaction();
     }
-    public async execute(sql:string,params:any[]):Promise<any>
+    public async query(sql:string,params:any[]):Promise<any>
     {
         if(!this.connection)
             throw 'Connection is closed' 
-        return this.connection.execute(sql,params);
+        return this.connection.query(sql,params);
+    }
+    public async insert(sql:string,params:any[]):Promise<number>
+    {
+        if(!this.connection)
+            throw 'Connection is closed' 
+        return this.connection.insert(sql,params);
+    }
+    public async update(sql:string,params:any[]):Promise<number>
+    {
+        if(!this.connection)
+            throw 'Connection is closed' 
+        return this.connection.update(sql,params);
+    }
+    public async delete(sql:string,params:any[]):Promise<number>
+    {
+        if(!this.connection)
+            throw 'Connection is closed' 
+        return this.connection.delete(sql,params);
     }
     public async commit():Promise<void>
     {

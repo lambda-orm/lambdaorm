@@ -10,6 +10,6 @@ export interface IConnectionManager
     release(connection:Connection):Promise<void>
     createExecutor(connectionName:string):Executor
     createTransaction(connectionName:string):Transaction
-    execute(connectionName:string,sql:string,params:any[]):Promise<any>
-    transaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
+    // execute(connectionName:string,sql:string,params:any[]):Promise<any>
+    // transaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
 }
