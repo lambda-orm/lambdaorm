@@ -1,9 +1,10 @@
-import {Operand,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
+import {Entity,Property,Operand} from './../../model'
+import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 import {SqlLanguageVariant} from './variant'
-import {Entity,Property} from './../../model/schema'
+
 const SqlString = require('sqlstring');
 
-class SqlConstant extends Constant
+export class SqlConstant extends Constant
 {   
     build(metadata:SqlLanguageVariant){ 
         switch (this.type) {
@@ -18,7 +19,7 @@ class SqlConstant extends Constant
         }
     }
 }
-class SqlVariable extends Variable
+export class SqlVariable extends Variable
 {
     public _number?:number    
     constructor(name:string,children:Operand[]=[]){
@@ -33,7 +34,7 @@ class SqlVariable extends Variable
         return text;
     }
 }
-class SqlField extends Operand
+export class SqlField extends Operand
 {
     public type:string 
     constructor(name:string,type:string){
@@ -56,14 +57,14 @@ class SqlField extends Operand
         }       
     }
 }
-class SqlKeyValue extends KeyValue
+export class SqlKeyValue extends KeyValue
 {
     build(metadata:SqlLanguageVariant):any
     {
         return this.children[0].build(metadata);
     }
 }
-class SqlArray extends Array
+export class SqlArray extends Array
 {
     build(metadata:SqlLanguageVariant){ 
         let text = ''
@@ -73,7 +74,7 @@ class SqlArray extends Array
         return text;
     } 
 }
-class SqlObject extends Obj
+export class SqlObject extends Obj
 {
     build(metadata:SqlLanguageVariant){       
         let text= '';
@@ -87,7 +88,7 @@ class SqlObject extends Obj
         return text;
     }
 } 
-class SqlBlock extends Block
+export class SqlBlock extends Block
 {
     build(metadata:SqlLanguageVariant){ 
         let text = ''
@@ -97,7 +98,7 @@ class SqlBlock extends Block
         return text;
     } 
 }
-class SqlOperator extends Operator
+export class SqlOperator extends Operator
 {
     constructor(name:string,children:Operand[]=[]){
         super(name,children);
@@ -110,7 +111,7 @@ class SqlOperator extends Operator
         return text;  
     }
 }                             
-class SqlFunctionRef extends FunctionRef
+export class SqlFunctionRef extends FunctionRef
 {
     constructor(name:string,children:Operand[]=[]){
         super(name,children); 
@@ -135,7 +136,7 @@ class SqlFunctionRef extends FunctionRef
         return text;
     }
 }
-class SqlArrowFunction extends ArrowFunction 
+export class SqlArrowFunction extends ArrowFunction 
 {
     constructor(name:string,children:Operand[]=[]){
         super(name,children); 
@@ -148,7 +149,7 @@ class SqlArrowFunction extends ArrowFunction
         return template.trim(); 
     }
 }
-class SqlSentence extends FunctionRef 
+export class SqlSentence extends FunctionRef 
 {
     public columns:Property[]
     public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
@@ -260,7 +261,7 @@ class SqlSentence extends FunctionRef
         } 
     }   
 }
-class SqlSentenceInclude extends Operand
+export class SqlSentenceInclude extends Operand
 {
     public relation:any
     public variable:string
@@ -271,16 +272,16 @@ class SqlSentenceInclude extends Operand
         this.variable=variable;
     }
 }
-class SqlFrom extends Operand
+export class SqlFrom extends Operand
 {}
-class SqlJoin extends Operand
+export class SqlJoin extends Operand
 {}
-class SqlMap extends SqlArrowFunction {}
-class SqlFilter extends SqlArrowFunction {}
-class SqlGroupBy extends SqlArrowFunction {}
-class SqlHaving extends SqlArrowFunction {}
-class SqlSort extends SqlArrowFunction {}
-class SqlInsert extends SqlArrowFunction 
+export class SqlMap extends SqlArrowFunction {}
+export class SqlFilter extends SqlArrowFunction {}
+export class SqlGroupBy extends SqlArrowFunction {}
+export class SqlHaving extends SqlArrowFunction {}
+export class SqlSort extends SqlArrowFunction {}
+export class SqlInsert extends SqlArrowFunction 
 {
     build(metadata:SqlLanguageVariant){       
         let template = metadata.arrow('insert');
@@ -303,7 +304,7 @@ class SqlInsert extends SqlArrowFunction
     }
 }
 // class SqlInsertFrom extends SqlArrowFunction {}
-class SqlUpdate extends SqlArrowFunction
+export  class SqlUpdate extends SqlArrowFunction
 {
     build(metadata:SqlLanguageVariant){       
         let template = metadata.arrow('update');
@@ -330,9 +331,9 @@ class SqlUpdate extends SqlArrowFunction
     }
 }
 // class SqlUpdateFrom extends SqlArrowFunction {}
-class SqlDelete extends SqlArrowFunction {}
+export class SqlDelete extends SqlArrowFunction {}
 
-class SqlQuery extends Operand
+export class SqlQuery extends Operand
 {
     public sentence:string
     public entity:string
@@ -350,7 +351,7 @@ class SqlQuery extends Operand
         this.variables=variables;
     }
 }
-class SqlInclude extends Operand
+export class SqlInclude extends Operand
 {
     public relation:any
     public variable:string
@@ -362,33 +363,6 @@ class SqlInclude extends Operand
     }
 }
 
-export  { 
-    SqlConstant,
-    SqlVariable,
-    SqlField,  
-    SqlKeyValue,
-    SqlArray,
-    SqlObject,
-    SqlOperator,
-    SqlFunctionRef,
-    SqlArrowFunction,
-    SqlBlock,
-    SqlSentence,
-    SqlFrom,
-    SqlJoin,
-    SqlMap,
-    SqlFilter,
-    SqlGroupBy,
-    SqlHaving,
-    SqlSort,
-    SqlInsert,
-    // SqlInsertFrom,
-    SqlUpdate,
-    // SqlUpdateFrom,
-    SqlDelete,
-    SqlSentenceInclude,
-    SqlQuery,
-    SqlInclude
-}
+
 
 

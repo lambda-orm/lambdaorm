@@ -1,12 +1,13 @@
-import {Operand,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
+import {Operand} from './../../model'
+import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 
-class DefaultKeyValue extends KeyValue
+export class DefaultKeyValue extends KeyValue
 {
     eval(){
         return this.children[0].eval();
     }
 }
-class DefaultArray extends Array
+export class DefaultArray extends Array
 {
     eval(){
         let values = [];
@@ -16,7 +17,7 @@ class DefaultArray extends Array
         return values;
     } 
 }
-class DefaultObject extends Obj
+export class DefaultObject extends Obj
 {
     eval():any{        
         let obj:{[k: string]: any} = {};
@@ -27,7 +28,7 @@ class DefaultObject extends Obj
         return obj;
     }
 } 
-class DefaultOperator extends Operator
+export class DefaultOperator extends Operator
 {
     constructor(name:string,children:Operand[]=[],_function=null){
         super(name,children); 
@@ -41,7 +42,7 @@ class DefaultOperator extends Operator
         return this._function(...args);  
     }
 }                             
-class DefaultFunctionRef extends FunctionRef
+export class DefaultFunctionRef extends FunctionRef
 {
     constructor(name:string,children:Operand[]=[],_function=null){
         super(name,children); 
@@ -55,8 +56,8 @@ class DefaultFunctionRef extends FunctionRef
         return this._function(...args);  
     }
 }
-class DefaultArrowFunction extends ArrowFunction {}
-class DefaultBlock extends Block
+export class DefaultArrowFunction extends ArrowFunction {}
+export class DefaultBlock extends Block
 {
     eval(){
         for(let i=0;i<this.children.length;i++){
@@ -67,12 +68,12 @@ class DefaultBlock extends Block
 
 
 
-export {   
-    DefaultKeyValue,
-    DefaultArray,
-    DefaultObject,
-    DefaultOperator,
-    DefaultFunctionRef,
-    DefaultArrowFunction,
-    DefaultBlock
-}
+// export {   
+//     DefaultKeyValue,
+//     DefaultArray,
+//     DefaultObject,
+//     DefaultOperator,
+//     DefaultFunctionRef,
+//     DefaultArrowFunction,
+//     DefaultBlock
+// }

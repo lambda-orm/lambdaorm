@@ -1,6 +1,6 @@
 import {Operand,Context} from './../model'
 
-class Constant extends Operand
+export class Constant extends Operand
 {
     public type:string
     constructor(name:string,children:Operand[]=[]){
@@ -12,7 +12,7 @@ class Constant extends Operand
         return this.name;
     }
 }
-class Variable extends Operand
+export class Variable extends Operand
 {
     public context?: Context
     constructor(name:string,children:Operand[]=[]){
@@ -27,13 +27,13 @@ class Variable extends Operand
           this.context.set(this.name,value);
     }
 } 
-class KeyValue extends Operand
+export class KeyValue extends Operand
 {
     eval():any{
         return this.children[0].eval();
     }
 }
-class Array extends Operand
+export class Array extends Operand
 {
     eval():any{
         let values = [];
@@ -43,7 +43,7 @@ class Array extends Operand
         return values;
     } 
 }
-class Obj extends Operand
+export class Obj extends Operand
 {
     eval():any{        
         let obj:{[k: string]: any} = {};
@@ -54,7 +54,7 @@ class Obj extends Operand
         return obj;
     }
 } 
-class Operator extends Operand
+export class Operator extends Operand
 {
     protected _function:any
 
@@ -70,7 +70,7 @@ class Operator extends Operand
         return this._function(...args);  
     }
 }                             
-class FunctionRef extends Operand
+export class FunctionRef extends Operand
 {
     protected _function:any
     constructor(name:string,children:Operand[]=[],_function:any=null){
@@ -85,7 +85,7 @@ class FunctionRef extends Operand
         return this._function(...args);  
     }
 }
-class ArrowFunction extends FunctionRef 
+export class ArrowFunction extends FunctionRef 
 {
     public context?: Context
     constructor(name:string,children:Operand[]=[],_function:any=null){
@@ -93,7 +93,7 @@ class ArrowFunction extends FunctionRef
         this.context = undefined;
     } 
 }
-class Block extends Operand
+export class Block extends Operand
 {
     eval():any{
         for(let i=0;i<this.children.length;i++){
@@ -102,15 +102,3 @@ class Block extends Operand
     } 
 }
 
-export {    
-    Operand,
-    Constant,
-    Variable,
-    KeyValue,
-    Array,
-    Obj,
-    Operator,
-    FunctionRef,
-    ArrowFunction,
-    Block   
-}
