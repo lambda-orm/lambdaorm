@@ -1,6 +1,6 @@
-import {Node} from './../parser'
+import {Node} from './../parser/index'
 import {SchemaHelper}  from './schema'
-import {IExecutor,Operand,Context } from './../model'
+import {IExecutor,Operand,Context } from './../model/index'
 
 export abstract class Language
 {

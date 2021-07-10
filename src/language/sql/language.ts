@@ -1,11 +1,10 @@
-import {Node} from './../../parser'
-import {Language,SchemaHelper} from '../'
+import {IExecutor,Property,Operand,Context } from './../../model/index'
+import {Node} from './../../parser/index'
+import {Language,SchemaHelper} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
 import {SqlLanguageVariant} from './variant'
-import {IExecutor,Property,Operand,Context } from './../../model'
-
 
 export class SqlEntityContext
 {    

@@ -1,5 +1,5 @@
-import {IExecutor,ConnectionConfig,IConnectionManager } from '../model'
-import {Connection,Executor,Transaction} from '../connection'
+import {IExecutor,ConnectionConfig,IConnectionManager } from '../model/index'
+import {Connection,Executor,Transaction} from '../connection/index'
 const genericPool = require('generic-pool')
 
 export class ConnectionManager implements IConnectionManager

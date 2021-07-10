@@ -1,5 +1,5 @@
 import {LanguageManager} from './languageManager'
-import {IExecutor,Operand } from './../model'
+import {IExecutor,Operand } from './../model/index'
 
 export class CompiledExpression
 {

@@ -1,5 +1,5 @@
 import {LanguageManager} from './languageManager'
-import {Node} from './../parser'
+import {Node} from './../parser/index'
 
 export class NodeExpression
 {

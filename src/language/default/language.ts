@@ -1,8 +1,6 @@
-import {Node} from './../../parser'
-import {SchemaHelper} from '../schema'
-import {Language} from '../language'
-import {IExecutor,Operand,Context } from './../../model'
-import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
+import {IExecutor,Operand,Context } from './../../model/index'
+import {Node} from './../../parser/index'
+import {SchemaHelper,Language,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../index'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 
 export class DefaultLanguage extends Language

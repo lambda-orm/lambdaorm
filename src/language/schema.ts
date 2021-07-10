@@ -1,4 +1,4 @@
-import {Property} from './../model/schema'
+import {Property} from './../model/index'
 
 export class SchemaHelper
 {

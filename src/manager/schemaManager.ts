@@ -1,5 +1,5 @@
-import {SchemaHelper} from '../language'
-import  * as model from './../model'
+import {SchemaHelper} from '../language/index'
+import  * as model from './../model/index'
 
 export class SchemaManager
 {

@@ -1,4 +1,4 @@
-import {Cache} from './../model'
+import {Cache} from './../model/index'
 
 export class MemoryCache implements Cache {
 

@@ -1,8 +1,8 @@
 import {SchemaManager}  from './schemaManager'
-import {Language} from '../language'
-import {Node,Parser} from './../parser'
-import {SqlQuery } from 'language/sql/operands'
-import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager } from './../model'
+import {Language} from '../language/index'
+import {Node,Parser} from './../parser/index'
+import {SqlQuery } from 'language/sql/index'
+import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager } from './../model/index'
 
 export class LanguageManager
 {

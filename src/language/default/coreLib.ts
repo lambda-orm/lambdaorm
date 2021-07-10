@@ -1,4 +1,4 @@
-import {Library} from '../'
+import {Library} from '../index'
 import  {DefaultOperator,DefaultArrowFunction} from './operands';
 
 export class CoreLib extends Library
