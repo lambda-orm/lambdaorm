@@ -1,20 +1,11 @@
-import Parser from './parser/parser'
-import Model from './parser/model'
-import DefaultLanguage from './language/default/language'
-import SqlLanguage from './language/sql/language'
-import CoreLib from './language/default/coreLib' 
+import {IExecutor,ConnectionConfig,Dialect,Cache,Schema } from './model'
+import {Model,Parser} from './parser'
+import {SchemaManager,LanguageManager,Expression,CompiledExpression,MemoryCache,ConnectionManager}  from './manager'
+import {SqlLanguage} from './language/sql'
+import {DefaultLanguage,CoreLib} from './language/default'
+import {MySqlConnection}  from './connection'
 import modelConfig from './parser/config.json'
 import sqlConfig  from './language/sql/config.json'
-import Connection  from './connection/base'
-import MySqlConnection  from './connection/mysql'
-import {Schema} from './model/schema'
-import SchemaManager  from './manager/schemaManager'
-import LanguageManager  from './manager/languageManager'
-import Expression from './manager/expression'
-import CompiledExpression from './manager/compiledExpression'
-import {Cache} from './model/cache'
-import Dialect from './model/dialect'
-import ConnectionInfo  from './model/connectionInfo'
 
 class Orm {
     private schemaManager:SchemaManager
@@ -39,12 +30,16 @@ class Orm {
     public addConnectionType(name:string,value:any){
         this.languageManager.addConnectionType(name,value);
     }
-    public addConnection(value:ConnectionInfo){        
+    public addConnection(value:ConnectionConfig){        
         this.languageManager.addConnection(value);
     }
-    public getConnection(name:string):Connection
+    public getConnection(name:string):ConnectionConfig
     {
         return this.languageManager.getConnection(name);
+    }
+    public async createTransaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
+    {
+        return await this.languageManager.createTransaction(connectionName,callback);
     }
     public applySchema(value:Schema):void
     {
@@ -84,9 +79,10 @@ export =(function() {
         let model = new Model();
         model.load(modelConfig);
         let parser =  new Parser(model);
-
+        let cache = new MemoryCache() 
         let schemaManager=new SchemaManager();
-        let languageManager = new LanguageManager(parser,schemaManager)
+        let connectionManager= new ConnectionManager();
+        let languageManager = new LanguageManager(parser,schemaManager,cache,connectionManager);
                 
         orm= new Orm(schemaManager,languageManager);    
         orm.addLanguage(new DefaultLanguage());

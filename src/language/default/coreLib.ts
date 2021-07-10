@@ -1,7 +1,7 @@
-import Library from '../library'
+import {Library} from '../'
 import  {DefaultOperator,DefaultArrowFunction} from './operands';
 
-export default class CoreLib extends Library
+export class CoreLib extends Library
 {
     constructor(){
        super('core','default'); 

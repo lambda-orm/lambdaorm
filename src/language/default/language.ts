@@ -1,13 +1,11 @@
-import Node from '../../parser/node'
-import Context from '../context'
-import Operand from '../operand'
-import Schema from '../schema'
-import Language from '../language'
-import { IExecutor } from './../../drivers'
+import {Node} from './../../parser'
+import {SchemaHelper} from '../schema'
+import {Language} from '../language'
+import {IExecutor,Operand,Context } from './../../model'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 
-export default class DefaultLanguage extends Language
+export class DefaultLanguage extends Language
 {
     constructor(){
         super('default');
@@ -179,7 +177,7 @@ export default class DefaultLanguage extends Language
             this.setContext(p,current);
         } 
     }
-    public compile(node:Node,scheme:Schema):Operand
+    public compile(node:Node,scheme:SchemaHelper):Operand
     {
         let operand:Operand = this.nodeToOperand(node);
         operand = this.reduce(operand);
@@ -197,7 +195,7 @@ export default class DefaultLanguage extends Language
     public sentence(operand:Operand,variant:string):any{
         throw 'NotImplemented';
     } 
-    public run(operand:Operand,context:Context,scheme?:any,executor?:IExecutor):any{          
+    public execute(operand:Operand,context:Context,scheme?:any,executor?:IExecutor):any{          
         if(context)this.setContext(operand,new Context(context));
         return operand.eval();
     }

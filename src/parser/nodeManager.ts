@@ -1,7 +1,7 @@
 
-import Node from './node'
+import {Node} from './node'
 
-export default class NodeManager
+export class NodeManager
 {
     protected _model:any
     

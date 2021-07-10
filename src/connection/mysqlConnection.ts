@@ -1,7 +1,8 @@
-import {Connection,ConnectionConfig} from './connection'
+import {Connection} from './connection'
+import {ConnectionConfig} from './../model'
 import { promisify } from 'util';
 
-export class MySQLConnection extends Connection
+export class MySqlConnection extends Connection
 {
     private cnx:any
     private lib:any

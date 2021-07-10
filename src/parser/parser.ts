@@ -1,9 +1,9 @@
-import Node from './node'
-import Minifier from './minifier'
-import NodeManager from './nodeManager'
-import Model from './model'
+import {Node} from './node'
+import {Minifier} from './minifier'
+import {NodeManager} from './nodeManager'
+import {Model} from './model'
 
-export default class Parser{
+export class Parser{
 
     public doubleOperators:string[]
     public tripleOperators:string[]

@@ -1,7 +1,7 @@
-import LanguageManager from './languageManager'
-import Node from './../parser/node'
+import {LanguageManager} from './languageManager'
+import {Node} from './../parser'
 
-export default class NodeExpression
+export class NodeExpression
 {
     protected mgr:LanguageManager 
     public node:Node

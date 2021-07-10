@@ -1,5 +1,5 @@
 
-export default class Minifier
+export class Minifier
 {
     private reAlphanumeric:RegExp
 

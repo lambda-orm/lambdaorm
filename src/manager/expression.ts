@@ -1,8 +1,8 @@
-import LanguageManager from './languageManager'
-import CompiledExpression from './compiledExpression'
-import NodeExpression from './nodeExpression'
+import {LanguageManager} from './languageManager'
+import {CompiledExpression} from './compiledExpression'
+import {NodeExpression} from './nodeExpression'
 
-export default class Expression
+export class Expression
 {
     protected mgr:LanguageManager 
     protected expression:string    
@@ -28,11 +28,11 @@ export default class Expression
        let operand=await this.mgr.compile(this.expression,this.dialect,this.schema);
        return new CompiledExpression(this.mgr,operand,this.dialect);
     }  
-    public async run(context:any,connection:string)
+    public async execute(context:any,connection:string)
     {     
         let cnx = this.mgr.getConnection(connection);
         let compiled = await this.compile(cnx.dialect,cnx.schema); 
-        return await compiled.run(context,connection) 
+        return await compiled.execute(context,connection) 
     }
 }
 

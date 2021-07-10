@@ -55,7 +55,7 @@ result = orm.lambda( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p
                                                                                                             .include(p=> p.category.map(p=> p.name))
                                                                                                         .map(p=> p.name ))
                                                                                                         .map(p=>[p.quantity,p.unitPrice])
-                                                                                                        ])).run({id:0},'northwind');
+                                                                                                        ])).execute({id:0},'northwind');
 
 
 // result = orm.exec( (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer,p.details.product.category]) ,{id:0},'northwind');
@@ -99,7 +99,7 @@ console.log(result);
 
 let context = {id:10584}
 let query4 = (id:number)=> Orders.filter(p=>p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
-result = await orm.lambda(query4).run(context,'northwind');
+result = await orm.lambda(query4).execute(context,'northwind');
 console.log(result);
 
 

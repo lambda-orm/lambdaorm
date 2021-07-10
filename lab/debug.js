@@ -91,10 +91,10 @@ let order = {
   }
 
 
-result = await exec(async()=>(await orm.expression(expression).run(order,'northwind')));
+result = await exec(async()=>(await orm.expression(expression).execute(order,'northwind')));
 // console.log(result.length)
 
-// result = await exec(async()=>(await orm.expression(expression).run({id:10248},'northwind')));
+// result = await exec(async()=>(await orm.expression(expression).execute({id:10248},'northwind')));
 // console.log(result.length)
 
 

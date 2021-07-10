@@ -23,6 +23,6 @@ export default class ExpressionController {
     @Post("/run") 
     @SuccessResponse("200", "Ok")
     public async run(@Body() body: RunRequest): Promise<any> {
-        return await orm.expression(body.expression).run(body.context,body.connection)
+        return await orm.expression(body.expression).execute(body.context,body.connection)
     }
 } 

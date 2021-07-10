@@ -1,5 +1,4 @@
 // import {Products,Categories,Orders,OrderDetails,Customers,Product,Category,Customer,Order,OrderDetail} from './model'
-import Connection from "connection/base";
 import orm from "./../orm"  
 // import {between,sum } from "./../index"  
 const ConfigExtends = require("config-extends");

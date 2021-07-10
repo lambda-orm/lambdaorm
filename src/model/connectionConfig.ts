@@ -1,4 +1,4 @@
-export default interface ConnectionInfo {
+export interface ConnectionConfig {
     name:string
     dialect:string // "mysql"| "mssql"| "oracle" | "postgres" | "nomgo"
     schema:string
@@ -7,4 +7,6 @@ export default interface ConnectionInfo {
     user:string
     password:string    
     database:string
+    max?:number
+    min?:number
 }

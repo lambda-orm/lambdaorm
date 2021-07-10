@@ -1,5 +1,4 @@
-import Context from './context'
-import Operand from './operand'
+import {Operand,Context} from './../model'
 
 class Constant extends Operand
 {

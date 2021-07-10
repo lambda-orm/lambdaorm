@@ -1,4 +1,4 @@
-export default class Context
+export class Context
 {
     protected _data: any
     protected _parent: any 

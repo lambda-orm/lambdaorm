@@ -1,5 +1,5 @@
 import {Operand,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
-import SqlLanguageVariant from './variant'
+import {SqlLanguageVariant} from './variant'
 import {Entity,Property} from './../../model/schema'
 const SqlString = require('sqlstring');
 

@@ -1,7 +1,7 @@
-import LanguageManager from './languageManager'
-import Operand from '../language/operand'
+import {LanguageManager} from './languageManager'
+import {IExecutor,Operand } from './../model'
 
-export default class CompiledExpression
+export class CompiledExpression
 {
     protected mgr:LanguageManager 
     protected operand:Operand
@@ -24,8 +24,12 @@ export default class CompiledExpression
     {
         return this.mgr.schema(this.operand,this.dialect);
     }      
-    public async run(context:any,connectionName:string)
+    public async execute(context:any,connectionName:string):Promise<any>
     {        
-        return await this.mgr.run(this.operand,this.dialect,context,connectionName)
+        return await this.mgr.execute(this.operand,this.dialect,context,connectionName)
+    }
+    public async transaction(context:any,transaction:IExecutor):Promise<any>
+    {
+        return await this.mgr.transaction(this.operand,this.dialect,context,transaction);
     }
 }

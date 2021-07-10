@@ -1,6 +1,6 @@
 import {Property} from './../model/schema'
 
-export default class SchemaHelper
+export class SchemaHelper
 {
     private _schema:any
     constructor(schema:any){

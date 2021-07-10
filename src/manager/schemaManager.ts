@@ -1,7 +1,7 @@
-import * as model from '../model/schema'
-import Schema from '../language/schema'
+import {SchemaHelper} from '../language'
+import  * as model from './../model'
 
-export default class SchemaManager
+export class SchemaManager
 {
     private schemas:any    
     constructor(){
@@ -28,9 +28,9 @@ export default class SchemaManager
         }
         return result;        
     }
-    public getInstance(name:string):Schema
+    public getInstance(name:string):SchemaHelper
     {
-        return new Schema(this.schemas[name]);
+        return new SchemaHelper(this.schemas[name]);
     }
     private transform(source:model.Schema):any
     {

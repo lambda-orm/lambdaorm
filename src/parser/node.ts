@@ -1,4 +1,4 @@
-export default class Node
+export class Node
 { 
     public name: any
     public type: string

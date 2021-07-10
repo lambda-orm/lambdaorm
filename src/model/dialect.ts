@@ -1,4 +1,4 @@
-export default interface Dialect {
+export interface Dialect {
     name:string
     language: string    
     variant?: string

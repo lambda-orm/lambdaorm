@@ -1,5 +1,5 @@
 
-export default class SqlLanguageVariant 
+export class SqlLanguageVariant 
 {
     public name:string
     private _operators?:any={}

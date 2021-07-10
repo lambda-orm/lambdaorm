@@ -1,4 +1,4 @@
-export default class Model
+export class Model
 {
     public operators: any
     public enums: any

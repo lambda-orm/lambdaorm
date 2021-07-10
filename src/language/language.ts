@@ -1,10 +1,8 @@
-import Node from '../parser/node'
-import Operand from './operand'
-import Schema  from './schema'
-import Context from './context'
-import { IExecutor } from './../drivers'
+import {Node} from './../parser'
+import {SchemaHelper}  from './schema'
+import {IExecutor,Operand,Context } from './../model'
 
-export default abstract class Language
+export abstract class Language
 {
     protected _name:string
     protected _libraries:any
@@ -19,10 +17,10 @@ export default abstract class Language
         return this._name;
     }
     public abstract addLibrary(library:any):void
-    public abstract compile(node:Node,scheme?:Schema,variant?:string):Operand
+    public abstract compile(node:Node,scheme?:SchemaHelper,variant?:string):Operand
     public abstract query(operand:Operand):string
     public abstract schema(operand:Operand):any
-    public abstract run(operand:Operand,context:Context,executor?:IExecutor):Promise<any>
+    public abstract execute(operand:Operand,context:Context,executor?:IExecutor):Promise<any>
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);
         return this.setParent(operand);

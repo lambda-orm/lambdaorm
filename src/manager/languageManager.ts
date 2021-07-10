@@ -1,35 +1,25 @@
-import Parser from '../parser/parser'
-import SchemaManager  from './schemaManager'
-import Context from '../language/context'
-import Operand from '../language/operand'
-import Language from '../language/language'
-import {Cache,MemoryCache} from './../model/cache'
-import Dialect from './../model/dialect'
-import Node from './../parser/node'
-import { SqlQuery } from 'language/sql/operands'
+import {SchemaManager}  from './schemaManager'
+import {Language} from '../language'
+import {Node,Parser} from './../parser'
+import {SqlQuery } from 'language/sql/operands'
+import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager } from './../model'
 
-import { ConnectionManager,ConnectionConfig,IExecutor } from './../drivers'
-
-export default class LanguageManager
+export class LanguageManager
 {
     private parser:Parser
     private languages:any
     private dialects:any
     private schemaManager:SchemaManager
-    private connectionManager:ConnectionManager
-    // private connectionTypes:any
-    // private connections:any
+    private connectionManager:IConnectionManager
     private cache:Cache
 
-    constructor(parser:Parser,schemaManager:SchemaManager,connectionManager:ConnectionManager){
+    constructor(parser:Parser,schemaManager:SchemaManager,cache:Cache,connectionManager:IConnectionManager){
         this.parser =  parser;
         this.schemaManager=schemaManager;
         this.connectionManager=connectionManager;
         this.languages={};
         this.dialects={};
-        // this.connectionTypes={}; 
-        // this.connections={};
-        this.cache=new MemoryCache()  
+        this.cache=cache; 
     }
 
     public addDialect(value:Dialect):void
@@ -147,8 +137,8 @@ export default class LanguageManager
         catch(error){
             throw 'query: '+operand.name+' error: '+error.toString(); 
         }
-    }
-    public async run(operand:Operand,dialect:string,context:any,connectionName?:string)
+    }    
+    public async execute(operand:Operand,dialect:string,context:any,connectionName?:string):Promise<any>
     {
         try{
             let _context = new Context(context);
@@ -158,33 +148,32 @@ export default class LanguageManager
                 let sqlSquery = operand as SqlQuery;
                 if(!sqlSquery.children || sqlSquery.children.length==0){
                     let executor =this.connectionManager.createExecutor(connectionName);
-                    return await _language.run(operand,_context,executor);
+                    return await _language.execute(operand,_context,executor);
                 }
                 else
                 {
-                    const transaccion = this.connectionManager.createTransaction(connectionName);
-                    try
-                    {
-                        await transaccion.begin();
-                        let result = await _language.run(operand,_context,transaccion);
-                        await transaccion.commit();
-                        return result;
-                    }
-                    catch(error)
-                    {
-                        transaccion.rollback();
-                        throw error;
-                    }
+                    let result;
+                    await this.createTransaction(connectionName,async function(tr:IExecutor){
+                        result = await _language.execute(operand,_context,tr);
+                    });
+                    return result;
                 }
                 
             }else{
-                return await _language.run(operand,_context);
+                return await _language.execute(operand,_context);
             }            
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async transaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
+    public async transaction(operand:Operand,dialect:string,context:any,transaction:IExecutor):Promise<any>
+    {
+        let _context = new Context(context);
+        let info =  this.getDialect(dialect); 
+        let _language = this.languages[info.language] as Language 
+        return await _language.execute(operand,_context,transaction);
+    }
+    public async createTransaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
     {        
         const tr = this.connectionManager.createTransaction(connectionName);
         try
