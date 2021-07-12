@@ -13,7 +13,7 @@ export class Transaction implements IExecutor
     public async begin():Promise<void>
     {
         this.connection = await this.connectionManager.acquire(this.connectionName);
-        this.connection.beginTransaction();
+        await this.connection.beginTransaction();
     }
     public async query(sql:string,params:any[]):Promise<any>
     {
@@ -43,14 +43,14 @@ export class Transaction implements IExecutor
     {
         if(!this.connection)
             throw 'Connection is closed' 
-        this.connection.commit();
+        await this.connection.commit();
         await this.connectionManager.release(this.connection);
     }
     public async rollback():Promise<void>
     {
         if(!this.connection)
             throw 'Connection is closed' 
-        this.connection.rollback();
+        await this.connection.rollback();
         await this.connectionManager.release(this.connection);
     }
 }

@@ -12,7 +12,7 @@ export class Context
     }
     getContext(variable:string):any
     {
-        if(this._data[variable] || this._parent == null)return this._data
+        if(this._data[variable] !==undefined || this._parent == null)return this._data
         let _context =this._parent.getContext(variable);
         return  _context?_context:this._data;
     }

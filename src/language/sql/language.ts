@@ -106,7 +106,21 @@ export class SqlExecutor
     }
     protected async executeUpdate(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 
-        throw 'NotImplemented'; 
+        let updatedCount = await executor.update(query.sentence,this.params(query.variables,context));
+        for(const p in query.children){
+            let include = query.children[p] as SqlSentenceInclude;
+            if(include.relation.type == 'manyToOne'){
+                let children = context.get(include.relation.name);
+                if(children){
+                    for(let i=0;i< children.length;i++){
+                        let child = children[i];
+                        let childContext = new Context(child,context);
+                        let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,executor);
+                    }
+                }
+            }                      
+        }        
+        return updatedCount 
     }
     protected async executeDelete(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 

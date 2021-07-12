@@ -43,8 +43,10 @@ export class MySqlConnection extends Connection
            if(!this.inTransaction)await this.connect()
            else throw 'Connection is closed' 
         }
-        let result = await this.cnx.execute(sql,params);
-        return result.values;
+        //TODO: Solve IN(?) where ? is array[]
+        //let result = await this.cnx.execute(sql,params);
+        let result = await this.cnx.query(sql,params);
+        return result[0];
     }
     public async insert(sql:string,params:any[]):Promise<number>
     {
@@ -53,7 +55,7 @@ export class MySqlConnection extends Connection
            else throw 'Connection is closed' 
         }
         let result = await this.cnx.execute(sql,params);
-        return result.insertId;
+        return result[0].insertId;
     }
     public async update(sql:string,params:any[]):Promise<number>
     {
@@ -72,14 +74,15 @@ export class MySqlConnection extends Connection
            else throw 'Connection is closed' 
         }
         let result = await this.cnx.execute(sql,params);
-        // TODO: resolver cuantos registros fueron actualizados
+        // TODO: resolver cuantos registros fueron eliminados
         return result.count;
     }
     public async beginTransaction():Promise<void>
     {
-        if(!this.cnx)await this.connect()
+        if(!this.cnx)
+            await this.connect();        
+        await this.cnx.beginTransaction();
         this.inTransaction=true;
-        await this.cnx?.beginTransaction();
     }
     public async commit():Promise<void>
     {

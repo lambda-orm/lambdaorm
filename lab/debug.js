@@ -15,47 +15,13 @@ async function exec(fn){
     return result;  
 }
 
-(async () => { 
-
-let expression,cnx,result;
-
-let schemas =  await ConfigExtends.apply('test/config/schema');
-for(const p in schemas){
-    let schema =  schemas[p];
-    orm.applySchema(schema);
-}
-
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
-orm.addConnection(cnx);
-
-expression =
-` 
-Orders.insert().include(p => p.details)
-`;
-
-//Orders.insert().include(p => p.details)
 
 
-// await exec( async()=>(await orm.expression(expression).parse()).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
-//await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 
-// //ejecucion
-// let product = {
-//     "name": "Test",
-//     "supplierId": 24,
-//     "categoryId": 5,
-//     "quantity": "16 - 2 kg boxes",
-//     "price": 7,
-//     "inStock": 38,
-//     "onOrder": 0,
-//     "reorderLevel": 25,
-//     "discontinued": false
-// }
 
-let order = {
+async function crud(orm){
+
+  let order = {
     "customerId": "VINET",
     "employeeId": 5,
     "orderDate": "1996-07-03T22:00:00.000Z",
@@ -74,26 +40,89 @@ let order = {
         "productId": 11,
         "unitPrice": 14,
         "quantity": 12,
-        "discount": 0
+        "discount": false
       },
       {
         "productId": 42,
         "unitPrice": 9.8,
         "quantity": 10,
-        "discount": 0
+        "discount": false
       },
       {
         "productId": 72,
         "unitPrice": 34.8,
         "quantity": 5,
-        "discount": 0
+        "discount": false
       }
     ]
-  }
+  };
+  //create order
+  let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,'northwind')));
+  //get order
+  let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
+  let order2 = result[0];
+  //updated order
+  order2.address = "changed 59 rue de l-Abbaye";
+  order2.details[0].discount= true;
+  order2.details[1].unitPrice= 10;
+  order2.details[2].quantity= 7;
+  let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order,'northwind')));
+  //get order
+  let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> id == id).include(p => p.details)").execute({id:orderId},'northwind')));
+  // delete
+  let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().filter(p=> p.id == id).include(p=> p.details)").execute({id:orderId},'northwind')));
+
+}
 
 
-result = await exec(async()=>(await orm.expression(expression).execute(order,'northwind')));
-console.log(result.length);
+
+(async () => { 
+
+let expression,cnx,result;
+
+let schemas =  await ConfigExtends.apply('test/config/schema');
+for(const p in schemas){
+    let schema =  schemas[p];
+    orm.applySchema(schema);
+}
+
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+orm.addConnection(cnx);
+
+
+await crud(orm);
+
+// expression =
+// ` 
+// Orders.insert().include(p => p.details)
+// `;
+
+//Orders.insert().include(p => p.details)
+
+
+// await exec( async()=>(await orm.expression(expression).parse()).serialize())
+// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+//await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+
+// //ejecucion
+// let product = {
+//     "name": "Test",
+//     "supplierId": 24,
+//     "categoryId": 5,
+//     "quantity": "16 - 2 kg boxes",
+//     "price": 7,
+//     "inStock": 38,
+//     "onOrder": 0,
+//     "reorderLevel": 25,
+//     "discontinued": false
+// }
+
+
+
+// result = await exec(async()=>(await orm.expression(expression).execute(order,'northwind')));
+// console.log(result.length);
 
 // result = await exec(async()=>(await orm.expression(expression).execute({id:10248},'northwind')));
 // console.log(result.length)
