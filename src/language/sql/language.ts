@@ -88,19 +88,25 @@ export class SqlExecutor
            context.set(query.apk,insertId);        
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            if(include.relation.type == 'manyToOne'){
-                let parentId = context.get(include.relation.from);
-                let childPropertyName = include.relation.to.property
-                let children = context.get(include.relation.name);
-                if(children){
-                    for(let i=0;i< children.length;i++){
-                        let child = children[i];
-                        child[childPropertyName]=parentId;
-                        let childContext = new Context(child,context);
-                        let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,executor);
-                    }
+            let children = context.get(include.relation.name);
+            if(children){
+                switch(include.relation.type){
+                    case 'manyToOne':
+                        let parentId = context.get(include.relation.from);
+                        let childPropertyName = include.relation.to.property;
+                        for(let i=0;i< children.length;i++){
+                            let child = children[i];
+                            child[childPropertyName]=parentId;
+                            let childContext = new Context(child,context);
+                            let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,executor);
+                        }
+                        break;
+                    case "oneToOne":
+                        throw 'NotImplemented';
+                    default:
+                        throw `relation ${include.relation.type} not supported for include`;          
                 }
-            }                      
+            }
         }        
         return insertId;
     }
@@ -109,16 +115,22 @@ export class SqlExecutor
         let updatedCount = await executor.update(query.sentence,this.params(query.variables,context));
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            if(include.relation.type == 'manyToOne'){
-                let children = context.get(include.relation.name);
-                if(children){
-                    for(let i=0;i< children.length;i++){
-                        let child = children[i];
-                        let childContext = new Context(child,context);
-                        let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,executor);
-                    }
-                }
-            }                      
+            let children = context.get(include.relation.name);
+            if(children){
+                switch(include.relation.type){
+                    case 'manyToOne':                        
+                        for(let i=0;i< children.length;i++){
+                            let child = children[i];
+                            let childContext = new Context(child,context);
+                            let includeResult= await this.execute(include.children[0] as SqlQuery,childContext,executor);
+                        }
+                        break;
+                    case "oneToOne":
+                        throw 'NotImplemented';
+                    default:
+                        throw `relation ${include.relation.type} not supported for include`;          
+                } 
+            }                   
         }        
         return updatedCount 
     }
