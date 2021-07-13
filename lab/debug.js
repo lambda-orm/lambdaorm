@@ -66,11 +66,14 @@ async function crud(orm){
   order2.details[0].discount= true;
   order2.details[1].unitPrice= 10;
   order2.details[2].quantity= 7;
-  let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order,'northwind')));
+  let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,'northwind')));
   //get order
-  let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> id == id).include(p => p.details)").execute({id:orderId},'northwind')));
+  let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
   // delete
   let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().filter(p=> p.id == id).include(p=> p.details)").execute({id:orderId},'northwind')));
+  //get order
+  let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
+  console.log(JSON.stringify(order4));
 
 }
 

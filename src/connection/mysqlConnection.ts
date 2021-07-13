@@ -2,9 +2,13 @@ import {Connection} from './connection'
 import {ConnectionConfig} from './../model'
 import { promisify } from 'util';
 
+// import * as mysql from 'mysql2/promise'
+
+
+
 export class MySqlConnection extends Connection
 {
-    private cnx:any
+    private cnx:any //mysql.Connection
     private lib:any
     constructor(config:ConnectionConfig){        
         super(config);
@@ -38,44 +42,23 @@ export class MySqlConnection extends Connection
         return !!this.cnx;
     }
     public async query(sql:string,params:any[]):Promise<any>
-    {
-        if(!this.cnx){
-           if(!this.inTransaction)await this.connect()
-           else throw 'Connection is closed' 
-        }
-        //TODO: Solve IN(?) where ? is array[]
-        //let result = await this.cnx.execute(sql,params);
-        let result = await this.cnx.query(sql,params);
-        return result[0];
+    {        
+        return await this.execute(sql,params);
     }
     public async insert(sql:string,params:any[]):Promise<number>
-    {
-        if(!this.cnx){
-           if(!this.inTransaction)await this.connect()
-           else throw 'Connection is closed' 
-        }
-        let result = await this.cnx.execute(sql,params);
-        return result[0].insertId;
+    {        
+        let result = await this.execute(sql,params);
+        return result.insertId;
     }
     public async update(sql:string,params:any[]):Promise<number>
-    {
-        if(!this.cnx){
-           if(!this.inTransaction)await this.connect()
-           else throw 'Connection is closed' 
-        }
-        let result = await this.cnx.execute(sql,params);
-        // TODO: resolver cuantos registros fueron actualizados
-        return result.count;
+    {        
+        let result = await this.execute(sql,params);
+        return result.affectedRows;
     }
     public async delete(sql:string,params:any[]):Promise<number>
-    {
-        if(!this.cnx){
-           if(!this.inTransaction)await this.connect()
-           else throw 'Connection is closed' 
-        }
-        let result = await this.cnx.execute(sql,params);
-        // TODO: resolver cuantos registros fueron eliminados
-        return result.count;
+    {        
+        let result = await this.execute(sql,params);
+        return result.affectedRows;
     }
     public async beginTransaction():Promise<void>
     {
@@ -98,4 +81,21 @@ export class MySqlConnection extends Connection
         await this.cnx.rollback();
         this.inTransaction=false;
     }
+    private async execute(sql:string,params:any[]){
+        if(!this.cnx){
+            if(!this.inTransaction)await this.connect()
+            else throw 'Connection is closed' 
+        }
+        //Solve array parameters , example IN(?) where ? is array[]
+        // https://github.com/sidorares/node-mysql2/issues/476
+        for(let i=0;i<params.length;i++){
+            let param = params[i];
+            if(Array.isArray(param))
+               params[i]=param.join(',');
+        }  
+        let result = await this.cnx.execute(sql,params);
+        return result[0];
+    }
+
+   
 }
