@@ -34,7 +34,6 @@ entities:
         mapping: EmployeeID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true
       - name: lastName 
         mapping: LastName
@@ -83,7 +82,6 @@ entities:
         mapping: CategoryID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true
       - name: name
         mapping: CategoryName
@@ -104,7 +102,6 @@ entities:
         mapping: CustomerID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true
       - name: name
         mapping: CompanyName
@@ -135,7 +132,6 @@ entities:
         mapping: ShipperID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true
       - name: name 
         mapping: CompanyName
@@ -156,7 +152,6 @@ entities:
         mapping: SupplierID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true
       - name: name
         mapping: CompanyName
@@ -184,7 +179,6 @@ entities:
         mapping: ProductID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true 
       - name: name 
         mapping: ProductName
@@ -242,7 +236,6 @@ entities:
         mapping: OrderID
         type: integer
         nullable: false
-        # primaryKey: true
         autoincrement: true 
       - name: customerId 
         mapping: CustomerID
@@ -317,12 +310,10 @@ entities:
       - name: orderId 
         mapping: OrderID
         nullable: false
-        # primaryKey: true
         type: integer
       - name: productId 
         mapping: ProductID
         nullable: false
-        # primaryKey: true          
         type: integer
       - name: unitPrice
         mapping: UnitPrice
