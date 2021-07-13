@@ -27,6 +27,8 @@ entities:
   - name: Employees
     _extends: [northwind.abstract.Address]       
     mapping: Employees
+    primaryKey: ['id']
+    uniqueKey: ['lastName','firstName']
     properties:
       - name: id 
         mapping: EmployeeID
@@ -74,6 +76,8 @@ entities:
           property: id
   - name: Categories
     mapping: Categories
+    primaryKey: ['id']
+    uniqueKey: ['name']
     properties:
       - name: id
         mapping: CategoryID
@@ -93,6 +97,8 @@ entities:
   - name: Customers
     _extends: [northwind.abstract.Address]
     mapping: Customers
+    primaryKey: ['id']
+    uniqueKey: ['name']
     properties:
       - name: id
         mapping: CustomerID
@@ -122,6 +128,8 @@ entities:
           property: customerId
   - name: Shippers
     mapping: Shippers
+    primaryKey: ['id']
+    uniqueKey: ['name']
     properties:
       - name: id 
         mapping: ShipperID
@@ -141,6 +149,8 @@ entities:
   - name: Suppliers
     _extends: [northwind.abstract.Address]
     mapping: Suppliers
+    primaryKey: ['id']
+    uniqueKey: ['name']
     properties:
       - name: id
         mapping: SupplierID
@@ -167,6 +177,8 @@ entities:
         length: 80  
   - name: Products
     mapping: Products
+    primaryKey: ['id']
+    uniqueKey: ['name','supplierId']
     properties:
       - name: id 
         mapping: ProductID
@@ -181,6 +193,7 @@ entities:
         length: 80
       - name: supplierId 
         mapping: SupplierID
+        nullable: false
         type: integer
       - name: categoryId
         mapping: CategoryID
@@ -223,6 +236,7 @@ entities:
           property: id
   - name: Orders
     mapping: Orders
+    primaryKey: ['id']
     properties:
       - name: id
         mapping: OrderID
@@ -298,6 +312,7 @@ entities:
           property: orderId  
   - name: OrderDetails
     mapping: Order Details
+    primaryKey: ['orderId','productId']
     properties:
       - name: orderId 
         mapping: OrderID
