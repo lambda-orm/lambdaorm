@@ -134,7 +134,7 @@
         "timeDiff": "TIMEDIFF({0},{1})"
       },
       "convert": {
-        "toString": "CAST({0} AS VARCHAR2(80))",
+        "toString": "CAST({0} AS VARCHAR2)",
         "toDate": "CAST({0} AS DATE)",
         "toDatetime": "CAST({0} AS TIMESTAMP)",
         "toTime": "CAST({0} AS TIME)",
@@ -143,7 +143,7 @@
       },
       "metadata": {
         "user": "USER",
-        "database": "SYS_CONTEXT('USERENV','DB_NAME')"
+        "source": "SYS_CONTEXT('USERENV','DB_NAME')"
       },
       "null": {
         "nvl": "NVL({0},{1})",
@@ -315,7 +315,7 @@
           "timeDiff": "TIMEDIFF({0},{1})"
         },
         "convert": {
-          "toString": "CAST({0} AS VARCHAR2(80))",
+          "toString": "CAST({0} AS VARCHAR2)",
           "toDate": "CAST({0} AS DATE)",
           "toDatetime": "CAST({0} AS TIMESTAMP)",
           "toTime": "CAST({0} AS TIME)",
@@ -324,7 +324,7 @@
         },
         "metadata": {
           "user": "USER",
-          "database": "SYS_CONTEXT('USERENV','DB_NAME')"
+          "source": "SYS_CONTEXT('USERENV','DB_NAME')"
         },
         "null": {
           "nvl": "NVL({0},{1})",
@@ -451,7 +451,8 @@
         },
         "metadata": {
           "user": "CURRENT_USER()",
-          "database": "DATABASE()"
+          "database": "DATABASE()",
+          "source": "SYS_CONTEXT('USERENV','DB_NAME')"
         },
         "null": {
           "nvl": "IFNULL({0},{1})",
@@ -675,7 +676,7 @@
           "timeDiff": "TIMEDIFF({0},{1})"
         },
         "convert": {
-          "toString": "CAST({0} AS VARCHAR2(80))",
+          "toString": "CAST({0} AS VARCHAR2)",
           "toDate": "CAST({0} AS DATE)",
           "toDatetime": "CAST({0} AS TIMESTAMP)",
           "toTime": "CAST({0} AS TIME)",
@@ -684,7 +685,7 @@
         },
         "metadata": {
           "user": "USER",
-          "database": "SYS_CONTEXT('USERENV','DB_NAME')"
+          "source": "SYS_CONTEXT('USERENV','DB_NAME')"
         },
         "null": {
           "nvl": "NVL({0},{1})",
@@ -855,7 +856,7 @@
           "timeDiff": "TIMEDIFF({0},{1})"
         },
         "convert": {
-          "toString": "CAST({0} AS VARCHAR2(80))",
+          "toString": "CAST({0} AS VARCHAR2)",
           "toDate": "CAST({0} AS DATE)",
           "toDatetime": "CAST({0} AS TIMESTAMP)",
           "toTime": "CAST({0} AS TIME)",
@@ -864,7 +865,7 @@
         },
         "metadata": {
           "user": "USER",
-          "database": "SYS_CONTEXT('USERENV','DB_NAME')"
+          "source": "SYS_CONTEXT('USERENV','DB_NAME')"
         },
         "null": {
           "nvl": "NVL({0},{1})",

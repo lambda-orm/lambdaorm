@@ -487,7 +487,7 @@ export class SqlLanguage extends Language
         let entity=schema.getEntity(entityName);
         for(let name in entity.property){
             let property = entity.property[name];
-            if((!property.autoincrement || !excludeAutoincrement) && (!property.primaryKey || !excludePrimaryKey) ){
+            if((!property.autoincrement || !excludeAutoincrement) && (!entity.primaryKey.includes(property.name) || !excludePrimaryKey) ){
                 let field = new Node(parent?parent+'.'+name:name, 'var', []);
                 let keyVal = new Node(name, 'keyVal', [field])
                 obj.children.push(keyVal);

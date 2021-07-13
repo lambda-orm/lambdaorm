@@ -10,6 +10,8 @@ export interface Enum {
 export interface Entity {
     name: string
     mapping?: string
+    primaryKey?:string[]
+    uniqueKey?:string[]
     properties:Property[]
     relations:Relation[]
 }
