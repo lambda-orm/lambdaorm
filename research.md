@@ -25,8 +25,20 @@ npx mocha
 - https://owasp.org/www-community/attacks/SQL_Injection
 - https://www.geeksforgeeks.org/how-to-save-connection-result-in-a-variable-in-node-js/
 
+
+
+
+ 
 # References
 - [express-typescript](https://rsbh.dev/blog/rest-api-with-express-typescript)
+
+## bullk
+### inserts
+http://5.9.10.113/65813552/too-many-connections-nodejs-mysql2-promise
+https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/56241509
+https://github.com/sidorares/node-mysql2/issues/830
+https://www.technicalkeeda.com/nodejs-tutorials/insert-multiple-records-into-mysql-using-nodejs
+
 
 ## sql variants equivalents
 - [oracle to mysql](https://sqlines.com/oracle-to-mysql)
