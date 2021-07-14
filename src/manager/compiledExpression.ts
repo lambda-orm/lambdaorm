@@ -1,35 +1,34 @@
-import {LanguageManager} from './languageManager'
-import {IExecutor,Operand } from './../model/index'
+import {IExecutor,Operand,IOrm } from './../model/index'
 
 export class CompiledExpression
 {
-    protected mgr:LanguageManager 
-    protected operand:Operand
-    protected dialect:string   
+    private orm:IOrm
+    private operand:Operand
+    private dialect:string   
 
-    constructor(mgr:LanguageManager,operand:Operand,dialect:string){        
-        this.mgr=mgr
+    constructor(orm:IOrm,operand:Operand,dialect:string){        
+        this.orm=orm
         this.operand= operand
         this.dialect= dialect
     }       
     public serialize():string
     {
-        return this.mgr.serialize(this.operand,this.dialect );
+        return this.orm.language.serialize(this.operand,this.dialect );
     }
     public query():string
     {
-        return this.mgr.query(this.operand,this.dialect );
+        return this.orm.language.query(this.operand,this.dialect );
     }
     public schema():any
     {
-        return this.mgr.schema(this.operand,this.dialect);
+        return this.orm.language.schema(this.operand,this.dialect);
     }      
     public async execute(context:any,connectionName:string):Promise<any>
     {        
-        return await this.mgr.execute(this.operand,this.dialect,context,connectionName)
+        return await this.orm.execute(this.operand,this.dialect,context,connectionName)
     }
     public async transaction(context:any,transaction:IExecutor):Promise<any>
     {
-        return await this.mgr.transaction(this.operand,this.dialect,context,transaction);
+        return await this.orm.transaction(this.operand,this.dialect,context,transaction);
     }
 }

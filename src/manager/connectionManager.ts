@@ -12,7 +12,7 @@ export class ConnectionManager implements IConnectionManager
         this.pools={};
         this.configs={}; 
     }
-    public addConnectionType(name:string,value:any){
+    public addType(name:string,value:any){
         this.connectionTypes[name] =value;
     }
     public add(value:ConnectionConfig){

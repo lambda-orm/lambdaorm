@@ -6,3 +6,4 @@ export * from './connectionConfig';
 export * from './context';
 export * from './operand';
 export * from './iConnectionManager';
+export * from './iOrm';

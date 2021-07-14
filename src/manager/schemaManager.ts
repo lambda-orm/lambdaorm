@@ -7,7 +7,7 @@ export class SchemaManager
     constructor(){
         this.schemas={}; 
     }
-    public apply(value:model.Schema):void
+    public add(value:model.Schema):void
     {
         this.schemas[value.name] = this.transform(value);     
     }
@@ -95,4 +95,5 @@ export class SchemaManager
         } 
         return target;
     }
+
 }

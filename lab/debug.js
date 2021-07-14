@@ -56,24 +56,32 @@ async function crud(orm){
       }
     ]
   };
-  //create order
-  let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,'northwind')));
-  //get order
-  let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
-  let order2 = result[0];
-  //updated order
-  order2.address = "changed 59 rue de l-Abbaye";
-  order2.details[0].discount= true;
-  order2.details[1].unitPrice= 10;
-  order2.details[2].quantity= 7;
-  let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,'northwind')));
-  //get order
-  let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
-  // delete
-  let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],'northwind')));
-  //get order
-  let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
-  console.log(JSON.stringify(order4));
+
+  orm.createTransaction('northwind',async (tr)=>{    
+      //create order
+      let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").transaction(order,tr)));
+      //get order
+      let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").transaction({id:orderId},tr)));
+      let order2 = result[0];
+      //updated order
+      order2.address = "changed 59 rue de l-Abbaye";
+      order2.details[0].discount= true;
+      order2.details[1].unitPrice= 10;
+      order2.details[2].quantity= 7;
+      let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").transaction(order2,tr)));
+      console.log(updateCount);
+      //get order
+      let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").transaction({id:orderId},tr)));
+      console.log(JSON.stringify(order3));
+      // delete
+      let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").transaction(order3[0],tr)));
+      console.log(deleteCount);
+      //get order
+      let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").transaction({id:orderId},tr)));
+      console.log(JSON.stringify(order4));
+  });
+
+
 
 }
 
@@ -126,6 +134,16 @@ Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(
 `;
 let context = {id:10248};
 
+// orm.schema.delta('northwind',changes).execute('northwind');
+// orm.schema.delta('northwind',changes).query('mysql');
+// orm.schema.delta('northwind',changes).serialize();
+
+// orm.schema.apply(changes).execute('northwind');
+// orm.schema.apply(changes).query('mysql');
+// orm.schema.apply(changes).serialize();
+
+
+
 // await exec( async()=>(await orm.expression(expression).parse()).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
@@ -166,15 +184,18 @@ let expression,cnx,result;
 let schemas =  await ConfigExtends.apply('test/config/schema');
 for(const p in schemas){
     let schema =  schemas[p];
-    orm.applySchema(schema);
+    orm.schema.add(schema);
 }
 
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
-orm.addConnection(cnx);
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3307,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+orm.connection.add(cnx);
+
+
+
 
 
 await crud(orm);
-// await modify(orm);
+//await modify(orm);
 // await queries(orm);
 
 // expression =

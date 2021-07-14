@@ -3,7 +3,7 @@ import {Connection,Executor,Transaction} from '../connection'
 
 export interface IConnectionManager
 {    
-    addConnectionType(name:string,value:any):void
+    addType(name:string,value:any):void
     add(value:ConnectionConfig):void
     get(name:string):ConnectionConfig
     acquire(name:string):Promise<Connection>

@@ -1,38 +1,46 @@
+import {IOrm,IExecutor} from './../model'
 import {LanguageManager} from './languageManager'
+import {SchemaManager} from './schemaManager'
 import {CompiledExpression} from './compiledExpression'
 import {NodeExpression} from './nodeExpression'
+import {Node,Parser} from './../parser/index'
 
 export class Expression
 {
-    protected mgr:LanguageManager 
-    protected expression:string    
-    protected dialect?:string
-    protected schema?:string
+    private orm:IOrm
+    private expression:string    
+    private dialect?:string
+    // private schema?:string
 
-    constructor(mgr:LanguageManager,expression:string)
-    {        
-        this.mgr=mgr
+    constructor(orm:IOrm,expression:string)
+    {     
+        this.orm =  orm; 
         this.expression= expression;
     }
     public async parse():Promise<NodeExpression> 
     {
        if(!this.expression)throw 'Expression not defined';
-       let node = await this.mgr.parse(this.expression);
-       return new NodeExpression(this.mgr,node);
+       let node = await this.orm.parser.parse(this.expression);
+       return new NodeExpression(this.orm.parser,node);
     }    
-    public async compile(dialect:string,schema:string):Promise<CompiledExpression> 
+    public async compile(dialect:string,schemaName:string):Promise<CompiledExpression> 
     {
        if(!this.expression)throw 'Expression not defined';
        this.dialect = dialect;
-       this.schema = schema;
-       let operand=await this.mgr.compile(this.expression,this.dialect,this.schema);
-       return new CompiledExpression(this.mgr,operand,this.dialect);
+       let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
+       return new CompiledExpression(this.orm,operand,dialect)
     }  
     public async execute(context:any,connection:string)
     {     
-        let cnx = this.mgr.getConnection(connection);
+        let cnx = this.orm.connection.get(connection);
         let compiled = await this.compile(cnx.dialect,cnx.schema); 
         return await compiled.execute(context,connection) 
+    }
+    public async transaction(context:any,transaction:IExecutor):Promise<any>
+    {
+        let cnx = this.orm.connection.get(transaction.connectionName);
+        let compiled = await this.compile(cnx.dialect,cnx.schema);
+        return await compiled.transaction(context,transaction);
     }
 }
 

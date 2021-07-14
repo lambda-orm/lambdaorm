@@ -4,7 +4,7 @@ import {Connection } from './connection'
 export class Transaction implements IExecutor
 {
     private connectionManager:IConnectionManager
-    private connectionName:string
+    public connectionName:string
     private connection?:Connection
     constructor(connectionManager:IConnectionManager,connectionName:string){
         this.connectionManager=connectionManager;

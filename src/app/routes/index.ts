@@ -15,7 +15,7 @@ router.get("/ping", async (_req, res) => {
 });
 router.post("/schema", async (req, res) => {
   const controller = new SchemaController();
-  await controller.apply(req.body as Schema);
+  await controller.add(req.body as Schema);
   return res.send();
 });
 router.get("/schema", async (req, res) => {

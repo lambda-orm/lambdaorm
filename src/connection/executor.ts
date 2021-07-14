@@ -4,11 +4,11 @@ import {IExecutor,IConnectionManager } from '../model'
 export class Executor implements IExecutor
 {
     private connectionManager:IConnectionManager
-    private connectionName:string
+    public connectionName:string
     constructor(connectionManager:IConnectionManager,connectionName:string){
         this.connectionManager=connectionManager;
         this.connectionName=connectionName; 
-    } 
+    }    
     public async query(sql:string,params:any[]):Promise<any>
     {
         const connection = await this.connectionManager.acquire(this.connectionName);

@@ -1,17 +1,16 @@
-import {LanguageManager} from './languageManager'
-import {Node} from './../parser/index'
+import {Node,Parser} from './../parser/index'
 
 export class NodeExpression
 {
-    protected mgr:LanguageManager 
+    protected parser:Parser 
     public node:Node
 
-    constructor(mgr:LanguageManager,node:Node){        
-        this.mgr=mgr
+    constructor(parser:Parser,node:Node){        
+        this.parser=parser
         this.node= node
     }       
     public serialize():any
     {
-        return this.mgr.nodeSerialize(this.node);
+        return this.parser.serialize(this.node);
     }
 }

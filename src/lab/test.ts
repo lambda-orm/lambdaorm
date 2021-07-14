@@ -10,10 +10,10 @@ import './model';
     let schemas =  await ConfigExtends.apply('test/config/schema');
     for(const p in schemas){
         let schema =  schemas[p];
-        orm.applySchema(schema);
+        orm.schema.add(schema);
     }
     const cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
-    orm.addConnection(cnx);
+    orm.connection.add(cnx);
 let result;
 
 
@@ -96,6 +96,8 @@ result = (await orm.lambda(query2).compile('mysql','northwind')).serialize();
 console.log(result);
 result = (await orm.lambda(query3).compile('mysql','northwind')).serialize();
 console.log(result);
+
+
 
 let context = {id:10584}
 let query4 = (id:number)=> Orders.filter(p=>p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
