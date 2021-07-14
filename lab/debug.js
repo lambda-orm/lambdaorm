@@ -70,12 +70,53 @@ async function crud(orm){
   //get order
   let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
   // delete
-  let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().filter(p=> p.id == id).include(p=> p.details)").execute({id:orderId},'northwind')));
+  let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],'northwind')));
   //get order
   let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'northwind')));
   console.log(JSON.stringify(order4));
 
 }
+
+async function modify(orm){
+
+  expression =
+  ` 
+  Orders.delete().include(p=> p.details)
+  `;
+    
+  // await exec( async()=>(await orm.expression(expression).parse()).serialize())
+  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+  
+  // let result = await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
+  // console.log(result.length);
+  
+ //modify
+//  Products.insert()
+
+//  Orders.insert()
+//  Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate})
+//  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
+//  Orders.insert().include(p=> p.details)
+//  Orders.insert().include(p=> [p.details,p.customer])
+//  Orders.insert(entity).include(p=> [p.details,p.customer])
+
+//  Orders.update()
+//  Orders.update(entity)
+//  Orders.update({name:entity.name}) //da error por que preciso definir filter
+//  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
+//  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
+//  Orders.update().include(p=> p.details)
+//  Orders.update().include(p=> [p.details,p.customer])
+
+//  Orders.delete().filter(p=> p.id == id)
+//  Orders.delete().include(p=> p.details)
+//  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
+  
+  }
+
 
 async function queries(orm){
 
@@ -132,8 +173,9 @@ cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',pas
 orm.addConnection(cnx);
 
 
-// await crud(orm);
-await queries(orm);
+await crud(orm);
+// await modify(orm);
+// await queries(orm);
 
 // expression =
 // ` 
@@ -172,26 +214,7 @@ await queries(orm);
 
 
 
-//modify
-//  Products.insert()
 
-//  Orders.insert()
-//  Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate})
-//  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
-//  Orders.insert().include(p=> p.details)
-//  Orders.insert().include(p=> [p.details,p.customer])
-//  Orders.insert(entity).include(p=> [p.details,p.customer])
-
-//  Orders.update()
-//  Orders.update(entity)
-//  Orders.update({name:entity.name}) //da error por que preciso definir filter
-//  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
-//  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
-//  Orders.update().include(p=> p.details)
-//  Orders.update().include(p=> [p.details,p.customer])
-
-//  Orders.delete().filter(p=> p.id == id)
-//  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
 
 
 

@@ -64,6 +64,8 @@ export class SchemaManager
             let sourceEntity = source.entity[p];
             let targetEntity:model.Entity = { name:sourceEntity.name as string
                                             , mapping:sourceEntity.mapping as string 
+                                            , primaryKey:sourceEntity.primaryKey
+                                            , uniqueKey:sourceEntity.uniqueKey?sourceEntity.uniqueKey:[]
                                             , properties:[]
                                             ,relations:[]
                                             };    
@@ -75,7 +77,6 @@ export class SchemaManager
                     type: sourceProperty.type,
                     length: sourceProperty.length,
                     nullable: sourceProperty.nullable,
-                    primaryKey: sourceProperty.primaryKey,
                     autoincrement: sourceProperty.autoincrement                
                 }
                 targetEntity.properties.push(targetProperty);                 

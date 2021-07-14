@@ -523,7 +523,7 @@ export class SqlLanguage extends Language
         let entity=schema.getEntity(entityName);
         for(let name in entity.property){
             let property = entity.property[name];
-            if(property.primaryKey){
+            if(entity.primaryKey.includes(property.name)){
                 let field = new Node('p.'+name, 'var', []);
                 let variable = new Node(parent?parent+'.'+name:name, 'var', []);
                 let equal = new Node('==', 'oper', [field,variable]);
@@ -645,16 +645,23 @@ export class SqlLanguage extends Language
         } 
         let variableName = relation.to.property;
         let toEntity=schema.getEntity(relation.to.entity);
-        let toField = toEntity.property[relation.to.property];
-        let fieldRelation = new SqlField(child.alias + '.' + toField.mapping,toField.type);
-        let varRelation = new SqlVariable(variableName);
-        let filterInclude =new SqlOperator('==', [fieldRelation,varRelation]);
-        let childFilter= child.children.find(p=> p.name == 'filter');
-        if(!childFilter){
-            let childFilter = new SqlFilter('filter',[filterInclude]);
-            child.children.push(childFilter);
-        }else{
-            childFilter.children[0] =filterInclude;
+        let filterInclude=null;
+        for(let i=0;i<toEntity.primaryKey.length;i++ ){
+            let property = toEntity.primaryKey[i];
+            let toField = toEntity.property[property];
+            let field = new SqlField(child.alias + '.' + toField.mapping,toField.type);
+            let variable = new SqlVariable(property);
+            let equal =new SqlOperator('==', [field,variable]);
+            filterInclude =filterInclude?new SqlOperator('&&', [filterInclude,equal]):equal;
+        }
+        if(filterInclude){
+            let childFilter= child.children.find(p=> p.name == 'filter');
+            if(!childFilter){
+                let childFilter = new SqlFilter('filter',[filterInclude]);
+                child.children.push(childFilter);
+            }else{
+                childFilter.children[0] =filterInclude;
+            }
         }
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     } 
@@ -696,13 +703,13 @@ export class SqlLanguage extends Language
             // this is done for security to avoid deleting all records if the filter is forgotten
             name='delete';
             let clause = sentence['deleteAll'];
-            operand =new SqlDelete(clause.name);
+            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
         }else if(sentence['delete']){
             name='delete';
             createInclude= this.createDeleteInclude;
             let clause = sentence['delete'];
             this.createFilterIfNotExists(clause,children,schema,context);
-            operand =new SqlDelete(clause.name);
+            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
             children.push(operand);             
         }else if (sentence['insert']){
             name='insert';

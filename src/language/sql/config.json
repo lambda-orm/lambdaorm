@@ -173,7 +173,7 @@
       "sort": "ORDER BY {0}",
       "insert": "INSERT INTO {name}({fields}) VALUES({values})",
       "update": "UPDATE {name} {alias} SET {assings}",
-      "delete": "DELETE"
+      "delete": "DELETE FROM {name} {alias}"
     }
   },
   "variants": {
@@ -354,7 +354,7 @@
         "sort": "ORDER BY {0}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE"
+        "delete": "DELETE FROM {name} {alias}"
       }
     },
     "mysql": {
@@ -489,7 +489,7 @@
         "sort": "ORDER BY {0}",
         "insert": "INSERT INTO `{name}`({fields}) VALUES({values})",
         "update": "UPDATE `{name}` {alias} SET {assings}",
-        "delete": "DELETE"
+        "delete": "DELETE {alias} FROM `{name}` AS {alias}"
       },
       "operators": {
         "unary": {
@@ -715,7 +715,7 @@
         "sort": "ORDER BY {0}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE"
+        "delete": "DELETE FROM {name} {alias}"
       }
     },
     "postgresql": {
@@ -895,7 +895,7 @@
         "sort": "ORDER BY {0}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE"
+        "delete": "DELETE FROM {name} {alias}"
       }
     }
   }

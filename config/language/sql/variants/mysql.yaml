@@ -77,4 +77,4 @@ arrows:
   sort: ORDER BY {0}
   insert: INSERT INTO `{name}`({fields}) VALUES({values})
   update: UPDATE `{name}` {alias} SET {assings} 
-  delete: DELETE    
+  delete: DELETE {alias} FROM `{name}` AS {alias}    

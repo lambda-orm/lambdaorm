@@ -1,6 +1,7 @@
 import {Entity,Property,Operand} from './../../model/index'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from './../index'
 import {SqlLanguageVariant} from './variant'
+import Helper from './../../helper'
 
 const SqlString = require('sqlstring');
 
@@ -181,9 +182,9 @@ export class SqlSentence extends FunctionRef
         let groupBy = this.children.find(p=> p.name=='groupBy');
         let having = this.children.find(p=> p.name=='having'); 
         let sort = this.children.find(p=> p.name=='sort'); 
-        let insert = this.children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;//this.children.find(p=> p.name=='insert');
-        let update = this.children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;// this.children.find(p=> p.name=='update');
-        let _delete = this.children.find(p=> p.name=='delete');
+        let insert = this.children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;
+        let update = this.children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;
+        let _delete = this.children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
         
         let text = '';
         if(map || first){
@@ -201,8 +202,9 @@ export class SqlSentence extends FunctionRef
             this.loadVariables(update,this.variables);
         }else if(_delete){
             this.clause='delete';
-            let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
-            text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata)+' ';            
+            // let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
+            // text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata)+' ';
+            text = _delete.build(metadata)            
             this.loadVariables(_delete,this.variables);            
         }else if(insert){
             this.clause='insert';
@@ -247,7 +249,7 @@ export class SqlSentence extends FunctionRef
         let template = metadata.other('from');
         let parts = from.name.split('.');
         template =template.replace('{name}',parts[0]); 
-        template =template.replace('{alias}',parts[1]);
+        template =Helper.replaceAll(template,'{alias}',parts[1]);
         return template.trim();
     }
     protected loadVariables(operand:Operand,variables:string[])
@@ -331,7 +333,16 @@ export  class SqlUpdate extends SqlArrowFunction
     }
 }
 // class SqlUpdateFrom extends SqlArrowFunction {}
-export class SqlDelete extends SqlArrowFunction {}
+export class SqlDelete extends SqlArrowFunction {
+
+    build(metadata:SqlLanguageVariant){       
+        let template = metadata.arrow('delete');               
+        let parts = this.name.split('.');
+        template =template.replace('{name}',parts[0]); 
+        template =Helper.replaceAll(template,'{alias}',parts[1]);
+        return template.trim()+' '; 
+    }
+}
 
 export class SqlQuery extends Operand
 {
