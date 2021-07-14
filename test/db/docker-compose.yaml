@@ -1,34 +1,34 @@
-version: '2'
+version: '3'
 services:
-  mariadb:
-    image: monstrenyatko/rpi-mariadb
-    container_name: mariadb
-    restart: always
-    environment:
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=admin
-      - MYSQL_ROOT_PASSWORD=admin
-    volumes:
-      - mariadb-data:/var/lib/mysql
-      - mariadb-log:/var/log/mysql
-    ports:
-      - 3306:3306
-    # restart: unless-stopped
   mysql:
     image: biarms/mysql:5.7.33-beta-circleci
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=tests
+      - MYSQL_ROOT_PASSWORD=root      
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=tests
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
       - mysql:/var/lib/mysql
     ports:
-      - '3307:3306'  
+      - '3306:3306'  
+  mariadb:
+    image: monstrenyatko/rpi-mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - mariadb-log:/var/log/mysql
+    ports:
+      - 3307:3306
+    # restart: unless-stopped
   postgres:  
     image: postgres:10
     restart: always
@@ -60,17 +60,28 @@ services:
       - '27017:27017'
     volumes:
       - mongodb:/data/db  
-  # oracle:
-  #   image: oracle/database:11.2.0.2-xe
-  #   ports:
-  #     - 1521:1521
-  #     - 8085:8080
-  #   shm_size: 1g
-  #   volumes:
-  #     - oracle:/u01/app/oracle/oradata
-  #   environment:
-  #     - ORACLE_PWD=admin
-  #   restart: unless-stopped                 
+  oracle:
+    # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+    # image: oracle/database:11.2.0.2-xe
+    image: oracleinanutshell/oracle-xe-11g:latest
+    ports:
+      - 1521:1521
+      - 8085:8080
+    shm_size: 1g   
+    environment:
+      - ORACLE_PWD=oracle
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+    restart: unless-stopped
+    volumes:
+      - oracle:/u01/app/oracle/oradata 
+    
+    # hostname: localhost
+    # port: 1521
+    # sid: xe
+    # username: system
+    # password: oracle
+      
 volumes:
     mariadb-data:
     mariadb-log:

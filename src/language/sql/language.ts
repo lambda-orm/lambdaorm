@@ -521,24 +521,16 @@ export class SqlLanguage extends Language
     {
         let condition = undefined;
         let entity=schema.getEntity(entityName);
-        for(let name in entity.property){
-            let property = entity.property[name];
-            if(entity.primaryKey.includes(property.name)){
-                let field = new Node('p.'+name, 'var', []);
-                let variable = new Node(parent?parent+'.'+name:name, 'var', []);
-                let equal = new Node('==', 'oper', [field,variable]);
-                if(!condition){
-                    condition= equal
-                }else{
-                    condition= new Node('&&', 'oper', [condition,equal]);
-                }
-            }
+        for(let i in entity.primaryKey){ 
+            let name = entity.primaryKey[i]; 
+            let field = entity.property[name];
+            let sqlField = new SqlField(parent?parent + '.' + field.mapping:field.mapping,field.type);
+            let variable = new SqlVariable(name);
+            let equal =new SqlOperator('==', [sqlField,variable]);
+            condition =condition?new SqlOperator('&&', [condition,equal]):equal;
         }
         if(condition){
-            let varEntity = new Node(context.current.entity, 'var', []);
-            let varArrow = new Node('p', 'var', []);
-            let filter= new Node('filter','arrow',[varEntity,varArrow,condition]);
-            return this.createClause(filter,schema,context);
+            return new SqlFilter('filter',[condition]);
         }
         throw 'Create Filter incorrect!!!';
     }
@@ -632,8 +624,7 @@ export class SqlLanguage extends Language
     {   
         let child:SqlSentence,relation:any,relationName:string="";
         if (node.type == 'var') {
-            // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
-            // entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()      
+            // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details) 
             let parts = node.name.split('.');
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
@@ -642,28 +633,8 @@ export class SqlLanguage extends Language
             child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
-        } 
-        let variableName = relation.to.property;
-        let toEntity=schema.getEntity(relation.to.entity);
-        let filterInclude=null;
-        for(let i=0;i<toEntity.primaryKey.length;i++ ){
-            let property = toEntity.primaryKey[i];
-            let toField = toEntity.property[property];
-            let field = new SqlField(child.alias + '.' + toField.mapping,toField.type);
-            let variable = new SqlVariable(property);
-            let equal =new SqlOperator('==', [field,variable]);
-            filterInclude =filterInclude?new SqlOperator('&&', [filterInclude,equal]):equal;
         }
-        if(filterInclude){
-            let childFilter= child.children.find(p=> p.name == 'filter');
-            if(!childFilter){
-                let childFilter = new SqlFilter('filter',[filterInclude]);
-                child.children.push(childFilter);
-            }else{
-                childFilter.children[0] =filterInclude;
-            }
-        }
-        return new SqlSentenceInclude(relationName,[child],relation,variableName);
+        return new SqlSentenceInclude(relationName,[child],relation,relation.to.property);
     } 
     protected createSentence(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentence
     {
@@ -693,7 +664,6 @@ export class SqlLanguage extends Language
             children.push(operand);
         }
         if(sentence['from']){
-            // let clause = sentence['from'];
             let tableName = context.current.metadata.mapping;// schema.entityMapping(clause.name);
             operand =new SqlFrom(tableName+'.'+context.current.alias);
             children.push(operand);
