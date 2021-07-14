@@ -1,4 +1,4 @@
-import {IOrm,IExecutor} from './../model'
+import {IOrm,IExecutor,ConnectionConfig} from './../model'
 import {LanguageManager} from './languageManager'
 import {SchemaManager} from './schemaManager'
 import {CompiledExpression} from './compiledExpression'
@@ -30,18 +30,27 @@ export class Expression
        let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
        return new CompiledExpression(this.orm,operand,dialect)
     }  
-    public async execute(context:any,connection:string)
-    {     
-        let cnx = this.orm.connection.get(connection);
-        let compiled = await this.compile(cnx.dialect,cnx.schema); 
+    public async execute(context:any,connection?:string|IExecutor)
+    {   
+        let config:ConnectionConfig;
+        if( typeof connection === "string"){
+            config = this.orm.connection.get(connection);            
+        }else{
+            let executor = connection as IExecutor;
+            if(executor)
+            config = this.orm.connection.get(executor.connectionName);
+            else
+                throw `connection no valid`; 
+        } 
+        let compiled = await this.compile(config.dialect,config.schema); 
         return await compiled.execute(context,connection) 
     }
-    public async transaction(context:any,transaction:IExecutor):Promise<any>
-    {
-        let cnx = this.orm.connection.get(transaction.connectionName);
-        let compiled = await this.compile(cnx.dialect,cnx.schema);
-        return await compiled.transaction(context,transaction);
-    }
+    // public async transaction(context:any,transaction:IExecutor):Promise<any>
+    // {
+    //     let cnx = this.orm.connection.get(transaction.connectionName);
+    //     let compiled = await this.compile(cnx.dialect,cnx.schema);
+    //     return await compiled.transaction(context,transaction);
+    // }
 }
 
 

@@ -57,27 +57,27 @@ async function crud(orm){
     ]
   };
 
-  orm.createTransaction('northwind',async (tr)=>{    
+  orm.createTransaction('northwind',async (transaction)=>{    
       //create order
-      let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").transaction(order,tr)));
+      let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,transaction)));
       //get order
-      let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").transaction({id:orderId},tr)));
+      let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
       let order2 = result[0];
       //updated order
       order2.address = "changed 59 rue de l-Abbaye";
       order2.details[0].discount= true;
       order2.details[1].unitPrice= 10;
       order2.details[2].quantity= 7;
-      let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").transaction(order2,tr)));
+      let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,transaction)));
       console.log(updateCount);
       //get order
-      let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").transaction({id:orderId},tr)));
+      let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
       console.log(JSON.stringify(order3));
       // delete
-      let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").transaction(order3[0],tr)));
+      let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],transaction)));
       console.log(deleteCount);
       //get order
-      let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").transaction({id:orderId},tr)));
+      let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
       console.log(JSON.stringify(order4));
   });
 

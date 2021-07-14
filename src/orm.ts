@@ -75,14 +75,21 @@ class Orm implements IOrm
        let operand= this.languageManager.deserialize(serialized,language);
        return new CompiledExpression(this,operand,language);
     }
-    public async execute(operand:Operand,dialect:string,context:any,connectionName?:string):Promise<any>
+    public async execute(operand:Operand,dialect:string,context:any,connection?:string|IExecutor):Promise<any>
     {
         try{
             let _context = new Context(context);                    
-            if(connectionName){ 
-                let executor =this.connectionManager.createExecutor(connectionName);
-                return await this.languageManager.execute(operand,dialect,_context,executor);
-                
+            if(connection){ 
+                if( typeof connection === "string"){
+                    let executor =this.connectionManager.createExecutor(connection);
+                    return await this.languageManager.execute(operand,dialect,_context,executor);
+                }else{
+                    let executor = connection as IExecutor;
+                    if(executor)
+                        return await this.languageManager.execute(operand,dialect,_context,executor);
+                    else
+                        throw `connection no valid`; 
+                }
             }else{
                 return await this.languageManager.execute(operand,dialect,_context);
             }            
@@ -90,42 +97,11 @@ class Orm implements IOrm
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    // public async execute(operand:Operand,dialect:string,context:any,connectionName?:string):Promise<any>
+    // public async transaction(operand:Operand,dialect:string,context:any,transaction:IExecutor):Promise<any>
     // {
-    //     try{
-    //         let _context = new Context(context);
-    //         let info =  this.getDialect(dialect); 
-    //         let _language = this.languages[info.language] as Language            
-    //         if(connectionName){ 
-    //             let sqlSquery = operand as SqlQuery;
-    //             if(!sqlSquery.children || sqlSquery.children.length==0){
-    //                 let executor =this.connectionManager.createExecutor(connectionName);
-    //                 return await _language.execute(operand,_context,executor);
-    //             }
-    //             else
-    //             {
-    //                 let result;
-    //                 await this.createTransaction(connectionName,async function(tr:IExecutor){
-    //                     result = await _language.execute(operand,_context,tr);
-    //                 });
-    //                 return result;
-    //             }                
-    //         }else{
-    //             return await _language.execute(operand,_context);
-    //         }            
-    //     }catch(error){
-    //         throw 'run: '+operand.name+' error: '+error.toString(); 
-    //     }
+    //     let _context = new Context(context);
+    //     return await this.languageManager.execute(operand,dialect,_context,transaction);
     // }
-    // public async createTransaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
-    // {
-    //     return await this.languageManager.createTransaction(connectionName,callback);
-    // }
-    public async transaction(operand:Operand,dialect:string,context:any,transaction:IExecutor):Promise<any>
-    {
-        let _context = new Context(context);
-        return await this.languageManager.execute(operand,dialect,_context,transaction);
-    }
     public async createTransaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
     {        
         const tr = this.connectionManager.createTransaction(connectionName);

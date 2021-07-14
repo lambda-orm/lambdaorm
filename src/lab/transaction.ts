@@ -29,12 +29,12 @@ let qryUpdate2 =(entity:Order)=> Orders.update({name:entity.name})
                                       .filter(p=> p.id == entity.id )
 
 let context = {id:10584}
-// orm.transaction('northwind',async function(tr){
-//     await orm.lambda(qryInsert).run(context,tr);
-//     await orm.lambda(qryInsert).run(context,tr);
-//     await orm.lambda(qryInsert).run(context,tr);
-//     await orm.lambda(qryInsert).run(context,tr);
-// });
+orm.createTransaction('northwind',async function(transaction){
+    await orm.lambda(qryInsert).execute(context,transaction);
+    await orm.lambda(qryInsert).execute(context,transaction);
+    await orm.lambda(qryInsert).execute(context,transaction);
+    await orm.lambda(qryInsert).execute(context,transaction);
+});
 // commit y rollback estarian implicitos. si hay una excepcion ejecuta el rollback y hace throw de la exception , en caso contrario commit
 
 })();

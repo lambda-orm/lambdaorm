@@ -23,12 +23,12 @@ export class CompiledExpression
     {
         return this.orm.language.schema(this.operand,this.dialect);
     }      
-    public async execute(context:any,connectionName:string):Promise<any>
+    public async execute(context:any,connection?:string|IExecutor):Promise<any>
     {        
-        return await this.orm.execute(this.operand,this.dialect,context,connectionName)
+        return await this.orm.execute(this.operand,this.dialect,context,connection);
     }
-    public async transaction(context:any,transaction:IExecutor):Promise<any>
-    {
-        return await this.orm.transaction(this.operand,this.dialect,context,transaction);
-    }
+//     public async transaction(context:any,transaction:IExecutor):Promise<any>
+//     {
+//         return await this.orm.transaction(this.operand,this.dialect,context,transaction);
+//     }
 }

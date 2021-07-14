@@ -3,8 +3,8 @@ import {Minifier} from './minifier'
 import {NodeManager} from './nodeManager'
 import {Model} from './model'
 
-export class Parser{
-
+export class Parser
+{
     public doubleOperators:string[]
     public tripleOperators:string[]
     public assigmentOperators:string[]
