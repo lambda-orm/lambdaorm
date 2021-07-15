@@ -40,7 +40,7 @@ export class SchemaManager
     {
         let source = this.schemas[name];
         let target = this.transform(modified);
-        return Helper.delta(source,target);
+        return Helper.deltaWithSimpleArrays(source,target);
     }
     private transform(source:model.Schema):any
     {
