@@ -1,7 +1,7 @@
 import {Entity,Property,Operand} from './../../model/index'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from './../index'
 import {SqlLanguageVariant} from './variant'
-import Helper from './../../helper'
+import {Helper} from './../../helper'
 
 const SqlString = require('sqlstring');
 

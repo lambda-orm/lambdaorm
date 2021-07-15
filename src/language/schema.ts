@@ -45,30 +45,6 @@ export class SchemaHelper
         }
         return "";     
     }
-    // public getProperty(entity:string,name:string):Property| undefined
-    // {
-    //     let previousEntity,previousSchema,relationData,relationEntity,relationSchema,part;
-    //     let parts = name.split('.');
-    //     for(let i=0;i<parts.length;i++){
-    //         part = parts[i];
-    //         if(i==0){
-    //             previousEntity = entity;
-    //             previousSchema =this.getEntity(previousEntity);
-    //         }else{
-    //             previousEntity = relationEntity;
-    //             previousSchema =relationSchema
-    //         }                      
-    //         relationData= previousSchema.relation[part];
-    //         if(!relationData)
-    //             throw 'relation '+part+' not found in '+previousSchema.name;
-    //         relationEntity = relationData.to.entity;
-    //         relationSchema = this.getEntity(relationEntity);
-    //     }
-    //     if(part)
-    //       return previousSchema.property[part];
-    //     else
-    //       return undefined
-    // }
     public getRelation(entity:string,relation:string):any
     {
         let previousEntity,previousSchema,relationData,relationEntity,relationSchema;

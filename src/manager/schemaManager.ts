@@ -1,5 +1,9 @@
 import {SchemaHelper} from '../language/index'
+import {Helper} from '../helper'
 import  * as model from './../model/index'
+
+
+
 
 export class SchemaManager
 {
@@ -32,13 +36,19 @@ export class SchemaManager
     {
         return new SchemaHelper(this.schemas[name]);
     }
+    public delta(name:string,modified:model.Schema)
+    {
+        let source = this.schemas[name];
+        let target = this.transform(modified);
+        return Helper.delta(source,target);
+    }
     private transform(source:model.Schema):any
     {
         let target:any={entity:{},enum:{} };
         target.name = source.name;
         for(const p in source.entities){
             let sourceEntity = source.entities[p];
-            let targetEntity:any = {name: sourceEntity.name,
+            let targetEntity:any= {name: sourceEntity.name,
                                    mapping:sourceEntity.mapping,
                                    primaryKey:sourceEntity.primaryKey,
                                    uniqueKey:sourceEntity.uniqueKey?sourceEntity.uniqueKey:[],

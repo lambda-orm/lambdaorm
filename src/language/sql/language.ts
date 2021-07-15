@@ -201,7 +201,7 @@ export class SqlLanguage extends Language
             variant.addVariant(data);
             this._variants[data.variant] =variant 
         }
-    }    
+    }
     public compile(node:Node,schema:SchemaHelper,variant:string):Operand
     {
         try{
