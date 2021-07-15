@@ -1,7 +1,7 @@
-import {IExecutor,IConnectionManager} from '../model'
+import {ITransaction,IConnectionManager} from '../model'
 import {Connection } from './connection'
 
-export class Transaction implements IExecutor
+export class Transaction implements ITransaction
 {
     private connectionManager:IConnectionManager
     public connectionName:string

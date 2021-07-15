@@ -59,24 +59,5 @@ export class ConnectionManager implements IConnectionManager
     public createTransaction(connectionName:string):Transaction
     {
         return new Transaction(this,connectionName);
-    }
-    // public async execute(connectionName:string,sql:string,params:any[]):Promise<any>
-    // {
-    //     return await this.createExecutor(connectionName).execute(sql,params);
-    // }
-    // public async transaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
-    // {        
-    //     const tr = this.createTransaction(connectionName);
-    //     try
-    //     {
-    //         await tr.begin();
-    //         await callback(tr);
-    //         await tr.commit();
-    //     }
-    //     catch(error)
-    //     {
-    //         tr.rollback();
-    //         throw error;
-    //     }        
-    // }    
+    }    
 }

@@ -1,4 +1,4 @@
-import {IExecutor,ConnectionConfig,Dialect,Cache,Schema,IConnectionManager,Operand,IOrm,Context } from './model/index'
+import {IExecutor,ITransaction,Dialect,Cache,Schema,IConnectionManager,Operand,IOrm,Context } from './model/index'
 import {Model,Parser} from './parser/index'
 import {SchemaManager,LanguageManager,Expression,CompiledExpression,MemoryCache,ConnectionManager}  from './manager/index'
 import {SqlLanguage} from './language/sql/index'
@@ -75,18 +75,28 @@ class Orm implements IOrm
        let operand= this.languageManager.deserialize(serialized,language);
        return new CompiledExpression(this,operand,language);
     }
-    public async execute(operand:Operand,dialect:string,context:any,connection?:string|IExecutor):Promise<any>
+    public async execute(operand:Operand,dialect:string,context:any,connection?:string|ITransaction):Promise<any>
     {
         try{
             let _context = new Context(context);                    
             if(connection){ 
                 if( typeof connection === "string"){
-                    let executor =this.connectionManager.createExecutor(connection);
-                    return await this.languageManager.execute(operand,dialect,_context,executor);
+                    let result;
+                    if(operand.children.length==0){
+                        let executor =this.connectionManager.createExecutor(connection);
+                        result = await this.languageManager.execute(operand,dialect,_context,executor);
+                    }
+                    else
+                    {
+                        this.createTransaction(connection,async (transaction)=>{
+                            result= await this.languageManager.execute(operand,dialect,_context,transaction);
+                        });
+                    }
+                    return result;                    
                 }else{
-                    let executor = connection as IExecutor;
-                    if(executor)
-                        return await this.languageManager.execute(operand,dialect,_context,executor);
+                    let transaction = connection as ITransaction;
+                    if(transaction)
+                        return await this.languageManager.execute(operand,dialect,_context,transaction);
                     else
                         throw `connection no valid`; 
                 }
@@ -97,25 +107,24 @@ class Orm implements IOrm
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    // public async transaction(operand:Operand,dialect:string,context:any,transaction:IExecutor):Promise<any>
-    // {
-    //     let _context = new Context(context);
-    //     return await this.languageManager.execute(operand,dialect,_context,transaction);
-    // }
-    public async createTransaction(connectionName:string,callback:{(tr:IExecutor): Promise<void>;}):Promise<void>
+    public async createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>
     {        
-        const tr = this.connectionManager.createTransaction(connectionName);
+        const transaction = this.connectionManager.createTransaction(connectionName);
         try
         {
-            await tr.begin();
-            await callback(tr);
-            await tr.commit();
+            await transaction.begin();
+            await callback(transaction);
+            await transaction.commit();
         }
         catch(error)
         {
-            tr.rollback();
+            transaction.rollback();
             throw error;
-        }        
+        }
+        // finally
+        // {
+        //     delete transaction;
+        // }        
     } 
 }
 var orm = null;
