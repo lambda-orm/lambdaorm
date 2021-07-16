@@ -95,7 +95,5 @@ export class MySqlConnection extends Connection
         }  
         let result = await this.cnx.execute(sql,params);
         return result[0];
-    }
-
-   
+    }   
 }

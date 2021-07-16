@@ -56,71 +56,6 @@ async function queries(orm){
   //  Orders.filter(p=>p.id==id).include(p => p.customer)
 
 }
-async function crud(orm){
-
-  let order = {
-    "customerId": "VINET",
-    "employeeId": 5,
-    "orderDate": "1996-07-03T22:00:00.000Z",
-    "requiredDate": "1996-07-31T22:00:00.000Z",
-    "shippedDate": "1996-07-15T22:00:00.000Z",
-    "shipViaId": 3,
-    "freight": 32.38,
-    "name": "Vins et alcools Chevalier",
-    "address": "59 rue de l-Abbaye",
-    "city": "Reims",
-    "region": null,
-    "postalCode": "51100",
-    "country": "France",
-    "details": [
-      {
-        "productId": 11,
-        "unitPrice": 14,
-        "quantity": 12,
-        "discount": false
-      },
-      {
-        "productId": 42,
-        "unitPrice": 9.8,
-        "quantity": 10,
-        "discount": false
-      },
-      {
-        "productId": 72,
-        "unitPrice": 34.8,
-        "quantity": 5,
-        "discount": false
-      }
-    ]
-  };
-
-  orm.createTransaction('northwind',async (transaction)=>{    
-      //create order
-      let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,transaction)));
-      //get order
-      let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
-      let order2 = result[0];
-      //updated order
-      order2.address = "changed 59 rue de l-Abbaye";
-      order2.details[0].discount= true;
-      order2.details[1].unitPrice= 10;
-      order2.details[2].quantity= 7;
-      let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,transaction)));
-      console.log(updateCount);
-      //get order
-      let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
-      console.log(JSON.stringify(order3));
-      // delete
-      let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],transaction)));
-      console.log(deleteCount);
-      //get order
-      let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
-      console.log(JSON.stringify(order4));
-  });
-
-
-
-}
 async function modify(orm){
 
   expression =
@@ -160,6 +95,74 @@ async function modify(orm){
 //  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
   
 }
+async function crud(orm){
+
+  let order = {
+    "customerId": "VINET",
+    "employeeId": 5,
+    "orderDate": "1996-07-03T22:00:00.000Z",
+    "requiredDate": "1996-07-31T22:00:00.000Z",
+    "shippedDate": "1996-07-15T22:00:00.000Z",
+    "shipViaId": 3,
+    "freight": 32.38,
+    "name": "Vins et alcools Chevalier",
+    "address": "59 rue de l-Abbaye",
+    "city": "Reims",
+    "region": null,
+    "postalCode": "51100",
+    "country": "France",
+    "details": [
+      {
+        "productId": 11,
+        "unitPrice": 14,
+        "quantity": 12,
+        "discount": false
+      },
+      {
+        "productId": 42,
+        "unitPrice": 9.8,
+        "quantity": 10,
+        "discount": false
+      },
+      {
+        "productId": 72,
+        "unitPrice": 34.8,
+        "quantity": 5,
+        "discount": false
+      }
+    ]
+  };
+
+  try{
+      orm.createTransaction('northwind',async (transaction)=>{    
+        //create order
+        let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,transaction)));
+        //get order
+        let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
+        let order2 = result[0];
+        //updated order
+        order2.address = "changed 59 rue de l-Abbaye";
+        order2.details[0].discount= true;
+        order2.details[1].unitPrice= 10;
+        order2.details[2].quantity= 7;
+        let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,transaction)));
+        console.log(updateCount);
+        //get order
+        let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
+        console.log(JSON.stringify(order3));
+        // delete
+        let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],transaction)));
+        console.log(deleteCount);
+        //get order
+        let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
+        console.log(JSON.stringify(order4));
+      });
+  }
+  catch(error){
+    console.log(error);
+  }
+}
+
 
 
 
@@ -184,12 +187,9 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-
-
-
-await queries(orm);
-//await modify(orm);
-// await crud(orm);
+// await queries(orm);
+// await modify(orm);
+await crud(orm);
 
 
 
