@@ -18,7 +18,44 @@ async function exec(fn){
 
 
 
+async function queries(orm){
 
+  const expression = 
+  ` 
+  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+  `;
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+  let context = {id:10248};
+  // await exec( async()=>(await orm.expression(expression).parse()).serialize())
+  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+
+  await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
+
+  //queries
+  //  Products.filter(p=>p.id==id)
+  //  Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
+  //  Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
+  //  Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
+  //  Products.filter(p=> p.discontinued != false )                 
+  //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
+  //                  .sort(p=> [p.category,desc(p.name)])
+  //  OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
+  //                      .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
+  //                      .sort(p=> [p.category,p.product])       
+  //  OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
+
+  //includes
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => p.details)
+  //  Orders.filter(p=>p.id==id).include(p => p.customer)
+
+}
 async function crud(orm){
 
   let order = {
@@ -84,7 +121,6 @@ async function crud(orm){
 
 
 }
-
 async function modify(orm){
 
   expression =
@@ -123,63 +159,21 @@ async function modify(orm){
 //  Orders.delete().include(p=> p.details)
 //  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
   
-  }
-
-
-async function queries(orm){
-
-expression =
-` 
-Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-`;
-let context = {id:10248};
-
-// orm.schema.delta('northwind',changes).execute('northwind');
-// orm.schema.delta('northwind',changes).query('mysql');
-// orm.schema.delta('northwind',changes).serialize();
-
-// orm.schema.apply(changes).execute('northwind');
-// orm.schema.apply(changes).query('mysql');
-// orm.schema.apply(changes).serialize();
-
-
-
-// await exec( async()=>(await orm.expression(expression).parse()).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
-// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-
-let result = await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
-console.log(result.length);
-
-//queries
-//  Products.filter(p=>p.id==id)
-//  Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
-//  Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
-//  Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
-//  Products.filter(p=> p.discontinued != false )                 
-//                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
-//                  .sort(p=> [p.category,desc(p.name)])
-//  OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
-//                      .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
-//                      .sort(p=> [p.category,p.product])       
-//  OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
-
-//includes
-//  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
-//  Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
-//  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-//  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
-//  Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
-//  Orders.filter(p=>p.id==id).include(p => p.details)
-//  Orders.filter(p=>p.id==id).include(p => p.customer)
-
 }
+
+
+
+  // orm.schema.delta('northwind',changes).execute('northwind');
+  // orm.schema.delta('northwind',changes).query('mysql');
+  // orm.schema.delta('northwind',changes).serialize();
+
+  // orm.schema.apply(changes).execute('northwind');
+  // orm.schema.apply(changes).query('mysql');
+  // orm.schema.apply(changes).serialize();
 
 (async () => { 
 
-let expression,cnx,result;
+let cnx;
 
 let schemas =  await ConfigExtends.apply('test/config/schema');
 for(const p in schemas){
@@ -187,16 +181,17 @@ for(const p in schemas){
     orm.schema.add(schema);
 }
 
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3307,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
 
 
 
-
-await crud(orm);
+await queries(orm);
 //await modify(orm);
-// await queries(orm);
+// await crud(orm);
+
+
 
 // expression =
 // ` 

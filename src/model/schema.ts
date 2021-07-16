@@ -28,9 +28,6 @@ export interface Relation {
     name: string
     type: string
     from: string
-    to: RelationTo
-}    
-export interface RelationTo {
     entity: string
-    property: string
+    to: string
 }

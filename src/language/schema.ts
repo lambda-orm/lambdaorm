@@ -61,7 +61,7 @@ export class SchemaHelper
             relationData= previousSchema.relation[part];
             if(!relationData)
                 throw 'relation '+part+' not found in '+previousSchema.name;
-            relationEntity = relationData.to.entity;
+            relationEntity = relationData.entity;
             relationSchema = this.getEntity(relationEntity);
         }
         return {

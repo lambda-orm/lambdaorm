@@ -73,8 +73,8 @@ export class SqlExecutor
                     let element = mainResult[i];
                     let relationId = element[include.relation.from];
                     element[include.name] = (include.relation.type== 'manyToOne')
-                                                            ?includeResult.filter((p:any) => p[include.relation.to.property] == relationId)
-                                                            :includeResult.find((p:any) => p[include.relation.to.property] == relationId)
+                                                            ?includeResult.filter((p:any) => p[include.relation.to] == relationId)
+                                                            :includeResult.find((p:any) => p[include.relation.to] == relationId)
                                                             
                 }          
             }
@@ -108,7 +108,7 @@ export class SqlExecutor
             if(relation){
                 if(include.relation.type== 'manyToOne'){
                     let parentId = context.get(include.relation.from);
-                    let childPropertyName = include.relation.to.property;
+                    let childPropertyName = include.relation.to;
                     for(let i=0;i< relation.length;i++){
                         let child = relation[i];
                         child[childPropertyName]=parentId;
@@ -546,7 +546,7 @@ export class SqlLanguage extends Language
                     let parts = current.name.split('.');
                     relationName=parts[1];
                     relation = context.current.metadata.relation[relationName];                            
-                    current.name = relation.to.entity;
+                    current.name = relation.entity;
                     break;
                 }
                 if (current.children.length > 0)
@@ -563,16 +563,16 @@ export class SqlLanguage extends Language
             let parts = node.name.split('.');
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
-            node.name = relation.to.entity;
+            node.name = relation.entity;
             let map = new Node('map','arrow',[node,varArrow,varAll]);
             child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
         } 
-        let toEntity=schema.getEntity(relation.to.entity);
-        let toField = toEntity.property[relation.to.property];
+        let toEntity=schema.getEntity(relation.entity);
+        let toField = toEntity.property[relation.to];
         let fieldRelation = new SqlField(child.alias + '.' + toField.mapping,toField.type);
-        let variableName = 'list_'+relation.to.property;
+        let variableName = 'list_'+relation.to;
         let varRelation = new SqlVariable(variableName);
         let filterInclude =new SqlFunctionRef('includes', [fieldRelation,varRelation]);
         let childFilter= child.children.find(p=> p.name == 'filter');
@@ -593,13 +593,13 @@ export class SqlLanguage extends Language
             let parts = node.name.split('.');
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
-            node.name = relation.to.entity;
+            node.name = relation.entity;
             let map = new Node('insert','childFunc',[node]);
             child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
         } 
-        let variableName = relation.to.property;
+        let variableName = relation.to;
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     }
     protected createUpdateInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
@@ -611,13 +611,13 @@ export class SqlLanguage extends Language
             let parts = node.name.split('.');
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
-            node.name = relation.to.entity;
+            node.name = relation.entity;
             let map = new Node('update','childFunc',[node]);
             child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
         } 
-        let variableName = relation.to.property;
+        let variableName = relation.to;
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     }
     protected createDeleteInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
@@ -628,13 +628,13 @@ export class SqlLanguage extends Language
             let parts = node.name.split('.');
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
-            node.name = relation.to.entity;
+            node.name = relation.entity;
             let map = new Node('delete','childFunc',[node]);
             child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
         }
-        return new SqlSentenceInclude(relationName,[child],relation,relation.to.property);
+        return new SqlSentenceInclude(relationName,[child],relation,relation.to);
     } 
     protected createSentence(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentence
     {
@@ -773,7 +773,7 @@ export class SqlLanguage extends Language
             let relatedProperty = info.previousSchema.property[info.relationData.from];
             let relationTable = info.relationSchema.name;
             let relationAlias =context.current.joins[key];;
-            let relationProperty = info.relationSchema.property[info.relationData.to.property];
+            let relationProperty = info.relationSchema.property[info.relationData.to];
 
             let relatedField = new SqlField(relatedAlias+'.'+relatedProperty.mapping,relatedProperty.type);
             let relationField = new SqlField(relationAlias+'.'+relationProperty.mapping,relationProperty.type); 

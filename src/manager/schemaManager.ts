@@ -2,9 +2,6 @@ import {SchemaHelper} from '../language/index'
 import {Helper} from '../helper'
 import  * as model from './../model/index'
 
-
-
-
 export class SchemaManager
 {
     private schemas:any    
@@ -36,11 +33,11 @@ export class SchemaManager
     {
         return new SchemaHelper(this.schemas[name]);
     }
-    public delta(name:string,modified:model.Schema)
+    public delta(current:model.Schema,old?:model.Schema)
     {
-        let source = this.schemas[name];
-        let target = this.transform(modified);
-        return Helper.deltaWithSimpleArrays(source,target);
+        let _current = this.transform(current);
+        let _old = old?this.transform(old):null;
+        return Helper.deltaWithSimpleArrays(_current,_old);
     }
     private transform(source:model.Schema):any
     {
@@ -97,7 +94,8 @@ export class SchemaManager
                     name: sourceRelation.name,
                     type: sourceRelation.type,
                     from: sourceRelation.from,
-                    to: { entity: sourceRelation.to.entity ,property: sourceRelation.to.property }
+                    entity: sourceRelation.entity, 
+                    to: sourceRelation.to                 
                 };
                 targetEntity.relations.push(targetRelationj); 
             }

@@ -70,9 +70,8 @@ entities:
       - name: reportsTo
         type: oneToMany
         from: reportsToId
-        to: 
-          entity: Employees
-          property: id
+        entity: Employees
+        to: id
   - name: Categories
     mapping: Categories
     primaryKey: ['id']
@@ -120,9 +119,8 @@ entities:
       - name: orders
         type: manyToOne 
         from: id
-        to: 
-          entity: Orders
-          property: customerId
+        entity: Orders
+        to: customerId
   - name: Shippers
     mapping: Shippers
     primaryKey: ['id']
@@ -219,15 +217,13 @@ entities:
       - name: supplier
         type: oneToMany 
         from: supplierId
-        to: 
-          entity: Suppliers
-          property: id 
+        entity: Suppliers
+        to: id 
       - name: category
         type: oneToMany  
         from: categoryId
-        to: 
-          entity: Categories
-          property: id
+        entity: Categories
+        to: id
   - name: Orders
     mapping: Orders
     primaryKey: ['id']
@@ -288,21 +284,18 @@ entities:
       - name: customer
         type: oneToMany  
         from: customerId
-        to: 
-          entity: Customers
-          property: id 
+        entity: Customers
+        to: id 
       - name: employee
         type: oneToMany  
         from: employeeId
-        to: 
-          entity: Employees
-          property: id 
+        entity: Employees
+        to: id 
       - name: details
         type: manyToOne 
         from: id
-        to: 
-          entity: OrderDetails
-          property: orderId  
+        entity: OrderDetails
+        to: orderId  
   - name: OrderDetails
     mapping: Order Details
     primaryKey: ['orderId','productId']
@@ -325,15 +318,13 @@ entities:
         mapping: Discount
         type: bool
     relations:   
-      - name: order
+      - name: order       
         type: oneToMany 
         from: orderId
-        to: 
-          entity: Orders
-          property: id 
+        entity: Orders
+        to: id 
       - name: product
         type: oneToMany 
         from: productId
-        to: 
-          entity: Products
-          property: id 
+        entity: Products
+        to: id 

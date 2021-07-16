@@ -88,7 +88,7 @@ class Orm implements IOrm
                     }
                     else
                     {
-                        this.createTransaction(connection,async (transaction)=>{
+                        await this.createTransaction(connection,async (transaction)=>{
                             result= await this.languageManager.execute(operand,dialect,_context,transaction);
                         });
                     }
