@@ -7,7 +7,22 @@
       "string": "VARCHAR({0})",
       "datetime": "DATETIME"
     },
+    "ddl": {
+      "createTable": "CREATE TABLE {name} ({define})",
+      "createColumn": "{name} {type} {nullable} {autoincrement}",
+      "createPk": "CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
+      "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
+      "alterTable": "",
+      "alterColumn": "",
+      "alterPk": "",
+      "alterIndex": "",
+      "dropTable": "",
+      "dropColumn": "",
+      "dropPk": "",
+      "dropIndex": ""
+    },
     "others": {
+      "sepatatorSql": ";",
       "notNullable": "NOT NULL",
       "autoincrement": "AUTO_INCREMENT",
       "variable": ":{name}",
@@ -197,6 +212,7 @@
         "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE",
+        "sepatatorSql": ";",
         "notNullable": "NOT NULL"
       },
       "functions": {
@@ -311,6 +327,20 @@
         "update": "UPDATE `{name}` {alias} SET {assings}",
         "delete": "DELETE FROM `{name}` AS {alias}"
       },
+      "ddl": {
+        "createTable": "CREATE TABLE {name} ({define})",
+        "createColumn": "{name} {type} {nullable} {autoincrement}",
+        "createPk": "CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
+        "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
+        "alterTable": "",
+        "alterColumn": "",
+        "alterPk": "",
+        "alterIndex": "",
+        "dropTable": "",
+        "dropColumn": "",
+        "dropPk": "",
+        "dropIndex": ""
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -369,7 +399,22 @@
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
       },
+      "ddl": {
+        "createTable": "CREATE TABLE {name} ({define})",
+        "createColumn": "{name} {type} {nullable} {autoincrement}",
+        "createPk": "CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
+        "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
+        "alterTable": "",
+        "alterColumn": "",
+        "alterPk": "",
+        "alterIndex": "",
+        "dropTable": "",
+        "dropColumn": "",
+        "dropPk": "",
+        "dropIndex": ""
+      },
       "others": {
+        "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
@@ -549,6 +594,20 @@
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
       },
+      "ddl": {
+        "createTable": "CREATE TABLE `{name}` ({define})",
+        "createColumn": "`{name}` {type} {nullable} {autoincrement}",
+        "createPk": "CONSTRAINT `{pkName}` PRIMARY KEY ({pkColumns})",
+        "createIndex": "CREATE INDEX `{name}` ON `{table}` ({columns})",
+        "alterTable": "",
+        "alterColumn": "",
+        "alterPk": "",
+        "alterIndex": "",
+        "dropTable": "",
+        "dropColumn": "",
+        "dropPk": "",
+        "dropIndex": ""
+      },
       "others": {
         "autoincrement": "AUTO_INCREMENT",
         "variable": "?",
@@ -558,6 +617,7 @@
         "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE",
+        "sepatatorSql": ";",
         "notNullable": "NOT NULL"
       },
       "functions": {
@@ -730,7 +790,22 @@
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
       },
+      "ddl": {
+        "createTable": "CREATE TABLE {name} ({define})",
+        "createColumn": "{name} {type} {nullable} {autoincrement}",
+        "createPk": "CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
+        "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
+        "alterTable": "",
+        "alterColumn": "",
+        "alterPk": "",
+        "alterIndex": "",
+        "dropTable": "",
+        "dropColumn": "",
+        "dropPk": "",
+        "dropIndex": ""
+      },
       "others": {
+        "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",
@@ -910,7 +985,22 @@
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
       },
+      "ddl": {
+        "createTable": "CREATE TABLE {name} ({define})",
+        "createColumn": "{name} {type} {nullable} {autoincrement}",
+        "createPk": "CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
+        "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
+        "alterTable": "",
+        "alterColumn": "",
+        "alterPk": "",
+        "alterIndex": "",
+        "dropTable": "",
+        "dropColumn": "",
+        "dropPk": "",
+        "dropIndex": ""
+      },
       "others": {
+        "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
         "variable": ":{name}",

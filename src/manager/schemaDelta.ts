@@ -12,8 +12,8 @@ export class SchemaDelta
     {
         return this.delta;
     }
-    // public sql(dialect:string):string
-    // {
-    //     return this.orm.language.schemaSql(this.delta,this.dialect);
-    // }
+    public sql(dialect:string):string
+    {
+        return this.orm.language.schemaSql(this.delta,dialect);
+    }
 }

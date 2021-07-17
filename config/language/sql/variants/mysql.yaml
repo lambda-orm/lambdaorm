@@ -4,6 +4,19 @@ name: mysql
 _extends: [base]
 types:
   bool: TINYINT(1)
+ddl:
+  createTable: 'CREATE TABLE `{name}` ({define})' 
+  createColumn: '`{name}` {type} {nullable} {autoincrement}'
+  createPk: 'CONSTRAINT `{pkName}` PRIMARY KEY ({pkColumns})'
+  createIndex: 'CREATE INDEX `{name}` ON `{table}` ({columns})'
+  alterTable: ''
+  alterColumn: ''
+  alterPk: ''
+  alterIndex: ''
+  dropTable: ''
+  dropColumn: ''
+  dropPk: ''
+  dropIndex: '' 
 others:
   autoincrement: AUTO_INCREMENT 
   variable: '?'

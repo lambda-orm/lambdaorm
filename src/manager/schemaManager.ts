@@ -1,6 +1,6 @@
 import {SchemaHelper} from '../language/index'
 import {Helper} from '../helper'
-import {Schema,Entity,Property,Relation,Delta,IOrm} from './../model/index'
+import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from './../model/index'
 
 export class SchemaManager
 {
@@ -49,8 +49,9 @@ export class SchemaManager
                                    mapping:sourceEntity.mapping,
                                    primaryKey:sourceEntity.primaryKey,
                                    uniqueKey:sourceEntity.uniqueKey?sourceEntity.uniqueKey:[],
-                                   property:{}
-                                   ,relation:{}
+                                   property:{},
+                                   relation:{},
+                                   index:{}
                                   };    
             for(const q in sourceEntity.properties){
                 let sourceProperty = sourceEntity.properties[q];
@@ -60,6 +61,11 @@ export class SchemaManager
                 let sourceRelation = sourceEntity.relations[q];
                 targetEntity.relation[sourceRelation.name] = sourceRelation;
             }
+            if(sourceEntity.indexes)
+                for(const q in sourceEntity.indexes){
+                    let index = sourceEntity.indexes[q];
+                    targetEntity.index[index.name] = index;
+                }
             target.entity[sourceEntity.name] = targetEntity
         } 
         return target;
@@ -74,7 +80,8 @@ export class SchemaManager
                                             , primaryKey:sourceEntity.primaryKey
                                             , uniqueKey:sourceEntity.uniqueKey?sourceEntity.uniqueKey:[]
                                             , properties:[]
-                                            ,relations:[]
+                                            , relations:[]
+                                            , indexes:[]
                                             };    
             for(const q in sourceEntity.property){
                 let sourceProperty = sourceEntity.property[q];
@@ -90,14 +97,22 @@ export class SchemaManager
             }            
             for(const q in sourceEntity.relations){
                 let sourceRelation = sourceEntity.relation[q];
-                let targetRelationj:Relation = {
+                let targetRelation:Relation = {
                     name: sourceRelation.name,
                     type: sourceRelation.type,
                     from: sourceRelation.from,
                     entity: sourceRelation.entity, 
                     to: sourceRelation.to                 
                 };
-                targetEntity.relations.push(targetRelationj); 
+                targetEntity.relations.push(targetRelation); 
+            }
+            for(const q in sourceEntity.indexes){
+                let sourceIndex= sourceEntity.indexes[q];
+                let targetIndex:Index = {
+                    name: sourceIndex.name,
+                    fields: sourceIndex.fields                
+                };
+                targetEntity.indexes?.push(targetIndex); 
             }
             target.entities.push(targetEntity);
         } 

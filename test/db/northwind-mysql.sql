@@ -17,6 +17,7 @@ CREATE TABLE `CustomerCustomerDemo` (
     `CustomerTypeID` VARCHAR(10) NOT NULL,
     CONSTRAINT `PK_CustomerCustomerDemo` PRIMARY KEY (`CustomerID`, `CustomerTypeID`)
 );
+
 CREATE TABLE `CustomerDemographics` (
     `CustomerTypeID` VARCHAR(10) NOT NULL,
     `CustomerDesc` MEDIUMTEXT,

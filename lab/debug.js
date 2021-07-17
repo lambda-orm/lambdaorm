@@ -166,7 +166,8 @@ async function applySchema(orm,schemas){
   
   let old = schemas['northwind-old'];
   let current = schemas['northwind'];
-  await exec( async()=>(orm.delta(current).serialize()));
+  // await exec( async()=>(orm.delta(current).serialize()));
+  await exec( async()=>(orm.delta(current).sql('mysql')));
 
   // orm.schema.delta('northwind',changes).execute('northwind');
   // orm.schema.delta('northwind',changes).sql('mysql');
@@ -192,7 +193,7 @@ for(const p in schemas){
     orm.schema.add(schema);
 }
 
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
 // await queries(orm);

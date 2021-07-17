@@ -1,4 +1,4 @@
-import {IExecutor,Property,Operand,Context,Delta } from './../../model/index'
+import {IExecutor,Property,Index,Operand,Context,Delta } from './../../model/index'
 import {Node} from './../../parser/index'
 import {Language,SchemaHelper} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -194,20 +194,26 @@ class SqlSchemaBuilder
     {
         let sql:string[]=[];
         for(const name in delta.new){
-            sql.push(this.createEntity(delta.new[name].new));
+            const newEntity = delta.new[name].new;
+            sql.push('\n'+this.createEntity(newEntity));
+            if(newEntity.uniqueKey && newEntity.uniqueKey.length > 0)
+                sql.push('\n'+this.createUkIndex(newEntity));
+            if(newEntity.index)
+                for(const name in newEntity.index)
+                    sql.push('\n'+this.createIndex(newEntity,newEntity.index[name]));
         }
         let separator = this.metadata.other('sepatatorSql');
-        return sql.join(separator);
+        return sql.join(separator)+separator;
     }
 
     private createEntity(entity:any)
     {
         let define:string[]=[];
         for(const name in entity.property){
-            define.push(this.createColumn(entity.property[name]));
+            define.push('\n\t'+this.createColumn(entity.property[name]));
         }
         if(entity.primaryKey && entity.primaryKey.length > 0){
-            define.push(this.createPk(entity));
+            define.push('\n\t'+this.createPk(entity));
         }
 
         let text = this.metadata.ddl('createTable');
@@ -232,13 +238,42 @@ class SqlSchemaBuilder
     private createPk(entity:any)
     {
         let columns:string[]=[];
-        for(const name in entity.primaryKey){
-            const column = entity.property[name];
-            columns.push(column.mapping);
+        let columnTemplate = this.metadata.other('column');
+        for(let i=0;i<entity.primaryKey.length;i++){
+            const column = entity.property[entity.primaryKey[i]];
+            columns.push(columnTemplate.replace('{name}',column.mapping));
         }
         let text = this.metadata.ddl('createPk');
         text =text.replace('{pkName}','PK_'+entity.mapping);
         text =text.replace('{pkColumns}',columns.join(','));
+        return text;
+    }
+    private createIndex(entity:any,index:Index)
+    {
+        let columns:string[]=[];
+        let columnTemplate = this.metadata.other('column');
+        for(let i=0;i<index.fields.length;i++){
+            const column = entity.property[index.fields[i]];
+            columns.push(columnTemplate.replace('{name}',column.mapping));
+        }
+        let text = this.metadata.ddl('createIndex');
+        text =text.replace('{name}',entity.mapping+'_'+index.name);
+        text =text.replace('{table}',entity.mapping);
+        text =text.replace('{columns}',columns.join(','));
+        return text;
+    }
+    private createUkIndex(entity:any)
+    {
+        let columns:string[]=[];
+        let columnTemplate = this.metadata.other('column');
+        for(let i=0;i<entity.uniqueKey.length;i++){
+            const column = entity.property[entity.uniqueKey[i]];
+            columns.push(columnTemplate.replace('{name}',column.mapping));
+        }
+        let text = this.metadata.ddl('createIndex');
+        text =text.replace('{name}',entity.mapping+'_UK');
+        text =text.replace('{table}',entity.mapping);
+        text =text.replace('{columns}',columns.join(','));
         return text;
     }
 }

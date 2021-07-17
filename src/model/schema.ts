@@ -14,6 +14,7 @@ export interface Entity {
     uniqueKey?:string[]
     properties:Property[]
     relations:Relation[]
+    indexes?:Index[]
 }
 export interface Property {
     name: string 
@@ -30,4 +31,8 @@ export interface Relation {
     from: string
     entity: string
     to: string
+}
+export interface Index {
+    name: string
+    fields: string[]
 }

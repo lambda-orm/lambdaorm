@@ -1,6 +1,6 @@
 import {Language,SchemaHelper} from '../language/index'
 import {Node,Parser} from './../parser/index'
-import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager } from './../model/index'
+import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager, Delta } from './../model/index'
 
 export class LanguageManager
 {
@@ -23,6 +23,17 @@ export class LanguageManager
     }
     public addLibrary(value:any){
         this.languages[value.language].addLibrary(value);        
+    }
+    public schemaSql(delta:Delta,dialect:string):string
+    {
+        try
+        {
+            let info =  this.getDialect(dialect);
+            return this.languages[info.language].schemaSql(delta,dialect);
+        }
+        catch(error){
+            throw 'schemaSql error: '+error.toString(); 
+        }
     }
     public compile(node:Node,dialect:string,schema?:SchemaHelper):Operand
     {       
