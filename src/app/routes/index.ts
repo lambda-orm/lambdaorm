@@ -38,14 +38,14 @@ router.post("/expression/compile", async (req, res) => {
   const response = await controller.compile(req.body as CompileRequest);
   return res.send(response);
 });
-router.post("/expression/query", async (req, res) => {
+router.post("/expression/sql", async (req, res) => {
   const controller = new ExpressionController();
-  const response = await controller.query(req.body as CompileRequest);
+  const response = await controller.sql(req.body as CompileRequest);
   return res.send(response);
 });
-router.post("/expression/schema", async (req, res) => {
+router.post("/expression/model", async (req, res) => {
   const controller = new ExpressionController();
-  const response = await controller.schema(req.body as CompileRequest);
+  const response = await controller.model(req.body as CompileRequest);
   return res.send(response);
 });
 router.post("/expression/run/:connection", async (req, res) => {

@@ -59,23 +59,23 @@ export class LanguageManager
             throw 'deserialize: '+json+' error: '+error.toString(); 
         }
     }
-    public query(operand:Operand,dialect:string):string
+    public sql(operand:Operand,dialect:string):string
     {
         try
         {
             let info =  this.getDialect(dialect);
-            return this.languages[info.language].query(operand);
+            return this.languages[info.language].sql(operand);
         }
         catch(error){
-            throw 'query: '+operand.name+' error: '+error.toString(); 
+            throw 'sql: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public schema(operand:Operand,dialect:string):any
+    public model(operand:Operand,dialect:string):any
     {
         try
         {
             let info =  this.getDialect(dialect);
-            return this.languages[info.language].schema(operand);
+            return this.languages[info.language].model(operand);
         }
         catch(error){
             throw 'query: '+operand.name+' error: '+error.toString(); 

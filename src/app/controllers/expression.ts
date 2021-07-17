@@ -10,15 +10,15 @@ export default class ExpressionController {
     public async compile(@Body() body: CompileRequest): Promise<any> {
         return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).serialize()
     }
-    @Post("/query")
+    @Post("/sql")
     @SuccessResponse("200", "Ok")
-    public async query(@Body() body: CompileRequest): Promise<any> {
-        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).query()
+    public async sql(@Body() body: CompileRequest): Promise<any> {
+        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).sql()
     }
-    @Post("/schema")
+    @Post("/model")
     @SuccessResponse("200", "Ok")
-    public async schema(@Body() body: CompileRequest): Promise<any> {
-        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).schema()
+    public async model(@Body() body: CompileRequest): Promise<any> {
+        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).model()
     }
     @Post("/run") 
     @SuccessResponse("200", "Ok")

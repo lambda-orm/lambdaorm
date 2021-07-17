@@ -1,6 +1,6 @@
 import {Node} from './../parser/index'
 import {SchemaHelper}  from './schema'
-import {IExecutor,Operand,Context } from './../model/index'
+import {IExecutor,Operand,Context,Delta } from './../model/index'
 
 export abstract class Language
 {
@@ -18,8 +18,9 @@ export abstract class Language
     }
     public abstract addLibrary(library:any):void
     public abstract compile(node:Node,scheme?:SchemaHelper,variant?:string):Operand
-    public abstract query(operand:Operand):string
-    public abstract schema(operand:Operand):any
+    public abstract schemaSql(delta:Delta,variant:string):string
+    public abstract sql(operand:Operand):string
+    public abstract model(operand:Operand):any
     public abstract execute(operand:Operand,context:Context,executor?:IExecutor):Promise<any>
     public deserialize(serialized:any,language:string){
         let operand = this._deserialize(serialized,language);

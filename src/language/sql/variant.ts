@@ -6,15 +6,18 @@ export class SqlLanguageVariant
     private _functions?:any={}
     private _others?:any={}
     private _arrows?:any={}
-
+    private _ddl?:any={}
+    private _types?:any={}
     constructor(name:string){
         this.name = name;
         this._operators={};
         this._functions={};
         this._others={};
         this._arrows={};
+        this._ddl={};
+        this._types={};
     }
-    public operator(name:string,operands:number):any
+    public operator(name:string,operands:number):string
     {
         return this._operators[name][operands];
     }
@@ -22,13 +25,21 @@ export class SqlLanguageVariant
     {
         return this._functions[name];
     }
-    public arrow(name:string):any
+    public arrow(name:string):string
     {
         return this._arrows[name];
     }
-    public other(name:string):any
+    public other(name:string):string
     {
         return this._others[name];
+    }
+    public ddl(name:string):string
+    {
+        return this._ddl[name];
+    }
+    public type(name:string):string
+    {
+        return this._types[name];
     }
     public addVariant(variant:any):void
     {
@@ -54,8 +65,16 @@ export class SqlLanguageVariant
             let template = variant.arrows[name];
             this._arrows[name] = template; 
         }
+        for(const name in variant.ddl){
+            let template = variant.ddl[name];
+            this._ddl[name] = template; 
+        }
+        for(const name in variant.types){
+            let template = variant.types[name];
+            this._types[name] = template; 
+        }
     }
-    public getOperatorMetadata(name:string,operands:number):any
+    public getOperatorMetadata(name:string,operands:number):string|null
     {
         try{          
             if(this._operators[name]){
@@ -69,7 +88,7 @@ export class SqlLanguageVariant
             throw 'error with operator: '+name;
         }
     } 
-    public getFunctionMetadata(name:string):any
+    public getFunctionMetadata(name:string):string|null
     {
         try{
             if(this._functions[name])

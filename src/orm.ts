@@ -1,6 +1,6 @@
 import {IExecutor,ITransaction,Dialect,Cache,Schema,IConnectionManager,Operand,IOrm,Context } from './model/index'
 import {Model,Parser} from './parser/index'
-import {SchemaManager,LanguageManager,Expression,CompiledExpression,MemoryCache,ConnectionManager}  from './manager/index'
+import {SchemaManager,LanguageManager,Expression,CompiledExpression,MemoryCache,ConnectionManager,SchemaDelta }  from './manager/index'
 import {SqlLanguage} from './language/sql/index'
 import {DefaultLanguage,CoreLib} from './language/default/index'
 import {MySqlConnection}  from './connection/index'
@@ -15,12 +15,12 @@ class Orm implements IOrm
     private languageManager:LanguageManager
     private connectionManager:IConnectionManager
 
-    constructor(cache:Cache,parserManager:Parser,schemaManager:SchemaManager,languageManager:LanguageManager,connectionManager:IConnectionManager){
-        this.cache=cache; 
+    constructor(parserManager:Parser){
+        this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
-        this.schemaManager=schemaManager;              
-        this.languageManager = languageManager;
-        this.connectionManager=connectionManager;  
+        this.schemaManager=new SchemaManager(this);           
+        this.languageManager  = new LanguageManager();
+        this.connectionManager= new ConnectionManager();  
     }
     public get parser():Parser
     {
@@ -58,6 +58,11 @@ class Orm implements IOrm
             console.log(error)
             throw 'compile expression: '+expression+' error: '+error.toString();
         }
+    }
+    public delta(current:Schema,old?:Schema):SchemaDelta
+    {
+        let delta = this.schemaManager.delta(current,old);
+        return new SchemaDelta(this,delta);        
     }
     public expression(value:string):Expression
     {
@@ -120,11 +125,7 @@ class Orm implements IOrm
         {
             transaction.rollback();
             throw error;
-        }
-        // finally
-        // {
-        //     delete transaction;
-        // }        
+        }    
     } 
 }
 var orm = null;
@@ -133,12 +134,8 @@ export =(function() {
         let model = new Model();
         model.load(modelConfig);
         let parser=  new Parser(model);
-        let cache = new MemoryCache() 
-        let schemaManager=new SchemaManager();
-        let connectionManager= new ConnectionManager();
-        let languageManager = new LanguageManager();
 
-        orm= new Orm(cache,parser,schemaManager,languageManager,connectionManager);    
+        orm= new Orm(parser);    
         orm.language.add(new DefaultLanguage());
         orm.language.addLibrary(new CoreLib());
 

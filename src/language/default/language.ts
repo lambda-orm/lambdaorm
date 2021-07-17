@@ -1,4 +1,4 @@
-import {IExecutor,Operand,Context } from './../../model/index'
+import {IExecutor,Operand,Context,Delta } from './../../model/index'
 import {Node} from './../../parser/index'
 import {SchemaHelper,Language,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../index'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
@@ -175,6 +175,10 @@ export class DefaultLanguage extends Language
             this.setContext(p,current);
         } 
     }
+    public schemaSql(delta:Delta,variant:string):string
+    {
+        throw 'NotImplemented';
+    }
     public compile(node:Node,scheme:SchemaHelper):Operand
     {
         let operand:Operand = this.nodeToOperand(node);
@@ -182,11 +186,11 @@ export class DefaultLanguage extends Language
         operand =this.setParent(operand);
         return operand;
     }
-    public query(operand:Operand):string
+    public sql(operand:Operand):string
     {
         throw 'NotImplemented';
     }
-    public schema(operand:Operand):any
+    public model(operand:Operand):any
     {
         throw 'NotImplemented';
     }

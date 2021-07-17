@@ -1,4 +1,4 @@
-import {IExecutor,Property,Operand,Context } from './../../model/index'
+import {IExecutor,Property,Operand,Context,Delta } from './../../model/index'
 import {Node} from './../../parser/index'
 import {Language,SchemaHelper} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -182,6 +182,68 @@ export class SqlExecutor
         return params;
     }
 }
+
+class SqlSchemaBuilder
+{
+    private metadata:SqlLanguageVariant
+    constructor(metadata:SqlLanguageVariant){
+        this.metadata = metadata;
+    }
+
+    public createSQL(delta:Delta):string
+    {
+        let sql:string[]=[];
+        for(const name in delta.new){
+            sql.push(this.createEntity(delta.new[name].new));
+        }
+        let separator = this.metadata.other('sepatatorSql');
+        return sql.join(separator);
+    }
+
+    private createEntity(entity:any)
+    {
+        let define:string[]=[];
+        for(const name in entity.property){
+            define.push(this.createColumn(entity.property[name]));
+        }
+        if(entity.primaryKey && entity.primaryKey.length > 0){
+            define.push(this.createPk(entity));
+        }
+
+        let text = this.metadata.ddl('createTable');
+        text =text.replace('{name}',entity.mapping);
+        text =text.replace('{define}',define.join(','));
+        return text;
+    }
+    private createColumn(property:Property)
+    {        
+        let type = this.metadata.type(property.type);
+        type = property.length?type.replace('{0}',property.length.toString()):type;
+        let nullable = property.nullable !== undefined && property.nullable==false?this.metadata.other("notNullable"):"";
+        let autoincrement = property.autoincrement?this.metadata.other("autoincrement"):"";
+
+        let text = this.metadata.ddl('createColumn');
+        text =text.replace('{name}',property.mapping as string);
+        text =text.replace('{type}',type);
+        text =text.replace('{nullable}',nullable);
+        text =text.replace('{autoincrement}',autoincrement);
+        return text;
+    }
+    private createPk(entity:any)
+    {
+        let columns:string[]=[];
+        for(const name in entity.primaryKey){
+            const column = entity.property[name];
+            columns.push(column.mapping);
+        }
+        let text = this.metadata.ddl('createPk');
+        text =text.replace('{pkName}','PK_'+entity.mapping);
+        text =text.replace('{pkColumns}',columns.join(','));
+        return text;
+    }
+}
+
+
 export class SqlLanguage extends Language
 {
     private _variants:any
@@ -202,6 +264,11 @@ export class SqlLanguage extends Language
             this._variants[data.variant] =variant 
         }
     }
+    public schemaSql(delta:Delta,variant:string):string
+    {
+        let metadata = this._variants[variant];
+        return new SqlSchemaBuilder(metadata).createSQL(delta);
+    }
     public compile(node:Node,schema:SchemaHelper,variant:string):Operand
     {
         try{
@@ -220,18 +287,18 @@ export class SqlLanguage extends Language
     {          
         return await this.executor.execute(operand as SqlQuery,context,executor);
     }
-    public query(operand:Operand):string
+    public sql(operand:Operand):string
     {          
         let query= operand as SqlQuery
         let mainQuery = query.sentence+';';
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            let includemainQuery= this.query(include.children[0]);
+            let includemainQuery= this.sql(include.children[0]);
             mainQuery= mainQuery+'\n'+includemainQuery
         }
         return mainQuery;
     }
-    public schema(operand:Operand):any
+    public model(operand:Operand):any
     {
         let query= operand as SqlQuery
         let result:any = {}
@@ -241,7 +308,7 @@ export class SqlLanguage extends Language
         }       
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            let childsSchema = this.schema(include.children[0]);
+            let childsSchema = this.model(include.children[0]);
             if(include.relation.type == 'manyToOne'){
                 result[include.name] = [childsSchema]
             }else{

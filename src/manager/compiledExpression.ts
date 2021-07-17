@@ -15,13 +15,13 @@ export class CompiledExpression
     {
         return this.orm.language.serialize(this.operand,this.dialect );
     }
-    public query():string
+    public sql():string
     {
-        return this.orm.language.query(this.operand,this.dialect );
+        return this.orm.language.sql(this.operand,this.dialect );
     }
-    public schema():any
+    public model():any
     {
-        return this.orm.language.schema(this.operand,this.dialect);
+        return this.orm.language.model(this.operand,this.dialect);
     }      
     public async execute(context:any,connection?:string|ITransaction):Promise<any>
     {        

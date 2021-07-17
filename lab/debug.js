@@ -26,11 +26,10 @@ async function queries(orm){
   `;
   //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
   let context = {id:10248};
-  // await exec( async()=>(await orm.expression(expression).parse()).serialize())
-  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
-  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-
+  await exec( async()=>(await orm.expression(expression).parse()).serialize())
+  await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
+  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).model())
   await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
 
   //queries
@@ -66,7 +65,7 @@ async function modify(orm){
   // await exec( async()=>(await orm.expression(expression).parse()).serialize())
   // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
   // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
+  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
   
   // let result = await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
@@ -163,16 +162,25 @@ async function crud(orm){
   }
 }
 
-
-
+async function applySchema(orm,schemas){
+  
+  let old = schemas['northwind-old'];
+  let current = schemas['northwind'];
+  await exec( async()=>(orm.delta(current).serialize()));
 
   // orm.schema.delta('northwind',changes).execute('northwind');
-  // orm.schema.delta('northwind',changes).query('mysql');
+  // orm.schema.delta('northwind',changes).sql('mysql');
   // orm.schema.delta('northwind',changes).serialize();
 
   // orm.schema.apply(changes).execute('northwind');
-  // orm.schema.apply(changes).query('mysql');
+  // orm.schema.apply(changes).sql('mysql');
   // orm.schema.apply(changes).serialize();
+}
+
+
+
+
+ 
 
 (async () => { 
 
@@ -184,57 +192,13 @@ for(const p in schemas){
     orm.schema.add(schema);
 }
 
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
 // await queries(orm);
 // await modify(orm);
-await crud(orm);
-
-
-
-// expression =
-// ` 
-// Orders.insert().include(p => p.details)
-// `;
-
-//Orders.insert().include(p => p.details)
-
-
-// await exec( async()=>(await orm.expression(expression).parse()).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).query())
-//await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-
-// //ejecucion
-// let product = {
-//     "name": "Test",
-//     "supplierId": 24,
-//     "categoryId": 5,
-//     "quantity": "16 - 2 kg boxes",
-//     "price": 7,
-//     "inStock": 38,
-//     "onOrder": 0,
-//     "reorderLevel": 25,
-//     "discontinued": false
-// }
-
-
-
-// result = await exec(async()=>(await orm.expression(expression).execute(order,'northwind')));
-// console.log(result.length);
-
-// result = await exec(async()=>(await orm.expression(expression).execute({id:10248},'northwind')));
-// console.log(result.length)
-
-
-
-
-
-
-
-
+// await crud(orm);
+await applySchema(orm,schemas);
 
 
 })();

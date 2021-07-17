@@ -6,7 +6,17 @@ types:
   string: VARCHAR({0})
   datetime: DATETIME
 
+ddl:
+  createTable: CREATE TABLE `{name}` ({define}) 
+  createColumn: `{name}` {type} {nullable} {autoincrement}
+  createPk: CONSTRAINT `{pkName}` PRIMARY KEY ({pkColumns})
+  alterTable:
+  alterColumn: 
+  dropTable:
+  alterColumn:    
+
 others:
+  sepatatorSql: ;
   notNullable: NOT NULL
   autoincrement: AUTO_INCREMENT 
   variable: ':{name}'

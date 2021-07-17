@@ -1,14 +1,14 @@
 import {SchemaHelper} from '../language/index'
 import {Helper} from '../helper'
-import  * as model from './../model/index'
+import {Schema,Entity,Property,Relation,Delta,IOrm} from './../model/index'
 
 export class SchemaManager
 {
-    private schemas:any    
-    constructor(){
+    private schemas:any
+    constructor(orm:IOrm){
         this.schemas={}; 
     }
-    public add(value:model.Schema):void
+    public add(value:Schema):void
     {
         this.schemas[value.name] = this.transform(value);     
     }
@@ -16,14 +16,14 @@ export class SchemaManager
     {
         delete this.schemas[name];     
     }         
-    public get(name:string):model.Schema | undefined
+    public get(name:string):Schema | undefined
     {
         let source = this.schemas[name];
         return source?this.untransform(source):undefined; 
     }
-    public list():model.Schema[]
+    public list():Schema[]
     {   
-        let result:model.Schema[]=[]; 
+        let result:Schema[]=[]; 
         for(const p in this.schemas){
             result.push(this.untransform(this.schemas[p]));
         }
@@ -33,13 +33,13 @@ export class SchemaManager
     {
         return new SchemaHelper(this.schemas[name]);
     }
-    public delta(current:model.Schema,old?:model.Schema)
+    public delta(current:Schema,old?:Schema):Delta
     {
-        let _current = this.transform(current);
-        let _old = old?this.transform(old):null;
-        return Helper.deltaWithSimpleArrays(_current,_old);
+        let _current = this.transform(current).entity;
+        let _old = old?this.transform(old).entity:null;
+        return Helper.deltaWithSimpleArrays(_current,_old);        
     }
-    private transform(source:model.Schema):any
+    private transform(source:Schema):any
     {
         let target:any={entity:{},enum:{} };
         target.name = source.name;
@@ -64,12 +64,12 @@ export class SchemaManager
         } 
         return target;
     }
-    private untransform(source:any):model.Schema
+    private untransform(source:any):Schema
     {
-        let target:model.Schema={name:source.name as string,entities:[],enums:[]};
+        let target:Schema={name:source.name as string,entities:[],enums:[]};
         for(const p in source.entity){
             let sourceEntity = source.entity[p];
-            let targetEntity:model.Entity = { name:sourceEntity.name as string
+            let targetEntity:Entity = { name:sourceEntity.name as string
                                             , mapping:sourceEntity.mapping as string 
                                             , primaryKey:sourceEntity.primaryKey
                                             , uniqueKey:sourceEntity.uniqueKey?sourceEntity.uniqueKey:[]
@@ -78,7 +78,7 @@ export class SchemaManager
                                             };    
             for(const q in sourceEntity.property){
                 let sourceProperty = sourceEntity.property[q];
-                let targetProperty:model.Property = {
+                let targetProperty:Property = {
                     name: sourceProperty.name, 
                     mapping: sourceProperty.mapping,
                     type: sourceProperty.type,
@@ -90,7 +90,7 @@ export class SchemaManager
             }            
             for(const q in sourceEntity.relations){
                 let sourceRelation = sourceEntity.relation[q];
-                let targetRelationj:model.Relation = {
+                let targetRelationj:Relation = {
                     name: sourceRelation.name,
                     type: sourceRelation.type,
                     from: sourceRelation.from,

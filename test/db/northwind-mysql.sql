@@ -41,6 +41,7 @@ CREATE INDEX `CompanyName` ON `Customers` (`CompanyName`);
 CREATE INDEX `PostalCode` ON `Customers` (`PostalCode`);
 CREATE INDEX `Region` ON `Customers` (`Region`);
 
+
 CREATE TABLE `Employees` (
     `EmployeeID` INTEGER NOT NULL AUTO_INCREMENT,
     `LastName` VARCHAR(20) NOT NULL,
