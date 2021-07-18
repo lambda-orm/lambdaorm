@@ -18,7 +18,7 @@ export abstract class Language
     }
     public abstract addLibrary(library:any):void
     public abstract compile(node:Node,scheme?:SchemaHelper,variant?:string):Operand
-    public abstract schemaSql(delta:Delta,variant:string):string
+    public abstract schemaSql(schema:SchemaHelper,delta:Delta,variant:string):string
     public abstract sql(operand:Operand):string
     public abstract model(operand:Operand):any
     public abstract execute(operand:Operand,context:Context,executor?:IExecutor):Promise<any>

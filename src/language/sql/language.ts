@@ -1,4 +1,4 @@
-import {IExecutor,Property,Index,Operand,Context,Delta } from './../../model/index'
+import {IExecutor,Property,Relation,Index,Operand,Context,Delta } from './../../model/index'
 import {Node} from './../../parser/index'
 import {Language,SchemaHelper} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -190,23 +190,27 @@ class SqlSchemaBuilder
         this.metadata = metadata;
     }
 
-    public createSQL(delta:Delta):string
+    public createSQL(schema:SchemaHelper,delta:Delta):string
     {
         let sql:string[]=[];
         for(const name in delta.new){
             const newEntity = delta.new[name].new;
-            sql.push('\n'+this.createEntity(newEntity));
-            if(newEntity.uniqueKey && newEntity.uniqueKey.length > 0)
-                sql.push('\n'+this.createUkIndex(newEntity));
-            if(newEntity.index)
-                for(const name in newEntity.index)
-                    sql.push('\n'+this.createIndex(newEntity,newEntity.index[name]));
+            this.createEntity(sql,schema,newEntity);
+        }
+        for(const name in delta.changed){
+            const newEntity = delta.changed[name].new;
+            const oldEntity = delta.changed[name].old;
+            this.modifyEntity(sql,schema,newEntity,oldEntity);
+        }
+        for(const name in delta.remove){
+            const oldEntity = delta.remove[name].old;
+            this.removeEntity(sql,oldEntity);
         }
         let separator = this.metadata.other('sepatatorSql');
         return sql.join(separator)+separator;
     }
 
-    private createEntity(entity:any)
+    private createEntity(sql:string[],schema:SchemaHelper,entity:any):void
     {
         let define:string[]=[];
         for(const name in entity.property){
@@ -215,13 +219,137 @@ class SqlSchemaBuilder
         if(entity.primaryKey && entity.primaryKey.length > 0){
             define.push('\n\t'+this.createPk(entity));
         }
+        if(entity.uniqueKey && entity.uniqueKey.length > 0){
+            define.push('\n\t'+this.createUk(entity));
+        }
+        if(entity.relation)
+            for(const name in entity.relation)
+                define.push('\n\t'+this.createFk(schema,entity,entity.relation[name]));
 
         let text = this.metadata.ddl('createTable');
         text =text.replace('{name}',entity.mapping);
         text =text.replace('{define}',define.join(','));
-        return text;
+
+        sql.push('\n'+text);
+        if(entity.uniqueKey && entity.uniqueKey.length > 0)
+            sql.push('\n'+this.createUkIndex(entity));            
+        if(entity.index)
+            for(const name in entity.index)
+                sql.push('\n'+this.createIndex(entity,entity.index[name]));
     }
-    private createColumn(property:Property)
+    private modifyEntity(sql:string[],schema:SchemaHelper,entity:any,oldEntity:any):void
+    {
+        const alterEntity = this.metadata.ddl('alterTable').replace('{name}',entity.mapping);
+
+        //remove indexes
+        for(const name in entity.index.remove){
+            const old = entity.index.remove[name].old;
+            sql.push('\n'+this.dropIndex(entity,old));
+        }
+
+        //remove constraint
+        for(const name in entity.uniqueKey.remove){
+            const old = entity.uniqueKey.remove.old;
+            sql.push('\n'+alterEntity+' '+this.dropUk(old));
+            sql.push('\n'+this.dropUkIndex(entity));  
+        }
+        for(const name in entity.uniqueKey.changed){
+            const _new = entity.uniqueKey.changed[name].new;
+            const old = entity.uniqueKey.changed[name].old;
+            sql.push('\n'+this.dropUkIndex(entity)); 
+            sql.push('\n'+alterEntity+' '+this.dropUk(old));
+        }
+        for(const name in entity.primaryKey.remove){
+            const old = entity.primaryKey.remove.old;
+            sql.push('\n'+alterEntity+' '+this.dropPk(old));
+        }
+        for(const name in entity.primaryKey.changed){
+            const _new = entity.primaryKey.changed[name].new;
+            const old = entity.primaryKey.changed[name].old;
+            sql.push('\n'+alterEntity+' '+this.dropPk(old));
+        }
+        for(const name in entity.relation.remove){
+            const old = entity.relation.remove[name].old;
+            sql.push('\n'+alterEntity+' '+this.dropFk(old));
+        }
+        for(const name in entity.relation.changed){
+            const _new = entity.relation.changed[name].new;
+            const old = entity.relation.changed[name].old;
+            sql.push('\n'+alterEntity+' '+this.dropFk(old));
+        }
+
+        //remove columns
+        for(const name in entity.property.remove){
+            const old = entity.property.remove[name].old;
+            sql.push('\n'+alterEntity+' '+this.dropColumn(old));
+        }
+        //add and alter columns
+        for(const name in entity.property.new){
+            const _new = entity.property.new[name].new;
+            sql.push('\n'+alterEntity+' '+this.addColumn(_new));  
+        }
+        for(const name in entity.property.changed){
+            const _new = entity.property.changed[name].new;
+            const old = entity.property.changed[name].old;
+            sql.push('\n'+alterEntity+' '+this.alterColumn(_new));
+        }
+        //add constraints
+        for(const name in entity.primaryKey.new){
+            const _new = entity.primaryKey.new;
+            sql.push('\n'+alterEntity+' '+this.addPk(_new));  
+        }
+        for(const name in entity.primaryKey.changed){
+            const _new = entity.primaryKey.changed[name].new;
+            const old = entity.primaryKey.changed[name].old;
+            sql.push('\n'+alterEntity+' '+this.addPk(_new)); 
+        }
+        for(const name in entity.uniqueKey.new){
+            const _new = entity.uniqueKey.new;
+            sql.push('\n'+alterEntity+' '+this.addUk(_new));
+            sql.push('\n'+this.createUkIndex(entity));   
+        }
+        for(const name in entity.uniqueKey.changed){
+            const _new = entity.uniqueKey.changed[name].new;
+            const old = entity.uniqueKey.changed[name].old;
+            sql.push('\n'+alterEntity+' '+this.addUk(_new));
+            sql.push('\n'+this.createUkIndex(entity));  
+        }
+        for(const name in entity.relation.new){
+            const _new = entity.relation.new[name].new;
+            sql.push('\n'+alterEntity+' '+this.addFk(schema,entity,_new));  
+        }
+        for(const name in entity.relation.changed){
+            const _new = entity.relation.changed[name].new;
+            const old = entity.relation.changed[name].old;
+            sql.push('\n'+alterEntity+' '+this.addFk(schema,entity,_new)); 
+        }
+        //create indexes
+        for(const name in entity.index.new){
+            const _new = entity.index.new[name].new;
+            sql.push('\n'+this.createIndex(entity,_new));
+        }
+        for(const name in entity.index.changed){
+            const _new = entity.index.changed[name].new;
+            const old = entity.index.changed[name].old;
+            sql.push('\n'+this.dropIndex(entity,old));
+            sql.push('\n'+this.createIndex(entity,_new));
+        } 
+    }
+    private removeEntity(sql:string[],entity:any):void
+    {  
+        let text = this.metadata.ddl('dropTable');
+        text =text.replace('{name}',entity.mapping);
+
+        sql.push('\n'+text);
+        if(entity.uniqueKey && entity.uniqueKey.length > 0)
+            sql.push('\n'+this.dropUkIndex(entity));            
+        if(entity.index)
+            for(const name in entity.index)
+                sql.push('\n'+this.dropIndex(entity,entity.index[name]));
+    }
+
+
+    private createColumn(property:Property):string
     {        
         let type = this.metadata.type(property.type);
         type = property.length?type.replace('{0}',property.length.toString()):type;
@@ -235,7 +363,7 @@ class SqlSchemaBuilder
         text =text.replace('{autoincrement}',autoincrement);
         return text;
     }
-    private createPk(entity:any)
+    private createPk(entity:any):string
     {
         let columns:string[]=[];
         let columnTemplate = this.metadata.other('column');
@@ -244,11 +372,37 @@ class SqlSchemaBuilder
             columns.push(columnTemplate.replace('{name}',column.mapping));
         }
         let text = this.metadata.ddl('createPk');
-        text =text.replace('{pkName}','PK_'+entity.mapping);
-        text =text.replace('{pkColumns}',columns.join(','));
+        text =text.replace('{name}',entity.mapping+'_PK');
+        text =text.replace('{columns}',columns.join(','));
         return text;
     }
-    private createIndex(entity:any,index:Index)
+    private createUk(entity:any):string
+    {
+        let columns:string[]=[];
+        let columnTemplate = this.metadata.other('column');
+        for(let i=0;i<entity.uniqueKey.length;i++){
+            const column = entity.property[entity.uniqueKey[i]];
+            columns.push(columnTemplate.replace('{name}',column.mapping));
+        }
+        let text = this.metadata.ddl('createUk');
+        text =text.replace('{name}',entity.mapping+'_UK');
+        text =text.replace('{columns}',columns.join(','));
+        return text;
+    }
+    private createFk(schema:SchemaHelper,entity:any,relation:Relation):string
+    {
+        let column = entity.property[relation.from];
+        let fEntity = schema.getEntity(relation.entity);
+        let fColumn = fEntity.property[relation.to];
+
+        let text = this.metadata.ddl('createFk');
+        text =text.replace('{name}',relation.name);
+        text =text.replace('{column}',column.mapping);
+        text =text.replace('{fTable}',fEntity.mapping);
+        text =text.replace('{fColumn}',fColumn.mapping);
+        return text;
+    }
+    private createIndex(entity:any,index:Index):string
     {
         let columns:string[]=[];
         let columnTemplate = this.metadata.other('column');
@@ -262,7 +416,7 @@ class SqlSchemaBuilder
         text =text.replace('{columns}',columns.join(','));
         return text;
     }
-    private createUkIndex(entity:any)
+    private createUkIndex(entity:any):string
     {
         let columns:string[]=[];
         let columnTemplate = this.metadata.other('column');
@@ -274,6 +428,109 @@ class SqlSchemaBuilder
         text =text.replace('{name}',entity.mapping+'_UK');
         text =text.replace('{table}',entity.mapping);
         text =text.replace('{columns}',columns.join(','));
+        return text;
+    }    
+    private alterColumn(property:Property):string
+    {        
+        let type = this.metadata.type(property.type);
+        type = property.length?type.replace('{0}',property.length.toString()):type;
+        let nullable = property.nullable !== undefined && property.nullable==false?this.metadata.other("notNullable"):"";
+        let autoincrement = property.autoincrement?this.metadata.other("autoincrement"):"";
+
+        let text = this.metadata.ddl('alterColumn');
+        text =text.replace('{name}',property.mapping as string);
+        text =text.replace('{type}',type);
+        text =text.replace('{nullable}',nullable);
+        text =text.replace('{autoincrement}',autoincrement);
+        return text;
+    }
+    private addColumn(property:Property):string
+    {        
+        let type = this.metadata.type(property.type);
+        type = property.length?type.replace('{0}',property.length.toString()):type;
+        let nullable = property.nullable !== undefined && property.nullable==false?this.metadata.other("notNullable"):"";
+        let autoincrement = property.autoincrement?this.metadata.other("autoincrement"):"";
+
+        let text = this.metadata.ddl('addColumn');
+        text =text.replace('{name}',property.mapping as string);
+        text =text.replace('{type}',type);
+        text =text.replace('{nullable}',nullable);
+        text =text.replace('{autoincrement}',autoincrement);
+        return text;
+    }
+    private addPk(entity:any):string
+    {
+        let columns:string[]=[];
+        let columnTemplate = this.metadata.other('column');
+        for(let i=0;i<entity.primaryKey.length;i++){
+            const column = entity.property[entity.primaryKey[i]];
+            columns.push(columnTemplate.replace('{name}',column.mapping));
+        }
+        let text = this.metadata.ddl('addPk');
+        text =text.replace('{name}',entity.mapping+'_PK');
+        text =text.replace('{columns}',columns.join(','));
+        return text;
+    }
+    private addUk(entity:any):string
+    {
+        let columns:string[]=[];
+        let columnTemplate = this.metadata.other('column');
+        for(let i=0;i<entity.uniqueKey.length;i++){
+            const column = entity.property[entity.uniqueKey[i]];
+            columns.push(columnTemplate.replace('{name}',column.mapping));
+        }
+        let text = this.metadata.ddl('addUk');
+        text =text.replace('{name}',entity.mapping+'_UK');
+        text =text.replace('{columns}',columns.join(','));
+        return text;
+    }
+    private addFk(schema:SchemaHelper,entity:any,relation:Relation):string
+    {
+        let column = entity.property[relation.from];
+        let fEntity = schema.getEntity(relation.entity);
+        let fColumn = fEntity.property[relation.to];
+
+        let text = this.metadata.ddl('addFk');
+        text =text.replace('{name}',relation.name);
+        text =text.replace('{column}',column.mapping);
+        text =text.replace('{fTable}',fEntity.mapping);
+        text =text.replace('{fColumn}',fColumn.mapping);
+        return text;
+    }    
+    private dropColumn(property:Property):string
+    {  
+        let text = this.metadata.ddl('dropColumn');
+        text =text.replace('{name}',property.mapping as string);
+        return text;
+    }
+    private dropPk(entity:any):string
+    {  
+        let text = this.metadata.ddl('dropPk');
+        text =text.replace('{name}',entity.mapping+'_PK');
+        return text;
+    }
+    private dropUk(entity:any):string
+    {  
+        let text = this.metadata.ddl('dropPk');
+        text =text.replace('{name}',entity.mapping+'_UK');
+        return text;
+    }
+    private dropFk(relation:Relation):string
+    {  
+        let text = this.metadata.ddl('dropPk');
+        text =text.replace('{name}',relation.name);
+        return text;
+    }
+    private dropIndex(entity:any,index:Index):string
+    {      
+        let text = this.metadata.ddl('dropIndex');
+        text =text.replace('{name}',entity.mapping+'_'+index.name);
+        return text;
+    }
+    private dropUkIndex(entity:any):string
+    {       
+        let text = this.metadata.ddl('dropIndex');
+        text =text.replace('{name}',entity.mapping+'_UK');
         return text;
     }
 }
@@ -299,10 +556,10 @@ export class SqlLanguage extends Language
             this._variants[data.variant] =variant 
         }
     }
-    public schemaSql(delta:Delta,variant:string):string
+    public schemaSql(schema:SchemaHelper,delta:Delta,variant:string):string
     {
         let metadata = this._variants[variant];
-        return new SqlSchemaBuilder(metadata).createSQL(delta);
+        return new SqlSchemaBuilder(metadata).createSQL(schema,delta);
     }
     public compile(node:Node,schema:SchemaHelper,variant:string):Operand
     {

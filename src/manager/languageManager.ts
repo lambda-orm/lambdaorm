@@ -24,12 +24,12 @@ export class LanguageManager
     public addLibrary(value:any){
         this.languages[value.language].addLibrary(value);        
     }
-    public schemaSql(delta:Delta,dialect:string):string
+    public schemaSql(schema:SchemaHelper,delta:Delta,dialect:string):string
     {
         try
         {
             let info =  this.getDialect(dialect);
-            return this.languages[info.language].schemaSql(delta,dialect);
+            return this.languages[info.language].schemaSql(schema,delta,dialect);
         }
         catch(error){
             throw 'schemaSql error: '+error.toString(); 

@@ -1,11 +1,14 @@
 import {Delta,IOrm} from './../model/index'
+import {SchemaHelper} from '../language/index'
 
 export class SchemaDelta
 {
     private delta:Delta;
-    private orm:IOrm  
-    constructor(orm:IOrm,delta:Delta){
+    private orm:IOrm 
+    private schema:SchemaHelper   
+    constructor(orm:IOrm,schema:SchemaHelper,delta:Delta){
         this.orm=orm;
+        this.schema=schema;
         this.delta = delta;
     }
     public serialize():Delta
@@ -14,6 +17,6 @@ export class SchemaDelta
     }
     public sql(dialect:string):string
     {
-        return this.orm.language.schemaSql(this.delta,dialect);
+        return this.orm.language.schemaSql(this.schema,this.delta,dialect);
     }
 }

@@ -6,6 +6,8 @@ import {DefaultLanguage,CoreLib} from './language/default/index'
 import {MySqlConnection}  from './connection/index'
 import modelConfig from './parser/config.json'
 import sqlConfig  from './language/sql/config.json'
+import {Helper} from './helper'
+import {SchemaHelper} from './language/index'
 
 class Orm implements IOrm
 {
@@ -18,7 +20,7 @@ class Orm implements IOrm
     constructor(parserManager:Parser){
         this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
-        this.schemaManager=new SchemaManager(this);           
+        this.schemaManager= new SchemaManager();           
         this.languageManager  = new LanguageManager();
         this.connectionManager= new ConnectionManager();  
     }
@@ -60,9 +62,13 @@ class Orm implements IOrm
         }
     }
     public delta(current:Schema,old?:Schema):SchemaDelta
-    {
-        let delta = this.schemaManager.delta(current,old);
-        return new SchemaDelta(this,delta);        
+    {   
+        let schema = this.schemaManager.transform(current);
+        let schemaHelper =new SchemaHelper(schema);
+        let _current = schema.entity;
+        let _old = old?this.schemaManager.transform(old).entity:null;
+        let delta= Helper.deltaWithSimpleArrays(_current,_old); 
+        return new SchemaDelta(this,schemaHelper,delta);        
     }
     public expression(value:string):Expression
     {

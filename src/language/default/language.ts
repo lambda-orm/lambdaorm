@@ -175,7 +175,7 @@ export class DefaultLanguage extends Language
             this.setContext(p,current);
         } 
     }
-    public schemaSql(delta:Delta,variant:string):string
+    public schemaSql(schema:SchemaHelper,delta:Delta,variant:string):string
     {
         throw 'NotImplemented';
     }
