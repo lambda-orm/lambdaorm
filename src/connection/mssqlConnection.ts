@@ -2,10 +2,13 @@ import {Connection} from './connection'
 import {ConnectionConfig,Parameter} from './../model'
 import { debug } from 'console';
 
+//https://github.com/tediousjs/tedious
 //https://tediousjs.github.io/tedious/getting-started.html
 //https://tediousjs.github.io/tedious/api-datatypes.html
+//https://github.com/tediousjs/tedious/blob/master/examples/transaction.js
 //https://docs.microsoft.com/es-es/sql/connect/node-js/step-3-proof-of-concept-connecting-to-sql-using-node-js?view=sql-server-ver15
 //https://tediousjs.github.io/node-mssql/
+
 
 export class MssqlConnection extends Connection
 {
