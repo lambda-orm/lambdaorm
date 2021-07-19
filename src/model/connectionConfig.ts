@@ -1,6 +1,6 @@
 export interface ConnectionConfig {
     name:string
-    dialect:string // "mysql"| "mssql"| "oracle" | "postgres" | "nomgo"
+    dialect:string 
     schema:string
     host:string
     port:number
