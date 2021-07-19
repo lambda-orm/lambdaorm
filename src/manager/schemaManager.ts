@@ -1,11 +1,14 @@
 import {SchemaHelper} from '../language/index'
-
+import {Helper} from '../helper'
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from './../model/index'
-
+import {SchemaDelta } from './schemaDelta'
+ 
 export class SchemaManager
 {
     private schemas:any
-    constructor(){
+    private orm:IOrm 
+    constructor(orm:IOrm){
+        this.orm=orm;
         this.schemas={}; 
     }
     public add(value:Schema):void
@@ -33,12 +36,15 @@ export class SchemaManager
     {
         return new SchemaHelper(this.schemas[name]);
     }
-    // public delta(current:Schema,old?:Schema):Delta
-    // {
-    //     let _current = this.transform(current).entity;
-    //     let _old = old?this.transform(old).entity:null;
-    //     Delta Helper.deltaWithSimpleArrays(_current,_old);        
-    // }
+    public delta(current:Schema,old?:Schema):SchemaDelta
+    {   
+        let schema = this.transform(current);
+        let schemaHelper =new SchemaHelper(schema);
+        let _current = schema.entity;
+        let _old = old?this.transform(old).entity:null;
+        let delta= Helper.deltaWithSimpleArrays(_current,_old); 
+        return new SchemaDelta(this.orm,schemaHelper,delta);        
+    }
     public transform(source:Schema):any
     {
         let target:any={entity:{},enum:{} };

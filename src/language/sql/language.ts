@@ -1,4 +1,4 @@
-import {IExecutor,Property,Relation,Index,Operand,Context,Delta } from './../../model/index'
+import {IExecutor,Property,Relation,Index,Operand,Context,Delta,Parameter } from './../../model/index'
 import {Node} from './../../parser/index'
 import {Language,SchemaHelper} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -172,12 +172,21 @@ export class SqlExecutor
         let changeCount = await executor.delete(query.sentence,this.params(query.variables,context));
         return changeCount;  
     }
-    protected  params(variables:string[],context:Context):any[]
+    protected  params(variables:string[],context:Context):Parameter[]
     {   
-        let params=[];
+        let params:Parameter[]=[];
         for(const p in variables){
             let variable = variables[p];
-            params.push(context.get(variable));
+            let value = context.get(variable);
+            //TODO: ver si se puede determinar el tipo de la variable desde el parser
+            // , dado que por valor , podria ser null y no podria determinar que tipo corresponde
+            let type="";
+            if(Array.isArray(value))
+                type='array';
+            else
+                //TODO: determine if it is integer or decimal  
+                type=typeof value;
+            params.push({name:variable,type:type,value:value});
         }
         return params;
     }

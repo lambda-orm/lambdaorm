@@ -20,7 +20,7 @@ class Orm implements IOrm
     constructor(parserManager:Parser){
         this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
-        this.schemaManager= new SchemaManager();           
+        this.schemaManager= new SchemaManager(this);           
         this.languageManager  = new LanguageManager();
         this.connectionManager= new ConnectionManager();  
     }
@@ -61,15 +61,15 @@ class Orm implements IOrm
             throw 'compile expression: '+expression+' error: '+error.toString();
         }
     }
-    public delta(current:Schema,old?:Schema):SchemaDelta
-    {   
-        let schema = this.schemaManager.transform(current);
-        let schemaHelper =new SchemaHelper(schema);
-        let _current = schema.entity;
-        let _old = old?this.schemaManager.transform(old).entity:null;
-        let delta= Helper.deltaWithSimpleArrays(_current,_old); 
-        return new SchemaDelta(this,schemaHelper,delta);        
-    }
+    // public delta(current:Schema,old?:Schema):SchemaDelta
+    // {   
+    //     let schema = this.schemaManager.transform(current);
+    //     let schemaHelper =new SchemaHelper(schema);
+    //     let _current = schema.entity;
+    //     let _old = old?this.schemaManager.transform(old).entity:null;
+    //     let delta= Helper.deltaWithSimpleArrays(_current,_old); 
+    //     return new SchemaDelta(this,schemaHelper,delta);        
+    // }
     public expression(value:string):Expression
     {
         return new Expression(this,value)

@@ -167,7 +167,7 @@ async function applySchema(orm,schemas){
   let old = schemas['northwind-old'];
   let current = schemas['northwind'];
   // await exec( async()=>(orm.delta(current).serialize()));
-  await exec( async()=>(orm.delta(current).sql('mysql')));
+  await exec( async()=>(orm.schema.delta(current).sql('mysql')));
 
   // orm.schema.delta('northwind',changes).execute('northwind');
   // orm.schema.delta('northwind',changes).sql('mysql');

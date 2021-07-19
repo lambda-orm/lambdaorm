@@ -9,3 +9,4 @@ export * from './operand';
 export * from './iConnectionManager';
 export * from './iOrm';
 export * from './delta';
+export * from './parameter';
