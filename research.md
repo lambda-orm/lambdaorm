@@ -33,6 +33,7 @@ npx mocha
 - [express-typescript](https://rsbh.dev/blog/rest-api-with-express-typescript)
 
 ## orm examples
+- [knexjs](https://knexjs.org/)
 - [refineorm](https://www.npmjs.com/package/refineorm)
 - [arrow orm](https://www.npmjs.com/package/arrow-orm)
 - [typeorm](https://github.com/typeorm/typeorm)
@@ -41,6 +42,12 @@ npx mocha
 - [prisma](https://github.com/prisma/prisma)
 - [sequelize](https://github.com/sequelize/sequelize)
 - [objection](https://github.com/Vincit/objection.js)
+
+## api builder to databases
+- [PostgREST](https://postgrest.org/en/stable/api.html#custom-queries)
+- [graphile](https://www.graphile.org/)
+- [postgraphile](https://github.com/graphile/postgraphile)
+
 
 ## connections
 ### pools
