@@ -1,6 +1,6 @@
-import {Language,SchemaHelper} from '../language/index'
 import {Node,Parser} from '../parser/index'
-import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager, Delta } from '../model/index'
+import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager, Delta,ILanguage } from '../model/index'
+import {SchemaHelper} from './schemaHelper'
 
 export class DialectManager
 {
@@ -18,7 +18,7 @@ export class DialectManager
     {
         return this.dialects[dialect];
     }
-    public addLanguage(value:any){
+    public addLanguage(value:ILanguage){
         this.languages[value.name] =value;
     }
     public schemaSql(schema:SchemaHelper,delta:Delta,dialect:string):string
@@ -26,7 +26,8 @@ export class DialectManager
         try
         {
             let info =  this.get(dialect);
-            return this.languages[info.language].schemaSql(schema,delta,dialect);
+            let language = this.languages[info.language] as ILanguage
+            return language.schema.create(delta,dialect,schema);
         }
         catch(error){
             throw 'schemaSql error: '+error.toString(); 
@@ -36,9 +37,9 @@ export class DialectManager
     {       
         try
         {      
-            let dialectInfo =  this.get(dialect);                
-            let _language = this.languages[dialectInfo.language] as Language
-            return _language.compile(node,schema,dialect);
+            let info =  this.get(dialect);                
+            let language = this.languages[info.language] as ILanguage
+            return language.operand.build(node,dialect,schema);
         }
         catch(error){
             console.log(error)
@@ -50,7 +51,8 @@ export class DialectManager
         try
         {
             let info =  this.get(dialect);
-            return this.languages[info.language].serialize(operand);
+            let language = this.languages[info.language] as ILanguage
+            return language.operand.serialize(operand);
         }
         catch(error){
             throw 'serialize: '+operand.name+' error: '+error.toString(); 
@@ -61,7 +63,8 @@ export class DialectManager
         try
         {
             let info =  this.get(dialect);
-            return this.languages[info.language].deserialize(json);
+            let language = this.languages[info.language] as ILanguage
+            return language.operand.deserialize(json);
         }
         catch(error){
             throw 'deserialize: '+json+' error: '+error.toString(); 
@@ -72,7 +75,8 @@ export class DialectManager
         try
         {
             let info =  this.get(dialect);
-            return this.languages[info.language].sql(operand);
+            let language = this.languages[info.language] as ILanguage
+            return language.operand.sql(operand);
         }
         catch(error){
             throw 'sql: '+operand.name+' error: '+error.toString(); 
@@ -83,7 +87,8 @@ export class DialectManager
         try
         {
             let info =  this.get(dialect);
-            return this.languages[info.language].model(operand);
+            let language = this.languages[info.language] as ILanguage
+            return language.operand.model(operand);
         }
         catch(error){
             throw 'query: '+operand.name+' error: '+error.toString(); 
@@ -93,11 +98,11 @@ export class DialectManager
     {
         try{
             let info =  this.get(dialect); 
-            let _language = this.languages[info.language] as Language            
+            let language = this.languages[info.language] as ILanguage          
             if(executor){ 
-                return await _language.execute(operand,context,executor);                
+                return await language.executor.execute(operand,context,executor);                
             }else{
-                return await _language.execute(operand,context);
+                return await language.executor.execute(operand,context);
             }            
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 

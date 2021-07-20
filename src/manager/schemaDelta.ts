@@ -1,5 +1,5 @@
 import {Delta,IOrm} from './../model/index'
-import {SchemaHelper} from '../language/index'
+import {SchemaHelper} from './schemaHelper'
 
 export class SchemaDelta
 {

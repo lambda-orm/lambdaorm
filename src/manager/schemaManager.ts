@@ -1,4 +1,4 @@
-import {SchemaHelper} from '../language/index'
+import {SchemaHelper} from './schemaHelper'
 import {Helper} from '../helper'
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from './../model/index'
 import {SchemaDelta } from './schemaDelta'

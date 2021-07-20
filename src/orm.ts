@@ -1,13 +1,11 @@
 import {IExecutor,ITransaction,Dialect,Cache,Schema,IConnectionManager,Operand,IOrm,Context } from './model/index'
 import {Model,Parser} from './parser/index'
-import {SchemaManager,DialectManager,Expression,CompiledExpression,MemoryCache,ConnectionManager,SchemaDelta }  from './manager/index'
+import {SchemaManager,DialectManager,Expression,CompiledExpression,MemoryCache,ConnectionManager}  from './manager/index'
 import {SqlLanguage} from './language/sql/index'
-import {MemoryLanguage,CoreLib} from './language/memory/index'
+// import {MemoryLanguage,CoreLib} from './language/memory/index'
 import {MySqlConnection}  from './connection/index'
 import modelConfig from './parser/config.json'
 import sqlConfig  from './language/sql/config.json'
-import {Helper} from './helper'
-import {SchemaHelper} from './language/index'
 
 class Orm implements IOrm
 {
@@ -134,13 +132,13 @@ export =(function() {
 
         orm= new Orm(parser);  
         
-        let memoryLanguage =new MemoryLanguage();
-        memoryLanguage.addLibrary(new CoreLib());
+        // let memoryLanguage =new MemoryLanguage();
+        // memoryLanguage.addLibrary(new CoreLib());
 
         let sqlLanguage =  new SqlLanguage();
         sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
         
-        orm.dialect.addLanguage(memoryLanguage);
+        // orm.dialect.addLanguage(memoryLanguage);
         orm.dialect.addLanguage(sqlLanguage);        
             
         orm.dialect.add({name:'mysql',language:'sql'});

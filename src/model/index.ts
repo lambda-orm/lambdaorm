@@ -10,3 +10,4 @@ export * from './iConnectionManager';
 export * from './iOrm';
 export * from './delta';
 export * from './parameter';
+export * from './iLanguage';
