@@ -1,4 +1,5 @@
 export * from './connection';
+export * from './connectionmanager';
 export * from './executor';
 export * from './transaction';
 export * from './dialects/mysql';
