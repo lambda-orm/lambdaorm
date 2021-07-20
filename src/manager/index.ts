@@ -1,6 +1,6 @@
 export * from './compiledExpression';
 export * from './expression';
-export * from './languageManager';
+export * from './dialectManager';
 export * from './nodeExpression';
 export * from './schemaManager';
 export * from './memoryCache';

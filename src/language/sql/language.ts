@@ -4,7 +4,7 @@ import {Language,SchemaHelper} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
-import {SqlLanguageVariant} from './variant'
+import {SqlDialectMetadata} from './dialectMetadata'
 
 export class SqlEntityContext
 {    
@@ -194,8 +194,8 @@ export class SqlExecutor
 
 class SqlSchemaBuilder
 {
-    private metadata:SqlLanguageVariant
-    constructor(metadata:SqlLanguageVariant){
+    private metadata:SqlDialectMetadata
+    constructor(metadata:SqlDialectMetadata){
         this.metadata = metadata;
     }
 
@@ -711,27 +711,27 @@ class SqlSchemaBuilder
 
 export class SqlLanguage extends Language
 {
-    private _variants:any
+    private dialects:any
     private executor:SqlExecutor
     constructor(){
         super('sql');
-        this._variants={};
+        this.dialects={};
         this.executor = new SqlExecutor();
     }
     public addLibrary(library:any):void
     {
         this._libraries[library.name] =library;
-
-        for(const p in library.variants){
-            let data =  library.variants[p];
-            let variant = new SqlLanguageVariant(data.variant);
-            variant.addVariant(data);
-            this._variants[data.variant] =variant 
+        for(const name in library.dialects){
+            let data =  library.dialects[name];
+            let dialect = new SqlDialectMetadata(name);
+            dialect.add(data);
+            this.dialects[name] =dialect 
         }
     }
+    
     public schemaSql(schema:SchemaHelper,delta:Delta,variant:string):string
     {
-        let metadata = this._variants[variant];
+        let metadata = this.dialects[variant];
         return new SqlSchemaBuilder(metadata).createSQL(schema,delta);
     }
     public compile(node:Node,schema:SchemaHelper,variant:string):Operand
@@ -739,7 +739,7 @@ export class SqlLanguage extends Language
         try{
             let operand = this.nodeToOperand(node,schema,new SqlContext(new SqlEntityContext()));
             operand = this.reduce(operand);
-            let metadata = this._variants[variant];
+            let metadata = this.dialects[variant];
             let sqlSquery = this.createQuery(operand as SqlSentence,metadata);            
             return this.setParent(sqlSquery);
         } 
@@ -786,7 +786,7 @@ export class SqlLanguage extends Language
     {
         return operand
     }
-    protected createQuery(sqlSentence:SqlSentence,metadata:SqlLanguageVariant):SqlQuery
+    protected createQuery(sqlSentence:SqlSentence,metadata:SqlDialectMetadata):SqlQuery
     { 
        let children=[];
        let includes = sqlSentence.getIncludes();       

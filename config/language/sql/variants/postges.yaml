@@ -1,4 +1,0 @@
-language: sql
-variant: postgres
-name: postgres
-_extends: [base]

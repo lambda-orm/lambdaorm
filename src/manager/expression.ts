@@ -1,9 +1,6 @@
 import {IOrm,ITransaction,ConnectionConfig} from './../model'
-import {LanguageManager} from './languageManager'
-import {SchemaManager} from './schemaManager'
 import {CompiledExpression} from './compiledExpression'
 import {NodeExpression} from './nodeExpression'
-import {Node,Parser} from './../parser/index'
 
 export class Expression
 {

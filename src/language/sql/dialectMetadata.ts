@@ -1,5 +1,5 @@
 
-export class SqlLanguageVariant 
+export class SqlDialectMetadata
 {
     public name:string
     private _operators?:any={}
@@ -41,36 +41,36 @@ export class SqlLanguageVariant
     {
         return this._types[name];
     }
-    public addVariant(variant:any):void
+    public add(dialect:any):void
     {
-        for(const type in variant.operators){
+        for(const type in dialect.operators){
             let operands = type == 'ternary'?3:type=='binary'?2:1;
-            for(const name in variant.operators[type]){
-                let template= variant.operators[type][name];
+            for(const name in dialect.operators[type]){
+                let template= dialect.operators[type][name];
                 if(!this._operators[name])this._operators[name]= {}; 
                 this._operators[name][operands] = template;
             }
         }
-        for(const type in variant.functions){
-            let list = variant.functions[type];            
+        for(const type in dialect.functions){
+            let list = dialect.functions[type];            
             for(const name in list){
                 this._functions[name] = {type:type,template:list[name]}
             } 
         }
-        for(const name in variant.others){
-            let template = variant.others[name];
+        for(const name in dialect.others){
+            let template = dialect.others[name];
             this._others[name] = template; 
         }
-        for(const name in variant.arrows){
-            let template = variant.arrows[name];
+        for(const name in dialect.arrows){
+            let template = dialect.arrows[name];
             this._arrows[name] = template; 
         }
-        for(const name in variant.ddl){
-            let template = variant.ddl[name];
+        for(const name in dialect.ddl){
+            let template = dialect.ddl[name];
             this._ddl[name] = template; 
         }
-        for(const name in variant.types){
-            let template = variant.types[name];
+        for(const name in dialect.types){
+            let template = dialect.types[name];
             this._types[name] = template; 
         }
     }
@@ -98,6 +98,6 @@ export class SqlLanguageVariant
         catch(error){
             throw 'error with function: '+name;
         }
-    }
+    }    
 }
 

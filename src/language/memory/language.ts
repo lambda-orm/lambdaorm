@@ -1,15 +1,16 @@
-import {IExecutor,Operand,Context,Delta } from './../../model/index'
-import {Node} from './../../parser/index'
+import {IExecutor,Operand,Context,Delta } from '../../model/index'
+import {Node} from '../../parser/index'
 import {SchemaHelper,Language,Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../index'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 
-export class DefaultLanguage extends Language
+export class MemoryLanguage extends Language
 {
     constructor(){
         super('default');
         this.operators={};
         this.functions={};
     }
+    
     addLibrary(library:any){
         this._libraries[library.name] =library;
 

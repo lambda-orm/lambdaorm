@@ -1,13 +1,13 @@
 import {Entity,Property,Operand} from './../../model/index'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from './../index'
-import {SqlLanguageVariant} from './variant'
+import {SqlDialectMetadata} from './dialectMetadata'
 import {Helper} from './../../helper'
 
 const SqlString = require('sqlstring');
 
 export class SqlConstant extends Constant
 {   
-    build(metadata:SqlLanguageVariant){ 
+    build(metadata:SqlDialectMetadata){ 
         switch (this.type) {
             case 'string':
                 return  SqlString.escape(this.name);
@@ -43,7 +43,7 @@ export class SqlField extends Operand
         this.type = type; 
     }
 
-    build(metadata:SqlLanguageVariant){ 
+    build(metadata:SqlDialectMetadata){ 
         let parts = this.name.split('.');
         if(parts.length == 1){
             let name = parts[0];
@@ -60,14 +60,14 @@ export class SqlField extends Operand
 }
 export class SqlKeyValue extends KeyValue
 {
-    build(metadata:SqlLanguageVariant):any
+    build(metadata:SqlDialectMetadata):any
     {
         return this.children[0].build(metadata);
     }
 }
 export class SqlArray extends Array
 {
-    build(metadata:SqlLanguageVariant){ 
+    build(metadata:SqlDialectMetadata){ 
         let text = ''
         for(let i=0;i<this.children.length;i++){
             text += (i>0?', ':'')+this.children[i].build(metadata);              
@@ -77,7 +77,7 @@ export class SqlArray extends Array
 }
 export class SqlObject extends Obj
 {
-    build(metadata:SqlLanguageVariant){       
+    build(metadata:SqlDialectMetadata){       
         let text= '';
         let template = metadata.function('as').template;
         for(let i=0;i<this.children.length;i++){
@@ -91,7 +91,7 @@ export class SqlObject extends Obj
 } 
 export class SqlBlock extends Block
 {
-    build(metadata:SqlLanguageVariant){ 
+    build(metadata:SqlDialectMetadata){ 
         let text = ''
         for(let i=0;i<this.children.length;i++){
             text += (this.children[i].build(metadata)+';');    
@@ -104,7 +104,7 @@ export class SqlOperator extends Operator
     constructor(name:string,children:Operand[]=[]){
         super(name,children);
     }    
-    build(metadata:SqlLanguageVariant){ 
+    build(metadata:SqlDialectMetadata){ 
         let text = metadata.operator(this.name,this.children.length);
         for(let i=0;i<this.children.length;i++){
             text = text.replace('{'+i+'}',this.children[i].build(metadata));
@@ -117,7 +117,7 @@ export class SqlFunctionRef extends FunctionRef
     constructor(name:string,children:Operand[]=[]){
         super(name,children); 
     }    
-    build(metadata:SqlLanguageVariant){       
+    build(metadata:SqlDialectMetadata){       
         let funcData = metadata.function(this.name);
         if(!funcData) throw 'Function '+this.name+' not found';        
         let text= '';
@@ -142,7 +142,7 @@ export class SqlArrowFunction extends ArrowFunction
     constructor(name:string,children:Operand[]=[]){
         super(name,children); 
     }    
-    build(metadata:SqlLanguageVariant){       
+    build(metadata:SqlDialectMetadata){       
         let template = metadata.arrow(this.name);
         for(let i=0;i<this.children.length;i++){
             template =template.replace('{'+i+'}',this.children[i].build(metadata));
@@ -174,7 +174,7 @@ export class SqlSentence extends FunctionRef
     {
         return this.children.filter(p=> p instanceof SqlSentenceInclude);
     } 
-    public build(metadata:SqlLanguageVariant){
+    public build(metadata:SqlDialectMetadata){
 
         let map =  this.children.find(p=> p.name=='map');   
         let first = this.children.find(p=> p.name=='first'); 
@@ -229,7 +229,7 @@ export class SqlSentence extends FunctionRef
         }        
         return text;
     }
-    protected solveJoins(joins:Operand[],metadata:SqlLanguageVariant)
+    protected solveJoins(joins:Operand[],metadata:SqlDialectMetadata)
     {
         let text = '';
         
@@ -244,7 +244,7 @@ export class SqlSentence extends FunctionRef
         }
         return text;
     }
-    protected solveFrom(from:Operand,metadata:SqlLanguageVariant)
+    protected solveFrom(from:Operand,metadata:SqlDialectMetadata)
     {
         let template = metadata.other('from');
         let parts = from.name.split('.');
@@ -285,7 +285,7 @@ export class SqlHaving extends SqlArrowFunction {}
 export class SqlSort extends SqlArrowFunction {}
 export class SqlInsert extends SqlArrowFunction 
 {
-    build(metadata:SqlLanguageVariant){       
+    build(metadata:SqlDialectMetadata){       
         let template = metadata.arrow('insert');
         let templateColumn = metadata.other('column');
         let fields:string[] = [];
@@ -308,7 +308,7 @@ export class SqlInsert extends SqlArrowFunction
 // class SqlInsertFrom extends SqlArrowFunction {}
 export  class SqlUpdate extends SqlArrowFunction
 {
-    build(metadata:SqlLanguageVariant){       
+    build(metadata:SqlDialectMetadata){       
         let template = metadata.arrow('update');
         let templateColumn = metadata.other('column');
         let templateAssing = metadata.operator('=',2);
@@ -335,7 +335,7 @@ export  class SqlUpdate extends SqlArrowFunction
 // class SqlUpdateFrom extends SqlArrowFunction {}
 export class SqlDelete extends SqlArrowFunction {
 
-    build(metadata:SqlLanguageVariant){       
+    build(metadata:SqlDialectMetadata){       
         let template = metadata.arrow('delete');               
         let parts = this.name.split('.');
         template =template.replace('{name}',parts[0]); 

@@ -1,4 +1,4 @@
-import {Operand} from './../../model'
+import {Operand} from '../../model'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from '../operands'
 
 export class DefaultKeyValue extends KeyValue

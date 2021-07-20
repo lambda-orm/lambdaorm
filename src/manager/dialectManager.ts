@@ -1,8 +1,8 @@
 import {Language,SchemaHelper} from '../language/index'
-import {Node,Parser} from './../parser/index'
-import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager, Delta } from './../model/index'
+import {Node,Parser} from '../parser/index'
+import {Dialect,IExecutor,ConnectionConfig,Cache,Operand,Context,IConnectionManager, Delta } from '../model/index'
 
-export class LanguageManager
+export class DialectManager
 {
     private languages:any
     private dialects:any
@@ -10,25 +10,22 @@ export class LanguageManager
         this.languages={};
         this.dialects={};
     }
-    public addDialect(value:Dialect):void
+    public add(value:Dialect):void
     {
         this.dialects[value.name] =value;
     }
-    public getDialect(dialect:string):Dialect
+    private get(dialect:string):Dialect
     {
         return this.dialects[dialect];
     }
-    public add(value:any){
+    public addLanguage(value:any){
         this.languages[value.name] =value;
-    }
-    public addLibrary(value:any){
-        this.languages[value.language].addLibrary(value);        
     }
     public schemaSql(schema:SchemaHelper,delta:Delta,dialect:string):string
     {
         try
         {
-            let info =  this.getDialect(dialect);
+            let info =  this.get(dialect);
             return this.languages[info.language].schemaSql(schema,delta,dialect);
         }
         catch(error){
@@ -39,9 +36,9 @@ export class LanguageManager
     {       
         try
         {      
-            let dialectInfo =  this.getDialect(dialect);                
+            let dialectInfo =  this.get(dialect);                
             let _language = this.languages[dialectInfo.language] as Language
-            return _language.compile(node,schema,dialectInfo.variant);
+            return _language.compile(node,schema,dialect);
         }
         catch(error){
             console.log(error)
@@ -52,7 +49,7 @@ export class LanguageManager
     {
         try
         {
-            let info =  this.getDialect(dialect);
+            let info =  this.get(dialect);
             return this.languages[info.language].serialize(operand);
         }
         catch(error){
@@ -63,7 +60,7 @@ export class LanguageManager
     {
         try
         {
-            let info =  this.getDialect(dialect);
+            let info =  this.get(dialect);
             return this.languages[info.language].deserialize(json);
         }
         catch(error){
@@ -74,7 +71,7 @@ export class LanguageManager
     {
         try
         {
-            let info =  this.getDialect(dialect);
+            let info =  this.get(dialect);
             return this.languages[info.language].sql(operand);
         }
         catch(error){
@@ -85,7 +82,7 @@ export class LanguageManager
     {
         try
         {
-            let info =  this.getDialect(dialect);
+            let info =  this.get(dialect);
             return this.languages[info.language].model(operand);
         }
         catch(error){
@@ -95,7 +92,7 @@ export class LanguageManager
     public async execute(operand:Operand,dialect:string,context:Context,executor?:IExecutor):Promise<any>
     {
         try{
-            let info =  this.getDialect(dialect); 
+            let info =  this.get(dialect); 
             let _language = this.languages[info.language] as Language            
             if(executor){ 
                 return await _language.execute(operand,context,executor);                

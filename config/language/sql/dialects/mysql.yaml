@@ -1,7 +1,4 @@
-language: sql
-variant: mysql
-name: mysql
-_extends: [base]
+_extends: [sql]
 types:
   bool: TINYINT(1)
 others:
