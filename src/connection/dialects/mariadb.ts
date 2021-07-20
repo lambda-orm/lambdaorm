@@ -1,18 +1,14 @@
-import {Connection} from './connection'
-import {ConnectionConfig,Parameter} from './../model'
-import { promisify } from 'util';
+import {Connection} from './../connection'
+import {ConnectionConfig,Parameter} from '../../model'
+import { debug } from 'console';
 
-// import * as mysql from 'mysql2/promise'
-
-
-
-export class MySqlConnection extends Connection
+export class MariaDbConnection extends Connection
 {
-    private cnx:any //mysql.Connection
+    private cnx:any
     private lib:any
     constructor(config:ConnectionConfig){        
         super(config);
-        this.lib= require('mysql2/promise');
+        this.lib= require('mariadb');
     }
     public async connect():Promise<void>
     { 
@@ -22,24 +18,22 @@ export class MySqlConnection extends Connection
             user: this.config.user,
             password: this.config.password,
             database: this.config.database,
-            waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0
+            waitForConnections: true
+            // connectionLimit: 10,
+            // queueLimit: 0
         });
     }
     public async disconnect():Promise<void>
-    {
-        // // Don't disconnect connections with CLOSED state
-        // if (this.cnx._closing) {
-        //   debug('connection tried to disconnect but was already at CLOSED state');
-        //   return;
-        // }
-        if(this.cnx)  
-          await promisify(callback => this.cnx?.end(callback))();
+    {       
+        if (!this.cnx || !this.cnx.isValid()) {
+            debug('connection tried to disconnect but was already at CLOSED state');
+            return;
+        }
+        return await this.cnx.end();        
     }
     public async validate():Promise<Boolean> 
     {
-        return !!this.cnx;
+        return !!this.cnx && this.cnx.isValid();
     }
     public async query(sql:string,params:Parameter[]):Promise<any>
     {        
@@ -88,6 +82,7 @@ export class MySqlConnection extends Connection
         }
         //Solve array parameters , example IN(?) where ? is array[]
         // https://github.com/sidorares/node-mysql2/issues/476
+
         let values:any[]=[];
         for(let i=0;i<params.length;i++){
             let param = params[i];

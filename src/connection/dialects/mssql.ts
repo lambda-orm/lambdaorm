@@ -1,5 +1,5 @@
-import {Connection} from './connection'
-import {ConnectionConfig,Parameter} from './../model'
+import {Connection} from  './../connection'
+import {ConnectionConfig,Parameter} from '../../model'
 import { debug } from 'console';
 
 //https://github.com/tediousjs/tedious
