@@ -7,7 +7,7 @@ export interface IOrm
     
     get parser():Parser;
     get schema():SchemaManager;
-    getLanguage(dialect:string):ILanguage 
+    language(dialect:string):ILanguage 
     // get dialect():DialectManager;
     get connection():IConnectionManager;    
     expression(value:string):Expression;

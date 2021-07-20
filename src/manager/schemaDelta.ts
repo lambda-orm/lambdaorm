@@ -17,6 +17,6 @@ export class SchemaDelta
     }
     public sql(dialect:string):string
     {
-        return this.orm.getLanguage(dialect).schema.create(this.delta,dialect,this.schema);
+        return this.orm.language(dialect).schema.create(this.delta,dialect,this.schema);
     }
 }

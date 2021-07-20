@@ -2,7 +2,6 @@ import {Node} from './../parser/index'
 import {SchemaHelper}  from '../manager/schemaHelper'
 import {IExecutor,Operand,Context,Delta } from './../model/index'
 
-
 export abstract class OperandExecutor
 {
     public abstract execute(operand:Operand,context:Context,executor?:IExecutor):Promise<any>;
@@ -58,6 +57,8 @@ export abstract class OperandManager
         return {n:operand.name,t:operand.constructor.name,c:children}; 
     }
     protected abstract _deserialize(serialized:any):Operand
+
+    
 }
 
 export abstract class SchemaBuilder
