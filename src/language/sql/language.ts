@@ -4,8 +4,9 @@ import {OperandManager} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
+import {SchemaHelper} from '../../schema/schemaHelper'
 import {SqlDialectMetadata} from './dialectMetadata'
-import {SchemaHelper} from './../../manager/schemaHelper'
+
 
 export class SqlEntityContext
 {    

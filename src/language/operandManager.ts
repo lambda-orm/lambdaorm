@@ -1,6 +1,6 @@
 import {Node} from './../parser'
-import {SchemaHelper}  from '../manager/schemaHelper'
 import {Operand,IOperandManager } from './../model'
+import {SchemaHelper}  from '../schema/schemaHelper'
 
 export abstract class OperandManager implements IOperandManager
 {   

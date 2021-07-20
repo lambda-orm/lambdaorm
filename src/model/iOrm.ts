@@ -1,6 +1,7 @@
 import {ITransaction,IConnectionManager,Operand,ILanguage } from './../model/index';
 import {Parser} from './../parser/index'
-import {SchemaManager,Expression,CompiledExpression}  from './../manager/index'
+import {Expression,CompiledExpression}  from './../manager'
+import {SchemaManager}  from './../schema'
 
 export interface IOrm
 {    
@@ -8,7 +9,6 @@ export interface IOrm
     get parser():Parser;
     get schema():SchemaManager;
     language(dialect:string):ILanguage 
-    // get dialect():DialectManager;
     get connection():IConnectionManager;    
     expression(value:string):Expression;
     lambda(value:Function):Expression;

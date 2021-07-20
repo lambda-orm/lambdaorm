@@ -2,7 +2,7 @@ import {Operand,Delta} from '../../model'
 import {Node} from '../../parser'
 import {OperandManager,Constant,Variable,Operator} from '../'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
-import {SchemaHelper} from './../../manager/schemaHelper'
+import {SchemaHelper} from '../../schema/schemaHelper'
 import {MemoryLanguage} from './language'
 
 export class MemoryOperandManager extends OperandManager

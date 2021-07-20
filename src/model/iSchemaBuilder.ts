@@ -1,5 +1,5 @@
-import {SchemaHelper}  from '../manager/schemaHelper'
 import {Delta } from './delta'
+import {SchemaHelper}  from '../schema/schemaHelper'
 
 export interface ISchemaBuilder
 {

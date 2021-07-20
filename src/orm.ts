@@ -1,6 +1,7 @@
 import {ITransaction,Cache,IConnectionManager,Operand,IOrm,Context,ILanguage } from './model'
 import {Model,Parser} from './parser/index'
-import {SchemaManager,Expression,CompiledExpression,MemoryCache,}  from './manager'
+import {Expression,CompiledExpression,MemoryCache}  from './manager'
+import {SchemaManager}  from './schema'
 import {ConnectionManager,MySqlConnection} from './connection'
 import {SqlLanguage} from './language/sql'
 import {MemoryLanguage,CoreLib} from './language/memory'

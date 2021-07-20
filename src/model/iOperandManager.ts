@@ -1,5 +1,5 @@
 import {Node} from './../parser'
-import {SchemaHelper}  from '../manager/schemaHelper'
+import {SchemaHelper}  from '../schema/schemaHelper'
 import {Operand } from './operand'
 
 export interface IOperandManager
