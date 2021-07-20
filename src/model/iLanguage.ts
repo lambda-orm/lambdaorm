@@ -1,10 +1,11 @@
-import {OperandManager,SchemaBuilder,OperandExecutor} from './../language'
-
+import {IOperandManager} from './iOperandManager'
+import {ISchemaBuilder} from './iSchemaBuilder'
+import {IOperandExecutor} from './iOperandExecutor'
 export interface ILanguage
 {   
     name:string
     dialects:any
-    get schema():SchemaBuilder
-    get operand():OperandManager
-    get executor():OperandExecutor
+    get schema():ISchemaBuilder
+    get operand():IOperandManager
+    get executor():IOperandExecutor
 }

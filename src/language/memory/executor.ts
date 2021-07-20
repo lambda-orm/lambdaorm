@@ -1,12 +1,10 @@
-import {IExecutor,Operand,Context} from '../../model'
-import {OperandExecutor} from '../'
+import {IExecutor,Operand,Context,IOperandExecutor} from '../../model'
 import {MemoryLanguage} from './language'
 
-export class MemoryExecutor extends OperandExecutor
+export class MemoryExecutor implements IOperandExecutor
 {
     private language:MemoryLanguage
     constructor(language:MemoryLanguage){
-        super();
         this.language=language;
     }
     public execute(operand:Operand,context:Context,scheme?:any,executor?:IExecutor):any{          

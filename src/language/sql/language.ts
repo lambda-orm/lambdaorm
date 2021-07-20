@@ -1,6 +1,6 @@
-import {IExecutor,Property,Relation,Index,Operand,Context,Delta,Parameter,ILanguage } from './../../model/index'
+import {IExecutor,Property,Relation,Index,Operand,Context,Delta,Parameter,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder } from './../../model'
 import {Node} from './../../parser/index'
-import {OperandManager,SchemaBuilder,OperandExecutor} from '../index'
+import {OperandManager} from '../index'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'
@@ -40,11 +40,10 @@ export class SqlContext
         this.aliases={}
     }
 }
-export class SqlExecutor extends OperandExecutor
+export class SqlExecutor implements IOperandExecutor
 {
     private language:SqlLanguage
     constructor(language:SqlLanguage){
-        super();
         this.language=language;
     }
 
@@ -199,11 +198,10 @@ export class SqlExecutor extends OperandExecutor
         return params;
     }
 }
-export class SqlSchemaBuilder extends SchemaBuilder
+export class SqlSchemaBuilder implements ISchemaBuilder
 {    
     private language:SqlLanguage
     constructor(language:SqlLanguage){
-        super();
         this.language=language;
     }
 
@@ -1461,15 +1459,15 @@ export class SqlLanguage implements ILanguage
             this.dialects[name] =dialect 
         }
     }
-    public get schema():SchemaBuilder
+    public get schema():ISchemaBuilder
     {
         return this.schemaBuilder;
     }
-    public get operand():OperandManager
+    public get operand():IOperandManager
     {
         return this.operandManager;
     }
-    public get executor():OperandExecutor
+    public get executor():IOperandExecutor
     {
         return this.operandExecutor;
     }

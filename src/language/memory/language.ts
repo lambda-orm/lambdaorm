@@ -1,5 +1,5 @@
-import {Operand,Context,ILanguage} from '../../model/index'
-import {OperandManager,Variable,ArrowFunction,SchemaBuilder,OperandExecutor} from '../index'
+import {Operand,Context,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../../model'
+import {Variable,ArrowFunction} from '../'
 import {MemoryOperandManager} from './operandManager'
 import {MemoryExecutor} from './executor'
 
@@ -76,15 +76,15 @@ export class MemoryLanguage implements ILanguage
             this.setContext(p,current);
         } 
     }
-    public get schema():SchemaBuilder
+    public get schema():ISchemaBuilder
     {
         throw 'NotImplemented';
     }
-    public get operand():OperandManager
+    public get operand():IOperandManager
     {
         return this.operandManager;
     }
-    public get executor():OperandExecutor
+    public get executor():IOperandExecutor
     {
         return this.operandExecutor;
     }

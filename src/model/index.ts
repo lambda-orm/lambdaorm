@@ -11,3 +11,6 @@ export * from './iOrm';
 export * from './delta';
 export * from './parameter';
 export * from './iLanguage';
+export * from './iOperandExecutor';
+export * from './iOperandManager';
+export * from './iSchemaBuilder';
