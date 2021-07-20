@@ -1,6 +1,6 @@
-import {IExecutor,ITransaction,Dialect,Cache,Schema,IConnectionManager,Operand,IOrm,Context } from './model/index'
+import {IExecutor,ITransaction,Dialect,Cache,Schema,IConnectionManager,Operand,IOrm,Context,ILanguage } from './model/index'
 import {Model,Parser} from './parser/index'
-import {SchemaManager,DialectManager,Expression,CompiledExpression,MemoryCache,ConnectionManager}  from './manager/index'
+import {SchemaManager,Expression,CompiledExpression,MemoryCache,ConnectionManager}  from './manager/index'
 import {SqlLanguage} from './language/sql/index'
 // import {MemoryLanguage,CoreLib} from './language/memory/index'
 import {MySqlConnection}  from './connection/index'
@@ -12,15 +12,35 @@ class Orm implements IOrm
     private cache:Cache
     private parserManager:Parser
     private schemaManager:SchemaManager
-    private dialectManager:DialectManager
+    // private dialectManager:DialectManager
     private connectionManager:IConnectionManager
+    private languages:any
+    private dialects:any
 
     constructor(parserManager:Parser){
+        this.languages={};
+        this.dialects={};
         this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
-        this.dialectManager  = new DialectManager();
+        // this.dialectManager  = new DialectManager();
         this.connectionManager= new ConnectionManager();  
+    }
+    public addDialect(value:Dialect):void
+    {
+        this.dialects[value.name] =value;
+    }
+    private getDialect(dialect:string):Dialect
+    {
+        return this.dialects[dialect];
+    }
+    public addLanguage(value:ILanguage){
+        this.languages[value.name] =value;
+    }
+    public getLanguage(dialect:string):ILanguage 
+    {
+        let info =  this.dialects[dialect];
+        return this.languages[info.language] as ILanguage
     }
     public get parser():Parser
     {
@@ -30,10 +50,10 @@ class Orm implements IOrm
     {
         return this.schemaManager;
     }
-    public get dialect():DialectManager
-    {
-        return this.dialectManager;
-    }
+    // public get dialect():DialectManager
+    // {
+    //     return this.dialectManager;
+    // }
     public get connection():IConnectionManager
     {
         return this.connectionManager;
@@ -49,7 +69,7 @@ class Orm implements IOrm
             if(!operand){
                 let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
                 let node= this.parser.parse(expression);
-                operand = this.dialectManager.compile(node,dialect,schema);
+                operand = this.getLanguage(dialect).operand.build(node,dialect,schema);
                 await this.cache.set(key,operand)
             }            
             return operand as Operand; 
@@ -70,10 +90,10 @@ class Orm implements IOrm
         let expression = str.substring(index,str.length);
         return new Expression(this,expression)
     }
-    public deserialize(serialized:string,language:string):CompiledExpression
+    public deserialize(serialized:string,dialect:string):CompiledExpression
     {
-       let operand= this.dialectManager.deserialize(serialized,language);
-       return new CompiledExpression(this,operand,language);
+       let operand= this.getLanguage(dialect).operand.deserialize(serialized);
+       return new CompiledExpression(this,operand,dialect);
     }
     public async execute(operand:Operand,dialect:string,context:any,connection?:string|ITransaction):Promise<any>
     {
@@ -84,24 +104,24 @@ class Orm implements IOrm
                     let result;
                     if(operand.children.length==0){
                         let executor =this.connectionManager.createExecutor(connection);
-                        result = await this.dialectManager.execute(operand,dialect,_context,executor);
+                        result = await this.getLanguage(dialect).executor.execute(operand,_context,executor);
                     }
                     else
                     {
                         await this.createTransaction(connection,async (transaction)=>{
-                            result= await this.dialectManager.execute(operand,dialect,_context,transaction);
+                            result= await this.getLanguage(dialect).executor.execute(operand,_context,transaction);
                         });
                     }
                     return result;                    
                 }else{
                     let transaction = connection as ITransaction;
                     if(transaction)
-                        return await this.dialectManager.execute(operand,dialect,_context,transaction);
+                        return await this.getLanguage(dialect).executor.execute(operand,_context,transaction);
                     else
                         throw `connection no valid`; 
                 }
             }else{
-                return await this.dialectManager.execute(operand,dialect,_context);
+                return await this.getLanguage(dialect).executor.execute(operand,_context);
             }            
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 
@@ -139,14 +159,14 @@ export =(function() {
         sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
         
         // orm.dialect.addLanguage(memoryLanguage);
-        orm.dialect.addLanguage(sqlLanguage);        
+        orm.addLanguage(sqlLanguage);        
             
-        orm.dialect.add({name:'mysql',language:'sql'});
-        orm.dialect.add({name:'mariadb',language:'sql'});
-        orm.dialect.add({name:'oracle',language:'sql'});
-        orm.dialect.add({name:'mssql',language:'sql'});
-        orm.dialect.add({name:'postgres',language:'sql'});
-        orm.dialect.add({name:'memory',language:'memory'}); 
+        orm.addDialect({name:'mysql',language:'sql'});
+        orm.addDialect({name:'mariadb',language:'sql'});
+        orm.addDialect({name:'oracle',language:'sql'});
+        orm.addDialect({name:'mssql',language:'sql'});
+        orm.addDialect({name:'postgres',language:'sql'});
+        orm.addDialect({name:'memory',language:'memory'}); 
         
         orm.connection.addType('mysql',MySqlConnection);
     }
