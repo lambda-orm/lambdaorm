@@ -59,13 +59,12 @@ async function modify(orm){
 
   expression =
   ` 
-  Orders.delete().include(p=> p.details)
+  Orders.insert().include(p=> p.details)
   `;
     
   // await exec( async()=>(await orm.expression(expression).parse()).serialize())
-  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
+  await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
   
   // let result = await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
@@ -196,8 +195,8 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-await queries(orm);
-// await modify(orm);
+// await queries(orm);
+await modify(orm);
 // await crud(orm);
 // await applySchema(orm,schemas);
 

@@ -1,4 +1,4 @@
-import {Property,Operand } from './../../model'
+import {Property,Operand,Parameter} from './../../model'
 import {Node} from './../../parser/index'
 import {OperandManager} from '../'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -109,7 +109,7 @@ export class SqlOperandManager extends OperandManager
           children.push(sqlInclude);            
        }
        let sentence = sqlSentence.build(metadata);
-       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.entity,sqlSentence.apk,sqlSentence.columns,sqlSentence.variables);
+       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.entity,sqlSentence.apk,sqlSentence.columns,sqlSentence.parameters);
     }   
     protected _serialize(operand:Operand):any
     {
@@ -119,7 +119,7 @@ export class SqlOperandManager extends OperandManager
             for(const k in query.children){
                 children.push(this._serialize(query.children[k]));
             }
-            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,cols:query.columns,v:query.variables,e:query.entity,apk:query.apk};
+            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,f:query.columns,p:query.parameters,e:query.entity,apk:query.apk};
         }else if(operand instanceof SqlInclude){
             let include = operand as SqlInclude;
             for(const k in include.children){
@@ -499,7 +499,7 @@ export class SqlOperandManager extends OperandManager
         context.current.alias = this.createAlias(context,context.current.entity);
         let apk =  schema.getApk(context.current.entity);
         let name:string = "";           
-        let children = [];
+        let children:Operand[]= [];
         let operand= null;
 
         if(sentence['filter'] ){
@@ -530,7 +530,7 @@ export class SqlOperandManager extends OperandManager
             createInclude= this.createInsertInclude;
             let clause = sentence['insert'] as Node;
             operand= this.createInsertClause(clause,schema,context);
-            context.current.fields = this.solveFieldsInModify(operand,context);
+            context.current.fields = this.fieldsInModify(operand,context);
             children.push(operand);
         }else if (sentence['updateAll']){
             // Only the updateAll can be an unfiltered update.
@@ -538,14 +538,14 @@ export class SqlOperandManager extends OperandManager
             name='update';
             let clause = sentence['updateAll'] as Node;
             operand= this.createUpdateClause(clause,schema,context);
-            context.current.fields = this.solveFieldsInModify(operand,context);
+            context.current.fields = this.fieldsInModify(operand,context);
             children.push(operand);            
         }else if (sentence['update']){
             name='update';
             createInclude= this.createUpdateInclude;
             let clause = sentence['update'] as Node;           
             operand= this.createUpdateClause(clause,schema,context);
-            context.current.fields = this.solveFieldsInModify(operand,context);
+            context.current.fields = this.fieldsInModify(operand,context);
             this.createFilterIfNotExists(clause,children,schema,context);
             children.push(operand);            
         }else{
@@ -625,6 +625,8 @@ export class SqlOperandManager extends OperandManager
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
         }
+
+        // let parameters = this.parametersInSentence(children);
         let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
@@ -742,7 +744,7 @@ export class SqlOperandManager extends OperandManager
     * @param context current sqlContext
     * @returns fields to execute query
     */
-    protected solveFieldsInModify(operand:Operand,context:SqlContext):Property[]
+    protected fieldsInModify(operand:Operand,context:SqlContext):Property[]
     {       
         let fields:Property[] = [];
         if(operand.children.length==1){

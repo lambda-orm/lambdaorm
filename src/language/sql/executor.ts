@@ -26,7 +26,7 @@ export class SqlExecutor implements IOperandExecutor
     }
     protected async executeSelect(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {           
-        let mainResult = await executor.query(query.sentence,this.params(query.variables,context));
+        let mainResult = await executor.query(query.sentence,this.params(query.parameters,context));
         if(mainResult.length>0){
             for(const p in query.children){
                 let include = query.children[p] as SqlSentenceInclude;
@@ -69,7 +69,7 @@ export class SqlExecutor implements IOperandExecutor
             }
         }        
         //insert main entity
-        let insertId = await executor.insert(query.sentence,this.params(query.variables,context));
+        let insertId = await executor.insert(query.sentence,this.params(query.parameters,context));
         if(query.apk!="")
            context.set(query.apk,insertId); 
         // after insert the relationships of the type oneToOne and manyToOne          
@@ -93,7 +93,7 @@ export class SqlExecutor implements IOperandExecutor
     }
     protected async executeUpdate(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 
-        let changeCount = await executor.update(query.sentence,this.params(query.variables,context));
+        let changeCount = await executor.update(query.sentence,this.params(query.parameters,context));
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
             let relation = context.get(include.relation.name);
@@ -140,25 +140,30 @@ export class SqlExecutor implements IOperandExecutor
             }                   
         }
         //remove main entity 
-        let changeCount = await executor.delete(query.sentence,this.params(query.variables,context));
+        let changeCount = await executor.delete(query.sentence,this.params(query.parameters,context));
         return changeCount;  
     }
-    protected  params(variables:string[],context:Context):Parameter[]
+    protected  params(parameters:Parameter[],context:Context):Parameter[]
     {   
-        let params:Parameter[]=[];
-        for(const p in variables){
-            let variable = variables[p];
-            let value = context.get(variable);
-            //TODO: ver si se puede determinar el tipo de la variable desde el parser
-            // , dado que por valor , podria ser null y no podria determinar que tipo corresponde
-            let type="";
-            if(Array.isArray(value))
-                type='array';
-            else
-                //TODO: determine if it is integer or decimal  
-                type=typeof value;
-            params.push({name:variable,type:type,value:value});
+        for(const p in parameters){
+            let parameter = parameters[p];
+            parameter.value= context.get(parameter.name);
         }
-        return params;
+        return parameters;
+        // let params:Parameter[]=[];
+        // for(const p in parameters){
+        //     let variable = variables[p];
+        //     let value = context.get(variable);
+        //     //TODO: ver si se puede determinar el tipo de la variable desde el parser
+        //     // , dado que por valor , podria ser null y no podria determinar que tipo corresponde
+        //     let type="";
+        //     if(Array.isArray(value))
+        //         type='array';
+        //     else
+        //         //TODO: determine if it is integer or decimal  
+        //         type=typeof value;
+        //     params.push({name:variable,type:type,value:value});
+        // }
+        // return params;
     }
 }

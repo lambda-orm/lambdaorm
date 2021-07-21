@@ -1,4 +1,4 @@
-import {Entity,Property,Operand} from './../../model/index'
+import {Entity,Property,Operand,Parameter} from './../../model/index'
 import {Constant,Variable,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block} from './../index'
 import {SqlDialectMetadata} from './dialectMetadata'
 import {Helper} from './../../helper'
@@ -153,7 +153,7 @@ export class SqlArrowFunction extends ArrowFunction
 export class SqlSentence extends FunctionRef 
 {
     public columns:Property[]
-    public variables:string[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
+    public parameters:Parameter[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
      /** Autoincrement primary key */
     public apk:string
@@ -167,7 +167,7 @@ export class SqlSentence extends FunctionRef
         this.apk=apk;
         this.alias=alias;
         this.columns=columns;
-        this.variables=[];
+        this.parameters=[];
         this.clause='';
     }
     public getIncludes():Operand[]
@@ -194,38 +194,38 @@ export class SqlSentence extends FunctionRef
 
             let select = (first?first:map) as Operand;
             text = select.build(metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
-            this.loadVariables(select,this.variables);
+            this.loadParameters(select,this.parameters,metadata);
           
         }else if(update){
             this.clause='update';
             text = update.build(metadata);
-            this.loadVariables(update,this.variables);
+            this.loadParameters(update,this.parameters,metadata);
         }else if(_delete){
             this.clause='delete';
             // let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             // text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata)+' ';
             text = _delete.build(metadata)            
-            this.loadVariables(_delete,this.variables);            
+            this.loadParameters(_delete,this.parameters,metadata);            
         }else if(insert){
             this.clause='insert';
             text = insert.build(metadata);
-            this.loadVariables(insert,this.variables);            
+            this.loadParameters(insert,this.parameters,metadata);            
         }
         if(filter){
             text = text + filter.build(metadata)+' ';
-            this.loadVariables(filter,this.variables);
+            this.loadParameters(filter,this.parameters,metadata);
         }
         if(groupBy){
             text = text + groupBy.build(metadata)+' ';
-            this.loadVariables(groupBy,this.variables);
+            this.loadParameters(groupBy,this.parameters,metadata);
         }
         if(having){
             text = text + having.build(metadata)+' ';
-            this.loadVariables(having,this.variables);
+            this.loadParameters(having,this.parameters,metadata);
         }
         if(sort){
             text = text + sort.build(metadata)+' ';
-            this.loadVariables(sort,this.variables);
+            this.loadParameters(sort,this.parameters,metadata);
         }        
         return text;
     }
@@ -252,16 +252,19 @@ export class SqlSentence extends FunctionRef
         template =Helper.replaceAll(template,'{alias}',parts[1]);
         return template.trim();
     }
-    protected loadVariables(operand:Operand,variables:string[])
+    protected loadParameters(operand:Operand,parameters:Parameter[],metadata:SqlDialectMetadata)
     {        
-        if(operand instanceof Variable){
-            variables.push(operand.name);
+        if(operand instanceof SqlVariable){
+            //TODO: determinar el tipo de la variable de acuerdo a la expression.
+            //si se usa en un operador con que se esta comparando.
+            //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+            parameters.push({name:operand.name,type:'any'});
         }       
         for(const k in operand.children){
             const p = operand.children[k];
-            this.loadVariables(p,variables);
+            this.loadParameters(p,parameters,metadata);
         } 
-    }   
+    }  
 }
 export class SqlSentenceInclude extends Operand
 {
@@ -351,15 +354,15 @@ export class SqlQuery extends Operand
     /** Autoincrement primary key */
     public apk:string
     public columns:Property[]
-    public variables:string[]
+    public parameters:Parameter[]
     
-    constructor(name:string,children:Operand[]=[],sentence:string,entity:string,apk:string,columns:Property[],variables:string[]){
+    constructor(name:string,children:Operand[]=[],sentence:string,entity:string,apk:string,columns:Property[],parameters:Parameter[]){
         super(name,children);
         this.sentence=sentence;
         this.entity=entity;
         this.apk=apk;
         this.columns=columns;
-        this.variables=variables;
+        this.parameters=parameters;
     }
 }
 export class SqlInclude extends Operand
