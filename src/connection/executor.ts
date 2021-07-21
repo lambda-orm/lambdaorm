@@ -1,5 +1,6 @@
-import {IExecutor,IConnectionManager,Parameter } from '../model'
-
+import {Parameter } from '../model'
+import {IConnectionManager } from './iConnectionManager'
+import {IExecutor } from './iExecutor'
 
 export class Executor implements IExecutor
 {

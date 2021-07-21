@@ -1,4 +1,4 @@
-import {Parameter } from './parameter'
+import {Parameter } from './../model'
 export interface IExecutor {
     connectionName:string
     query(sql:string,params:Parameter[]):Promise<any>

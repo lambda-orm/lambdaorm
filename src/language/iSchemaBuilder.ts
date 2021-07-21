@@ -1,4 +1,4 @@
-import {Delta } from './delta'
+import {Delta } from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 
 export interface ISchemaBuilder

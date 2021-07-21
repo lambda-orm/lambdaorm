@@ -1,5 +1,5 @@
-import {ITransaction,Operand,IOrm } from './../model/index'
-
+import {Operand,IOrm } from './../model'
+import {ITransaction } from './../connection'
 export class CompiledExpression
 {
     private orm:IOrm

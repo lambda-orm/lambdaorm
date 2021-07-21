@@ -1,4 +1,6 @@
-import {IExecutor,Operand,Context,IOperandExecutor} from '../../model'
+import {Operand,Context} from '../../model'
+import {IExecutor} from '../../connection'
+import {IOperandExecutor} from '../'
 import {MemoryLanguage} from './language'
 
 export class MemoryExecutor implements IOperandExecutor

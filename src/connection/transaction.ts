@@ -1,5 +1,7 @@
-import {ITransaction,IConnectionManager,Parameter} from '../model'
+import {Parameter} from '../model'
 import {Connection } from './connection'
+import {IConnectionManager } from './iConnectionManager'
+import {ITransaction} from './iTransaction'
 
 export class Transaction implements ITransaction
 {

@@ -1,5 +1,5 @@
-import {Operand,Context,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../../model'
-import {Variable,ArrowFunction} from '../'
+import {Operand,Context} from '../../model'
+import {Variable,ArrowFunction,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../'
 import {MemoryOperandManager} from './operandManager'
 import {MemoryExecutor} from './executor'
 

@@ -1,5 +1,5 @@
-import {Connection} from  './../connection'
-import {ConnectionConfig,Parameter} from '../../model'
+import {Connection,ConnectionConfig} from  './..'
+import {Parameter} from '../../model'
 import { promisify } from 'util';
 
 // import * as mysql from 'mysql2/promise'

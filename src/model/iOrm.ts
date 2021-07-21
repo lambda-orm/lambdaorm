@@ -1,11 +1,12 @@
-import {ITransaction,IConnectionManager,Operand,ILanguage } from './../model/index';
+import {Operand } from './../model/index';
+import {ILanguage} from '../language'
+import {ITransaction,IConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
 import {Expression,CompiledExpression}  from './../manager'
 import {SchemaManager}  from './../schema'
 
 export interface IOrm
-{    
-    
+{       
     get parser():Parser;
     get schema():SchemaManager;
     language(dialect:string):ILanguage 

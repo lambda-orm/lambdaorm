@@ -1,5 +1,5 @@
-import {Connection} from './../connection'
-import {ConnectionConfig,Parameter} from '../../model'
+import {Connection,ConnectionConfig} from  './..'
+import {Parameter} from '../../model'
 import { debug } from 'console';
 
 export class MariaDbConnection extends Connection

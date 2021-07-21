@@ -1,6 +1,7 @@
-import {IExecutor,Property,Relation,Index,Operand,Context,Delta,Parameter,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder } from './../../model'
+import {Property,Relation,Index,Operand,Context,Delta,Parameter } from './../../model'
 import {Node} from './../../parser/index'
-import {OperandManager} from '../index'
+import {OperandManager,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../'
+import {IExecutor}  from '../../connection'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
 SqlSentenceInclude,SqlQuery,SqlInclude } from './operands'

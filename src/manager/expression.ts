@@ -1,4 +1,5 @@
-import {IOrm,ITransaction,ConnectionConfig} from './../model'
+import {IOrm} from './../model'
+import {ITransaction,ConnectionConfig} from './../connection'
 import {CompiledExpression} from './compiledExpression'
 import {NodeExpression} from './nodeExpression'
 

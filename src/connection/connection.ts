@@ -1,6 +1,6 @@
 
-import {ConnectionConfig,Parameter } from '../model'
-
+import {Parameter } from '../model'
+import {ConnectionConfig } from './connectionConfig'
 
 export abstract class Connection
 {
