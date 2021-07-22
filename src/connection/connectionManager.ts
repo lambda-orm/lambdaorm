@@ -1,8 +1,8 @@
 import {Connection} from './connection'
 import {Executor} from './executor'
 import {Transaction} from './transaction'
-import {IExecutor} from './iexecutor'
-import {ITransaction} from './itransaction'
+import {IExecutor} from './iExecutor'
+import {ITransaction} from './iTransaction'
 import {ConnectionConfig } from './connectionConfig'
 import {IConnectionManager } from './iConnectionManager'
 

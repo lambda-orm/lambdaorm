@@ -9,24 +9,30 @@ export class Model
         this.enums={};
         this.functions={};
     } 
-    addEnum(key:string,source:any){
+    addEnum(key:string,source:any):void
+    {
         this.enums[key]=source;
     }
-    isEnum(name:string){    
+    isEnum(name:string):boolean
+    {    
         let names = name.split('.');
         return !!this.enums[names[0]];
     }
-    getEnumValue(name:string,option:string){ 
+    getEnumValue(name:string,option:string):any
+    { 
         return this.enums[name][option];
     }
-    getEnum(name:string){ 
+    getEnum(name:string):any
+    { 
         return this.enums[name];
     }  
-    addOperator(name:string,operands:number,metadata:any){
+    addOperator(name:string,operands:number,metadata:any):void
+    {
         if(!this.operators[name])this.operators[name]= {}; 
         this.operators[name][operands] = metadata;
     }
-    load(data:any){
+    load(data:any):void
+    {
         for(const name in data.enums){
             this.addEnum(name,data.enums[name]);
         }

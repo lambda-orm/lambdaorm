@@ -98,13 +98,13 @@ declare abstract class ManyToOne<T> extends Relation<T> { }
 /**  */
 declare function as(value:any,name:any):any
 /**  */
-declare function desc(value:any):any
+declare function desc(value:any):void
 /**  */
-declare function asc(value:any,name:any):any
+declare function asc(value:any):void
 /**  */
 declare function between(value:any,from:any,to:any):boolean
 /**  */
-declare function includes(value:any,list:any):boolean
+declare function includes(value:any,list:any[]):boolean
 // numeric -------------------------------------------------------------------
 /** Get the absolute value */
 declare function abs(value:number):number

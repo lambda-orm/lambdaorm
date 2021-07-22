@@ -1,6 +1,6 @@
 import {ConnectionConfig } from './connectionConfig'
 import {Connection} from './connection'
-import {IExecutor} from './iexecutor'
+import {IExecutor} from './iExecutor'
 import {ITransaction} from './iTransaction'
 
 export interface IConnectionManager
