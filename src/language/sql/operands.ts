@@ -160,14 +160,13 @@ export class SqlSentence extends FunctionRef
     public alias:string
     public clause:string
     
-
-    constructor(name:string,children:Operand[]=[],entity:string,apk:string,alias:string,columns:Property[]){
+    constructor(name:string,children:Operand[]=[],entity:string,apk:string,alias:string,columns:Property[],parameters:Parameter[]){
         super(name,children);
         this.entity=entity;
         this.apk=apk;
         this.alias=alias;
         this.columns=columns;
-        this.parameters=[];
+        this.parameters=parameters;
         this.clause='';
     }
     public getIncludes():Operand[]
@@ -194,38 +193,38 @@ export class SqlSentence extends FunctionRef
 
             let select = (first?first:map) as Operand;
             text = select.build(metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
-            this.loadParameters(select,this.parameters,metadata);
+            // this.loadParameters(select,this.parameters,metadata);
           
         }else if(update){
             this.clause='update';
             text = update.build(metadata);
-            this.loadParameters(update,this.parameters,metadata);
+            // this.loadParameters(update,this.parameters,metadata);
         }else if(_delete){
             this.clause='delete';
             // let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             // text = _delete.build(metadata) + ' ' + this.solveFrom(from,metadata)+' ';
             text = _delete.build(metadata)            
-            this.loadParameters(_delete,this.parameters,metadata);            
+            // this.loadParameters(_delete,this.parameters,metadata);            
         }else if(insert){
             this.clause='insert';
             text = insert.build(metadata);
-            this.loadParameters(insert,this.parameters,metadata);            
+            // this.loadParameters(insert,this.parameters,metadata);            
         }
         if(filter){
             text = text + filter.build(metadata)+' ';
-            this.loadParameters(filter,this.parameters,metadata);
+            // this.loadParameters(filter,this.parameters,metadata);
         }
         if(groupBy){
             text = text + groupBy.build(metadata)+' ';
-            this.loadParameters(groupBy,this.parameters,metadata);
+            // this.loadParameters(groupBy,this.parameters,metadata);
         }
         if(having){
             text = text + having.build(metadata)+' ';
-            this.loadParameters(having,this.parameters,metadata);
+            // this.loadParameters(having,this.parameters,metadata);
         }
         if(sort){
             text = text + sort.build(metadata)+' ';
-            this.loadParameters(sort,this.parameters,metadata);
+            // this.loadParameters(sort,this.parameters,metadata);
         }        
         return text;
     }
@@ -252,19 +251,19 @@ export class SqlSentence extends FunctionRef
         template =Helper.replaceAll(template,'{alias}',parts[1]);
         return template.trim();
     }
-    protected loadParameters(operand:Operand,parameters:Parameter[],metadata:SqlDialectMetadata)
-    {        
-        if(operand instanceof SqlVariable){
-            //TODO: determinar el tipo de la variable de acuerdo a la expression.
-            //si se usa en un operador con que se esta comparando.
-            //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
-            parameters.push({name:operand.name,type:'any'});
-        }       
-        for(const k in operand.children){
-            const p = operand.children[k];
-            this.loadParameters(p,parameters,metadata);
-        } 
-    }  
+    // protected loadParameters(operand:Operand,parameters:Parameter[],metadata:SqlDialectMetadata)
+    // {        
+    //     if(operand instanceof SqlVariable){
+    //         //TODO: determinar el tipo de la variable de acuerdo a la expression.
+    //         //si se usa en un operador con que se esta comparando.
+    //         //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+    //         parameters.push({name:operand.name,type:'any'});
+    //     }       
+    //     for(const k in operand.children){
+    //         const p = operand.children[k];
+    //         this.loadParameters(p,parameters,metadata);
+    //     } 
+    // }  
 }
 export class SqlSentenceInclude extends Operand
 {

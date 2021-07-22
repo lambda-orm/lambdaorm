@@ -145,7 +145,7 @@ export =(function() {
         let memoryLanguage =new MemoryLanguage();
         memoryLanguage.addLibrary(new CoreLib());
 
-        let sqlLanguage =  new SqlLanguage();
+        let sqlLanguage =  new SqlLanguage(model);
         sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
         
         orm.addLanguage(memoryLanguage);

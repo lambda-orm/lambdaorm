@@ -1,4 +1,5 @@
 import {ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../'
+import {Model} from './../../parser'
 import {SqlDialectMetadata} from './dialectMetadata'
 import {SqlSchemaBuilder} from './schemaBuilder'
 import {SqlOperandManager} from './operandManager'
@@ -9,15 +10,16 @@ export class SqlLanguage implements ILanguage
     public name:string
     public libraries:any
     public dialects:any
+    
     private schemaBuilder:SqlSchemaBuilder
     private operandManager:SqlOperandManager
     private operandExecutor:SqlExecutor
-    constructor(){
+    constructor(languageModel:Model){
         this.name= 'sql',
         this.libraries={};
-        this.dialects={}; 
+        this.dialects={};
         this.schemaBuilder = new SqlSchemaBuilder(this);
-        this.operandManager = new SqlOperandManager(this);
+        this.operandManager = new SqlOperandManager(this,languageModel);
         this.operandExecutor = new SqlExecutor(this);
 
     }

@@ -1,5 +1,5 @@
 import {Property,Operand,Parameter} from './../../model'
-import {Node} from './../../parser/index'
+import {Node,Model} from './../../parser/index'
 import {OperandManager} from '../'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,
@@ -45,9 +45,11 @@ class SqlContext
 export class SqlOperandManager extends OperandManager
 {   
     private language:SqlLanguage
-    constructor(language:SqlLanguage){
+    private languageModel:Model
+    constructor(language:SqlLanguage,languageModel:Model){
         super();
         this.language=language;
+        this.languageModel= languageModel; 
     }
     
     public build(node:Node,dialect:string,schema:SchemaHelper):Operand
@@ -626,8 +628,8 @@ export class SqlOperandManager extends OperandManager
             children.push(operand);   
         }
 
-        // let parameters = this.parametersInSentence(children);
-        let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields);
+        let parameters = this.parametersInSentence(children);
+        let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields,parameters);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
     }
@@ -761,4 +763,41 @@ export class SqlOperandManager extends OperandManager
         }
         return fields;
     }
+    protected parametersInSentence(children:Operand[]):Parameter[]
+    {
+        let map =  children.find(p=> p.name=='map');   
+        let first = children.find(p=> p.name=='first');
+        let select = map?map:first; 
+        let filter = children.find(p=> p.name=='filter'); 
+        let groupBy = children.find(p=> p.name=='groupBy');
+        let having = children.find(p=> p.name=='having'); 
+        let sort = children.find(p=> p.name=='sort'); 
+        let insert = children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;
+        let update = children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;
+        let _delete = children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
+
+        let parameters:Parameter[]=[];
+        if(select)this.loadParameters(select,parameters);
+        if(insert)this.loadParameters(insert,parameters);
+        if(update)this.loadParameters(update,parameters);
+        if(_delete)this.loadParameters(_delete,parameters);
+        if(filter)this.loadParameters(filter,parameters);
+        if(groupBy)this.loadParameters(groupBy,parameters);
+        if(having)this.loadParameters(having,parameters);
+        if(sort)this.loadParameters(sort,parameters);
+        return parameters;
+    }
+    protected loadParameters(operand:Operand,parameters:Parameter[])
+    {        
+        if(operand instanceof SqlVariable){
+            //TODO: determinar el tipo de la variable de acuerdo a la expression.
+            //si se usa en un operador con que se esta comparando.
+            //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+            parameters.push({name:operand.name,type:'any'});
+        }       
+        for(const k in operand.children){
+            const p = operand.children[k];
+            this.loadParameters(p,parameters);
+        } 
+    }  
 }
