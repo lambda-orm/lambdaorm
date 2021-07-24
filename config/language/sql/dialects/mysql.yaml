@@ -2,12 +2,9 @@ _extends: [sql]
 types:
   bool: TINYINT(1)
 others:
+  delimiterSpaces: '`{name}`'
   autoincrement: AUTO_INCREMENT 
   variable: '?'
-  field: '{entityAlias}.`{name}`'
-  column: '`{name}`'
-  from: 'FROM `{name}` {alias} '
-  join: 'INNER JOIN `{name}` {alias} ON {relation}'
   false: 'FALSE'
   true: 'TRUE'
 functions:

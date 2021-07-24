@@ -15,8 +15,8 @@ class Orm implements IOrm
     private parserManager:Parser
     private schemaManager:SchemaManager
     private connectionManager:IConnectionManager
-    private languages:any
-    private dialects:any
+    public languages:any
+    public dialects:any
 
     constructor(parserManager:Parser){
         this.languages={};

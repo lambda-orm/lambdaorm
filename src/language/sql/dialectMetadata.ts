@@ -41,6 +41,13 @@ export class SqlDialectMetadata
     {
         return this._types[name];
     }
+    public solveName(name:string):string
+    {
+        if(name.indexOf(' ') == -1)return name;
+        let delimiterSpaces= this._others['delimiterSpaces'];
+        return delimiterSpaces.replace('{name}',name);
+        
+    }
     public add(dialect:any):void
     {
         for(const type in dialect.operators){

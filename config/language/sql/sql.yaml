@@ -24,6 +24,7 @@ ddl:
   dropFk: 'DROP CONSTRAINT {name}'
   dropIndex: 'DROP INDEX {name}'
 others:
+  delimiterSpaces: '"{name}"'
   sepatatorSql: ;
   notNullable: NOT NULL
   autoincrement: AUTO_INCREMENT 
@@ -178,7 +179,5 @@ arrows:
   insert: INSERT INTO {name}({fields}) VALUES({values})
   update: UPDATE {name} {alias} SET {assings} 
   delete: DELETE FROM {name} {alias} 
-  
-  
 
   

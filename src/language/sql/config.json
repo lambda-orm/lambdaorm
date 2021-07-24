@@ -9,16 +9,17 @@
         "datetime": "DATETIME"
       },
       "others": {
+        "delimiterSpaces": "`{name}`",
         "autoincrement": "AUTO_INCREMENT",
         "variable": "?",
-        "field": "{entityAlias}.`{name}`",
-        "column": "`{name}`",
-        "from": "FROM `{name}` {alias} ",
-        "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE",
         "sepatatorSql": ";",
-        "notNullable": "NOT NULL"
+        "notNullable": "NOT NULL",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "functions": {
         "numeric": {
@@ -199,6 +200,19 @@
       }
     },
     "mssql": {
+      "others": {
+        "delimiterSpaces": "[{name}]",
+        "sepatatorSql": " \\nGO",
+        "notNullable": "NOT NULL",
+        "autoincrement": "AUTO_INCREMENT",
+        "variable": ":{name}",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "false": "0",
+        "true": "1"
+      },
       "types": {
         "bool": "BIT",
         "integer": "INTEGER",
@@ -224,18 +238,6 @@
         "dropUk": "DROP CONSTRAINT {name}",
         "dropFk": "DROP CONSTRAINT {name}",
         "dropIndex": "DROP INDEX {name}"
-      },
-      "others": {
-        "sepatatorSql": ";",
-        "notNullable": "NOT NULL",
-        "autoincrement": "AUTO_INCREMENT",
-        "variable": ":{name}",
-        "field": "{entityAlias}.{name}",
-        "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "0",
-        "true": "1"
       },
       "operators": {
         "unary": {
@@ -404,16 +406,17 @@
         "datetime": "DATETIME"
       },
       "others": {
+        "delimiterSpaces": "`{name}`",
         "autoincrement": "AUTO_INCREMENT",
         "variable": "?",
-        "field": "{entityAlias}.`{name}`",
-        "column": "`{name}`",
-        "from": "FROM `{name}` {alias} ",
-        "join": "INNER JOIN `{name}` {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE",
         "sepatatorSql": ";",
-        "notNullable": "NOT NULL"
+        "notNullable": "NOT NULL",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "functions": {
         "numeric": {
@@ -621,6 +624,7 @@
         "dropIndex": "DROP INDEX {name}"
       },
       "others": {
+        "delimiterSpaces": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
@@ -818,6 +822,7 @@
         "dropIndex": "DROP INDEX {name}"
       },
       "others": {
+        "delimiterSpaces": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "autoincrement": "AUTO_INCREMENT",
@@ -1016,6 +1021,7 @@
       "dropIndex": "DROP INDEX {name}"
     },
     "others": {
+      "delimiterSpaces": "\"{name}\"",
       "sepatatorSql": ";",
       "notNullable": "NOT NULL",
       "autoincrement": "AUTO_INCREMENT",

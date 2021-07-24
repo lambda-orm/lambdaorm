@@ -7,6 +7,8 @@ import {SchemaManager}  from './../schema'
 
 export interface IOrm
 {       
+    languages:any
+    dialects:any
     get parser():Parser;
     get schema():SchemaManager;
     language(dialect:string):ILanguage 

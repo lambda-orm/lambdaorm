@@ -161,12 +161,25 @@ async function crud(orm){
   }
 }
 
+async function showSriptsByDialect(orm,schemas){
+    
+  let current = schemas['northwind'];
+  // await exec( async()=>(orm.delta(current).serialize()));
+  for(const name in orm.languages['sql'].dialects){
+    console.log('\n\n'+name+' -------------------------------------\n');
+    await exec( async()=>(orm.schema.delta(current).sql(name)));
+  } 
+}
+
 async function applySchema(orm,schemas){
   
   let old = schemas['northwind-old'];
   let current = schemas['northwind'];
   // await exec( async()=>(orm.delta(current).serialize()));
   await exec( async()=>(orm.schema.delta(current).sql('mysql')));
+  await exec( async()=>(orm.schema.delta(current).sql('mssql')));
+  await exec( async()=>(orm.schema.delta(current).sql('oracle')));
+  await exec( async()=>(orm.schema.delta(current).sql('posgres')));
 
   // orm.schema.delta('northwind',changes).execute('northwind');
   // orm.schema.delta('northwind',changes).sql('mysql');
@@ -196,8 +209,9 @@ cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',pas
 orm.connection.add(cnx);
 
 // await queries(orm);
-await modify(orm);
+// await modify(orm);
 // await crud(orm);
+await showSriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
 
 

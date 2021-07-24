@@ -5,7 +5,7 @@ import {SchemaDelta } from './schemaDelta'
  
 export class SchemaManager
 {
-    private schemas:any
+    public schemas:any
     private orm:IOrm 
     constructor(orm:IOrm){
         this.orm=orm;
