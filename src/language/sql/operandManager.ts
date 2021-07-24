@@ -803,13 +803,11 @@ export class SqlOperandManager extends OperandManager
     }
     // protected solveType(operand:Operand,childNumber:number)
     // {
-
     //     if(operand instanceof SqlOperator){
     //         let metadata = this.languageModel.getOperator(operand.name,operand.children.length);
     //         let type= metadata.params[childNumber].type;
     //         if(type!='T')return type;
-    //         for()
-            
+    //         for()            
     //     }
     // }  
 }
