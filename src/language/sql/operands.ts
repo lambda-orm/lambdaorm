@@ -23,8 +23,8 @@ export class SqlConstant extends Constant
 export class SqlVariable extends Variable
 {
     public _number?:number    
-    constructor(name:string,children:Operand[]=[]){
-        super(name,children);
+    constructor(name:string,type:string='any'){
+        super(name,type);
         this._number  = undefined; 
     }    
     

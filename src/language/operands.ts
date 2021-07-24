@@ -1,11 +1,10 @@
 import {Operand,Context} from './../model/index'
+import {Helper} from '../helper'
 
 export class Constant extends Operand
-{
-    public type:string
-    constructor(name:string,children:Operand[]=[]){
-      super(name,children);  
-      this.type  = typeof name;
+{    
+    constructor(name:string){
+      super(name,[],Helper.getType(name));
     }
     eval():any
     {
@@ -15,8 +14,8 @@ export class Constant extends Operand
 export class Variable extends Operand
 {
     public context?: Context
-    constructor(name:string,children:Operand[]=[]){
-        super(name,children);  
+    constructor(name:string,type:string='any'){
+        super(name,[],type);  
         this.context  = undefined;
     }    
     eval():any{
@@ -35,6 +34,9 @@ export class KeyValue extends Operand
 }
 export class Array extends Operand
 {
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children,'array');
+    }
     eval():any{
         let values = [];
         for(let i=0;i<this.children.length;i++){
@@ -45,6 +47,9 @@ export class Array extends Operand
 }
 export class Obj extends Operand
 {
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children,'object');
+    }
     eval():any{        
         let obj:{[k: string]: any} = {};
         for(let i=0;i<this.children.length;i++){
@@ -57,7 +62,6 @@ export class Obj extends Operand
 export class Operator extends Operand
 {
     protected _function:any
-
     constructor(name:string,children:Operand[]=[],_function:any=null){
         super(name,children); 
         this._function = _function;
@@ -94,7 +98,7 @@ export class ArrowFunction extends FunctionRef
     } 
 }
 export class Block extends Operand
-{
+{    
     eval():any{
         for(let i=0;i<this.children.length;i++){
             this.children[i].eval();    

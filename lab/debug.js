@@ -22,15 +22,17 @@ async function queries(orm){
 
   const expression = 
   ` 
-  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+   OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') && p.unitPrice > minValue )                 
+               .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
+               .sort(p=> [p.category,p.product]) 
   `;
   //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
   let context = {id:10248};
-  await exec( async()=>(await orm.expression(expression).parse()).serialize())
+  // await exec( async()=>(await orm.expression(expression).parse()).serialize())
   await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
-  await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).model())
-  await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).model())
+  // await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
 
   //queries
   //  Products.filter(p=>p.id==id)
@@ -40,9 +42,9 @@ async function queries(orm){
   //  Products.filter(p=> p.discontinued != false )                 
   //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
   //                  .sort(p=> [p.category,desc(p.name)])
-  //  OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') )                 
-  //                      .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
-  //                      .sort(p=> [p.category,p.product])       
+  // OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') && p.unitPrice > minValue )                 
+  //              .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
+  //              .sort(p=> [p.category,p.product])       
   //  OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
 
   //includes
@@ -203,8 +205,8 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-// await queries(orm);
-await modify(orm);
+await queries(orm);
+// await modify(orm);
 // await crud(orm);
 // await showSriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);

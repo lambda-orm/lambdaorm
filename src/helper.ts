@@ -63,4 +63,13 @@ export class Helper {
         }
         return delta;
     }
+    public static getType(value:any):string
+    {
+        if(Array.isArray(value))return 'array';
+        if(typeof value == 'string'){
+            //TODO determinar si es fecha.
+            return 'string';
+        }
+        return typeof value ;
+    }
 }

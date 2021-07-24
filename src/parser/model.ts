@@ -2,8 +2,7 @@ export class Model
 {
     public operators: any
     public enums: any
-    public functions: any
-    
+    public functions: any    
     constructor(){
         this.operators={};
         this.enums={};

@@ -1,4 +1,5 @@
 import {Property,Operand,Parameter} from './../../model'
+import {Helper} from '../../helper'
 import {Node,Model} from './../../parser/index'
 import {OperandManager} from '../'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
@@ -51,7 +52,6 @@ export class SqlOperandManager extends OperandManager
         this.language=language;
         this.languageModel= languageModel; 
     }
-    
     public build(node:Node,dialect:string,schema:SchemaHelper):Operand
     {
         try{
@@ -134,19 +134,35 @@ export class SqlOperandManager extends OperandManager
     {
         throw 'NotImplemented';
     }
-    protected createAlias(context:SqlContext,name:string,relation?:string):string
+    protected nodeToOperand(node:Node,schema:SchemaHelper,context:SqlContext):Operand
     {
-        let c= name.charAt(0).toLowerCase();
-        let alias = c;
-        for(let i=1;context.aliases[alias];i++)alias=alias+i;
-        context.aliases[alias] = relation?relation:name;
-        return alias;        
+        let operand:Operand;
+        if(node.type == 'arrow' || node.type == 'childFunc' ){
+            operand = this.createSentence(node,schema,context);
+        }else{
+            let children:Operand[] = [];
+            if(node.children){
+                for(const i in node.children){
+                    let p = node.children[i];
+                    let child = this.nodeToOperand(p,schema,context);
+
+                    children.push(child);
+                }
+            }
+            operand= this.createOperand(node,children,schema,context);
+            for(let i=0;i<children.length;i++ ){  
+                const child = children[i];
+                child.parent = operand;
+                child.index = i;
+            } 
+        }
+        return operand;
     }    
     protected createOperand(node:Node,children:Operand[],schema:SchemaHelper,context:SqlContext):Operand
     {
         switch(node.type){
             case 'const':
-                return new SqlConstant(node.name,children);
+                return new SqlConstant(node.name);
             case 'var':
                 let parts = node.name.split('.');
                 if(parts[0] == context.current.arrowVar){
@@ -197,7 +213,7 @@ export class SqlOperandManager extends OperandManager
                     }
                 }
                 else
-                    return new  SqlVariable(node.name,children);                           
+                    return new  SqlVariable(node.name);                           
             case 'keyVal':
                 return new SqlKeyValue(node.name,children);
             case 'array':
@@ -213,6 +229,158 @@ export class SqlOperandManager extends OperandManager
             default:
                 throw 'node name: '+node.name +' type: '+node.type+' not supported';
         }
+    }
+    protected createSentence(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentence
+    {
+        context.current = new SqlEntityContext(context.current)
+        let createInclude:any;
+        let sentence:any = {}; 
+        let current = node;
+        while(current){
+            let name =current.type == 'var'?'from':current.name;
+            sentence[name] =  current;
+            if(current.children.length > 0)
+                current = current.children[0]
+            else
+                break;  
+        }            
+        context.current.entity=sentence.from.name;
+        context.current.metadata=schema.getEntity(context.current.entity);
+        context.current.alias = this.createAlias(context,context.current.entity);
+        let apk =  schema.getApk(context.current.entity);
+        let name:string = "";           
+        let children:Operand[]= [];
+        let operand= null;
+
+        if(sentence['filter'] ){
+            let clause = sentence['filter'];
+            operand = this.createClause(clause,schema,context);
+            children.push(operand);
+        }
+        if(sentence['from']){
+            let tableName = context.current.metadata.mapping;// schema.entityMapping(clause.name);
+            operand =new SqlFrom(tableName+'.'+context.current.alias);
+            children.push(operand);
+        }
+        if(sentence['deleteAll']){
+            // Only the DeleteAll can be an unfiltered delete.
+            // this is done for security to avoid deleting all records if the filter is forgotten
+            name='delete';
+            let clause = sentence['deleteAll'];
+            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
+        }else if(sentence['delete']){
+            name='delete';
+            createInclude= this.createDeleteInclude;
+            let clause = sentence['delete'];
+            this.createFilterIfNotExists(clause,children,schema,context);
+            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
+            children.push(operand);             
+        }else if (sentence['insert']){
+            name='insert';
+            createInclude= this.createInsertInclude;
+            let clause = sentence['insert'] as Node;
+            operand= this.createInsertClause(clause,schema,context);
+            context.current.fields = this.fieldsInModify(operand,context);
+            children.push(operand);
+        }else if (sentence['updateAll']){
+            // Only the updateAll can be an unfiltered update.
+            // this is done for security to avoid updated all records if the filter is forgotten
+            name='update';
+            let clause = sentence['updateAll'] as Node;
+            operand= this.createUpdateClause(clause,schema,context);
+            context.current.fields = this.fieldsInModify(operand,context);
+            children.push(operand);            
+        }else if (sentence['update']){
+            name='update';
+            createInclude= this.createUpdateInclude;
+            let clause = sentence['update'] as Node;           
+            operand= this.createUpdateClause(clause,schema,context);
+            context.current.fields = this.fieldsInModify(operand,context);
+            this.createFilterIfNotExists(clause,children,schema,context);
+            children.push(operand);            
+        }else{
+            name='select';
+            createInclude= this.createSelectInclude;
+            if(sentence['map'] || sentence['first']){
+                let clause = sentence['first']?sentence['first']:sentence['map'];
+                operand = this.createMapClause(clause,schema,context);
+                context.current.fields = this.fieldsInSelect(operand);
+                context.current.groupByFields = this.groupByFields(operand);
+                children.push(operand); 
+            }else{
+                let varEntity = new Node(context.current.entity, 'var', []);
+                let varArrow = new Node('p', 'var', []);
+                let varAll = new Node('p', 'var', []);               
+                let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
+                operand = this.createMapClause(clause,schema,context);
+                context.current.fields = this.fieldsInSelect(operand);
+                context.current.groupByFields = this.groupByFields(operand);
+                children.push(operand); 
+            }
+            if(context.current.groupByFields.length>0){
+                let fields = [];
+                for(let i=0;i<context.current.groupByFields.length;i++){
+                    fields.push( this.clone(context.current.groupByFields[i]));
+                }
+                if(fields.length==1){
+                    operand = new SqlGroupBy('groupBy',fields);
+                }else{
+                    let array:Operand = new SqlArray('array',fields);
+                    operand = new SqlGroupBy('groupBy',[array]);
+                } 
+                children.push(operand); 
+            }
+            if(sentence['having']){
+                let clause = sentence['having'];
+                operand = this.createClause(clause,schema,context);
+                children.push(operand); 
+            }
+            if(sentence['sort'] ){
+                let clause = sentence['sort'];
+                operand = this.createClause(clause,schema,context);
+                children.push(operand); 
+            }
+        }
+        if(sentence['include']){
+            if(createInclude===undefined)
+               throw 'Include not implemented!!!';
+
+            let clause = sentence['include'];                
+            context.current.arrowVar = clause.children[1].name; 
+            let body = clause.children[2];                
+            if (body.type == 'array'){
+                for (let i=0; i< body.children.length;i++) {
+                    let include = createInclude.bind(this)(body.children[i],schema,context)
+                    children.push(include);
+                }
+            }
+            else{
+                let include = createInclude.bind(this)(body,schema,context)
+                children.push(include);    
+            }
+        }
+        for(const key in context.current.joins){
+
+            let info = schema.getRelation(context.current.entity,key);
+
+            let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
+            let relatedProperty = info.previousSchema.property[info.relationData.from];
+            let relationTable = info.relationSchema.name;
+            let relationAlias =context.current.joins[key];;
+            let relationProperty = info.relationSchema.property[info.relationData.to];
+
+            let relatedField = new SqlField(relatedAlias+'.'+relatedProperty.mapping,relatedProperty.type);
+            let relationField = new SqlField(relationAlias+'.'+relationProperty.mapping,relationProperty.type); 
+            let equal = new SqlOperator('==',[relationField,relatedField])
+            operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
+            children.push(operand);   
+        }
+        
+        for(let i=0;i<children.length;i++)this.solveTypes(children[i]);        
+        let parameters = this.parametersInSentence(children);
+        let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields,parameters);
+        context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
+        return sqlSentence   
     }    
     protected createArrowFunction(node:Node,children:Operand[]):Operand
     {
@@ -482,178 +650,6 @@ export class SqlOperandManager extends OperandManager
         }
         return new SqlSentenceInclude(relationName,[child],relation,relation.to);
     } 
-    protected createSentence(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentence
-    {
-        context.current = new SqlEntityContext(context.current)
-        let createInclude:any;
-        let sentence:any = {}; 
-        let current = node;
-        while(current){
-            let name =current.type == 'var'?'from':current.name;
-            sentence[name] =  current;
-            if(current.children.length > 0)
-                current = current.children[0]
-            else
-                break;  
-        }            
-        context.current.entity=sentence.from.name;
-        context.current.metadata=schema.getEntity(context.current.entity);
-        context.current.alias = this.createAlias(context,context.current.entity);
-        let apk =  schema.getApk(context.current.entity);
-        let name:string = "";           
-        let children:Operand[]= [];
-        let operand= null;
-
-        if(sentence['filter'] ){
-            let clause = sentence['filter'];
-            operand = this.createClause(clause,schema,context);
-            children.push(operand);
-        }
-        if(sentence['from']){
-            let tableName = context.current.metadata.mapping;// schema.entityMapping(clause.name);
-            operand =new SqlFrom(tableName+'.'+context.current.alias);
-            children.push(operand);
-        }
-        if(sentence['deleteAll']){
-            // Only the DeleteAll can be an unfiltered delete.
-            // this is done for security to avoid deleting all records if the filter is forgotten
-            name='delete';
-            let clause = sentence['deleteAll'];
-            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
-        }else if(sentence['delete']){
-            name='delete';
-            createInclude= this.createDeleteInclude;
-            let clause = sentence['delete'];
-            this.createFilterIfNotExists(clause,children,schema,context);
-            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
-            children.push(operand);             
-        }else if (sentence['insert']){
-            name='insert';
-            createInclude= this.createInsertInclude;
-            let clause = sentence['insert'] as Node;
-            operand= this.createInsertClause(clause,schema,context);
-            context.current.fields = this.fieldsInModify(operand,context);
-            children.push(operand);
-        }else if (sentence['updateAll']){
-            // Only the updateAll can be an unfiltered update.
-            // this is done for security to avoid updated all records if the filter is forgotten
-            name='update';
-            let clause = sentence['updateAll'] as Node;
-            operand= this.createUpdateClause(clause,schema,context);
-            context.current.fields = this.fieldsInModify(operand,context);
-            children.push(operand);            
-        }else if (sentence['update']){
-            name='update';
-            createInclude= this.createUpdateInclude;
-            let clause = sentence['update'] as Node;           
-            operand= this.createUpdateClause(clause,schema,context);
-            context.current.fields = this.fieldsInModify(operand,context);
-            this.createFilterIfNotExists(clause,children,schema,context);
-            children.push(operand);            
-        }else{
-            name='select';
-            createInclude= this.createSelectInclude;
-            if(sentence['map'] || sentence['first']){
-                let clause = sentence['first']?sentence['first']:sentence['map'];
-                operand = this.createMapClause(clause,schema,context);
-                context.current.fields = this.fieldsInSelect(operand);
-                context.current.groupByFields = this.groupByFields(operand);
-                children.push(operand); 
-            }else{
-                let varEntity = new Node(context.current.entity, 'var', []);
-                let varArrow = new Node('p', 'var', []);
-                let varAll = new Node('p', 'var', []);               
-                let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
-                operand = this.createMapClause(clause,schema,context);
-                context.current.fields = this.fieldsInSelect(operand);
-                context.current.groupByFields = this.groupByFields(operand);
-                children.push(operand); 
-            }
-            if(context.current.groupByFields.length>0){
-                let fields = [];
-                for(let i=0;i<context.current.groupByFields.length;i++){
-                    fields.push( this.clone(context.current.groupByFields[i]));
-                }
-                if(fields.length==1){
-                    operand = new SqlGroupBy('groupBy',fields);
-                }else{
-                    let array:Operand = new SqlArray('array',fields);
-                    operand = new SqlGroupBy('groupBy',[array]);
-                } 
-                children.push(operand); 
-            }
-            if(sentence['having']){
-                let clause = sentence['having'];
-                operand = this.createClause(clause,schema,context);
-                children.push(operand); 
-            }
-            if(sentence['sort'] ){
-                let clause = sentence['sort'];
-                operand = this.createClause(clause,schema,context);
-                children.push(operand); 
-            }
-        }
-        if(sentence['include']){
-            if(createInclude===undefined)
-               throw 'Include not implemented!!!';
-
-            let clause = sentence['include'];                
-            context.current.arrowVar = clause.children[1].name; 
-            let body = clause.children[2];                
-            if (body.type == 'array'){
-                for (let i=0; i< body.children.length;i++) {
-                    let include = createInclude.bind(this)(body.children[i],schema,context)
-                    children.push(include);
-                }
-            }
-            else{
-                let include = createInclude.bind(this)(body,schema,context)
-                children.push(include);    
-            }
-        }
-        for(const key in context.current.joins){
-
-            let info = schema.getRelation(context.current.entity,key);
-
-            let relatedAlias = info.previousRelation!=''?context.current.joins[info.previousRelation]:context.current.alias;   
-            let relatedProperty = info.previousSchema.property[info.relationData.from];
-            let relationTable = info.relationSchema.name;
-            let relationAlias =context.current.joins[key];;
-            let relationProperty = info.relationSchema.property[info.relationData.to];
-
-            let relatedField = new SqlField(relatedAlias+'.'+relatedProperty.mapping,relatedProperty.type);
-            let relationField = new SqlField(relationAlias+'.'+relationProperty.mapping,relationProperty.type); 
-            let equal = new SqlOperator('==',[relationField,relatedField])
-            operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
-            children.push(operand);   
-        }
-
-        let parameters = this.parametersInSentence(children);
-        let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields,parameters);
-        context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
-        return sqlSentence   
-    }
-    protected nodeToOperand(node:Node,schema:SchemaHelper,context:SqlContext):Operand
-    {
-        if(node.type == 'arrow' || node.type == 'childFunc' ){
-            return this.createSentence(node,schema,context);
-        }else{
-            let children = this.childrenToOperands(node.children,schema,context);
-            return this.createOperand(node,children,schema,context);
-        }
-    }
-    protected childrenToOperands(children:Node[],schema:SchemaHelper,context:SqlContext):Operand[]
-    {
-        let operands:Operand[] = [];
-        if(children){
-            for(const k in children){
-                let p = children[k];
-                let child = this.nodeToOperand(p,schema,context);
-                operands.push(child);
-            }
-        }
-        return operands
-    }
     protected addJoins(parts:string[],to:number,context:SqlContext):string
     {
         let relation = '';
@@ -683,6 +679,14 @@ export class SqlOperandManager extends OperandManager
                 this._groupByFields(p,data);
             }
         }
+    }
+    protected createAlias(context:SqlContext,name:string,relation?:string):string
+    {
+        let c= name.charAt(0).toLowerCase();
+        let alias = c;
+        for(let i=1;context.aliases[alias];i++)alias=alias+i;
+        context.aliases[alias] = relation?relation:name;
+        return alias;        
     }
     protected clone(obj:any):any
     {
@@ -777,37 +781,91 @@ export class SqlOperandManager extends OperandManager
         let _delete = children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
 
         let parameters:Parameter[]=[];
-        if(select)this.loadParameters(select,0,parameters);
-        if(insert)this.loadParameters(insert,0,parameters);
-        if(update)this.loadParameters(update,0,parameters);
-        if(_delete)this.loadParameters(_delete,0,parameters);
-        if(filter)this.loadParameters(filter,0,parameters);
-        if(groupBy)this.loadParameters(groupBy,0,parameters);
-        if(having)this.loadParameters(having,0,parameters);
-        if(sort)this.loadParameters(sort,0,parameters);
+        if(select)this.loadParameters(select,parameters);
+        if(insert)this.loadParameters(insert,parameters);
+        if(update)this.loadParameters(update,parameters);
+        if(_delete)this.loadParameters(_delete,parameters);
+        if(filter)this.loadParameters(filter,parameters);
+        if(groupBy)this.loadParameters(groupBy,parameters);
+        if(having)this.loadParameters(having,parameters);
+        if(sort)this.loadParameters(sort,parameters);
         return parameters;
     }
-    protected loadParameters(operand:Operand,childNumber:number,parameters:Parameter[])
+    protected loadParameters(operand:Operand,parameters:Parameter[])
     {        
-        if(operand instanceof SqlVariable){
-            //TODO: determinar el tipo de la variable de acuerdo a la expression.
-            //si se usa en un operador con que se esta comparando.
-            //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
-            //let type = this.solveType(operand,childNumber);
-            parameters.push({name:operand.name,type:'any'});
-        }
-        for(let i=0;i<operand.children.length;i++ ){  
-            const p = operand.children[i];
-            this.loadParameters(p,i,parameters);
-        } 
+        if(operand instanceof SqlVariable)
+            parameters.push({name:operand.name,type:operand.type});
+        for(let i=0;i<operand.children.length;i++ )
+            this.loadParameters(operand.children[i],parameters);
     }
-    // protected solveType(operand:Operand,childNumber:number)
+
+
+    //TODO: determinar el tipo de la variable de acuerdo a la expression.
+    //si se usa en un operador con que se esta comparando.
+    //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+    //let type = this.solveType(operand,childNumber);
+    protected solveTypes(operand:Operand):string
+    {        
+        if(operand instanceof SqlConstant || operand instanceof SqlField || operand instanceof SqlVariable)return operand.type;
+        if(operand instanceof SqlKeyValue)return this.solveTypes(operand.children[0]);
+        if(operand instanceof SqlOperator || operand instanceof SqlFunctionRef){
+            // if the operand has already defined the type 
+            if(operand.type!= 'any')return operand.type;
+            // get metadata of operand
+            const metadata = operand instanceof SqlOperator?
+                                this.languageModel.getOperator(operand.name,operand.children.length):
+                                this.languageModel.getFunction(operand.name);
+            // try to resolve the type for the type through the parameters with the same type
+            if(metadata.return =='T'){
+                //TODO: debe recorer todos los hijos y a partir de alguno que sea T resolver su tipo
+                // luego recorer los otros tipos y resolver sus tipos
+                for(let i=0;i<metadata.params.length;i++ ){  
+                    const param = metadata.params[i];
+                    const child = operand.children[i]; 
+                    if(param.type == 'T' && !(child instanceof SqlVariable)){
+                        const childType = this.solveTypes(child);
+                        if(childType!='any')return childType;
+                    }
+                }
+            }
+            //try to solve the type where it is positioned
+            else if(metadata.return =='any'){
+                //TODO:
+                //debe buscar donde se encuentra posicionado en su padre y ver si puede determinar que tipo debe ser.
+                //luego debe recorer todos los hijos y resolver sus tipos
+            }else{
+                operand.type = metadata.return;
+                //TODO: debe recorer todos los hijos y resolver sus tipos
+            }
+
+            return operand.type;
+        }        
+        // para todos los otros casos debe recorer los hijos y resolver sus tipos        
+        for(let i=0;i<operand.children.length;i++ ){  
+            const child = operand.children[i];
+            this.solveTypes(child);
+        }
+        return operand.type; 
+    }
+
+    // protected getType(operand:Operand):string
     // {
-    //     if(operand instanceof SqlOperator){
-    //         let metadata = this.languageModel.getOperator(operand.name,operand.children.length);
-    //         let type= metadata.params[childNumber].type;
-    //         if(type!='T')return type;
-    //         for()            
+    //     if(operand instanceof SqlConstant)return operand.type;
+    //     if(operand instanceof SqlOperator || operand instanceof SqlFunctionRef){
+    //         const metadata = operand instanceof SqlOperator?
+    //                             this.languageModel.getOperator(operand.name,operand.children.length):
+    //                             this.languageModel.getFunction(operand.name);
+    //         if(metadata.return !='T')return metadata.return;
+    //         for(let i=0;i<metadata.params.length;i++ ){  
+    //             const param = metadata.params[i];
+    //             const child = operand.children[i]; 
+    //             if(param.type == 'T' && !(child instanceof SqlVariable)){
+    //                 const childType = this.getType(child);
+    //                 if(childType!='any')return childType;
+    //             }
+    //         }           
     //     }
+    //     if(operand instanceof SqlKeyValue)return this.getType(operand.children[0]);
+    //     return 'any';
     // }  
 }

@@ -189,6 +189,8 @@ declare function time(value:any):Date
 /**  */
 declare function date(value:any):Date
 /**  */
+declare function datetime(value:any):Date
+/**  */
 declare function year(value:Date):number
 /**  */
 declare function month(value:Date):number

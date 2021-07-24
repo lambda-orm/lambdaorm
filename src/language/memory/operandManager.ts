@@ -49,9 +49,9 @@ export class MemoryOperandManager extends OperandManager
     }
     private createOperand(name:string,type:string,children:Operand[]=[]){
         if ( type == 'const')
-            return new Constant(name,children);
+            return new Constant(name);
         else if ( type == 'var')
-            return new  Variable(name,children);
+            return new  Variable(name);
         else if ( type == 'keyVal')
             return new DefaultKeyValue(name,children);
         else if ( type == 'array')

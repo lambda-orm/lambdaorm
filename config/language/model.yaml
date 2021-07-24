@@ -411,20 +411,20 @@ functions:
     return: boolean
     params:
     - name: value
-      type: any
+      type: T
     - name: from
-      type: any 
+      type: T 
     - name: to
-      type: any  
+      type: T  
   includes:
     desc:
     category: condition 
     return: boolean
     params:
     - name: value
-      type: any
+      type: T
     - name: list
-      type: any[] 
+      type: T[] 
 # numeric:---------------------------------------------------------       
   abs:
     desc: Get the absolute value 
@@ -695,70 +695,77 @@ functions:
     return: Date 
     params:
     - name: value
-      type: any 
+      type: string 
   date:
     desc: 
     category: datetime 
     return: Date 
     params:
     - name: value
-      type: any          
+      type: string  
+  datetime:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: value
+      type: string              
   year:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date 
+      type: Date
   month:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date      
+      type: Date     
   day:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date 
+      type: Date
   weekday:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date 
+      type: Date
   hours:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date 
+      type: Date
   minutes:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date     
+      type: Date    
   seconds:
     desc: 
     category: datetime 
     return: number 
     params:
     - name: value
-      type: Date 
+      type: Date
   addYear:
     desc: 
     category: datetime 
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
       type: number 
   addMonth:
@@ -767,7 +774,7 @@ functions:
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
       type: number 
   addDay:
@@ -776,7 +783,7 @@ functions:
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
       type: number
   addHours:
@@ -785,7 +792,7 @@ functions:
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
       type: number 
   addMinutes:
@@ -794,7 +801,7 @@ functions:
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
       type: number 
   addSeconds:
@@ -803,7 +810,7 @@ functions:
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
       type: number  
   addTime:
@@ -812,25 +819,25 @@ functions:
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: value
-      type: Date  
+      type: Date 
   dateDiff:
     desc: 
     category: datetime 
     return: Date 
     params:
     - name: date
-      type: Date 
+      type: Date
     - name: date2
-      type: Date  
+      type: Date 
   timeDiff:
     desc: 
     category: datetime 
     return: Date 
     params:
     - name: time
-      type: Date 
+      type: Date
     - name: time2
       type: Date                                    
 # convert :---------------------------------------------------------
@@ -841,41 +848,20 @@ functions:
     params:
     - name: value
       type: any 
-  toDate:
-    desc: 
-    category: convert 
-    return: Date 
-    params:
-    - name: value
-      type: any 
-  toDatetime:
-    desc: 
-    category: convert 
-    return: Date 
-    params:
-    - name: value
-      type: any   
-  toTime:
-    desc: 
-    category: convert 
-    return: Date 
-    params:
-    - name: value
-      type: any 
   toJson:
     desc: 
     category: convert 
-    return: any 
+    return: object 
     params:
     - name: value
-      type: any 
+      type: string 
   toNumber:
     desc: 
     category: convert 
     return: number 
     params:
     - name: value 
-      type: any                   
+      type: string                   
 # metadata :---------------------------------------------------------
   user:
     desc: get username
