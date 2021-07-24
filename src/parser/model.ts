@@ -43,31 +43,39 @@ export class Model
                 this.addOperator(name,count,metadata);
             }
         }
+        for(const name in data.functions){            
+            let metadata= data.functions[name];
+            this.addFunction(name,metadata);
+            
+        }
     }
-    // addFunction(name,metadata){
-    //     this.functions[name] = metadata; 
-    // } 
-    // getOperatorMetadata(name,operands){
-    //     try{          
-    //         if(this._operators[name]){
-    //             let operator = this._operators[name];
-    //             if(operator[operands])
-    //                 return operator[operands];
-    //         }
-    //         return null
-    //     }            
-    //     catch(error){
-    //         throw 'error with operator: '+name;
-    //     }
-    // } 
-    // getFunctionMetadata(name){
-    //     try{
-    //         if(this._functions[name])
-    //             return this._functions[name];
-    //         return null
-    //     }
-    //     catch(error){
-    //         throw 'error with function: '+name;
-    //     }
-    // }
+    addFunction(name:string,metadata:any):void
+    {
+        this.functions[name] = metadata; 
+    } 
+    getOperator(name:string,operands:number):any
+    {
+        try{          
+            if(this.operators[name]){
+                let operator = this.operators[name];
+                if(operator[operands])
+                    return operator[operands];
+            }
+            return null
+        }            
+        catch(error){
+            throw 'error with operator: '+name;
+        }
+    } 
+    getFunction(name:string):any
+    {
+        try{
+            if(this.functions[name])
+                return this.functions[name];
+            return null
+        }
+        catch(error){
+            throw 'error with function: '+name;
+        }
+    }
 }

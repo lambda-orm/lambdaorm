@@ -777,27 +777,39 @@ export class SqlOperandManager extends OperandManager
         let _delete = children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
 
         let parameters:Parameter[]=[];
-        if(select)this.loadParameters(select,parameters);
-        if(insert)this.loadParameters(insert,parameters);
-        if(update)this.loadParameters(update,parameters);
-        if(_delete)this.loadParameters(_delete,parameters);
-        if(filter)this.loadParameters(filter,parameters);
-        if(groupBy)this.loadParameters(groupBy,parameters);
-        if(having)this.loadParameters(having,parameters);
-        if(sort)this.loadParameters(sort,parameters);
+        if(select)this.loadParameters(select,0,parameters);
+        if(insert)this.loadParameters(insert,0,parameters);
+        if(update)this.loadParameters(update,0,parameters);
+        if(_delete)this.loadParameters(_delete,0,parameters);
+        if(filter)this.loadParameters(filter,0,parameters);
+        if(groupBy)this.loadParameters(groupBy,0,parameters);
+        if(having)this.loadParameters(having,0,parameters);
+        if(sort)this.loadParameters(sort,0,parameters);
         return parameters;
     }
-    protected loadParameters(operand:Operand,parameters:Parameter[])
+    protected loadParameters(operand:Operand,childNumber:number,parameters:Parameter[])
     {        
         if(operand instanceof SqlVariable){
             //TODO: determinar el tipo de la variable de acuerdo a la expression.
             //si se usa en un operador con que se esta comparando.
             //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+            //let type = this.solveType(operand,childNumber);
             parameters.push({name:operand.name,type:'any'});
-        }       
-        for(const k in operand.children){
-            const p = operand.children[k];
-            this.loadParameters(p,parameters);
+        }
+        for(let i=0;i<operand.children.length;i++ ){  
+            const p = operand.children[i];
+            this.loadParameters(p,i,parameters);
         } 
-    }  
+    }
+    // protected solveType(operand:Operand,childNumber:number)
+    // {
+
+    //     if(operand instanceof SqlOperator){
+    //         let metadata = this.languageModel.getOperator(operand.name,operand.children.length);
+    //         let type= metadata.params[childNumber].type;
+    //         if(type!='T')return type;
+    //         for()
+            
+    //     }
+    // }  
 }
