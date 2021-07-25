@@ -10,7 +10,6 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     constructor(language:SqlLanguage){
         this.language=language;
     }
-
     public create(delta:Delta,dialect:string,schema:SchemaHelper):string
     {
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
@@ -62,7 +61,6 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let separator = metadata.other('sepatatorSql');
         return sql.join(separator)+separator;
     }
-
     private createEntity(sql:string[],schema:SchemaHelper,entity:any,metadata:SqlDialectMetadata):void
     {
         let define:string[]=[];

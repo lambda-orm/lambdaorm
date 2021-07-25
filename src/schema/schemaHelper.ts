@@ -6,6 +6,9 @@ export class SchemaHelper
     constructor(schema:any){
         this._schema = schema;
     }
+    public get entity(){
+        return this._schema.entity;
+    }
     public existsProperty(entityName:string,name:string):boolean
     {
         let entity =this.getEntity(entityName);

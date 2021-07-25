@@ -28,7 +28,7 @@ abstract:
       - name: region
         fields: ['region','country']
       - name: city
-        fields: ['city']                 
+        fields: ['city'] 
 enums:
 entities:
   - name: Categories

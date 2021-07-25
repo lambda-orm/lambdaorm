@@ -162,7 +162,6 @@ async function crud(orm){
     console.log(error);
   }
 }
-
 async function scriptsByDialect(orm,schemas){
   let current = schemas['northwind'];
   for(const name in orm.languages['sql'].dialects){
@@ -170,7 +169,6 @@ async function scriptsByDialect(orm,schemas){
     await exec( async()=>(orm.schema.delta(current).sql(name)));
   } 
 }
-
 async function applySchema(orm,schemas){
   
   let old = schemas['northwind-old'];
@@ -205,8 +203,8 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-await queries(orm);
-// await modify(orm);
+// await queries(orm);
+await modify(orm);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
