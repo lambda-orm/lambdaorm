@@ -10,9 +10,8 @@ export class SqlSchemaExportBuilder
     constructor(language:SqlLanguage){
         this.language=language;
     }
-    public create(dialect:string,schema:SchemaHelper):string
-    {
-        let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
+    public create(schema:SchemaHelper):string
+    {        
         let sql:string[]=[];
 
         //Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
