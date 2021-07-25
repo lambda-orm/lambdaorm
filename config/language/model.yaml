@@ -3,7 +3,7 @@ operators:
     '-':
       name: negative
       category: arithmetic
-      priority: 8
+      priority: 9
       return: number
       params:
       - name: value
@@ -11,7 +11,7 @@ operators:
     '~':
       name: bitNot
       category: bitwise
-      priority: 4
+      priority: 5
       return: boolean
       params:
       - name: value
@@ -19,7 +19,7 @@ operators:
     '!':
       name: not
       category: logical
-      priority: 4
+      priority: 5
       return: boolean
       params:
       - name: value
@@ -28,7 +28,7 @@ operators:
     '+': 
       name: addition
       category: arithmetic
-      priority: 4
+      priority: 5
       return: number
       params:
       - name: a
@@ -38,7 +38,7 @@ operators:
     '-':
       name: subtraction
       category: arithmetic
-      priority: 4
+      priority: 5
       return: number
       params:
       - name: a
@@ -48,7 +48,7 @@ operators:
     '*':
       name: multiplication
       category: arithmetic
-      priority: 5
+      priority: 6
       return: number
       params:
       - name: a
@@ -58,7 +58,7 @@ operators:
     '/':
       name: division
       category: arithmetic
-      priority: 5
+      priority: 6
       return: number
       params:
       - name: a
@@ -68,7 +68,7 @@ operators:
     '**':
       name: exponentiation
       category: arithmetic
-      priority: 6
+      priority: 7
       return: number
       params:
       - name: a
@@ -78,7 +78,7 @@ operators:
     '//':
       name: floorDivision
       category: arithmetic
-      priority: 6
+      priority: 7
       return: number
       params:
       - name: a
@@ -88,7 +88,7 @@ operators:
     '%':
       name: mod
       category: arithmetic
-      priority: 7
+      priority: 8
       return: number
       params:
       - name: a
@@ -98,7 +98,7 @@ operators:
     '&':
       name: bitAnd
       category: bitwise
-      priority: 4
+      priority: 5
       return: number
       params:
       - name: a
@@ -108,7 +108,7 @@ operators:
     '|':
       name: bitOr
       category: bitwise
-      priority: 4
+      priority: 5
       return: number
       params:
       - name: a
@@ -118,7 +118,7 @@ operators:
     '^':
       name: bitXor
       category: bitwise
-      priority: 4 
+      priority: 5 
       return: number
       params:
       - name: a
@@ -128,7 +128,7 @@ operators:
     '<<':
       name: leftShift
       category: bitwise
-      priority: 4
+      priority: 5
       return: number
       params:
       - name: a
@@ -138,7 +138,7 @@ operators:
     '>>':
       name: rightShift
       category: bitwise
-      priority: 4
+      priority: 5
       return: number
       params:
       - name: a
@@ -148,7 +148,7 @@ operators:
     '==':
       name: equal
       category: comparison
-      priority: 3
+      priority: 4
       return: boolean
       params:
       - name: a
@@ -158,7 +158,7 @@ operators:
     '!=':
       name: notEqual
       category: comparison
-      priority: 3
+      priority: 4
       return: boolean
       params:
       - name: a
@@ -168,7 +168,7 @@ operators:
     '>':
       name: greaterThan
       category: comparison
-      priority: 3
+      priority: 4
       return: boolean
       params:
       - name: a
@@ -178,7 +178,7 @@ operators:
     '<':
       name: lessThan
       category: comparison
-      priority: 3
+      priority: 4
       return: boolean
       params:
       - name: a
@@ -188,7 +188,7 @@ operators:
     '>=':
       name: greaterThanOrEqual
       category: comparison
-      priority: 3
+      priority: 4
       return: boolean
       params:
       - name: a
@@ -198,7 +198,7 @@ operators:
     '<=':
       name: lessThanOrEqual
       category: comparison
-      priority: 3 
+      priority: 4 
       return: boolean
       params:
       - name: a

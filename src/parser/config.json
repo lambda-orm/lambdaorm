@@ -4,7 +4,7 @@
       "-": {
         "name": "negative",
         "category": "arithmetic",
-        "priority": 8,
+        "priority": 9,
         "return": "number",
         "params": [
           {
@@ -16,7 +16,7 @@
       "~": {
         "name": "bitNot",
         "category": "bitwise",
-        "priority": 4,
+        "priority": 5,
         "return": "boolean",
         "params": [
           {
@@ -28,7 +28,7 @@
       "!": {
         "name": "not",
         "category": "logical",
-        "priority": 4,
+        "priority": 5,
         "return": "boolean",
         "params": [
           {
@@ -42,7 +42,7 @@
       "+": {
         "name": "addition",
         "category": "arithmetic",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -58,7 +58,7 @@
       "-": {
         "name": "subtraction",
         "category": "arithmetic",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -74,7 +74,7 @@
       "*": {
         "name": "multiplication",
         "category": "arithmetic",
-        "priority": 5,
+        "priority": 6,
         "return": "number",
         "params": [
           {
@@ -90,7 +90,7 @@
       "/": {
         "name": "division",
         "category": "arithmetic",
-        "priority": 5,
+        "priority": 6,
         "return": "number",
         "params": [
           {
@@ -106,7 +106,7 @@
       "**": {
         "name": "exponentiation",
         "category": "arithmetic",
-        "priority": 6,
+        "priority": 7,
         "return": "number",
         "params": [
           {
@@ -122,7 +122,7 @@
       "//": {
         "name": "floorDivision",
         "category": "arithmetic",
-        "priority": 6,
+        "priority": 7,
         "return": "number",
         "params": [
           {
@@ -138,7 +138,7 @@
       "%": {
         "name": "mod",
         "category": "arithmetic",
-        "priority": 7,
+        "priority": 8,
         "return": "number",
         "params": [
           {
@@ -154,7 +154,7 @@
       "&": {
         "name": "bitAnd",
         "category": "bitwise",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -170,7 +170,7 @@
       "|": {
         "name": "bitOr",
         "category": "bitwise",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -186,7 +186,7 @@
       "^": {
         "name": "bitXor",
         "category": "bitwise",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -202,7 +202,7 @@
       "<<": {
         "name": "leftShift",
         "category": "bitwise",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -218,7 +218,7 @@
       ">>": {
         "name": "rightShift",
         "category": "bitwise",
-        "priority": 4,
+        "priority": 5,
         "return": "number",
         "params": [
           {
@@ -234,7 +234,7 @@
       "==": {
         "name": "equal",
         "category": "comparison",
-        "priority": 3,
+        "priority": 4,
         "return": "boolean",
         "params": [
           {
@@ -250,7 +250,7 @@
       "!=": {
         "name": "notEqual",
         "category": "comparison",
-        "priority": 3,
+        "priority": 4,
         "return": "boolean",
         "params": [
           {
@@ -266,7 +266,7 @@
       ">": {
         "name": "greaterThan",
         "category": "comparison",
-        "priority": 3,
+        "priority": 4,
         "return": "boolean",
         "params": [
           {
@@ -282,7 +282,7 @@
       "<": {
         "name": "lessThan",
         "category": "comparison",
-        "priority": 3,
+        "priority": 4,
         "return": "boolean",
         "params": [
           {
@@ -298,7 +298,7 @@
       ">=": {
         "name": "greaterThanOrEqual",
         "category": "comparison",
-        "priority": 3,
+        "priority": 4,
         "return": "boolean",
         "params": [
           {
@@ -314,7 +314,7 @@
       "<=": {
         "name": "lessThanOrEqual",
         "category": "comparison",
-        "priority": 3,
+        "priority": 4,
         "return": "boolean",
         "params": [
           {
@@ -652,15 +652,15 @@
       "params": [
         {
           "name": "value",
-          "type": "any"
+          "type": "T"
         },
         {
           "name": "from",
-          "type": "any"
+          "type": "T"
         },
         {
           "name": "to",
-          "type": "any"
+          "type": "T"
         }
       ]
     },
@@ -671,11 +671,11 @@
       "params": [
         {
           "name": "value",
-          "type": "any"
+          "type": "T"
         },
         {
           "name": "list",
-          "type": "any[]"
+          "type": "T[]"
         }
       ]
     },
@@ -1102,7 +1102,7 @@
       "params": [
         {
           "name": "value",
-          "type": "any"
+          "type": "string"
         }
       ]
     },
@@ -1113,7 +1113,18 @@
       "params": [
         {
           "name": "value",
-          "type": "any"
+          "type": "string"
+        }
+      ]
+    },
+    "datetime": {
+      "desc": null,
+      "category": "datetime",
+      "return": "Date",
+      "params": [
+        {
+          "name": "value",
+          "type": "string"
         }
       ]
     },
@@ -1340,47 +1351,14 @@
         }
       ]
     },
-    "toDate": {
-      "desc": null,
-      "category": "convert",
-      "return": "Date",
-      "params": [
-        {
-          "name": "value",
-          "type": "any"
-        }
-      ]
-    },
-    "toDatetime": {
-      "desc": null,
-      "category": "convert",
-      "return": "Date",
-      "params": [
-        {
-          "name": "value",
-          "type": "any"
-        }
-      ]
-    },
-    "toTime": {
-      "desc": null,
-      "category": "convert",
-      "return": "Date",
-      "params": [
-        {
-          "name": "value",
-          "type": "any"
-        }
-      ]
-    },
     "toJson": {
       "desc": null,
       "category": "convert",
-      "return": "any",
+      "return": "object",
       "params": [
         {
           "name": "value",
-          "type": "any"
+          "type": "string"
         }
       ]
     },
@@ -1391,7 +1369,7 @@
       "params": [
         {
           "name": "value",
-          "type": "any"
+          "type": "string"
         }
       ]
     },

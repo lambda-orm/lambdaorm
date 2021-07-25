@@ -140,7 +140,7 @@ export class Parser
                  isbreak= true;
                  break;
              }    
-             else if(this.mgr.priority(operator as string)>=this.mgr.priority(nextOperator)){
+             else if(this.mgr.priority(operator as string)>this.mgr.priority(nextOperator)){
                  operand1=new Node(operator,'oper',[operand1 as Node,operand2]);
                  operator=nextOperator;
              }    

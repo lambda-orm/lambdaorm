@@ -809,63 +809,54 @@ export class SqlOperandManager extends OperandManager
         if(operand instanceof SqlConstant || operand instanceof SqlField || operand instanceof SqlVariable)return operand.type;
         if(operand instanceof SqlKeyValue)return this.solveTypes(operand.children[0]);
         if(operand instanceof SqlOperator || operand instanceof SqlFunctionRef){
-            // if the operand has already defined the type 
-            if(operand.type!= 'any')return operand.type;
+            let tType='any';
             // get metadata of operand
             const metadata = operand instanceof SqlOperator?
                                 this.languageModel.getOperator(operand.name,operand.children.length):
                                 this.languageModel.getFunction(operand.name);
-            // try to resolve the type for the type through the parameters with the same type
-            if(metadata.return =='T'){
-                //TODO: debe recorer todos los hijos y a partir de alguno que sea T resolver su tipo
-                // luego recorer los otros tipos y resolver sus tipos
-                for(let i=0;i<metadata.params.length;i++ ){  
-                    const param = metadata.params[i];
-                    const child = operand.children[i]; 
-                    if(param.type == 'T' && !(child instanceof SqlVariable)){
-                        const childType = this.solveTypes(child);
-                        if(childType!='any')return childType;
+
+
+            //recorre todos los parametros 
+            for(let i=0;i<metadata.params.length;i++ ){  
+                const param = metadata.params[i];
+                const child = operand.children[i]; 
+                //en el caso que el pametro tenga un tipo defido y el hijo no, asigna al hijo el tipo del parametro
+                if(param.type != 'T' && param.type != 'any' && child.type == 'any'){
+                    child.type = param.type;
+                }
+                //en el caso que el pametro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
+                else if(param.type == 'T' && child.type != 'any'){
+                    tType=child.type;
+                }
+                //en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
+                // en caso de lograrlo determina que T es el tipo de hijo
+                else if(param.type == 'T' && child.type == 'any'){
+                    const childType = this.solveTypes(child);
+                    if(childType!='any'){
+                        tType = childType;
+                        break;
                     }
                 }
             }
-            //try to solve the type where it is positioned
-            else if(metadata.return =='any'){
-                //TODO:
-                //debe buscar donde se encuentra posicionado en su padre y ver si puede determinar que tipo debe ser.
-                //luego debe recorer todos los hijos y resolver sus tipos
-            }else{
-                operand.type = metadata.return;
-                //TODO: debe recorer todos los hijos y resolver sus tipos
+            // en el caso que se haya podido resolver T 
+            if(tType != 'any'){
+                //en el caso que el operando sea T asigna el tipo correspondiente al operando
+                if(metadata.return =='T' && operand.type == 'any')
+                    operand.type = tType;
+                //busca los parametros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
+                for(let i=0;i<metadata.params.length;i++ ){  
+                    const param = metadata.params[i];
+                    const child = operand.children[i];
+                    if(param.type == 'T' && child.type == 'any'){
+                        child.type=tType;
+                    }      
+                }
             }
-
-            return operand.type;
         }        
-        // para todos los otros casos debe recorer los hijos y resolver sus tipos        
-        for(let i=0;i<operand.children.length;i++ ){  
-            const child = operand.children[i];
-            this.solveTypes(child);
-        }
+        // recorre todos los hijos para resolver el tipo
+        for(let i=0;i<operand.children.length;i++ )  
+            this.solveTypes(operand.children[i]);
+        
         return operand.type; 
     }
-
-    // protected getType(operand:Operand):string
-    // {
-    //     if(operand instanceof SqlConstant)return operand.type;
-    //     if(operand instanceof SqlOperator || operand instanceof SqlFunctionRef){
-    //         const metadata = operand instanceof SqlOperator?
-    //                             this.languageModel.getOperator(operand.name,operand.children.length):
-    //                             this.languageModel.getFunction(operand.name);
-    //         if(metadata.return !='T')return metadata.return;
-    //         for(let i=0;i<metadata.params.length;i++ ){  
-    //             const param = metadata.params[i];
-    //             const child = operand.children[i]; 
-    //             if(param.type == 'T' && !(child instanceof SqlVariable)){
-    //                 const childType = this.getType(child);
-    //                 if(childType!='any')return childType;
-    //             }
-    //         }           
-    //     }
-    //     if(operand instanceof SqlKeyValue)return this.getType(operand.children[0]);
-    //     return 'any';
-    // }  
 }
