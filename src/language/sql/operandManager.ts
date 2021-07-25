@@ -168,23 +168,23 @@ export class SqlOperandManager extends OperandManager
                 if(parts[0] == context.current.arrowVar){
                     if(parts.length == 1){
                         // TODO, aqui se deberia retornar el array de fields 
-                        return new SqlField(context.current.alias+'.*','any'); 
+                        return new SqlField(context.current.entity,'*','any',context.current.alias+'.*'); 
                     }
                     else if(parts.length == 2){
-                        let _field = context.current.fields.find(p=> p.name == parts[1])
+                        let _field = context.current.fields.find(p=> p.name == parts[1]);
                         if(_field){ 
-                            return new SqlField(_field.name,_field.type);                          
+                            return new SqlField(context.current.entity,_field.name,_field.type,_field.name);                          
                         }else{                            
                             if(schema.existsProperty(context.current.entity,parts[1])){
                                 let property= schema.getProperty(context.current.entity,parts[1]);
-                                return new SqlField(context.current.alias+'.'+property.mapping,property.type); 
+                                return new SqlField(context.current.entity,property.name,property.type,context.current.alias+'.'+property.mapping); 
                             }else{
                                 let relationInfo= schema.getRelation(context.current.entity,parts[1]);
                                 if(relationInfo){
                                     let relation =  this.addJoins(parts,parts.length,context); 
                                     let relationAlias=context.current.joins[relation];
                                     // TODO, aqui se deberia retornar el array de fields 
-                                    return new SqlField(relationAlias+'.*','any'); 
+                                    return new SqlField(relation,'*','any',relationAlias+'.*'); 
                                 }else{
                                     throw 'Property '+parts[1]+' not fount in '+context.current.entity;
                                 }
@@ -198,14 +198,14 @@ export class SqlOperandManager extends OperandManager
                         let relationAlias=context.current.joins[relation];
                         let property = info.relationSchema.property[propertyName]; 
                         if(property){
-                            return new SqlField(relationAlias+'.'+property.mapping,property.type);
+                            return new SqlField(info.relationSchema.name,property.name,property.type,relationAlias+'.'+property.mapping);
                         }else{
                             let relationName = info.relationSchema.relation[propertyName];
                             if(relationName){
                                 let relation2 =  this.addJoins(parts,parts.length,context);
                                 let relationAlias2=context.current.joins[relation2];
                                 // TODO, aqui se deberia retornar el array de fields                                
-                                return new SqlField(relationAlias2+'.*','any');
+                                return new SqlField(relation2,'*','any',relationAlias2+'.*');
                             }else{
                                 throw 'Property '+propertyName+' not fount in '+relation;
                             } 
@@ -369,14 +369,14 @@ export class SqlOperandManager extends OperandManager
             let relationAlias =context.current.joins[key];;
             let relationProperty = info.relationSchema.property[info.relationData.to];
 
-            let relatedField = new SqlField(relatedAlias+'.'+relatedProperty.mapping,relatedProperty.type);
-            let relationField = new SqlField(relationAlias+'.'+relationProperty.mapping,relationProperty.type); 
+            let relatedField = new SqlField(info.previousSchema.name,info.relationData.from,relatedProperty.type,relatedAlias+'.'+relatedProperty.mapping);
+            let relationField = new SqlField(info.relationSchema.name,info.relationData.to,relationProperty.type,relationAlias+'.'+relationProperty.mapping); 
             let equal = new SqlOperator('==',[relationField,relatedField])
             operand = new SqlJoin(relationTable+'.'+relationAlias,[equal]);
             children.push(operand);   
         }
         
-        for(let i=0;i<children.length;i++)this.solveTypes(children[i]);        
+        for(let i=0;i<children.length;i++)this.solveTypes(children[i],context);        
         let parameters = this.parametersInSentence(children);
         let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields,parameters);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
@@ -538,7 +538,7 @@ export class SqlOperandManager extends OperandManager
         for(let i in entity.primaryKey){ 
             let name = entity.primaryKey[i]; 
             let field = entity.property[name];
-            let sqlField = new SqlField(parent?parent + '.' + field.mapping:field.mapping,field.type);
+            let sqlField = new SqlField(entityName,name,field.type,parent?parent + '.' + field.mapping:field.mapping);
             let variable = new SqlVariable(name);
             let equal =new SqlOperator('==', [sqlField,variable]);
             condition =condition?new SqlOperator('&&', [condition,equal]):equal;
@@ -585,7 +585,7 @@ export class SqlOperandManager extends OperandManager
         } 
         let toEntity=schema.getEntity(relation.entity);
         let toField = toEntity.property[relation.to];
-        let fieldRelation = new SqlField(child.alias + '.' + toField.mapping,toField.type);
+        let fieldRelation = new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping);
         let variableName = 'list_'+relation.to;
         let varRelation = new SqlVariable(variableName);
         let filterInclude =new SqlFunctionRef('includes', [fieldRelation,varRelation]);
@@ -757,10 +757,10 @@ export class SqlOperandManager extends OperandManager
             if(operand.children[0] instanceof SqlObject){
                 let obj = operand.children[0];
                 for(let p in obj.children){
-                    let keyVal = obj.children[p];
+                    let keyVal = obj.children[p] as SqlKeyValue;
                     let property =context.current.metadata.property[keyVal.name];
                     let field = {name:keyVal.name,type:property.type};
-                    obj.children[p].name = property.mapping;
+                    keyVal.field = new SqlField(context.current.entity,property.name,property.type,property.mapping);                    
                     fields.push(field);                  
                 }    
             } 
@@ -799,15 +799,26 @@ export class SqlOperandManager extends OperandManager
             this.loadParameters(operand.children[i],parameters);
     }
 
-
     //TODO: determinar el tipo de la variable de acuerdo a la expression.
     //si se usa en un operador con que se esta comparando.
     //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
     //let type = this.solveType(operand,childNumber);
-    protected solveTypes(operand:Operand):string
+    protected solveTypes(operand:Operand,context:SqlContext):string
     {        
         if(operand instanceof SqlConstant || operand instanceof SqlField || operand instanceof SqlVariable)return operand.type;
-        if(operand instanceof SqlKeyValue)return this.solveTypes(operand.children[0]);
+        if(operand instanceof SqlUpdate || operand instanceof SqlInsert){
+            if(operand.children.length==1){
+                if(operand.children[0] instanceof SqlObject){
+                    let obj = operand.children[0];
+                    for(let p in obj.children){
+                        let keyVal = obj.children[p] as SqlKeyValue;
+                        let property =context.current.metadata.property[keyVal.name];
+                        if(keyVal.children[0].type== 'any')
+                            keyVal.children[0].type=property.type;
+                    }    
+                } 
+            }
+        }
         if(operand instanceof SqlOperator || operand instanceof SqlFunctionRef){
             let tType='any';
             // get metadata of operand
@@ -831,7 +842,7 @@ export class SqlOperandManager extends OperandManager
                 //en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
                 // en caso de lograrlo determina que T es el tipo de hijo
                 else if(param.type == 'T' && child.type == 'any'){
-                    const childType = this.solveTypes(child);
+                    const childType = this.solveTypes(child,context);
                     if(childType!='any'){
                         tType = childType;
                         break;
@@ -855,7 +866,7 @@ export class SqlOperandManager extends OperandManager
         }        
         // recorre todos los hijos para resolver el tipo
         for(let i=0;i<operand.children.length;i++ )  
-            this.solveTypes(operand.children[i]);
+            this.solveTypes(operand.children[i],context);
         
         return operand.type; 
     }

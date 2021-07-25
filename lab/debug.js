@@ -163,7 +163,7 @@ async function crud(orm){
   }
 }
 
-async function showSriptsByDialect(orm,schemas){
+async function scriptsByDialect(orm,schemas){
   let current = schemas['northwind'];
   for(const name in orm.languages['sql'].dialects){
     console.log('\n\n'+name+' -------------------------------------\n');
@@ -208,7 +208,7 @@ orm.connection.add(cnx);
 await queries(orm);
 // await modify(orm);
 // await crud(orm);
-// await showSriptsByDialect(orm,schemas);
+// await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
 
 

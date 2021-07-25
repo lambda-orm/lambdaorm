@@ -36,15 +36,17 @@ export class SqlVariable extends Variable
     }
 }
 export class SqlField extends Operand
-{
-    public type:string 
-    constructor(name:string,type:string){
-        super(name,[]);
-        this.type = type; 
+{    
+    public entity:string
+    public mapping:string 
+    constructor(entity:string,name:string,type:string,mapping:string){
+        super(name,[],type);
+        this.entity = entity;
+        this.mapping  = mapping;  
     }
 
     build(metadata:SqlDialectMetadata){ 
-        let parts = this.name.split('.');
+        let parts = this.mapping.split('.');
         if(parts.length == 1){
             let name = parts[0];
             return metadata.other('column').replace('{name}',metadata.solveName(name));
@@ -60,6 +62,7 @@ export class SqlField extends Operand
 }
 export class SqlKeyValue extends KeyValue
 {
+    public field?:SqlField 
     build(metadata:SqlDialectMetadata):any
     {
         return this.children[0].build(metadata);
@@ -296,8 +299,8 @@ export class SqlInsert extends SqlArrowFunction
         if(this.children[0] instanceof SqlObject){
             let obj = this.children[0];
             for(let p in obj.children){
-                let keyVal = obj.children[p];                
-                fields.push(templateColumn.replace('{name}',metadata.solveName(keyVal.name)));
+                let keyVal = obj.children[p] as SqlKeyValue;                
+                fields.push(templateColumn.replace('{name}',metadata.solveName(keyVal.field?keyVal.field.mapping:keyVal.name)));
                 values.push(keyVal.children[0].build(metadata)); 
             }    
         }
@@ -319,8 +322,8 @@ export  class SqlUpdate extends SqlArrowFunction
         if(this.children[0] instanceof SqlObject){
             let obj = this.children[0];
             for(let p in obj.children){
-                let keyVal = obj.children[p];
-                let column = templateColumn.replace('{name}',metadata.solveName(keyVal.name));
+                let keyVal = obj.children[p] as SqlKeyValue;   
+                let column = templateColumn.replace('{name}',metadata.solveName(keyVal.field?keyVal.field.mapping:keyVal.name));
                 let value = keyVal.children[0].build(metadata);
                 let assing= templateAssing.replace('{0}',column);
                 assing= assing.replace('{1}',value);
