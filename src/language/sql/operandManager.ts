@@ -383,30 +383,18 @@ export class SqlOperandManager extends OperandManager
         return sqlSentence   
     }    
     protected createArrowFunction(node:Node,children:Operand[]):Operand
-    {
-        try{
-            switch(node.name){
-                case 'map': 
-                case 'first': 
-                    return new SqlMap(node.name,children);
-                case 'filter': 
-                    return new SqlFilter(node.name,children);
-                case 'having': 
-                    return new SqlHaving(node.name,children);
-                case 'sort': 
-                    return new SqlSort(node.name,children);
-                case 'insert': return new SqlInsert(node.name,children);
-                // case 'insertFrom': return new SqlInsertFrom(node.name,children);
-                case 'update': return new SqlUpdate(node.name,children);
-                // case 'updateFrom': return new SqlUpdateFrom(node.name,children);
-                case 'delete': return new SqlDelete(node.name,children);
-                default:
-                    throw'arrow function : '+node.name+' not supported'; 
-            }            
+    {      
+        switch(node.name){
+            case 'map': 
+            case 'first':  return new SqlMap(node.name,children);
+            case 'filter': return new SqlFilter(node.name,children);
+            case 'having': return new SqlHaving(node.name,children);
+            case 'sort':   return new SqlSort(node.name,children);
+            case 'insert': return new SqlInsert(node.name,children);
+            case 'update': return new SqlUpdate(node.name,children);  
+            case 'delete': return new SqlDelete(node.name,children);
+            default: throw'arrow function : '+node.name+' not supported'; 
         } 
-        catch(error){
-            throw'cretae arrow function: '+node.name+' error: '+error.toString(); 
-        }
     }
     protected createClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
     {        
