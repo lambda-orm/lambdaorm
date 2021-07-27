@@ -74,12 +74,12 @@ entities:
         mapping: ContactTitle
         type: string
         length: 80
-    relations:  
-      - name: orders
-        type: manyToOne 
-        from: id
-        entity: Orders
-        to: customerId
+    # relations:  
+    #   - name: orders
+    #     type: manyToOne 
+    #     from: id
+    #     entity: Orders
+    #     to: customerId
   - name: Employees
     _extends: [northwind.abstract.Address]       
     mapping: Employees

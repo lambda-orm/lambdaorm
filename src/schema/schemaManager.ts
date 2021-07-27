@@ -2,6 +2,7 @@ import {SchemaHelper} from './schemaHelper'
 import {Helper} from '../helper'
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from '../model/index'
 import {SchemaDelta } from './schemaDelta'
+import {SchemaExportManager} from './schemaExportManager'
  
 export class SchemaManager
 {
@@ -44,6 +45,12 @@ export class SchemaManager
         let _old = old?this.transform(old).entity:null;
         let delta= Helper.deltaWithSimpleArrays(_current,_old); 
         return new SchemaDelta(this.orm,schemaHelper,delta);        
+    }
+    public export(name:string):SchemaExportManager
+    {
+        let schema=this.getInstance(name);
+        return new SchemaExportManager(this.orm,schema);
+
     }
     public transform(source:Schema):any
     {

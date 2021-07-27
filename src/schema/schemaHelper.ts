@@ -6,9 +6,24 @@ export class SchemaHelper
     constructor(schema:any){
         this._schema = schema;
     }
+    public get name(){
+        return this._schema.name;
+    }
     public get entity(){
         return this._schema.entity;
     }
+    public isChild(entityName:string):boolean
+    {
+        for(const _entityName in this._schema.entity){
+            const entity = this._schema.entity[_entityName];
+            for(const relationName in entity.relation){
+                const relation =  entity.relation[relationName];
+                if(relation.type == 'manyToOne' && relation.entity==entityName)return true;
+            }
+        }
+        return false;
+    }
+
     public existsProperty(entityName:string,name:string):boolean
     {
         let entity =this.getEntity(entityName);
