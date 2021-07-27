@@ -22,9 +22,7 @@ async function queries(orm){
 
   const expression = 
   ` 
-   OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') && p.unitPrice > minValue )                 
-               .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
-               .sort(p=> [p.category,p.product]) 
+   Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
   `;
   //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
   let context = {id:10248};
@@ -206,12 +204,12 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-// await queries(orm);
+await queries(orm);
 // await modify(orm);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-await schemaExport(orm);
+// await schemaExport(orm);
 
 
 })();
