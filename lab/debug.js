@@ -1,5 +1,6 @@
 const ConfigExtends = require("config-extends");
 const orm = require("../dist/orm.js");
+const fs = require('fs');
 
 // const model = require("../dist/lab/model");
 
@@ -185,9 +186,42 @@ async function applySchema(orm,schemas){
   // orm.schema.apply(changes).serialize();
 }
 
-async function schemaExport(orm){
-  await exec(async()=>(orm.schema.export('northwind').execute('northwind')));
+async function schemaExport(orm,schemas){
+
+let data= await orm.schema.export('northwind').execute('northwind');
+fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
+
+//add connections
+let mariadb = {name:'mariadb',dialect:'mariadb',host:'0.0.0.0',port:3307,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
+let postgres = {name:'postgres',dialect:'postgres',host:'0.0.0.0',port:5432,user:'admin',password:'admin',schema:'northwind' ,database:'northwind'};
+let mssql = {name:'mssql',dialect:'mssql',host:'0.0.0.0',port:1433,user:'sa',password:'Adm1n_Adm1n',schema:'northwind' ,database:'northwind'};
+orm.connection.add(mariadb);
+orm.connection.add(postgres);
+orm.connection.add(mssql);
+
+let schema = schemas['northwind'];
+
+let mysqlSchema = await orm.schema.get('mysql');
+orm.schema.delta(current,mysqlSchema).execute('mysql')
+
+let postgresSchema = await orm.schema.get('postgres');
+orm.schema.delta(current,postgresSchema).execute('postgres')
+
+let mssqlSchema = await orm.schema.get('mssql');
+orm.schema.delta(current,mssqlSchema).execute('mssql')
+
+await orm.schema.truncate('northwind').execute('mysql');
+await orm.schema.truncate('northwind').execute('postgres');
+await orm.schema.truncate('northwind').execute('mssql');
+
+await orm.schema.import('northwind').execute(data,'mysql');
+await orm.schema.import('northwind').execute(data,'postgres');
+await orm.schema.import('northwind').execute(data,'mssql');
+
+//TODO: hacer todos estos pasos en un for y con transaccion.
+
 }
+
 
 
 
@@ -206,12 +240,12 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-await queries(orm);
+// await queries(orm);
 // await modify(orm);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-// await schemaExport(orm);
+await schemaExport(orm,schemas);
 
 
 })();
