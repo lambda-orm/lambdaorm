@@ -206,12 +206,12 @@ for(const p in schemas){
 cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-// await queries(orm);
+await queries(orm);
 // await modify(orm);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-await schemaExport(orm);
+// await schemaExport(orm);
 
 
 })();
