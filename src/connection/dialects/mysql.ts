@@ -88,15 +88,35 @@ export class MySqlConnection extends Connection
         }
         //Solve array parameters , example IN(?) where ? is array[]
         // https://github.com/sidorares/node-mysql2/issues/476
+        let useExecute= true;
         let values:any[]=[];
+        //en el caso de haber un array con elementos string no se esta pudiendo resolver el IN(,,,) con execute
+        //por este motivo se esta usando query en este caso.
+        //TODO: ver como se puede resolver este caso para usar execute siempre.        
         for(let i=0;i<params.length;i++){
             let param = params[i];
             if(param.type=='array')
-                values.push(param.value.join(','));
+                if(param.value.length>0)
+                    if(typeof param.value[0] == 'string')
+                        useExecute=false;
+        }
+        for(let i=0;i<params.length;i++){
+            let param = params[i];
+            if(param.type=='array')
+                if(useExecute)
+                    values.push(param.value.join(','));
+                else
+                    values.push(param.value); 
             else
               values.push(param.value);     
+        }
+        if(useExecute){
+            let result = await this.cnx.execute(sql,values);
+            return result[0];
+        }else{
+            let result = await this.cnx.query(sql,values);
+            return result[0];
         }  
-        let result = await this.cnx.execute(sql,values);
-        return result[0];
+       
     }   
 }

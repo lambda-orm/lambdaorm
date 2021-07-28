@@ -574,7 +574,7 @@ export class SqlOperandManager extends OperandManager
         let toEntity=schema.getEntity(relation.entity);
         let toField = toEntity.property[relation.to];
         let fieldRelation = new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping);
-        let variableName = 'list_'+relation.to;
+        let variableName = 'list_'+relation.to;        
         let varRelation = new SqlVariable(variableName);
         let filterInclude =new SqlFunctionRef('includes', [fieldRelation,varRelation]);
         let childFilter= child.children.find(p=> p.name == 'filter');
@@ -584,6 +584,7 @@ export class SqlOperandManager extends OperandManager
         }else{
             childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
         }
+        child.parameters.push({name:variableName,type:'array'});
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     }
     protected createInsertInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude

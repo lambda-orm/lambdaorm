@@ -46,7 +46,6 @@ export class SqlExecutor implements IOperandExecutor
                     element[include.name] = (include.relation.type== 'manyToOne')
                                                             ?includeResult.filter((p:any) => p[include.relation.to] == relationId)
                                                             :includeResult.find((p:any) => p[include.relation.to] == relationId)
-                                                            
                 }          
             }
         }

@@ -54,13 +54,13 @@ entities:
     _extends: [northwind.abstract.Address]
     mapping: Customers
     primaryKey: ['id']
-    uniqueKey: ['name']
+    uniqueKey: ['id']
     properties:
       - name: id
         mapping: CustomerID
-        type: integer
+        type: string
+        length: 5
         nullable: false
-        autoincrement: true
       - name: name
         mapping: CompanyName
         nullable: false
@@ -74,12 +74,12 @@ entities:
         mapping: ContactTitle
         type: string
         length: 80
-    # relations:  
-    #   - name: orders
-    #     type: manyToOne 
-    #     from: id
-    #     entity: Orders
-    #     to: customerId
+    relations:  
+      - name: orders
+        type: manyToOne 
+        from: id
+        entity: Orders
+        to: customerId
   - name: Employees
     _extends: [northwind.abstract.Address]       
     mapping: Employees
@@ -248,7 +248,8 @@ entities:
       - name: customerId 
         mapping: CustomerID
         nullable: false
-        type: integer
+        type: string
+        length: 5  
       - name: employeeId 
         mapping: EmployeeID
         nullable: false

@@ -22,7 +22,7 @@ async function queries(orm){
 
   const expression = 
   ` 
-   Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
+   Customers.include(p=> p.orders.include(p => p.details)
   `;
   //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
   let context = {id:10248};
@@ -30,7 +30,7 @@ async function queries(orm){
   await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).model())
-  // await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
+  await exec(async()=>(await orm.expression(expression).execute(context,'northwind')));
 
   //queries
   //  Products.filter(p=>p.id==id)
@@ -91,6 +91,8 @@ async function modify(orm){
 //  Orders.delete().filter(p=> p.id == id)
 //  Orders.delete().include(p=> p.details)
 //  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
+
+
   
 }
 async function crud(orm){
@@ -201,15 +203,15 @@ for(const p in schemas){
     orm.schema.add(schema);
 }
 
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 orm.connection.add(cnx);
 
-await queries(orm);
+// await queries(orm);
 // await modify(orm);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-// await schemaExport(orm);
+await schemaExport(orm);
 
 
 })();
