@@ -111,7 +111,7 @@ export class SqlOperandManager extends OperandManager
           children.push(sqlInclude);            
        }
        let sentence = sqlSentence.build(metadata);
-       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.entity,sqlSentence.apk,sqlSentence.columns,sqlSentence.parameters);
+       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.entity,sqlSentence.autoincrement,sqlSentence.columns,sqlSentence.parameters);
     }   
     protected _serialize(operand:Operand):any
     {
@@ -121,7 +121,7 @@ export class SqlOperandManager extends OperandManager
             for(const k in query.children){
                 children.push(this._serialize(query.children[k]));
             }
-            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,f:query.columns,p:query.parameters,e:query.entity,apk:query.apk};
+            return {n:query.name,t:query.constructor.name,c:children,s:query.sentence,f:query.columns,p:query.parameters,e:query.entity,a:query.autoincrement};
         }else if(operand instanceof SqlInclude){
             let include = operand as SqlInclude;
             for(const k in include.children){
@@ -247,7 +247,7 @@ export class SqlOperandManager extends OperandManager
         context.current.entity=sentence.from.name;
         context.current.metadata=schema.getEntity(context.current.entity);
         context.current.alias = this.createAlias(context,context.current.entity);
-        let apk =  schema.getApk(context.current.entity);
+        let autoincrement =  schema.getAutoincrement(context.current.entity);
         let name:string = "";           
         let children:Operand[]= [];
         let operand= null;
@@ -378,7 +378,7 @@ export class SqlOperandManager extends OperandManager
         
         for(let i=0;i<children.length;i++)this.solveTypes(children[i],context);        
         let parameters = this.parametersInSentence(children);
-        let sqlSentence = new SqlSentence(name,children,context.current.entity,apk,context.current.alias,context.current.fields,parameters);
+        let sqlSentence = new SqlSentence(name,children,context.current.entity,context.current.alias,autoincrement,context.current.fields,parameters);
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
     }    
@@ -404,13 +404,14 @@ export class SqlOperandManager extends OperandManager
     }
     protected createInsertClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
     {   
+        let autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity);
         if(clause.children.length== 1){
             let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
             let child = this.nodeToOperand(fields,schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child]);
+            return new SqlInsert(context.current.metadata.mapping,[child],autoincremente);
         }else if(clause.children.length== 2){
             let child = this.nodeToOperand(clause.children[1],schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child]);
+            return new SqlInsert(context.current.metadata.mapping,[child],autoincremente);
         }
         // }else if(clause.children.length== 3){
         //     context.current.arrowVar = clause.children[1].name;                    

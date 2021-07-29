@@ -146,7 +146,7 @@ export class SqlArrowFunction extends ArrowFunction
         super(name,children); 
     }    
     build(metadata:SqlDialectMetadata){       
-        let template = metadata.arrow(this.name);
+        let template = metadata.dml(this.name);
         for(let i=0;i<this.children.length;i++){
             template =template.replace('{'+i+'}',this.children[i].build(metadata));
         }
@@ -159,14 +159,14 @@ export class SqlSentence extends FunctionRef
     public parameters:Parameter[] //TODO:obtener la lista de nombres de las variables de acuerdo al orden
     public entity:string
      /** Autoincrement primary key */
-    public apk:string
+    public autoincrement?:Property
     public alias:string
     public clause:string
     
-    constructor(name:string,children:Operand[]=[],entity:string,apk:string,alias:string,columns:Property[],parameters:Parameter[]){
+    constructor(name:string,children:Operand[]=[],entity:string,alias:string,autoincrement?:Property,columns:Property[]=[],parameters:Parameter[]=[]){
         super(name,children);
         this.entity=entity;
-        this.apk=apk;
+        this.autoincrement=autoincrement;
         this.alias=alias;
         this.columns=columns;
         this.parameters=parameters;
@@ -290,8 +290,15 @@ export class SqlHaving extends SqlArrowFunction {}
 export class SqlSort extends SqlArrowFunction {}
 export class SqlInsert extends SqlArrowFunction 
 {
+
+    public autoincrement?:Property
+    constructor(name:string,children:Operand[]=[],autoincrement?:Property){
+        super(name,children);
+        this.autoincrement = autoincrement;
+    }
+
     build(metadata:SqlDialectMetadata){       
-        let template = metadata.arrow('insert');
+        let template = metadata.dml('insert');
         let templateColumn = metadata.other('column');
         let fields:string[] = [];
         let values:any[] = [];
@@ -306,7 +313,8 @@ export class SqlInsert extends SqlArrowFunction
         }
         template =template.replace('{name}',metadata.solveName(this.name));
         template =template.replace('{fields}',fields.join(','));
-        template =template.replace('{values}',values.join(','));        
+        template =template.replace('{values}',values.join(','));
+        template =template.replace('{autoincrementeField}',this.autoincrement && this.autoincrement.mapping?this.autoincrement.mapping:'0');         
         return template.trim(); 
     }
 }
@@ -314,7 +322,7 @@ export class SqlInsert extends SqlArrowFunction
 export  class SqlUpdate extends SqlArrowFunction
 {
     build(metadata:SqlDialectMetadata){       
-        let template = metadata.arrow('update');
+        let template = metadata.dml('update');
         let templateColumn = metadata.other('column');
         let templateAssing = metadata.operator('=',2);
         let assings:string[] = [];
@@ -341,7 +349,7 @@ export  class SqlUpdate extends SqlArrowFunction
 export class SqlDelete extends SqlArrowFunction {
 
     build(metadata:SqlDialectMetadata){       
-        let template = metadata.arrow('delete');               
+        let template = metadata.dml('delete');               
         let parts = this.name.split('.');
         template =template.replace('{name}',metadata.solveName(parts[0])); 
         template =Helper.replaceAll(template,'{alias}',parts[1]);
@@ -353,16 +361,15 @@ export class SqlQuery extends Operand
 {
     public sentence:string
     public entity:string
-    /** Autoincrement primary key */
-    public apk:string
+    public autoincrement?:Property
     public columns:Property[]
     public parameters:Parameter[]
     
-    constructor(name:string,children:Operand[]=[],sentence:string,entity:string,apk:string,columns:Property[],parameters:Parameter[]){
+    constructor(name:string,children:Operand[]=[],sentence:string,entity:string,autoincrement?:Property,columns:Property[]=[],parameters:Parameter[]=[]){
         super(name,children);
         this.sentence=sentence;
         this.entity=entity;
-        this.apk=apk;
+        this.autoincrement=autoincrement;
         this.columns=columns;
         this.parameters=parameters;
     }

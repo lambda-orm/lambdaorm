@@ -5,7 +5,7 @@ export class SqlDialectMetadata
     private _operators?:any={}
     private _functions?:any={}
     private _others?:any={}
-    private _arrows?:any={}
+    private _dml?:any={}
     private _ddl?:any={}
     private _types?:any={}
     constructor(name:string){
@@ -13,7 +13,7 @@ export class SqlDialectMetadata
         this._operators={};
         this._functions={};
         this._others={};
-        this._arrows={};
+        this._dml={};
         this._ddl={};
         this._types={};
     }
@@ -25,9 +25,9 @@ export class SqlDialectMetadata
     {
         return this._functions[name];
     }
-    public arrow(name:string):string
+    public dml(name:string):string
     {
-        return this._arrows[name];
+        return this._dml[name];
     }
     public other(name:string):string
     {
@@ -68,9 +68,9 @@ export class SqlDialectMetadata
             let template = dialect.others[name];
             this._others[name] = template; 
         }
-        for(const name in dialect.arrows){
-            let template = dialect.arrows[name];
-            this._arrows[name] = template; 
+        for(const name in dialect.dml){
+            let template = dialect.dml[name];
+            this._dml[name] = template; 
         }
         for(const name in dialect.ddl){
             let template = dialect.ddl[name];

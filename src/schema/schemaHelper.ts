@@ -41,7 +41,7 @@ export class SchemaHelper
         if(!property)
             throw 'Not exists property: '+name+' in entity: '+entityName;
         return property;     
-    }
+    }    
     public entityMapping(entityName:string):string
     {
         let entity =this.getEntity(entityName);
@@ -51,17 +51,17 @@ export class SchemaHelper
     {
         return this._schema.entity[name];
     }
-    public getApk(entityName:string):string
+    public getAutoincrement(entityName:string):Property | undefined
     {
         let entity =this.getEntity(entityName);
         if(!entity)
             throw 'Not exists entity:'+entityName;
         for(const name in entity.property){
-            const property = entity.property[name];
+            const property = entity.property[name] as Property;
             if(property.autoincrement)
-              return property.name;
+              return property;
         }
-        return "";     
+        return undefined;     
     }
     public getRelation(entity:string,relation:string):any
     {

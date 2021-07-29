@@ -381,13 +381,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let type = metadata.type(property.type);
         type = property.length?type.replace('{0}',property.length.toString()):type;
         let nullable = property.nullable !== undefined && property.nullable==false?metadata.other("notNullable"):"";
-        let autoincrement = property.autoincrement?metadata.other("autoincrement"):"";
-
-        let text = metadata.ddl('createColumn');
+        
+        let text = property.autoincrement?metadata.ddl('incrementalColumDefine'):metadata.ddl('columnDefine');
         text =text.replace('{name}',metadata.solveName(property.mapping as string));
         text =text.replace('{type}',type);
         text =text.replace('{nullable}',nullable);
-        text =text.replace('{autoincrement}',autoincrement);
         return text;
     }
     private createPk(entity:any,metadata:SqlDialectMetadata):string
@@ -462,13 +460,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let type = metadata.type(property.type);
         type = property.length?type.replace('{0}',property.length.toString()):type;
         let nullable = property.nullable !== undefined && property.nullable==false?metadata.other("notNullable"):"";
-        let autoincrement = property.autoincrement?metadata.other("autoincrement"):"";
-
-        let text = metadata.ddl('alterColumn');
+        
+        let text = property.autoincrement?metadata.ddl('incrementalColumDefine'):metadata.ddl('columnDefine');
         text =text.replace('{name}',metadata.solveName(property.mapping as string));
         text =text.replace('{type}',type);
         text =text.replace('{nullable}',nullable);
-        text =text.replace('{autoincrement}',autoincrement);
+        text= metadata.ddl('alterColumn').replace('{columnDefine}',text);
         return text;
     }
     private addColumn(property:Property,metadata:SqlDialectMetadata):string
@@ -476,13 +473,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let type = metadata.type(property.type);
         type = property.length?type.replace('{0}',property.length.toString()):type;
         let nullable = property.nullable !== undefined && property.nullable==false?metadata.other("notNullable"):"";
-        let autoincrement = property.autoincrement?metadata.other("autoincrement"):"";
-
-        let text = metadata.ddl('addColumn');
+                
+        let text = property.autoincrement?metadata.ddl('incrementalColumDefine'):metadata.ddl('columnDefine');
         text =text.replace('{name}',metadata.solveName(property.mapping as string));
         text =text.replace('{type}',type);
         text =text.replace('{nullable}',nullable);
-        text =text.replace('{autoincrement}',autoincrement);
+        text= metadata.ddl('addColumn').replace('{columnDefine}',text);
         return text;
     }
     private addPk(entity:any,metadata:SqlDialectMetadata):string

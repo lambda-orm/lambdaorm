@@ -69,8 +69,8 @@ export class SqlExecutor implements IOperandExecutor
         }        
         //insert main entity
         let insertId = await executor.insert(query.sentence,this.params(query.parameters,context));
-        if(query.apk!="")
-           context.set(query.apk,insertId); 
+        if(query.autoincrement)
+           context.set(query.autoincrement.name,insertId); 
         // after insert the relationships of the type oneToOne and manyToOne          
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;

@@ -1,6 +1,5 @@
 import {Connection,ConnectionConfig} from  './..'
 import {Parameter} from '../../model'
-import { promisify } from 'util';
 
 export class PostgresConnection extends Connection
 {
@@ -17,7 +16,7 @@ export class PostgresConnection extends Connection
     public async disconnect():Promise<void>
     {       
         if(this.cnx)  
-          await promisify(callback => this.cnx?.end(callback))();
+          await this.cnx.end();
     }
     public async validate():Promise<Boolean> 
     {
@@ -29,19 +28,22 @@ export class PostgresConnection extends Connection
         return result.rows;
     }
     public async insert(sql:string,params:Parameter[]):Promise<number>
-    {        
+    {     
+        //Example
+        //create table my_table(my_id serial,name text);
+        //insert into my_table(name) values('pepe') returning my_id as id
         const result = await this._execute(sql,params);
-        return result.insertId;
+        return result.rows.length>0?result.rows[0].id:null;
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {        
         const result = await this._execute(sql,params);
-        return result.affectedRows;
+        return result.rowCount;
     }
     public async delete(sql:string,params:Parameter[]):Promise<number>
     {        
         const result = await this._execute(sql,params);
-        return result.affectedRows;
+        return result.rowCount;
     }
     public async execute(sql:string):Promise<any>
     {        
