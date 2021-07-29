@@ -23,7 +23,6 @@ export class SchemaHelper
         }
         return false;
     }
-
     public existsProperty(entityName:string,name:string):boolean
     {
         let entity =this.getEntity(entityName);
@@ -90,4 +89,3 @@ export class SchemaHelper
         };
     }
 }
-

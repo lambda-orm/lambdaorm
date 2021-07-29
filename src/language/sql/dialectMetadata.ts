@@ -45,8 +45,7 @@ export class SqlDialectMetadata
     {
         if(name.indexOf(' ') == -1)return name;
         let delimiterSpaces= this._others['delimiterSpaces'];
-        return delimiterSpaces.replace('{name}',name);
-        
+        return delimiterSpaces.replace('{name}',name);        
     }
     public add(dialect:any):void
     {
