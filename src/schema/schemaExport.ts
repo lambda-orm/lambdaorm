@@ -1,4 +1,4 @@
-import {IOrm} from './../model'
+import {IOrm} from '../model'
 import {SchemaHelper} from './schemaHelper'
 import {SchemaExpression,SchemaSentence,SchemaData, SchemaEntityExpression} from './schemaData'
 
