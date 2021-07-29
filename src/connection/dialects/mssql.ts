@@ -12,29 +12,15 @@ import { debug } from 'console';
 
 export class MssqlConnection extends Connection
 {
-    private cnx:any
-    private lib:any
+    private static mssqlLib:any
     constructor(config:ConnectionConfig){        
         super(config);
-        this.lib= require('tedious');
+        if(!MssqlConnection.mssqlLib)
+            MssqlConnection.mssqlLib= require('tedious')
     }
     public async connect():Promise<void>
     { 
-        this.cnx = new this.lib.Connection({
-            server: this.config.host ,
-            authentication: {
-                type: 'default',
-                options: {
-                  userName: this.config.user || undefined,
-                  password: this.config.password || undefined
-                }
-            },
-            options: {
-                port: this.config.port,
-                database: this.config.database,
-                trustServerCertificate: true
-            }
-        });
+        this.cnx = new MssqlConnection.mssqlLib.Connection(this.config.connectionString);
         if (this.cnx.state === this.cnx.STATE.INITIALIZED) {
             this.cnx.connect();
         }
@@ -107,23 +93,23 @@ export class MssqlConnection extends Connection
             if(!this.inTransaction)await this.connect()
             else throw 'Connection is closed' 
         }        
-        let request = new this.lib.Request(sql);
+        let request = new MssqlConnection.mssqlLib.Request(sql);
         for(let i=0;i<params.length;i++){
             let param = params[i];
             if(param.value=='array')
-                request.addParameter(param.name,this.lib.TYPES.NVarChar,param.value.join(','));
+                request.addParameter(param.name,MssqlConnection.mssqlLib.TYPES.NVarChar,param.value.join(','));
             else if(param.value=='string')
-                request.addParameter(param.name, this.lib.TYPES.NVarChar,param.value);
+                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.NVarChar,param.value);
             else if(param.value=='number')
-                request.addParameter(param.name, this.lib.TYPES.Numeric,param.value);    
+                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Numeric,param.value);    
             else if(param.value=='integer')
-                request.addParameter(param.name, this.lib.TYPES.Int,param.value);
+                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Int,param.value);
             else if(param.value=='decimal')
-                request.addParameter(param.name, this.lib.TYPES.Decimal,param.value);
+                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Decimal,param.value);
             else if(param.value=='boolean')
-                request.addParameter(param.name, this.lib.TYPES.Bit,param.value);
+                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Bit,param.value);
             else if(param.value=='datetime')
-                request.addParameter(param.name, this.lib.TYPES.DateTime,param.value);
+                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.DateTime,param.value);
         }  
         let result = await this.cnx.execSql(request);
         // return result[0];

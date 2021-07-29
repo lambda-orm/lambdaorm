@@ -6,7 +6,7 @@ export abstract class Connection
 {
     public config:ConnectionConfig
     public inTransaction:boolean
-
+    protected cnx:any
     constructor(config:ConnectionConfig){        
         this.config=config;
         this.inTransaction=false;

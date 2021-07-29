@@ -192,9 +192,9 @@ async function schema(orm,schemas){
     let data= await orm.schema.export('northwind').execute('northwind');
     fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
 
-    let connections = [{name:'mariadb',dialect:'mariadb',host:'0.0.0.0',port:3307,user:'root',password:'root',schema:'northwind' ,database:'northwind'}
-                      ,{name:'postgres',dialect:'postgres',host:'0.0.0.0',port:5432,user:'admin',password:'admin',schema:'northwind' ,database:'northwind'}
-                      ,{name:'mssql',dialect:'mssql',host:'0.0.0.0',port:1433,user:'sa',password:'Adm1n_Adm1n',schema:'northwind' ,database:'northwind'}];
+    let connections = [{name:'mariadb',dialect:'mariadb',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'}
+                      ,{name:'postgres',dialect:'postgres',schema:'northwind',connectionString:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
+                      ,{name:'mssql',dialect:'mssql',schema:'northwind',connectionString:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}];
 
     let schema = schemas['northwind'];
     for(const i in connections){
@@ -225,7 +225,9 @@ for(const p in schemas){
     orm.schema.add(schema);
 }
 
-cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
+// cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
+cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3306/northwind'};
+
 orm.connection.add(cnx);
 
 // await queries(orm);

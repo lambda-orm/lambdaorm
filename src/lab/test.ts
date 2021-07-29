@@ -12,7 +12,7 @@ import './model';
         let schema =  schemas[p];
         orm.schema.add(schema);
     }
-    const cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
+    const cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3306/northwind'};
     orm.connection.add(cnx);
 let result;
 

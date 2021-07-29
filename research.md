@@ -79,6 +79,7 @@ npx mocha
 ## postgres
 - [postgres](https://www.npmjs.com/package/pg)
 - [pg-hstore](https://www.npmjs.com/package/pg-hstore)
+- [node-postgres](https://node-postgres.com)
 
 ## Oracle
 - [Oracle Node.js](https://www.oracle.com/es/database/technologies/appdev/nodejs.html)

@@ -8,24 +8,15 @@ import { promisify } from 'util';
 
 export class MySqlConnection extends Connection
 {
-    protected cnx:any //mysql.Connection
-    protected lib:any
+    private static mysqlLib:any
     constructor(config:ConnectionConfig){        
         super(config);
-        this.lib= require('mysql2/promise');
+        if(!MySqlConnection.mysqlLib)
+           MySqlConnection.mysqlLib= require('mysql2/promise')
     }
     public async connect():Promise<void>
     { 
-        this.cnx = await this.lib.createConnection({
-            host: this.config.host ,
-            port: this.config.port | 3306,
-            user: this.config.user,
-            password: this.config.password,
-            database: this.config.database,
-            waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0
-        });
+        this.cnx = await MySqlConnection.mysqlLib.createConnection(this.config.connectionString);
     }
     public async disconnect():Promise<void>
     {
