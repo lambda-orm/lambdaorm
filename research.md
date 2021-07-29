@@ -49,11 +49,23 @@ npx mocha
 - [postgraphile](https://github.com/graphile/postgraphile)
 
 
-## connections
-### pools
+
+# pools
 - [generic-pool](https://www.npmjs.com/package/generic-pool)
 - [node pool](https://github.com/coopernurse/node-pool/tree/v2.5)
 - [sequelize-pool](https://github.com/sequelize/sequelize-pool)
+
+# bullk
+## Mysql
+- https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/56241509
+- https://github.com/sidorares/node-mysql2/issues/830
+- https://www.technicalkeeda.com/nodejs-tutorials/insert-multiple-records-into-mysql-using-nodejs
+
+## postgres
+- https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/
+- https://www.npmjs.com/package/pg-essential
+
+
 
 # Dialects
 ## Mssql
@@ -63,12 +75,6 @@ npx mocha
 ## MySql
 - [mysql2](https://www.npmjs.com/package/mysql2)
 - [oracle to mysql](https://sqlines.com/oracle-to-mysql)
-
-### bullk
-- http://5.9.10.113/65813552/too-many-connections-nodejs-mysql2-promise
-- https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/56241509
-- https://github.com/sidorares/node-mysql2/issues/830
-- https://www.technicalkeeda.com/nodejs-tutorials/insert-multiple-records-into-mysql-using-nodejs
 
 ## MariaDb
 - [mariadb](https://www.npmjs.com/package/mariadb)
