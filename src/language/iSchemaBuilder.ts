@@ -3,5 +3,8 @@ import {SchemaHelper}  from '../schema/schemaHelper'
 
 export interface ISchemaBuilder
 {
-    create(delta:Delta,dialect:string,schema:SchemaHelper):string;
-}
+    create(dialect:string,schema:SchemaHelper):string;
+    modify(delta:Delta,dialect:string,schema:SchemaHelper):string;
+    drop(dialect:string,schema:SchemaHelper):string;
+    truncate(dialect:string,schema:SchemaHelper):string;
+} 

@@ -1,3 +1,3 @@
 export * from './schemaManager';
-export * from './schemaDelta';
+export * from './schemaModify';
 export * from './schemaHelper';

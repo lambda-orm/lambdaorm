@@ -17,11 +17,11 @@ export class Transaction implements ITransaction
         this.connection = await this.connectionManager.acquire(this.connectionName);
         await this.connection.beginTransaction();
     }
-    public async query(sql:string,params:Parameter[]):Promise<any>
+    public async select(sql:string,params:Parameter[]):Promise<any>
     {
         if(!this.connection)
             throw 'Connection is closed' 
-        return this.connection.query(sql,params);
+        return this.connection.select(sql,params);
     }
     public async insert(sql:string,params:Parameter[]):Promise<number>
     {
@@ -40,6 +40,12 @@ export class Transaction implements ITransaction
         if(!this.connection)
             throw 'Connection is closed' 
         return this.connection.delete(sql,params);
+    }
+    public async execute(sql:string):Promise<any>
+    {
+        if(!this.connection)
+            throw 'Connection is closed' 
+        return this.connection.execute(sql);
     }
     public async commit():Promise<void>
     {

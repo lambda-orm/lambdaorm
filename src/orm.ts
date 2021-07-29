@@ -117,6 +117,27 @@ class Orm implements IOrm
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
+    public async executeSql(sql:string,connection?:string|ITransaction):Promise<any>
+    {
+        try{                            
+            if(connection){ 
+                if( typeof connection === "string"){
+                    let executor =this.connectionManager.createExecutor(connection);
+                    return await executor.execute(sql); 
+                }else{
+                    let transaction = connection as ITransaction;
+                    if(transaction)
+                        return await transaction.execute(sql);
+                    else
+                        throw `connection no valid`; 
+                }
+            }else{
+                throw `connection no valid`; 
+            }            
+        }catch(error){
+            throw 'error: '+error.toString(); 
+        }
+    }
     public async createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>
     {        
         const transaction = this.connectionManager.createTransaction(connectionName);

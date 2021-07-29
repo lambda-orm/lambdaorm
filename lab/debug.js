@@ -1,6 +1,7 @@
 const ConfigExtends = require("config-extends");
 const orm = require("../dist/orm.js");
 const fs = require('fs');
+const { forEachTrailingCommentRange } = require("typescript");
 
 // const model = require("../dist/lab/model");
 
@@ -170,12 +171,12 @@ async function scriptsByDialect(orm,schemas){
     await exec( async()=>(orm.schema.delta(current).sql(name)));
   } 
 }
-async function applySchema(orm,schemas){
+async function schemaModify(orm,schemas){
   
   let old = schemas['northwind-old'];
   let current = schemas['northwind'];
   // await exec( async()=>(orm.delta(current).serialize()));
-  await exec( async()=>(orm.schema.delta(current).sql('mysql')));
+  await exec( async()=>(orm.schema.modify(current).sql('mysql')));
 
   // orm.schema.delta('northwind',changes).execute('northwind');
   // orm.schema.delta('northwind',changes).sql('mysql');
@@ -186,44 +187,31 @@ async function applySchema(orm,schemas){
   // orm.schema.apply(changes).serialize();
 }
 
-async function schemaExport(orm,schemas){
+async function schema(orm,schemas){
 
-let data= await orm.schema.export('northwind').execute('northwind');
-fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
+    let data= await orm.schema.export('northwind').execute('northwind');
+    fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
 
-//add connections
-let mariadb = {name:'mariadb',dialect:'mariadb',host:'0.0.0.0',port:3307,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
-let postgres = {name:'postgres',dialect:'postgres',host:'0.0.0.0',port:5432,user:'admin',password:'admin',schema:'northwind' ,database:'northwind'};
-let mssql = {name:'mssql',dialect:'mssql',host:'0.0.0.0',port:1433,user:'sa',password:'Adm1n_Adm1n',schema:'northwind' ,database:'northwind'};
-orm.connection.add(mariadb);
-orm.connection.add(postgres);
-orm.connection.add(mssql);
+    let connections = [{name:'mariadb',dialect:'mariadb',host:'0.0.0.0',port:3307,user:'root',password:'root',schema:'northwind' ,database:'northwind'}
+                      ,{name:'postgres',dialect:'postgres',host:'0.0.0.0',port:5432,user:'admin',password:'admin',schema:'northwind' ,database:'northwind'}
+                      ,{name:'mssql',dialect:'mssql',host:'0.0.0.0',port:1433,user:'sa',password:'Adm1n_Adm1n',schema:'northwind' ,database:'northwind'}];
 
-let schema = schemas['northwind'];
-
-let mysqlSchema = await orm.schema.get('mysql');
-orm.schema.delta(current,mysqlSchema).execute('mysql')
-
-let postgresSchema = await orm.schema.get('postgres');
-orm.schema.delta(current,postgresSchema).execute('postgres')
-
-let mssqlSchema = await orm.schema.get('mssql');
-orm.schema.delta(current,mssqlSchema).execute('mssql')
-
-await orm.schema.truncate('northwind').execute('mysql');
-await orm.schema.truncate('northwind').execute('postgres');
-await orm.schema.truncate('northwind').execute('mssql');
-
-await orm.schema.import('northwind').execute(data,'mysql');
-await orm.schema.import('northwind').execute(data,'postgres');
-await orm.schema.import('northwind').execute(data,'mssql');
-
-//TODO: hacer todos estos pasos en un for y con transaccion.
-
+    let schema = schemas['northwind'];
+    for(const i in connections){
+      const connection = connections[i];
+      orm.connection.add(connection);
+      orm.createTransaction(connection.name,async (transaction)=>{   
+          //elimina tablas e indices si existen 
+          await orm.schema.drop(connection.schema).execute(transaction);
+          //crea el esquema desde cero
+          await orm.schema.create(schema).execute(transaction);
+          //trunca todas las tablas del esquema
+          await orm.schema.truncate(connection.schema).execute(transaction);
+          //importa todos los datos
+          await orm.schema.import(connection.schema).execute(data,transaction);
+      });
+    }
 }
-
-
-
 
  
 
@@ -245,7 +233,7 @@ orm.connection.add(cnx);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-await schemaExport(orm,schemas);
+await schema(orm,schemas);
 
 
 })();

@@ -10,7 +10,21 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     constructor(language:SqlLanguage){
         this.language=language;
     }
-    public create(delta:Delta,dialect:string,schema:SchemaHelper):string
+    
+    public create(dialect:string,schema:SchemaHelper):string
+    {
+        let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
+        let sql:string[]=[];
+        for(const name in schema.entity){
+            const entity = schema.entity[name];
+            this.createEntity(sql,schema,entity,metadata);
+            this.createEntityCreateFk(sql,schema,entity,metadata);
+            this.createEntityCreateIndexes(sql,entity,metadata);
+        }
+        let separator = metadata.other('sepatatorSql');
+        return sql.join(separator)+separator;
+    }
+    public modify(delta:Delta,dialect:string,schema:SchemaHelper):string
     {
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
         let sql:string[]=[];
@@ -60,6 +74,35 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         
         let separator = metadata.other('sepatatorSql');
         return sql.join(separator)+separator;
+    }
+    public drop(dialect:string,schema:SchemaHelper):string
+    {
+        let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
+        let sql:string[]=[];
+        for(const name in schema.entity){
+            const entity = schema.entity[name];
+            this.removeEntity(sql,entity,metadata);
+        }
+        let separator = metadata.other('sepatatorSql');
+        return sql.join(separator)+separator;
+    }
+    public truncate(dialect:string,schema:SchemaHelper):string
+    {
+        let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
+        let sql:string[]=[];
+        for(const name in schema.entity){
+            const entity = schema.entity[name];
+            this.truncateEntity(sql,entity,metadata);
+        }
+        let separator = metadata.other('sepatatorSql');
+        return sql.join(separator)+separator;
+    }
+
+    private truncateEntity(sql:string[],entity:any,metadata:SqlDialectMetadata):void
+    { 
+        let text = metadata.ddl('truncateTable');
+        text =text.replace('{name}',metadata.solveName(entity.mapping));
+        sql.push('\n'+text);
     }
     private createEntity(sql:string[],schema:SchemaHelper,entity:any,metadata:SqlDialectMetadata):void
     {

@@ -10,10 +10,10 @@ export class Executor implements IExecutor
         this.connectionManager=connectionManager;
         this.connectionName=connectionName; 
     }    
-    public async query(sql:string,params:Parameter[]):Promise<any>
+    public async select(sql:string,params:Parameter[]):Promise<any>
     {
         const connection = await this.connectionManager.acquire(this.connectionName);
-        let result= await connection.query(sql,params);
+        let result= await connection.select(sql,params);
         await this.connectionManager.release(connection);
         return result;
     }
@@ -35,6 +35,13 @@ export class Executor implements IExecutor
     {
         const connection = await this.connectionManager.acquire(this.connectionName);
         let result= await connection.delete(sql,params);
+        await this.connectionManager.release(connection);
+        return result;
+    }
+    public async execute(sql:string):Promise<any>
+    {
+        const connection = await this.connectionManager.acquire(this.connectionName);
+        let result= await connection.execute(sql);
         await this.connectionManager.release(connection);
         return result;
     }

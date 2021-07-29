@@ -26,7 +26,7 @@ export class SqlExecutor implements IOperandExecutor
     }
     protected async executeSelect(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     {           
-        let mainResult = await executor.query(query.sentence,this.params(query.parameters,context));
+        let mainResult = await executor.select(query.sentence,this.params(query.parameters,context));
         if(mainResult.length>0){
             for(const p in query.children){
                 let include = query.children[p] as SqlSentenceInclude;

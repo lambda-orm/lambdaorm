@@ -55,27 +55,31 @@ export class MssqlConnection extends Connection
     {
         return !!this.cnx && this.cnx.isValid();
     }
-    public async query(sql:string,params:Parameter[]):Promise<any>
+    public async select(sql:string,params:Parameter[]):Promise<any>
     {        
-        return await this.execute(sql,params);
+        return await this._execute(sql,params);
     }
     public async insert(sql:string,params:Parameter[]):Promise<number>
     {      
         throw 'NotImplemented'  
-        // let result = await this.execute(sql,params);
+        // let result = await this._execute(sql,params);
         // return result.insertId;
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {     
         throw 'NotImplemented'   
-        // let result = await this.execute(sql,params);
+        // let result = await this._execute(sql,params);
         // return result.affectedRows;
     }
     public async delete(sql:string,params:Parameter[]):Promise<number>
     {       
         throw 'NotImplemented' 
-        // let result = await this.execute(sql,params);
+        // let result = await this._execute(sql,params);
         // return result.affectedRows;
+    }
+    public async execute(sql:string):Promise<any>
+    {        
+        return await this._execute(sql);
     }
     public async beginTransaction():Promise<void>
     {
@@ -98,7 +102,7 @@ export class MssqlConnection extends Connection
         await this.cnx.rollback();
         this.inTransaction=false;
     }
-    private async execute(sql:string,params:Parameter[]){
+    private async _execute(sql:string,params:Parameter[]=[]){
         if(!this.cnx){
             if(!this.inTransaction)await this.connect()
             else throw 'Connection is closed' 

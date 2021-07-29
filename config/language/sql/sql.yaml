@@ -23,6 +23,7 @@ ddl:
   dropUk: 'DROP CONSTRAINT {name}'
   dropFk: 'DROP CONSTRAINT {name}'
   dropIndex: 'DROP INDEX {name}'
+  truncateTable: 'TRUNCATE TABLE {name}'
 others:
   delimiterSpaces: '"{name}"'
   sepatatorSql: ;

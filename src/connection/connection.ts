@@ -14,10 +14,11 @@ export abstract class Connection
     public abstract connect():Promise<void>;
     public abstract disconnect():Promise<void>;
     public abstract validate():Promise<Boolean>;
-    public abstract query(sql:string,params:Parameter[]):Promise<any>;
+    public abstract select(sql:string,params:Parameter[]):Promise<any>;
     public abstract insert(sql:string,params:Parameter[]):Promise<number>;
     public abstract update(sql:string,params:Parameter[]):Promise<number>;
     public abstract delete(sql:string,params:Parameter[]):Promise<number>;
+    public abstract execute(sql:string):Promise<any>;
     public abstract beginTransaction():Promise<void>;
     public abstract commit():Promise<void>;
     public abstract rollback():Promise<void>;

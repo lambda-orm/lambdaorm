@@ -1,8 +1,12 @@
 import {SchemaHelper} from './schemaHelper'
 import {Helper} from '../helper'
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from '../model/index'
-import {SchemaDelta } from './schemaDelta'
 import {SchemaExportManager} from './schemaExportManager'
+import {SchemaModify } from './schemaModify'
+import {SchemaCreate } from './schemaCreate'
+import {SchemaDrop } from './schemaDrop'
+import {SchemaTruncate } from './schemaTruncate'
+
  
 export class SchemaManager
 {
@@ -37,14 +41,32 @@ export class SchemaManager
     {
         return new SchemaHelper(this.schemas[name]);
     }
-    public delta(current:Schema,old?:Schema):SchemaDelta
+    public create(current:Schema):SchemaCreate
+    {   
+        let schema = this.transform(current);
+        let schemaHelper =new SchemaHelper(schema);       
+        return new SchemaCreate(this.orm,schemaHelper);        
+    }
+    public modify(current:Schema,old?:Schema):SchemaModify
     {   
         let schema = this.transform(current);
         let schemaHelper =new SchemaHelper(schema);
         let _current = schema.entity;
         let _old = old?this.transform(old).entity:null;
         let delta= Helper.deltaWithSimpleArrays(_current,_old); 
-        return new SchemaDelta(this.orm,schemaHelper,delta);        
+        return new SchemaModify(this.orm,schemaHelper,delta);        
+    }
+    public drop(current:Schema):SchemaDrop
+    {   
+        let schema = this.transform(current);
+        let schemaHelper =new SchemaHelper(schema);       
+        return new SchemaDrop(this.orm,schemaHelper);        
+    }
+    public truncate(current:Schema):SchemaTruncate
+    {   
+        let schema = this.transform(current);
+        let schemaHelper =new SchemaHelper(schema);       
+        return new SchemaTruncate(this.orm,schemaHelper);        
     }
     public export(name:string):SchemaExportManager
     {

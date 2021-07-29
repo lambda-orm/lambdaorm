@@ -19,4 +19,5 @@ export interface IOrm
     compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>;
     createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>;
     execute(operand:Operand,dialect:string,context:any,connection?:string|ITransaction):Promise<any>;
+    executeSql(sql:string,connection?:string|ITransaction):Promise<any>;
 }
