@@ -6,9 +6,7 @@ export abstract class Operand
     public parent?:Operand
     public index?:number
     public level?:number
-    public children:Operand[]
-    
-
+    public children:Operand[] 
     constructor(name:string,children:Operand[]=[],type:string='any'){
         this.name = name;
         this.children  = children;

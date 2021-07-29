@@ -9,8 +9,7 @@ export class SqlLanguage implements ILanguage
 {
     public name:string
     public libraries:any
-    public dialects:any
-    
+    public dialects:any    
     private schemaBuilder:SqlSchemaBuilder
     private operandManager:SqlOperandManager
     private operandExecutor:SqlExecutor
@@ -21,7 +20,6 @@ export class SqlLanguage implements ILanguage
         this.schemaBuilder = new SqlSchemaBuilder(this);
         this.operandManager = new SqlOperandManager(this,languageModel);
         this.operandExecutor = new SqlExecutor(this);
-
     }
     public addLibrary(library:any):void
     {

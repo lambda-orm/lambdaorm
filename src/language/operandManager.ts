@@ -49,7 +49,5 @@ export abstract class OperandManager implements IOperandManager
         if(children.length == 0) return {n:operand.name,t:operand.constructor.name};     
         return {n:operand.name,t:operand.constructor.name,c:children}; 
     }
-    protected abstract _deserialize(serialized:any):Operand
-
-    
+    protected abstract _deserialize(serialized:any):Operand    
 }

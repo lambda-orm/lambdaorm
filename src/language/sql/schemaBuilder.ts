@@ -9,8 +9,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     private language:SqlLanguage
     constructor(language:SqlLanguage){
         this.language=language;
-    }
-    
+    }    
     public create(dialect:string,schema:SchemaHelper):string
     {
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
@@ -97,7 +96,6 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let separator = metadata.other('sepatatorSql');
         return sql.join(separator)+separator;
     }
-
     private truncateEntity(sql:string[],entity:any,metadata:SqlDialectMetadata):void
     { 
         let text = metadata.ddl('truncateTable');
