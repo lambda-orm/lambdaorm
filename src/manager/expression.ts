@@ -8,8 +8,6 @@ export class Expression
     private orm:IOrm
     private expression:string    
     private dialect?:string
-    // private schema?:string
-
     constructor(orm:IOrm,expression:string)
     {     
         this.orm =  orm; 

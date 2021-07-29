@@ -4,7 +4,6 @@ export class NodeExpression
 {
     protected parser:Parser 
     public node:Node
-
     constructor(parser:Parser,node:Node){        
         this.parser=parser
         this.node= node

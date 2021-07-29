@@ -10,7 +10,6 @@ export class SqlExecutor implements IOperandExecutor
     constructor(language:SqlLanguage){
         this.language=language;
     }
-
     public async execute(operand:Operand,context:Context,executor:IExecutor):Promise<any>
     {       
         let query:SqlQuery = operand as SqlQuery
