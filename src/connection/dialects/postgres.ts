@@ -8,7 +8,7 @@ export class PostgresConnection extends Connection
     constructor(config:ConnectionConfig){        
         super(config);
         if(!PostgresConnection.postgresLib)
-            PostgresConnection.postgresLib=require('pg')
+            PostgresConnection.postgresLib=require('pg');
     }
     public async connect():Promise<void>
     { 
