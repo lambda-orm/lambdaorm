@@ -1,7 +1,7 @@
 import {SchemaHelper} from './schemaHelper'
 import {Helper} from '../helper'
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from '../model/index'
-import {SchemaExportManager} from './schemaExportManager'
+import {SchemaExport} from './schemaExport'
 import {SchemaModify } from './schemaModify'
 import {SchemaCreate } from './schemaCreate'
 import {SchemaDrop } from './schemaDrop'
@@ -68,11 +68,10 @@ export class SchemaManager
         let schemaHelper =new SchemaHelper(schema);       
         return new SchemaTruncate(this.orm,schemaHelper);        
     }
-    public export(name:string):SchemaExportManager
+    public export(name:string):SchemaExport
     {
         let schema=this.getInstance(name);
-        return new SchemaExportManager(this.orm,schema);
-
+        return new SchemaExport(this.orm,schema);
     }
     public transform(source:Schema):any
     {
