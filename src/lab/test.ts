@@ -98,7 +98,6 @@ result = (await orm.lambda(query3).compile('mysql','northwind')).serialize();
 console.log(result);
 
 
-
 let context = {id:10584}
 let query4 = (id:number)=> Orders.filter(p=>p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
 result = await orm.lambda(query4).execute(context,'northwind');

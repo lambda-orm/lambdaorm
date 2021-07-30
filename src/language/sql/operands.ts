@@ -249,12 +249,14 @@ export class SqlSort extends SqlArrowFunction {}
 export class SqlInsert extends SqlArrowFunction 
 {
     public autoincrement?:Property
-    constructor(name:string,children:Operand[]=[],autoincrement?:Property){
+    public clause:string
+    constructor(name:string,children:Operand[]=[],clause:string,autoincrement?:Property){
         super(name,children);
         this.autoincrement = autoincrement;
+        this.clause=clause;
     }
     build(metadata:SqlDialectMetadata){       
-        let template = metadata.dml('insert');
+        let template = metadata.dml(this.clause);
         let templateColumn = metadata.other('column');
         let fields:string[] = [];
         let values:any[] = [];

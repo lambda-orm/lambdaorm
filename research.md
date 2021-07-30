@@ -64,6 +64,7 @@ npx mocha
 ## postgres
 - https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/
 - https://www.npmjs.com/package/pg-essential
+- https://node-postgres.com/api/client
 
 
 

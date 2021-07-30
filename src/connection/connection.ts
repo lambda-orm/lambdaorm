@@ -19,6 +19,7 @@ export abstract class Connection
     public abstract update(sql:string,params:Parameter[]):Promise<number>;
     public abstract delete(sql:string,params:Parameter[]):Promise<number>;
     public abstract execute(sql:string):Promise<any>;
+    public abstract bulkInsert(sql:string,params:Parameter[],array:any[]):Promise<number[]>;
     public abstract beginTransaction():Promise<void>;
     public abstract commit():Promise<void>;
     public abstract rollback():Promise<void>;

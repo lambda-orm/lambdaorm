@@ -24,6 +24,13 @@ export class Executor implements IExecutor
         await this.connectionManager.release(connection);
         return result;
     }
+    public async bulkInsert(sql:string,params:Parameter[],array:any[]):Promise<number[]>
+    {
+        const connection = await this.connectionManager.acquire(this.connectionName);
+        let result= await connection.bulkInsert(sql,params,array);
+        await this.connectionManager.release(connection);
+        return result;
+    }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {
         const connection = await this.connectionManager.acquire(this.connectionName);

@@ -268,6 +268,7 @@ export class SqlOperandManager extends OperandManager
             name='delete';
             let clause = sentence['deleteAll'];
             operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
+            children.push(operand);
         }else if(sentence['delete']){
             name='delete';
             createInclude= this.createDeleteInclude;
@@ -278,10 +279,17 @@ export class SqlOperandManager extends OperandManager
         }else if (sentence['insert']){
             name='insert';
             createInclude= this.createInsertInclude;
-            let clause = sentence['insert'] as Node;
+            let clause = sentence['insert'] as Node;           
             operand= this.createInsertClause(clause,schema,context);
             context.current.fields = this.fieldsInModify(operand,context);
             children.push(operand);
+        }else if (sentence['bulkInsert']){
+            name='insert';
+            createInclude= this.createInsertInclude;
+            let clause = sentence['bulkInsert'] as Node;           
+            operand= this.createInsertClause(clause,schema,context);
+            context.current.fields = this.fieldsInModify(operand,context);
+            children.push(operand);  
         }else if (sentence['updateAll']){
             // Only the updateAll can be an unfiltered update.
             // this is done for security to avoid updated all records if the filter is forgotten
@@ -382,25 +390,58 @@ export class SqlOperandManager extends OperandManager
         context.current = context.current.parent?context.current.parent as SqlEntityContext:new SqlEntityContext()
         return sqlSentence   
     }    
-    protected createArrowFunction(node:Node,children:Operand[]):Operand
-    {      
-        switch(node.name){
-            case 'map': 
-            case 'first':  return new SqlMap(node.name,children);
-            case 'filter': return new SqlFilter(node.name,children);
-            case 'having': return new SqlHaving(node.name,children);
-            case 'sort':   return new SqlSort(node.name,children);
-            case 'insert': return new SqlInsert(node.name,children);
-            case 'update': return new SqlUpdate(node.name,children);  
-            case 'delete': return new SqlDelete(node.name,children);
-            default: throw'arrow function : '+node.name+' not supported'; 
-        } 
-    }
+    // protected createArrowFunction(node:Node,children:Operand[]):Operand
+    // {      
+    //     switch(node.name){
+    //         // case 'map': 
+    //         // case 'first':  return new SqlMap(node.name,children);
+    //         case 'filter': return new SqlFilter(node.name,children);
+    //         case 'having': return new SqlHaving(node.name,children);
+    //         case 'sort':   return new SqlSort(node.name,children);
+    //         // case 'insert': return new SqlInsert(node.name,children,'insert');
+    //         // case 'update': return new SqlUpdate(node.name,children);  
+    //         // case 'delete': return new SqlDelete(node.name,children);
+    //         default: throw'arrow function : '+node.name+' not supported'; 
+    //     } 
+    // }
     protected createClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
     {        
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],schema,context);
-        return this.createArrowFunction(clause,[child]);
+        switch(clause.name){
+            // case 'map': 
+            // case 'first':  return new SqlMap(node.name,children);
+            case 'filter': return new SqlFilter(clause.name,[child]);
+            case 'having': return new SqlHaving(clause.name,[child]);
+            case 'sort':   return new SqlSort(clause.name,[child]);
+            // case 'insert': return new SqlInsert(node.name,children,'insert');
+            // case 'update': return new SqlUpdate(node.name,children);  
+            // case 'delete': return new SqlDelete(node.name,children);
+            default: throw 'clause : '+clause.name+' not supported'; 
+        } 
+        // return this.createArrowFunction(clause,[child]);
+    }
+    protected createMapClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
+    {
+        if(clause.children.length==3){
+            context.current.arrowVar = clause.children[1].name;
+            let fields = clause.children[2];
+            let child =null;
+            if(fields.children.length==0 && fields.name == context.current.arrowVar){
+                let fields = this.createNodeFields(context.current.entity,schema,'p')
+                child = this.nodeToOperand(fields,schema,context);
+            }else{
+                child = this.nodeToOperand(clause.children[2],schema,context);
+            }
+            return new SqlMap(clause.name,[child]);  
+            // return this.createArrowFunction(clause,[child]);
+        }else{
+            context.current.arrowVar = 'p';
+            let fields = this.createNodeFields(context.current.entity,schema,'p')
+            let child = this.nodeToOperand(fields,schema,context);           
+            return new SqlMap(clause.name,[child]);
+            // return this.createArrowFunction(clause, [child]);
+        }
     }
     protected createInsertClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
     {   
@@ -408,10 +449,10 @@ export class SqlOperandManager extends OperandManager
         if(clause.children.length== 1){
             let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
             let child = this.nodeToOperand(fields,schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child],autoincremente);
+            return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
         }else if(clause.children.length== 2){
             let child = this.nodeToOperand(clause.children[1],schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child],autoincremente);
+            return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
         }
         // }else if(clause.children.length== 3){
         //     context.current.arrowVar = clause.children[1].name;                    
@@ -463,41 +504,7 @@ export class SqlOperandManager extends OperandManager
         //     return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
         // }
         throw 'Sentence Update incorrect!!!';
-    }
-    protected createMapClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
-    {
-        if(clause.children.length==3){
-            context.current.arrowVar = clause.children[1].name;
-            let fields = clause.children[2];
-            let child =null;
-            if(fields.children.length==0 && fields.name == context.current.arrowVar){
-                let fields = this.createNodeFields(context.current.entity,schema,'p')
-                child = this.nodeToOperand(fields,schema,context);
-            }else{
-                child = this.nodeToOperand(clause.children[2],schema,context);
-            }  
-            return this.createArrowFunction(clause,[child]);
-        }else{
-            context.current.arrowVar = 'p';
-            let fields = this.createNodeFields(context.current.entity,schema,'p')
-            let child = this.nodeToOperand(fields,schema,context);
-            return this.createArrowFunction(clause, [child]);
-        }
-    }
-    protected createNodeFields(entityName:string,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
-    {
-        let obj = new Node('obj', 'obj', []);
-        let entity=schema.getEntity(entityName);
-        for(let name in entity.property){
-            let property = entity.property[name];
-            if((!property.autoincrement || !excludeAutoincrement) && (!entity.primaryKey.includes(property.name) || !excludePrimaryKey) ){
-                let field = new Node(parent?parent+'.'+name:name, 'var', []);
-                let keyVal = new Node(name, 'keyVal', [field])
-                obj.children.push(keyVal);
-            }
-        }
-        return obj;
-    }
+    }    
     /**
      * In the case that a filter is not defined, it is assumed that it will be filtered by the PK
      * @param clause 
@@ -639,6 +646,20 @@ export class SqlOperandManager extends OperandManager
             throw 'Error to add include node '+node.type+':'+node.name; 
         }
         return new SqlSentenceInclude(relationName,[child],relation,relation.to);
+    }
+    protected createNodeFields(entityName:string,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
+    {
+        let obj = new Node('obj', 'obj', []);
+        let entity=schema.getEntity(entityName);
+        for(let name in entity.property){
+            let property = entity.property[name];
+            if((!property.autoincrement || !excludeAutoincrement) && (!entity.primaryKey.includes(property.name) || !excludePrimaryKey) ){
+                let field = new Node(parent?parent+'.'+name:name, 'var', []);
+                let keyVal = new Node(name, 'keyVal', [field])
+                obj.children.push(keyVal);
+            }
+        }
+        return obj;
     } 
     protected addJoins(parts:string[],to:number,context:SqlContext):string
     {

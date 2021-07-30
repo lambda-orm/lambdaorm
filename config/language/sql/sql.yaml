@@ -34,7 +34,8 @@ dml:
   sort: ORDER BY {0}
   insert: INSERT INTO {name}({fields}) VALUES({values})
   update: UPDATE {name} {alias} SET {assings} 
-  delete: DELETE FROM {name} {alias}   
+  delete: DELETE FROM {name} {alias} 
+  bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
 others:
   delimiterSpaces: '"{name}"'
   sepatatorSql: ;
