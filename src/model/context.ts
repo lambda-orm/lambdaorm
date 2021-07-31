@@ -1,10 +1,10 @@
 export class Context
 {
-    protected _data: any
-    protected _parent: any 
+    public data: any
+    public parent: any 
     constructor(data:any,parent?:Context){
-        this._data = data;
-        this._parent= parent;
+        this.data = data;
+        this.parent= parent;
     }
     newContext():Context
     {        
@@ -12,9 +12,9 @@ export class Context
     }
     getContext(variable:string):any
     {
-        if(this._data[variable] !==undefined || this._parent == null)return this._data
-        let _context =this._parent.getContext(variable);
-        return  _context?_context:this._data;
+        if(this.data[variable] !==undefined || this.parent == null)return this.data
+        let _context =this.parent.getContext(variable);
+        return  _context?_context:this.data;
     }
     contains(name:string):boolean
     {
@@ -52,6 +52,6 @@ export class Context
     }
     init(name:string,value:any):void
     {
-        this._data[name]=value; 
+        this.data[name]=value; 
     } 
 }

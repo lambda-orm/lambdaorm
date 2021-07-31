@@ -284,8 +284,8 @@ export class SqlOperandManager extends OperandManager
             context.current.fields = this.fieldsInModify(operand,context);
             children.push(operand);
         }else if (sentence['bulkInsert']){
-            name='insert';
-            createInclude= this.createInsertInclude;
+            name='bulkInsert';
+            createInclude= this.createBulkInsertInclude;
             let clause = sentence['bulkInsert'] as Node;           
             operand= this.createInsertClause(clause,schema,context);
             context.current.fields = this.fieldsInModify(operand,context);
@@ -595,7 +595,7 @@ export class SqlOperandManager extends OperandManager
         child.parameters.push({name:variableName,type:'array'});
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
     }
-    protected createInsertInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
+    protected createInsertInclude(node:Node,schema:SchemaHelper,context:SqlContext,clause:string='insert'):SqlSentenceInclude
     {   
         let child:SqlSentence,relation:any,relationName:string="";
         if (node.type == 'var') {
@@ -605,13 +605,17 @@ export class SqlOperandManager extends OperandManager
             relationName=parts[1];
             relation = context.current.metadata.relation[relationName];
             node.name = relation.entity;
-            let map = new Node('insert','childFunc',[node]);
+            let map = new Node(clause,'childFunc',[node]);
             child = this.createSentence(map, schema, context);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
         } 
         let variableName = relation.to;
         return new SqlSentenceInclude(relationName,[child],relation,variableName);
+    }
+    protected createBulkInsertInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
+    {   
+       return this.createInsertInclude(node,schema,context,'bulkInsert');
     }
     protected createUpdateInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
     {   

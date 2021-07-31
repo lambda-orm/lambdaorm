@@ -11,7 +11,7 @@ dml:
   insert: INSERT INTO `{name}`({fields}) VALUES({values})
   update: UPDATE `{name}` {alias} SET {assings} 
   delete: DELETE {alias} FROM `{name}` AS {alias} 
-  bulkInsert: INSERT INTO {name}({fields}) VALUES {values}    
+  bulkInsert: INSERT INTO {name}({fields}) VALUES ?   
 others:
   delimiterSpaces: '`{name}`'
   variable: '?'

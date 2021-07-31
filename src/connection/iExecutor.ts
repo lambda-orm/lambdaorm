@@ -6,5 +6,5 @@ export interface IExecutor {
     update(sql:string,params:Parameter[]):Promise<number>
     delete(sql:string,params:Parameter[]):Promise<number>
     execute(sql:string):Promise<any>
-    bulkInsert(sql:string,params:Parameter[],array:any[]):Promise<number[]>
+    bulkInsert(sql:string,array:any[]):Promise<number[]>
 }

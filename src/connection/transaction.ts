@@ -29,11 +29,11 @@ export class Transaction implements ITransaction
             throw 'Connection is closed' 
         return this.connection.insert(sql,params);
     }
-    public async bulkInsert(sql:string,params:Parameter[],array:any[]):Promise<number[]>
+    public async bulkInsert(sql:string,array:any[]):Promise<number[]>
     {
         if(!this.connection)
             throw 'Connection is closed' 
-        return this.connection.bulkInsert(sql,array,params);
+        return this.connection.bulkInsert(sql,array);
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {

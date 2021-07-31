@@ -16,10 +16,6 @@ async function exec(fn){
     }
     return result;  
 }
-
-
-
-
 async function queries(orm){
 
   const expression = 
@@ -186,7 +182,6 @@ async function schemaModify(orm,schemas){
   // orm.schema.apply(changes).sql('mysql');
   // orm.schema.apply(changes).serialize();
 }
-
 async function schema(orm,schemas){
 
     let data= await orm.schema.export('northwind').execute('northwind');
@@ -212,6 +207,125 @@ async function schema(orm,schemas){
       });
     }
 }
+async function bulkInsert(orm){
+  const expression =`Categories.bulkInsert()`;
+  const categories =[
+    {
+      name: "Beverages2",
+      description: "Soft drinks, coffees, teas, beers, and ales"
+    },
+    {
+      name: "Condiments2",
+      description: "Sweet and savory sauces, relishes, spreads, and seasonings"
+    }
+  ];
+
+  //await exec( async()=>(await orm.expression(expression).parse()).serialize())
+  //await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+  let result = await exec(async()=>(await orm.expression(expression).execute(categories,'northwind')));
+}
+
+async function bulkInsert2(orm){
+  const expression = `Orders.bulkInsert().include(p=> p.details)`;
+  const orders= [
+    {
+      
+      "customerId": "ALFKI",
+      "employeeId": 6,
+      "orderDate": "1997-08-24T22:00:00.000Z",
+      "requiredDate": "1997-09-21T22:00:00.000Z",
+      "shippedDate": "1997-09-01T22:00:00.000Z",
+      "shipViaId": 1,
+      "freight": "29.4600",
+      "name": "Alfreds Futterkiste",
+      "address": "Obere Str. 57",
+      "city": "Berlin",
+      "region": null,
+      "postalCode": "12209",
+      "country": "Germany",
+      "details": [
+        {          
+          "productId": 28,
+          "unitPrice": "45.6000",
+          "quantity": 15,
+          "discount": 0
+        },
+        {
+          "productId": 39,
+          "unitPrice": "18.0000",
+          "quantity": 21,
+          "discount": 0
+        },
+        {          
+          "productId": 46,
+          "unitPrice": "12.0000",
+          "quantity": 2,
+          "discount": 0
+        }
+      ]
+    },
+    {      
+      "customerId": "ALFKI",
+      "employeeId": 4,
+      "orderDate": "1997-10-02T22:00:00.000Z",
+      "requiredDate": "1997-10-30T23:00:00.000Z",
+      "shippedDate": "1997-10-12T22:00:00.000Z",
+      "shipViaId": 2,
+      "freight": "61.0200",
+      "name": "Alfred-s Futterkiste",
+      "address": "Obere Str. 57",
+      "city": "Berlin",
+      "region": null,
+      "postalCode": "12209",
+      "country": "Germany",
+      "details": [
+        {          
+          "productId": 63,
+          "unitPrice": "43.9000",
+          "quantity": 20,
+          "discount": 0
+        }
+      ]
+    },
+    {      
+      "customerId": "ALFKI",
+      "employeeId": 4,
+      "orderDate": "1997-10-12T22:00:00.000Z",
+      "requiredDate": "1997-11-23T23:00:00.000Z",
+      "shippedDate": "1997-10-20T22:00:00.000Z",
+      "shipViaId": 1,
+      "freight": "23.9400",
+      "name": "Alfred-s Futterkiste",
+      "address": "Obere Str. 57",
+      "city": "Berlin",
+      "region": null,
+      "postalCode": "12209",
+      "country": "Germany",
+      "details": [
+        {          
+          "productId": 3,
+          "unitPrice": "10.0000",
+          "quantity": 6,
+          "discount": 0
+        },
+        {          
+          "productId": 76,
+          "unitPrice": "18.0000",
+          "quantity": 15,
+          "discount": 0
+        }
+      ]
+    },
+  ];
+
+  //await exec( async()=>(await orm.expression(expression).parse()).serialize())
+  await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
+  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+  //let result = await exec(async()=>(await orm.expression(expression).execute(orders,'northwind')));
+}
 
  
 
@@ -226,7 +340,7 @@ for(const p in schemas){
 }
 
 // cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
-cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3306/northwind'};
+cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:admin@0.0.0.0:3306/northwind'};
 
 orm.connection.add(cnx);
 
@@ -235,7 +349,8 @@ orm.connection.add(cnx);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-await schema(orm,schemas);
+await bulkInsert2(orm);
+//await schema(orm,schemas);
 
 
 })();

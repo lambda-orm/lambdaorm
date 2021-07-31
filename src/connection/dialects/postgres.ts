@@ -35,7 +35,7 @@ export class PostgresConnection extends Connection
         const result = await this._execute(sql,params);
         return result.rows.length>0?result.rows[0].id:null;
     }
-    public async bulkInsert(sql:string,params:Parameter[],array:any[]):Promise<number[]>
+    public async bulkInsert(sql:string,array:any[]):Promise<number[]>
     { 
         throw 'NotImplemented' 
     }
