@@ -3,7 +3,7 @@ import {IOperandExecutor} from '../'
 import {IExecutor}  from '../../connection'
 import {SqlSentenceInclude,SqlQuery} from './operands'
 import {SqlLanguage} from './language'
-const SqlString = require('sqlstring');
+// const SqlString = require('sqlstring');
 
 export class SqlExecutor implements IOperandExecutor
 {
