@@ -3,6 +3,7 @@ import {IOperandExecutor} from '../'
 import {IExecutor}  from '../../connection'
 import {SqlSentenceInclude,SqlQuery} from './operands'
 import {SqlLanguage} from './language'
+const SqlString = require('sqlstring');
 
 export class SqlExecutor implements IOperandExecutor
 {
@@ -58,12 +59,10 @@ export class SqlExecutor implements IOperandExecutor
             let include = query.children[p] as SqlSentenceInclude;
             let relation = context.get(include.relation.name);
             if(relation){
-                switch(include.relation.type){
-                    case "oneToOne":
-                    case "oneToMany":    
-                        let relationContext = new Context(relation,context);
-                        let relationId= await this.execute(include.children[0] as SqlQuery,relationContext,executor);
-                        context.set(include.relation.from,relationId);
+                if(include.relation.type== 'oneToOne' || include.relation.type== 'oneToMany'){  
+                    let relationContext = new Context(relation,context);
+                    let relationId= await this.execute(include.children[0] as SqlQuery,relationContext,executor);
+                    context.set(include.relation.from,relationId);
                 }
             }
         }        
@@ -95,39 +94,53 @@ export class SqlExecutor implements IOperandExecutor
         // before insert the relationships of the type oneToOne and oneToMany
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            let relation = context.get(include.relation.name);
-            if(relation){
-                switch(include.relation.type){
-                    case "oneToOne":
-                    case "oneToMany":    
-                        let relationContext = new Context(relation,context);
-                        let relationId= await this.execute(include.children[0] as SqlQuery,relationContext,executor);
-                        context.set(include.relation.from,relationId);
+            if(include.relation.type== 'oneToOne' || include.relation.type== 'oneToMany'){               
+                let allChilds:any[]=[];
+                for(let i=0;i<context.data.length;i++){                        
+                    let item = context.data[i];                        
+                    let child = item[include.relation.name];
+                    if(child)
+                        allChilds.push(child);
                 }
+                let childContext = new Context(allChilds,context);
+                let allChildsId= await this.execute(include.children[0] as SqlQuery,childContext,executor);
+                for(let i=0;i<context.data.length;i++){
+                    let item = context.data[i];
+                    if(item[include.relation.name])
+                        item[include.relation.from]=allChildsId[i];
+                }                            
             }
         }        
         //insert main entity
-        let insertId = await executor.bulkInsert(query.sentence,this.rows(query.parameters,context.data));
-        if(query.autoincrement)
-           context.set(query.autoincrement.name,insertId); 
+        let ids = await executor.bulkInsert(query.sentence,this.rows(query.parameters,context.data));
+        if(query.autoincrement){
+            for(let i=0;i<context.data.length;i++){
+                context.data[i][query.autoincrement.name]=ids[i];
+            }
+        }
         // after insert the relationships of the type oneToOne and manyToOne          
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            let relation = context.get(include.relation.name);
-            if(relation){
-                if(include.relation.type== 'manyToOne'){
-                    let parentId = context.get(include.relation.from);
+            if(include.relation.type== 'manyToOne'){
+                let allChilds:any[]=[];
+                for(let i=0;i<context.data.length;i++){
+                    let item = context.data[i];
+                    let parentId = item[include.relation.from];
                     let childPropertyName = include.relation.to;
-                    for(let i=0;i< relation.length;i++){
-                        let child = relation[i];
-                        child[childPropertyName]=parentId;
-                        let childContext = new Context(child,context);
-                        let childId= await this.execute(include.children[0] as SqlQuery,childContext,executor);
-                    }       
+                    let childs = item[include.relation.name];
+                    if(childs){
+                        for(let j=0;j< childs.length;j++){
+                            let child = childs[j];
+                            child[childPropertyName]=parentId;
+                            allChilds.push(child);
+                        }
+                    }
                 }
+                let childContext = new Context(allChilds,context);
+                let allChildsId= await this.execute(include.children[0] as SqlQuery,childContext,executor);
             }
         }        
-        return [];
+        return ids;
     }
     protected async update(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>
     { 
@@ -188,21 +201,6 @@ export class SqlExecutor implements IOperandExecutor
             parameter.value= context.get(parameter.name);
         }
         return parameters;
-        // let params:Parameter[]=[];
-        // for(const p in parameters){
-        //     let variable = variables[p];
-        //     let value = context.get(variable);
-        //     //TODO: ver si se puede determinar el tipo de la variable desde el parser
-        //     // , dado que por valor , podria ser null y no podria determinar que tipo corresponde
-        //     let type="";
-        //     if(Array.isArray(value))
-        //         type='array';
-        //     else
-        //         //TODO: determine if it is integer or decimal  
-        //         type=typeof value;
-        //     params.push({name:variable,type:type,value:value});
-        // }
-        // return params;
     }
     protected rows(params:Parameter[],array:any[]){
         let rows:any[]=[];
@@ -210,7 +208,9 @@ export class SqlExecutor implements IOperandExecutor
             const item = array[i];
             let row:any[]=[];
             for(let j=0;j<params.length;j++){
-                let value = item[params[j].name];                
+                let value = item[params[j].name];
+                // if(typeof value == 'string')
+                //     value = SqlString.escape(value);                
                 row.push(value=== undefined?null:value);
             }
             rows.push(row);

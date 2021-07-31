@@ -321,10 +321,10 @@ async function bulkInsert2(orm){
   ];
 
   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
-  await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sql())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-  //let result = await exec(async()=>(await orm.expression(expression).execute(orders,'northwind')));
+  let result = await exec(async()=>(await orm.expression(expression).execute(orders,'northwind')));
 }
 
  
