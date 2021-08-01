@@ -21,24 +21,11 @@ export class SchemaImport extends SchemaActionDML
         let sorted:string[]=[];
         while(sorted.length < entities.length ){
             for(let i=0;i<entities.length;i++){
-                const name = entities[i].entity;
-                if(sorted.includes(name))
+                const entityName = entities[i].entity;
+                if(sorted.includes(entityName))
                     continue;
-                const entity=this.schema.getEntity(entities[i].entity);
-                if(entity.relation === undefined)
-                    sorted.push(entity.name); 
-                else{
-                    let find = false;
-                    for(const p in entity.relation){
-                        const relation = entity.relation[p];
-                        if(!sorted.includes(relation.entity)){
-                            find= true;
-                            break;     
-                        }
-                    }
-                    if(!find)
-                        sorted.push(entity.name);   
-                }               
+                if(this.solvedEntity(entityName,sorted))
+                   break;      
             } 
         }
         let result:SchemaEntityExpression[]=[];
@@ -47,8 +34,36 @@ export class SchemaImport extends SchemaActionDML
         }
         return result;
     }
-    
-
+    protected solvedEntity(entityName:string,sorted:string[]):boolean
+    {       
+        const entity=this.schema.getEntity(entityName);
+        if(entity.relation === undefined){
+            sorted.push(entity.name);
+            return true;
+        } 
+        else{
+            let unsolved = false;
+            for(const p in entity.relation){
+                const relation = entity.relation[p];
+                if(relation.type == 'oneToOne' || relation.type == 'oneToMany'){
+                    if(!sorted.includes(relation.entity)){
+                        unsolved= true;
+                        break;     
+                    }
+                }else if (relation.type == 'manyToOne'){
+                    if(!this.solvedEntity(relation.entity,sorted)){
+                        unsolved= true;
+                        break;  
+                    }
+                }
+            }
+            if(!unsolved){
+                sorted.push(entity.name);
+                return true;
+            }
+        }
+        return false; 
+    }
     protected createEntityExpression(entity:any):SchemaEntityExpression
     {
         let expression:string=`${entity.name}.bulkInsert()${this.createInclude(entity)}`;        
