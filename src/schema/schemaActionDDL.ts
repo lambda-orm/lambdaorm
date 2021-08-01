@@ -1,8 +1,8 @@
-import {Delta,IOrm} from '../model/index'
+import {IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
 import {ITransaction,ConnectionConfig } from '../connection'
 
-export abstract class SchemaAction
+export abstract class SchemaActionDDL
 {    
     protected orm:IOrm 
     protected schema:SchemaHelper   

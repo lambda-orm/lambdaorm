@@ -1,6 +1,6 @@
-import {SchemaAction} from './schemaAction'
+import {SchemaActionDDL} from './schemaActionDDL'
 
-export class SchemaDrop extends SchemaAction
+export class SchemaDrop extends SchemaActionDDL
 {   
     public sql(dialect:string):string
     {

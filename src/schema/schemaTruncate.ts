@@ -1,6 +1,6 @@
-import {SchemaAction} from './schemaAction'
+import {SchemaActionDDL} from './schemaActionDDL'
 
-export class SchemaTruncate extends SchemaAction
+export class SchemaTruncate extends SchemaActionDDL
 {   
     public sql(dialect:string):string
     {

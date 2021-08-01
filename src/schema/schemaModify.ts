@@ -1,8 +1,8 @@
 import {Delta,IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
-import {SchemaAction} from './schemaAction'
+import {SchemaActionDDL} from './schemaActionDDL'
 
-export class SchemaModify extends SchemaAction
+export class SchemaModify extends SchemaActionDDL
 {
     protected delta:Delta;
     constructor(orm:IOrm,schema:SchemaHelper,delta:Delta){
