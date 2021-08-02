@@ -139,7 +139,7 @@ export class SqlExecutor implements IOperandExecutor
                 let childContext = new Context(allChilds,context);
                 let allChildsId= await this.execute(include.children[0] as SqlQuery,childContext,executor);
             }
-        }        
+        }      
         return ids;
     }
     protected async update(query:SqlQuery,context:Context,executor:IExecutor):Promise<any>

@@ -182,12 +182,36 @@ async function schemaModify(orm,schemas){
   // orm.schema.apply(changes).sql('mysql');
   // orm.schema.apply(changes).serialize();
 }
+
+async function schemaExport(orm,schemas){
+
+  let data= await orm.schema.export('northwind').execute('northwind');
+  fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
+}
+
+async function schemaImport(orm,schemas){
+
+  let data = fs.readFileSync('lab/export.json');
+  let schema = fs.existsSync('lab/mysql/schema.json')?JSON.parse(fs.readFileSync('lab/mysql/schema.json')):{name:'northwind-mysql'};
+  let mapping = fs.existsSync('lab/mysql/mapping.json')?JSON.parse(fs.readFileSync('lab/mysql/mapping.json')):{};
+  let connection = {name:'mysql',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'};
+
+  orm.schema.add(schema);
+  orm.connection.add(connection);
+
+  await orm.schema.import('northwind-mysql').execute(data,mapping,'mysql');
+
+  fs.writeFileSync('lab/mysql/schema.json',JSON.stringify(schema,null,2));
+  fs.writeFileSync('lab/mysql/mapping.json',JSON.stringify(mapping,null,2));
+}
+
 async function schema(orm,schemas){
 
     let data= await orm.schema.export('northwind').execute('northwind');
     fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
 
-    let connections = [{name:'mariadb',dialect:'mariadb',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'}
+    let connections = [{name:'mysql',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'}
+                      ,{name:'mariadb',dialect:'mariadb',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3308/northwind'}
                       ,{name:'postgres',dialect:'postgres',schema:'northwind',connectionString:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
                       ,{name:'mssql',dialect:'mssql',schema:'northwind',connectionString:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}];
 
@@ -349,7 +373,8 @@ orm.connection.add(cnx);
 // await crud(orm);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
-await bulkInsert2(orm);
+//await bulkInsert2(orm);
+await schemaExport(orm,schemas)
 //await schema(orm,schemas);
 
 

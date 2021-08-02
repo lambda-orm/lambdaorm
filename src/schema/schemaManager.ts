@@ -1,12 +1,12 @@
 import {SchemaHelper} from './schemaHelper'
 import {Helper} from '../helper'
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm} from '../model/index'
-import {SchemaExport} from './schemaExport'
 import {SchemaModify } from './schemaModify'
 import {SchemaCreate } from './schemaCreate'
 import {SchemaDrop } from './schemaDrop'
 import {SchemaTruncate } from './schemaTruncate'
-
+import {SchemaExport} from './schemaExport'
+import {SchemaImport} from './schemaImport'
  
 export class SchemaManager
 {
@@ -73,6 +73,11 @@ export class SchemaManager
         let schema=this.getInstance(name);
         return new SchemaExport(this.orm,schema);
     }
+    public import(name:string):SchemaImport
+    {
+        let schema=this.getInstance(name);
+        return new SchemaImport(this.orm,schema);
+    }    
     public transform(source:Schema):any
     {
         let target:any={entity:{},enum:{} };
