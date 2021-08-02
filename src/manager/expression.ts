@@ -1,55 +1,46 @@
-import LanguageManager from './language'
-import Operand from './../base/operand'
-
+import {IOrm} from './../model'
+import {ITransaction,ConnectionConfig} from './../connection'
+import {CompiledExpression} from './compiledExpression'
+import {NodeExpression} from './nodeExpression'
 
 export class Expression
 {
-    protected mgr:LanguageManager 
-    protected expression:string    
-    protected language?:string
-    protected variant?:string
-    protected schema?:string
-
-    constructor(mgr:LanguageManager,expression:string){        
-        this.mgr=mgr
+    private orm:IOrm
+    private expression:string    
+    private dialect?:string
+    constructor(orm:IOrm,expression:string)
+    {     
+        this.orm =  orm; 
         this.expression= expression;
-
-    }    
-    public compile(language:string,variant:string,schema:string):CompiledExpression 
+    }
+    public async parse():Promise<NodeExpression> 
     {
        if(!this.expression)throw 'Expression not defined';
-       this.language = language;
-       this.variant = variant;
-       this.schema = schema;
-       let operand=this.mgr.compile(this.expression,this.language,this.variant,this.schema);
-       return new CompiledExpression(this.mgr,operand,this.language);
-    }  
-    public async run(context:any,connection:string)
-    {     
-        let cnx = this.mgr.getConnection(connection);
-        let compiled = this.compile(cnx.language,cnx.variant,cnx.schema); 
-        return await compiled.run(context,connection) 
-    }
-}
-
-
-export class CompiledExpression
-{
-    protected mgr:LanguageManager 
-    protected operand:Operand
-    protected language:string   
-
-    constructor(mgr:LanguageManager,operand:Operand,language:string){        
-        this.mgr=mgr
-        this.operand= operand
-        this.language= language
-    }       
-    public serialize():string
-    {
-        return this.mgr.serialize(this.operand,this.language );
+       let node = await this.orm.parser.parse(this.expression);
+       return new NodeExpression(this.orm.parser,node);
     }    
-    public async run(context:any,connectionName:string)
-    {        
-        return await this.mgr.run(this.operand as Operand,context,connectionName)
+    public async compile(dialect:string,schemaName:string):Promise<CompiledExpression> 
+    {
+       if(!this.expression)throw 'Expression not defined';
+       this.dialect = dialect;
+       let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
+       return new CompiledExpression(this.orm,operand,dialect)
+    }  
+    public async execute(context:any,connection?:string|ITransaction)
+    {   
+        let config:ConnectionConfig;
+        if( typeof connection === "string"){
+            config = this.orm.connection.get(connection);            
+        }else{
+            let transaction = connection as ITransaction;
+            if(transaction)
+            config = this.orm.connection.get(transaction.connectionName);
+            else
+                throw `connection no valid`; 
+        } 
+        let compiled = await this.compile(config.dialect,config.schema); 
+        return await compiled.execute(context,connection) 
     }
 }
+
+

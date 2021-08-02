@@ -1,0 +1,461 @@
+[
+    {
+        "id": 51,
+        "name": "Manjimup Dried Apples",
+        "supplierId": 24,
+        "categoryId": 7,
+        "quantity": "50 - 300 g pkgs.",
+        "price": 53,
+        "inStock": 20,
+        "onOrder": 0,
+        "reorderLevel": 10,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 52,
+        "name": "Filo Mix",
+        "supplierId": 24,
+        "categoryId": 5,
+        "quantity": "16 - 2 kg boxes",
+        "price": 7,
+        "inStock": 38,
+        "onOrder": 0,
+        "reorderLevel": 25,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 53,
+        "name": "Perth Pasties",
+        "supplierId": 24,
+        "categoryId": 6,
+        "quantity": "48 pieces",
+        "price": 32.8,
+        "inStock": 0,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                1
+            ]
+        }
+    },
+    {
+        "id": 54,
+        "name": "Tourtire",
+        "supplierId": 25,
+        "categoryId": 6,
+        "quantity": "16 pies",
+        "price": 7.45,
+        "inStock": 21,
+        "onOrder": 0,
+        "reorderLevel": 10,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 55,
+        "name": "Pt chinois",
+        "supplierId": 25,
+        "categoryId": 6,
+        "quantity": "24 boxes x 2 pies",
+        "price": 24,
+        "inStock": 115,
+        "onOrder": 0,
+        "reorderLevel": 20,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 56,
+        "name": "Gnocchi di nonna Alice",
+        "supplierId": 26,
+        "categoryId": 5,
+        "quantity": "24 - 250 g pkgs.",
+        "price": 38,
+        "inStock": 21,
+        "onOrder": 10,
+        "reorderLevel": 30,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 57,
+        "name": "Ravioli Angelo",
+        "supplierId": 26,
+        "categoryId": 5,
+        "quantity": "24 - 250 g pkgs.",
+        "price": 19.5,
+        "inStock": 36,
+        "onOrder": 0,
+        "reorderLevel": 20,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 58,
+        "name": "Escargots de Bourgogne",
+        "supplierId": 27,
+        "categoryId": 8,
+        "quantity": "24 pieces",
+        "price": 13.25,
+        "inStock": 62,
+        "onOrder": 0,
+        "reorderLevel": 20,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 59,
+        "name": "Raclette Courdavault",
+        "supplierId": 28,
+        "categoryId": 4,
+        "quantity": "5 kg pkg.",
+        "price": 55,
+        "inStock": 79,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 60,
+        "name": "Camembert Pierrot",
+        "supplierId": 28,
+        "categoryId": 4,
+        "quantity": "15 - 300 g rounds",
+        "price": 34,
+        "inStock": 19,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 61,
+        "name": "Sirop d'rable",
+        "supplierId": 29,
+        "categoryId": 2,
+        "quantity": "24 - 500 ml bottles",
+        "price": 28.5,
+        "inStock": 113,
+        "onOrder": 0,
+        "reorderLevel": 25,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 62,
+        "name": "Tarte au sucre",
+        "supplierId": 29,
+        "categoryId": 3,
+        "quantity": "48 pies",
+        "price": 49.3,
+        "inStock": 17,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 63,
+        "name": "Vegie-spread",
+        "supplierId": 7,
+        "categoryId": 2,
+        "quantity": "15 - 625 g jars",
+        "price": 43.9,
+        "inStock": 24,
+        "onOrder": 0,
+        "reorderLevel": 5,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 64,
+        "name": "Wimmers gute Semmelkndel",
+        "supplierId": 12,
+        "categoryId": 5,
+        "quantity": "20 bags x 4 pieces",
+        "price": 33.25,
+        "inStock": 22,
+        "onOrder": 80,
+        "reorderLevel": 30,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 65,
+        "name": "Louisiana Fiery Hot Pepper Sauce",
+        "supplierId": 2,
+        "categoryId": 2,
+        "quantity": "32 - 8 oz bottles",
+        "price": 21.05,
+        "inStock": 76,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 66,
+        "name": "Louisiana Hot Spiced Okra",
+        "supplierId": 2,
+        "categoryId": 2,
+        "quantity": "24 - 8 oz jars",
+        "price": 17,
+        "inStock": 4,
+        "onOrder": 100,
+        "reorderLevel": 20,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 67,
+        "name": "Laughing Lumberjack Lager",
+        "supplierId": 16,
+        "categoryId": 1,
+        "quantity": "24 - 12 oz bottles",
+        "price": 14,
+        "inStock": 52,
+        "onOrder": 0,
+        "reorderLevel": 10,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 68,
+        "name": "Scottish Longbreads",
+        "supplierId": 8,
+        "categoryId": 3,
+        "quantity": "10 boxes x 8 pieces",
+        "price": 12.5,
+        "inStock": 6,
+        "onOrder": 10,
+        "reorderLevel": 15,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 69,
+        "name": "Gudbrandsdalsost",
+        "supplierId": 15,
+        "categoryId": 4,
+        "quantity": "10 kg pkg.",
+        "price": 36,
+        "inStock": 26,
+        "onOrder": 0,
+        "reorderLevel": 15,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 70,
+        "name": "Outback Lager",
+        "supplierId": 7,
+        "categoryId": 1,
+        "quantity": "24 - 355 ml bottles",
+        "price": 15,
+        "inStock": 15,
+        "onOrder": 10,
+        "reorderLevel": 30,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 71,
+        "name": "Flotemysost",
+        "supplierId": 15,
+        "categoryId": 4,
+        "quantity": "10 - 500 g pkgs.",
+        "price": 21.5,
+        "inStock": 26,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 72,
+        "name": "Mozzarella di Giovanni",
+        "supplierId": 14,
+        "categoryId": 4,
+        "quantity": "24 - 200 g pkgs.",
+        "price": 34.8,
+        "inStock": 14,
+        "onOrder": 0,
+        "reorderLevel": 0,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 73,
+        "name": "Rd Kaviar",
+        "supplierId": 17,
+        "categoryId": 8,
+        "quantity": "24 - 150 g jars",
+        "price": 15,
+        "inStock": 101,
+        "onOrder": 0,
+        "reorderLevel": 5,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 74,
+        "name": "Longlife Tofu",
+        "supplierId": 4,
+        "categoryId": 7,
+        "quantity": "5 kg pkg.",
+        "price": 10,
+        "inStock": 4,
+        "onOrder": 20,
+        "reorderLevel": 5,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 75,
+        "name": "Rhnbru Klosterbier",
+        "supplierId": 12,
+        "categoryId": 1,
+        "quantity": "24 - 0.5 l bottles",
+        "price": 7.75,
+        "inStock": 125,
+        "onOrder": 0,
+        "reorderLevel": 25,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 76,
+        "name": "Lakkalikri",
+        "supplierId": 23,
+        "categoryId": 1,
+        "quantity": "500 ml",
+        "price": 18,
+        "inStock": 57,
+        "onOrder": 0,
+        "reorderLevel": 20,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    },
+    {
+        "id": 77,
+        "name": "Original Frankfurter grne Soe",
+        "supplierId": 12,
+        "categoryId": 2,
+        "quantity": "12 boxes",
+        "price": 13,
+        "inStock": 32,
+        "onOrder": 0,
+        "reorderLevel": 15,
+        "discontinued": {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        }
+    }
+]

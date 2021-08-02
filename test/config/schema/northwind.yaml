@@ -1,4 +1,5 @@
 name: northwind
+mapping: northwind
 abstract:
   Address:
     properties:
@@ -21,18 +22,75 @@ abstract:
       - name: country 
         mapping: Country
         type: string
-        length: 80 
+        length: 80
+    indexes:
+      - name: postalCode
+        fields: ['postalCode']
+      - name: region
+        fields: ['region','country']
+      - name: city
+        fields: ['city'] 
 enums:
 entities:
+  - name: Categories
+    mapping: Categories
+    primaryKey: ['id']
+    uniqueKey: ['name']
+    properties:
+      - name: id
+        mapping: CategoryID
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        mapping: CategoryName
+        nullable: false
+        type: string
+        length: 80
+      - name: description
+        mapping: Description
+        type: string
+        length: 1000
+  - name: Customers
+    _extends: [northwind.abstract.Address]
+    mapping: Customers
+    primaryKey: ['id']
+    uniqueKey: ['id']
+    properties:
+      - name: id
+        mapping: CustomerID
+        type: string
+        length: 5
+        nullable: false
+      - name: name
+        mapping: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: contact 
+        mapping: ContactName
+        type: string
+        length: 80
+      - name: phone
+        mapping: ContactTitle
+        type: string
+        length: 80
+    relations:  
+      - name: orders
+        type: manyToOne 
+        from: id
+        entity: Orders
+        to: customerId
   - name: Employees
     _extends: [northwind.abstract.Address]       
     mapping: Employees
+    primaryKey: ['id']
+    uniqueKey: ['lastName','firstName']   
     properties:
       - name: id 
         mapping: EmployeeID
         type: integer
         nullable: false
-        primaryKey: true
         autoincrement: true
       - name: lastName 
         mapping: LastName
@@ -69,65 +127,17 @@ entities:
       - name: reportsTo
         type: oneToMany
         from: reportsToId
-        to: 
-          entity: Employees
-          property: id
-  - name: Categories
-    mapping: Categories
-    properties:
-      - name: id
-        mapping: CategoryID
-        type: integer
-        nullable: false
-        primaryKey: true
-        autoincrement: true
-      - name: name
-        mapping: CategoryName
-        nullable: false
-        type: string
-        length: 80
-      - name: description
-        mapping: Description
-        type: string
-        length: 1000
-  - name: Customers
-    _extends: [northwind.abstract.Address]
-    mapping: Customers
-    properties:
-      - name: id
-        mapping: CustomerID
-        type: integer
-        nullable: false
-        primaryKey: true
-        autoincrement: true
-      - name: name
-        mapping: CompanyName
-        nullable: false
-        type: string
-        length: 80
-      - name: contact 
-        mapping: ContactName
-        type: string
-        length: 80
-      - name: phone
-        mapping: ContactTitle
-        type: string
-        length: 80
-    relations:  
-      - name: orders
-        type: manyToOne 
-        from: id
-        to: 
-          entity: Orders
-          property: customerId
+        entity: Employees
+        to: id      
   - name: Shippers
     mapping: Shippers
+    primaryKey: ['id']
+    uniqueKey: ['name']
     properties:
       - name: id 
         mapping: ShipperID
         type: integer
         nullable: false
-        primaryKey: true
         autoincrement: true
       - name: name 
         mapping: CompanyName
@@ -141,12 +151,13 @@ entities:
   - name: Suppliers
     _extends: [northwind.abstract.Address]
     mapping: Suppliers
+    primaryKey: ['id']
+    uniqueKey: ['name']
     properties:
       - name: id
         mapping: SupplierID
         type: integer
         nullable: false
-        primaryKey: true
         autoincrement: true
       - name: name
         mapping: CompanyName
@@ -167,12 +178,13 @@ entities:
         length: 80  
   - name: Products
     mapping: Products
+    primaryKey: ['id']
+    uniqueKey: ['name','supplierId']
     properties:
       - name: id 
         mapping: ProductID
         type: integer
         nullable: false
-        primaryKey: true
         autoincrement: true 
       - name: name 
         mapping: ProductName
@@ -181,6 +193,7 @@ entities:
         length: 80
       - name: supplierId 
         mapping: SupplierID
+        nullable: false
         type: integer
       - name: categoryId
         mapping: CategoryID
@@ -212,28 +225,32 @@ entities:
       - name: supplier
         type: oneToMany 
         from: supplierId
-        to: 
-          entity: Suppliers
-          property: id 
+        entity: Suppliers
+        to: id 
       - name: category
         type: oneToMany  
         from: categoryId
-        to: 
-          entity: Categories
-          property: id
+        entity: Categories
+        to: id
   - name: Orders
     mapping: Orders
+    primaryKey: ['id']
+    indexes:
+      - name: orderDate
+        fields: ['orderDate']
+      - name: shippedDate
+        fields: ['shippedDate']  
     properties:
       - name: id
         mapping: OrderID
         type: integer
         nullable: false
-        primaryKey: true
         autoincrement: true 
       - name: customerId 
         mapping: CustomerID
         nullable: false
-        type: integer
+        type: string
+        length: 5  
       - name: employeeId 
         mapping: EmployeeID
         nullable: false
@@ -281,33 +298,29 @@ entities:
       - name: customer
         type: oneToMany  
         from: customerId
-        to: 
-          entity: Customers
-          property: id 
+        entity: Customers
+        to: id 
       - name: employee
         type: oneToMany  
         from: employeeId
-        to: 
-          entity: Employees
-          property: id 
+        entity: Employees
+        to: id 
       - name: details
         type: manyToOne 
         from: id
-        to: 
-          entity: OrderDetails
-          property: orderId  
+        entity: OrderDetails
+        to: orderId       
   - name: OrderDetails
     mapping: Order Details
+    primaryKey: ['orderId','productId']
     properties:
       - name: orderId 
         mapping: OrderID
         nullable: false
-        primaryKey: true
         type: integer
       - name: productId 
         mapping: ProductID
         nullable: false
-        primaryKey: true          
         type: integer
       - name: unitPrice
         mapping: UnitPrice
@@ -319,15 +332,14 @@ entities:
         mapping: Discount
         type: bool
     relations:   
-      - name: order
+      - name: order       
         type: oneToMany 
         from: orderId
-        to: 
-          entity: Orders
-          property: id 
+        entity: Orders
+        to: id 
       - name: product
         type: oneToMany 
         from: productId
-        to: 
-          entity: Products
-          property: id 
+        entity: Products
+        to: id
+         

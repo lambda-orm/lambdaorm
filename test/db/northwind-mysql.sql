@@ -17,6 +17,7 @@ CREATE TABLE `CustomerCustomerDemo` (
     `CustomerTypeID` VARCHAR(10) NOT NULL,
     CONSTRAINT `PK_CustomerCustomerDemo` PRIMARY KEY (`CustomerID`, `CustomerTypeID`)
 );
+
 CREATE TABLE `CustomerDemographics` (
     `CustomerTypeID` VARCHAR(10) NOT NULL,
     `CustomerDesc` MEDIUMTEXT,
@@ -40,6 +41,7 @@ CREATE INDEX `City` ON `Customers` (`City`);
 CREATE INDEX `CompanyName` ON `Customers` (`CompanyName`);
 CREATE INDEX `PostalCode` ON `Customers` (`PostalCode`);
 CREATE INDEX `Region` ON `Customers` (`Region`);
+
 
 CREATE TABLE `Employees` (
     `EmployeeID` INTEGER NOT NULL AUTO_INCREMENT,

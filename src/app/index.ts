@@ -16,11 +16,11 @@ app.use(express.static("public"));
       let schemas =  await ConfigExtends.apply('test/config/schema');
       for(const p in schemas){
           let schema =  schemas[p];
-          orm.applySchema(schema);
+          orm.schema.load(schema);
       }
 
-      let cnx = {name:'northwind',language:'sql',variant:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'admin',schema:'northwind' ,database:'northwind'};
-      orm.addConnection(cnx);
+      let cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3306/northwind'};
+      orm.connection.load(cnx);
 
 
       const host = process.env.HOST || 'http://localhost';

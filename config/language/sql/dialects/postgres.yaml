@@ -1,0 +1,5 @@
+_extends: [sql]
+ddl:
+  incrementalColumDefine: '{name} serial'
+dml:
+  insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id

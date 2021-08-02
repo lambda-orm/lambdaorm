@@ -3,157 +3,959 @@ operators:
     '-':
       name: negative
       category: arithmetic
-      priority: 8
+      priority: 9
+      return: number
+      params:
+      - name: value
+        type: number
     '~':
       name: bitNot
       category: bitwise
-      priority: 4
+      priority: 5
+      return: boolean
+      params:
+      - name: value
+        type: boolean
     '!':
       name: not
       category: logical
-      priority: 4    
+      priority: 5
+      return: boolean
+      params:
+      - name: value
+        type: boolean    
   binary:  
     '+': 
       name: addition
       category: arithmetic
-      priority: 4
+      priority: 5
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '-':
       name: subtraction
       category: arithmetic
-      priority: 4
+      priority: 5
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '*':
       name: multiplication
       category: arithmetic
-      priority: 5 
+      priority: 6
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '/':
       name: division
       category: arithmetic
-      priority: 5  
+      priority: 6
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number   
     '**':
       name: exponentiation
       category: arithmetic
-      priority: 6 
+      priority: 7
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '//':
       name: floorDivision
       category: arithmetic
-      priority: 6
+      priority: 7
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '%':
       name: mod
       category: arithmetic
-      priority: 7
+      priority: 8
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '&':
       name: bitAnd
       category: bitwise
-      priority: 4 
+      priority: 5
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '|':
       name: bitOr
       category: bitwise
-      priority: 4 
+      priority: 5
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '^':
       name: bitXor
       category: bitwise
-      priority: 4  
+      priority: 5 
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '<<':
       name: leftShift
       category: bitwise
-      priority: 4 
+      priority: 5
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '>>':
       name: rightShift
       category: bitwise
-      priority: 4 
+      priority: 5
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '==':
       name: equal
       category: comparison
-      priority: 3
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T 
     '!=':
       name: notEqual
       category: comparison
-      priority: 3
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T 
     '>':
       name: greaterThan
       category: comparison
-      priority: 3
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T 
     '<':
       name: lessThan
       category: comparison
-      priority: 3 
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T  
     '>=':
       name: greaterThanOrEqual
       category: comparison
-      priority: 3  
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T   
     '<=':
       name: lessThanOrEqual
       category: comparison
-      priority: 3 
+      priority: 4 
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T 
     '&&':
       name: and
       category: logical
-      priority: 3 
+      priority: 3
+      return: boolean
+      params:
+      - name: a
+        type: boolean
+      - name: b
+        type: boolean 
     '||':
       name: or
       category: logical
       priority: 3
+      return: boolean
+      params:
+      - name: a
+        type: boolean
+      - name: b
+        type: boolean 
     '[]':
       name: item
       category: list
-      priority: 2  
+      priority: 2
+      return: T
+      params:
+      - name: array
+        type: T[]
+      - name: index
+        type: number   
     '=':
       name: assigment
       category: assignment
       priority: 1
+      return: T
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T 
     '+=':
       name: assigmentAddition
       category: assignment
       priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '-=':
       name: assigmentSubtraction
       category: assignment
-      priority: 1 
+      priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '*=':
       name: assigmentMultiplication
       category: assignment
-      priority: 1 
+      priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '/=':
       name: assigmentDivision
       category: assignment
-      priority: 1 
+      priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '**=':
       name: assigmentExponentiation
       category: assignment
       priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '//=':
       name: assigmentFloorDivision
       category: assignment
-      priority: 1 
+      priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '%=':
       name: assigmentMod
       category: assignment
       priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '&=':
       name: assigmentBitAnd
       category: assignment
       priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '|=':
       name: assigmentBitOr
       category: assignment
-      priority: 1 
+      priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number  
     '^=':
       name: assigmentBitXor
       category: assignment
       priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '<<=':
       name: assigmentLeftShift
       category: assignment
       priority: 1 
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
     '>>=':
       name: assigmentRightShift
       category: assignment
       priority: 1
+      return: number
+      params:
+      - name: a
+        type: number
+      - name: b
+        type: number 
   ternary:    
     '?':
       name: condicional
       category: flowcontrol
-      priority: 1                                                                  
+      priority: 1
+      return: T
+      params:
+      - name: condition
+        type: boolean
+      - name: b
+        type: T
+      - name: b
+        type: T     
+functions:
+# general:---------------------------------------------------------       
+  as:
+    desc:
+    category: general 
+    return: T
+    params:
+    - name: value
+      type: T
+    - name: name
+      type: string 
+# sort:---------------------------------------------------------         
+  desc:
+    desc:
+    category: sort 
+    return: void
+    params:
+    - name: value
+      type: any 
+  asc:
+    desc:
+    category: sort 
+    return: void
+    params:
+    - name: value
+      type: any 
+# condition:---------------------------------------------------------       
+  between:
+    desc:
+    category: condition 
+    return: boolean
+    params:
+    - name: value
+      type: T
+    - name: from
+      type: T 
+    - name: to
+      type: T  
+  includes:
+    desc:
+    category: condition 
+    return: boolean
+    params:
+    - name: value
+      type: T
+    - name: list
+      type: T[] 
+# numeric:---------------------------------------------------------       
+  abs:
+    desc: Get the absolute value 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  acos:
+    desc: Get the arc cosine 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  asin:
+    desc: Get the arc sine 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  atan:
+    desc: Get the arc tangent 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number 
+  atan2:
+    desc: Get the arc tangent of x and y 
+    category: numeric 
+    return: number
+    params:
+    - name: x
+      type: number   
+    - name: y
+      type: number                     
+  ceil:
+    desc: Get the smallest following integer 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number 
+  cos:
+    desc: Get the cosine 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  cosh:
+    desc: Get hyperbolic cosine 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number   
+  exp:
+    desc:  Raise e to the nth power  
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  floor:
+    desc: Get the largest preceding integer 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  ln:
+    desc: Get natural logarithm of num
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number 
+  log:
+    desc: Get logarithm, base num1, of num2 
+    category: numeric 
+    return: number
+    params:
+    - name: n1
+      type: number   
+    - name: n2
+      type: number 
+  remainder:
+    desc: Get remainder
+    category: numeric 
+    return: number
+    params:
+    - name: n1
+      type: number   
+    - name: n2
+      type: number                       
+  round:
+    desc: Get rounded value
+    category: numeric  
+    return: number
+    params:
+    - name: value
+      type: number
+    - name: decimals
+      type: number 
+  sign:
+    desc: Get sign of exp 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  sin:
+    desc: Get sine 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number 
+  sinh:
+    desc: Get hyperbolic sine
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number
+  tan:
+    desc: Get tangent
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number   
+  tanh:
+    desc: Get hyperbolic tangent 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number  
+  trunc:
+    desc: Truncate num 
+    category: numeric 
+    return: number
+    params:
+    - name: value
+      type: number                     
+# string:---------------------------------------------------------
+  chr:
+    desc: Get character from ASCII code 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string 
+  initcap:
+    desc: Capitalize words 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string 
+  lower:
+    desc: Lowercase string
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string 
+  lpad:
+    desc: Pad the left-side of string 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string
+    - name: len
+      type: number 
+    - name: pad
+      type: string  
+  ltrim:
+    desc: Remove leading chars
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string
+  replace:
+    desc: The replace() method searches a string for a specified value and returns a new string where the specified values are replaced. 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string
+    - name: source
+      type: string 
+    - name: target
+      type: string                         
+  rpad:
+    desc: Pad the right-side of string 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string
+    - name: len
+      type: number 
+    - name: pad
+      type: string 
+  rtrim:
+    desc: Remove trailing spaces 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string    
+  substr:
+    desc: Get a substring of string  
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string
+    - name: from
+      type: number 
+    - name: count
+      type: number 
+  trim:
+    desc: Remove characters 
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string 
+  upper:
+    desc: Uppercase string
+    category: string 
+    return: string
+    params:
+    - name: value
+      type: string  
+  concat:
+    desc: String concatenation
+    category: string 
+    return: string
+    multipleParams: true
+    params:
+    - name: values
+      type: string      
+# datetime :---------------------------------------------------------
+  curtime:
+    desc: Get the current time 
+    category: datetime 
+    return: Date
+  today:
+    desc: Get the current date 
+    category: datetime 
+    return: Date 
+  now:
+    desc: Get the current datetime 
+    category: datetime 
+    return: Date 
+  time:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: value
+      type: string 
+  date:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: value
+      type: string  
+  datetime:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: value
+      type: string              
+  year:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date
+  month:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date     
+  day:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date
+  weekday:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date
+  hours:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date
+  minutes:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date    
+  seconds:
+    desc: 
+    category: datetime 
+    return: number 
+    params:
+    - name: value
+      type: Date
+  addYear:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number 
+  addMonth:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number 
+  addDay:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number
+  addHours:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number 
+  addMinutes:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number 
+  addSeconds:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number  
+  addTime:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: Date 
+  dateDiff:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: date2
+      type: Date 
+  timeDiff:
+    desc: 
+    category: datetime 
+    return: Date 
+    params:
+    - name: time
+      type: Date
+    - name: time2
+      type: Date                                    
+# convert :---------------------------------------------------------
+  toString:
+    desc: 
+    category: convert 
+    return: string 
+    params:
+    - name: value
+      type: any 
+  toJson:
+    desc: 
+    category: convert 
+    return: object 
+    params:
+    - name: value
+      type: string 
+  toNumber:
+    desc: 
+    category: convert 
+    return: number 
+    params:
+    - name: value 
+      type: string                   
+# metadata :---------------------------------------------------------
+  user:
+    desc: get username
+    category: metadata 
+    return: string
+  source:
+    desc: get source
+    category: metadata 
+    return: string  
+# null: ---------------------------------------------------------
+  nvl:
+    desc: 
+    category: nullable 
+    return: T 
+    params:
+    - name: value 
+      type: T 
+    - name: _default 
+      type: T  
+  nvl2:
+    desc: 
+    category: nullable 
+    return: T 
+    params:
+    - name: value 
+      type: T 
+    - name: a 
+      type: T  
+    - name: b 
+      type: T
+  isNull:
+    desc: 
+    category: nullable 
+    return: boolean 
+    params:
+    - name: value 
+      type: any
+  isNotNull:
+    desc: 
+    category: nullable 
+    return: boolean 
+    params:
+    - name: value 
+      type: any                
+# group: ---------------------------------------------------------
+  avg:
+    desc: 
+    category: group 
+    return: number 
+    params:
+    - name: value 
+      type: number
+  count:
+    desc: 
+    category: group 
+    return: number 
+    params:
+    - name: value 
+      type: any 
+  first:
+    desc: 
+    category: group 
+    return: T 
+    params:
+    - name: value 
+      type: T 
+  last:
+    desc: 
+    category: group 
+    return: T 
+    params:
+    - name: value 
+      type: T 
+  max:
+    desc: 
+    category: group 
+    return: T 
+    params:
+    - name: value 
+      type: T  
+  min:
+    desc: 
+    category: group 
+    return: T 
+    params:
+    - name: value 
+      type: T  
+  sum:
+    desc: 
+    category: group 
+    return: number 
+    params:
+    - name: value 
+      type: number                                                                   
 enums:
   DayOfWeek:
     Sunday: 0
@@ -163,5 +965,6 @@ enums:
     Thursday: 4
     Friday: 5
     Saturday: 6
+
     
 
