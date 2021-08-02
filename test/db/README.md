@@ -65,6 +65,18 @@ container
 docker exec -it mariadb mysql -h localhost -u root -p 
 ```
 
+## connection string
+- source: mysql://root:root@0.0.0.0:3306/northwind
+- mysql: mysql://root:root@0.0.0.0:3307/northwind
+- mariadb: mysql://root:admin@0.0.0.0:3308/northwind
+- postgres: postgresql://admin:admin@0.0.0.0:5432/northwind
+- mssql: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
+- mongodb:
+- oracle:
+
+
+
+
 # references
 - [mariadb docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
 - [mariadb-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)
