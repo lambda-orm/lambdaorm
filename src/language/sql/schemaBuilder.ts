@@ -14,6 +14,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     {
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
         let sql:string[]=[];
+        this.createDatabase(sql,schema,metadata);
         for(const name in schema.entity){
             const entity = schema.entity[name];
             this.createEntity(sql,schema,entity,metadata);
@@ -100,6 +101,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     { 
         let text = metadata.ddl('truncateTable');
         text =text.replace('{name}',metadata.solveName(entity.mapping));
+        sql.push('\n'+text);
+    }
+    private createDatabase(sql:string[],schema:SchemaHelper,metadata:SqlDialectMetadata):void
+    {
+        let text = metadata.ddl('createDatabase');
+        text =text.replace('{name}',metadata.solveName(schema.mapping));
         sql.push('\n'+text);
     }
     private createEntity(sql:string[],schema:SchemaHelper,entity:any,metadata:SqlDialectMetadata):void
@@ -361,6 +368,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             const old = entity.index.changed[name].old;
             sql.push('\n'+this.createIndex(entity,_new,metadata));
         }       
+    }
+    private dropDatabase(sql:string[],schema:SchemaHelper,metadata:SqlDialectMetadata):void
+    {
+        let text = metadata.ddl('dropDatabase');
+        text =text.replace('{name}',metadata.solveName(schema.mapping));
+        sql.push('\n'+text);
     }
     private removeEntity(sql:string[],entity:any,metadata:SqlDialectMetadata):void
     {  

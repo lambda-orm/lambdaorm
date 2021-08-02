@@ -9,6 +9,9 @@ export class SchemaHelper
     public get name(){
         return this._schema.name;
     }
+    public get mapping(){
+        return this._schema.mapping;
+    }
     public get entity(){
         return this._schema.entity;
     }

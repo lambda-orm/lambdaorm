@@ -366,6 +366,7 @@ for(const p in schemas){
 // cnx = {name:'northwind',dialect:'mysql',host:'0.0.0.0',port:3306,user:'root',password:'root',schema:'northwind' ,database:'northwind'};
 cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3306/northwind'};
 
+
 orm.connection.add(cnx);
 
 // await queries(orm);

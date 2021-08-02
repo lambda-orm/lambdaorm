@@ -1,4 +1,5 @@
 name: northwind
+mapping: northwind
 abstract:
   Address:
     properties:

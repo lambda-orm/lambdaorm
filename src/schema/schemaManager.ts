@@ -82,6 +82,7 @@ export class SchemaManager
     {
         let target:any={entity:{},enum:{} };
         target.name = source.name;
+        target.mapping = source.mapping;
         for(const p in source.entities){
             let sourceEntity = source.entities[p];
             let targetEntity:any= {name: sourceEntity.name,
@@ -111,7 +112,7 @@ export class SchemaManager
     }
     private untransform(source:any):Schema
     {
-        let target:Schema={name:source.name as string,entities:[],enums:[]};
+        let target:Schema={name:source.name as string,mapping:source.mapping as string ,entities:[],enums:[]};
         for(const p in source.entity){
             let sourceEntity = source.entity[p];
             let targetEntity:Entity = { name:sourceEntity.name as string
