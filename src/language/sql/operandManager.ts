@@ -66,13 +66,13 @@ export class SqlOperandManager extends OperandManager
             throw error; 
         }
     }
-    public sql(operand:Operand):string
+    public sentence(operand:Operand):string
     {          
         let query= operand as SqlQuery
         let mainQuery = query.sentence+';';
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
-            let includemainQuery= this.sql(include.children[0]);
+            let includemainQuery= this.sentence(include.children[0]);
             mainQuery= mainQuery+'\n'+includemainQuery
         }
         return mainQuery;

@@ -10,10 +10,10 @@ export default class ExpressionController {
     public async compile(@Body() body: CompileRequest): Promise<any> {
         return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).serialize()
     }
-    @Post("/sql")
+    @Post("/sentence")
     @SuccessResponse("200", "Ok")
-    public async sql(@Body() body: CompileRequest): Promise<any> {
-        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).sql()
+    public async sentence(@Body() body: CompileRequest): Promise<any> {
+        return  (await orm.expression(body.expression).compile(body.dialect,body.schema)).sentence()
     }
     @Post("/model")
     @SuccessResponse("200", "Ok")

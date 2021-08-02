@@ -5,7 +5,7 @@ import {Operand } from './../model'
 export interface IOperandManager
 {   
     build(node:Node,dialect:string,scheme?:SchemaHelper):Operand
-    sql(operand:Operand):string
+    sentence(operand:Operand):string
     model(operand:Operand):any
     deserialize(serialized:any):Operand
     serialize(value:Operand):any

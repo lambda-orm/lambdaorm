@@ -6,8 +6,8 @@ import orm  from './../../orm'
 export default class SchemaController {
     @Post("/")
     @SuccessResponse("201", "Created")
-    public async add(@Body() schema: Schema): Promise<void> {
-        orm.schema.add(schema);
+    public async load(@Body() schema: Schema): Promise<void> {
+        orm.schema.load(schema);
     }
     @Get("/")
     public async list(): Promise<Schema[]> {

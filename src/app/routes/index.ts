@@ -15,7 +15,7 @@ router.get("/ping", async (_req, res) => {
 });
 router.post("/schema", async (req, res) => {
   const controller = new SchemaController();
-  await controller.add(req.body as Schema);
+  await controller.load(req.body as Schema);
   return res.send();
 });
 router.get("/schema", async (req, res) => {
@@ -38,9 +38,9 @@ router.post("/expression/compile", async (req, res) => {
   const response = await controller.compile(req.body as CompileRequest);
   return res.send(response);
 });
-router.post("/expression/sql", async (req, res) => {
+router.post("/expression/sentence", async (req, res) => {
   const controller = new ExpressionController();
-  const response = await controller.sql(req.body as CompileRequest);
+  const response = await controller.sentence(req.body as CompileRequest);
   return res.send(response);
 });
 router.post("/expression/model", async (req, res) => {

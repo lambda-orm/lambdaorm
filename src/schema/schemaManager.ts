@@ -16,7 +16,7 @@ export class SchemaManager
         this.orm=orm;
         this.schemas={}; 
     }
-    public add(value:Schema):void
+    public load(value:Schema):void
     {
         this.schemas[value.name] = this.transform(value);     
     }

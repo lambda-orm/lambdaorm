@@ -23,7 +23,7 @@ export class MemoryOperandManager extends OperandManager
     {
         throw 'NotImplemented';
     }    
-    public sql(operand:Operand):string
+    public sentence(operand:Operand):string
     {
         throw 'NotImplemented';
     }
@@ -31,10 +31,6 @@ export class MemoryOperandManager extends OperandManager
     {
         throw 'NotImplemented';
     }
-    public sentence(operand:Operand,variant:string):any{
-        throw 'NotImplemented';
-    } 
-
     private nodeToOperand(node:Node):Operand
     {
         let children = [];

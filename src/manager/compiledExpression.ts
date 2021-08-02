@@ -15,9 +15,9 @@ export class CompiledExpression
     {
         return this.orm.language(this.dialect).operand.serialize(this.operand );
     }
-    public sql():string
+    public sentence():string
     {
-        return this.orm.language(this.dialect).operand.sql(this.operand);
+        return this.orm.language(this.dialect).operand.sentence(this.operand);
     }
     public model():any
     {

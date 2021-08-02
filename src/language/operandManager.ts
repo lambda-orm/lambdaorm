@@ -6,7 +6,7 @@ import {SchemaHelper}  from '../schema/schemaHelper'
 export abstract class OperandManager implements IOperandManager
 {   
     public abstract build(node:Node,dialect:string,scheme?:SchemaHelper):Operand
-    public abstract sql(operand:Operand):string
+    public abstract sentence(operand:Operand):string
     public abstract model(operand:Operand):any
     public deserialize(serialized:any){
         let operand = this._deserialize(serialized);

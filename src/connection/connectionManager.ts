@@ -21,7 +21,7 @@ export class ConnectionManager implements IConnectionManager
     public addType(name:string,value:any){
         this.connectionTypes[name] =value;
     }
-    public add(value:ConnectionConfig){
+    public load(value:ConnectionConfig){
         this.configs[value.name] = value;
         this.pools[value.name] = this.createPool(value);
     }
