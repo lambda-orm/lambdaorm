@@ -132,6 +132,7 @@
         }
       },
       "ddl": {
+        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
@@ -144,6 +145,7 @@
         "addPk": "ADD CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "ALTER COLUMN {columnDefine}",
+        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP CONSTRAINT {name}",
@@ -220,6 +222,7 @@
         "datetime": "DATETIME"
       },
       "ddl": {
+        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
@@ -232,6 +235,7 @@
         "addPk": "ADD CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "ALTER COLUMN {columnDefine}",
+        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP CONSTRAINT {name}",
@@ -529,6 +533,7 @@
         }
       },
       "ddl": {
+        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
@@ -541,6 +546,7 @@
         "addPk": "ADD CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "ALTER COLUMN {columnDefine}",
+        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP CONSTRAINT {name}",
@@ -605,6 +611,7 @@
         "datetime": "DATETIME"
       },
       "ddl": {
+        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
@@ -617,6 +624,7 @@
         "addPk": "ADD CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "ALTER COLUMN {columnDefine}",
+        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP CONSTRAINT {name}",
@@ -797,6 +805,7 @@
     "postgres": {
       "ddl": {
         "incrementalColumDefine": "{name} serial",
+        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -808,6 +817,7 @@
         "addPk": "ADD CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "ALTER COLUMN {columnDefine}",
+        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP CONSTRAINT {name}",
@@ -1002,6 +1012,7 @@
       "datetime": "DATETIME"
     },
     "ddl": {
+      "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
       "createTable": "CREATE TABLE {name} ({define})",
       "incrementalColumDefine": "{name} {type} AUTO_INCREMENT",
       "columnDefine": "{name} {type} {nullable} ",
@@ -1014,6 +1025,7 @@
       "addPk": "ADD CONSTRAINT {pkName} PRIMARY KEY ({pkColumns})",
       "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
       "alterColumn": "ALTER COLUMN {columnDefine}",
+      "dropDatabase": "DROP DATABASE IF EXISTS {name}",
       "dropTable": "DROP TABLE {name}",
       "dropColumn": "DROP COLUMN {name}",
       "dropPk": "DROP CONSTRAINT {name}",
