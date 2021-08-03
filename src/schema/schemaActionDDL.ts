@@ -10,7 +10,7 @@ export abstract class SchemaActionDDL
         this.orm=orm;
         this.schema=schema;
     }
-    public abstract sql(dialect:string):string;
+    public abstract sentence(dialect:string):string;
     public async execute(connection?:string|ITransaction):Promise<any>
     {       
         let config:ConnectionConfig; 
@@ -23,7 +23,7 @@ export abstract class SchemaActionDDL
             else
                 throw `connection no valid`; 
         }
-        const sql = this.sql(config.dialect);
+        const sql = this.sentence(config.dialect);
         return await this.orm.executeSql(sql,connection);
     }
 }

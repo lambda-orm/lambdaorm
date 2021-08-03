@@ -351,6 +351,35 @@ async function bulkInsert2(orm){
   let result = await exec(async()=>(await orm.expression(expression).execute(orders,'northwind')));
 }
 
+async function schemaSync(orm){
+  
+  let schema =  await ConfigExtends.apply('test/config/schema');
+  let oldVersion = fs.existsSync('test/connection/source/northwind.schema.json')?JSON.parse(fs.readFileSync('test/connection/source/northwind.schema.json')):null;
+  await orm.schema.sync(schema.northwind,oldVersion).sentence('mysql');
+  fs.writeFileSync('test/connection/source/northwind.schema.json',JSON.stringify(schema.northwind,null,2));
+  
+
+  let mysqlConn = {name:'mysql',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'};
+  orm.connection.load(mysqlConn);
+  
+  let sourceSchema = JSON.parse(fs.readFileSync('test/connection/source/northwind.schema.json'));
+  let mysqlSchema = fs.existsSync('test/connection/mysql/northwind.schema.json')?JSON.parse(fs.readFileSync('test/connection/mysql/northwind.schema.json')):null;
+  await orm.schema.sync(sourceSchema,mysqlSchema).execute('mysql');
+  fs.writeFileSync('test/connection/mysql/northwind.schema.json',JSON.stringify(sourceSchema,null,2));
+ 
+
+ 
+  // await exec( async()=>(orm.delta(current).serialize()));
+  //await exec( async()=>(orm.schema.modify(mysqlSchema,sourceSchema).sentence('mysql')));
+
+  // orm.schema.delta('northwind',changes).execute('northwind');
+  // orm.schema.delta('northwind',changes).sentence('mysql');
+  // orm.schema.delta('northwind',changes).serialize();
+
+  // orm.schema.apply(changes).execute('northwind');
+  // orm.schema.apply(changes).sentence('mysql');
+  // orm.schema.apply(changes).serialize();
+}
  
 
 (async () => { 
@@ -375,8 +404,9 @@ orm.connection.load(cnx);
 // await scriptsByDialect(orm,schemas);
 // await applySchema(orm,schemas);
 //await bulkInsert2(orm);
-await schemaExport(orm,schemas)
+//await schemaExport(orm,schemas)
 //await schema(orm,schemas);
+await schemaSync(orm);
 
 
 })();

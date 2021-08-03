@@ -2,7 +2,7 @@ import {Delta,IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
 import {SchemaActionDDL} from './schemaActionDDL'
 
-export class SchemaModify extends SchemaActionDDL
+export class SchemaSync extends SchemaActionDDL
 {
     protected delta:Delta;
     constructor(orm:IOrm,schema:SchemaHelper,delta:Delta){
@@ -13,8 +13,8 @@ export class SchemaModify extends SchemaActionDDL
     {
         return this.delta;
     }
-    public sql(dialect:string):string
+    public sentence(dialect:string):string
     {
-        return this.orm.language(dialect).schema.modify(this.delta,dialect,this.schema);
+        return this.orm.language(dialect).schema.sync(this.delta,dialect,this.schema);
     }
 }

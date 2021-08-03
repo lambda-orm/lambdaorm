@@ -55,47 +55,47 @@ services:
       - postgres:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    restart: always
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Adm1n_Adm1n
-    volumes:
-      - mssql:/var/opt/mssql
-    ports:
-      - '1433:1433'
-  mongo:
-    image: arm7/mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongodb:/data/db  
-  oracle:
-    # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
-    # image: oracle/database:11.2.0.2-xe
-    image: oracleinanutshell/oracle-xe-11g:latest
-    ports:
-      - 1521:1521
-      - 8085:8080
-    shm_size: 1g   
-    environment:
-      - ORACLE_PWD=oracle
-      - ORACLE_ALLOW_REMOTE=true
-      - ORACLE_DISABLE_ASYNCH_IO=true
-    restart: unless-stopped
-    volumes:
-      - oracle:/u01/app/oracle/oradata 
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   restart: always
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=Adm1n_Adm1n
+  #   volumes:
+  #     - mssql:/var/opt/mssql
+  #   ports:
+  #     - '1433:1433'
+  # mongo:
+  #   image: arm7/mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: admin
+  #   ports:
+  #     - '27017:27017'
+  #   volumes:
+  #     - mongodb:/data/db  
+  # oracle:
+  #   # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+  #   # image: oracle/database:11.2.0.2-xe
+  #   image: oracleinanutshell/oracle-xe-11g:latest
+  #   ports:
+  #     - 1521:1521
+  #     - 8085:8080
+  #   shm_size: 1g   
+  #   environment:
+  #     - ORACLE_PWD=oracle
+  #     - ORACLE_ALLOW_REMOTE=true
+  #     - ORACLE_DISABLE_ASYNCH_IO=true
+  #   restart: unless-stopped
+  #   volumes:
+  #     - oracle:/u01/app/oracle/oradata 
     
-    # hostname: localhost
-    # port: 1521
-    # sid: xe
-    # username: system
-    # password: oracle
+  #   # hostname: localhost
+  #   # port: 1521
+  #   # sid: xe
+  #   # username: system
+  #   # password: oracle
       
 volumes:
     source:

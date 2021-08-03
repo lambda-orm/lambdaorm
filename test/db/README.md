@@ -49,16 +49,22 @@ docker volume rm oracle
 ```
 
 # install client
+
+mariadb
 ```
 sudo apt-get update
 sudo apt-get install mariadb-client-10.0
 ```
 
+
 # connect
 host
 ```
+mysql --host=0.0.0.0 --port=3306 --user=root --password=root northwind
 mysql --host=0.0.0.0 --port=3307 --user=root --password=root northwind
 ```
+
+
 
 container
 ```
