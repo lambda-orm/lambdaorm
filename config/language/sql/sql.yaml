@@ -8,7 +8,7 @@ types:
 ddl:
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'
-  incrementalColumDefine: '{name} {type} AUTO_INCREMENT' 
+  incrementalColumDefine: '{name} {type} {nullable} AUTO_INCREMENT' 
   columnDefine: '{name} {type} {nullable} '
   createPk: 'CONSTRAINT {name} PRIMARY KEY ({columns})'
   createUk: 'CONSTRAINT {name} UNIQUE ({columns})' 
