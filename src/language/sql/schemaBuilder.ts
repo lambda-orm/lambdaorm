@@ -9,26 +9,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     private language:SqlLanguage
     constructor(language:SqlLanguage){
         this.language=language;
-    }    
-    // public create(dialect:string,schema:SchemaHelper):string
-    // {
-    //     let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
-    //     let sql:string[]=[];
-    //     this.createDatabase(sql,schema,metadata);
-    //     for(const name in schema.entity){
-    //         const entity = schema.entity[name];
-    //         this.createEntity(sql,schema,entity,metadata);
-    //         this.createEntityCreateFk(sql,schema,entity,metadata);
-    //         this.createEntityCreateIndexes(sql,entity,metadata);
-    //     }
-    //     let separator = metadata.other('sepatatorSql');
-    //     return sql.join(separator)+separator;
-    // }
-    public sync(delta:Delta,dialect:string,schema:SchemaHelper):string
-    {
+    } 
+    public sync(delta:Delta,dialect:string,schema:SchemaHelper):string[]
+    {       
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
         let sql:string[]=[];
-        this.createDatabase(sql,schema,metadata);
         //removes
         for(const name in delta.changed){
             const newEntity = delta.changed[name].new;
@@ -72,11 +57,9 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             const newEntity = delta.new[name].new;
             this.createEntityCreateIndexes(sql,newEntity,metadata);
         }
-        
-        let separator = metadata.other('sepatatorSql');
-        return sql.join(separator)+separator;
+        return sql;
     }
-    public drop(dialect:string,schema:SchemaHelper):string
+    public drop(dialect:string,schema:SchemaHelper):string[]
     {
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
         let sql:string[]=[];
@@ -84,10 +67,9 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             const entity = schema.entity[name];
             this.removeEntity(sql,entity,metadata);
         }
-        let separator = metadata.other('sepatatorSql');
-        return sql.join(separator)+separator;
+        return sql;
     }
-    public truncate(dialect:string,schema:SchemaHelper):string
+    public truncate(dialect:string,schema:SchemaHelper):string[]
     {
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
         let sql:string[]=[];
@@ -95,8 +77,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             const entity = schema.entity[name];
             this.truncateEntity(sql,entity,metadata);
         }
-        let separator = metadata.other('sepatatorSql');
-        return sql.join(separator)+separator;
+        return sql;
     }
     private truncateEntity(sql:string[],entity:any,metadata:SqlDialectMetadata):void
     { 
@@ -133,19 +114,14 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     {
         const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
         if(entity.relation)
-        for(const name in entity.relation)
-            sql.push(alterEntity+' '+this.addFk(schema,entity,entity.relation[name],metadata));
-
-        for(const name in entity.relation.changed){
-            const _new = entity.relation.changed[name].new;
-            const old = entity.relation.changed[name].old;
-            sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata)); 
+        for(const name in entity.relation){
+            const _new = entity.relation[name] as Relation;
+            if(_new.type == 'oneToMany' || _new.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));  
         }
     }
     private createEntityCreateIndexes(sql:string[],entity:any,metadata:SqlDialectMetadata):void
-    {
-        if(entity.uniqueKey && entity.uniqueKey.length > 0)
-            sql.push(this.createUkIndex(entity,metadata));            
+    {                 
         if(entity.index)
             for(const name in entity.index)
                 sql.push(this.createIndex(entity,entity.index[name],metadata));
@@ -153,13 +129,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     private modifyEntity(sql:string[],schema:SchemaHelper,entity:any,oldEntity:any,metadata:SqlDialectMetadata):void
     {
         const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
-
         //remove indexes
         for(const name in entity.index.remove){
             const old = entity.index.remove[name].old;
             sql.push(this.dropIndex(entity,old,metadata));
         }
-
         //remove constraint
         for(const name in entity.uniqueKey.remove){
             const old = entity.uniqueKey.remove.old;
@@ -182,15 +156,16 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             sql.push(alterEntity+' '+this.dropPk(old,metadata));
         }
         for(const name in entity.relation.remove){
-            const old = entity.relation.remove[name].old;
-            sql.push(alterEntity+' '+this.dropFk(old,metadata));
+            const old = entity.relation.remove[name].old as Relation;
+            if(old.type == 'oneToMany' || old.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));
         }
         for(const name in entity.relation.changed){
             const _new = entity.relation.changed[name].new;
-            const old = entity.relation.changed[name].old;
-            sql.push(alterEntity+' '+this.dropFk(old,metadata));
+            const old = entity.relation.changed[name].old as Relation;
+            if(old.type == 'oneToMany' || old.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));
         }
-
         //remove columns
         for(const name in entity.property.remove){
             const old = entity.property.remove[name].old;
@@ -219,22 +194,24 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         for(const name in entity.uniqueKey.new){
             const _new = entity.uniqueKey.new;
             sql.push(alterEntity+' '+this.addUk(_new,metadata));
-            sql.push(this.createUkIndex(entity,metadata));   
         }
         for(const name in entity.uniqueKey.changed){
             const _new = entity.uniqueKey.changed[name].new;
             const old = entity.uniqueKey.changed[name].old;
             sql.push(alterEntity+' '+this.addUk(_new,metadata));
-            sql.push(this.createUkIndex(entity,metadata));  
         }
         for(const name in entity.relation.new){
-            const _new = entity.relation.new[name].new;
-            sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));  
+            const _new = entity.relation.new[name].new as Relation;
+            if(_new.type == 'oneToMany' || _new.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));  
         }
         for(const name in entity.relation.changed){
-            const _new = entity.relation.changed[name].new;
-            const old = entity.relation.changed[name].old;
-            sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata)); 
+            const _new = entity.relation.changed[name].new as Relation;
+            const old = entity.relation.changed[name].old as Relation;
+            if(_new.type == 'oneToMany' || _new.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));
+            if(_new.type == 'manyToOne' && (old.type == 'oneToMany' || old.type == 'oneToOne'))
+                sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));      
         }
         //create indexes
         for(const name in entity.index.new){
@@ -307,19 +284,20 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             sql.push(alterEntity+' '+this.dropPk(old,metadata));
         }
         for(const name in entity.relation.remove){
-            const old = entity.relation.remove[name].old;
-            sql.push(alterEntity+' '+this.dropFk(old,metadata));
+            const old = entity.relation.remove[name].old as Relation;
+            if(old.type == 'oneToMany' || old.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));
         }
         for(const name in entity.relation.changed){
-            const _new = entity.relation.changed[name].new;
-            const old = entity.relation.changed[name].old;
-            sql.push(alterEntity+' '+this.dropFk(old,metadata));
+            const _new = entity.relation.changed[name].new as Relation;
+            const old = entity.relation.changed[name].old as Relation;
+            if(old.type == 'oneToMany' || old.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));
         }
     }
     private modifyEntityAddConstraint(sql:string[],schema:SchemaHelper,entity:any,metadata:SqlDialectMetadata):void
     {
         const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
-
         //add constraints
         for(const name in entity.primaryKey.new){
             const _new = entity.primaryKey.new;
@@ -340,26 +318,21 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             sql.push(alterEntity+' '+this.addUk(_new,metadata));
         }
         for(const name in entity.relation.new){
-            const _new = entity.relation.new[name].new;
-            sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));  
+            const _new = entity.relation.new[name].new as Relation;
+            if(_new.type == 'oneToMany' || _new.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));  
         }
         for(const name in entity.relation.changed){
-            const _new = entity.relation.changed[name].new;
-            const old = entity.relation.changed[name].old;
-            sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata)); 
+            const _new = entity.relation.changed[name].new as Relation;
+            const old = entity.relation.changed[name].old as Relation;
+            if(_new.type == 'oneToMany' || _new.type == 'oneToOne' )
+                sql.push(alterEntity+' '+this.addFk(schema,entity,_new,metadata));
+            if(_new.type == 'manyToOne' && (old.type == 'oneToMany' || old.type == 'oneToOne'))
+                sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));      
         }
     }
     private modifyEntityCreateIndexes(sql:string[],entity:any,metadata:SqlDialectMetadata):void
-    {
-        for(const name in entity.uniqueKey.new){
-            const _new = entity.uniqueKey.new;
-            sql.push(this.createUkIndex(entity,metadata));   
-        }
-        for(const name in entity.uniqueKey.changed){
-            const _new = entity.uniqueKey.changed[name].new;
-            const old = entity.uniqueKey.changed[name].old;
-            sql.push(this.createUkIndex(entity,metadata));  
-        }
+    {        
         for(const name in entity.index.new){
             const _new = entity.index.new[name].new;
             sql.push(this.createIndex(entity,_new,metadata));
@@ -433,7 +406,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let fColumn = fEntity.property[relation.to];
 
         let text = metadata.ddl('createFk');
-        text =text.replace('{name}',relation.name);
+        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
         text =text.replace('{column}',metadata.solveName(column.mapping));
         text =text.replace('{fTable}',metadata.solveName(fEntity.mapping));
         text =text.replace('{fColumn}',metadata.solveName(fColumn.mapping));
@@ -449,20 +422,6 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         }
         let text = metadata.ddl('createIndex');
         text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+index.name));
-        text =text.replace('{table}',metadata.solveName(entity.mapping));
-        text =text.replace('{columns}',columns.join(','));
-        return text;
-    }
-    private createUkIndex(entity:any,metadata:SqlDialectMetadata):string
-    {
-        let columns:string[]=[];
-        let columnTemplate = metadata.other('column');
-        for(let i=0;i<entity.uniqueKey.length;i++){
-            const column = entity.property[entity.uniqueKey[i]];
-            columns.push(columnTemplate.replace('{name}',metadata.solveName(column.mapping)));
-        }
-        let text = metadata.ddl('createIndex');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
         text =text.replace('{table}',metadata.solveName(entity.mapping));
         text =text.replace('{columns}',columns.join(','));
         return text;
@@ -526,7 +485,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let fColumn = fEntity.property[relation.to];
 
         let text = metadata.ddl('addFk');
-        text =text.replace('{name}',relation.name);
+        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
         text =text.replace('{column}',metadata.solveName(column.mapping));
         text =text.replace('{fTable}',metadata.solveName(fEntity.mapping));
         text =text.replace('{fColumn}',metadata.solveName(fColumn.mapping));
@@ -550,10 +509,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
         return text;
     }
-    private dropFk(relation:Relation,metadata:SqlDialectMetadata):string
+    private dropFk(entity:any,relation:Relation,metadata:SqlDialectMetadata):string
     {  
         let text = metadata.ddl('dropPk');
-        text =text.replace('{name}',relation.name);
+        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
         return text;
     }
     private dropIndex(entity:any,index:Index,metadata:SqlDialectMetadata):string

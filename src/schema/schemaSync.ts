@@ -13,7 +13,7 @@ export class SchemaSync extends SchemaActionDDL
     {
         return this.delta;
     }
-    public sentence(dialect:string):string
+    public sentence(dialect:string):string[]
     {
         return this.orm.language(dialect).schema.sync(this.delta,dialect,this.schema);
     }

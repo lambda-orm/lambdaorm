@@ -65,7 +65,7 @@ export class MySqlConnection extends Connection
     }
     public async execute(sql:string):Promise<any>
     {        
-        return await this._execute(sql);
+        return  await this.cnx.query(sql);
     }
     public async beginTransaction():Promise<void>
     {

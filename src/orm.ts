@@ -117,17 +117,17 @@ class Orm implements IOrm
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async executeSql(sql:string,connection?:string|ITransaction):Promise<any>
+    public async executeSentence(sentence:any,connection?:string|ITransaction):Promise<any>
     {
         try{                            
             if(connection){ 
                 if( typeof connection === "string"){
                     let executor =this.connectionManager.createExecutor(connection);
-                    return await executor.execute(sql); 
+                    return await executor.execute(sentence); 
                 }else{
                     let transaction = connection as ITransaction;
                     if(transaction)
-                        return await transaction.execute(sql);
+                        return await transaction.execute(sentence);
                     else
                         throw `connection no valid`; 
                 }
@@ -149,6 +149,7 @@ class Orm implements IOrm
         }
         catch(error)
         {
+            console.log(error);
             transaction.rollback();
             throw error;
         }    
