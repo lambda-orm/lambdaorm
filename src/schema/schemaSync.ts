@@ -22,6 +22,6 @@ export class SchemaSync extends SchemaActionDDL
     public async execute(connection?:string|ITransaction):Promise<ExecutionSyncResult>
     {
        let result= await super.execute(connection);
-       return {result:result.result,sentences:result.sentences,delta:this.delta};
+       return {results:result.results,delta:this.delta};
     }
 }

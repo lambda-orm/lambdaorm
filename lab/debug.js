@@ -308,8 +308,8 @@ async function schemaDrop(orm,target){
   let targetFile = 'test/connection/'+target+'/northwind.schema.json';  
   let targetSchema = fs.existsSync(targetFile)?JSON.parse(fs.readFileSync(targetFile)):null;
   if(targetSchema){
-    let result = await orm.schema.drop(targetSchema).execute(target);
-    fs.readFileSync(targetFile);
+    let result = await orm.schema.drop(targetSchema).execute(target,true);
+    fs.unlinkSync(targetFile);
   }
 }
 
@@ -382,9 +382,9 @@ async function schemaMigrations(orm,schemas){
     // await scriptsByDialect(orm,schemas);
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-    //  await schemaSync(orm,schemas.northwind,'source');
+      await schemaSync(orm,schemas.northwind,'source');      
+      await schemaSyncFrom(orm,'source','mysql');
       await schemaDrop(orm,'mysql')
-    //  await schemaSyncFrom(orm,'source','mysql');
     // await schemaExport(orm)
     // await schema(orm,schemas);
     console.log('Ok')

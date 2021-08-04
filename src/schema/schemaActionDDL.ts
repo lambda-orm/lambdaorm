@@ -1,6 +1,6 @@
 import {IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
-import {ITransaction,ConnectionConfig,ExecutionResult} from '../connection'
+import {ITransaction,ConnectionConfig,ExecutionResult,ExecutionSentenceResult} from '../connection'
 
 export abstract class SchemaActionDDL
 {    
@@ -11,36 +11,57 @@ export abstract class SchemaActionDDL
         this.schema=schema;
     }
     public abstract sentence(dialect:string):any[];
-    public async execute(connection?:string|ITransaction):Promise<ExecutionResult>
+    public async execute(connection?:string|ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {       
         let config:ConnectionConfig;
-        let result:any;
-        let sentences:any[]; 
+        let sentences:any[];
+        let results:ExecutionSentenceResult[]=[]; 
         if( typeof connection === "string"){
             config=this.orm.connection.get(connection);
             sentences = this.sentence(config.dialect);
             await this.orm.createTransaction(connection,async (transaction)=>{
-                result=await this.executeSentences(sentences,transaction);
+                results=await this.executeSentences(sentences,transaction,tryAllCan);
             });
         }else{
             let transaction = connection as ITransaction;
             if(transaction){
                 config=this.orm.connection.get(transaction.connectionName);
                 sentences = this.sentence(config.dialect);
-                result=await this.executeSentences(sentences,transaction);
+                results=await this.executeSentences(sentences,transaction,tryAllCan);
             } 
             else
                 throw `connection no valid`; 
         }
-        return {result:result,sentences:sentences};
+        return {results:results}
     }
-    protected async executeSentences(sentences:string[],transaction:ITransaction):Promise<any[]>
+    protected async executeSentences(sentences:string[],transaction:ITransaction,tryAllCan:boolean):Promise<ExecutionSentenceResult[]>
     {
-        let result:any[]=[];
-        for(let i=0;i<sentences.length;i++){
-            const sentence = sentences[i];
-            result.push(await this.orm.executeSentence(sentence,transaction));
+        let results:ExecutionSentenceResult[]=[];
+        let sentence:any; 
+        if(tryAllCan){
+            for(let i=0;i<sentences.length;i++){                
+                sentence = sentences[i];
+                try{
+                    const result= await this.orm.executeSentence(sentence,transaction);
+                    results.push({result:result,sentence:sentence}); 
+                }
+                catch(error){
+                    results.push({error:error,sentence:sentence}); 
+                }
+            } 
         }
-        return result;
+        else{
+            try{
+                for(let i=0;i<sentences.length;i++){                
+                    sentence = sentences[i];
+                    const result= await this.orm.executeSentence(sentence,transaction);
+                    results.push({result:result,sentence:sentence});
+                }
+            }
+            catch(error){
+                throw `sentence: ${sentence.toStrin()} error: ${error.toString()}`;
+            }
+        }    
+        return results;
     }
 }

@@ -1,6 +1,8 @@
 _extends: [sql]
 types:
   bool: BOOLEAN
+ddl:
+  dropIndex: 'DROP INDEX {name} ON {table}'  
 dml:
   map: SELECT {0}
   first: SELECT TOP 1 {0}

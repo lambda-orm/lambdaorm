@@ -1,4 +1,9 @@
+export interface ExecutionSentenceResult {
+    sentence:any;
+    result?:any;    
+    error?:any 
+}
 export interface ExecutionResult {
-    result:any;
-    sentences:any[]; 
+    results:ExecutionSentenceResult[];
+    error?:any 
 }

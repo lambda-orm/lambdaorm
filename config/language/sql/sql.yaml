@@ -25,7 +25,7 @@ ddl:
   dropPk: 'DROP CONSTRAINT {name}'
   dropUk: 'DROP CONSTRAINT {name}'
   dropFk: 'DROP CONSTRAINT {name}'
-  dropIndex: 'DROP INDEX {name}'
+  dropIndex: 'DROP INDEX {name} ON {table}'
   truncateTable: 'TRUNCATE TABLE {name}'
 dml:
   map: SELECT {0}

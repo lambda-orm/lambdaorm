@@ -5,6 +5,7 @@ import { MySqlConnection,MySqlConnectionPool } from './mysql';
 export class MariadbConnectionPool extends MySqlConnectionPool
 {
     private static mariadb:any
+    private pool:any
     constructor(config:ConnectionConfig){        
         super(config);
         if(!MariadbConnectionPool.mariadb)

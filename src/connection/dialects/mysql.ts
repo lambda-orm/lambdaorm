@@ -6,23 +6,34 @@ import { promisify } from 'util';
 export class MySqlConnectionPool extends ConnectionPool
 {
     private static mysql:any
-    protected pool:any
+    // private pool:any
     constructor(config:ConnectionConfig){        
         super(config);
         if(!MySqlConnectionPool.mysql)
-            MySqlConnectionPool.mysql= require('mysql2');
-
-        let _config = { ...config.connection, ...{waitForConnections: true,connectionLimit: 10,queueLimit: 0}}; 
-        this.pool = MySqlConnectionPool.mysql.createPool(_config);    
+            MySqlConnectionPool.mysql= require('mysql2/promise');
+        //let _config = { ...config.connection, ...{waitForConnections: true,connectionLimit: 10,queueLimit: 0}}; 
+        // this.pool = MySqlConnectionPool.mysql.createPool(_config);    
     }
     public async acquire():Promise<Connection>
     {
-        let cnx = await this.pool.getConnection();
+        //let cnx = await this.pool.getConnection();
+        // const cnx = await new Promise((resolve, reject) => {
+        //     this.pool.getConnection((error:any, connection:any) => {
+        //       if (error) {
+        //         reject(error);
+        //       } else {
+        //         resolve(connection);
+        //       }
+        //     });
+        // }); 
+        const cnx = await MySqlConnectionPool.mysql.createConnection(this.config.connection);
+        await cnx.connect();
         return new MySqlConnection(cnx,this);
     }
     public async release(connection:Connection):Promise<void>
     {
-        this.pool.releaseConnection(connection.cnx);
+        await connection.cnx.end();
+        //this.pool.releaseConnection(connection.cnx);
     }
 }
 

@@ -508,12 +508,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     {      
         let text = metadata.ddl('dropIndex');
         text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+index.name));
+        text =text.replace('{table}',metadata.solveName(entity.mapping));
         return text;
     }
-    // private dropUkIndex(entity:any,metadata:SqlDialectMetadata):string
-    // {       
-    //     let text = metadata.ddl('dropIndex');
-    //     text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
-    //     return text;
-    // }
 }
