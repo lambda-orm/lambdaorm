@@ -1,4 +1,4 @@
-import {Connection,ConnectionConfig} from  './..'
+import {Connection,ConnectionConfig,ConnectionPool} from  './..'
 import {Parameter} from '../../model'
 import { debug } from 'console';
 
@@ -10,37 +10,45 @@ import { debug } from 'console';
 //https://tediousjs.github.io/node-mssql/
 
 
-export class MssqlConnection extends Connection
+export class MssqlConnectionPool extends ConnectionPool
 {
-    private static mssqlLib:any
+    public static tedious:any
+    protected pool:any
     constructor(config:ConnectionConfig){        
         super(config);
-        if(!MssqlConnection.mssqlLib)
-            MssqlConnection.mssqlLib= require('tedious')
+        if(!MssqlConnectionPool.tedious)
+            MssqlConnectionPool.tedious= require('tedious');
+
+        let _config = { ...config.connection, ...{waitForConnections: true,connectionLimit: 10,queueLimit: 0}};         
+        this.pool = MssqlConnectionPool.tedious.createPool(_config);    
     }
-    public async connect():Promise<void>
-    { 
-        this.cnx = new MssqlConnection.mssqlLib.Connection(this.config.connectionString);
-        if (this.cnx.state === this.cnx.STATE.INITIALIZED) {
-            this.cnx.connect();
+    public async acquire():Promise<Connection>
+    {
+        let cnx = await MssqlConnectionPool.tedious.Connection(this.config.connection);
+        if (cnx.state === cnx.STATE.INITIALIZED) {
+            cnx.connect();
         }
+        return new MssqlConnection(cnx,this);
     }
-    public async disconnect():Promise<void>
-    {           
-        if (this.cnx.closed) {
+    public async release(connection:Connection):Promise<void>
+    {
+        if (connection.cnx.closed) {
             return;
         }
-        this.cnx.queue.close();      
+        connection.cnx.queue.close();      
         return new Promise(resolve => {
-            this.cnx.on('end', resolve);
-            this.cnx.close();
+            connection.cnx.on('end', resolve);
+            connection.cnx.close();
             debug('connection closed');
         });
     }
-    public async validate():Promise<Boolean> 
-    {
-        return !!this.cnx && this.cnx.isValid();
-    }
+}
+
+
+
+
+export class MssqlConnection extends Connection
+{        
     public async select(sql:string,params:Parameter[]):Promise<any>
     {        
         return await this._execute(sql,params);
@@ -73,47 +81,38 @@ export class MssqlConnection extends Connection
     }
     public async beginTransaction():Promise<void>
     {
-        if(!this.cnx)
-            await this.connect();        
         await this.cnx.beginTransaction();
         this.inTransaction=true;
     }
     public async commit():Promise<void>
     {
-        if(!this.cnx)
-            throw 'Connection is closed'
         await this.cnx.commit();
         this.inTransaction=false;
     }
     public async rollback():Promise<void>
     {
-        if(!this.cnx)
-            throw 'Connection is closed'
         await this.cnx.rollback();
         this.inTransaction=false;
     }
     private async _execute(sql:string,params:Parameter[]=[]){
-        if(!this.cnx){
-            if(!this.inTransaction)await this.connect()
-            else throw 'Connection is closed' 
-        }        
-        let request = new MssqlConnection.mssqlLib.Request(sql);
+             
+        let request = new MssqlConnectionPool.tedious.Request(sql);
         for(let i=0;i<params.length;i++){
             let param = params[i];
             if(param.value=='array')
-                request.addParameter(param.name,MssqlConnection.mssqlLib.TYPES.NVarChar,param.value.join(','));
+                request.addParameter(param.name,MssqlConnectionPool.tedious.TYPES.NVarChar,param.value.join(','));
             else if(param.value=='string')
-                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.NVarChar,param.value);
+                request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar,param.value);
             else if(param.value=='number')
-                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Numeric,param.value);    
+                request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Numeric,param.value);    
             else if(param.value=='integer')
-                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Int,param.value);
+                request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Int,param.value);
             else if(param.value=='decimal')
-                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Decimal,param.value);
+                request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Decimal,param.value);
             else if(param.value=='boolean')
-                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.Bit,param.value);
+                request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Bit,param.value);
             else if(param.value=='datetime')
-                request.addParameter(param.name, MssqlConnection.mssqlLib.TYPES.DateTime,param.value);
+                request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.DateTime,param.value);
         }  
         let result = await this.cnx.execSql(request);
         // return result[0];

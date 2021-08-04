@@ -10,7 +10,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     constructor(language:SqlLanguage){
         this.language=language;
     } 
-    public sync(delta:Delta,dialect:string,schema:SchemaHelper):string[]
+    public sync(delta:Delta,dialect:string,schema:SchemaHelper):any[]
     {       
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
         let sql:string[]=[];
@@ -61,10 +61,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     }
     public drop(dialect:string,schema:SchemaHelper):string[]
     {
-        let metadata = this.language.dialects[dialect] as SqlDialectMetadata 
+        let metadata = this.language.dialects[dialect] as SqlDialectMetadata;
+        let entities= schema.sortEntities().reverse();        
         let sql:string[]=[];
-        for(const name in schema.entity){
-            const entity = schema.entity[name];
+        for(const p in entities){
+            const entityName = entities[p];
+            const entity = schema.entity[entityName];
             this.removeEntity(sql,entity,metadata);
         }
         return sql;
@@ -138,12 +140,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         for(const name in entity.uniqueKey.remove){
             const old = entity.uniqueKey.remove.old;
             sql.push(alterEntity+' '+this.dropUk(old,metadata));
-            sql.push(this.dropUkIndex(entity,metadata));  
         }
         for(const name in entity.uniqueKey.changed){
             const _new = entity.uniqueKey.changed[name].new;
             const old = entity.uniqueKey.changed[name].old;
-            sql.push(this.dropUkIndex(entity,metadata)); 
             sql.push(alterEntity+' '+this.dropUk(old,metadata));
         }
         for(const name in entity.primaryKey.remove){
@@ -251,13 +251,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         for(const name in entity.index.remove){
             const old = entity.index.remove[name].old;
             sql.push(this.dropIndex(entity,old,metadata));
-        }
-        for(const name in entity.uniqueKey.remove){
-            sql.push(this.dropUkIndex(entity,metadata)); 
-        }
-        for(const name in entity.uniqueKey.changed){
-            sql.push(this.dropUkIndex(entity,metadata)); 
-        }       
+        }      
     }
     private modifyEntityRemoveConstraint(sql:string[],entity:any,metadata:SqlDialectMetadata):void
     {
@@ -266,12 +260,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         for(const name in entity.uniqueKey.remove){
             const old = entity.uniqueKey.remove.old;
             sql.push(alterEntity+' '+this.dropUk(old,metadata));
-            sql.push(this.dropUkIndex(entity,metadata));  
         }
         for(const name in entity.uniqueKey.changed){
             const _new = entity.uniqueKey.changed[name].new;
             const old = entity.uniqueKey.changed[name].old;
-            sql.push(this.dropUkIndex(entity,metadata)); 
             sql.push(alterEntity+' '+this.dropUk(old,metadata));
         }
         for(const name in entity.primaryKey.remove){
@@ -352,14 +344,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     private removeEntity(sql:string[],entity:any,metadata:SqlDialectMetadata):void
     {  
         let text = metadata.ddl('dropTable');
-        text =text.replace('{name}',metadata.solveName(entity.mapping));
-
-        sql.push(text);
-        if(entity.uniqueKey && entity.uniqueKey.length > 0)
-            sql.push(this.dropUkIndex(entity,metadata));            
+        text =text.replace('{name}',metadata.solveName(entity.mapping));        
         if(entity.index)
             for(const name in entity.index)
                 sql.push(this.dropIndex(entity,entity.index[name],metadata));
+        sql.push(text);        
     }
     private createColumn(property:Property,metadata:SqlDialectMetadata):string
     {        
@@ -521,10 +510,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+index.name));
         return text;
     }
-    private dropUkIndex(entity:any,metadata:SqlDialectMetadata):string
-    {       
-        let text = metadata.ddl('dropIndex');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
-        return text;
-    }
+    // private dropUkIndex(entity:any,metadata:SqlDialectMetadata):string
+    // {       
+    //     let text = metadata.ddl('dropIndex');
+    //     text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
+    //     return text;
+    // }
 }

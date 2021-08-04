@@ -2,7 +2,7 @@ import {Cache,Operand,IOrm,Context } from './model'
 import {Model,Parser} from './parser/index'
 import {Expression,CompiledExpression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
-import {ITransaction,IConnectionManager,ConnectionManager,MySqlConnection} from './connection'
+import {ITransaction,IConnectionManager,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool} from './connection'
 import {ILanguage} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
@@ -173,7 +173,10 @@ export =(function() {
         orm.addLanguage(memoryLanguage);
         orm.addLanguage(sqlLanguage);
         
-        orm.connection.addType('mysql',MySqlConnection);
+        orm.connection.addType('mysql',MySqlConnectionPool);
+        orm.connection.addType('mariadb',MariadbConnectionPool);
+        orm.connection.addType('postgres',PostgresConnectionPool);
+        orm.connection.addType('mssql',MssqlConnectionPool);
     }
     return orm;
 })();

@@ -1,4 +1,5 @@
 import {Connection} from './connection'
+import {ConnectionPool} from './connectionPool'
 import {Executor} from './executor'
 import {Transaction} from './transaction'
 import {IExecutor} from './iExecutor'
@@ -6,57 +7,48 @@ import {ITransaction} from './iTransaction'
 import {ConnectionConfig } from './connectionConfig'
 import {IConnectionManager } from './iConnectionManager'
 
-const genericPool = require('generic-pool')
+// const genericPool = require('generic-pool')
 
 export class ConnectionManager implements IConnectionManager
 {    
-    private connectionTypes:any
+    private dialectsPool:any
     private pools:any
-    private configs:any
     constructor(){
-        this.connectionTypes={}; 
+        this.dialectsPool={}; 
         this.pools={};
-        this.configs={}; 
     }
     public addType(name:string,value:any){
-        this.connectionTypes[name] =value;
+        this.dialectsPool[name] =value;
     }
-    public load(value:ConnectionConfig){
-        this.configs[value.name] = value;
-        this.pools[value.name] = this.createPool(value);
+    public load(config:ConnectionConfig):void 
+    {
+        let DialectPool = this.dialectsPool[config.dialect];
+        let pool = new DialectPool(config) as ConnectionPool;
+        // await pool.initialize();
+        this.pools[config.name]= pool;
+    }
+    protected pool(name:string):ConnectionPool
+    {
+        const pool =this.pools[name] as ConnectionPool;
+        if(!pool)
+          throw `connection ${name} not found`;
+        return pool;
     }
     public get(name:string):ConnectionConfig
-    {
-        return this.configs[name];
-    }
-    private createPool(config:ConnectionConfig)
     {        
-        return genericPool.createPool({
-                create: async () => {
-                    let ConnectionType = this.connectionTypes[config.dialect]; 
-                    let connection:Connection= new ConnectionType(config) as Connection;
-                    await connection.connect();
-                    return connection;    
-                },
-                destroy: async (connection:Connection) => {
-                    await connection.disconnect();
-                },
-                validate: async (connection:Connection) => {
-                    await connection.validate();
-                }
-              }
-              ,{
-                max: config.max?config.max:10, // maximum size of the pool
-                min: config.min?config.min:2 // minimum size of the pool
-              });        
+        return this.pool(name).config;
     }
     public async acquire(name:string):Promise<Connection>
     {
-        return (await this.pools[name].acquire()) as Connection;
+        let pool =this.pools[name] as ConnectionPool;
+        if(!pool)
+          throw `connection ${name} not found`;
+        
+        return await this.pool(name).acquire();        
     }
     public async release(connection:Connection):Promise<void>
     {
-        await this.pools[connection.config.name].release(connection);
+        await this.pool(connection.config.name).release(connection);
     }
     public createExecutor(connectionName:string):IExecutor
     {

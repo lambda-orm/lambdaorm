@@ -1,27 +1,27 @@
-import {Connection,ConnectionConfig} from  './..'
+import {Connection,ConnectionConfig,ConnectionPool} from  './..'
 import {Parameter} from '../../model'
 
-export class PostgresConnection extends Connection
+export class PostgresConnectionPool extends ConnectionPool
 {
-    private static postgresLib:any
+    private static pg:any
     constructor(config:ConnectionConfig){        
         super(config);
-        if(!PostgresConnection.postgresLib)
-            PostgresConnection.postgresLib=require('pg');
+        if(!PostgresConnectionPool.pg)
+            PostgresConnectionPool.pg= require('pg');
     }
-    public async connect():Promise<void>
-    { 
-        this.cnx = await PostgresConnection.postgresLib.Client(this.config.connectionString);
-    }
-    public async disconnect():Promise<void>
-    {       
-        if(this.cnx)  
-          await this.cnx.end();
-    }
-    public async validate():Promise<Boolean> 
+    public async acquire():Promise<Connection>
     {
-        return !!this.cnx;
+        let cnx = await PostgresConnectionPool.pg.Client(this.config.connection)
+        return new PostgresConnection(cnx,this);
     }
+    public async release(connection:Connection):Promise<void>
+    {
+        await connection.cnx.end();
+    }
+}
+export class PostgresConnection extends Connection
+{   
+    
     public async select(sql:string,params:Parameter[]):Promise<any>
     {        
         const result= await this._execute(sql,params);
@@ -55,30 +55,20 @@ export class PostgresConnection extends Connection
     }
     public async beginTransaction():Promise<void>
     {
-        if(!this.cnx)
-            await this.connect();        
         await this.cnx.query('BEGIN');
         this.inTransaction=true;
     }
     public async commit():Promise<void>
     {
-        if(!this.cnx)
-            throw 'Connection is closed'
         await this.cnx.query('COMMIT');
         this.inTransaction=false;
     }
     public async rollback():Promise<void>
     {
-        if(!this.cnx)
-            throw 'Connection is closed'
         await this.cnx.query('ROLLBACK');
         this.inTransaction=false;
     }
     protected async _execute(sql:string,params:Parameter[]=[]){
-        if(!this.cnx){
-            if(!this.inTransaction)await this.connect()
-            else throw 'Connection is closed' 
-        }
         let values:any[]=[];
         for(let i=0;i<params.length;i++)
             values.push(params[i].value);     

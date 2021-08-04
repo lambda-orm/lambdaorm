@@ -55,10 +55,10 @@ export class SchemaManager
         let delta= Helper.deltaWithSimpleArrays(_current,_old); 
         return new SchemaSync(this.orm,schemaHelper,delta);        
     }
-    public drop(current:Schema):SchemaDrop
+    public drop(schema:Schema):SchemaDrop
     {   
-        let schema = this.transform(current);
-        let schemaHelper =new SchemaHelper(schema);       
+        let _schema = this.transform(schema);
+        let schemaHelper =new SchemaHelper(_schema);       
         return new SchemaDrop(this.orm,schemaHelper);        
     }
     public truncate(current:Schema):SchemaTruncate
@@ -109,7 +109,7 @@ export class SchemaManager
         } 
         return target;
     }
-    private untransform(source:any):Schema
+    public untransform(source:any):Schema
     {
         let target:Schema={name:source.name as string,mapping:source.mapping as string ,entities:[],enums:[]};
         for(const p in source.entity){

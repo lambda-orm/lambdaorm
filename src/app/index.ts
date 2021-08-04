@@ -19,7 +19,7 @@ app.use(express.static("public"));
           orm.schema.load(schema);
       }
 
-      let cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3306/northwind'};
+      let cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connection:'mysql://root:root@0.0.0.0:3306/northwind'};
       orm.connection.load(cnx);
 
 

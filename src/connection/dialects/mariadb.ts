@@ -1,16 +1,20 @@
 import {ConnectionConfig} from  './..'
-import { MySqlConnection } from './mysql';
+import { MySqlConnection,MySqlConnectionPool } from './mysql';
 
-export class MariaDbConnection extends MySqlConnection
-{      
-    private static mariadbLib:any
+
+export class MariadbConnectionPool extends MySqlConnectionPool
+{
+    private static mariadb:any
     constructor(config:ConnectionConfig){        
         super(config);
-        if(!MariaDbConnection.mariadbLib)
-            MariaDbConnection.mariadbLib= require('mariadb')
+        if(!MariadbConnectionPool.mariadb)
+        MariadbConnectionPool.mariadb= require('mysql2');
+
+        let _config = { ...config.connection, ...{waitForConnections: true,connectionLimit: 10,queueLimit: 0}}; 
+        this.pool = MariadbConnectionPool.mariadb.createPool(_config);    
     }
-    public async connect():Promise<void>
-    { 
-        this.cnx = await MariaDbConnection.mariadbLib.createConnection(this.config.connectionString);
-    }
+}
+export class MariaDbConnection extends MySqlConnection
+{     
+    
 }

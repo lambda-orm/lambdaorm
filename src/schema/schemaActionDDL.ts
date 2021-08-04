@@ -1,6 +1,6 @@
 import {IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
-import {ITransaction,ConnectionConfig } from '../connection'
+import {ITransaction,ConnectionConfig,ExecutionResult} from '../connection'
 
 export abstract class SchemaActionDDL
 {    
@@ -10,14 +10,15 @@ export abstract class SchemaActionDDL
         this.orm=orm;
         this.schema=schema;
     }
-    public abstract sentence(dialect:string):string[];
-    public async execute(connection?:string|ITransaction):Promise<any>
+    public abstract sentence(dialect:string):any[];
+    public async execute(connection?:string|ITransaction):Promise<ExecutionResult>
     {       
         let config:ConnectionConfig;
-        let result:any; 
+        let result:any;
+        let sentences:any[]; 
         if( typeof connection === "string"){
             config=this.orm.connection.get(connection);
-            const sentences = this.sentence(config.dialect);
+            sentences = this.sentence(config.dialect);
             await this.orm.createTransaction(connection,async (transaction)=>{
                 result=await this.executeSentences(sentences,transaction);
             });
@@ -25,13 +26,13 @@ export abstract class SchemaActionDDL
             let transaction = connection as ITransaction;
             if(transaction){
                 config=this.orm.connection.get(transaction.connectionName);
-                const sentences = this.sentence(config.dialect);
+                sentences = this.sentence(config.dialect);
                 result=await this.executeSentences(sentences,transaction);
             } 
             else
                 throw `connection no valid`; 
         }
-        return result;
+        return {result:result,sentences:sentences};
     }
     protected async executeSentences(sentences:string[],transaction:ITransaction):Promise<any[]>
     {

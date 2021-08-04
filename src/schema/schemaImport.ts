@@ -7,7 +7,6 @@ export class SchemaImport extends SchemaActionDML
     {  
         let schemaExpression = this.build(this.schema);
         const entitiesExpression = this.sort(schemaExpression.entities);
-
         await this.orm.createTransaction(connection,async (transaction)=>{ 
             for(let i =0;i<entitiesExpression.length;i++){
                 let entityExpression = entitiesExpression[i];
@@ -93,53 +92,15 @@ export class SchemaImport extends SchemaActionDML
             }
         }
     }  
-    protected sort(entities:SchemaEntityExpression[]):SchemaEntityExpression[]
+    protected sort(entitiesExpression:SchemaEntityExpression[]):SchemaEntityExpression[]
     {  
-        let sorted:string[]=[];
-        while(sorted.length < entities.length ){
-            for(let i=0;i<entities.length;i++){
-                const entityName = entities[i].entity;
-                if(sorted.includes(entityName))
-                    continue;
-                if(this.solveSortEntity(entityName,sorted))
-                   break;      
-            } 
-        }
+        let entities = entitiesExpression.map(p=> p.entity);
+        entities = this.schema.sortEntities(entities);       
         let result:SchemaEntityExpression[]=[];
-        for(let i=0;i<sorted.length;i++){
-            result.push(entities.find(p=> p.entity==sorted[i]) as SchemaEntityExpression);
+        for(let i=0;i<entities.length;i++){
+            result.push(entitiesExpression.find(p=> p.entity==entities[i]) as SchemaEntityExpression);
         }
         return result;
-    }
-    protected solveSortEntity(entityName:string,sorted:string[]):boolean
-    {       
-        const entity=this.schema.getEntity(entityName);
-        if(entity.relation === undefined){
-            sorted.push(entity.name);
-            return true;
-        } 
-        else{
-            let unsolved = false;
-            for(const p in entity.relation){
-                const relation = entity.relation[p];
-                if(relation.type == 'oneToOne' || relation.type == 'oneToMany'){
-                    if(!sorted.includes(relation.entity)){
-                        unsolved= true;
-                        break;     
-                    }
-                }else if (relation.type == 'manyToOne'){
-                    if(!this.solveSortEntity(relation.entity,sorted)){
-                        unsolved= true;
-                        break;  
-                    }
-                }
-            }
-            if(!unsolved){
-                sorted.push(entity.name);
-                return true;
-            }
-        }
-        return false; 
     }
     protected createEntityExpression(entity:any):SchemaEntityExpression
     {

@@ -44,14 +44,15 @@
   },
   "homepage": "https://github.com/FlavioLionelRita/js-orm#readme",
   "dependencies": {
-    "generic-pool": "^3.7.8",
-    "sqlstring": "^2.3.2",
-    "mysql2": "^2.2.5",
-    "pg": "8.6.0",
     "express": "^4.17.1",
+    "generic-pool": "^3.7.8",
     "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
+    "sqlstring": "^2.3.2",
     "swagger-ui-express": "^4.1.6",
+    "tedious": "^11.4.0",
     "tsoa": "^3.8.0"
   },
   "devDependencies": {

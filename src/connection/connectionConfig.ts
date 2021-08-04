@@ -2,7 +2,7 @@ export interface ConnectionConfig {
     name:string
     dialect:string 
     schema:string
-    connectionString:any
+    connection:any
     min?:number
     max?:number
 }

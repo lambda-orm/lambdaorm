@@ -91,4 +91,52 @@ export class SchemaHelper
             relationData: relationData
         };
     }
+    public sortEntities(entities?:string[]):string[]
+    {  
+        if(!entities){
+            entities=[];
+            for(const name in this._schema.entity)entities.push(name);
+        }
+        let sorted:string[]=[];
+        while(sorted.length < entities.length ){
+            for(let i=0;i<entities.length;i++){
+                const entityName = entities[i];
+                if(sorted.includes(entityName))
+                    continue;
+                if(this.solveSortEntity(entityName,sorted)){
+                    sorted.push(entityName);
+                    break;
+                }                         
+            } 
+        }
+        return sorted;
+    }
+    protected solveSortEntity(entityName:string,sorted:string[],parent?:string):boolean
+    {       
+        const entity=this.getEntity(entityName);
+        if(entity.relation === undefined){
+            sorted.push(entity.name);
+            return true;
+        } 
+        else{
+            let unsolved = false;
+            for(const p in entity.relation){
+                const relation = entity.relation[p];
+                if(relation.entity!= entityName){
+                    if(relation.type == 'oneToOne' || relation.type == 'oneToMany'){
+                        if(!sorted.includes(relation.entity) && (parent == null || parent!= relation.entity)){
+                            unsolved= true;
+                            break;     
+                        }
+                    }else if (relation.type == 'manyToOne'){
+                        if(!this.solveSortEntity(relation.entity,sorted,entityName)){
+                            unsolved= true;
+                            break;  
+                        }
+                    }
+                }
+            }
+            return !unsolved;
+        } 
+    }
 }

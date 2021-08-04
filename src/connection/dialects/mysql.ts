@@ -1,37 +1,33 @@
-import {Connection,ConnectionConfig} from  './..'
+import {Connection,ConnectionConfig,ConnectionPool} from  './..'
 import {Parameter} from '../../model'
 import { promisify } from 'util';
 
 // import * as mysql from 'mysql2/promise'
-
-
-
-export class MySqlConnection extends Connection
+export class MySqlConnectionPool extends ConnectionPool
 {
-    private static mysqlLib:any
+    private static mysql:any
+    protected pool:any
     constructor(config:ConnectionConfig){        
         super(config);
-        if(!MySqlConnection.mysqlLib)
-           MySqlConnection.mysqlLib= require('mysql2/promise')
+        if(!MySqlConnectionPool.mysql)
+            MySqlConnectionPool.mysql= require('mysql2');
+
+        let _config = { ...config.connection, ...{waitForConnections: true,connectionLimit: 10,queueLimit: 0}}; 
+        this.pool = MySqlConnectionPool.mysql.createPool(_config);    
     }
-    public async connect():Promise<void>
-    { 
-        this.cnx = await MySqlConnection.mysqlLib.createConnection(this.config.connectionString);
-    }
-    public async disconnect():Promise<void>
+    public async acquire():Promise<Connection>
     {
-        // // Don't disconnect connections with CLOSED state
-        // if (this.cnx._closing) {
-        //   debug('connection tried to disconnect but was already at CLOSED state');
-        //   return;
-        // }
-        if(this.cnx)  
-          await promisify(callback => this.cnx?.end(callback))();
+        let cnx = await this.pool.getConnection();
+        return new MySqlConnection(cnx,this);
     }
-    public async validate():Promise<Boolean> 
+    public async release(connection:Connection):Promise<void>
     {
-        return !!this.cnx;
+        this.pool.releaseConnection(connection.cnx);
     }
+}
+
+export class MySqlConnection extends Connection
+{   
     public async select(sql:string,params:Parameter[]):Promise<any>
     {        
         return await this._execute(sql,params);
@@ -69,30 +65,20 @@ export class MySqlConnection extends Connection
     }
     public async beginTransaction():Promise<void>
     {
-        if(!this.cnx)
-            await this.connect();        
         await this.cnx.beginTransaction();
         this.inTransaction=true;
     }
     public async commit():Promise<void>
     {
-        if(!this.cnx)
-            throw 'Connection is closed'
         await this.cnx.commit();
         this.inTransaction=false;
     }
     public async rollback():Promise<void>
     {
-        if(!this.cnx)
-            throw 'Connection is closed'
         await this.cnx.rollback();
         this.inTransaction=false;
     }
     protected async _execute(sql:string,params:Parameter[]=[]){
-        if(!this.cnx){
-            if(!this.inTransaction)await this.connect()
-            else throw 'Connection is closed' 
-        }
         //Solve array parameters , example IN(?) where ? is array[]
         // https://github.com/sidorares/node-mysql2/issues/476
         let useExecute= true;

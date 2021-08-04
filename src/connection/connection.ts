@@ -4,16 +4,18 @@ import {ConnectionConfig } from './connectionConfig'
 
 export abstract class Connection
 {
-    public config:ConnectionConfig
-    public inTransaction:boolean
-    protected cnx:any
-    constructor(config:ConnectionConfig){        
-        this.config=config;
+    public cnx:any
+    public pool:any
+    public inTransaction:boolean    
+    constructor(cnx:any,pool:any){ 
+        this.cnx=cnx;       
+        this.pool=pool;
         this.inTransaction=false;
     }
-    public abstract connect():Promise<void>;
-    public abstract disconnect():Promise<void>;
-    public abstract validate():Promise<Boolean>;
+    public get config():ConnectionConfig
+    {
+        return this.pool.config;
+    }
     public abstract select(sql:string,params:Parameter[]):Promise<any>;
     public abstract insert(sql:string,params:Parameter[]):Promise<number>;
     public abstract update(sql:string,params:Parameter[]):Promise<number>;

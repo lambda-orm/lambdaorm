@@ -1,6 +1,7 @@
 {
   "name": "northwind",
   "mapping": "northwind",
+  "version": "0.0.1",
   "abstract": {
     "Address": {
       "properties": [
