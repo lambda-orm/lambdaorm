@@ -176,7 +176,7 @@ export =(function() {
         orm.connection.addType('mysql',MySqlConnectionPool);
         orm.connection.addType('mariadb',MariadbConnectionPool);
         orm.connection.addType('postgres',PostgresConnectionPool);
-        orm.connection.addType('mssql',MssqlConnectionPool);
+        // orm.connection.addType('mssql',MssqlConnectionPool);
     }
     return orm;
 })();

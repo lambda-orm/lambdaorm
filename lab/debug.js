@@ -372,7 +372,8 @@ async function schemaMigrations(orm,schemas){
                       ,{name:'mysql',dialect:'mysql',schema:'northwind',connection:{host:'0.0.0.0',port:3307,user:'root',password:'root',database:'northwind'}}
                       ,{name:'mariadb',dialect:'mariadb',schema:'northwind',connection:{host:'0.0.0.0',port:3308,user:'root',password:'root',database:'northwind'}}
                       ,{name:'postgres',dialect:'postgres',schema:'northwind',connection:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
-                      ,{name:'mssql',dialect:'mssql',schema:'northwind',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}];
+                      //,{name:'mssql',dialect:'mssql',schema:'northwind',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}
+                    ];
     for(const p in connections)orm.connection.load(connections[p]);
 
     // await queries(orm);
