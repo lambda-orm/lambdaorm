@@ -11,7 +11,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/lab/test.js"
+            "program": "${workspaceFolder}/dist/lab/test.js",
+            "envFile": "${workspaceFolder}/test/.env"
         },
         {
             "type": "node",
@@ -20,7 +21,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/app/index.js"
+            "program": "${workspaceFolder}/dist/app/index.js",
+            "envFile": "${workspaceFolder}/test/.env"
         },
         {
             "type": "node",
@@ -29,7 +31,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/lab/debug.js"
+            "program": "${workspaceFolder}/lab/debug.js",
+            "envFile": "${workspaceFolder}/test/.env"
         },           
         {
             "command": "npm run test",

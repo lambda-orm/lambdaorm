@@ -1,31 +1,7 @@
-name: northwind
-abstract:
-  Address:
-    properties:
-      - name: address 
-        mapping: Address
-        type: string
-        length: 80
-      - name: city 
-        mapping: City
-        type: string
-        length: 80
-      - name: region 
-        mapping: Region
-        type: string
-        length: 80
-      - name: postalCode 
-        mapping: PostalCode
-        type: string
-        length: 20
-      - name: country 
-        mapping: Country
-        type: string
-        length: 80 
-enums:
+name: northwind:0.0.1
 entities:
   - name: Employees
-    _extends: [northwind.abstract.Address]       
+    _extends: [abstract.address-0_0_1]       
     mapping: Employees
     primaryKey: ['id']
     uniqueKey: ['lastName','firstName']
@@ -92,7 +68,7 @@ entities:
         type: string
         length: 1000
   - name: Customers
-    _extends: [northwind.abstract.Address]
+    _extends: [abstract.address-0_0_1]
     mapping: Customers
     primaryKey: ['id']
     uniqueKey: ['name']
@@ -141,7 +117,7 @@ entities:
         type: string
         length: 20
   - name: Suppliers
-    _extends: [northwind.abstract.Address]
+    _extends: [abstract.address-0_0_1]
     mapping: Suppliers
     primaryKey: ['id']
     uniqueKey: ['name']

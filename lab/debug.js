@@ -346,17 +346,27 @@ async function schemaMigrations(orm,schemas){
   {
     
     let _schemas =  await ConfigExtends.apply('test/schema');
-    for(const p in _schemas)orm.schema.load(_schemas[p]);
+    for(const p in _schemas){
+      if(p=='abstract')continue;
+      orm.schema.load(_schemas[p]);
+    }
+    for(const p in process.env){
+       if(p.startsWith('ORM_CNN_'))
+          orm.connection.load(process.env[p]);   
+    }
+    
+    
 
-    let connections = [{name:'default',dialect:'mysql',connection:{host:'0.0.0.0',port:3306,user:'root',password:'root',database:'northwind'}}
-                      ,{name:'mysql',dialect:'mysql',connection:{host:'0.0.0.0',port:3307,user:'root',password:'root',database:'northwind'}}
-                      ,{name:'mariadb',dialect:'mariadb',connection:{host:'0.0.0.0',port:3308,user:'root',password:'root',database:'northwind'}}
-                      ,{name:'postgres',dialect:'postgres',connection:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
-                      //,{name:'mssql',dialect:'mssql',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}
-                    ];
-    for(const p in connections)orm.connection.load(connections[p]);
+    // let connections = [{name:'default',dialect:'mysql',connection:{host:'0.0.0.0',port:3306,user:'root',password:'root',database:'northwind'}}
+    //                   ,{name:'mysql',dialect:'mysql',connection:{host:'0.0.0.0',port:3307,user:'root',password:'root',database:'northwind'}}
+    //                   ,{name:'mariadb',dialect:'mariadb',connection:{host:'0.0.0.0',port:3308,user:'root',password:'root',database:'northwind'}}
+    //                   ,{name:'postgres',dialect:'postgres',connection:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
+    //                   //,{name:'mssql',dialect:'mssql',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}
+    //                 ];
+    // for(const p in connections)orm.connection.load(connections[p]);
 
-    let namespaces = [{name:'source',connection:'default',schema:'northwind'}
+    let namespaces = [{name:'source',connection:'default',schema:'northwind:0.0.2'}
+                     ,{name:'mysql',connection:'mysql',schema:'northwind:0.0.2'}
                    ];
     for(const p in namespaces)orm.addNamespace(namespaces[p]);
 
