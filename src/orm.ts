@@ -1,4 +1,4 @@
-import {Cache,Operand,IOrm,Context } from './model'
+import {Cache,Operand,IOrm,Context,Namespace } from './model'
 import {Model,Parser} from './parser/index'
 import {Expression,CompiledExpression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
@@ -17,6 +17,7 @@ class Orm implements IOrm
     private connectionManager:IConnectionManager
     public languages:any
     public dialects:any
+    public namespaces:any
 
     constructor(parserManager:Parser){
         this.languages={};
@@ -35,6 +36,14 @@ class Orm implements IOrm
     {
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
+    }
+    public addNamespace(namespace:Namespace):void
+    {
+        this.namespaces[namespace.name] =namespace;
+    }
+    public namespace(name:string):Namespace 
+    {        
+        return this.namespaces[name]as Namespace
     }
     public get parser():Parser
     {
@@ -85,55 +94,44 @@ class Orm implements IOrm
        let operand= this.language(dialect).operand.deserialize(serialized);
        return new CompiledExpression(this,operand,dialect);
     }
-    public async execute(operand:Operand,dialect:string,context:any,connection?:string|ITransaction):Promise<any>
+    public async execute(operand:Operand,context:any,namespace:string,transaction?:ITransaction):Promise<any>
     {
         try{
-            let _context = new Context(context);                    
-            if(connection){ 
-                if( typeof connection === "string"){
-                    let result;
-                    if(operand.children.length==0){
-                        let executor =this.connectionManager.createExecutor(connection);
-                        result = await this.language(dialect).executor.execute(operand,_context,executor);
-                    }
-                    else
-                    {
-                        await this.createTransaction(connection,async (transaction)=>{
-                            result= await this.language(dialect).executor.execute(operand,_context,transaction);
-                        });
-                    }
-                    return result;                    
-                }else{
-                    let transaction = connection as ITransaction;
-                    if(transaction)
-                        return await this.language(dialect).executor.execute(operand,_context,transaction);
-                    else
-                        throw `connection no valid`; 
+            let _context = new Context(context);
+            let _namespace= this.namespace(namespace);
+            let config = this.connection.get(_namespace.connection);             
+            if(transaction){
+                return await this.language(config.dialect).executor.execute(operand,_context,transaction);
+            }else{    
+
+                let result;
+                if(operand.children.length==0){
+                    let executor =this.connectionManager.createExecutor(_namespace.connection);
+                    result = await this.language(config.dialect).executor.execute(operand,_context,executor);
                 }
-            }else{
-                return await this.language(dialect).executor.execute(operand,_context);
-            }            
+                else
+                {
+                    await this.createTransaction(_namespace.connection,async (transaction)=>{
+                        result= await this.language(config.dialect).executor.execute(operand,_context,transaction);
+                    });
+                }
+                return result;                    
+            }
+                      
         }catch(error){
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async executeSentence(sentence:any,connection?:string|ITransaction):Promise<any>
+    public async executeSentence(sentence:any,namespace:string,transaction?:ITransaction):Promise<any>
     {
-        try{                            
-            if(connection){ 
-                if( typeof connection === "string"){
-                    let executor =this.connectionManager.createExecutor(connection);
-                    return await executor.execute(sentence); 
-                }else{
-                    let transaction = connection as ITransaction;
-                    if(transaction)
-                        return await transaction.execute(sentence);
-                    else
-                        throw `connection no valid`; 
-                }
+        try{
+            let _namespace= this.namespace(namespace);
+            if(transaction){
+                return await transaction.execute(sentence);
             }else{
-                throw `connection no valid`; 
-            }            
+                let executor =this.connectionManager.createExecutor(_namespace.connection);
+                return await executor.execute(sentence); 
+            }           
         }catch(error){
             throw 'error: '+error.toString(); 
         }

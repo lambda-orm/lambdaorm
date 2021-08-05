@@ -1,25 +1,35 @@
 import {SchemaDataEntity,SchemaData, SchemaEntityExpression} from './schemaData'
 import {SchemaActionDML} from './schemaActionDML'
+import {ITransaction} from '../connection'
 
 export class SchemaImport extends SchemaActionDML
 {   
-    public async execute(data:SchemaData,mapping:any,connection:string):Promise<void>
+    public async execute(data:SchemaData,mapping:any,namespace:string,transaction?:ITransaction):Promise<void>
     {  
         let schemaExpression = this.build(this.schema);
+        let _namespace= this.orm.namespace(namespace);
         const entitiesExpression = this.sort(schemaExpression.entities);
-        await this.orm.createTransaction(connection,async (transaction)=>{ 
-            for(let i =0;i<entitiesExpression.length;i++){
-                let entityExpression = entitiesExpression[i];
-                let entityData = data.entities.find(p=> p.entity == entityExpression.entity);
-                if(entityData){
-                    let aux:any={};
-                    this.loadExternalIds(entityData.entity,entityData.rows,aux)
-                    this.solveInternalsIds(entityData.entity,entityData.rows,mapping);
-                    await this.orm.expression(entityExpression.expression).execute(entityData.rows,transaction);
-                    this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
-                }               
-            }
-        }); 
+        if(transaction){
+            await this.executeEntitiesExpression(entitiesExpression,data,mapping,namespace,transaction);
+        }else{
+            await this.orm.createTransaction(_namespace.connection,async (transaction)=>{ 
+                await this.executeEntitiesExpression(entitiesExpression,data,mapping,namespace,transaction);
+            }); 
+        }
+    }
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,namespace:string,transaction:ITransaction)
+    {
+        for(let i =0;i<entitiesExpression.length;i++){
+            let entityExpression = entitiesExpression[i];
+            let entityData = data.entities.find(p=> p.entity == entityExpression.entity);
+            if(entityData){
+                let aux:any={};
+                this.loadExternalIds(entityData.entity,entityData.rows,aux)
+                this.solveInternalsIds(entityData.entity,entityData.rows,mapping);
+                await this.orm.expression(entityExpression.expression).execute(entityData.rows,namespace,transaction);
+                this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
+            }               
+        }
     }
     protected solveInternalsIds(entityName:string,rows:any[],mapping:any):void
     {

@@ -67,15 +67,17 @@ export class SchemaManager
         let schemaHelper =new SchemaHelper(schema);       
         return new SchemaTruncate(this.orm,schemaHelper);        
     }
-    public export(name:string):SchemaExport
-    {
-        let schema=this.getInstance(name);
-        return new SchemaExport(this.orm,schema);
+    public export(schema:Schema):SchemaExport
+    {        
+        let _schema = this.transform(schema);
+        let schemaHelper =new SchemaHelper(_schema);    
+        return new SchemaExport(this.orm,schemaHelper);
     }
-    public import(name:string):SchemaImport
+    public import(schema:Schema):SchemaImport
     {
-        let schema=this.getInstance(name);
-        return new SchemaImport(this.orm,schema);
+        let _schema = this.transform(schema);
+        let schemaHelper =new SchemaHelper(_schema);  
+        return new SchemaImport(this.orm,schemaHelper);
     }    
     public transform(source:Schema):any
     {

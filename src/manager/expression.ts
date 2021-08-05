@@ -26,20 +26,12 @@ export class Expression
        let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
        return new CompiledExpression(this.orm,operand,dialect)
     }  
-    public async execute(context:any,connection?:string|ITransaction)
-    {   
-        let config:ConnectionConfig;
-        if( typeof connection === "string"){
-            config = this.orm.connection.get(connection);            
-        }else{
-            let transaction = connection as ITransaction;
-            if(transaction)
-            config = this.orm.connection.get(transaction.connectionName);
-            else
-                throw `connection no valid`; 
-        } 
-        let compiled = await this.compile(config.dialect,config.schema); 
-        return await compiled.execute(context,connection) 
+    public async execute(context:any,namespace:string,transaction?:ITransaction)
+    {  
+        let _namespace= this.orm.namespace(namespace);
+        let config = this.orm.connection.get(_namespace.connection); 
+        let compiled = await this.compile(config.dialect,_namespace.schema); 
+        return await compiled.execute(context,namespace,transaction);
     }
 }
 

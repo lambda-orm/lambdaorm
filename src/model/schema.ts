@@ -1,3 +1,9 @@
+export interface Namespace
+{
+    name: string
+    connection:string
+    schema:string
+}
 export interface Schema {
     name: string
     mapping: string

@@ -1,20 +1,32 @@
 import {SchemaData, SchemaEntityExpression} from './schemaData'
 import {SchemaActionDML} from './schemaActionDML'
+import {ITransaction} from '../connection'
 
 export class SchemaExport extends SchemaActionDML
 {   
-    public async execute(connection:string):Promise<SchemaData>
-    {  
-        let schemaExport:SchemaData={entities:[]};
-        let schemaExportExpression = this.build(this.schema);
+    public async execute(namespace:string,transaction?:ITransaction):Promise<SchemaData>
+    {          
+        let schemaExpression = this.build(this.schema);
         let context={};
-        await this.orm.createTransaction(connection,async (transaction)=>{ 
-            for(let i =0;i<schemaExportExpression.entities.length;i++){
-                let exportEntityExpression = schemaExportExpression.entities[i];
-                let rows = await this.orm.expression(exportEntityExpression.expression).execute(context,transaction);
-                schemaExport.entities.push({entity:exportEntityExpression.entity,rows:rows });
-            }
-        });        
+        if(transaction){
+            return await this.executeEntitiesExpression(schemaExpression.entities,context,namespace,transaction);
+        }else{
+            let schemaExport:SchemaData={entities:[]};
+            let _namespace= this.orm.namespace(namespace);
+            await this.orm.createTransaction(_namespace.connection,async (transaction)=>{ 
+                schemaExport=await this.executeEntitiesExpression(schemaExpression.entities,context,namespace,transaction);
+            });
+            return schemaExport;
+        } 
+    }
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],context:any,namespace:string,transaction:ITransaction)
+    {
+        let schemaExport:SchemaData={entities:[]};
+        for(let i =0;i<entitiesExpression.length;i++){
+            let entityExpression = entitiesExpression[i];
+            let rows = await this.orm.expression(entityExpression.expression).execute(context,namespace,transaction);
+            schemaExport.entities.push({entity:entityExpression.entity,rows:rows });
+        }
         return schemaExport;
     } 
     protected createEntityExpression(entity:any):SchemaEntityExpression

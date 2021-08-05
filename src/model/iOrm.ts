@@ -1,4 +1,4 @@
-import {Operand } from './../model/index';
+import {Operand,Namespace } from './../model/index';
 import {ILanguage} from '../language'
 import {ITransaction,IConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
@@ -12,12 +12,14 @@ export interface IOrm
     get parser():Parser;
     get schema():SchemaManager;
     language(dialect:string):ILanguage 
-    get connection():IConnectionManager;    
+    get connection():IConnectionManager;
+    addNamespace(namespace:Namespace):void;
+    namespace(name:string):Namespace;
     expression(value:string):Expression;
     lambda(value:Function):Expression;
     deserialize(serialized:string,language:string):CompiledExpression;
     compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>;
     createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>;
-    execute(operand:Operand,dialect:string,context:any,connection?:string|ITransaction):Promise<any>;
-    executeSentence(sentence:any,connection?:string|ITransaction):Promise<any>;
+    execute(operand:Operand,context:any,namespace:string,transaction?:ITransaction):Promise<any>;
+    executeSentence(sentence:any,namespace:string,transaction?:ITransaction):Promise<any>;
 }

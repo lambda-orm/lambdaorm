@@ -2,7 +2,7 @@ import {Property} from '../model/index'
 
 export class SchemaHelper
 {
-    private _schema:any
+    private _schema:any    
     constructor(schema:any){
         this._schema = schema;
     }

@@ -5,7 +5,7 @@ import {SchemaExpression,SchemaSentence,SchemaData, SchemaEntityExpression} from
 export abstract class SchemaActionDML
 {    
     protected orm:IOrm 
-    protected schema:SchemaHelper   
+    protected schema:SchemaHelper
     constructor(orm:IOrm,schema:SchemaHelper){
         this.orm=orm;
         this.schema=schema;

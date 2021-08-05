@@ -23,8 +23,8 @@ export class CompiledExpression
     {
         return this.orm.language(this.dialect).operand.model(this.operand);
     }      
-    public async execute(context:any,connection?:string|ITransaction):Promise<any>
-    {        
-        return await this.orm.execute(this.operand,this.dialect,context,connection);
+    public async execute(context:any,namespace:string,transaction?:ITransaction):Promise<any>
+    {  
+        return await this.orm.execute(this.operand,context,namespace,transaction);
     }
 }

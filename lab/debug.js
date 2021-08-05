@@ -133,27 +133,27 @@ async function crud(orm){
   };
 
   try{
-      orm.createTransaction('source',async (transaction)=>{    
+      orm.createTransaction('default',async (transaction)=>{    
         //create order
-        let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,transaction)));
+        let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,'source',transaction)));
         //get order
-        let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
+        let result = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'source',transaction)));
         let order2 = result[0];
         //updated order
         order2.address = "changed 59 rue de l-Abbaye";
         order2.details[0].discount= true;
         order2.details[1].unitPrice= 10;
         order2.details[2].quantity= 7;
-        let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,transaction)));
+        let updateCount = await exec(async()=>(await orm.expression("Orders.update().include(p => p.details)").execute(order2,'source',transaction)));
         console.log(updateCount);
         //get order
-        let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
+        let order3 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'source',transaction)));
         console.log(JSON.stringify(order3));
         // delete
-        let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],transaction)));
+        let deleteCount = await exec(async()=>(await orm.expression("Orders.delete().include(p=> p.details)").execute(order3[0],'source',transaction)));
         console.log(deleteCount);
         //get order
-        let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},transaction)));
+        let order4 = await exec(async()=>(await orm.expression("Orders.filter(p=> p.id == id).include(p => p.details)").execute({id:orderId},'source',transaction)));
         console.log(JSON.stringify(order4));
       });
   }
@@ -296,6 +296,13 @@ async function schemaSync(orm,schema,target){
   let result = await orm.schema.sync(schema,targetSchema).execute(target);
   fs.writeFileSync(targetFile,JSON.stringify(schema,null,2));
 }
+async function schemaExport(orm,source){
+  let exportFile = 'test/connection/'+source+'/northwind.export.json';
+  let schemaFile = 'test/connection/'+source+'/northwind.schema.json';
+  let schema = JSON.parse(fs.readFileSync(schemaFile));
+  let data= await orm.schema.export(schema).execute(source);
+  fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
+}
 async function schemaSyncFrom(orm,source,target){
   let sourceFile = 'test/connection/'+source+'/northwind.schema.json';
   let targetFile = 'test/connection/'+target+'/northwind.schema.json';
@@ -303,6 +310,19 @@ async function schemaSyncFrom(orm,source,target){
   let targetSchema = fs.existsSync(targetFile)?JSON.parse(fs.readFileSync(targetFile)):null;
   let result = await orm.schema.sync(sourceSchema,targetSchema).execute(target);
   fs.writeFileSync(targetFile,JSON.stringify(sourceSchema,null,2));
+}
+async function schemaImport(orm,source,target){
+  let sourceFile = 'test/connection/'+source+'/northwind.export.json';
+  let schemaFile = 'test/connection/'+target+'/northwind.schema.json';
+  let mappingFile = 'test/connection/'+target+'/northwind.mapping.json';
+
+  let data = fs.readFileSync(sourceFile);
+  let schema = JSON.parse(fs.readFileSync(schemaFile));
+  let mapping = fs.existsSync(mappingFile)?JSON.parse(fs.readFileSync(mappingFile)):{};
+  await orm.schema.import(schema).execute(data,mapping,target);
+
+  fs.writeFileSync('lab/mysql/schema.json',JSON.stringify(schema,null,2));
+  fs.writeFileSync('lab/mysql/mapping.json',JSON.stringify(mapping,null,2));
 }
 async function schemaDrop(orm,target){
   let targetFile = 'test/connection/'+target+'/northwind.schema.json';  
@@ -314,50 +334,11 @@ async function schemaDrop(orm,target){
 }
 
 
-async function schemaExport(orm){
-  let data= await orm.schema.export('northwind').execute('source');
-  fs.writeFileSync('test/connection/source/northwind.export.json', JSON.stringify(data,null,2));
-}
-async function schemaImport(orm){
 
-  let data = fs.readFileSync('test/connection/source/northwind.export.json');
-  let schema = fs.existsSync('lab/mysql/schema.json')?JSON.parse(fs.readFileSync('lab/mysql/schema.json')):{name:'northwind-mysql'};
-  let mapping = fs.existsSync('lab/mysql/mapping.json')?JSON.parse(fs.readFileSync('lab/mysql/mapping.json')):{};
-  let connection = {name:'mysql',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'};
 
-  orm.schema.load(schema);
-  orm.connection.load(connection);
-
-  await orm.schema.import('northwind-mysql').execute(data,mapping,'mysql');
-
-  fs.writeFileSync('lab/mysql/schema.json',JSON.stringify(schema,null,2));
-  fs.writeFileSync('lab/mysql/mapping.json',JSON.stringify(mapping,null,2));
-}
 async function schemaMigrations(orm,schemas){
 
-  let data= await orm.schema.export('northwind').execute('source');
-  fs.writeFileSync('lab/export.json', JSON.stringify(data,null,2));
-
-  let connections = [{name:'mysql',dialect:'mysql',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3307/northwind'}
-                    ,{name:'mariadb',dialect:'mariadb',schema:'northwind',connectionString:'mysql://root:root@0.0.0.0:3308/northwind'}
-                    ,{name:'postgres',dialect:'postgres',schema:'northwind',connectionString:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
-                    ,{name:'mssql',dialect:'mssql',schema:'northwind',connectionString:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}];
-
-  let schema = schemas['northwind'];
-  for(const i in connections){
-    const connection = connections[i];
-    orm.connection.load(connection);
-    orm.createTransaction(connection.name,async (transaction)=>{   
-        //elimina tablas e indices si existen 
-        await orm.schema.drop(connection.schema).execute(transaction);
-        //crea el esquema desde cero
-        await orm.schema.create(schema).execute(transaction);
-        //trunca todas las tablas del esquema
-        await orm.schema.truncate(connection.schema).execute(transaction);
-        //importa todos los datos
-        await orm.schema.import(connection.schema).execute(data,transaction);
-    });
-  }
+  
 }
  
 
@@ -365,16 +346,23 @@ async function schemaMigrations(orm,schemas){
 
   try
   {
-    let schemas =  await ConfigExtends.apply('test/schema');
-    for(const p in schemas)orm.schema.load(schemas[p]);
+    
+    let _schemas =  await ConfigExtends.apply('test/schema');
+    for(const p in _schemas)orm.schema.load(_schemas[p]);
 
-    let connections = [{name:'source',dialect:'mysql',schema:'northwind',connection:{host:'0.0.0.0',port:3306,user:'root',password:'root',database:'northwind'}}
-                      ,{name:'mysql',dialect:'mysql',schema:'northwind',connection:{host:'0.0.0.0',port:3307,user:'root',password:'root',database:'northwind'}}
-                      ,{name:'mariadb',dialect:'mariadb',schema:'northwind',connection:{host:'0.0.0.0',port:3308,user:'root',password:'root',database:'northwind'}}
-                      ,{name:'postgres',dialect:'postgres',schema:'northwind',connection:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
-                      //,{name:'mssql',dialect:'mssql',schema:'northwind',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}
+    let connections = [{name:'default',dialect:'mysql',connection:{host:'0.0.0.0',port:3306,user:'root',password:'root',database:'northwind'}}
+                      ,{name:'mysql',dialect:'mysql',connection:{host:'0.0.0.0',port:3307,user:'root',password:'root',database:'northwind'}}
+                      ,{name:'mariadb',dialect:'mariadb',connection:{host:'0.0.0.0',port:3308,user:'root',password:'root',database:'northwind'}}
+                      ,{name:'postgres',dialect:'postgres',connection:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
+                      //,{name:'mssql',dialect:'mssql',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}
                     ];
     for(const p in connections)orm.connection.load(connections[p]);
+
+    let namespaces = [{name:'source',connection:'default',schema:'northwind'}
+                   ];
+    for(const p in namespaces)orm.addNamespace(namespaces[p]);
+
+
 
     // await queries(orm);
     // await modify(orm);
@@ -382,10 +370,11 @@ async function schemaMigrations(orm,schemas){
     // await scriptsByDialect(orm,schemas);
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-      await schemaSync(orm,schemas.northwind,'source');      
+      await schemaSync(orm,schemas.northwind,'source');
+      await schemaExport(orm,'source')      
       await schemaSyncFrom(orm,'source','mysql');
       await schemaDrop(orm,'mysql')
-    // await schemaExport(orm)
+   
     // await schema(orm,schemas);
     console.log('Ok')
   }
