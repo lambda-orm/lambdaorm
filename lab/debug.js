@@ -291,30 +291,30 @@ async function bulkInsert2(orm){
 
 
 async function schemaSync(orm,schema,target){
-  let targetFile = 'test/connection/'+target+'/northwind.schema.json';
+  let targetFile = 'test/namespace/'+target+'/northwind.schema.json';
   let targetSchema = fs.existsSync(targetFile)?JSON.parse(fs.readFileSync(targetFile)):null;
   let result = await orm.schema.sync(schema,targetSchema).execute(target);
   fs.writeFileSync(targetFile,JSON.stringify(schema,null,2));
 }
 async function schemaExport(orm,source){
-  let exportFile = 'test/connection/'+source+'/northwind.export.json';
-  let schemaFile = 'test/connection/'+source+'/northwind.schema.json';
+  let exportFile = 'test/namespace/'+source+'/northwind.export.json';
+  let schemaFile = 'test/namespace/'+source+'/northwind.schema.json';
   let schema = JSON.parse(fs.readFileSync(schemaFile));
   let data= await orm.schema.export(schema).execute(source);
   fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
 }
 async function schemaSyncFrom(orm,source,target){
-  let sourceFile = 'test/connection/'+source+'/northwind.schema.json';
-  let targetFile = 'test/connection/'+target+'/northwind.schema.json';
+  let sourceFile = 'test/namespace/'+source+'/northwind.schema.json';
+  let targetFile = 'test/namespace/'+target+'/northwind.schema.json';
   let sourceSchema = JSON.parse(fs.readFileSync(sourceFile));
   let targetSchema = fs.existsSync(targetFile)?JSON.parse(fs.readFileSync(targetFile)):null;
   let result = await orm.schema.sync(sourceSchema,targetSchema).execute(target);
   fs.writeFileSync(targetFile,JSON.stringify(sourceSchema,null,2));
 }
 async function schemaImport(orm,source,target){
-  let sourceFile = 'test/connection/'+source+'/northwind.export.json';
-  let schemaFile = 'test/connection/'+target+'/northwind.schema.json';
-  let mappingFile = 'test/connection/'+target+'/northwind.mapping.json';
+  let sourceFile = 'test/namespace/'+source+'/northwind.export.json';
+  let schemaFile = 'test/namespace/'+target+'/northwind.schema.json';
+  let mappingFile = 'test/namespace/'+target+'/northwind.mapping.json';
 
   let data = fs.readFileSync(sourceFile);
   let schema = JSON.parse(fs.readFileSync(schemaFile));
@@ -325,7 +325,7 @@ async function schemaImport(orm,source,target){
   fs.writeFileSync('lab/mysql/mapping.json',JSON.stringify(mapping,null,2));
 }
 async function schemaDrop(orm,target){
-  let targetFile = 'test/connection/'+target+'/northwind.schema.json';  
+  let targetFile = 'test/namespace/'+target+'/northwind.schema.json';  
   let targetSchema = fs.existsSync(targetFile)?JSON.parse(fs.readFileSync(targetFile)):null;
   if(targetSchema){
     let result = await orm.schema.drop(targetSchema).execute(target,true);
