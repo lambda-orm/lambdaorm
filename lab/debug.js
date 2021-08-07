@@ -291,10 +291,10 @@ async function bulkInsert2(orm){
 
 
 async function schemaSync(orm,target){
-  orm.namespace.sync(target).execute();
+  await orm.namespace.sync(target).execute();
 }
 async function schemaDrop(orm,target){
-  orm.namespace.drop(target).execute();
+  await orm.namespace.drop(target).execute();
 }
 async function schemaExport(orm,source){
   let exportFile = 'test/data/'+source+'-export.json';  
@@ -314,42 +314,16 @@ async function schemaImport(orm,source,target){
     let config =  await ConfigExtends.apply('test/config.yaml');
     await orm.loadConfig(config);
 
-
-    // let _schemas =  await ConfigExtends.apply('test/schema');
-    // for(const p in _schemas){
-    //   if(p=='abstract')continue;
-    //   orm.schema.load(_schemas[p]);
-    // }
-    // for(const p in process.env){
-    //    if(p.startsWith('ORM_CNN_'))
-    //       orm.connection.load(process.env[p]);   
-    // }
-    // let config =  await ConfigExtends.apply('test/config.yaml');
-    // for(const p in config.namespaces)
-    //   orm.addNamespace(config.namespaces[p]);
-    // let connections = [{name:'default',dialect:'mysql',connection:{host:'0.0.0.0',port:3306,user:'root',password:'root',database:'northwind'}}
-    //                   ,{name:'mysql',dialect:'mysql',connection:{host:'0.0.0.0',port:3307,user:'root',password:'root',database:'northwind'}}
-    //                   ,{name:'mariadb',dialect:'mariadb',connection:{host:'0.0.0.0',port:3308,user:'root',password:'root',database:'northwind'}}
-    //                   ,{name:'postgres',dialect:'postgres',connection:'postgresql://admin:admin@0.0.0.0:5432/northwind'}
-    //                   //,{name:'mssql',dialect:'mssql',connection:{server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}}
-    //                 ];
-    // for(const p in connections)orm.connection.load(connections[p]);
-
-    // let namespaces = [{name:'source',connection:'default',schema:'northwind:0.0.2'}
-    //                  ,{name:'mysql',connection:'mysql',schema:'northwind:0.0.2'}
-    //                ];
-    // for(const p in namespaces)orm.addNamespace(namespaces[p]);
-
-
-
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,schemas);
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-      await schemaSync(orm,schemas.northwind,'source');
-      await schemaExport(orm,'source')      
+      await schemaSync(orm,'source');
+      await schemaExport(orm,'source');
+      await schemaSync(orm,'mysql');
+      await schemaImport(orm,'source','mysql')      
       await schemaDrop(orm,'mysql')
    
     // await schema(orm,schemas);
