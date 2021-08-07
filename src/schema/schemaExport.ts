@@ -12,7 +12,7 @@ export class SchemaExport extends SchemaActionDML
             return await this.executeEntitiesExpression(schemaExpression.entities,context,namespace,transaction);
         }else{
             let schemaExport:SchemaData={entities:[]};
-            let _namespace= this.orm.namespace(namespace);
+            let _namespace= this.orm.namespace.get(namespace);
             await this.orm.createTransaction(_namespace.connection,async (transaction)=>{ 
                 schemaExport=await this.executeEntitiesExpression(schemaExpression.entities,context,namespace,transaction);
             });

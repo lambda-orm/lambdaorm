@@ -1,20 +1,22 @@
-import {Operand,Namespace } from './../model/index';
+import {Operand,Config } from './../model/index';
 import {ILanguage} from '../language'
 import {ITransaction,IConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
 import {Expression,CompiledExpression}  from './../manager'
 import {SchemaManager}  from './../schema'
+import {NamespaceManager}  from './../namespace'
 
 export interface IOrm
 {       
     languages:any
     dialects:any
+    config:Config
     get parser():Parser;
     get schema():SchemaManager;
-    language(dialect:string):ILanguage 
+    get namespace():NamespaceManager;
+    language(dialect:string):ILanguage
+    loadConfig(config:Config):Promise<void> 
     get connection():IConnectionManager;
-    addNamespace(namespace:Namespace):void;
-    namespace(name:string):Namespace;
     expression(value:string):Expression;
     lambda(value:Function):Expression;
     deserialize(serialized:string,language:string):CompiledExpression;

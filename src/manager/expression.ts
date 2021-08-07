@@ -28,7 +28,7 @@ export class Expression
     }  
     public async execute(context:any,namespace:string,transaction?:ITransaction)
     {  
-        let _namespace= this.orm.namespace(namespace);
+        let _namespace= this.orm.namespace.get(namespace);
         let config = this.orm.connection.get(_namespace.connection); 
         let compiled = await this.compile(config.dialect,_namespace.schema); 
         return await compiled.execute(context,namespace,transaction);

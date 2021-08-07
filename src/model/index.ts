@@ -6,3 +6,4 @@ export * from './operand';
 export * from './iOrm';
 export * from './delta';
 export * from './parameter';
+export * from './config';

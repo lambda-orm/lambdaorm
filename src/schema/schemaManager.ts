@@ -16,8 +16,9 @@ export class SchemaManager
         this.schemas={}; 
     }
     public load(value:Schema):void
-    {        
-        this.schemas[value.name] = this.transform(value);     
+    {       
+        if(value && value.name) 
+            this.schemas[value.name] = this.transform(value);     
     }
     public delete(name:string):void
     {

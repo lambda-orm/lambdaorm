@@ -1,31 +1,38 @@
-import {Cache,Operand,IOrm,Context,Namespace } from './model'
+import {Cache,Operand,IOrm,Context,Namespace,Config } from './model'
 import {Model,Parser} from './parser/index'
 import {Expression,CompiledExpression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
-import {ITransaction,IConnectionManager,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool} from './connection'
+import {NamespaceManager}  from './namespace'
+import {ITransaction,IConnectionManager,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool, ConnectionConfig} from './connection'
 import {ILanguage} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
 import modelConfig from './parser/config.json'
 import sqlConfig  from './language/sql/config.json'
+const ConfigExtends = require("config-extends");
+const fs = require('fs');
+const path = require('path');
 
 class Orm implements IOrm
 {
     private cache:Cache
     private parserManager:Parser
     private schemaManager:SchemaManager
+    private namespaceManager:NamespaceManager
     private connectionManager:IConnectionManager
     public languages:any
     public dialects:any
-    public namespaces:any
+    public config:Config
 
     constructor(parserManager:Parser){
         this.languages={};
         this.dialects={};
+        this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},conections:{sourceType:'env'},namespaces:[]};
         this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
-        this.connectionManager= new ConnectionManager();  
+        this.connectionManager= new ConnectionManager();
+        this.namespaceManager =  new NamespaceManager(this);
     }
     public addLanguage(language:ILanguage){
         this.languages[language.name] =language;
@@ -37,13 +44,35 @@ class Orm implements IOrm
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
     }
-    public addNamespace(namespace:Namespace):void
+    public async loadConfig(config:Config):Promise<void>
     {
-        this.namespaces[namespace.name] =namespace;
-    }
-    public namespace(name:string):Namespace 
-    {        
-        return this.namespaces[name]as Namespace
+        this.config = config;
+        if(this.config.state.sourceType == 'path'){
+            if(!path.existsSync(this.config.state.path))
+                fs.mkdirSync(this.config.state.path);
+        } 
+        let _schemas:any={};
+        if(this.config.schemas.sourceType=='path')
+            _schemas =  await ConfigExtends.apply(this.config.schemas.path);
+
+        if(_schemas){
+            for(const p in _schemas){
+                if(p=='abstract')continue;
+                this.schema.load(_schemas[p]);
+            }
+        }    
+        if(this.config.conections.sourceType=='env'){
+            for(const p in process.env){
+                if(p.startsWith('ORM_CNN_') && process.env !== undefined ){
+                    let value:any = process.env[p] 
+                    if(typeof value == 'string')
+                        value= JSON.parse(value);
+                    this.connection.load(value); 
+                }   
+            }
+        }                
+        for(const p in this.config.namespaces)
+          this.namespace.add(config.namespaces[p]);
     }
     public get parser():Parser
     {
@@ -52,6 +81,10 @@ class Orm implements IOrm
     public get schema():SchemaManager
     {
         return this.schemaManager;
+    }
+    public get namespace():NamespaceManager
+    {
+        return this.namespaceManager;
     }
     public get connection():IConnectionManager
     {
@@ -98,7 +131,7 @@ class Orm implements IOrm
     {
         try{
             let _context = new Context(context);
-            let _namespace= this.namespace(namespace);
+            let _namespace= this.namespace.get(namespace);
             let config = this.connection.get(_namespace.connection);             
             if(transaction){
                 return await this.language(config.dialect).executor.execute(operand,_context,transaction);
@@ -125,7 +158,7 @@ class Orm implements IOrm
     public async executeSentence(sentence:any,namespace:string,transaction?:ITransaction):Promise<any>
     {
         try{
-            let _namespace= this.namespace(namespace);
+            let _namespace= this.namespace.get(namespace);
             if(transaction){
                 return await transaction.execute(sentence);
             }else{
