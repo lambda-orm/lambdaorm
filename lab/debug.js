@@ -314,6 +314,12 @@ async function schemaImport(orm,source,target){
     let config =  await ConfigExtends.apply('test/config.yaml');
     await orm.loadConfig(config);
 
+// environment variables 
+// ORM_CNN_1= {"name":"default","dialect":"mysql","connection":{"host":"0.0.0.0","port":3306,"user":"root","password":"root","database":"northwind"}}
+// ORM_CNN_2= {"name":"mysql","dialect":"mysql","connection":{"host":"0.0.0.0","port":3307,"user":"root","password":"root","database":"northwind"}}
+// ORM_CNN_3= {"name":"mariadb","dialect":"mariadb","connection":{"host":"0.0.0.0","port":3308,"user":"root","password":"root","database":"northwind"}}
+// ORM_CNN_4= {"name":"postgres","dialect":"postgres","connection":"postgresql://admin:admin@0.0.0.0:5432/northwind"}
+
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);
