@@ -43,10 +43,16 @@ export class Helper {
                     for(const p in unchangeds)arrayDelta.unchanged.push({name:p,value:p});
                     delta.children.push({name:name,type:'array',change:change,delta:arrayDelta});
                 } 
-                else if(Helper.isObject(currentValue)){                                
+                else if(Helper.isObject(currentValue)){    
                     const objectDelta = Helper.deltaWithSimpleArrays(currentValue,oldValue);
                     const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0;
-                    delta.children.push({name:name,type:'object',change:change,delta:objectDelta});
+                    if(change)
+                        delta.changed.push({name:name,new:currentValue,old:oldValue,delta:objectDelta});
+                    else
+                        delta.unchanged.push({name:name,value:oldValue});                    
+                    // const objectDelta = Helper.deltaWithSimpleArrays(currentValue,oldValue);
+                    // const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0;
+                    // delta.children.push({name:name,type:'object',change:change,delta:objectDelta});
                 }else if(oldValue!==currentValue){
                     delta.changed.push({name:name,new:currentValue,old:oldValue});  
                 }else{

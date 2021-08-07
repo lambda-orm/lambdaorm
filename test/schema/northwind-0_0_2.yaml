@@ -24,7 +24,9 @@ entities:
     _extends: [abstract.address-0_0_2]
     mapping: Customers
     primaryKey: ['id']
-    uniqueKey: ['name']
+    indexes:
+      - name: name
+        fields: ['name']
     properties:
       - name: id
         mapping: CustomerID

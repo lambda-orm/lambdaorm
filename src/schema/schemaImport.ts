@@ -56,11 +56,14 @@ export class SchemaImport extends SchemaActionDML
         }
     }
     protected loadExternalIds(entityName:string,rows:any[],aux:any):void
-    {
+    {      
+        if(aux==undefined)aux={};
+        if(aux[entityName]==undefined)aux[entityName]={};  
         const entity=this.schema.getEntity(entityName);
         for(const p in entity.property){
-            const property = entity.property[p];
+            const property = entity.property[p];            
             if(property.autoincrement){
+                if( aux[entityName][property.name]==undefined) aux[entityName][property.name]={}; 
                 for(let i=0;i<rows.length;i++){
                     let row = rows[i];                    
                     aux[entityName][property.name][i]=row[property.name];
@@ -80,10 +83,13 @@ export class SchemaImport extends SchemaActionDML
     }
     protected completeMapping(entityName:string,rows:any[],aux:any,mapping:any):void
     {
+        if(mapping==undefined)mapping={};
+        if(mapping[entityName]==undefined)mapping[entityName]={};  
         const entity=this.schema.getEntity(entityName);
         for(const p in entity.property){
             const property = entity.property[p];
             if(property.autoincrement){
+                if( mapping[entityName][property.name]==undefined) mapping[entityName][property.name]={}; 
                 for(let i=0;i<rows.length;i++){
                     let row = rows[i];                    
                     let externalId = aux[entityName][property.name][i];

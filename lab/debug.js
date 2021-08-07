@@ -303,7 +303,7 @@ async function schemaExport(orm,source){
 }
 async function schemaImport(orm,source,target){
   let sourceFile = 'test/data/'+source+'-export.json';
-  let data = fs.readFileSync(sourceFile);
+  let data = JSON.parse(fs.readFileSync(sourceFile));
   await orm.namespace.import(target,data);
 }
 

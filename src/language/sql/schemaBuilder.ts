@@ -1,4 +1,4 @@
-import {Property,Relation,Index,Delta} from './../../model'
+import {Property,Relation,Index,Delta,ChangedValue} from './../../model'
 import {ISchemaBuilder} from '../'
 import {SchemaHelper} from '../../schema/schemaHelper'
 import {SqlDialectMetadata} from './dialectMetadata'
@@ -48,10 +48,40 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             this.createEntityCreateFk(sql,schema,newEntity,metadata);
         }
         // create new indexes
-        for(const name in delta.changed){
-            const newEntity = delta.changed[name].new;
-            const oldEntity = delta.changed[name].old;
-            this.modifyEntityCreateIndexes(sql,newEntity,metadata);
+        for(const p in delta.changed){
+            let entityChanged = delta.changed[p];
+            if(entityChanged.delta){
+                for(const q in entityChanged.delta.changed){
+                    let changed = entityChanged.delta.changed[q];
+                    if(changed.name == 'index'){
+                        if(changed.delta){
+                            for(const n in changed.delta.new){
+                                let newIndex=changed.delta.new[n]
+                            }
+                            for(const r in changed.delta.remove){
+                                let removeIndex=changed.delta.remove[r]
+                            }
+                            for(const c in changed.delta.changed){
+                                let changeIndex=changed.delta.changed[c]
+                            }                            
+                        }
+                    }
+                    if(changed.name == 'relation'){
+                        if(changed.delta){
+                            for(const n in changed.delta.new){
+                                let newIndex=changed.delta.new[n]
+                            }
+                            for(const c in changed.delta.changed){
+                                let changeIndex=changed.delta.changed[c]
+                            }                            
+                        }
+                    }
+                }
+            }
+            
+           
+
+            // this.modifyEntityCreateIndexes(sql,delta.changed[p],metadata);
         }
         for(const name in delta.new){
             const newEntity = delta.new[name].new;
@@ -323,17 +353,22 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                 sql.push(alterEntity+' '+this.dropFk(entity,old,metadata));      
         }
     }
-    private modifyEntityCreateIndexes(sql:string[],entity:any,metadata:SqlDialectMetadata):void
+    private modifyEntityCreateIndexes(sql:string[],change:ChangedValue,metadata:SqlDialectMetadata):void
     {        
-        for(const name in entity.index.new){
-            const _new = entity.index.new[name].new;
-            sql.push(this.createIndex(entity,_new,metadata));
-        }
-        for(const name in entity.index.changed){
-            const _new = entity.index.changed[name].new;
-            const old = entity.index.changed[name].old;
-            sql.push(this.createIndex(entity,_new,metadata));
-        }       
+
+        // if(change.delta){
+        //     for(const name in change.delta.new){
+        // }
+
+        // for(const name in entity.index.new){
+        //     const _new = entity.index.new[name].new;
+        //     sql.push(this.createIndex(entity,_new,metadata));
+        // }
+        // for(const name in entity.index.changed){
+        //     const _new = entity.index.changed[name].new;
+        //     const old = entity.index.changed[name].old;
+        //     sql.push(this.createIndex(entity,_new,metadata));
+        // }       
     }
     private dropDatabase(sql:string[],schema:SchemaHelper,metadata:SqlDialectMetadata):void
     {

@@ -9,6 +9,7 @@ export interface ChangedValue
     name:string
     new:any
     old:any
+    delta?:Delta
 }
 export interface UnchangedValue
 {

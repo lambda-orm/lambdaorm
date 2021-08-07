@@ -130,14 +130,15 @@ export class SchemaManager
                 let targetProperty:Property = {
                     name: sourceProperty.name, 
                     mapping: sourceProperty.mapping,
-                    type: sourceProperty.type,
-                    length: sourceProperty.length,
-                    nullable: sourceProperty.nullable,
-                    autoincrement: sourceProperty.autoincrement                
+                    type: sourceProperty.type              
                 }
+                //properties defined when is necesary
+                if(sourceProperty.length!==undefined)targetProperty.length=sourceProperty.length;
+                if(sourceProperty.nullable!==undefined)targetProperty.nullable=sourceProperty.nullable;
+                if(sourceProperty.autoincrement!==undefined)targetProperty.autoincrement=sourceProperty.autoincrement;
                 targetEntity.properties.push(targetProperty);                 
             }            
-            for(const q in sourceEntity.relations){
+            for(const q in sourceEntity.relation){
                 let sourceRelation = sourceEntity.relation[q];
                 let targetRelation:Relation = {
                     name: sourceRelation.name,
@@ -148,8 +149,8 @@ export class SchemaManager
                 };
                 targetEntity.relations.push(targetRelation); 
             }
-            for(const q in sourceEntity.indexes){
-                let sourceIndex= sourceEntity.indexes[q];
+            for(const q in sourceEntity.index){
+                let sourceIndex= sourceEntity.index[q];
                 let targetIndex:Index = {
                     name: sourceIndex.name,
                     fields: sourceIndex.fields                
