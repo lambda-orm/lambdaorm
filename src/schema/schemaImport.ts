@@ -19,30 +19,40 @@ export class SchemaImport extends SchemaActionDML
     }
     protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,namespace:string,transaction:ITransaction)
     {
+        let pendings:any[]=[];
         for(let i =0;i<entitiesExpression.length;i++){
             let entityExpression = entitiesExpression[i];
             let entityData = data.entities.find(p=> p.entity == entityExpression.entity);
             if(entityData){
                 let aux:any={};
                 this.loadExternalIds(entityData.entity,entityData.rows,aux)
-                this.solveInternalsIds(entityData.entity,entityData.rows,mapping);
+                this.solveInternalsIds(entityData.entity,entityData.rows,mapping,pendings);
                 await this.orm.expression(entityExpression.expression).execute(entityData.rows,namespace,transaction);
                 this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
             }               
         }
+        //TODO: solve pendins with updates.
+        //pendings
     }
-    protected solveInternalsIds(entityName:string,rows:any[],mapping:any):void
+    protected solveInternalsIds(entityName:string,rows:any[],mapping:any,pendings:any[]):void
     {
         const entity=this.schema.getEntity(entityName);
         for(const p in entity.relation){
             const relation = entity.relation[p];
             if(relation.type == 'oneToOne' || relation.type == 'oneToMany'){
                 const relationEntity=this.schema.getEntity(relation.entity);
-                if(relationEntity.property[relation.to].autoincrement){
+                if(relationEntity.property[relation.to].autoincrement){                    
+                    let pendingsRows:any[]=[];
                     for(let i=0;i<rows.length;i++){
                         let row = rows[i];                    
                         let externalId = row[relation.from];
-                        row[relation.from] = mapping[relation.entity][relation.to][externalId];
+                        if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][externalId])
+                            row[relation.from] = mapping[relation.entity][relation.to][externalId];
+                        else
+                            pendingsRows.push(row); 
+                    }
+                    if(pendingsRows.length>0){
+                        pendings.push({entity:entityName,relation:relation.name,rows:pendingsRows});
                     }
                 }
             }
@@ -50,7 +60,7 @@ export class SchemaImport extends SchemaActionDML
                 for(let i=0;i<rows.length;i++){
                     let row = rows[i];
                     let childs = row[relation.name];
-                    this.solveInternalsIds(relation.entity,childs,mapping);
+                    this.solveInternalsIds(relation.entity,childs,mapping,pendings);
                 }
             }
         }
