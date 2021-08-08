@@ -101,15 +101,19 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                     for(const n in changed.delta.changed){                      
                         let newProperty=changed.delta.changed[n].new as Property;
                         let oldProperty=changed.delta.changed[n].old as Property;
-                        if(newProperty.mapping != oldProperty.mapping ){
-                            //TODO: solve rename
-                        }else{
+                        if(newProperty.mapping == oldProperty.mapping ){
                             sql.push(this.alterColumn(entityChanged.new,newProperty,metadata));
                         }
                     }
                 }
             }
         }
+
+        //TODO:
+        // Solve rename column: se debe resolver en cascada los indexes, Fks, Uk and Pk que esten referenciando la columns
+        // Solve rename table: se debe resolver en cascada los indexes, Fks, Uk and Pk que esten referenciando la columns
+        // en ambos casos se debe resolver que se hara con los datos para que estos no se pierdan
+
         //remove columns for entities changes
         for(const p in delta.changed){
             let entityChanged = delta.changed[p];            
