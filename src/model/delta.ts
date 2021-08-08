@@ -4,12 +4,14 @@ export interface NewValue
     name:string
     new:any
 }
+
+
 export interface ChangedValue
 {
     name:string
     new:any
     old:any
-    delta?:Delta
+    delta:Delta|null
 }
 export interface UnchangedValue
 {

@@ -25,7 +25,7 @@ export class Helper {
                     delta.unchanged.push({name:name,value:oldValue});                
                 }
                 else if((oldValue!==null && currentValue===null)|| (oldValue===null && currentValue!==null) ){
-                    delta.changed.push({name:name,new:currentValue,old:oldValue});                
+                    delta.changed.push({name:name,new:currentValue,old:oldValue,delta:null});                
                 }
                 else if(Array.isArray(currentValue)){
                     if(!Array.isArray(oldValue))
@@ -54,7 +54,7 @@ export class Helper {
                     // const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0;
                     // delta.children.push({name:name,type:'object',change:change,delta:objectDelta});
                 }else if(oldValue!==currentValue){
-                    delta.changed.push({name:name,new:currentValue,old:oldValue});  
+                    delta.changed.push({name:name,new:currentValue,old:oldValue,delta:null});  
                 }else{
                     delta.unchanged.push({name:name,value:oldValue}); 
                 } 
