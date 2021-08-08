@@ -61,8 +61,9 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                 if(changed.name == 'relation'){
                     if(!changed.delta)continue
                     for(const c in changed.delta.changed){
-                        let oldIRelation=changed.delta.changed[c].old as Relation;
-                        sql.push(this.dropFk(entityChanged.new,oldIRelation,metadata));
+                        let oldRelation=changed.delta.changed[c].old as Relation;
+                        if(oldRelation.type=='oneToMany' || oldRelation.type=='oneToOne')
+                           sql.push(this.dropFk(entityChanged.new,oldRelation,metadata));
                     }
                     for(const r in changed.delta.remove){
                         let removeRelation=changed.delta.remove[r].old as Relation;
@@ -160,16 +161,16 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                 }
             }
         }
-        //create constraints for new entities
-        for(const name in delta.new){
-            const newEntity = delta.new[name].new;
-            if(newEntity.primaryKey){
-                sql.push(this.addPk(newEntity,newEntity.primaryKey,metadata));
-            } 
-            if(newEntity.uniqueKey){
-                sql.push(this.addUk(newEntity,newEntity.uniqueKey,metadata)); 
-            }                 
-        }
+        // //create constraints for new entities
+        // for(const name in delta.new){
+        //     const newEntity = delta.new[name].new;
+        //     if(newEntity.primaryKey){
+        //         sql.push(this.addPk(newEntity,newEntity.primaryKey,metadata));
+        //     } 
+        //     if(newEntity.uniqueKey){
+        //         sql.push(this.addUk(newEntity,newEntity.uniqueKey,metadata)); 
+        //     }                 
+        // }
         // create indexes and Fks for changes in entities
         for(const p in delta.changed){
             let entityChanged = delta.changed[p];            
@@ -194,11 +195,13 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                     if(changed.delta){
                         for(const n in changed.delta.new){
                             let newRelation=changed.delta.new[n].new as Relation;
-                            sql.push(this.addFk(schema,entityChanged.new,newRelation,metadata)); 
+                            if(newRelation.type=='oneToMany' || newRelation.type=='oneToOne')
+                                sql.push(this.addFk(schema,entityChanged.new,newRelation,metadata)); 
                         }
                         for(const c in changed.delta.changed){
                             let changeRelation=changed.delta.changed[c].new as Relation;
-                            sql.push(this.addFk(schema,entityChanged.new,changeRelation,metadata)); 
+                            if(changeRelation.type=='oneToMany' || changeRelation.type=='oneToOne')
+                                sql.push(this.addFk(schema,entityChanged.new,changeRelation,metadata)); 
                         }                            
                     }
                 }
@@ -212,8 +215,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                     sql.push(this.createIndex(newEntity,newEntity.index[name],metadata));
             } 
             if(newEntity.relation){
-                for(const name in newEntity.relation)
-                    sql.push(this.addFk(schema,newEntity,newEntity.relation[name],metadata)); 
+                for(const name in newEntity.relation){
+                    let relation = newEntity.relation[name] as Relation;
+                    if(relation.type=='oneToMany' || relation.type=='oneToOne')
+                        sql.push(this.addFk(schema,newEntity,newEntity.relation[name],metadata)); 
+                }  
             }                 
         }
         return sql;
