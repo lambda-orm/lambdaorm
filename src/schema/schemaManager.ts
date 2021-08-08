@@ -28,7 +28,7 @@ export class SchemaManager
     {
         let source = this.schemas[name];
         return source?this.untransform(source):undefined; 
-    }
+    }   
     public list():Schema[]
     {   
         let result:Schema[]=[]; 

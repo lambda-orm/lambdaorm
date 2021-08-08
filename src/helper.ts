@@ -77,5 +77,5 @@ export class Helper {
             return 'string';
         }
         return typeof value ;
-    }
+    } 
 }

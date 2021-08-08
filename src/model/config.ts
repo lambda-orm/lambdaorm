@@ -25,8 +25,3 @@ export interface Namespace
     connection:string
     schema:string
 }
-
-
-
-
-

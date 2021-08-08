@@ -25,11 +25,11 @@ export class NamespaceManager
     public sync(name:string):NamespaceSync
     {   
         let namespace = this.get(name);
-        let schemaStateFile=path.join(this.orm.config.state.path,`${name}-schema.json`);
-        let schemaState = fs.existsSync(schemaStateFile)?JSON.parse(fs.readFileSync(schemaStateFile)):null;
-        let schemaCurrent = this.orm.schema.get(namespace.schema) as Schema;
-        let schemaSync:SchemaSync = this.orm.schema.sync(schemaCurrent,schemaState);
-        return new NamespaceSync(this.orm,namespace,schemaStateFile,schemaCurrent,schemaSync);
+        let stateFile=path.join(this.orm.config.state.path,`${name}-schema.json`);
+        let state = fs.existsSync(stateFile)?JSON.parse(fs.readFileSync(stateFile)):null;
+        let current = this.orm.schema.get(namespace.schema) as Schema;
+        let schemaSync:SchemaSync = this.orm.schema.sync(current,state);
+        return new NamespaceSync(this.orm,namespace,stateFile,current,schemaSync);
     }
     public drop(name:string):NamespaceDrop
     {        
