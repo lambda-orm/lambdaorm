@@ -36,9 +36,10 @@ export class NamespaceManager
         let namespace = this.get(name);
         let schemaFile = this.getSchemaFile(name);
         let mappingFile = this.getMappingFile(name);
+        let pendingFile = this.getPendingFile(name);
         let schema = this.getSchema(name);        
         let schemaDrop:SchemaDrop = this.orm.schema.drop(schema);        
-        return new NamespaceDrop(this.orm,namespace,schemaFile,mappingFile,schemaDrop);        
+        return new NamespaceDrop(this.orm,namespace,schemaFile,mappingFile,pendingFile,schemaDrop);        
     }
     public async export(name:string,transaction?:ITransaction):Promise<SchemaData>
     {        
