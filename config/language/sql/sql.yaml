@@ -5,6 +5,10 @@ types:
   decimal: DECIMAL(10,4)
   string: VARCHAR({0})
   datetime: DATETIME
+formats:
+  datetime: 'yyyy-LL-dd HH:mm:ss'
+  date: 'yyyy-LL-dd'
+  time: 'HH:mm:ss'  
 ddl:
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'
@@ -39,7 +43,7 @@ dml:
   update: UPDATE {name} {alias} SET {assings} 
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
-others:
+others:  
   delimiterSpaces: '"{name}"'
   sepatatorSql: ;
   notNullable: NOT NULL

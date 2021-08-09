@@ -210,6 +210,7 @@ export class SqlExecutor implements IOperandExecutor
     }
     protected rows(query:SqlQuery,metadata:SqlDialectMetadata,array:any[]){
         let rows:any[]=[];
+        let datetimeFormat= metadata.format('datetime');
         for(let i=0;i<array.length;i++){
             const item = array[i];
             let row:any[]=[];
@@ -217,7 +218,7 @@ export class SqlExecutor implements IOperandExecutor
                 let parameter = query.parameters[j];
                 let value = item[parameter.name];
                 if(parameter.type == 'datetime' && value!==null)
-                    value=Helper.formatDate(value,query.dialect);
+                    value=Helper.dateFormat(value,datetimeFormat);
                 // if(typeof value == 'string')
                 //     value = SqlString.escape(value);                
                 row.push(value=== undefined?null:value);

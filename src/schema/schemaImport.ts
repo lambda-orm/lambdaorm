@@ -31,9 +31,37 @@ export class SchemaImport extends SchemaActionDML
                 this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
             }               
         }
+        for(let i =0;i<pendings.length;i++){
+            let pending = pendings[i];
+            const entity=this.schema.getEntity(pending.entity);
+            const relation = entity.relation[pending.relation];
 
-        //TODO: solve pendins with updates.
-        //pendings
+            if(!entity.uniqueKey || entity.uniqueKey.length==0){
+                //TODO: reemplazar por un archivo de salida de inconsistencias
+                console.error(`uniqueKey is empty`); 
+                continue;
+            }
+            let filter='';
+            for(const p in entity.uniqueKey)
+                filter= filter+(filter==''?'':' && ') + `p.${entity.uniqueKey[p]}==${entity.uniqueKey[p]}`;
+            let expression:string=`${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`; 
+
+            let stillPending:any[]=[];
+            for(let j =0;j<pending.rows.length;j++){
+                const row = pending.rows[j];
+                if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][row.externalId]){
+                    let values:any = {};
+                    const internalId = mapping[relation.entity][relation.to][row.externalId];
+                    values[relation.from]= internalId;
+                    for(const p in entity.uniqueKey)
+                        values[entity.uniqueKey[p]]= row.keys[p];                    
+                    await this.orm.expression(expression).execute(values,namespace,transaction); 
+                }else{
+                    stillPending.push(row);
+                }               
+            }
+            pending.rows=stillPending; 
+        }
     }
     protected solveInternalsIds(entityName:string,rows:any[],mapping:any,pendings:any[]):void
     {
@@ -50,9 +78,20 @@ export class SchemaImport extends SchemaActionDML
                         if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][externalId]){
                             row[relation.from] = mapping[relation.entity][relation.to][externalId];
                         }                            
-                        else{
-                            row[relation.from] = null; 
-                            pendingsRows.push(row); 
+                        else{                            
+                            let keys:any[]=[];
+                            for(const p in entity.uniqueKey){
+                                let value = row[entity.uniqueKey[p]];
+                                if(value==null)
+                                    //TODO: reemplazar por un archivo de salida de inconsistencias
+                                    console.error(`${entity.uniqueKey[p]} is null`)                                
+                                keys.push(value);
+                            }
+                            if(keys.length==0)
+                                //TODO: reemplazar por un archivo de salida de inconsistencias
+                                console.error(`uniqueKey is empty`);                                                        
+                            pendingsRows.push({keys:keys,externalId:externalId});
+                            row[relation.from] = null;  
                         }                            
                     }
                     if(pendingsRows.length>0){
@@ -136,5 +175,5 @@ export class SchemaImport extends SchemaActionDML
     {
         let expression:string=`${entity.name}.bulkInsert()${this.createInclude(entity)}`;        
         return {entity:entity.name,expression:expression}
-    } 
+    }
 }

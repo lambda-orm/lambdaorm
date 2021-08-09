@@ -79,12 +79,8 @@ export class Helper {
         }
         return typeof value ;
     } 
-    public static formatDate(value:any,dialect:string):string
+    public static dateFormat(value:any,format:string):string
     {
-        switch(dialect)
-        {
-            case 'mysql': return DateTime.fromISO(value).toFormat('yyyy-LL-dd HH:mm:ss');
-            default: return value;  
-        }
+        return DateTime.fromISO(value).toFormat(format);
     } 
 }

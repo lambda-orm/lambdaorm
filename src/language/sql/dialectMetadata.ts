@@ -8,6 +8,7 @@ export class SqlDialectMetadata
     private _dml?:any={}
     private _ddl?:any={}
     private _types?:any={}
+    private _formats?:any={}
     constructor(name:string){
         this.name = name;
         this._operators={};
@@ -16,6 +17,7 @@ export class SqlDialectMetadata
         this._dml={};
         this._ddl={};
         this._types={};
+        this._formats={};
     }
     public operator(name:string,operands:number):string
     {
@@ -40,6 +42,10 @@ export class SqlDialectMetadata
     public type(name:string):string
     {
         return this._types[name];
+    }
+    public format(name:string):string
+    {
+        return this._formats[name];
     }
     public solveName(name:string):string
     {
@@ -78,6 +84,10 @@ export class SqlDialectMetadata
         for(const name in dialect.types){
             let template = dialect.types[name];
             this._types[name] = template; 
+        }
+        for(const name in dialect.formats){
+            let template = dialect.formats[name];
+            this._formats[name] = template; 
         }
     }
     public getOperatorMetadata(name:string,operands:number):string|null

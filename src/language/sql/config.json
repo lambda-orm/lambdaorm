@@ -155,6 +155,11 @@
           "sum": "SUM({0})"
         }
       },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -221,6 +226,11 @@
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "ddl": {
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -558,6 +568,11 @@
           "sum": "SUM({0})"
         }
       },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -612,6 +627,11 @@
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "ddl": {
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -850,6 +870,11 @@
         "string": "VARCHAR({0})",
         "datetime": "DATETIME"
       },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "others": {
         "delimiterSpaces": "\"{name}\"",
         "sepatatorSql": ";",
@@ -1015,6 +1040,11 @@
       "decimal": "DECIMAL(10,4)",
       "string": "VARCHAR({0})",
       "datetime": "DATETIME"
+    },
+    "formats": {
+      "datetime": "yyyy-LL-dd HH:mm:ss",
+      "date": "yyyy-LL-dd",
+      "time": "HH:mm:ss"
     },
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
