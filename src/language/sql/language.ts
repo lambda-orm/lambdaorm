@@ -1,4 +1,4 @@
-import {ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../'
+import {ILanguage,IOperandExecutor,OperandManager,ISchemaBuilder} from '../'
 import {Model} from './../../parser'
 import {SqlDialectMetadata} from './dialectMetadata'
 import {SqlSchemaBuilder} from './schemaBuilder'
@@ -35,12 +35,16 @@ export class SqlLanguage implements ILanguage
     {
         return this.schemaBuilder;
     }
-    public get operand():IOperandManager
+    public get operand():OperandManager
     {
         return this.operandManager;
     }
     public get executor():IOperandExecutor
     {
         return this.operandExecutor;
+    }
+    public metadata(dialect:string):SqlDialectMetadata
+    {
+        return this.dialects[dialect] as SqlDialectMetadata;
     }
 }

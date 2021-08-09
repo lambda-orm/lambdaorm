@@ -31373,7 +31373,7 @@
           "hireDate": "1993-10-16T23:00:00.000Z",
           "phone": "(71) 555-7773",
           "reportsToId": 5,
-          "address": "Coventry House\nMiner Rd.",
+          "address": "Coventry House\r\nMiner Rd.",
           "city": "London",
           "region": null,
           "postalCode": "EC2 7JR",
@@ -31389,7 +31389,7 @@
           "hireDate": "1994-01-01T23:00:00.000Z",
           "phone": "(71) 555-5598",
           "reportsToId": 5,
-          "address": "Edgeham Hollow\nWinchester Way",
+          "address": "Edgeham Hollow\r\nWinchester Way",
           "city": "London",
           "region": null,
           "postalCode": "RG1 9SP",
@@ -31494,7 +31494,7 @@
           "contact": "Yoshi Nagase",
           "phone": "(03) 3555-5011",
           "homepage": null,
-          "address": "9-8 Sekimai\nMusashino-shi",
+          "address": "9-8 Sekimai\r\nMusashino-shi",
           "city": "Tokyo",
           "region": null,
           "postalCode": "100",
@@ -31518,7 +31518,7 @@
           "contact": "Mayumi Ohno",
           "phone": "(06) 431-7877",
           "homepage": "Mayumi's (on the World Wide Web)#http://www.microsoft.com/accessdev/sampleapps/mayumi.htm#",
-          "address": "92 Setsuko\nChuo-ku",
+          "address": "92 Setsuko\r\nChuo-ku",
           "city": "Osaka",
           "region": null,
           "postalCode": "545",
@@ -31530,7 +31530,7 @@
           "contact": "Ian Devling",
           "phone": "(03) 444-2343",
           "homepage": null,
-          "address": "74 Rose St.\nMoonie Ponds",
+          "address": "74 Rose St.\r\nMoonie Ponds",
           "city": "Melbourne",
           "region": "Victoria",
           "postalCode": "3058",
@@ -31638,7 +31638,7 @@
           "contact": "Cheryl Saylor",
           "phone": "(503) 555-9931",
           "homepage": null,
-          "address": "3400 - 8th Avenue\nSuite 210",
+          "address": "3400 - 8th Avenue\r\nSuite 210",
           "city": "Bend",
           "region": "OR",
           "postalCode": "97101",
@@ -31674,7 +31674,7 @@
           "contact": "Robb Merchant",
           "phone": "(617) 555-3267",
           "homepage": null,
-          "address": "Order Processing Dept.\n2100 Paul Revere Blvd.",
+          "address": "Order Processing Dept.\r\n2100 Paul Revere Blvd.",
           "city": "Boston",
           "region": "MA",
           "postalCode": "02134",
@@ -31698,7 +31698,7 @@
           "contact": "Niels Petersen",
           "phone": "43844108",
           "homepage": null,
-          "address": "Lyngbysild\nFiskebakken 10",
+          "address": "Lyngbysild\r\nFiskebakken 10",
           "city": "Lyngby",
           "region": null,
           "postalCode": "2800",
@@ -31710,7 +31710,7 @@
           "contact": "Dirk Luchte",
           "phone": "(12345) 1212",
           "homepage": null,
-          "address": "Verkoop\nRijnweg 22",
+          "address": "Verkoop\r\nRijnweg 22",
           "city": "Zaandam",
           "region": null,
           "postalCode": "9999 ZZ",
@@ -31734,7 +31734,7 @@
           "contact": "Wendy Mackenzie",
           "phone": "(02) 555-5914",
           "homepage": "G'day Mate (on the World Wide Web)#http://www.microsoft.com/accessdev/sampleapps/gdaymate.htm#",
-          "address": "170 Prince Edward Parade\nHunter's Hill",
+          "address": "170 Prince Edward Parade\r\nHunter's Hill",
           "city": "Sydney",
           "region": "NSW",
           "postalCode": "2042",
@@ -31782,7 +31782,7 @@
           "contact": "Eliane Noz",
           "phone": "38.76.98.06",
           "homepage": null,
-          "address": "Bat. B\n3, rue des Alpes",
+          "address": "Bat. B\r\n3, rue des Alpes",
           "city": "Annecy",
           "region": null,
           "postalCode": "74000",
@@ -31815,12 +31815,7 @@
           "inStock": 39,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 2,
@@ -31832,12 +31827,7 @@
           "inStock": 17,
           "onOrder": 40,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 3,
@@ -31849,12 +31839,7 @@
           "inStock": 13,
           "onOrder": 70,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 4,
@@ -31866,12 +31851,7 @@
           "inStock": 53,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 5,
@@ -31883,12 +31863,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 6,
@@ -31900,12 +31875,7 @@
           "inStock": 120,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 7,
@@ -31917,12 +31887,7 @@
           "inStock": 15,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 8,
@@ -31934,12 +31899,7 @@
           "inStock": 6,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 9,
@@ -31951,12 +31911,7 @@
           "inStock": 29,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 10,
@@ -31968,12 +31923,7 @@
           "inStock": 31,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 11,
@@ -31985,12 +31935,7 @@
           "inStock": 22,
           "onOrder": 30,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 12,
@@ -32002,12 +31947,7 @@
           "inStock": 86,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 13,
@@ -32019,12 +31959,7 @@
           "inStock": 24,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 14,
@@ -32036,12 +31971,7 @@
           "inStock": 35,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 15,
@@ -32053,12 +31983,7 @@
           "inStock": 39,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 16,
@@ -32070,12 +31995,7 @@
           "inStock": 29,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 17,
@@ -32087,12 +32007,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 18,
@@ -32104,12 +32019,7 @@
           "inStock": 42,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 19,
@@ -32121,12 +32031,7 @@
           "inStock": 25,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 20,
@@ -32138,12 +32043,7 @@
           "inStock": 40,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 21,
@@ -32155,12 +32055,7 @@
           "inStock": 3,
           "onOrder": 40,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 22,
@@ -32172,12 +32067,7 @@
           "inStock": 104,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 23,
@@ -32189,12 +32079,7 @@
           "inStock": 61,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 24,
@@ -32206,12 +32091,7 @@
           "inStock": 20,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 25,
@@ -32223,12 +32103,7 @@
           "inStock": 76,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 26,
@@ -32240,12 +32115,7 @@
           "inStock": 15,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 27,
@@ -32257,12 +32127,7 @@
           "inStock": 49,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 28,
@@ -32274,12 +32139,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 29,
@@ -32291,12 +32151,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 30,
@@ -32308,12 +32163,7 @@
           "inStock": 10,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 31,
@@ -32325,12 +32175,7 @@
           "inStock": 0,
           "onOrder": 70,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 32,
@@ -32342,12 +32187,7 @@
           "inStock": 9,
           "onOrder": 40,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 33,
@@ -32359,12 +32199,7 @@
           "inStock": 112,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 34,
@@ -32376,12 +32211,7 @@
           "inStock": 111,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 35,
@@ -32393,12 +32223,7 @@
           "inStock": 20,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 36,
@@ -32410,12 +32235,7 @@
           "inStock": 112,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 37,
@@ -32427,12 +32247,7 @@
           "inStock": 11,
           "onOrder": 50,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 38,
@@ -32444,12 +32259,7 @@
           "inStock": 17,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 39,
@@ -32461,12 +32271,7 @@
           "inStock": 69,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 40,
@@ -32478,12 +32283,7 @@
           "inStock": 123,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 41,
@@ -32495,12 +32295,7 @@
           "inStock": 85,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 42,
@@ -32512,12 +32307,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 43,
@@ -32529,12 +32319,7 @@
           "inStock": 17,
           "onOrder": 10,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 44,
@@ -32546,12 +32331,7 @@
           "inStock": 27,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 45,
@@ -32563,12 +32343,7 @@
           "inStock": 5,
           "onOrder": 70,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 46,
@@ -32580,12 +32355,7 @@
           "inStock": 95,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 47,
@@ -32597,12 +32367,7 @@
           "inStock": 36,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 48,
@@ -32614,12 +32379,7 @@
           "inStock": 15,
           "onOrder": 70,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 49,
@@ -32631,12 +32391,7 @@
           "inStock": 10,
           "onOrder": 60,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 50,
@@ -32648,12 +32403,7 @@
           "inStock": 65,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 51,
@@ -32665,12 +32415,7 @@
           "inStock": 20,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 52,
@@ -32682,12 +32427,7 @@
           "inStock": 38,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 53,
@@ -32699,12 +32439,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              1
-            ]
-          }
+          "discontinued": 1
         },
         {
           "id": 54,
@@ -32716,12 +32451,7 @@
           "inStock": 21,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 55,
@@ -32733,12 +32463,7 @@
           "inStock": 115,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 56,
@@ -32750,12 +32475,7 @@
           "inStock": 21,
           "onOrder": 10,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 57,
@@ -32767,12 +32487,7 @@
           "inStock": 36,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 58,
@@ -32784,12 +32499,7 @@
           "inStock": 62,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 59,
@@ -32801,12 +32511,7 @@
           "inStock": 79,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 60,
@@ -32818,12 +32523,7 @@
           "inStock": 19,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 61,
@@ -32835,12 +32535,7 @@
           "inStock": 113,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 62,
@@ -32852,12 +32547,7 @@
           "inStock": 17,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 63,
@@ -32869,12 +32559,7 @@
           "inStock": 24,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 64,
@@ -32886,12 +32571,7 @@
           "inStock": 22,
           "onOrder": 80,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 65,
@@ -32903,12 +32583,7 @@
           "inStock": 76,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 66,
@@ -32920,12 +32595,7 @@
           "inStock": 4,
           "onOrder": 100,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 67,
@@ -32937,12 +32607,7 @@
           "inStock": 52,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 68,
@@ -32954,12 +32619,7 @@
           "inStock": 6,
           "onOrder": 10,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 69,
@@ -32971,12 +32631,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 70,
@@ -32988,12 +32643,7 @@
           "inStock": 15,
           "onOrder": 10,
           "reorderLevel": 30,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 71,
@@ -33005,12 +32655,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 72,
@@ -33022,12 +32667,7 @@
           "inStock": 14,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 73,
@@ -33039,12 +32679,7 @@
           "inStock": 101,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 74,
@@ -33056,12 +32691,7 @@
           "inStock": 4,
           "onOrder": 20,
           "reorderLevel": 5,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 75,
@@ -33073,12 +32703,7 @@
           "inStock": 125,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 76,
@@ -33090,12 +32715,7 @@
           "inStock": 57,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         },
         {
           "id": 77,
@@ -33107,12 +32727,7 @@
           "inStock": 32,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": {
-            "type": "Buffer",
-            "data": [
-              0
-            ]
-          }
+          "discontinued": 0
         }
       ]
     }

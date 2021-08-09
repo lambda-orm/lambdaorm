@@ -10,10 +10,12 @@ export class NamespaceDrop
     protected schemaDrop:SchemaDrop
     protected namespace:Namespace
     protected schemaStateFile:string
-    constructor(orm:IOrm,namespace:Namespace,schemaStateFile:string,schemaDrop:SchemaDrop){
+    protected mappingFile:string
+    constructor(orm:IOrm,namespace:Namespace,schemaStateFile:string,mappingFile:string,schemaDrop:SchemaDrop){
         this.orm= orm;
         this.namespace= namespace;
         this.schemaStateFile= schemaStateFile;
+        this.mappingFile= mappingFile;
         this.schemaDrop= schemaDrop;
     }
     public sentence():any[]
@@ -25,6 +27,8 @@ export class NamespaceDrop
     {
        let result= await this.schemaDrop.execute(this.namespace.name,transaction,tryAllCan);
        fs.unlinkSync(this.schemaStateFile);
+       if(fs.existsSync(this.mappingFile)) 
+          fs.unlinkSync(this.mappingFile);
        return result;
     }
 }

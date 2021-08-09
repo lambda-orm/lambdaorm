@@ -132,7 +132,7 @@ class Orm implements IOrm
         try{
             let _context = new Context(context);
             let _namespace= this.namespace.get(namespace);
-            let config = this.connection.get(_namespace.connection);             
+            let config = this.connection.get(_namespace.connection);           
             if(transaction){
                 return await this.language(config.dialect).executor.execute(operand,_context,transaction);
             }else{    

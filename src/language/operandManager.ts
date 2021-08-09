@@ -1,12 +1,11 @@
 import {Node} from './../parser'
 import {Operand } from './../model'
-import {IOperandManager } from './iOperandManager'
 import {SchemaHelper}  from '../schema/schemaHelper'
 
-export abstract class OperandManager implements IOperandManager
+export abstract class OperandManager
 {   
     public abstract build(node:Node,dialect:string,scheme?:SchemaHelper):Operand
-    public abstract sentence(operand:Operand):string
+    public abstract sentence(operand:Operand):any
     public abstract model(operand:Operand):any
     public deserialize(serialized:any){
         let operand = this._deserialize(serialized);

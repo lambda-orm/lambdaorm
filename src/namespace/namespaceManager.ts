@@ -35,9 +35,10 @@ export class NamespaceManager
     {        
         let namespace = this.get(name);
         let schemaFile = this.getSchemaFile(name);
+        let mappingFile = this.getMappingFile(name);
         let schema = this.getSchema(name);        
         let schemaDrop:SchemaDrop = this.orm.schema.drop(schema);        
-        return new NamespaceDrop(this.orm,namespace,schemaFile,schemaDrop);        
+        return new NamespaceDrop(this.orm,namespace,schemaFile,mappingFile,schemaDrop);        
     }
     public async export(name:string,transaction?:ITransaction):Promise<SchemaData>
     {        
@@ -47,8 +48,8 @@ export class NamespaceManager
     public async import(name:string,data:SchemaData,transaction?:ITransaction)
     {       
         let schema = this.getSchema(name); 
-        let mappingFile=path.join(this.orm.config.state.path,`${name}-mapping.json`);
-        let mapping = fs.existsSync(mappingFile)?JSON.parse(fs.readFileSync(mappingFile)):{};
+        let mappingFile = this.getMappingFile(name);
+        let mapping = this.getMapping(name);
         await this.orm.schema.import(schema).execute(data,mapping,name,transaction);
         fs.writeFileSync(mappingFile,JSON.stringify(mapping));
     }
@@ -56,16 +57,27 @@ export class NamespaceManager
     {
         let schemaFile=this.getSchemaFile(name);
         return fs.existsSync(schemaFile);
-    }
+    }    
     protected getSchemaFile(name:string)
     {
         return path.join(this.orm.config.state.path,`${name}-schema.json`);
     }
     protected getSchema(name:string):any
     {
-        let schemaFile=this.getSchemaFile(name);
-        if(!fs.existsSync(schemaFile))
-           throw `Not exists file ${schemaFile}`; 
-        return JSON.parse(fs.readFileSync(schemaFile));
+        let file=this.getSchemaFile(name);
+        if(!fs.existsSync(file))
+           throw `Not exists file ${file}`; 
+        return JSON.parse(fs.readFileSync(file));
+    }
+    protected getMappingFile(name:string)
+    {
+        return path.join(this.orm.config.state.path,`${name}-mapping.json`);
+    }
+    protected getMapping(name:string):any
+    {
+        let file=this.getMappingFile(name);
+        if(!fs.existsSync(file))
+           return {}; 
+        return JSON.parse(fs.readFileSync(file));
     }
 }

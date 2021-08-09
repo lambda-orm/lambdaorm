@@ -1,4 +1,4 @@
-import {IOperandManager} from './iOperandManager'
+import {OperandManager} from './OperandManager'
 import {ISchemaBuilder} from './iSchemaBuilder'
 import {IOperandExecutor} from './iOperandExecutor'
 export interface ILanguage
@@ -6,6 +6,6 @@ export interface ILanguage
     name:string
     dialects:any
     get schema():ISchemaBuilder
-    get operand():IOperandManager
+    get operand():OperandManager
     get executor():IOperandExecutor
 }

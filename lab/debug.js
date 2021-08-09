@@ -327,13 +327,14 @@ async function schemaImport(orm,source,target){
     // await scriptsByDialect(orm,schemas);
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-    // await schemaDrop(orm,'mysql')
-    // await schemaSync(orm,'source');
-    // await schemaExport(orm,'source');
+    
+    await schemaSync(orm,'source');
+    await schemaExport(orm,'source');
+    await schemaDrop(orm,'mysql')
     await schemaSync(orm,'mysql');
     await schemaImport(orm,'source','mysql');  
    
-    // await schema(orm,schemas);
+    
     console.log('Ok')
   }
   catch(error){

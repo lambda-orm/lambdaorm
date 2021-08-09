@@ -6,9 +6,11 @@ export abstract class SchemaActionDML
 {    
     protected orm:IOrm 
     protected schema:SchemaHelper
+    protected arrowVariables:string[];
     constructor(orm:IOrm,schema:SchemaHelper){
         this.orm=orm;
         this.schema=schema;
+        this.arrowVariables=['p','q','r','s','t','u','v','w','x','y','z'];
     }
     public async sentence(dialect:string):Promise<SchemaSentence>
     {
@@ -27,29 +29,30 @@ export abstract class SchemaActionDML
         for(const entityName in schema.entity){
             if(!schema.isChild(entityName)){
                 let entity = schema.entity[entityName];
-                let exportEntity = this.createEntityExpression(entity);
-                schemaExpression.entities.push(exportEntity);
+                let expression = this.createEntityExpression(entity);
+                schemaExpression.entities.push(expression);
             }
         }
         return schemaExpression;
     }
     protected abstract createEntityExpression(entity:any):SchemaEntityExpression;
 
-    protected createInclude(entity:any):string
+    protected createInclude(entity:any,level:number=0):string
     {
         // let expression:string='';
+        let arrowVariable = this.arrowVariables[level];
         let includes:string[]=[];
         for(const relationName in entity.relation){
             const relation =  entity.relation[relationName];
             if(relation.type == 'manyToOne' ){
                 let childEntity = this.schema.getEntity(relation.entity);
-                let childInclude = this.createInclude(childEntity);
-                includes.push(`p.${relation.name}${childInclude}`);
+                let childInclude = this.createInclude(childEntity,level+1);
+                includes.push(`${arrowVariable}.${relation.name}${childInclude}`);
                 // expression =expression+`.include(p=>[p.${relation.name}${childInclude}])`;
             }
         }
         return includes.length==0?''
-                :`.include(p=>[${includes.join(',')}])`;
+                :`.include(${arrowVariable}=>[${includes.join(',')}])`;
     }
     
 }

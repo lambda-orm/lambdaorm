@@ -1,5 +1,5 @@
 import {Operand,Context} from '../../model'
-import {Variable,ArrowFunction,ILanguage,IOperandExecutor,IOperandManager,ISchemaBuilder} from '../'
+import {Variable,ArrowFunction,ILanguage,IOperandExecutor,OperandManager,ISchemaBuilder} from '../'
 import {MemoryOperandManager} from './operandManager'
 import {MemoryExecutor} from './executor'
 
@@ -80,7 +80,7 @@ export class MemoryLanguage implements ILanguage
     {
         throw 'NotImplemented';
     }
-    public get operand():IOperandManager
+    public get operand():OperandManager
     {
         return this.operandManager;
     }
