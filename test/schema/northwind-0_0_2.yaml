@@ -146,7 +146,7 @@ entities:
       - name: homepage 
         mapping: HomePage
         type: string
-        length: 80  
+        length: 200  
   - name: Products
     mapping: Products
     primaryKey: ['id']
@@ -171,7 +171,8 @@ entities:
         type: integer
       - name: quantity 
         mapping: QuantityPerUnit
-        type: decimal
+        type: string
+        length: 80
       - name: price
         mapping: UnitPrice
         type: decimal

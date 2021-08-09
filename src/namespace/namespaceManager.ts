@@ -34,24 +34,38 @@ export class NamespaceManager
     public drop(name:string):NamespaceDrop
     {        
         let namespace = this.get(name);
-        let schemaFile=path.join(this.orm.config.state.path,`${name}-schema.json`);
-        let schema = fs.existsSync(schemaFile)?JSON.parse(fs.readFileSync(schemaFile)):null;
-        let schemaDrop:SchemaDrop = this.orm.schema.drop(schema);
-        return new NamespaceDrop(this.orm,namespace,schemaFile,schemaDrop);
+        let schemaFile = this.getSchemaFile(name);
+        let schema = this.getSchema(name);        
+        let schemaDrop:SchemaDrop = this.orm.schema.drop(schema);        
+        return new NamespaceDrop(this.orm,namespace,schemaFile,schemaDrop);        
     }
     public async export(name:string,transaction?:ITransaction):Promise<SchemaData>
     {        
-        let schemaFile=path.join(this.orm.config.state.path,`${name}-schema.json`);
-        let schema = fs.existsSync(schemaFile)?JSON.parse(fs.readFileSync(schemaFile)):null;
+        let schema = this.getSchema(name); 
         return await this.orm.schema.export(schema).execute(name,transaction);
     }
     public async import(name:string,data:SchemaData,transaction?:ITransaction)
     {       
-        let schemaFile=path.join(this.orm.config.state.path,`${name}-schema.json`);
-        let schema = fs.existsSync(schemaFile)?JSON.parse(fs.readFileSync(schemaFile)):null;
+        let schema = this.getSchema(name); 
         let mappingFile=path.join(this.orm.config.state.path,`${name}-mapping.json`);
         let mapping = fs.existsSync(mappingFile)?JSON.parse(fs.readFileSync(mappingFile)):{};
         await this.orm.schema.import(schema).execute(data,mapping,name,transaction);
         fs.writeFileSync(mappingFile,JSON.stringify(mapping));
+    }
+    public exists(name:string)
+    {
+        let schemaFile=this.getSchemaFile(name);
+        return fs.existsSync(schemaFile);
+    }
+    protected getSchemaFile(name:string)
+    {
+        return path.join(this.orm.config.state.path,`${name}-schema.json`);
+    }
+    protected getSchema(name:string):any
+    {
+        let schemaFile=this.getSchemaFile(name);
+        if(!fs.existsSync(schemaFile))
+           throw `Not exists file ${schemaFile}`; 
+        return JSON.parse(fs.readFileSync(schemaFile));
     }
 }

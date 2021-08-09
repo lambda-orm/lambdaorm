@@ -1,4 +1,5 @@
 import {Delta} from './model'
+const { DateTime } = require("luxon");
 
 export class Helper {
     public static replaceAll(str:string, find:string, replace:string) {
@@ -77,5 +78,13 @@ export class Helper {
             return 'string';
         }
         return typeof value ;
+    } 
+    public static formatDate(value:any,dialect:string):string
+    {
+        switch(dialect)
+        {
+            case 'mysql': return DateTime.fromISO(value).toFormat('yyyy-LL-dd HH:mm:ss');
+            default: return value;  
+        }
     } 
 }

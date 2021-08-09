@@ -3,7 +3,7 @@ import {IOperandExecutor} from '../'
 import {IExecutor}  from '../../connection'
 import {SqlSentenceInclude,SqlQuery} from './operands'
 import {SqlLanguage} from './language'
-// const SqlString = require('sqlstring');
+import {Helper} from './../../helper'
 
 export class SqlExecutor implements IOperandExecutor
 {
@@ -90,7 +90,8 @@ export class SqlExecutor implements IOperandExecutor
         return insertId;
     }
     protected async bulkInsert(query:SqlQuery,context:Context,executor:IExecutor):Promise<number[]>
-    {        
+    {    
+
         // before insert the relationships of the type oneToOne and oneToMany
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
@@ -112,7 +113,7 @@ export class SqlExecutor implements IOperandExecutor
             }
         }        
         //insert main entity
-        let ids = await executor.bulkInsert(query.sentence,this.rows(query.parameters,context.data));
+        let ids = await executor.bulkInsert(query.sentence,this.rows(query,context.data));
         if(query.autoincrement){
             for(let i=0;i<context.data.length;i++){
                 context.data[i][query.autoincrement.name]=ids[i];
@@ -202,13 +203,16 @@ export class SqlExecutor implements IOperandExecutor
         }
         return parameters;
     }
-    protected rows(params:Parameter[],array:any[]){
+    protected rows(query:SqlQuery,array:any[]){
         let rows:any[]=[];
         for(let i=0;i<array.length;i++){
             const item = array[i];
             let row:any[]=[];
-            for(let j=0;j<params.length;j++){
-                let value = item[params[j].name];
+            for(let j=0;j<query.parameters.length;j++){
+                let parameter = query.parameters[j];
+                let value = item[parameter.name];
+                if(parameter.type == 'datetime' && value!==null)
+                    value=Helper.formatDate(value,query.dialect);
                 // if(typeof value == 'string')
                 //     value = SqlString.escape(value);                
                 row.push(value=== undefined?null:value);

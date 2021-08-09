@@ -111,7 +111,7 @@ export class SqlOperandManager extends OperandManager
           children.push(sqlInclude);            
        }
        let sentence = sqlSentence.build(metadata);
-       return new SqlQuery(sqlSentence.name,children,sentence,sqlSentence.entity,sqlSentence.autoincrement,sqlSentence.columns,sqlSentence.parameters);
+       return new SqlQuery(sqlSentence.name,children,metadata.name,sentence,sqlSentence.entity,sqlSentence.autoincrement,sqlSentence.columns,sqlSentence.parameters);
     }   
     protected _serialize(operand:Operand):any
     {

@@ -31,6 +31,7 @@ export class SchemaImport extends SchemaActionDML
                 this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
             }               
         }
+
         //TODO: solve pendins with updates.
         //pendings
     }
@@ -46,10 +47,13 @@ export class SchemaImport extends SchemaActionDML
                     for(let i=0;i<rows.length;i++){
                         let row = rows[i];                    
                         let externalId = row[relation.from];
-                        if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][externalId])
+                        if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][externalId]){
                             row[relation.from] = mapping[relation.entity][relation.to][externalId];
-                        else
+                        }                            
+                        else{
+                            row[relation.from] = null; 
                             pendingsRows.push(row); 
+                        }                            
                     }
                     if(pendingsRows.length>0){
                         pendings.push({entity:entityName,relation:relation.name,rows:pendingsRows});

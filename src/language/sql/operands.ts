@@ -314,12 +314,14 @@ export class SqlDelete extends SqlArrowFunction {
 export class SqlQuery extends Operand
 {
     public sentence:string
+    public dialect:string
     public entity:string
     public autoincrement?:Property
     public columns:Property[]
     public parameters:Parameter[]
-    constructor(name:string,children:Operand[]=[],sentence:string,entity:string,autoincrement?:Property,columns:Property[]=[],parameters:Parameter[]=[]){
+    constructor(name:string,children:Operand[]=[],dialect:string,sentence:string,entity:string,autoincrement?:Property,columns:Property[]=[],parameters:Parameter[]=[]){
         super(name,children);
+        this.dialect=dialect;
         this.sentence=sentence;
         this.entity=entity;
         this.autoincrement=autoincrement;

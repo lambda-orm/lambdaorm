@@ -52,7 +52,7 @@ export abstract class SchemaActionDDL
                 }
             }
             catch(error){
-                throw `sentence: ${sentence.toStrin()} error: ${error.toString()}`;
+                throw `sentence: ${sentence.toString()} error: ${error.toString()}`;
             }
         }    
         return results;

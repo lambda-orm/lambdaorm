@@ -294,7 +294,8 @@ async function schemaSync(orm,target){
   await orm.namespace.sync(target).execute();
 }
 async function schemaDrop(orm,target){
-  await orm.namespace.drop(target).execute();
+  if(orm.namespace.exists(target))
+    await orm.namespace.drop(target).execute(null,true);
 }
 async function schemaExport(orm,source){
   let exportFile = 'test/data/'+source+'-export.json';  
@@ -326,11 +327,11 @@ async function schemaImport(orm,source,target){
     // await scriptsByDialect(orm,schemas);
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-    await schemaSync(orm,'source');
-    await schemaExport(orm,'source');
+    // await schemaDrop(orm,'mysql')
+    // await schemaSync(orm,'source');
+    // await schemaExport(orm,'source');
     await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql')      
-      // await schemaDrop(orm,'mysql')
+    await schemaImport(orm,'source','mysql');  
    
     // await schema(orm,schemas);
     console.log('Ok')
