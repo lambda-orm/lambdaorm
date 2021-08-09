@@ -4,22 +4,21 @@ import {ITransaction} from '../connection'
 
 export class SchemaImport extends SchemaActionDML
 {   
-    public async execute(data:SchemaData,mapping:any,namespace:string,transaction?:ITransaction):Promise<void>
+    public async execute(data:SchemaData,mapping:any,pending:any[],namespace:string,transaction?:ITransaction):Promise<void>
     {  
         let schemaExpression = this.build(this.schema);
         let _namespace= this.orm.namespace.get(namespace);
         const entitiesExpression = this.sort(schemaExpression.entities);
         if(transaction){
-            await this.executeEntitiesExpression(entitiesExpression,data,mapping,namespace,transaction);
+            await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);
         }else{
             await this.orm.createTransaction(_namespace.connection,async (transaction)=>{ 
-                await this.executeEntitiesExpression(entitiesExpression,data,mapping,namespace,transaction);
+                await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);
             }); 
         }
     }
-    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,namespace:string,transaction:ITransaction)
-    {
-        let pendings:any[]=[];
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,pendings:any[],namespace:string,transaction:ITransaction)
+    {        
         for(let i =0;i<entitiesExpression.length;i++){
             let entityExpression = entitiesExpression[i];
             let entityData = data.entities.find(p=> p.entity == entityExpression.entity);

@@ -50,8 +50,11 @@ export class NamespaceManager
         let schema = this.getSchema(name); 
         let mappingFile = this.getMappingFile(name);
         let mapping = this.getMapping(name);
-        await this.orm.schema.import(schema).execute(data,mapping,name,transaction);
+        let pendingFile = this.getPendingFile(name);
+        let pending = this.getPending(name);
+        await this.orm.schema.import(schema).execute(data,mapping,pending,name,transaction);
         fs.writeFileSync(mappingFile,JSON.stringify(mapping));
+        fs.writeFileSync(pendingFile,JSON.stringify(pending));
     }
     public exists(name:string)
     {
@@ -76,6 +79,17 @@ export class NamespaceManager
     protected getMapping(name:string):any
     {
         let file=this.getMappingFile(name);
+        if(!fs.existsSync(file))
+           return {}; 
+        return JSON.parse(fs.readFileSync(file));
+    }
+    protected getPendingFile(name:string)
+    {
+        return path.join(this.orm.config.state.path,`${name}-pending.json`);
+    }
+    protected getPending(name:string):any
+    {
+        let file=this.getPendingFile(name);
         if(!fs.existsSync(file))
            return {}; 
         return JSON.parse(fs.readFileSync(file));

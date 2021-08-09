@@ -11,11 +11,13 @@ export class NamespaceDrop
     protected namespace:Namespace
     protected schemaStateFile:string
     protected mappingFile:string
-    constructor(orm:IOrm,namespace:Namespace,schemaStateFile:string,mappingFile:string,schemaDrop:SchemaDrop){
+    protected pendingFile:string
+    constructor(orm:IOrm,namespace:Namespace,schemaStateFile:string,mappingFile:string,pendingFile:string,schemaDrop:SchemaDrop){
         this.orm= orm;
         this.namespace= namespace;
         this.schemaStateFile= schemaStateFile;
         this.mappingFile= mappingFile;
+        this.pendingFile= pendingFile;
         this.schemaDrop= schemaDrop;
     }
     public sentence():any[]
@@ -25,10 +27,12 @@ export class NamespaceDrop
     }
     public async execute(transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {
-       let result= await this.schemaDrop.execute(this.namespace.name,transaction,tryAllCan);
-       fs.unlinkSync(this.schemaStateFile);
-       if(fs.existsSync(this.mappingFile)) 
-          fs.unlinkSync(this.mappingFile);
+        let result= await this.schemaDrop.execute(this.namespace.name,transaction,tryAllCan);
+        fs.unlinkSync(this.schemaStateFile);
+        if(fs.existsSync(this.mappingFile)) 
+            fs.unlinkSync(this.mappingFile);
+        if(fs.existsSync(this.pendingFile)) 
+            fs.unlinkSync(this.pendingFile);   
        return result;
     }
 }
