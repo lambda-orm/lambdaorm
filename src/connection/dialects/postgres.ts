@@ -1,6 +1,9 @@
 import {Connection,ConnectionConfig,ConnectionPool} from  './..'
 import {Parameter} from '../../model'
 
+//https://node-postgres.com/features/connecting
+
+
 export class PostgresConnectionPool extends ConnectionPool
 {
     private static pg:any
@@ -11,7 +14,8 @@ export class PostgresConnectionPool extends ConnectionPool
     }
     public async acquire():Promise<Connection>
     {
-        let cnx = await PostgresConnectionPool.pg.Client(this.config.connection)
+        let cnx = new PostgresConnectionPool.pg.Client(this.config.connection)
+        cnx.connect();
         return new PostgresConnection(cnx,this);
     }
     public async release(connection:Connection):Promise<void>
@@ -37,7 +41,8 @@ export class PostgresConnection extends Connection
     }
     public async bulkInsert(sql:string,array:any[]):Promise<number[]>
     { 
-        throw 'NotImplemented' 
+        let result = await this.cnx.query(sql,array);
+        return [1,2];
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {        

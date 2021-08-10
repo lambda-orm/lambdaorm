@@ -1,5 +1,12 @@
 _extends: [sql]
+types:
+  datetime: TIMESTAMP
 ddl:
   incrementalColumDefine: '{name} serial'
+  dropPk: 'DROP CONSTRAINT {name}'
+  dropUk: 'DROP CONSTRAINT {name}'
+  dropFk: 'DROP CONSTRAINT {name}'
+  dropIndex: 'DROP INDEX {name}'
 dml:
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id
+  bulkInsert: INSERT INTO {name}({fields}) VALUES 

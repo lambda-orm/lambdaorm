@@ -1,13 +1,6 @@
 {
   "dialects": {
     "mariadb": {
-      "types": {
-        "bool": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "datetime": "DATETIME"
-      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -155,6 +148,15 @@
           "sum": "SUM({0})"
         }
       },
+      "types": {
+        "bool": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
+      },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
         "date": "yyyy-LL-dd",
@@ -221,11 +223,13 @@
         "true": "1"
       },
       "types": {
-        "bool": "BIT",
+        "bool": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
-        "datetime": "DATETIME"
+        "datetime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -414,13 +418,6 @@
       }
     },
     "mysql": {
-      "types": {
-        "bool": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "datetime": "DATETIME"
-      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -568,6 +565,15 @@
           "sum": "SUM({0})"
         }
       },
+      "types": {
+        "bool": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
+      },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
         "date": "yyyy-LL-dd",
@@ -622,11 +628,13 @@
     },
     "oracle": {
       "types": {
-        "bool": "BIT",
+        "bool": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
-        "datetime": "DATETIME"
+        "datetime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -827,8 +835,21 @@
       }
     },
     "postgres": {
+      "types": {
+        "datetime": "TIMESTAMP",
+        "bool": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "date": "DATE",
+        "time": "TIME"
+      },
       "ddl": {
         "incrementalColumDefine": "{name} serial",
+        "dropPk": "DROP CONSTRAINT {name}",
+        "dropUk": "DROP CONSTRAINT {name}",
+        "dropFk": "DROP CONSTRAINT {name}",
+        "dropIndex": "DROP INDEX {name}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "columnDefine": "{name} {type} {nullable} ",
@@ -845,14 +866,11 @@
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "dropPk": "DROP PRIMARY KEY {name}",
-        "dropUk": "DROP UNIQUE {name}",
-        "dropFk": "DROP FOREIGN KEY {name}",
-        "dropIndex": "DROP INDEX {name} ON {table}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "insert": "INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id",
+        "bulkInsert": "INSERT INTO {name}({fields}) VALUES",
         "map": "SELECT {0}",
         "first": "SELECT TOP 1 {0}",
         "filter": "WHERE {0}",
@@ -860,15 +878,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}",
-        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
-      },
-      "types": {
-        "bool": "BIT",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "datetime": "DATETIME"
+        "delete": "DELETE FROM {name} {alias}"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -1035,11 +1045,13 @@
   },
   "sql": {
     "types": {
-      "bool": "BIT",
+      "bool": "BOOLEAN",
       "integer": "INTEGER",
       "decimal": "DECIMAL(10,4)",
       "string": "VARCHAR({0})",
-      "datetime": "DATETIME"
+      "datetime": "DATETIME",
+      "date": "DATE",
+      "time": "TIME"
     },
     "formats": {
       "datetime": "yyyy-LL-dd HH:mm:ss",

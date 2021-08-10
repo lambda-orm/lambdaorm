@@ -1,10 +1,12 @@
 # https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions001.htm
 types:
-  bool: BIT
+  bool: BOOLEAN
   integer: INTEGER
   decimal: DECIMAL(10,4)
   string: VARCHAR({0})
   datetime: DATETIME
+  date: DATE
+  time: TIME
 formats:
   datetime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'

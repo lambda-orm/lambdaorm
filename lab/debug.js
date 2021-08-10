@@ -291,9 +291,9 @@ async function bulkInsert2(orm){
 async function schemaSync(orm,target){
   await orm.namespace.sync(target).execute();
 }
-async function schemaDrop(orm,target){
+async function schemaDrop(orm,target,TryAndContinue=false){
   if(orm.namespace.exists(target))
-    await orm.namespace.drop(target).execute();
+    await orm.namespace.drop(target).execute(null,TryAndContinue);
 }
 async function schemaExport(orm,source){
   let exportFile = 'test/data/'+source+'-export.json';  
@@ -317,7 +317,7 @@ async function schemaImport(orm,source,target){
 // ORM_CNN_1= {"name":"default","dialect":"mysql","connection":{"host":"0.0.0.0","port":3306,"user":"root","password":"root","database":"northwind"}}
 // ORM_CNN_2= {"name":"mysql","dialect":"mysql","connection":{"host":"0.0.0.0","port":3307,"user":"root","password":"root","database":"northwind"}}
 // ORM_CNN_3= {"name":"mariadb","dialect":"mariadb","connection":{"host":"0.0.0.0","port":3308,"user":"root","password":"root","database":"northwind"}}
-// ORM_CNN_4= {"name":"postgres","dialect":"postgres","connection":"postgresql://admin:admin@0.0.0.0:5432/northwind"}
+// ORM_CNN_4= {"name":"postgres","dialect":"postgres","connection":{"host":"0.0.0.0","port":5432,"user":"admin","password":"admin","database":"northwind"}} 
 
     // await queries(orm);
     // await modify(orm);
@@ -326,21 +326,21 @@ async function schemaImport(orm,source,target){
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
     
-    await schemaSync(orm,'source');
-    await schemaExport(orm,'source');
+    // await schemaSync(orm,'source');
+    // await schemaExport(orm,'source');
     //test mysql
-    await schemaDrop(orm,'mysql');
-    await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql');
-    await schemaExport(orm,'mysql');  
+    // await schemaDrop(orm,'mysql');
+    // await schemaSync(orm,'mysql');
+    // await schemaImport(orm,'source','mysql');
+    // await schemaExport(orm,'mysql');  
     // //test mariadb
     // await schemaDrop(orm,'mariadb');
     // await schemaSync(orm,'mariadb');
     // await schemaImport(orm,'source','mariadb');
     // await schemaExport(orm,'mariadb');
-    // //test postgres
-    // await schemaDrop(orm,'postgres');
-    // await schemaSync(orm,'postgres');
+    // //test postgres 
+    await schemaDrop(orm,'postgres');
+    await schemaSync(orm,'postgres');
     // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');
 

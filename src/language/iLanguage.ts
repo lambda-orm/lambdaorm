@@ -1,4 +1,4 @@
-import {OperandManager} from './OperandManager'
+import {OperandManager} from './operandManager'
 import {ISchemaBuilder} from './iSchemaBuilder'
 import {IOperandExecutor} from './iOperandExecutor'
 export interface ILanguage
