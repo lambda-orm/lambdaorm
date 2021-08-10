@@ -288,14 +288,12 @@ async function bulkInsert2(orm){
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
   let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')));
 }
-
-
 async function schemaSync(orm,target){
   await orm.namespace.sync(target).execute();
 }
 async function schemaDrop(orm,target){
   if(orm.namespace.exists(target))
-    await orm.namespace.drop(target).execute(null,true);
+    await orm.namespace.drop(target).execute();
 }
 async function schemaExport(orm,source){
   let exportFile = 'test/data/'+source+'-export.json';  
@@ -330,9 +328,23 @@ async function schemaImport(orm,source,target){
     
     await schemaSync(orm,'source');
     await schemaExport(orm,'source');
-    await schemaDrop(orm,'mysql')
+    //test mysql
+    await schemaDrop(orm,'mysql');
     await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql');  
+    await schemaImport(orm,'source','mysql');
+    await schemaExport(orm,'mysql');  
+    // //test mariadb
+    // await schemaDrop(orm,'mariadb');
+    // await schemaSync(orm,'mariadb');
+    // await schemaImport(orm,'source','mariadb');
+    // await schemaExport(orm,'mariadb');
+    // //test postgres
+    // await schemaDrop(orm,'postgres');
+    // await schemaSync(orm,'postgres');
+    // await schemaImport(orm,'source','postgres');
+    // await schemaExport(orm,'postgres');
+
+    
    
     
     console.log('Ok')

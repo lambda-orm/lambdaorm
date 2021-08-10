@@ -12,3 +12,9 @@ namespaces:
   - name: mysql
     connection: mysql
     schema: northwind:0.0.2
+  - name: mariadb
+    connection: mariadb
+    schema: northwind:0.0.2
+  - name: postgres
+    connection: postgres
+    schema: northwind:0.0.2     

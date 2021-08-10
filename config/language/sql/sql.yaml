@@ -27,9 +27,9 @@ ddl:
   dropDatabase: 'DROP DATABASE IF EXISTS {name}'
   dropTable: 'DROP TABLE {name}'
   dropColumn: 'DROP COLUMN {name}'
-  dropPk: 'DROP CONSTRAINT {name}'
-  dropUk: 'DROP CONSTRAINT {name}'
-  dropFk: 'DROP CONSTRAINT {name}'
+  dropPk: 'DROP PRIMARY KEY {name}'
+  dropUk: 'DROP UNIQUE {name}'
+  dropFk: 'DROP FOREIGN KEY {name}'
   dropIndex: 'DROP INDEX {name} ON {table}'
   truncateTable: 'TRUNCATE TABLE {name}'
 dml:

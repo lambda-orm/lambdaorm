@@ -25,74 +25,59 @@ export class NamespaceManager
     public sync(name:string):NamespaceSync
     {   
         let namespace = this.get(name);
-        let stateFile=path.join(this.orm.config.state.path,`${name}-schema.json`);
-        let state = fs.existsSync(stateFile)?JSON.parse(fs.readFileSync(stateFile)):null;
-        let current = this.orm.schema.get(namespace.schema) as Schema;
-        let schemaSync:SchemaSync = this.orm.schema.sync(current,state);
-        return new NamespaceSync(this.orm,namespace,stateFile,current,schemaSync);
+        return new NamespaceSync(this.orm,namespace);
     }
     public drop(name:string):NamespaceDrop
-    {        
-        let namespace = this.get(name);
-        let schemaFile = this.getSchemaFile(name);
-        let mappingFile = this.getMappingFile(name);
-        let pendingFile = this.getPendingFile(name);
-        let schema = this.getSchema(name);        
-        let schemaDrop:SchemaDrop = this.orm.schema.drop(schema);        
-        return new NamespaceDrop(this.orm,namespace,schemaFile,mappingFile,pendingFile,schemaDrop);        
+    {       
+        let namespace = this.get(name); 
+        return new NamespaceDrop(this.orm,namespace);        
     }
     public async export(name:string,transaction?:ITransaction):Promise<SchemaData>
     {        
-        let schema = this.getSchema(name); 
-        return await this.orm.schema.export(schema).execute(name,transaction);
+        let state = await this.getState(name); 
+        return await this.orm.schema.export(state.schema).execute(name,transaction);
     }
     public async import(name:string,data:SchemaData,transaction?:ITransaction)
     {       
-        let schema = this.getSchema(name); 
-        let mappingFile = this.getMappingFile(name);
-        let mapping = this.getMapping(name);
-        let pendingFile = this.getPendingFile(name);
-        let pending = this.getPending(name);
-        await this.orm.schema.import(schema).execute(data,mapping,pending,name,transaction);
-        fs.writeFileSync(mappingFile,JSON.stringify(mapping));
-        fs.writeFileSync(pendingFile,JSON.stringify(pending));
+        let state = await this.getState(name); 
+        await this.orm.schema.import(state.schema).execute(data,state.mapping,state.pending,name,transaction);
+        await this.updateDataState(name,state.mapping,state.pending);
     }
     public exists(name:string)
     {
-        let schemaFile=this.getSchemaFile(name);
-        return fs.existsSync(schemaFile);
-    }    
-    protected getSchemaFile(name:string)
-    {
-        return path.join(this.orm.config.state.path,`${name}-schema.json`);
+        let file=this.getStateFile(name);
+        return fs.existsSync(file);
     }
-    protected getSchema(name:string):any
+    public async getState(name:string):Promise<any>
     {
-        let file=this.getSchemaFile(name);
+        let file=this.getStateFile(name);
         if(!fs.existsSync(file))
-           throw `Not exists file ${file}`; 
+           return {schema:null,mapping:{},pending:[]}; 
         return JSON.parse(fs.readFileSync(file));
     }
-    protected getMappingFile(name:string)
+    public async updateSchemaState(name:string,schema:Schema):Promise<void>
     {
-        return path.join(this.orm.config.state.path,`${name}-mapping.json`);
+        let stateFile=this.getStateFile(name);
+        let state = await this.getState(name);
+        state.schema = schema;
+        fs.writeFileSync(stateFile,JSON.stringify(state));
     }
-    protected getMapping(name:string):any
+    public async updateDataState(name:string,mapping:any,pending:any[]):Promise<void>
     {
-        let file=this.getMappingFile(name);
-        if(!fs.existsSync(file))
-           return {}; 
-        return JSON.parse(fs.readFileSync(file));
+        let stateFile=this.getStateFile(name);
+        let state = await this.getState(name);
+        state.mapping = mapping;
+        state.pending = pending;
+        fs.writeFileSync(stateFile,JSON.stringify(state));
     }
-    protected getPendingFile(name:string)
+    public async removeState(name:string):Promise<any>
     {
-        return path.join(this.orm.config.state.path,`${name}-pending.json`);
+        let file=this.getStateFile(name);
+        if(fs.existsSync(file)) 
+            fs.unlinkSync(file);
     }
-    protected getPending(name:string):any
+    protected getStateFile(name:string)
     {
-        let file=this.getPendingFile(name);
-        if(!fs.existsSync(file))
-           return {}; 
-        return JSON.parse(fs.readFileSync(file));
-    }
+        return path.join(this.orm.config.state.path,`${name}-state.json`);
+    } 
 }

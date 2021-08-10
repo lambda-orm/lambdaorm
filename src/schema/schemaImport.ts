@@ -37,7 +37,7 @@ export class SchemaImport extends SchemaActionDML
 
             if(!entity.uniqueKey || entity.uniqueKey.length==0){
                 //TODO: reemplazar por un archivo de salida de inconsistencias
-                console.error(`uniqueKey is empty`); 
+                console.error(`${entity.name} had not unique Key`); 
                 continue;
             }
             let filter='';
@@ -62,12 +62,12 @@ export class SchemaImport extends SchemaActionDML
             pending.rows=stillPending; 
         }
     }
-    protected solveInternalsIds(entityName:string,rows:any[],mapping:any,pendings:any[]):void
+    protected solveInternalsIds(entityName:string,rows:any[],mapping:any,pendings:any[],parentEntity?:string):void
     {
         const entity=this.schema.getEntity(entityName);
         for(const p in entity.relation){
             const relation = entity.relation[p];
-            if(relation.type == 'oneToOne' || relation.type == 'oneToMany'){
+            if((relation.type == 'oneToOne' || relation.type == 'oneToMany') && (parentEntity==null || parentEntity!=relation.entity)){
                 const relationEntity=this.schema.getEntity(relation.entity);
                 if(relationEntity.property[relation.to].autoincrement){                    
                     let pendingsRows:any[]=[];
@@ -83,12 +83,13 @@ export class SchemaImport extends SchemaActionDML
                                 let value = row[entity.uniqueKey[p]];
                                 if(value==null)
                                     //TODO: reemplazar por un archivo de salida de inconsistencias
-                                    console.error(`${entity.uniqueKey[p]} is null`)                                
+                                    console.error(`for entity ${entity.name} and row ${i.toString()} unique ${entity.uniqueKey[p]} is null`)                                
                                 keys.push(value);
                             }
                             if(keys.length==0)
                                 //TODO: reemplazar por un archivo de salida de inconsistencias
-                                console.error(`uniqueKey is empty`);                                                        
+                                console.error(`for entity ${entity.name} and row ${i.toString()} had not unique key`) 
+                                                                                       
                             pendingsRows.push({keys:keys,externalId:externalId});
                             row[relation.from] = null;  
                         }                            
@@ -102,7 +103,7 @@ export class SchemaImport extends SchemaActionDML
                 for(let i=0;i<rows.length;i++){
                     let row = rows[i];
                     let childs = row[relation.name];
-                    this.solveInternalsIds(relation.entity,childs,mapping,pendings);
+                    this.solveInternalsIds(relation.entity,childs,mapping,pendings,entityName);
                 }
             }
         }
@@ -134,8 +135,7 @@ export class SchemaImport extends SchemaActionDML
         }
     }
     protected completeMapping(entityName:string,rows:any[],aux:any,mapping:any):void
-    {
-        if(mapping==undefined)mapping={};
+    {        
         if(mapping[entityName]==undefined)mapping[entityName]={};  
         const entity=this.schema.getEntity(entityName);
         for(const p in entity.property){

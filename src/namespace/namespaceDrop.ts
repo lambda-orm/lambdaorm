@@ -1,38 +1,29 @@
 import {Delta,IOrm,Namespace,Schema} from '../model/index'
 import {SchemaDrop} from './../schema'
 import {ITransaction,ExecutionResult} from '../connection'
-const fs = require('fs');
-const path = require('path');
 
 export class NamespaceDrop 
 {
     protected orm:IOrm
-    protected schemaDrop:SchemaDrop
     protected namespace:Namespace
-    protected schemaStateFile:string
-    protected mappingFile:string
-    protected pendingFile:string
-    constructor(orm:IOrm,namespace:Namespace,schemaStateFile:string,mappingFile:string,pendingFile:string,schemaDrop:SchemaDrop){
+    constructor(orm:IOrm,namespace:Namespace){
         this.orm= orm;
         this.namespace= namespace;
-        this.schemaStateFile= schemaStateFile;
-        this.mappingFile= mappingFile;
-        this.pendingFile= pendingFile;
-        this.schemaDrop= schemaDrop;
-    }
-    public sentence():any[]
+    }    
+    public async sentence():Promise<any[]>
     {
         let connection = this.orm.connection.get(this.namespace.connection);
-        return this.schemaDrop.sentence(connection.dialect);
+        return (await this.schemaDrop()).sentence(connection.dialect);
     }
     public async execute(transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {
-        let result= await this.schemaDrop.execute(this.namespace.name,transaction,tryAllCan);
-        fs.unlinkSync(this.schemaStateFile);
-        if(fs.existsSync(this.mappingFile)) 
-            fs.unlinkSync(this.mappingFile);
-        if(fs.existsSync(this.pendingFile)) 
-            fs.unlinkSync(this.pendingFile);   
-       return result;
+        let result= await (await this.schemaDrop()).execute(this.namespace.name,transaction,tryAllCan);
+        await this.orm.namespace.removeState(this.namespace.name);
+        return result;
+    }
+    protected async schemaDrop():Promise<SchemaDrop>
+    {   
+        let state = await this.orm.namespace.getState(this.namespace.name);
+        return this.orm.schema.drop(state.schema);              
     }
 }

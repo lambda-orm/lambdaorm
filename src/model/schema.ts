@@ -1,6 +1,5 @@
 export interface Schema {
     name: string
-    mapping: string
     entities: Entity[]
     enums: Enum[]
 }

@@ -1,36 +1,36 @@
 import {Delta,IOrm,Namespace,Schema} from '../model/index'
 import {SchemaSync,ExecutionSyncResult} from './../schema'
 import {ITransaction} from '../connection'
-const fs = require('fs');
-const path = require('path');
 
 export class NamespaceSync 
 {
     protected orm:IOrm
-    protected schemaSync:SchemaSync
     protected namespace:Namespace
-    protected schemaStateFile:string
-    protected schema:Schema
-    constructor(orm:IOrm,namespace:Namespace,schemaStateFile:string,schema:Schema,schemaSync:SchemaSync){
+    constructor(orm:IOrm,namespace:Namespace){
         this.orm= orm;
         this.namespace= namespace;
-        this.schemaStateFile= schemaStateFile;
-        this.schema= schema;
-        this.schemaSync= schemaSync;
     }
-    public serialize():Delta
+    public async serialize():Promise<Delta>
     {
-        return this.schemaSync.serialize();
+        let current = this.orm.schema.get(this.namespace.schema) as Schema;
+        return (await this.schemaSync(current)).serialize();
     }
-    public sentence():any[]
+    public async sentence():Promise<any[]>
     {
+        let current = this.orm.schema.get(this.namespace.schema) as Schema;
         let connection = this.orm.connection.get(this.namespace.connection);
-        return this.schemaSync.sentence(connection.dialect);
+        return (await this.schemaSync(current)).sentence(connection.dialect);
     }
     public async execute(transaction?:ITransaction):Promise<ExecutionSyncResult>
     {
-       let result= await this.schemaSync.execute(this.namespace.name,transaction );
-       fs.writeFileSync(this.schemaStateFile,JSON.stringify(this.schema));
+       let current = this.orm.schema.get(this.namespace.schema) as Schema;
+       let result= await (await this.schemaSync(current)).execute(this.namespace.name,transaction );
+       await this.orm.namespace.updateSchemaState(this.namespace.name,current);
        return result;
+    }
+    protected async schemaSync(current:Schema):Promise<SchemaSync>
+    {           
+        let state = await this.orm.namespace.getState(this.namespace.name);        
+        return this.orm.schema.sync(current,state.schema);                    
     }
 }

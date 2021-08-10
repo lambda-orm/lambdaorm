@@ -229,6 +229,19 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let metadata = this.language.dialects[dialect] as SqlDialectMetadata;
         let entities= schema.sortEntities().reverse();        
         let sql:string[]=[];
+        //drop all constraint
+        for(const p in entities){
+            const entityName = entities[p];
+            const entity = schema.entity[entityName];
+            if(entity.relation){
+                for(const name in entity.relation){
+                    let relation=entity.relation[name] as Relation;
+                    if(relation.type=='oneToMany' || relation.type=='oneToOne')
+                       sql.push(this.dropFk(entity,relation,metadata));
+                } 
+            } 
+        }
+        //drop indexes and tables
         for(const p in entities){
             const entityName = entities[p];
             const entity = schema.entity[entityName];
@@ -237,7 +250,6 @@ export class SqlSchemaBuilder implements ISchemaBuilder
                     sql.push(this.dropIndex(entity,entity.index[name],metadata));
             } 
             sql.push(this.dropTable(entity,metadata));
-                             
         }
         return sql;
     }
@@ -440,9 +452,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     }
     private dropFk(entity:any,relation:Relation,metadata:SqlDialectMetadata):string
     {  
-        let text = metadata.ddl('dropPk');
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        let text = metadata.ddl('dropFk');
         text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
-        return text;
+        return alterEntity+' '+text;
     }
     private dropIndex(entity:any,index:Index,metadata:SqlDialectMetadata):string
     {      
