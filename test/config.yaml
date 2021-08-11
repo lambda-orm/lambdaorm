@@ -2,19 +2,24 @@ schemas:
   sourceType: path  
   path: test/schema
 state:
+  sourceType: path  
   path: test/state
 conections:
   sourceType: env  
 namespaces:
   - name: source
-    connection: default
+    dialect: mysql
+    connection: ORM_CNN_1
     schema: northwind:0.0.2
   - name: mysql
-    connection: mysql
+    dialect: mysql
+    connection: ORM_CNN_2
     schema: northwind:0.0.2
   - name: mariadb
-    connection: mariadb
+    dialect: mariadb
+    connection: ORM_CNN_3
     schema: northwind:0.0.2
   - name: postgres
-    connection: postgres
+    dialect: postgres
+    connection: ORM_CNN_4
     schema: northwind:0.0.2     

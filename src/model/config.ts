@@ -22,6 +22,7 @@ export interface ConfigConnections
 export interface Namespace
 {
     name: string
+    dialect: string
     connection:string
     schema:string
 }
