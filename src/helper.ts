@@ -88,8 +88,8 @@ export class Helper {
     {
         return SqlString.escape(value);
     }
-    public static replace(value:string,searchValue:string,replace:string):string
+    public static replace(value:string,search:string,replacement:string):string
     {
-        return value.replace(searchValue,replace);
+        return value.split(search).join(replacement);
     } 
 }
