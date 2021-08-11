@@ -4,7 +4,7 @@ import {IExecutor}  from '../../connection'
 import {SqlSentenceInclude,SqlQuery} from './operands'
 import {SqlLanguage} from './language'
 import {Helper} from './../../helper'
-import { SqlDialectMetadata } from './dialectMetadata'
+import {SqlDialectMetadata } from './dialectMetadata'
 
 export class SqlExecutor implements IOperandExecutor
 {
@@ -118,7 +118,8 @@ export class SqlExecutor implements IOperandExecutor
             }
         }        
         //insert main entity
-        let ids = await executor.bulkInsert(query.sentence,this.rows(query,metadata,context.data));
+        let fieldId:string|undefined = query.autoincrement?query.autoincrement.mapping:undefined;
+        let ids = await executor.bulkInsert(query.sentence,this.rows(query,metadata,context.data),query.parameters,fieldId);
         if(query.autoincrement){
             for(let i=0;i<context.data.length;i++){
                 context.data[i][query.autoincrement.name]=ids[i];
@@ -220,7 +221,7 @@ export class SqlExecutor implements IOperandExecutor
                 if(parameter.type == 'datetime' && value!==null)
                     value=Helper.dateFormat(value,datetimeFormat);
                 // if(typeof value == 'string')
-                //     value = SqlString.escape(value);                
+                //     value = Helper.escape(value);                
                 row.push(value=== undefined?null:value);
             }
             rows.push(row);

@@ -24,10 +24,10 @@ export class Executor implements IExecutor
         await this.connectionManager.release(connection);
         return result;
     }
-    public async bulkInsert(sql:string,array:any[]):Promise<number[]>
+    public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
     {
         const connection = await this.connectionManager.acquire(this.connectionName);
-        let result= await connection.bulkInsert(sql,array);
+        let result= await connection.bulkInsert(sql,array,parameters,fieldId);
         await this.connectionManager.release(connection);
         return result;
     }

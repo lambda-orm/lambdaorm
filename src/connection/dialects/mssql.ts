@@ -59,7 +59,7 @@ export class MssqlConnection extends Connection
         // let result = await this._execute(sql,params);
         // return result.insertId;
     }
-    public async bulkInsert(sql:string,array:any[]):Promise<number[]>
+    public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
     { 
         throw 'NotImplemented' 
     }

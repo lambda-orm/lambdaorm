@@ -1,5 +1,6 @@
 import {Connection,ConnectionConfig,ConnectionPool} from  './..'
 import {Parameter} from '../../model'
+import {Helper} from './../../helper'
 
 //https://node-postgres.com/features/connecting
 
@@ -39,10 +40,52 @@ export class PostgresConnection extends Connection
         const result = await this._execute(sql,params);
         return result.rows.length>0?result.rows[0].id:null;
     }
-    public async bulkInsert(sql:string,array:any[]):Promise<number[]>
+    public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
     { 
-        let result = await this.cnx.query(sql,array);
-        return [1,2];
+        try{
+            let rows:string[]=[];
+            for(const p in array){
+                const values = array[p];
+                let row:any[]=[];
+                for(let i=0;i<parameters.length;i++){
+                    const parameter = parameters[i];
+                    let value = values[i];
+                    if(value==null || value==undefined ){
+                        value='null';
+                    }else{
+                        switch(parameter.type){
+                            case 'bool':
+                                value=value?1:0;break;
+                            case 'string':
+                                value=Helper.escape(Helper.replace(value,'\'','\'\''));break;
+                            case 'datetime':
+                            case 'date':
+                            case 'time':    
+                                value=Helper.escape(value);break;
+                        }
+                    }
+                    row.push(value);
+                }
+                rows.push(`(${row.join(',')})`);
+            }
+            let returning = fieldId?'RETURNING '+fieldId:''; 
+            let query = `${sql} ${rows.join(',')} ${returning};`;
+            console.log(query);
+            let result = await this.cnx.query(query);
+            let ids:number[]=[];
+            if(fieldId){
+                let fieldIdlower = fieldId.toLowerCase();
+                for(const p in result.rows){
+                    const id = result.rows[p][fieldIdlower] as number;
+                    ids.push(id);
+                }
+            }
+            return ids;
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
+        
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {        

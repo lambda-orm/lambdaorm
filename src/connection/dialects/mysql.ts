@@ -48,7 +48,7 @@ export class MySqlConnection extends Connection
         let result = await this._execute(sql,params);
         return result.insertId;
     }
-    public async bulkInsert(sql:string,array:any[]):Promise<number[]>
+    public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
     {   
         //https://github.com/sidorares/node-mysql2/issues/830
         let result = await this.cnx.query(sql,[array]);

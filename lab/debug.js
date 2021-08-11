@@ -341,7 +341,7 @@ async function schemaImport(orm,source,target){
     // //test postgres 
     await schemaDrop(orm,'postgres');
     await schemaSync(orm,'postgres');
-    // await schemaImport(orm,'source','postgres');
+    await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');
 
     

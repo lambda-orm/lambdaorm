@@ -1,5 +1,6 @@
 import {Delta} from './model'
 const { DateTime } = require("luxon");
+const SqlString = require("sqlstring");
 
 export class Helper {
     public static replaceAll(str:string, find:string, replace:string) {
@@ -82,5 +83,13 @@ export class Helper {
     public static dateFormat(value:any,format:string):string
     {
         return DateTime.fromISO(value).toFormat(format);
+    }
+    public static escape(value:string):string
+    {
+        return SqlString.escape(value);
+    }
+    public static replace(value:string,searchValue:string,replace:string):string
+    {
+        return value.replace(searchValue,replace);
     } 
 }
