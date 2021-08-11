@@ -3,7 +3,7 @@ schemas:
   path: test/schema
 state:
   path: test/state
-conections:
+connections:
   sourceType: env  
 namespaces:
   - name: source
