@@ -55,10 +55,11 @@ export class PostgresConnection extends Connection
                     }else{
                         switch(parameter.type){
                             case 'bool':
-                                value=value?1:0;break;
+                                value=value?'true':'false';break;
                             case 'string':
-                                value=Helper.replace(value,"'","''");
-                                value=Helper.escape(value);break;
+                                value=Helper.escape(value);
+                                value=Helper.replace(value,"\\'","\\''");
+                                break;
                             case 'datetime':
                             case 'date':
                             case 'time':    
