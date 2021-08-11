@@ -1,7 +1,5 @@
 // // declare function s<T>(someObject: T | null | undefined, defaultValue?: T | null | undefined) : T;
 
-
-
 declare abstract class SkipClauses<T> {
     /**  */
     public take(count:number): void

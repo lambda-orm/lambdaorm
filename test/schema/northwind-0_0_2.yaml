@@ -302,7 +302,7 @@ entities:
         type: decimal
       - name: discount 
         mapping: Discount
-        type: boolean
+        type: decimal
     relations:   
       - name: order       
         type: oneToMany 

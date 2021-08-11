@@ -1,4 +1,5 @@
 import './../sintaxis';
+
 declare global {
 interface Category{
 	id:number

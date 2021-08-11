@@ -1,7 +1,6 @@
 import orm from '../orm';
-import {Cache,Operand,IOrm,Schema,Context,Namespace,Config } from '../model'
-import './../sintaxis'
-// import './model';
+import '../sintaxis'
+import {IOrm,Schema,Config } from '../model'
 const ConfigExtends = require("config-extends");
 const fs = require('fs');
 
@@ -327,25 +326,25 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
 
-    await generateModel(orm,'source');
+    //await generateModel(orm,'source');
     
-    // await schemaSync(orm,'source');
-    // await schemaExport(orm,'source');
+    await schemaSync(orm,'source');
+    await schemaExport(orm,'source');
     //test mysql
-    // await schemaDrop(orm,'mysql');
-    // await schemaSync(orm,'mysql');
-    // await schemaImport(orm,'source','mysql');
-    // await schemaExport(orm,'mysql');  
+    await schemaDrop(orm,'mysql');
+    await schemaSync(orm,'mysql');
+    await schemaImport(orm,'source','mysql');
+    await schemaExport(orm,'mysql');  
     // //test mariadb
     // await schemaDrop(orm,'mariadb');
     // await schemaSync(orm,'mariadb');
     // await schemaImport(orm,'source','mariadb');
     // await schemaExport(orm,'mariadb');
     // //test postgres 
-    // await schemaDrop(orm,'postgres');
-    // await schemaSync(orm,'postgres');
-    // await schemaImport(orm,'source','postgres');
-    // await schemaExport(orm,'postgres');
+    await schemaDrop(orm,'postgres',true);
+    await schemaSync(orm,'postgres');
+    await schemaImport(orm,'source','postgres');
+    await schemaExport(orm,'postgres');
 
     
    
