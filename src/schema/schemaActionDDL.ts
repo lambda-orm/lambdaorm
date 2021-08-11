@@ -14,14 +14,14 @@ export abstract class SchemaActionDDL
     public async execute(namespace:string,transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {       
         let _namespace= this.orm.namespace.get(namespace);
-        let config = this.orm.connection.get(_namespace.connection);
+        let config = this.orm.connection.get(_namespace.name);
         let sentences = this.sentence(config.dialect);  
         let results:ExecutionSentenceResult[]=[]; 
         if(transaction){            
             results=await this.executeSentences(namespace,sentences,transaction,tryAllCan);            
         }else{
             sentences = this.sentence(config.dialect);
-            await this.orm.createTransaction(_namespace.connection,async (transaction)=>{
+            await this.orm.createTransaction(_namespace.name,async (transaction)=>{
                 results=await this.executeSentences(namespace,sentences,transaction,tryAllCan);
             });
         }

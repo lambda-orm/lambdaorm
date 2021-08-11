@@ -12,7 +12,7 @@ export class SchemaImport extends SchemaActionDML
         if(transaction){
             await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);
         }else{
-            await this.orm.createTransaction(_namespace.connection,async (transaction)=>{ 
+            await this.orm.createTransaction(_namespace.name,async (transaction)=>{ 
                 await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);
             }); 
         }

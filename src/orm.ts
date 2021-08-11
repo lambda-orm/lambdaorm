@@ -27,7 +27,7 @@ class Orm implements IOrm
     constructor(parserManager:Parser){
         this.languages={};
         this.dialects={};
-        this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},conections:{sourceType:'env'},namespaces:[]};
+        this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},namespaces:[]};
         this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
@@ -48,31 +48,21 @@ class Orm implements IOrm
     {
         this.config = config;
         if(this.config.state.sourceType == 'path'){
-            if(!path.existsSync(this.config.state.path))
+            if(!fs.existsSync(this.config.state.path))
                 fs.mkdirSync(this.config.state.path);
         } 
         let _schemas:any={};
-        if(this.config.schemas.sourceType=='path')
+        if(this.config.schemas.sourceType=='path'){
             _schemas =  await ConfigExtends.apply(this.config.schemas.path);
-
-        if(_schemas){
-            for(const p in _schemas){
-                if(p=='abstract')continue;
-                this.schema.load(_schemas[p]);
+            if(_schemas){
+                for(const p in _schemas){
+                    if(p=='abstract')continue;
+                    this.schema.load(_schemas[p]);
+                }
             }
-        }    
-        if(this.config.conections.sourceType=='env'){
-            for(const p in process.env){
-                if(p.startsWith('ORM_CNN_') && process.env !== undefined ){
-                    let value:any = process.env[p] 
-                    if(typeof value == 'string')
-                        value= JSON.parse(value);
-                    this.connection.load(value); 
-                }   
-            }
-        }                
+        }              
         for(const p in this.config.namespaces)
-          this.namespace.add(config.namespaces[p]);
+          this.namespace.load(config.namespaces[p]);
     }
     public get parser():Parser
     {
@@ -132,20 +122,19 @@ class Orm implements IOrm
         try{
             let _context = new Context(context);
             let _namespace= this.namespace.get(namespace);
-            let config = this.connection.get(_namespace.connection);           
             if(transaction){
-                return await this.language(config.dialect).executor.execute(operand,_context,transaction);
+                return await this.language(_namespace.dialect).executor.execute(operand,_context,transaction);
             }else{    
 
                 let result;
                 if(operand.children.length==0){
-                    let executor =this.connectionManager.createExecutor(_namespace.connection);
-                    result = await this.language(config.dialect).executor.execute(operand,_context,executor);
+                    let executor =this.connectionManager.createExecutor(_namespace.name);
+                    result = await this.language(_namespace.dialect).executor.execute(operand,_context,executor);
                 }
                 else
                 {
-                    await this.createTransaction(_namespace.connection,async (transaction)=>{
-                        result= await this.language(config.dialect).executor.execute(operand,_context,transaction);
+                    await this.createTransaction(_namespace.name,async (transaction)=>{
+                        result= await this.language(_namespace.dialect).executor.execute(operand,_context,transaction);
                     });
                 }
                 return result;                    
@@ -162,7 +151,7 @@ class Orm implements IOrm
             if(transaction){
                 return await transaction.execute(sentence);
             }else{
-                let executor =this.connectionManager.createExecutor(_namespace.connection);
+                let executor =this.connectionManager.createExecutor(_namespace.name);
                 return await executor.execute(sentence); 
             }           
         }catch(error){

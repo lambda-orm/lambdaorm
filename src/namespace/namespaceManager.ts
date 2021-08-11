@@ -1,10 +1,12 @@
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm,Namespace} from '../model'
 import {SchemaSync,SchemaData,SchemaDrop} from './../schema'
-import {ITransaction} from '../connection'
+import {ITransaction,ConnectionConfig} from '../connection'
 import {NamespaceSync} from './namespaceSync'
 import {NamespaceDrop} from './namespaceDrop'
 const fs = require('fs');
 const path = require('path');
+
+
 
 export class NamespaceManager
 {
@@ -14,8 +16,17 @@ export class NamespaceManager
         this.orm=orm;
         this.namespaces={};
     }
-    public add(namespace:Namespace):void
-    {
+    public load(namespace:Namespace):void
+    {   
+        let connectionConfig:ConnectionConfig={name:namespace.name,dialect:namespace.dialect,connection:{}};
+        if(namespace.connectionSource== null || namespace.connectionSource=='direct'){
+            connectionConfig.connection=namespace.connection;
+        }
+        else if(namespace.connectionSource=='env'){
+            const value = process.env[namespace.connection] as string;
+            connectionConfig.connection= JSON.parse(value);
+        }
+        this.orm.connection.load(connectionConfig); 
         this.namespaces[namespace.name] =namespace;
     }
     public get(name:string):Namespace 

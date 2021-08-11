@@ -18,7 +18,7 @@ export class NamespaceSync
     public async sentence():Promise<any[]>
     {
         let current = this.orm.schema.get(this.namespace.schema) as Schema;
-        let connection = this.orm.connection.get(this.namespace.connection);
+        let connection = this.orm.connection.get(this.namespace.name);
         return (await this.schemaSync(current)).sentence(connection.dialect);
     }
     public async execute(transaction?:ITransaction):Promise<ExecutionSyncResult>

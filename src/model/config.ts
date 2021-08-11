@@ -1,8 +1,8 @@
+
 export interface Config
 {
     schemas: ConfigSchemas
     state: ConfigState
-    conections:ConfigConnections
     namespaces:Namespace[]
 }
 export interface ConfigSchemas
@@ -15,14 +15,11 @@ export interface ConfigState
     sourceType: string
     path?:string
 }
-export interface ConfigConnections
-{
-    sourceType:string
-}
 export interface Namespace
 {
     name: string
     dialect: string
-    connection:string
+    connectionSource?:'env'|'direct'
+    connection:any
     schema:string
 }

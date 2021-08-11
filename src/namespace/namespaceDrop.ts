@@ -12,7 +12,7 @@ export class NamespaceDrop
     }    
     public async sentence():Promise<any[]>
     {
-        let connection = this.orm.connection.get(this.namespace.connection);
+        let connection = this.orm.connection.get(this.namespace.name);
         return (await this.schemaDrop()).sentence(connection.dialect);
     }
     public async execute(transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>

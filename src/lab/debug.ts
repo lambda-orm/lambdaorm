@@ -344,9 +344,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     await schemaDrop(orm,'postgres',true);
     await schemaSync(orm,'postgres');
     await schemaImport(orm,'source','postgres');
-    await schemaExport(orm,'postgres');
-
-    
+    await schemaExport(orm,'postgres');    
    
     
     console.log('Ok')
