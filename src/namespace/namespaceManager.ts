@@ -32,6 +32,12 @@ export class NamespaceManager
         let namespace = this.get(name); 
         return new NamespaceDrop(this.orm,namespace);        
     }
+    public model(name:string):string
+    {       
+        let namespace = this.get(name); 
+        const schema:Schema = this.orm.schema.get(namespace.schema) as Schema;
+        return  this.orm.schema.model(schema);      
+    }
     public async export(name:string,transaction?:ITransaction):Promise<SchemaData>
     {        
         let state = await this.getState(name); 

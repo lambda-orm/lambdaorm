@@ -79,6 +79,43 @@ export class SchemaManager
         let _schema = this.transform(schema);
         let schemaHelper =new SchemaHelper(_schema);  
         return new SchemaImport(this.orm,schemaHelper);
+    }
+    public model(source:Schema):string
+    {
+        let lines:string[] =[];
+        lines.push(`import './../sintaxis';`);
+        lines.push(`declare global {`);
+        for(const p in source.entities){
+            let entity = source.entities[p];
+            lines.push(`interface ${Helper.singular(entity.name)}{`);
+            for(const q in entity.properties){
+                let property = entity.properties[q];
+                let type = Helper.tsType(property.type);
+                lines.push(`\t${property.name}:${type}`);
+            }
+            for(const q in entity.relations){
+                let relation = entity.relations[q];
+                let relationEntity = Helper.singular(relation.entity);
+                switch(relation.type){
+                    case 'oneToMany':
+                        lines.push(`\t${relation.name}:${relationEntity} & OneToMany<${relationEntity}>`);
+                        break; 
+                    case 'oneToOne':
+                        lines.push(`\t${relation.name}:${relationEntity} & OneToOne<${relationEntity}>`);
+                        break; 
+                    case 'manyToOne':
+                        lines.push(`\t${relation.name}:ManyToOne<${relationEntity}>`);
+                        break; 
+                }
+            }
+            lines.push(`}`);
+        }
+        for(const p in source.entities){
+            let entity = source.entities[p];
+            lines.push(`let ${entity.name}:Entity<${Helper.singular(entity.name)}>`);
+        }
+        lines.push(`}`); 
+        return lines.join('\n');
     }    
     public transform(source:Schema):any
     {

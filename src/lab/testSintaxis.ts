@@ -74,14 +74,14 @@ let query2 =  ()=> OrderDetails.filter(p=> between(p.order.shippedDate,'19970101
 // ORDER BY category, product
 // `;                               
 let query3= (id:number)=> OrderDetails.filter(p=> p.orderId == id )
-                               .map(p=> ({id:p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100)})); 
+                               .map(p=> ({id:p.orderId,subTotal:sum((p.unitPrice*p.quantity)*100)})); 
 // `SELECT o.OrderID AS order, SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal
 // FROM OrderDetails o
 // GROUP BY o.OrderID
 // `;                                                              
 // let updateCategory = (value:Category)=>Categories.update({name:value.name}).filter(p=> p.id == value.id);
 
-OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
+OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity)*100) }))
 
 let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 

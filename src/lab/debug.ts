@@ -1,11 +1,12 @@
+import orm from '../orm';
+import {Cache,Operand,IOrm,Schema,Context,Namespace,Config } from '../model'
+import './../sintaxis'
+// import './model';
 const ConfigExtends = require("config-extends");
-const orm = require("../dist/orm.js");
 const fs = require('fs');
-const { forEachTrailingCommentRange } = require("typescript");
 
-// const model = require("../dist/lab/model");
 
-async function exec(fn){
+async function exec(fn:any){
     let t1= Date.now()
     let result = await fn()
     let t2= Date.now()
@@ -17,19 +18,16 @@ async function exec(fn){
     return result;  
 }
 
-async function queries(orm){
+async function queries(orm:IOrm){
 
-  const expression = 
-  ` 
-   Customers.include(p=> p.orders.include(p => p.details)
-  `;
+  const expression = ()=> Customers.include(p=> p.orders.include(p => p.details))
   //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-  let context = {id:10248};
+  let context:any = {id:10248};
   // await exec( async()=>(await orm.expression(expression).parse()).serialize())
-  await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+  await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).model())
-  await exec(async()=>(await orm.expression(expression).execute(context,'source')));
+  await exec(async()=>(await orm.lambda(expression).execute(context,'source')));
 
   //queries
   //  Products.filter(p=>p.id==id)
@@ -54,9 +52,9 @@ async function queries(orm){
   //  Orders.filter(p=>p.id==id).include(p => p.customer)
 
 }
-async function modify(orm){
+async function modify(orm:IOrm){
 
-  expression =
+  const expression =
   ` 
   Orders.insert().include(p=> p.details)
   `;
@@ -94,7 +92,7 @@ async function modify(orm){
 
   
 }
-async function crud(orm){
+async function crud(orm:IOrm){
 
   let order = {
     "customerId": "VINET",
@@ -161,15 +159,15 @@ async function crud(orm){
     console.log(error);
   }
 }
-async function scriptsByDialect(orm,schemas){
-  let current = schemas['northwind'];
+async function scriptsByDialect(orm:IOrm,schemaName:string){ 
+
+  const schema= orm.schema.get(schemaName) as Schema;
   for(const name in orm.languages['sql'].dialects){
     console.log('\n\n'+name+' -------------------------------------\n');
-    await exec( async()=>(orm.schema.delta(current).sentence(name)));
+    await exec( async()=>(orm.schema.sync(schema).sentence(name)));
   } 
 }
-
-async function bulkInsert(orm){
+async function bulkInsert(orm:IOrm){
   const expression =`Categories.bulkInsert()`;
   const categories =[
     {
@@ -188,8 +186,7 @@ async function bulkInsert(orm){
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
   let result = await exec(async()=>(await orm.expression(expression).execute(categories,'source')));
 }
-
-async function bulkInsert2(orm){
+async function bulkInsert2(orm:IOrm){
   const expression = `Orders.bulkInsert().include(p=> p.details)`;
   const orders= [
     {
@@ -288,19 +285,23 @@ async function bulkInsert2(orm){
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
   let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')));
 }
-async function schemaSync(orm,target){
+async function generateModel(orm:IOrm,name:string){
+  let content = orm.namespace.model(name);
+  fs.writeFileSync('src/lab/model.d.ts',content);
+}
+async function schemaSync(orm:IOrm,target:string){
   await orm.namespace.sync(target).execute();
 }
-async function schemaDrop(orm,target,TryAndContinue=false){
+async function schemaDrop(orm:IOrm,target:string,TryAndContinue:boolean=false){
   if(orm.namespace.exists(target))
-    await orm.namespace.drop(target).execute(null,TryAndContinue);
+    await orm.namespace.drop(target).execute(undefined,TryAndContinue);
 }
-async function schemaExport(orm,source){
+async function schemaExport(orm:IOrm,source:string){
   let exportFile = 'test/data/'+source+'-export.json';  
   let data= await orm.namespace.export(source);
   fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
 }
-async function schemaImport(orm,source,target){
+async function schemaImport(orm:IOrm,source:string,target:string){
   let sourceFile = 'test/data/'+source+'-export.json';
   let data = JSON.parse(fs.readFileSync(sourceFile));
   await orm.namespace.import(target,data);
@@ -310,7 +311,7 @@ async function schemaImport(orm,source,target){
 
   try
   {
-    let config =  await ConfigExtends.apply('test/config.yaml');
+    let config:Config =  await ConfigExtends.apply('test/config.yaml');
     await orm.loadConfig(config);
 
 // environment variables 
@@ -322,9 +323,11 @@ async function schemaImport(orm,source,target){
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);
-    // await scriptsByDialect(orm,schemas);
+    // await scriptsByDialect(orm,'northwind');
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
+
+    await generateModel(orm,'source');
     
     // await schemaSync(orm,'source');
     // await schemaExport(orm,'source');
@@ -339,9 +342,9 @@ async function schemaImport(orm,source,target){
     // await schemaImport(orm,'source','mariadb');
     // await schemaExport(orm,'mariadb');
     // //test postgres 
-    await schemaDrop(orm,'postgres');
-    await schemaSync(orm,'postgres');
-    await schemaImport(orm,'source','postgres');
+    // await schemaDrop(orm,'postgres');
+    // await schemaSync(orm,'postgres');
+    // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');
 
     
