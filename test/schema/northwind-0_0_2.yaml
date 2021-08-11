@@ -191,7 +191,7 @@ entities:
         default: 0
       - name: discontinued
         mapping: Discontinued
-        type: bool
+        type: boolean
         default: false
     relations:    
       - name: supplier
@@ -302,7 +302,7 @@ entities:
         type: decimal
       - name: discount 
         mapping: Discount
-        type: bool
+        type: decimal
     relations:   
       - name: order       
         type: oneToMany 

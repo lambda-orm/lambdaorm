@@ -4,7 +4,7 @@ schemas:
 state:
   sourceType: path  
   path: test/state
-conections:
+connections:
   sourceType: env  
 namespaces:
   - name: source

@@ -149,7 +149,7 @@
         }
       },
       "types": {
-        "bool": "BOOLEAN",
+        "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -223,7 +223,7 @@
         "true": "1"
       },
       "types": {
-        "bool": "BOOLEAN",
+        "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -566,7 +566,7 @@
         }
       },
       "types": {
-        "bool": "BOOLEAN",
+        "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -628,7 +628,7 @@
     },
     "oracle": {
       "types": {
-        "bool": "BOOLEAN",
+        "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -837,7 +837,7 @@
     "postgres": {
       "types": {
         "datetime": "TIMESTAMP",
-        "bool": "BOOLEAN",
+        "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -1045,7 +1045,7 @@
   },
   "sql": {
     "types": {
-      "bool": "BOOLEAN",
+      "boolean": "BOOLEAN",
       "integer": "INTEGER",
       "decimal": "DECIMAL(10,4)",
       "string": "VARCHAR({0})",

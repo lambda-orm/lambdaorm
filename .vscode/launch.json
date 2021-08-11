@@ -31,7 +31,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/lab/debug.js",
+            "program": "${workspaceFolder}/dist/lab/debug.js",
             "envFile": "${workspaceFolder}/test/.env"
         },           
         {
