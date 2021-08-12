@@ -309,13 +309,6 @@ async function schemaImport(orm:IOrm,source:string,target:string){
   try
   {    
     await orm.loadConfig('test/config.yaml');
-
-// environment variables 
-// ORM_CNN_1= {"name":"default","dialect":"mysql","connection":{"host":"0.0.0.0","port":3306,"user":"root","password":"root","database":"northwind"}}
-// ORM_CNN_2= {"name":"mysql","dialect":"mysql","connection":{"host":"0.0.0.0","port":3307,"user":"root","password":"root","database":"northwind"}}
-// ORM_CNN_3= {"name":"mariadb","dialect":"mariadb","connection":{"host":"0.0.0.0","port":3308,"user":"root","password":"root","database":"northwind"}}
-// ORM_CNN_4= {"name":"postgres","dialect":"postgres","connection":{"host":"0.0.0.0","port":5432,"user":"admin","password":"admin","database":"northwind"}} 
-
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);
