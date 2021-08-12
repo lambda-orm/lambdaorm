@@ -7,13 +7,11 @@ export interface Config
 }
 export interface ConfigSchemas
 {
-    sourceType: string
-    path?:string
+    path:string
 }
 export interface ConfigState
 {
-    sourceType: string
-    path?:string
+    path:string
 }
 export interface Database
 {

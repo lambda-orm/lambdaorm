@@ -1,8 +1,6 @@
 schemas:
-  sourceType: path  
   path: test/schema
 state:
-  sourceType: path  
   path: test/state
 databases:
   - name: source

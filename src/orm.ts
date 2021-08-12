@@ -27,7 +27,7 @@ class Orm implements IOrm
     constructor(parserManager:Parser){
         this.languages={};
         this.dialects={};
-        this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},databases:[]};
+        this.config={schemas:{path:process.cwd()},state:{path:path.join(process.cwd(),'state')},databases:[]};
         this._cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
@@ -44,23 +44,19 @@ class Orm implements IOrm
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
     }
-    public async loadConfig(path:string):Promise<void>
+    public async loadConfig(path:string=process.cwd()):Promise<void>
     {
         this.config = await ConfigExtends.apply(path);
-        if(this.config.state.sourceType == 'path'){
-            if(!fs.existsSync(this.config.state.path))
-                fs.mkdirSync(this.config.state.path);
-        } 
-        let _schemas:any={};
-        if(this.config.schemas.sourceType=='path'){
-            _schemas =  await ConfigExtends.apply(this.config.schemas.path);
-            if(_schemas){
-                for(const p in _schemas){
-                    if(p=='abstract')continue;
-                    this.schema.load(_schemas[p]);
-                }
+        if(!fs.existsSync(this.config.state.path))
+            fs.mkdirSync(this.config.state.path);
+        let _schemas:any={};        
+        _schemas =  await ConfigExtends.apply(this.config.schemas.path);
+        if(_schemas){
+            for(const p in _schemas){
+                if(p=='abstract')continue;
+                this.schema.load(_schemas[p]);
             }
-        }            
+        }           
         for(const p in this.config.databases){
             const database = this.config.databases[p];
             let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
