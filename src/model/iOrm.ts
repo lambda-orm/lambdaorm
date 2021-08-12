@@ -22,6 +22,6 @@ export interface IOrm
     deserialize(serialized:string,language:string):CompiledExpression;
     compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>;
     createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>;
-    execute(operand:Operand,context:any,namespace:string,transaction?:ITransaction):Promise<any>;
-    executeSentence(sentence:any,namespace:string,transaction?:ITransaction):Promise<any>;
+    execute(operand:Operand,context:any,database:string,transaction?:ITransaction):Promise<any>;
+    executeSentence(sentence:any,database:string,transaction?:ITransaction):Promise<any>;
 }

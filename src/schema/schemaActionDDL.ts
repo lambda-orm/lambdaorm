@@ -11,23 +11,23 @@ export abstract class SchemaActionDDL
         this.schema=schema;
     }
     public abstract sentence(dialect:string):any[];
-    public async execute(namespace:string,transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
+    public async execute(database:string,transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {       
-        let _namespace= this.orm.database.get(namespace);
-        let config = this.orm.connection.get(_namespace.name);
+        let _database= this.orm.database.get(database);
+        let config = this.orm.connection.get(_database.name);
         let sentences = this.sentence(config.dialect);  
         let results:ExecutionSentenceResult[]=[]; 
         if(transaction){            
-            results=await this.executeSentences(namespace,sentences,transaction,tryAllCan);            
+            results=await this.executeSentences(database,sentences,transaction,tryAllCan);            
         }else{
             sentences = this.sentence(config.dialect);
-            await this.orm.createTransaction(_namespace.name,async (transaction)=>{
-                results=await this.executeSentences(namespace,sentences,transaction,tryAllCan);
+            await this.orm.createTransaction(_database.name,async (transaction)=>{
+                results=await this.executeSentences(database,sentences,transaction,tryAllCan);
             });
         }
         return {results:results}
     }
-    protected async executeSentences(namespace:string,sentences:string[],transaction:ITransaction,tryAllCan:boolean):Promise<ExecutionSentenceResult[]>
+    protected async executeSentences(database:string,sentences:string[],transaction:ITransaction,tryAllCan:boolean):Promise<ExecutionSentenceResult[]>
     {
         let results:ExecutionSentenceResult[]=[];
         let sentence:any; 
@@ -35,7 +35,7 @@ export abstract class SchemaActionDDL
             for(let i=0;i<sentences.length;i++){                
                 sentence = sentences[i];
                 try{
-                    const result= await this.orm.executeSentence(sentence,namespace,transaction);
+                    const result= await this.orm.executeSentence(sentence,database,transaction);
                     results.push({result:result,sentence:sentence}); 
                 }
                 catch(error){
@@ -47,7 +47,7 @@ export abstract class SchemaActionDDL
             try{
                 for(let i=0;i<sentences.length;i++){                
                     sentence = sentences[i];
-                    const result= await this.orm.executeSentence(sentence,namespace,transaction);
+                    const result= await this.orm.executeSentence(sentence,database,transaction);
                     results.push({result:result,sentence:sentence});
                 }
             }

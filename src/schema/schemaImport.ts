@@ -4,20 +4,20 @@ import {ITransaction} from '../connection'
 
 export class SchemaImport extends SchemaActionDML
 {   
-    public async execute(data:SchemaData,mapping:any,pending:any[],namespace:string,transaction?:ITransaction):Promise<void>
+    public async execute(data:SchemaData,mapping:any,pending:any[],database:string,transaction?:ITransaction):Promise<void>
     {  
         let schemaExpression = this.build(this.schema);
-        let _namespace= this.orm.database.get(namespace);
+        let _database= this.orm.database.get(database);
         const entitiesExpression = this.sort(schemaExpression.entities);
         if(transaction){
-            await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);
+            await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,database,transaction);
         }else{
-            await this.orm.createTransaction(_namespace.name,async (transaction)=>{ 
-                await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);
+            await this.orm.createTransaction(_database.name,async (transaction)=>{ 
+                await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,database,transaction);
             }); 
         }
     }
-    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,pendings:any[],namespace:string,transaction:ITransaction)
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,pendings:any[],database:string,transaction:ITransaction)
     {        
         for(let i =0;i<entitiesExpression.length;i++){
             let entityExpression = entitiesExpression[i];
@@ -26,7 +26,7 @@ export class SchemaImport extends SchemaActionDML
                 let aux:any={};
                 this.loadExternalIds(entityData.entity,entityData.rows,aux)
                 this.solveInternalsIds(entityData.entity,entityData.rows,mapping,pendings);
-                await this.orm.expression(entityExpression.expression).execute(entityData.rows,namespace,transaction);
+                await this.orm.expression(entityExpression.expression).execute(entityData.rows,database,transaction);
                 this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
             }               
         }
@@ -54,7 +54,7 @@ export class SchemaImport extends SchemaActionDML
                     values[relation.from]= internalId;
                     for(const p in entity.uniqueKey)
                         values[entity.uniqueKey[p]]= row.keys[p];                    
-                    await this.orm.expression(expression).execute(values,namespace,transaction); 
+                    await this.orm.expression(expression).execute(values,database,transaction); 
                 }else{
                     stillPending.push(row);
                 }               

@@ -3,7 +3,7 @@ export interface Config
 {
     schemas: ConfigSchemas
     state: ConfigState
-    namespaces:Namespace[]
+    databases:Database[]
 }
 export interface ConfigSchemas
 {
@@ -15,7 +15,7 @@ export interface ConfigState
     sourceType: string
     path?:string
 }
-export interface Namespace
+export interface Database
 {
     name: string
     dialect: string

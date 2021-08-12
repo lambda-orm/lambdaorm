@@ -1,4 +1,4 @@
-import {Schema,Entity,Property,Relation,Index,Delta,IOrm,Namespace} from '../model'
+import {Schema,Entity,Property,Relation,Index,Delta,IOrm,Database} from '../model'
 import {SchemaSync,SchemaData,SchemaDrop} from '../schema'
 import {ITransaction,ConnectionConfig} from '../connection'
 import {DatabaseSync} from './databaseSync'
@@ -8,43 +8,43 @@ const path = require('path');
 
 export class DatabaseManager
 {
-    public namespaces:any
+    public databases:any
     private orm:IOrm 
     constructor(orm:IOrm){
         this.orm=orm;
-        this.namespaces={};
+        this.databases={};
     }
-    public load(namespace:Namespace):void
+    public load(database:Database):void
     {   
-        let connectionConfig:ConnectionConfig={name:namespace.name,dialect:namespace.dialect,connection:{}};
-        if(namespace.connectionSource== null || namespace.connectionSource=='direct'){
-            connectionConfig.connection=namespace.connection;
+        let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
+        if(database.connectionSource== null || database.connectionSource=='direct'){
+            connectionConfig.connection=database.connection;
         }
-        else if(namespace.connectionSource=='env'){
-            const value = process.env[namespace.connection] as string;
+        else if(database.connectionSource=='env'){
+            const value = process.env[database.connection] as string;
             connectionConfig.connection= JSON.parse(value);
         }
         this.orm.connection.load(connectionConfig); 
-        this.namespaces[namespace.name] =namespace;
+        this.databases[database.name] =database;
     }
-    public get(name:string):Namespace 
+    public get(name:string):Database 
     {        
-        return this.namespaces[name]as Namespace
+        return this.databases[name]as Database
     }
     public sync(name:string):DatabaseSync
     {   
-        let namespace = this.get(name);
-        return new DatabaseSync(this.orm,namespace);
+        let database = this.get(name);
+        return new DatabaseSync(this.orm,database);
     }
     public clean(name:string):DatabaseClean
     {       
-        let namespace = this.get(name); 
-        return new DatabaseClean(this.orm,namespace);        
+        let database = this.get(name); 
+        return new DatabaseClean(this.orm,database);        
     }
     public model(name:string):string
     {       
-        let namespace = this.get(name); 
-        const schema:Schema = this.orm.schema.get(namespace.schema) as Schema;
+        let database = this.get(name); 
+        const schema:Schema = this.orm.schema.get(database.schema) as Schema;
         return  this.orm.schema.model(schema);      
     }
     public async export(name:string,transaction?:ITransaction):Promise<SchemaData>

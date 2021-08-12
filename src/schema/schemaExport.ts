@@ -4,27 +4,27 @@ import {ITransaction} from '../connection'
 
 export class SchemaExport extends SchemaActionDML
 {   
-    public async execute(namespace:string,transaction?:ITransaction):Promise<SchemaData>
+    public async execute(database:string,transaction?:ITransaction):Promise<SchemaData>
     {          
         let schemaExpression = this.build(this.schema);
         let context={};
         if(transaction){
-            return await this.executeEntitiesExpression(schemaExpression.entities,context,namespace,transaction);
+            return await this.executeEntitiesExpression(schemaExpression.entities,context,database,transaction);
         }else{
             let schemaExport:SchemaData={entities:[]};
-            let _namespace= this.orm.database.get(namespace);
-            await this.orm.createTransaction(_namespace.name,async (transaction)=>{ 
-                schemaExport=await this.executeEntitiesExpression(schemaExpression.entities,context,namespace,transaction);
+            let _database= this.orm.database.get(database);
+            await this.orm.createTransaction(_database.name,async (transaction)=>{ 
+                schemaExport=await this.executeEntitiesExpression(schemaExpression.entities,context,database,transaction);
             });
             return schemaExport;
         } 
     }
-    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],context:any,namespace:string,transaction:ITransaction)
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],context:any,database:string,transaction:ITransaction)
     {
         let schemaExport:SchemaData={entities:[]};
         for(let i =0;i<entitiesExpression.length;i++){
             let entityExpression = entitiesExpression[i];
-            let rows = await this.orm.expression(entityExpression.expression).execute(context,namespace,transaction);
+            let rows = await this.orm.expression(entityExpression.expression).execute(context,database,transaction);
             schemaExport.entities.push({entity:entityExpression.entity,rows:rows });
         }
         return schemaExport;

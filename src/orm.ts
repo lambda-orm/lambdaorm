@@ -1,4 +1,4 @@
-import {Cache,Operand,IOrm,Context,Namespace,Config } from './model'
+import {Cache,Operand,IOrm,Context,Config } from './model'
 import {Model,Parser} from './parser/index'
 import {Expression,CompiledExpression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
@@ -27,7 +27,7 @@ class Orm implements IOrm
     constructor(parserManager:Parser){
         this.languages={};
         this.dialects={};
-        this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},namespaces:[]};
+        this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},databases:[]};
         this.cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
@@ -61,8 +61,8 @@ class Orm implements IOrm
                 }
             }
         }              
-        for(const p in this.config.namespaces)
-          this.database.load(config.namespaces[p]);
+        for(const p in this.config.databases)
+          this.database.load(config.databases[p]);
     }
     public get parser():Parser
     {
@@ -117,24 +117,24 @@ class Orm implements IOrm
        let operand= this.language(dialect).operand.deserialize(serialized);
        return new CompiledExpression(this,operand,dialect);
     }
-    public async execute(operand:Operand,context:any,namespace:string,transaction?:ITransaction):Promise<any>
+    public async execute(operand:Operand,context:any,database:string,transaction?:ITransaction):Promise<any>
     {
         try{
             let _context = new Context(context);
-            let _namespace= this.database.get(namespace);
+            let _database= this.database.get(database);
             if(transaction){
-                return await this.language(_namespace.dialect).executor.execute(operand,_context,transaction);
+                return await this.language(_database.dialect).executor.execute(operand,_context,transaction);
             }else{    
 
                 let result;
                 if(operand.children.length==0){
-                    let executor =this.connectionManager.createExecutor(_namespace.name);
-                    result = await this.language(_namespace.dialect).executor.execute(operand,_context,executor);
+                    let executor =this.connectionManager.createExecutor(_database.name);
+                    result = await this.language(_database.dialect).executor.execute(operand,_context,executor);
                 }
                 else
                 {
-                    await this.createTransaction(_namespace.name,async (transaction)=>{
-                        result= await this.language(_namespace.dialect).executor.execute(operand,_context,transaction);
+                    await this.createTransaction(_database.name,async (transaction)=>{
+                        result= await this.language(_database.dialect).executor.execute(operand,_context,transaction);
                     });
                 }
                 return result;                    
@@ -144,14 +144,14 @@ class Orm implements IOrm
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async executeSentence(sentence:any,namespace:string,transaction?:ITransaction):Promise<any>
+    public async executeSentence(sentence:any,database:string,transaction?:ITransaction):Promise<any>
     {
         try{
-            let _namespace= this.database.get(namespace);
+            let _database= this.database.get(database);
             if(transaction){
                 return await transaction.execute(sentence);
             }else{
-                let executor =this.connectionManager.createExecutor(_namespace.name);
+                let executor =this.connectionManager.createExecutor(_database.name);
                 return await executor.execute(sentence); 
             }           
         }catch(error){

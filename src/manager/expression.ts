@@ -26,11 +26,11 @@ export class Expression
        let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
        return new CompiledExpression(this.orm,operand,dialect)
     }  
-    public async execute(context:any,namespace:string,transaction?:ITransaction)
+    public async execute(context:any,database:string,transaction?:ITransaction)
     {  
-        let _namespace= this.orm.database.get(namespace);
-        let compiled = await this.compile(_namespace.dialect,_namespace.schema); 
-        return await compiled.execute(context,namespace,transaction);
+        let _database= this.orm.database.get(database);
+        let compiled = await this.compile(_database.dialect,_database.schema); 
+        return await compiled.execute(context,database,transaction);
     }
 }
 
