@@ -4,7 +4,7 @@ schemas:
 state:
   sourceType: path  
   path: test/state
-namespaces:
+databases:
   - name: source
     dialect: mysql
     connectionSource: env
