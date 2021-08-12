@@ -40,14 +40,14 @@
       "others": {
         "delimiterSpaces": "`{name}`",
         "variable": "?",
-        "false": "FALSE",
-        "true": "TRUE",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "false": "FALSE",
+        "true": "TRUE"
       },
       "functions": {
         "numeric": {
@@ -219,8 +219,8 @@
         "column": "{name}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "0",
-        "true": "1"
+        "false": "FALSE",
+        "true": "TRUE"
       },
       "types": {
         "boolean": "BOOLEAN",
@@ -457,14 +457,14 @@
       "others": {
         "delimiterSpaces": "`{name}`",
         "variable": "?",
-        "false": "FALSE",
-        "true": "TRUE",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "false": "FALSE",
+        "true": "TRUE"
       },
       "functions": {
         "numeric": {
@@ -686,8 +686,8 @@
         "column": "{name}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "0",
-        "true": "1"
+        "false": "FALSE",
+        "true": "TRUE"
       },
       "operators": {
         "unary": {
@@ -880,22 +880,22 @@
         "update": "UPDATE {name} {alias} SET {assings}",
         "delete": "DELETE FROM {name} {alias}"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "others": {
+        "variable": "${number}",
         "delimiterSpaces": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
-        "variable": ":{name}",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "0",
-        "true": "1"
+        "false": "FALSE",
+        "true": "TRUE"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "operators": {
         "unary": {
@@ -1103,8 +1103,8 @@
       "column": "{name}",
       "from": "FROM {name} {alias} ",
       "join": "INNER JOIN {name} {alias} ON {relation}",
-      "false": "0",
-      "true": "1"
+      "false": "FALSE",
+      "true": "TRUE"
     },
     "operators": {
       "unary": {

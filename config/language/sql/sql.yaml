@@ -54,8 +54,8 @@ others:
   column: '{name}'
   from: 'FROM {name} {alias} '
   join: 'INNER JOIN {name} {alias} ON {relation}'
-  false: '0'
-  true: '1'
+  false: 'FALSE'
+  true: 'TRUE'
 operators:
   unary:
     '-': '- {0}'

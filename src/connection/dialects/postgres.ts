@@ -54,7 +54,7 @@ export class PostgresConnection extends Connection
                         value='null';
                     }else{
                         switch(parameter.type){
-                            case 'bool':
+                            case 'boolean':
                                 value=value?'true':'false';break;
                             case 'string':
                                 value=Helper.escape(value);
@@ -87,12 +87,18 @@ export class PostgresConnection extends Connection
             console.log(error);
             throw error;
         }
-        
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
-    {        
-        const result = await this._execute(sql,params);
-        return result.rowCount;
+    {       
+        try
+        { 
+            const result = await this._execute(sql,params);
+            return result.rowCount;
+        }
+        catch(error){
+            console.log(error);
+            throw error;
+        }
     }
     public async delete(sql:string,params:Parameter[]):Promise<number>
     {        
@@ -119,10 +125,17 @@ export class PostgresConnection extends Connection
         this.inTransaction=false;
     }
     protected async _execute(sql:string,params:Parameter[]=[]){
+                
         let values:any[]=[];
         for(let i=0;i<params.length;i++)
-            values.push(params[i].value);     
-        
-        return await this.cnx.query(sql,values);
+            values.push(params[i].value); 
+        try
+        { 
+            return await this.cnx.query(sql,values);
+        }
+        catch(error){
+            console.log(error);
+            throw error;
+        }
     }   
 }

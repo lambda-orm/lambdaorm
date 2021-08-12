@@ -15,8 +15,6 @@ dml:
 others:
   delimiterSpaces: '`{name}`'
   variable: '?'
-  false: 'FALSE'
-  true: 'TRUE'
 functions:
   numeric:
     atan2: 'ATAN({0},{1})'

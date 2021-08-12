@@ -10,3 +10,5 @@ ddl:
 dml:
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id
   bulkInsert: INSERT INTO {name}({fields}) VALUES 
+others:
+  variable: '${number}'

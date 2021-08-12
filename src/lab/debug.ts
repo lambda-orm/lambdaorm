@@ -2,6 +2,7 @@ import orm from '../orm';
 import '../sintaxis'
 import {IOrm } from '../model'
 const fs = require('fs');
+const path = require('path');
 
 
 async function exec(fn:any){
@@ -307,9 +308,8 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 (async () => { 
 
   try
-  {    
-
-    await orm.init('orm/config.yaml');
+  {  
+    await orm.init(path.join(process.cwd(),'orm/config.yaml'));
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);

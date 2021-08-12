@@ -48,11 +48,11 @@ class Orm implements IOrm
     {
         this.config = await ConfigExtends.apply(configPath);
         if(!this.config.statePath)
-            this.config.statePath=path.join(process.cwd(),'orm','state');
+            this.config.statePath=path.join(process.cwd(),'orm','state');        
+        if(!this.config.schemasPath)
+            this.config.schemasPath=path.join(process.cwd(),'orm','schemas');
         if(!fs.existsSync(this.config.statePath))
-            fs.mkdirSync(this.config.statePath);
-        if(!this.config.statePath)
-            this.config.schemasPath=path.join(process.cwd(),'orm','schemas'); 
+            fs.mkdirSync(this.config.statePath);     
         let _schemas =  await ConfigExtends.apply(this.config.schemasPath);
         if(_schemas){
             for(const p in _schemas){

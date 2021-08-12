@@ -173,7 +173,8 @@ export class SqlSentence extends FunctionRef
     } 
     public build(metadata:SqlDialectMetadata){
         let map =  this.children.find(p=> p.name=='map');   
-        let first = this.children.find(p=> p.name=='first'); 
+        let first = this.children.find(p=> p.name=='first');
+        let select = (first?first:map) as Operand; 
         let filter = this.children.find(p=> p.name=='filter'); 
         let groupBy = this.children.find(p=> p.name=='groupBy');
         let having = this.children.find(p=> p.name=='having'); 
@@ -181,12 +182,27 @@ export class SqlSentence extends FunctionRef
         let insert = this.children.find(p=> p instanceof SqlInsert) as SqlInsert|undefined;
         let update = this.children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;
         let _delete = this.children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
+
+        let variables:SqlVariable[]=[];
+        if(select)this.loadVariables(select,variables);
+        if(insert)this.loadVariables(insert,variables);
+        if(update)this.loadVariables(update,variables);
+        if(_delete)this.loadVariables(_delete,variables);
+        if(filter)this.loadVariables(filter,variables);
+        if(groupBy)this.loadVariables(groupBy,variables);
+        if(having)this.loadVariables(having,variables);
+        if(sort)this.loadVariables(sort,variables);
+        for(let i=0;i<variables.length;i++ ){
+            let variable:SqlVariable = variables[i];
+            variable._number = i+1;
+        }
+
         let text = '';
         if(map || first){
             this.clause='select';
             let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
             let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
-            let select = (first?first:map) as Operand;
+            // let select = (first?first:map) as Operand;
             text = select.build(metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
         }else if(update){
             this.clause='update';
@@ -226,6 +242,13 @@ export class SqlSentence extends FunctionRef
         template =Helper.replaceAll(template,'{alias}',parts[1]);
         return template.trim();
     } 
+    protected loadVariables(operand:Operand,variables:SqlVariable[])
+    {        
+        if(operand instanceof SqlVariable)
+            variables.push(operand);
+        for(let i=0;i<operand.children.length;i++ )
+            this.loadVariables(operand.children[i],variables);
+    }
 }
 export class SqlSentenceInclude extends Operand
 {
