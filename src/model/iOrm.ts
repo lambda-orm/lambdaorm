@@ -1,6 +1,6 @@
 import {Operand,Config } from './../model/index';
 import {ILanguage} from '../language'
-import {ITransaction,ConnectionManager} from '../connection'
+import {Transaction,ConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
 import {Expression,CompiledExpression}  from './../manager'
 import {SchemaManager}  from './../schema'
@@ -21,7 +21,7 @@ export interface IOrm
     lambda(value:Function):Expression;
     deserialize(serialized:string,language:string):CompiledExpression;
     compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>;
-    createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>;
-    execute(operand:Operand,context:any,database:string,transaction?:ITransaction):Promise<any>;
-    executeSentence(sentence:any,database:string,transaction?:ITransaction):Promise<any>;
+    createTransaction(connectionName:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>;
+    execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>;
+    executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>;
 }

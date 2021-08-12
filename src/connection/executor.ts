@@ -1,10 +1,9 @@
 import {Parameter } from '../model'
 import {ConnectionManager } from './connectionManager'
-import {IExecutor } from './iExecutor'
 
-export class Executor implements IExecutor
+export class Executor 
 {
-    private connectionManager:ConnectionManager
+    protected connectionManager:ConnectionManager
     public connectionName:string
     constructor(connectionManager:ConnectionManager,connectionName:string){
         this.connectionManager=connectionManager;

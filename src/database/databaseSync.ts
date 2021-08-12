@@ -1,6 +1,6 @@
 import {Delta,IOrm,Database,Schema} from '../model/index'
 import {SchemaSync,ExecutionSyncResult} from '../schema'
-import {ITransaction} from '../connection'
+import {Transaction} from '../connection'
 
 export class DatabaseSync 
 {
@@ -21,7 +21,7 @@ export class DatabaseSync
         let connection = this.orm.connection.get(this.database.name);
         return (await this.schemaSync(current)).sentence(connection.dialect);
     }
-    public async execute(transaction?:ITransaction):Promise<ExecutionSyncResult>
+    public async execute(transaction?:Transaction):Promise<ExecutionSyncResult>
     {
        let current = this.orm.schema.get(this.database.schema) as Schema;
        let result= await (await this.schemaSync(current)).execute(this.database.name,transaction );

@@ -1,10 +1,10 @@
 import {SchemaDataEntity,SchemaData, SchemaEntityExpression} from './schemaData'
 import {SchemaActionDML} from './schemaActionDML'
-import {ITransaction} from '../connection'
+import {Transaction} from '../connection'
 
 export class SchemaImport extends SchemaActionDML
 {   
-    public async execute(data:SchemaData,mapping:any,pending:any[],database:string,transaction?:ITransaction):Promise<void>
+    public async execute(data:SchemaData,mapping:any,pending:any[],database:string,transaction?:Transaction):Promise<void>
     {  
         let schemaExpression = this.build(this.schema);
         let _database= this.orm.database.get(database);
@@ -17,7 +17,7 @@ export class SchemaImport extends SchemaActionDML
             }); 
         }
     }
-    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,pendings:any[],database:string,transaction:ITransaction)
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,pendings:any[],database:string,transaction:Transaction)
     {        
         for(let i =0;i<entitiesExpression.length;i++){
             let entityExpression = entitiesExpression[i];

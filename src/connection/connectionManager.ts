@@ -2,10 +2,7 @@ import {Connection} from './connection'
 import {ConnectionPool} from './connectionPool'
 import {Executor} from './executor'
 import {Transaction} from './transaction'
-import {IExecutor} from './iExecutor'
-import {ITransaction} from './iTransaction'
 import {ConnectionConfig } from './connectionConfig'
-// import {IConnectionManager } from './iConnectionManager'
 
 // const genericPool = require('generic-pool')
 
@@ -50,11 +47,11 @@ export class ConnectionManager
     {
         await this.pool(connection.config.name).release(connection);
     }
-    public createExecutor(connectionName:string):IExecutor
+    public createExecutor(connectionName:string):Executor
     {
         return new Executor(this,connectionName);
     }
-    public createTransaction(connectionName:string):ITransaction
+    public createTransaction(connectionName:string):Transaction
     {
         return new Transaction(this,connectionName);
     }    

@@ -1,16 +1,13 @@
 import {Parameter} from '../model'
 import {Connection } from './connection'
+import {Executor } from './executor'
 import {ConnectionManager } from './connectionManager'
-import {ITransaction} from './iTransaction'
 
-export class Transaction implements ITransaction
+export class Transaction extends Executor
 {
-    private connectionManager:ConnectionManager
-    public connectionName:string
     private connection?:Connection
     constructor(connectionManager:ConnectionManager,connectionName:string){
-        this.connectionManager=connectionManager;
-        this.connectionName=connectionName; 
+        super(connectionManager,connectionName);
     }    
     public async begin():Promise<void>
     {

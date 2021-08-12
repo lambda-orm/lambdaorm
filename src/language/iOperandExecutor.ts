@@ -1,6 +1,6 @@
 import {Operand,Context} from './../model'
-import {IExecutor} from './../connection'
+import {Executor} from './../connection'
 export interface IOperandExecutor
 {
-    execute(operand:Operand,context:Context,executor?:IExecutor):Promise<any>;
+    execute(operand:Operand,context:Context,executor?:Executor):Promise<any>;
 }

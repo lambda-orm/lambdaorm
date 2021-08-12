@@ -1,6 +1,6 @@
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm,Database} from '../model'
 import {SchemaSync,SchemaData,SchemaDrop} from '../schema'
-import {ITransaction,ConnectionConfig} from '../connection'
+import {Transaction,ConnectionConfig} from '../connection'
 import {DatabaseSync} from './databaseSync'
 import {DatabaseClean} from './databaseClean'
 const fs = require('fs');
@@ -47,12 +47,12 @@ export class DatabaseManager
         const schema:Schema = this.orm.schema.get(database.schema) as Schema;
         return  this.orm.schema.model(schema);      
     }
-    public async export(name:string,transaction?:ITransaction):Promise<SchemaData>
+    public async export(name:string,transaction?:Transaction):Promise<SchemaData>
     {        
         let state = await this.getState(name); 
         return await this.orm.schema.export(state.schema).execute(name,transaction);
     }
-    public async import(name:string,data:SchemaData,transaction?:ITransaction)
+    public async import(name:string,data:SchemaData,transaction?:Transaction)
     {       
         let state = await this.getState(name); 
         await this.orm.schema.import(state.schema).execute(data,state.mapping,state.pending,name,transaction);

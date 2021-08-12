@@ -1,5 +1,5 @@
 import {Operand,IOrm } from './../model'
-import {ITransaction } from './../connection'
+import {Transaction } from './../connection'
 export class CompiledExpression
 {
     private orm:IOrm
@@ -23,7 +23,7 @@ export class CompiledExpression
     {
         return this.orm.language(this.dialect).operand.model(this.operand);
     }      
-    public async execute(context:any,database:string,transaction?:ITransaction):Promise<any>
+    public async execute(context:any,database:string,transaction?:Transaction):Promise<any>
     {  
         return await this.orm.execute(this.operand,context,database,transaction);
     }

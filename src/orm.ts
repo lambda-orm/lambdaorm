@@ -3,7 +3,7 @@ import {Model,Parser} from './parser/index'
 import {Expression,CompiledExpression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
-import {ITransaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool, ConnectionConfig} from './connection'
+import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool, ConnectionConfig} from './connection'
 import {ILanguage} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
@@ -117,7 +117,7 @@ class Orm implements IOrm
        let operand= this.language(dialect).operand.deserialize(serialized);
        return new CompiledExpression(this,operand,dialect);
     }
-    public async execute(operand:Operand,context:any,database:string,transaction?:ITransaction):Promise<any>
+    public async execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>
     {
         try{
             let _context = new Context(context);
@@ -144,7 +144,7 @@ class Orm implements IOrm
             throw 'run: '+operand.name+' error: '+error.toString(); 
         }
     }
-    public async executeSentence(sentence:any,database:string,transaction?:ITransaction):Promise<any>
+    public async executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>
     {
         try{
             let _database= this.database.get(database);
@@ -158,7 +158,7 @@ class Orm implements IOrm
             throw 'error: '+error.toString(); 
         }
     }
-    public async createTransaction(connectionName:string,callback:{(tr:ITransaction): Promise<void>;}):Promise<void>
+    public async createTransaction(connectionName:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
     {        
         const transaction = this.connectionManager.createTransaction(connectionName);
         try

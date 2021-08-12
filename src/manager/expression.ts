@@ -1,5 +1,5 @@
 import {IOrm} from './../model'
-import {ITransaction,ConnectionConfig} from './../connection'
+import {Transaction} from './../connection'
 import {CompiledExpression} from './compiledExpression'
 import {NodeExpression} from './nodeExpression'
 
@@ -26,7 +26,7 @@ export class Expression
        let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
        return new CompiledExpression(this.orm,operand,dialect)
     }  
-    public async execute(context:any,database:string,transaction?:ITransaction)
+    public async execute(context:any,database:string,transaction?:Transaction)
     {  
         let _database= this.orm.database.get(database);
         let compiled = await this.compile(_database.dialect,_database.schema); 

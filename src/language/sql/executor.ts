@@ -1,6 +1,6 @@
 import {Operand,Context,Parameter } from './../../model'
 import {IOperandExecutor} from '../'
-import {IExecutor}  from '../../connection'
+import {Executor}  from '../../connection'
 import {SqlSentenceInclude,SqlQuery} from './operands'
 import {SqlLanguage} from './language'
 import {Helper} from './../../helper'
@@ -12,13 +12,13 @@ export class SqlExecutor implements IOperandExecutor
     constructor(language:SqlLanguage){
         this.language=language;
     }
-    public async execute(operand:Operand,context:Context,executor:IExecutor):Promise<any>
+    public async execute(operand:Operand,context:Context,executor:Executor):Promise<any>
     {   
         let query:SqlQuery = operand as SqlQuery
         let metadata = this.language.metadata(query.dialect) 
         return await this._execute(query,context,metadata,executor);
     }
-    protected async _execute(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:IExecutor):Promise<any>
+    protected async _execute(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     {          
         let result:any;    
         switch(query.name){
@@ -31,7 +31,7 @@ export class SqlExecutor implements IOperandExecutor
         }
         return result;
     }
-    protected async select(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:IExecutor):Promise<any>
+    protected async select(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     {           
         let mainResult = await executor.select(query.sentence,this.params(query.parameters,metadata,context));
         if(mainResult.length>0){
@@ -58,7 +58,7 @@ export class SqlExecutor implements IOperandExecutor
         }
         return mainResult;
     }
-    protected async insert(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:IExecutor):Promise<number>
+    protected async insert(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<number>
     {        
         // before insert the relationships of the type oneToOne and oneToMany
         for(const p in query.children){
@@ -95,7 +95,7 @@ export class SqlExecutor implements IOperandExecutor
         }        
         return insertId;
     }
-    protected async bulkInsert(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:IExecutor):Promise<number[]>
+    protected async bulkInsert(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<number[]>
     { 
         // before insert the relationships of the type oneToOne and oneToMany
         for(const p in query.children){
@@ -149,7 +149,7 @@ export class SqlExecutor implements IOperandExecutor
         }      
         return ids;
     }
-    protected async update(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:IExecutor):Promise<any>
+    protected async update(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     { 
         let changeCount = await executor.update(query.sentence,this.params(query.parameters,metadata,context));
         for(const p in query.children){
@@ -174,7 +174,7 @@ export class SqlExecutor implements IOperandExecutor
         }        
         return changeCount; 
     }
-    protected async delete(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:IExecutor):Promise<any>
+    protected async delete(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     { 
         //before remove relations entities
         for(const p in query.children){

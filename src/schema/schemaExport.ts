@@ -1,10 +1,10 @@
 import {SchemaData, SchemaEntityExpression} from './schemaData'
 import {SchemaActionDML} from './schemaActionDML'
-import {ITransaction} from '../connection'
+import {Transaction} from '../connection'
 
 export class SchemaExport extends SchemaActionDML
 {   
-    public async execute(database:string,transaction?:ITransaction):Promise<SchemaData>
+    public async execute(database:string,transaction?:Transaction):Promise<SchemaData>
     {          
         let schemaExpression = this.build(this.schema);
         let context={};
@@ -19,7 +19,7 @@ export class SchemaExport extends SchemaActionDML
             return schemaExport;
         } 
     }
-    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],context:any,database:string,transaction:ITransaction)
+    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],context:any,database:string,transaction:Transaction)
     {
         let schemaExport:SchemaData={entities:[]};
         for(let i =0;i<entitiesExpression.length;i++){

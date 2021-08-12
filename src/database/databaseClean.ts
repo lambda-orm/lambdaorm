@@ -1,6 +1,6 @@
 import {Delta,IOrm,Database,Schema} from '../model/index'
 import {SchemaDrop} from '../schema'
-import {ITransaction,ExecutionResult} from '../connection'
+import {Transaction,ExecutionResult} from '../connection'
 
 export class DatabaseClean 
 {
@@ -15,7 +15,7 @@ export class DatabaseClean
         let connection = this.orm.connection.get(this.database.name);
         return (await this.schemaDrop()).sentence(connection.dialect);
     }
-    public async execute(transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
+    public async execute(transaction?:Transaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {
         let result= await (await this.schemaDrop()).execute(this.database.name,transaction,tryAllCan);
         await this.orm.database.removeState(this.database.name);

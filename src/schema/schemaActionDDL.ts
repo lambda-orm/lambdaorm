@@ -1,6 +1,6 @@
 import {IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
-import {ITransaction,ConnectionConfig,ExecutionResult,ExecutionSentenceResult} from '../connection'
+import {Transaction,ConnectionConfig,ExecutionResult,ExecutionSentenceResult} from '../connection'
 
 export abstract class SchemaActionDDL
 {    
@@ -11,7 +11,7 @@ export abstract class SchemaActionDDL
         this.schema=schema;
     }
     public abstract sentence(dialect:string):any[];
-    public async execute(database:string,transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
+    public async execute(database:string,transaction?:Transaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {       
         let _database= this.orm.database.get(database);
         let config = this.orm.connection.get(_database.name);
@@ -27,7 +27,7 @@ export abstract class SchemaActionDDL
         }
         return {results:results}
     }
-    protected async executeSentences(database:string,sentences:string[],transaction:ITransaction,tryAllCan:boolean):Promise<ExecutionSentenceResult[]>
+    protected async executeSentences(database:string,sentences:string[],transaction:Transaction,tryAllCan:boolean):Promise<ExecutionSentenceResult[]>
     {
         let results:ExecutionSentenceResult[]=[];
         let sentence:any; 
