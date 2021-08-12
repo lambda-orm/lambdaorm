@@ -7,7 +7,7 @@ export class SchemaImport extends SchemaActionDML
     public async execute(data:SchemaData,mapping:any,pending:any[],namespace:string,transaction?:ITransaction):Promise<void>
     {  
         let schemaExpression = this.build(this.schema);
-        let _namespace= this.orm.namespace.get(namespace);
+        let _namespace= this.orm.database.get(namespace);
         const entitiesExpression = this.sort(schemaExpression.entities);
         if(transaction){
             await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,namespace,transaction);

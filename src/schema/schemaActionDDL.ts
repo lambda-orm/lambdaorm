@@ -13,7 +13,7 @@ export abstract class SchemaActionDDL
     public abstract sentence(dialect:string):any[];
     public async execute(namespace:string,transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {       
-        let _namespace= this.orm.namespace.get(namespace);
+        let _namespace= this.orm.database.get(namespace);
         let config = this.orm.connection.get(_namespace.name);
         let sentences = this.sentence(config.dialect);  
         let results:ExecutionSentenceResult[]=[]; 

@@ -1,8 +1,8 @@
 import {Delta,IOrm,Namespace,Schema} from '../model/index'
-import {SchemaDrop} from './../schema'
+import {SchemaDrop} from '../schema'
 import {ITransaction,ExecutionResult} from '../connection'
 
-export class NamespaceDrop 
+export class DatabaseClean 
 {
     protected orm:IOrm
     protected namespace:Namespace
@@ -18,12 +18,12 @@ export class NamespaceDrop
     public async execute(transaction?:ITransaction,tryAllCan:boolean=false):Promise<ExecutionResult>
     {
         let result= await (await this.schemaDrop()).execute(this.namespace.name,transaction,tryAllCan);
-        await this.orm.namespace.removeState(this.namespace.name);
+        await this.orm.database.removeState(this.namespace.name);
         return result;
     }
     protected async schemaDrop():Promise<SchemaDrop>
     {   
-        let state = await this.orm.namespace.getState(this.namespace.name);
+        let state = await this.orm.database.getState(this.namespace.name);
         return this.orm.schema.drop(state.schema);              
     }
 }

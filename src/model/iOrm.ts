@@ -4,7 +4,7 @@ import {ITransaction,IConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
 import {Expression,CompiledExpression}  from './../manager'
 import {SchemaManager}  from './../schema'
-import {NamespaceManager}  from './../namespace'
+import {DatabaseManager}  from '../database'
 
 export interface IOrm
 {       
@@ -13,7 +13,7 @@ export interface IOrm
     config:Config
     get parser():Parser;
     get schema():SchemaManager;
-    get namespace():NamespaceManager;
+    get database():DatabaseManager;
     language(dialect:string):ILanguage
     loadConfig(config:Config):Promise<void> 
     get connection():IConnectionManager;

@@ -1,14 +1,12 @@
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm,Namespace} from '../model'
-import {SchemaSync,SchemaData,SchemaDrop} from './../schema'
+import {SchemaSync,SchemaData,SchemaDrop} from '../schema'
 import {ITransaction,ConnectionConfig} from '../connection'
-import {NamespaceSync} from './namespaceSync'
-import {NamespaceDrop} from './namespaceDrop'
+import {DatabaseSync} from './databaseSync'
+import {DatabaseClean} from './databaseClean'
 const fs = require('fs');
 const path = require('path');
 
-
-
-export class NamespaceManager
+export class DatabaseManager
 {
     public namespaces:any
     private orm:IOrm 
@@ -33,15 +31,15 @@ export class NamespaceManager
     {        
         return this.namespaces[name]as Namespace
     }
-    public sync(name:string):NamespaceSync
+    public sync(name:string):DatabaseSync
     {   
         let namespace = this.get(name);
-        return new NamespaceSync(this.orm,namespace);
+        return new DatabaseSync(this.orm,namespace);
     }
-    public drop(name:string):NamespaceDrop
+    public clean(name:string):DatabaseClean
     {       
         let namespace = this.get(name); 
-        return new NamespaceDrop(this.orm,namespace);        
+        return new DatabaseClean(this.orm,namespace);        
     }
     public model(name:string):string
     {       

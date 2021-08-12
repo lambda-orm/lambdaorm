@@ -285,25 +285,25 @@ async function bulkInsert2(orm:IOrm){
   let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')));
 }
 async function generateModel(orm:IOrm,name:string){
-  let content = orm.namespace.model(name);
+  let content = orm.database.model(name);
   fs.writeFileSync('src/lab/model.d.ts',content);
 }
 async function schemaSync(orm:IOrm,target:string){
-  await orm.namespace.sync(target).execute();
+  await orm.database.sync(target).execute();
 }
 async function schemaDrop(orm:IOrm,target:string,TryAndContinue:boolean=false){
-  if(orm.namespace.exists(target))
-    await orm.namespace.drop(target).execute(undefined,TryAndContinue);
+  if(orm.database.exists(target))
+    await orm.database.clean(target).execute(undefined,TryAndContinue);
 }
 async function schemaExport(orm:IOrm,source:string){
   let exportFile = 'test/data/'+source+'-export.json';  
-  let data= await orm.namespace.export(source);
+  let data= await orm.database.export(source);
   fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
 }
 async function schemaImport(orm:IOrm,source:string,target:string){
   let sourceFile = 'test/data/'+source+'-export.json';
   let data = JSON.parse(fs.readFileSync(sourceFile));
-  await orm.namespace.import(target,data);
+  await orm.database.import(target,data);
 }
 
 (async () => { 

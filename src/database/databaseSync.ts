@@ -1,8 +1,8 @@
 import {Delta,IOrm,Namespace,Schema} from '../model/index'
-import {SchemaSync,ExecutionSyncResult} from './../schema'
+import {SchemaSync,ExecutionSyncResult} from '../schema'
 import {ITransaction} from '../connection'
 
-export class NamespaceSync 
+export class DatabaseSync 
 {
     protected orm:IOrm
     protected namespace:Namespace
@@ -25,12 +25,12 @@ export class NamespaceSync
     {
        let current = this.orm.schema.get(this.namespace.schema) as Schema;
        let result= await (await this.schemaSync(current)).execute(this.namespace.name,transaction );
-       await this.orm.namespace.updateSchemaState(this.namespace.name,current);
+       await this.orm.database.updateSchemaState(this.namespace.name,current);
        return result;
     }
     protected async schemaSync(current:Schema):Promise<SchemaSync>
     {           
-        let state = await this.orm.namespace.getState(this.namespace.name);        
+        let state = await this.orm.database.getState(this.namespace.name);        
         return this.orm.schema.sync(current,state.schema);                    
     }
 }
