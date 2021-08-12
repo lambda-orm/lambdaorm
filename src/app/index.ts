@@ -3,7 +3,6 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import router from "./routes";
 import orm  from "./../orm"
-const ConfigExtends = require("config-extends");
 
 const app: Application = express();
 app.use(express.json());
@@ -12,17 +11,7 @@ app.use(express.static("public"));
 
 (async () => { 
     try {
-
-      let schemas =  await ConfigExtends.apply('test/config/schema');
-      for(const p in schemas){
-          let schema =  schemas[p];
-          orm.schema.load(schema);
-      }
-
-      let cnx = {name:'northwind',dialect:'mysql',schema:'northwind',connection:'mysql://root:root@0.0.0.0:3306/northwind'};
-      orm.connection.load(cnx);
-
-
+      await orm.init('orm/config.yaml');
       const host = process.env.HOST || 'http://localhost';
       const port = process.env.PORT || '8000';  
 
