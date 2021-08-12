@@ -1,6 +1,6 @@
 import orm from '../orm';
 import '../sintaxis'
-import {IOrm,Schema,Config } from '../model'
+import {IOrm } from '../model'
 const fs = require('fs');
 
 
@@ -16,8 +16,8 @@ async function exec(fn:any){
     return result;  
 }
 
-async function queries(orm:IOrm){
-
+async function queries(orm:IOrm)
+{  
   const expression = ()=> Customers.include(p=> p.orders.include(p => p.details))
   //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
   let context:any = {id:10248};
@@ -308,7 +308,8 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
   try
   {    
-    await orm.loadConfig('orm/config.yaml');
+
+    await orm.init('orm/config.yaml');
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);

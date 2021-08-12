@@ -27,7 +27,7 @@ class Orm implements IOrm
     constructor(parserManager:Parser){
         this.languages={};
         this.dialects={};
-        this.config={databases:[]};
+        this.config={};
         this._cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
@@ -44,9 +44,9 @@ class Orm implements IOrm
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
     }
-    public async loadConfig(source:string=process.cwd()):Promise<void>
+    public async init(configPath:string=process.cwd()):Promise<void>
     {
-        this.config = await ConfigExtends.apply(source);
+        this.config = await ConfigExtends.apply(configPath);
         if(!this.config.statePath)
             this.config.statePath=path.join(process.cwd(),'orm','state');
         if(!fs.existsSync(this.config.statePath))
@@ -59,19 +59,21 @@ class Orm implements IOrm
                 if(p=='abstract')continue;
                 this.schema.load(_schemas[p]);
             }
-        }           
-        for(const p in this.config.databases){
-            const database = this.config.databases[p];
-            let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
-            if(database.connectionSource== null || database.connectionSource=='direct'){
-                connectionConfig.connection=database.connection;
+        }
+        if(this.config.databases){
+            for(const p in this.config.databases){
+                const database = this.config.databases[p];
+                let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
+                if(database.connectionSource== null || database.connectionSource=='direct'){
+                    connectionConfig.connection=database.connection;
+                }
+                else if(database.connectionSource=='env'){
+                    const value = process.env[database.connection] as string;
+                    connectionConfig.connection= JSON.parse(value);
+                }
+                this.connection.load(connectionConfig);
+                this.database.load(database);  
             }
-            else if(database.connectionSource=='env'){
-                const value = process.env[database.connection] as string;
-                connectionConfig.connection= JSON.parse(value);
-            }
-            this.connection.load(connectionConfig);
-            this.database.load(database);  
         }
     }
     public get parser():Parser

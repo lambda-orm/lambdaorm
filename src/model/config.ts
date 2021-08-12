@@ -3,7 +3,7 @@ export interface Config
 {
     schemasPath?: string
     statePath?: string
-    databases:Database[]
+    databases?:Database[]
 }
 export interface Database
 {

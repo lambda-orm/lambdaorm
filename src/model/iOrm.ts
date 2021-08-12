@@ -14,7 +14,7 @@ export interface IOrm
     get connection():ConnectionManager
     get database():DatabaseManager
     set cache(value:Cache)
-    loadConfig(path:string):Promise<void>    
+    init(configPath:string):Promise<void>    
     language(dialect:string):ILanguage   
     expression(value:string):Expression
     lambda(value:Function):Expression
