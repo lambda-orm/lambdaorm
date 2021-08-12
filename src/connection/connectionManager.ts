@@ -5,11 +5,11 @@ import {Transaction} from './transaction'
 import {IExecutor} from './iExecutor'
 import {ITransaction} from './iTransaction'
 import {ConnectionConfig } from './connectionConfig'
-import {IConnectionManager } from './iConnectionManager'
+// import {IConnectionManager } from './iConnectionManager'
 
 // const genericPool = require('generic-pool')
 
-export class ConnectionManager implements IConnectionManager
+export class ConnectionManager
 {    
     private dialectsPool:any
     private pools:any

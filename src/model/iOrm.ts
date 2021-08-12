@@ -1,6 +1,6 @@
 import {Operand,Config } from './../model/index';
 import {ILanguage} from '../language'
-import {ITransaction,IConnectionManager} from '../connection'
+import {ITransaction,ConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
 import {Expression,CompiledExpression}  from './../manager'
 import {SchemaManager}  from './../schema'
@@ -16,7 +16,7 @@ export interface IOrm
     get database():DatabaseManager;
     language(dialect:string):ILanguage
     loadConfig(config:Config):Promise<void> 
-    get connection():IConnectionManager;
+    get connection():ConnectionManager;
     expression(value:string):Expression;
     lambda(value:Function):Expression;
     deserialize(serialized:string,language:string):CompiledExpression;

@@ -1,14 +1,14 @@
 import {Parameter} from '../model'
 import {Connection } from './connection'
-import {IConnectionManager } from './iConnectionManager'
+import {ConnectionManager } from './connectionManager'
 import {ITransaction} from './iTransaction'
 
 export class Transaction implements ITransaction
 {
-    private connectionManager:IConnectionManager
+    private connectionManager:ConnectionManager
     public connectionName:string
     private connection?:Connection
-    constructor(connectionManager:IConnectionManager,connectionName:string){
+    constructor(connectionManager:ConnectionManager,connectionName:string){
         this.connectionManager=connectionManager;
         this.connectionName=connectionName; 
     }    

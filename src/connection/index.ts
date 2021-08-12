@@ -7,7 +7,6 @@ export * from './dialects/mysql';
 export * from './dialects/mariadb';
 export * from './dialects/postgres';
 export * from './dialects/mssql';
-export * from './iConnectionManager';
 export * from './iTransaction';
 export * from './connectionConfig';
 export * from './iExecutor';

@@ -3,7 +3,7 @@ import {Model,Parser} from './parser/index'
 import {Expression,CompiledExpression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
-import {ITransaction,IConnectionManager,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool, ConnectionConfig} from './connection'
+import {ITransaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool, ConnectionConfig} from './connection'
 import {ILanguage} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
@@ -19,7 +19,7 @@ class Orm implements IOrm
     private parserManager:Parser
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
-    private connectionManager:IConnectionManager
+    private connectionManager:ConnectionManager
     public languages:any
     public dialects:any
     public config:Config
@@ -76,7 +76,7 @@ class Orm implements IOrm
     {
         return this.databaseManager;
     }
-    public get connection():IConnectionManager
+    public get connection():ConnectionManager
     {
         return this.connectionManager;
     }
