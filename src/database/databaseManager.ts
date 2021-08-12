@@ -15,16 +15,7 @@ export class DatabaseManager
         this.databases={};
     }
     public load(database:Database):void
-    {   
-        let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
-        if(database.connectionSource== null || database.connectionSource=='direct'){
-            connectionConfig.connection=database.connection;
-        }
-        else if(database.connectionSource=='env'){
-            const value = process.env[database.connection] as string;
-            connectionConfig.connection= JSON.parse(value);
-        }
-        this.orm.connection.load(connectionConfig); 
+    {           
         this.databases[database.name] =database;
     }
     public get(name:string):Database 

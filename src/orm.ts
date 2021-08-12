@@ -1,9 +1,9 @@
 import {Cache,Operand,IOrm,Context,Config } from './model'
 import {Model,Parser} from './parser/index'
-import {Expression,CompiledExpression,MemoryCache}  from './manager'
+import {Expression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
-import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,MssqlConnectionPool, ConnectionConfig} from './connection'
+import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
 import {ILanguage} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
@@ -23,7 +23,6 @@ class Orm implements IOrm
     private connectionManager:ConnectionManager
     private languages:any
     private dialects:any
-    
 
     constructor(parserManager:Parser){
         this.languages={};
@@ -61,9 +60,20 @@ class Orm implements IOrm
                     this.schema.load(_schemas[p]);
                 }
             }
-        }              
-        for(const p in this.config.databases)
-          this.database.load(this.config.databases[p]);
+        }            
+        for(const p in this.config.databases){
+            const database = this.config.databases[p];
+            let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
+            if(database.connectionSource== null || database.connectionSource=='direct'){
+                connectionConfig.connection=database.connection;
+            }
+            else if(database.connectionSource=='env'){
+                const value = process.env[database.connection] as string;
+                connectionConfig.connection= JSON.parse(value);
+            }
+            this.connection.load(connectionConfig);
+            this.database.load(database);  
+        }
     }
     public get parser():Parser
     {

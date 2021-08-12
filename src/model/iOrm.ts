@@ -2,7 +2,7 @@ import {Operand,Config,Cache} from './../model/index';
 import {ILanguage} from '../language'
 import {Transaction,ConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
-import {Expression,CompiledExpression}  from './../manager'
+import {Expression}  from './../manager'
 import {SchemaManager}  from './../schema'
 import {DatabaseManager}  from '../database'
 
