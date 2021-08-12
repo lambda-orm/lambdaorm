@@ -1,7 +1,5 @@
-schemas:
-  path: test/schema
-state:
-  path: test/state
+schemasPath: orm/schemas
+statePath: orm/state
 databases:
   - name: source
     schema: northwind:0.0.2

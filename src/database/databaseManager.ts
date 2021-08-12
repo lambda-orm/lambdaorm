@@ -84,6 +84,6 @@ export class DatabaseManager
     }
     protected getStateFile(name:string)
     {
-        return path.join(this.orm.config.state.path,`${name}-state.json`);
+        return path.join(this.orm.config.statePath,`${name}-state.json`);
     } 
 }

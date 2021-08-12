@@ -308,7 +308,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
   try
   {    
-    await orm.loadConfig('test/config.yaml');
+    await orm.loadConfig('orm/config.yaml');
     // await queries(orm);
     // await modify(orm);
     // await crud(orm);

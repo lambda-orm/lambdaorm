@@ -1,17 +1,9 @@
 
 export interface Config
 {
-    schemas: ConfigSchemas
-    state: ConfigState
+    schemasPath?: string
+    statePath?: string
     databases:Database[]
-}
-export interface ConfigSchemas
-{
-    path:string
-}
-export interface ConfigState
-{
-    path:string
 }
 export interface Database
 {
