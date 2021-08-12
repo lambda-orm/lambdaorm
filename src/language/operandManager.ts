@@ -7,7 +7,8 @@ export abstract class OperandManager
     public abstract build(node:Node,dialect:string,scheme?:SchemaHelper):Operand
     public abstract sentence(operand:Operand):any
     public abstract model(operand:Operand):any
-    public deserialize(serialized:any){
+    public deserialize(serialized:any)
+    {
         let operand = this._deserialize(serialized);
         return this.setParent(operand);
     }

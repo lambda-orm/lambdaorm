@@ -21,7 +21,7 @@ export abstract class SchemaActionDDL
             results=await this.executeSentences(database,sentences,transaction,tryAllCan);            
         }else{
             sentences = this.sentence(config.dialect);
-            await this.orm.createTransaction(_database.name,async (transaction)=>{
+            await this.orm.transaction(_database.name,async (transaction)=>{
                 results=await this.executeSentences(database,sentences,transaction,tryAllCan);
             });
         }

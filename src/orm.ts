@@ -15,20 +15,21 @@ const path = require('path');
 
 class Orm implements IOrm
 {
-    private cache:Cache
+    private _cache:Cache
+    public config:Config
     private parserManager:Parser
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
     private connectionManager:ConnectionManager
-    public languages:any
-    public dialects:any
-    public config:Config
+    private languages:any
+    private dialects:any
+    
 
     constructor(parserManager:Parser){
         this.languages={};
         this.dialects={};
         this.config={schemas:{sourceType:'path'},state:{sourceType:'path',path:'./orm'},databases:[]};
-        this.cache= new MemoryCache() 
+        this._cache= new MemoryCache() 
         this.parserManager =  parserManager;
         this.schemaManager= new SchemaManager(this);           
         this.connectionManager= new ConnectionManager();
@@ -44,9 +45,9 @@ class Orm implements IOrm
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
     }
-    public async loadConfig(config:Config):Promise<void>
+    public async loadConfig(path:string):Promise<void>
     {
-        this.config = config;
+        this.config = await ConfigExtends.apply(path);
         if(this.config.state.sourceType == 'path'){
             if(!fs.existsSync(this.config.state.path))
                 fs.mkdirSync(this.config.state.path);
@@ -62,7 +63,7 @@ class Orm implements IOrm
             }
         }              
         for(const p in this.config.databases)
-          this.database.load(config.databases[p]);
+          this.database.load(this.config.databases[p]);
     }
     public get parser():Parser
     {
@@ -80,19 +81,20 @@ class Orm implements IOrm
     {
         return this.connectionManager;
     }
-    public setCache(value:Cache){
-        this.cache=value;
+    public set cache(value:Cache)
+    {
+        this._cache=value;
     }
-    public async compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>
+    public async compile(expression:string,dialect:string,schema:string):Promise<Operand>
     {       
         try{ 
-            let key = dialect+'-exp_'+expression
-            let operand= await this.cache.get(key)
+            let key = dialect+'-exp_'+expression;
+            let operand= await this._cache.get(key);
             if(!operand){
-                let schema = schemaName?this.schemaManager.getInstance(schemaName):undefined;
+                let _schema = this.schemaManager.getInstance(schema);
                 let node= this.parser.parse(expression);
-                operand = this.language(dialect).operand.build(node,dialect,schema);
-                await this.cache.set(key,operand)
+                operand = this.language(dialect).operand.build(node,dialect,_schema);
+                await this._cache.set(key,operand);
             }            
             return operand as Operand; 
         }
@@ -111,12 +113,7 @@ class Orm implements IOrm
         let index = str.indexOf('=>')+2;
         let expression = str.substring(index,str.length);
         return new Expression(this,expression)
-    }
-    public deserialize(serialized:string,dialect:string):CompiledExpression
-    {
-       let operand= this.language(dialect).operand.deserialize(serialized);
-       return new CompiledExpression(this,operand,dialect);
-    }
+    }    
     public async execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>
     {
         try{
@@ -133,7 +130,7 @@ class Orm implements IOrm
                 }
                 else
                 {
-                    await this.createTransaction(_database.name,async (transaction)=>{
+                    await this.transaction(_database.name,async (transaction)=>{
                         result= await this.language(_database.dialect).executor.execute(operand,_context,transaction);
                     });
                 }
@@ -158,9 +155,9 @@ class Orm implements IOrm
             throw 'error: '+error.toString(); 
         }
     }
-    public async createTransaction(connectionName:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
-    {        
-        const transaction = this.connectionManager.createTransaction(connectionName);
+    public async transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
+    {  
+        const transaction = this.connectionManager.createTransaction(database);
         try
         {
             await transaction.begin();

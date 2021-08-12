@@ -1,7 +1,6 @@
 import orm from '../orm';
 import '../sintaxis'
 import {IOrm,Schema,Config } from '../model'
-const ConfigExtends = require("config-extends");
 const fs = require('fs');
 
 
@@ -130,7 +129,7 @@ async function crud(orm:IOrm){
   };
 
   try{
-      orm.createTransaction('default',async (transaction)=>{    
+      orm.transaction('default',async (transaction)=>{    
         //create order
         let orderId = await exec(async()=>(await orm.expression("Orders.insert().include(p => p.details)").execute(order,'source',transaction)));
         //get order
@@ -158,14 +157,13 @@ async function crud(orm:IOrm){
     console.log(error);
   }
 }
-async function scriptsByDialect(orm:IOrm,schemaName:string){ 
-
-  const schema= orm.schema.get(schemaName) as Schema;
-  for(const name in orm.languages['sql'].dialects){
-    console.log('\n\n'+name+' -------------------------------------\n');
-    await exec( async()=>(orm.schema.sync(schema).sentence(name)));
-  } 
-}
+// async function scriptsByDialect(orm:IOrm,schemaName:string){ 
+//   const schema= orm.schema.get(schemaName) as Schema;
+//   for(const name in orm.languages['sql'].dialects){
+//     console.log('\n\n'+name+' -------------------------------------\n');
+//     await exec( async()=>(orm.schema.sync(schema).sentence(name)));
+//   } 
+// }
 async function bulkInsert(orm:IOrm){
   const expression =`Categories.bulkInsert()`;
   const categories =[
@@ -309,9 +307,8 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 (async () => { 
 
   try
-  {
-    let config:Config =  await ConfigExtends.apply('test/config.yaml');
-    await orm.loadConfig(config);
+  {    
+    await orm.loadConfig('test/config.yaml');
 
 // environment variables 
 // ORM_CNN_1= {"name":"default","dialect":"mysql","connection":{"host":"0.0.0.0","port":3306,"user":"root","password":"root","database":"northwind"}}
@@ -346,7 +343,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     await schemaImport(orm,'source','postgres');
     await schemaExport(orm,'postgres');  
        
-    
+  
     
     console.log('Ok')
   }

@@ -1,4 +1,4 @@
-import {Operand,Config } from './../model/index';
+import {Operand,Config,Cache} from './../model/index';
 import {ILanguage} from '../language'
 import {Transaction,ConnectionManager} from '../connection'
 import {Parser} from './../parser/index'
@@ -7,21 +7,19 @@ import {SchemaManager}  from './../schema'
 import {DatabaseManager}  from '../database'
 
 export interface IOrm
-{       
-    languages:any
-    dialects:any
+{    
     config:Config
-    get parser():Parser;
-    get schema():SchemaManager;
-    get database():DatabaseManager;
-    language(dialect:string):ILanguage
-    loadConfig(config:Config):Promise<void> 
-    get connection():ConnectionManager;
-    expression(value:string):Expression;
-    lambda(value:Function):Expression;
-    deserialize(serialized:string,language:string):CompiledExpression;
-    compile(expression:string,dialect:string,schemaName?:string):Promise<Operand>;
-    createTransaction(connectionName:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>;
-    execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>;
-    executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>;
+    get parser():Parser
+    get schema():SchemaManager
+    get connection():ConnectionManager
+    get database():DatabaseManager
+    set cache(value:Cache)
+    loadConfig(path:string):Promise<void>    
+    language(dialect:string):ILanguage   
+    expression(value:string):Expression
+    lambda(value:Function):Expression
+    compile(expression:string,dialect:string,schema:string):Promise<Operand>  
+    execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>
+    executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>
+    transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
 }
