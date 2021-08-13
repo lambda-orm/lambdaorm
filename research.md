@@ -7,6 +7,7 @@ https://github.com/dial-once/node-cache-manager-redis
 https://blog.appsignal.com/2021/03/10/powerful-caching-with-redis-for-nodejs-applications.html
 
 # Unit Test
+https://testdeck.org/pages/guide/setup
 ```
 npx mocha
 ```
@@ -80,8 +81,10 @@ npx mocha
 ## MariaDb
 - [mariadb](https://www.npmjs.com/package/mariadb)
 
-## Sqlite
-- [sqlite3](https://www.npmjs.com/package/sqlite3)
+## Sqlite3
+- [description](https://blog.escuelactec.com/que-es-sqlite/)
+- [tutorial](https://www.sqlitetutorial.net/)
+- [npm](https://www.npmjs.com/package/sqlite3)
 
 ## postgres
 - [postgres](https://www.npmjs.com/package/pg)

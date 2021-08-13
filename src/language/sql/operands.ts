@@ -42,6 +42,9 @@ export class SqlField extends Operand
         this.entity = entity;
         this.mapping  = mapping;  
     }
+    clone(){
+        return new SqlField(this.entity,this.name,this.type,this.mapping);
+    }
     build(metadata:SqlDialectMetadata){ 
         let parts = this.mapping.split('.');
         if(parts.length == 1){
@@ -193,8 +196,7 @@ export class SqlSentence extends FunctionRef
         if(having)this.loadVariables(having,variables);
         if(sort)this.loadVariables(sort,variables);
         for(let i=0;i<variables.length;i++ ){
-            let variable:SqlVariable = variables[i];
-            variable._number = i+1;
+            variables[i]._number = i+1;
         }
 
         let text = '';

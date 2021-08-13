@@ -6,6 +6,26 @@ export class Helper {
     public static replaceAll(str:string, find:string, replace:string) {
         return str.replace(new RegExp(find, 'g'), replace);
     }
+    // public static replace(value:string,search:string,replacement:string):string
+    // {
+    //     return value.split(search).join(replacement);
+    // } 
+    public static clone(obj:any):any
+    {
+        return JSON.parse(JSON.stringify(obj));
+    }
+    public static cloneOperand(obj:any):any
+    {        
+        let children = [];
+        if(obj.children){
+            for(const k in obj.children){
+                let p = obj.children[k];
+                let child = Helper.clone(p);
+                children.push(child);
+            }
+        }
+        return new obj.constructor(obj.name,children);
+    } 
     public static isObject(obj:any) {
         return obj && typeof obj === 'object' && obj.constructor === Object;
     }
@@ -87,11 +107,7 @@ export class Helper {
     public static escape(value:string):string
     {
         return SqlString.escape(value);
-    }
-    public static replace(value:string,search:string,replacement:string):string
-    {
-        return value.split(search).join(replacement);
-    } 
+    }    
     public static tsType(value:string):string
     {
         switch(value){

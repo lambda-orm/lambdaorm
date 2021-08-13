@@ -25,8 +25,7 @@ export class PostgresConnectionPool extends ConnectionPool
     }
 }
 export class PostgresConnection extends Connection
-{   
-    
+{  
     public async select(sql:string,params:Parameter[]):Promise<any>
     {        
         const result= await this._execute(sql,params);
@@ -41,64 +40,51 @@ export class PostgresConnection extends Connection
         return result.rows.length>0?result.rows[0].id:null;
     }
     public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
-    { 
-        try{
-            let rows:string[]=[];
-            for(const p in array){
-                const values = array[p];
-                let row:any[]=[];
-                for(let i=0;i<parameters.length;i++){
-                    const parameter = parameters[i];
-                    let value = values[i];
-                    if(value==null || value==undefined ){
-                        value='null';
-                    }else{
-                        switch(parameter.type){
-                            case 'boolean':
-                                value=value?'true':'false';break;
-                            case 'string':
-                                value=Helper.escape(value);
-                                value=Helper.replace(value,"\\'","\\''");
-                                break;
-                            case 'datetime':
-                            case 'date':
-                            case 'time':    
-                                value=Helper.escape(value);break;
-                        }
+    {       
+        let rows:string[]=[];
+        for(const p in array){
+            const values = array[p];
+            let row:any[]=[];
+            for(let i=0;i<parameters.length;i++){
+                const parameter = parameters[i];
+                let value = values[i];
+                if(value==null || value==undefined ){
+                    value='null';
+                }else{
+                    switch(parameter.type){
+                        case 'boolean':
+                            value=value?'true':'false';break;
+                        case 'string':
+                            value=Helper.escape(value);
+                            value=Helper.replaceAll(value,"\\'","\\''");
+                            break;
+                        case 'datetime':
+                        case 'date':
+                        case 'time':    
+                            value=Helper.escape(value);break;
                     }
-                    row.push(value);
                 }
-                rows.push(`(${row.join(',')})`);
+                row.push(value);
             }
-            let returning = fieldId?'RETURNING '+fieldId:''; 
-            let query = `${sql} ${rows.join(',')} ${returning};`;
-            console.log(query);
-            let result = await this.cnx.query(query);
-            let ids:number[]=[];
-            if(fieldId){
-                let fieldIdlower = fieldId.toLowerCase();
-                for(const p in result.rows){
-                    const id = result.rows[p][fieldIdlower] as number;
-                    ids.push(id);
-                }
-            }
-            return ids;
-        }catch(error){
-            console.log(error);
-            throw error;
+            rows.push(`(${row.join(',')})`);
         }
+        let returning = fieldId?'RETURNING '+fieldId:''; 
+        let query = `${sql} ${rows.join(',')} ${returning};`;
+        let result = await this.cnx.query(query);
+        let ids:number[]=[];
+        if(fieldId){
+            let fieldIdlower = fieldId.toLowerCase();
+            for(const p in result.rows){
+                const id = result.rows[p][fieldIdlower] as number;
+                ids.push(id);
+            }
+        }
+        return ids;
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
-    {       
-        try
-        { 
-            const result = await this._execute(sql,params);
-            return result.rowCount;
-        }
-        catch(error){
-            console.log(error);
-            throw error;
-        }
+    {   
+        const result = await this._execute(sql,params);
+        return result.rowCount;
     }
     public async delete(sql:string,params:Parameter[]):Promise<number>
     {        
@@ -124,18 +110,11 @@ export class PostgresConnection extends Connection
         await this.cnx.query('ROLLBACK');
         this.inTransaction=false;
     }
-    protected async _execute(sql:string,params:Parameter[]=[]){
-                
+    protected async _execute(sql:string,params:Parameter[]=[]):Promise<any>
+    {                
         let values:any[]=[];
         for(let i=0;i<params.length;i++)
             values.push(params[i].value); 
-        try
-        { 
-            return await this.cnx.query(sql,values);
-        }
-        catch(error){
-            console.log(error);
-            throw error;
-        }
+        return await this.cnx.query(sql,values);
     }   
 }

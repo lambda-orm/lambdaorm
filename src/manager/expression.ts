@@ -6,7 +6,7 @@ import {NodeExpression} from './nodeExpression'
 export class Expression
 {
     private orm:IOrm
-    private expression:string    
+    public expression:string    
     private dialect?:string
     constructor(orm:IOrm,expression:string)
     {     

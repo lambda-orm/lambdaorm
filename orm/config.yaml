@@ -25,10 +25,16 @@ databases:
     schema: northwind:0.0.2
     dialect: postgres
     connectionSource: env
-    connection: ORM_CNN_4  
+    connection: ORM_CNN_4
+  # - name: mssql    
+  #   schema: northwind:0.0.2
+  #   dialect: mssql
+  #   connectionSource: env
+  #   connection: ORM_CNN_5     
 
 # environment variables 
 # ORM_CNN_1= {"host":"0.0.0.0","port":3306,"user":"root","password":"root","database":"northwind"}
 # ORM_CNN_2= {"host":"0.0.0.0","port":3307,"user":"root","password":"root","database":"northwind"}
 # ORM_CNN_3= {"host":"0.0.0.0","port":3308,"user":"root","password":"root","database":"northwind"}
 # ORM_CNN_4= {"host":"0.0.0.0","port":5432,"user":"admin","password":"admin","database":"northwind"}      
+# ORM_CNN_5= {"server":"0.0.0.0","authentication":{"type":"default","options":{"userName":"sa","password":"Adm1n_Adm1n"}},"options":{"encrypt":false,"database":"northwind"}}

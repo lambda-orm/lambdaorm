@@ -19,7 +19,7 @@ class SqlEntityContext
     public children:SqlEntityContext[]
     public joins:any
     public fields:Property[]
-    public groupByFields:string[]
+    public groupByFields:SqlField[]
     public arrowVar:string
     
     constructor(parent?:SqlEntityContext){        
@@ -328,7 +328,8 @@ export class SqlOperandManager extends OperandManager
             if(context.current.groupByFields.length>0){
                 let fields = [];
                 for(let i=0;i<context.current.groupByFields.length;i++){
-                    fields.push( this.clone(context.current.groupByFields[i]));
+                    let groupByField = context.current.groupByFields[i].clone();
+                    fields.push(groupByField);
                 }
                 if(fields.length==1){
                     operand = new SqlGroupBy('groupBy',fields);
@@ -660,7 +661,7 @@ export class SqlOperandManager extends OperandManager
         }
         return relation;
     }    
-    protected groupByFields(operand:Operand):string[]
+    protected groupByFields(operand:Operand):SqlField[]
     {
         let data = {fields:[],groupBy:false};
         this._groupByFields(operand,data);
@@ -687,18 +688,7 @@ export class SqlOperandManager extends OperandManager
         context.aliases[alias] = relation?relation:name;
         return alias;        
     }
-    protected clone(obj:any):any
-    {
-        let children = [];
-        if(obj.children){
-            for(const k in obj.children){
-                let p = obj.children[k];
-                let child = this.clone(p);
-                children.push(child);
-            }
-        }
-        return new obj.constructor(obj.name,children);
-    } 
+    
     protected fieldsInSelect(operand:Operand):Property[]
     {       
         let fields:Property[] = [];
@@ -779,49 +769,24 @@ export class SqlOperandManager extends OperandManager
         let update = children.find(p=> p instanceof SqlUpdate) as SqlUpdate|undefined;
         let _delete = children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
 
-        // let parameters:Parameter[]=[];
-        // if(select)this.loadParameters(select,parameters);
-        // if(insert)this.loadParameters(insert,parameters);
-        // if(update)this.loadParameters(update,parameters);
-        // if(_delete)this.loadParameters(_delete,parameters);
-        // if(filter)this.loadParameters(filter,parameters);
-        // if(groupBy)this.loadParameters(groupBy,parameters);
-        // if(having)this.loadParameters(having,parameters);
-        // if(sort)this.loadParameters(sort,parameters);
-
-        let variables:SqlVariable[]=[];
-        if(select)this.loadVariables(select,variables);
-        if(insert)this.loadVariables(insert,variables);
-        if(update)this.loadVariables(update,variables);
-        if(_delete)this.loadVariables(_delete,variables);
-        if(filter)this.loadVariables(filter,variables);
-        if(groupBy)this.loadVariables(groupBy,variables);
-        if(having)this.loadVariables(having,variables);
-        if(sort)this.loadVariables(sort,variables);
-
         let parameters:Parameter[]=[];
-        for(let i=0;i<variables.length;i++ ){
-            let variable:SqlVariable = variables[i];
-            variable._number = i+1;
-            parameters.push({name:variable.name,type:variable.type});
-        }
+        if(select)this.loadParameters(select,parameters);
+        if(insert)this.loadParameters(insert,parameters);
+        if(update)this.loadParameters(update,parameters);
+        if(_delete)this.loadParameters(_delete,parameters);
+        if(filter)this.loadParameters(filter,parameters);
+        if(groupBy)this.loadParameters(groupBy,parameters);
+        if(having)this.loadParameters(having,parameters);
+        if(sort)this.loadParameters(sort,parameters);        
         return parameters;
     }
-    // protected loadParameters(operand:Operand,parameters:Parameter[])
-    // {        
-    //     if(operand instanceof SqlVariable)
-    //         parameters.push({name:operand.name,type:operand.type});
-    //     for(let i=0;i<operand.children.length;i++ )
-    //         this.loadParameters(operand.children[i],parameters);
-    // }
-    protected loadVariables(operand:Operand,variables:SqlVariable[])
+    protected loadParameters(operand:Operand,parameters:Parameter[])
     {        
         if(operand instanceof SqlVariable)
-            variables.push(operand);
+            parameters.push({name:operand.name,type:operand.type});
         for(let i=0;i<operand.children.length;i++ )
-            this.loadVariables(operand.children[i],variables);
+            this.loadParameters(operand.children[i],parameters);
     }
-
     //TODO: determinar el tipo de la variable de acuerdo a la expression.
     //si se usa en un operador con que se esta comparando.
     //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.

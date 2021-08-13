@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/dist/lab/test.js",
-            "envFile": "${workspaceFolder}/test/.env"
+            "envFile": "${workspaceFolder}/orm/.env"
         },
         {
             "type": "node",
@@ -22,7 +22,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/dist/app/index.js",
-            "envFile": "${workspaceFolder}/test/.env"
+            "envFile": "${workspaceFolder}/orm/.env"
         },
         {
             "type": "node",
@@ -32,7 +32,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/dist/lab/debug.js",
-            "envFile": "${workspaceFolder}/test/.env"
+            "envFile": "${workspaceFolder}/orm/.env"
         },           
         {
             "command": "npm run test",

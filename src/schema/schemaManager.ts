@@ -24,10 +24,12 @@ export class SchemaManager
     {
         delete this.schemas[name];     
     }         
-    public get(name:string):Schema | undefined
+    public get(name:string):Schema 
     {
-        let source = this.schemas[name];
-        return source?this.untransform(source):undefined; 
+        let schema = this.schemas[name];
+        if(!schema)
+            throw `schema ${name} not found`;
+        return this.untransform(schema); 
     }   
     public list():Schema[]
     {   
@@ -39,14 +41,11 @@ export class SchemaManager
     }
     public getInstance(name:string):SchemaHelper
     {
-        return new SchemaHelper(this.schemas[name]);
+        const schema = this.schemas[name];
+        if(!schema)
+            throw `schema ${name} not found`
+        return new SchemaHelper(schema);
     }
-    // public create(current:Schema):SchemaCreate
-    // {   
-    //     let schema = this.transform(current);
-    //     let schemaHelper =new SchemaHelper(schema);       
-    //     return new SchemaCreate(this.orm,schemaHelper);        
-    // }
     public sync(current:Schema,old?:Schema):SchemaSync
     {   
         let schema = this.transform(current);

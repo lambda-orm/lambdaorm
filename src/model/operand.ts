@@ -1,3 +1,5 @@
+import {Helper} from '../helper'
+
 export abstract class Operand
 {
     public name: string
@@ -15,6 +17,9 @@ export abstract class Operand
         this.parent = undefined;
         this.index = 0;
         this.level = 0;
+    }
+    clone(){        
+        return Helper.cloneOperand(this);
     }    
     eval():any{
         throw 'Not implemented';

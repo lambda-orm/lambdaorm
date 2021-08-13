@@ -1,8 +1,10 @@
 import orm from '../orm';
 import '../sintaxis'
 import {IOrm } from '../model'
+import { AnyAaaaRecord } from 'dns';
 const fs = require('fs');
 const path = require('path');
+
 
 
 async function exec(fn:any){
@@ -16,6 +18,75 @@ async function exec(fn:any){
     }
     return result;  
 }
+
+
+interface DataTest
+{
+  name:string
+  lambda:any
+  expression?:string
+  sentence?:DataTestSentence
+}
+interface DataTestSentence
+{
+  mysql?: string
+  mariadb?: string
+  postgres?: string
+  mssql?: string
+  oracle?: string
+}
+
+async function writeTest(orm:IOrm)
+{
+  let usesCases:DataTest[] = [
+    //  {name:'',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+    // ,{name:'',lambda: ()=> Products.map(p=> p.category.name)}
+    {name:'',lambda: ()=> Products.map(p=> ({category:p.category.name,largestPrice:max(p.price)}))}
+    // ,{name:'',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=> ({name:p.name,source:p.price ,result:abs(p.price)}))}
+    // ,{name:'',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
+  ];
+
+
+  //queries
+  //  Products.filter(p=>p.id==id)
+  //  Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
+  //  Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
+  //  Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
+  //  Products.filter(p=> p.discontinued != false )                 
+  //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
+  //                  .sort(p=> [p.category,desc(p.name)])
+  //  OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') && p.unitPrice > minValue )                 
+  //              .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
+  //              .sort(p=> [p.category,p.product])       
+  //  OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
+
+  //includes
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
+  //  Orders.filter(p=>p.id==id).include(p => p.details)
+  //  Orders.filter(p=>p.id==id).include(p => p.customer)
+
+
+  let dialect = 'mysql';
+  let schema = 'northwind:0.0.2';
+
+  for(const p in usesCases){
+    const useCase = usesCases[p];
+    let expression = orm.lambda(useCase.lambda).expression;
+    let result = (await orm.expression(expression).compile(dialect,schema)).sentence();
+    console.log(result);
+  } 
+
+}
+
+
+
+
+
+
 
 async function queries(orm:IOrm)
 {  
@@ -50,6 +121,7 @@ async function queries(orm:IOrm)
   //  Orders.filter(p=>p.id==id).include(p => p.details)
   //  Orders.filter(p=>p.id==id).include(p => p.customer)
 
+  
 }
 async function modify(orm:IOrm){
 
@@ -295,7 +367,7 @@ async function schemaDrop(orm:IOrm,target:string,TryAndContinue:boolean=false){
     await orm.database.clean(target).execute(undefined,TryAndContinue);
 }
 async function schemaExport(orm:IOrm,source:string){
-  let exportFile = 'test/data/'+source+'-export.json';  
+  let exportFile = 'orm/data/'+source+'-export.json';  
   let data= await orm.database.export(source);
   fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
 }
@@ -310,7 +382,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
   try
   {  
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
-    // await queries(orm);
+    await writeTest(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -319,23 +391,23 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
     //await generateModel(orm,'source');
     
-    await schemaSync(orm,'source');
-    await schemaExport(orm,'source');
-    //test mysql
-    await schemaDrop(orm,'mysql');
-    await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql');
-    await schemaExport(orm,'mysql');  
-    // //test mariadb
-    // await schemaDrop(orm,'mariadb');
+    // await schemaSync(orm,'source');
+    // await schemaExport(orm,'source');
+    // //test mysql
+    // await schemaDrop(orm,'mysql');
+    // await schemaSync(orm,'mysql');
+    // await schemaImport(orm,'source','mysql');
+    // await schemaExport(orm,'mysql');  
+    // // //test mariadb
+    // await schemaDrop(orm,'mariadb',true);
     // await schemaSync(orm,'mariadb');
     // await schemaImport(orm,'source','mariadb');
     // await schemaExport(orm,'mariadb');
-    // //test postgres 
-    await schemaDrop(orm,'postgres',true);
-    await schemaSync(orm,'postgres');
-    await schemaImport(orm,'source','postgres');
-    await schemaExport(orm,'postgres');  
+    // // //test postgres 
+    // await schemaDrop(orm,'postgres');
+    // await schemaSync(orm,'postgres');
+    // await schemaImport(orm,'source','postgres');
+    // await schemaExport(orm,'postgres');  
        
   
     
