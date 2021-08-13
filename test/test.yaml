@@ -1,0 +1,2516 @@
+schema: 'northwind:0.0.2'
+categories:
+  - name: query
+    test:
+      - name: query 1
+        lambda: (id) => Products.filter(p => p.id == id)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE p.ProductID =
+              ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE p.ProductID =
+              :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE p.ProductID =
+              ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE p.ProductID =
+              :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE p.ProductID =
+              $1 ;
+        expression: ' Products.filter(p => p.id == id)'
+      - name: query 2
+        lambda: () => Products.map(p => p.category.name)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID ;
+        expression: ' Products.map(p => p.category.name)'
+      - name: query 3
+        lambda: >-
+          () => Products.map(p => ({ category: p.category.name, name: p.name,
+          quantity: p.quantity, inStock: p.inStock }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              ;
+        expression: ' Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))'
+      - name: query 4
+        lambda: >-
+          () => Products.filter(p => p.discontinued != false).map(p => ({
+          category: p.category.name, name: p.name, quantity: p.quantity,
+          inStock: p.inStock })).sort(p => [p.category, desc(p.name)])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              WHERE p.Discontinued <> FALSE ORDER BY category, name desc ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              WHERE p.Discontinued <> FALSE ORDER BY category, name desc ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              WHERE p.Discontinued <> FALSE ORDER BY category, name desc ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              WHERE p.Discontinued <> FALSE ORDER BY category, name desc ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS name,
+              p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+              Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              WHERE p.Discontinued <> FALSE ORDER BY category, name desc ;
+        expression: ' Products.filter(p => p.discontinued != false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])'
+      - name: query 5
+        lambda: >-
+          (minValue, from, to) => OrderDetails.filter(p =>
+          between(p.order.shippedDate, from, to) && p.unitPrice >
+          minValue).map(p => ({ category: p.product.category.name, product:
+          p.product.name, unitPrice: p.unitPrice, quantity: p.quantity
+          })).sort(p => [p.category, p.product])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS product,
+              o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order
+              Details` o INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products
+              p ON p.ProductID = o.ProductID WHERE (o1.ShippedDate BETWEEN ? AND
+              ? AND o.UnitPrice > ?) ORDER BY category, product ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS product,
+              o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM [Order
+              Details] o INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products
+              p ON p.ProductID = o.ProductID WHERE (o1.ShippedDate BETWEEN :from
+              AND :to AND o.UnitPrice > :minValue) ORDER BY category, product ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS product,
+              o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order
+              Details` o INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products
+              p ON p.ProductID = o.ProductID WHERE (o1.ShippedDate BETWEEN ? AND
+              ? AND o.UnitPrice > ?) ORDER BY category, product ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS product,
+              o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM "Order
+              Details" o INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products
+              p ON p.ProductID = o.ProductID WHERE (o1.ShippedDate BETWEEN :from
+              AND :to AND o.UnitPrice > :minValue) ORDER BY category, product ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, p.ProductName AS product,
+              o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM "Order
+              Details" o INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+              INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products
+              p ON p.ProductID = o.ProductID WHERE (o1.ShippedDate BETWEEN $1
+              AND $2 AND o.UnitPrice > $3) ORDER BY category, product ;
+        expression: ' OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product])'
+      - name: query 6
+        lambda: >-
+          () => OrderDetails.map(p => ({ order: p.orderId, subTotal:
+          sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS order, SUM(((o.UnitPrice * (o.Quantity * (1 -
+              (o.Discount / 100)))) * 100)) AS subTotal FROM `Order Details` o
+              GROUP BY o.OrderID ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS order, SUM(((o.UnitPrice * (o.Quantity * (1 -
+              (o.Discount / 100)))) * 100)) AS subTotal FROM [Order Details] o
+              GROUP BY o.OrderID ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS order, SUM(((o.UnitPrice * (o.Quantity * (1 -
+              (o.Discount / 100)))) * 100)) AS subTotal FROM `Order Details` o
+              GROUP BY o.OrderID ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS order, SUM(((o.UnitPrice * (o.Quantity * (1 -
+              (o.Discount / 100)))) * 100)) AS subTotal FROM "Order Details" o
+              GROUP BY o.OrderID ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS order, SUM(((o.UnitPrice * (o.Quantity * (1 -
+              (o.Discount / 100)))) * 100)) AS subTotal FROM "Order Details" o
+              GROUP BY o.OrderID ;
+        expression: ' OrderDetails.map(p => ({ order: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) }))'
+  - name: numeric functions
+    test:
+      - name: function abs
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: p.price * -1, result: abs(p.price * -1) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+              ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE
+              p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+              ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE
+              p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+              ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE
+              p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+              ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE
+              p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+              ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE
+              p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price * -1, result: abs(p.price * -1) }))'
+      - name: function acos
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 0.25, result: acos(0.25) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+              FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: acos(0.25) }))'
+      - name: function asin
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 0.25, result: asin(0.25) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+              FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: asin(0.25) }))'
+      - name: function atan
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 0.25, result: atan(0.25) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+              FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: atan(0.25) }))'
+      - name: function atan2
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 0.50, result: atan2(0.25, 1) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 0.5 AS source, ATAN(0.25,1) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.5 AS source, ATAN2(0.25,1) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 0.5 AS source, ATAN(0.25,1) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 0.5 AS source, ATAN2(0.25,1) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 0.5 AS source, ATAN2(0.25,1) AS
+              result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.50, result: atan2(0.25, 1) }))'
+      - name: function ceil
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 25.75, result: ceil(25.75) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS
+              result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: ceil(25.75) }))'
+      - name: function cos
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 2, result: cos(2) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+              Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+              Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+              Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+              Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+              Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: cos(2) }))'
+      - name: function exp
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 1, result: exp(1) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+              Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+              Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+              Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+              Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+              Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1, result: exp(1) }))'
+      - name: function floor
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 25.75, result: floor(25.75) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS
+              result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: floor(25.75) }))'
+      - name: function ln
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 2, result: ln(2) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+              Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+              Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+              Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+              Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+              Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: ln(2) }))'
+      - name: function log
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, m:
+          10, n: 20, result: log(10, 20) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS
+              result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10, n: 20, result: log(10, 20) }))'
+      - name: function round
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 135.375, result: round(135.375, 2) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: round(135.375, 2) }))'
+      - name: function sign
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 255.5, result: sign(255.5) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS
+              result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS
+              result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS
+              result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 255.5, result: sign(255.5) }))'
+      - name: function tan
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 1.75, result: tan(1.75) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result
+              FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result
+              FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result
+              FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1.75, result: tan(1.75) }))'
+      - name: function trunc
+        context:
+          id: 1
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: 135.375, result: trunc(135.375, 2) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source,
+              TRUNCATE(135.375,2) AS result FROM Products p WHERE p.ProductID =
+              ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, TRUNC(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source,
+              TRUNCATE(135.375,2) AS result FROM Products p WHERE p.ProductID =
+              ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, TRUNC(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = :id ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, 135.375 AS source, TRUNC(135.375,2)
+              AS result FROM Products p WHERE p.ProductID = $1 ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: trunc(135.375, 2) }))'
+  - name: groupBy
+    test:
+      - name: groupBy 1
+        lambda: '() => Products.map(p => ({ maxPrice: max(p.price) }))'
+        sentences:
+          - dialect: mariadb
+            sentence: SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p ;
+          - dialect: mssql
+            sentence: SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p ;
+          - dialect: mysql
+            sentence: SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p ;
+          - dialect: oracle
+            sentence: SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p ;
+          - dialect: postgres
+            sentence: SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p ;
+        expression: ' Products.map(p => ({ maxPrice: max(p.price) }))'
+      - name: groupBy 2
+        lambda: '() => Products.map(p => ({ minPrice: min(p.price) }))'
+        sentences:
+          - dialect: mariadb
+            sentence: SELECT MIN(p.UnitPrice) AS minPrice FROM Products p ;
+          - dialect: mssql
+            sentence: SELECT MIN(p.UnitPrice) AS minPrice FROM Products p ;
+          - dialect: mysql
+            sentence: SELECT MIN(p.UnitPrice) AS minPrice FROM Products p ;
+          - dialect: oracle
+            sentence: SELECT MIN(p.UnitPrice) AS minPrice FROM Products p ;
+          - dialect: postgres
+            sentence: SELECT MIN(p.UnitPrice) AS minPrice FROM Products p ;
+        expression: ' Products.map(p => ({ minPrice: min(p.price) }))'
+      - name: groupBy 3
+        lambda: '() => Products.map(p => ({ total: sum(p.price) }))'
+        sentences:
+          - dialect: mariadb
+            sentence: SELECT SUM(p.UnitPrice) AS total FROM Products p ;
+          - dialect: mssql
+            sentence: SELECT SUM(p.UnitPrice) AS total FROM Products p ;
+          - dialect: mysql
+            sentence: SELECT SUM(p.UnitPrice) AS total FROM Products p ;
+          - dialect: oracle
+            sentence: SELECT SUM(p.UnitPrice) AS total FROM Products p ;
+          - dialect: postgres
+            sentence: SELECT SUM(p.UnitPrice) AS total FROM Products p ;
+        expression: ' Products.map(p => ({ total: sum(p.price) }))'
+      - name: groupBy 4
+        lambda: '() => Products.map(p => ({ average: avg(p.price) }))'
+        sentences:
+          - dialect: mariadb
+            sentence: SELECT AVG(p.UnitPrice) AS average FROM Products p ;
+          - dialect: mssql
+            sentence: SELECT AVG(p.UnitPrice) AS average FROM Products p ;
+          - dialect: mysql
+            sentence: SELECT AVG(p.UnitPrice) AS average FROM Products p ;
+          - dialect: oracle
+            sentence: SELECT AVG(p.UnitPrice) AS average FROM Products p ;
+          - dialect: postgres
+            sentence: SELECT AVG(p.UnitPrice) AS average FROM Products p ;
+        expression: ' Products.map(p => ({ average: avg(p.price) }))'
+      - name: groupBy 5
+        lambda: '() => Products.map(p => ({ count: count(1) }))'
+        sentences:
+          - dialect: mariadb
+            sentence: SELECT COUNT(1) AS count FROM Products p ;
+          - dialect: mssql
+            sentence: SELECT COUNT(1) AS count FROM Products p ;
+          - dialect: mysql
+            sentence: SELECT COUNT(1) AS count FROM Products p ;
+          - dialect: oracle
+            sentence: SELECT COUNT(1) AS count FROM Products p ;
+          - dialect: postgres
+            sentence: SELECT COUNT(1) AS count FROM Products p ;
+        expression: ' Products.map(p => ({ count: count(1) }))'
+      - name: groupBy 6
+        lambda: >-
+          () => Products.map(p => ({ category: p.categoryId, largestPrice:
+          max(p.price) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+              FROM Products p GROUP BY p.CategoryID ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+              FROM Products p GROUP BY p.CategoryID ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+              FROM Products p GROUP BY p.CategoryID ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+              FROM Products p GROUP BY p.CategoryID ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+              FROM Products p GROUP BY p.CategoryID ;
+        expression: ' Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))'
+      - name: groupBy 7
+        lambda: >-
+          () => Products.map(p => ({ category: p.category.name, largestPrice:
+          max(p.price) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName ;
+        expression: ' Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+      - name: groupBy 8
+        lambda: >-
+          (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name,
+          source: p.price, result: abs(p.price) }))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT p.ProductName AS name, p.UnitPrice AS source,
+              ABS(p.UnitPrice) AS result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: mssql
+            sentence: >-
+              SELECT p.ProductName AS name, p.UnitPrice AS source,
+              ABS(p.UnitPrice) AS result FROM Products p WHERE p.ProductID = :id
+              ;
+          - dialect: mysql
+            sentence: >-
+              SELECT p.ProductName AS name, p.UnitPrice AS source,
+              ABS(p.UnitPrice) AS result FROM Products p WHERE p.ProductID = ? ;
+          - dialect: oracle
+            sentence: >-
+              SELECT p.ProductName AS name, p.UnitPrice AS source,
+              ABS(p.UnitPrice) AS result FROM Products p WHERE p.ProductID = :id
+              ;
+          - dialect: postgres
+            sentence: >-
+              SELECT p.ProductName AS name, p.UnitPrice AS source,
+              ABS(p.UnitPrice) AS result FROM Products p WHERE p.ProductID = $1
+              ;
+        expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+      - name: groupBy 9
+        lambda: >-
+          () => Products.map(p => ({ category: p.category.name, largestPrice:
+          max(p.price) })).having(p => p.largestPrice > 100)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ;
+        expression: ' Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })).having(p => p.largestPrice > 100)'
+      - name: groupBy 10
+        lambda: >-
+          () => Products.map(p => ({ category: p.category.name, largestPrice:
+          max(p.price) })).having(p => p.largestPrice > 100).sort(p =>
+          desc(p.largestPrice))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ORDER BY largestPrice desc ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ORDER BY largestPrice desc ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ORDER BY largestPrice desc ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ORDER BY largestPrice desc ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+              largestPrice > 100 ORDER BY largestPrice desc ;
+        expression: ' Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })).having(p => p.largestPrice > 100).sort(p => desc(p.largestPrice))'
+      - name: groupBy 11
+        lambda: >-
+          () => Products.filter(p => p.price > 5).map(p => ({ category:
+          p.category.name, largestPrice: max(p.price) })).having(p =>
+          p.largestPrice > 50).sort(p => desc(p.largestPrice))
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY
+              c.CategoryName HAVING largestPrice > 50 ORDER BY largestPrice desc
+              ;
+          - dialect: mssql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY
+              c.CategoryName HAVING largestPrice > 50 ORDER BY largestPrice desc
+              ;
+          - dialect: mysql
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY
+              c.CategoryName HAVING largestPrice > 50 ORDER BY largestPrice desc
+              ;
+          - dialect: oracle
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY
+              c.CategoryName HAVING largestPrice > 50 ORDER BY largestPrice desc
+              ;
+          - dialect: postgres
+            sentence: >-
+              SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS
+              largestPrice FROM Products p INNER JOIN Categories c ON
+              c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY
+              c.CategoryName HAVING largestPrice > 50 ORDER BY largestPrice desc
+              ;
+        expression: ' Products.filter(p => p.price > 5).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).having(p => p.largestPrice > 50).sort(p => desc(p.largestPrice))'
+  - name: include
+    test:
+      - name: include 1
+        lambda: (id) => Orders.filter(p => p.id == id).include(p => p.customer)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => p.customer)'
+      - name: include 2
+        lambda: (id) => Orders.filter(p => p.id == id).include(p => p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM [Order Details] o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => p.details)'
+      - name: include 3
+        lambda: >-
+          (id) => Orders.filter(p => p.id == id).include(p => [p.details,
+          p.customer])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM [Order Details] o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => [p.details, p.customer])'
+      - name: include 4
+        lambda: >-
+          (id) => Orders.filter(p => p.id == id).include(p =>
+          [p.details.include(q => q.product), p.customer])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM [Order Details] o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (:list_id) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (:list_id) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN ($1) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product), p.customer])'
+      - name: include 5
+        lambda: >-
+          (id) => Orders.filter(p => p.id == id).include(p =>
+          [p.details.include(q => q.product.include(p => p.category)),
+          p.customer])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (?) ;
+
+              SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description
+              AS description FROM Categories c WHERE  c.CategoryID IN (?) ;
+
+              SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName
+              AS contact, c1.ContactTitle AS phone, c1.Address AS address,
+              c1.City AS city, c1.Region AS region, c1.PostalCode AS postalCode,
+              c1.Country AS country FROM Customers c1 WHERE  c1.CustomerID IN
+              (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM [Order Details] o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (:list_id) ;
+
+              SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description
+              AS description FROM Categories c WHERE  c.CategoryID IN (:list_id)
+              ;
+
+              SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName
+              AS contact, c1.ContactTitle AS phone, c1.Address AS address,
+              c1.City AS city, c1.Region AS region, c1.PostalCode AS postalCode,
+              c1.Country AS country FROM Customers c1 WHERE  c1.CustomerID IN
+              (:list_id) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (?) ;
+
+              SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description
+              AS description FROM Categories c WHERE  c.CategoryID IN (?) ;
+
+              SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName
+              AS contact, c1.ContactTitle AS phone, c1.Address AS address,
+              c1.City AS city, c1.Region AS region, c1.PostalCode AS postalCode,
+              c1.Country AS country FROM Customers c1 WHERE  c1.CustomerID IN
+              (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN
+              (:list_orderId) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (:list_id) ;
+
+              SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description
+              AS description FROM Categories c WHERE  c.CategoryID IN (:list_id)
+              ;
+
+              SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName
+              AS contact, c1.ContactTitle AS phone, c1.Address AS address,
+              c1.City AS city, c1.Region AS region, c1.PostalCode AS postalCode,
+              c1.Country AS country FROM Customers c1 WHERE  c1.CustomerID IN
+              (:list_id) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+              o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS
+              discount FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN ($1) ;
+
+              SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description
+              AS description FROM Categories c WHERE  c.CategoryID IN ($1) ;
+
+              SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName
+              AS contact, c1.ContactTitle AS phone, c1.Address AS address,
+              c1.City AS city, c1.Region AS region, c1.PostalCode AS postalCode,
+              c1.Country AS country FROM Customers c1 WHERE  c1.CustomerID IN
+              ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer])'
+      - name: include 6
+        lambda: >-
+          (id) => Orders.filter(p => p.id == id).include(p => [p.details.map(p
+          => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId:
+          p.productId })), p.customer])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM `Order Details` o1 WHERE 
+              o1.OrderID IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM [Order Details] o1 WHERE 
+              o1.OrderID IN (:list_orderId) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM `Order Details` o1 WHERE 
+              o1.OrderID IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM "Order Details" o1 WHERE 
+              o1.OrderID IN (:list_orderId) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM "Order Details" o1 WHERE 
+              o1.OrderID IN ($1) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])'
+      - name: include 7
+        lambda: >-
+          (id) => Orders.filter(p => p.id == id).include(p =>
+          [p.details.include(q => q.product).map(p => ({ quantity: p.quantity,
+          unitPrice: p.unitPrice, productId: p.productId })), p.customer])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM `Order Details` o1 WHERE 
+              o1.OrderID IN (?) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: mssql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM [Order Details] o1 WHERE 
+              o1.OrderID IN (:list_orderId) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (:list_id) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: mysql
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = ? ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM `Order Details` o1 WHERE 
+              o1.OrderID IN (?) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (?) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          - dialect: oracle
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = :id ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM "Order Details" o1 WHERE 
+              o1.OrderID IN (:list_orderId) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN (:list_id) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          - dialect: postgres
+            sentence: >-
+              SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID
+              AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+              requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS
+              shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress
+              AS address, o.ShipCity AS city, o.ShipRegion AS region,
+              o.ShipPostalCode AS postalCode, o.ShipCountry AS country FROM
+              Orders o WHERE o.OrderID = $1 ;
+
+              SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+              o1.ProductID AS productId FROM "Order Details" o1 WHERE 
+              o1.OrderID IN ($1) ;
+
+              SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+              supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+              quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+              p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+              p.Discontinued AS discontinued FROM Products p WHERE  p.ProductID
+              IN ($1) ;
+
+              SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
+              contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
+              city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
+              country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+        expression: ' Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])'
+  - name: inserts
+    test:
+      - name: insert 1
+        lambda: () => Products.insert()
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO
+              Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
+              VALUES(?,?,?,?,?,?,?,?,?);
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO
+              Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
+              VALUES(:name,:supplierId,:categoryId,:quantity,:price,:inStock,:onOrder,:reorderLevel,:discontinued);
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO
+              Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
+              VALUES(?,?,?,?,?,?,?,?,?);
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO
+              Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
+              VALUES(:name,:supplierId,:categoryId,:quantity,:price,:inStock,:onOrder,:reorderLevel,:discontinued);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO
+              Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING ProductID AS id;
+        expression: ' Products.insert()'
+      - name: insert 2
+        lambda: () => Orders.insert()
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING
+              OrderID AS id;
+        expression: ' Orders.insert()'
+      - name: insert 3
+        lambda: >-
+          (name, customerId, shippedDate) => Orders.insert({ name: name,
+          customerId: customerId, shippedDate: shippedDate })
+        sentences:
+          - dialect: mariadb
+            sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
+              VALUES(:name,:customerId,:shippedDate);
+          - dialect: mysql
+            sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
+              VALUES(:name,:customerId,:shippedDate);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
+              VALUES($1,$2,$3) RETURNING OrderID AS id;
+        expression: ' Orders.insert({ name: name, customerId: customerId, shippedDate: shippedDate })'
+      - name: insert 4
+        lambda: >-
+          (o) => Orders.insert({ name: o.name, customerId: o.customerId,
+          shippedDate: o.shippedDate })
+        sentences:
+          - dialect: mariadb
+            sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
+              VALUES(:o.name,:o.customerId,:o.shippedDate);
+          - dialect: mysql
+            sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
+              VALUES(:o.name,:o.customerId,:o.shippedDate);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
+              VALUES($1,$2,$3) RETURNING OrderID AS id;
+        expression: ' Orders.insert({ name: o.name, customerId: o.customerId, shippedDate: o.shippedDate })'
+      - name: insert 5
+        lambda: () => Orders.insert().include(p => p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+
+              INSERT INTO [Order
+              Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING
+              OrderID AS id;
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
+        expression: ' Orders.insert().include(p => p.details)'
+      - name: insert 6
+        lambda: () => Orders.insert().include(p => p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+
+              INSERT INTO [Order
+              Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING
+              OrderID AS id;
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
+        expression: ' Orders.insert().include(p => p.details)'
+      - name: insert 7
+        lambda: '() => Orders.insert().include(p => [p.details, p.customer])'
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(?,?,?,?,?,?,?,?,?);
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+
+              INSERT INTO [Order
+              Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(?,?,?,?,?,?,?,?,?);
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING
+              OrderID AS id;
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id;
+        expression: ' Orders.insert().include(p => [p.details, p.customer])'
+      - name: insert 8
+        lambda: >-
+          (entity) => Orders.insert(entity).include(p => [p.details,
+          p.customer])
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO Orders() VALUES();
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(?,?,?,?,?,?,?,?,?);
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO Orders() VALUES();
+
+              INSERT INTO [Order
+              Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO Orders() VALUES();
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(?,?,?,?,?);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(?,?,?,?,?,?,?,?,?);
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO Orders() VALUES();
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO Orders() VALUES() RETURNING OrderID AS id;
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+              VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
+
+              INSERT INTO
+              Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id;
+        expression: ' Orders.insert(entity).include(p => [p.details, p.customer])'
+  - name: update
+    test:
+      - name: update 1
+        lambda: () => Orders.update()
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE OrderID = ? ;
+          - dialect: mssql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+              :employeeId,OrderDate = :orderDate,RequiredDate =
+              :requiredDate,ShippedDate = :shippedDate,ShipVia =
+              :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+              :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+              :postalCode,ShipCountry = :country WHERE OrderID = :id ;
+          - dialect: mysql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE OrderID = ? ;
+          - dialect: oracle
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+              :employeeId,OrderDate = :orderDate,RequiredDate =
+              :requiredDate,ShippedDate = :shippedDate,ShipVia =
+              :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+              :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+              :postalCode,ShipCountry = :country WHERE OrderID = :id ;
+          - dialect: postgres
+            sentence: >-
+              UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+              $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+              $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+              $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+        expression: ' Orders.update()'
+      - name: update 2
+        lambda: () => OrderDetails.update()
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              UPDATE `Order Details` o SET OrderID = ?,ProductID = ?,UnitPrice =
+              ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?)
+              ;
+          - dialect: mssql
+            sentence: >-
+              UPDATE [Order Details] o SET OrderID = :orderId,ProductID =
+              :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+              :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          - dialect: mysql
+            sentence: >-
+              UPDATE `Order Details` o SET OrderID = ?,ProductID = ?,UnitPrice =
+              ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?)
+              ;
+          - dialect: oracle
+            sentence: >-
+              UPDATE "Order Details" o SET OrderID = :orderId,ProductID =
+              :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+              :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          - dialect: postgres
+            sentence: >-
+              UPDATE "Order Details" o SET OrderID = $1,ProductID = $2,UnitPrice
+              = $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID
+              = $7) ;
+        expression: ' OrderDetails.update()'
+      - name: update 3
+        lambda: (entity) => Orders.update(entity)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE entity.OrderID = ? ;
+          - dialect: mssql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
+              :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate =
+              :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia =
+              :entity.shipViaId,Freight = :entity.freight,ShipName =
+              :entity.name,ShipAddress = :entity.address,ShipCity =
+              :entity.city,ShipRegion = :entity.region,ShipPostalCode =
+              :entity.postalCode,ShipCountry = :entity.country WHERE
+              entity.OrderID = :id ;
+          - dialect: mysql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE entity.OrderID = ? ;
+          - dialect: oracle
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
+              :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate =
+              :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia =
+              :entity.shipViaId,Freight = :entity.freight,ShipName =
+              :entity.name,ShipAddress = :entity.address,ShipCity =
+              :entity.city,ShipRegion = :entity.region,ShipPostalCode =
+              :entity.postalCode,ShipCountry = :entity.country WHERE
+              entity.OrderID = :id ;
+          - dialect: postgres
+            sentence: >-
+              UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+              $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+              $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+              $11,ShipPostalCode = $12,ShipCountry = $13 WHERE entity.OrderID =
+              $14 ;
+        expression: ' Orders.update(entity)'
+      - name: update 4
+        lambda: '(entity) => Orders.updateAll({ name: entity.name })'
+        sentences:
+          - dialect: mariadb
+            sentence: UPDATE Orders o SET ShipName = ? ;
+          - dialect: mssql
+            sentence: 'UPDATE Orders o SET ShipName = :entity.name ;'
+          - dialect: mysql
+            sentence: UPDATE Orders o SET ShipName = ? ;
+          - dialect: oracle
+            sentence: 'UPDATE Orders o SET ShipName = :entity.name ;'
+          - dialect: postgres
+            sentence: UPDATE Orders o SET ShipName = $1 ;
+        expression: ' Orders.updateAll({ name: entity.name })'
+      - name: update 5
+        lambda: >-
+          (entity) => Orders.update({ name: entity.name }).filter(p => p.id ==
+          entity.id)
+        sentences:
+          - dialect: mariadb
+            sentence: UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
+          - dialect: mssql
+            sentence: >-
+              UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
+              :entity.id ;
+          - dialect: mysql
+            sentence: UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
+          - dialect: oracle
+            sentence: >-
+              UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
+              :entity.id ;
+          - dialect: postgres
+            sentence: UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ;
+        expression: ' Orders.update({ name: entity.name }).filter(p => p.id == entity.id)'
+      - name: update 6
+        lambda: >-
+          (entity) => Orders.update({ name: entity.name }).include(p =>
+          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
+          p.productId }))).filter(p => p.id == entity.id)
+        sentences:
+          - dialect: mariadb
+            error: >-
+              compile expression:  Orders.update({ name: entity.name
+              }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice,
+              productId: p.productId }))).filter(p => p.id == entity.id) error:
+              Sentence Update incorrect!!!
+          - dialect: mssql
+            error: >-
+              compile expression:  Orders.update({ name: entity.name
+              }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice,
+              productId: p.productId }))).filter(p => p.id == entity.id) error:
+              Sentence Update incorrect!!!
+          - dialect: mysql
+            error: >-
+              compile expression:  Orders.update({ name: entity.name
+              }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice,
+              productId: p.productId }))).filter(p => p.id == entity.id) error:
+              Sentence Update incorrect!!!
+          - dialect: oracle
+            error: >-
+              compile expression:  Orders.update({ name: entity.name
+              }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice,
+              productId: p.productId }))).filter(p => p.id == entity.id) error:
+              Sentence Update incorrect!!!
+          - dialect: postgres
+            error: >-
+              compile expression:  Orders.update({ name: entity.name
+              }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice,
+              productId: p.productId }))).filter(p => p.id == entity.id) error:
+              Sentence Update incorrect!!!
+        expression: ' Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id == entity.id)'
+      - name: update 7
+        lambda: () => Orders.update().include(p => p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE OrderID = ? ;
+
+              UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice
+              = ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID =
+              ?) ;
+          - dialect: mssql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+              :employeeId,OrderDate = :orderDate,RequiredDate =
+              :requiredDate,ShippedDate = :shippedDate,ShipVia =
+              :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+              :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+              :postalCode,ShipCountry = :country WHERE OrderID = :id ;
+
+              UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
+              :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+              :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          - dialect: mysql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE OrderID = ? ;
+
+              UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice
+              = ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID =
+              ?) ;
+          - dialect: oracle
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+              :employeeId,OrderDate = :orderDate,RequiredDate =
+              :requiredDate,ShippedDate = :shippedDate,ShipVia =
+              :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+              :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+              :postalCode,ShipCountry = :country WHERE OrderID = :id ;
+
+              UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+              :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+              :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          - dialect: postgres
+            sentence: >-
+              UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+              $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+              $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+              $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+
+              UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+              $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6
+              AND ProductID = $7) ;
+        expression: ' Orders.update().include(p => p.details)'
+      - name: update 8
+        lambda: '() => Orders.update().include(p => [p.details, p.customer])'
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE OrderID = ? ;
+
+              UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice
+              = ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID =
+              ?) ;
+
+              UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName
+              = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+              ?,Country = ? WHERE CustomerID = ? ;
+          - dialect: mssql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+              :employeeId,OrderDate = :orderDate,RequiredDate =
+              :requiredDate,ShippedDate = :shippedDate,ShipVia =
+              :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+              :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+              :postalCode,ShipCountry = :country WHERE OrderID = :id ;
+
+              UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
+              :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+              :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+
+              UPDATE Customers c SET CustomerID = :id,CompanyName =
+              :name,ContactName = :contact,ContactTitle = :phone,Address =
+              :address,City = :city,Region = :region,PostalCode =
+              :postalCode,Country = :country WHERE CustomerID = :id ;
+          - dialect: mysql
+            sentence: >-
+              UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+              ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+              ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+              ?,ShipPostalCode = ?,ShipCountry = ? WHERE OrderID = ? ;
+
+              UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice
+              = ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID =
+              ?) ;
+
+              UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName
+              = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+              ?,Country = ? WHERE CustomerID = ? ;
+          - dialect: oracle
+            sentence: >-
+              UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+              :employeeId,OrderDate = :orderDate,RequiredDate =
+              :requiredDate,ShippedDate = :shippedDate,ShipVia =
+              :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+              :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+              :postalCode,ShipCountry = :country WHERE OrderID = :id ;
+
+              UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+              :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+              :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+
+              UPDATE Customers c SET CustomerID = :id,CompanyName =
+              :name,ContactName = :contact,ContactTitle = :phone,Address =
+              :address,City = :city,Region = :region,PostalCode =
+              :postalCode,Country = :country WHERE CustomerID = :id ;
+          - dialect: postgres
+            sentence: >-
+              UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+              $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+              $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+              $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+
+              UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+              $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6
+              AND ProductID = $7) ;
+
+              UPDATE Customers c SET CustomerID = $1,CompanyName =
+              $2,ContactName = $3,ContactTitle = $4,Address = $5,City =
+              $6,Region = $7,PostalCode = $8,Country = $9 WHERE CustomerID = $10
+              ;
+        expression: ' Orders.update().include(p => [p.details, p.customer])'
+  - name: delete
+    test:
+      - name: delete 1
+        lambda: (id) => Orders.delete().filter(p => p.id == id)
+        sentences:
+          - dialect: mariadb
+            sentence: DELETE FROM Orders o WHERE o.OrderID = ? ;
+          - dialect: mssql
+            sentence: 'DELETE FROM Orders o WHERE o.OrderID = :id ;'
+          - dialect: mysql
+            sentence: DELETE FROM Orders o WHERE o.OrderID = ? ;
+          - dialect: oracle
+            sentence: 'DELETE FROM Orders o WHERE o.OrderID = :id ;'
+          - dialect: postgres
+            sentence: DELETE FROM Orders o WHERE o.OrderID = $1 ;
+        expression: ' Orders.delete().filter(p => p.id == id)'
+      - name: delete 2
+        lambda: (id) => Orders.delete().include(p => p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              DELETE FROM Orders o WHERE OrderID = ? ;
+
+              DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID =
+              ?) ;
+          - dialect: mssql
+            sentence: >-
+              DELETE FROM Orders o WHERE OrderID = :id ;
+
+              DELETE FROM [Order Details] o1 WHERE (OrderID = :orderId AND
+              ProductID = :productId) ;
+          - dialect: mysql
+            sentence: >-
+              DELETE FROM Orders o WHERE OrderID = ? ;
+
+              DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID =
+              ?) ;
+          - dialect: oracle
+            sentence: >-
+              DELETE FROM Orders o WHERE OrderID = :id ;
+
+              DELETE FROM "Order Details" o1 WHERE (OrderID = :orderId AND
+              ProductID = :productId) ;
+          - dialect: postgres
+            sentence: >-
+              DELETE FROM Orders o WHERE OrderID = $1 ;
+
+              DELETE FROM "Order Details" o1 WHERE (OrderID = $1 AND ProductID =
+              $2) ;
+        expression: ' Orders.delete().include(p => p.details)'
+      - name: delete 3
+        lambda: >-
+          (id) => Orders.delete().filter(p => p.id == id).include(p =>
+          p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              DELETE FROM Orders o WHERE o.OrderID = ? ;
+
+              DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID =
+              ?) ;
+          - dialect: mssql
+            sentence: >-
+              DELETE FROM Orders o WHERE o.OrderID = :id ;
+
+              DELETE FROM [Order Details] o1 WHERE (OrderID = :orderId AND
+              ProductID = :productId) ;
+          - dialect: mysql
+            sentence: >-
+              DELETE FROM Orders o WHERE o.OrderID = ? ;
+
+              DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID =
+              ?) ;
+          - dialect: oracle
+            sentence: >-
+              DELETE FROM Orders o WHERE o.OrderID = :id ;
+
+              DELETE FROM "Order Details" o1 WHERE (OrderID = :orderId AND
+              ProductID = :productId) ;
+          - dialect: postgres
+            sentence: >-
+              DELETE FROM Orders o WHERE o.OrderID = $1 ;
+
+              DELETE FROM "Order Details" o1 WHERE (OrderID = $1 AND ProductID =
+              $2) ;
+        expression: ' Orders.delete().filter(p => p.id == id).include(p => p.details)'
+      - name: delete 4
+        lambda: () => Orders.deleteAll()
+        sentences:
+          - dialect: mariadb
+            sentence: DELETE FROM Orders o ;
+          - dialect: mssql
+            sentence: DELETE FROM Orders o ;
+          - dialect: mysql
+            sentence: DELETE FROM Orders o ;
+          - dialect: oracle
+            sentence: DELETE FROM Orders o ;
+          - dialect: postgres
+            sentence: DELETE FROM Orders o ;
+        expression: ' Orders.deleteAll()'
+  - name: bulkInsert
+    test:
+      - name: bulkInsert 1
+        lambda: () => Categories.bulkInsert()
+        sentences:
+          - dialect: mariadb
+            sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?;'
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO Categories(CategoryName,Description) VALUES
+              :name,:description;
+          - dialect: mysql
+            sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?;'
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO Categories(CategoryName,Description) VALUES
+              :name,:description;
+          - dialect: postgres
+            sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES;'
+        expression: ' Categories.bulkInsert()'
+      - name: bulkInsert 2
+        lambda: () => Orders.bulkInsert().include(p => p.details)
+        sentences:
+          - dialect: mariadb
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES ?;
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?;
+          - dialect: mssql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES
+              :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country;
+
+              INSERT INTO [Order
+              Details](OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+              :orderId,:productId,:unitPrice,:quantity,:discount;
+          - dialect: mysql
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES ?;
+
+              INSERT INTO `Order
+              Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?;
+          - dialect: oracle
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES
+              :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country;
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+              :orderId,:productId,:unitPrice,:quantity,:discount;
+          - dialect: postgres
+            sentence: >-
+              INSERT INTO
+              Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+              VALUES;
+
+              INSERT INTO "Order
+              Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES;
+        expression: ' Orders.bulkInsert().include(p => p.details)'

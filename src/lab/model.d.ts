@@ -83,7 +83,7 @@ interface Order{
 	country:string
 	customer:Customer & OneToMany<Customer>
 	employee:Employee & OneToMany<Employee>
-	details:ManyToOne<OrderDetail>
+	details: ManyToOne<OrderDetail>
 }
 interface OrderDetail{
 	orderId:number

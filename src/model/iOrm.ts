@@ -9,6 +9,7 @@ import {DatabaseManager}  from '../database'
 export interface IOrm
 {    
     config:Config
+    dialects:any
     get parser():Parser
     get schema():SchemaManager
     get connection():ConnectionManager

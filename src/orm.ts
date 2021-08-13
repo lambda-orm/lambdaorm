@@ -9,6 +9,7 @@ import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
 import modelConfig from './parser/config.json'
 import sqlConfig  from './language/sql/config.json'
+import {Helper}  from './helper'
 const ConfigExtends = require("config-extends");
 const fs = require('fs');
 const path = require('path');
@@ -22,7 +23,7 @@ class Orm implements IOrm
     private databaseManager:DatabaseManager
     private connectionManager:ConnectionManager
     private languages:any
-    private dialects:any
+    public dialects:any
 
     constructor(parserManager:Parser){
         this.languages={};
@@ -63,15 +64,17 @@ class Orm implements IOrm
         if(this.config.databases){
             for(const p in this.config.databases){
                 const database = this.config.databases[p];
-                let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
-                if(database.connectionSource== null || database.connectionSource=='direct'){
-                    connectionConfig.connection=database.connection;
+                if(!Helper.nvl(database.disable,false)){
+                    let connectionConfig:ConnectionConfig={name:database.name,dialect:database.dialect,connection:{}};
+                    if(database.connectionSource== null || database.connectionSource=='direct'){
+                        connectionConfig.connection=database.connection;
+                    }
+                    else if(database.connectionSource=='env'){
+                        const value = process.env[database.connection] as string;
+                        connectionConfig.connection= JSON.parse(value);
+                    }
+                    this.connection.load(connectionConfig);
                 }
-                else if(database.connectionSource=='env'){
-                    const value = process.env[database.connection] as string;
-                    connectionConfig.connection= JSON.parse(value);
-                }
-                this.connection.load(connectionConfig);
                 this.database.load(database);  
             }
         }

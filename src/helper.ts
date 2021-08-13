@@ -3,16 +3,13 @@ const { DateTime } = require("luxon");
 const SqlString = require("sqlstring");
 
 export class Helper {
-    public static replaceAll(str:string, find:string, replace:string) {
-        return str.replace(new RegExp(find, 'g'), replace);
+    public static replaceAll(string:string, search:string, replace:string) {
+        return string.replace(new RegExp(search, 'g'), replace);
+        //return string.split(search).join(replace);
     }
-    // public static replace(value:string,search:string,replacement:string):string
-    // {
-    //     return value.split(search).join(replacement);
-    // } 
     public static clone(obj:any):any
     {
-        return JSON.parse(JSON.stringify(obj));
+        return obj && typeof obj == "object"?JSON.parse(JSON.stringify(obj)):obj;
     }
     public static cloneOperand(obj:any):any
     {        
@@ -28,6 +25,14 @@ export class Helper {
     } 
     public static isObject(obj:any) {
         return obj && typeof obj === 'object' && obj.constructor === Object;
+    }
+    public static isEmpty (value:any):boolean
+    {
+        return value == null || value == undefined || value.toString().trim().length == 0; 
+    }
+    public static nvl(value:any,_default:any):any
+    {
+        return !this.isEmpty(value)?value:_default;
     }
     public static deltaWithSimpleArrays(current:any,old?:any):Delta
     {

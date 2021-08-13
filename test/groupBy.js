@@ -85,8 +85,8 @@ describe('groupBy', function() {
     });
     describe('groupby+having+sort', function() {        
         let expression =
-        `Products.having(p=> p.largestPrice > 100)
-                 .map(p=> {category:p.category.name,largestPrice:max(p.price)})
+        `Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
+                 .having(p=> p.largestPrice > 100)   
                  .sort(p=> desc(p.largestPrice))
         `;
         let expected ={"n":"sentence","t":"SqlQuery","c":[],"s":"SELECT c.`CategoryName` AS category, MAX(p.`UnitPrice`) AS largestPrice FROM `Products` p INNER JOIN `Categories` c ON c.`CategoryID` = p.`CategoryID` GROUP BY c.`CategoryName` HAVING `largestPrice` > 100 ORDER BY `largestPrice` desc ","cols":[{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}],"v":[]};

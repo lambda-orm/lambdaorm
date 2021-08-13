@@ -13,6 +13,8 @@ declare abstract class PageClauses<T> {
 declare abstract class MapClauses<T> extends PageClauses<T>  {
     /**  */
     public sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): PageClauses<T>
+    /**  */
+    public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
 }
 declare abstract class ModifyFilterClauses<T>  {
     /**  */
@@ -25,6 +27,11 @@ declare abstract class ModifyIncludeClauses<T>  {
 declare abstract class ModifyClauses<T>  {
     /**  */
     public filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyFilterClauses<T>
+    /**  */
+    public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
+}
+
+declare abstract class ModifyAllClauses<T>  {
     /**  */
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
 }
@@ -44,7 +51,7 @@ declare abstract class IncludeClauses<T> extends HavingClauses<T>  {
     /**  */
     public filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterIncludeClauses<T>
     /**  */
-    public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
+    public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>    
 }
 declare abstract class FilterClauses<T> extends HavingClauses<T>  {    
     /**  */
@@ -66,10 +73,20 @@ declare abstract class Entity<T> extends MapClauses<T> {
     /**  */
     public update(value?:T|Object): ModifyClauses<T>
     /**  */
-    public delete(): ModifyClauses<T>
+    public updateAll(value?:T|Object): ModifyAllClauses<T>
     /**  */
+    public delete(): ModifyClauses<T>
+    /**  */   
+    public deleteAll(value?:T|Object): ModifyAllClauses<T>
+     /**  */
     public sync(value?:T|Object): ModifyClauses<T>
     // public include(...args:string[]):Entity<T>
+    /**  */
+    public bulkInsert(value?:T|Object): ModifyAllClauses<T>
+
+
+    
+    
 }
 
 declare abstract class RelationMapClauses<T>  {
@@ -78,14 +95,17 @@ declare abstract class RelationMapClauses<T>  {
 }
 declare abstract class RelationIncludeClauses<T> {
     /**  */
-    public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+    public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>    
 }
 declare abstract class Relation<T>  {
     /**  */
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
     /**  */
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
-    // public update(callbackfn: (value: T,item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+    /**  */
+    public update(callbackfn: (value: T,item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+    /**  */
+    public insert(callbackfn: (value: T,item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
     // public update(value:T|Object):void
 }
 declare abstract class OneToMany<T> extends Relation<T> { }
@@ -143,7 +163,7 @@ declare function tan(value:number):number
 /** Get hyperbolic tangent */
 declare function tanh(value:number):number
 /** runcate num  */
-declare function trunc(value:number):number
+declare function trunc(value:number,decimals:number):number
 // string:---------------------------------------------------------
 /** Get character from ASCII code */
 declare function chr(value:string):string
