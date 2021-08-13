@@ -90,7 +90,7 @@ interface OrderDetail{
 	productId:number
 	unitPrice:number
 	quantity:number
-	discount:boolean
+	discount:number
 	order:Order & OneToMany<Order>
 	product:Product & OneToMany<Product>
 }

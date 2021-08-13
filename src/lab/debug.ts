@@ -2,6 +2,7 @@ import orm from '../orm';
 import '../sintaxis'
 import {IOrm } from '../model'
 import { AnyAaaaRecord } from 'dns';
+import { DatabaseClean } from 'database';
 const fs = require('fs');
 const path = require('path');
 
@@ -39,35 +40,50 @@ interface DataTestSentence
 async function writeTest(orm:IOrm)
 {
   let usesCases:DataTest[] = [
-    //  {name:'',lambda: (id:number)=> Products.filter(p=>p.id==id)}
-    // ,{name:'',lambda: ()=> Products.map(p=> p.category.name)}
-    {name:'',lambda: ()=> Products.map(p=> ({category:p.category.name,largestPrice:max(p.price)}))}
-    // ,{name:'',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=> ({name:p.name,source:p.price ,result:abs(p.price)}))}
-    // ,{name:'',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
+     //queries
+     {name:'query 1',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+    ,{name:'query 2',lambda: ()=> Products.map(p=> p.category.name)}
+    ,{name:'query 3',lambda: ()=> Products.map(p=> ({category:p.category.name,largestPrice:max(p.price)}))}
+    ,{name:'query 4',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=> ({name:p.name,source:p.price ,result:abs(p.price)}))}
+    ,{name:'query 5',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
+    ,{name:'query 6',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
+    ,{name:'query 7',lambda: (minValue:number)=>  OrderDetails.filter(p=> between(p.order.shippedDate,'1997-01-01','1997-12-31') && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
+    ,{name:'query 8',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
+    //includes
+    ,{name:'include 1',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.customer)}
+    ,{name:'include 2',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.details)}
+    ,{name:'include 3',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])}
+    ,{name:'include 4',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])}
+    ,{name:'include 5',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])}
+    ,{name:'include 6',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])}
+    ,{name:'include 7',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])}
+    //inserts
+    ,{name:'insert 1',lambda: ()=> Products.insert()  }
+    ,{name:'insert 2',lambda: ()=> Orders.insert() }
+    ,{name:'insert 3',lambda: (name:string,customerId:number,shippedDate:Date)=> Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate}) }
+    ,{name:'insert 4',lambda: (o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate}) }
+    ,{name:'insert 5',lambda: ()=> Orders.insert().include(p=> p.details) }
+    ,{name:'insert 6',lambda: ()=> Orders.insert().include(p=> p.details) }
+    ,{name:'insert 7',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }
+    ,{name:'insert 8',lambda: (entity:Order)=> Orders.insert(entity).include(p=> [p.details,p.customer]) }
   ];
 
 
-  //queries
-  //  Products.filter(p=>p.id==id)
-  //  Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
-  //  Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
-  //  Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
-  //  Products.filter(p=> p.discontinued != false )                 
-  //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
-  //                  .sort(p=> [p.category,desc(p.name)])
-  //  OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') && p.unitPrice > minValue )                 
-  //              .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
-  //              .sort(p=> [p.category,p.product])       
-  //  OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
+//  Orders.update()
+//  Orders.update(entity)
+//  Orders.update({name:entity.name}) //da error por que preciso definir filter
+//  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
+//  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
+//  Orders.update().include(p=> p.details)
+//  Orders.update().include(p=> [p.details,p.customer])
 
-  //includes
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => p.details)
-  //  Orders.filter(p=>p.id==id).include(p => p.customer)
+//  Orders.delete().filter(p=> p.id == id)
+//  Orders.delete().include(p=> p.details)
+//  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
+
+
+
+
 
 
   let dialect = 'mysql';
@@ -77,6 +93,7 @@ async function writeTest(orm:IOrm)
     const useCase = usesCases[p];
     let expression = orm.lambda(useCase.lambda).expression;
     let result = (await orm.expression(expression).compile(dialect,schema)).sentence();
+    console.log(useCase.name);
     console.log(result);
   } 
 
