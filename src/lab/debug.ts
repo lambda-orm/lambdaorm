@@ -533,7 +533,6 @@ async function schemaImport(orm:IOrm,source:string,target:string){
   let data = JSON.parse(fs.readFileSync(sourceFile));
   await orm.database.import(target,data);
 }
-
 (async () => { 
 
   try
