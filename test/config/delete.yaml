@@ -1,0 +1,99 @@
+name: delete
+schema: 'northwind:0.0.2'
+test:
+  - name: delete 1
+    lambda: (id) => Orders.delete().filter(p => p.id == id)
+    sentences:
+      - dialect: mariadb
+        sentence: DELETE FROM Orders o WHERE o.OrderID = ? ;
+      - dialect: mssql
+        sentence: 'DELETE FROM Orders o WHERE o.OrderID = :id ;'
+      - dialect: mysql
+        sentence: DELETE FROM Orders o WHERE o.OrderID = ? ;
+      - dialect: oracle
+        sentence: 'DELETE FROM Orders o WHERE o.OrderID = :id ;'
+      - dialect: postgres
+        sentence: DELETE FROM Orders o WHERE o.OrderID = $1 ;
+    expression: ' Orders.delete().filter(p => p.id == id)'
+    model: {}
+  - name: delete 2
+    lambda: (id) => Orders.delete().include(p => p.details)
+    sentences:
+      - dialect: mariadb
+        sentence: |-
+          DELETE FROM Orders o WHERE OrderID = ? ;
+          DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: mssql
+        sentence: >-
+          DELETE FROM Orders o WHERE OrderID = :id ;
+
+          DELETE FROM [Order Details] o1 WHERE (OrderID = :orderId AND ProductID
+          = :productId) ;
+      - dialect: mysql
+        sentence: |-
+          DELETE FROM Orders o WHERE OrderID = ? ;
+          DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: oracle
+        sentence: >-
+          DELETE FROM Orders o WHERE OrderID = :id ;
+
+          DELETE FROM "Order Details" o1 WHERE (OrderID = :orderId AND ProductID
+          = :productId) ;
+      - dialect: postgres
+        sentence: >-
+          DELETE FROM Orders o WHERE OrderID = $1 ;
+
+          DELETE FROM "Order Details" o1 WHERE (OrderID = $1 AND ProductID = $2)
+          ;
+    expression: ' Orders.delete().include(p => p.details)'
+    model:
+      details:
+        - {}
+  - name: delete 3
+    lambda: (id) => Orders.delete().filter(p => p.id == id).include(p => p.details)
+    sentences:
+      - dialect: mariadb
+        sentence: |-
+          DELETE FROM Orders o WHERE o.OrderID = ? ;
+          DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: mssql
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = :id ;
+
+          DELETE FROM [Order Details] o1 WHERE (OrderID = :orderId AND ProductID
+          = :productId) ;
+      - dialect: mysql
+        sentence: |-
+          DELETE FROM Orders o WHERE o.OrderID = ? ;
+          DELETE FROM `Order Details` o1 WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: oracle
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = :id ;
+
+          DELETE FROM "Order Details" o1 WHERE (OrderID = :orderId AND ProductID
+          = :productId) ;
+      - dialect: postgres
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = $1 ;
+
+          DELETE FROM "Order Details" o1 WHERE (OrderID = $1 AND ProductID = $2)
+          ;
+    expression: ' Orders.delete().filter(p => p.id == id).include(p => p.details)'
+    model:
+      details:
+        - {}
+  - name: delete 4
+    lambda: () => Orders.deleteAll()
+    sentences:
+      - dialect: mariadb
+        sentence: DELETE FROM Orders o ;
+      - dialect: mssql
+        sentence: DELETE FROM Orders o ;
+      - dialect: mysql
+        sentence: DELETE FROM Orders o ;
+      - dialect: oracle
+        sentence: DELETE FROM Orders o ;
+      - dialect: postgres
+        sentence: DELETE FROM Orders o ;
+    expression: ' Orders.deleteAll()'
+    model: {}

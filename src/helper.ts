@@ -3,7 +3,7 @@ const { DateTime } = require("luxon");
 const SqlString = require("sqlstring");
 
 export class Helper {
-    public static replaceAll(string:string, search:string, replace:string) {
+    public static replace(string:string, search:string, replace:string) {
         return string.replace(new RegExp(search, 'g'), replace);
         //return string.split(search).join(replace);
     }

@@ -1,0 +1,92 @@
+name: bulkInsert
+schema: 'northwind:0.0.2'
+test:
+  - name: bulkInsert 1
+    lambda: () => Categories.bulkInsert()
+    sentences:
+      - dialect: mariadb
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?;'
+      - dialect: mssql
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES
+          :name,:description;
+      - dialect: mysql
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?;'
+      - dialect: oracle
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES
+          :name,:description;
+      - dialect: postgres
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES;'
+    expression: ' Categories.bulkInsert()'
+    model:
+      name: string
+      description: string
+  - name: bulkInsert 2
+    lambda: () => Orders.bulkInsert().include(p => p.details)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?;
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?;
+      - dialect: mssql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+          :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country;
+
+          INSERT INTO [Order
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+          :orderId,:productId,:unitPrice,:quantity,:discount;
+      - dialect: mysql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?;
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?;
+      - dialect: oracle
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+          :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country;
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+          :orderId,:productId,:unitPrice,:quantity,:discount;
+      - dialect: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES;
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES;
+    expression: ' Orders.bulkInsert().include(p => p.details)'
+    model:
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+      details:
+        - orderId: integer
+          productId: integer
+          unitPrice: decimal
+          quantity: decimal
+          discount: decimal

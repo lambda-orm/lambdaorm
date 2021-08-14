@@ -1,0 +1,404 @@
+name: update
+schema: 'northwind:0.0.2'
+test:
+  - name: update 1
+    lambda: () => Orders.update()
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE OrderID = ? ;
+      - dialect: mssql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+          :employeeId,OrderDate = :orderDate,RequiredDate =
+          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
+          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
+          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
+          :country WHERE OrderID = :id ;
+      - dialect: mysql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE OrderID = ? ;
+      - dialect: oracle
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+          :employeeId,OrderDate = :orderDate,RequiredDate =
+          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
+          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
+          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
+          :country WHERE OrderID = :id ;
+      - dialect: postgres
+        sentence: >-
+          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+    expression: ' Orders.update()'
+    model:
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+  - name: update 2
+    lambda: () => OrderDetails.update()
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          UPDATE `Order Details` o SET OrderID = ?,ProductID = ?,UnitPrice =
+          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: mssql
+        sentence: >-
+          UPDATE [Order Details] o SET OrderID = :orderId,ProductID =
+          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+      - dialect: mysql
+        sentence: >-
+          UPDATE `Order Details` o SET OrderID = ?,ProductID = ?,UnitPrice =
+          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: oracle
+        sentence: >-
+          UPDATE "Order Details" o SET OrderID = :orderId,ProductID =
+          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+      - dialect: postgres
+        sentence: >-
+          UPDATE "Order Details" o SET OrderID = $1,ProductID = $2,UnitPrice =
+          $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
+          ;
+    expression: ' OrderDetails.update()'
+    model:
+      orderId: integer
+      productId: integer
+      unitPrice: decimal
+      quantity: decimal
+      discount: decimal
+  - name: update 3
+    lambda: (entity) => Orders.update(entity)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE entity.OrderID = ? ;
+      - dialect: mssql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
+          :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate =
+          :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia =
+          :entity.shipViaId,Freight = :entity.freight,ShipName =
+          :entity.name,ShipAddress = :entity.address,ShipCity =
+          :entity.city,ShipRegion = :entity.region,ShipPostalCode =
+          :entity.postalCode,ShipCountry = :entity.country WHERE entity.OrderID
+          = :id ;
+      - dialect: mysql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE entity.OrderID = ? ;
+      - dialect: oracle
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
+          :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate =
+          :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia =
+          :entity.shipViaId,Freight = :entity.freight,ShipName =
+          :entity.name,ShipAddress = :entity.address,ShipCity =
+          :entity.city,ShipRegion = :entity.region,ShipPostalCode =
+          :entity.postalCode,ShipCountry = :entity.country WHERE entity.OrderID
+          = :id ;
+      - dialect: postgres
+        sentence: >-
+          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE entity.OrderID = $14
+          ;
+    expression: ' Orders.update(entity)'
+    model:
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+  - name: update 4
+    lambda: '(entity) => Orders.updateAll({ name: entity.name })'
+    sentences:
+      - dialect: mariadb
+        sentence: UPDATE Orders o SET ShipName = ? ;
+      - dialect: mssql
+        sentence: 'UPDATE Orders o SET ShipName = :entity.name ;'
+      - dialect: mysql
+        sentence: UPDATE Orders o SET ShipName = ? ;
+      - dialect: oracle
+        sentence: 'UPDATE Orders o SET ShipName = :entity.name ;'
+      - dialect: postgres
+        sentence: UPDATE Orders o SET ShipName = $1 ;
+    expression: ' Orders.updateAll({ name: entity.name })'
+    model:
+      name: string
+  - name: update 5
+    lambda: >-
+      (entity) => Orders.update({ name: entity.name }).filter(p => p.id ==
+      entity.id)
+    sentences:
+      - dialect: mariadb
+        sentence: UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
+      - dialect: mssql
+        sentence: >-
+          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
+          :entity.id ;
+      - dialect: mysql
+        sentence: UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
+      - dialect: oracle
+        sentence: >-
+          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
+          :entity.id ;
+      - dialect: postgres
+        sentence: UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ;
+    expression: ' Orders.update({ name: entity.name }).filter(p => p.id == entity.id)'
+    model:
+      name: string
+  - name: update 6
+    lambda: >-
+      (entity) => Orders.update({ name: entity.name }).include(p =>
+      p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId
+      }))).filter(p => p.id == entity.id)
+    sentences:
+      - dialect: mariadb
+        error: >-
+          compile expression:  Orders.update({ name: entity.name }).include(p =>
+          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
+          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
+          incorrect!!!
+      - dialect: mssql
+        error: >-
+          compile expression:  Orders.update({ name: entity.name }).include(p =>
+          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
+          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
+          incorrect!!!
+      - dialect: mysql
+        error: >-
+          compile expression:  Orders.update({ name: entity.name }).include(p =>
+          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
+          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
+          incorrect!!!
+      - dialect: oracle
+        error: >-
+          compile expression:  Orders.update({ name: entity.name }).include(p =>
+          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
+          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
+          incorrect!!!
+      - dialect: postgres
+        error: >-
+          compile expression:  Orders.update({ name: entity.name }).include(p =>
+          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
+          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
+          incorrect!!!
+    expression: ' Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id == entity.id)'
+  - name: update 7
+    lambda: () => Orders.update().include(p => p.details)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE OrderID = ? ;
+
+          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
+          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: mssql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+          :employeeId,OrderDate = :orderDate,RequiredDate =
+          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
+          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
+          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
+          :country WHERE OrderID = :id ;
+
+          UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
+          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+      - dialect: mysql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE OrderID = ? ;
+
+          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
+          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+      - dialect: oracle
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+          :employeeId,OrderDate = :orderDate,RequiredDate =
+          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
+          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
+          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
+          :country WHERE OrderID = :id ;
+
+          UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+      - dialect: postgres
+        sentence: >-
+          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+
+          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
+          $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
+          ;
+    expression: ' Orders.update().include(p => p.details)'
+    model:
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+      details:
+        - orderId: integer
+          productId: integer
+          unitPrice: decimal
+          quantity: decimal
+          discount: decimal
+  - name: update 8
+    lambda: '() => Orders.update().include(p => [p.details, p.customer])'
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE OrderID = ? ;
+
+          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
+          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+
+          UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
+          ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+          ?,Country = ? WHERE CustomerID = ? ;
+      - dialect: mssql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+          :employeeId,OrderDate = :orderDate,RequiredDate =
+          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
+          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
+          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
+          :country WHERE OrderID = :id ;
+
+          UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
+          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+
+          UPDATE Customers c SET CustomerID = :id,CompanyName =
+          :name,ContactName = :contact,ContactTitle = :phone,Address =
+          :address,City = :city,Region = :region,PostalCode =
+          :postalCode,Country = :country WHERE CustomerID = :id ;
+      - dialect: mysql
+        sentence: >-
+          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
+          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+          ?,ShipCountry = ? WHERE OrderID = ? ;
+
+          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
+          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+
+          UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
+          ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+          ?,Country = ? WHERE CustomerID = ? ;
+      - dialect: oracle
+        sentence: >-
+          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+          :employeeId,OrderDate = :orderDate,RequiredDate =
+          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
+          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
+          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
+          :country WHERE OrderID = :id ;
+
+          UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
+          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+
+          UPDATE Customers c SET CustomerID = :id,CompanyName =
+          :name,ContactName = :contact,ContactTitle = :phone,Address =
+          :address,City = :city,Region = :region,PostalCode =
+          :postalCode,Country = :country WHERE CustomerID = :id ;
+      - dialect: postgres
+        sentence: >-
+          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+
+          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
+          $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
+          ;
+
+          UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName =
+          $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode =
+          $8,Country = $9 WHERE CustomerID = $10 ;
+    expression: ' Orders.update().include(p => [p.details, p.customer])'
+    model:
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+      details:
+        - orderId: integer
+          productId: integer
+          unitPrice: decimal
+          quantity: decimal
+          discount: decimal
+      customer:
+        id: string
+        name: string
+        contact: string
+        phone: string
+        address: string
+        city: string
+        region: string
+        postalCode: string
+        country: string

@@ -241,7 +241,7 @@ export class SqlSentence extends FunctionRef
         let template = metadata.other('from');
         let parts = from.name.split('.');
         template =template.replace('{name}',metadata.solveName(parts[0])); 
-        template =Helper.replaceAll(template,'{alias}',parts[1]);
+        template =Helper.replace(template,'{alias}',parts[1]);
         return template.trim();
     } 
     protected loadVariables(operand:Operand,variables:SqlVariable[])
@@ -332,7 +332,7 @@ export class SqlDelete extends SqlArrowFunction {
         let template = metadata.dml('delete');               
         let parts = this.name.split('.');
         template =template.replace('{name}',metadata.solveName(parts[0])); 
-        template =Helper.replaceAll(template,'{alias}',parts[1]);
+        template =Helper.replace(template,'{alias}',parts[1]);
         return template.trim()+' '; 
     }
 }

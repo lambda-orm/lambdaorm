@@ -1,0 +1,489 @@
+name: numeric functions
+schema: 'northwind:0.0.2'
+test:
+  - name: function abs
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      p.price * -1, result: abs(p.price * -1) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+          ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE p.ProductID =
+          ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+          ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE p.ProductID =
+          :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+          ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE p.ProductID =
+          ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+          ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE p.ProductID =
+          :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+          ABS((p.UnitPrice * -1)) AS result FROM Products p WHERE p.ProductID =
+          $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price * -1, result: abs(p.price * -1) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function acos
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      0.25, result: acos(0.25) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ACOS(0.25) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: acos(0.25) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function asin
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      0.25, result: asin(0.25) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ASIN(0.25) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: asin(0.25) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function atan
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      0.25, result: atan(0.25) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 0.25 AS source, ATAN(0.25) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: atan(0.25) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function atan2
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      0.50, result: atan2(0.25, 1) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 0.5 AS source, ATAN(0.25,1) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.5 AS source, ATAN2(0.25,1) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 0.5 AS source, ATAN(0.25,1) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 0.5 AS source, ATAN2(0.25,1) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 0.5 AS source, ATAN2(0.25,1) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.50, result: atan2(0.25, 1) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function ceil
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      25.75, result: ceil(25.75) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, CEIL(25.75) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: ceil(25.75) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function cos
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      2, result: cos(2) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, COS(2) AS result FROM
+          Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: cos(2) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function exp
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      1, result: exp(1) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 1 AS source, EXP(1) AS result FROM
+          Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1, result: exp(1) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function floor
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      25.75, result: floor(25.75) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 25.75 AS source, FLOOR(25.75) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: floor(25.75) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function ln
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      2, result: ln(2) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 2 AS source, LN(2) AS result FROM
+          Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: ln(2) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function log
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10,
+      n: 20, result: log(10, 20) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 10 AS m, 20 AS n, LOG(10,20) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10, n: 20, result: log(10, 20) }))'
+    model:
+      name: string
+      m: any
+      'n': any
+      result: any
+  - name: function round
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      135.375, result: round(135.375, 2) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: round(135.375, 2) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function sign
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      255.5, result: sign(255.5) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS result
+          FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS result
+          FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 255.5 AS source, SIGN(255.5) AS result
+          FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 255.5, result: sign(255.5) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function tan
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      1.75, result: tan(1.75) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result FROM
+          Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result FROM
+          Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 1.75 AS source, TAN(1.75) AS result FROM
+          Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1.75, result: tan(1.75) }))'
+    model:
+      name: string
+      source: any
+      result: any
+  - name: function trunc
+    context:
+      id: 1
+    lambda: >-
+      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      135.375, result: trunc(135.375, 2) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, TRUNCATE(135.375,2)
+          AS result FROM Products p WHERE p.ProductID = ? ;
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, TRUNC(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = :id ;
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, TRUNCATE(135.375,2)
+          AS result FROM Products p WHERE p.ProductID = ? ;
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, TRUNC(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = :id ;
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductName AS name, 135.375 AS source, TRUNC(135.375,2) AS
+          result FROM Products p WHERE p.ProductID = $1 ;
+    expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: trunc(135.375, 2) }))'
+    model:
+      name: string
+      source: any
+      result: any

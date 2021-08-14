@@ -56,7 +56,7 @@ export class PostgresConnection extends Connection
                             value=value?'true':'false';break;
                         case 'string':
                             value=Helper.escape(value);
-                            value=Helper.replaceAll(value,"\\'","\\''");
+                            value=Helper.replace(value,"\\'","\\''");
                             break;
                         case 'datetime':
                         case 'date':
