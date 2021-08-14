@@ -1,7 +1,7 @@
 import orm from '../orm';
 import {Helper} from '../helper';
 import '../sintaxis'
-import {IOrm } from '../model'
+import {IOrm,Parameter } from '../model'
 import { DatabaseClean } from 'database';
 const fs = require('fs');
 const path = require('path');
@@ -30,6 +30,7 @@ interface CategoryTest
 {
   name:string
   schema:string
+  context:any
   test:ExpressionTest[]  
 }
 interface ExpressionTest
@@ -39,6 +40,9 @@ interface ExpressionTest
   context?:any
   expression?:string
   model?:any
+  fields?:any
+  parameters?:Parameter[]
+
   sentences?:SentenceTest[]
 }
 interface SentenceTest
@@ -58,12 +62,13 @@ async function writeTest(orm:IOrm,category:CategoryTest)
     for(const r in dialects){
       const dialect = dialects[r];
       let sentence=undefined;
-      let serialize=undefined;
       let error=undefined;         
       try{
         expressionTest.expression = orm.lambda(expressionTest.lambda).expression;
         expressionTest.model = (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).model();
-        serialize = (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).serialize();           
+        const serialize:any= (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).serialize();
+        expressionTest.parameters =serialize.p; 
+        expressionTest.fields =serialize.f;           
         sentence = (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).sentence();        
       }
       catch(err)
@@ -87,38 +92,45 @@ async function writeTest(orm:IOrm,category:CategoryTest)
 }
 async function writeQueryTest(orm:IOrm)
 {
-  writeTest(orm,{name:'query',schema:'northwind:0.0.2',test:       
-    [{name:'query 1',lambda: (id:number)=> Products.filter(p=>p.id==id)}
-    ,{name:'query 2',lambda: ()=> Products.map(p=> p.category.name)}
+  writeTest(orm,{name:'query',schema:'northwind:0.0.2'
+  ,context:{ a:{ id: 1}
+           , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
+   }
+  ,test:[{name:'query 1',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+    ,{name:'query 2',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
     ,{name:'query 3',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
     ,{name:'query 4',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
-    ,{name:'query 5',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
+    ,{name:'query 5',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
     ,{name:'query 6',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
   ]});
 }
 async function writeNumeriFunctionsTest(orm:IOrm)
 { 
-  writeTest(orm,{name:'numeric functions',schema:'northwind:0.0.2',test:    
-    [{name:'function abs',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id ).map(p=> ({name:p.name,source:p.price*-1 ,result:abs(p.price*-1)}) ) }
-    ,{name:'function acos',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.25,result:acos(0.25)}))  }
-    ,{name:'function asin',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.25,result:asin(0.25)})) }
-    ,{name:'function atan',context:{id:1},lambda: (id:number)=>  Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.25,result:atan(0.25)})) }
-    ,{name:'function atan2',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.50,result:atan2(0.25,1)})) }
-    ,{name:'function ceil',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:25.75,result:ceil(25.75)})) }
-    ,{name:'function cos',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:2,result:cos(2)})) }
-    ,{name:'function exp',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:1,result:exp(1)})) }
-    ,{name:'function floor',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:25.75,result:floor(25.75)})) }
-    ,{name:'function ln',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:2,result:ln(2)})) }
-    ,{name:'function log',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,m:10,n:20,result:log(10,20)}))  }
-    ,{name:'function round',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:round(135.375,2)})) }
-    ,{name:'function sign',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:255.5,result:sign(255.5)})) }
-    ,{name:'function tan',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:1.75,result:tan(1.75)})) }
-    ,{name:'function trunc',context:{id:1},lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:trunc(135.375, 2)})) }
+  writeTest(orm,{name:'numeric functions',schema:'northwind:0.0.2'
+  ,context:{ a:{ id: 1}}
+  ,test:    
+    [{name:'function abs',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id ).map(p=> ({name:p.name,source:p.price*-1 ,result:abs(p.price*-1)}) ) }
+    ,{name:'function acos',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.25,result:acos(0.25)}))  }
+    ,{name:'function asin',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.25,result:asin(0.25)})) }
+    ,{name:'function atan',context:'a',lambda: (id:number)=>  Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.25,result:atan(0.25)})) }
+    ,{name:'function atan2',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:0.50,result:atan2(0.25,1)})) }
+    ,{name:'function ceil',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:25.75,result:ceil(25.75)})) }
+    ,{name:'function cos',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:2,result:cos(2)})) }
+    ,{name:'function exp',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:1,result:exp(1)})) }
+    ,{name:'function floor',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:25.75,result:floor(25.75)})) }
+    ,{name:'function ln',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:2,result:ln(2)})) }
+    ,{name:'function log',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,m:10,n:20,result:log(10,20)}))  }
+    ,{name:'function round',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:round(135.375,2)})) }
+    ,{name:'function sign',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:255.5,result:sign(255.5)})) }
+    ,{name:'function tan',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:1.75,result:tan(1.75)})) }
+    ,{name:'function trunc',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:trunc(135.375, 2)})) }
   ]});
 }  
 async function writeGroupByTest(orm:IOrm)
 {    
-  writeTest(orm,{name:'groupBy',schema:'northwind:0.0.2',test:   
+  writeTest(orm,{name:'groupBy',schema:'northwind:0.0.2'
+  ,context:{ a:{ id: 1}}
+  ,test:   
     [{name:'groupBy 1',lambda: ()=>  Products.map(p=> ({maxPrice:max(p.price)})) }
     ,{name:'groupBy 2',lambda: ()=> Products.map(p=> ({minPrice:min(p.price)})) }
     ,{name:'groupBy 3',lambda: ()=> Products.map(p=> ({total:sum(p.price)})) }
@@ -126,7 +138,7 @@ async function writeGroupByTest(orm:IOrm)
     ,{name:'groupBy 5',lambda: ()=> Products.map(p=> ({count:count(1)})) }    
     ,{name:'groupBy 6',lambda: ()=> Products.map(p=> ({category:p.categoryId,largestPrice:max(p.price)}))  }
     ,{name:'groupBy 7',lambda: ()=> Products.map(p=> ({category:p.category.name,largestPrice:max(p.price)}))  }
-    ,{name:'groupBy 8',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=> ({name:p.name,source:p.price ,result:abs(p.price)}))}
+    ,{name:'groupBy 8',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=> ({name:p.name,source:p.price ,result:abs(p.price)}))}
     ,{name:'groupBy 9',lambda: ()=> Products.map(p=> ({category:p.category.name,largestPrice:max(p.price)})).having(p=> p.largestPrice > 100) }
     ,{name:'groupBy 10',lambda: ()=> Products.map(p=> ({category:p.category.name,largestPrice:max(p.price)})).having(p=> p.largestPrice > 100).sort(p=> desc(p.largestPrice))  }
     ,{name:'groupBy 11',lambda: ()=> Products.filter(p=> p.price>5 ).map(p=> ({category:p.category.name,largestPrice:max(p.price)})).having(p=> p.largestPrice > 50).sort(p=> desc(p.largestPrice))  }
@@ -134,32 +146,74 @@ async function writeGroupByTest(orm:IOrm)
 }
 async function writeIncludeTest(orm:IOrm)
 {     
-  writeTest(orm,{name:'include',schema:'northwind:0.0.2',test:  
-    [{name:'include 1',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.customer)}
-    ,{name:'include 2',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.details)}
-    ,{name:'include 3',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])}
-    ,{name:'include 4',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])}
-    ,{name:'include 5',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])}
-    ,{name:'include 6',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])}
-    ,{name:'include 7',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])}
+  writeTest(orm,{name:'include',schema:'northwind:0.0.2'
+  ,context:{ a:{ id: 1}}
+  ,test:    
+    [{name:'include 1',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.customer)}
+    ,{name:'include 2',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.details)}
+    ,{name:'include 3',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])}
+    ,{name:'include 4',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])}
+    ,{name:'include 5',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])}
+    ,{name:'include 6',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])}
+    ,{name:'include 7',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])}
   ]}); 
 }
 async function writeInsertsTest(orm:IOrm)
 {  
-  writeTest(orm,{name:'inserts',schema:'northwind:0.0.2',test:  
+  writeTest(orm,{name:'inserts',schema:'northwind:0.0.2'
+  ,context:{ a:{ id: 1}
+           , order : {
+              "customerId": "VINET",
+              "employeeId": 5,
+              "orderDate": "1996-07-03T22:00:00.000Z",
+              "requiredDate": "1996-07-31T22:00:00.000Z",
+              "shippedDate": "1996-07-15T22:00:00.000Z",
+              "shipViaId": 3,
+              "freight": 32.38,
+              "name": "Vins et alcools Chevalier",
+              "address": "59 rue de l-Abbaye",
+              "city": "Reims",
+              "region": null,
+              "postalCode": "51100",
+              "country": "France",
+              "details": [
+                {
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": false
+                },
+                {
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": false
+                },
+                {
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": false
+                }
+              ]
+            }
+ }
+  ,test:  
     [{name:'insert 1',lambda: ()=> Products.insert()  }
-    ,{name:'insert 2',lambda: ()=> Orders.insert() }
+    ,{name:'insert 2',context:'order',lambda: ()=> Orders.insert() }
     ,{name:'insert 3',lambda: (name:string,customerId:number,shippedDate:Date)=> Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate}) }
-    ,{name:'insert 4',lambda: (o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate}) }
-    ,{name:'insert 5',lambda: ()=> Orders.insert().include(p=> p.details) }
-    ,{name:'insert 6',lambda: ()=> Orders.insert().include(p=> p.details) }
-    ,{name:'insert 7',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }
-    ,{name:'insert 8',lambda: (entity:Order)=> Orders.insert(entity).include(p=> [p.details,p.customer]) }
+    ,{name:'insert 4',context:'order',lambda: (o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate}) }
+    ,{name:'insert 5',context:'order',lambda: ()=> Orders.insert().include(p=> p.details) }
+    ,{name:'insert 6',context:'order',lambda: ()=> Orders.insert().include(p=> p.details) }
+    ,{name:'insert 7',context:'order',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }
+    // ,{name:'insert 8',lambda: (entity:Order)=> Orders.insert(entity).include(p=> [p.details,p.customer]) }
   ]});  
 }
 async function writeUpdateTest(orm:IOrm)
 {    
-  writeTest(orm,{name:'update',schema:'northwind:0.0.2',test:  
+  writeTest(orm,{name:'update',schema:'northwind:0.0.2'
+  ,context:{ }
+  ,test:  
     [{name:'update 1',lambda: ()=> Orders.update()   }
     ,{name:'update 2',lambda: ()=> OrderDetails.update()   }
     ,{name:'update 3',lambda: (entity:Order)=> Orders.update(entity)  }
@@ -172,7 +226,9 @@ async function writeUpdateTest(orm:IOrm)
 }
 async function writeDeleteTest(orm:IOrm)
 {     
-  writeTest(orm,{name:'delete',schema:'northwind:0.0.2',test:  
+  writeTest(orm,{name:'delete',schema:'northwind:0.0.2'
+  ,context:{ }
+  ,test:  
     [{name:'delete 1',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id)  }
     ,{name:'delete 2',lambda: (id:number)=> Orders.delete().include(p=> p.details)  }
     ,{name:'delete 3',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)   }
@@ -181,7 +237,9 @@ async function writeDeleteTest(orm:IOrm)
 }
 async function writeBulkInsertTest(orm:IOrm)
 {    
-  writeTest(orm,{name:'bulkInsert',schema:'northwind:0.0.2',test:  
+  writeTest(orm,{name:'bulkInsert',schema:'northwind:0.0.2'
+  ,context:{ }
+  ,test:  
     [{name:'bulkInsert 1',lambda: ()=> Categories.bulkInsert() }
     ,{name:'bulkInsert 2',lambda: ()=> Orders.bulkInsert().include(p=> p.details) } 
   ]});
