@@ -83,10 +83,15 @@ export class SqlObject extends Obj
     build(metadata:SqlDialectMetadata){       
         let text= '';
         let template = metadata.function('as').template;
+        let reservedWords = metadata.other('reservedWords');
+        let delimiter = metadata.other('delimiter');        
         for(let i=0;i<this.children.length;i++){
             let value = this.children[i].build(metadata);
+            let alias = this.children[i].name;
+            if(reservedWords.includes(alias))
+               alias= delimiter.replace('{name}',alias); 
             let fieldText = template.replace('{value}',value);
-            fieldText = fieldText.replace('{alias}',this.children[i].name);
+            fieldText = fieldText.replace('{alias}',alias);
             text += (i>0?', ':'')+fieldText;
         }
         return text;

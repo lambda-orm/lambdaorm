@@ -13,7 +13,7 @@ dml:
   # delete: DELETE {alias} FROM `{name}` AS {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES ?   
 others:
-  delimiterSpaces: '`{name}`'
+  delimiter: '`{name}`'
   variable: '?'
 functions:
   numeric:

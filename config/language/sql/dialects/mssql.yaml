@@ -1,4 +1,5 @@
 _extends: [sql]
 others:
-  delimiterSpaces: '[{name}]'
+  reservedWords: ['order','as']
+  delimiter: '[{name}]'
   sepatatorSql: ' \nGO'

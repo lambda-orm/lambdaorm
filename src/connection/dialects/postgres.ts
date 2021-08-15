@@ -41,7 +41,7 @@ export class PostgresConnection extends Connection
     }
     public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
     {       
-        let rows:string[]=[];
+        let rows:string[]=[];          
         for(const p in array){
             const values = array[p];
             let row:any[]=[];
@@ -80,6 +80,7 @@ export class PostgresConnection extends Connection
             }
         }
         return ids;
+        
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {   

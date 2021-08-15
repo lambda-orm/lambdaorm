@@ -1,46 +1,171 @@
 name: inserts
 schema: 'northwind:0.0.2'
+context:
+  a:
+    name: Beverages2
+    description: 'Soft drinks, coffees, teas, beers, and ales'
+    id: 11
+  b:
+    name: Beverages3
+    description: 'Soft drinks, coffees, teas, beers, and ales'
+    id: 12
+  c:
+    entity: &ref_0
+      name: Beverages3
+      description: 'Soft drinks, coffees, teas, beers, and ales'
+    id: 13
+  order:
+    customerId: VINET
+    employeeId: 5
+    orderDate: '1996-07-03T22:00:00.000Z'
+    requiredDate: '1996-07-31T22:00:00.000Z'
+    shippedDate: '1996-07-15T22:00:00.000Z'
+    shipViaId: 3
+    freight: 32.38
+    name: Vins et alcools Chevalier
+    address: 59 rue de l-Abbaye
+    city: Reims
+    region: null
+    postalCode: '51100'
+    country: France
+    details:
+      - productId: 11
+        unitPrice: 14
+        quantity: 12
+        discount: false
+        orderId: 836
+      - productId: 42
+        unitPrice: 9.8
+        quantity: 10
+        discount: false
+        orderId: 836
+      - productId: 72
+        unitPrice: 34.8
+        quantity: 5
+        discount: false
+        orderId: 836
+    id: 836
 test:
   - name: insert 1
-    lambda: () => Products.insert()
+    context: a
+    lambda: () => Categories.insert()
     sentences:
       - dialect: mariadb
-        sentence: >-
-          INSERT INTO
-          Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
-          VALUES(?,?,?,?,?,?,?,?,?);
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?);'
       - dialect: mssql
         sentence: >-
-          INSERT INTO
-          Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
-          VALUES(:name,:supplierId,:categoryId,:quantity,:price,:inStock,:onOrder,:reorderLevel,:discontinued);
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:name,:description);
       - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
-          VALUES(?,?,?,?,?,?,?,?,?);
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?);'
       - dialect: oracle
         sentence: >-
-          INSERT INTO
-          Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
-          VALUES(:name,:supplierId,:categoryId,:quantity,:price,:inStock,:onOrder,:reorderLevel,:discontinued);
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:name,:description);
       - dialect: postgres
         sentence: >-
-          INSERT INTO
-          Products(ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING ProductID AS id;
-    expression: ' Products.insert()'
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id;
+    expression: ' Categories.insert()'
     model:
       name: string
-      supplierId: integer
-      categoryId: integer
-      quantity: string
-      price: decimal
-      inStock: decimal
-      onOrder: decimal
-      reorderLevel: decimal
-      discontinued: boolean
+      description: string
+    parameters:
+      - name: name
+        type: string
+        value: Beverages2
+      - name: description
+        type: string
+        value: 'Soft drinks, coffees, teas, beers, and ales'
+    fields:
+      - name: name
+        type: string
+      - name: description
+        type: string
+    executions:
+      - database: mysql
+        result: 11
+      - database: mariadb
+        result: 11
+      - database: postgres
+        result: 11
   - name: insert 2
+    context: b
+    lambda: >-
+      (name, description) => Categories.insert({ name: name, description:
+      description })
+    sentences:
+      - dialect: mariadb
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?);'
+      - dialect: mssql
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:name,:description);
+      - dialect: mysql
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?);'
+      - dialect: oracle
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:name,:description);
+      - dialect: postgres
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id;
+    expression: ' Categories.insert({ name: name, description: description })'
+    model:
+      name: string
+      description: string
+    parameters:
+      - name: name
+        type: string
+        value: Beverages3
+      - name: description
+        type: string
+        value: 'Soft drinks, coffees, teas, beers, and ales'
+    fields:
+      - name: name
+        type: string
+      - name: description
+        type: string
+    executions:
+      - database: mysql
+        result: 12
+      - database: mariadb
+        result: 12
+      - database: postgres
+        result: 12
+  - name: insert 3
+    context: c
+    lambda: (entity) => Categories.insert(entity)
+    sentences:
+      - dialect: mariadb
+        sentence: INSERT INTO Categories() VALUES();
+      - dialect: mssql
+        sentence: INSERT INTO Categories() VALUES();
+      - dialect: mysql
+        sentence: INSERT INTO Categories() VALUES();
+      - dialect: oracle
+        sentence: INSERT INTO Categories() VALUES();
+      - dialect: postgres
+        sentence: INSERT INTO Categories() VALUES() RETURNING CategoryID AS id;
+    expression: ' Categories.insert(entity)'
+    model: {}
+    parameters:
+      - name: entity
+        type: any
+        value: *ref_0
+    fields: []
+    executions:
+      - database: mysql
+        error: >-
+          run: insert error: Error: Field 'CategoryName' doesn't have a default
+          value
+      - database: mariadb
+        result: 13
+      - database: postgres
+        error: 'run: insert error: error: syntax error at or near ")"'
+  - name: insert 4
+    context: order
     lambda: () => Orders.insert()
     sentences:
       - dialect: mariadb
@@ -84,59 +209,84 @@ test:
       region: string
       postalCode: string
       country: string
-  - name: insert 3
-    lambda: >-
-      (name, customerId, shippedDate) => Orders.insert({ name: name, customerId:
-      customerId, shippedDate: shippedDate })
-    sentences:
-      - dialect: mariadb
-        sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
-          VALUES(:name,:customerId,:shippedDate);
-      - dialect: mysql
-        sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
-          VALUES(:name,:customerId,:shippedDate);
-      - dialect: postgres
-        sentence: >-
-          INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES($1,$2,$3)
-          RETURNING OrderID AS id;
-    expression: ' Orders.insert({ name: name, customerId: customerId, shippedDate: shippedDate })'
-    model:
-      name: string
-      customerId: string
-      shippedDate: datetime
-  - name: insert 4
-    lambda: >-
-      (o) => Orders.insert({ name: o.name, customerId: o.customerId,
-      shippedDate: o.shippedDate })
-    sentences:
-      - dialect: mariadb
-        sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
-          VALUES(:o.name,:o.customerId,:o.shippedDate);
-      - dialect: mysql
-        sentence: 'INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES(?,?,?);'
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Orders(ShipName,CustomerID,ShippedDate)
-          VALUES(:o.name,:o.customerId,:o.shippedDate);
-      - dialect: postgres
-        sentence: >-
-          INSERT INTO Orders(ShipName,CustomerID,ShippedDate) VALUES($1,$2,$3)
-          RETURNING OrderID AS id;
-    expression: ' Orders.insert({ name: o.name, customerId: o.customerId, shippedDate: o.shippedDate })'
-    model:
-      name: string
-      customerId: string
-      shippedDate: datetime
+    parameters:
+      - name: customerId
+        type: string
+        value: VINET
+      - name: employeeId
+        type: integer
+        value: 5
+      - name: orderDate
+        type: datetime
+        value: '1996-07-03T22:00:00.000Z'
+      - name: requiredDate
+        type: datetime
+        value: '1996-07-31T22:00:00.000Z'
+      - name: shippedDate
+        type: datetime
+        value: '1996-07-15T22:00:00.000Z'
+      - name: shipViaId
+        type: integer
+        value: 3
+      - name: freight
+        type: decimal
+        value: 32.38
+      - name: name
+        type: string
+        value: Vins et alcools Chevalier
+      - name: address
+        type: string
+        value: 59 rue de l-Abbaye
+      - name: city
+        type: string
+        value: Reims
+      - name: region
+        type: string
+        value: null
+      - name: postalCode
+        type: string
+        value: '51100'
+      - name: country
+        type: string
+        value: France
+    fields:
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    executions:
+      - database: mysql
+        error: >-
+          run: insert error: Error: Incorrect datetime value:
+          '1996-07-03T22:00:00.000Z' for column 'OrderDate' at row 1
+      - database: mariadb
+        result: 834
+      - database: postgres
+        result: 834
   - name: insert 5
+    context: order
     lambda: () => Orders.insert().include(p => p.details)
     sentences:
       - dialect: mariadb
@@ -206,77 +356,86 @@ test:
           unitPrice: decimal
           quantity: decimal
           discount: decimal
+    parameters:
+      - name: customerId
+        type: string
+        value: VINET
+      - name: employeeId
+        type: integer
+        value: 5
+      - name: orderDate
+        type: datetime
+        value: '1996-07-03T22:00:00.000Z'
+      - name: requiredDate
+        type: datetime
+        value: '1996-07-31T22:00:00.000Z'
+      - name: shippedDate
+        type: datetime
+        value: '1996-07-15T22:00:00.000Z'
+      - name: shipViaId
+        type: integer
+        value: 3
+      - name: freight
+        type: decimal
+        value: 32.38
+      - name: name
+        type: string
+        value: Vins et alcools Chevalier
+      - name: address
+        type: string
+        value: 59 rue de l-Abbaye
+      - name: city
+        type: string
+        value: Reims
+      - name: region
+        type: string
+        value: null
+      - name: postalCode
+        type: string
+        value: '51100'
+      - name: country
+        type: string
+        value: France
+    fields:
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    executions:
+      - database: mysql
+        error: >-
+          run: insert error: Error: Incorrect datetime value:
+          '1996-07-03T22:00:00.000Z' for column 'OrderDate' at row 1
+      - database: mariadb
+        result: 835
+      - database: postgres
+        error: >-
+          run: insert error: error: invalid input syntax for type numeric:
+          "false"
   - name: insert 6
-    lambda: () => Orders.insert().include(p => p.details)
-    sentences:
-      - dialect: mariadb
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
-
-          INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
-      - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
-      - dialect: postgres
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-          AS id;
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
-    expression: ' Orders.insert().include(p => p.details)'
-    model:
-      customerId: string
-      employeeId: integer
-      orderDate: datetime
-      requiredDate: datetime
-      shippedDate: datetime
-      shipViaId: integer
-      freight: decimal
-      name: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
-  - name: insert 7
+    context: order
     lambda: '() => Orders.insert().include(p => [p.details, p.customer])'
     sentences:
       - dialect: mariadb
@@ -376,79 +535,81 @@ test:
         region: string
         postalCode: string
         country: string
-  - name: insert 8
-    lambda: '(entity) => Orders.insert(entity).include(p => [p.details, p.customer])'
-    sentences:
-      - dialect: mariadb
-        sentence: >-
-          INSERT INTO Orders() VALUES();
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(?,?,?,?,?,?,?,?,?);
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO Orders() VALUES();
-
-          INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
-      - dialect: mysql
-        sentence: >-
-          INSERT INTO Orders() VALUES();
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(?,?,?,?,?,?,?,?,?);
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Orders() VALUES();
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
-      - dialect: postgres
-        sentence: >-
-          INSERT INTO Orders() VALUES() RETURNING OrderID AS id;
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id;
-    expression: ' Orders.insert(entity).include(p => [p.details, p.customer])'
-    model:
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
-      customer:
-        id: string
-        name: string
-        contact: string
-        phone: string
-        address: string
-        city: string
-        region: string
-        postalCode: string
-        country: string
+    parameters:
+      - name: customerId
+        type: string
+        value: VINET
+      - name: employeeId
+        type: integer
+        value: 5
+      - name: orderDate
+        type: datetime
+        value: '1996-07-03T22:00:00.000Z'
+      - name: requiredDate
+        type: datetime
+        value: '1996-07-31T22:00:00.000Z'
+      - name: shippedDate
+        type: datetime
+        value: '1996-07-15T22:00:00.000Z'
+      - name: shipViaId
+        type: integer
+        value: 3
+      - name: freight
+        type: decimal
+        value: 32.38
+      - name: name
+        type: string
+        value: Vins et alcools Chevalier
+      - name: address
+        type: string
+        value: 59 rue de l-Abbaye
+      - name: city
+        type: string
+        value: Reims
+      - name: region
+        type: string
+        value: null
+      - name: postalCode
+        type: string
+        value: '51100'
+      - name: country
+        type: string
+        value: France
+    fields:
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    executions:
+      - database: mysql
+        error: >-
+          run: insert error: Error: Incorrect datetime value:
+          '1996-07-03T22:00:00.000Z' for column 'OrderDate' at row 1
+      - database: mariadb
+        result: 836
+      - database: postgres
+        error: >-
+          run: insert error: error: invalid input syntax for type numeric:
+          "false"

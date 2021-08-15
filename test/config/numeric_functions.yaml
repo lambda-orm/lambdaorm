@@ -1,9 +1,11 @@
 name: numeric functions
 schema: 'northwind:0.0.2'
+context:
+  a:
+    id: 1
 test:
   - name: function abs
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       p.price * -1, result: abs(p.price * -1) }))
@@ -38,9 +40,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '-18.0000'
+            result: '18.0000'
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '-18.0000'
+            result: '18.0000'
+      - database: postgres
+        result:
+          - name: Chai
+            source: '-18.0000'
+            result: '18.0000'
   - name: function acos
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       0.25, result: acos(0.25) }))
@@ -70,9 +98,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 1.318116071652818
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 1.318116071652818
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 1.31811607165282
   - name: function asin
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       0.25, result: asin(0.25) }))
@@ -102,9 +156,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.25268025514207865
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.25268025514207865
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.252680255142079
   - name: function atan
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       0.25, result: atan(0.25) }))
@@ -134,9 +214,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.24497866312686414
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.24497866312686414
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.244978663126864
   - name: function atan2
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       0.50, result: atan2(0.25, 1) }))
@@ -166,9 +272,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.5'
+            result: 0.24497866312686414
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '0.5'
+            result: 0.24497866312686414
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.5'
+            result: 0.244978663126864
   - name: function ceil
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       25.75, result: ceil(25.75) }))
@@ -198,9 +330,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '25.75'
+            result: 26
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '25.75'
+            result: 26
+      - database: postgres
+        result:
+          - name: Chai
+            source: '25.75'
+            result: '26'
   - name: function cos
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       2, result: cos(2) }))
@@ -230,9 +388,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: 2
+            result: -0.4161468365471424
+      - database: mariadb
+        result:
+          - name: Chai
+            source: 2
+            result: -0.4161468365471424
+      - database: postgres
+        result:
+          - name: Chai
+            source: 2
+            result: -0.416146836547142
   - name: function exp
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       1, result: exp(1) }))
@@ -262,9 +446,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: 1
+            result: 2.718281828459045
+      - database: mariadb
+        result:
+          - name: Chai
+            source: 1
+            result: 2.7182818284590455
+      - database: postgres
+        result:
+          - name: Chai
+            source: 1
+            result: 2.71828182845905
   - name: function floor
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       25.75, result: floor(25.75) }))
@@ -294,9 +504,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '25.75'
+            result: 25
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '25.75'
+            result: 25
+      - database: postgres
+        result:
+          - name: Chai
+            source: '25.75'
+            result: '25'
   - name: function ln
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       2, result: ln(2) }))
@@ -326,9 +562,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: 2
+            result: 0.6931471805599453
+      - database: mariadb
+        result:
+          - name: Chai
+            source: 2
+            result: 0.6931471805599453
+      - database: postgres
+        result:
+          - name: Chai
+            source: 2
+            result: 0.693147180559945
   - name: function log
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10,
       n: 20, result: log(10, 20) }))
@@ -359,9 +621,40 @@ test:
       m: any
       'n': any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: m
+        type: any
+      - name: 'n'
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            m: 10
+            'n': 20
+            result: 1.301029995663981
+      - database: mariadb
+        result:
+          - name: Chai
+            m: 10
+            'n': 20
+            result: 1.301029995663981
+      - database: postgres
+        result:
+          - name: Chai
+            m: 10
+            'n': 20
+            result: '1.3010299956639812'
   - name: function round
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       135.375, result: round(135.375, 2) }))
@@ -391,9 +684,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.38'
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.38'
+      - database: postgres
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.38'
   - name: function sign
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       255.5, result: sign(255.5) }))
@@ -423,9 +742,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '255.5'
+            result: 1
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '255.5'
+            result: 1
+      - database: postgres
+        result:
+          - name: Chai
+            source: '255.5'
+            result: '1'
   - name: function tan
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       1.75, result: tan(1.75) }))
@@ -455,9 +800,35 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '1.75'
+            result: -5.52037992250933
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '1.75'
+            result: -5.52037992250933
+      - database: postgres
+        result:
+          - name: Chai
+            source: '1.75'
+            result: -5.52037992250933
   - name: function trunc
-    context:
-      id: 1
+    context: a
     lambda: >-
       (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
       135.375, result: trunc(135.375, 2) }))
@@ -487,3 +858,30 @@ test:
       name: string
       source: any
       result: any
+    parameters:
+      - name: id
+        type: integer
+        value: 1
+    fields:
+      - name: name
+        type: string
+      - name: source
+        type: any
+      - name: result
+        type: any
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.37'
+      - database: mariadb
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.37'
+      - database: postgres
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.37'

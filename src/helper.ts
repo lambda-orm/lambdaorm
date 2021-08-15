@@ -4,8 +4,9 @@ const SqlString = require("sqlstring");
 
 export class Helper {
     public static replace(string:string, search:string, replace:string) {
-        return string.replace(new RegExp(search, 'g'), replace);
-        //return string.split(search).join(replace);
+        return string.split(search).join(replace);
+        // con la siguiente opcion falla cuando se hace value=Helper.replace(value,"\\'","\\''");
+        //return string.replace(new RegExp(search, 'g'), replace);
     }
     public static clone(obj:any):any
     {

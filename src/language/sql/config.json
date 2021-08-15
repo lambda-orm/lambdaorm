@@ -38,8 +38,17 @@
         "delete": "DELETE FROM {name} {alias}"
       },
       "others": {
-        "delimiterSpaces": "`{name}`",
+        "delimiter": "`{name}`",
         "variable": "?",
+        "reservedWords": [
+          "order",
+          "as",
+          "select",
+          "from",
+          "where",
+          "having",
+          "group"
+        ],
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
@@ -211,7 +220,16 @@
     },
     "mssql": {
       "others": {
-        "delimiterSpaces": "[{name}]",
+        "reservedWords": [
+          "order",
+          "as",
+          "select",
+          "from",
+          "where",
+          "having",
+          "group"
+        ],
+        "delimiter": "[{name}]",
         "sepatatorSql": " \\nGO",
         "notNullable": "NOT NULL",
         "variable": ":{name}",
@@ -455,8 +473,17 @@
         "delete": "DELETE FROM {name} {alias}"
       },
       "others": {
-        "delimiterSpaces": "`{name}`",
+        "delimiter": "`{name}`",
         "variable": "?",
+        "reservedWords": [
+          "order",
+          "as",
+          "select",
+          "from",
+          "where",
+          "having",
+          "group"
+        ],
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
@@ -678,7 +705,16 @@
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
       },
       "others": {
-        "delimiterSpaces": "\"{name}\"",
+        "reservedWords": [
+          "order",
+          "as",
+          "select",
+          "from",
+          "where",
+          "having",
+          "group"
+        ],
+        "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "variable": ":{name}",
@@ -882,7 +918,16 @@
       },
       "others": {
         "variable": "${number}",
-        "delimiterSpaces": "\"{name}\"",
+        "reservedWords": [
+          "order",
+          "as",
+          "select",
+          "from",
+          "where",
+          "having",
+          "group"
+        ],
+        "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
@@ -1095,7 +1140,16 @@
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
     },
     "others": {
-      "delimiterSpaces": "\"{name}\"",
+      "reservedWords": [
+        "order",
+        "as",
+        "select",
+        "from",
+        "where",
+        "having",
+        "group"
+      ],
+      "delimiter": "\"{name}\"",
       "sepatatorSql": ";",
       "notNullable": "NOT NULL",
       "variable": ":{name}",

@@ -1,7 +1,11 @@
 name: include
 schema: 'northwind:0.0.2'
+context:
+  a:
+    id: 1
 test:
   - name: include 1
+    context: a
     lambda: (id) => Orders.filter(p => p.id == id).include(p => p.customer)
     sentences:
       - dialect: mariadb
@@ -95,7 +99,41 @@ test:
         region: string
         postalCode: string
         country: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'
   - name: include 2
+    context: a
     lambda: (id) => Orders.filter(p => p.id == id).include(p => p.details)
     sentences:
       - dialect: mariadb
@@ -180,7 +218,41 @@ test:
           unitPrice: decimal
           quantity: decimal
           discount: decimal
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'
   - name: include 3
+    context: a
     lambda: >-
       (id) => Orders.filter(p => p.id == id).include(p => [p.details,
       p.customer])
@@ -302,7 +374,41 @@ test:
         region: string
         postalCode: string
         country: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'
   - name: include 4
+    context: a
     lambda: >-
       (id) => Orders.filter(p => p.id == id).include(p => [p.details.include(q
       => q.product), p.customer])
@@ -465,7 +571,41 @@ test:
         region: string
         postalCode: string
         country: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'
   - name: include 5
+    context: a
     lambda: >-
       (id) => Orders.filter(p => p.id == id).include(p => [p.details.include(q
       => q.product.include(p => p.category)), p.customer])
@@ -647,7 +787,41 @@ test:
         region: string
         postalCode: string
         country: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'
   - name: include 6
+    context: a
     lambda: >-
       (id) => Orders.filter(p => p.id == id).include(p => [p.details.map(p => ({
       quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
@@ -768,7 +942,41 @@ test:
         region: string
         postalCode: string
         country: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'
   - name: include 7
+    context: a
     lambda: >-
       (id) => Orders.filter(p => p.id == id).include(p => [p.details.include(q
       => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
@@ -930,3 +1138,36 @@ test:
         region: string
         postalCode: string
         country: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    error: 'run: select error: connection postgres not found'

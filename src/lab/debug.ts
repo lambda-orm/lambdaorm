@@ -40,8 +40,8 @@ interface ExpressionTest
   model?:any
   fields?:any
   parameters?:Parameter[]
-
   sentences?:SentenceTest[]
+  executions?:ExecutionTest[]
 }
 interface SentenceTest
 {
@@ -49,14 +49,19 @@ interface SentenceTest
   sentence?: any
   error?:string
 }
+interface ExecutionTest
+{
+  database: string
+  result?: any
+  error?:string
+}
 
-async function writeTest(orm:IOrm,category:CategoryTest)
+async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
 {
   let dialects =  Object.values(orm.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
   for(const q in category.test){  
     let expressionTest = category.test[q] as ExpressionTest;
     expressionTest.sentences=[];
-    console.log(category.name+':'+expressionTest.name);
     for(const r in dialects){
       const dialect = dialects[r];
       let sentence=undefined;
@@ -80,7 +85,30 @@ async function writeTest(orm:IOrm,category:CategoryTest)
         else if(sentence!=undefined)    
           expressionTest.sentences.push({dialect:dialect,sentence:sentence});
         else
-          console.error('error');   
+          console.error('error sentence '+dialect+' '+category.name+':'+expressionTest.name);
+      }
+    }
+    expressionTest.executions=[];
+    for(const p in databases){
+      const database = databases[p];
+      let result=undefined;
+      let error=undefined;   
+      try{
+        const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{};
+        result = await orm.lambda(expressionTest.lambda).execute(context,database);
+      }
+      catch(err)
+      {
+        error=err.toString();
+      }
+      finally
+      {
+        if(error!=undefined)
+          expressionTest.executions.push({database:database,error:error});
+        else if(result!=undefined)    
+          expressionTest.executions.push({database:database,result:result});
+        else
+          console.error('error execution '+database+' '+category.name+':'+expressionTest.name); 
       }
     }
     expressionTest.lambda=expressionTest.lambda.toString();
@@ -88,13 +116,13 @@ async function writeTest(orm:IOrm,category:CategoryTest)
   let yamlStr = yaml.safeDump(category);
   fs.writeFileSync(path.join('test/config',Helper.replace(category.name,' ','_')+'.yaml'),yamlStr);
 }
-async function writeQueryTest(orm:IOrm)
+async function writeQueryTest(orm:IOrm,databases:string[],)
 {
-  writeTest(orm,{name:'query',schema:'northwind:0.0.2'
+  writeTest(orm,databases,{name:'query',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}
            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
    }
-  ,test:[{name:'query 1',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+  ,test:[{name:'query 1',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
     ,{name:'query 2',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
     ,{name:'query 3',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
     ,{name:'query 4',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
@@ -102,9 +130,9 @@ async function writeQueryTest(orm:IOrm)
     ,{name:'query 6',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
   ]});
 }
-async function writeNumeriFunctionsTest(orm:IOrm)
+async function writeNumeriFunctionsTest(orm:IOrm,databases:string[],)
 { 
-  writeTest(orm,{name:'numeric functions',schema:'northwind:0.0.2'
+  writeTest(orm,databases,{name:'numeric functions',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}}
   ,test:    
     [{name:'function abs',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id ).map(p=> ({name:p.name,source:p.price*-1 ,result:abs(p.price*-1)}) ) }
@@ -124,9 +152,9 @@ async function writeNumeriFunctionsTest(orm:IOrm)
     ,{name:'function trunc',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:trunc(135.375, 2)})) }
   ]});
 }  
-async function writeGroupByTest(orm:IOrm)
+async function writeGroupByTest(orm:IOrm,databases:string[],)
 {    
-  writeTest(orm,{name:'groupBy',schema:'northwind:0.0.2'
+  writeTest(orm,databases,{name:'groupBy',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}}
   ,test:   
     [{name:'groupBy 1',lambda: ()=>  Products.map(p=> ({maxPrice:max(p.price)})) }
@@ -142,9 +170,9 @@ async function writeGroupByTest(orm:IOrm)
     ,{name:'groupBy 11',lambda: ()=> Products.filter(p=> p.price>5 ).map(p=> ({category:p.category.name,largestPrice:max(p.price)})).having(p=> p.largestPrice > 50).sort(p=> desc(p.largestPrice))  }
   ]});  
 }
-async function writeIncludeTest(orm:IOrm)
+async function writeIncludeTest(orm:IOrm,databases:string[],)
 {     
-  writeTest(orm,{name:'include',schema:'northwind:0.0.2'
+  writeTest(orm,databases,{name:'include',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}}
   ,test:    
     [{name:'include 1',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.customer)}
@@ -156,10 +184,12 @@ async function writeIncludeTest(orm:IOrm)
     ,{name:'include 7',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])}
   ]}); 
 }
-async function writeInsertsTest(orm:IOrm)
+async function writeInsertsTest(orm:IOrm,databases:string[],)
 {  
-  writeTest(orm,{name:'inserts',schema:'northwind:0.0.2'
-  ,context:{ a:{ id: 1}
+  writeTest(orm,databases,{name:'inserts',schema:'northwind:0.0.2'
+  ,context:{ a:{name: "Beverages2", description: "Soft drinks, coffees, teas, beers, and ales" }
+            ,b:{name: "Beverages3", description: "Soft drinks, coffees, teas, beers, and ales" }
+            ,c:{entity:{name: "Beverages3", description: "Soft drinks, coffees, teas, beers, and ales" }}
            , order : {
               "customerId": "VINET",
               "employeeId": 5,
@@ -197,51 +227,432 @@ async function writeInsertsTest(orm:IOrm)
             }
  }
   ,test:  
-    [{name:'insert 1',lambda: ()=> Products.insert()  }
-    ,{name:'insert 2',context:'order',lambda: ()=> Orders.insert() }
-    ,{name:'insert 3',lambda: (name:string,customerId:number,shippedDate:Date)=> Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate}) }
-    ,{name:'insert 4',context:'order',lambda: (o:Order)=> Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate}) }
+    [{name:'insert 1',context:'a',lambda: ()=> Categories.insert()}
+    ,{name:'insert 2',context:'b',lambda: (name:string,description:string)=> Categories.insert({name:name,description:description})}  
+    ,{name:'insert 3',context:'c',lambda: (entity:Category)=> Categories.insert(entity) }  
+    ,{name:'insert 4',context:'order',lambda: ()=> Orders.insert() }
     ,{name:'insert 5',context:'order',lambda: ()=> Orders.insert().include(p=> p.details) }
-    ,{name:'insert 6',context:'order',lambda: ()=> Orders.insert().include(p=> p.details) }
-    ,{name:'insert 7',context:'order',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }
-    // ,{name:'insert 8',lambda: (entity:Order)=> Orders.insert(entity).include(p=> [p.details,p.customer]) }
+    ,{name:'insert 6',context:'order',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }    
   ]});  
 }
-async function writeUpdateTest(orm:IOrm)
+async function writeUpdateTest(orm:IOrm,databases:string[],)
 {    
-  writeTest(orm,{name:'update',schema:'northwind:0.0.2'
-  ,context:{ }
+  writeTest(orm,databases,{name:'update',schema:'northwind:0.0.2'
+,context:{a:{
+              "id": 7,
+              "customerId": "ANATR",
+              "employeeId": 7,
+              "orderDate": "1996-09-17T22:00:00.000Z",
+              "requiredDate": "1996-10-15T22:00:00.000Z",
+              "shippedDate": "1996-09-23T22:00:00.000Z",
+              "shipViaId": 3,
+              "freight": "1.6100",
+              "name": "Ana Trujillo Emparedados y helados",
+              "address": "Avda. de la Constitucin 2222",
+              "city": "Mxico D.F.",
+              "region": null,
+              "postalCode": "5021",
+              "country": "Mexico",
+              "details": [
+                {
+                  "orderId": 7,
+                  "productId": 69,
+                  "unitPrice": "28.8000",
+                  "quantity": "1.0000",
+                  "discount": "0.0000"
+                },
+                {
+                  "orderId": 7,
+                  "productId": 70,
+                  "unitPrice": "12.0000",
+                  "quantity": "5.0000",
+                  "discount": "0.0000"
+                }
+              ]
+            }
+            , b:{entity:{
+                  "id": 8,
+                  "customerId": "ANATR",
+                  "employeeId": 3,
+                  "orderDate": "1997-08-07T22:00:00.000Z",
+                  "requiredDate": "1997-09-04T22:00:00.000Z",
+                  "shippedDate": "1997-08-13T22:00:00.000Z",
+                  "shipViaId": 1,
+                  "freight": "43.9000",
+                  "name": "Ana Trujillo Emparedados y helados",
+                  "address": "Avda. de la Constitucin 2222",
+                  "city": "Mxico D.F.",
+                  "region": null,
+                  "postalCode": "5021",
+                  "country": "Mexico",
+                  "details": [
+                    {
+                      "orderId": 8,
+                      "productId": 14,
+                      "unitPrice": "23.2500",
+                      "quantity": "3.0000",
+                      "discount": "0.0000"
+                    },
+                    {
+                      "orderId": 8,
+                      "productId": 42,
+                      "unitPrice": "14.0000",
+                      "quantity": "5.0000",
+                      "discount": "0.0000"
+                    },
+                    {
+                      "orderId": 8,
+                      "productId": 60,
+                      "unitPrice": "34.0000",
+                      "quantity": "10.0000",
+                      "discount": "0.0000"
+                    }
+                  ]
+                }
+              }
+            , c:{postalCode:'xxx'}
+            , d:{ "id": "ALFKI",
+                  "name": "Alfreds Futterkiste",
+                  "contact": "Maria Anders",
+                  "phone": "Sales Representative",
+                  "address": "Obere Str. 57",
+                  "city": "Berlin",
+                  "region": null,
+                  "postalCode": "12209",
+                  "country": "Germany",
+                  "orders": [
+                    {
+                      "id": 1,
+                      "customerId": "ALFKI",
+                      "employeeId": 6,
+                      "orderDate": "1997-08-24T22:00:00.000Z",
+                      "requiredDate": "1997-09-21T22:00:00.000Z",
+                      "shippedDate": "1997-09-01T22:00:00.000Z",
+                      "shipViaId": 1,
+                      "freight": "29.4600",
+                      "name": "Alfreds Futterkiste",
+                      "address": "Obere Str. 57",
+                      "city": "Berlin",
+                      "region": null,
+                      "postalCode": "12209",
+                      "country": "Germany",
+                      "details": [
+                        {
+                          "orderId": 1,
+                          "productId": 28,
+                          "unitPrice": "45.6000",
+                          "quantity": "15.0000",
+                          "discount": "0.0000"
+                        },
+                        {
+                          "orderId": 1,
+                          "productId": 39,
+                          "unitPrice": "18.0000",
+                          "quantity": "21.0000",
+                          "discount": "0.0000"
+                        },
+                        {
+                          "orderId": 1,
+                          "productId": 46,
+                          "unitPrice": "12.0000",
+                          "quantity": "2.0000",
+                          "discount": "0.0000"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "customerId": "ALFKI",
+                      "employeeId": 4,
+                      "orderDate": "1997-10-02T22:00:00.000Z",
+                      "requiredDate": "1997-10-30T23:00:00.000Z",
+                      "shippedDate": "1997-10-12T22:00:00.000Z",
+                      "shipViaId": 2,
+                      "freight": "61.0200",
+                      "name": "Alfred-s Futterkiste",
+                      "address": "Obere Str. 57",
+                      "city": "Berlin",
+                      "region": null,
+                      "postalCode": "12209",
+                      "country": "Germany",
+                      "details": [
+                        {
+                          "orderId": 2,
+                          "productId": 63,
+                          "unitPrice": "43.9000",
+                          "quantity": "20.0000",
+                          "discount": "0.0000"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "customerId": "ALFKI",
+                      "employeeId": 4,
+                      "orderDate": "1997-10-12T22:00:00.000Z",
+                      "requiredDate": "1997-11-23T23:00:00.000Z",
+                      "shippedDate": "1997-10-20T22:00:00.000Z",
+                      "shipViaId": 1,
+                      "freight": "23.9400",
+                      "name": "Alfred-s Futterkiste",
+                      "address": "Obere Str. 57",
+                      "city": "Berlin",
+                      "region": null,
+                      "postalCode": "12209",
+                      "country": "Germany",
+                      "details": [
+                        {
+                          "orderId": 3,
+                          "productId": 3,
+                          "unitPrice": "10.0000",
+                          "quantity": "6.0000",
+                          "discount": "0.0000"
+                        },
+                        {
+                          "orderId": 3,
+                          "productId": 76,
+                          "unitPrice": "18.0000",
+                          "quantity": "15.0000",
+                          "discount": "0.0000"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 4,
+                      "customerId": "ALFKI",
+                      "employeeId": 1,
+                      "orderDate": "1998-01-14T23:00:00.000Z",
+                      "requiredDate": "1998-02-11T23:00:00.000Z",
+                      "shippedDate": "1998-01-20T23:00:00.000Z",
+                      "shipViaId": 3,
+                      "freight": "69.5300",
+                      "name": "Alfred-s Futterkiste",
+                      "address": "Obere Str. 57",
+                      "city": "Berlin",
+                      "region": null,
+                      "postalCode": "12209",
+                      "country": "Germany",
+                      "details": [
+                        {
+                          "orderId": 4,
+                          "productId": 59,
+                          "unitPrice": "55.0000",
+                          "quantity": "15.0000",
+                          "discount": "0.0000"
+                        },
+                        {
+                          "orderId": 4,
+                          "productId": 77,
+                          "unitPrice": "13.0000",
+                          "quantity": "2.0000",
+                          "discount": "0.0000"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 5,
+                      "customerId": "ALFKI",
+                      "employeeId": 1,
+                      "orderDate": "1998-03-15T23:00:00.000Z",
+                      "requiredDate": "1998-04-26T22:00:00.000Z",
+                      "shippedDate": "1998-03-23T23:00:00.000Z",
+                      "shipViaId": 1,
+                      "freight": "40.4200",
+                      "name": "Alfred-s Futterkiste",
+                      "address": "Obere Str. 57",
+                      "city": "Berlin",
+                      "region": null,
+                      "postalCode": "12209",
+                      "country": "Germany",
+                      "details": [
+                        {
+                          "orderId": 5,
+                          "productId": 6,
+                          "unitPrice": "25.0000",
+                          "quantity": "16.0000",
+                          "discount": "0.0000"
+                        },
+                        {
+                          "orderId": 5,
+                          "productId": 28,
+                          "unitPrice": "45.6000",
+                          "quantity": "2.0000",
+                          "discount": "0.0000"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 6,
+                      "customerId": "ALFKI",
+                      "employeeId": 3,
+                      "orderDate": "1998-04-08T22:00:00.000Z",
+                      "requiredDate": "1998-05-06T22:00:00.000Z",
+                      "shippedDate": "1998-04-12T22:00:00.000Z",
+                      "shipViaId": 1,
+                      "freight": "1.2100",
+                      "name": "Alfred-s Futterkiste",
+                      "address": "Obere Str. 57",
+                      "city": "Berlin",
+                      "region": null,
+                      "postalCode": "12209",
+                      "country": "Germany",
+                      "details": [
+                        {
+                          "orderId": 6,
+                          "productId": 58,
+                          "unitPrice": "13.2500",
+                          "quantity": "40.0000",
+                          "discount": "0.0000"
+                        },
+                        {
+                          "orderId": 6,
+                          "productId": 71,
+                          "unitPrice": "21.5000",
+                          "quantity": "20.0000",
+                          "discount": "0.0000"
+                        }
+                      ]
+                    }
+                  ]
+                }
+          }
   ,test:  
-    [{name:'update 1',lambda: ()=> Orders.update()   }
-    ,{name:'update 2',lambda: ()=> OrderDetails.update()   }
-    ,{name:'update 3',lambda: (entity:Order)=> Orders.update(entity)  }
-    ,{name:'update 4',lambda: (entity:Order)=> Orders.updateAll({name:entity.name})  }
-    ,{name:'update 5',lambda: (entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)  }
-    ,{name:'update 6',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
-    ,{name:'update 7',lambda: ()=> Orders.update().include(p=> p.details)  }
-    ,{name:'update 8',lambda: ()=> Orders.update().include(p=> [p.details,p.customer])}
+    [{name:'update 1',context:'a',lambda: ()=> Orders.update()}
+    ,{name:'update 3',context:'b',lambda: (entity:Order)=> Orders.update(entity)}
+    ,{name:'update 4',context:'c',lambda: (postalCode:string)=> Orders.updateAll({postalCode:postalCode})}
+    ,{name:'update 5',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)}
+    ,{name:'update 6',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
+    ,{name:'update 7',context:'a',lambda: ()=> Orders.update().include(p=> p.details)}
+    ,{name:'update 8',context:'c',lambda: ()=> Customers.update().include(p=> p.orders.include(p=> p.details))}
   ]});  
 }
-async function writeDeleteTest(orm:IOrm)
+async function writeDeleteTest(orm:IOrm,databases:string[],)
 {     
-  writeTest(orm,{name:'delete',schema:'northwind:0.0.2'
-  ,context:{ }
+  writeTest(orm,databases,{name:'delete',schema:'northwind:0.0.2'
+  ,context:{ a: {id:9} 
+           ,b: {id:10} 
+           ,c: {id:11}   
+           }
   ,test:  
-    [{name:'delete 1',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id)  }
-    ,{name:'delete 2',lambda: (id:number)=> Orders.delete().include(p=> p.details)  }
-    ,{name:'delete 3',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)   }
-    ,{name:'delete 4',lambda: ()=> Orders.deleteAll() }
+    [{name:'delete 1',context:'a',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id)  }
+    ,{name:'delete 2',context:'b',lambda: (id:number)=> Orders.delete().include(p=> p.details)  }
+    ,{name:'delete 3',context:'c',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)   }
+    ,{name:'delete 4',lambda: ()=> OrderDetails.deleteAll() }
   ]}); 
 }
-async function writeBulkInsertTest(orm:IOrm)
+async function writeBulkInsertTest(orm:IOrm,databases:string[],)
 {    
-  writeTest(orm,{name:'bulkInsert',schema:'northwind:0.0.2'
-  ,context:{ }
+  writeTest(orm,databases,{name:'bulkInsert',schema:'northwind:0.0.2'
+  ,context:{a: [{
+                  name: "Beverages4",
+                  description: "Soft drinks, coffees, teas, beers, and ales"
+                },
+                {
+                  name: "Condiments4",
+                  description: "Sweet and savory sauces, relishes, spreads, and seasonings"
+                }
+              ]
+           ,b: [
+            {
+              
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {          
+                  "productId": 28,
+                  "unitPrice": "45.6000",
+                  "quantity": 15,
+                  "discount": 0
+                },
+                {
+                  "productId": 39,
+                  "unitPrice": "18.0000",
+                  "quantity": 21,
+                  "discount": 0
+                },
+                {          
+                  "productId": 46,
+                  "unitPrice": "12.0000",
+                  "quantity": 2,
+                  "discount": 0
+                }
+              ]
+            },
+            {      
+              "customerId": "ALFKI",
+              "employeeId": 4,
+              "orderDate": "1997-10-02T22:00:00.000Z",
+              "requiredDate": "1997-10-30T23:00:00.000Z",
+              "shippedDate": "1997-10-12T22:00:00.000Z",
+              "shipViaId": 2,
+              "freight": "61.0200",
+              "name": "Alfred-s Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {          
+                  "productId": 63,
+                  "unitPrice": "43.9000",
+                  "quantity": 20,
+                  "discount": 0
+                }
+              ]
+            },
+            {      
+              "customerId": "ALFKI",
+              "employeeId": 4,
+              "orderDate": "1997-10-12T22:00:00.000Z",
+              "requiredDate": "1997-11-23T23:00:00.000Z",
+              "shippedDate": "1997-10-20T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": "23.9400",
+              "name": "Alfred-s Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {          
+                  "productId": 3,
+                  "unitPrice": "10.0000",
+                  "quantity": 6,
+                  "discount": 0
+                },
+                {          
+                  "productId": 76,
+                  "unitPrice": "18.0000",
+                  "quantity": 15,
+                  "discount": 0
+                }
+              ]
+            },
+          ]  
+
+   }
   ,test:  
-    [{name:'bulkInsert 1',lambda: ()=> Categories.bulkInsert() }
-    ,{name:'bulkInsert 2',lambda: ()=> Orders.bulkInsert().include(p=> p.details) } 
+    [{name:'bulkInsert 1',context:'a',lambda: ()=> Categories.bulkInsert() }
+    ,{name:'bulkInsert 2',context:'b',lambda: ()=> Orders.bulkInsert().include(p=> p.details) } 
   ]});
 }
+
+
+
+
 
 async function queries(orm:IOrm)
 {  
@@ -529,7 +940,7 @@ async function schemaExport(orm:IOrm,source:string){
   fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
 }
 async function schemaImport(orm:IOrm,source:string,target:string){
-  let sourceFile = 'test/data/'+source+'-export.json';
+  let sourceFile = 'orm/data/'+source+'-export.json';
   let data = JSON.parse(fs.readFileSync(sourceFile));
   await orm.database.import(target,data);
 }
@@ -537,15 +948,17 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
   try
   {  
+    let databases=['mysql','mariadb','postgres'];
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
-    await writeQueryTest(orm);
-    await writeNumeriFunctionsTest(orm);
-    await writeGroupByTest(orm);
-    await writeIncludeTest(orm);
-    await writeInsertsTest(orm);
-    await writeUpdateTest(orm);
-    await writeDeleteTest(orm);
-    await writeBulkInsertTest(orm);
+    //await writeQueryTest(orm,databases);
+    //await writeNumeriFunctionsTest(orm,databases);
+    //await writeGroupByTest(orm,databases);
+    await writeIncludeTest(orm,databases);//con errores
+    await writeInsertsTest(orm,databases);//con errores
+    await writeUpdateTest(orm,databases);//con errores
+    await writeDeleteTest(orm,databases);//con errores
+    //await writeBulkInsertTest(orm,databases);
+    
     //operators comparation , matematica
     //string functions
     //datetime functions
@@ -556,13 +969,12 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await scriptsByDialect(orm,'northwind');
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-
     //await generateModel(orm,'source');
     
     // await schemaSync(orm,'source');
     // await schemaExport(orm,'source');
     // //test mysql
-    // await schemaDrop(orm,'mysql');
+    // await schemaDrop(orm,'mysql',true);
     // await schemaSync(orm,'mysql');
     // await schemaImport(orm,'source','mysql');
     // await schemaExport(orm,'mysql');  
@@ -571,8 +983,8 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await schemaSync(orm,'mariadb');
     // await schemaImport(orm,'source','mariadb');
     // await schemaExport(orm,'mariadb');
-    // // //test postgres 
-    // await schemaDrop(orm,'postgres');
+    // //test postgres 
+    // await schemaDrop(orm,'postgres',true);
     // await schemaSync(orm,'postgres');
     // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');  

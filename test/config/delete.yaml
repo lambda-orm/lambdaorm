@@ -1,7 +1,15 @@
 name: delete
 schema: 'northwind:0.0.2'
+context:
+  a:
+    id: 9
+  b:
+    id: 10
+  c:
+    id: 11
 test:
   - name: delete 1
+    context: a
     lambda: (id) => Orders.delete().filter(p => p.id == id)
     sentences:
       - dialect: mariadb
@@ -16,7 +24,29 @@ test:
         sentence: DELETE FROM Orders o WHERE o.OrderID = $1 ;
     expression: ' Orders.delete().filter(p => p.id == id)'
     model: {}
+    parameters:
+      - name: id
+        type: integer
+        value: 9
+    fields: []
+    executions:
+      - database: mysql
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MySQL server version for the right
+          syntax to use near 'o WHERE o.OrderID = ?' at line 1
+      - database: mariadb
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MariaDB server version for the
+          right syntax to use near 'o WHERE o.OrderID = ?' at line 1
+      - database: postgres
+        error: >-
+          run: delete error: error: update or delete on table "orders" violates
+          foreign key constraint "Order Details_order_FK" on table "Order
+          Details"
   - name: delete 2
+    context: b
     lambda: (id) => Orders.delete().include(p => p.details)
     sentences:
       - dialect: mariadb
@@ -49,7 +79,29 @@ test:
     model:
       details:
         - {}
+    parameters:
+      - name: id
+        type: integer
+        value: 10
+    fields: []
+    executions:
+      - database: mysql
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MySQL server version for the right
+          syntax to use near 'o WHERE OrderID = ?' at line 1
+      - database: mariadb
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MariaDB server version for the
+          right syntax to use near 'o WHERE OrderID = ?' at line 1
+      - database: postgres
+        error: >-
+          run: delete error: error: update or delete on table "orders" violates
+          foreign key constraint "Order Details_order_FK" on table "Order
+          Details"
   - name: delete 3
+    context: c
     lambda: (id) => Orders.delete().filter(p => p.id == id).include(p => p.details)
     sentences:
       - dialect: mariadb
@@ -82,18 +134,54 @@ test:
     model:
       details:
         - {}
+    parameters:
+      - name: id
+        type: integer
+        value: 11
+    fields: []
+    executions:
+      - database: mysql
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MySQL server version for the right
+          syntax to use near 'o WHERE o.OrderID = ?' at line 1
+      - database: mariadb
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MariaDB server version for the
+          right syntax to use near 'o WHERE o.OrderID = ?' at line 1
+      - database: postgres
+        error: >-
+          run: delete error: error: update or delete on table "orders" violates
+          foreign key constraint "Order Details_order_FK" on table "Order
+          Details"
   - name: delete 4
-    lambda: () => Orders.deleteAll()
+    lambda: () => OrderDetails.deleteAll()
     sentences:
       - dialect: mariadb
-        sentence: DELETE FROM Orders o ;
+        sentence: DELETE FROM `Order Details` o ;
       - dialect: mssql
-        sentence: DELETE FROM Orders o ;
+        sentence: 'DELETE FROM [Order Details] o ;'
       - dialect: mysql
-        sentence: DELETE FROM Orders o ;
+        sentence: DELETE FROM `Order Details` o ;
       - dialect: oracle
-        sentence: DELETE FROM Orders o ;
+        sentence: DELETE FROM "Order Details" o ;
       - dialect: postgres
-        sentence: DELETE FROM Orders o ;
-    expression: ' Orders.deleteAll()'
+        sentence: DELETE FROM "Order Details" o ;
+    expression: ' OrderDetails.deleteAll()'
     model: {}
+    parameters: []
+    fields: []
+    executions:
+      - database: mysql
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MySQL server version for the right
+          syntax to use near 'o' at line 1
+      - database: mariadb
+        error: >-
+          run: delete error: Error: You have an error in your SQL syntax; check
+          the manual that corresponds to your MariaDB server version for the
+          right syntax to use near 'o' at line 1
+      - database: postgres
+        result: 2161
