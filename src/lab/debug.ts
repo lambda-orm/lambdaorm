@@ -392,6 +392,8 @@ async function crud(orm:IOrm){
 //     await exec( async()=>(orm.schema.sync(schema).sentence(name)));
 //   } 
 // }
+// 
+
 async function bulkInsert(orm:IOrm){
   const expression =`Categories.bulkInsert()`;
   const categories =[
