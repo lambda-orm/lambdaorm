@@ -46,7 +46,6 @@ dml:
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
 others:
-  reservedWords: ['order','as','select','from','where','having','group']  
   delimiter: '"{name}"'
   sepatatorSql: ;
   notNullable: NOT NULL

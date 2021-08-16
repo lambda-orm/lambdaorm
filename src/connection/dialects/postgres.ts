@@ -29,7 +29,7 @@ export class PostgresConnection extends Connection
     public async select(sql:string,params:Parameter[]):Promise<any>
     {        
         const result= await this._execute(sql,params);
-        return result.rows;
+        return result. rows;
     }
     public async insert(sql:string,params:Parameter[]):Promise<number>
     {     
@@ -73,9 +73,9 @@ export class PostgresConnection extends Connection
         let result = await this.cnx.query(query);
         let ids:number[]=[];
         if(fieldId){
-            let fieldIdlower = fieldId.toLowerCase();
+            // let fieldIdlower = fieldId.toLowerCase();
             for(const p in result.rows){
-                const id = result.rows[p][fieldIdlower] as number;
+                const id = result.rows[p][fieldId] as number;
                 ids.push(id);
             }
         }
@@ -112,10 +112,50 @@ export class PostgresConnection extends Connection
         this.inTransaction=false;
     }
     protected async _execute(sql:string,params:Parameter[]=[]):Promise<any>
-    {                
+    {    
+                 
         let values:any[]=[];
-        for(let i=0;i<params.length;i++)
-            values.push(params[i].value); 
-        return await this.cnx.query(sql,values);
+        for(let i=0;i<params.length;i++){
+            const param = params[i];
+            if(param.type== 'array'){
+                // https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query 
+                // https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
+                // https://www.postgresql.org/docs/9.2/functions-array.html
+                // https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query  
+                if(param.value.length>0){
+                    let type = typeof param.value[0]; 
+                    switch(type){
+                        case 'string':
+                            values.push(param.value.join(','));
+                            break;
+                        case 'bigint':    
+                        case 'number':
+                            if(param.value.length==1){
+                                values.push(param.value[0]);
+                            }
+                            else{
+                                sql =Helper.replace(sql,'($'+(i+1)+')','(SELECT(UNNEST($'+(i+1)+'::INTEGER[])))');
+                                values.push(param.value);
+                            }
+                            break;
+                        default:
+                            values.push(param.value);    
+                    } 
+                }
+                else
+                {
+                    values.push([]);
+                }                 
+            }
+            else{
+                values.push(param.value);
+            }     
+        } 
+        try{
+            return await this.cnx.query(sql,values);
+        }
+        catch(error){
+            console.error(error);
+        }
     }   
 }

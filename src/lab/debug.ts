@@ -112,9 +112,22 @@ async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
       }
     }
     expressionTest.lambda=expressionTest.lambda.toString();
-  }     
-  let yamlStr = yaml.safeDump(category);
-  fs.writeFileSync(path.join('test/config',Helper.replace(category.name,' ','_')+'.yaml'),yamlStr);
+  }
+  try{     
+    let yamlStr = yaml.safeDump(category);
+    fs.writeFileSync(path.join('test/config',Helper.replace(category.name,' ','_')+'.yaml'),yamlStr);
+  }catch(error){
+    console.error(error);
+    for(const q in category.test){ 
+      try{   
+        let expressionTest = category.test[q] as ExpressionTest;
+        let yamlStr = yaml.safeDump(expressionTest);
+      }catch(error){
+        console.error(error);
+      }  
+    }
+    
+  }
 }
 async function writeQueryTest(orm:IOrm,databases:string[],)
 {
@@ -948,16 +961,16 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
   try
   {  
-    let databases=['mysql','mariadb','postgres'];
+    let databases=['mysql','postgres'];
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
-    //await writeQueryTest(orm,databases);
-    //await writeNumeriFunctionsTest(orm,databases);
-    //await writeGroupByTest(orm,databases);
-    await writeIncludeTest(orm,databases);//con errores
+    // await writeQueryTest(orm,databases);
+    // await writeNumeriFunctionsTest(orm,databases);
+    // await writeGroupByTest(orm,databases);
+    // await writeIncludeTest(orm,databases);
     await writeInsertsTest(orm,databases);//con errores
-    await writeUpdateTest(orm,databases);//con errores
-    await writeDeleteTest(orm,databases);//con errores
-    //await writeBulkInsertTest(orm,databases);
+    // await writeUpdateTest(orm,databases);//con errores
+    // await writeDeleteTest(orm,databases);//con errores
+    // await writeBulkInsertTest(orm,databases);
     
     //operators comparation , matematica
     //string functions
@@ -979,18 +992,17 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await schemaImport(orm,'source','mysql');
     // await schemaExport(orm,'mysql');  
     // // //test mariadb
-    // await schemaDrop(orm,'mariadb',true);
-    // await schemaSync(orm,'mariadb');
-    // await schemaImport(orm,'source','mariadb');
-    // await schemaExport(orm,'mariadb');
+    // // await schemaDrop(orm,'mariadb',true);
+    // // await schemaSync(orm,'mariadb');
+    // // await schemaImport(orm,'source','mariadb');
+    // // await schemaExport(orm,'mariadb');
     // //test postgres 
     // await schemaDrop(orm,'postgres',true);
     // await schemaSync(orm,'postgres');
     // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');  
        
-  
-    
+      
     console.log('Ok')
   }
   catch(error){

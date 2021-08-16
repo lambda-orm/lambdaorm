@@ -3,6 +3,10 @@ schema: 'northwind:0.0.2'
 context:
   a:
     id: 1
+    list_id:
+      - ALFKI
+    list_orderId:
+      - 1
 test:
   - name: include 1
     context: a
@@ -10,69 +14,76 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
+          [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
+          AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
+          c.Country AS [country] FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => p.customer)'
     model:
       id: integer
@@ -102,6 +113,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -131,71 +143,130 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
   - name: include 2
     context: a
     lambda: (id) => Orders.filter(p => p.id == id).include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          [Order Details] o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+          o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
+          [discount] FROM [Order Details] o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => p.details)'
     model:
       id: integer
@@ -221,6 +292,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -250,7 +322,71 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
   - name: include 3
     context: a
     lambda: >-
@@ -259,89 +395,98 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          [Order Details] o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+          o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
+          [discount] FROM [Order Details] o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
+          [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
+          AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
+          c.Country AS [country] FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => [p.details, p.customer])'
     model:
       id: integer
@@ -377,6 +522,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -406,7 +552,91 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
   - name: include 4
     context: a
     lambda: >-
@@ -415,119 +645,133 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (?) ;
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p WHERE  p.ProductID IN
+          (?) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          [Order Details] o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+          o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
+          [discount] FROM [Order Details] o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (:list_id) ;
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p WHERE  p.ProductID IN
+          (:list_id) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
+          [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
+          AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
+          c.Country AS [country] FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (?) ;
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p WHERE  p.ProductID IN
+          (?) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (:list_id) ;
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p WHERE  p.ProductID IN
+          (:list_id) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN ($1) ;
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p WHERE  p.ProductID IN
+          ($1) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product), p.customer])'
     model:
       id: integer
@@ -574,6 +818,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -603,7 +848,157 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: '45.6000'
+                  inStock: '26.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: 1
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: '18.0000'
+                  inStock: '69.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '5.0000'
+                  discontinued: 0
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: '12.0000'
+                  inStock: '95.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: 0
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: '45.6000'
+                  inStock: '26.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: true
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: '18.0000'
+                  inStock: '69.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '5.0000'
+                  discontinued: false
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: '12.0000'
+                  inStock: '95.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: false
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
   - name: include 5
     context: a
     lambda: >-
@@ -612,134 +1007,151 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (?) ;
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p WHERE  p.ProductID IN
+          (?) ;
 
-          SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description AS
-          description FROM Categories c WHERE  c.CategoryID IN (?) ;
+          SELECT c.CategoryID AS `id`, c.CategoryName AS `name`, c.Description
+          AS `description` FROM Categories c WHERE  c.CategoryID IN (?) ;
 
-          SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName AS
-          contact, c1.ContactTitle AS phone, c1.Address AS address, c1.City AS
-          city, c1.Region AS region, c1.PostalCode AS postalCode, c1.Country AS
-          country FROM Customers c1 WHERE  c1.CustomerID IN (?) ;
+          SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`, c1.ContactName
+          AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
+          c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
+          `postalCode`, c1.Country AS `country` FROM Customers c1 WHERE 
+          c1.CustomerID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          [Order Details] o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+          o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
+          [discount] FROM [Order Details] o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (:list_id) ;
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p WHERE  p.ProductID IN
+          (:list_id) ;
 
-          SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description AS
-          description FROM Categories c WHERE  c.CategoryID IN (:list_id) ;
+          SELECT c.CategoryID AS [id], c.CategoryName AS [name], c.Description
+          AS [description] FROM Categories c WHERE  c.CategoryID IN (:list_id) ;
 
-          SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName AS
-          contact, c1.ContactTitle AS phone, c1.Address AS address, c1.City AS
-          city, c1.Region AS region, c1.PostalCode AS postalCode, c1.Country AS
-          country FROM Customers c1 WHERE  c1.CustomerID IN (:list_id) ;
+          SELECT c1.CustomerID AS [id], c1.CompanyName AS [name], c1.ContactName
+          AS [contact], c1.ContactTitle AS [phone], c1.Address AS [address],
+          c1.City AS [city], c1.Region AS [region], c1.PostalCode AS
+          [postalCode], c1.Country AS [country] FROM Customers c1 WHERE 
+          c1.CustomerID IN (:list_id) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          `Order Details` o1 WHERE  o1.OrderID IN (?) ;
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount` FROM `Order Details` o1 WHERE  o1.OrderID IN (?) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (?) ;
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p WHERE  p.ProductID IN
+          (?) ;
 
-          SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description AS
-          description FROM Categories c WHERE  c.CategoryID IN (?) ;
+          SELECT c.CategoryID AS `id`, c.CategoryName AS `name`, c.Description
+          AS `description` FROM Categories c WHERE  c.CategoryID IN (?) ;
 
-          SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName AS
-          contact, c1.ContactTitle AS phone, c1.Address AS address, c1.City AS
-          city, c1.Region AS region, c1.PostalCode AS postalCode, c1.Country AS
-          country FROM Customers c1 WHERE  c1.CustomerID IN (?) ;
+          SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`, c1.ContactName
+          AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
+          c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
+          `postalCode`, c1.Country AS `country` FROM Customers c1 WHERE 
+          c1.CustomerID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN (:list_orderId) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN
+          (:list_orderId) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (:list_id) ;
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p WHERE  p.ProductID IN
+          (:list_id) ;
 
-          SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description AS
-          description FROM Categories c WHERE  c.CategoryID IN (:list_id) ;
+          SELECT c.CategoryID AS "id", c.CategoryName AS "name", c.Description
+          AS "description" FROM Categories c WHERE  c.CategoryID IN (:list_id) ;
 
-          SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName AS
-          contact, c1.ContactTitle AS phone, c1.Address AS address, c1.City AS
-          city, c1.Region AS region, c1.PostalCode AS postalCode, c1.Country AS
-          country FROM Customers c1 WHERE  c1.CustomerID IN (:list_id) ;
+          SELECT c1.CustomerID AS "id", c1.CompanyName AS "name", c1.ContactName
+          AS "contact", c1.ContactTitle AS "phone", c1.Address AS "address",
+          c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
+          "postalCode", c1.Country AS "country" FROM Customers c1 WHERE 
+          c1.CustomerID IN (:list_id) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice
-          AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount FROM
-          "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount" FROM "Order Details" o1 WHERE  o1.OrderID IN ($1) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN ($1) ;
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p WHERE  p.ProductID IN
+          ($1) ;
 
-          SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description AS
-          description FROM Categories c WHERE  c.CategoryID IN ($1) ;
+          SELECT c.CategoryID AS "id", c.CategoryName AS "name", c.Description
+          AS "description" FROM Categories c WHERE  c.CategoryID IN ($1) ;
 
-          SELECT c1.CustomerID AS id, c1.CompanyName AS name, c1.ContactName AS
-          contact, c1.ContactTitle AS phone, c1.Address AS address, c1.City AS
-          city, c1.Region AS region, c1.PostalCode AS postalCode, c1.Country AS
-          country FROM Customers c1 WHERE  c1.CustomerID IN ($1) ;
+          SELECT c1.CustomerID AS "id", c1.CompanyName AS "name", c1.ContactName
+          AS "contact", c1.ContactTitle AS "phone", c1.Address AS "address",
+          c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
+          "postalCode", c1.Country AS "country" FROM Customers c1 WHERE 
+          c1.CustomerID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer])'
     model:
       id: integer
@@ -790,6 +1202,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -819,7 +1232,181 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: '45.6000'
+                  inStock: '26.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: 1
+                  category:
+                    id: 7
+                    name: Produce
+                    description: Dried fruit and bean curd
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: '18.0000'
+                  inStock: '69.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '5.0000'
+                  discontinued: 0
+                  category:
+                    id: 1
+                    name: Beverages
+                    description: 'Soft drinks, coffees, teas, beers, and ales'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: '12.0000'
+                  inStock: '95.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: 0
+                  category:
+                    id: 8
+                    name: Seafood
+                    description: Seaweed and fish
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: '45.6000'
+                  inStock: '26.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: true
+                  category:
+                    id: 7
+                    name: Produce
+                    description: Dried fruit and bean curd
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: '18.0000'
+                  inStock: '69.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '5.0000'
+                  discontinued: false
+                  category:
+                    id: 1
+                    name: Beverages
+                    description: 'Soft drinks, coffees, teas, beers, and ales'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: '12.0000'
+                  inStock: '95.0000'
+                  onOrder: '0.0000'
+                  reorderLevel: '0.0000'
+                  discontinued: false
+                  category:
+                    id: 8
+                    name: Seafood
+                    description: Seaweed and fish
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
   - name: include 6
     context: a
     lambda: >-
@@ -829,89 +1416,96 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM `Order Details` o1 WHERE  o1.OrderID IN
-          (?) ;
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `productId` FROM `Order Details` o1 WHERE  o1.OrderID
+          IN (?) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM [Order Details] o1 WHERE  o1.OrderID IN
-          (:list_orderId) ;
+          SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
+          o1.ProductID AS [productId] FROM [Order Details] o1 WHERE  o1.OrderID
+          IN (:list_orderId) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
+          [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
+          AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
+          c.Country AS [country] FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM `Order Details` o1 WHERE  o1.OrderID IN
-          (?) ;
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `productId` FROM `Order Details` o1 WHERE  o1.OrderID
+          IN (?) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM "Order Details" o1 WHERE  o1.OrderID IN
-          (:list_orderId) ;
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "productId" FROM "Order Details" o1 WHERE  o1.OrderID
+          IN (:list_orderId) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM "Order Details" o1 WHERE  o1.OrderID IN
-          ($1) ;
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "productId" FROM "Order Details" o1 WHERE  o1.OrderID
+          IN ($1) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])'
     model:
       id: integer
@@ -945,6 +1539,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -974,7 +1569,61 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details: []
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details: []
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
   - name: include 7
     context: a
     lambda: >-
@@ -984,119 +1633,131 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM `Order Details` o1 WHERE  o1.OrderID IN
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `productId` FROM `Order Details` o1 WHERE  o1.OrderID
+          IN (?) ;
+
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p WHERE  p.ProductID IN
           (?) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (?) ;
-
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: mssql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM [Order Details] o1 WHERE  o1.OrderID IN
-          (:list_orderId) ;
+          SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
+          o1.ProductID AS [productId] FROM [Order Details] o1 WHERE  o1.OrderID
+          IN (:list_orderId) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (:list_id) ;
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p WHERE  p.ProductID IN
+          (:list_id) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
+          [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
+          AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
+          c.Country AS [country] FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: mysql
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = ? ;
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o WHERE o.OrderID = ? ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM `Order Details` o1 WHERE  o1.OrderID IN
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `productId` FROM `Order Details` o1 WHERE  o1.OrderID
+          IN (?) ;
+
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p WHERE  p.ProductID IN
           (?) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (?) ;
-
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (?) ;
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country` FROM Customers c WHERE  c.CustomerID IN (?) ;
       - dialect: oracle
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = :id ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = :id ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM "Order Details" o1 WHERE  o1.OrderID IN
-          (:list_orderId) ;
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "productId" FROM "Order Details" o1 WHERE  o1.OrderID
+          IN (:list_orderId) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN (:list_id) ;
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p WHERE  p.ProductID IN
+          (:list_id) ;
 
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN (:list_id) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN
+          (:list_id) ;
       - dialect: postgres
         sentence: >-
-          SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
-          employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate,
-          o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS
-          freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS
-          city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode,
-          o.ShipCountry AS country FROM Orders o WHERE o.OrderID = $1 ;
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o WHERE o.OrderID = $1 ;
 
-          SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-          o1.ProductID AS productId FROM "Order Details" o1 WHERE  o1.OrderID IN
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "productId" FROM "Order Details" o1 WHERE  o1.OrderID
+          IN ($1) ;
+
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p WHERE  p.ProductID IN
           ($1) ;
 
-          SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-          supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity,
-          p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS
-          onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS
-          discontinued FROM Products p WHERE  p.ProductID IN ($1) ;
-
-          SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS
-          contact, c.ContactTitle AS phone, c.Address AS address, c.City AS
-          city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS
-          country FROM Customers c WHERE  c.CustomerID IN ($1) ;
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country" FROM Customers c WHERE  c.CustomerID IN ($1) ;
     expression: ' Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])'
     model:
       id: integer
@@ -1141,6 +1802,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: id
         type: integer
@@ -1170,4 +1832,58 @@ test:
         type: string
       - name: country
         type: string
-    error: 'run: select error: connection postgres not found'
+    executions:
+      - database: mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details: []
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
+      - database: postgres
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: 1997-08-24T22:00:00.000Z
+            requiredDate: 1997-09-21T22:00:00.000Z
+            shippedDate: 1997-09-01T22:00:00.000Z
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details: []
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany

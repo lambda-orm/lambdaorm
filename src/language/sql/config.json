@@ -40,15 +40,6 @@
       "others": {
         "delimiter": "`{name}`",
         "variable": "?",
-        "reservedWords": [
-          "order",
-          "as",
-          "select",
-          "from",
-          "where",
-          "having",
-          "group"
-        ],
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
@@ -220,15 +211,6 @@
     },
     "mssql": {
       "others": {
-        "reservedWords": [
-          "order",
-          "as",
-          "select",
-          "from",
-          "where",
-          "having",
-          "group"
-        ],
         "delimiter": "[{name}]",
         "sepatatorSql": " \\nGO",
         "notNullable": "NOT NULL",
@@ -475,15 +457,6 @@
       "others": {
         "delimiter": "`{name}`",
         "variable": "?",
-        "reservedWords": [
-          "order",
-          "as",
-          "select",
-          "from",
-          "where",
-          "having",
-          "group"
-        ],
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
@@ -705,15 +678,6 @@
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
       },
       "others": {
-        "reservedWords": [
-          "order",
-          "as",
-          "select",
-          "from",
-          "where",
-          "having",
-          "group"
-        ],
         "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
@@ -918,15 +882,6 @@
       },
       "others": {
         "variable": "${number}",
-        "reservedWords": [
-          "order",
-          "as",
-          "select",
-          "from",
-          "where",
-          "having",
-          "group"
-        ],
         "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
@@ -1140,15 +1095,6 @@
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
     },
     "others": {
-      "reservedWords": [
-        "order",
-        "as",
-        "select",
-        "from",
-        "where",
-        "having",
-        "group"
-      ],
       "delimiter": "\"{name}\"",
       "sepatatorSql": ";",
       "notNullable": "NOT NULL",

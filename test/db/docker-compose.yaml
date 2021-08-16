@@ -30,20 +30,20 @@ services:
       - mysql:/var/lib/mysql
     ports:
       - '3307:3306'       
-  mariadb:
-    image: monstrenyatko/rpi-mariadb
-    container_name: mariadb
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
-    volumes:
-      - mariadb-data:/var/lib/mysql
-      - mariadb-log:/var/log/mysql
-    ports:
-      - 3308:3306
-    # restart: unless-stopped
+  # mariadb:
+  #   image: monstrenyatko/rpi-mariadb
+  #   container_name: mariadb
+  #   restart: always
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_USER=admin
+  #     - MYSQL_PASSWORD=admin
+  #   volumes:
+  #     - mariadb-data:/var/lib/mysql
+  #     - mariadb-log:/var/log/mysql
+  #   ports:
+  #     - 3308:3306
+  #   # restart: unless-stopped
   postgres:  
     image: postgres:10
     restart: always
