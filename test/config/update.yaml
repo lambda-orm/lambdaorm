@@ -261,6 +261,7 @@ test:
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
           $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+    errors: 0
     expression: ' Orders.update()'
     model:
       customerId: string
@@ -285,13 +286,13 @@ test:
         value: 7
       - name: orderDate
         type: datetime
-        value: '1996-09-17T22:00:00.000Z'
+        value: '1996-09-18 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-10-15T22:00:00.000Z'
+        value: '1996-10-16 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-09-23T22:00:00.000Z'
+        value: '1996-09-24 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -348,10 +349,6 @@ test:
         type: string
     executions:
       - database: mysql
-        error: >-
-          run: update error: Error: Incorrect datetime value:
-          '1996-09-17T22:00:00.000Z' for column 'OrderDate' at row 1
-      - database: mariadb
         result: 1
       - database: postgres
         result: 1
@@ -398,6 +395,7 @@ test:
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
           $11,ShipPostalCode = $12,ShipCountry = $13 WHERE entity.OrderID = $14
           ;
+    errors: 2
     expression: ' Orders.update(entity)'
     model:
       customerId: string
@@ -422,13 +420,13 @@ test:
         value: 3
       - name: entity.orderDate
         type: datetime
-        value: '1997-08-07T22:00:00.000Z'
+        value: '1997-08-08 00:00:00'
       - name: entity.requiredDate
         type: datetime
-        value: '1997-09-04T22:00:00.000Z'
+        value: '1997-09-05 00:00:00'
       - name: entity.shippedDate
         type: datetime
-        value: '1997-08-13T22:00:00.000Z'
+        value: '1997-08-14 00:00:00'
       - name: entity.shipViaId
         type: integer
         value: 1
@@ -488,12 +486,10 @@ test:
         error: >-
           run: update error: Error: Unknown column 'entity.OrderID' in 'where
           clause'
-      - database: mariadb
-        error: >-
-          run: update error: Error: Unknown column 'entity.OrderID' in 'where
-          clause'
       - database: postgres
-        error: 'run: update error: error: missing FROM-clause entry for table "entity"'
+        error: >-
+          run: update error: TypeError: Cannot read property 'rowCount' of
+          undefined
   - name: update 4
     context: c
     lambda: '(postalCode) => Orders.updateAll({ postalCode: postalCode })'
@@ -508,6 +504,7 @@ test:
         sentence: 'UPDATE Orders o SET ShipPostalCode = :postalCode ;'
       - dialect: postgres
         sentence: UPDATE Orders o SET ShipPostalCode = $1 ;
+    errors: 0
     expression: ' Orders.updateAll({ postalCode: postalCode })'
     model:
       postalCode: string
@@ -520,11 +517,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 833
-      - database: mariadb
-        result: 833
+        result: 832
       - database: postgres
-        result: 833
+        result: 832
   - name: update 5
     context: b
     lambda: >-
@@ -545,6 +540,7 @@ test:
           :entity.id ;
       - dialect: postgres
         sentence: UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ;
+    errors: 0
     expression: ' Orders.update({ name: entity.name }).filter(p => p.id == entity.id)'
     model:
       name: string
@@ -560,8 +556,6 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 1
-      - database: mariadb
         result: 1
       - database: postgres
         result: 1
@@ -602,15 +596,10 @@ test:
           p.details.update(p => ({ unitPrice: p.unitPrice, productId:
           p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
           incorrect!!!
+    errors: 7
     expression: ' Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id == entity.id)'
     executions:
       - database: mysql
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
-      - database: mariadb
         error: >-
           compile expression:  Orders.update({ name: entity.name }).include(p =>
           p.details.update(p => ({ unitPrice: p.unitPrice, productId:
@@ -678,6 +667,7 @@ test:
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
           $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
           ;
+    errors: 0
     expression: ' Orders.update().include(p => p.details)'
     model:
       customerId: string
@@ -708,13 +698,13 @@ test:
         value: 7
       - name: orderDate
         type: datetime
-        value: '1996-09-17T22:00:00.000Z'
+        value: '1996-09-18 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-10-15T22:00:00.000Z'
+        value: '1996-10-16 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-09-23T22:00:00.000Z'
+        value: '1996-09-24 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -771,10 +761,6 @@ test:
         type: string
     executions:
       - database: mysql
-        error: >-
-          run: update error: Error: Incorrect datetime value:
-          '1996-09-17T22:00:00.000Z' for column 'OrderDate' at row 1
-      - database: mariadb
         result: 1
       - database: postgres
         result: 1
@@ -856,6 +842,7 @@ test:
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
           $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
           ;
+    errors: 0
     expression: ' Customers.update().include(p => p.orders.include(p => p.details))'
     model:
       id: string
@@ -940,7 +927,6 @@ test:
     executions:
       - database: mysql
         result: 0
-      - database: mariadb
-        result: 0
       - database: postgres
         result: 0
+errors: 9

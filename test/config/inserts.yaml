@@ -4,16 +4,16 @@ context:
   a:
     name: Beverages20
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 9
+    id: 11
   b:
     name: Beverages21
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 10
+    id: 12
   c:
     entity:
       name: Beverages22
       description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 11
+    id: 13
   order:
     customerId: VINET
     employeeId: 5
@@ -33,18 +33,18 @@ context:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
+        orderId: 836
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 833
+        orderId: 836
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 833
-    id: 833
+        orderId: 836
+    id: 836
 test:
   - name: insert 1
     context: a
@@ -85,9 +85,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 9
+        result: 11
       - database: postgres
-        result: 9
+        result: 11
   - name: insert 2
     context: b
     lambda: >-
@@ -129,9 +129,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 10
+        result: 12
       - database: postgres
-        result: 10
+        result: 12
   - name: insert 3
     context: c
     lambda: (entity) => Categories.insert(entity)
@@ -171,9 +171,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 11
+        result: 13
       - database: postgres
-        result: 11
+        result: 13
   - name: insert 4
     context: order
     lambda: () => Orders.insert()
@@ -289,9 +289,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 831
+        result: 834
       - database: postgres
-        result: 831
+        result: 834
   - name: insert 5
     context: order
     lambda: () => Orders.insert().include(p => p.details)
@@ -433,9 +433,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 832
+        result: 835
       - database: postgres
-        result: 832
+        result: 835
   - name: insert 6
     context: order
     lambda: '() => Orders.insert().include(p => [p.details, p.customer])'
@@ -607,7 +607,7 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 833
+        result: 836
       - database: postgres
-        result: 833
+        result: 836
 errors: 0

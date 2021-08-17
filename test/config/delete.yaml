@@ -201,7 +201,7 @@ test:
     fields: []
     executions:
       - database: mysql
-        result: 2150
+        result: 2159
       - database: postgres
-        result: 2150
+        result: 2156
 errors: 0

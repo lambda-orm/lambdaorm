@@ -204,11 +204,19 @@ export class SqlExecutor implements IOperandExecutor
     protected params(parameters:Parameter[],metadata:SqlDialectMetadata,context:Context):Parameter[]
     {   
         let datetimeFormat= metadata.format('datetime');
+        let dateFormat= metadata.format('date');
+        let timeFormat= metadata.format('time');
         for(const p in parameters){
             let parameter = parameters[p];
             let value = context.get(parameter.name);
-            if(parameter.type == 'datetime' && value!==null)
-                value=Helper.dateFormat(value,datetimeFormat);
+            if(value!==null){
+                if(parameter.type == 'datetime')
+                    value=Helper.dateFormat(value,datetimeFormat);
+                else if(parameter.type == 'date')
+                    value=Helper.dateFormat(value,dateFormat); 
+                else if(parameter.type == 'time')
+                    value=Helper.dateFormat(value,timeFormat);      
+            }
             parameter.value= value=== undefined?null:value;
         }
         return parameters;
@@ -216,14 +224,22 @@ export class SqlExecutor implements IOperandExecutor
     protected rows(query:SqlQuery,metadata:SqlDialectMetadata,array:any[]){
         let rows:any[]=[];
         let datetimeFormat= metadata.format('datetime');
+        let dateFormat= metadata.format('date');
+        let timeFormat= metadata.format('time');
         for(let i=0;i<array.length;i++){
             const item = array[i];
             let row:any[]=[];
             for(let j=0;j<query.parameters.length;j++){
                 let parameter = query.parameters[j];
                 let value = item[parameter.name];
-                if(parameter.type == 'datetime' && value!==null)
-                    value=Helper.dateFormat(value,datetimeFormat);
+                if(value!==null){
+                    if(parameter.type == 'datetime')
+                        value=Helper.dateFormat(value,datetimeFormat);
+                    else if(parameter.type == 'date')
+                        value=Helper.dateFormat(value,dateFormat); 
+                    else if(parameter.type == 'time')
+                        value=Helper.dateFormat(value,timeFormat);      
+                }
                 // if(typeof value == 'string')
                 //     value = Helper.escape(value);                
                 row.push(value=== undefined?null:value);

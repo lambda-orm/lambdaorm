@@ -1036,10 +1036,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
    
     
-    //operators comparation , matematica
-    //string functions
-    //datetime functions
-    //nullables functions  
+  
 
     // await modify(orm);
     // await crud(orm);
@@ -1066,14 +1063,18 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     await schemaImport(orm,'source','postgres');
     await schemaExport(orm,'postgres');  
 
-    // await writeQueryTest(orm,databases);
+    // await writeQueryTest(orm,databases);//con errores
     // await writeNumeriFunctionsTest(orm,databases);
-    // await writeGroupByTest(orm,databases);
+    // await writeGroupByTest(orm,databases);//con errores
     // await writeIncludeTest(orm,databases);
     // await writeInsertsTest(orm,databases);
-    // await writeUpdateTest(orm,databases);//con errores
-    await writeDeleteTest(orm,databases);//con errores
+    await writeUpdateTest(orm,databases);//con errores
+    // await writeDeleteTest(orm,databases);
     // await writeBulkInsertTest(orm,databases);
+    //operators comparation , matematica
+    //string functions
+    //datetime functions
+    //nullables functions  
        
       
     console.log('Ok')

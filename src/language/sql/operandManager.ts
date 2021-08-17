@@ -439,14 +439,19 @@ export class SqlOperandManager extends OperandManager
             let child = this.nodeToOperand(fields,schema,context);
             return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
         }
-        else if(clause.children.length== 2 && clause.children[1].type == 'var'){
-            //example: Orders.insert(entity)
-            let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,false,true)
-            let child =  this.nodeToOperand(fields,schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
-        }
         else if(clause.children.length== 2){
-            let child = this.nodeToOperand(clause.children[1],schema,context);
+            let child:Operand;
+            if(clause.children[1].type == 'var'){
+                //example: Orders.insert(entity)
+                let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,false,true)
+                child =  this.nodeToOperand(fields,schema,context);
+            }
+            else if(clause.children[1].type == 'obj'){
+                child = this.nodeToOperand(clause.children[1],schema,context);
+            }
+            else{
+                throw 'Args incorrect in Sentence Insert'; 
+            }
             return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
         }
         // }else if(clause.children.length== 3){
