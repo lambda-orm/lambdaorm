@@ -36,51 +36,62 @@ export class PostgresConnection extends Connection
         //Example
         //create table my_table(my_id serial,name text);
         //insert into my_table(name) values('pepe') returning my_id as id
-        const result = await this._execute(sql,params);
-        return result.rows.length>0?result.rows[0].id:null;
+        try{
+            const result = await this._execute(sql,params);
+            return result.rows.length>0?result.rows[0].id:null;
+        }
+        catch(error){
+            console.error(error);
+            throw error;
+        }
     }
     public async bulkInsert(sql:string,array:any[],parameters:Parameter[],fieldId?:string):Promise<number[]>
     {       
-        let rows:string[]=[];          
-        for(const p in array){
-            const values = array[p];
-            let row:any[]=[];
-            for(let i=0;i<parameters.length;i++){
-                const parameter = parameters[i];
-                let value = values[i];
-                if(value==null || value==undefined ){
-                    value='null';
-                }else{
-                    switch(parameter.type){
-                        case 'boolean':
-                            value=value?'true':'false';break;
-                        case 'string':
-                            value=Helper.escape(value);
-                            value=Helper.replace(value,"\\'","\\''");
-                            break;
-                        case 'datetime':
-                        case 'date':
-                        case 'time':    
-                            value=Helper.escape(value);break;
+        try{
+            let rows:string[]=[];          
+            for(const p in array){
+                const values = array[p];
+                let row:any[]=[];
+                for(let i=0;i<parameters.length;i++){
+                    const parameter = parameters[i];
+                    let value = values[i];
+                    if(value==null || value==undefined ){
+                        value='null';
+                    }else{
+                        switch(parameter.type){
+                            case 'boolean':
+                                value=value?'true':'false';break;
+                            case 'string':
+                                value=Helper.escape(value);
+                                value=Helper.replace(value,"\\'","\\''");
+                                break;
+                            case 'datetime':
+                            case 'date':
+                            case 'time':    
+                                value=Helper.escape(value);break;
+                        }
                     }
+                    row.push(value);
                 }
-                row.push(value);
+                rows.push(`(${row.join(',')})`);
             }
-            rows.push(`(${row.join(',')})`);
-        }
-        let returning = fieldId?'RETURNING '+fieldId:''; 
-        let query = `${sql} ${rows.join(',')} ${returning};`;
-        let result = await this.cnx.query(query);
-        let ids:number[]=[];
-        if(fieldId){
-            // let fieldIdlower = fieldId.toLowerCase();
-            for(const p in result.rows){
-                const id = result.rows[p][fieldId] as number;
-                ids.push(id);
+            let returning = fieldId?'RETURNING '+fieldId+' AS "'+fieldId+'"':''; 
+            let query = `${sql} ${rows.join(',')} ${returning};`;
+            let result = await this.cnx.query(query);
+            let ids:number[]=[];
+            if(fieldId){
+                // let fieldIdlower = fieldId.toLowerCase();
+                for(const p in result.rows){
+                    const id = result.rows[p][fieldId] as number;
+                    ids.push(id);
+                }
             }
+            return ids;
         }
-        return ids;
-        
+        catch(error){
+            console.error(error);
+            throw error;
+        }
     }
     public async update(sql:string,params:Parameter[]):Promise<number>
     {   

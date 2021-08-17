@@ -434,10 +434,18 @@ export class SqlOperandManager extends OperandManager
     {   
         let autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity);
         if(clause.children.length== 1){
+            //example: Orders.insert()
             let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
             let child = this.nodeToOperand(fields,schema,context);
             return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
-        }else if(clause.children.length== 2){
+        }
+        else if(clause.children.length== 2 && clause.children[1].type == 'var'){
+            //example: Orders.insert(entity)
+            let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,false,true)
+            let child =  this.nodeToOperand(fields,schema,context);
+            return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
+        }
+        else if(clause.children.length== 2){
             let child = this.nodeToOperand(clause.children[1],schema,context);
             return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
         }

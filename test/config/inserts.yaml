@@ -2,18 +2,18 @@ name: inserts
 schema: 'northwind:0.0.2'
 context:
   a:
-    name: Beverages2
+    name: Beverages20
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 11
+    id: 9
   b:
-    name: Beverages3
+    name: Beverages21
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 12
+    id: 10
   c:
-    entity: &ref_0
-      name: Beverages3
+    entity:
+      name: Beverages22
       description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 13
+    id: 11
   order:
     customerId: VINET
     employeeId: 5
@@ -32,19 +32,19 @@ context:
       - productId: 11
         unitPrice: 14
         quantity: 12
-        discount: false
-        orderId: 836
+        discount: 10
+        orderId: 833
       - productId: 42
         unitPrice: 9.8
         quantity: 10
-        discount: false
-        orderId: 836
+        discount: 10
+        orderId: 833
       - productId: 72
         unitPrice: 34.8
         quantity: 5
-        discount: false
-        orderId: 836
-    id: 836
+        discount: 10
+        orderId: 833
+    id: 833
 test:
   - name: insert 1
     context: a
@@ -66,6 +66,7 @@ test:
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id;
+    errors: 0
     expression: ' Categories.insert()'
     model:
       name: string
@@ -73,7 +74,7 @@ test:
     parameters:
       - name: name
         type: string
-        value: Beverages2
+        value: Beverages20
       - name: description
         type: string
         value: 'Soft drinks, coffees, teas, beers, and ales'
@@ -84,11 +85,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 11
-      - database: mariadb
-        result: 11
+        result: 9
       - database: postgres
-        result: 11
+        result: 9
   - name: insert 2
     context: b
     lambda: >-
@@ -111,6 +110,7 @@ test:
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id;
+    errors: 0
     expression: ' Categories.insert({ name: name, description: description })'
     model:
       name: string
@@ -118,7 +118,7 @@ test:
     parameters:
       - name: name
         type: string
-        value: Beverages3
+        value: Beverages21
       - name: description
         type: string
         value: 'Soft drinks, coffees, teas, beers, and ales'
@@ -129,41 +129,51 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 12
-      - database: mariadb
-        result: 12
+        result: 10
       - database: postgres
-        result: 12
+        result: 10
   - name: insert 3
     context: c
     lambda: (entity) => Categories.insert(entity)
     sentences:
       - dialect: mariadb
-        sentence: INSERT INTO Categories() VALUES();
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?);'
       - dialect: mssql
-        sentence: INSERT INTO Categories() VALUES();
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:entity.name,:entity.description);
       - dialect: mysql
-        sentence: INSERT INTO Categories() VALUES();
+        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?);'
       - dialect: oracle
-        sentence: INSERT INTO Categories() VALUES();
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:entity.name,:entity.description);
       - dialect: postgres
-        sentence: INSERT INTO Categories() VALUES() RETURNING CategoryID AS id;
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id;
+    errors: 0
     expression: ' Categories.insert(entity)'
-    model: {}
+    model:
+      name: string
+      description: string
     parameters:
-      - name: entity
-        type: any
-        value: *ref_0
-    fields: []
+      - name: entity.name
+        type: string
+        value: Beverages22
+      - name: entity.description
+        type: string
+        value: 'Soft drinks, coffees, teas, beers, and ales'
+    fields:
+      - name: name
+        type: string
+      - name: description
+        type: string
     executions:
       - database: mysql
-        error: >-
-          run: insert error: Error: Field 'CategoryName' doesn't have a default
-          value
-      - database: mariadb
-        result: 13
+        result: 11
       - database: postgres
-        error: 'run: insert error: error: syntax error at or near ")"'
+        result: 11
   - name: insert 4
     context: order
     lambda: () => Orders.insert()
@@ -194,6 +204,7 @@ test:
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
           AS id;
+    errors: 0
     expression: ' Orders.insert()'
     model:
       customerId: string
@@ -218,13 +229,13 @@ test:
         value: 5
       - name: orderDate
         type: datetime
-        value: '1996-07-03T22:00:00.000Z'
+        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-07-31T22:00:00.000Z'
+        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-07-15T22:00:00.000Z'
+        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -278,13 +289,9 @@ test:
         type: string
     executions:
       - database: mysql
-        error: >-
-          run: insert error: Error: Incorrect datetime value:
-          '1996-07-03T22:00:00.000Z' for column 'OrderDate' at row 1
-      - database: mariadb
-        result: 834
+        result: 831
       - database: postgres
-        result: 834
+        result: 831
   - name: insert 5
     context: order
     lambda: () => Orders.insert().include(p => p.details)
@@ -335,6 +342,7 @@ test:
           INSERT INTO "Order
           Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
+    errors: 0
     expression: ' Orders.insert().include(p => p.details)'
     model:
       customerId: string
@@ -365,13 +373,13 @@ test:
         value: 5
       - name: orderDate
         type: datetime
-        value: '1996-07-03T22:00:00.000Z'
+        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-07-31T22:00:00.000Z'
+        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-07-15T22:00:00.000Z'
+        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -425,15 +433,9 @@ test:
         type: string
     executions:
       - database: mysql
-        error: >-
-          run: insert error: Error: Incorrect datetime value:
-          '1996-07-03T22:00:00.000Z' for column 'OrderDate' at row 1
-      - database: mariadb
-        result: 835
+        result: 832
       - database: postgres
-        error: >-
-          run: insert error: error: invalid input syntax for type numeric:
-          "false"
+        result: 832
   - name: insert 6
     context: order
     lambda: '() => Orders.insert().include(p => [p.details, p.customer])'
@@ -504,6 +506,7 @@ test:
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id;
+    errors: 0
     expression: ' Orders.insert().include(p => [p.details, p.customer])'
     model:
       customerId: string
@@ -544,13 +547,13 @@ test:
         value: 5
       - name: orderDate
         type: datetime
-        value: '1996-07-03T22:00:00.000Z'
+        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-07-31T22:00:00.000Z'
+        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-07-15T22:00:00.000Z'
+        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -604,12 +607,7 @@ test:
         type: string
     executions:
       - database: mysql
-        error: >-
-          run: insert error: Error: Incorrect datetime value:
-          '1996-07-03T22:00:00.000Z' for column 'OrderDate' at row 1
-      - database: mariadb
-        result: 836
+        result: 833
       - database: postgres
-        error: >-
-          run: insert error: error: invalid input syntax for type numeric:
-          "false"
+        result: 833
+errors: 0

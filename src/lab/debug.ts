@@ -29,7 +29,8 @@ interface CategoryTest
   name:string
   schema:string
   context:any
-  test:ExpressionTest[]  
+  test:ExpressionTest[]
+  errors?:number  
 }
 interface ExpressionTest
 {
@@ -42,6 +43,7 @@ interface ExpressionTest
   parameters?:Parameter[]
   sentences?:SentenceTest[]
   executions?:ExecutionTest[]
+  errors?:number
 }
 interface SentenceTest
 {
@@ -59,9 +61,11 @@ interface ExecutionTest
 async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
 {
   let dialects =  Object.values(orm.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
+  category.errors=0;
   for(const q in category.test){  
     let expressionTest = category.test[q] as ExpressionTest;
     expressionTest.sentences=[];
+    expressionTest.errors=0;
     for(const r in dialects){
       const dialect = dialects[r];
       let sentence=undefined;
@@ -80,8 +84,10 @@ async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
       }
       finally
       {
-        if(error!=undefined)
+        if(error!=undefined){
           expressionTest.sentences.push({dialect:dialect,error:error});
+          expressionTest.errors++;
+        }          
         else if(sentence!=undefined)    
           expressionTest.sentences.push({dialect:dialect,sentence:sentence});
         else
@@ -103,14 +109,17 @@ async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
       }
       finally
       {
-        if(error!=undefined)
+        if(error!=undefined){
           expressionTest.executions.push({database:database,error:error});
+          expressionTest.errors++;
+        }
         else if(result!=undefined)    
           expressionTest.executions.push({database:database,result:result});
         else
           console.error('error execution '+database+' '+category.name+':'+expressionTest.name); 
       }
     }
+    category.errors+=expressionTest.errors;
     expressionTest.lambda=expressionTest.lambda.toString();
   }
   try{     
@@ -126,7 +135,6 @@ async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
         console.error(error);
       }  
     }
-    
   }
 }
 async function writeQueryTest(orm:IOrm,databases:string[],)
@@ -200,9 +208,9 @@ async function writeIncludeTest(orm:IOrm,databases:string[],)
 async function writeInsertsTest(orm:IOrm,databases:string[],)
 {  
   writeTest(orm,databases,{name:'inserts',schema:'northwind:0.0.2'
-  ,context:{ a:{name: "Beverages2", description: "Soft drinks, coffees, teas, beers, and ales" }
-            ,b:{name: "Beverages3", description: "Soft drinks, coffees, teas, beers, and ales" }
-            ,c:{entity:{name: "Beverages3", description: "Soft drinks, coffees, teas, beers, and ales" }}
+  ,context:{ a:{name: "Beverages20", description: "Soft drinks, coffees, teas, beers, and ales" }
+            ,b:{name: "Beverages21", description: "Soft drinks, coffees, teas, beers, and ales" }
+            ,c:{entity:{name: "Beverages22", description: "Soft drinks, coffees, teas, beers, and ales" }}
            , order : {
               "customerId": "VINET",
               "employeeId": 5,
@@ -222,19 +230,19 @@ async function writeInsertsTest(orm:IOrm,databases:string[],)
                   "productId": 11,
                   "unitPrice": 14,
                   "quantity": 12,
-                  "discount": false
+                  "discount": 10
                 },
                 {
                   "productId": 42,
                   "unitPrice": 9.8,
                   "quantity": 10,
-                  "discount": false
+                  "discount": 10
                 },
                 {
                   "productId": 72,
                   "unitPrice": 34.8,
                   "quantity": 5,
-                  "discount": false
+                  "discount": 10
                 }
               ]
             }
@@ -963,14 +971,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
   {  
     let databases=['mysql','postgres'];
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
-    // await writeQueryTest(orm,databases);
-    // await writeNumeriFunctionsTest(orm,databases);
-    // await writeGroupByTest(orm,databases);
-    // await writeIncludeTest(orm,databases);
-    await writeInsertsTest(orm,databases);//con errores
-    // await writeUpdateTest(orm,databases);//con errores
-    // await writeDeleteTest(orm,databases);//con errores
-    // await writeBulkInsertTest(orm,databases);
+   
     
     //operators comparation , matematica
     //string functions
@@ -986,21 +987,30 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     
     // await schemaSync(orm,'source');
     // await schemaExport(orm,'source');
-    // //test mysql
-    // await schemaDrop(orm,'mysql',true);
-    // await schemaSync(orm,'mysql');
-    // await schemaImport(orm,'source','mysql');
-    // await schemaExport(orm,'mysql');  
-    // // //test mariadb
-    // // await schemaDrop(orm,'mariadb',true);
-    // // await schemaSync(orm,'mariadb');
-    // // await schemaImport(orm,'source','mariadb');
-    // // await schemaExport(orm,'mariadb');
-    // //test postgres 
-    // await schemaDrop(orm,'postgres',true);
-    // await schemaSync(orm,'postgres');
-    // await schemaImport(orm,'source','postgres');
-    // await schemaExport(orm,'postgres');  
+    //test mysql
+    await schemaDrop(orm,'mysql',true);
+    await schemaSync(orm,'mysql');
+    await schemaImport(orm,'source','mysql');
+    await schemaExport(orm,'mysql');  
+    // //test mariadb
+    // await schemaDrop(orm,'mariadb',true);
+    // await schemaSync(orm,'mariadb');
+    // await schemaImport(orm,'source','mariadb');
+    // await schemaExport(orm,'mariadb');
+    //test postgres 
+    await schemaDrop(orm,'postgres',true);
+    await schemaSync(orm,'postgres');
+    await schemaImport(orm,'source','postgres');
+    await schemaExport(orm,'postgres');  
+
+    // await writeQueryTest(orm,databases);
+    // await writeNumeriFunctionsTest(orm,databases);
+    // await writeGroupByTest(orm,databases);
+    // await writeIncludeTest(orm,databases);
+    await writeInsertsTest(orm,databases);//con errores
+    // await writeUpdateTest(orm,databases);//con errores
+    // await writeDeleteTest(orm,databases);//con errores
+    // await writeBulkInsertTest(orm,databases);
        
       
     console.log('Ok')

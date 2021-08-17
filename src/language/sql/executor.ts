@@ -201,11 +201,15 @@ export class SqlExecutor implements IOperandExecutor
         let changeCount = await executor.delete(query.sentence,this.params(query.parameters,metadata,context));
         return changeCount;  
     }
-    protected  params(parameters:Parameter[],metadata:SqlDialectMetadata,context:Context):Parameter[]
+    protected params(parameters:Parameter[],metadata:SqlDialectMetadata,context:Context):Parameter[]
     {   
+        let datetimeFormat= metadata.format('datetime');
         for(const p in parameters){
             let parameter = parameters[p];
-            parameter.value= context.get(parameter.name);
+            let value = context.get(parameter.name);
+            if(parameter.type == 'datetime' && value!==null)
+                value=Helper.dateFormat(value,datetimeFormat);
+            parameter.value= value=== undefined?null:value;
         }
         return parameters;
     }
