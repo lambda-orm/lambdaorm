@@ -551,16 +551,79 @@ async function writeDeleteTest(orm:IOrm,databases:string[],)
 {     
   writeTest(orm,databases,{name:'delete',schema:'northwind:0.0.2'
   ,context:{ a: {id:9} 
-           ,b: {id:10} 
-           ,c: {id:11}   
+           ,b: {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 28,
+                  "unitPrice": "45.6000",
+                  "quantity": "15.0000",
+                  "discount": "0.0000"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 39,
+                  "unitPrice": "18.0000",
+                  "quantity": "21.0000",
+                  "discount": "0.0000"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 46,
+                  "unitPrice": "12.0000",
+                  "quantity": "2.0000",
+                  "discount": "0.0000"
+                }
+              ]
+            }
+           ,c: {
+                "id": 2,
+                "customerId": "ALFKI",
+                "employeeId": 4,
+                "orderDate": "1997-10-02T22:00:00.000Z",
+                "requiredDate": "1997-10-30T23:00:00.000Z",
+                "shippedDate": "1997-10-12T22:00:00.000Z",
+                "shipViaId": 2,
+                "freight": "61.0200",
+                "name": "Alfred-s Futterkiste",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany",
+                "details": [
+                  {
+                    "orderId": 2,
+                    "productId": 63,
+                    "unitPrice": "43.9000",
+                    "quantity": "20.0000",
+                    "discount": "0.0000"
+                  }
+                ]
+              }   
            }
   ,test:  
-    [{name:'delete 1',context:'a',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id)  }
+    [{name:'delete 1',context:'a',lambda: (id:number)=> OrderDetails.delete().filter(p=> p.orderId == id)  }
     ,{name:'delete 2',context:'b',lambda: (id:number)=> Orders.delete().include(p=> p.details)  }
     ,{name:'delete 3',context:'c',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)   }
     ,{name:'delete 4',lambda: ()=> OrderDetails.deleteAll() }
   ]}); 
 }
+//TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details) 
 async function writeBulkInsertTest(orm:IOrm,databases:string[],)
 {    
   writeTest(orm,databases,{name:'bulkInsert',schema:'northwind:0.0.2'
@@ -1007,9 +1070,9 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await writeNumeriFunctionsTest(orm,databases);
     // await writeGroupByTest(orm,databases);
     // await writeIncludeTest(orm,databases);
-    await writeInsertsTest(orm,databases);//con errores
+    // await writeInsertsTest(orm,databases);
     // await writeUpdateTest(orm,databases);//con errores
-    // await writeDeleteTest(orm,databases);//con errores
+    await writeDeleteTest(orm,databases);//con errores
     // await writeBulkInsertTest(orm,databases);
        
       

@@ -26,6 +26,7 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "delete": "DELETE {alias} FROM {name} AS {alias}",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES ?",
         "map": "SELECT {0}",
         "first": "SELECT TOP 1 {0}",
@@ -34,8 +35,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}"
+        "update": "UPDATE {name} {alias} SET {assings}"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -443,6 +443,7 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "delete": "DELETE {alias} FROM {name} AS {alias}",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES ?",
         "map": "SELECT {0}",
         "first": "SELECT TOP 1 {0}",
@@ -451,8 +452,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}"
+        "update": "UPDATE {name} {alias} SET {assings}"
       },
       "others": {
         "delimiter": "`{name}`",
