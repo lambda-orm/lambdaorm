@@ -1145,8 +1145,8 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await writeGroupByTest(orm,databases);//con errores
     // await writeIncludeTest(orm,databases);
     // await writeInsertsTest(orm,databases);
-    await writeUpdateTest(orm,databases);//con errores
-    // await writeDeleteTest(orm,databases);
+    // await writeUpdateTest(orm,databases);
+       await writeDeleteTest(orm,databases);
     // await writeBulkInsertTest(orm,databases);
     //operators comparation , matematica
     //string functions
