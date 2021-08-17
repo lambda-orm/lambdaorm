@@ -476,7 +476,7 @@ export class SqlOperandManager extends OperandManager
     protected createUpdateClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
     {      
         if(clause.children.length== 1){
-            //Orders.update()
+            //Example: Orders.update()
             // In the case that the mapping is not defined, it assumes that the context will be the entity to update
             let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
             let child = this.nodeToOperand(fields,schema,context);
@@ -485,12 +485,12 @@ export class SqlOperandManager extends OperandManager
         }else if(clause.children.length== 2){
             let child:Operand;
             if(clause.children[1].type == 'var'){
-                //Orders.update(entity) 
+                //Example: Orders.update(entity) 
                 // In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
                 let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,true);
                 child = this.nodeToOperand(fields,schema,context);
             }else if(clause.children[1].type == 'obj'){
-                //Orders.update({name:'test'}) 
+                //Example: Orders.update({name:'test'}) 
                 child = this.nodeToOperand(clause.children[1],schema,context);
             }
             else{
@@ -498,11 +498,12 @@ export class SqlOperandManager extends OperandManager
             }
             return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
         }
-        // else if(clause.children.length== 3){
-        //     context.current.arrowVar = clause.children[1].name;                    
-        //     let child = this.nodeToOperand(clause.children[2],schema,context);           
-        //     return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
-        // }
+        else if(clause.children.length== 3){
+            //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
+            context.current.arrowVar = clause.children[1].name;                    
+            let child = this.nodeToOperand(clause.children[2],schema,context);           
+            return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
+        }
         throw 'Sentence Update incorrect!!!';
     }    
     /**
@@ -517,17 +518,21 @@ export class SqlOperandManager extends OperandManager
         if(!children.some(p=> p.name=='filter')){ 
             let filter:Operand; 
             if(clause.children.length== 1 )
-                //Orders.delete() 
+                //Example: Orders.update() , Orders.delete() 
                 filter = this.createFilter(context.current.entity,schema,context);
             else if(clause.children.length== 2 && clause.children[1].type == 'var')
-                //Orders.delete(entity)
-                filter = this.createFilter(context.current.entity,schema,context,clause.children[1].name);    
+                //Example Orders.update(entity) ,Orders.delete(entity)
+                filter = this.createFilter(context.current.entity,schema,context,undefined,clause.children[1].name);
+            else if(clause.children.length== 3)
+                //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
+                // Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
+                filter = this.createFilter(context.current.entity,schema,context);
             else
                 throw 'Sentence without filter is wrong!!!';
             children.push(filter);
         }        
     }
-    protected createFilter(entityName:string,schema:SchemaHelper,context:SqlContext,parent?:string):any
+    protected createFilter(entityName:string,schema:SchemaHelper,context:SqlContext,parent?:string,parentVariable?:string):any
     {
         let condition = undefined;
         let entity=schema.getEntity(entityName);
@@ -535,7 +540,7 @@ export class SqlOperandManager extends OperandManager
             let name = entity.primaryKey[i]; 
             let field = entity.property[name];
             let sqlField = new SqlField(entityName,name,field.type,parent?parent + '.' + field.mapping:field.mapping);
-            let variable = new SqlVariable(name);
+            let variable = new SqlVariable(parentVariable?parentVariable+'.'+name:name);
             let equal =new SqlOperator('==', [sqlField,variable]);
             condition =condition?new SqlOperator('&&', [condition,equal]):equal;
         }

@@ -75,7 +75,7 @@ declare abstract class Entity<T> extends MapClauses<T> {
     /**  */
     public updateAll(value?:T|Object): ModifyAllClauses<T>
     /**  */
-    public delete(): ModifyClauses<T>
+    public delete(value?: T|Object): ModifyClauses<T>
     /**  */   
     public deleteAll(value?:T|Object): ModifyAllClauses<T>
      /**  */

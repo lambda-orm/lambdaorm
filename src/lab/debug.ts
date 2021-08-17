@@ -259,7 +259,8 @@ async function writeInsertsTest(orm:IOrm,databases:string[],)
 async function writeUpdateTest(orm:IOrm,databases:string[],)
 {    
   writeTest(orm,databases,{name:'update',schema:'northwind:0.0.2'
-,context:{a:{
+,context:{
+          a:{
               "id": 7,
               "customerId": "ANATR",
               "employeeId": 7,
@@ -539,18 +540,19 @@ async function writeUpdateTest(orm:IOrm,databases:string[],)
           }
   ,test:  
     [{name:'update 1',context:'a',lambda: ()=> Orders.update()}
-    ,{name:'update 3',context:'b',lambda: (entity:Order)=> Orders.update(entity)}
-    ,{name:'update 4',context:'c',lambda: (postalCode:string)=> Orders.updateAll({postalCode:postalCode})}
-    ,{name:'update 5',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)}
-    ,{name:'update 6',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
-    ,{name:'update 7',context:'a',lambda: ()=> Orders.update().include(p=> p.details)}
-    ,{name:'update 8',context:'c',lambda: ()=> Customers.update().include(p=> p.orders.include(p=> p.details))}
+    ,{name:'update 2',context:'b',lambda: (entity:Order)=> Orders.update(entity)}
+    ,{name:'update 3',context:'c',lambda: (postalCode:string)=> Orders.updateAll({postalCode:postalCode})}
+    ,{name:'update 4',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)}
+    ,{name:'update 5',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
+    ,{name:'update 6',context:'a',lambda: ()=> Orders.update().include(p=> p.details)}
+    ,{name:'update 7',context:'c',lambda: ()=> Customers.update().include(p=> p.orders.include(p=> p.details))}
   ]});  
 }
 async function writeDeleteTest(orm:IOrm,databases:string[],)
 {     
   writeTest(orm,databases,{name:'delete',schema:'northwind:0.0.2'
-  ,context:{ a: {id:9} 
+  ,context:{ 
+            a: {id:9} 
            ,b: {
               "id": 1,
               "customerId": "ALFKI",
@@ -614,13 +616,88 @@ async function writeDeleteTest(orm:IOrm,databases:string[],)
                     "discount": "0.0000"
                   }
                 ]
-              }   
+              } 
+           ,d:{
+                "id": 4,
+                "customerId": "ALFKI",
+                "employeeId": 1,
+                "orderDate": "1998-01-14T23:00:00.000Z",
+                "requiredDate": "1998-02-11T23:00:00.000Z",
+                "shippedDate": "1998-01-20T23:00:00.000Z",
+                "shipViaId": 3,
+                "freight": "69.5300",
+                "name": "Alfred-s Futterkiste",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany",
+                "details": [
+                  {
+                    "orderId": 4,
+                    "productId": 59,
+                    "unitPrice": "55.0000",
+                    "quantity": "15.0000",
+                    "discount": "0.0000"
+                  },
+                  {
+                    "orderId": 4,
+                    "productId": 77,
+                    "unitPrice": "13.0000",
+                    "quantity": "2.0000",
+                    "discount": "0.0000"
+                  }
+                ]
+              }
+          ,e: {entity:{
+                  "orderId": 5,
+                  "productId": 6,
+                  "unitPrice": "25.0000",
+                  "quantity": "16.0000",
+                  "discount": "0.0000"
+                }}   
+          ,f:{entity: {
+                    "id": 5,
+                    "customerId": "ALFKI",
+                    "employeeId": 1,
+                    "orderDate": "1998-03-15T23:00:00.000Z",
+                    "requiredDate": "1998-04-26T22:00:00.000Z",
+                    "shippedDate": "1998-03-23T23:00:00.000Z",
+                    "shipViaId": 1,
+                    "freight": "40.4200",
+                    "name": "Alfred-s Futterkiste",
+                    "address": "Obere Str. 57",
+                    "city": "Berlin",
+                    "region": null,
+                    "postalCode": "12209",
+                    "country": "Germany",
+                    "details": [
+                      {
+                      "orderId": 5,
+                      "productId": 6,
+                      "unitPrice": "25.0000",
+                      "quantity": "16.0000",
+                      "discount": "0.0000"
+                    },
+                  {
+                    "orderId": 5,
+                    "productId": 28,
+                    "unitPrice": "45.6000",
+                    "quantity": "2.0000",
+                    "discount": "0.0000"
+                  }
+                ]
+              }                   
+             }    
            }
   ,test:  
-    [{name:'delete 1',context:'a',lambda: (id:number)=> OrderDetails.delete().filter(p=> p.orderId == id)  }
+    [{name:'delete 1',context:'a',lambda: (id:number)=> OrderDetails.delete().filter(p=> p.orderId == id)  }    
     ,{name:'delete 2',context:'b',lambda: (id:number)=> Orders.delete().include(p=> p.details)  }
     ,{name:'delete 3',context:'c',lambda: (id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)   }
-    ,{name:'delete 4',lambda: ()=> OrderDetails.deleteAll() }
+    ,{name:'delete 4',context:'d',lambda: ()=> Orders.delete().include(p=> p.details) }
+    ,{name:'delete 4',context:'d',lambda: (entity:OrderDetail)=> OrderDetails.delete(entity) }
+    ,{name:'delete 5',context:'e',lambda: (entity:Order)=> Orders.delete(entity).include(p=> p.details) }
+    ,{name:'delete 6',lambda: ()=> OrderDetails.deleteAll() }
   ]}); 
 }
 //TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details) 

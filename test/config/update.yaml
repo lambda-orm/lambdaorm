@@ -352,7 +352,7 @@ test:
         result: 1
       - database: postgres
         result: 1
-  - name: update 3
+  - name: update 2
     context: b
     lambda: (entity) => Orders.update(entity)
     sentences:
@@ -361,7 +361,7 @@ test:
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE entity.OrderID = ? ;
+          ?,ShipCountry = ? WHERE OrderID = ? ;
       - dialect: mssql
         sentence: >-
           UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
@@ -370,14 +370,14 @@ test:
           :entity.shipViaId,Freight = :entity.freight,ShipName =
           :entity.name,ShipAddress = :entity.address,ShipCity =
           :entity.city,ShipRegion = :entity.region,ShipPostalCode =
-          :entity.postalCode,ShipCountry = :entity.country WHERE entity.OrderID
-          = :id ;
+          :entity.postalCode,ShipCountry = :entity.country WHERE OrderID =
+          :entity.id ;
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE entity.OrderID = ? ;
+          ?,ShipCountry = ? WHERE OrderID = ? ;
       - dialect: oracle
         sentence: >-
           UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
@@ -386,16 +386,15 @@ test:
           :entity.shipViaId,Freight = :entity.freight,ShipName =
           :entity.name,ShipAddress = :entity.address,ShipCity =
           :entity.city,ShipRegion = :entity.region,ShipPostalCode =
-          :entity.postalCode,ShipCountry = :entity.country WHERE entity.OrderID
-          = :id ;
+          :entity.postalCode,ShipCountry = :entity.country WHERE OrderID =
+          :entity.id ;
       - dialect: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE entity.OrderID = $14
-          ;
-    errors: 2
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+    errors: 0
     expression: ' Orders.update(entity)'
     model:
       customerId: string
@@ -451,9 +450,9 @@ test:
       - name: entity.country
         type: string
         value: Mexico
-      - name: id
+      - name: entity.id
         type: integer
-        value: null
+        value: 8
     fields:
       - name: customerId
         type: string
@@ -483,14 +482,10 @@ test:
         type: string
     executions:
       - database: mysql
-        error: >-
-          run: update error: Error: Unknown column 'entity.OrderID' in 'where
-          clause'
+        result: 1
       - database: postgres
-        error: >-
-          run: update error: TypeError: Cannot read property 'rowCount' of
-          undefined
-  - name: update 4
+        result: 1
+  - name: update 3
     context: c
     lambda: '(postalCode) => Orders.updateAll({ postalCode: postalCode })'
     sentences:
@@ -517,10 +512,10 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 832
+        result: 830
       - database: postgres
-        result: 832
-  - name: update 5
+        result: 830
+  - name: update 4
     context: b
     lambda: >-
       (entity) => Orders.update({ name: entity.name }).filter(p => p.id ==
@@ -559,7 +554,7 @@ test:
         result: 1
       - database: postgres
         result: 1
-  - name: update 6
+  - name: update 5
     context: b
     lambda: >-
       (entity) => Orders.update({ name: entity.name }).include(p =>
@@ -567,51 +562,60 @@ test:
       }))).filter(p => p.id == entity.id)
     sentences:
       - dialect: mariadb
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
+        sentence: >-
+          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
+
+          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
+          o1.ProductID WHERE (OrderID = ? AND ProductID = ?) ;
       - dialect: mssql
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
+        sentence: >-
+          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
+          :entity.id ;
+
+          UPDATE [Order Details] o1 SET UnitPrice = o1.UnitPrice,ProductID =
+          o1.ProductID WHERE (OrderID = :orderId AND ProductID = :productId) ;
       - dialect: mysql
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
+        sentence: >-
+          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
+
+          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
+          o1.ProductID WHERE (OrderID = ? AND ProductID = ?) ;
       - dialect: oracle
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
+        sentence: >-
+          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
+          :entity.id ;
+
+          UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
+          o1.ProductID WHERE (OrderID = :orderId AND ProductID = :productId) ;
       - dialect: postgres
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
-    errors: 7
+        sentence: >-
+          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ;
+
+          UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
+          o1.ProductID WHERE (OrderID = $1 AND ProductID = $2) ;
+    errors: 0
     expression: ' Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id == entity.id)'
+    model:
+      name: string
+      details:
+        - unitPrice: decimal
+          productId: integer
+    parameters:
+      - name: entity.name
+        type: string
+        value: Ana Trujillo Emparedados y helados
+      - name: entity.id
+        type: integer
+        value: 8
+    fields:
+      - name: name
+        type: string
     executions:
       - database: mysql
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
+        result: 1
       - database: postgres
-        error: >-
-          compile expression:  Orders.update({ name: entity.name }).include(p =>
-          p.details.update(p => ({ unitPrice: p.unitPrice, productId:
-          p.productId }))).filter(p => p.id == entity.id) error: Sentence Update
-          incorrect!!!
-  - name: update 7
+        result: 1
+  - name: update 6
     context: a
     lambda: () => Orders.update().include(p => p.details)
     sentences:
@@ -764,7 +768,7 @@ test:
         result: 1
       - database: postgres
         result: 1
-  - name: update 8
+  - name: update 7
     context: c
     lambda: () => Customers.update().include(p => p.orders.include(p => p.details))
     sentences:
@@ -929,4 +933,4 @@ test:
         result: 0
       - database: postgres
         result: 0
-errors: 9
+errors: 0

@@ -150,7 +150,7 @@ export class SqlExecutor implements IOperandExecutor
         return ids;
     }
     protected async update(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
-    { 
+    {         
         let changeCount = await executor.update(query.sentence,this.params(query.parameters,metadata,context));
         for(const p in query.children){
             let include = query.children[p] as SqlSentenceInclude;
