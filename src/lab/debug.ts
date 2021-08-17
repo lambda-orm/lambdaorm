@@ -1142,11 +1142,11 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
     // await writeQueryTest(orm,databases);//con errores
     // await writeNumeriFunctionsTest(orm,databases);
-    // await writeGroupByTest(orm,databases);//con errores
+    await writeGroupByTest(orm,databases);//con errores
     // await writeIncludeTest(orm,databases);
     // await writeInsertsTest(orm,databases);
     // await writeUpdateTest(orm,databases);
-       await writeDeleteTest(orm,databases);
+    // await writeDeleteTest(orm,databases);
     // await writeBulkInsertTest(orm,databases);
     //operators comparation , matematica
     //string functions
