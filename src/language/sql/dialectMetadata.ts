@@ -48,9 +48,9 @@ export class SqlDialectMetadata
     {
         return this._formats[name];
     }
-    public solveName(name:string):string
+    public delimiter(name:string,force:boolean=false):string
     {
-        if(name.indexOf(' ') == -1)return name;
+        if(name.indexOf(' ') == -1 && !force)return name;
         const template= this._others['delimiter'];
         return template.replace('{name}',name);        
     }

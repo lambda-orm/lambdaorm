@@ -60,7 +60,7 @@ interface ExecutionTest
 
 async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
 {
-  let dialects =  Object.values(orm.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
+  let dialects =  Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
   category.errors=0;
   for(const q in category.test){  
     let expressionTest = category.test[q] as ExpressionTest;
@@ -143,12 +143,14 @@ async function writeQueryTest(orm:IOrm,databases:string[],)
   ,context:{ a:{ id: 1}
            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
    }
-  ,test:[{name:'query 1',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
-    ,{name:'query 2',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
-    ,{name:'query 3',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
-    ,{name:'query 4',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
-    ,{name:'query 5',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
-    ,{name:'query 6',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
+  ,test:[{name:'query 1',lambda: ()=> Products.map(p=>p)}
+     ,{name:'query 2',lambda: ()=> Products}
+    // ,{name:'query 2',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+    // ,{name:'query 3',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
+    // ,{name:'query 4',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
+    // ,{name:'query 5',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
+    // ,{name:'query 6',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
+    // ,{name:'query 7',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
   ]});
 }
 async function writeNumeriFunctionsTest(orm:IOrm,databases:string[],)
@@ -1122,27 +1124,27 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await bulkInsert2(orm);
     //await generateModel(orm,'source');
     
-    await schemaSync(orm,'source');
-    await schemaExport(orm,'source');
-    //test mysql
-    await schemaDrop(orm,'mysql',true);
-    await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql');
-    await schemaExport(orm,'mysql');  
-    // //test mariadb
-    // await schemaDrop(orm,'mariadb',true);
-    // await schemaSync(orm,'mariadb');
-    // await schemaImport(orm,'source','mariadb');
-    // await schemaExport(orm,'mariadb');
-    //test postgres 
-    await schemaDrop(orm,'postgres',true);
-    await schemaSync(orm,'postgres');
-    await schemaImport(orm,'source','postgres');
-    await schemaExport(orm,'postgres');  
+    // await schemaSync(orm,'source');
+    // await schemaExport(orm,'source');
+    // //test mysql
+    // await schemaDrop(orm,'mysql',true);
+    // await schemaSync(orm,'mysql');
+    // await schemaImport(orm,'source','mysql');
+    // await schemaExport(orm,'mysql');  
+    // // //test mariadb
+    // // await schemaDrop(orm,'mariadb',true);
+    // // await schemaSync(orm,'mariadb');
+    // // await schemaImport(orm,'source','mariadb');
+    // // await schemaExport(orm,'mariadb');
+    // //test postgres 
+    // await schemaDrop(orm,'postgres',true);
+    // await schemaSync(orm,'postgres');
+    // await schemaImport(orm,'source','postgres');
+    // await schemaExport(orm,'postgres');  
 
-    // await writeQueryTest(orm,databases);//con errores
+    await writeQueryTest(orm,databases);//con errores
     // await writeNumeriFunctionsTest(orm,databases);
-    await writeGroupByTest(orm,databases);//con errores
+    // await writeGroupByTest(orm,databases);
     // await writeIncludeTest(orm,databases);
     // await writeInsertsTest(orm,databases);
     // await writeUpdateTest(orm,databases);

@@ -2,13 +2,13 @@
 
 declare abstract class SkipClauses<T> {
     /**  */
-    public take(count:number): void
+    public offset(count:number): void
 }
 declare abstract class PageClauses<T> {
     /**  */
     public skip(offset:number): SkipClauses<T>
     /**  */
-    public take(count:number): void
+    public offset(count:number): void
 }
 declare abstract class MapClauses<T> extends PageClauses<T>  {
     /**  */

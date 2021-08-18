@@ -17,7 +17,7 @@ export class SchemaSync extends SchemaActionDDL
     }
     public sentence(dialect:string):any[]
     {
-        return this.orm.language(dialect).schema.sync(this.delta,dialect,this.schema);
+        return this.orm.language.sync(dialect,this.delta,this.schema);
     }
     public async execute(database:string,transaction?:Transaction):Promise<ExecutionSyncResult>
     {

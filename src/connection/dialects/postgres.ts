@@ -166,6 +166,7 @@ export class PostgresConnection extends Connection
         }
         catch(error){
             console.error(error);
+            throw error;
         }
     }   
 }

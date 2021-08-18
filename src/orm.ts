@@ -4,7 +4,7 @@ import {Expression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
 import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
-import {ILanguage} from './language'
+import {LanguageManager} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
 import modelConfig from './parser/config.json'
@@ -22,28 +22,16 @@ class Orm implements IOrm
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
     private connectionManager:ConnectionManager
-    private languages:any
-    public dialects:any
+    private languageManager:LanguageManager
 
     constructor(parserManager:Parser){
-        this.languages={};
-        this.dialects={};
         this.config={};
         this._cache= new MemoryCache() 
         this.parserManager =  parserManager;
+        this.languageManager= new LanguageManager();
         this.schemaManager= new SchemaManager(this);           
         this.connectionManager= new ConnectionManager();
         this.databaseManager =  new DatabaseManager(this);
-    }
-    public addLanguage(language:ILanguage){
-        this.languages[language.name] =language;
-        for(const name in language.dialects)
-            this.dialects[name]= {name:name,language:language.name};         
-    }
-    public language(dialect:string):ILanguage 
-    {
-        let info =  this.dialects[dialect];
-        return this.languages[info.language] as ILanguage
     }
     public async init(configPath:string=process.cwd()):Promise<void>
     {
@@ -87,6 +75,10 @@ class Orm implements IOrm
     {
         return this.schemaManager;
     }
+    public get language():LanguageManager
+    {
+        return this.languageManager;
+    }
     public get database():DatabaseManager
     {
         return this.databaseManager;
@@ -107,7 +99,7 @@ class Orm implements IOrm
             if(!operand){
                 let _schema = this.schemaManager.getInstance(schema);
                 let node= this.parser.parse(expression);
-                operand = this.language(dialect).operand.build(node,dialect,_schema);
+                operand = this.language.build(dialect,node,_schema);
                 await this._cache.set(key,operand);
             }            
             return operand as Operand; 
@@ -134,18 +126,18 @@ class Orm implements IOrm
             let _context = new Context(context);
             let _database= this.database.get(database);
             if(transaction){
-                return await this.language(_database.dialect).executor.execute(operand,_context,transaction);
+                return await this.language.execute(_database.dialect,operand,_context,transaction);
             }else{    
 
                 let result;
                 if(operand.children.length==0){
                     let executor =this.connectionManager.createExecutor(_database.name);
-                    result = await this.language(_database.dialect).executor.execute(operand,_context,executor);
+                    result = await this.language.execute(_database.dialect,operand,_context,executor);
                 }
                 else
                 {
                     await this.transaction(_database.name,async (transaction)=>{
-                        result= await this.language(_database.dialect).executor.execute(operand,_context,transaction);
+                        result= await this.language.execute(_database.dialect,operand,_context,transaction);
                     });
                 }
                 return result;                    
@@ -201,8 +193,8 @@ export =(function() {
         let sqlLanguage =  new SqlLanguage(model);
         sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
         
-        orm.addLanguage(memoryLanguage);
-        orm.addLanguage(sqlLanguage);
+        orm.language.add(memoryLanguage);
+        orm.language.add(sqlLanguage);
         
         orm.connection.addType('mysql',MySqlConnectionPool);
         orm.connection.addType('mariadb',MariadbConnectionPool);

@@ -49,13 +49,13 @@ export class SqlField extends Operand
         let parts = this.mapping.split('.');
         if(parts.length == 1){
             let name = parts[0];
-            return metadata.other('column').replace('{name}',metadata.solveName(name));
+            return metadata.other('column').replace('{name}',metadata.delimiter(name));
         }else{
             let aliasEntity = parts[0];
             let name = parts[1];
             let text = metadata.other('field');
             text =text.replace('{entityAlias}',aliasEntity);
-            text =text.replace('{name}',metadata.solveName(name));
+            text =text.replace('{name}',metadata.delimiter(name));
             return text;
         }       
     }
@@ -85,7 +85,7 @@ export class SqlObject extends Obj
         let template = metadata.function('as').template;
         for(let i=0;i<this.children.length;i++){
             let value = this.children[i].build(metadata);
-            let alias =  metadata.solveName(this.children[i].name);              
+            let alias =  metadata.delimiter(this.children[i].name,true);              
             let fieldText = template.replace('{value}',value);
             fieldText = fieldText.replace('{alias}',alias);
             text += (i>0?', ':'')+fieldText;
@@ -204,7 +204,7 @@ export class SqlSentence extends FunctionRef
         if(map || first){
             this.clause='select';
             let from = this.children.find(p=> p instanceof SqlFrom) as Operand;
-            let joins = this.children.filter(p=> p instanceof SqlJoin).sort((a,b)=> a.name>b.name?1:a.name==b.name?0:-1);
+            let joins = this.children.filter(p=> p instanceof SqlJoin);
             // let select = (first?first:map) as Operand;
             text = select.build(metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
         }else if(update){
@@ -225,23 +225,23 @@ export class SqlSentence extends FunctionRef
     }
     protected solveJoins(joins:Operand[],metadata:SqlDialectMetadata)
     {
-        let text = '';        
+        let list:string[] = [];        
         let template = metadata.other('join');
         for(let i=0;i<joins.length;i++){
             let join = joins[i];
             let parts = join.name.split('.');
-            let joinText  = template.replace('{name}',metadata.solveName(parts[0]));         
+            let joinText  = template.replace('{name}',metadata.delimiter(parts[0]));         
             joinText =joinText.replace('{alias}',parts[1]);
             joinText =joinText.replace('{relation}',join.children[0].build(metadata)).trim();           
-            text= text + joinText+' ';
+            list.push(joinText);
         }
-        return text;
+        return list.join(' ')+' ';
     }
     protected solveFrom(from:Operand,metadata:SqlDialectMetadata)
     {
         let template = metadata.other('from');
         let parts = from.name.split('.');
-        template =template.replace('{name}',metadata.solveName(parts[0])); 
+        template =template.replace('{name}',metadata.delimiter(parts[0])); 
         template =Helper.replace(template,'{alias}',parts[1]);
         return template.trim();
     } 
@@ -291,11 +291,11 @@ export class SqlInsert extends SqlArrowFunction
             let obj = this.children[0];
             for(let p in obj.children){
                 let keyVal = obj.children[p] as SqlKeyValue;                
-                fields.push(templateColumn.replace('{name}',metadata.solveName(keyVal.field?keyVal.field.mapping:keyVal.name)));
+                fields.push(templateColumn.replace('{name}',metadata.delimiter(keyVal.field?keyVal.field.mapping:keyVal.name)));
                 values.push(keyVal.children[0].build(metadata)); 
             }    
         }
-        template =template.replace('{name}',metadata.solveName(this.name)); 
+        template =template.replace('{name}',metadata.delimiter(this.name)); 
         template =template.replace('{fields}',fields.join(','));
         template =template.replace('{values}',values.join(','));
         template =template.replace('{autoincrementField}',this.autoincrement && this.autoincrement.mapping?this.autoincrement.mapping:'0');         
@@ -314,7 +314,7 @@ export  class SqlUpdate extends SqlArrowFunction
             let obj = this.children[0];
             for(let p in obj.children){
                 let keyVal = obj.children[p] as SqlKeyValue;   
-                let column = templateColumn.replace('{name}',metadata.solveName(keyVal.field?keyVal.field.mapping:keyVal.name));
+                let column = templateColumn.replace('{name}',metadata.delimiter(keyVal.field?keyVal.field.mapping:keyVal.name));
                 let value = keyVal.children[0].build(metadata);
                 let assing= templateAssing.replace('{0}',column);
                 assing= assing.replace('{1}',value);
@@ -322,7 +322,7 @@ export  class SqlUpdate extends SqlArrowFunction
             }    
         }        
         let parts = this.name.split('.');
-        template =template.replace('{name}',metadata.solveName(parts[0])); 
+        template =template.replace('{name}',metadata.delimiter(parts[0])); 
         template =template.replace('{alias}',parts[1]);
         template =template.replace('{assings}',assings.join(','));      
         return template.trim()+' '; 
@@ -332,7 +332,7 @@ export class SqlDelete extends SqlArrowFunction {
     build(metadata:SqlDialectMetadata){       
         let template = metadata.dml('delete');               
         let parts = this.name.split('.');
-        template =template.replace('{name}',metadata.solveName(parts[0])); 
+        template =template.replace('{name}',metadata.delimiter(parts[0])); 
         template =Helper.replace(template,'{alias}',parts[1]);
         return template.trim()+' '; 
     }

@@ -266,7 +266,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     private truncateTable(entity:any,metadata:SqlDialectMetadata):string
     { 
         let text = metadata.ddl('truncateTable');
-        text =text.replace('{name}',metadata.solveName(entity.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping));
         return text;
     }
     private createTable(entity:any,metadata:SqlDialectMetadata):string
@@ -282,7 +282,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
             define.push(this.createUk(entity,entity.uniqueKey,metadata));
         }
         let text = metadata.ddl('createTable');
-        text =text.replace('{name}',metadata.solveName(entity.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping));
         text =text.replace('{define}',define.join(','));
 
         return (text);
@@ -290,7 +290,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
     private dropTable(entity:any,metadata:SqlDialectMetadata):string
     {  
         let text = metadata.ddl('dropTable');
-        text =text.replace('{name}',metadata.solveName(entity.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping));
         return text;        
     }
     private createColumn(property:Property,metadata:SqlDialectMetadata):string
@@ -300,7 +300,7 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let nullable = property.nullable !== undefined && property.nullable==false?metadata.other("notNullable"):"";
         
         let text = property.autoincrement?metadata.ddl('incrementalColumDefine'):metadata.ddl('columnDefine');
-        text =text.replace('{name}',metadata.solveName(property.mapping as string));
+        text =text.replace('{name}',metadata.delimiter(property.mapping as string));
         text =text.replace('{type}',type);
         text =text.replace('{nullable}',nullable);
         return text;
@@ -311,10 +311,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let columnTemplate = metadata.other('column');
         for(let i=0;i<primaryKey.length;i++){
             const column = entity.property[primaryKey[i]];
-            columns.push(columnTemplate.replace('{name}',metadata.solveName(column.mapping)));
+            columns.push(columnTemplate.replace('{name}',metadata.delimiter(column.mapping)));
         }
         let text = metadata.ddl('createPk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_PK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_PK'));
         text =text.replace('{columns}',columns.join(','));
         return text;
     }
@@ -324,10 +324,10 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let columnTemplate = metadata.other('column');
         for(let i=0;i<uniqueKey.length;i++){
             const column = entity.property[uniqueKey[i]];
-            columns.push(columnTemplate.replace('{name}',metadata.solveName(column.mapping)));
+            columns.push(columnTemplate.replace('{name}',metadata.delimiter(column.mapping)));
         }
         let text = metadata.ddl('createUk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_UK'));
         text =text.replace('{columns}',columns.join(','));
         return text;
     }
@@ -337,12 +337,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let fEntity = schema.getEntity(relation.entity);
         let fColumn = fEntity.property[relation.to];
 
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('createFk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
-        text =text.replace('{column}',metadata.solveName(column.mapping));
-        text =text.replace('{fTable}',metadata.solveName(fEntity.mapping));
-        text =text.replace('{fColumn}',metadata.solveName(fColumn.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_'+relation.name+'_FK'));
+        text =text.replace('{column}',metadata.delimiter(column.mapping));
+        text =text.replace('{fTable}',metadata.delimiter(fEntity.mapping));
+        text =text.replace('{fColumn}',metadata.delimiter(fColumn.mapping));
         return alterEntity+' '+text;
     }
     private createIndex(entity:any,index:Index,metadata:SqlDialectMetadata):string
@@ -351,11 +351,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let columnTemplate = metadata.other('column');
         for(let i=0;i<index.fields.length;i++){
             const column = entity.property[index.fields[i]];
-            columns.push(columnTemplate.replace('{name}',metadata.solveName(column.mapping)));
+            columns.push(columnTemplate.replace('{name}',metadata.delimiter(column.mapping)));
         }
         let text = metadata.ddl('createIndex');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+index.name));
-        text =text.replace('{table}',metadata.solveName(entity.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_'+index.name));
+        text =text.replace('{table}',metadata.delimiter(entity.mapping));
         text =text.replace('{columns}',columns.join(','));
         return text;
     }    
@@ -365,9 +365,9 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         type = property.length?type.replace('{0}',property.length.toString()):type;
         let nullable = property.nullable !== undefined && property.nullable==false?metadata.other("notNullable"):"";
         
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = property.autoincrement?metadata.ddl('incrementalColumDefine'):metadata.ddl('columnDefine');
-        text =text.replace('{name}',metadata.solveName(property.mapping as string));
+        text =text.replace('{name}',metadata.delimiter(property.mapping as string));
         text =text.replace('{type}',type);
         text =text.replace('{nullable}',nullable);
         text= metadata.ddl('alterColumn').replace('{columnDefine}',text);
@@ -379,9 +379,9 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         type = property.length?type.replace('{0}',property.length.toString()):type;
         let nullable = property.nullable !== undefined && property.nullable==false?metadata.other("notNullable"):"";
                
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = property.autoincrement?metadata.ddl('incrementalColumDefine'):metadata.ddl('columnDefine');
-        text =text.replace('{name}',metadata.solveName(property.mapping as string));
+        text =text.replace('{name}',metadata.delimiter(property.mapping as string));
         text =text.replace('{type}',type);
         text =text.replace('{nullable}',nullable);
         text= metadata.ddl('addColumn').replace('{columnDefine}',text);
@@ -393,11 +393,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let columnTemplate = metadata.other('column');
         for(let i=0;i<primaryKey.length;i++){
             const column = entity.property[primaryKey[i]];
-            columns.push(columnTemplate.replace('{name}',metadata.solveName(column.mapping)));
+            columns.push(columnTemplate.replace('{name}',metadata.delimiter(column.mapping)));
         }
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('addPk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_PK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_PK'));
         text =text.replace('{columns}',columns.join(','));
         return alterEntity+' '+text;
     }
@@ -407,11 +407,11 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let columnTemplate = metadata.other('column');
         for(let i=0;i<uniqueKey.length;i++){
             const column = entity.property[uniqueKey[i]];
-            columns.push(columnTemplate.replace('{name}',metadata.solveName(column.mapping)));
+            columns.push(columnTemplate.replace('{name}',metadata.delimiter(column.mapping)));
         }
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('addUk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_UK'));
         text =text.replace('{columns}',columns.join(','));
         return alterEntity+' '+text;
     }
@@ -421,47 +421,47 @@ export class SqlSchemaBuilder implements ISchemaBuilder
         let fEntity = schema.getEntity(relation.entity);
         let fColumn = fEntity.property[relation.to];
 
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('addFk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
-        text =text.replace('{column}',metadata.solveName(column.mapping));
-        text =text.replace('{fTable}',metadata.solveName(fEntity.mapping));
-        text =text.replace('{fColumn}',metadata.solveName(fColumn.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_'+relation.name+'_FK'));
+        text =text.replace('{column}',metadata.delimiter(column.mapping));
+        text =text.replace('{fTable}',metadata.delimiter(fEntity.mapping));
+        text =text.replace('{fColumn}',metadata.delimiter(fColumn.mapping));
         return alterEntity+' '+text;
     }    
     private dropColumn(entity:any,property:Property,metadata:SqlDialectMetadata):string
     {  
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('dropColumn');
-        text =text.replace('{name}',metadata.solveName(property.mapping as string));
+        text =text.replace('{name}',metadata.delimiter(property.mapping as string));
         return alterEntity+' '+text;
     }
     private dropPk(entity:any,metadata:SqlDialectMetadata):string
     {  
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('dropPk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_PK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_PK'));
         return alterEntity+' '+text;
     }
     private dropUk(entity:any,metadata:SqlDialectMetadata):string
     {  
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('dropUk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_UK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_UK'));
         return alterEntity+' '+text;
     }
     private dropFk(entity:any,relation:Relation,metadata:SqlDialectMetadata):string
     {  
-        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.solveName(entity.mapping));
+        const alterEntity = metadata.ddl('alterTable').replace('{name}',metadata.delimiter(entity.mapping));
         let text = metadata.ddl('dropFk');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+relation.name+'_FK'));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_'+relation.name+'_FK'));
         return alterEntity+' '+text;
     }
     private dropIndex(entity:any,index:Index,metadata:SqlDialectMetadata):string
     {      
         let text = metadata.ddl('dropIndex');
-        text =text.replace('{name}',metadata.solveName(entity.mapping+'_'+index.name));
-        text =text.replace('{table}',metadata.solveName(entity.mapping));
+        text =text.replace('{name}',metadata.delimiter(entity.mapping+'_'+index.name));
+        text =text.replace('{table}',metadata.delimiter(entity.mapping));
         return text;
     }
 }

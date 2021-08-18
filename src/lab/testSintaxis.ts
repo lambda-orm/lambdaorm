@@ -1,4 +1,5 @@
 // import {Products,Categories,Orders,OrderDetails,Customers,Product,Category,Customer,Order,OrderDetail} from './model'
+import { takeCoverage } from "v8";
 import orm from "./../orm"  
 // import {between,sum } from "./../index"  
 const ConfigExtends = require("config-extends");
@@ -42,7 +43,7 @@ let qryUpdate6 =(entity:Order)=> Orders.update().include(p=> [p.details,p.custom
 //                                       .filter(p=> p.id == entity.id )
 
 let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)
-let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).take(10)
+let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).offset(10)
 
 //en este caso se asume que el contexto sera directamente el objeto de tipo Order
 let qrySync =(entity:Order)=> Orders.sync()
@@ -87,6 +88,21 @@ let query5 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.in
 
 let query6 = (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
 
+//https://gorm.io/docs/query.html
+let query7 = (id:number)=> Orders.filter(p=> p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
+// let query8 =  Orders; //deberia traer todas las ordenes
+// let query9 =  Orders.first(); //trae la primer orden
+// // SELECT * FROM Orders ORDER BY OrderId LIMIT 1;
+// let query10 =  Orders.last(); //trae la ultima orden
+// // SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 1;
+// let query11 =  Orders.take(); //trae una order sin otro criterio
+// // SELECT * FROM Orders  LIMIT 1;
+// let query12 =  Orders.distinct(); //trae una order sin otro criterio
+// // SELECT * FROM Orders  LIMIT 1;
+
+
+
+
 
 // let a =(await orm.lambda(query).parse()).serialize()
 
@@ -102,6 +118,10 @@ let context = {id:10584}
 let query4 = (id:number)=> Orders.filter(p=>p.id == id ).map(p=> ({id:p.id,customer:p.customer.name}));
 result = await orm.lambda(query4).execute(context,'northwind');
 console.log(result);
+
+
+
+
 
 
 
