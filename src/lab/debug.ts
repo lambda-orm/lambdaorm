@@ -144,13 +144,13 @@ async function writeQueryTest(orm:IOrm,databases:string[],)
            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
    }
   ,test:[{name:'query 1',lambda: ()=> Products.map(p=>p)}
-     ,{name:'query 2',lambda: ()=> Products}
-    // ,{name:'query 2',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
-    // ,{name:'query 3',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
-    // ,{name:'query 4',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
-    // ,{name:'query 5',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
-    // ,{name:'query 6',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
-    // ,{name:'query 7',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
+        ,{name:'query 2',lambda: ()=> Products}
+        ,{name:'query 3',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+        ,{name:'query 4',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
+        ,{name:'query 5',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
+        ,{name:'query 6',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
+        ,{name:'query 7',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
+        ,{name:'query 8',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
   ]});
 }
 async function writeNumeriFunctionsTest(orm:IOrm,databases:string[],)
@@ -812,11 +812,6 @@ async function writeBulkInsertTest(orm:IOrm,databases:string[],)
     ,{name:'bulkInsert 2',context:'b',lambda: ()=> Orders.bulkInsert().include(p=> p.details) } 
   ]});
 }
-
-
-
-
-
 async function queries(orm:IOrm)
 {  
   const expression = ()=> Customers.include(p=> p.orders.include(p => p.details))

@@ -1,4 +1,4 @@
-import {Node} from './../parser'
+import {Node} from './../parser/node'
 import {Operand,Context,Delta  } from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 import {ILanguage} from './iLanguage'
@@ -58,10 +58,7 @@ export class LanguageManager
     public truncate(dialect:string,schema:SchemaHelper):string[]
     {
         return this.get(dialect).schema.truncate(dialect,schema);
-    }
-  
-
-    
+    }    
     protected solveSimplification(node:Node):Node
     {        
         if(node.type=='var' && node.children.length== 0){
