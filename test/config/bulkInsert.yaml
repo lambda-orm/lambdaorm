@@ -4,10 +4,10 @@ context:
   a:
     - name: Beverages4
       description: 'Soft drinks, coffees, teas, beers, and ales'
-      id: 9
+      id: 10
     - name: Condiments4
       description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
-      id: 10
+      id: 11
   b:
     - customerId: ALFKI
       employeeId: 6
@@ -121,12 +121,12 @@ test:
     executions:
       - database: mysql
         result:
-          - 9
           - 10
+          - 11
       - database: postgres
         result:
-          - 9
           - 10
+          - 11
   - name: bulkInsert 2
     context: b
     lambda: () => Orders.bulkInsert().include(p => p.details)

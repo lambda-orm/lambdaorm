@@ -316,14 +316,17 @@ export class SqlOperandManager extends OperandManager
                 context.current.groupByFields = this.groupByFields(operand);
                 children.push(operand); 
             }else{
-                let varEntity = new Node(context.current.entity, 'var', []);
-                let varArrow = new Node('p', 'var', []);
-                let varAll = new Node('p', 'var', []);               
-                let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
-                operand = this.createMapClause(clause,schema,context);
-                context.current.fields = this.fieldsInSelect(operand);
-                context.current.groupByFields = this.groupByFields(operand);
-                children.push(operand); 
+                throw 'expression without map clause';
+                //TODO: this was resolved in completeSentence in language Manager
+
+                // let varEntity = new Node(context.current.entity, 'var', []);
+                // let varArrow = new Node('p', 'var', []);
+                // let varAll = new Node('p', 'var', []);               
+                // let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
+                // operand = this.createMapClause(clause,schema,context);
+                // context.current.fields = this.fieldsInSelect(operand);
+                // context.current.groupByFields = this.groupByFields(operand);
+                // children.push(operand); 
             }
             if(context.current.groupByFields.length>0){
                 let fields = [];
@@ -519,14 +522,14 @@ export class SqlOperandManager extends OperandManager
             let filter:Operand; 
             if(clause.children.length== 1 )
                 //Example: Orders.update() , Orders.delete() 
-                filter = this.createFilter(context.current.entity,schema,context);
+                filter = this.createFilter(context.current.entity,schema,context,context.current.alias);
             else if(clause.children.length== 2 && clause.children[1].type == 'var')
                 //Example Orders.update(entity) ,Orders.delete(entity)
-                filter = this.createFilter(context.current.entity,schema,context,undefined,clause.children[1].name);
+                filter = this.createFilter(context.current.entity,schema,context,context.current.alias,clause.children[1].name);
             else if(clause.children.length== 3)
                 //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
                 // Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
-                filter = this.createFilter(context.current.entity,schema,context); 
+                filter = this.createFilter(context.current.entity,schema,context,context.current.alias); 
             else
                 throw 'Sentence without filter is wrong!!!';
             children.push(filter);

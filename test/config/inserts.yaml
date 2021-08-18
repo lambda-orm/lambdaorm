@@ -4,7 +4,7 @@ context:
   a:
     name: Beverages20
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 11
+    id: 9
   b:
     name: Beverages21
     description: 'Soft drinks, coffees, teas, beers, and ales'
@@ -85,9 +85,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 11
+        result: 9
       - database: postgres
-        result: 11
+        result: 9
   - name: insert 2
     context: b
     lambda: >-

@@ -49,7 +49,7 @@ export class SqlField extends Operand
         let parts = this.mapping.split('.');
         if(parts.length == 1){
             let name = parts[0];
-            return metadata.other('column').replace('{name}',metadata.delimiter(name));
+            return metadata.other('column').replace('{name}',metadata.delimiter(name,true));
         }else{
             let aliasEntity = parts[0];
             let name = parts[1];

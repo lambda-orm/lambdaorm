@@ -67,6 +67,63 @@ export class LanguageManager
             let allFields = new Node('p','var');
             return new Node('map','arrow',[node,arrowVariable,allFields]);
         } 
-        return node;
+        return this.completeExpression(node);
+    }
+    protected completeExpression(node:Node):Node
+    {
+        if(node.type == 'arrow' || node.type == 'childFunc' ){
+            return this.completeSentence(node);
+        }
+        else if(node.children){
+            for(const i in node.children)
+                node.children[i]=this.completeExpression(node.children[i]);
+        }
+        return node
+    }
+    protected completeSentence(node:Node):Node
+    {
+        let sentence:any = {}; 
+        let current = node;
+        while(current){
+            let name =current.type == 'var'?'from':current.name;
+            sentence[name] =  current;
+            if(current.children.length > 0)
+                current = current.children[0]
+            else
+                break;  
+        }
+        if(sentence['deleteAll'] || sentence['delete'] || sentence['insert']|| sentence['bulkInsert'] || sentence['updateAll'] || sentence['update']  ){
+            //TODO:solve this cases
+            //Se debe resolver aqui el delete y update sin filtro para agregar el filtro por el pk
+            return node;
+        }
+        else 
+        {
+            if(sentence['map'] || sentence['distinct']){
+                return node;
+            }
+            else if (sentence['first']){
+               //TODO: add orderby and limit , replace first for map
+               //SELECT * FROM Orders ORDER BY OrderId LIMIT 1;
+               return node;   
+            }
+            else if (sentence['last']){
+                //TODO: add orderby and limit , replace first for map
+                // SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 1;
+                return node;
+            }
+            else if (sentence['take']){
+                //TODO: add limit , replace first for map
+                // SELECT * FROM Orders  LIMIT 1;
+                return node;
+            }else{
+                //Solve expresion without map example: Products.filter(p=> id==1)
+                //let varEntity = new Node(sentence['from'].name, 'var', []);
+                let varArrow = new Node('p', 'var', []);
+                let varAll = new Node('p', 'var', []);               
+                let map = new Node('map','arrow',[node,varArrow,varAll]);
+                return map;
+            }
+        } 
     }
 }

@@ -232,7 +232,7 @@ test:
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
       - dialect: mssql
         sentence: >-
           UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
@@ -240,13 +240,13 @@ test:
           :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
           = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
           :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE OrderID = :id ;
+          :country WHERE o.OrderID = :id ;
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
       - dialect: oracle
         sentence: >-
           UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
@@ -254,13 +254,13 @@ test:
           :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
           = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
           :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE OrderID = :id ;
+          :country WHERE o.OrderID = :id ;
       - dialect: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ;
     errors: 0
     expression: ' Orders.update()'
     model:
@@ -361,7 +361,7 @@ test:
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
       - dialect: mssql
         sentence: >-
           UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
@@ -370,14 +370,14 @@ test:
           :entity.shipViaId,Freight = :entity.freight,ShipName =
           :entity.name,ShipAddress = :entity.address,ShipCity =
           :entity.city,ShipRegion = :entity.region,ShipPostalCode =
-          :entity.postalCode,ShipCountry = :entity.country WHERE OrderID =
+          :entity.postalCode,ShipCountry = :entity.country WHERE o.OrderID =
           :entity.id ;
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
       - dialect: oracle
         sentence: >-
           UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
@@ -386,14 +386,14 @@ test:
           :entity.shipViaId,Freight = :entity.freight,ShipName =
           :entity.name,ShipAddress = :entity.address,ShipCity =
           :entity.city,ShipRegion = :entity.region,ShipPostalCode =
-          :entity.postalCode,ShipCountry = :entity.country WHERE OrderID =
+          :entity.postalCode,ShipCountry = :entity.country WHERE o.OrderID =
           :entity.id ;
       - dialect: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ;
     errors: 0
     expression: ' Orders.update(entity)'
     model:
@@ -512,9 +512,9 @@ test:
         type: string
     executions:
       - database: mysql
-        result: 830
+        result: 832
       - database: postgres
-        result: 830
+        result: 832
   - name: update 4
     context: b
     lambda: >-
@@ -566,33 +566,35 @@ test:
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
 
           UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (OrderID = ? AND ProductID = ?) ;
+          o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ;
       - dialect: mssql
         sentence: >-
           UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
           :entity.id ;
 
           UPDATE [Order Details] o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
+          :productId) ;
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ;
 
           UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (OrderID = ? AND ProductID = ?) ;
+          o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ;
       - dialect: oracle
         sentence: >-
           UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
           :entity.id ;
 
           UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
+          :productId) ;
       - dialect: postgres
         sentence: >-
           UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ;
 
           UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (OrderID = $1 AND ProductID = $2) ;
+          o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ;
     errors: 0
     expression: ' Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id == entity.id)'
     model:
@@ -624,10 +626,11 @@ test:
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
 
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
+          ?) ;
       - dialect: mssql
         sentence: >-
           UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
@@ -635,20 +638,22 @@ test:
           :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
           = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
           :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE OrderID = :id ;
+          :country WHERE o.OrderID = :id ;
 
           UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
           :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          :discount WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId)
+          ;
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
 
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
+          ?) ;
       - dialect: oracle
         sentence: >-
           UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
@@ -656,21 +661,22 @@ test:
           :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
           = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
           :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE OrderID = :id ;
+          :country WHERE o.OrderID = :id ;
 
           UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
           :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          :discount WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId)
+          ;
       - dialect: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ;
 
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
-          ;
+          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
+          = $7) ;
     errors: 0
     expression: ' Orders.update().include(p => p.details)'
     model:
@@ -776,76 +782,80 @@ test:
         sentence: >-
           UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
           ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-          ?,Country = ? WHERE CustomerID = ? ;
+          ?,Country = ? WHERE c.CustomerID = ? ;
 
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
 
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
+          ?) ;
       - dialect: mssql
         sentence: >-
           UPDATE Customers c SET CustomerID = :id,CompanyName =
           :name,ContactName = :contact,ContactTitle = :phone,Address =
           :address,City = :city,Region = :region,PostalCode =
-          :postalCode,Country = :country WHERE CustomerID = :id ;
+          :postalCode,Country = :country WHERE c.CustomerID = :id ;
 
           UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
           :employeeId,OrderDate = :orderDate,RequiredDate =
           :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
           = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
           :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE OrderID = :id ;
+          :country WHERE o.OrderID = :id ;
 
           UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
           :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          :discount WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId)
+          ;
       - dialect: mysql
         sentence: >-
           UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
           ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-          ?,Country = ? WHERE CustomerID = ? ;
+          ?,Country = ? WHERE c.CustomerID = ? ;
 
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE OrderID = ? ;
+          ?,ShipCountry = ? WHERE o.OrderID = ? ;
 
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (OrderID = ? AND ProductID = ?) ;
+          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
+          ?) ;
       - dialect: oracle
         sentence: >-
           UPDATE Customers c SET CustomerID = :id,CompanyName =
           :name,ContactName = :contact,ContactTitle = :phone,Address =
           :address,City = :city,Region = :region,PostalCode =
-          :postalCode,Country = :country WHERE CustomerID = :id ;
+          :postalCode,Country = :country WHERE c.CustomerID = :id ;
 
           UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
           :employeeId,OrderDate = :orderDate,RequiredDate =
           :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
           = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
           :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE OrderID = :id ;
+          :country WHERE o.OrderID = :id ;
 
           UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
           :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (OrderID = :orderId AND ProductID = :productId) ;
+          :discount WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId)
+          ;
       - dialect: postgres
         sentence: >-
           UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName =
           $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode =
-          $8,Country = $9 WHERE CustomerID = $10 ;
+          $8,Country = $9 WHERE c.CustomerID = $10 ;
 
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE OrderID = $14 ;
+          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ;
 
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (OrderID = $6 AND ProductID = $7)
-          ;
+          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
+          = $7) ;
     errors: 0
     expression: ' Customers.update().include(p => p.orders.include(p => p.details))'
     model:
