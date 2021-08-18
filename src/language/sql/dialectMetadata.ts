@@ -1,3 +1,4 @@
+import {Helper} from './../../helper'
 
 export class SqlDialectMetadata
 {
@@ -50,8 +51,23 @@ export class SqlDialectMetadata
     public solveName(name:string):string
     {
         if(name.indexOf(' ') == -1)return name;
-        let delimiter= this._others['delimiter'];
-        return delimiter.replace('{name}',name);        
+        const template= this._others['delimiter'];
+        return template.replace('{name}',name);        
+    }
+    public solveDateTime(value:any):string
+    {
+        const format= this._formats['datetime'];
+        return Helper.dateFormat(value,format);  
+    }
+    public solveDate(value:any):string
+    {
+        const format= this._formats['date'];
+        return Helper.dateFormat(value,format);  
+    }
+    public solveTime(value:any):string
+    {
+        const format= this._formats['time'];
+        return Helper.dateFormat(value,format);  
     }
     public add(dialect:any):void
     {

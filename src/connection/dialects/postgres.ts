@@ -123,8 +123,7 @@ export class PostgresConnection extends Connection
         this.inTransaction=false;
     }
     protected async _execute(sql:string,params:Parameter[]=[]):Promise<any>
-    {    
-                 
+    {          
         let values:any[]=[];
         for(let i=0;i<params.length;i++){
             const param = params[i];

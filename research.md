@@ -32,6 +32,7 @@ npx mocha
  
 # References
 - [express-typescript](https://rsbh.dev/blog/rest-api-with-express-typescript)
+- [sort clause](https://www.postgresqltutorial.com/postgresql-having/)
 
 ## orm examples
 - [knexjs](https://knexjs.org/)

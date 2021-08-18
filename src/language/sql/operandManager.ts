@@ -526,7 +526,7 @@ export class SqlOperandManager extends OperandManager
             else if(clause.children.length== 3)
                 //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
                 // Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
-                filter = this.createFilter(context.current.entity,schema,context);
+                filter = this.createFilter(context.current.entity,schema,context); 
             else
                 throw 'Sentence without filter is wrong!!!';
             children.push(filter);

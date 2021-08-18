@@ -203,19 +203,16 @@ export class SqlExecutor implements IOperandExecutor
     }
     protected params(parameters:Parameter[],metadata:SqlDialectMetadata,context:Context):Parameter[]
     {   
-        let datetimeFormat= metadata.format('datetime');
-        let dateFormat= metadata.format('date');
-        let timeFormat= metadata.format('time');
         for(const p in parameters){
             let parameter = parameters[p];
             let value = context.get(parameter.name);
             if(value!==null){
                 if(parameter.type == 'datetime')
-                    value=Helper.dateFormat(value,datetimeFormat);
+                    value=metadata.solveDateTime(value);
                 else if(parameter.type == 'date')
-                    value=Helper.dateFormat(value,dateFormat); 
+                    value=metadata.solveDate(value); 
                 else if(parameter.type == 'time')
-                    value=Helper.dateFormat(value,timeFormat);      
+                    value=metadata.solveTime(value);       
             }
             parameter.value= value=== undefined?null:value;
         }
@@ -223,9 +220,6 @@ export class SqlExecutor implements IOperandExecutor
     }
     protected rows(query:SqlQuery,metadata:SqlDialectMetadata,array:any[]){
         let rows:any[]=[];
-        let datetimeFormat= metadata.format('datetime');
-        let dateFormat= metadata.format('date');
-        let timeFormat= metadata.format('time');
         for(let i=0;i<array.length;i++){
             const item = array[i];
             let row:any[]=[];
@@ -234,11 +228,11 @@ export class SqlExecutor implements IOperandExecutor
                 let value = item[parameter.name];
                 if(value!==null){
                     if(parameter.type == 'datetime')
-                        value=Helper.dateFormat(value,datetimeFormat);
+                        value=metadata.solveDateTime(value);
                     else if(parameter.type == 'date')
-                        value=Helper.dateFormat(value,dateFormat); 
+                        value=metadata.solveDate(value); 
                     else if(parameter.type == 'time')
-                        value=Helper.dateFormat(value,timeFormat);      
+                        value=metadata.solveTime(value);      
                 }
                 // if(typeof value == 'string')
                 //     value = Helper.escape(value);                

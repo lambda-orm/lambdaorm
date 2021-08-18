@@ -13,8 +13,6 @@ declare abstract class PageClauses<T> {
 declare abstract class MapClauses<T> extends PageClauses<T>  {
     /**  */
     public sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): PageClauses<T>
-    /**  */
-    public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
 }
 declare abstract class ModifyFilterClauses<T>  {
     /**  */
