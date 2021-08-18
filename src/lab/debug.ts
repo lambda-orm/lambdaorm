@@ -1138,14 +1138,14 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     await schemaImport(orm,'source','postgres');
     await schemaExport(orm,'postgres');  
 
-    await writeQueryTest(orm,databases);
-    await writeNumeriFunctionsTest(orm,databases);
-    await writeGroupByTest(orm,databases);
-    await writeIncludeTest(orm,databases);
-    await writeInsertsTest(orm,databases);
-    await writeUpdateTest(orm,databases);
-    await writeDeleteTest(orm,databases);
-    await writeBulkInsertTest(orm,databases);
+    //await writeQueryTest(orm,databases);
+    // await writeNumeriFunctionsTest(orm,databases);
+    // await writeGroupByTest(orm,databases);
+    // await writeIncludeTest(orm,databases);
+    // await writeInsertsTest(orm,databases);
+    // await writeUpdateTest(orm,databases);
+    // await writeDeleteTest(orm,databases);
+    // await writeBulkInsertTest(orm,databases);
     //operators comparation , matematica
     //string functions
     //datetime functions

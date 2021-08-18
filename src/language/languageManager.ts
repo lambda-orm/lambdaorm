@@ -22,10 +22,10 @@ export class LanguageManager
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
     }
-    public build(dialect:string,node:Node,_schema:SchemaHelper): Operand
+    public build(dialect:string,node:Node,schema:SchemaHelper): Operand
     {
-        let _node = this.solveSimplification(node); 
-        return this.get(dialect).operand.build(_node,dialect,_schema);
+        let _node = this.solveSimplification(node,schema); 
+        return this.get(dialect).operand.build(_node,dialect,schema);
     }
     public sentence(dialect:string,operand:Operand):any
     {
@@ -59,7 +59,7 @@ export class LanguageManager
     {
         return this.get(dialect).schema.truncate(dialect,schema);
     }    
-    protected solveSimplification(node:Node):Node
+    protected solveSimplification(node:Node,schema:SchemaHelper):Node
     {        
         if(node.type=='var' && node.children.length== 0){
             //Example: Products => Products.map(p=>p)            
@@ -67,20 +67,20 @@ export class LanguageManager
             let allFields = new Node('p','var');
             return new Node('map','arrow',[node,arrowVariable,allFields]);
         } 
-        return this.completeExpression(node);
+        return this.completeExpression(node,schema);
     }
-    protected completeExpression(node:Node):Node
+    protected completeExpression(node:Node,schema:SchemaHelper):Node
     {
         if(node.type == 'arrow' || node.type == 'childFunc' ){
-            return this.completeSentence(node);
+            return this.completeSentence(node,schema);
         }
         else if(node.children){
             for(const i in node.children)
-                node.children[i]=this.completeExpression(node.children[i]);
+                node.children[i]=this.completeExpression(node.children[i],schema);
         }
         return node
     }
-    protected completeSentence(node:Node):Node
+    protected completeSentence(node:Node,schema:SchemaHelper):Node
     {
         let sentence:any = {}; 
         let current = node;
@@ -92,6 +92,8 @@ export class LanguageManager
             else
                 break;  
         }
+        let entity=sentence['from'].name;
+
         if(sentence['deleteAll'] || sentence['delete'] || sentence['insert']|| sentence['bulkInsert'] || sentence['updateAll'] || sentence['update']  ){
             //TODO:solve this cases
             //Se debe resolver aqui el delete y update sin filtro para agregar el filtro por el pk
@@ -99,9 +101,14 @@ export class LanguageManager
         }
         else 
         {
-            if(sentence['map'] || sentence['distinct']){
-                return node;
+            if(sentence['map'] ){
+                let map = sentence['map']
+                return this.completeNodeMap(entity,map,schema);
             }
+            else if (sentence['distinct']){
+                let map = sentence['distinct']
+                return this.completeNodeMap(entity,map,schema); 
+             }
             else if (sentence['first']){
                //TODO: add orderby and limit , replace first for map
                //SELECT * FROM Orders ORDER BY OrderId LIMIT 1;
@@ -122,8 +129,41 @@ export class LanguageManager
                 let varArrow = new Node('p', 'var', []);
                 let varAll = new Node('p', 'var', []);               
                 let map = new Node('map','arrow',[node,varArrow,varAll]);
-                return map;
+                return this.completeNodeMap(entity,map,schema);
             }
         } 
     }
+    protected completeNodeMap(entity:string,node:Node,schema:SchemaHelper):Node
+    {
+        if(node.children && node.children.length==3){
+            let arrowVar = node.children[1].name;
+            let fields = node.children[2];  
+            if(fields.children.length==0 && fields.name == arrowVar){
+                //Example: Orders.map(p=> p)
+                let fields = this.createNodeFields(entity,schema,arrowVar);
+                node.children[2]= fields;  
+            }
+        }else{
+            let arrowVar = 'p';
+            let varArrow = new Node('p', 'var', []);
+            let fields = this.createNodeFields(entity,schema,'p');
+            node.children.push(varArrow);
+            node.children.push(fields);
+        }
+        return node; 
+    }
+    protected createNodeFields(entityName:string,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
+    {
+        let obj = new Node('obj', 'obj', []);
+        let entity=schema.getEntity(entityName);
+        for(let name in entity.property){
+            let property = entity.property[name];
+            if((!property.autoincrement || !excludeAutoincrement) && (!entity.primaryKey.includes(property.name) || !excludePrimaryKey) ){
+                let field = new Node(parent?parent+'.'+name:name, 'var', []);
+                let keyVal = new Node(name, 'keyVal', [field])
+                obj.children.push(keyVal);
+            }
+        }
+        return obj;
+    } 
 }
