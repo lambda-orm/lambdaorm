@@ -957,18 +957,11 @@ async function crud(orm:IOrm){
     console.log(error);
   }
 }
-// async function scriptsByDialect(orm:IOrm,schemaName:string){ 
-//   const schema= orm.schema.get(schemaName) as Schema;
-//   for(const name in orm.languages['sql'].dialects){
-//     console.log('\n\n'+name+' -------------------------------------\n');
-//     await exec( async()=>(orm.schema.sync(schema).sentence(name)));
-//   } 
-// }
-// 
 
 async function toExpression(orm:IOrm){
 
   let expressions= [
+        // queries
         'Products.map(p=>p)'
         ,'Products'
         ,'Products.filter(p=>p.id==id).map(p=>p)'
@@ -978,6 +971,26 @@ async function toExpression(orm:IOrm){
         ,'Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)])'
         ,'OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product])'
         ,'OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))'
+        ,'Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})'
+        ,'Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )'       
+        // include
+        ,'Orders.filter(p=>p.id==id).include(p => p.customer)'
+        ,'Orders.filter(p=>p.id==id).include(p => p.details)'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])'
+        //insert , update and delete
+        ,'Orders.insert().include(p => p.details)'
+        ,'Orders.filter(p=> p.id == id).include(p => p.details)'
+        ,'Orders.update().include(p => p.details)'
+        ,'Orders.delete().include(p=> p.details)'
+        ,'Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )'
+        ,'Orders.update().include(p=> [p.details,p.customer])'
+        ,'Orders.insert(entity).include(p=> [p.details,p.customer])'
+        ,'Orders.update({name:entity.name})'
+        ,'Orders.update({name:entity.name}).filter(p=> p.id == entity.id)'          
         ];
 
   for(const p in expressions) {

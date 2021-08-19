@@ -1,6 +1,4 @@
 import {Node} from './node'
-import {Minifier} from './minifier'
-// import {NodeManager} from './nodeManager'
 import {Model} from './model'
 
 export class NodeManager
@@ -9,19 +7,16 @@ export class NodeManager
     public tripleOperators:string[]
     public assigmentOperators:string[]
     private model:Model
-    private minifier:Minifier
-    //private nodeManager:NodeManager
-
+    private reAlphanumeric:RegExp
     constructor(model:Model){
-         this.model = model;
-         this.minifier = new Minifier();
-         //this.nodeManager = new NodeManager(model);
-         this.tripleOperators = [];
-         this.doubleOperators = [] ;
-         this.assigmentOperators = [];
-         this.refresh();     
-     } 
-     public refresh(){
+        this.model = model;
+        this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$');
+        this.tripleOperators = [];
+        this.doubleOperators = [] ;
+        this.assigmentOperators = [];
+        this.refresh();     
+    } 
+    public refresh(){
          for(const key in this.model.operators){
              if( key.length==2) this.doubleOperators.push(key);
              else if(key.length==3) this.tripleOperators.push(key);
@@ -30,8 +25,8 @@ export class NodeManager
             if(operator[2] && operator[2].category == 'assignment')
                    this.assigmentOperators.push(key);
          }
-     }   
-     public priority(name:string,cardinality:number=2){
+    }   
+    public priority(name:string,cardinality:number=2){
          try{
              let metadata = this.model.operators[name][cardinality];
              return  metadata?metadata.priority : -1
@@ -39,20 +34,20 @@ export class NodeManager
          catch(error){
              throw 'error to priority : '+name; 
          }
-     }
-     public isEnum(name:string){    
+    }
+    public isEnum(name:string){    
          return this.model.isEnum(name); 
-     }
-     public getEnumValue(name:string,option:any){
+    }
+    public getEnumValue(name:string,option:any){
          return this.model.getEnumValue(name,option);
-     }
-     public getEnum(name:string){
+    }
+    public getEnum(name:string){
          return this.model.getEnum(name);
-     }
-     public parse(expression:string):Node
+    }
+    public parse(expression:string):Node
      {
          try{
-            let buffer:string[]= this.minifier.minify(expression);           
+            let buffer:string[]= this.minify(expression);           
              let parser = new Parser(this,buffer);
              let node= parser.parse();
              //  delete _parser; 
@@ -61,8 +56,8 @@ export class NodeManager
          }catch(error){ 
              throw 'expression: '+expression+' error: '+error.toString();  
          } 
-     }
-     public toExpression(node:Node):string
+    }
+    public toExpression(node:Node):string
      {
         let list:string[]=[];
         if (!node || !node.type) {
@@ -119,7 +114,7 @@ export class NodeManager
                 list.push('.'+node.name); 
                 list.push('(');
                 for(let i=1;i<node.children.length;i++){
-                    if(i>0)list.push(',');
+                    if(i>1)list.push(',');
                     list.push(this.toExpression(node.children[i]));
                 }
                 list.push(')');
@@ -137,19 +132,17 @@ export class NodeManager
               throw 'node: '+node.type +' not supported';                              
          }
          return list.join('');
-     }
-     public serialize(value:Node):any
+    }
+    public serialize(value:Node):any
      {
-        //return this.nodeManager.serialize(value);
         return this._serialize(value);
-     }
-     public deserialize(json:any):Node
+    }
+    public deserialize(json:any):Node
      {
-        //return this.nodeManager.deserialize(json);
         let node = this._deserialize(json)
         return this.setParent(node);
-     }
-     public setParent(node:Node,parent?:Node,index:number=0)
+    }
+    public setParent(node:Node,parent?:Node,index:number=0)
      {
         try{
             if(parent){
@@ -172,8 +165,37 @@ export class NodeManager
             throw 'set parent: '+node.name+' error: '+error.toString();
         }       
         return node; 
+    }
+    public minify(expression:string):string[]
+    {
+        let isString=false;
+        let quotes='';
+        let buffer = expression.split('');
+        let length=buffer.length;
+        let result =[];
+        let i=0;
+        while( i < length){
+            const p =buffer[i]        
+            if(isString && p == quotes)isString=false 
+            else if(!isString && (p == '\'' || p=='"')){
+                isString=true;
+                quotes=p;
+            }
+            if(isString)
+                result.push(p);
+            else if(p == ' '){
+                //solo deberia dejar los espacios cuando es entre caracteres alfanumericos. 
+                //por ejemplo en el caso de "} if" no deberia quedar un espacio 
+                if(i+1 < length && i-1 >= 0 && this.reAlphanumeric.test(buffer[i-1]) && this.reAlphanumeric.test(buffer[i+1]))
+                    result.push(p);
+            }                        
+            else if (p!='\n' && p!='\r' && p!='\t' )
+                result.push(p);
+            i+=1;
+        }   
+        return result;
     } 
-    protected _serialize(node:Node):any
+    private _serialize(node:Node):any
     {
         let children = []                
         for(const p in node.children)
@@ -181,7 +203,7 @@ export class NodeManager
         if(children.length == 0) return {'n':node.name,'t':node.type};     
         return {'n':node.name,'t':node.type,'c':children}; 
     }    
-    protected _deserialize(serialized:any):Node
+    private _deserialize(serialized:any):Node
     {
         let children = []
         if(serialized.c)
@@ -189,9 +211,9 @@ export class NodeManager
                 children.push(this._deserialize(p));
         return new Node(serialized['n'],serialized['t'],children);
     }  
- }
+}
  
- class Parser{
+class Parser{
 
      private mgr:NodeManager
      private reAlphanumeric:RegExp
@@ -591,5 +613,4 @@ export class NodeManager
              return new Node('obj','obj',attributes)
          }
      }
- }
- 
+}

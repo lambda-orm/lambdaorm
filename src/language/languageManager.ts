@@ -1,5 +1,5 @@
 import {Node} from '../node/node'
-import {Operand,Context,Delta,Property  } from './../model'
+import {Operand,Context,Delta,IOrm} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 import {ILanguage} from './iLanguage'
 import {Executor}  from '../connection'
@@ -7,8 +7,10 @@ import {Executor}  from '../connection'
 export class LanguageManager
 {   
     private languages:any
+    private orm:IOrm
     public dialects:any
-    constructor(){
+    constructor(orm:IOrm){
+        this.orm=orm;
         this.languages={};
         this.dialects={};
     } 
@@ -24,12 +26,14 @@ export class LanguageManager
     }
     public build(dialect:string,node:Node,schema:SchemaHelper): Operand
     {
-        let _node = this.completeNode(node,schema); 
+        let _node = this.complete(node,schema); 
         return this.get(dialect).operand.build(_node,dialect,schema);
     }
     public complete(node:Node,schema:SchemaHelper): Node
     {
-        return this.completeNode(node,schema); 
+        let completeNode= this.completeNode(node,schema);
+        this.orm.node.setParent(completeNode);
+        return completeNode; 
     }
     public sentence(dialect:string,operand:Operand):any
     {
@@ -63,7 +67,7 @@ export class LanguageManager
     {
         return this.get(dialect).schema.truncate(dialect,schema);
     }    
-    protected completeNode(node:Node,schema:SchemaHelper):Node
+    private completeNode(node:Node,schema:SchemaHelper):Node
     {        
         if(node.type=='var' && node.children.length== 0){
             //Example: Products => Products.map(p=>p)            
@@ -77,7 +81,7 @@ export class LanguageManager
             return node;
         } 
     }
-    protected completeExpression(node:Node,schema:SchemaHelper):void
+    private completeExpression(node:Node,schema:SchemaHelper):void
     {
         if(node.type == 'arrow' || node.type == 'childFunc' ){
             this.completeSentence(node,schema);
@@ -87,7 +91,7 @@ export class LanguageManager
                 this.completeExpression(node.children[i],schema);
         }
     }
-    protected getSentence(node:Node):any
+    private getSentence(node:Node):any
     {
         let sentence:any = {};
         let current = node;
@@ -102,7 +106,7 @@ export class LanguageManager
         return sentence; 
 
     }
-    protected completeSentence(node:Node,schema:SchemaHelper,entityName?:string):void
+    private completeSentence(node:Node,schema:SchemaHelper,entityName?:string):void
     {        
         let compleInclude:any; 
         let sentence:any = this.getSentence(node);       
@@ -167,31 +171,33 @@ export class LanguageManager
                 node.name= 'map'; 
             }else{
                 //Solve expresion without map example: Products.filter(p=> id==1)
-                //let varEntity = new Node(sentence['from'].name, 'var', []);
+                compleInclude = this.completeMapInclude;
                 let varArrow = new Node('p', 'var', []);
-                let varAll = new Node('p', 'var', []);               
-                let map = new Node('map','arrow',[node,varArrow,varAll]);
-                this.completeMapNode(entity,map,schema);
+                let varAll = new Node('p', 'var', []); 
+
+                node.children[0] = new Node('map','arrow',[node.children[0],varArrow,varAll]);
+                sentence['map']=node.children[0];
+                this.completeMapNode(entity,node.children[0],schema);
             }
         }
         if(sentence['include']){
             if(compleInclude===undefined)
                throw 'Include not implemented!!!';
 
-            let clause = sentence['include'];                
-            let arrowVar = clause.children[1].name; 
-            let body = clause.children[2];                
+            let clauseInclude = sentence['include'];                
+            let arrowVar = clauseInclude.children[1].name; 
+            let body = clauseInclude.children[2];                
             if (body.type == 'array'){
                 for (let i=0; i< body.children.length;i++) {
-                    compleInclude.bind(this)(entity,body.children[i],schema);
+                    body.children[i]=compleInclude.bind(this)(entity,arrowVar,body.children[i],schema);
                 }
             }
             else{
-                compleInclude.bind(this)(entity,body,schema);
+                clauseInclude.children[2]=compleInclude.bind(this)(entity,arrowVar,body,schema);
             }
         } 
     }
-    protected completeMapNode(entity:any,node:Node,schema:SchemaHelper):void
+    private completeMapNode(entity:any,node:Node,schema:SchemaHelper):void
     {
         if(node.children && node.children.length==3){
             let arrowVar = node.children[1].name;
@@ -208,7 +214,7 @@ export class LanguageManager
             node.children.push(fields);
         }
     }
-    protected completeInsertNode(entity:any,node:Node,schema:SchemaHelper):void
+    private completeInsertNode(entity:any,node:Node,schema:SchemaHelper):void
     {           
         if(node.children.length== 1){
             //example: Orders.insert()
@@ -220,7 +226,7 @@ export class LanguageManager
             node.children[1] = this.createNodeFields(entity,schema,node.children[1].name,false,true);
         }
     }
-    protected completeUpdateNode(entity:any,node:Node,schema:SchemaHelper):void
+    private completeUpdateNode(entity:any,node:Node,schema:SchemaHelper):void
     {      
         if(node.children.length== 1){
             //Example: Orders.update()
@@ -234,7 +240,7 @@ export class LanguageManager
             node.children[1] = this.createNodeFields(entity,schema,node.children[1].name,true);
         }
     }
-    protected createNodeFields(entity:any,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
+    private createNodeFields(entity:any,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
     {
         let obj = new Node('obj', 'obj', []);
         for(let name in entity.property){
@@ -247,7 +253,7 @@ export class LanguageManager
         }
         return obj;
     }
-    protected createFilterIfNotExists(entity:any,node:Node,sentence:any,schema:SchemaHelper):void
+    private createFilterIfNotExists(entity:any,node:Node,sentence:any,schema:SchemaHelper):void
     {       
         if(!sentence['filter']){ 
             if(node.children.length== 1 ){
@@ -270,7 +276,7 @@ export class LanguageManager
             }
         }        
     }
-    protected createFilter(entity:any,schema:SchemaHelper,parent?:string,parentVariable?:string):Node
+    private createFilter(entity:any,schema:SchemaHelper,parent?:string,parentVariable?:string):Node
     {
         let condition = undefined;
         for(let i in entity.primaryKey){ 
@@ -285,16 +291,15 @@ export class LanguageManager
             return condition;
         throw 'Create Filter incorrect!!!';
     }
-
-    protected completeMapInclude(entity:any,node:Node,schema:SchemaHelper):void
+    private completeMapInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper):Node
     {   
-       this.completeSelectInclude(entity,node,schema,'map');
+       return this.completeSelectInclude(entity,arrowVar,node,schema,'map');
     }
-    protected completeDisctintInclude(entity:any,node:Node,schema:SchemaHelper):void
+    private completeDisctintInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper):Node
     {   
-       this.completeSelectInclude(entity,node,schema,'distinct');
+       return this.completeSelectInclude(entity,arrowVar,node,schema,'distinct');
     }
-    protected completeSelectInclude(entity:any,node:Node,schema:SchemaHelper,clause:string):void
+    private completeSelectInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper,clause:string):Node
     {   
         let map:Node,relation:any;
         if(node.type =='arrow'){
@@ -319,51 +324,50 @@ export class LanguageManager
         } else if (node.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
             // entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))      
-            let varArrow = new Node('p', 'var', []);
+            let varArrowNode = new Node('p', 'var', []);
             let varAll = new Node('p', 'var', []);
             let parts = node.name.split('.');
             let relationName=parts[1];
             relation = entity.relation[relationName];
-            node.name = relation.entity;
-            map = new Node(clause,'arrow',[node,varArrow,varAll]);
+            map = new Node(clause,'arrow',[node,varArrowNode,varAll]);
             this.completeSentence(map, schema,relation.entity);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
         }
-        //add filter with parent 
-        let toEntity=schema.getEntity(relation.entity);
-        let toField = toEntity.property[relation.to];
-        let fieldRelation = new Node(map.children[1].name+ '.' + toField.name,'var');   //new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping);
-        let varRelation = new Node('list_'+relation.to,'var');
-        let filterInclude =new Node('includes','func', [fieldRelation,varRelation]);
+        //add filter with parent
         let sentence:any = this.getSentence(map);  
         let childFilter= sentence['filter'];
+        let arrowFilterVar = childFilter?childFilter.children[1].name:'p';       
+        let fieldRelation = new Node(arrowFilterVar+ '.' + relation.to,'var');   //new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping);
+        let varRelation = new Node('list_'+relation.to,'var');
+        let filterInclude =new Node('includes','funcRef', [fieldRelation,varRelation]);        
         if(!childFilter){
-            map.children[0]= new Node('filter','arrow',[map.children[0],filterInclude]);
+            let varFilterArrowNode = new Node(arrowFilterVar, 'var', []);
+            map.children[0]= new Node('filter','arrow',[map.children[0],varFilterArrowNode,filterInclude]);
         }else{
             childFilter.children[0] =new Node('&&','oper',[childFilter.children[0],filterInclude]);
         }
+        return map;
     }    
-    protected completeBulkInsertInclude(entity:any,node:Node,schema:SchemaHelper):void
+    private completeBulkInsertInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper):Node
     {   
-       this.completeInclude(entity,node,schema,'bulkInsert');
+       return this.completeInclude(entity,arrowVar,node,schema,'bulkInsert');
     }
-    protected completeInsertInclude(entity:any,node:Node,schema:SchemaHelper):void
+    private completeInsertInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper):Node
     {   
-       this.completeInclude(entity,node,schema,'insert');
+       return this.completeInclude(entity,arrowVar,node,schema,'insert');
     }
-    protected completeUpdateInclude(entity:any,node:Node,schema:SchemaHelper):void
+    private completeUpdateInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper):Node
     {   
-        this.completeInclude(entity,node,schema,'update');
+        return this.completeInclude(entity,arrowVar,node,schema,'update');
     }
-    protected completeDeleteInclude(entity:any,node:Node,schema:SchemaHelper):void
+    private completeDeleteInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper):Node
     {   
-        this.completeInclude(entity,node,schema,'delete');
+        return this.completeInclude(entity,arrowVar,node,schema,'delete');
     }
-    protected completeInclude(entity:any,node:Node,schema:SchemaHelper,clause:string):void
+    private completeInclude(entity:any,arrowVar:string,node:Node,schema:SchemaHelper,clause:string):Node
     {   
-        //let child:SqlSentence,relation:any,relationName:string="";
-        let relation:any;
+        let clauseNode:Node,relation:any;
         if(node.type =='arrow'){
             //resuelve el siguiente caso  .includes(details.map(p=>p))     
             let current = node;
@@ -380,18 +384,20 @@ export class LanguageManager
                 else
                     break;
             }
-            let map = new Node(clause,'childFunc',[node]);
-            this.completeSentence(map, schema,relation.entity);
+            clauseNode = new Node(clause,'childFunc',[node]);
+            this.completeSentence(clauseNode, schema,relation.entity);
         }else if (node.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
             // entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()      
+            
             let parts = node.name.split('.');
             let relationName=parts[1];
             relation = entity.relation[relationName];
-            let map = new Node(clause,'childFunc',[node]);
-            this.completeSentence(map, schema, relation.entity);
+            clauseNode = new Node(clause,'childFunc',[node]);
+            this.completeSentence(clauseNode, schema, relation.entity);
         }else{
             throw 'Error to add include node '+node.type+':'+node.name; 
-        } 
+        }
+        return clauseNode; 
     } 
 }

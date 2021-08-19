@@ -1,5 +1,5 @@
 import {Cache,Operand,IOrm,Context,Config } from './model'
-import {Model,NodeManager,Node} from './node/index'
+import {Model,NodeManager} from './node/index'
 import {Expression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
@@ -18,20 +18,40 @@ class Orm implements IOrm
 {
     private _cache:Cache
     public config:Config
+    private model:Model
     private nodeManager:NodeManager
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
     private connectionManager:ConnectionManager
     private languageManager:LanguageManager
 
-    constructor(parserManager:NodeManager){
+    constructor(){
         this.config={};
-        this._cache= new MemoryCache() 
-        this.nodeManager =  parserManager;
-        this.languageManager= new LanguageManager();
-        this.schemaManager= new SchemaManager(this);           
+        this._cache= new MemoryCache()
         this.connectionManager= new ConnectionManager();
+
+        this.model = new Model();
+        this.model.load(modelConfig);
+        this.nodeManager = new NodeManager(this.model);  
+
+        this.languageManager= new LanguageManager(this);
+        this.schemaManager= new SchemaManager(this);
         this.databaseManager =  new DatabaseManager(this);
+        
+        let memoryLanguage =new MemoryLanguage();
+        memoryLanguage.addLibrary(new CoreLib());
+
+        let sqlLanguage =  new SqlLanguage(this.model);
+        sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
+        
+        this.language.add(memoryLanguage);
+        this.language.add(sqlLanguage);
+        
+        this.connection.addType('mysql',MySqlConnectionPool);
+        this.connection.addType('mariadb',MariadbConnectionPool);
+        this.connection.addType('postgres',PostgresConnectionPool);
+        // this.connection.addType('mssql',MssqlConnectionPool);
+
     }
     public async init(configPath:string=process.cwd()):Promise<void>
     {
@@ -194,25 +214,7 @@ class Orm implements IOrm
 var orm = null;
 export =(function() {
     if(!orm){
-        let model = new Model();
-        model.load(modelConfig);
-        let node=  new NodeManager(model);
-
-        orm= new Orm(node);  
-        
-        let memoryLanguage =new MemoryLanguage();
-        memoryLanguage.addLibrary(new CoreLib());
-
-        let sqlLanguage =  new SqlLanguage(model);
-        sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
-        
-        orm.language.add(memoryLanguage);
-        orm.language.add(sqlLanguage);
-        
-        orm.connection.addType('mysql',MySqlConnectionPool);
-        orm.connection.addType('mariadb',MariadbConnectionPool);
-        orm.connection.addType('postgres',PostgresConnectionPool);
-        // orm.connection.addType('mssql',MssqlConnectionPool);
+        orm= new Orm();
     }
     return orm;
 })();
