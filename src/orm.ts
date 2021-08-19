@@ -91,13 +91,13 @@ class Orm implements IOrm
     {
         this._cache=value;
     }
-    public complete(expression:string,dialect:string,schema:string):Node
+    public complete(expression:string,schema:string):string
     {       
         try{ 
             let _schema = this.schemaManager.getInstance(schema);
             let node= this.node.parse(expression);
             let completeNode = this.language.complete(node,_schema);
-            return completeNode;
+            return this.node.toExpression(completeNode);
         }
         catch(error){
             console.log(error)

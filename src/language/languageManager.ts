@@ -70,10 +70,13 @@ export class LanguageManager
             //Example: Products => Products.map(p=>p)            
             let arrowVariable = new Node('p','var');
             let allFields = new Node('p','var');
-            return new Node('map','arrow',[node,arrowVariable,allFields]);
+            let map=new Node('map','arrow',[node,arrowVariable,allFields]);
+            this.completeExpression(map,schema);
+            return map;
+        }else{
+            this.completeExpression(node,schema);
+            return node;
         } 
-        this.completeExpression(node,schema);
-        return node;
     }
     protected completeExpression(node:Node,schema:SchemaHelper):void
     {

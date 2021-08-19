@@ -64,8 +64,11 @@ export class NodeManager
      }
      public toExpression(node:Node):string
      {
-         let list:string[]=[];
-         switch(node.type){
+        let list:string[]=[];
+        if (!node || !node.type) {
+            console.log(node);
+        }
+        switch(node.type){
             case 'const':
             case 'var':    
                 list.push(node.name);
@@ -80,7 +83,7 @@ export class NodeManager
                 break;
             case 'keyVal': 
                 list.push(node.name+':');
-                list.push(this.toExpression(node.children[1]));
+                list.push(this.toExpression(node.children[0]));
                 break; 
             case 'obj': 
                 list.push('{');
@@ -112,15 +115,17 @@ export class NodeManager
                 list.push(')');
                 break; 
             case 'childFunc':
+                list.push(this.toExpression(node.children[0]));
                 list.push('.'+node.name); 
                 list.push('(');
-                for(let i=0;i<node.children.length;i++){
+                for(let i=1;i<node.children.length;i++){
                     if(i>0)list.push(',');
                     list.push(this.toExpression(node.children[i]));
                 }
                 list.push(')');
                 break;
             case 'arrow':
+                list.push(this.toExpression(node.children[0]));
                 list.push('.'+node.name); 
                 list.push('(');
                 list.push(node.children[1].name);

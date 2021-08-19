@@ -38,6 +38,7 @@ interface ExpressionTest
   lambda:any
   context?:any
   expression?:string
+  completeExpression?:string
   model?:any
   fields?:any
   parameters?:Parameter[]
@@ -72,6 +73,7 @@ async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
       let error=undefined;         
       try{
         expressionTest.expression = orm.lambda(expressionTest.lambda).expression;
+        expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema); 
         expressionTest.model = (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).model();
         const serialize:any= (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).serialize();
         expressionTest.parameters =serialize.p; 
@@ -966,9 +968,8 @@ async function crud(orm:IOrm){
 
 async function toExpression(orm:IOrm){
 
-  
-
-  let expressions= ['Products.map(p=>p)'
+  let expressions= [
+        'Products.map(p=>p)'
         ,'Products'
         ,'Products.filter(p=>p.id==id).map(p=>p)'
         ,'Products.filter(p=>p.id==id)'
@@ -982,9 +983,11 @@ async function toExpression(orm:IOrm){
   for(const p in expressions) {
     let expression = expressions[p];
     let node= orm.node.parse(expression);
-    let expression2 = orm.node.toExpression(node);
+    // let expression2 = orm.node.toExpression(node);
+    let expressionComplete =orm.expression(expression).complete('northwind:0.0.2');
     console.log(expression);
-    console.log(expression2);
+    // console.log(expression2);
+    console.log(expressionComplete);
   }       
 }
 
@@ -1137,15 +1140,13 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     let databases=['mysql','postgres'];
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
    
-    
-  
-
+    // await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
     // await applySchema(orm,schemas);
     // await bulkInsert2(orm);
-    //await generateModel(orm,'source');
+    // await generateModel(orm,'source');
     
     // await schemaSync(orm,'source');
     // await schemaExport(orm,'source');
@@ -1165,7 +1166,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');  
 
-    //await writeQueryTest(orm,databases);
+    await writeQueryTest(orm,databases);
     // await writeNumeriFunctionsTest(orm,databases);
     // await writeGroupByTest(orm,databases);
     // await writeIncludeTest(orm,databases);

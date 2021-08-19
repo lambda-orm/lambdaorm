@@ -13,11 +13,16 @@ export class Expression
         this.orm =  orm; 
         this.expression= expression;
     }
-    public async parse():Promise<NodeExpression> 
+    public parse():NodeExpression 
     {
        if(!this.expression)throw 'Expression not defined';
-       let node = await this.orm.node.parse(this.expression);
+       let node = this.orm.node.parse(this.expression);
        return new NodeExpression(this.orm.node,node);
+    }
+    public complete(schemaName:string):string
+    {
+       if(!this.expression)throw 'Expression not defined';
+       return this.orm.complete(this.expression,schemaName);
     }    
     public async compile(dialect:string,schemaName:string):Promise<CompiledExpression> 
     {
