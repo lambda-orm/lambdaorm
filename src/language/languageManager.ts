@@ -3,7 +3,6 @@ import {Operand,Context,Delta,Property  } from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 import {ILanguage} from './iLanguage'
 import {Executor}  from '../connection'
-import { AnyARecord } from 'dns'
 
 export class LanguageManager
 {   
