@@ -49,7 +49,8 @@ export class NodeManager
      public getEnum(name:string){
          return this.model.getEnum(name);
      }
-     public parse(expression:string):Node{
+     public parse(expression:string):Node
+     {
          try{
             let buffer:string[]= this.minifier.minify(expression);           
              let parser = new Parser(this,buffer);
@@ -60,6 +61,77 @@ export class NodeManager
          }catch(error){ 
              throw 'expression: '+expression+' error: '+error.toString();  
          } 
+     }
+     public toExpression(node:Node):string
+     {
+         let list:string[]=[];
+         switch(node.type){
+            case 'const':
+            case 'var':    
+                list.push(node.name);
+                 break;
+            case 'array':
+                list.push('[');
+                for(let i=0;i<node.children.length;i++){
+                    if(i>0)list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push(']');
+                break;
+            case 'keyVal': 
+                list.push(node.name+':');
+                list.push(this.toExpression(node.children[1]));
+                break; 
+            case 'obj': 
+                list.push('{');
+                for(let i=0;i<node.children.length;i++){
+                    if(i>0)list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push('}');
+                break;  
+            case 'oper': 
+                if(node.children.length==1){
+                    list.push(node.name);
+                    list.push(this.toExpression(node.children[0]));
+                }else if(node.children.length==2){
+                    list.push('(');
+                    list.push(this.toExpression(node.children[0]));
+                    list.push(node.name);
+                    list.push(this.toExpression(node.children[1]));
+                    list.push(')');
+                }
+                break;
+            case 'funcRef':
+                list.push(node.name); 
+                list.push('(');
+                for(let i=0;i<node.children.length;i++){
+                    if(i>0)list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push(')');
+                break; 
+            case 'childFunc':
+                list.push('.'+node.name); 
+                list.push('(');
+                for(let i=0;i<node.children.length;i++){
+                    if(i>0)list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push(')');
+                break;
+            case 'arrow':
+                list.push('.'+node.name); 
+                list.push('(');
+                list.push(node.children[1].name);
+                list.push('=>');
+                list.push(this.toExpression(node.children[2]));
+                list.push(')');
+                break;
+            default:
+              throw 'node: '+node.type +' not supported';                              
+         }
+         return list.join('');
      }
      public serialize(value:Node):any
      {
