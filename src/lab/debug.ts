@@ -1120,25 +1120,25 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await bulkInsert2(orm);
     //await generateModel(orm,'source');
     
-    await schemaSync(orm,'source');
-    await schemaExport(orm,'source');
-    //test mysql
-    await schemaDrop(orm,'mysql',true);
-    await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql');
-    await schemaExport(orm,'mysql');  
-    // //test mariadb
-    // await schemaDrop(orm,'mariadb',true);
-    // await schemaSync(orm,'mariadb');
-    // await schemaImport(orm,'source','mariadb');
-    // await schemaExport(orm,'mariadb');
-    //test postgres 
-    await schemaDrop(orm,'postgres',true);
-    await schemaSync(orm,'postgres');
-    await schemaImport(orm,'source','postgres');
-    await schemaExport(orm,'postgres');  
+    // await schemaSync(orm,'source');
+    // await schemaExport(orm,'source');
+    // //test mysql
+    // await schemaDrop(orm,'mysql',true);
+    // await schemaSync(orm,'mysql');
+    // await schemaImport(orm,'source','mysql');
+    // await schemaExport(orm,'mysql');  
+    // // //test mariadb
+    // // await schemaDrop(orm,'mariadb',true);
+    // // await schemaSync(orm,'mariadb');
+    // // await schemaImport(orm,'source','mariadb');
+    // // await schemaExport(orm,'mariadb');
+    // //test postgres 
+    // await schemaDrop(orm,'postgres',true);
+    // await schemaSync(orm,'postgres');
+    // await schemaImport(orm,'source','postgres');
+    // await schemaExport(orm,'postgres');  
 
-    //await writeQueryTest(orm,databases);
+    await writeQueryTest(orm,databases);
     // await writeNumeriFunctionsTest(orm,databases);
     // await writeGroupByTest(orm,databases);
     // await writeIncludeTest(orm,databases);
@@ -1155,6 +1155,6 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     console.log('Ok')
   }
   catch(error){
-    console.log(error)
+    console.log(error.stack)
   }
 })();

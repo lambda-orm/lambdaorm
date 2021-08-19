@@ -1,7 +1,7 @@
 import {Operand,Config,Cache} from './../model/index';
 import {LanguageManager} from '../language'
 import {Transaction,ConnectionManager} from '../connection'
-import {Parser} from './../parser/index'
+import {NodeManager} from '../node/index'
 import {Expression}  from './../manager'
 import {SchemaManager}  from './../schema'
 import {DatabaseManager}  from '../database'
@@ -9,7 +9,7 @@ import {DatabaseManager}  from '../database'
 export interface IOrm
 {    
     config:Config
-    get parser():Parser
+    get node():NodeManager
     get language():LanguageManager
     get schema():SchemaManager
     get connection():ConnectionManager

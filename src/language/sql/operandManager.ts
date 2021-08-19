@@ -1,6 +1,6 @@
 import {Property,Operand,Parameter} from './../../model'
 import {Helper} from '../../helper'
-import {Node,Model} from './../../parser/index'
+import {Node,Model} from '../../node/index'
 import {OperandManager} from '../'
 import { SqlConstant,SqlVariable,SqlField,SqlKeyValue,SqlArray,SqlObject,SqlOperator,SqlFunctionRef,SqlArrowFunction,SqlBlock,
 SqlSentence,SqlFrom,SqlJoin,SqlMap,SqlFilter,SqlGroupBy,SqlHaving,SqlSort,SqlInsert,SqlUpdate,SqlDelete,

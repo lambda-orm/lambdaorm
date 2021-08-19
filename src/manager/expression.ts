@@ -16,8 +16,8 @@ export class Expression
     public async parse():Promise<NodeExpression> 
     {
        if(!this.expression)throw 'Expression not defined';
-       let node = await this.orm.parser.parse(this.expression);
-       return new NodeExpression(this.orm.parser,node);
+       let node = await this.orm.node.parse(this.expression);
+       return new NodeExpression(this.orm.node,node);
     }    
     public async compile(dialect:string,schemaName:string):Promise<CompiledExpression> 
     {

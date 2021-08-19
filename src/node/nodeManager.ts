@@ -1,21 +1,21 @@
 import {Node} from './node'
 import {Minifier} from './minifier'
-import {NodeManager} from './nodeManager'
+// import {NodeManager} from './nodeManager'
 import {Model} from './model'
 
-export class Parser
+export class NodeManager
 {
     public doubleOperators:string[]
     public tripleOperators:string[]
     public assigmentOperators:string[]
     private model:Model
     private minifier:Minifier
-    private nodeManager:NodeManager
+    //private nodeManager:NodeManager
 
     constructor(model:Model){
          this.model = model;
          this.minifier = new Minifier();
-         this.nodeManager = new NodeManager(model);
+         //this.nodeManager = new NodeManager(model);
          this.tripleOperators = [];
          this.doubleOperators = [] ;
          this.assigmentOperators = [];
@@ -52,10 +52,10 @@ export class Parser
      public parse(expression:string):Node{
          try{
             let buffer:string[]= this.minifier.minify(expression);           
-             let _parser = new _Parser(this,buffer);
-             let node= _parser.parse();
+             let parser = new Parser(this,buffer);
+             let node= parser.parse();
              //  delete _parser; 
-             this.nodeManager.setParent(node); 
+             this.setParent(node); 
              return node;  
          }catch(error){ 
              throw 'expression: '+expression+' error: '+error.toString();  
@@ -63,17 +63,60 @@ export class Parser
      }
      public serialize(value:Node):any
      {
-        return this.nodeManager.serialize(value);
+        //return this.nodeManager.serialize(value);
+        return this._serialize(value);
      }
      public deserialize(json:any):Node
      {
-        return this.nodeManager.deserialize(json);
+        //return this.nodeManager.deserialize(json);
+        let node = this._deserialize(json)
+        return this.setParent(node);
      }
+     public setParent(node:Node,parent?:Node,index:number=0)
+     {
+        try{
+            if(parent){
+                node.id = parent.id +'.'+index.toString();
+                node.parent = parent;
+                node.index = index;
+                node.level =parent.level?parent.level+1:0;
+            }  
+            else{
+                node.id = '0';
+                node.parent = undefined;
+                node.index = 0;
+                node.level = 0 ;
+            } 
+            if(node.children.length>0)           
+                for(let i=0;i<node.children.length;i++)
+                    this.setParent(node.children[i],node,i); 
+        }
+        catch(error){
+            throw 'set parent: '+node.name+' error: '+error.toString();
+        }       
+        return node; 
+    } 
+    protected _serialize(node:Node):any
+    {
+        let children = []                
+        for(const p in node.children)
+            children.push(this._serialize(node.children[p]));
+        if(children.length == 0) return {'n':node.name,'t':node.type};     
+        return {'n':node.name,'t':node.type,'c':children}; 
+    }    
+    protected _deserialize(serialized:any):Node
+    {
+        let children = []
+        if(serialized.c)
+            for(const p in serialized.c)
+                children.push(this._deserialize(p));
+        return new Node(serialized['n'],serialized['t'],children);
+    }  
  }
  
- class _Parser{
+ class Parser{
 
-     private mgr:Parser
+     private mgr:NodeManager
      private reAlphanumeric:RegExp
      private reInt:RegExp
      private reFloat:RegExp
@@ -81,7 +124,7 @@ export class Parser
      private length:number
      private index:number
 
-     constructor(mgr:Parser,buffer:string[]){
+     constructor(mgr:NodeManager,buffer:string[]){
          this.mgr = mgr;
          this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') ; ///[a-zA-Z0-9_.]+$'/ //
          this.reInt = /^[0-9]+$/; // new RegExp('^d+$');

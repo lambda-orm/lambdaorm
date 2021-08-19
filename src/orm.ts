@@ -1,5 +1,5 @@
 import {Cache,Operand,IOrm,Context,Config } from './model'
-import {Model,Parser} from './parser/index'
+import {Model,NodeManager,Node} from './node/index'
 import {Expression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
@@ -7,7 +7,7 @@ import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,
 import {LanguageManager} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
-import modelConfig from './parser/config.json'
+import modelConfig from './node/config.json'
 import sqlConfig  from './language/sql/config.json'
 import {Helper}  from './helper'
 const ConfigExtends = require("config-extends");
@@ -18,16 +18,16 @@ class Orm implements IOrm
 {
     private _cache:Cache
     public config:Config
-    private parserManager:Parser
+    private nodeManager:NodeManager
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
     private connectionManager:ConnectionManager
     private languageManager:LanguageManager
 
-    constructor(parserManager:Parser){
+    constructor(parserManager:NodeManager){
         this.config={};
         this._cache= new MemoryCache() 
-        this.parserManager =  parserManager;
+        this.nodeManager =  parserManager;
         this.languageManager= new LanguageManager();
         this.schemaManager= new SchemaManager(this);           
         this.connectionManager= new ConnectionManager();
@@ -67,9 +67,9 @@ class Orm implements IOrm
             }
         }
     }
-    public get parser():Parser
+    public get node():NodeManager
     {
-        return this.parserManager;
+        return this.nodeManager;
     }
     public get schema():SchemaManager
     {
@@ -91,6 +91,19 @@ class Orm implements IOrm
     {
         this._cache=value;
     }
+    public complete(expression:string,dialect:string,schema:string):Node
+    {       
+        try{ 
+            let _schema = this.schemaManager.getInstance(schema);
+            let node= this.node.parse(expression);
+            let completeNode = this.language.complete(node,_schema);
+            return completeNode;
+        }
+        catch(error){
+            console.log(error)
+            throw 'complete expression: '+expression+' error: '+error.toString();
+        }
+    }
     public async compile(expression:string,dialect:string,schema:string):Promise<Operand>
     {       
         try{ 
@@ -98,7 +111,7 @@ class Orm implements IOrm
             let operand= await this._cache.get(key);
             if(!operand){
                 let _schema = this.schemaManager.getInstance(schema);
-                let node= this.parser.parse(expression);
+                let node= this.node.parse(expression);
                 operand = this.language.build(dialect,node,_schema);
                 await this._cache.set(key,operand);
             }            
@@ -183,9 +196,9 @@ export =(function() {
     if(!orm){
         let model = new Model();
         model.load(modelConfig);
-        let parser=  new Parser(model);
+        let node=  new NodeManager(model);
 
-        orm= new Orm(parser);  
+        orm= new Orm(node);  
         
         let memoryLanguage =new MemoryLanguage();
         memoryLanguage.addLibrary(new CoreLib());

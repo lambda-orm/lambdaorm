@@ -1,15 +1,15 @@
-import {Node,Parser} from './../parser/index'
+import {Node,NodeManager} from '../node/index'
 
 export class NodeExpression
 {
-    protected parser:Parser 
+    protected mgr:NodeManager 
     public node:Node
-    constructor(parser:Parser,node:Node){        
-        this.parser=parser
+    constructor(mgr:NodeManager,node:Node){        
+        this.mgr=mgr
         this.node= node
     }       
     public serialize():any
     {
-        return this.parser.serialize(this.node);
+        return this.mgr.serialize(this.node);
     }
 }

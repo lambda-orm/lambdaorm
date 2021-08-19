@@ -1,4 +1,4 @@
-import {Node} from './../parser'
+import {Node} from '../node'
 import {Operand } from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 

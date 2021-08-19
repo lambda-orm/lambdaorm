@@ -1,5 +1,5 @@
 import {Operand,Delta} from '../../model'
-import {Node} from '../../parser'
+import {Node} from '../../node'
 import {OperandManager,Constant,Variable,Operator} from '../'
 import {DefaultKeyValue,DefaultArray,DefaultObject,DefaultOperator,DefaultFunctionRef,DefaultArrowFunction,DefaultBlock} from './operands'
 import {SchemaHelper} from '../../schema/schemaHelper'

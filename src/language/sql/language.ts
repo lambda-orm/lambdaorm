@@ -1,5 +1,5 @@
 import {ILanguage,IOperandExecutor,OperandManager,ISchemaBuilder} from '../'
-import {Model} from './../../parser'
+import {Model} from '../../node'
 import {SqlDialectMetadata} from './dialectMetadata'
 import {SqlSchemaBuilder} from './schemaBuilder'
 import {SqlOperandManager} from './operandManager'
