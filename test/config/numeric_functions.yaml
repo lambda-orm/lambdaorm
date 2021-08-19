@@ -37,6 +37,8 @@ test:
           = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price * -1, result: abs(p.price * -1) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:(p.price*-1),result:abs((p.price*-1))})
     model:
       name: string
       source: any
@@ -44,7 +46,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -52,17 +53,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '-18.0000'
-            result: '18.0000'
-      - database: postgres
-        result:
-          - name: Chai
-            source: '-18.0000'
-            result: '18.0000'
+    executions: []
   - name: function acos
     context: a
     lambda: >-
@@ -91,6 +82,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: acos(0.25) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.25,result:acos(0.25)})
     model:
       name: string
       source: any
@@ -98,7 +91,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -106,17 +98,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '0.25'
-            result: 1.318116071652818
-      - database: postgres
-        result:
-          - name: Chai
-            source: '0.25'
-            result: 1.31811607165282
+    executions: []
   - name: function asin
     context: a
     lambda: >-
@@ -145,6 +127,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: asin(0.25) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.25,result:asin(0.25)})
     model:
       name: string
       source: any
@@ -152,7 +136,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -160,17 +143,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '0.25'
-            result: 0.25268025514207865
-      - database: postgres
-        result:
-          - name: Chai
-            source: '0.25'
-            result: 0.252680255142079
+    executions: []
   - name: function atan
     context: a
     lambda: >-
@@ -199,6 +172,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: atan(0.25) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.25,result:atan(0.25)})
     model:
       name: string
       source: any
@@ -206,7 +181,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -214,17 +188,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '0.25'
-            result: 0.24497866312686414
-      - database: postgres
-        result:
-          - name: Chai
-            source: '0.25'
-            result: 0.244978663126864
+    executions: []
   - name: function atan2
     context: a
     lambda: >-
@@ -253,6 +217,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.50, result: atan2(0.25, 1) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.5,result:atan2(0.25,1)})
     model:
       name: string
       source: any
@@ -260,7 +226,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -268,17 +233,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '0.5'
-            result: 0.24497866312686414
-      - database: postgres
-        result:
-          - name: Chai
-            source: '0.5'
-            result: 0.244978663126864
+    executions: []
   - name: function ceil
     context: a
     lambda: >-
@@ -307,6 +262,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: ceil(25.75) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:25.75,result:ceil(25.75)})
     model:
       name: string
       source: any
@@ -314,7 +271,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -322,17 +278,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '25.75'
-            result: 26
-      - database: postgres
-        result:
-          - name: Chai
-            source: '25.75'
-            result: '26'
+    executions: []
   - name: function cos
     context: a
     lambda: >-
@@ -361,6 +307,8 @@ test:
           Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: cos(2) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:2,result:cos(2)})
     model:
       name: string
       source: any
@@ -368,7 +316,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -376,17 +323,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: 2
-            result: -0.4161468365471424
-      - database: postgres
-        result:
-          - name: Chai
-            source: 2
-            result: -0.416146836547142
+    executions: []
   - name: function exp
     context: a
     lambda: >-
@@ -415,6 +352,8 @@ test:
           Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1, result: exp(1) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:1,result:exp(1)})
     model:
       name: string
       source: any
@@ -422,7 +361,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -430,17 +368,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: 1
-            result: 2.718281828459045
-      - database: postgres
-        result:
-          - name: Chai
-            source: 1
-            result: 2.71828182845905
+    executions: []
   - name: function floor
     context: a
     lambda: >-
@@ -469,6 +397,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: floor(25.75) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:25.75,result:floor(25.75)})
     model:
       name: string
       source: any
@@ -476,7 +406,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -484,17 +413,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '25.75'
-            result: 25
-      - database: postgres
-        result:
-          - name: Chai
-            source: '25.75'
-            result: '25'
+    executions: []
   - name: function ln
     context: a
     lambda: >-
@@ -523,6 +442,7 @@ test:
           Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: ln(2) }))'
+    completeExpression: 'Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:2,result:ln(2)})'
     model:
       name: string
       source: any
@@ -530,7 +450,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -538,17 +457,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: 2
-            result: 0.6931471805599453
-      - database: postgres
-        result:
-          - name: Chai
-            source: 2
-            result: 0.693147180559945
+    executions: []
   - name: function log
     context: a
     lambda: >-
@@ -577,6 +486,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10, n: 20, result: log(10, 20) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,m:10,n:20,result:log(10,20)})
     model:
       name: string
       m: any
@@ -585,7 +496,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -595,19 +505,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            m: 10
-            'n': 20
-            result: 1.301029995663981
-      - database: postgres
-        result:
-          - name: Chai
-            m: 10
-            'n': 20
-            result: '1.3010299956639812'
+    executions: []
   - name: function round
     context: a
     lambda: >-
@@ -636,6 +534,8 @@ test:
           AS "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: round(135.375, 2) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
     model:
       name: string
       source: any
@@ -643,7 +543,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -651,17 +550,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '135.375'
-            result: '135.38'
-      - database: postgres
-        result:
-          - name: Chai
-            source: '135.375'
-            result: '135.38'
+    executions: []
   - name: function sign
     context: a
     lambda: >-
@@ -690,6 +579,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 255.5, result: sign(255.5) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:255.5,result:sign(255.5)})
     model:
       name: string
       source: any
@@ -697,7 +588,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -705,17 +595,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '255.5'
-            result: 1
-      - database: postgres
-        result:
-          - name: Chai
-            source: '255.5'
-            result: '1'
+    executions: []
   - name: function tan
     context: a
     lambda: >-
@@ -744,6 +624,8 @@ test:
           "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1.75, result: tan(1.75) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:1.75,result:tan(1.75)})
     model:
       name: string
       source: any
@@ -751,7 +633,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -759,17 +640,7 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '1.75'
-            result: -5.52037992250933
-      - database: postgres
-        result:
-          - name: Chai
-            source: '1.75'
-            result: -5.52037992250933
+    executions: []
   - name: function trunc
     context: a
     lambda: >-
@@ -800,6 +671,8 @@ test:
           AS "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: trunc(135.375, 2) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:135.375,result:trunc(135.375,2)})
     model:
       name: string
       source: any
@@ -807,7 +680,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -815,15 +687,5 @@ test:
         type: any
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '135.375'
-            result: '135.37'
-      - database: postgres
-        result:
-          - name: Chai
-            source: '135.375'
-            result: '135.37'
+    executions: []
 errors: 0

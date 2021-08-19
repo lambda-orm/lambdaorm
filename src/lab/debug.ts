@@ -1153,7 +1153,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     let databases:string[]= []; //['mysql','postgres'];
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
    
-    //await toExpression(orm);
+    await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -1180,13 +1180,13 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await schemaExport(orm,'postgres');  
 
     await writeQueryTest(orm,databases);
-    // await writeNumeriFunctionsTest(orm,databases);
-    // await writeGroupByTest(orm,databases);
-    // await writeIncludeTest(orm,databases);
-    // await writeInsertsTest(orm,databases);
-    // await writeUpdateTest(orm,databases);
-    // await writeDeleteTest(orm,databases);
-    // await writeBulkInsertTest(orm,databases);
+    await writeNumeriFunctionsTest(orm,databases);
+    await writeGroupByTest(orm,databases);
+    await writeIncludeTest(orm,databases);
+    await writeInsertsTest(orm,databases);
+    await writeUpdateTest(orm,databases);
+    await writeDeleteTest(orm,databases);
+    await writeBulkInsertTest(orm,databases);
     //operators comparation , matematica
     //string functions
     //datetime functions

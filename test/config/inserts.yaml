@@ -4,16 +4,13 @@ context:
   a:
     name: Beverages20
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 9
   b:
     name: Beverages21
     description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 12
   c:
     entity:
       name: Beverages22
       description: 'Soft drinks, coffees, teas, beers, and ales'
-    id: 13
   order:
     customerId: VINET
     employeeId: 5
@@ -33,18 +30,14 @@ context:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 836
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 836
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 836
-    id: 836
 test:
   - name: insert 1
     context: a
@@ -68,26 +61,21 @@ test:
           RETURNING CategoryID AS id;
     errors: 0
     expression: ' Categories.insert()'
+    completeExpression: 'Categories.insert({name:name,description:description})'
     model:
       name: string
       description: string
     parameters:
       - name: name
         type: string
-        value: Beverages20
       - name: description
         type: string
-        value: 'Soft drinks, coffees, teas, beers, and ales'
     fields:
       - name: name
         type: string
       - name: description
         type: string
-    executions:
-      - database: mysql
-        result: 9
-      - database: postgres
-        result: 9
+    executions: []
   - name: insert 2
     context: b
     lambda: >-
@@ -112,26 +100,21 @@ test:
           RETURNING CategoryID AS id;
     errors: 0
     expression: ' Categories.insert({ name: name, description: description })'
+    completeExpression: 'Categories.insert({name:name,description:description})'
     model:
       name: string
       description: string
     parameters:
       - name: name
         type: string
-        value: Beverages21
       - name: description
         type: string
-        value: 'Soft drinks, coffees, teas, beers, and ales'
     fields:
       - name: name
         type: string
       - name: description
         type: string
-    executions:
-      - database: mysql
-        result: 12
-      - database: postgres
-        result: 12
+    executions: []
   - name: insert 3
     context: c
     lambda: (entity) => Categories.insert(entity)
@@ -154,26 +137,21 @@ test:
           RETURNING CategoryID AS id;
     errors: 0
     expression: ' Categories.insert(entity)'
+    completeExpression: 'Categories.insert({name:entity.name,description:entity.description})'
     model:
       name: string
       description: string
     parameters:
       - name: entity.name
         type: string
-        value: Beverages22
       - name: entity.description
         type: string
-        value: 'Soft drinks, coffees, teas, beers, and ales'
     fields:
       - name: name
         type: string
       - name: description
         type: string
-    executions:
-      - database: mysql
-        result: 13
-      - database: postgres
-        result: 13
+    executions: []
   - name: insert 4
     context: order
     lambda: () => Orders.insert()
@@ -206,6 +184,8 @@ test:
           AS id;
     errors: 0
     expression: ' Orders.insert()'
+    completeExpression: >-
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
       customerId: string
       employeeId: integer
@@ -223,43 +203,30 @@ test:
     parameters:
       - name: customerId
         type: string
-        value: VINET
       - name: employeeId
         type: integer
-        value: 5
       - name: orderDate
         type: datetime
-        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
-        value: 3
       - name: freight
         type: decimal
-        value: 32.38
       - name: name
         type: string
-        value: Vins et alcools Chevalier
       - name: address
         type: string
-        value: 59 rue de l-Abbaye
       - name: city
         type: string
-        value: Reims
       - name: region
         type: string
-        value: null
       - name: postalCode
         type: string
-        value: '51100'
       - name: country
         type: string
-        value: France
     fields:
       - name: customerId
         type: string
@@ -287,327 +254,63 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result: 834
-      - database: postgres
-        result: 834
+    executions: []
   - name: insert 5
     context: order
     lambda: () => Orders.insert().include(p => p.details)
     sentences:
       - dialect: mariadb
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
+        error: >-
+          compile expression:  Orders.insert().include(p => p.details) error:
+          Error to add include node childFunc:insert
       - dialect: mssql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
-
-          INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+        error: >-
+          compile expression:  Orders.insert().include(p => p.details) error:
+          Error to add include node childFunc:insert
       - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
+        error: >-
+          compile expression:  Orders.insert().include(p => p.details) error:
+          Error to add include node childFunc:insert
       - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
+        error: >-
+          compile expression:  Orders.insert().include(p => p.details) error:
+          Error to add include node childFunc:insert
       - dialect: postgres
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-          AS id;
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
-    errors: 0
+        error: >-
+          compile expression:  Orders.insert().include(p => p.details) error:
+          Error to add include node childFunc:insert
+    errors: 5
     expression: ' Orders.insert().include(p => p.details)'
-    model:
-      customerId: string
-      employeeId: integer
-      orderDate: datetime
-      requiredDate: datetime
-      shippedDate: datetime
-      shipViaId: integer
-      freight: decimal
-      name: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
-    parameters:
-      - name: customerId
-        type: string
-        value: VINET
-      - name: employeeId
-        type: integer
-        value: 5
-      - name: orderDate
-        type: datetime
-        value: '1996-07-04 00:00:00'
-      - name: requiredDate
-        type: datetime
-        value: '1996-08-01 00:00:00'
-      - name: shippedDate
-        type: datetime
-        value: '1996-07-16 00:00:00'
-      - name: shipViaId
-        type: integer
-        value: 3
-      - name: freight
-        type: decimal
-        value: 32.38
-      - name: name
-        type: string
-        value: Vins et alcools Chevalier
-      - name: address
-        type: string
-        value: 59 rue de l-Abbaye
-      - name: city
-        type: string
-        value: Reims
-      - name: region
-        type: string
-        value: null
-      - name: postalCode
-        type: string
-        value: '51100'
-      - name: country
-        type: string
-        value: France
-    fields:
-      - name: customerId
-        type: string
-      - name: employeeId
-        type: integer
-      - name: orderDate
-        type: datetime
-      - name: requiredDate
-        type: datetime
-      - name: shippedDate
-        type: datetime
-      - name: shipViaId
-        type: integer
-      - name: freight
-        type: decimal
-      - name: name
-        type: string
-      - name: address
-        type: string
-      - name: city
-        type: string
-      - name: region
-        type: string
-      - name: postalCode
-        type: string
-      - name: country
-        type: string
-    executions:
-      - database: mysql
-        result: 835
-      - database: postgres
-        result: 835
+    completeExpression: >-
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
+    executions: []
   - name: insert 6
     context: order
     lambda: '() => Orders.insert().include(p => [p.details, p.customer])'
     sentences:
       - dialect: mariadb
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(?,?,?,?,?,?,?,?,?);
+        error: >-
+          compile expression:  Orders.insert().include(p => [p.details,
+          p.customer]) error: Error to add include node childFunc:insert
       - dialect: mssql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
-
-          INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
+        error: >-
+          compile expression:  Orders.insert().include(p => [p.details,
+          p.customer]) error: Error to add include node childFunc:insert
       - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(?,?,?,?,?,?,?,?,?);
+        error: >-
+          compile expression:  Orders.insert().include(p => [p.details,
+          p.customer]) error: Error to add include node childFunc:insert
       - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country);
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount);
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country);
+        error: >-
+          compile expression:  Orders.insert().include(p => [p.details,
+          p.customer]) error: Error to add include node childFunc:insert
       - dialect: postgres
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-          AS id;
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id;
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id;
-    errors: 0
+        error: >-
+          compile expression:  Orders.insert().include(p => [p.details,
+          p.customer]) error: Error to add include node childFunc:insert
+    errors: 5
     expression: ' Orders.insert().include(p => [p.details, p.customer])'
-    model:
-      customerId: string
-      employeeId: integer
-      orderDate: datetime
-      requiredDate: datetime
-      shippedDate: datetime
-      shipViaId: integer
-      freight: decimal
-      name: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
-      customer:
-        id: string
-        name: string
-        contact: string
-        phone: string
-        address: string
-        city: string
-        region: string
-        postalCode: string
-        country: string
-    parameters:
-      - name: customerId
-        type: string
-        value: VINET
-      - name: employeeId
-        type: integer
-        value: 5
-      - name: orderDate
-        type: datetime
-        value: '1996-07-04 00:00:00'
-      - name: requiredDate
-        type: datetime
-        value: '1996-08-01 00:00:00'
-      - name: shippedDate
-        type: datetime
-        value: '1996-07-16 00:00:00'
-      - name: shipViaId
-        type: integer
-        value: 3
-      - name: freight
-        type: decimal
-        value: 32.38
-      - name: name
-        type: string
-        value: Vins et alcools Chevalier
-      - name: address
-        type: string
-        value: 59 rue de l-Abbaye
-      - name: city
-        type: string
-        value: Reims
-      - name: region
-        type: string
-        value: null
-      - name: postalCode
-        type: string
-        value: '51100'
-      - name: country
-        type: string
-        value: France
-    fields:
-      - name: customerId
-        type: string
-      - name: employeeId
-        type: integer
-      - name: orderDate
-        type: datetime
-      - name: requiredDate
-        type: datetime
-      - name: shippedDate
-        type: datetime
-      - name: shipViaId
-        type: integer
-      - name: freight
-        type: decimal
-      - name: name
-        type: string
-      - name: address
-        type: string
-      - name: city
-        type: string
-      - name: region
-        type: string
-      - name: postalCode
-        type: string
-      - name: country
-        type: string
-    executions:
-      - database: mysql
-        result: 836
-      - database: postgres
-        result: 836
-errors: 0
+    completeExpression: >-
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
+    executions: []
+errors: 10

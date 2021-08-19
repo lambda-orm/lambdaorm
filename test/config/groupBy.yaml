@@ -19,19 +19,14 @@ test:
         sentence: SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  ;
     errors: 0
     expression: ' Products.map(p => ({ maxPrice: max(p.price) }))'
+    completeExpression: 'Products.map(p=>{maxPrice:max(p.price)})'
     model:
       maxPrice: any
     parameters: []
     fields:
       - name: maxPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - maxPrice: '263.5000'
-      - database: postgres
-        result:
-          - maxPrice: '263.5000'
+    executions: []
   - name: groupBy 2
     lambda: '() => Products.map(p => ({ minPrice: min(p.price) }))'
     sentences:
@@ -47,19 +42,14 @@ test:
         sentence: SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  ;
     errors: 0
     expression: ' Products.map(p => ({ minPrice: min(p.price) }))'
+    completeExpression: 'Products.map(p=>{minPrice:min(p.price)})'
     model:
       minPrice: any
     parameters: []
     fields:
       - name: minPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - minPrice: '2.5000'
-      - database: postgres
-        result:
-          - minPrice: '2.5000'
+    executions: []
   - name: groupBy 3
     lambda: '() => Products.map(p => ({ total: sum(p.price) }))'
     sentences:
@@ -75,19 +65,14 @@ test:
         sentence: SELECT SUM(p.UnitPrice) AS "total" FROM Products p  ;
     errors: 0
     expression: ' Products.map(p => ({ total: sum(p.price) }))'
+    completeExpression: 'Products.map(p=>{total:sum(p.price)})'
     model:
       total: any
     parameters: []
     fields:
       - name: total
         type: any
-    executions:
-      - database: mysql
-        result:
-          - total: '2222.7100'
-      - database: postgres
-        result:
-          - total: '2222.7100'
+    executions: []
   - name: groupBy 4
     lambda: '() => Products.map(p => ({ average: avg(p.price) }))'
     sentences:
@@ -103,19 +88,14 @@ test:
         sentence: SELECT AVG(p.UnitPrice) AS "average" FROM Products p  ;
     errors: 0
     expression: ' Products.map(p => ({ average: avg(p.price) }))'
+    completeExpression: 'Products.map(p=>{average:avg(p.price)})'
     model:
       average: any
     parameters: []
     fields:
       - name: average
         type: any
-    executions:
-      - database: mysql
-        result:
-          - average: '28.86636364'
-      - database: postgres
-        result:
-          - average: '28.8663636363636364'
+    executions: []
   - name: groupBy 5
     lambda: '() => Products.map(p => ({ count: count(1) }))'
     sentences:
@@ -131,19 +111,14 @@ test:
         sentence: SELECT COUNT(1) AS "count" FROM Products p  ;
     errors: 0
     expression: ' Products.map(p => ({ count: count(1) }))'
+    completeExpression: 'Products.map(p=>{count:count(1)})'
     model:
       count: any
     parameters: []
     fields:
       - name: count
         type: any
-    executions:
-      - database: mysql
-        result:
-          - count: 77
-      - database: postgres
-        result:
-          - count: '77'
+    executions: []
   - name: groupBy 6
     lambda: >-
       () => Products.map(p => ({ category: p.categoryId, largestPrice:
@@ -171,6 +146,7 @@ test:
           FROM Products p  GROUP BY p.CategoryID ;
     errors: 0
     expression: ' Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))'
+    completeExpression: 'Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
     model:
       category: integer
       largestPrice: any
@@ -180,43 +156,7 @@ test:
         type: integer
       - name: largestPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - category: 1
-            largestPrice: '263.5000'
-          - category: 2
-            largestPrice: '43.9000'
-          - category: 3
-            largestPrice: '81.0000'
-          - category: 4
-            largestPrice: '55.0000'
-          - category: 5
-            largestPrice: '38.0000'
-          - category: 6
-            largestPrice: '123.7900'
-          - category: 7
-            largestPrice: '53.0000'
-          - category: 8
-            largestPrice: '62.5000'
-      - database: postgres
-        result:
-          - category: 3
-            largestPrice: '81.0000'
-          - category: 5
-            largestPrice: '38.0000'
-          - category: 4
-            largestPrice: '55.0000'
-          - category: 6
-            largestPrice: '123.7900'
-          - category: 2
-            largestPrice: '43.9000'
-          - category: 7
-            largestPrice: '53.0000'
-          - category: 1
-            largestPrice: '263.5000'
-          - category: 8
-            largestPrice: '62.5000'
+    executions: []
   - name: groupBy 7
     lambda: >-
       () => Products.map(p => ({ category: p.category.name, largestPrice:
@@ -249,6 +189,7 @@ test:
           = p.CategoryID GROUP BY c.CategoryName ;
     errors: 0
     expression: ' Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+    completeExpression: 'Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
     model:
       category: string
       largestPrice: any
@@ -258,43 +199,7 @@ test:
         type: string
       - name: largestPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Condiments
-            largestPrice: '43.9000'
-          - category: Confections
-            largestPrice: '81.0000'
-          - category: Dairy Products
-            largestPrice: '55.0000'
-          - category: Grains/Cereals
-            largestPrice: '38.0000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
-          - category: Produce
-            largestPrice: '53.0000'
-          - category: Seafood
-            largestPrice: '62.5000'
-      - database: postgres
-        result:
-          - category: Grains/Cereals
-            largestPrice: '38.0000'
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Dairy Products
-            largestPrice: '55.0000'
-          - category: Seafood
-            largestPrice: '62.5000'
-          - category: Produce
-            largestPrice: '53.0000'
-          - category: Condiments
-            largestPrice: '43.9000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
-          - category: Confections
-            largestPrice: '81.0000'
+    executions: []
   - name: groupBy 8
     context: a
     lambda: >-
@@ -325,6 +230,8 @@ test:
           ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID = $1 ;
     errors: 0
     expression: ' Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
     model:
       name: string
       source: decimal
@@ -332,7 +239,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: name
         type: string
@@ -340,17 +246,7 @@ test:
         type: decimal
       - name: result
         type: any
-    executions:
-      - database: mysql
-        result:
-          - name: Chai
-            source: '18.0000'
-            result: '18.0000'
-      - database: postgres
-        result:
-          - name: Chai
-            source: '18.0000'
-            result: '18.0000'
+    executions: []
   - name: groupBy 9
     lambda: >-
       () => Products.having(p => max(p.price) > 100).map(p => ({ category:
@@ -383,6 +279,8 @@ test:
           = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ;
     errors: 0
     expression: ' Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+    completeExpression: >-
+      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       category: string
       largestPrice: any
@@ -392,19 +290,7 @@ test:
         type: string
       - name: largestPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
-      - database: postgres
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
+    executions: []
   - name: groupBy 10
     lambda: >-
       () => Products.having(p => max(p.price) > 100).map(p => ({ category:
@@ -443,6 +329,8 @@ test:
           ORDER BY "largestPrice" desc ;
     errors: 0
     expression: ' Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+    completeExpression: >-
+      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     model:
       category: string
       largestPrice: any
@@ -452,19 +340,7 @@ test:
         type: string
       - name: largestPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
-      - database: postgres
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
+    executions: []
   - name: groupBy 11
     lambda: >-
       () => Products.filter(p => p.price > 5).having(p => max(p.price) >
@@ -503,6 +379,8 @@ test:
           MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc ;
     errors: 0
     expression: ' Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+    completeExpression: >-
+      Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     model:
       category: string
       largestPrice: any
@@ -512,33 +390,5 @@ test:
         type: string
       - name: largestPrice
         type: any
-    executions:
-      - database: mysql
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
-          - category: Confections
-            largestPrice: '81.0000'
-          - category: Seafood
-            largestPrice: '62.5000'
-          - category: Dairy Products
-            largestPrice: '55.0000'
-          - category: Produce
-            largestPrice: '53.0000'
-      - database: postgres
-        result:
-          - category: Beverages
-            largestPrice: '263.5000'
-          - category: Meat/Poultry
-            largestPrice: '123.7900'
-          - category: Confections
-            largestPrice: '81.0000'
-          - category: Seafood
-            largestPrice: '62.5000'
-          - category: Dairy Products
-            largestPrice: '55.0000'
-          - category: Produce
-            largestPrice: '53.0000'
+    executions: []
 errors: 0
