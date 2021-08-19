@@ -1140,7 +1140,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     let databases=['mysql','postgres'];
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
    
-    // await toExpression(orm);
+    await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -1166,7 +1166,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');  
 
-    await writeQueryTest(orm,databases);
+    // await writeQueryTest(orm,databases);
     // await writeNumeriFunctionsTest(orm,databases);
     // await writeGroupByTest(orm,databases);
     // await writeIncludeTest(orm,databases);
