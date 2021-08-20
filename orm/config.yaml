@@ -4,13 +4,13 @@ databases:
   - name: source
     schema: northwind:0.0.2
     dialect: mysql
-    disable: true
+    # disable: true
     connectionSource: env
     connection: ORM_CNN_1
   - name: mysql
     schema: northwind:0.0.2
     dialect: mysql
-    disable: true
+    # disable: true
     connectionSource: direct
     connection:
       host: '0.0.0.0'
@@ -27,7 +27,7 @@ databases:
   - name: postgres    
     schema: northwind:0.0.2
     dialect: postgres
-    disable: true
+    # disable: true
     connectionSource: env
     connection: ORM_CNN_4
   # - name: mssql    

@@ -96,7 +96,7 @@ export class SqlOperandManager extends OperandManager
         }
         return result;
     }
-    protected reduce(operand:Operand):Operand
+    public reduce(operand:Operand):Operand
     {
         return operand
     }
@@ -229,21 +229,12 @@ export class SqlOperandManager extends OperandManager
             default:
                 throw 'node name: '+node.name +' type: '+node.type+' not supported';
         }
-    }
+    }    
     protected createSentence(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentence
     {
         context.current = new SqlEntityContext(context.current)
         let createInclude:any;
-        let sentence:any = {}; 
-        let current = node;
-        while(current){
-            let name =current.type == 'var'?'from':current.name;
-            sentence[name] =  current;
-            if(current.children.length > 0)
-                current = current.children[0]
-            else
-                break;  
-        }            
+        let sentence:any = this.getSentence(node);
         context.current.entity=sentence.from.name;
         context.current.metadata=schema.getEntity(context.current.entity);
         context.current.alias = this.createAlias(context,context.current.entity);
@@ -262,72 +253,43 @@ export class SqlOperandManager extends OperandManager
             operand =new SqlFrom(tableName+'.'+context.current.alias);
             children.push(operand);
         }
-        if(sentence['deleteAll']){
-            // Only the DeleteAll can be an unfiltered delete.
-            // this is done for security to avoid deleting all records if the filter is forgotten
-            name='delete';
-            let clause = sentence['deleteAll'];
-            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
-            children.push(operand);
-        }else if(sentence['delete']){
-            name='delete';
-            createInclude= this.createDeleteInclude;
-            let clause = sentence['delete'];
-            this.createFilterIfNotExists(clause,children,schema,context);
-            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
-            children.push(operand);             
-        }else if (sentence['insert']){
+        if (sentence['insert']){
             name='insert';
-            createInclude= this.createInsertInclude;
+            createInclude= this.createInclude;
             let clause = sentence['insert'] as Node;           
             operand= this.createInsertClause(clause,schema,context);
             context.current.fields = this.fieldsInModify(operand,context);
             children.push(operand);
         }else if (sentence['bulkInsert']){
             name='bulkInsert';
-            createInclude= this.createBulkInsertInclude;
+            createInclude= this.createInclude;
             let clause = sentence['bulkInsert'] as Node;           
             operand= this.createInsertClause(clause,schema,context);
             context.current.fields = this.fieldsInModify(operand,context);
             children.push(operand);  
-        }else if (sentence['updateAll']){
-            // Only the updateAll can be an unfiltered update.
-            // this is done for security to avoid updated all records if the filter is forgotten
+        }
+        else if (sentence['update']){
             name='update';
-            let clause = sentence['updateAll'] as Node;
-            operand= this.createUpdateClause(clause,schema,context);
-            context.current.fields = this.fieldsInModify(operand,context);
-            children.push(operand);            
-        }else if (sentence['update']){
-            name='update';
-            createInclude= this.createUpdateInclude;
+            createInclude= this.createInclude;
             let clause = sentence['update'] as Node;           
             operand= this.createUpdateClause(clause,schema,context);
             context.current.fields = this.fieldsInModify(operand,context);
-            this.createFilterIfNotExists(clause,children,schema,context);
             children.push(operand);            
-        }else{
+        }else if(sentence['delete']){
+            name='delete';
+            createInclude= this.createInclude;
+            let clause = sentence['delete'];
+            operand =new SqlDelete(context.current.metadata.mapping+'.'+context.current.alias);
+            children.push(operand);             
+        }else if(sentence['map'] ){
             name='select';
             createInclude= this.createSelectInclude;
-            if(sentence['map'] || sentence['first']){
-                let clause = sentence['first']?sentence['first']:sentence['map'];
-                operand = this.createMapClause(clause,schema,context);
-                context.current.fields = this.fieldsInSelect(operand);
-                context.current.groupByFields = this.groupByFields(operand);
-                children.push(operand); 
-            }else{
-                throw 'expression without map clause';
-                //TODO: this was resolved in completeSentence in language Manager
-
-                // let varEntity = new Node(context.current.entity, 'var', []);
-                // let varArrow = new Node('p', 'var', []);
-                // let varAll = new Node('p', 'var', []);               
-                // let clause = new Node('map','arrow',[varEntity,varArrow,varAll]);
-                // operand = this.createMapClause(clause,schema,context);
-                // context.current.fields = this.fieldsInSelect(operand);
-                // context.current.groupByFields = this.groupByFields(operand);
-                // children.push(operand); 
-            }
+            let clause = sentence['map'];
+            operand = this.createMapClause(clause,schema,context);
+            context.current.fields = this.fieldsInSelect(operand);
+            context.current.groupByFields = this.groupByFields(operand);
+            children.push(operand); 
+            
             if(context.current.groupByFields.length>0){
                 let fields = [];
                 for(let i=0;i<context.current.groupByFields.length;i++){
@@ -360,16 +322,11 @@ export class SqlOperandManager extends OperandManager
             let clause = sentence['include'];                
             context.current.arrowVar = clause.children[1].name; 
             let body = clause.children[2];                
-            if (body.type == 'array'){
-                for (let i=0; i< body.children.length;i++) {
-                    let include = createInclude.bind(this)(body.children[i],schema,context)
-                    children.push(include);
-                }
-            }
-            else{
-                let include = createInclude.bind(this)(body,schema,context)
-                children.push(include);    
-            }
+            if (body.type == 'array')
+                for (let i=0; i< body.children.length;i++) 
+                    children.push(createInclude.bind(this)(body.children[i],schema,context));
+            else
+                children.push(createInclude.bind(this)(body,schema,context));
         }
         for(const key in context.current.joins){
 
@@ -399,107 +356,46 @@ export class SqlOperandManager extends OperandManager
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],schema,context);
         switch(clause.name){
-            // case 'map': 
-            // case 'first':  return new SqlMap(node.name,children);
             case 'filter': return new SqlFilter(clause.name,[child]);
             case 'having': return new SqlHaving(clause.name,[child]);
             case 'sort':   return new SqlSort(clause.name,[child]);
-            // case 'insert': return new SqlInsert(node.name,children,'insert');
-            // case 'update': return new SqlUpdate(node.name,children);  
-            // case 'delete': return new SqlDelete(node.name,children);
+            // case 'limit': ;
+            // case 'offset': ;
             default: throw 'clause : '+clause.name+' not supported'; 
-        } 
-        // return this.createArrowFunction(clause,[child]);
+        }
     }
     protected createMapClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
     {
         if(clause.children.length==3){
             context.current.arrowVar = clause.children[1].name;
-            let fields = clause.children[2];
-            let child =null;
-            if(fields.children.length==0 && fields.name == context.current.arrowVar){
-                let fields = this.createNodeFields(context.current.entity,schema,'p')
-                child = this.nodeToOperand(fields,schema,context);
-            }else{
-                child = this.nodeToOperand(clause.children[2],schema,context);
-            }
-            return new SqlMap(clause.name,[child]);  
-            // return this.createArrowFunction(clause,[child]);
-        }else{
-            context.current.arrowVar = 'p';
-            let fields = this.createNodeFields(context.current.entity,schema,'p')
-            let child = this.nodeToOperand(fields,schema,context);           
-            return new SqlMap(clause.name,[child]);
-            // return this.createArrowFunction(clause, [child]);
+            let child = this.nodeToOperand(clause.children[2],schema,context);
+            return new SqlMap(clause.name,[child]); 
         }
+        throw 'Sentence Map incorrect!!!';
     }
     protected createInsertClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
-    {   
-        let autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity);
-        if(clause.children.length== 1){
-            //example: Orders.insert()
-            let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
-            let child = this.nodeToOperand(fields,schema,context);
-            return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
-        }
-        else if(clause.children.length== 2){
-            let child:Operand;
-            if(clause.children[1].type == 'var'){
-                //example: Orders.insert(entity)
-                let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,false,true)
-                child =  this.nodeToOperand(fields,schema,context);
+    {  
+        if(clause.children.length== 2){
+            if(clause.children[1].type == 'obj'){
+                let autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity);
+                let child = this.nodeToOperand(clause.children[1],schema,context);
+                return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
             }
-            else if(clause.children[1].type == 'obj'){
-                child = this.nodeToOperand(clause.children[1],schema,context);
-            }
-            else{
+            else
                 throw 'Args incorrect in Sentence Insert'; 
-            }
-            return new SqlInsert(context.current.metadata.mapping,[child],clause.name,autoincremente);
         }
-        // }else if(clause.children.length== 3){
-        //     context.current.arrowVar = clause.children[1].name;                    
-        //     let child = this.nodeToOperand(clause.children[2],schema,context);           
-        //     return new SqlInsert(context.current.metadata.mapping,[child]);
-        // } 
-
-        // if(operand.children.length== 0){
-        //     //Orders.insert() 
-        //     let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
-        //     let child = this.nodeToOperand(fields,schema,context);
-        //     operand.children.push(child);
-        // }
-        // else if(operand.children[0] instanceof SqlVariable){
-        //      //Orders.insert(entity)
-        //     let fields = this.createNodeFields(context.current.entity,schema,operand.children[0].name,false,true)
-        //     operand.children[0] = this.nodeToOperand(fields,schema,context);
-        // }
-        throw 'Sentence Insert incorrect!!!';
+        throw 'Sentence Insert incorrect!!!';       
     }
     protected createUpdateClause(clause:Node,schema:SchemaHelper,context:SqlContext):Operand
-    {      
-        if(clause.children.length== 1){
-            //Example: Orders.update()
-            // In the case that the mapping is not defined, it assumes that the context will be the entity to update
-            let fields = this.createNodeFields(context.current.entity,schema,undefined,false,true)
-            let child = this.nodeToOperand(fields,schema,context);
-            return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
-
-        }else if(clause.children.length== 2){
-            let child:Operand;
-            if(clause.children[1].type == 'var'){
-                //Example: Orders.update(entity) 
-                // In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
-                let fields = this.createNodeFields(context.current.entity,schema,clause.children[1].name,true);
-                child = this.nodeToOperand(fields,schema,context);
-            }else if(clause.children[1].type == 'obj'){
+    { 
+        if(clause.children.length== 2){
+            if(clause.children[1].type == 'obj'){
                 //Example: Orders.update({name:'test'}) 
-                child = this.nodeToOperand(clause.children[1],schema,context);
+                let child = this.nodeToOperand(clause.children[1],schema,context);
+                return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
             }
-            else{
-                throw 'Args incorrect in Sentence Update'; 
-            }
-            return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
+            else
+                throw 'Args incorrect in Sentence Update';
         }
         else if(clause.children.length== 3){
             //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
@@ -508,177 +404,71 @@ export class SqlOperandManager extends OperandManager
             return new SqlUpdate(context.current.metadata.mapping+'.'+context.current.alias,[child]);
         }
         throw 'Sentence Update incorrect!!!';
-    }    
-    /**
-     * In the case that a filter is not defined, it is assumed that it will be filtered by the PK
-     * @param clause 
-     * @param children 
-     * @param schema 
-     * @param context 
-     */
-    protected createFilterIfNotExists(clause:Node,children:Operand[],schema:SchemaHelper,context:SqlContext)
-    {       
-        if(!children.some(p=> p.name=='filter')){ 
-            let filter:Operand; 
-            if(clause.children.length== 1 )
-                //Example: Orders.update() , Orders.delete() 
-                filter = this.createFilter(context.current.entity,schema,context,context.current.alias);
-            else if(clause.children.length== 2 && clause.children[1].type == 'var')
-                //Example Orders.update(entity) ,Orders.delete(entity)
-                filter = this.createFilter(context.current.entity,schema,context,context.current.alias,clause.children[1].name);
-            else if(clause.children.length== 3)
-                //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
-                // Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
-                filter = this.createFilter(context.current.entity,schema,context,context.current.alias); 
-            else
-                throw 'Sentence without filter is wrong!!!';
-            children.push(filter);
-        }        
-    }
-    protected createFilter(entityName:string,schema:SchemaHelper,context:SqlContext,parent?:string,parentVariable?:string):any
-    {
-        let condition = undefined;
-        let entity=schema.getEntity(entityName);
-        for(let i in entity.primaryKey){ 
-            let name = entity.primaryKey[i]; 
-            let field = entity.property[name];
-            let sqlField = new SqlField(entityName,name,field.type,parent?parent + '.' + field.mapping:field.mapping);
-            let variable = new SqlVariable(parentVariable?parentVariable+'.'+name:name);
-            let equal =new SqlOperator('==', [sqlField,variable]);
-            condition =condition?new SqlOperator('&&', [condition,equal]):equal;
-        }
-        if(condition){
-            return new SqlFilter('filter',[condition]);
-        }
-        throw 'Create Filter incorrect!!!';
     }
     protected createSelectInclude(node:Node,schema:SchemaHelper,context:SqlContext,clause:string='map'):SqlSentenceInclude
-    {   
-        let child:SqlSentence,relation:any,relationName:string="";
-        if(node.type =='arrow'){
-            //resuelve el siguiente caso  .includes(details.map(p=>p))     
-            let current = node;
-            while (current) {
-                if(current.type == 'var'){
-                    //p.details
-                    let parts = current.name.split('.');
-                    relationName=parts[1];
-                    relation = context.current.metadata.relation[relationName];                            
-                    current.name = relation.entity;
-                    break;
-                }
-                if (current.children.length > 0)
-                    current = current.children[0];
-                else
-                    break;
+    {  
+        let relation:any
+        let current = node;
+        while (current) {
+            if(current.type == 'var'){
+                //p.details
+                let parts = current.name.split('.');
+                let relationName=parts[1];
+                relation = context.current.metadata.relation[relationName];                            
+                current.name = relation.entity;
+                break;
             }
-            let map = new Node(clause,'childFunc',[node]);
-            child = this.createSentence(map, schema, context);
-        } else if (node.type == 'var') {
-            // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
-            // entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))      
-            let varArrow = new Node('p', 'var', []);
-            let varAll = new Node('p', 'var', []);
-            let parts = node.name.split('.');
-            relationName=parts[1];
-            relation = context.current.metadata.relation[relationName];
-            node.name = relation.entity;
-            let map = new Node(clause,'arrow',[node,varArrow,varAll]);
-            child = this.createSentence(map, schema, context);
-        }else{
-            throw 'Error to add include node '+node.type+':'+node.name; 
-        } 
-        let toEntity=schema.getEntity(relation.entity);
-        let toField = toEntity.property[relation.to];
-        let fieldRelation = new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping);
-        let variableName = 'list_'+relation.to;        
-        let varRelation = new SqlVariable(variableName);
-        let filterInclude =new SqlFunctionRef('includes', [fieldRelation,varRelation]);
-        let childFilter= child.children.find(p=> p.name == 'filter');
-        if(!childFilter){
-            let childFilter = new SqlFilter('filter',[filterInclude]);
-            child.children.push(childFilter);
-        }else{
-            childFilter.children[0] =new SqlOperator('&&', [childFilter.children[0],filterInclude]);
+            if (current.children.length > 0)
+                current = current.children[0];
+            else
+                break;
         }
-        child.parameters.push({name:variableName,type:'array'});
-        return new SqlSentenceInclude(relationName,[child],relation,variableName);
+        let child = this.createSentence(node, schema, context);
+        let variableName = 'list_'+relation.to;
+        return new SqlSentenceInclude(relation.name,[child],relation,variableName);
     }    
-    protected createBulkInsertInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
-    {   
-       return this.createInclude(node,schema,context,'bulkInsert');
-    }
-    protected createInsertInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
-    {   
-       return this.createInclude(node,schema,context,'insert');
-    }
-    protected createUpdateInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
-    {   
-        return this.createInclude(node,schema,context,'update');
-    }
-    protected createDeleteInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
-    {   
-        return this.createInclude(node,schema,context,'delete');
-    }
-    protected createInclude(node:Node,schema:SchemaHelper,context:SqlContext,clause:string):SqlSentenceInclude
-    {   
+    protected createInclude(node:Node,schema:SchemaHelper,context:SqlContext):SqlSentenceInclude
+    { 
         let child:SqlSentence,relation:any,relationName:string="";
-        if(node.type =='arrow'){
-            //resuelve el siguiente caso  .includes(details.map(p=>p))     
-            let current = node;
-            while (current) {
-                if(current.type == 'var'){
-                    //p.details
-                    let parts = current.name.split('.');
-                    relationName=parts[1];
-                    relation = context.current.metadata.relation[relationName];                            
-                    current.name = relation.entity;
-                    break;
-                }
-                if (current.children.length > 0)
-                    current = current.children[0];
-                else
-                    break;
+        let current = node;
+        while (current) {
+            if(current.type == 'var'){
+                //p.details
+                let parts = current.name.split('.');
+                relationName=parts[1];
+                relation = context.current.metadata.relation[relationName];                            
+                current.name = relation.entity;
+                break;
             }
-            let map = new Node(clause,'childFunc',[node]);
-            child = this.createSentence(map, schema, context);
-        }else if (node.type == 'var') {
-            // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
-            // entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()      
-            let parts = node.name.split('.');
-            relationName=parts[1];
-            relation = context.current.metadata.relation[relationName];
-            node.name = relation.entity;
-            let map = new Node(clause,'childFunc',[node]);
-            child = this.createSentence(map, schema, context);
-        }else{
-            throw 'Error to add include node '+node.type+':'+node.name; 
-        } 
-        let variableName = relation.to;
-        return new SqlSentenceInclude(relationName,[child],relation,variableName);
-    }
-    protected createNodeFields(entityName:string,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
-    {
-        let obj = new Node('obj', 'obj', []);
-        let entity=schema.getEntity(entityName);
-        for(let name in entity.property){
-            let property = entity.property[name];
-            if((!property.autoincrement || !excludeAutoincrement) && (!entity.primaryKey.includes(property.name) || !excludePrimaryKey) ){
-                let field = new Node(parent?parent+'.'+name:name, 'var', []);
-                let keyVal = new Node(name, 'keyVal', [field])
-                obj.children.push(keyVal);
-            }
+            if (current.children.length > 0)
+                current = current.children[0];
+            else
+                break;
         }
-        return obj;
-    } 
+        child = this.createSentence(node, schema, context);
+        return new SqlSentenceInclude(relationName,[child],relation,relation.to); 
+    }
+    protected getSentence(node:Node):any
+    {
+        let sentence:any = {};
+        let current = node;
+        while(current){
+            let name =current.type == 'var'?'from':current.name;
+            sentence[name] =  current;
+            if(current.children.length > 0)
+                current = current.children[0]
+            else
+                break;  
+        }
+        return sentence; 
+    }
     protected addJoins(parts:string[],to:number,context:SqlContext):string
     {
         let relation = '';
         for(let i=1;i<to;i++){
             relation= (i>1?relation+'.':'')+parts[i];
-            if(!context.current.joins[relation]){
+            if(!context.current.joins[relation])
                 context.current.joins[relation] = this.createAlias(context,parts[i],relation);
-            }
         }
         return relation;
     }    
@@ -708,8 +498,7 @@ export class SqlOperandManager extends OperandManager
         for(let i=1;context.aliases[alias];i++)alias=alias+i;
         context.aliases[alias] = relation?relation:name;
         return alias;        
-    }
-    
+    }    
     protected fieldsInSelect(operand:Operand):Property[]
     {       
         let fields:Property[] = [];
@@ -803,8 +592,14 @@ export class SqlOperandManager extends OperandManager
     }
     protected loadParameters(operand:Operand,parameters:Parameter[])
     {        
-        if(operand instanceof SqlVariable)
-            parameters.push({name:operand.name,type:operand.type});
+        if(operand instanceof SqlVariable){
+            let type:string;
+            if(operand.type=='')type='any';
+            else if(operand.type=='T[]')type='array';
+            else type=operand.type;
+
+            parameters.push({name:operand.name,type:type});
+        }           
         for(let i=0;i<operand.children.length;i++ )
             this.loadParameters(operand.children[i],parameters);
     }

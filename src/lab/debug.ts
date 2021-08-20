@@ -59,9 +59,9 @@ interface ExecutionTest
   error?:string
 }
 
-async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
+async function writeTest(orm:IOrm,dialects:string[],databases:string[],category:CategoryTest):Promise<number>
 {
-  let dialects =  Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
+  
   category.errors=0;
   for(const q in category.test){  
     let expressionTest = category.test[q] as ExpressionTest;
@@ -138,10 +138,11 @@ async function writeTest(orm:IOrm,databases:string[],category:CategoryTest)
       }  
     }
   }
+  return category.errors;
 }
-async function writeQueryTest(orm:IOrm,databases:string[],)
+async function writeQueryTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {
-  writeTest(orm,databases,{name:'query',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'query',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}
            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
    }
@@ -156,9 +157,9 @@ async function writeQueryTest(orm:IOrm,databases:string[],)
         ,{name:'query 9',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
   ]});
 }
-async function writeNumeriFunctionsTest(orm:IOrm,databases:string[],)
+async function writeNumeriFunctionsTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 { 
-  writeTest(orm,databases,{name:'numeric functions',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'numeric functions',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}}
   ,test:    
     [{name:'function abs',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id ).map(p=> ({name:p.name,source:p.price*-1 ,result:abs(p.price*-1)}) ) }
@@ -178,9 +179,9 @@ async function writeNumeriFunctionsTest(orm:IOrm,databases:string[],)
     ,{name:'function trunc',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:trunc(135.375, 2)})) }
   ]});
 }  
-async function writeGroupByTest(orm:IOrm,databases:string[],)
+async function writeGroupByTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {    
-  writeTest(orm,databases,{name:'groupBy',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'groupBy',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}}
   ,test:   
     [{name:'groupBy 1',lambda: ()=>  Products.map(p=> ({maxPrice:max(p.price)})) }
@@ -196,12 +197,13 @@ async function writeGroupByTest(orm:IOrm,databases:string[],)
     ,{name:'groupBy 11',lambda: ()=> Products.filter(p=> p.price>5 ).having(p=> max(p.price) > 50).map(p=> ({category:p.category.name,largestPrice:max(p.price)})).sort(p=> desc(p.largestPrice))  }
   ]});  
 }
-async function writeIncludeTest(orm:IOrm,databases:string[],)
+async function writeIncludeTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {     
-  writeTest(orm,databases,{name:'include',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'include',schema:'northwind:0.0.2'
   ,context:{ a:{ id: 1}}
   ,test:    
-    [{name:'include 1',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.customer)}
+    [
+     {name:'include 1',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.customer)}
     ,{name:'include 2',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => p.details)}
     ,{name:'include 3',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])}
     ,{name:'include 4',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])}
@@ -210,9 +212,9 @@ async function writeIncludeTest(orm:IOrm,databases:string[],)
     ,{name:'include 7',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])}
   ]}); 
 }
-async function writeInsertsTest(orm:IOrm,databases:string[],)
+async function writeInsertsTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {  
-  writeTest(orm,databases,{name:'inserts',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'inserts',schema:'northwind:0.0.2'
   ,context:{ a:{name: "Beverages20", description: "Soft drinks, coffees, teas, beers, and ales" }
             ,b:{name: "Beverages21", description: "Soft drinks, coffees, teas, beers, and ales" }
             ,c:{entity:{name: "Beverages22", description: "Soft drinks, coffees, teas, beers, and ales" }}
@@ -253,7 +255,8 @@ async function writeInsertsTest(orm:IOrm,databases:string[],)
             }
  }
   ,test:  
-    [{name:'insert 1',context:'a',lambda: ()=> Categories.insert()}
+    [
+     {name:'insert 1',context:'a',lambda: ()=> Categories.insert()}
     ,{name:'insert 2',context:'b',lambda: (name:string,description:string)=> Categories.insert({name:name,description:description})}  
     ,{name:'insert 3',context:'c',lambda: (entity:Category)=> Categories.insert(entity) }  
     ,{name:'insert 4',context:'order',lambda: ()=> Orders.insert() }
@@ -261,9 +264,9 @@ async function writeInsertsTest(orm:IOrm,databases:string[],)
     ,{name:'insert 6',context:'order',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }    
   ]});  
 }
-async function writeUpdateTest(orm:IOrm,databases:string[],)
+async function writeUpdateTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {    
-  writeTest(orm,databases,{name:'update',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'update',schema:'northwind:0.0.2'
 ,context:{
           a:{
               "id": 7,
@@ -544,18 +547,20 @@ async function writeUpdateTest(orm:IOrm,databases:string[],)
                 }
           }
   ,test:  
-    [{name:'update 1',context:'a',lambda: ()=> Orders.update()}
+    [
+     {name:'update 1',context:'a',lambda: ()=> Orders.update()}
     ,{name:'update 2',context:'b',lambda: (entity:Order)=> Orders.update(entity)}
     ,{name:'update 3',context:'c',lambda: (postalCode:string)=> Orders.updateAll({postalCode:postalCode})}
     ,{name:'update 4',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).filter(p=> p.id == entity.id)}
-    ,{name:'update 5',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
-    ,{name:'update 6',context:'a',lambda: ()=> Orders.update().include(p=> p.details)}
-    ,{name:'update 7',context:'c',lambda: ()=> Customers.update().include(p=> p.orders.include(p=> p.details))}
+    ,{name:'update 5',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> p )).filter(p=> p.id == entity.id )   }
+    ,{name:'update 6',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
+    ,{name:'update 7',context:'a',lambda: ()=> Orders.update().include(p=> p.details)}
+    ,{name:'update 8',context:'c',lambda: ()=> Customers.update().include(p=> p.orders.include(p=> p.details))}
   ]});  
 }
-async function writeDeleteTest(orm:IOrm,databases:string[],)
+async function writeDeleteTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {     
-  writeTest(orm,databases,{name:'delete',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'delete',schema:'northwind:0.0.2'
   ,context:{ 
             a: {id:9} 
            ,b: {
@@ -706,9 +711,9 @@ async function writeDeleteTest(orm:IOrm,databases:string[],)
   ]}); 
 }
 //TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details) 
-async function writeBulkInsertTest(orm:IOrm,databases:string[],)
+async function writeBulkInsertTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
 {    
-  writeTest(orm,databases,{name:'bulkInsert',schema:'northwind:0.0.2'
+  return await writeTest(orm,dialects,databases,{name:'bulkInsert',schema:'northwind:0.0.2'
   ,context:{a: [{
                   name: "Beverages4",
                   description: "Soft drinks, coffees, teas, beers, and ales"
@@ -993,6 +998,8 @@ async function toExpression(orm:IOrm){
         ,'Orders.update({name:entity.name}).filter(p=> p.id == entity.id)'          
         ];
 
+
+     
   for(const p in expressions) {
     let expression = expressions[p];
     let node= orm.node.parse(expression);
@@ -1150,10 +1157,13 @@ async function schemaImport(orm:IOrm,source:string,target:string){
 
   try
   {  
-    let databases:string[]= []; //['mysql','postgres'];
-    await orm.init(path.join(process.cwd(),'orm/config.yaml'));
    
-    await toExpression(orm);
+    await orm.init(path.join(process.cwd(),'orm/config.yaml'));
+    let errors=0;
+    let databases:string[]= ['mysql','postgres'];
+    let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
+   
+    // await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -1161,39 +1171,39 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await bulkInsert2(orm);
     // await generateModel(orm,'source');
     
-    // await schemaSync(orm,'source');
-    // await schemaExport(orm,'source');
-    // //test mysql
-    // await schemaDrop(orm,'mysql',true);
-    // await schemaSync(orm,'mysql');
-    // await schemaImport(orm,'source','mysql');
-    // await schemaExport(orm,'mysql');  
-    // // //test mariadb
-    // // await schemaDrop(orm,'mariadb',true);
-    // // await schemaSync(orm,'mariadb');
-    // // await schemaImport(orm,'source','mariadb');
-    // // await schemaExport(orm,'mariadb');
-    // //test postgres 
-    // await schemaDrop(orm,'postgres',true);
-    // await schemaSync(orm,'postgres');
-    // await schemaImport(orm,'source','postgres');
-    // await schemaExport(orm,'postgres');  
+    await schemaSync(orm,'source');
+    await schemaExport(orm,'source');
+    //test mysql
+    await schemaDrop(orm,'mysql',true);
+    await schemaSync(orm,'mysql');
+    await schemaImport(orm,'source','mysql');
+    await schemaExport(orm,'mysql');  
+    // //test mariadb
+    // await schemaDrop(orm,'mariadb',true);
+    // await schemaSync(orm,'mariadb');
+    // await schemaImport(orm,'source','mariadb');
+    // await schemaExport(orm,'mariadb');
+    //test postgres 
+    await schemaDrop(orm,'postgres',true);
+    await schemaSync(orm,'postgres');
+    await schemaImport(orm,'source','postgres');
+    await schemaExport(orm,'postgres');  
 
-    await writeQueryTest(orm,databases);
-    await writeNumeriFunctionsTest(orm,databases);
-    await writeGroupByTest(orm,databases);
-    await writeIncludeTest(orm,databases);
-    await writeInsertsTest(orm,databases);
-    await writeUpdateTest(orm,databases);
-    await writeDeleteTest(orm,databases);
-    await writeBulkInsertTest(orm,databases);
+    errors=+await writeQueryTest(orm,dialects,databases);
+    errors=+await writeNumeriFunctionsTest(orm,dialects,databases);
+    errors=+await writeGroupByTest(orm,dialects,databases);
+    errors=+await writeIncludeTest(orm,dialects,databases);
+    errors=+await writeInsertsTest(orm,dialects,databases);
+    errors=+await writeUpdateTest(orm,dialects,databases);
+    errors=+await writeDeleteTest(orm,dialects,databases);
+    errors=+await writeBulkInsertTest(orm,dialects,databases);
     //operators comparation , matematica
     //string functions
     //datetime functions
     //nullables functions  
        
       
-    console.log('Ok')
+    console.log(errors);
   }
   catch(error){
     console.log(error.stack)

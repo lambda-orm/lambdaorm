@@ -46,6 +46,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -53,7 +54,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '-18.0000'
+            result: '18.0000'
+      - database: postgres
+        result:
+          - name: Chai
+            source: '-18.0000'
+            result: '18.0000'
   - name: function acos
     context: a
     lambda: >-
@@ -91,6 +102,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -98,7 +110,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 1.318116071652818
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 1.31811607165282
   - name: function asin
     context: a
     lambda: >-
@@ -136,6 +158,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -143,7 +166,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.25268025514207865
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.252680255142079
   - name: function atan
     context: a
     lambda: >-
@@ -181,6 +214,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -188,7 +222,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.24497866312686414
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.25'
+            result: 0.244978663126864
   - name: function atan2
     context: a
     lambda: >-
@@ -226,6 +270,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -233,7 +278,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '0.5'
+            result: 0.24497866312686414
+      - database: postgres
+        result:
+          - name: Chai
+            source: '0.5'
+            result: 0.244978663126864
   - name: function ceil
     context: a
     lambda: >-
@@ -271,6 +326,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -278,7 +334,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '25.75'
+            result: 26
+      - database: postgres
+        result:
+          - name: Chai
+            source: '25.75'
+            result: '26'
   - name: function cos
     context: a
     lambda: >-
@@ -316,6 +382,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -323,7 +390,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: 2
+            result: -0.4161468365471424
+      - database: postgres
+        result:
+          - name: Chai
+            source: 2
+            result: -0.416146836547142
   - name: function exp
     context: a
     lambda: >-
@@ -361,6 +438,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -368,7 +446,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: 1
+            result: 2.718281828459045
+      - database: postgres
+        result:
+          - name: Chai
+            source: 1
+            result: 2.71828182845905
   - name: function floor
     context: a
     lambda: >-
@@ -406,6 +494,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -413,7 +502,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '25.75'
+            result: 25
+      - database: postgres
+        result:
+          - name: Chai
+            source: '25.75'
+            result: '25'
   - name: function ln
     context: a
     lambda: >-
@@ -450,6 +549,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -457,7 +557,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: 2
+            result: 0.6931471805599453
+      - database: postgres
+        result:
+          - name: Chai
+            source: 2
+            result: 0.693147180559945
   - name: function log
     context: a
     lambda: >-
@@ -496,6 +606,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -505,7 +616,19 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            m: 10
+            'n': 20
+            result: 1.301029995663981
+      - database: postgres
+        result:
+          - name: Chai
+            m: 10
+            'n': 20
+            result: '1.3010299956639812'
   - name: function round
     context: a
     lambda: >-
@@ -543,6 +666,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -550,7 +674,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.38'
+      - database: postgres
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.38'
   - name: function sign
     context: a
     lambda: >-
@@ -588,6 +722,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -595,7 +730,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '255.5'
+            result: 1
+      - database: postgres
+        result:
+          - name: Chai
+            source: '255.5'
+            result: '1'
   - name: function tan
     context: a
     lambda: >-
@@ -633,6 +778,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -640,7 +786,17 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '1.75'
+            result: -5.52037992250933
+      - database: postgres
+        result:
+          - name: Chai
+            source: '1.75'
+            result: -5.52037992250933
   - name: function trunc
     context: a
     lambda: >-
@@ -680,6 +836,7 @@ test:
     parameters:
       - name: id
         type: integer
+        value: 1
     fields:
       - name: name
         type: string
@@ -687,5 +844,15 @@ test:
         type: any
       - name: result
         type: any
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.37'
+      - database: postgres
+        result:
+          - name: Chai
+            source: '135.375'
+            result: '135.37'
 errors: 0

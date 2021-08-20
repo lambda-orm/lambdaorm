@@ -104,7 +104,6 @@ export class LanguageManager
                 break;  
         }
         return sentence; 
-
     }
     private completeSentence(node:Node,schema:SchemaHelper,entityName?:string):void
     {        
@@ -123,7 +122,8 @@ export class LanguageManager
             compleInclude = this.completeUpdateInclude;
             let node = sentence['update']
             this.completeUpdateNode(entity,node,schema);
-            this.createFilterIfNotExists(entity,node,sentence,schema);
+            if(!sentence['filter'])
+                this.createClauseFilter(entity,node,schema);
         }else if(sentence['updateAll'] ){
             compleInclude = this.completeUpdateInclude;
             let node = sentence['updateAll'];
@@ -133,7 +133,8 @@ export class LanguageManager
         }else if(sentence['delete']){
             compleInclude = this.completeDeleteInclude;
             let node = sentence['delete'];
-            this.createFilterIfNotExists(entity,node,sentence,schema);
+            if(!sentence['filter'])
+                this.createClauseFilter(entity,node,schema);
         }else if(sentence['deleteAll'] ){
             compleInclude = this.completeDeleteInclude;
             let node = sentence['deleteAll'];
@@ -238,6 +239,9 @@ export class LanguageManager
             //Example: Orders.update(entity) 
             // In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
             node.children[1] = this.createNodeFields(entity,schema,node.children[1].name,true);
+        }else if(node.children.length== 3 && node.type == 'arrow' && node.children[1].name ==  node.children[2].name ){
+            //Example: Orders.update({ name: entity.name }).include(p => p.details.update(p => p))
+            node.children[2] = this.createNodeFields(entity,schema,node.children[1].name,true);
         }
     }
     private createNodeFields(entity:any,schema:SchemaHelper,parent?:string,excludePrimaryKey:boolean=false,excludeAutoincrement:boolean=false):any
@@ -253,28 +257,30 @@ export class LanguageManager
         }
         return obj;
     }
-    private createFilterIfNotExists(entity:any,node:Node,sentence:any,schema:SchemaHelper):void
-    {       
-        if(!sentence['filter']){ 
-            if(node.children.length== 1 ){
-                //Example: Orders.update() , Orders.delete() 
-                let condition = this.createFilter(entity,schema,'p');                
-                let arrowVar = new Node('p', 'var', []);
-                node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]);
-            }else if(node.children.length== 2 && node.children[1].type == 'var'){
-                //Example Orders.update(entity) ,Orders.delete(entity)
-                let condition = this.createFilter(entity,schema,'p',node.children[1].name);
-                let arrowVar = new Node('p', 'var', []);
-                node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]);
-            }
-            else if(node.children.length== 3){
-                //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
-                // Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
-                let condition = this.createFilter(entity,schema,'p');
-                let arrowVar = new Node('p', 'var', []);
-                node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]); 
-            }
-        }        
+    private createClauseFilter(entity:any,node:Node,schema:SchemaHelper):void
+    { 
+        if(node.children.length== 1 ){
+            //Example: Orders.delete() 
+            let condition = this.createFilter(entity,schema,'p');                
+            let arrowVar = new Node('p', 'var', []);
+            node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]);
+        }else if(node.children.length== 2 && node.children[1].type == 'var'){
+            //Example Orders.update(entity) ,Orders.delete(entity)
+            let condition = this.createFilter(entity,schema,'p',node.children[1].name);
+            let arrowVar = new Node('p', 'var', []);
+            node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]);            
+        }else if(node.children.length== 2 && node.children[1].type == 'obj'){
+            //Example Orders.update({unitPrice:unitPrice,productId:productId) 
+            let condition = this.createFilter(entity,schema,'p',node.children[1].name);
+            let arrowVar = new Node('p', 'var', []);
+            node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]);
+        }else if(node.children.length== 3){
+            //Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
+            // Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
+            let condition = this.createFilter(entity,schema,'p');
+            let arrowVar = new Node('p', 'var', []);
+            node.children[0] = new Node('filter','arrow',[node.children[0],arrowVar,condition]); 
+        }   
     }
     private createFilter(entity:any,schema:SchemaHelper,parent?:string,parentVariable?:string):Node
     {
@@ -310,8 +316,7 @@ export class LanguageManager
                     //p.details
                     let parts = current.name.split('.');
                     let relationName=parts[1];
-                    relation = entity.relation[relationName];                            
-                    current.name = relation.entity;
+                    relation = entity.relation[relationName]; 
                     break;
                 }
                 if (current.children.length > 0)
@@ -319,7 +324,7 @@ export class LanguageManager
                 else
                     break;
             }
-            map = new Node(clause,'childFunc',[node]);
+            map = node;//new Node(clause,'childFunc',[node]);
             this.completeSentence(map, schema, relation.entity);
         } else if (node.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
@@ -369,7 +374,7 @@ export class LanguageManager
     {   
         let clauseNode:Node,relation:any;
         if(node.type =='arrow'){
-            //resuelve el siguiente caso  .includes(details.map(p=>p))     
+            //resuelve el siguiente caso  .includes(details.insert())     
             let current = node;
             while (current) {
                 if(current.type == 'var'){
@@ -384,7 +389,8 @@ export class LanguageManager
                 else
                     break;
             }
-            clauseNode = new Node(clause,'childFunc',[node]);
+            let sentence:any = this.getSentence(node);  
+            clauseNode = sentence[clause]?sentence[clause]:new Node(clause,'childFunc',[node]);
             this.completeSentence(clauseNode, schema,relation.entity);
         }else if (node.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  

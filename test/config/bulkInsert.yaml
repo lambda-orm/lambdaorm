@@ -4,8 +4,10 @@ context:
   a:
     - name: Beverages4
       description: 'Soft drinks, coffees, teas, beers, and ales'
+      id: 12
     - name: Condiments4
       description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
+      id: 13
   b:
     - customerId: ALFKI
       employeeId: 6
@@ -25,14 +27,18 @@ context:
           unitPrice: '45.6000'
           quantity: 15
           discount: 0
+          orderId: 834
         - productId: 39
           unitPrice: '18.0000'
           quantity: 21
           discount: 0
+          orderId: 834
         - productId: 46
           unitPrice: '12.0000'
           quantity: 2
           discount: 0
+          orderId: 834
+      id: 834
     - customerId: ALFKI
       employeeId: 4
       orderDate: '1997-10-02T22:00:00.000Z'
@@ -51,6 +57,8 @@ context:
           unitPrice: '43.9000'
           quantity: 20
           discount: 0
+          orderId: 835
+      id: 835
     - customerId: ALFKI
       employeeId: 4
       orderDate: '1997-10-12T22:00:00.000Z'
@@ -69,10 +77,13 @@ context:
           unitPrice: '10.0000'
           quantity: 6
           discount: 0
+          orderId: 836
         - productId: 76
           unitPrice: '18.0000'
           quantity: 15
           discount: 0
+          orderId: 836
+      id: 836
 test:
   - name: bulkInsert 1
     context: a
@@ -108,34 +119,150 @@ test:
         type: string
       - name: description
         type: string
-    executions: []
+    executions:
+      - database: mysql
+        result:
+          - 12
+          - 13
+      - database: postgres
+        result:
+          - 12
+          - 13
   - name: bulkInsert 2
     context: b
     lambda: () => Orders.bulkInsert().include(p => p.details)
     sentences:
       - dialect: mariadb
-        error: >-
-          compile expression:  Orders.bulkInsert().include(p => p.details)
-          error: Error to add include node childFunc:bulkInsert
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?;
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?;
       - dialect: mssql
-        error: >-
-          compile expression:  Orders.bulkInsert().include(p => p.details)
-          error: Error to add include node childFunc:bulkInsert
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+          :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country;
+
+          INSERT INTO [Order
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+          :orderId,:productId,:unitPrice,:quantity,:discount;
       - dialect: mysql
-        error: >-
-          compile expression:  Orders.bulkInsert().include(p => p.details)
-          error: Error to add include node childFunc:bulkInsert
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?;
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?;
       - dialect: oracle
-        error: >-
-          compile expression:  Orders.bulkInsert().include(p => p.details)
-          error: Error to add include node childFunc:bulkInsert
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+          :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country;
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+          :orderId,:productId,:unitPrice,:quantity,:discount;
       - dialect: postgres
-        error: >-
-          compile expression:  Orders.bulkInsert().include(p => p.details)
-          error: Error to add include node childFunc:bulkInsert
-    errors: 5
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES;
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES;
+    errors: 0
     expression: ' Orders.bulkInsert().include(p => p.details)'
     completeExpression: >-
       Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
-    executions: []
-errors: 5
+    model:
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+      details:
+        - orderId: integer
+          productId: integer
+          unitPrice: decimal
+          quantity: decimal
+          discount: decimal
+    parameters:
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    fields:
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    executions:
+      - database: mysql
+        result:
+          - 834
+          - 835
+          - 836
+      - database: postgres
+        result:
+          - 834
+          - 835
+          - 836
+errors: 0
