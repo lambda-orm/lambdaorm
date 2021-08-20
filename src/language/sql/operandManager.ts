@@ -569,8 +569,6 @@ export class SqlOperandManager extends OperandManager
     protected parametersInSentence(children:Operand[]):Parameter[]
     {
         let map =  children.find(p=> p.name=='map');   
-        let first = children.find(p=> p.name=='first');
-        let select = map?map:first; 
         let filter = children.find(p=> p.name=='filter'); 
         let groupBy = children.find(p=> p.name=='groupBy');
         let having = children.find(p=> p.name=='having'); 
@@ -580,7 +578,7 @@ export class SqlOperandManager extends OperandManager
         let _delete = children.find(p=> p instanceof SqlDelete) as SqlDelete|undefined;
 
         let parameters:Parameter[]=[];
-        if(select)this.loadParameters(select,parameters);
+        if(map)this.loadParameters(map,parameters);
         if(insert)this.loadParameters(insert,parameters);
         if(update)this.loadParameters(update,parameters);
         if(_delete)this.loadParameters(_delete,parameters);

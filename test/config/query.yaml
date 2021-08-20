@@ -4533,6 +4533,30 @@ test:
         result:
           - category: Beverages
             product: Chai
+            unitPrice: '14.4000'
+            quantity: '10.0000'
+          - category: Beverages
+            product: Chai
+            unitPrice: '18.0000'
+            quantity: '30.0000'
+          - category: Beverages
+            product: Chai
+            unitPrice: '18.0000'
+            quantity: '15.0000'
+          - category: Beverages
+            product: Chai
+            unitPrice: '14.4000'
+            quantity: '24.0000'
+          - category: Beverages
+            product: Chai
+            unitPrice: '18.0000'
+            quantity: '25.0000'
+          - category: Beverages
+            product: Chai
+            unitPrice: '18.0000'
+            quantity: '3.0000'
+          - category: Beverages
+            product: Chai
             unitPrice: '18.0000'
             quantity: '50.0000'
           - category: Beverages
@@ -4572,66 +4596,6 @@ test:
             unitPrice: '14.4000'
             quantity: '15.0000'
           - category: Beverages
-            product: Chai
-            unitPrice: '14.4000'
-            quantity: '10.0000'
-          - category: Beverages
-            product: Chai
-            unitPrice: '18.0000'
-            quantity: '30.0000'
-          - category: Beverages
-            product: Chai
-            unitPrice: '18.0000'
-            quantity: '15.0000'
-          - category: Beverages
-            product: Chai
-            unitPrice: '14.4000'
-            quantity: '24.0000'
-          - category: Beverages
-            product: Chai
-            unitPrice: '18.0000'
-            quantity: '25.0000'
-          - category: Beverages
-            product: Chai
-            unitPrice: '18.0000'
-            quantity: '3.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '19.0000'
-            quantity: '10.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '19.0000'
-            quantity: '3.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '15.2000'
-            quantity: '40.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '15.2000'
-            quantity: '10.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '15.2000'
-            quantity: '25.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '15.2000'
-            quantity: '60.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '19.0000'
-            quantity: '15.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '19.0000'
-            quantity: '40.0000'
-          - category: Beverages
-            product: Chang
-            unitPrice: '15.2000'
-            quantity: '20.0000'
-          - category: Beverages
             product: Chang
             unitPrice: '19.0000'
             quantity: '5.0000'
@@ -4668,6 +4632,66 @@ test:
             unitPrice: '19.0000'
             quantity: '20.0000'
           - category: Beverages
+            product: Chang
+            unitPrice: '19.0000'
+            quantity: '10.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '19.0000'
+            quantity: '3.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '15.2000'
+            quantity: '40.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '15.2000'
+            quantity: '10.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '15.2000'
+            quantity: '25.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '15.2000'
+            quantity: '60.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '19.0000'
+            quantity: '15.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '19.0000'
+            quantity: '40.0000'
+          - category: Beverages
+            product: Chang
+            unitPrice: '15.2000'
+            quantity: '20.0000'
+          - category: Beverages
+            product: Chartreuse verte
+            unitPrice: '18.0000'
+            quantity: '20.0000'
+          - category: Beverages
+            product: Chartreuse verte
+            unitPrice: '18.0000'
+            quantity: '2.0000'
+          - category: Beverages
+            product: Chartreuse verte
+            unitPrice: '18.0000'
+            quantity: '10.0000'
+          - category: Beverages
+            product: Chartreuse verte
+            unitPrice: '18.0000'
+            quantity: '20.0000'
+          - category: Beverages
+            product: Chartreuse verte
+            unitPrice: '18.0000'
+            quantity: '3.0000'
+          - category: Beverages
+            product: Chartreuse verte
+            unitPrice: '14.4000'
+            quantity: '20.0000'
+          - category: Beverages
             product: Chartreuse verte
             unitPrice: '14.4000'
             quantity: '20.0000'
@@ -4696,46 +4720,6 @@ test:
             unitPrice: '14.4000'
             quantity: '6.0000'
           - category: Beverages
-            product: Chartreuse verte
-            unitPrice: '18.0000'
-            quantity: '20.0000'
-          - category: Beverages
-            product: Chartreuse verte
-            unitPrice: '18.0000'
-            quantity: '2.0000'
-          - category: Beverages
-            product: Chartreuse verte
-            unitPrice: '18.0000'
-            quantity: '10.0000'
-          - category: Beverages
-            product: Chartreuse verte
-            unitPrice: '18.0000'
-            quantity: '20.0000'
-          - category: Beverages
-            product: Chartreuse verte
-            unitPrice: '18.0000'
-            quantity: '3.0000'
-          - category: Beverages
-            product: Chartreuse verte
-            unitPrice: '14.4000'
-            quantity: '20.0000'
-          - category: Beverages
-            product: Cte de Blaye
-            unitPrice: '210.8000'
-            quantity: '30.0000'
-          - category: Beverages
-            product: Cte de Blaye
-            unitPrice: '263.5000'
-            quantity: '4.0000'
-          - category: Beverages
-            product: Cte de Blaye
-            unitPrice: '263.5000'
-            quantity: '15.0000'
-          - category: Beverages
-            product: Cte de Blaye
-            unitPrice: '263.5000'
-            quantity: '5.0000'
-          - category: Beverages
             product: Cte de Blaye
             unitPrice: '210.8000'
             quantity: '50.0000'
@@ -4756,6 +4740,46 @@ test:
             unitPrice: '263.5000'
             quantity: '15.0000'
           - category: Beverages
+            product: Cte de Blaye
+            unitPrice: '210.8000'
+            quantity: '30.0000'
+          - category: Beverages
+            product: Cte de Blaye
+            unitPrice: '263.5000'
+            quantity: '4.0000'
+          - category: Beverages
+            product: Cte de Blaye
+            unitPrice: '263.5000'
+            quantity: '15.0000'
+          - category: Beverages
+            product: Cte de Blaye
+            unitPrice: '263.5000'
+            quantity: '5.0000'
+          - category: Beverages
+            product: Ipoh Coffee
+            unitPrice: '46.0000'
+            quantity: '15.0000'
+          - category: Beverages
+            product: Ipoh Coffee
+            unitPrice: '46.0000'
+            quantity: '30.0000'
+          - category: Beverages
+            product: Ipoh Coffee
+            unitPrice: '46.0000'
+            quantity: '25.0000'
+          - category: Beverages
+            product: Ipoh Coffee
+            unitPrice: '46.0000'
+            quantity: '6.0000'
+          - category: Beverages
+            product: Ipoh Coffee
+            unitPrice: '46.0000'
+            quantity: '40.0000'
+          - category: Beverages
+            product: Ipoh Coffee
+            unitPrice: '36.8000'
+            quantity: '20.0000'
+          - category: Beverages
             product: Ipoh Coffee
             unitPrice: '46.0000'
             quantity: '24.0000'
@@ -4775,46 +4799,6 @@ test:
             product: Ipoh Coffee
             unitPrice: '36.8000'
             quantity: '3.0000'
-          - category: Beverages
-            product: Ipoh Coffee
-            unitPrice: '46.0000'
-            quantity: '15.0000'
-          - category: Beverages
-            product: Ipoh Coffee
-            unitPrice: '46.0000'
-            quantity: '25.0000'
-          - category: Beverages
-            product: Ipoh Coffee
-            unitPrice: '46.0000'
-            quantity: '30.0000'
-          - category: Beverages
-            product: Ipoh Coffee
-            unitPrice: '46.0000'
-            quantity: '6.0000'
-          - category: Beverages
-            product: Ipoh Coffee
-            unitPrice: '46.0000'
-            quantity: '40.0000'
-          - category: Beverages
-            product: Ipoh Coffee
-            unitPrice: '36.8000'
-            quantity: '20.0000'
-          - category: Beverages
-            product: Lakkalikri
-            unitPrice: '14.4000'
-            quantity: '20.0000'
-          - category: Beverages
-            product: Lakkalikri
-            unitPrice: '18.0000'
-            quantity: '14.0000'
-          - category: Beverages
-            product: Lakkalikri
-            unitPrice: '14.4000'
-            quantity: '18.0000'
-          - category: Beverages
-            product: Lakkalikri
-            unitPrice: '18.0000'
-            quantity: '10.0000'
           - category: Beverages
             product: Lakkalikri
             unitPrice: '18.0000'
@@ -4857,6 +4841,10 @@ test:
             quantity: '35.0000'
           - category: Beverages
             product: Lakkalikri
+            unitPrice: '18.0000'
+            quantity: '10.0000'
+          - category: Beverages
+            product: Lakkalikri
             unitPrice: '14.4000'
             quantity: '14.0000'
           - category: Beverages
@@ -4869,16 +4857,32 @@ test:
             quantity: '10.0000'
           - category: Beverages
             product: Lakkalikri
-            unitPrice: '18.0000'
-            quantity: '10.0000'
-          - category: Beverages
-            product: Lakkalikri
             unitPrice: '14.4000'
             quantity: '35.0000'
           - category: Beverages
             product: Lakkalikri
             unitPrice: '18.0000'
             quantity: '35.0000'
+          - category: Beverages
+            product: Lakkalikri
+            unitPrice: '14.4000'
+            quantity: '20.0000'
+          - category: Beverages
+            product: Lakkalikri
+            unitPrice: '18.0000'
+            quantity: '14.0000'
+          - category: Beverages
+            product: Lakkalikri
+            unitPrice: '14.4000'
+            quantity: '18.0000'
+          - category: Beverages
+            product: Lakkalikri
+            unitPrice: '18.0000'
+            quantity: '10.0000'
+          - category: Beverages
+            product: Laughing Lumberjack Lager
+            unitPrice: '14.0000'
+            quantity: '7.0000'
           - category: Beverages
             product: Laughing Lumberjack Lager
             unitPrice: '14.0000'
@@ -4891,54 +4895,6 @@ test:
             product: Laughing Lumberjack Lager
             unitPrice: '14.0000'
             quantity: '30.0000'
-          - category: Beverages
-            product: Laughing Lumberjack Lager
-            unitPrice: '14.0000'
-            quantity: '7.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '15.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '12.0000'
-            quantity: '30.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '7.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '15.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '40.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '35.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '14.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '15.0000'
-            quantity: '30.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '12.0000'
-            quantity: '8.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '12.0000'
-            quantity: '12.0000'
-          - category: Beverages
-            product: Outback Lager
-            unitPrice: '12.0000'
-            quantity: '25.0000'
           - category: Beverages
             product: Outback Lager
             unitPrice: '12.0000'
@@ -4968,9 +4924,49 @@ test:
             unitPrice: '15.0000'
             quantity: '6.0000'
           - category: Beverages
-            product: Sasquatch Ale
-            unitPrice: '14.0000'
+            product: Outback Lager
+            unitPrice: '15.0000'
+            quantity: '15.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '15.0000'
+            quantity: '7.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '12.0000'
+            quantity: '30.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '15.0000'
+            quantity: '15.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '15.0000'
+            quantity: '40.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '15.0000'
+            quantity: '35.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '15.0000'
             quantity: '14.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '15.0000'
+            quantity: '30.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '12.0000'
+            quantity: '8.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '12.0000'
+            quantity: '25.0000'
+          - category: Beverages
+            product: Outback Lager
+            unitPrice: '12.0000'
+            quantity: '12.0000'
           - category: Beverages
             product: Sasquatch Ale
             unitPrice: '14.0000'
@@ -4981,12 +4977,12 @@ test:
             quantity: '20.0000'
           - category: Beverages
             product: Sasquatch Ale
-            unitPrice: '11.2000'
-            quantity: '35.0000'
-          - category: Beverages
-            product: Sasquatch Ale
             unitPrice: '14.0000'
             quantity: '10.0000'
+          - category: Beverages
+            product: Sasquatch Ale
+            unitPrice: '11.2000'
+            quantity: '35.0000'
           - category: Beverages
             product: Sasquatch Ale
             unitPrice: '14.0000'
@@ -4996,25 +4992,17 @@ test:
             unitPrice: '14.0000'
             quantity: '30.0000'
           - category: Beverages
-            product: Steeleye Stout
-            unitPrice: '18.0000'
-            quantity: '30.0000'
-          - category: Beverages
-            product: Steeleye Stout
-            unitPrice: '18.0000'
-            quantity: '9.0000'
-          - category: Beverages
-            product: Steeleye Stout
-            unitPrice: '14.4000'
-            quantity: '60.0000'
-          - category: Beverages
-            product: Steeleye Stout
-            unitPrice: '18.0000'
-            quantity: '4.0000'
+            product: Sasquatch Ale
+            unitPrice: '14.0000'
+            quantity: '14.0000'
           - category: Beverages
             product: Steeleye Stout
             unitPrice: '18.0000'
             quantity: '3.0000'
+          - category: Beverages
+            product: Steeleye Stout
+            unitPrice: '18.0000'
+            quantity: '4.0000'
           - category: Beverages
             product: Steeleye Stout
             unitPrice: '18.0000'
@@ -5058,15 +5046,23 @@ test:
           - category: Beverages
             product: Steeleye Stout
             unitPrice: '18.0000'
+            quantity: '30.0000'
+          - category: Beverages
+            product: Steeleye Stout
+            unitPrice: '18.0000'
             quantity: '35.0000'
           - category: Beverages
             product: Steeleye Stout
             unitPrice: '18.0000'
             quantity: '30.0000'
-          - category: Condiments
-            product: Chef Anton's Cajun Seasoning
-            unitPrice: '22.0000'
-            quantity: '50.0000'
+          - category: Beverages
+            product: Steeleye Stout
+            unitPrice: '18.0000'
+            quantity: '9.0000'
+          - category: Beverages
+            product: Steeleye Stout
+            unitPrice: '14.4000'
+            quantity: '60.0000'
           - category: Condiments
             product: Chef Anton's Cajun Seasoning
             unitPrice: '22.0000'
@@ -5090,11 +5086,11 @@ test:
           - category: Condiments
             product: Chef Anton's Cajun Seasoning
             unitPrice: '22.0000'
-            quantity: '50.0000'
+            quantity: '20.0000'
           - category: Condiments
             product: Chef Anton's Cajun Seasoning
             unitPrice: '22.0000'
-            quantity: '20.0000'
+            quantity: '50.0000'
           - category: Condiments
             product: Chef Anton's Cajun Seasoning
             unitPrice: '22.0000'
@@ -5104,13 +5100,17 @@ test:
             unitPrice: '22.0000'
             quantity: '12.0000'
           - category: Condiments
-            product: Chef Anton's Gumbo Mix
-            unitPrice: '21.3500'
-            quantity: '15.0000'
+            product: Chef Anton's Cajun Seasoning
+            unitPrice: '22.0000'
+            quantity: '50.0000'
           - category: Condiments
             product: Chef Anton's Gumbo Mix
             unitPrice: '21.3500'
             quantity: '4.0000'
+          - category: Condiments
+            product: Chef Anton's Gumbo Mix
+            unitPrice: '21.3500'
+            quantity: '15.0000'
           - category: Condiments
             product: Genen Shouyu
             unitPrice: '15.5000'
@@ -5135,6 +5135,14 @@ test:
             product: Grandma's Boysenberry Spread
             unitPrice: '25.0000'
             quantity: '70.0000'
+          - category: Condiments
+            product: Gula Malacca
+            unitPrice: '19.4500'
+            quantity: '9.0000'
+          - category: Condiments
+            product: Gula Malacca
+            unitPrice: '15.5000'
+            quantity: '15.0000'
           - category: Condiments
             product: Gula Malacca
             unitPrice: '19.4500'
@@ -5170,11 +5178,11 @@ test:
           - category: Condiments
             product: Gula Malacca
             unitPrice: '19.4500'
-            quantity: '24.0000'
+            quantity: '21.0000'
           - category: Condiments
             product: Gula Malacca
             unitPrice: '19.4500'
-            quantity: '21.0000'
+            quantity: '24.0000'
           - category: Condiments
             product: Gula Malacca
             unitPrice: '19.4500'
@@ -5183,42 +5191,6 @@ test:
             product: Gula Malacca
             unitPrice: '15.5000'
             quantity: '100.0000'
-          - category: Condiments
-            product: Gula Malacca
-            unitPrice: '19.4500'
-            quantity: '9.0000'
-          - category: Condiments
-            product: Gula Malacca
-            unitPrice: '15.5000'
-            quantity: '15.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '21.0500'
-            quantity: '15.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '21.0500'
-            quantity: '21.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '21.0500'
-            quantity: '39.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '16.8000'
-            quantity: '35.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '21.0500'
-            quantity: '10.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '16.8000'
-            quantity: '15.0000'
-          - category: Condiments
-            product: Louisiana Fiery Hot Pepper Sauce
-            unitPrice: '21.0500'
-            quantity: '20.0000'
           - category: Condiments
             product: Louisiana Fiery Hot Pepper Sauce
             unitPrice: '16.8000'
@@ -5230,11 +5202,11 @@ test:
           - category: Condiments
             product: Louisiana Fiery Hot Pepper Sauce
             unitPrice: '21.0500'
-            quantity: '36.0000'
+            quantity: '12.0000'
           - category: Condiments
             product: Louisiana Fiery Hot Pepper Sauce
             unitPrice: '21.0500'
-            quantity: '12.0000'
+            quantity: '36.0000'
           - category: Condiments
             product: Louisiana Fiery Hot Pepper Sauce
             unitPrice: '21.0500'
@@ -5260,13 +5232,45 @@ test:
             unitPrice: '21.0500'
             quantity: '65.0000'
           - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '21.0500'
+            quantity: '15.0000'
+          - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '21.0500'
+            quantity: '21.0000'
+          - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '21.0500'
+            quantity: '39.0000'
+          - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '21.0500'
+            quantity: '10.0000'
+          - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '16.8000'
+            quantity: '35.0000'
+          - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '16.8000'
+            quantity: '15.0000'
+          - category: Condiments
+            product: Louisiana Fiery Hot Pepper Sauce
+            unitPrice: '21.0500'
+            quantity: '20.0000'
+          - category: Condiments
+            product: Louisiana Hot Spiced Okra
+            unitPrice: '13.6000'
+            quantity: '10.0000'
+          - category: Condiments
             product: Louisiana Hot Spiced Okra
             unitPrice: '13.6000'
             quantity: '60.0000'
           - category: Condiments
             product: Louisiana Hot Spiced Okra
-            unitPrice: '17.0000'
-            quantity: '24.0000'
+            unitPrice: '13.6000'
+            quantity: '60.0000'
           - category: Condiments
             product: Louisiana Hot Spiced Okra
             unitPrice: '17.0000'
@@ -5274,27 +5278,11 @@ test:
           - category: Condiments
             product: Louisiana Hot Spiced Okra
             unitPrice: '17.0000'
+            quantity: '24.0000'
+          - category: Condiments
+            product: Louisiana Hot Spiced Okra
+            unitPrice: '17.0000'
             quantity: '50.0000'
-          - category: Condiments
-            product: Louisiana Hot Spiced Okra
-            unitPrice: '13.6000'
-            quantity: '10.0000'
-          - category: Condiments
-            product: Louisiana Hot Spiced Okra
-            unitPrice: '13.6000'
-            quantity: '60.0000'
-          - category: Condiments
-            product: Northwoods Cranberry Sauce
-            unitPrice: '40.0000'
-            quantity: '30.0000'
-          - category: Condiments
-            product: Northwoods Cranberry Sauce
-            unitPrice: '40.0000'
-            quantity: '10.0000'
-          - category: Condiments
-            product: Northwoods Cranberry Sauce
-            unitPrice: '40.0000'
-            quantity: '10.0000'
           - category: Condiments
             product: Northwoods Cranberry Sauce
             unitPrice: '40.0000'
@@ -5304,33 +5292,17 @@ test:
             unitPrice: '40.0000'
             quantity: '40.0000'
           - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '10.4000'
-            quantity: '55.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '13.0000'
-            quantity: '70.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '10.4000'
-            quantity: '35.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '13.0000'
-            quantity: '5.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '13.0000'
-            quantity: '20.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '13.0000'
-            quantity: '35.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '10.4000'
+            product: Northwoods Cranberry Sauce
+            unitPrice: '40.0000'
             quantity: '30.0000'
+          - category: Condiments
+            product: Northwoods Cranberry Sauce
+            unitPrice: '40.0000'
+            quantity: '10.0000'
+          - category: Condiments
+            product: Northwoods Cranberry Sauce
+            unitPrice: '40.0000'
+            quantity: '10.0000'
           - category: Condiments
             product: Original Frankfurter grne Soe
             unitPrice: '13.0000'
@@ -5341,12 +5313,12 @@ test:
             quantity: '25.0000'
           - category: Condiments
             product: Original Frankfurter grne Soe
-            unitPrice: '13.0000'
-            quantity: '10.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
             unitPrice: '10.4000'
             quantity: '14.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '13.0000'
+            quantity: '10.0000'
           - category: Condiments
             product: Original Frankfurter grne Soe
             unitPrice: '10.4000'
@@ -5366,15 +5338,55 @@ test:
           - category: Condiments
             product: Original Frankfurter grne Soe
             unitPrice: '13.0000'
-            quantity: '60.0000'
-          - category: Condiments
-            product: Original Frankfurter grne Soe
-            unitPrice: '13.0000'
             quantity: '18.0000'
           - category: Condiments
             product: Original Frankfurter grne Soe
             unitPrice: '13.0000'
+            quantity: '60.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '13.0000'
             quantity: '2.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '10.4000'
+            quantity: '55.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '13.0000'
+            quantity: '70.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '10.4000'
+            quantity: '35.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '13.0000'
+            quantity: '20.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '13.0000'
+            quantity: '5.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '13.0000'
+            quantity: '35.0000'
+          - category: Condiments
+            product: Original Frankfurter grne Soe
+            unitPrice: '10.4000'
+            quantity: '30.0000'
+          - category: Condiments
+            product: Sirop d'rable
+            unitPrice: '28.5000'
+            quantity: '5.0000'
+          - category: Condiments
+            product: Sirop d'rable
+            unitPrice: '22.8000'
+            quantity: '16.0000'
+          - category: Condiments
+            product: Sirop d'rable
+            unitPrice: '28.5000'
+            quantity: '10.0000'
           - category: Condiments
             product: Sirop d'rable
             unitPrice: '28.5000'
@@ -5416,17 +5428,13 @@ test:
             unitPrice: '28.5000'
             quantity: '120.0000'
           - category: Condiments
-            product: Sirop d'rable
-            unitPrice: '28.5000'
-            quantity: '5.0000'
+            product: Vegie-spread
+            unitPrice: '43.9000'
+            quantity: '6.0000'
           - category: Condiments
-            product: Sirop d'rable
-            unitPrice: '22.8000'
-            quantity: '16.0000'
-          - category: Condiments
-            product: Sirop d'rable
-            unitPrice: '28.5000'
-            quantity: '10.0000'
+            product: Vegie-spread
+            unitPrice: '35.1000'
+            quantity: '65.0000'
           - category: Condiments
             product: Vegie-spread
             unitPrice: '43.9000'
@@ -5447,14 +5455,14 @@ test:
             product: Vegie-spread
             unitPrice: '43.9000'
             quantity: '30.0000'
-          - category: Condiments
-            product: Vegie-spread
-            unitPrice: '43.9000'
+          - category: Confections
+            product: Chocolade
+            unitPrice: '10.2000'
+            quantity: '15.0000'
+          - category: Confections
+            product: Chocolade
+            unitPrice: '12.7500'
             quantity: '6.0000'
-          - category: Condiments
-            product: Vegie-spread
-            unitPrice: '35.1000'
-            quantity: '65.0000'
           - category: Confections
             product: Chocolade
             unitPrice: '10.2000'
@@ -5468,13 +5476,53 @@ test:
             unitPrice: '12.7500'
             quantity: '24.0000'
           - category: Confections
-            product: Chocolade
-            unitPrice: '12.7500'
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
+            quantity: '30.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
+            quantity: '30.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
             quantity: '6.0000'
           - category: Confections
-            product: Chocolade
-            unitPrice: '10.2000'
+            product: Gumbr Gummibrchen
+            unitPrice: '31.2300'
+            quantity: '30.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '31.2300'
+            quantity: '12.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '31.2300'
+            quantity: '30.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
+            quantity: '30.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '31.2300'
             quantity: '15.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
+            quantity: '30.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
+            quantity: '70.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '24.9000'
+            quantity: '10.0000'
+          - category: Confections
+            product: Gumbr Gummibrchen
+            unitPrice: '31.2300'
+            quantity: '20.0000'
           - category: Confections
             product: Gumbr Gummibrchen
             unitPrice: '31.2300'
@@ -5504,53 +5552,21 @@ test:
             unitPrice: '31.2300'
             quantity: '5.0000'
           - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
-            quantity: '6.0000'
+            product: Maxilaku
+            unitPrice: '16.0000'
+            quantity: '21.0000'
           - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
+            product: Maxilaku
+            unitPrice: '16.0000'
             quantity: '30.0000'
           - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
-            quantity: '30.0000'
+            product: Maxilaku
+            unitPrice: '20.0000'
+            quantity: '18.0000'
           - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '31.2300'
-            quantity: '30.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '31.2300'
-            quantity: '30.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
-            quantity: '30.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '31.2300'
-            quantity: '12.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '31.2300'
-            quantity: '15.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
-            quantity: '30.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
-            quantity: '10.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '24.9000'
-            quantity: '70.0000'
-          - category: Confections
-            product: Gumbr Gummibrchen
-            unitPrice: '31.2300'
-            quantity: '20.0000'
+            product: Maxilaku
+            unitPrice: '20.0000'
+            quantity: '25.0000'
           - category: Confections
             product: Maxilaku
             unitPrice: '16.0000'
@@ -5568,34 +5584,6 @@ test:
             unitPrice: '16.0000'
             quantity: '24.0000'
           - category: Confections
-            product: Maxilaku
-            unitPrice: '16.0000'
-            quantity: '21.0000'
-          - category: Confections
-            product: Maxilaku
-            unitPrice: '16.0000'
-            quantity: '30.0000'
-          - category: Confections
-            product: Maxilaku
-            unitPrice: '20.0000'
-            quantity: '18.0000'
-          - category: Confections
-            product: Maxilaku
-            unitPrice: '20.0000'
-            quantity: '25.0000'
-          - category: Confections
-            product: NuNuCa Nu-Nougat-Creme
-            unitPrice: '14.0000'
-            quantity: '35.0000'
-          - category: Confections
-            product: NuNuCa Nu-Nougat-Creme
-            unitPrice: '11.2000'
-            quantity: '12.0000'
-          - category: Confections
-            product: NuNuCa Nu-Nougat-Creme
-            unitPrice: '11.2000'
-            quantity: '7.0000'
-          - category: Confections
             product: NuNuCa Nu-Nougat-Creme
             unitPrice: '14.0000'
             quantity: '12.0000'
@@ -5608,37 +5596,17 @@ test:
             unitPrice: '14.0000'
             quantity: '18.0000'
           - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '14.0000'
+            product: NuNuCa Nu-Nougat-Creme
+            unitPrice: '11.2000'
+            quantity: '12.0000'
           - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '20.0000'
+            product: NuNuCa Nu-Nougat-Creme
+            unitPrice: '14.0000'
+            quantity: '35.0000'
           - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '40.0000'
-          - category: Confections
-            product: Pavlova
-            unitPrice: '13.9000'
-            quantity: '49.0000'
-          - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '50.0000'
-          - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '3.0000'
-          - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '30.0000'
-          - category: Confections
-            product: Pavlova
-            unitPrice: '17.4500'
-            quantity: '30.0000'
+            product: NuNuCa Nu-Nougat-Creme
+            unitPrice: '11.2000'
+            quantity: '7.0000'
           - category: Confections
             product: Pavlova
             unitPrice: '17.4500'
@@ -5647,14 +5615,14 @@ test:
             product: Pavlova
             unitPrice: '17.4500'
             quantity: '20.0000'
-          - category: Confections
-            product: Pavlova
-            unitPrice: '13.9000'
-            quantity: '21.0000'
           - category: Confections
             product: Pavlova
             unitPrice: '17.4500'
             quantity: '10.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '13.9000'
+            quantity: '21.0000'
           - category: Confections
             product: Pavlova
             unitPrice: '13.9000'
@@ -5688,13 +5656,37 @@ test:
             unitPrice: '13.9000'
             quantity: '16.0000'
           - category: Confections
-            product: Schoggi Schokolade
-            unitPrice: '43.9000'
+            product: Pavlova
+            unitPrice: '17.4500'
+            quantity: '14.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '17.4500'
+            quantity: '40.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '17.4500'
+            quantity: '20.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '13.9000'
+            quantity: '49.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '17.4500'
             quantity: '50.0000'
           - category: Confections
-            product: Schoggi Schokolade
-            unitPrice: '43.9000'
-            quantity: '40.0000'
+            product: Pavlova
+            unitPrice: '17.4500'
+            quantity: '3.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '17.4500'
+            quantity: '30.0000'
+          - category: Confections
+            product: Pavlova
+            unitPrice: '17.4500'
+            quantity: '30.0000'
           - category: Confections
             product: Schoggi Schokolade
             unitPrice: '35.1000'
@@ -5703,6 +5695,46 @@ test:
             product: Schoggi Schokolade
             unitPrice: '43.9000'
             quantity: '120.0000'
+          - category: Confections
+            product: Schoggi Schokolade
+            unitPrice: '43.9000'
+            quantity: '40.0000'
+          - category: Confections
+            product: Schoggi Schokolade
+            unitPrice: '43.9000'
+            quantity: '50.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '40.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '40.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '18.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '6.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '15.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '15.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '18.0000'
+          - category: Confections
+            product: Scottish Longbreads
+            unitPrice: '12.5000'
+            quantity: '6.0000'
           - category: Confections
             product: Scottish Longbreads
             unitPrice: '12.5000'
@@ -5714,47 +5746,11 @@ test:
           - category: Confections
             product: Scottish Longbreads
             unitPrice: '12.5000'
-            quantity: '10.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
             quantity: '20.0000'
           - category: Confections
             product: Scottish Longbreads
             unitPrice: '12.5000'
-            quantity: '40.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '40.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '18.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '6.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '15.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '15.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '18.0000'
-          - category: Confections
-            product: Scottish Longbreads
-            unitPrice: '12.5000'
-            quantity: '6.0000'
-          - category: Confections
-            product: Sir Rodney's Marmalade
-            unitPrice: '81.0000'
-            quantity: '15.0000'
+            quantity: '10.0000'
           - category: Confections
             product: Sir Rodney's Marmalade
             unitPrice: '81.0000'
@@ -5768,40 +5764,8 @@ test:
             unitPrice: '81.0000'
             quantity: '21.0000'
           - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
-            quantity: '3.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
-            quantity: '30.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
-            quantity: '10.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
-            quantity: '10.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '39.4000'
-            quantity: '10.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
-            quantity: '10.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
-            quantity: '20.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '39.4000'
-            quantity: '40.0000'
-          - category: Confections
-            product: Tarte au sucre
-            unitPrice: '49.3000'
+            product: Sir Rodney's Marmalade
+            unitPrice: '81.0000'
             quantity: '15.0000'
           - category: Confections
             product: Tarte au sucre
@@ -5825,12 +5789,12 @@ test:
             quantity: '15.0000'
           - category: Confections
             product: Tarte au sucre
-            unitPrice: '39.4000'
-            quantity: '35.0000'
-          - category: Confections
-            product: Tarte au sucre
             unitPrice: '49.3000'
             quantity: '10.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '39.4000'
+            quantity: '35.0000'
           - category: Confections
             product: Tarte au sucre
             unitPrice: '49.3000'
@@ -5848,9 +5812,41 @@ test:
             unitPrice: '49.3000'
             quantity: '20.0000'
           - category: Confections
-            product: Valkoinen suklaa
-            unitPrice: '13.0000'
-            quantity: '25.0000'
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '10.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '3.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '30.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '10.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '39.4000'
+            quantity: '10.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '10.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '20.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '39.4000'
+            quantity: '40.0000'
+          - category: Confections
+            product: Tarte au sucre
+            unitPrice: '49.3000'
+            quantity: '15.0000'
           - category: Confections
             product: Valkoinen suklaa
             unitPrice: '16.2500'
@@ -5867,6 +5863,78 @@ test:
             product: Valkoinen suklaa
             unitPrice: '16.2500'
             quantity: '25.0000'
+          - category: Confections
+            product: Valkoinen suklaa
+            unitPrice: '13.0000'
+            quantity: '25.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '27.2000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '10.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '27.2000'
+            quantity: '6.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '70.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '55.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '35.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '27.2000'
+            quantity: '60.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '50.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '30.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '24.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '27.2000'
+            quantity: '40.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '10.0000'
+          - category: Dairy Products
+            product: Camembert Pierrot
+            unitPrice: '34.0000'
+            quantity: '20.0000'
           - category: Dairy Products
             product: Camembert Pierrot
             unitPrice: '34.0000'
@@ -5888,118 +5956,6 @@ test:
             unitPrice: '34.0000'
             quantity: '84.0000'
           - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '27.2000'
-            quantity: '20.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '27.2000'
-            quantity: '6.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '10.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '70.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '55.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '35.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '27.2000'
-            quantity: '60.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '50.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '30.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '24.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '27.2000'
-            quantity: '40.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '20.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '10.0000'
-          - category: Dairy Products
-            product: Camembert Pierrot
-            unitPrice: '34.0000'
-            quantity: '20.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '60.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '8.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '12.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '17.2000'
-            quantity: '12.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '9.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '30.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '17.2000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '21.5000'
-            quantity: '20.0000'
-          - category: Dairy Products
-            product: Flotemysost
-            unitPrice: '17.2000'
-            quantity: '30.0000'
-          - category: Dairy Products
             product: Flotemysost
             unitPrice: '21.5000'
             quantity: '20.0000'
@@ -6044,6 +6000,110 @@ test:
             unitPrice: '17.2000'
             quantity: '50.0000'
           - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '8.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '60.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '17.2000'
+            quantity: '12.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '12.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '9.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '30.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '17.2000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '21.5000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Flotemysost
+            unitPrice: '17.2000'
+            quantity: '30.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '1.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '10.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '8.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '50.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '55.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '30.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '16.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '2.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '6.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '35.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '60.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '50.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Gorgonzola Telino
+            unitPrice: '12.5000'
+            quantity: '20.0000'
+          - category: Dairy Products
             product: Gorgonzola Telino
             unitPrice: '12.5000'
             quantity: '20.0000'
@@ -6072,65 +6132,49 @@ test:
             unitPrice: '12.5000'
             quantity: '3.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '10.0000'
-          - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '1.0000'
-          - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '8.0000'
-          - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '50.0000'
-          - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
             quantity: '20.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '55.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '40.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
             quantity: '30.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '16.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '28.8000'
+            quantity: '15.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '2.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '30.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '6.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '18.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '35.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '10.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
+            product: Gudbrandsdalsost
+            unitPrice: '28.8000'
             quantity: '50.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '20.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '25.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '20.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '65.0000'
           - category: Dairy Products
-            product: Gorgonzola Telino
-            unitPrice: '12.5000'
-            quantity: '60.0000'
+            product: Gudbrandsdalsost
+            unitPrice: '36.0000'
+            quantity: '3.0000'
           - category: Dairy Products
             product: Gudbrandsdalsost
             unitPrice: '36.0000'
@@ -6164,49 +6208,13 @@ test:
             unitPrice: '36.0000'
             quantity: '10.0000'
           - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '20.0000'
+            product: Mascarpone Fabioli
+            unitPrice: '32.0000'
+            quantity: '4.0000'
           - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '30.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '40.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '28.8000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '30.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '18.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '28.8000'
+            product: Mascarpone Fabioli
+            unitPrice: '32.0000'
             quantity: '50.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '10.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '65.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '25.0000'
-          - category: Dairy Products
-            product: Gudbrandsdalsost
-            unitPrice: '36.0000'
-            quantity: '3.0000'
           - category: Dairy Products
             product: Mascarpone Fabioli
             unitPrice: '32.0000'
@@ -6220,13 +6228,37 @@ test:
             unitPrice: '32.0000'
             quantity: '24.0000'
           - category: Dairy Products
-            product: Mascarpone Fabioli
-            unitPrice: '32.0000'
-            quantity: '4.0000'
+            product: Mozzarella di Giovanni
+            unitPrice: '34.8000'
+            quantity: '21.0000'
           - category: Dairy Products
-            product: Mascarpone Fabioli
-            unitPrice: '32.0000'
-            quantity: '50.0000'
+            product: Mozzarella di Giovanni
+            unitPrice: '27.8000'
+            quantity: '21.0000'
+          - category: Dairy Products
+            product: Mozzarella di Giovanni
+            unitPrice: '34.8000'
+            quantity: '1.0000'
+          - category: Dairy Products
+            product: Mozzarella di Giovanni
+            unitPrice: '34.8000'
+            quantity: '60.0000'
+          - category: Dairy Products
+            product: Mozzarella di Giovanni
+            unitPrice: '34.8000'
+            quantity: '24.0000'
+          - category: Dairy Products
+            product: Mozzarella di Giovanni
+            unitPrice: '34.8000'
+            quantity: '9.0000'
+          - category: Dairy Products
+            product: Mozzarella di Giovanni
+            unitPrice: '27.8000'
+            quantity: '25.0000'
+          - category: Dairy Products
+            product: Mozzarella di Giovanni
+            unitPrice: '34.8000'
+            quantity: '15.0000'
           - category: Dairy Products
             product: Mozzarella di Giovanni
             unitPrice: '34.8000'
@@ -6259,70 +6291,6 @@ test:
             product: Mozzarella di Giovanni
             unitPrice: '34.8000'
             quantity: '7.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '34.8000'
-            quantity: '21.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '27.8000'
-            quantity: '21.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '34.8000'
-            quantity: '60.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '34.8000'
-            quantity: '1.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '34.8000'
-            quantity: '24.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '34.8000'
-            quantity: '9.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '27.8000'
-            quantity: '25.0000'
-          - category: Dairy Products
-            product: Mozzarella di Giovanni
-            unitPrice: '34.8000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '16.8000'
-            quantity: '10.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '21.0000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '16.8000'
-            quantity: '30.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '16.8000'
-            quantity: '30.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '21.0000'
-            quantity: '3.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '21.0000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '21.0000'
-            quantity: '5.0000'
-          - category: Dairy Products
-            product: Queso Cabrales
-            unitPrice: '21.0000'
-            quantity: '10.0000'
           - category: Dairy Products
             product: Queso Cabrales
             unitPrice: '21.0000'
@@ -6368,9 +6336,37 @@ test:
             unitPrice: '21.0000'
             quantity: '15.0000'
           - category: Dairy Products
-            product: Queso Manchego La Pastora
-            unitPrice: '30.4000'
+            product: Queso Cabrales
+            unitPrice: '16.8000'
+            quantity: '10.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '21.0000'
             quantity: '15.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '16.8000'
+            quantity: '30.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '16.8000'
+            quantity: '30.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '21.0000'
+            quantity: '3.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '21.0000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '21.0000'
+            quantity: '5.0000'
+          - category: Dairy Products
+            product: Queso Cabrales
+            unitPrice: '21.0000'
+            quantity: '10.0000'
           - category: Dairy Products
             product: Queso Manchego La Pastora
             unitPrice: '38.0000'
@@ -6396,6 +6392,66 @@ test:
             unitPrice: '38.0000'
             quantity: '4.0000'
           - category: Dairy Products
+            product: Queso Manchego La Pastora
+            unitPrice: '30.4000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '15.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '44.0000'
+            quantity: '12.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '7.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '44.0000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '8.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '10.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '25.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '42.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '44.0000'
+            quantity: '70.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '44.0000'
+            quantity: '16.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '45.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '44.0000'
+            quantity: '9.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '20.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
+            quantity: '35.0000'
+          - category: Dairy Products
             product: Raclette Courdavault
             unitPrice: '55.0000'
             quantity: '12.0000'
@@ -6446,119 +6502,15 @@ test:
           - category: Dairy Products
             product: Raclette Courdavault
             unitPrice: '55.0000'
-            quantity: '12.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
             quantity: '6.0000'
           - category: Dairy Products
             product: Raclette Courdavault
             unitPrice: '55.0000'
+            quantity: '12.0000'
+          - category: Dairy Products
+            product: Raclette Courdavault
+            unitPrice: '55.0000'
             quantity: '1.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '44.0000'
-            quantity: '12.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '15.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '7.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '44.0000'
-            quantity: '20.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '8.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '10.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '25.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '44.0000'
-            quantity: '70.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '44.0000'
-            quantity: '16.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '42.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '45.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '44.0000'
-            quantity: '9.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '20.0000'
-          - category: Dairy Products
-            product: Raclette Courdavault
-            unitPrice: '55.0000'
-            quantity: '35.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '10.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '30.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '30.4000'
-            quantity: '30.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '20.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '20.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '60.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '28.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '30.4000'
-            quantity: '70.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '30.4000'
-            quantity: '14.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '30.4000'
-            quantity: '20.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '30.4000'
-            quantity: '15.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '28.0000'
           - category: Grains/Cereals
             product: Gnocchi di nonna Alice
             unitPrice: '38.0000'
@@ -6579,14 +6531,14 @@ test:
             product: Gnocchi di nonna Alice
             unitPrice: '38.0000'
             quantity: '14.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '30.4000'
+            quantity: '30.0000'
           - category: Grains/Cereals
             product: Gnocchi di nonna Alice
             unitPrice: '30.4000'
             quantity: '5.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
-            unitPrice: '30.4000'
-            quantity: '30.0000'
           - category: Grains/Cereals
             product: Gnocchi di nonna Alice
             unitPrice: '38.0000'
@@ -6625,12 +6577,12 @@ test:
             quantity: '28.0000'
           - category: Grains/Cereals
             product: Gnocchi di nonna Alice
-            unitPrice: '38.0000'
-            quantity: '20.0000'
-          - category: Grains/Cereals
-            product: Gnocchi di nonna Alice
             unitPrice: '30.4000'
             quantity: '30.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '20.0000'
           - category: Grains/Cereals
             product: Gnocchi di nonna Alice
             unitPrice: '38.0000'
@@ -6643,6 +6595,78 @@ test:
             product: Gnocchi di nonna Alice
             unitPrice: '38.0000'
             quantity: '30.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '10.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '30.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '30.4000'
+            quantity: '30.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '20.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '20.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '60.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '28.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '30.4000'
+            quantity: '70.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '30.4000'
+            quantity: '14.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '30.4000'
+            quantity: '20.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '38.0000'
+            quantity: '28.0000'
+          - category: Grains/Cereals
+            product: Gnocchi di nonna Alice
+            unitPrice: '30.4000'
+            quantity: '15.0000'
+          - category: Grains/Cereals
+            product: Gustaf's Knckebrd
+            unitPrice: '21.0000'
+            quantity: '4.0000'
+          - category: Grains/Cereals
+            product: Gustaf's Knckebrd
+            unitPrice: '21.0000'
+            quantity: '20.0000'
+          - category: Grains/Cereals
+            product: Gustaf's Knckebrd
+            unitPrice: '21.0000'
+            quantity: '24.0000'
+          - category: Grains/Cereals
+            product: Gustaf's Knckebrd
+            unitPrice: '21.0000'
+            quantity: '6.0000'
+          - category: Grains/Cereals
+            product: Gustaf's Knckebrd
+            unitPrice: '16.8000'
+            quantity: '12.0000'
+          - category: Grains/Cereals
+            product: Gustaf's Knckebrd
+            unitPrice: '21.0000'
+            quantity: '40.0000'
           - category: Grains/Cereals
             product: Gustaf's Knckebrd
             unitPrice: '21.0000'
@@ -6656,46 +6680,6 @@ test:
             unitPrice: '21.0000'
             quantity: '40.0000'
           - category: Grains/Cereals
-            product: Gustaf's Knckebrd
-            unitPrice: '21.0000'
-            quantity: '4.0000'
-          - category: Grains/Cereals
-            product: Gustaf's Knckebrd
-            unitPrice: '21.0000'
-            quantity: '20.0000'
-          - category: Grains/Cereals
-            product: Gustaf's Knckebrd
-            unitPrice: '21.0000'
-            quantity: '24.0000'
-          - category: Grains/Cereals
-            product: Gustaf's Knckebrd
-            unitPrice: '21.0000'
-            quantity: '6.0000'
-          - category: Grains/Cereals
-            product: Gustaf's Knckebrd
-            unitPrice: '16.8000'
-            quantity: '12.0000'
-          - category: Grains/Cereals
-            product: Gustaf's Knckebrd
-            unitPrice: '21.0000'
-            quantity: '40.0000'
-          - category: Grains/Cereals
-            product: Ravioli Angelo
-            unitPrice: '19.5000'
-            quantity: '40.0000'
-          - category: Grains/Cereals
-            product: Ravioli Angelo
-            unitPrice: '15.6000'
-            quantity: '15.0000'
-          - category: Grains/Cereals
-            product: Ravioli Angelo
-            unitPrice: '19.5000'
-            quantity: '6.0000'
-          - category: Grains/Cereals
-            product: Ravioli Angelo
-            unitPrice: '19.5000'
-            quantity: '20.0000'
-          - category: Grains/Cereals
             product: Ravioli Angelo
             unitPrice: '19.5000'
             quantity: '4.0000'
@@ -6712,41 +6696,21 @@ test:
             unitPrice: '15.6000'
             quantity: '20.0000'
           - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '11.2000'
+            product: Ravioli Angelo
+            unitPrice: '19.5000'
             quantity: '40.0000'
           - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '11.2000'
-            quantity: '20.0000'
+            product: Ravioli Angelo
+            unitPrice: '15.6000'
+            quantity: '15.0000'
           - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
+            product: Ravioli Angelo
+            unitPrice: '19.5000'
             quantity: '6.0000'
           - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
-            quantity: '30.0000'
-          - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
-            quantity: '2.0000'
-          - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
-            quantity: '28.0000'
-          - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
-            quantity: '12.0000'
-          - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
-            quantity: '28.0000'
-          - category: Grains/Cereals
-            product: Singaporean Hokkien Fried Mee
-            unitPrice: '14.0000'
-            quantity: '100.0000'
+            product: Ravioli Angelo
+            unitPrice: '19.5000'
+            quantity: '20.0000'
           - category: Grains/Cereals
             product: Singaporean Hokkien Fried Mee
             unitPrice: '14.0000'
@@ -6772,21 +6736,41 @@ test:
             unitPrice: '14.0000'
             quantity: '5.0000'
           - category: Grains/Cereals
-            product: Wimmers gute Semmelkndel
-            unitPrice: '33.2500'
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '11.2000'
+            quantity: '40.0000'
+          - category: Grains/Cereals
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
+            quantity: '6.0000'
+          - category: Grains/Cereals
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '11.2000'
+            quantity: '20.0000'
+          - category: Grains/Cereals
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
             quantity: '30.0000'
           - category: Grains/Cereals
-            product: Wimmers gute Semmelkndel
-            unitPrice: '26.6000'
-            quantity: '7.0000'
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
+            quantity: '2.0000'
           - category: Grains/Cereals
-            product: Wimmers gute Semmelkndel
-            unitPrice: '33.2500'
-            quantity: '15.0000'
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
+            quantity: '28.0000'
           - category: Grains/Cereals
-            product: Wimmers gute Semmelkndel
-            unitPrice: '26.6000'
-            quantity: '30.0000'
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
+            quantity: '28.0000'
+          - category: Grains/Cereals
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
+            quantity: '12.0000'
+          - category: Grains/Cereals
+            product: Singaporean Hokkien Fried Mee
+            unitPrice: '14.0000'
+            quantity: '100.0000'
           - category: Grains/Cereals
             product: Wimmers gute Semmelkndel
             unitPrice: '26.6000'
@@ -6805,12 +6789,12 @@ test:
             quantity: '8.0000'
           - category: Grains/Cereals
             product: Wimmers gute Semmelkndel
-            unitPrice: '26.6000'
-            quantity: '30.0000'
-          - category: Grains/Cereals
-            product: Wimmers gute Semmelkndel
             unitPrice: '33.2500'
             quantity: '6.0000'
+          - category: Grains/Cereals
+            product: Wimmers gute Semmelkndel
+            unitPrice: '26.6000'
+            quantity: '30.0000'
           - category: Grains/Cereals
             product: Wimmers gute Semmelkndel
             unitPrice: '33.2500'
@@ -6823,22 +6807,22 @@ test:
             product: Wimmers gute Semmelkndel
             unitPrice: '33.2500'
             quantity: '9.0000'
-          - category: Meat/Poultry
-            product: Alice Mutton
-            unitPrice: '39.0000'
-            quantity: '40.0000'
-          - category: Meat/Poultry
-            product: Alice Mutton
-            unitPrice: '39.0000'
-            quantity: '16.0000'
-          - category: Meat/Poultry
-            product: Alice Mutton
-            unitPrice: '39.0000'
-            quantity: '8.0000'
-          - category: Meat/Poultry
-            product: Alice Mutton
-            unitPrice: '39.0000'
-            quantity: '27.0000'
+          - category: Grains/Cereals
+            product: Wimmers gute Semmelkndel
+            unitPrice: '33.2500'
+            quantity: '30.0000'
+          - category: Grains/Cereals
+            product: Wimmers gute Semmelkndel
+            unitPrice: '26.6000'
+            quantity: '7.0000'
+          - category: Grains/Cereals
+            product: Wimmers gute Semmelkndel
+            unitPrice: '33.2500'
+            quantity: '15.0000'
+          - category: Grains/Cereals
+            product: Wimmers gute Semmelkndel
+            unitPrice: '26.6000'
+            quantity: '30.0000'
           - category: Meat/Poultry
             product: Alice Mutton
             unitPrice: '31.2000'
@@ -6892,9 +6876,21 @@ test:
             unitPrice: '39.0000'
             quantity: '18.0000'
           - category: Meat/Poultry
-            product: Mishi Kobe Niku
-            unitPrice: '97.0000'
-            quantity: '50.0000'
+            product: Alice Mutton
+            unitPrice: '39.0000'
+            quantity: '40.0000'
+          - category: Meat/Poultry
+            product: Alice Mutton
+            unitPrice: '39.0000'
+            quantity: '16.0000'
+          - category: Meat/Poultry
+            product: Alice Mutton
+            unitPrice: '39.0000'
+            quantity: '8.0000'
+          - category: Meat/Poultry
+            product: Alice Mutton
+            unitPrice: '39.0000'
+            quantity: '27.0000'
           - category: Meat/Poultry
             product: Mishi Kobe Niku
             unitPrice: '97.0000'
@@ -6908,29 +6904,9 @@ test:
             unitPrice: '97.0000'
             quantity: '6.0000'
           - category: Meat/Poultry
-            product: Perth Pasties
-            unitPrice: '26.2000'
-            quantity: '15.0000'
-          - category: Meat/Poultry
-            product: Perth Pasties
-            unitPrice: '32.8000'
-            quantity: '5.0000'
-          - category: Meat/Poultry
-            product: Perth Pasties
-            unitPrice: '32.8000'
-            quantity: '25.0000'
-          - category: Meat/Poultry
-            product: Perth Pasties
-            unitPrice: '32.8000'
-            quantity: '25.0000'
-          - category: Meat/Poultry
-            product: Perth Pasties
-            unitPrice: '32.8000'
-            quantity: '12.0000'
-          - category: Meat/Poultry
-            product: Perth Pasties
-            unitPrice: '26.2000'
-            quantity: '10.0000'
+            product: Mishi Kobe Niku
+            unitPrice: '97.0000'
+            quantity: '50.0000'
           - category: Meat/Poultry
             product: Perth Pasties
             unitPrice: '32.8000'
@@ -6976,21 +6952,29 @@ test:
             unitPrice: '26.2000'
             quantity: '20.0000'
           - category: Meat/Poultry
-            product: Pt chinois
-            unitPrice: '19.2000'
-            quantity: '120.0000'
+            product: Perth Pasties
+            unitPrice: '26.2000'
+            quantity: '15.0000'
           - category: Meat/Poultry
-            product: Pt chinois
-            unitPrice: '24.0000'
+            product: Perth Pasties
+            unitPrice: '32.8000'
+            quantity: '5.0000'
+          - category: Meat/Poultry
+            product: Perth Pasties
+            unitPrice: '32.8000'
+            quantity: '25.0000'
+          - category: Meat/Poultry
+            product: Perth Pasties
+            unitPrice: '32.8000'
+            quantity: '25.0000'
+          - category: Meat/Poultry
+            product: Perth Pasties
+            unitPrice: '32.8000'
             quantity: '12.0000'
           - category: Meat/Poultry
-            product: Pt chinois
-            unitPrice: '19.2000'
-            quantity: '120.0000'
-          - category: Meat/Poultry
-            product: Pt chinois
-            unitPrice: '24.0000'
-            quantity: '25.0000'
+            product: Perth Pasties
+            unitPrice: '26.2000'
+            quantity: '10.0000'
           - category: Meat/Poultry
             product: Pt chinois
             unitPrice: '24.0000'
@@ -7010,11 +6994,11 @@ test:
           - category: Meat/Poultry
             product: Pt chinois
             unitPrice: '24.0000'
-            quantity: '4.0000'
+            quantity: '14.0000'
           - category: Meat/Poultry
             product: Pt chinois
             unitPrice: '24.0000'
-            quantity: '14.0000'
+            quantity: '4.0000'
           - category: Meat/Poultry
             product: Pt chinois
             unitPrice: '24.0000'
@@ -7030,6 +7014,10 @@ test:
           - category: Meat/Poultry
             product: Pt chinois
             unitPrice: '24.0000'
+            quantity: '5.0000'
+          - category: Meat/Poultry
+            product: Pt chinois
+            unitPrice: '24.0000'
             quantity: '18.0000'
           - category: Meat/Poultry
             product: Pt chinois
@@ -7037,24 +7025,20 @@ test:
             quantity: '60.0000'
           - category: Meat/Poultry
             product: Pt chinois
+            unitPrice: '19.2000'
+            quantity: '120.0000'
+          - category: Meat/Poultry
+            product: Pt chinois
             unitPrice: '24.0000'
-            quantity: '5.0000'
+            quantity: '12.0000'
           - category: Meat/Poultry
-            product: Thringer Rostbratwurst
-            unitPrice: '99.0000'
-            quantity: '18.0000'
+            product: Pt chinois
+            unitPrice: '19.2000'
+            quantity: '120.0000'
           - category: Meat/Poultry
-            product: Thringer Rostbratwurst
-            unitPrice: '123.7900'
-            quantity: '20.0000'
-          - category: Meat/Poultry
-            product: Thringer Rostbratwurst
-            unitPrice: '123.7900'
-            quantity: '40.0000'
-          - category: Meat/Poultry
-            product: Thringer Rostbratwurst
-            unitPrice: '123.7900'
-            quantity: '10.0000'
+            product: Pt chinois
+            unitPrice: '24.0000'
+            quantity: '25.0000'
           - category: Meat/Poultry
             product: Thringer Rostbratwurst
             unitPrice: '123.7900'
@@ -7095,6 +7079,62 @@ test:
             product: Thringer Rostbratwurst
             unitPrice: '99.0000'
             quantity: '21.0000'
+          - category: Meat/Poultry
+            product: Thringer Rostbratwurst
+            unitPrice: '99.0000'
+            quantity: '18.0000'
+          - category: Meat/Poultry
+            product: Thringer Rostbratwurst
+            unitPrice: '123.7900'
+            quantity: '20.0000'
+          - category: Meat/Poultry
+            product: Thringer Rostbratwurst
+            unitPrice: '123.7900'
+            quantity: '40.0000'
+          - category: Meat/Poultry
+            product: Thringer Rostbratwurst
+            unitPrice: '123.7900'
+            quantity: '10.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '42.4000'
+            quantity: '3.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '42.4000'
+            quantity: '25.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '3.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '7.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '28.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '30.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '20.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '50.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '20.0000'
+          - category: Produce
+            product: Manjimup Dried Apples
+            unitPrice: '53.0000'
+            quantity: '120.0000'
           - category: Produce
             product: Manjimup Dried Apples
             unitPrice: '53.0000'
@@ -7128,74 +7168,6 @@ test:
             unitPrice: '53.0000'
             quantity: '28.0000'
           - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '42.4000'
-            quantity: '25.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '42.4000'
-            quantity: '3.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '3.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '7.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '28.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '30.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '20.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '50.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '120.0000'
-          - category: Produce
-            product: Manjimup Dried Apples
-            unitPrice: '53.0000'
-            quantity: '20.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '45.6000'
-            quantity: '7.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '36.4000'
-            quantity: '42.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '36.4000'
-            quantity: '30.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '45.6000'
-            quantity: '5.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '36.4000'
-            quantity: '12.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '45.6000'
-            quantity: '20.0000'
-          - category: Produce
-            product: Rssle Sauerkraut
-            unitPrice: '45.6000'
-            quantity: '20.0000'
-          - category: Produce
             product: Rssle Sauerkraut
             unitPrice: '45.6000'
             quantity: '8.0000'
@@ -7232,33 +7204,33 @@ test:
             unitPrice: '45.6000'
             quantity: '35.0000'
           - category: Produce
-            product: Tofu
-            unitPrice: '18.6000'
-            quantity: '12.0000'
+            product: Rssle Sauerkraut
+            unitPrice: '36.4000'
+            quantity: '42.0000'
           - category: Produce
-            product: Tofu
-            unitPrice: '23.2500'
-            quantity: '15.0000'
+            product: Rssle Sauerkraut
+            unitPrice: '45.6000'
+            quantity: '7.0000'
           - category: Produce
-            product: Tofu
-            unitPrice: '23.2500'
-            quantity: '5.0000'
-          - category: Produce
-            product: Tofu
-            unitPrice: '23.2500'
+            product: Rssle Sauerkraut
+            unitPrice: '36.4000'
             quantity: '30.0000'
           - category: Produce
-            product: Tofu
-            unitPrice: '23.2500'
-            quantity: '21.0000'
+            product: Rssle Sauerkraut
+            unitPrice: '45.6000'
+            quantity: '5.0000'
           - category: Produce
-            product: Tofu
-            unitPrice: '23.2500'
-            quantity: '3.0000'
+            product: Rssle Sauerkraut
+            unitPrice: '36.4000'
+            quantity: '12.0000'
           - category: Produce
-            product: Tofu
-            unitPrice: '18.6000'
-            quantity: '35.0000'
+            product: Rssle Sauerkraut
+            unitPrice: '45.6000'
+            quantity: '20.0000'
+          - category: Produce
+            product: Rssle Sauerkraut
+            unitPrice: '45.6000'
+            quantity: '20.0000'
           - category: Produce
             product: Tofu
             unitPrice: '23.2500'
@@ -7292,13 +7264,33 @@ test:
             unitPrice: '18.6000'
             quantity: '20.0000'
           - category: Produce
-            product: Uncle Bob's Organic Dried Pears
-            unitPrice: '30.0000'
+            product: Tofu
+            unitPrice: '18.6000'
+            quantity: '12.0000'
+          - category: Produce
+            product: Tofu
+            unitPrice: '23.2500'
+            quantity: '15.0000'
+          - category: Produce
+            product: Tofu
+            unitPrice: '23.2500'
+            quantity: '5.0000'
+          - category: Produce
+            product: Tofu
+            unitPrice: '23.2500'
+            quantity: '30.0000'
+          - category: Produce
+            product: Tofu
+            unitPrice: '23.2500'
+            quantity: '21.0000'
+          - category: Produce
+            product: Tofu
+            unitPrice: '23.2500'
             quantity: '3.0000'
           - category: Produce
-            product: Uncle Bob's Organic Dried Pears
-            unitPrice: '30.0000'
-            quantity: '45.0000'
+            product: Tofu
+            unitPrice: '18.6000'
+            quantity: '35.0000'
           - category: Produce
             product: Uncle Bob's Organic Dried Pears
             unitPrice: '30.0000'
@@ -7331,30 +7323,14 @@ test:
             product: Uncle Bob's Organic Dried Pears
             unitPrice: '30.0000'
             quantity: '35.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '14.7000'
-            quantity: '20.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '14.7000'
-            quantity: '21.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '18.4000'
-            quantity: '20.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '14.7000'
-            quantity: '10.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '14.7000'
-            quantity: '2.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '18.4000'
-            quantity: '10.0000'
+          - category: Produce
+            product: Uncle Bob's Organic Dried Pears
+            unitPrice: '30.0000'
+            quantity: '3.0000'
+          - category: Produce
+            product: Uncle Bob's Organic Dried Pears
+            unitPrice: '30.0000'
+            quantity: '45.0000'
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
@@ -7366,10 +7342,6 @@ test:
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
-            quantity: '42.0000'
-          - category: Seafood
-            product: Boston Crab Meat
-            unitPrice: '18.4000'
             quantity: '3.0000'
           - category: Seafood
             product: Boston Crab Meat
@@ -7378,7 +7350,7 @@ test:
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
-            quantity: '50.0000'
+            quantity: '42.0000'
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
@@ -7386,15 +7358,19 @@ test:
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
-            quantity: '5.0000'
+            quantity: '50.0000'
           - category: Seafood
             product: Boston Crab Meat
-            unitPrice: '14.7000'
-            quantity: '20.0000'
+            unitPrice: '18.4000'
+            quantity: '5.0000'
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
             quantity: '24.0000'
+          - category: Seafood
+            product: Boston Crab Meat
+            unitPrice: '14.7000'
+            quantity: '20.0000'
           - category: Seafood
             product: Boston Crab Meat
             unitPrice: '18.4000'
@@ -7428,21 +7404,29 @@ test:
             unitPrice: '14.7000'
             quantity: '50.0000'
           - category: Seafood
-            product: Carnarvon Tigers
-            unitPrice: '50.0000'
-            quantity: '30.0000'
+            product: Boston Crab Meat
+            unitPrice: '14.7000'
+            quantity: '20.0000'
           - category: Seafood
-            product: Carnarvon Tigers
-            unitPrice: '62.5000'
-            quantity: '18.0000'
+            product: Boston Crab Meat
+            unitPrice: '14.7000'
+            quantity: '21.0000'
           - category: Seafood
-            product: Carnarvon Tigers
-            unitPrice: '62.5000'
-            quantity: '12.0000'
+            product: Boston Crab Meat
+            unitPrice: '18.4000'
+            quantity: '20.0000'
           - category: Seafood
-            product: Carnarvon Tigers
-            unitPrice: '62.5000'
-            quantity: '30.0000'
+            product: Boston Crab Meat
+            unitPrice: '14.7000'
+            quantity: '10.0000'
+          - category: Seafood
+            product: Boston Crab Meat
+            unitPrice: '14.7000'
+            quantity: '2.0000'
+          - category: Seafood
+            product: Boston Crab Meat
+            unitPrice: '18.4000'
+            quantity: '10.0000'
           - category: Seafood
             product: Carnarvon Tigers
             unitPrice: '62.5000'
@@ -7476,12 +7460,20 @@ test:
             unitPrice: '62.5000'
             quantity: '25.0000'
           - category: Seafood
-            product: Escargots de Bourgogne
-            unitPrice: '13.2500'
+            product: Carnarvon Tigers
+            unitPrice: '50.0000'
             quantity: '30.0000'
           - category: Seafood
-            product: Escargots de Bourgogne
-            unitPrice: '13.2500'
+            product: Carnarvon Tigers
+            unitPrice: '62.5000'
+            quantity: '18.0000'
+          - category: Seafood
+            product: Carnarvon Tigers
+            unitPrice: '62.5000'
+            quantity: '12.0000'
+          - category: Seafood
+            product: Carnarvon Tigers
+            unitPrice: '62.5000'
             quantity: '30.0000'
           - category: Seafood
             product: Escargots de Bourgogne
@@ -7504,36 +7496,20 @@ test:
             unitPrice: '13.2500'
             quantity: '20.0000'
           - category: Seafood
-            product: Gravad lax
-            unitPrice: '20.8000'
-            quantity: '10.0000'
+            product: Escargots de Bourgogne
+            unitPrice: '13.2500'
+            quantity: '30.0000'
+          - category: Seafood
+            product: Escargots de Bourgogne
+            unitPrice: '13.2500'
+            quantity: '30.0000'
           - category: Seafood
             product: Gravad lax
             unitPrice: '26.0000'
             quantity: '18.0000'
           - category: Seafood
-            product: Ikura
-            unitPrice: '31.0000'
-            quantity: '16.0000'
-          - category: Seafood
-            product: Ikura
-            unitPrice: '31.0000'
-            quantity: '18.0000'
-          - category: Seafood
-            product: Ikura
-            unitPrice: '31.0000'
-            quantity: '20.0000'
-          - category: Seafood
-            product: Ikura
-            unitPrice: '31.0000'
-            quantity: '18.0000'
-          - category: Seafood
-            product: Ikura
-            unitPrice: '24.8000'
-            quantity: '20.0000'
-          - category: Seafood
-            product: Ikura
-            unitPrice: '31.0000'
+            product: Gravad lax
+            unitPrice: '20.8000'
             quantity: '10.0000'
           - category: Seafood
             product: Ikura
@@ -7542,11 +7518,15 @@ test:
           - category: Seafood
             product: Ikura
             unitPrice: '31.0000'
-            quantity: '70.0000'
+            quantity: '10.0000'
           - category: Seafood
             product: Ikura
             unitPrice: '31.0000'
             quantity: '6.0000'
+          - category: Seafood
+            product: Ikura
+            unitPrice: '31.0000'
+            quantity: '70.0000'
           - category: Seafood
             product: Ikura
             unitPrice: '31.0000'
@@ -7584,37 +7564,25 @@ test:
             unitPrice: '24.8000'
             quantity: '20.0000'
           - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
+            product: Ikura
+            unitPrice: '31.0000'
+            quantity: '16.0000'
+          - category: Seafood
+            product: Ikura
+            unitPrice: '31.0000'
+            quantity: '18.0000'
+          - category: Seafood
+            product: Ikura
+            unitPrice: '31.0000'
+            quantity: '18.0000'
+          - category: Seafood
+            product: Ikura
+            unitPrice: '31.0000'
             quantity: '20.0000'
           - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '30.0000'
-          - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '55.0000'
-          - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '6.0000'
-          - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '6.0000'
-          - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '15.0000'
-          - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '5.0000'
-          - category: Seafood
-            product: Inlagd Sill
-            unitPrice: '19.0000'
-            quantity: '25.0000'
+            product: Ikura
+            unitPrice: '24.8000'
+            quantity: '20.0000'
           - category: Seafood
             product: Inlagd Sill
             unitPrice: '19.0000'
@@ -7644,33 +7612,37 @@ test:
             unitPrice: '19.0000'
             quantity: '21.0000'
           - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '25.8900'
-            quantity: '15.0000'
-          - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '25.8900'
-            quantity: '2.0000'
-          - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '25.8900'
-            quantity: '20.0000'
-          - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '25.8900'
-            quantity: '20.0000'
-          - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '25.8900'
+            product: Inlagd Sill
+            unitPrice: '19.0000'
             quantity: '30.0000'
           - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '25.8900'
-            quantity: '10.0000'
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '20.0000'
           - category: Seafood
-            product: Nord-Ost Matjeshering
-            unitPrice: '20.7000'
-            quantity: '18.0000'
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '55.0000'
+          - category: Seafood
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '6.0000'
+          - category: Seafood
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '6.0000'
+          - category: Seafood
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '15.0000'
+          - category: Seafood
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '5.0000'
+          - category: Seafood
+            product: Inlagd Sill
+            unitPrice: '19.0000'
+            quantity: '25.0000'
           - category: Seafood
             product: Nord-Ost Matjeshering
             unitPrice: '20.7000'
@@ -7708,25 +7680,33 @@ test:
             unitPrice: '25.8900'
             quantity: '15.0000'
           - category: Seafood
-            product: Rd Kaviar
-            unitPrice: '15.0000'
-            quantity: '9.0000'
-          - category: Seafood
-            product: Rd Kaviar
-            unitPrice: '15.0000'
+            product: Nord-Ost Matjeshering
+            unitPrice: '25.8900'
             quantity: '15.0000'
           - category: Seafood
-            product: Rd Kaviar
-            unitPrice: '15.0000'
-            quantity: '3.0000'
+            product: Nord-Ost Matjeshering
+            unitPrice: '25.8900'
+            quantity: '2.0000'
           - category: Seafood
-            product: Rd Kaviar
-            unitPrice: '15.0000'
+            product: Nord-Ost Matjeshering
+            unitPrice: '25.8900'
+            quantity: '20.0000'
+          - category: Seafood
+            product: Nord-Ost Matjeshering
+            unitPrice: '25.8900'
+            quantity: '20.0000'
+          - category: Seafood
+            product: Nord-Ost Matjeshering
+            unitPrice: '25.8900'
             quantity: '30.0000'
           - category: Seafood
-            product: Rd Kaviar
-            unitPrice: '15.0000'
-            quantity: '15.0000'
+            product: Nord-Ost Matjeshering
+            unitPrice: '25.8900'
+            quantity: '10.0000'
+          - category: Seafood
+            product: Nord-Ost Matjeshering
+            unitPrice: '20.7000'
+            quantity: '18.0000'
           - category: Seafood
             product: Rd Kaviar
             unitPrice: '15.0000'
@@ -7752,17 +7732,25 @@ test:
             unitPrice: '15.0000'
             quantity: '35.0000'
           - category: Seafood
-            product: Spegesild
-            unitPrice: '12.0000'
-            quantity: '45.0000'
+            product: Rd Kaviar
+            unitPrice: '15.0000'
+            quantity: '9.0000'
           - category: Seafood
-            product: Spegesild
-            unitPrice: '12.0000'
-            quantity: '18.0000'
+            product: Rd Kaviar
+            unitPrice: '15.0000'
+            quantity: '3.0000'
           - category: Seafood
-            product: Spegesild
-            unitPrice: '12.0000'
-            quantity: '24.0000'
+            product: Rd Kaviar
+            unitPrice: '15.0000'
+            quantity: '15.0000'
+          - category: Seafood
+            product: Rd Kaviar
+            unitPrice: '15.0000'
+            quantity: '30.0000'
+          - category: Seafood
+            product: Rd Kaviar
+            unitPrice: '15.0000'
+            quantity: '15.0000'
           - category: Seafood
             product: Spegesild
             unitPrice: '12.0000'
@@ -7783,6 +7771,18 @@ test:
             product: Spegesild
             unitPrice: '12.0000'
             quantity: '28.0000'
+          - category: Seafood
+            product: Spegesild
+            unitPrice: '12.0000'
+            quantity: '45.0000'
+          - category: Seafood
+            product: Spegesild
+            unitPrice: '12.0000'
+            quantity: '18.0000'
+          - category: Seafood
+            product: Spegesild
+            unitPrice: '12.0000'
+            quantity: '24.0000'
       - database: postgres
         result:
           - category: Beverages
