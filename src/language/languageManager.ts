@@ -4,70 +4,9 @@ import {SchemaHelper}  from '../schema/schemaHelper'
 import {ILanguage} from './iLanguage'
 import {Executor}  from '../connection'
 
-export class LanguageManager
+class CompleteExpressionManager
 {   
-    private languages:any
-    private orm:IOrm
-    public dialects:any
-    constructor(orm:IOrm){
-        this.orm=orm;
-        this.languages={};
-        this.dialects={};
-    } 
-    public add(language:ILanguage){
-        this.languages[language.name] =language;
-        for(const name in language.dialects)
-            this.dialects[name]= {name:name,language:language.name};         
-    }
-    public get(dialect:string):ILanguage 
-    {
-        let info =  this.dialects[dialect];
-        return this.languages[info.language] as ILanguage
-    }
-    public build(dialect:string,node:Node,schema:SchemaHelper): Operand
-    {
-        let _node = this.complete(node,schema); 
-        return this.get(dialect).operand.build(_node,dialect,schema);
-    }
-    public complete(node:Node,schema:SchemaHelper): Node
-    {
-        let completeNode= this.completeNode(node,schema);
-        this.orm.node.setParent(completeNode);
-        return completeNode; 
-    }
-    public sentence(dialect:string,operand:Operand):any
-    {
-        return this.get(dialect).operand.sentence(operand);
-    }
-    public model(dialect:string,operand:Operand):any
-    {
-        return this.get(dialect).operand.model(operand);
-    }
-    public deserialize(dialect:string,serialized:any)
-    {
-        return this.get(dialect).operand.deserialize(serialized);
-    }
-    public serialize(dialect:string,operand:Operand):any
-    {
-        return this.get(dialect).operand.serialize(operand);
-    }
-    public async execute(dialect:string,operand:Operand,context:Context,executor:Executor):Promise<any>
-    {
-        return await this.get(dialect).executor.execute(operand,context,executor);
-    }
-    public sync(dialect:string,delta:Delta,schema:SchemaHelper):any[]
-    {       
-       return this.get(dialect).schema.sync(delta,dialect,schema);
-    }
-    public drop(dialect:string,schema:SchemaHelper):string[]
-    {
-        return this.get(dialect).schema.drop(dialect,schema);
-    }
-    public truncate(dialect:string,schema:SchemaHelper):string[]
-    {
-        return this.get(dialect).schema.truncate(dialect,schema);
-    }    
-    private completeNode(node:Node,schema:SchemaHelper):Node
+    public completeNode(node:Node,schema:SchemaHelper):Node
     {        
         if(node.type=='var' && node.children.length== 0){
             //Example: Products => Products.map(p=>p)            
@@ -91,82 +30,82 @@ export class LanguageManager
                 this.completeExpression(node.children[i],schema);
         }
     }
-    private getSentence(node:Node):any
+    private getClauses(node:Node):any
     {
-        let sentence:any = {};
+        let clauses:any = {};
         let current = node;
         while(current){
             let name =current.type == 'var'?'from':current.name;
-            sentence[name] =  current;
+            clauses[name] =  current;
             if(current.children.length > 0)
                 current = current.children[0]
             else
                 break;  
         }
-        return sentence; 
+        return clauses; 
     }
     private completeSentence(node:Node,schema:SchemaHelper,entityName?:string):void
     {        
         let compleInclude:any; 
-        let sentence:any = this.getSentence(node);       
-        let entity = schema.getEntity(entityName?entityName:sentence['from'].name);
-        if(sentence['insert']){
+        let clauses:any = this.getClauses(node);       
+        let entity = schema.getEntity(entityName?entityName:clauses['from'].name);
+        if(clauses['insert']){
             compleInclude = this.completeInsertInclude;
-            let node = sentence['insert']
+            let node = clauses['insert']
             this.completeInsertNode(entity,node,schema);
-        }else if(sentence['bulkInsert'] ){
+        }else if(clauses['bulkInsert'] ){
             compleInclude = this.completeBulkInsertInclude;
-            let node = sentence['bulkInsert']
+            let node = clauses['bulkInsert']
             this.completeInsertNode(entity,node,schema);
-        }else if(sentence['update']){
+        }else if(clauses['update']){
             compleInclude = this.completeUpdateInclude;
-            let node = sentence['update']
+            let node = clauses['update']
             this.completeUpdateNode(entity,node,schema);
-            if(!sentence['filter'])
+            if(!clauses['filter'])
                 this.createClauseFilter(entity,node,schema);
-        }else if(sentence['updateAll'] ){
+        }else if(clauses['updateAll'] ){
             compleInclude = this.completeUpdateInclude;
-            let node = sentence['updateAll'];
+            let node = clauses['updateAll'];
             node.name= 'update';
             //TODO: validar que tenga un objeto definido
             //Example: Orders.update({name:'test'}) 
-        }else if(sentence['delete']){
+        }else if(clauses['delete']){
             compleInclude = this.completeDeleteInclude;
-            let node = sentence['delete'];
-            if(!sentence['filter'])
+            let node = clauses['delete'];
+            if(!clauses['filter'])
                 this.createClauseFilter(entity,node,schema);
-        }else if(sentence['deleteAll'] ){
+        }else if(clauses['deleteAll'] ){
             compleInclude = this.completeDeleteInclude;
-            let node = sentence['deleteAll'];
+            let node = clauses['deleteAll'];
             node.name= 'delete';           
         }else{
-            if(sentence['map'] ){
+            if(clauses['map'] ){
                 compleInclude = this.completeMapInclude;
-                let map = sentence['map']
+                let map = clauses['map']
                 this.completeMapNode(entity,map,schema);
             }
-            else if (sentence['distinct']){
+            else if (clauses['distinct']){
                 compleInclude = this.completeDisctintInclude;
-                let map = sentence['distinct']
+                let map = clauses['distinct']
                 this.completeMapNode(entity,map,schema); 
              }
-            else if (sentence['first']){
+            else if (clauses['first']){
                 compleInclude = this.completeMapInclude;
-                let node = sentence['first'];
+                let node = clauses['first'];
                 //TODO: add orderby and limit , replace first for map
                 //SELECT * FROM Orders ORDER BY OrderId LIMIT 1;
                 node.name= 'map'; 
             }
-            else if (sentence['last']){
+            else if (clauses['last']){
                 compleInclude = this.completeMapInclude;
-                let node = sentence['last'];
+                let node = clauses['last'];
                 //TODO: add orderby and limit , replace first for map
                 // SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 1;
                 node.name= 'map'; 
             }
-            else if (sentence['take']){
+            else if (clauses['take']){
                 compleInclude = this.completeMapInclude;
-                let node = sentence['take'];
+                let node = clauses['take'];
                 //TODO: add limit , replace first for map
                 // SELECT * FROM Orders  LIMIT 1;
                 node.name= 'map'; 
@@ -177,15 +116,15 @@ export class LanguageManager
                 let varAll = new Node('p', 'var', []); 
 
                 node.children[0] = new Node('map','arrow',[node.children[0],varArrow,varAll]);
-                sentence['map']=node.children[0];
+                clauses['map']=node.children[0];
                 this.completeMapNode(entity,node.children[0],schema);
             }
         }
-        if(sentence['include']){
+        if(clauses['include']){
             if(compleInclude===undefined)
                throw 'Include not implemented!!!';
 
-            let clauseInclude = sentence['include'];                
+            let clauseInclude = clauses['include'];                
             let arrowVar = clauseInclude.children[1].name; 
             let body = clauseInclude.children[2];                
             if (body.type == 'array'){
@@ -340,8 +279,8 @@ export class LanguageManager
             throw 'Error to add include node '+node.type+':'+node.name; 
         }
         //add filter with parent
-        let sentence:any = this.getSentence(map);  
-        let childFilter= sentence['filter'];
+        let clauses:any = this.getClauses(map);  
+        let childFilter= clauses['filter'];
         let arrowFilterVar = childFilter?childFilter.children[1].name:'p';       
         let fieldRelation = new Node(arrowFilterVar+ '.' + relation.to,'var');   //new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping);
         let varRelation = new Node('list_'+relation.to,'var');
@@ -389,8 +328,8 @@ export class LanguageManager
                 else
                     break;
             }
-            let sentence:any = this.getSentence(node);  
-            clauseNode = sentence[clause]?sentence[clause]:new Node(clause,'childFunc',[node]);
+            let clauses:any = this.getClauses(node);  
+            clauseNode = clauses[clause]?clauses[clause]:new Node(clause,'childFunc',[node]);
             this.completeSentence(clauseNode, schema,relation.entity);
         }else if (node.type == 'var') {
             // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)  
@@ -406,4 +345,73 @@ export class LanguageManager
         }
         return clauseNode; 
     } 
+}
+
+
+export class LanguageManager
+{   
+    private languages:any
+    private orm:IOrm
+    private completeExpression:CompleteExpressionManager
+    public dialects:any
+    constructor(orm:IOrm){
+        this.orm=orm;
+        this.completeExpression= new CompleteExpressionManager();
+        this.languages={};
+        this.dialects={};
+    } 
+    public add(language:ILanguage){
+        this.languages[language.name] =language;
+        for(const name in language.dialects)
+            this.dialects[name]= {name:name,language:language.name};         
+    }
+    public get(dialect:string):ILanguage 
+    {
+        let info =  this.dialects[dialect];
+        return this.languages[info.language] as ILanguage
+    }
+    public build(dialect:string,node:Node,schema:SchemaHelper): Operand
+    {
+        let _node = this.complete(node,schema); 
+        return this.get(dialect).operand.build(_node,dialect,schema);
+    }
+    public complete(node:Node,schema:SchemaHelper): Node
+    {
+        let completeNode= this.completeExpression.completeNode(node,schema);
+        this.orm.node.setParent(completeNode);
+        return completeNode; 
+    }
+    public sentence(dialect:string,operand:Operand):any
+    {
+        return this.get(dialect).operand.sentence(operand);
+    }
+    public model(dialect:string,operand:Operand):any
+    {
+        return this.get(dialect).operand.model(operand);
+    }
+    public deserialize(dialect:string,serialized:any)
+    {
+        return this.get(dialect).operand.deserialize(serialized);
+    }
+    public serialize(dialect:string,operand:Operand):any
+    {
+        return this.get(dialect).operand.serialize(operand);
+    }
+    public async execute(dialect:string,operand:Operand,context:Context,executor:Executor):Promise<any>
+    {
+        return await this.get(dialect).executor.execute(operand,context,executor);
+    }
+    public sync(dialect:string,delta:Delta,schema:SchemaHelper):any[]
+    {       
+       return this.get(dialect).schema.sync(delta,dialect,schema);
+    }
+    public drop(dialect:string,schema:SchemaHelper):string[]
+    {
+        return this.get(dialect).schema.drop(dialect,schema);
+    }
+    public truncate(dialect:string,schema:SchemaHelper):string[]
+    {
+        return this.get(dialect).schema.truncate(dialect,schema);
+    }    
+    
 }
