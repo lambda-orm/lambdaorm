@@ -3,29 +3,22 @@ import {Helper} from '../../helper'
 import {Constant,Variable,Field,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
     SentenceInclude,Query,Include} from './../operands'
+import {IQueryBuilder} from './../iQueryBuilder'
 import {SqlDialectMetadata} from './dialectMetadata'
+import {SqlLanguage} from './language'
 const SqlString = require('sqlstring');
 
-export class SqlQueryBuilder
+export class SqlQueryBuilder implements IQueryBuilder
 {  
-    public build(sentence:Sentence,metadata:SqlDialectMetadata):Query
-    {
-        try{            
-            let children=[];
-            let includes = sentence.getIncludes();       
-            for(const p in includes){          
-               let sentenceInclude =  includes[p];
-               let query = this.build(sentenceInclude.children[0] as Sentence,metadata);
-               let include = new Include(sentenceInclude.name,[query],sentenceInclude.relation,sentenceInclude.variable); 
-               children.push(include);            
-            }
-            let sqlSentence =this.buildSentence(sentence,metadata);
-            return new Query(sentence.name,children,metadata.name,sqlSentence,sentence.entity,sentence.autoincrement,sentence.columns,sentence.parameters);
-        } 
-        catch(error){
-            console.error(error);
-            throw error; 
-        }
+    private language:SqlLanguage
+    constructor(language:SqlLanguage){
+        this.language=language;
+    }
+
+    public build(sentence:Sentence,dialect:string):Query
+    {  
+        let metadata = this.language.metadata(dialect);
+        return this._build(sentence,metadata);
     }
     public sentence(query:Query):any
     {          
@@ -57,40 +50,52 @@ export class SqlQueryBuilder
     public deserialize(serialized:any):Operand
     {
         throw 'NotImplemented';
-    }    
+    } 
+    public _build(sentence:Sentence,metadata:SqlDialectMetadata):Query
+    {          
+        let children=[];
+        let includes = sentence.getIncludes();       
+        for(const p in includes){          
+            let sentenceInclude =  includes[p];
+            let query = this._build(sentenceInclude.children[0] as Sentence,metadata);
+            let include = new Include(sentenceInclude.name,[query],sentenceInclude.relation,sentenceInclude.variable); 
+            children.push(include);            
+        }
+        let sqlSentence =this.buildSentence(sentence,metadata as SqlDialectMetadata);
+        return new Query(sentence.name,children,metadata.name,sqlSentence,sentence.entity,sentence.autoincrement,sentence.columns,sentence.parameters);
+    }   
     private buildOperand(operand:Operand,metadata:SqlDialectMetadata):string
     {
-        if(operand instanceof Sentence){
+        if(operand instanceof Sentence)
             return this.buildSentence(operand,metadata);
-        }else if(operand instanceof Insert){
+        else if(operand instanceof Insert)
             return this.buildInsert(operand,metadata);
-        }else if(operand instanceof Update){
+        else if(operand instanceof Update)
             return this.buildUpdate(operand,metadata);
-        }else if(operand instanceof Delete){
+        else if(operand instanceof Delete)
             return this.buildDelete(operand,metadata);
-        }else if(operand instanceof ArrowFunction){
+        else if(operand instanceof ArrowFunction)
             return this.buildArrowFunction(operand,metadata);
-        }else if(operand instanceof FunctionRef){
+        else if(operand instanceof FunctionRef)
             return this.buildFunctionRef(operand,metadata);
-        }else if(operand instanceof Operator){
+        else if(operand instanceof Operator)
             return this.buildOperator(operand,metadata);
-        }else if(operand instanceof Block){
+        else if(operand instanceof Block)
             return this.buildBlock(operand,metadata);
-        }else if(operand instanceof Object){
+        else if(operand instanceof Object)
             return this.buildObject(operand,metadata);
-        }else if(operand instanceof Array){
+        else if(operand instanceof Array)
             return this.buildArray(operand,metadata);
-        }else if(operand instanceof KeyValue){
+        else if(operand instanceof KeyValue)
             return this.buildKeyValue(operand,metadata);
-        }else if(operand instanceof Field){
+        else if(operand instanceof Field)
             return this.buildField(operand,metadata);
-        }else if(operand instanceof Variable){
+        else if(operand instanceof Variable)
             return this.buildVariable(operand,metadata);
-        }else if(operand instanceof Constant){
+        else if(operand instanceof Constant)
             return this.buildConstant(operand,metadata);
-        }else{
-            throw `Operand ${operand.type} ${operand.name} not supported`;         
-        }
+        else
+            throw `Operand ${operand.type} ${operand.name} not supported`;
     }
     private buildSentence(sentence:Sentence,metadata:SqlDialectMetadata):string
     {

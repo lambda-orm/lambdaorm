@@ -18,7 +18,7 @@ class Orm implements IOrm
 {
     private _cache:Cache
     public config:Config
-    private model:Model
+    private languageModel:Model
     private nodeManager:NodeManager
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
@@ -30,18 +30,18 @@ class Orm implements IOrm
         this._cache= new MemoryCache()
         this.connectionManager= new ConnectionManager();
 
-        this.model = new Model();
-        this.model.load(modelConfig);
-        this.nodeManager = new NodeManager(this.model);  
+        this.languageModel = new Model();
+        this.languageModel.load(modelConfig);
+        this.nodeManager = new NodeManager(this.languageModel);  
 
-        this.languageManager= new LanguageManager(this);
+        this.languageManager= new LanguageManager(this,this.languageModel);
         this.schemaManager= new SchemaManager(this);
         this.databaseManager =  new DatabaseManager(this);
         
         let memoryLanguage =new MemoryLanguage();
         memoryLanguage.addLibrary(new CoreLib());
 
-        let sqlLanguage =  new SqlLanguage(this.model);
+        let sqlLanguage =  new SqlLanguage();
         sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
         
         this.language.add(memoryLanguage);

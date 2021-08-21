@@ -49,8 +49,8 @@ export class OperandManager
     {
         try{
             let sentece = this.nodeToOperand(node,schema,new ExpressionContext(new EntityContext())) as Sentence;
-            sentece = this.reduce(sentece);
-            return this.setParent(sentece) as Sentence;
+            let reduced = this.reduce(sentece);
+            return this.setParent(reduced) as Sentence;
         } 
         catch(error){
             console.error(error);
@@ -59,7 +59,7 @@ export class OperandManager
     }
     public model(sentence:Sentence):any
     {  
-        let result:any = {}
+        let result:any = {} 
         for(let i=0;i<sentence.columns.length;i++){
             let column = sentence.columns[i]
             result[column.name]=column.type
@@ -76,10 +76,36 @@ export class OperandManager
         }
         return result;
     }
-    protected reduce(sentece:Sentence):Sentence
+    private reduce(operand:Operand):Operand
     {
-        return sentece
+        if(operand instanceof Operator){        
+            let allConstants=true;              
+            for(const k in operand.children){
+                const p = operand.children[k];
+                if( !(p instanceof Constant)){
+                    allConstants=false;
+                    break;
+                }
+            }
+            if(allConstants){
+                //TODO: llamar a language Memory para reslver el eval
+                let value = operand.eval();                
+                let constant= new Constant(value);
+                constant.parent = operand.parent;
+                constant.index = operand.index;
+                return constant;
+            }
+            else{
+                for(let i = 0;i< operand.children.length;i++){
+                   const p = operand.children[i];
+                   operand.children[i]=this.reduce(p);
+                }
+            }
+        }
+        return operand;
     }
+
+
     protected setParent(operand:Operand,index:number=0,parent?:Operand){        
         try{
             if(parent){

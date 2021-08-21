@@ -1,8 +1,10 @@
-import {Node} from '../node/node'
+import {Node,Model} from '../node/index'
 import {Operand,Context,Delta,IOrm} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 import {ILanguage} from './iLanguage'
 import {Executor}  from '../connection'
+import {OperandManager}  from './operandManager'
+import {Query,Sentence}  from './operands'
 
 class CompleteExpressionManager
 {   
@@ -351,12 +353,14 @@ class CompleteExpressionManager
 export class LanguageManager
 {   
     private languages:any
-    private orm:IOrm
-    private completeExpression:CompleteExpressionManager
     public dialects:any
-    constructor(orm:IOrm){
+    private orm:IOrm    
+    private completeExpression:CompleteExpressionManager
+    private operandManager:OperandManager
+    constructor(orm:IOrm,languageModel:Model){
         this.orm=orm;
         this.completeExpression= new CompleteExpressionManager();
+        this.operandManager= new OperandManager(languageModel);
         this.languages={};
         this.dialects={};
     } 
@@ -372,8 +376,9 @@ export class LanguageManager
     }
     public build(dialect:string,node:Node,schema:SchemaHelper): Operand
     {
-        let _node = this.complete(node,schema); 
-        return this.get(dialect).operand.build(_node,dialect,schema);
+        let _node = this.complete(node,schema);
+        let sentence = this.operandManager.build(_node,schema);
+        return this.get(dialect).query.build(sentence,dialect);
     }
     public complete(node:Node,schema:SchemaHelper): Node
     {
@@ -381,21 +386,21 @@ export class LanguageManager
         this.orm.node.setParent(completeNode);
         return completeNode; 
     }
-    public sentence(dialect:string,operand:Operand):any
+    public model(sentence:Sentence):any
     {
-        return this.get(dialect).operand.sentence(operand);
+        return this.operandManager.model(sentence);
     }
-    public model(dialect:string,operand:Operand):any
+    public sentence(dialect:string,operand:Query):any
     {
-        return this.get(dialect).operand.model(operand);
+        return this.get(dialect).query.sentence(operand);
     }
     public deserialize(dialect:string,serialized:any)
     {
-        return this.get(dialect).operand.deserialize(serialized);
+        return this.get(dialect).query.deserialize(serialized);
     }
     public serialize(dialect:string,operand:Operand):any
     {
-        return this.get(dialect).operand.serialize(operand);
+        return this.get(dialect).query.serialize(operand);
     }
     public async execute(dialect:string,operand:Operand,context:Context,executor:Executor):Promise<any>
     {

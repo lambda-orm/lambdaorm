@@ -1,6 +1,5 @@
 import {Operand,Context} from '../../model'
-import {Variable,ArrowFunction,ILanguage,IOperandExecutor,OperandManager,ISchemaBuilder} from '../'
-import {MemoryOperandManager} from './operandManager'
+import {Variable,ArrowFunction,ILanguage,IOperandExecutor,IQueryBuilder,ISchemaBuilder} from '../'
 import {MemoryExecutor} from './executor'
 
 export class MemoryLanguage implements ILanguage
@@ -9,8 +8,7 @@ export class MemoryLanguage implements ILanguage
     public libraries:any
     public dialects:any
     public operators:any
-    public functions:any    
-    private operandManager:MemoryOperandManager
+    public functions:any  
     private operandExecutor:MemoryExecutor
     constructor(){
         this.name= 'memory',
@@ -18,7 +16,6 @@ export class MemoryLanguage implements ILanguage
         this.dialects = [{name:this.name,dialect:'memory'}];
         this.operators={};
         this.functions={};        
-        this.operandManager = new MemoryOperandManager(this);
         this.operandExecutor = new MemoryExecutor(this);
     }
     addLibrary(library:any):void
@@ -80,9 +77,9 @@ export class MemoryLanguage implements ILanguage
     {
         throw 'NotImplemented';
     }
-    public get operand():OperandManager
+    public get query():IQueryBuilder
     {
-        return this.operandManager;
+        throw 'NotImplemented';
     }
     public get executor():IOperandExecutor
     {
