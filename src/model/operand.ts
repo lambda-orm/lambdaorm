@@ -25,5 +25,5 @@ export abstract class Operand
         throw 'Not implemented';
     }
     set(value:any){}
-    build(metadata:any):any{}
+    // build(metadata:any):any{}
 }

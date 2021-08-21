@@ -1,9 +1,9 @@
 import {Node,Model} from '../node/index'
 import {Property,Operand,Parameter} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
-import { Constant,Variable,Field,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block,
+import {Constant,Variable,Field,KeyValue,Array,Object,Operator,FunctionRef,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
-    SentenceInclude,Query,Include } from './operands'
+    SentenceInclude} from './operands'
 
 class EntityContext
 {    
@@ -39,38 +39,13 @@ class ExpressionContext
     }
 }
 
-export abstract class OperandManager
+export class OperandManager
 {      
     private languageModel:Model
     constructor(languageModel:Model){
         this.languageModel= languageModel; 
-    }
-
-    // public abstract build(node:Node,dialect:string,scheme?:SchemaHelper):Operand
-    // public abstract sentence(operand:Operand):any
-    // public abstract model(operand:Operand):any
-    public deserialize(serialized:any)
-    {
-        let operand = this._deserialize(serialized);
-        return this.setParent(operand);
-    }
-    public serialize(value:Operand):any
-    {
-        return this._serialize(value);
-    }
-    
-    protected _serialize(operand:Operand):any
-    {
-        let children = []                
-        for(const k in operand.children){
-            children.push(this._serialize(operand.children[k]));
-        }
-        if(children.length == 0) return {n:operand.name,t:operand.constructor.name};     
-        return {n:operand.name,t:operand.constructor.name,c:children}; 
-    }
-    protected abstract _deserialize(serialized:any):Operand
-    
-    public build(node:Node,dialect:string,schema:SchemaHelper):Sentence
+    }    
+    public build(node:Node,schema:SchemaHelper):Sentence
     {
         try{
             let sentece = this.nodeToOperand(node,schema,new ExpressionContext(new EntityContext())) as Sentence;
@@ -101,8 +76,6 @@ export abstract class OperandManager
         }
         return result;
     }
-  
-
     protected reduce(sentece:Sentence):Sentence
     {
         return sentece

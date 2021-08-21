@@ -156,15 +156,14 @@ export class Sentence extends FunctionRef
         this.columns=columns;
         this.parameters=parameters;
         this.clause='';
+        this.initialize();
     }
     public getIncludes():SentenceInclude[]
     {
         return this.children.filter(p=> p instanceof SentenceInclude) as SentenceInclude[];
     } 
-    public loadVariables(){
+    private initialize(){
         let map =  this.children.find(p=> p.name=='map');   
-        let first = this.children.find(p=> p.name=='first');
-        let select = (first?first:map) as Operand; 
         let filter = this.children.find(p=> p.name=='filter'); 
         let groupBy = this.children.find(p=> p.name=='groupBy');
         let having = this.children.find(p=> p.name=='having'); 
@@ -174,24 +173,33 @@ export class Sentence extends FunctionRef
         let _delete = this.children.find(p=> p instanceof Delete) as Delete|undefined;
 
         let variables:Variable[]=[];
-        if(select)this._loadVariables(select,variables);
-        if(insert)this._loadVariables(insert,variables);
-        if(update)this._loadVariables(update,variables);
-        if(_delete)this._loadVariables(_delete,variables);
-        if(filter)this._loadVariables(filter,variables);
-        if(groupBy)this._loadVariables(groupBy,variables);
-        if(having)this._loadVariables(having,variables);
-        if(sort)this._loadVariables(sort,variables);
+        if(map){
+            this.clause='select';
+            this.loadVariables(map,variables)
+        }else if(insert){
+            this.clause='insert';
+            this.loadVariables(insert,variables);
+        }else if(update){
+            this.clause='update';
+            this.loadVariables(update,variables);
+        }else if(_delete){
+            this.clause='delete';           
+            this.loadVariables(_delete,variables);
+        }
+        if(filter)this.loadVariables(filter,variables);
+        if(groupBy)this.loadVariables(groupBy,variables);
+        if(having)this.loadVariables(having,variables);
+        if(sort)this.loadVariables(sort,variables);
         for(let i=0;i<variables.length;i++ ){
             variables[i]._number = i+1;
         }        
     }
-    protected _loadVariables(operand:Operand,variables:Variable[])
+    private loadVariables(operand:Operand,variables:Variable[])
     {        
         if(operand instanceof Variable)
             variables.push(operand);
         for(let i=0;i<operand.children.length;i++ )
-            this._loadVariables(operand.children[i],variables);
+            this.loadVariables(operand.children[i],variables);
     }
 }
 export class SentenceInclude extends Operand
@@ -204,32 +212,32 @@ export class SentenceInclude extends Operand
         this.variable=variable;
     }
 }
-// export class Query extends Operand
-// {
-//     public sentence:Sentence
-//     public dialect:string
-//     public entity:string
-//     public autoincrement?:Property
-//     public columns:Property[]
-//     public parameters:Parameter[]
-//     constructor(sentence:Sentence,children:Operand[]=[],dialect:string,entity:string,autoincrement?:Property,columns:Property[]=[],parameters:Parameter[]=[]){
-//         super(sentence.name,children);
-//         this.dialect=dialect;
-//         this.sentence=sentence;
-//         this.entity=entity;
-//         this.autoincrement=autoincrement;
-//         this.columns=columns;
-//         this.parameters=parameters;
-//     }
-// }
-// export class Include extends Operand
-// {
-//     public relation:any
-//     public variable:string
-//     constructor(name:string,children:Operand[]=[],relation:any,variable:string){
-//         super(name,children);
-//         this.relation=relation;
-//         this.variable=variable;
-//     }
-// }
+export class Query extends Operand
+{
+    public sentence:string
+    public dialect:string
+    public entity:string
+    public autoincrement?:Property
+    public columns:Property[]
+    public parameters:Parameter[]
+    constructor(name:string,children:Operand[]=[],dialect:string,sentence:string,entity:string,autoincrement?:Property,columns:Property[]=[],parameters:Parameter[]=[]){
+        super(name,children);
+        this.dialect=dialect;
+        this.sentence=sentence;
+        this.entity=entity;
+        this.autoincrement=autoincrement;
+        this.columns=columns;
+        this.parameters=parameters;
+    }
+}
+export class Include extends Operand
+{
+    public relation:any
+    public variable:string
+    constructor(name:string,children:Operand[]=[],relation:any,variable:string){
+        super(name,children);
+        this.relation=relation;
+        this.variable=variable;
+    }
+}
 
