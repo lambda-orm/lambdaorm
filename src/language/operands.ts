@@ -6,10 +6,6 @@ export class Constant extends Operand
     constructor(name:string){
       super(name,[],Helper.getType(name));
     }
-    eval():any
-    {
-        return this.name;
-    }
 }
 export class Variable extends Operand
 {
@@ -19,9 +15,6 @@ export class Variable extends Operand
         super(name,[],type);  
         this.context  = undefined;
         this._number  = undefined;
-    }    
-    eval():any{
-        return this.context?this.context.get(this.name):null;
     }
     set(value:any){
         if(this.context)
@@ -44,35 +37,17 @@ export class Field extends Operand
 export class KeyValue extends Operand
 {
     public field?:Field
-    eval():any{
-        return this.children[0].eval();
-    }
 }
 export class Array extends Operand
 {
     constructor(name:string,children:Operand[]=[]){
         super(name,children,'array');
-    }
-    eval():any{
-        let values = [];
-        for(let i=0;i<this.children.length;i++){
-            values.push(this.children[i].eval());    
-        }
-        return values;
     } 
 }
 export class Object extends Operand
 {
     constructor(name:string,children:Operand[]=[]){
         super(name,children,'object');
-    }
-    eval():any{        
-        let obj:{[k: string]: any} = {};
-        for(let i=0;i<this.children.length;i++){
-            let value = this.children[i].eval();
-            obj[this.children[i].name]=value;
-        }
-        return obj;
     }
 } 
 export class Operator extends Operand
@@ -81,13 +56,6 @@ export class Operator extends Operand
     constructor(name:string,children:Operand[]=[],_function:any=null){
         super(name,children); 
         this._function = _function;
-    }    
-    eval():any{        
-        let args= []
-        for(let i=0;i<this.children.length;i++){
-            args.push(this.children[i].eval()); 
-        }
-        return this._function(...args);  
     }
 }                             
 export class FunctionRef extends Operand
@@ -96,14 +64,15 @@ export class FunctionRef extends Operand
     constructor(name:string,children:Operand[]=[],_function:any=null){
         super(name,children); 
         this._function = _function;
-    }    
-    eval():any{        
-        let args= []
-        for(let i=0;i<this.children.length;i++){
-            args.push(this.children[i].eval()); 
-        }
-        return this._function(...args);  
     }
+}
+export class ChildFunction extends FunctionRef 
+{
+    public context?: Context
+    constructor(name:string,children:Operand[]=[],_function:any=null){
+        super(name,children,_function); 
+        this.context = undefined;
+    } 
 }
 export class ArrowFunction extends FunctionRef 
 {
@@ -113,14 +82,7 @@ export class ArrowFunction extends FunctionRef
         this.context = undefined;
     } 
 }
-export class Block extends Operand
-{    
-    eval():any{
-        for(let i=0;i<this.children.length;i++){
-            this.children[i].eval();    
-        }
-    } 
-}
+export class Block extends Operand{}
 export class From extends Operand{}
 export class Join extends Operand{}
 export class Map extends ArrowFunction {}

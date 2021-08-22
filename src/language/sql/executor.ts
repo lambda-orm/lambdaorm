@@ -1,7 +1,7 @@
 import {Operand,Context,Parameter } from './../../model'
 import {IOperandExecutor} from '../'
 import {Executor}  from '../../connection'
-import {SqlSentenceInclude,SqlQuery} from './operands'
+import {SentenceInclude,Query} from './../operands'
 import {SqlLanguage} from './language'
 import {Helper} from './../../helper'
 import {SqlDialectMetadata } from './dialectMetadata'
@@ -14,11 +14,11 @@ export class SqlExecutor implements IOperandExecutor
     }
     public async execute(operand:Operand,context:Context,executor:Executor):Promise<any>
     {   
-        let query:SqlQuery = operand as SqlQuery
+        let query:Query = operand as Query
         let metadata = this.language.metadata(query.dialect) 
         return await this._execute(query,context,metadata,executor);
     }
-    protected async _execute(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
+    protected async _execute(query:Query,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     {          
         let result:any;    
         switch(query.name){
@@ -31,12 +31,12 @@ export class SqlExecutor implements IOperandExecutor
         }
         return result;
     }
-    protected async select(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
+    protected async select(query:Query,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     {           
         let mainResult = await executor.select(query.sentence,this.params(query.parameters,metadata,context));
         if(mainResult.length>0){
             for(const p in query.children){
-                let include = query.children[p] as SqlSentenceInclude;
+                let include = query.children[p] as SentenceInclude;
                 if(!context.contains(include.variable)){
                     let ids:any[] = [];
                     for(let i=0;i< mainResult.length;i++){
@@ -46,7 +46,7 @@ export class SqlExecutor implements IOperandExecutor
                     }
                     context.set(include.variable,ids);
                 }                
-                let includeResult= await this._execute(include.children[0] as SqlQuery,context,metadata,executor);
+                let includeResult= await this._execute(include.children[0] as Query,context,metadata,executor);
                 for(let i=0;i< mainResult.length;i++){
                     let element = mainResult[i];
                     let relationId = element[include.relation.from];
@@ -58,16 +58,16 @@ export class SqlExecutor implements IOperandExecutor
         }
         return mainResult;
     }
-    protected async insert(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<number>
+    protected async insert(query:Query,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<number>
     {        
         // before insert the relationships of the type oneToOne and oneToMany
         for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
+            let include = query.children[p] as SentenceInclude;
             let relation = context.get(include.relation.name);
             if(relation){
                 if(include.relation.type== 'oneToOne' || include.relation.type== 'oneToMany'){  
                     let relationContext = new Context(relation,context);
-                    let relationId= await this._execute(include.children[0] as SqlQuery,relationContext,metadata,executor);
+                    let relationId= await this._execute(include.children[0] as Query,relationContext,metadata,executor);
                     context.set(include.relation.from,relationId);
                 }
             }
@@ -78,7 +78,7 @@ export class SqlExecutor implements IOperandExecutor
            context.set(query.autoincrement.name,insertId); 
         // after insert the relationships of the type oneToOne and manyToOne          
         for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
+            let include = query.children[p] as SentenceInclude;
             let relation = context.get(include.relation.name);
             if(relation){
                 if(include.relation.type== 'manyToOne'){
@@ -88,18 +88,18 @@ export class SqlExecutor implements IOperandExecutor
                         let child = relation[i];
                         child[childPropertyName]=parentId;
                         let childContext = new Context(child,context);
-                        let childId= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                        let childId= await this._execute(include.children[0] as Query,childContext,metadata,executor);
                     }       
                 }
             }
         }        
         return insertId;
     }
-    protected async bulkInsert(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<number[]>
+    protected async bulkInsert(query:Query,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<number[]>
     { 
         // before insert the relationships of the type oneToOne and oneToMany
         for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
+            let include = query.children[p] as SentenceInclude;
             if(include.relation.type== 'oneToOne' || include.relation.type== 'oneToMany'){               
                 let allChilds:any[]=[];
                 for(let i=0;i<context.data.length;i++){                        
@@ -109,7 +109,7 @@ export class SqlExecutor implements IOperandExecutor
                         allChilds.push(child);
                 }
                 let childContext = new Context(allChilds,context);
-                let allChildsId= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                let allChildsId= await this._execute(include.children[0] as Query,childContext,metadata,executor);
                 for(let i=0;i<context.data.length;i++){
                     let item = context.data[i];
                     if(item[include.relation.name])
@@ -127,7 +127,7 @@ export class SqlExecutor implements IOperandExecutor
         }
         // after insert the relationships of the type oneToOne and manyToOne          
         for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
+            let include = query.children[p] as SentenceInclude;
             if(include.relation.type== 'manyToOne'){
                 let allChilds:any[]=[];
                 for(let i=0;i<context.data.length;i++){
@@ -144,16 +144,16 @@ export class SqlExecutor implements IOperandExecutor
                     }
                 }
                 let childContext = new Context(allChilds,context);
-                let allChildsId= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                let allChildsId= await this._execute(include.children[0] as Query,childContext,metadata,executor);
             }
         }      
         return ids;
     }
-    protected async update(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
+    protected async update(query:Query,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     {         
         let changeCount = await executor.update(query.sentence,this.params(query.parameters,metadata,context));
         for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
+            let include = query.children[p] as SentenceInclude;
             let relation = context.get(include.relation.name);
             if(relation){
                 switch(include.relation.type){
@@ -161,24 +161,24 @@ export class SqlExecutor implements IOperandExecutor
                         for(let i=0;i< relation.length;i++){
                             let child = relation[i];
                             let childContext = new Context(child,context);
-                            let includeResult= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                            let includeResult= await this._execute(include.children[0] as Query,childContext,metadata,executor);
                         }
                         break;
                     case "oneToOne":
                     case "oneToMany":    
                         let childContext = new Context(relation,context);
-                        let includeResult= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                        let includeResult= await this._execute(include.children[0] as Query,childContext,metadata,executor);
                         break;
                 } 
             }                   
         }        
         return changeCount; 
     }
-    protected async delete(query:SqlQuery,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
+    protected async delete(query:Query,context:Context,metadata:SqlDialectMetadata,executor:Executor):Promise<any>
     { 
         //before remove relations entities
         for(const p in query.children){
-            let include = query.children[p] as SqlSentenceInclude;
+            let include = query.children[p] as SentenceInclude;
             let relation = context.get(include.relation.name);
             if(relation){
                 switch(include.relation.type){
@@ -186,13 +186,13 @@ export class SqlExecutor implements IOperandExecutor
                         for(let i=0;i< relation.length;i++){
                             let child = relation[i];
                             let childContext = new Context(child,context);
-                            let includeResult= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                            let includeResult= await this._execute(include.children[0] as Query,childContext,metadata,executor);
                         }
                         break;
                     case "oneToOne":
                     case "oneToMany":    
                         let childContext = new Context(relation,context);
-                        let includeResult= await this._execute(include.children[0] as SqlQuery,childContext,metadata,executor);
+                        let includeResult= await this._execute(include.children[0] as Query,childContext,metadata,executor);
                         break;
                 } 
             }                   
@@ -218,7 +218,7 @@ export class SqlExecutor implements IOperandExecutor
         }
         return parameters;
     }
-    protected rows(query:SqlQuery,metadata:SqlDialectMetadata,array:any[]){
+    protected rows(query:Query,metadata:SqlDialectMetadata,array:any[]){
         let rows:any[]=[];
         for(let i=0;i<array.length;i++){
             const item = array[i];
