@@ -1,7 +1,7 @@
 import {Node,Model} from '../node/index'
 import {Property,Operand,Parameter} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
-import {Constant,Variable,Field,KeyValue,Array,Object,Operator,FunctionRef,Block,
+import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
     SentenceInclude} from './operands'
 
@@ -215,7 +215,7 @@ export class OperandManager
             case 'array':
                 return new Array(node.name,children);
             case 'obj':
-                return new Object(node.name,children);
+                return new Obj(node.name,children);
             case 'oper':
                 return new Operator(node.name,children);
             case 'funcRef':
@@ -498,7 +498,7 @@ export class OperandManager
     {       
         let fields:Property[] = [];
         if(operand.children.length==1){
-            if(operand.children[0] instanceof Object){
+            if(operand.children[0] instanceof Obj){
                 let obj = operand.children[0];
                 for(let p in obj.children){
                     let keyVal = obj.children[p];

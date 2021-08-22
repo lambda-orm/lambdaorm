@@ -18,7 +18,7 @@ export abstract class SchemaActionDML
         let schemaExportExpression = this.build(this.schema);
         for(let i =0;i<schemaExportExpression.entities.length;i++){
             let exportEntityExpression = schemaExportExpression.entities[i];
-            let sentence = (await this.orm.expression(exportEntityExpression.expression).compile(dialect,this.schema.name)).sentence();
+            let sentence = await this.orm.expression(exportEntityExpression.expression).sentence(dialect,this.schema.name);
             schemaSentence.entities.push({entity:exportEntityExpression.entity,sentence:sentence });
         }
         return schemaSentence;        

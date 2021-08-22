@@ -44,6 +44,7 @@ interface ExpressionTest
   parameters?:Parameter[]
   sentences?:SentenceTest[]
   executions?:ExecutionTest[]
+  error?:string
   errors?:number
 }
 interface SentenceTest
@@ -63,66 +64,76 @@ async function writeTest(orm:IOrm,dialects:string[],databases:string[],category:
 {
   
   category.errors=0;
-  for(const q in category.test){  
+  for(const q in category.test){    
     let expressionTest = category.test[q] as ExpressionTest;
     expressionTest.sentences=[];
     expressionTest.errors=0;
-    for(const r in dialects){
-      const dialect = dialects[r];
-      let sentence=undefined;
-      let error=undefined;         
-      try{
-        expressionTest.expression = orm.lambda(expressionTest.lambda).expression;
-        expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema); 
-        expressionTest.model = (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).model();
-        const serialize:any= (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).serialize();
-        expressionTest.parameters =serialize.p; 
-        expressionTest.fields =serialize.f;           
-        sentence = (await orm.expression(expressionTest.expression).compile(dialect,category.schema)).sentence();        
+    try{               
+      expressionTest.expression = orm.lambda(expressionTest.lambda).expression;
+      expressionTest.lambda=expressionTest.lambda.toString();
+      expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema); 
+      expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema);
+  
+      // //TODO: esto se debe resolver a nivel de Sentence independientemente del dialecto
+      // const serialize:any = await orm.expression(expressionTest.expression).serialize(dialect,category.schema);
+      // expressionTest.parameters =serialize.p; 
+      // expressionTest.fields =serialize.f;     
+      
+      for(const r in dialects){
+        const dialect = dialects[r];
+        let sentence=undefined;
+        let error=undefined;                 
+        try{               
+          sentence = await orm.expression(expressionTest.expression).sentence(dialect,category.schema);        
+        }
+        catch(err)
+        {
+          error=err.toString();
+        }
+        finally
+        {
+          if(error!=undefined){
+            expressionTest.sentences.push({dialect:dialect,error:error});
+            expressionTest.errors++;
+          }          
+          else if(sentence!=undefined)    
+            expressionTest.sentences.push({dialect:dialect,sentence:sentence});
+          else
+            console.error('error sentence '+dialect+' '+category.name+':'+expressionTest.name);
+        }
       }
-      catch(err)
-      {
-        error=err.toString();
-      }
-      finally
-      {
-        if(error!=undefined){
-          expressionTest.sentences.push({dialect:dialect,error:error});
-          expressionTest.errors++;
-        }          
-        else if(sentence!=undefined)    
-          expressionTest.sentences.push({dialect:dialect,sentence:sentence});
-        else
-          console.error('error sentence '+dialect+' '+category.name+':'+expressionTest.name);
+      expressionTest.executions=[];
+      for(const p in databases){
+        const database = databases[p];
+        let result=undefined;
+        let error=undefined;   
+        try{
+          const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{};
+          result = await orm.lambda(expressionTest.lambda).execute(context,database);
+        }
+        catch(err)
+        {
+          error=err.toString();
+        }
+        finally
+        {
+          if(error!=undefined){
+            expressionTest.executions.push({database:database,error:error});
+            expressionTest.errors++;
+          }
+          else if(result!=undefined)    
+            expressionTest.executions.push({database:database,result:result});
+          else
+            console.error('error execution '+database+' '+category.name+':'+expressionTest.name); 
+        }
       }
     }
-    expressionTest.executions=[];
-    for(const p in databases){
-      const database = databases[p];
-      let result=undefined;
-      let error=undefined;   
-      try{
-        const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{};
-        result = await orm.lambda(expressionTest.lambda).execute(context,database);
-      }
-      catch(err)
-      {
-        error=err.toString();
-      }
-      finally
-      {
-        if(error!=undefined){
-          expressionTest.executions.push({database:database,error:error});
-          expressionTest.errors++;
-        }
-        else if(result!=undefined)    
-          expressionTest.executions.push({database:database,result:result});
-        else
-          console.error('error execution '+database+' '+category.name+':'+expressionTest.name); 
-      }
+    catch(err)
+    {
+      expressionTest.error = err.toString();
+      expressionTest.errors++;
     }
     category.errors+=expressionTest.errors;
-    expressionTest.lambda=expressionTest.lambda.toString();
   }
   try{     
     let yamlStr = yaml.safeDump(category);
@@ -820,81 +831,6 @@ async function writeBulkInsertTest(orm:IOrm,dialects:string[],databases:string[]
     ,{name:'bulkInsert 2',context:'b',lambda: ()=> Orders.bulkInsert().include(p=> p.details) } 
   ]});
 }
-async function queries(orm:IOrm)
-{  
-  const expression = ()=> Customers.include(p=> p.orders.include(p => p.details))
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-  let context:any = {id:10248};
-  // await exec( async()=>(await orm.expression(expression).parse()).serialize())
-  await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
-  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).model())
-  await exec(async()=>(await orm.lambda(expression).execute(context,'source')));
-
-  //queries
-  //  Products.filter(p=>p.id==id)
-  //  Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})
-  //  Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )
-  //  Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))
-  //  Products.filter(p=> p.discontinued != false )                 
-  //                  .map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}) )
-  //                  .sort(p=> [p.category,desc(p.name)])
-  //  OrderDetails.filter(p=> between(p.order.shippedDate,'19970101','19971231') && p.unitPrice > minValue )                 
-  //              .map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}))
-  //              .sort(p=> [p.category,p.product])       
-  //  OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))
-
-  //includes
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])
-  //  Orders.filter(p=>p.id==id).include(p => p.details)
-  //  Orders.filter(p=>p.id==id).include(p => p.customer)
-
-  
-}
-async function modify(orm:IOrm){
-
-  const expression =
-  ` 
-  Orders.insert().include(p=> p.details)
-  `;
-    
-  // await exec( async()=>(await orm.expression(expression).parse()).serialize())
-  await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-  //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
-  // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-  
-  // let result = await exec(async()=>(await orm.expression(expression).execute(context,'source')));
-  // console.log(result.length);
-  
- //modify
-//  Products.insert()
-
-//  Orders.insert()
-//  Orders.insert({name:name,customerId:customerId,shippedDate:shippedDate})
-//  Orders.insert({name:o.name,customerId:o.customerId,shippedDate:o.shippedDate})
-//  Orders.insert().include(p=> p.details)
-//  Orders.insert().include(p=> [p.details,p.customer])
-//  Orders.insert(entity).include(p=> [p.details,p.customer])
-
-//  Orders.update()
-//  Orders.update(entity)
-//  Orders.update({name:entity.name}) //da error por que preciso definir filter
-//  Orders.update({name:entity.name}).filter(p=> p.id == entity.id)
-//  Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )
-//  Orders.update().include(p=> p.details)
-//  Orders.update().include(p=> [p.details,p.customer])
-
-//  Orders.delete().filter(p=> p.id == id)
-//  Orders.delete().include(p=> p.details)
-//  Orders.delete().filter(p=> p.id == id).include(p=> p.details)
-
-
-  
-}
 async function crud(orm:IOrm){
 
   let order = {
@@ -1160,10 +1096,10 @@ async function schemaImport(orm:IOrm,source:string,target:string){
    
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
     let errors=0;
-    let databases:string[]= ['mysql','postgres'];
+    let databases:string[]= [];// ['mysql','postgres'];
     let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
    
-    // await toExpression(orm);
+    await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -1171,36 +1107,36 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await bulkInsert2(orm);
     // await generateModel(orm,'source');
     
-    await schemaSync(orm,'source');
-    await schemaExport(orm,'source');
-    //test mysql
-    await schemaDrop(orm,'mysql',true);
-    await schemaSync(orm,'mysql');
-    await schemaImport(orm,'source','mysql');
-    await schemaExport(orm,'mysql');  
-    // //test mariadb
-    // await schemaDrop(orm,'mariadb',true);
-    // await schemaSync(orm,'mariadb');
-    // await schemaImport(orm,'source','mariadb');
-    // await schemaExport(orm,'mariadb');
-    //test postgres 
-    await schemaDrop(orm,'postgres',true);
-    await schemaSync(orm,'postgres');
-    await schemaImport(orm,'source','postgres');
-    await schemaExport(orm,'postgres');  
+    // await schemaSync(orm,'source');
+    // await schemaExport(orm,'source');
+    // //test mysql
+    // await schemaDrop(orm,'mysql',true);
+    // await schemaSync(orm,'mysql');
+    // await schemaImport(orm,'source','mysql');
+    // await schemaExport(orm,'mysql');  
+    // // //test mariadb
+    // // await schemaDrop(orm,'mariadb',true);
+    // // await schemaSync(orm,'mariadb');
+    // // await schemaImport(orm,'source','mariadb');
+    // // await schemaExport(orm,'mariadb');
+    // //test postgres 
+    // await schemaDrop(orm,'postgres',true);
+    // await schemaSync(orm,'postgres');
+    // await schemaImport(orm,'source','postgres');
+    // await schemaExport(orm,'postgres');  
 
-    errors=+await writeQueryTest(orm,dialects,databases);
-    errors=+await writeNumeriFunctionsTest(orm,dialects,databases);
-    errors=+await writeGroupByTest(orm,dialects,databases);
-    errors=+await writeIncludeTest(orm,dialects,databases);
-    errors=+await writeInsertsTest(orm,dialects,databases);
-    errors=+await writeUpdateTest(orm,dialects,databases);
-    errors=+await writeDeleteTest(orm,dialects,databases);
-    errors=+await writeBulkInsertTest(orm,dialects,databases);
-    //operators comparation , matematica
-    //string functions
-    //datetime functions
-    //nullables functions  
+    // errors=+await writeQueryTest(orm,dialects,databases);
+    // errors=+await writeNumeriFunctionsTest(orm,dialects,databases);
+    // errors=+await writeGroupByTest(orm,dialects,databases);
+    // errors=+await writeIncludeTest(orm,dialects,databases);
+    // errors=+await writeInsertsTest(orm,dialects,databases);
+    // errors=+await writeUpdateTest(orm,dialects,databases);
+    // errors=+await writeDeleteTest(orm,dialects,databases);
+    // errors=+await writeBulkInsertTest(orm,dialects,databases);
+    // //operators comparation , matematica
+    // //string functions
+    // //datetime functions
+    // //nullables functions  
        
       
     console.log(errors);

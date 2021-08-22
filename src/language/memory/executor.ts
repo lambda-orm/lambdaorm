@@ -2,7 +2,7 @@ import {Operand,Context} from '../../model'
 import {Executor} from '../../connection'
 import {IOperandExecutor} from '../'
 import {MemoryLanguage} from './language'
-import {Constant,Variable,Field,KeyValue,Array,Object,Operator,FunctionRef,ChildFunction,ArrowFunction,Block,
+import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,ChildFunction,ArrowFunction,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
     SentenceInclude,Query,Include} from './../operands'
 
@@ -31,7 +31,7 @@ export class MemoryExecutor implements IOperandExecutor
             return this.evalOperator(operand);
         else if(operand instanceof Block)
             return this.evalBlock(operand);
-        else if(operand instanceof Object)
+        else if(operand instanceof Obj)
             return this.evalObject(operand);
         else if(operand instanceof Array)
             return this.evalArray(operand);
@@ -110,7 +110,7 @@ export class MemoryExecutor implements IOperandExecutor
             this.eval(operand.children[i]);    
         }
     }
-    private evalObject(operand:Object):any
+    private evalObject(operand:Obj):any
     {
         let obj:{[k: string]: any} = {};
         for(let i=0;i<operand.children.length;i++){

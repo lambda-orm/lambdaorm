@@ -374,11 +374,10 @@ export class LanguageManager
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
     }
-    public build(dialect:string,node:Node,schema:SchemaHelper): Operand
+    public build(node:Node,schema:SchemaHelper): Operand
     {
         let _node = this.complete(node,schema);
-        let sentence = this.operandManager.build(_node,schema);
-        return this.get(dialect).query.build(sentence,dialect);
+        return this.operandManager.build(_node,schema);
     }
     public complete(node:Node,schema:SchemaHelper): Node
     {
@@ -389,6 +388,10 @@ export class LanguageManager
     public model(sentence:Sentence):any
     {
         return this.operandManager.model(sentence);
+    }
+    public query(dialect:string,sentence:Sentence): Query
+    {       
+        return this.get(dialect).query.build(sentence,dialect);
     }
     public sentence(dialect:string,operand:Query):any
     {
@@ -417,6 +420,5 @@ export class LanguageManager
     public truncate(dialect:string,schema:SchemaHelper):string[]
     {
         return this.get(dialect).schema.truncate(dialect,schema);
-    }    
-    
+    }
 }

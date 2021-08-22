@@ -44,7 +44,7 @@ export class Array extends Operand
         super(name,children,'array');
     } 
 }
-export class Object extends Operand
+export class Obj extends Operand
 {
     constructor(name:string,children:Operand[]=[]){
         super(name,children,'object');

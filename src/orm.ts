@@ -4,7 +4,7 @@ import {Expression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
 import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
-import {LanguageManager} from './language'
+import {LanguageManager, Sentence,Query} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {MemoryLanguage,CoreLib} from './language/memory'
 import modelConfig from './node/config.json'
@@ -124,22 +124,39 @@ class Orm implements IOrm
             throw 'complete expression: '+expression+' error: '+error.toString();
         }
     }
-    public async compile(expression:string,dialect:string,schema:string):Promise<Operand>
+    public async build(expression:string,schema:string):Promise<Operand>
     {       
         try{ 
-            let key = dialect+'-exp_'+expression;
+            let key = 'build_'+expression;
             let operand= await this._cache.get(key);
             if(!operand){
                 let _schema = this.schemaManager.getInstance(schema);
                 let node= this.node.parse(expression);
-                operand = this.language.build(dialect,node,_schema);
+                operand = this.language.build(node,_schema);
                 await this._cache.set(key,operand);
             }            
             return operand as Operand; 
         }
         catch(error){
             console.log(error)
-            throw 'compile expression: '+expression+' error: '+error.toString();
+            throw 'build expression: '+expression+' error: '+error.toString();
+        }
+    }
+    public async query(expression:string,dialect:string,schema:string):Promise<Query>
+    {       
+        try{ 
+            let key = dialect+'-query_'+expression;
+            let operand= await this._cache.get(key);
+            if(!operand){
+                let sentence= await this.build(expression,schema) as Sentence;
+                operand = this.language.query(dialect,sentence);
+                await this._cache.set(key,operand);
+            }            
+            return operand as Query; 
+        }
+        catch(error){
+            console.log(error)
+            throw 'query expression: '+expression+' error: '+error.toString();
         }
     }
     public expression(value:string):Expression

@@ -1,6 +1,6 @@
 import {Operand} from './../../model'
 import {Helper} from '../../helper'
-import {Constant,Variable,Field,KeyValue,Array,Object,Operator,FunctionRef,ArrowFunction,Block,
+import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
     SentenceInclude,Query,Include} from './../operands'
 import {IQueryBuilder} from './../iQueryBuilder'
@@ -82,7 +82,7 @@ export class SqlQueryBuilder implements IQueryBuilder
             return this.buildOperator(operand,metadata);
         else if(operand instanceof Block)
             return this.buildBlock(operand,metadata);
-        else if(operand instanceof Object)
+        else if(operand instanceof Obj)
             return this.buildObject(operand,metadata);
         else if(operand instanceof Array)
             return this.buildArray(operand,metadata);
@@ -242,7 +242,7 @@ export class SqlQueryBuilder implements IQueryBuilder
         }
         return text;
     }
-    private buildObject(operand:Object,metadata:SqlDialectMetadata):string
+    private buildObject(operand:Obj,metadata:SqlDialectMetadata):string
     {
         let text= '';
         let template = metadata.function('as').template;
