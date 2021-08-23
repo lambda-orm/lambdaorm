@@ -14,7 +14,6 @@ export class SqlQueryBuilder implements IQueryBuilder
     constructor(language:SqlLanguage){
         this.language=language;
     }
-
     public build(sentence:Sentence,dialect:string):Query
     {  
         let metadata = this.language.metadata(dialect);
@@ -117,10 +116,10 @@ export class SqlQueryBuilder implements IQueryBuilder
         else if(update)text = this.buildUpdate(update,metadata);
         else if(_delete)text = this.buildDelete(_delete,metadata); 
         
-        if(filter)text =+ this.buildArrowFunction(filter,metadata)+' ';        
-        if(groupBy)text =+ this.buildArrowFunction(groupBy,metadata)+' ';        
-        if(having)text =+ this.buildArrowFunction(having,metadata)+' ';        
-        if(sort)text =+ this.buildArrowFunction(sort,metadata)+' ';               
+        if(filter)text = text+ this.buildArrowFunction(filter,metadata)+' ';        
+        if(groupBy)text = text+ this.buildArrowFunction(groupBy,metadata)+' ';        
+        if(having)text =text + this.buildArrowFunction(having,metadata)+' ';        
+        if(sort)text =text + this.buildArrowFunction(sort,metadata)+' ';               
         return text;
     }
     private solveJoins(joins:Operand[],metadata:SqlDialectMetadata):string
@@ -156,14 +155,14 @@ export class SqlQueryBuilder implements IQueryBuilder
             let obj = operand.children[0];
             for(let p in obj.children){
                 let keyVal = obj.children[p] as KeyValue;                
-                fields.push(templateColumn.replace('{name}',metadata.delimiter(keyVal.field?keyVal.field.mapping:keyVal.name)));
+                fields.push(templateColumn.replace('{name}',metadata.delimiter(keyVal.mapping?keyVal.mapping:keyVal.name)));
                 values.push(this.buildOperand(keyVal.children[0],metadata)); 
             }    
         }
         template =template.replace('{name}',metadata.delimiter(operand.name)); 
         template =template.replace('{fields}',fields.join(','));
         template =template.replace('{values}',values.join(','));
-        template =template.replace('{autoincrementField}',operand.autoincrement && operand.autoincrement.mapping?operand.autoincrement.mapping:'0');         
+        template =template.replace('{autoincrementField}',operand.autoincrement && operand.autoincrement?operand.autoincrement:'0');         
         return template.trim(); 
     }
     private buildUpdate(operand:Update,metadata:SqlDialectMetadata):string
@@ -177,7 +176,7 @@ export class SqlQueryBuilder implements IQueryBuilder
             let obj = operand.children[0];
             for(let p in obj.children){
                 let keyVal = obj.children[p] as KeyValue;   
-                let column = templateColumn.replace('{name}',metadata.delimiter(keyVal.field?keyVal.field.mapping:keyVal.name));
+                let column = templateColumn.replace('{name}',metadata.delimiter(keyVal.mapping?keyVal.mapping:keyVal.name));
                 let value = this.buildOperand(keyVal.children[0],metadata);
                 let assing= templateAssing.replace('{0}',column);
                 assing= assing.replace('{1}',value);
@@ -202,7 +201,8 @@ export class SqlQueryBuilder implements IQueryBuilder
     {
         let template = metadata.dml(operand.name);
         for(let i=0;i<operand.children.length;i++){
-            template =template.replace('{'+i+'}',this.buildOperand(operand.children[i],metadata));
+            let text = this.buildOperand(operand.children[i],metadata);
+            template =template.replace('{'+i+'}',text);
         }
         return template.trim(); 
     }
@@ -284,7 +284,7 @@ export class SqlQueryBuilder implements IQueryBuilder
     }
     private buildVariable(operand:Variable,metadata:SqlDialectMetadata):string
     {
-        let number=operand._number?operand._number:0
+        let number=operand.number?operand.number:0
         let text = metadata.other('variable');
         text =text.replace('{name}',operand.name);
         text =text.replace('{number}',number.toString());

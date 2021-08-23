@@ -2,7 +2,6 @@ import orm from '../orm';
 import {Helper} from '../helper';
 import '../sintaxis'
 import {IOrm,Parameter } from '../model'
-import { DatabaseClean } from 'database';
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
@@ -18,7 +17,6 @@ async function exec(fn:any){
     }
     return result;  
 }
-
 interface Test
 {
   schema:string
@@ -59,10 +57,8 @@ interface ExecutionTest
   result?: any
   error?:string
 }
-
 async function writeTest(orm:IOrm,dialects:string[],databases:string[],category:CategoryTest):Promise<number>
 {
-  
   category.errors=0;
   for(const q in category.test){    
     let expressionTest = category.test[q] as ExpressionTest;
@@ -73,12 +69,9 @@ async function writeTest(orm:IOrm,dialects:string[],databases:string[],category:
       expressionTest.lambda=expressionTest.lambda.toString();
       expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema); 
       expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema);
-  
-      // //TODO: esto se debe resolver a nivel de Sentence independientemente del dialecto
-      // const serialize:any = await orm.expression(expressionTest.expression).serialize(dialect,category.schema);
-      // expressionTest.parameters =serialize.p; 
-      // expressionTest.fields =serialize.f;     
-      
+      const serialize:any = await orm.expression(expressionTest.expression).serialize(category.schema);
+      expressionTest.parameters =serialize.p; 
+      expressionTest.fields =serialize.f;
       for(const r in dialects){
         const dialect = dialects[r];
         let sentence=undefined;
@@ -898,7 +891,6 @@ async function crud(orm:IOrm){
     console.log(error);
   }
 }
-
 async function toExpression(orm:IOrm){
 
   let expressions= [
@@ -946,8 +938,6 @@ async function toExpression(orm:IOrm){
     console.log(expressionComplete);
   }       
 }
-
-
 async function bulkInsert(orm:IOrm){
   const expression =`Categories.bulkInsert()`;
   const categories =[
@@ -1088,7 +1078,6 @@ async function schemaImport(orm:IOrm,source:string,target:string){
   await orm.database.import(target,data);
 }
 
-
 (async () => { 
 
   try
@@ -1096,10 +1085,10 @@ async function schemaImport(orm:IOrm,source:string,target:string){
    
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
     let errors=0;
-    let databases:string[]= [];// ['mysql','postgres'];
+    let databases:string[]=['mysql','postgres'];
     let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
    
-    await toExpression(orm);
+    // await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -1107,37 +1096,36 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await bulkInsert2(orm);
     // await generateModel(orm,'source');
     
-    // await schemaSync(orm,'source');
-    // await schemaExport(orm,'source');
-    // //test mysql
-    // await schemaDrop(orm,'mysql',true);
-    // await schemaSync(orm,'mysql');
-    // await schemaImport(orm,'source','mysql');
-    // await schemaExport(orm,'mysql');  
-    // // //test mariadb
-    // // await schemaDrop(orm,'mariadb',true);
-    // // await schemaSync(orm,'mariadb');
-    // // await schemaImport(orm,'source','mariadb');
-    // // await schemaExport(orm,'mariadb');
-    // //test postgres 
-    // await schemaDrop(orm,'postgres',true);
-    // await schemaSync(orm,'postgres');
-    // await schemaImport(orm,'source','postgres');
-    // await schemaExport(orm,'postgres');  
+    await schemaSync(orm,'source');
+    await schemaExport(orm,'source');
+    //test mysql
+    await schemaDrop(orm,'mysql',true);
+    await schemaSync(orm,'mysql');
+    await schemaImport(orm,'source','mysql');
+    await schemaExport(orm,'mysql');  
+    // //test mariadb
+    // await schemaDrop(orm,'mariadb',true);
+    // await schemaSync(orm,'mariadb');
+    // await schemaImport(orm,'source','mariadb');
+    // await schemaExport(orm,'mariadb');
+    //test postgres 
+    await schemaDrop(orm,'postgres',true);
+    await schemaSync(orm,'postgres');
+    await schemaImport(orm,'source','postgres');
+    await schemaExport(orm,'postgres');  
 
-    // errors=+await writeQueryTest(orm,dialects,databases);
-    // errors=+await writeNumeriFunctionsTest(orm,dialects,databases);
-    // errors=+await writeGroupByTest(orm,dialects,databases);
-    // errors=+await writeIncludeTest(orm,dialects,databases);
-    // errors=+await writeInsertsTest(orm,dialects,databases);
-    // errors=+await writeUpdateTest(orm,dialects,databases);
-    // errors=+await writeDeleteTest(orm,dialects,databases);
-    // errors=+await writeBulkInsertTest(orm,dialects,databases);
+    errors=+await writeQueryTest(orm,dialects,databases);
+    errors=+await writeNumeriFunctionsTest(orm,dialects,databases);
+    errors=+await writeGroupByTest(orm,dialects,databases);
+    errors=+await writeIncludeTest(orm,dialects,databases);
+    errors=+await writeInsertsTest(orm,dialects,databases);
+    errors=+await writeUpdateTest(orm,dialects,databases);
+    errors=+await writeDeleteTest(orm,dialects,databases);
+    errors=+await writeBulkInsertTest(orm,dialects,databases);
     // //operators comparation , matematica
     // //string functions
     // //datetime functions
-    // //nullables functions  
-       
+    // //nullables functions 
       
     console.log(errors);
   }

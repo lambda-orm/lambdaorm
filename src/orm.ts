@@ -170,8 +170,14 @@ class Orm implements IOrm
         let expression = str.substring(index,str.length);
         return new Expression(this,expression)
     }    
-    public async execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>
+    public async execute(expression:string,context:any,database:string,transaction?:Transaction):Promise<any>
     {
+
+        let _database= this.database.get(database);
+        let operand =this.language.hadQuery(_database.dialect)
+                        ?await this.query(expression,_database.dialect,_database.schema)
+                        :await this.build(expression,_database.schema);
+
         try{
             let _context = new Context(context);
             let _database= this.database.get(database);

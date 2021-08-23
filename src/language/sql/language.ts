@@ -9,12 +9,14 @@ export class SqlLanguage implements ILanguage
 {
     public name:string
     public libraries:any
-    public dialects:any    
+    public dialects:any
+    public hadQuery:boolean    
     private schemaBuilder:SqlSchemaBuilder
     private queryBuilder:SqlQueryBuilder
     private operandExecutor:SqlExecutor
     constructor(){
-        this.name= 'sql',
+        this.name= 'sql';
+        this.hadQuery=true;
         this.libraries={};
         this.dialects={};
         this.schemaBuilder = new SqlSchemaBuilder(this);

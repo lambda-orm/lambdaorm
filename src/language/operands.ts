@@ -10,11 +10,11 @@ export class Constant extends Operand
 export class Variable extends Operand
 {
     public context?: Context
-    public _number?:number   
+    public number?:number   
     constructor(name:string,type:string='any'){
         super(name,[],type);  
         this.context  = undefined;
-        this._number  = undefined;
+        this.number  = undefined;
     }
     set(value:any){
         if(this.context)
@@ -36,7 +36,7 @@ export class Field extends Operand
 } 
 export class KeyValue extends Operand
 {
-    public field?:Field
+    public mapping?:string
 }
 export class Array extends Operand
 {
@@ -52,33 +52,33 @@ export class Obj extends Operand
 } 
 export class Operator extends Operand
 {
-    protected _function:any
-    constructor(name:string,children:Operand[]=[],_function:any=null){
+    //protected function:any
+    constructor(name:string,children:Operand[]=[]){
         super(name,children); 
-        this._function = _function;
+        //this.function = _function;
     }
 }                             
 export class FunctionRef extends Operand
 {
-    protected _function:any
-    constructor(name:string,children:Operand[]=[],_function:any=null){
+    //protected function:any
+    constructor(name:string,children:Operand[]=[]){
         super(name,children); 
-        this._function = _function;
+        //this.function = _function;
     }
 }
 export class ChildFunction extends FunctionRef 
 {
     public context?: Context
-    constructor(name:string,children:Operand[]=[],_function:any=null){
-        super(name,children,_function); 
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children); 
         this.context = undefined;
     } 
 }
 export class ArrowFunction extends FunctionRef 
 {
     public context?: Context
-    constructor(name:string,children:Operand[]=[],_function:any=null){
-        super(name,children,_function); 
+    constructor(name:string,children:Operand[]=[]){
+        super(name,children); 
         this.context = undefined;
     } 
 }
@@ -92,9 +92,9 @@ export class Having extends ArrowFunction {}
 export class Sort extends ArrowFunction {}
 export class Insert extends ArrowFunction 
 {
-    public autoincrement?:Property
+    public autoincrement?:string
     public clause:string
-    constructor(name:string,children:Operand[]=[],clause:string,autoincrement?:Property){
+    constructor(name:string,children:Operand[]=[],clause:string,autoincrement?:string){
         super(name,children);
         this.autoincrement = autoincrement;
         this.clause=clause;
@@ -153,7 +153,7 @@ export class Sentence extends FunctionRef
         if(having)this.loadVariables(having,variables);
         if(sort)this.loadVariables(sort,variables);
         for(let i=0;i<variables.length;i++ ){
-            variables[i]._number = i+1;
+            variables[i].number = i+1;
         }        
     }
     private loadVariables(operand:Operand,variables:Variable[])

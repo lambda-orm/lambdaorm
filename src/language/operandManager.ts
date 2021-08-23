@@ -3,7 +3,7 @@ import {Property,Operand,Parameter} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
-    SentenceInclude} from './operands'
+    SentenceInclude,ArrowFunction,ChildFunction} from './operands'
 
 class EntityContext
 {    
@@ -38,7 +38,6 @@ class ExpressionContext
         this.aliases={}
     }
 }
-
 export class OperandManager
 {      
     private languageModel:Model
@@ -76,6 +75,31 @@ export class OperandManager
         }
         return result;
     }
+    public serialize(operand:Operand):any
+    {
+        let children = [];
+        for(const k in operand.children){
+            children.push(this.serialize(operand.children[k]));
+        }    
+        if(operand instanceof Sentence)
+            return {n:operand.name,t:operand.constructor.name,c:children,f:operand.columns,p:operand.parameters,e:operand.entity,a:operand.autoincrement};
+        else if(operand instanceof SentenceInclude)
+            return {n:operand.name,t:operand.constructor.name,c:children,r:operand.relation,v:operand.variable}; 
+        else if(operand instanceof Insert)
+            return {n:operand.name,t:operand.constructor.name,c:children,s:operand.clause,a:operand.autoincrement};
+        else if(operand instanceof KeyValue)
+            return {n:operand.name,t:operand.constructor.name,c:children,m:operand.mapping};                 
+        else if(operand instanceof Field)
+            return {n:operand.name,t:operand.constructor.name,c:children,e:operand.entity,m:operand.mapping};
+        else if(operand instanceof Variable)
+            return {n:operand.name,t:operand.constructor.name,c:children,u:operand.number};
+        else
+            return {n:operand.name,t:operand.constructor.name,c:children};     
+    }
+    public deserialize(serialized:any):Operand
+    {
+        throw 'NotImplemented';
+    } 
     private reduce(operand:Operand):Operand
     {
         if(operand instanceof Operator){        
@@ -104,9 +128,7 @@ export class OperandManager
         }
         return operand;
     }
-
-
-    protected setParent(operand:Operand,index:number=0,parent?:Operand){        
+    private setParent(operand:Operand,index:number=0,parent?:Operand){        
         try{
             if(parent){
                 operand.id = parent.id +'.'+index;
@@ -130,7 +152,7 @@ export class OperandManager
             throw 'set parent: '+operand.name+' error: '+error.toString();
         }
     }
-    protected nodeToOperand(node:Node,schema:SchemaHelper,context:ExpressionContext):Operand
+    private nodeToOperand(node:Node,schema:SchemaHelper,context:ExpressionContext):Operand
     {
         let operand:Operand;
         if(node.type == 'arrow' || node.type == 'childFunc' ){
@@ -154,7 +176,7 @@ export class OperandManager
         }
         return operand;
     }    
-    protected createOperand(node:Node,children:Operand[],schema:SchemaHelper,context:ExpressionContext):Operand
+    private createOperand(node:Node,children:Operand[],schema:SchemaHelper,context:ExpressionContext):Operand
     {
         switch(node.type){
             case 'const':
@@ -226,7 +248,7 @@ export class OperandManager
                 throw 'node name: '+node.name +' type: '+node.type+' not supported';
         }
     }    
-    protected createSentence(node:Node,schema:SchemaHelper,context:ExpressionContext):Sentence
+    private createSentence(node:Node,schema:SchemaHelper,context:ExpressionContext):Sentence
     {
         context.current = new EntityContext(context.current)
         let createInclude:any;
@@ -346,7 +368,7 @@ export class OperandManager
         context.current = context.current.parent?context.current.parent as EntityContext:new EntityContext()
         return sentence   
     }
-    protected createClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
+    private createClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
     {        
         context.current.arrowVar = clause.children[1].name;                    
         let child = this.nodeToOperand(clause.children[2],schema,context);
@@ -359,7 +381,7 @@ export class OperandManager
             default: throw 'clause : '+clause.name+' not supported'; 
         }
     }
-    protected createMapClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
+    private createMapClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
     {
         if(clause.children.length==3){
             context.current.arrowVar = clause.children[1].name;
@@ -368,20 +390,20 @@ export class OperandManager
         }
         throw 'Sentence Map incorrect!!!';
     }
-    protected createInsertClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
+    private createInsertClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
     {  
         if(clause.children.length== 2){
             if(clause.children[1].type == 'obj'){
                 let autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity);
                 let child = this.nodeToOperand(clause.children[1],schema,context);
-                return new Insert(context.current.metadata.mapping,[child],clause.name,autoincremente);
+                return new Insert(context.current.metadata.mapping,[child],clause.name,autoincremente?.mapping);
             }
             else
                 throw 'Args incorrect in Sentence Insert'; 
         }
         throw 'Sentence Insert incorrect!!!';       
     }
-    protected createUpdateClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
+    private createUpdateClause(clause:Node,schema:SchemaHelper,context:ExpressionContext):Operand
     { 
         if(clause.children.length== 2){
             if(clause.children[1].type == 'obj'){
@@ -400,7 +422,7 @@ export class OperandManager
         }
         throw 'Sentence Update incorrect!!!';
     }
-    protected createSelectInclude(node:Node,schema:SchemaHelper,context:ExpressionContext,clause:string='map'):SentenceInclude
+    private createSelectInclude(node:Node,schema:SchemaHelper,context:ExpressionContext,clause:string='map'):SentenceInclude
     {  
         let relation:any
         let current = node;
@@ -422,7 +444,7 @@ export class OperandManager
         let variableName = 'list_'+relation.to;
         return new SentenceInclude(relation.name,[child],relation,variableName);
     }    
-    protected createInclude(node:Node,schema:SchemaHelper,context:ExpressionContext):SentenceInclude
+    private createInclude(node:Node,schema:SchemaHelper,context:ExpressionContext):SentenceInclude
     { 
         let child:Sentence,relation:any,relationName:string="";
         let current = node;
@@ -443,7 +465,7 @@ export class OperandManager
         child = this.createSentence(node, schema, context);
         return new SentenceInclude(relationName,[child],relation,relation.to); 
     }
-    protected getSentence(node:Node):any
+    private getSentence(node:Node):any
     {
         let sentence:any = {};
         let current = node;
@@ -457,7 +479,7 @@ export class OperandManager
         }
         return sentence; 
     }
-    protected addJoins(parts:string[],to:number,context:ExpressionContext):string
+    private addJoins(parts:string[],to:number,context:ExpressionContext):string
     {
         let relation = '';
         for(let i=1;i<to;i++){
@@ -467,13 +489,13 @@ export class OperandManager
         }
         return relation;
     }    
-    protected groupByFields(operand:Operand):Field[]
+    private groupByFields(operand:Operand):Field[]
     {
         let data = {fields:[],groupBy:false};
         this._groupByFields(operand,data);
         return data.groupBy?data.fields:[]; 
     }
-    protected _groupByFields(operand:Operand,data:any):void
+    private _groupByFields(operand:Operand,data:any):void
     {
         if(operand instanceof Field){
             data.fields.push(operand);
@@ -486,7 +508,7 @@ export class OperandManager
             }
         }
     }
-    protected createAlias(context:ExpressionContext,name:string,relation?:string):string
+    private createAlias(context:ExpressionContext,name:string,relation?:string):string
     {
         let c= name.charAt(0).toLowerCase();
         let alias = c;
@@ -494,7 +516,7 @@ export class OperandManager
         context.aliases[alias] = relation?relation:name;
         return alias;        
     }    
-    protected fieldsInSelect(operand:Operand):Property[]
+    private fieldsInSelect(operand:Operand):Property[]
     {       
         let fields:Property[] = [];
         if(operand.children.length==1){
@@ -544,7 +566,7 @@ export class OperandManager
     * @param context current ExpressionContext
     * @returns fields to execute query
     */
-    protected fieldsInModify(operand:Operand,context:ExpressionContext):Property[]
+     private fieldsInModify(operand:Operand,context:ExpressionContext):Property[]
     {       
         let fields:Property[] = [];
         if(operand.children.length==1){
@@ -554,14 +576,14 @@ export class OperandManager
                     let keyVal = obj.children[p] as KeyValue;
                     let property =context.current.metadata.property[keyVal.name];
                     let field = {name:keyVal.name,type:property.type};
-                    keyVal.field = new Field(context.current.entity,property.name,property.type,property.mapping);                    
+                    keyVal.mapping = property.mapping; // new Field(context.current.entity,property.name,property.type,property.mapping);                    
                     fields.push(field);                  
                 }    
             } 
         }
         return fields;
     }
-    protected parametersInSentence(children:Operand[]):Parameter[]
+    private parametersInSentence(children:Operand[]):Parameter[]
     {
         let map =  children.find(p=> p.name=='map');   
         let filter = children.find(p=> p.name=='filter'); 
@@ -583,7 +605,7 @@ export class OperandManager
         if(sort)this.loadParameters(sort,parameters);        
         return parameters;
     }
-    protected loadParameters(operand:Operand,parameters:Parameter[])
+    private loadParameters(operand:Operand,parameters:Parameter[])
     {        
         if(operand instanceof Variable){
             let type:string;
@@ -600,7 +622,7 @@ export class OperandManager
     //si se usa en un operador con que se esta comparando.
     //si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
     //let type = this.solveType(operand,childNumber);
-    protected solveTypes(operand:Operand,context:ExpressionContext):string
+    private   solveTypes(operand:Operand,context:ExpressionContext):string
     {        
         if(operand instanceof Constant || operand instanceof Field || operand instanceof Variable)return operand.type;
         if(operand instanceof Update || operand instanceof Insert){
@@ -616,13 +638,12 @@ export class OperandManager
                 } 
             }
         }
-        if(operand instanceof Operator || operand instanceof FunctionRef){
+        if(!(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)){
             let tType='any';
             // get metadata of operand
             const metadata = operand instanceof Operator?
                                 this.languageModel.getOperator(operand.name,operand.children.length):
                                 this.languageModel.getFunction(operand.name);
-
 
             //recorre todos los parametros 
             for(let i=0;i<metadata.params.length;i++ ){  

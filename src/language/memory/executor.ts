@@ -14,8 +14,28 @@ export class MemoryExecutor implements IOperandExecutor
     }
     public execute(operand:Operand,context:Context,scheme?:any,executor?:Executor):any
     {          
-        if(context)this.language.setContext(operand,new Context(context));
+        if(context)this.setContext(operand,new Context(context));
         return this.eval(operand);
+    }
+    private setContext(operand:Operand,context:Context){
+        let current = context;
+        if( operand instanceof ArrowFunction){
+            let childContext=current.newContext();
+            operand.context   = childContext;
+            current = childContext;
+        }
+        if( operand instanceof ChildFunction){
+            let childContext=current.newContext();
+            operand.context   = childContext;
+            current = childContext;
+        }
+        else if(operand instanceof Variable){
+            operand.context = current;
+        }       
+        for(const k in operand.children){
+            const p = operand.children[k];
+            this.setContext(p,current);
+        } 
     }
     private eval(operand:Operand):any
     {

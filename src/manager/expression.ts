@@ -1,7 +1,7 @@
-import {IOrm} from './../model'
+import {IOrm,Operand} from './../model'
 import {Transaction} from './../connection'
 import {NodeExpression} from './nodeExpression'
-import {Query,Sentence}  from './../language'
+import {Sentence}  from './../language'
 
 export class Expression
 {
@@ -33,18 +33,17 @@ export class Expression
         let query = await this.orm.query(this.expression,dialect,schemaName);
         return this.orm.language.sentence(dialect,query);
     }
-    public async serialize(dialect:string,schemaName:string):Promise<string>
+    public async serialize(schemaName:string):Promise<any>
     {
-        let query = await this.orm.query(this.expression,dialect,schemaName);
-        return this.orm.language.serialize(dialect,query);
-    }  
+        let operand = await this.orm.build(this.expression,schemaName);
+        return this.orm.language.serialize(operand);
+    }
+    public async deserialize(serialized:any):Promise<Operand>
+    {       
+        return this.orm.language.deserialize(serialized);
+    }   
     public async execute(context:any,database:string,transaction?:Transaction)
-    {  
-        let _database= this.orm.database.get(database);
-        let query = await this.orm.query(this.expression,_database.dialect,_database.schema);
-        return await this.orm.execute(query,context,database,transaction);
-    }  
-    
+    {         
+        return await this.orm.execute(this.expression,context,database,transaction);
+    } 
 }
-
-

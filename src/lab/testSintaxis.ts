@@ -106,11 +106,11 @@ let query7 = (id:number)=> Orders.filter(p=> p.id == id ).map(p=> ({id:p.id,cust
 
 // let a =(await orm.lambda(query).parse()).serialize()
 
-result = await orm.lambda(query).serialize('mysql','northwind');
+result = await orm.lambda(query).serialize('northwind');
 console.log(result);
-result = await orm.lambda(query2).serialize('mysql','northwind');
+result = await orm.lambda(query2).serialize('northwind');
 console.log(result);
-result = await orm.lambda(query3).serialize('mysql','northwind');
+result = await orm.lambda(query3).serialize('northwind');
 console.log(result);
 
 

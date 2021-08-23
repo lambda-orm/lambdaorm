@@ -21,7 +21,7 @@ export interface IOrm
     complete(expression:string,schema:string):string
     build(expression:string,schema:string):Promise<Operand>
     query(expression:string,dialect:string,schema:string):Promise<Query>  
-    execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>
+    execute(expression:string,context:any,database:string,transaction?:Transaction):Promise<any>
     executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>
     transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
 }

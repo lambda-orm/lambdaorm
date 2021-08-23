@@ -7,11 +7,13 @@ export class MemoryLanguage implements ILanguage
     public name:string
     public libraries:any
     public dialects:any
+    public hadQuery:boolean  
     public operators:any
     public functions:any  
     private operandExecutor:MemoryExecutor
     constructor(){
         this.name= 'memory',
+        this.hadQuery=false;
         this.libraries={}; 
         this.dialects = [{name:this.name,dialect:'memory'}];
         this.operators={};
@@ -56,22 +58,6 @@ export class MemoryLanguage implements ILanguage
         catch(error){
             throw 'error with function: '+name;
         }
-    }
-    setContext(operand:Operand,context:Context){
-        let current = context;
-        if( operand instanceof ArrowFunction){
-            let arrow = operand as ArrowFunction;
-            let childContext=current.newContext();
-            arrow.context   = childContext;
-            current = childContext;
-        }
-        else if(operand instanceof Variable){
-            operand.context = current;
-        }       
-        for(const k in operand.children){
-            const p = operand.children[k];
-            this.setContext(p,current);
-        } 
     }
     public get schema():ISchemaBuilder
     {

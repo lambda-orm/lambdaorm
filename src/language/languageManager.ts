@@ -363,7 +363,7 @@ export class LanguageManager
         this.operandManager= new OperandManager(languageModel);
         this.languages={};
         this.dialects={};
-    } 
+    }
     public add(language:ILanguage){
         this.languages[language.name] =language;
         for(const name in language.dialects)
@@ -373,6 +373,9 @@ export class LanguageManager
     {
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
+    }
+    public hadQuery(dialect:string){
+        return this.get(dialect).hadQuery; 
     }
     public build(node:Node,schema:SchemaHelper): Operand
     {
@@ -397,13 +400,21 @@ export class LanguageManager
     {
         return this.get(dialect).query.sentence(operand);
     }
-    public deserialize(dialect:string,serialized:any)
+    public serialize(operand:Operand):any
     {
-        return this.get(dialect).query.deserialize(serialized);
+        return this.operandManager.serialize(operand);
     }
-    public serialize(dialect:string,operand:Operand):any
+    public deserialize(serialized:any)
+    {
+        return this.operandManager.deserialize(serialized);
+    }
+    public serializeQuery(dialect:string,operand:Operand):any
     {
         return this.get(dialect).query.serialize(operand);
+    }
+    public deserializeQuery(dialect:string,serialized:any)
+    {
+        return this.get(dialect).query.deserialize(serialized);
     }
     public async execute(dialect:string,operand:Operand,context:Context,executor:Executor):Promise<any>
     {

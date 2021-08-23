@@ -8,7 +8,7 @@ export default class ExpressionController {
     @Post("/compile")
     @SuccessResponse("200", "Ok")
     public async compile(@Body() body: CompileRequest): Promise<any> {
-        return  await orm.expression(body.expression).serialize(body.dialect,body.schema)
+        return  await orm.expression(body.expression).serialize(body.schema)
     }
     @Post("/sentence")
     @SuccessResponse("200", "Ok")
