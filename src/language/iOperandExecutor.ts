@@ -1,4 +1,5 @@
-import {Operand,Context} from './../model'
+import {Context} from './../model'
+import {Operand} from './operands'
 import {Executor} from './../connection'
 export interface IOperandExecutor
 {

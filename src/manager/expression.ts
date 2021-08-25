@@ -1,7 +1,7 @@
-import {IOrm,Operand} from './../model'
+import {IOrm} from './../model'
 import {Transaction} from './../connection'
 import {NodeExpression} from './nodeExpression'
-import {Sentence}  from './../language'
+import {Sentence,Operand}  from './../language'
 
 export class Expression
 {

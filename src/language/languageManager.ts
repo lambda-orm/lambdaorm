@@ -1,25 +1,37 @@
 import {Node,Model} from '../node/index'
-import {Operand,Context,Delta,IOrm} from './../model'
+import {Context,Delta,IOrm} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
 import {ILanguage} from './iLanguage'
 import {Executor}  from '../connection'
 import {OperandManager}  from './operandManager'
-import {Query,Sentence}  from './operands'
-import {CompleteExpressionManager}  from './completeExpressionManager'
+import {Operand,Query,Sentence}  from './operands'
+import {QueryCompleter}  from './queryCompleter'
+import {OperandMetadata} from './operandMetadata' 
+import {Library} from './library' 
 
 export class LanguageManager
-{   
-    private languages:any
+{      
     public dialects:any
+    public languageModel:Model
+    public metadata:OperandMetadata
+    private languages:any
     private orm:IOrm    
-    private completeExpression:CompleteExpressionManager
+    private queryCompleter:QueryCompleter
     private operandManager:OperandManager
+   
     constructor(orm:IOrm,languageModel:Model){
         this.orm=orm;
-        this.completeExpression= new CompleteExpressionManager();
-        this.operandManager= new OperandManager(languageModel);
+        this.languageModel=languageModel;
+        this.queryCompleter= new QueryCompleter();
+        this.metadata= new OperandMetadata();
+        this.operandManager= new OperandManager(this);
+        
         this.languages={};
         this.dialects={};
+    }
+    public addLibrary(library:Library):void
+    {
+        this.metadata.addLibrary(library);
     }
     public add(language:ILanguage){
         this.languages[language.name] =language;
@@ -30,10 +42,7 @@ export class LanguageManager
     {
         let info =  this.dialects[dialect];
         return this.languages[info.language] as ILanguage
-    }
-    public hadQuery(dialect:string){
-        return this.get(dialect).hadQuery; 
-    }
+    }    
     public build(node:Node,schema:SchemaHelper): Operand
     {
         let _node = this.complete(node,schema);
@@ -41,7 +50,7 @@ export class LanguageManager
     }
     public complete(node:Node,schema:SchemaHelper): Node
     {
-        let completeNode= this.completeExpression.completeNode(node,schema);
+        let completeNode= this.queryCompleter.complete(node,schema);
         this.orm.node.setParent(completeNode);
         return completeNode; 
     }
@@ -76,6 +85,10 @@ export class LanguageManager
     public async execute(dialect:string,operand:Operand,context:Context,executor:Executor):Promise<any>
     {
         return await this.get(dialect).executor.execute(operand,context,executor);
+    }
+    public eval(operand:Operand,context:Context):any
+    {          
+        return this.operandManager.eval(operand,context);
     }
     public sync(dialect:string,delta:Delta,schema:SchemaHelper):any[]
     {       

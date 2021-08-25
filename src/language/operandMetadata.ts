@@ -1,24 +1,12 @@
-import {Operand,Context} from '../../model'
-import {Variable,ArrowFunction,ILanguage,IOperandExecutor,IQueryBuilder,ISchemaBuilder} from '../'
-import {MemoryExecutor} from './executor'
-
-export class MemoryLanguage implements ILanguage
+export class OperandMetadata
 {
-    public name:string
     public libraries:any
-    public dialects:any
-    public hadQuery:boolean  
     public operators:any
     public functions:any  
-    private operandExecutor:MemoryExecutor
     constructor(){
-        this.name= 'memory',
-        this.hadQuery=false;
         this.libraries={}; 
-        this.dialects = [{name:this.name,dialect:'memory'}];
         this.operators={};
         this.functions={};        
-        this.operandExecutor = new MemoryExecutor(this);
     }
     addLibrary(library:any):void
     {
@@ -58,18 +46,6 @@ export class MemoryLanguage implements ILanguage
         catch(error){
             throw 'error with function: '+name;
         }
-    }
-    public get schema():ISchemaBuilder
-    {
-        throw 'NotImplemented';
-    }
-    public get query():IQueryBuilder
-    {
-        throw 'NotImplemented';
-    }
-    public get executor():IOperandExecutor
-    {
-        return this.operandExecutor;
     }
 }
 

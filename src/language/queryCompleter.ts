@@ -1,30 +1,30 @@
 import {Node} from '../node/index'
 import {SchemaHelper}  from '../schema/schemaHelper'
 
-export class CompleteExpressionManager
+export class QueryCompleter
 {   
-    public completeNode(node:Node,schema:SchemaHelper):Node
+    public complete(node:Node,schema:SchemaHelper):Node
     {        
         if(node.type=='var' && node.children.length== 0){
             //Example: Products => Products.map(p=>p)            
             let arrowVariable = new Node('p','var');
             let allFields = new Node('p','var');
             let map=new Node('map','arrow',[node,arrowVariable,allFields]);
-            this.completeExpression(map,schema);
+            this.completeNode(map,schema);
             return map;
         }else{
-            this.completeExpression(node,schema);
+            this.completeNode(node,schema);
             return node;
         } 
     }
-    private completeExpression(node:Node,schema:SchemaHelper):void
+    private completeNode(node:Node,schema:SchemaHelper):void
     {
         if(node.type == 'arrow' || node.type == 'childFunc' ){
             this.completeSentence(node,schema);
         }
         else if(node.children){
             for(const i in node.children)
-                this.completeExpression(node.children[i],schema);
+                this.completeNode(node.children[i],schema);
         }
     }
     private getClauses(node:Node):any
@@ -87,15 +87,15 @@ export class CompleteExpressionManager
                 this.completeMapNode(entity,map,schema); 
              }
             else if (clauses['first']){
-                //TODO: add orderby and limit , replace first for map
-                //SELECT * FROM Orders ORDER BY OrderId LIMIT 1;
+                //Add orderby and limit , replace first for map
+                //example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1;
                 compleInclude = this.completeMapInclude;
                 let node = clauses['first'];
                 node.name= 'map';
                 this.completeMapNode(entity,node,schema); 
-                const autoincrement= schema.getAutoincrement(entity.name);
-                if(autoincrement!= undefined){
-                    if(!clauses['sort']){
+                if(!clauses['sort']){
+                    const autoincrement= schema.getAutoincrement(entity.name);
+                    if(autoincrement!= undefined){
                         let varArrow = new Node('p', 'var', []);
                         let varSort = new Node('p.'+autoincrement.name, 'var', []);
                         mainNode.children[0] = new Node('sort','arrow',[mainNode.children[0],varArrow,varSort]);   
@@ -108,18 +108,38 @@ export class CompleteExpressionManager
                 }                
             }
             else if (clauses['last']){
+                //Add orderby desc and limit, replace last for map
+                //example: SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 0,1;
                 compleInclude = this.completeMapInclude;
                 let node = clauses['last'];
-                //TODO: add orderby and limit , replace first for map
-                // SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 1;
-                node.name= 'map'; 
+                node.name= 'map';
+                this.completeMapNode(entity,node,schema);                
+                if(!clauses['sort']){
+                    const autoincrement= schema.getAutoincrement(entity.name);
+                    if(autoincrement!= undefined){
+                        let varArrow = new Node('p', 'var', []);
+                        let varSort = new Node('p.'+autoincrement.name, 'var', []);
+                        let funcDesc = new Node('desc', 'funcRef', [varSort]);                        
+                        mainNode.children[0] = new Node('sort','arrow',[mainNode.children[0],varArrow,funcDesc]);   
+                    }                    
+                }
+                if(!clauses['page']){
+                    let constPage = new Node('1', 'const', []);
+                    let constRecords = new Node('1', 'const', []);
+                    mainNode.children[0] = new Node('page','childFunc',[mainNode.children[0],constPage,constRecords]);
+                }  
             }
             else if (clauses['take']){
+                //Add limit , replace take for map
+                //example: SELECT * FROM Orders  LIMIT 0,1;
                 compleInclude = this.completeMapInclude;
                 let node = clauses['take'];
-                //TODO: add limit , replace first for map
-                // SELECT * FROM Orders  LIMIT 1;
-                node.name= 'map'; 
+                node.name= 'map';
+                if(!clauses['page']){
+                    let constPage = new Node('1', 'const', []);
+                    let constRecords = new Node('1', 'const', []);
+                    mainNode.children[0] = new Node('page','childFunc',[mainNode.children[0],constPage,constRecords]);
+                }  
             }else{
                 //Solve expresion without map example: Products.filter(p=> id==1)
                 compleInclude = this.completeMapInclude;

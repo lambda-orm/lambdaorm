@@ -1,9 +1,10 @@
 import {Node,Model} from '../node/index'
-import {Property,Operand,Parameter} from './../model'
+import {Property,Parameter,Context} from './../model'
 import {SchemaHelper}  from '../schema/schemaHelper'
-import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,Block,
+import {Operand,Constant,Variable,Field,KeyValue,List,Obj,Operator,FunctionRef,Block,
     Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
     SentenceInclude,ArrowFunction,ChildFunction} from './operands'
+import {LanguageManager} from './languageManager'    
 
 class EntityContext
 {    
@@ -40,9 +41,9 @@ class ExpressionContext
 }
 export class OperandManager
 {      
-    private languageModel:Model
-    constructor(languageModel:Model){
-        this.languageModel= languageModel; 
+    private language:LanguageManager
+    constructor(language:LanguageManager){
+        this.language= language;
     }    
     public build(node:Node,schema:SchemaHelper):Sentence
     {
@@ -99,7 +100,40 @@ export class OperandManager
     public deserialize(serialized:any):Operand
     {
         throw 'NotImplemented';
-    } 
+    }
+    public eval(operand:Operand,context:Context):any
+    {          
+        this.initialize(operand,new Context(context));
+        return operand.eval();
+    }
+    private initialize(operand:Operand,context:Context){
+        let current = context;
+        if( operand instanceof ArrowFunction){
+            let childContext=current.newContext();
+            operand.context   = childContext;
+            operand.metadata = this.language.metadata;
+            current = childContext;
+        }
+        else if( operand instanceof ChildFunction){
+            let childContext=current.newContext();
+            operand.context   = childContext;
+            operand.metadata = this.language.metadata;
+            current = childContext;
+        }
+        else if( operand instanceof FunctionRef){            
+            operand.metadata = this.language.metadata;
+        }
+        else if( operand instanceof Operator){            
+            operand.metadata = this.language.metadata;
+        }
+        else if(operand instanceof Variable){
+            operand.context = current;
+        }       
+        for(const k in operand.children){
+            const p = operand.children[k];
+            this.initialize(p,current);
+        } 
+    }
     private reduce(operand:Operand):Operand
     {
         if(operand instanceof Operator){        
@@ -112,8 +146,7 @@ export class OperandManager
                 }
             }
             if(allConstants){
-                //TODO: llamar a language Memory para reslver el eval
-                let value = operand.eval();                
+                let value = this.eval(operand,new Context({}));                
                 let constant= new Constant(value);
                 constant.parent = operand.parent;
                 constant.index = operand.index;
@@ -235,7 +268,7 @@ export class OperandManager
             case 'keyVal':
                 return new KeyValue(node.name,children);
             case 'array':
-                return new Array(node.name,children);
+                return new List(node.name,children);
             case 'obj':
                 return new Obj(node.name,children);
             case 'oper':
@@ -317,7 +350,7 @@ export class OperandManager
                 if(fields.length==1){
                     operand = new GroupBy('groupBy',fields);
                 }else{
-                    let array:Operand = new Array('array',fields);
+                    let array:Operand = new List('array',fields);
                     operand = new GroupBy('groupBy',[array]);
                 } 
                 children.push(operand); 
@@ -533,7 +566,7 @@ export class OperandManager
                         fields.push(field); 
                     }                  
                 }    
-            }else if(operand.children[0] instanceof Array){
+            }else if(operand.children[0] instanceof List){
                 let array = operand.children[0];
                 for(let i=0;i< array.children.length;i++){
                     let element = array.children[i];
@@ -642,8 +675,8 @@ export class OperandManager
             let tType='any';
             // get metadata of operand
             const metadata = operand instanceof Operator?
-                                this.languageModel.getOperator(operand.name,operand.children.length):
-                                this.languageModel.getFunction(operand.name);
+                                this.language.languageModel.getOperator(operand.name,operand.children.length):
+                                this.language.languageModel.getFunction(operand.name);
 
             //recorre todos los parametros 
             for(let i=0;i<metadata.params.length;i++ ){  

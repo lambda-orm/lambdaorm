@@ -28,6 +28,7 @@ export interface Property {
 export interface Relation {
     name: string
     type: string
+    composite?: boolean
     from: string
     entity: string
     to: string

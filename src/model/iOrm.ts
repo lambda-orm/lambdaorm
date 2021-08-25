@@ -1,5 +1,5 @@
-import {Operand,Config,Cache} from './../model/index';
-import {LanguageManager,Query} from '../language'
+import {Config,Cache} from './../model/index';
+import {LanguageManager,Operand,Query} from '../language'
 import {Transaction,ConnectionManager} from '../connection'
 import {NodeManager} from '../node/index'
 import {Expression}  from './../manager'
@@ -20,7 +20,8 @@ export interface IOrm
     lambda(value:Function):Expression
     complete(expression:string,schema:string):string
     build(expression:string,schema:string):Promise<Operand>
-    query(expression:string,dialect:string,schema:string):Promise<Query>  
+    query(expression:string,dialect:string,schema:string):Promise<Query>
+    eval(expression:string,context:any,schema:string):Promise<any>  
     execute(expression:string,context:any,database:string,transaction?:Transaction):Promise<any>
     executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>
     transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>

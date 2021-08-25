@@ -36,7 +36,7 @@ ddl:
   truncateTable: 'TRUNCATE TABLE {name}'
 dml:
   map: SELECT {0}
-  first: SELECT TOP 1 {0}
+  distinct: SELECT DISTINCT {0}
   filter: WHERE {0}
   groupBy: GROUP BY {0}
   having: HAVING {0}

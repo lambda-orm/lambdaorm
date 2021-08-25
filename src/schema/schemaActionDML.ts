@@ -39,20 +39,17 @@ export abstract class SchemaActionDML
 
     protected createInclude(entity:any,level:number=0):string
     {
-        // let expression:string='';
         let arrowVariable = this.arrowVariables[level];
         let includes:string[]=[];
         for(const relationName in entity.relation){
             const relation =  entity.relation[relationName];
-            if(relation.type == 'manyToOne' ){
+            if(relation.composite){
                 let childEntity = this.schema.getEntity(relation.entity);
                 let childInclude = this.createInclude(childEntity,level+1);
                 includes.push(`${arrowVariable}.${relation.name}${childInclude}`);
-                // expression =expression+`.include(p=>[p.${relation.name}${childInclude}])`;
             }
         }
         return includes.length==0?''
                 :`.include(${arrowVariable}=>[${includes.join(',')}])`;
     }
-    
 }

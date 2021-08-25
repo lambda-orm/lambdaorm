@@ -1,7 +1,6 @@
-import {Operand} from './../../model'
 import {Helper} from '../../helper'
-import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block,
-    Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Page,Insert,Update,Delete,
+import {Operand,Constant,Variable,Field,KeyValue,List,Obj,Operator,FunctionRef,ArrowFunction,Block,
+    Sentence,From,Join,Map,Distinct,Filter,GroupBy,Having,Sort,Page,Insert,Update,Delete,
     SentenceInclude,Query,Include} from './../operands'
 import {IQueryBuilder} from './../iQueryBuilder'
 import {SqlDialectMetadata} from './dialectMetadata'
@@ -85,8 +84,8 @@ export class SqlQueryBuilder implements IQueryBuilder
             return this.buildBlock(operand,metadata);
         else if(operand instanceof Obj)
             return this.buildObject(operand,metadata);
-        else if(operand instanceof Array)
-            return this.buildArray(operand,metadata);
+        else if(operand instanceof List)
+            return this.buildList(operand,metadata);
         else if(operand instanceof KeyValue)
             return this.buildKeyValue(operand,metadata);
         else if(operand instanceof Field)
@@ -100,7 +99,9 @@ export class SqlQueryBuilder implements IQueryBuilder
     }
     private buildSentence(sentence:Sentence,metadata:SqlDialectMetadata):string
     {
-        let map =  sentence.children.find(p=> p.name=='map')as Map|undefined; 
+        let map =  sentence.children.find(p=> p.name=='map')as Map|undefined;
+        let distinct =  sentence.children.find(p=> p.name=='distinct')as Distinct|undefined;
+        let select = distinct!=undefined?distinct:map; 
         let insert = sentence.children.find(p=> p instanceof Insert) as Insert|undefined;
         let update = sentence.children.find(p=> p instanceof Update) as Update|undefined;
         let _delete = sentence.children.find(p=> p instanceof Delete) as Delete|undefined;   
@@ -111,10 +112,10 @@ export class SqlQueryBuilder implements IQueryBuilder
         let page = sentence.children.find(p=> p.name=='sort')as Page|undefined; 
 
         let text = '';
-        if(map){
+        if(select){
             let from = sentence.children.find(p=> p instanceof From) as Operand;
             let joins = sentence.children.filter(p=> p instanceof Join);
-            text = this.buildArrowFunction(map,metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
+            text = this.buildArrowFunction(select,metadata) + ' ' + this.solveFrom(from,metadata)+ ' ' +  this.solveJoins(joins,metadata);
         }else if(insert)text = this.buildInsert(insert,metadata); 
         else if(update)text = this.buildUpdate(update,metadata);
         else if(_delete)text = this.buildDelete(_delete,metadata); 
@@ -269,7 +270,7 @@ export class SqlQueryBuilder implements IQueryBuilder
         }
         return text;
     }
-    private buildArray(operand:Array,metadata:SqlDialectMetadata):string
+    private buildList(operand:List,metadata:SqlDialectMetadata):string
     {
         let text = ''
         for(let i=0;i<operand.children.length;i++){

@@ -1,5 +1,5 @@
-import {Library} from './library'
-import  {Operator,ArrowFunction} from './../operands';
+import {Library} from './../library'
+import  {Operator,ArrowFunction} from '../operands';
 
 export class CoreLib extends Library
 {

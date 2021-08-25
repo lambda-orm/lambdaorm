@@ -1,9 +1,9 @@
-import {Operand,Context,Parameter } from './../../model'
+import {Context,Parameter } from './../../model'
 import {IOperandExecutor} from '../'
 import {Executor}  from '../../connection'
 import {SentenceInclude,Query} from './../operands'
 import {SqlLanguage} from './language'
-import {Helper} from './../../helper'
+import {Operand} from './../operands'
 import {SqlDialectMetadata } from './dialectMetadata'
 
 export class SqlExecutor implements IOperandExecutor

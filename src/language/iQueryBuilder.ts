@@ -1,5 +1,4 @@
-import {Operand} from './../model'
-import {Sentence,Query} from './operands'
+import {Operand,Sentence,Query} from './operands'
 export interface IQueryBuilder
 {  
     build(sentence:Sentence,dialect:string):Query
