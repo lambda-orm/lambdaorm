@@ -1,7 +1,7 @@
 import {Operand} from './../../model'
 import {Helper} from '../../helper'
 import {Constant,Variable,Field,KeyValue,Array,Obj,Operator,FunctionRef,ArrowFunction,Block,
-    Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Insert,Update,Delete,
+    Sentence,From,Join,Map,Filter,GroupBy,Having,Sort,Page,Insert,Update,Delete,
     SentenceInclude,Query,Include} from './../operands'
 import {IQueryBuilder} from './../iQueryBuilder'
 import {SqlDialectMetadata} from './dialectMetadata'
@@ -73,6 +73,8 @@ export class SqlQueryBuilder implements IQueryBuilder
             return this.buildUpdate(operand,metadata);
         else if(operand instanceof Delete)
             return this.buildDelete(operand,metadata);
+        else if(operand instanceof Page)
+            return this.buildPage(operand,metadata);    
         else if(operand instanceof ArrowFunction)
             return this.buildArrowFunction(operand,metadata);
         else if(operand instanceof FunctionRef)
@@ -106,6 +108,7 @@ export class SqlQueryBuilder implements IQueryBuilder
         let groupBy = sentence.children.find(p=> p.name=='groupBy')as GroupBy|undefined;
         let having = sentence.children.find(p=> p.name=='having')as Having|undefined; 
         let sort = sentence.children.find(p=> p.name=='sort')as Sort|undefined; 
+        let page = sentence.children.find(p=> p.name=='sort')as Page|undefined; 
 
         let text = '';
         if(map){
@@ -119,7 +122,8 @@ export class SqlQueryBuilder implements IQueryBuilder
         if(filter)text = text+ this.buildArrowFunction(filter,metadata)+' ';        
         if(groupBy)text = text+ this.buildArrowFunction(groupBy,metadata)+' ';        
         if(having)text =text + this.buildArrowFunction(having,metadata)+' ';        
-        if(sort)text =text + this.buildArrowFunction(sort,metadata)+' ';               
+        if(sort)text =text + this.buildArrowFunction(sort,metadata)+' ';
+        if(page)text =text + this.buildPage(page,metadata)+' ';                 
         return text;
     }
     private solveJoins(joins:Operand[],metadata:SqlDialectMetadata):string
@@ -195,6 +199,16 @@ export class SqlQueryBuilder implements IQueryBuilder
         let parts = operand.name.split('.');
         template =template.replace('{name}',metadata.delimiter(parts[0])); 
         template =Helper.replace(template,'{alias}',parts[1]);
+        return template.trim()+' '; 
+    }
+    private buildPage(operand:Page,metadata:SqlDialectMetadata):string
+    {
+        let template = metadata.dml('page');               
+        let page =  parseInt(operand.children[0].name);
+        let records =  parseInt(operand.children[1].name);
+        if(page<1)page=1;
+        template =template.replace('{offset}',((page-1)*records).toString()); 
+        template =Helper.replace(template,'{records}',records.toString());
         return template.trim()+' '; 
     }
     private buildArrowFunction(operand:ArrowFunction,metadata:SqlDialectMetadata):string

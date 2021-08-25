@@ -43,7 +43,7 @@ let qryUpdate6 =(entity:Order)=> Orders.update().include(p=> [p.details,p.custom
 //                                       .filter(p=> p.id == entity.id )
 
 let qryDelete =(id:number)=> Orders.delete().filter(p=> p.id == id).include(p=> p.details)
-let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).skip(20).offset(10)
+let qryFilterMap =(id:number)=> Orders.filter(p=> p.id == id).map(p=>({name:p.name})).sort(p=> p.name).page(3,20)
 
 //en este caso se asume que el contexto sera directamente el objeto de tipo Order
 let qrySync =(entity:Order)=> Orders.sync()

@@ -8,6 +8,7 @@ ddl:
   dropFk: 'DROP CONSTRAINT {name}'
   dropIndex: 'DROP INDEX {name}'
 dml:
+  page: OFFSET {offset} LIMIT {records} 
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id
   bulkInsert: INSERT INTO {name}({fields}) VALUES 
 others:

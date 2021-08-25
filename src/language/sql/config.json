@@ -34,6 +34,7 @@
         "groupBy": "GROUP BY {0}",
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
+        "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}"
       },
@@ -267,6 +268,7 @@
         "groupBy": "GROUP BY {0}",
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
+        "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "delete": "DELETE FROM {name} {alias}",
@@ -451,6 +453,7 @@
         "groupBy": "GROUP BY {0}",
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
+        "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}"
       },
@@ -672,6 +675,7 @@
         "groupBy": "GROUP BY {0}",
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
+        "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "delete": "DELETE FROM {name} {alias}",
@@ -869,6 +873,7 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "page": "OFFSET {offset} LIMIT {records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES",
         "map": "SELECT {0}",
@@ -1089,6 +1094,7 @@
       "groupBy": "GROUP BY {0}",
       "having": "HAVING {0}",
       "sort": "ORDER BY {0}",
+      "page": "LIMIT {offset},{records}",
       "insert": "INSERT INTO {name}({fields}) VALUES({values})",
       "update": "UPDATE {name} {alias} SET {assings}",
       "delete": "DELETE FROM {name} {alias}",

@@ -90,6 +90,7 @@ export class Filter extends ArrowFunction {}
 export class GroupBy extends ArrowFunction {}
 export class Having extends ArrowFunction {}
 export class Sort extends ArrowFunction {}
+export class Page extends ChildFunction {}
 export class Insert extends ArrowFunction 
 {
     public autoincrement?:string
@@ -100,7 +101,7 @@ export class Insert extends ArrowFunction
         this.clause=clause;
     }
 }
-export  class Update extends ArrowFunction{}
+export class Update extends ArrowFunction{}
 export class Delete extends ArrowFunction {}
 export class Sentence extends FunctionRef 
 {
