@@ -10,7 +10,7 @@ export abstract class SchemaActionDML
     constructor(orm:IOrm,schema:SchemaHelper){
         this.orm=orm;
         this.schema=schema;
-        this.arrowVariables=['p','q','r','s','t','u','v','w','x','y','z'];
+        this.arrowVariables=['p','q','r','s','t','u','v','w','x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','o'];
     }
     public async sentence(dialect:string):Promise<SchemaSentence>
     {
