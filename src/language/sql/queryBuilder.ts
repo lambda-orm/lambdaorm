@@ -109,7 +109,7 @@ export class SqlQueryBuilder implements IQueryBuilder
         let groupBy = sentence.children.find(p=> p.name=='groupBy')as GroupBy|undefined;
         let having = sentence.children.find(p=> p.name=='having')as Having|undefined; 
         let sort = sentence.children.find(p=> p.name=='sort')as Sort|undefined; 
-        let page = sentence.children.find(p=> p.name=='sort')as Page|undefined; 
+        let page = sentence.children.find(p=> p.name=='page')as Page|undefined; 
 
         let text = '';
         if(select){

@@ -682,6 +682,7 @@
     "abs": {
       "desc": "Get the absolute value",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -693,6 +694,7 @@
     "acos": {
       "desc": "Get the arc cosine",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -704,6 +706,7 @@
     "asin": {
       "desc": "Get the arc sine",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -715,6 +718,7 @@
     "atan": {
       "desc": "Get the arc tangent",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -726,6 +730,7 @@
     "atan2": {
       "desc": "Get the arc tangent of x and y",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -741,6 +746,7 @@
     "ceil": {
       "desc": "Get the smallest following integer",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -752,6 +758,7 @@
     "cos": {
       "desc": "Get the cosine",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -763,6 +770,7 @@
     "cosh": {
       "desc": "Get hyperbolic cosine",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -774,6 +782,7 @@
     "exp": {
       "desc": "Raise e to the nth power",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -785,6 +794,7 @@
     "floor": {
       "desc": "Get the largest preceding integer",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -796,6 +806,7 @@
     "ln": {
       "desc": "Get natural logarithm of num",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -807,6 +818,7 @@
     "log": {
       "desc": "Get logarithm, base num1, of num2",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -822,6 +834,7 @@
     "remainder": {
       "desc": "Get remainder",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -837,6 +850,7 @@
     "round": {
       "desc": "Get rounded value",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -852,6 +866,7 @@
     "sign": {
       "desc": "Get sign of exp",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -863,6 +878,7 @@
     "sin": {
       "desc": "Get sine",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -874,6 +890,7 @@
     "sinh": {
       "desc": "Get hyperbolic sine",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -885,6 +902,7 @@
     "tan": {
       "desc": "Get tangent",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -896,6 +914,7 @@
     "tanh": {
       "desc": "Get hyperbolic tangent",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -907,6 +926,7 @@
     "trunc": {
       "desc": "Truncate num",
       "category": "numeric",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -918,6 +938,7 @@
     "chr": {
       "desc": "Get character from ASCII code",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -929,6 +950,7 @@
     "initcap": {
       "desc": "Capitalize words",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -940,6 +962,7 @@
     "lower": {
       "desc": "Lowercase string",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -951,6 +974,7 @@
     "lpad": {
       "desc": "Pad the left-side of string",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -970,6 +994,7 @@
     "ltrim": {
       "desc": "Remove leading chars",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -981,6 +1006,7 @@
     "replace": {
       "desc": "The replace() method searches a string for a specified value and returns a new string where the specified values are replaced.",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1000,6 +1026,7 @@
     "rpad": {
       "desc": "Pad the right-side of string",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1019,6 +1046,7 @@
     "rtrim": {
       "desc": "Remove trailing spaces",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1030,6 +1058,7 @@
     "substr": {
       "desc": "Get a substring of string",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1049,6 +1078,7 @@
     "trim": {
       "desc": "Remove characters",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1060,6 +1090,7 @@
     "upper": {
       "desc": "Uppercase string",
       "category": "string",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1071,8 +1102,9 @@
     "concat": {
       "desc": "String concatenation",
       "category": "string",
-      "return": "string",
+      "deterministic": true,
       "multipleParams": true,
+      "return": "string",
       "params": [
         {
           "name": "values",
@@ -1098,6 +1130,7 @@
     "time": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1109,6 +1142,7 @@
     "date": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1120,6 +1154,7 @@
     "datetime": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1131,6 +1166,7 @@
     "year": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1142,6 +1178,7 @@
     "month": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1153,6 +1190,7 @@
     "day": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1164,6 +1202,7 @@
     "weekday": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1175,6 +1214,7 @@
     "hours": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1186,6 +1226,7 @@
     "minutes": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1197,6 +1238,7 @@
     "seconds": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1208,6 +1250,7 @@
     "addYear": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1223,6 +1266,7 @@
     "addMonth": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1238,6 +1282,7 @@
     "addDay": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1253,6 +1298,7 @@
     "addHours": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1268,6 +1314,7 @@
     "addMinutes": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1283,6 +1330,7 @@
     "addSeconds": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1298,6 +1346,7 @@
     "addTime": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1313,6 +1362,7 @@
     "dateDiff": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1328,6 +1378,7 @@
     "timeDiff": {
       "desc": null,
       "category": "datetime",
+      "deterministic": true,
       "return": "Date",
       "params": [
         {
@@ -1343,6 +1394,7 @@
     "toString": {
       "desc": null,
       "category": "convert",
+      "deterministic": true,
       "return": "string",
       "params": [
         {
@@ -1354,6 +1406,7 @@
     "toJson": {
       "desc": null,
       "category": "convert",
+      "deterministic": true,
       "return": "object",
       "params": [
         {
@@ -1365,6 +1418,7 @@
     "toNumber": {
       "desc": null,
       "category": "convert",
+      "deterministic": true,
       "return": "number",
       "params": [
         {
@@ -1386,6 +1440,7 @@
     "nvl": {
       "desc": null,
       "category": "nullable",
+      "deterministic": true,
       "return": "T",
       "params": [
         {
@@ -1401,6 +1456,7 @@
     "nvl2": {
       "desc": null,
       "category": "nullable",
+      "deterministic": true,
       "return": "T",
       "params": [
         {
@@ -1420,6 +1476,7 @@
     "isNull": {
       "desc": null,
       "category": "nullable",
+      "deterministic": true,
       "return": "boolean",
       "params": [
         {
@@ -1431,6 +1488,7 @@
     "isNotNull": {
       "desc": null,
       "category": "nullable",
+      "deterministic": true,
       "return": "boolean",
       "params": [
         {

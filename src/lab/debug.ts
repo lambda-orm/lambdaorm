@@ -150,21 +150,22 @@ async function writeQueryTest(orm:IOrm,dialects:string[],databases:string[]):Pro
   ,context:{ a:{ id: 1}
            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
    }
-  ,test:[{name:'query 1',lambda: ()=> Products.map(p=>p)}
-        ,{name:'query 2',lambda: ()=> Products}
-        ,{name:'query 3',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id).map(p=>p)}
-        ,{name:'query 4',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
-        ,{name:'query 5',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
-        ,{name:'query 6',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
-        ,{name:'query 7',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
-        ,{name:'query 8',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
-        ,{name:'query 9',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
-        ,{name:'query 10',lambda: ()=> Products.page(1,1)}
-        ,{name:'query 11',lambda: ()=> Products.first(p=> p)}
-        ,{name:'query 12',lambda: ()=> Products.last(p=> p)}
-        ,{name:'query 13',lambda: ()=> Products.take(p=> p)}
-        ,{name:'query 14',lambda: ()=> Products.distinct(p=> p)}
-        ,{name:'query 15',lambda: ()=> Products.page(1,1)}
+  ,test:[
+        //  {name:'query 1',lambda: ()=> Products.map(p=>p)}
+        // ,{name:'query 2',lambda: ()=> Products}
+        // ,{name:'query 3',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id).map(p=>p)}
+        // ,{name:'query 4',context:'a',lambda: (id:number)=> Products.filter(p=>p.id==id)}
+        // ,{name:'query 5',context:'a',lambda: ()=> Products.map(p=> p.category.name)}
+        // ,{name:'query 6',lambda: ()=> Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
+        {name:'query 7',lambda: ()=> Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)]) }
+        // ,{name:'query 8',context:'b',lambda: (minValue:number,from:Date,to:Date)=>  OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product]) }
+        // ,{name:'query 9',lambda: ()=> OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))}
+        // ,{name:'query 10',lambda: ()=> Products.page(1,1)}
+        // ,{name:'query 11',lambda: ()=> Products.first(p=> p)}
+        // ,{name:'query 12',lambda: ()=> Products.last(p=> p)}
+        // ,{name:'query 13',lambda: ()=> Products.take(p=> p)}
+        // ,{name:'query 14',lambda: ()=> Products.distinct(p=> p)}
+        // ,{name:'query 15',lambda: ()=> Products.page(1,1)}
   ]});
 }
 async function writeNumeriFunctionsTest(orm:IOrm,dialects:string[],databases:string[]):Promise<number>
@@ -901,50 +902,50 @@ async function toExpression(orm:IOrm){
 
   let expressions= [
         // queries
-        // 'Products.map(p=>p)'
-        // ,'Products'
-        'Products.page(1,1)'
+        'Products.map(p=>p)'
+        ,'Products'
+        ,'Products.page(1,1)'
         ,'Products.first()'
-        // ,'Products.first(p=> p)'
-        // ,'Products.last()'
-        // ,'Products.last(p=> p)'
-        // ,'Products.take()'
-        // ,'Products.take(p=> p)'
-        // ,'Products.distinct()'
-        // ,'Products.distinct(p=> p)'
-        // ,'Products.filter(p=>p.id==id).map(p=>p)'
-        // ,'Products.filter(p=>p.id==id)'
-        // ,'Products.map(p=> p.category.name)'
-        // ,'Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))'
-        // ,'Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)])'
-        // ,'OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product])'
-        // ,'OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))'
-        // ,'Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})'
-        // ,'Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )'       
-        // // include
-        // ,'Orders.filter(p=>p.id==id).include(p => p.customer)'
-        // ,'Orders.filter(p=>p.id==id).include(p => p.details)'
-        // ,'Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])'
-        // ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])'
-        // ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])'
-        // ,'Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])'
-        // ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])'
-        // ,'Orders.filter(p=> p.id == id).include(p => p.details)'
-        // //insert
-        // ,'Orders.insert().include(p => p.details)'
-        // ,'Orders.insert(entity).include(p=> [p.details,p.customer])'
-        // //update        
-        // ,'Orders.update().include(p => p.details)'
-        // ,'Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )'
-        // ,'Orders.update().include(p=> [p.details,p.customer])' 
-        // ,'Orders.update({name:entity.name}).filter(p=> p.id == entity.id)'
-        // ,'Orders.update({name:entity.name})'
-        // ,'Orders.updateAll({name:entity.name})'    
-        // // delete
-        // ,'Orders.delete()'
-        // ,'Orders.delete().include(p=> p.details)'
-        // ,'Orders.deleteAll()'
-        // ,'Orders.deleteAll().include(p=> p.details)'
+        ,'Products.first(p=> p)'
+        ,'Products.last()'
+        ,'Products.last(p=> p)'
+        ,'Products.take()'
+        ,'Products.take(p=> p)'
+        ,'Products.distinct()'
+        ,'Products.distinct(p=> p)'
+        ,'Products.filter(p=>p.id==id).map(p=>p)'
+        ,'Products.filter(p=>p.id==id)'
+        ,'Products.map(p=> p.category.name)'
+        ,'Products.map(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))'
+        ,'Products.filter(p=> p.discontinued != false ).map(p=> ({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})).sort(p=> [p.category,desc(p.name)])'
+        ,'OrderDetails.filter(p=> between(p.order.shippedDate,from,to) && p.unitPrice > minValue ).map(p=> ({category: p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity})).sort(p=> [p.category,p.product])'
+        ,'OrderDetails.map(p=> ({order: p.orderId,subTotal:sum((p.unitPrice*p.quantity*(1-p.discount/100))*100) }))'
+        ,'Products.map(p=> {category:p.category.name,largestPrice:max(p.price)})'
+        ,'Products.filter(p=>p.id == id ).map(p=> {name:p.name,source:p.price ,result:abs(p.price)} )'       
+        // include
+        ,'Orders.filter(p=>p.id==id).include(p => p.customer)'
+        ,'Orders.filter(p=>p.id==id).include(p => p.details)'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details,p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product),p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product.include(p=>p.category)),p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])'
+        ,'Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])'
+        ,'Orders.filter(p=> p.id == id).include(p => p.details)'
+        //insert
+        ,'Orders.insert().include(p => p.details)'
+        ,'Orders.insert(entity).include(p=> [p.details,p.customer])'
+        //update        
+        ,'Orders.update().include(p => p.details)'
+        ,'Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )'
+        ,'Orders.update().include(p=> [p.details,p.customer])' 
+        ,'Orders.update({name:entity.name}).filter(p=> p.id == entity.id)'
+        ,'Orders.update({name:entity.name})'
+        ,'Orders.updateAll({name:entity.name})'    
+        // delete
+        ,'Orders.delete()'
+        ,'Orders.delete().include(p=> p.details)'
+        ,'Orders.deleteAll()'
+        ,'Orders.deleteAll().include(p=> p.details)'
         ];
 
 
@@ -1106,10 +1107,10 @@ async function schemaImport(orm:IOrm,source:string,target:string){
    
     await orm.init(path.join(process.cwd(),'orm/config.yaml'));
     let errors=0;
-    let databases:string[]=['mysql','postgres'];
+    let databases:string[]=[];//['mysql','postgres'];
     let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
    
-    await toExpression(orm);
+    // await toExpression(orm);
     // await modify(orm);
     // await crud(orm);
     // await scriptsByDialect(orm,'northwind');
@@ -1135,7 +1136,7 @@ async function schemaImport(orm:IOrm,source:string,target:string){
     // await schemaImport(orm,'source','postgres');
     // await schemaExport(orm,'postgres');  
 
-    // errors=+await writeQueryTest(orm,dialects,databases);
+    errors=+await writeQueryTest(orm,dialects,databases);
     // errors=+await writeNumeriFunctionsTest(orm,dialects,databases);
     // errors=+await writeGroupByTest(orm,dialects,databases);
     // errors=+await writeIncludeTest(orm,dialects,databases);

@@ -3,10 +3,6 @@ schema: 'northwind:0.0.2'
 context:
   a:
     id: 1
-    list_id:
-      - ALFKI
-    list_orderId:
-      - 1
 test:
   - name: include 1
     context: a
@@ -116,7 +112,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -146,59 +141,7 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
+    executions: []
   - name: include 2
     context: a
     lambda: (id) => Orders.filter(p => p.id == id).include(p => p.details)
@@ -298,7 +241,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -328,71 +270,7 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
+    executions: []
   - name: include 3
     context: a
     lambda: >-
@@ -531,7 +409,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -561,91 +438,7 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
+    executions: []
   - name: include 4
     context: a
     lambda: >-
@@ -830,7 +623,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -860,157 +652,7 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-                product:
-                  id: 28
-                  name: Rssle Sauerkraut
-                  supplierId: 12
-                  categoryId: 7
-                  quantity: 25 - 825 g cans
-                  price: '45.6000'
-                  inStock: '26.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: 1
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-                product:
-                  id: 39
-                  name: Chartreuse verte
-                  supplierId: 18
-                  categoryId: 1
-                  quantity: 750 cc per bottle
-                  price: '18.0000'
-                  inStock: '69.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '5.0000'
-                  discontinued: 0
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-                product:
-                  id: 46
-                  name: Spegesild
-                  supplierId: 21
-                  categoryId: 8
-                  quantity: 4 - 450 g glasses
-                  price: '12.0000'
-                  inStock: '95.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: 0
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-                product:
-                  id: 28
-                  name: Rssle Sauerkraut
-                  supplierId: 12
-                  categoryId: 7
-                  quantity: 25 - 825 g cans
-                  price: '45.6000'
-                  inStock: '26.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: true
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-                product:
-                  id: 39
-                  name: Chartreuse verte
-                  supplierId: 18
-                  categoryId: 1
-                  quantity: 750 cc per bottle
-                  price: '18.0000'
-                  inStock: '69.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '5.0000'
-                  discontinued: false
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-                product:
-                  id: 46
-                  name: Spegesild
-                  supplierId: 21
-                  categoryId: 8
-                  quantity: 4 - 450 g glasses
-                  price: '12.0000'
-                  inStock: '95.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: false
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
+    executions: []
   - name: include 5
     context: a
     lambda: >-
@@ -1219,7 +861,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -1249,181 +890,7 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-                product:
-                  id: 28
-                  name: Rssle Sauerkraut
-                  supplierId: 12
-                  categoryId: 7
-                  quantity: 25 - 825 g cans
-                  price: '45.6000'
-                  inStock: '26.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: 1
-                  category:
-                    id: 7
-                    name: Produce
-                    description: Dried fruit and bean curd
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-                product:
-                  id: 39
-                  name: Chartreuse verte
-                  supplierId: 18
-                  categoryId: 1
-                  quantity: 750 cc per bottle
-                  price: '18.0000'
-                  inStock: '69.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '5.0000'
-                  discontinued: 0
-                  category:
-                    id: 1
-                    name: Beverages
-                    description: 'Soft drinks, coffees, teas, beers, and ales'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-                product:
-                  id: 46
-                  name: Spegesild
-                  supplierId: 21
-                  categoryId: 8
-                  quantity: 4 - 450 g glasses
-                  price: '12.0000'
-                  inStock: '95.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: 0
-                  category:
-                    id: 8
-                    name: Seafood
-                    description: Seaweed and fish
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-                product:
-                  id: 28
-                  name: Rssle Sauerkraut
-                  supplierId: 12
-                  categoryId: 7
-                  quantity: 25 - 825 g cans
-                  price: '45.6000'
-                  inStock: '26.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: true
-                  category:
-                    id: 7
-                    name: Produce
-                    description: Dried fruit and bean curd
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-                product:
-                  id: 39
-                  name: Chartreuse verte
-                  supplierId: 18
-                  categoryId: 1
-                  quantity: 750 cc per bottle
-                  price: '18.0000'
-                  inStock: '69.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '5.0000'
-                  discontinued: false
-                  category:
-                    id: 1
-                    name: Beverages
-                    description: 'Soft drinks, coffees, teas, beers, and ales'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-                product:
-                  id: 46
-                  name: Spegesild
-                  supplierId: 21
-                  categoryId: 8
-                  quantity: 4 - 450 g glasses
-                  price: '12.0000'
-                  inStock: '95.0000'
-                  onOrder: '0.0000'
-                  reorderLevel: '0.0000'
-                  discontinued: false
-                  category:
-                    id: 8
-                    name: Seafood
-                    description: Seaweed and fish
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
+    executions: []
   - name: include 6
     context: a
     lambda: >-
@@ -1559,7 +1026,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -1589,61 +1055,7 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
+    executions: []
   - name: include 7
     context: a
     lambda: >-
@@ -1825,7 +1237,6 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 1
     fields:
       - name: id
         type: integer
@@ -1855,59 +1266,5 @@ test:
         type: string
       - name: country
         type: string
-    executions:
-      - database: mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
-      - database: postgres
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: 1997-08-24T22:00:00.000Z
-            requiredDate: 1997-09-21T22:00:00.000Z
-            shippedDate: 1997-09-01T22:00:00.000Z
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
+    executions: []
 errors: 0

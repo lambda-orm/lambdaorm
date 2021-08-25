@@ -24,7 +24,8 @@ export class OperandMetadata
             this.functions[name] = metadata; 
         }
     }
-    getOperatorMetadata(name:string,operands:number){
+    getOperatorMetadata(name:string,operands:number):any
+    {
         try{          
             if(this.operators[name]){
                 let operator = this.operators[name];
@@ -37,7 +38,8 @@ export class OperandMetadata
             throw 'error with operator: '+name;
         }
     } 
-    getFunctionMetadata(name:string){
+    getFunctionMetadata(name:string):any
+    {
         try{
             if(this.functions[name])
                 return this.functions[name];

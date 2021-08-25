@@ -137,6 +137,17 @@ export class OperandManager
     private reduce(operand:Operand):Operand
     {
         if(operand instanceof Operator){        
+            return this.reduceOperand(operand);
+        }else if(operand instanceof FunctionRef){ 
+            const funcMetadata = this.language.metadata.getFunctionMetadata(operand.name);
+            if(funcMetadata && funcMetadata.metadata && funcMetadata.metadata.deterministic){
+                return this.reduceOperand(operand);
+            }
+        }
+        return operand;
+    }
+    private reduceOperand(operand:Operand):Operand
+    {             
             let allConstants=true;              
             for(const k in operand.children){
                 const p = operand.children[k];
@@ -158,8 +169,7 @@ export class OperandManager
                    operand.children[i]=this.reduce(p);
                 }
             }
-        }
-        return operand;
+            return operand;
     }
     private setParent(operand:Operand,index:number=0,parent?:Operand){        
         try{
