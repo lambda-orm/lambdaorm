@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import router from "./routes";
-import orm  from "./../orm"
+import {orm}  from "./../orm/orm"
 
 const app: Application = express();
 app.use(express.json());

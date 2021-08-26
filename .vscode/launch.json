@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/dist/lab/test.js",
-            "envFile": "${workspaceFolder}/orm/.env"
+            "envFile": "${workspaceFolder}/src/test/.env"
         },
         {
             "type": "node",
@@ -22,18 +22,28 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/dist/app/index.js",
-            "envFile": "${workspaceFolder}/orm/.env"
+            "envFile": "${workspaceFolder}/src/test/.env"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "debug",
+            "name": "generate data test files",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/lab/debug.js",
-            "envFile": "${workspaceFolder}/orm/.env"
-        },           
+            "program": "${workspaceFolder}/dist/test/generateDataForTest.js",
+            "envFile": "${workspaceFolder}/src/test/.env"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "test complete expressions",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/dist/test/completeExpressions.js",
+            "envFile": "${workspaceFolder}/src/test/.env"
+        },          
         {
             "command": "npm run test",
             "name": "test",

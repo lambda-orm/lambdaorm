@@ -1,5 +1,5 @@
 import { Post,Get,Delete,Path,SuccessResponse,Body,Response,Route } from "tsoa";
-import orm  from './../../orm'
+import {orm}  from './../../orm/orm'
 import CompileRequest from  '../model/compileRequest'
 import RunRequest from  '../model/runRequest'
   

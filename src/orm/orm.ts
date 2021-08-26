@@ -1,7 +1,7 @@
 import {Cache,IOrm,Context,Config } from './model'
 import {Model,NodeManager} from './node/index'
-import {Expression,MemoryCache}  from './manager'
-import {SchemaManager}  from './schema'
+import {Expression,MemoryCache,TransactionManager}  from './manager'
+import {SchemaManager}  from './schema/schemaManager'
 import {DatabaseManager}  from './database'
 import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
 import {LanguageManager,Operand,Sentence,Query} from './language'
@@ -25,8 +25,17 @@ class Orm implements IOrm
     private connectionManager:ConnectionManager
     private languageManager:LanguageManager
 
+    private static _instance: Orm;
+    public static get instance():Orm
+    {      
+        if(!this._instance){
+            this._instance = new Orm();
+        }  
+        return this._instance;
+    }
+
     constructor(){
-        this.config={};
+        this.config={paths:{}};
         this._cache= new MemoryCache()
         this.connectionManager= new ConnectionManager();
 
@@ -53,13 +62,15 @@ class Orm implements IOrm
     public async init(configPath:string=process.cwd()):Promise<void>
     {
         this.config = await ConfigExtends.apply(configPath);
-        if(!this.config.statePath)
-            this.config.statePath=path.join(process.cwd(),'orm','state');        
-        if(!this.config.schemasPath)
-            this.config.schemasPath=path.join(process.cwd(),'orm','schemas');
-        if(!fs.existsSync(this.config.statePath))
-            fs.mkdirSync(this.config.statePath);     
-        let _schemas =  await ConfigExtends.apply(this.config.schemasPath);
+        if(!this.config.paths)
+            this.config.paths={}
+        if(!this.config.paths.state)
+            this.config.paths.state=path.join(process.cwd(),'state');        
+        if(!this.config.paths.schemas)
+            this.config.paths.schemas=path.join(process.cwd(),'schemas');
+        if(!fs.existsSync(this.config.paths.state))
+            fs.mkdirSync(this.config.paths.state);     
+        let _schemas =  await ConfigExtends.apply(this.config.paths.schemas);
         if(_schemas){
             for(const p in _schemas){
                 if(p=='abstract')continue;
@@ -192,7 +203,7 @@ class Orm implements IOrm
                 }
                 else
                 {
-                    await this.transaction(_database.name,async (transaction)=>{
+                    await this.internalTransaction(_database.name,async (transaction)=>{
                         result= await this.language.execute(_database.dialect,operand,_context,transaction);
                     });
                 }
@@ -217,7 +228,24 @@ class Orm implements IOrm
             throw 'error: '+error.toString(); 
         }
     }
-    public async transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
+    public async transaction(database:string,callback:{(tr:TransactionManager): Promise<void>;}):Promise<void>
+    {  
+        const transaction = this.connectionManager.createTransaction(database);
+        try
+        {
+            await transaction.begin();
+            let transactionManager = new TransactionManager(this,database,transaction);
+            await callback(transactionManager);
+            await transaction.commit();
+        }
+        catch(error)
+        {
+            console.log(error);
+            transaction.rollback();
+            throw error;
+        }    
+    }
+    public async internalTransaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
     {  
         const transaction = this.connectionManager.createTransaction(database);
         try
@@ -234,11 +262,4 @@ class Orm implements IOrm
         }    
     } 
 }
-var orm = null;
-export =(function() {
-    if(!orm){
-        orm= new Orm();
-    }
-    return orm;
-})();
-
+export const orm = Orm.instance;

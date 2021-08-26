@@ -1,5 +1,5 @@
 import {Schema,Entity,Property,Relation,Index,Delta,IOrm,Database} from '../model'
-import {SchemaSync,SchemaData,SchemaDrop} from '../schema'
+import {SchemaSync,SchemaData,SchemaDrop} from '../schema/index'
 import {Transaction,ConnectionConfig} from '../connection'
 import {DatabaseSync} from './databaseSync'
 import {DatabaseClean} from './databaseClean'
@@ -84,6 +84,6 @@ export class DatabaseManager
     }
     protected getStateFile(name:string)
     {
-        return path.join(this.orm.config.statePath,`${name}-state.json`);
+        return path.join(this.orm.config.paths.state,`${name}-state.json`);
     } 
 }

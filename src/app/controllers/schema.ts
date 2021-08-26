@@ -1,6 +1,6 @@
 import { Post,Get,Delete,Path,SuccessResponse,Body,Response,Route } from "tsoa";
-import {Schema}  from './../../model/schema'
-import orm  from './../../orm'
+import {Schema}  from './../../orm/model/schema'
+import {orm}  from './../../orm/orm'
   
 @Route("schema")
 export default class SchemaController {

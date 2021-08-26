@@ -1,5 +1,6 @@
-# schemasPath: 'orm/schemas'
-# statePath: 'orm/state'
+paths:
+  schemas: 'src/test/schemas'
+  state: 'src/test/state'
 databases:
   - name: source
     schema: northwind:0.0.2

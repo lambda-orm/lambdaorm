@@ -1267,4 +1267,171 @@ test:
       - name: country
         type: string
     executions: []
+  - name: include 8
+    context: a
+    lambda: >-
+      (id) => Orders.filter(p => p.id == id).include(p => [p.customer.map(p =>
+      p.name), p.details.include(p => p.product.include(p => p.category.map(p =>
+      p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o  WHERE o.OrderID = ? ;
+
+          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN (?) ;
+
+          SELECT o1.Quantity, o1.UnitPrice FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) ;
+
+          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN (?) ;
+
+          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN (?)
+          ;
+      - dialect: mssql
+        sentence: >-
+          SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+          AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+          [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+          [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+          o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
+          FROM Orders o  WHERE o.OrderID = :id ;
+
+          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN
+          (:list_id) ;
+
+          SELECT o1.Quantity, o1.UnitPrice FROM [Order Details] o1  WHERE 
+          o1.OrderID IN (:list_orderId) ;
+
+          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN (:list_id)
+          ;
+
+          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
+          (:list_id) ;
+      - dialect: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+          FROM Orders o  WHERE o.OrderID = ? ;
+
+          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN (?) ;
+
+          SELECT o1.Quantity, o1.UnitPrice FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) ;
+
+          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN (?) ;
+
+          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN (?)
+          ;
+      - dialect: oracle
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o  WHERE o.OrderID = :id ;
+
+          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN
+          (:list_id) ;
+
+          SELECT o1.Quantity, o1.UnitPrice FROM "Order Details" o1  WHERE 
+          o1.OrderID IN (:list_orderId) ;
+
+          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN (:list_id)
+          ;
+
+          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
+          (:list_id) ;
+      - dialect: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
+          FROM Orders o  WHERE o.OrderID = $1 ;
+
+          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN ($1) ;
+
+          SELECT o1.Quantity, o1.UnitPrice FROM "Order Details" o1  WHERE 
+          o1.OrderID IN ($1) ;
+
+          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN ($1) ;
+
+          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
+          ($1) ;
+    errors: 0
+    expression: ' Orders.filter(p => p.id == id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])'
+    completeExpression: >-
+      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.customer.filter(p=>includes(p.id,list_id)).map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,list_id)).map(p=>p.name)).filter(p=>includes(p.id,list_id)).map(p=>p.name)).filter(p=>includes(p.orderId,list_orderId)).map(p=>[p.quantity,p.unitPrice])])
+    model:
+      id: integer
+      customerId: string
+      employeeId: integer
+      orderDate: datetime
+      requiredDate: datetime
+      shippedDate: datetime
+      shipViaId: integer
+      freight: decimal
+      name: string
+      address: string
+      city: string
+      region: string
+      postalCode: string
+      country: string
+      customer:
+        name: string
+      details:
+        - quantity: decimal
+          unitPrice: decimal
+          product:
+            name: string
+            category:
+              name: string
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+    executions: []
 errors: 0

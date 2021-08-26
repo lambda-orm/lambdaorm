@@ -2,7 +2,7 @@ import express from "express";
 import PingController from "../controllers/ping";
 import SchemaController from "../controllers/schema";
 import ExpressionController from "../controllers/expression";
-import {Schema}  from './../../model/schema'
+import {Schema}  from './../../orm/model/schema'
 import CompileRequest from  '../model/compileRequest'
 import RunRequest from  '../model/runRequest'
 

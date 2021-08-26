@@ -1,8 +1,7 @@
 
 export interface Config
 {
-    schemasPath?: string
-    statePath?: string
+    paths: any
     databases?:Database[]
 }
 export interface Database

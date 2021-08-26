@@ -298,36 +298,36 @@ test:
       desc(p.largestPrice))
     sentences:
       - dialect: mariadb
-        error: >-
-          query expression:  Products.having(p => max(p.price) > 100).map(p =>
-          ({ category: p.category.name, largestPrice: max(p.price) })).sort(p =>
-          desc(p.largestPrice)) error: TypeError: Cannot read property 'name' of
-          undefined
+        sentence: >-
+          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
+          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          ORDER BY `largestPrice` desc ;
       - dialect: mssql
-        error: >-
-          query expression:  Products.having(p => max(p.price) > 100).map(p =>
-          ({ category: p.category.name, largestPrice: max(p.price) })).sort(p =>
-          desc(p.largestPrice)) error: TypeError: Cannot read property 'name' of
-          undefined
+        sentence: >-
+          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
+          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          ORDER BY [largestPrice] desc ;
       - dialect: mysql
-        error: >-
-          query expression:  Products.having(p => max(p.price) > 100).map(p =>
-          ({ category: p.category.name, largestPrice: max(p.price) })).sort(p =>
-          desc(p.largestPrice)) error: TypeError: Cannot read property 'name' of
-          undefined
+        sentence: >-
+          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
+          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          ORDER BY `largestPrice` desc ;
       - dialect: oracle
-        error: >-
-          query expression:  Products.having(p => max(p.price) > 100).map(p =>
-          ({ category: p.category.name, largestPrice: max(p.price) })).sort(p =>
-          desc(p.largestPrice)) error: TypeError: Cannot read property 'name' of
-          undefined
+        sentence: >-
+          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          ORDER BY "largestPrice" desc ;
       - dialect: postgres
-        error: >-
-          query expression:  Products.having(p => max(p.price) > 100).map(p =>
-          ({ category: p.category.name, largestPrice: max(p.price) })).sort(p =>
-          desc(p.largestPrice)) error: TypeError: Cannot read property 'name' of
-          undefined
-    errors: 5
+        sentence: >-
+          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          ORDER BY "largestPrice" desc ;
+    errors: 0
     expression: ' Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
     completeExpression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
@@ -348,36 +348,36 @@ test:
       })).sort(p => desc(p.largestPrice))
     sentences:
       - dialect: mariadb
-        error: >-
-          query expression:  Products.filter(p => p.price > 5).having(p =>
-          max(p.price) > 50).map(p => ({ category: p.category.name,
-          largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) error:
-          TypeError: Cannot read property 'name' of undefined
+        sentence: >-
+          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
+          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc ;
       - dialect: mssql
-        error: >-
-          query expression:  Products.filter(p => p.price > 5).having(p =>
-          max(p.price) > 50).map(p => ({ category: p.category.name,
-          largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) error:
-          TypeError: Cannot read property 'name' of undefined
+        sentence: >-
+          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
+          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(p.UnitPrice) > 50 ORDER BY [largestPrice] desc ;
       - dialect: mysql
-        error: >-
-          query expression:  Products.filter(p => p.price > 5).having(p =>
-          max(p.price) > 50).map(p => ({ category: p.category.name,
-          largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) error:
-          TypeError: Cannot read property 'name' of undefined
+        sentence: >-
+          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
+          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc ;
       - dialect: oracle
-        error: >-
-          query expression:  Products.filter(p => p.price > 5).having(p =>
-          max(p.price) > 50).map(p => ({ category: p.category.name,
-          largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) error:
-          TypeError: Cannot read property 'name' of undefined
+        sentence: >-
+          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc ;
       - dialect: postgres
-        error: >-
-          query expression:  Products.filter(p => p.price > 5).having(p =>
-          max(p.price) > 50).map(p => ({ category: p.category.name,
-          largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) error:
-          TypeError: Cannot read property 'name' of undefined
-    errors: 5
+        sentence: >-
+          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
+          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc ;
+    errors: 0
     expression: ' Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
     completeExpression: >-
       Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
@@ -391,4 +391,4 @@ test:
       - name: largestPrice
         type: any
     executions: []
-errors: 10
+errors: 0
