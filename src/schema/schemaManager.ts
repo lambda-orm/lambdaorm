@@ -178,6 +178,7 @@ export class SchemaManager
                 let targetRelation:Relation = {
                     name: sourceRelation.name,
                     type: sourceRelation.type,
+                    composite:Helper.nvl(sourceRelation.composite,false),
                     from: sourceRelation.from,
                     entity: sourceRelation.entity, 
                     to: sourceRelation.to                 

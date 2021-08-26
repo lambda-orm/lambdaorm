@@ -1,13 +1,12 @@
 import {IOrm} from './../model'
 import {Transaction} from './../connection'
-import {CompiledExpression} from './compiledExpression'
 import {NodeExpression} from './nodeExpression'
+import {Sentence,Operand}  from './../language'
 
 export class Expression
 {
     private orm:IOrm
     public expression:string    
-    private dialect?:string
     constructor(orm:IOrm,expression:string)
     {     
         this.orm =  orm; 
@@ -23,20 +22,28 @@ export class Expression
     {
        if(!this.expression)throw 'Expression not defined';
        return this.orm.complete(this.expression,schemaName);
-    }    
-    public async compile(dialect:string,schemaName:string):Promise<CompiledExpression> 
-    {
-       if(!this.expression)throw 'Expression not defined';
-       this.dialect = dialect;
-       let operand= await this.orm.compile(this.expression,this.dialect,schemaName);
-       return new CompiledExpression(this.orm,operand,dialect)
-    }  
-    public async execute(context:any,database:string,transaction?:Transaction)
-    {  
-        let _database= this.orm.database.get(database);
-        let compiled = await this.compile(_database.dialect,_database.schema); 
-        return await compiled.execute(context,database,transaction);
     }
+    public async model(schemaName:string):Promise<any>
+    {
+        let operand = await this.orm.build(this.expression,schemaName);
+        return this.orm.language.model(operand as Sentence);
+    }
+    public async sentence(dialect:string,schemaName:string):Promise<string>
+    {
+        let query = await this.orm.query(this.expression,dialect,schemaName);
+        return this.orm.language.sentence(dialect,query);
+    }
+    public async serialize(schemaName:string):Promise<any>
+    {
+        let operand = await this.orm.build(this.expression,schemaName);
+        return this.orm.language.serialize(operand);
+    }
+    public async deserialize(serialized:any):Promise<Operand>
+    {       
+        return this.orm.language.deserialize(serialized);
+    }   
+    public async execute(context:any,database:string,transaction?:Transaction)
+    {         
+        return await this.orm.execute(this.expression,context,database,transaction);
+    } 
 }
-
-

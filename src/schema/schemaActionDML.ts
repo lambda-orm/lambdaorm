@@ -10,7 +10,7 @@ export abstract class SchemaActionDML
     constructor(orm:IOrm,schema:SchemaHelper){
         this.orm=orm;
         this.schema=schema;
-        this.arrowVariables=['p','q','r','s','t','u','v','w','x','y','z'];
+        this.arrowVariables=['p','q','r','s','t','u','v','w','x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','o'];
     }
     public async sentence(dialect:string):Promise<SchemaSentence>
     {
@@ -18,7 +18,7 @@ export abstract class SchemaActionDML
         let schemaExportExpression = this.build(this.schema);
         for(let i =0;i<schemaExportExpression.entities.length;i++){
             let exportEntityExpression = schemaExportExpression.entities[i];
-            let sentence = (await this.orm.expression(exportEntityExpression.expression).compile(dialect,this.schema.name)).sentence();
+            let sentence = await this.orm.expression(exportEntityExpression.expression).sentence(dialect,this.schema.name);
             schemaSentence.entities.push({entity:exportEntityExpression.entity,sentence:sentence });
         }
         return schemaSentence;        
@@ -39,20 +39,17 @@ export abstract class SchemaActionDML
 
     protected createInclude(entity:any,level:number=0):string
     {
-        // let expression:string='';
         let arrowVariable = this.arrowVariables[level];
         let includes:string[]=[];
         for(const relationName in entity.relation){
             const relation =  entity.relation[relationName];
-            if(relation.type == 'manyToOne' ){
+            if(relation.composite){
                 let childEntity = this.schema.getEntity(relation.entity);
                 let childInclude = this.createInclude(childEntity,level+1);
                 includes.push(`${arrowVariable}.${relation.name}${childInclude}`);
-                // expression =expression+`.include(p=>[p.${relation.name}${childInclude}])`;
             }
         }
         return includes.length==0?''
                 :`.include(${arrowVariable}=>[${includes.join(',')}])`;
     }
-    
 }

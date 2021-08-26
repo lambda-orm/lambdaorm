@@ -48,7 +48,8 @@ entities:
         length: 80
     relations:  
       - name: orders
-        type: manyToOne 
+        type: manyToOne
+        composite: true 
         from: id
         entity: Orders
         to: customerId
@@ -278,7 +279,8 @@ entities:
         entity: Employees
         to: id 
       - name: details
-        type: manyToOne 
+        type: manyToOne
+        composite: true 
         from: id
         entity: OrderDetails
         to: orderId       

@@ -1,24 +1,26 @@
-import {ILanguage,IOperandExecutor,OperandManager,ISchemaBuilder} from '../'
+import {ILanguage,IOperandExecutor,IQueryBuilder,ISchemaBuilder} from '../'
 import {Model} from '../../node'
 import {SqlDialectMetadata} from './dialectMetadata'
 import {SqlSchemaBuilder} from './schemaBuilder'
-import {SqlOperandManager} from './operandManager'
 import {SqlExecutor} from './executor'
+import {SqlQueryBuilder } from './queryBuilder'
 
 export class SqlLanguage implements ILanguage
 {
     public name:string
     public libraries:any
-    public dialects:any    
+    public dialects:any
+    public hadQuery:boolean    
     private schemaBuilder:SqlSchemaBuilder
-    private operandManager:SqlOperandManager
+    private queryBuilder:SqlQueryBuilder
     private operandExecutor:SqlExecutor
-    constructor(languageModel:Model){
-        this.name= 'sql',
+    constructor(){
+        this.name= 'sql';
+        this.hadQuery=true;
         this.libraries={};
         this.dialects={};
         this.schemaBuilder = new SqlSchemaBuilder(this);
-        this.operandManager = new SqlOperandManager(this,languageModel);
+        this.queryBuilder = new SqlQueryBuilder(this);
         this.operandExecutor = new SqlExecutor(this);
     }
     public addLibrary(library:any):void
@@ -35,9 +37,9 @@ export class SqlLanguage implements ILanguage
     {
         return this.schemaBuilder;
     }
-    public get operand():OperandManager
+    public get query():IQueryBuilder
     {
-        return this.operandManager;
+        return this.queryBuilder;
     }
     public get executor():IOperandExecutor
     {

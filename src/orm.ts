@@ -1,12 +1,12 @@
-import {Cache,Operand,IOrm,Context,Config } from './model'
+import {Cache,IOrm,Context,Config } from './model'
 import {Model,NodeManager} from './node/index'
 import {Expression,MemoryCache}  from './manager'
 import {SchemaManager}  from './schema'
 import {DatabaseManager}  from './database'
 import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
-import {LanguageManager} from './language'
+import {LanguageManager,Operand,Sentence,Query} from './language'
 import {SqlLanguage} from './language/sql/index'
-import {MemoryLanguage,CoreLib} from './language/memory'
+import {CoreLib} from './language/lib/coreLib'
 import modelConfig from './node/config.json'
 import sqlConfig  from './language/sql/config.json'
 import {Helper}  from './helper'
@@ -18,7 +18,7 @@ class Orm implements IOrm
 {
     private _cache:Cache
     public config:Config
-    private model:Model
+    private languageModel:Model
     private nodeManager:NodeManager
     private schemaManager:SchemaManager
     private databaseManager:DatabaseManager
@@ -30,28 +30,25 @@ class Orm implements IOrm
         this._cache= new MemoryCache()
         this.connectionManager= new ConnectionManager();
 
-        this.model = new Model();
-        this.model.load(modelConfig);
-        this.nodeManager = new NodeManager(this.model);  
-
-        this.languageManager= new LanguageManager(this);
+        this.languageModel = new Model();
+        this.languageModel.load(modelConfig);
+        this.nodeManager = new NodeManager(this.languageModel);
+        
         this.schemaManager= new SchemaManager(this);
         this.databaseManager =  new DatabaseManager(this);
-        
-        let memoryLanguage =new MemoryLanguage();
-        memoryLanguage.addLibrary(new CoreLib());
 
-        let sqlLanguage =  new SqlLanguage(this.model);
+        let sqlLanguage =  new SqlLanguage();
         sqlLanguage.addLibrary({name:'sql',dialects:sqlConfig.dialects});
-        
-        this.language.add(memoryLanguage);
+
+        this.languageManager= new LanguageManager(this,this.languageModel);
+        this.language.addLibrary(new CoreLib());
         this.language.add(sqlLanguage);
         
         this.connection.addType('mysql',MySqlConnectionPool);
         this.connection.addType('mariadb',MariadbConnectionPool);
         this.connection.addType('postgres',PostgresConnectionPool);
         // this.connection.addType('mssql',MssqlConnectionPool);
-
+        // this.connection.addType('oracle',OracleConnectionPool);
     }
     public async init(configPath:string=process.cwd()):Promise<void>
     {
@@ -124,22 +121,39 @@ class Orm implements IOrm
             throw 'complete expression: '+expression+' error: '+error.toString();
         }
     }
-    public async compile(expression:string,dialect:string,schema:string):Promise<Operand>
+    public async build(expression:string,schema:string):Promise<Operand>
     {       
         try{ 
-            let key = dialect+'-exp_'+expression;
+            let key = 'build_'+expression;
             let operand= await this._cache.get(key);
             if(!operand){
                 let _schema = this.schemaManager.getInstance(schema);
                 let node= this.node.parse(expression);
-                operand = this.language.build(dialect,node,_schema);
+                operand = this.language.build(node,_schema);
                 await this._cache.set(key,operand);
             }            
             return operand as Operand; 
         }
         catch(error){
             console.log(error)
-            throw 'compile expression: '+expression+' error: '+error.toString();
+            throw 'build expression: '+expression+' error: '+error.toString();
+        }
+    }
+    public async query(expression:string,dialect:string,schema:string):Promise<Query>
+    {       
+        try{ 
+            let key = dialect+'-query_'+expression;
+            let operand= await this._cache.get(key);
+            if(!operand){
+                let sentence= await this.build(expression,schema) as Sentence;
+                operand = this.language.query(dialect,sentence);
+                await this._cache.set(key,operand);
+            }            
+            return operand as Query; 
+        }
+        catch(error){
+            console.log(error)
+            throw 'query expression: '+expression+' error: '+error.toString();
         }
     }
     public expression(value:string):Expression
@@ -152,9 +166,18 @@ class Orm implements IOrm
         let index = str.indexOf('=>')+2;
         let expression = str.substring(index,str.length);
         return new Expression(this,expression)
+    }
+    public async eval(expression:string,context:any,schema:string):Promise<any>
+    {          
+        let operand = await this.build(expression,schema);
+        let _context = new Context(context);
+        return this.language.eval(operand,_context);
     }    
-    public async execute(operand:Operand,context:any,database:string,transaction?:Transaction):Promise<any>
+    public async execute(expression:string,context:any,database:string,transaction?:Transaction):Promise<any>
     {
+        let _database= this.database.get(database);
+        let operand = await this.query(expression,_database.dialect,_database.schema)
+
         try{
             let _context = new Context(context);
             let _database= this.database.get(database);

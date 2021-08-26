@@ -1,18 +1,15 @@
 // // declare function s<T>(someObject: T | null | undefined, defaultValue?: T | null | undefined) : T;
-
-declare abstract class SkipClauses<T> {
-    /**  */
-    public offset(count:number): void
-}
 declare abstract class PageClauses<T> {
     /**  */
-    public skip(offset:number): SkipClauses<T>
-    /**  */
-    public offset(count:number): void
-}
+    public page(page:number,records:number):void
+}  
 declare abstract class MapClauses<T> extends PageClauses<T>  {
     /**  */
     public sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): PageClauses<T>
+}
+declare abstract class Map2Clauses<T> {
+    /**  */
+    public sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any):void
 }
 declare abstract class ModifyFilterClauses<T>  {
     /**  */
@@ -40,6 +37,14 @@ declare abstract class ModifyAllClauses<T>  {
 declare abstract class HavingClauses<T> extends MapClauses<T>  {
     /**  */
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U> 
+    /**  */
+    public first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+    /**  */
+    public last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>  
+    /**  */
+    public take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>  
+    /**  */
+    public distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U> 
 }
 declare abstract class FilterIncludeClauses<T> extends HavingClauses<T>  {  
     /**  */  
@@ -64,6 +69,14 @@ declare abstract class Entity<T> extends MapClauses<T> {
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
     /**  */
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U> 
+    /**  */
+    public first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U> 
+    /**  */
+    public last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U> 
+    /**  */
+    public take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U> 
+    /**  */
+    public distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U> 
     /**  */  
     public having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
     /**  */
@@ -81,10 +94,6 @@ declare abstract class Entity<T> extends MapClauses<T> {
     // public include(...args:string[]):Entity<T>
     /**  */
     public bulkInsert(value?:T|Object): ModifyAllClauses<T>
-
-
-    
-    
 }
 
 declare abstract class RelationMapClauses<T>  {
@@ -93,12 +102,28 @@ declare abstract class RelationMapClauses<T>  {
 }
 declare abstract class RelationIncludeClauses<T> {
     /**  */
-    public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>    
+    public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>  
+    /**  */
+    public first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>  
+    /**  */
+    public last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>  
+    /**  */
+    public take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T> 
+    /**  */
+    public distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>      
 }
 declare abstract class Relation<T>  {
     /**  */
     public map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
     /**  */
+    public first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>  
+    /**  */
+    public last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>  
+    /**  */
+    public take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T> 
+    /**  */  
+    public distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T> 
+    /**  */  
     public include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
     /**  */
     public update(callbackfn: (value: T,item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void

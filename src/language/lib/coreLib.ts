@@ -1,5 +1,5 @@
-import {Library} from './library'
-import  {DefaultOperator,DefaultArrowFunction} from './operands';
+import {Library} from './../library'
+import  {Operator,ArrowFunction} from '../operands';
 
 export class CoreLib extends Library
 {
@@ -42,7 +42,12 @@ export class CoreLib extends Library
     
     initArrowFunctions(){ 
         this.addFunction('map',ArrowFunctions.map ,Map,true);
+        this.addFunction('insert',ArrowFunctions.insert ,Insert,true);
+        this.addFunction('update',ArrowFunctions.update ,Update,true);
+        this.addFunction('delete',ArrowFunctions.delete ,Delete,true);
         this.addFunction('filter',ArrowFunctions.filter ,Filter,true);
+        this.addFunction('groupBy',ArrowFunctions.groupBy ,GroupBy,true);
+        this.addFunction('having',ArrowFunctions.having ,Having,true);
         this.addFunction('sort',ArrowFunctions.sort ,Sort,true);
     }
 }
@@ -72,14 +77,14 @@ class Operators{
     static not(a:boolean):boolean {return !a;}
     static item(list:any[],index:any) {return list[index];}    
 }
-class And extends DefaultOperator
+class And extends Operator
 {
     eval():boolean{
         if(!this.children[0].eval() as boolean)return false;
         return this.children[1].eval() as boolean
     }
 }
-class Or extends DefaultOperator
+class Or extends Operator
 {
     eval():any{
         if(this.children[0].eval())return true;
@@ -90,13 +95,19 @@ class Or extends DefaultOperator
 
 class ArrowFunctions{
     static map(list:any,item:any,method:any){}
+    static insert(list:any,item:any,method:any){}
+    static update(list:any,item:any,method:any){}
+    static delete(list:any,item:any,method:any){}
     static filter(list:any,item:any,method:any){}
+    static groupBy(list:any,item:any,method:any){}
+    static having(list:any,item:any,method:any){}
     static sort(list:any,item:any,method:any){}
 }
 
-class Map extends DefaultArrowFunction
+class Map extends ArrowFunction
 {
-    eval():any{
+    eval():any
+    {
         let rows = [];
         let list:any[] = this.children[0].eval();
         for(let i=0;i<list.length;i++){
@@ -108,13 +119,52 @@ class Map extends DefaultArrowFunction
         return rows; 
     }
 }
-class Filter extends DefaultArrowFunction
+class Insert extends ArrowFunction
 {
-    eval():any{}
-
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
 }
-class Sort extends DefaultArrowFunction
+class Update extends ArrowFunction
 {
-    eval():any{}
-
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
+}
+class Delete extends ArrowFunction
+{
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
+}
+class Filter extends ArrowFunction
+{
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
+}
+class GroupBy extends ArrowFunction
+{
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
+}
+class Having extends ArrowFunction
+{
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
+}
+class Sort extends ArrowFunction
+{
+    eval():any
+    {
+        throw 'NotImplemented';
+    }
 }

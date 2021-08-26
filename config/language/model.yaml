@@ -427,36 +427,41 @@ functions:
       type: T[] 
 # numeric:---------------------------------------------------------       
   abs:
-    desc: Get the absolute value 
-    category: numeric 
+    desc: Get the absolute value     
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   acos:
     desc: Get the arc cosine 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   asin:
     desc: Get the arc sine 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   atan:
     desc: Get the arc tangent 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number 
   atan2:
     desc: Get the arc tangent of x and y 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: x
@@ -465,49 +470,56 @@ functions:
       type: number                     
   ceil:
     desc: Get the smallest following integer 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number 
   cos:
     desc: Get the cosine 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   cosh:
     desc: Get hyperbolic cosine 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number   
   exp:
     desc:  Raise e to the nth power  
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   floor:
     desc: Get the largest preceding integer 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   ln:
     desc: Get natural logarithm of num
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number 
   log:
     desc: Get logarithm, base num1, of num2 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: n1
@@ -516,7 +528,8 @@ functions:
       type: number 
   remainder:
     desc: Get remainder
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: n1
@@ -525,7 +538,8 @@ functions:
       type: number                       
   round:
     desc: Get rounded value
-    category: numeric  
+    category: numeric
+    deterministic: true  
     return: number
     params:
     - name: value
@@ -534,42 +548,48 @@ functions:
       type: number 
   sign:
     desc: Get sign of exp 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   sin:
     desc: Get sine 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number 
   sinh:
     desc: Get hyperbolic sine
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number
   tan:
     desc: Get tangent
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number   
   tanh:
     desc: Get hyperbolic tangent 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
       type: number  
   trunc:
     desc: Truncate num 
-    category: numeric 
+    category: numeric
+    deterministic: true 
     return: number
     params:
     - name: value
@@ -577,28 +597,32 @@ functions:
 # string:---------------------------------------------------------
   chr:
     desc: Get character from ASCII code 
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string 
   initcap:
     desc: Capitalize words 
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string 
   lower:
     desc: Lowercase string
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string 
   lpad:
     desc: Pad the left-side of string 
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
@@ -609,14 +633,16 @@ functions:
       type: string  
   ltrim:
     desc: Remove leading chars
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string
   replace:
     desc: The replace() method searches a string for a specified value and returns a new string where the specified values are replaced. 
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
@@ -628,6 +654,7 @@ functions:
   rpad:
     desc: Pad the right-side of string 
     category: string 
+    deterministic: true
     return: string
     params:
     - name: value
@@ -638,14 +665,16 @@ functions:
       type: string 
   rtrim:
     desc: Remove trailing spaces 
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string    
   substr:
     desc: Get a substring of string  
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
@@ -656,23 +685,26 @@ functions:
       type: number 
   trim:
     desc: Remove characters 
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string 
   upper:
     desc: Uppercase string
-    category: string 
+    category: string
+    deterministic: true 
     return: string
     params:
     - name: value
       type: string  
   concat:
     desc: String concatenation
-    category: string 
-    return: string
-    multipleParams: true
+    category: string
+    deterministic: true
+    multipleParams: true 
+    return: string    
     params:
     - name: values
       type: string      
@@ -691,77 +723,88 @@ functions:
     return: Date 
   time:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: value
       type: string 
   date:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: value
       type: string  
   datetime:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: value
       type: string              
   year:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date
   month:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date     
   day:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date
   weekday:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date
   hours:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date
   minutes:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date    
   seconds:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: number 
     params:
     - name: value
       type: Date
   addYear:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -770,7 +813,8 @@ functions:
       type: number 
   addMonth:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -779,7 +823,8 @@ functions:
       type: number 
   addDay:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -788,7 +833,8 @@ functions:
       type: number
   addHours:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -797,7 +843,8 @@ functions:
       type: number 
   addMinutes:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -806,7 +853,8 @@ functions:
       type: number 
   addSeconds:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -815,7 +863,8 @@ functions:
       type: number  
   addTime:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -824,7 +873,8 @@ functions:
       type: Date 
   dateDiff:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: date
@@ -833,7 +883,8 @@ functions:
       type: Date 
   timeDiff:
     desc: 
-    category: datetime 
+    category: datetime
+    deterministic: true 
     return: Date 
     params:
     - name: time
@@ -843,21 +894,24 @@ functions:
 # convert :---------------------------------------------------------
   toString:
     desc: 
-    category: convert 
+    category: convert
+    deterministic: true 
     return: string 
     params:
     - name: value
       type: any 
   toJson:
     desc: 
-    category: convert 
+    category: convert
+    deterministic: true 
     return: object 
     params:
     - name: value
       type: string 
   toNumber:
     desc: 
-    category: convert 
+    category: convert
+    deterministic: true 
     return: number 
     params:
     - name: value 
@@ -874,7 +928,8 @@ functions:
 # null: ---------------------------------------------------------
   nvl:
     desc: 
-    category: nullable 
+    category: nullable
+    deterministic: true 
     return: T 
     params:
     - name: value 
@@ -883,7 +938,8 @@ functions:
       type: T  
   nvl2:
     desc: 
-    category: nullable 
+    category: nullable
+    deterministic: true 
     return: T 
     params:
     - name: value 
@@ -894,14 +950,16 @@ functions:
       type: T
   isNull:
     desc: 
-    category: nullable 
+    category: nullable
+    deterministic: true 
     return: boolean 
     params:
     - name: value 
       type: any
   isNotNull:
     desc: 
-    category: nullable 
+    category: nullable
+    deterministic: true 
     return: boolean 
     params:
     - name: value 
