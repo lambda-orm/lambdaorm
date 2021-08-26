@@ -1,6 +1,0 @@
-name: base
-abstract:
-  Entity:
-    id: number
-    name: string
-    code: string

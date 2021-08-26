@@ -1,0 +1,21 @@
+properties:
+  - name: address 
+    mapping: Address
+    type: string
+    length: 80
+  - name: city 
+    mapping: City
+    type: string
+    length: 80
+  - name: region 
+    mapping: Region
+    type: string
+    length: 80
+  - name: postalCode 
+    mapping: PostalCode
+    type: string
+    length: 20
+  - name: country 
+    mapping: Country
+    type: string
+    length: 80 

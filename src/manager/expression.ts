@@ -1,55 +1,49 @@
-import LanguageManager from './language'
-import Operand from './../base/operand'
-
+import {IOrm} from './../model'
+import {Transaction} from './../connection'
+import {NodeExpression} from './nodeExpression'
+import {Sentence,Operand}  from './../language'
 
 export class Expression
 {
-    protected mgr:LanguageManager 
-    protected expression:string    
-    protected language?:string
-    protected variant?:string
-    protected schema?:string
-
-    constructor(mgr:LanguageManager,expression:string){        
-        this.mgr=mgr
+    private orm:IOrm
+    public expression:string    
+    constructor(orm:IOrm,expression:string)
+    {     
+        this.orm =  orm; 
         this.expression= expression;
-
-    }    
-    public compile(language:string,variant:string,schema:string):CompiledExpression 
+    }
+    public parse():NodeExpression 
     {
        if(!this.expression)throw 'Expression not defined';
-       this.language = language;
-       this.variant = variant;
-       this.schema = schema;
-       let operand=this.mgr.compile(this.expression,this.language,this.variant,this.schema);
-       return new CompiledExpression(this.mgr,operand,this.language);
-    }  
-    public async run(context:any,connection:string)
-    {     
-        let cnx = this.mgr.getConnection(connection);
-        let compiled = this.compile(cnx.language,cnx.variant,cnx.schema); 
-        return await compiled.run(context,connection) 
+       let node = this.orm.node.parse(this.expression);
+       return new NodeExpression(this.orm.node,node);
     }
-}
-
-
-export class CompiledExpression
-{
-    protected mgr:LanguageManager 
-    protected operand:Operand
-    protected language:string   
-
-    constructor(mgr:LanguageManager,operand:Operand,language:string){        
-        this.mgr=mgr
-        this.operand= operand
-        this.language= language
-    }       
-    public serialize():string
+    public complete(schemaName:string):string
     {
-        return this.mgr.serialize(this.operand,this.language );
-    }    
-    public async run(context:any,connectionName:string)
-    {        
-        return await this.mgr.run(this.operand as Operand,context,connectionName)
+       if(!this.expression)throw 'Expression not defined';
+       return this.orm.complete(this.expression,schemaName);
     }
+    public async model(schemaName:string):Promise<any>
+    {
+        let operand = await this.orm.build(this.expression,schemaName);
+        return this.orm.language.model(operand as Sentence);
+    }
+    public async sentence(dialect:string,schemaName:string):Promise<string>
+    {
+        let query = await this.orm.query(this.expression,dialect,schemaName);
+        return this.orm.language.sentence(dialect,query);
+    }
+    public async serialize(schemaName:string):Promise<any>
+    {
+        let operand = await this.orm.build(this.expression,schemaName);
+        return this.orm.language.serialize(operand);
+    }
+    public async deserialize(serialized:any):Promise<Operand>
+    {       
+        return this.orm.language.deserialize(serialized);
+    }   
+    public async execute(context:any,database:string,transaction?:Transaction)
+    {         
+        return await this.orm.execute(this.expression,context,database,transaction);
+    } 
 }

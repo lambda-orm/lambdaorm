@@ -1,0 +1,4 @@
+_extends: [sql]
+others:
+  delimiter: '[{name}]'
+  sepatatorSql: ' \nGO'

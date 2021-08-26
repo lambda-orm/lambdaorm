@@ -1,5 +1,5 @@
 
-export default class Library
+export class Library
 {
     public name:string
     public language:string

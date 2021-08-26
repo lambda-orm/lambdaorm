@@ -17,6 +17,7 @@ CREATE TABLE `CustomerCustomerDemo` (
     `CustomerTypeID` VARCHAR(10) NOT NULL,
     CONSTRAINT `PK_CustomerCustomerDemo` PRIMARY KEY (`CustomerID`, `CustomerTypeID`)
 );
+
 CREATE TABLE `CustomerDemographics` (
     `CustomerTypeID` VARCHAR(10) NOT NULL,
     `CustomerDesc` MEDIUMTEXT,
@@ -40,6 +41,7 @@ CREATE INDEX `City` ON `Customers` (`City`);
 CREATE INDEX `CompanyName` ON `Customers` (`CompanyName`);
 CREATE INDEX `PostalCode` ON `Customers` (`PostalCode`);
 CREATE INDEX `Region` ON `Customers` (`Region`);
+
 
 CREATE TABLE `Employees` (
     `EmployeeID` INTEGER NOT NULL AUTO_INCREMENT,
@@ -112,7 +114,7 @@ CREATE TABLE `Products` (
     `UnitsInStock` SMALLINT(2) DEFAULT 0,
     `UnitsOnOrder` SMALLINT(2) DEFAULT 0,
     `ReorderLevel` SMALLINT(2) DEFAULT 0,
-    `Discontinued` BIT NOT NULL DEFAULT 0,
+    `Discontinued` BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT `PK_Products` PRIMARY KEY (`ProductID`)
 );
 CREATE INDEX `ProductName` ON `Products` (`ProductName`);

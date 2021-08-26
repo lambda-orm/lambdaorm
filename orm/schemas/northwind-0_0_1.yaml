@@ -1,0 +1,306 @@
+name: northwind:0.0.1
+entities:
+  - name: Employees
+    _extends: [abstract.address-0_0_1]       
+    mapping: Employees
+    primaryKey: ['id']
+    uniqueKey: ['lastName','firstName']
+    properties:
+      - name: id 
+        mapping: EmployeeID
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: lastName 
+        mapping: LastName
+        nullable: false
+        type: string
+        length: 80
+      - name: firstName
+        mapping: FirstName
+        nullable: false
+        type: string
+        length: 80
+      - name: title
+        mapping: Title
+        type: string
+        length: 80
+      - name: titleOfCourtesy
+        mapping: TitleOfCourtesy
+        type: string
+        length: 80
+      - name: birthDate
+        mapping: BirthDate
+        type: datetime
+      - name: hireDate
+        mapping: HireDate
+        type: datetime
+      - name: phone
+        mapping:  HomePhone
+        type: string
+        length: 80
+      - name: reportsToId 
+        mapping:  ReportsTo
+        type: integer
+    relations:
+      - name: reportsTo
+        type: oneToMany
+        from: reportsToId
+        entity: Employees
+        to: id
+  - name: Categories
+    mapping: Categories
+    primaryKey: ['id']
+    uniqueKey: ['name']
+    properties:
+      - name: id
+        mapping: CategoryID
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        mapping: CategoryName
+        nullable: false
+        type: string
+        length: 80
+      - name: description
+        mapping: Description
+        type: string
+        length: 1000
+  - name: Customers
+    _extends: [abstract.address-0_0_1]
+    mapping: Customers
+    primaryKey: ['id']
+    uniqueKey: ['name']
+    properties:
+      - name: id
+        mapping: CustomerID
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        mapping: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: contact 
+        mapping: ContactName
+        type: string
+        length: 80
+      - name: phone
+        mapping: ContactTitle
+        type: string
+        length: 80
+    relations:  
+      - name: orders
+        type: manyToOne 
+        from: id
+        entity: Orders
+        to: customerId
+  - name: Shippers
+    mapping: Shippers
+    primaryKey: ['id']
+    uniqueKey: ['name']
+    properties:
+      - name: id 
+        mapping: ShipperID
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name 
+        mapping: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: phone
+        mapping: Phone
+        type: string
+        length: 20
+  - name: Suppliers
+    _extends: [abstract.address-0_0_1]
+    mapping: Suppliers
+    primaryKey: ['id']
+    uniqueKey: ['name']
+    properties:
+      - name: id
+        mapping: SupplierID
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        mapping: CompanyName
+        nullable: false
+        type: string
+        length: 80
+      - name: contact
+        mapping: ContactName
+        type: string
+        length: 80
+      - name: phone
+        mapping: Phone
+        type: string
+        length: 20
+      - name: homepage 
+        mapping: HomePage
+        type: string
+        length: 80  
+  - name: Products
+    mapping: Products
+    primaryKey: ['id']
+    uniqueKey: ['name','supplierId']
+    properties:
+      - name: id 
+        mapping: ProductID
+        type: integer
+        nullable: false
+        autoincrement: true 
+      - name: name 
+        mapping: ProductName
+        nullable: false
+        type: string
+        length: 80
+      - name: supplierId 
+        mapping: SupplierID
+        nullable: false
+        type: integer
+      - name: categoryId
+        mapping: CategoryID
+        type: integer
+      - name: quantity 
+        mapping: QuantityPerUnit
+        type: decimal
+      - name: price
+        mapping: UnitPrice
+        type: decimal
+        default: 0
+      - name: inStock
+        mapping: UnitsInStock
+        type: decimal
+        default: 0
+      - name: onOrder 
+        mapping: UnitsOnOrder
+        type: decimal
+        default: 0
+      - name: reorderLevel
+        mapping: ReorderLevel
+        type: decimal
+        default: 0
+      - name: discontinued
+        mapping: Discontinued
+        type: boolean
+        default: false
+    relations:    
+      - name: supplier
+        type: oneToMany 
+        from: supplierId
+        entity: Suppliers
+        to: id 
+      - name: category
+        type: oneToMany  
+        from: categoryId
+        entity: Categories
+        to: id
+  - name: Orders
+    mapping: Orders
+    primaryKey: ['id']
+    properties:
+      - name: id
+        mapping: OrderID
+        type: integer
+        nullable: false
+        autoincrement: true 
+      - name: customerId 
+        mapping: CustomerID
+        nullable: false
+        type: integer
+      - name: employeeId 
+        mapping: EmployeeID
+        nullable: false
+        type: integer 
+      - name: orderDate
+        mapping: OrderDate
+        type: datetime 
+      - name: requiredDate 
+        mapping: RequiredDate
+        type: datetime
+      - name: shippedDate 
+        mapping: ShippedDate
+        type: datetime 
+      - name: shipViaId 
+        mapping: ShipVia
+        type: integer
+      - name: freight 
+        mapping: Freight
+        type: decimal
+      - name: name
+        mapping: ShipName
+        type: string
+        length: 80  
+      - name: address 
+        mapping: ShipAddress
+        type: string
+        length: 80
+      - name: city 
+        mapping: ShipCity
+        type: string
+        length: 80
+      - name: region
+        mapping: ShipRegion
+        type: string
+        length: 80
+      - name: postalCode
+        mapping: ShipPostalCode
+        type: string
+        length: 20
+      - name: country
+        mapping: ShipCountry
+        type: string
+        length: 80 
+    relations:    
+      - name: customer
+        type: oneToMany  
+        from: customerId
+        entity: Customers
+        to: id 
+      - name: employee
+        type: oneToMany  
+        from: employeeId
+        entity: Employees
+        to: id 
+      - name: details
+        type: manyToOne 
+        from: id
+        entity: OrderDetails
+        to: orderId  
+  - name: OrderDetails
+    mapping: Order Details
+    primaryKey: ['orderId','productId']
+    properties:
+      - name: orderId 
+        mapping: OrderID
+        nullable: false
+        type: integer
+      - name: productId 
+        mapping: ProductID
+        nullable: false
+        type: integer
+      - name: unitPrice
+        mapping: UnitPrice
+        type: decimal
+      - name: quantity 
+        mapping: Quantity
+        type: decimal
+      - name: discount 
+        mapping: Discount
+        type: decimal
+    relations:   
+      - name: order       
+        type: oneToMany 
+        from: orderId
+        entity: Orders
+        to: id 
+      - name: product
+        type: oneToMany 
+        from: productId
+        entity: Products
+        to: id 
