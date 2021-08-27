@@ -1,6 +1,6 @@
 import {Cache,IOrm,Context,Config } from './model'
 import {Model,NodeManager} from './node/index'
-import {Expression,MemoryCache,TransactionManager}  from './manager'
+import {Expression,MemoryCache,Transaction}  from './manager'
 import {SchemaManager}  from './schema/schemaManager'
 import {DatabaseManager}  from './database'
 import {ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
@@ -33,7 +33,6 @@ class Orm implements IOrm
         }  
         return this._instance;
     }
-
     constructor(){
         this.config={paths:{}};
         this._cache= new MemoryCache()
@@ -198,17 +197,17 @@ class Orm implements IOrm
             }
             else
             {                   
-                const transaction = this.connectionManager.createTransaction(database);
+                const tr = this.connectionManager.createTransaction(database);
                 try
                 {
-                    await transaction.begin();
-                    result= await this.language.execute(_database.dialect,operand,_context,transaction);
-                    await transaction.commit();
+                    await tr.begin();
+                    result= await this.language.execute(_database.dialect,operand,_context,tr);
+                    await tr.commit();
                 }
                 catch(error)
                 {
                     console.log(error);
-                    transaction.rollback();
+                    tr.rollback();
                     throw error;
                 }
             }
@@ -222,20 +221,21 @@ class Orm implements IOrm
         let executor =this.connectionManager.createExecutor(database);
         return await executor.execute(sentence);
     }
-    public async transaction(database:string,callback:{(tr:TransactionManager): Promise<void>;}):Promise<void>
+    public async transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
     {  
-        const transaction = this.connectionManager.createTransaction(database);
+        let _database=this.database.get(database);
+        const tr = this.connectionManager.createTransaction(database);
         try
         {
-            await transaction.begin();
-            let transactionManager = new TransactionManager(this,database,transaction);
-            await callback(transactionManager);
-            await transaction.commit();
+            await tr.begin();
+            let transaction = new Transaction(this,_database,tr);
+            await callback(transaction);
+            await tr.commit();
         }
         catch(error)
         {
             console.log(error);
-            transaction.rollback();
+            tr.rollback();
             throw error;
         }    
     }

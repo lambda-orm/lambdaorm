@@ -1,15 +1,15 @@
 import {IOrm,Database,Context} from '../model'
-import {Transaction } from './../connection'
+import * as c from './../connection/transaction'
 
-export class TransactionManager 
+export class Transaction 
 {    
     private orm:IOrm
     private database:Database
-    private transaction:Transaction
-    constructor(orm:IOrm,database:string,transaction:Transaction){
+    private transaction:c.Transaction
+    constructor(orm:IOrm,database:Database,transaction:c.Transaction){
         this.orm=orm;
+        this.database=database;
         this.transaction=transaction;
-        this.database=this.orm.database.get(database);
     }    
     public async execute(expression:string,context:any):Promise<any>
     {
