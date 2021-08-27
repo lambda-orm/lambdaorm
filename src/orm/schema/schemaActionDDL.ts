@@ -1,6 +1,6 @@
 import {IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
-import {Transaction,ConnectionConfig,ExecutionResult,ExecutionSentenceResult} from '../connection'
+import {ExecutionResult,ExecutionSentenceResult} from '../connection'
 
 export abstract class SchemaActionDDL
 {    
@@ -11,50 +11,39 @@ export abstract class SchemaActionDDL
         this.schema=schema;
     }
     public abstract sentence(dialect:string):any[];
-    public async execute(database:string,transaction?:Transaction,tryAllCan:boolean=false):Promise<ExecutionResult>
+    public async execute(database:string,tryAllCan:boolean=false):Promise<ExecutionResult>
     {       
-        let _database= this.orm.database.get(database);
-        let config = this.orm.connection.get(_database.name);
+        //let _database= this.orm.database.get(database);
+        let config = this.orm.connection.get(database);
         let sentences = this.sentence(config.dialect);  
         let results:ExecutionSentenceResult[]=[]; 
-        if(transaction){            
-            results=await this.executeSentences(database,sentences,transaction,tryAllCan);            
-        }else{
-            sentences = this.sentence(config.dialect);
-            await this.orm.internalTransaction(_database.name,async (transaction)=>{
-                results=await this.executeSentences(database,sentences,transaction,tryAllCan);
-            });
-        }
-        return {results:results}
-    }
-    protected async executeSentences(database:string,sentences:string[],transaction:Transaction,tryAllCan:boolean):Promise<ExecutionSentenceResult[]>
-    {
-        let results:ExecutionSentenceResult[]=[];
-        let sentence:any; 
-        if(tryAllCan){
-            for(let i=0;i<sentences.length;i++){                
-                sentence = sentences[i];
-                try{
-                    const result= await this.orm.executeSentence(sentence,database,transaction);
-                    results.push({result:result,sentence:sentence}); 
-                }
-                catch(error){
-                    results.push({error:error,sentence:sentence}); 
-                }
-            } 
-        }
-        else{
-            try{
+        await this.orm.transaction(database,async (tr)=>{            
+            let sentence:any; 
+            if(tryAllCan){
                 for(let i=0;i<sentences.length;i++){                
                     sentence = sentences[i];
-                    const result= await this.orm.executeSentence(sentence,database,transaction);
-                    results.push({result:result,sentence:sentence});
+                    try{
+                        const result= await tr.executeSentence(sentence);
+                        results.push({result:result,sentence:sentence}); 
+                    }
+                    catch(error){
+                        results.push({error:error,sentence:sentence}); 
+                    }
+                } 
+            }
+            else{
+                try{
+                    for(let i=0;i<sentences.length;i++){                
+                        sentence = sentences[i];
+                        const result= await tr.executeSentence(sentence);
+                        results.push({result:result,sentence:sentence});
+                    }
                 }
-            }
-            catch(error){
-                throw `sentence: ${sentence.toString()} error: ${error.toString()}`;
-            }
-        }    
-        return results;
+                catch(error){
+                    throw `sentence: ${sentence.toString()} error: ${error.toString()}`;
+                }
+            } 
+        });
+        return {results:results}
     }
 }

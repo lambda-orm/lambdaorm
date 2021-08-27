@@ -23,8 +23,6 @@ export interface IOrm
     query(expression:string,dialect:string,schema:string):Promise<Query>
     eval(expression:string,context:any,schema:string):Promise<any>  
     execute(expression:string,context:any,database:string,transaction?:Transaction):Promise<any>
-    executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>
-    //transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
+    executeSentence(sentence:any,database:string):Promise<any>
     transaction(database:string,callback:{(tr:TransactionManager): Promise<void>;}):Promise<void>
-    internalTransaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
 }

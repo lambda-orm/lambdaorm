@@ -1,66 +1,56 @@
-import {SchemaDataEntity,SchemaData, SchemaEntityExpression} from './schemaData'
+import {SchemaData, SchemaEntityExpression} from './schemaData'
 import {SchemaActionDML} from './schemaActionDML'
-import {Transaction} from '../connection'
 
 export class SchemaImport extends SchemaActionDML
 {   
-    public async execute(data:SchemaData,mapping:any,pending:any[],database:string,transaction?:Transaction):Promise<void>
+    public async execute(data:SchemaData,mapping:any,pendings:any[],database:string):Promise<void>
     {  
         let schemaExpression = this.build(this.schema);
-        let _database= this.orm.database.get(database);
         const entitiesExpression = this.sort(schemaExpression.entities);
-        if(transaction){
-            await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,database,transaction);
-        }else{
-            await this.orm.internalTransaction(_database.name,async (transaction)=>{ 
-                await this.executeEntitiesExpression(entitiesExpression,data,mapping,pending,database,transaction);
-            }); 
-        }
-    }
-    protected async executeEntitiesExpression(entitiesExpression:SchemaEntityExpression[],data:SchemaData,mapping:any,pendings:any[],database:string,transaction:Transaction)
-    {        
-        for(let i =0;i<entitiesExpression.length;i++){
-            let entityExpression = entitiesExpression[i];
-            let entityData = data.entities.find(p=> p.entity == entityExpression.entity);
-            if(entityData){
-                let aux:any={};
-                this.loadExternalIds(entityData.entity,entityData.rows,aux)
-                this.solveInternalsIds(entityData.entity,entityData.rows,mapping,pendings);
-                await this.orm.expression(entityExpression.expression).execute(entityData.rows,database,transaction);
-                this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
-            }               
-        }
-        for(let i =0;i<pendings.length;i++){
-            let pending = pendings[i];
-            const entity=this.schema.getEntity(pending.entity);
-            const relation = entity.relation[pending.relation];
-
-            if(!entity.uniqueKey || entity.uniqueKey.length==0){
-                //TODO: reemplazar por un archivo de salida de inconsistencias
-                console.error(`${entity.name} had not unique Key`); 
-                continue;
-            }
-            let filter='';
-            for(const p in entity.uniqueKey)
-                filter= filter+(filter==''?'':' && ') + `p.${entity.uniqueKey[p]}==${entity.uniqueKey[p]}`;
-            let expression:string=`${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`; 
-
-            let stillPending:any[]=[];
-            for(let j =0;j<pending.rows.length;j++){
-                const row = pending.rows[j];
-                if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][row.externalId]){
-                    let values:any = {};
-                    const internalId = mapping[relation.entity][relation.to][row.externalId];
-                    values[relation.from]= internalId;
-                    for(const p in entity.uniqueKey)
-                        values[entity.uniqueKey[p]]= row.keys[p];                    
-                    await this.orm.expression(expression).execute(values,database,transaction); 
-                }else{
-                    stillPending.push(row);
+        await this.orm.transaction(database,async (tr)=>{ 
+            for(let i =0;i<entitiesExpression.length;i++){
+                let entityExpression = entitiesExpression[i];
+                let entityData = data.entities.find(p=> p.entity == entityExpression.entity);
+                if(entityData){
+                    let aux:any={};
+                    this.loadExternalIds(entityData.entity,entityData.rows,aux)
+                    this.solveInternalsIds(entityData.entity,entityData.rows,mapping,pendings);
+                    await tr.execute(entityExpression.expression,entityData.rows);
+                    this.completeMapping(entityData.entity,entityData.rows,aux,mapping); 
                 }               
             }
-            pending.rows=stillPending; 
-        }
+            for(let i =0;i<pendings.length;i++){
+                let pending = pendings[i];
+                const entity=this.schema.getEntity(pending.entity);
+                const relation = entity.relation[pending.relation];
+    
+                if(!entity.uniqueKey || entity.uniqueKey.length==0){
+                    //TODO: reemplazar por un archivo de salida de inconsistencias
+                    console.error(`${entity.name} had not unique Key`); 
+                    continue;
+                }
+                let filter='';
+                for(const p in entity.uniqueKey)
+                    filter= filter+(filter==''?'':' && ') + `p.${entity.uniqueKey[p]}==${entity.uniqueKey[p]}`;
+                let expression:string=`${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`; 
+    
+                let stillPending:any[]=[];
+                for(let j =0;j<pending.rows.length;j++){
+                    const row = pending.rows[j];
+                    if(mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][row.externalId]){
+                        let values:any = {};
+                        const internalId = mapping[relation.entity][relation.to][row.externalId];
+                        values[relation.from]= internalId;
+                        for(const p in entity.uniqueKey)
+                            values[entity.uniqueKey[p]]= row.keys[p];                    
+                        await tr.execute(expression,values); 
+                    }else{
+                        stillPending.push(row);
+                    }               
+                }
+                pending.rows=stillPending; 
+            }
+        }); 
     }
     protected solveInternalsIds(entityName:string,rows:any[],mapping:any,pendings:any[],parentEntity?:string):void
     {

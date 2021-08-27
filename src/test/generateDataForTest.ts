@@ -1020,7 +1020,7 @@ async function schemaSync(target:string){
 }
 async function schemaDrop(target:string,TryAndContinue:boolean=false){
   if(orm.database.exists(target))
-    await orm.database.clean(target).execute(undefined,TryAndContinue);
+    await orm.database.clean(target).execute(TryAndContinue);
 }
 async function schemaExport(source:string){
   let exportFile = 'orm/data/'+source+'-export.json';  

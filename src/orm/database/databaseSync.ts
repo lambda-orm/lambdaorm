@@ -21,10 +21,10 @@ export class DatabaseSync
         let connection = this.orm.connection.get(this.database.name);
         return (await this.schemaSync(current)).sentence(connection.dialect);
     }
-    public async execute(transaction?:Transaction):Promise<ExecutionSyncResult>
+    public async execute():Promise<ExecutionSyncResult>
     {
        let current = this.orm.schema.get(this.database.schema) as Schema;
-       let result= await (await this.schemaSync(current)).execute(this.database.name,transaction );
+       let result= await (await this.schemaSync(current)).execute(this.database.name);
        await this.orm.database.updateSchemaState(this.database.name,current);
        return result;
     }

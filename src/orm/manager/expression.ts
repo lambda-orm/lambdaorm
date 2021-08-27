@@ -42,8 +42,8 @@ export class Expression
     {       
         return this.orm.language.deserialize(serialized);
     }   
-    public async execute(context:any,database:string,transaction?:Transaction)
+    public async execute(context:any,database:string)
     {         
-        return await this.orm.execute(this.expression,context,database,transaction);
+        return await this.orm.execute(this.expression,context,database);
     } 
 }

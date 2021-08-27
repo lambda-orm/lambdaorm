@@ -15,9 +15,9 @@ export class DatabaseClean
         let connection = this.orm.connection.get(this.database.name);
         return (await this.schemaDrop()).sentence(connection.dialect);
     }
-    public async execute(transaction?:Transaction,tryAllCan:boolean=false):Promise<ExecutionResult>
+    public async execute(tryAllCan:boolean=false):Promise<ExecutionResult>
     {
-        let result= await (await this.schemaDrop()).execute(this.database.name,transaction,tryAllCan);
+        let result= await (await this.schemaDrop()).execute(this.database.name,tryAllCan);
         await this.orm.database.removeState(this.database.name);
         return result;
     }

@@ -2,7 +2,6 @@ import {Delta,IOrm} from '../model/index'
 import {SchemaHelper} from './schemaHelper'
 import {SchemaActionDDL} from './schemaActionDDL'
 import {ExecutionSyncResult} from './executionSyncResult'
-import {Transaction} from '../connection'
 
 export class SchemaSync extends SchemaActionDDL
 {
@@ -19,9 +18,9 @@ export class SchemaSync extends SchemaActionDDL
     {
         return this.orm.language.sync(dialect,this.delta,this.schema);
     }
-    public async execute(database:string,transaction?:Transaction):Promise<ExecutionSyncResult>
+    public async execute(database:string):Promise<ExecutionSyncResult>
     {
-       let result= await super.execute(database,transaction);
+       let result= await super.execute(database);
        return {results:result.results,delta:this.delta};
     }
 }

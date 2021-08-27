@@ -38,15 +38,15 @@ export class DatabaseManager
         const schema:Schema = this.orm.schema.get(database.schema) as Schema;
         return  this.orm.schema.model(schema);      
     }
-    public async export(name:string,transaction?:Transaction):Promise<SchemaData>
+    public async export(name:string):Promise<SchemaData>
     {        
         let state = await this.getState(name); 
-        return await this.orm.schema.export(state.schema).execute(name,transaction);
+        return await this.orm.schema.export(state.schema).execute(name);
     }
-    public async import(name:string,data:SchemaData,transaction?:Transaction)
+    public async import(name:string,data:SchemaData)
     {       
         let state = await this.getState(name); 
-        await this.orm.schema.import(state.schema).execute(data,state.mapping,state.pending,name,transaction);
+        await this.orm.schema.import(state.schema).execute(data,state.mapping,state.pending,name);
         await this.updateDataState(name,state.mapping,state.pending);
     }
     public exists(name:string)

@@ -3,7 +3,7 @@ import {Model,NodeManager} from './node/index'
 import {Expression,MemoryCache,TransactionManager}  from './manager'
 import {SchemaManager}  from './schema/schemaManager'
 import {DatabaseManager}  from './database'
-import {Transaction,ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
+import {ConnectionManager,MySqlConnectionPool,MariadbConnectionPool,PostgresConnectionPool,ConnectionConfig} from './connection'
 import {LanguageManager,Operand,Sentence,Query} from './language'
 import {SqlLanguage} from './language/sql/index'
 import {CoreLib} from './language/lib/coreLib'
@@ -184,49 +184,43 @@ class Orm implements IOrm
         let _context = new Context(context);
         return this.language.eval(operand,_context);
     }    
-    public async execute(expression:string,context:any,database:string,transaction?:Transaction):Promise<any>
+    public async execute(expression:string,context:any,database:string):Promise<any>
     {
         let _database= this.database.get(database);
-        let operand = await this.query(expression,_database.dialect,_database.schema)
-
+        let operand = await this.query(expression,_database.dialect,_database.schema);
         try{
             let _context = new Context(context);
             let _database= this.database.get(database);
-            if(transaction){
-                return await this.language.execute(_database.dialect,operand,_context,transaction);
-            }else{    
-
-                let result;
-                if(operand.children.length==0){
-                    let executor =this.connectionManager.createExecutor(_database.name);
-                    result = await this.language.execute(_database.dialect,operand,_context,executor);
-                }
-                else
-                {
-                    await this.internalTransaction(_database.name,async (transaction)=>{
-                        result= await this.language.execute(_database.dialect,operand,_context,transaction);
-                    });
-                }
-                return result;                    
+            let result;
+            if(operand.children.length==0){
+                let executor =this.connectionManager.createExecutor(_database.name);
+                result = await this.language.execute(_database.dialect,operand,_context,executor);
             }
-                      
+            else
+            {                   
+                const transaction = this.connectionManager.createTransaction(database);
+                try
+                {
+                    await transaction.begin();
+                    result= await this.language.execute(_database.dialect,operand,_context,transaction);
+                    await transaction.commit();
+                }
+                catch(error)
+                {
+                    console.log(error);
+                    transaction.rollback();
+                    throw error;
+                }
+            }
+            return result;                      
         }catch(error){
-            throw 'run: '+operand.name+' error: '+error.toString(); 
+            throw 'execute: '+expression+' error: '+error.toString(); 
         }
     }
-    public async executeSentence(sentence:any,database:string,transaction?:Transaction):Promise<any>
+    public async executeSentence(sentence:any,database:string):Promise<any>
     {
-        try{
-            let _database= this.database.get(database);
-            if(transaction){
-                return await transaction.execute(sentence);
-            }else{
-                let executor =this.connectionManager.createExecutor(_database.name);
-                return await executor.execute(sentence); 
-            }           
-        }catch(error){
-            throw 'error: '+error.toString(); 
-        }
+        let executor =this.connectionManager.createExecutor(database);
+        return await executor.execute(sentence);
     }
     public async transaction(database:string,callback:{(tr:TransactionManager): Promise<void>;}):Promise<void>
     {  
@@ -245,21 +239,5 @@ class Orm implements IOrm
             throw error;
         }    
     }
-    public async internalTransaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
-    {  
-        const transaction = this.connectionManager.createTransaction(database);
-        try
-        {
-            await transaction.begin();
-            await callback(transaction);
-            await transaction.commit();
-        }
-        catch(error)
-        {
-            console.log(error);
-            transaction.rollback();
-            throw error;
-        }    
-    } 
 }
 export const orm = Orm.instance;
