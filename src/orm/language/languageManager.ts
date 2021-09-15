@@ -20,86 +20,86 @@ export class LanguageManager
     private operandManager:OperandManager
    
     constructor(orm:IOrm,languageModel:Model){
-        this.orm=orm;
-        this.languageModel=languageModel;
-        this.queryCompleter= new QueryCompleter();
-        this.metadata= new OperandMetadata();
-        this.operandManager= new OperandManager(this);
+        this.orm=orm
+        this.languageModel=languageModel
+        this.queryCompleter= new QueryCompleter()
+        this.metadata= new OperandMetadata()
+        this.operandManager= new OperandManager(this)
         
-        this.languages={};
-        this.dialects={};
+        this.languages={}
+        this.dialects={}
     }
     public addLibrary(library:Library):void
     {
-        this.metadata.addLibrary(library);
+        this.metadata.addLibrary(library)
     }
     public add(language:ILanguage){
-        this.languages[language.name] =language;
+        this.languages[language.name] =language
         for(const name in language.dialects)
-            this.dialects[name]= {name:name,language:language.name};         
+            this.dialects[name]= {name:name,language:language.name}         
     }
     public get(dialect:string):ILanguage 
     {
-        let info =  this.dialects[dialect];
+        let info =  this.dialects[dialect]
         return this.languages[info.language] as ILanguage
     }    
     public build(node:Node,schema:SchemaHelper): Operand
     {
-        let _node = this.complete(node,schema);
-        return this.operandManager.build(_node,schema);
+        let _node = this.complete(node,schema)
+        return this.operandManager.build(_node,schema)
     }
     public complete(node:Node,schema:SchemaHelper): Node
     {
-        let completeNode= this.queryCompleter.complete(node,schema);
-        this.orm.node.setParent(completeNode);
-        return completeNode; 
+        let completeNode= this.queryCompleter.complete(node,schema)
+        this.orm.node.setParent(completeNode)
+        return completeNode 
     }
     public model(sentence:Sentence):any
     {
-        return this.operandManager.model(sentence);
+        return this.operandManager.model(sentence)
     }
     public query(dialect:string,sentence:Sentence): Query
     {       
-        return this.get(dialect).query.build(sentence,dialect);
+        return this.get(dialect).query.build(sentence,dialect)
     }
     public sentence(dialect:string,operand:Query):any
     {
-        return this.get(dialect).query.sentence(operand);
+        return this.get(dialect).query.sentence(operand)
     }
     public serialize(operand:Operand):any
     {
-        return this.operandManager.serialize(operand);
+        return this.operandManager.serialize(operand)
     }
     public deserialize(serialized:any)
     {
-        return this.operandManager.deserialize(serialized);
+        return this.operandManager.deserialize(serialized)
     }
     public serializeQuery(dialect:string,operand:Operand):any
     {
-        return this.get(dialect).query.serialize(operand);
+        return this.get(dialect).query.serialize(operand)
     }
     public deserializeQuery(dialect:string,serialized:any)
     {
-        return this.get(dialect).query.deserialize(serialized);
+        return this.get(dialect).query.deserialize(serialized)
     }
     public async execute(dialect:string,operand:Operand,context:Context,executor:Executor):Promise<any>
     {
-        return await this.get(dialect).executor.execute(operand,context,executor);
+        return await this.get(dialect).executor.execute(operand,context,executor)
     }
     public eval(operand:Operand,context:Context):any
     {          
-        return this.operandManager.eval(operand,context);
+        return this.operandManager.eval(operand,context)
     }
     public sync(dialect:string,delta:Delta,schema:SchemaHelper):any[]
     {       
-       return this.get(dialect).schema.sync(delta,dialect,schema);
+       return this.get(dialect).schema.sync(delta,dialect,schema)
     }
     public drop(dialect:string,schema:SchemaHelper):string[]
     {
-        return this.get(dialect).schema.drop(dialect,schema);
+        return this.get(dialect).schema.drop(dialect,schema)
     }
     public truncate(dialect:string,schema:SchemaHelper):string[]
     {
-        return this.get(dialect).schema.truncate(dialect,schema);
+        return this.get(dialect).schema.truncate(dialect,schema)
     }
 }

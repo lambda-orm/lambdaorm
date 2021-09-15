@@ -4,139 +4,139 @@ export class SchemaHelper
 {
     private _schema:any    
     constructor(schema:any){
-        this._schema = schema;
+        this._schema = schema
     }
     public get name(){
-        return this._schema.name;
+        return this._schema.name
     }
     public get mapping(){
-        return this._schema.mapping;
+        return this._schema.mapping
     }
     public get entity(){
-        return this._schema.entity;
+        return this._schema.entity
     }
     public isChild(entityName:string):boolean
     {
         for(const _entityName in this._schema.entity){
-            const entity = this._schema.entity[_entityName];
+            const entity = this._schema.entity[_entityName]
             for(const relationName in entity.relation){
-                const relation =  entity.relation[relationName];
-                if(relation.type == 'manyToOne' && relation.entity==entityName)return true;
+                const relation =  entity.relation[relationName]
+                if(relation.type == 'manyToOne' && relation.entity==entityName)return true
             }
         }
-        return false;
+        return false
     }
     public existsProperty(entityName:string,name:string):boolean
     {
-        let entity =this.getEntity(entityName);
+        let entity =this.getEntity(entityName)
         if(!entity)
-            throw 'Not exists entity:'+entityName;
-        let property= entity.property[name];
+            throw 'Not exists entity:'+entityName
+        let property= entity.property[name]
         return property != undefined    
     }
     public getProperty(entityName:string,name:string):Property
     {
-        let entity =this.getEntity(entityName);
+        let entity =this.getEntity(entityName)
         if(!entity)
-            throw 'Not exists entity:'+entityName;
-        let property= entity.property[name];
+            throw 'Not exists entity:'+entityName
+        let property= entity.property[name]
         if(!property)
-            throw 'Not exists property: '+name+' in entity: '+entityName;
-        return property;     
+            throw 'Not exists property: '+name+' in entity: '+entityName
+        return property     
     }    
     public entityMapping(entityName:string):string
     {
-        let entity =this.getEntity(entityName);
-        return entity?entity.mapping:null;
+        let entity =this.getEntity(entityName)
+        return entity?entity.mapping:null
     }
     public getEntity(name:string):any
     {
-        return this._schema.entity[name];
+        return this._schema.entity[name]
     }
     public getAutoincrement(entityName:string):Property | undefined
     {
-        let entity =this.getEntity(entityName);
+        let entity =this.getEntity(entityName)
         if(!entity)
-            throw 'Not exists entity:'+entityName;
+            throw 'Not exists entity:'+entityName
         for(const name in entity.property){
-            const property = entity.property[name] as Property;
+            const property = entity.property[name] as Property
             if(property.autoincrement)
-              return property;
+              return property
         }
-        return undefined;     
+        return undefined     
     }
     public getRelation(entity:string,relation:string):any
     {
-        let previousEntity,previousSchema,relationData,relationEntity,relationSchema;
-        let parts = relation.split('.');   
+        let previousEntity,previousSchema,relationData,relationEntity,relationSchema
+        let parts = relation.split('.')   
         for(let i=0;i<parts.length;i++){
-            let part = parts[i];
+            let part = parts[i]
             if(i==0){
-                previousEntity = entity;
-                previousSchema =this.getEntity(previousEntity);
+                previousEntity = entity
+                previousSchema =this.getEntity(previousEntity)
             }else{
-                previousEntity = relationEntity;
+                previousEntity = relationEntity
                 previousSchema =relationSchema
             }                      
-            relationData= previousSchema.relation[part];
+            relationData= previousSchema.relation[part]
             if(!relationData)
-                throw 'relation '+part+' not found in '+previousSchema.name;
-            relationEntity = relationData.entity;
-            relationSchema = this.getEntity(relationEntity);
+                throw 'relation '+part+' not found in '+previousSchema.name
+            relationEntity = relationData.entity
+            relationSchema = this.getEntity(relationEntity)
         }
         return {
             previousRelation: parts.length>1?parts.slice(0,parts.length-1).join('.'):'',
             previousSchema: previousSchema,
             relationSchema: relationSchema,
             relationData: relationData
-        };
+        }
     }
     public sortEntities(entities?:string[]):string[]
     {  
         if(!entities){
-            entities=[];
-            for(const name in this._schema.entity)entities.push(name);
+            entities=[]
+            for(const name in this._schema.entity)entities.push(name)
         }
-        let sorted:string[]=[];
+        let sorted:string[]=[]
         while(sorted.length < entities.length ){
             for(let i=0;i<entities.length;i++){
-                const entityName = entities[i];
+                const entityName = entities[i]
                 if(sorted.includes(entityName))
-                    continue;
+                    continue
                 if(this.solveSortEntity(entityName,sorted)){
-                    sorted.push(entityName);
-                    break;
+                    sorted.push(entityName)
+                    break
                 }                         
             } 
         }
-        return sorted;
+        return sorted
     }
     protected solveSortEntity(entityName:string,sorted:string[],parent?:string):boolean
     {       
-        const entity=this.getEntity(entityName);
+        const entity=this.getEntity(entityName)
         if(entity.relation === undefined){
-            sorted.push(entity.name);
-            return true;
+            sorted.push(entity.name)
+            return true
         } 
         else{
-            let unsolved = false;
+            let unsolved = false
             for(const p in entity.relation){
-                const relation = entity.relation[p];
+                const relation = entity.relation[p]
                 if(relation.entity!= entityName){
                     if(relation.type == 'oneToOne' || relation.type == 'oneToMany'){
                         if(!sorted.includes(relation.entity) && (parent == null || parent!= relation.entity)){
-                            unsolved= true;
-                            break;     
+                            unsolved= true
+                            break     
                         }
                     }else if (relation.type == 'manyToOne'){
                         if(!this.solveSortEntity(relation.entity,sorted,entityName)){
-                            unsolved= true;
-                            break;  
+                            unsolved= true
+                            break  
                         }
                     }
                 }
             }
-            return !unsolved;
+            return !unsolved
         } 
     }
 }

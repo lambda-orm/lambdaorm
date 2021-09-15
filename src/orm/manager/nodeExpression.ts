@@ -10,6 +10,6 @@ export class NodeExpression
     }       
     public serialize():any
     {
-        return this.mgr.serialize(this.node);
+        return this.mgr.serialize(this.node)
     }
 }

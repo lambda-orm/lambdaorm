@@ -1,8 +1,8 @@
 import '../orm/sintaxis'
 import {orm,Parameter } from '../orm'
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+const fs = require('fs')
+const path = require('path')
+const yaml = require('js-yaml')
 
 async function exec(fn:any){
     let t1= Date.now()
@@ -10,10 +10,10 @@ async function exec(fn:any){
     let t2= Date.now()
     console.log(t2-t1)
     if(result){
-        if (typeof result === 'string' || result instanceof String)console.log(result);
-        else console.log(JSON.stringify(result));
+        if (typeof result === 'string' || result instanceof String)console.log(result)
+        else console.log(JSON.stringify(result))
     }
-    return result;  
+    return result  
 }
 interface Test
 {
@@ -57,90 +57,90 @@ interface ExecutionTest
 }
 async function writeTest(dialects:string[],databases:string[],category:CategoryTest):Promise<number>
 {
-  category.errors=0;
+  category.errors=0
   for(const q in category.test){    
-    let expressionTest = category.test[q] as ExpressionTest;
-    expressionTest.sentences=[];
-    expressionTest.errors=0;
+    let expressionTest = category.test[q] as ExpressionTest
+    expressionTest.sentences=[]
+    expressionTest.errors=0
     try{               
-      expressionTest.expression = orm.lambda(expressionTest.lambda).expression;
-      expressionTest.lambda=expressionTest.lambda.toString();
-      expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema); 
-      expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema);
-      const serialize:any = await orm.expression(expressionTest.expression).serialize(category.schema);
-      expressionTest.parameters =serialize.p; 
-      expressionTest.fields =serialize.f;
+      expressionTest.expression = orm.lambda(expressionTest.lambda).expression
+      expressionTest.lambda=expressionTest.lambda.toString()
+      expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema) 
+      expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema)
+      const serialize:any = await orm.expression(expressionTest.expression).serialize(category.schema)
+      expressionTest.parameters =serialize.p 
+      expressionTest.fields =serialize.f
       for(const r in dialects){
-        const dialect = dialects[r];
-        let sentence=undefined;
-        let error=undefined;                 
+        const dialect = dialects[r]
+        let sentence=undefined
+        let error=undefined                 
         try{               
-          sentence = await orm.expression(expressionTest.expression).sentence(dialect,category.schema);        
+          sentence = await orm.expression(expressionTest.expression).sentence(dialect,category.schema)        
         }
-        catch(err)
+        catch(err:any)
         {
-          error=err.toString();
+          error=err.toString()
         }
         finally
         {
           if(error!=undefined){
-            expressionTest.sentences.push({dialect:dialect,error:error});
-            expressionTest.errors++;
+            expressionTest.sentences.push({dialect:dialect,error:error})
+            expressionTest.errors++
           }          
           else if(sentence!=undefined)    
-            expressionTest.sentences.push({dialect:dialect,sentence:sentence});
+            expressionTest.sentences.push({dialect:dialect,sentence:sentence})
           else
-            console.error('error sentence '+dialect+' '+category.name+':'+expressionTest.name);
+            console.error('error sentence '+dialect+' '+category.name+':'+expressionTest.name)
         }
       }
-      expressionTest.executions=[];
+      expressionTest.executions=[]
       for(const p in databases){
-        const database = databases[p];
-        let result=undefined;
-        let error=undefined;   
+        const database = databases[p]
+        let result=undefined
+        let error=undefined   
         try{
-          const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{};
-          result = await orm.lambda(expressionTest.lambda).execute(context,database);
+          const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{}
+          result = await orm.lambda(expressionTest.lambda).execute(context,database)
         }
-        catch(err)
+        catch(err:any)
         {
-          error=err.toString();
+          error=err.toString()
         }
         finally
         {
           if(error!=undefined){
-            expressionTest.executions.push({database:database,error:error});
-            expressionTest.errors++;
+            expressionTest.executions.push({database:database,error:error})
+            expressionTest.errors++
           }
           else if(result!=undefined)    
-            expressionTest.executions.push({database:database,result:result});
+            expressionTest.executions.push({database:database,result:result})
           else
-            console.error('error execution '+database+' '+category.name+':'+expressionTest.name); 
+            console.error('error execution '+database+' '+category.name+':'+expressionTest.name) 
         }
       }
     }
-    catch(err)
+    catch(err:any)
     {
-      expressionTest.error = err.toString();
-      expressionTest.errors++;
+      expressionTest.error = err.toString()
+      expressionTest.errors++
     }
-    category.errors+=expressionTest.errors;
+    category.errors+=expressionTest.errors
   }
   try{     
-    let yamlStr = yaml.safeDump(category);
-    fs.writeFileSync(path.join('src/test/dataForTest',category.name.replace(' ','_')+'.yaml'),yamlStr);
+    let yamlStr = yaml.safeDump(category)
+    fs.writeFileSync(path.join('src/test/dataForTest',category.name.replace(' ','_')+'.yaml'),yamlStr)
   }catch(error){
-    console.error(error);
+    console.error(error)
     for(const q in category.test){ 
       try{   
-        let expressionTest = category.test[q] as ExpressionTest;
-        let yamlStr = yaml.safeDump(expressionTest);
+        let expressionTest = category.test[q] as ExpressionTest
+        let yamlStr = yaml.safeDump(expressionTest)
       }catch(error){
-        console.error(error);
+        console.error(error)
       }  
     }
   }
-  return category.errors;
+  return category.errors
 }
 async function writeQueryTest(dialects:string[],databases:string[]):Promise<number>
 {
@@ -167,7 +167,7 @@ async function writeQueryTest(dialects:string[],databases:string[]):Promise<numb
         ,{name:'query 16',context:'a',lambda: ()=> Products.distinct(p=> p.category.name)}
         ,{name:'query 17',lambda: ()=> Products.first(p=>({category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}))}
         ,{name:'query 18',lambda: ()=> Products.filter(p=> p.discontinued != false ).last(p => p) }
-  ]});
+  ]})
 }
 async function writeNumeriFunctionsTest(dialects:string[],databases:string[]):Promise<number>
 { 
@@ -189,7 +189,7 @@ async function writeNumeriFunctionsTest(dialects:string[],databases:string[]):Pr
     ,{name:'function sign',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:255.5,result:sign(255.5)})) }
     ,{name:'function tan',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:1.75,result:tan(1.75)})) }
     ,{name:'function trunc',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id).map(p=>({name:p.name,source:135.375,result:trunc(135.375, 2)})) }
-  ]});
+  ]})
 }  
 async function writeGroupByTest(dialects:string[],databases:string[]):Promise<number>
 {    
@@ -207,7 +207,7 @@ async function writeGroupByTest(dialects:string[],databases:string[]):Promise<nu
     ,{name:'groupBy 9',lambda: ()=> Products.having(p=> max(p.price)> 100).map(p=> ({category:p.category.name,largestPrice:max(p.price)}))}
     ,{name:'groupBy 10',lambda: ()=> Products.having(p=> max(p.price) > 100).map(p=> ({category:p.category.name,largestPrice:max(p.price)})).sort(p=> desc(p.largestPrice))  }
     ,{name:'groupBy 11',lambda: ()=> Products.filter(p=> p.price>5 ).having(p=> max(p.price) > 50).map(p=> ({category:p.category.name,largestPrice:max(p.price)})).sort(p=> desc(p.largestPrice))  }
-  ]});  
+  ]})  
 }
 async function writeIncludeTest(dialects:string[],databases:string[]):Promise<number>
 {     
@@ -223,7 +223,7 @@ async function writeIncludeTest(dialects:string[],databases:string[]):Promise<nu
     ,{name:'include 6',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})) ,p.customer])}
     ,{name:'include 7',context:'a',lambda: (id:number)=> Orders.filter(p=>p.id==id).include(p => [p.details.include(q=>q.product).map(p=>({quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId})),p.customer])}
     ,{name:'include 8',context:'a',lambda: (id:number)=> Orders.filter(p=> p.id == id ).include(p=> [p.customer.map(p=> p.name),p.details.include(p=> p.product.include(p=> p.category.map(p=> p.name)).map(p=> p.name )).map(p=>[p.quantity,p.unitPrice])])}
-  ]}); 
+  ]}) 
 }
 async function writeInsertsTest(dialects:string[],databases:string[]):Promise<number>
 {  
@@ -275,7 +275,7 @@ async function writeInsertsTest(dialects:string[],databases:string[]):Promise<nu
     ,{name:'insert 4',context:'order',lambda: ()=> Orders.insert() }
     ,{name:'insert 5',context:'order',lambda: ()=> Orders.insert().include(p=> p.details) }
     ,{name:'insert 6',context:'order',lambda: ()=> Orders.insert().include(p=> [p.details,p.customer]) }    
-  ]});  
+  ]})  
 }
 async function writeUpdateTest(dialects:string[],databases:string[]):Promise<number>
 {    
@@ -569,7 +569,7 @@ async function writeUpdateTest(dialects:string[],databases:string[]):Promise<num
     ,{name:'update 6',context:'b',lambda: (entity:Order)=> Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId }))).filter(p=> p.id == entity.id )   }
     ,{name:'update 7',context:'a',lambda: ()=> Orders.update().include(p=> p.details)}
     ,{name:'update 8',context:'c',lambda: ()=> Customers.update().include(p=> p.orders.include(p=> p.details))}
-  ]});  
+  ]})  
 }
 async function writeDeleteTest(dialects:string[],databases:string[]):Promise<number>
 {     
@@ -721,7 +721,7 @@ async function writeDeleteTest(dialects:string[],databases:string[]):Promise<num
     ,{name:'delete 4',context:'d',lambda: (entity:OrderDetail)=> OrderDetails.delete(entity) }
     ,{name:'delete 5',context:'e',lambda: (entity:Order)=> Orders.delete(entity).include(p=> p.details) }
     ,{name:'delete 6',lambda: ()=> OrderDetails.deleteAll() }
-  ]}); 
+  ]}) 
 }
 //TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details) 
 async function writeBulkInsertTest(dialects:string[],databases:string[]):Promise<number>
@@ -831,7 +831,7 @@ async function writeBulkInsertTest(dialects:string[],databases:string[]):Promise
   ,test:  
     [{name:'bulkInsert 1',context:'a',lambda: ()=> Categories.bulkInsert() }
     ,{name:'bulkInsert 2',context:'b',lambda: ()=> Orders.bulkInsert().include(p=> p.details) } 
-  ]});
+  ]})
 }
 async function crud(){
 
@@ -869,39 +869,39 @@ async function crud(){
         "discount": false
       }
     ]
-  };
+  }
 
   try{
       orm.transaction('source',async (tr )=>{    
         //create order
-        let orderId = await exec(async()=>(await tr.execute("Orders.insert().include(p => p.details)",order)));
+        let orderId = await exec(async()=>(await tr.execute("Orders.insert().include(p => p.details)",order)))
         //get order
-        let result = await exec(async()=>(await tr.execute("Orders.filter(p=> p.id == id).include(p => p.details)",{id:orderId})));
-        let order2 = result[0];
+        let result = await exec(async()=>(await tr.execute("Orders.filter(p=> p.id == id).include(p => p.details)",{id:orderId})))
+        let order2 = result[0]
         //updated order
-        order2.address = "changed 59 rue de l-Abbaye";
-        order2.details[0].discount= true;
-        order2.details[1].unitPrice= 10;
-        order2.details[2].quantity= 7;
-        let updateCount = await exec(async()=>(await tr.execute("Orders.update().include(p => p.details)",order2)));
-        console.log(updateCount);
+        order2.address = "changed 59 rue de l-Abbaye"
+        order2.details[0].discount= true
+        order2.details[1].unitPrice= 10
+        order2.details[2].quantity= 7
+        let updateCount = await exec(async()=>(await tr.execute("Orders.update().include(p => p.details)",order2)))
+        console.log(updateCount)
         //get order
-        let order3 = await exec(async()=>(await tr.execute("Orders.filter(p=> p.id == id).include(p => p.details)",{id:orderId},)));
-        console.log(JSON.stringify(order3));
+        let order3 = await exec(async()=>(await tr.execute("Orders.filter(p=> p.id == id).include(p => p.details)",{id:orderId},)))
+        console.log(JSON.stringify(order3))
         // delete
-        let deleteCount = await exec(async()=>(await tr.execute("Orders.delete().include(p=> p.details)",order3[0])));
-        console.log(deleteCount);
+        let deleteCount = await exec(async()=>(await tr.execute("Orders.delete().include(p=> p.details)",order3[0])))
+        console.log(deleteCount)
         //get order
-        let order4 = await exec(async()=>(await tr.execute("Orders.filter(p=> p.id == id).include(p => p.details)",{id:orderId})));
-        console.log(JSON.stringify(order4));
-      });
+        let order4 = await exec(async()=>(await tr.execute("Orders.filter(p=> p.id == id).include(p => p.details)",{id:orderId})))
+        console.log(JSON.stringify(order4))
+      })
   }
   catch(error){
-    console.log(error);
+    console.log(error)
   }
 }
 async function bulkInsert(){
-  const expression =`Categories.bulkInsert()`;
+  const expression =`Categories.bulkInsert()`
   const categories =[
     {
       name: "Beverages2",
@@ -911,16 +911,16 @@ async function bulkInsert(){
       name: "Condiments2",
       description: "Sweet and savory sauces, relishes, spreads, and seasonings"
     }
-  ];
+  ]
 
   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
   //await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-  let result = await exec(async()=>(await orm.expression(expression).execute(categories,'source')));
+  let result = await exec(async()=>(await orm.expression(expression).execute(categories,'source')))
 }
 async function bulkInsert2(){
-  const expression = `Orders.bulkInsert().include(p=> p.details)`;
+  const expression = `Orders.bulkInsert().include(p=> p.details)`
   const orders= [
     {
       
@@ -1010,82 +1010,82 @@ async function bulkInsert2(){
         }
       ]
     },
-  ];
+  ]
 
   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
   // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-  let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')));
+  let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')))
 }
 async function schemaSync(target:string){
-  await orm.database.sync(target).execute();
+  await orm.database.sync(target).execute()
 }
 async function schemaDrop(target:string,TryAndContinue:boolean=false){
   if(orm.database.exists(target))
-    await orm.database.clean(target).execute(TryAndContinue);
+    await orm.database.clean(target).execute(TryAndContinue)
 }
 async function schemaExport(source:string){
-  let exportFile = 'orm/data/'+source+'-export.json';  
-  let data= await orm.database.export(source);
-  fs.writeFileSync(exportFile, JSON.stringify(data,null,2));
+  let exportFile = 'orm/data/'+source+'-export.json'  
+  let data= await orm.database.export(source)
+  fs.writeFileSync(exportFile, JSON.stringify(data,null,2))
 }
 async function schemaImport(source:string,target:string){
-  let sourceFile = 'orm/data/'+source+'-export.json';
-  let data = JSON.parse(fs.readFileSync(sourceFile));
-  await orm.database.import(target,data);
+  let sourceFile = 'orm/data/'+source+'-export.json'
+  let data = JSON.parse(fs.readFileSync(sourceFile))
+  await orm.database.import(target,data)
 }
 
 (async () => { 
 
   try
   {  
-    await orm.init(path.join(process.cwd(),'src/test/config.yaml'));
-    let errors=0;
-    let databases:string[]=[];//['mysql','postgres'];
-    let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name);// ['mysql','postgres','mssql','oracle'];
+    await orm.init(path.join(process.cwd(),'src/test/config.yaml'))
+    let errors=0
+    let databases:string[]=[]//['mysql','postgres']
+    let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name)// ['mysql','postgres','mssql','oracle']
     
-    // await schemaSync('source');
-    // await schemaExport('source');
+    // await schemaSync('source')
+    // await schemaExport('source')
     // //test mysql
-    // await schemaDrop('mysql',true);
-    // await schemaSync('mysql');
-    // await schemaImport('source','mysql');
-    // await schemaExport('mysql');  
+    // await schemaDrop('mysql',true)
+    // await schemaSync('mysql')
+    // await schemaImport('source','mysql')
+    // await schemaExport('mysql')  
     // // //test mariadb
-    // // await schemaDrop('mariadb',true);
-    // // await schemaSync('mariadb');
-    // // await schemaImport('source','mariadb');
-    // // await schemaExport('mariadb');
+    // // await schemaDrop('mariadb',true)
+    // // await schemaSync('mariadb')
+    // // await schemaImport('source','mariadb')
+    // // await schemaExport('mariadb')
     // //test postgres 
-    // await schemaDrop('postgres',true);
-    // await schemaSync('postgres');
-    // await schemaImport('source','postgres');
-    // await schemaExport('postgres');  
+    // await schemaDrop('postgres',true)
+    // await schemaSync('postgres')
+    // await schemaImport('source','postgres')
+    // await schemaExport('postgres')  
 
-    errors=+await writeQueryTest(dialects,databases);
-    errors=+await writeNumeriFunctionsTest(dialects,databases);
-    errors=+await writeGroupByTest(dialects,databases);
-    errors=+await writeIncludeTest(dialects,databases);
-    // errors=+await writeInsertsTest(dialects,databases);
-    // errors=+await writeUpdateTest(dialects,databases);
-    // errors=+await writeDeleteTest(dialects,databases);
-    // errors=+await writeBulkInsertTest(dialects,databases);
+    errors=+await writeQueryTest(dialects,databases)
+    errors=+await writeNumeriFunctionsTest(dialects,databases)
+    errors=+await writeGroupByTest(dialects,databases)
+    errors=+await writeIncludeTest(dialects,databases)
+    // errors=+await writeInsertsTest(dialects,databases)
+    // errors=+await writeUpdateTest(dialects,databases)
+    // errors=+await writeDeleteTest(dialects,databases)
+    // errors=+await writeBulkInsertTest(dialects,databases)
     // //operators comparation , matematica
     // //string functions
     // //datetime functions
     // //nullables functions 
 
     // OLDS
-    // await modify(orm);
-    // await crud(orm);
-    // await scriptsByDialect('northwind');
-    // await applySchema(schemas);
-    // await bulkInsert2(orm);
+    // await modify(orm)
+    // await crud(orm)
+    // await scriptsByDialect('northwind')
+    // await applySchema(schemas)
+    // await bulkInsert2(orm)
       
-    console.log(errors);
+    console.log(errors)
   }
-  catch(error){
+  catch(error:any){
     console.log(error.stack)
   }
-})();
+})()

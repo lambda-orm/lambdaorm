@@ -1,0 +1,4 @@
+{
+    "standard.validate": ["javascript","typescript"],
+    "standard.engine":"ts-standard"
+}

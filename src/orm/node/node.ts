@@ -9,10 +9,10 @@ export class Node
     public level?:number
 
     constructor(name:any,type:string,children:Node[]=[]){ 
-        this.name = name;
-        this.type = type;         
-        this.children  = children;
-        this.parent = undefined;
-        this.index = undefined;
+        this.name = name
+        this.type = type         
+        this.children  = children
+        this.parent = undefined
+        this.index = undefined
     }    
 }

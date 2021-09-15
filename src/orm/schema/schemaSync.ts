@@ -5,22 +5,22 @@ import {ExecutionSyncResult} from './executionSyncResult'
 
 export class SchemaSync extends SchemaActionDDL
 {
-    protected delta:Delta;
+    protected delta:Delta
     constructor(orm:IOrm,schema:SchemaHelper,delta:Delta){
-        super(orm,schema);
-        this.delta= delta;
+        super(orm,schema)
+        this.delta= delta
     }
     public serialize():Delta
     {
-        return this.delta;
+        return this.delta
     }
     public sentence(dialect:string):any[]
     {
-        return this.orm.language.sync(dialect,this.delta,this.schema);
+        return this.orm.language.sync(dialect,this.delta,this.schema)
     }
     public async execute(database:string):Promise<ExecutionSyncResult>
     {
-       let result= await super.execute(database);
-       return {results:result.results,delta:this.delta};
+       let result= await super.execute(database)
+       return {results:result.results,delta:this.delta}
     }
 }

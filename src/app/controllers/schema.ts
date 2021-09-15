@@ -11,14 +11,14 @@ export default class SchemaController {
     }
     @Get("/")
     public async list(): Promise<Schema[]> {
-        return orm.schema.list();
+        return orm.schema.list()
     }
     @Get("/{name}")
     public async get(@Path() name:string): Promise<Schema> {
-        return orm.schema.get(name) as Schema;
+        return orm.schema.get(name) as Schema
     }
     @Delete("/{name}")
     public async delete(@Path() name:string): Promise<void> {
-        orm.schema.delete(name);
+        orm.schema.delete(name)
     }
 }

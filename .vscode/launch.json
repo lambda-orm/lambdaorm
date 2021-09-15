@@ -27,6 +27,16 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "generate model",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/dist/test/generateModel.js",
+            "envFile": "${workspaceFolder}/src/test/.env"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "generate data test files",
             "skipFiles": [
                 "<node_internals>/**"

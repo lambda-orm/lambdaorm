@@ -48,22 +48,22 @@ export function upper(value:string):string{throw 'NotImplemented'}
 export function concat(...values:string[]):string{throw 'NotImplemented'}  
 // function length(value:string):number{throw 'NotImplemented'}   
 // null:
-export function nvl(value:any,_default:any):any{throw 'NotImplemented';}
-export function nvl2(value:any,a:any,b:any):any{throw 'NotImplemented';}
-export function isNull(value:any):boolean{throw 'NotImplemented';}
-export function isNotNull(value:any):boolean{throw 'NotImplemented';}
+export function nvl(value:any,_default:any):any{throw 'NotImplemented'}
+export function nvl2(value:any,a:any,b:any):any{throw 'NotImplemented'}
+export function isNull(value:any):boolean{throw 'NotImplemented'}
+export function isNotNull(value:any):boolean{throw 'NotImplemented'}
 //  group:  
-export function avg(value:any):any{throw 'NotImplemented';}
-export function count(value:any):any{throw 'NotImplemented';}
-export function first(value:any):any{throw 'NotImplemented';}
-export function last(value:any):any{throw 'NotImplemented';}
-export function max(value:any):any{throw 'NotImplemented';}
-export function min(value:any):any{throw 'NotImplemented';}
-export function sum(value:any):any{throw 'NotImplemented';}
+export function avg(value:any):any{throw 'NotImplemented'}
+export function count(value:any):any{throw 'NotImplemented'}
+export function first(value:any):any{throw 'NotImplemented'}
+export function last(value:any):any{throw 'NotImplemented'}
+export function max(value:any):any{throw 'NotImplemented'}
+export function min(value:any):any{throw 'NotImplemented'}
+export function sum(value:any):any{throw 'NotImplemented'}
 
 // export function s<T>(object: T | null | undefined, defaultValue: T | null = {} as T) : T {
 //     if (typeof object === 'undefined' || object === null)
-//         return defaultValue as T;
+//         return defaultValue as T
 //     else
-//         return object;
+//         return object
 // }

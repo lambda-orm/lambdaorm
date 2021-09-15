@@ -1,4 +1,4 @@
-// // declare function s<T>(someObject: T | null | undefined, defaultValue?: T | null | undefined) : T;
+// // declare function s<T>(someObject: T | null | undefined, defaultValue?: T | null | undefined) : T
 declare abstract class PageClauses<T> {
     /**  */
     public page(page:number,records:number):void

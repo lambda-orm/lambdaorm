@@ -7,7 +7,7 @@ export class MemoryCache implements Cache {
         this.list={}
     }
     public get(key:string){
-        return this.list[key]; 
+        return this.list[key] 
     }
     public set(key:string,value:any){
         this.list[key]= value

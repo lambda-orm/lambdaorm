@@ -1,4 +1,4 @@
-import {Config,Cache} from './../model/index';
+import {Config,Cache} from './../model/index'
 import {LanguageManager,Operand,Query} from '../language'
 import {ConnectionManager} from '../connection'
 import {NodeManager} from '../node/index'
@@ -24,5 +24,5 @@ export interface IOrm
     eval(expression:string,context:any,schema:string):Promise<any>  
     execute(expression:string,context:any,database:string):Promise<any>
     executeSentence(sentence:any,database:string):Promise<any>
-    transaction(database:string,callback:{(tr:Transaction): Promise<void>;}):Promise<void>
+    transaction(database:string,callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

@@ -15,38 +15,38 @@ export class SqlLanguage implements ILanguage
     private queryBuilder:SqlQueryBuilder
     private operandExecutor:SqlExecutor
     constructor(){
-        this.name= 'sql';
-        this.hadQuery=true;
-        this.libraries={};
-        this.dialects={};
-        this.schemaBuilder = new SqlSchemaBuilder(this);
-        this.queryBuilder = new SqlQueryBuilder(this);
-        this.operandExecutor = new SqlExecutor(this);
+        this.name= 'sql'
+        this.hadQuery=true
+        this.libraries={}
+        this.dialects={}
+        this.schemaBuilder = new SqlSchemaBuilder(this)
+        this.queryBuilder = new SqlQueryBuilder(this)
+        this.operandExecutor = new SqlExecutor(this)
     }
     public addLibrary(library:any):void
     {
-        this.libraries[library.name] =library;
+        this.libraries[library.name] =library
         for(const name in library.dialects){
-            let data =  library.dialects[name];
-            let dialect = new SqlDialectMetadata(name);
-            dialect.add(data);
+            let data =  library.dialects[name]
+            let dialect = new SqlDialectMetadata(name)
+            dialect.add(data)
             this.dialects[name] =dialect 
         }
     }
     public get schema():ISchemaBuilder
     {
-        return this.schemaBuilder;
+        return this.schemaBuilder
     }
     public get query():IQueryBuilder
     {
-        return this.queryBuilder;
+        return this.queryBuilder
     }
     public get executor():IOperandExecutor
     {
-        return this.operandExecutor;
+        return this.operandExecutor
     }
     public metadata(dialect:string):SqlDialectMetadata
     {
-        return this.dialects[dialect] as SqlDialectMetadata;
+        return this.dialects[dialect] as SqlDialectMetadata
     }
 }
