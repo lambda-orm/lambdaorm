@@ -1,31 +1,30 @@
 
 export interface SchemaEntityExpression
 {
-    entity:string
-    expression:string
+	entity:string
+	expression:string
 }
 export interface SchemaExpression
 {
-    entities:SchemaEntityExpression[]
+  entities:SchemaEntityExpression[]
 }
 
 export interface SchemaEntitySentence
 {
-    entity:string
-    sentence:string
+	entity:string
+	sentence:string
 }
 export interface SchemaSentence
 {
-    entities:SchemaEntitySentence[]
+	entities:SchemaEntitySentence[]
 }
 
 export interface SchemaDataEntity
 {
-    entity:string
-    rows:any[]
+	entity:string
+	rows:any[]
 }
 export interface SchemaData
 {
-    entities:SchemaDataEntity[]
+	entities:SchemaDataEntity[]
 }
-
