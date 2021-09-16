@@ -1,4 +1,3 @@
-import '../orm/sintaxis'
 import { orm } from '../orm'
 const path = require('path')
 

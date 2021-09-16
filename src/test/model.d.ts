@@ -1,4 +1,4 @@
-import { Entity,ManyToOne,OneToMany} from  './../orm'
+import { Entity,ManyToOne,OneToMany} from  '../orm'
 
 declare global {
   interface Category{
