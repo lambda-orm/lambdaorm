@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
-// // export declare function s<T>(someObject: T | null | undefined, defaultValue?: T | null | undefined) : T
 export interface PageClauses<T> {
 	/**  */
 	page(page:number, records:number):void
