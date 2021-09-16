@@ -9,7 +9,8 @@ export class NodeManager {
 	private reAlphanumeric:RegExp
 	constructor (model:Model) {
 		this.model = model
-		this.reAlphanumeric = /^'[a-zA-Z0-9_.]+$'/ // new RegExp('[a-zA-Z0-9_.]+$')
+		// eslint-disable-next-line prefer-regex-literals
+		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$')
 		this.tripleOperators = []
 		this.doubleOperators = []
 		this.assigmentOperators = []
@@ -216,7 +217,8 @@ class Parser {
 
 	constructor (mgr:NodeManager, buffer:string[]) {
 		this.mgr = mgr
-		this.reAlphanumeric = /^'[a-zA-Z0-9_.]+$'/ // new RegExp('[a-zA-Z0-9_.]+$') /// [a-zA-Z0-9_.]+$'/ //
+		// eslint-disable-next-line prefer-regex-literals
+		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') /// [a-zA-Z0-9_.]+$'/ //
 		this.reInt = /^[0-9]+$/ // new RegExp('^d+$')
 		this.reFloat = /^[0-9]*[.][0-9]+$/ // new RegExp('^d+(\.\d+)?$/')//'d+(\.\d+)?$'
 		this.buffer = []
@@ -261,10 +263,10 @@ class Parser {
 		let operand2
 		let isbreak = false
 		while (!this.end) {
-			if (operand1 === undefined && operator === undefined) {
+			if (!operand1 && !operator) {
 				operand1 = this.getOperand()
 				operator = this.getOperator() as string
-				if (operator === undefined || _break.includes(operator)) {
+				if (!operator || _break.includes(operator)) {
 					expression = operand1
 					isbreak = true
 					break
@@ -272,7 +274,7 @@ class Parser {
 			}
 			operand2 = this.getOperand()
 			const nextOperator = this.getOperator() as string
-			if (nextOperator === undefined || _break.includes(nextOperator)) {
+			if (!nextOperator || _break.includes(nextOperator)) {
 				expression = new Node(operator, 'oper', [operand1 as Node, operand2])
 				isbreak = true
 				break

@@ -354,7 +354,7 @@ export class OperandManager {
 			}
 		}
 		if (clauses.include) {
-			if (createInclude === undefined) { throw new Error('Include not implemented!!!') }
+			if (!createInclude) { throw new Error('Include not implemented!!!') }
 
 			const clause = clauses.include
 			context.current.arrowVar = clause.children[1].name

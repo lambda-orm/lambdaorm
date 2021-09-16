@@ -139,7 +139,7 @@ export class QueryCompleter {
 			}
 		}
 		if (clauses.include) {
-			if (compleInclude === undefined) { throw new Error('Include not implemented!!!') }
+			if (!compleInclude) { throw new Error('Include not implemented!!!') }
 
 			const clauseInclude = clauses.include
 			const arrowVar = clauseInclude.children[1].name

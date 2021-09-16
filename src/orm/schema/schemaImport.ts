@@ -96,7 +96,7 @@ export class SchemaImport extends SchemaActionDML {
 	}
 
 	protected loadExternalIds (entityName:string, rows:any[], aux:any):void {
-		if (aux === undefined)aux = {}
+		if (!aux)aux = {}
 		if (aux[entityName] === undefined)aux[entityName] = {}
 		const entity = this.schema.getEntity(entityName)
 		for (const p in entity.property) {

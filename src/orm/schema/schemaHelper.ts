@@ -109,7 +109,7 @@ export class SchemaHelper {
 
 	protected solveSortEntity (entityName:string, sorted:string[], parent?:string):boolean {
 		const entity = this.getEntity(entityName)
-		if (entity.relation === undefined) {
+		if (!entity.relation) {
 			sorted.push(entity.name)
 			return true
 		} else {

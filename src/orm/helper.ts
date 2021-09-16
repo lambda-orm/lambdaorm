@@ -30,7 +30,7 @@ export class Helper {
 	}
 
 	public static isEmpty (value:any):boolean {
-		return value == null || value === undefined || value.toString().trim().length === 0
+		return value === null || value === undefined || value.toString().trim().length === 0
 	}
 
 	public static nvl (value:any, _default:any):any {
