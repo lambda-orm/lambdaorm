@@ -1,4 +1,5 @@
-import {orm,Parameter,between,sum, abs, acos, asin, atan, atan2, ceil, cos, exp, floor, ln, log, round, sign, tan, trunc, max, min, avg, count, desc } from '../orm'
+import {orm,Parameter} from '../orm'
+import '../orm/sintaxis'
 
 const fs = require('fs')
 const path = require('path')

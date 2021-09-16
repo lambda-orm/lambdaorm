@@ -78,8 +78,7 @@ export class SchemaManager {
 
 	public model (source:Schema):string {
 		const lines: string[] = []
-		// TODO: resolver para que agreggue las referencias ManyToOne,OneToMany,OneToOne solo cuando sea necesario
-		lines.push('import { Entity,ManyToOne,OneToMany} from  \'../orm\'')
+		lines.push('import \'../orm/sintaxis\'')
 		lines.push('declare global {')
 		for (const p in source.entities) {
 			const entity = source.entities[p]

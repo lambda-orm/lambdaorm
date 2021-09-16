@@ -48,9 +48,7 @@ async function toExpression () {
     const expression = expressions[p]
     // const node = orm.node.parse(expression)
     const expressionComplete = orm.expression(expression).complete('northwind:0.0.2')
-    console.log(expression)
-    // console.log(expression2)
-    console.log(expressionComplete)
+    console.log(`source: ${expression}\ntarget: ${expressionComplete}\n`) 
   }
 }
 (async () => {

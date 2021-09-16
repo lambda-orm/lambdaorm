@@ -8,6 +8,410 @@ context:
     from: '1997-01-01'
     to: '1997-12-31'
 test:
+  - name: query 1
+    lambda: () => Products.map(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+    errors: 0
+    expression: ' Products.map(p => p)'
+    completeExpression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: []
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 2
+    lambda: () => Products
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+    errors: 0
+    expression: ' Products'
+    completeExpression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: []
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 3
+    context: a
+    lambda: (id) => Products.filter(p => p.id == id).map(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
+          ? 
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID =
+          :id 
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
+          ? 
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
+          :id 
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
+          $1 
+    errors: 0
+    expression: ' Products.filter(p => p.id == id).map(p => p)'
+    completeExpression: >-
+      Products.filter(p=>(p.id==id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 4
+    context: a
+    lambda: (id) => Products.filter(p => p.id == id)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
+          ? 
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID =
+          :id 
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
+          ? 
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
+          :id 
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
+          $1 
+    errors: 0
+    expression: ' Products.filter(p => p.id == id)'
+    completeExpression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id))
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters:
+      - name: id
+        type: integer
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 5
+    context: a
+    lambda: () => Products.map(p => p.category.name)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID 
+      - dialect: mssql
+        sentence: >-
+          SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID 
+      - dialect: mysql
+        sentence: >-
+          SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID 
+      - dialect: oracle
+        sentence: >-
+          SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID 
+      - dialect: postgres
+        sentence: >-
+          SELECT c.CategoryName FROM Products p INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID 
+    errors: 0
+    expression: ' Products.map(p => p.category.name)'
+    completeExpression: Products.map(p=>p.category.name)
+    model:
+      name: string
+    parameters: []
+    fields:
+      - name: name
+        type: string
+    executions: []
+  - name: query 6
+    lambda: >-
+      () => Products.map(p => ({ category: p.category.name, name: p.name,
+      quantity: p.quantity, inStock: p.inStock }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
+      - dialect: mssql
+        sentence: >-
+          SELECT c.CategoryName AS [category], p.ProductName AS [name],
+          p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
+      - dialect: mysql
+        sentence: >-
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
+      - dialect: oracle
+        sentence: >-
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
+      - dialect: postgres
+        sentence: >-
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
+    errors: 0
+    expression: ' Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))'
+    completeExpression: >-
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
+    model:
+      category: string
+      name: string
+      quantity: string
+      inStock: decimal
+    parameters: []
+    fields:
+      - name: category
+        type: string
+      - name: name
+        type: string
+      - name: quantity
+        type: string
+      - name: inStock
+        type: decimal
+    executions: []
   - name: query 7
     lambda: >-
       () => Products.filter(p => p.discontinued != false).map(p => ({ category:
@@ -19,31 +423,31 @@ test:
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc ;
+          WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc 
       - dialect: mssql
         sentence: >-
           SELECT c.CategoryName AS [category], p.ProductName AS [name],
           p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          WHERE p.Discontinued <> FALSE ORDER BY [category], [name] desc ;
+          WHERE p.Discontinued <> FALSE ORDER BY [category], [name] desc 
       - dialect: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc ;
+          WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc 
       - dialect: oracle
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "name",
           p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc ;
+          WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc 
       - dialect: postgres
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "name",
           p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc ;
+          WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc 
     errors: 0
     expression: ' Products.filter(p => p.discontinued != false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])'
     completeExpression: >-
@@ -63,5 +467,608 @@ test:
         type: string
       - name: inStock
         type: decimal
+    executions: []
+  - name: query 8
+    context: b
+    lambda: >-
+      (minValue, from, to) => OrderDetails.filter(p =>
+      between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p =>
+      ({ category: p.product.category.name, product: p.product.name, unitPrice:
+      p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product])
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
+          o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
+          Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
+          o.UnitPrice > ?) ORDER BY `category`, `product` 
+      - dialect: mssql
+        sentence: >-
+          SELECT c.CategoryName AS [category], p.ProductName AS [product],
+          o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order
+          Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND
+          :to AND o.UnitPrice > :minValue) ORDER BY [category], [product] 
+      - dialect: mysql
+        sentence: >-
+          SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
+          o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
+          Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
+          o.UnitPrice > ?) ORDER BY `category`, `product` 
+      - dialect: oracle
+        sentence: >-
+          SELECT c.CategoryName AS "category", p.ProductName AS "product",
+          o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
+          Details" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND
+          :to AND o.UnitPrice > :minValue) ORDER BY "category", "product" 
+      - dialect: postgres
+        sentence: >-
+          SELECT c.CategoryName AS "category", p.ProductName AS "product",
+          o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
+          Details" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN $1 AND $2
+          AND o.UnitPrice > $3) ORDER BY "category", "product" 
+    errors: 0
+    expression: ' OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product])'
+    completeExpression: >-
+      OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])
+    model:
+      category: string
+      product: string
+      unitPrice: decimal
+      quantity: decimal
+    parameters:
+      - name: from
+        type: datetime
+      - name: to
+        type: datetime
+      - name: minValue
+        type: decimal
+    fields:
+      - name: category
+        type: string
+      - name: product
+        type: string
+      - name: unitPrice
+        type: decimal
+      - name: quantity
+        type: decimal
+    executions: []
+  - name: query 9
+    lambda: >-
+      () => OrderDetails.map(p => ({ order: p.orderId, subTotal:
+      sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT o.OrderID AS `order`, SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
+          GROUP BY o.OrderID 
+      - dialect: mssql
+        sentence: >-
+          SELECT o.OrderID AS [order], SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS [subTotal] FROM [Order Details] o 
+          GROUP BY o.OrderID 
+      - dialect: mysql
+        sentence: >-
+          SELECT o.OrderID AS `order`, SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
+          GROUP BY o.OrderID 
+      - dialect: oracle
+        sentence: >-
+          SELECT o.OrderID AS "order", SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" o 
+          GROUP BY o.OrderID 
+      - dialect: postgres
+        sentence: >-
+          SELECT o.OrderID AS "order", SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" o 
+          GROUP BY o.OrderID 
+    errors: 0
+    expression: ' OrderDetails.map(p => ({ order: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) }))'
+    completeExpression: >-
+      OrderDetails.map(p=>{order:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))})
+    model:
+      order: integer
+      subTotal: any
+    parameters: []
+    fields:
+      - name: order
+        type: integer
+      - name: subTotal
+        type: any
+    executions: []
+  - name: query 10
+    lambda: '() => Products.page(1, 1)'
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+    errors: 0
+    expression: ' Products.page(1, 1)'
+    completeExpression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: &ref_0 []
+    fields: &ref_1
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 11
+    lambda: () => Products.first(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` 
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  ORDER BY [id] 
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` 
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" 
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" 
+    errors: 0
+    expression: ' Products.first(p => p)'
+    completeExpression: >-
+      Products.sort(p=>p.id).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: []
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 12
+    lambda: () => Products.last(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc 
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  ORDER BY [id] desc 
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc 
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" desc 
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" desc 
+    errors: 0
+    expression: ' Products.last(p => p)'
+    completeExpression: >-
+      Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: []
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    executions: []
+  - name: query 13
+    lambda: () => Products.take(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: 'SELECT p.* FROM Products p  '
+      - dialect: mssql
+        sentence: 'SELECT p.* FROM Products p  '
+      - dialect: mysql
+        sentence: 'SELECT p.* FROM Products p  '
+      - dialect: oracle
+        sentence: 'SELECT p.* FROM Products p  '
+      - dialect: postgres
+        sentence: 'SELECT p.* FROM Products p  '
+    errors: 0
+    expression: ' Products.take(p => p)'
+    completeExpression: 'Products.page(1,1).map(p=>p)'
+    model:
+      '*': any
+    parameters: []
+    fields:
+      - name: '*'
+        type: any
+    executions: []
+  - name: query 14
+    lambda: () => Products.distinct(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: ''
+      - dialect: mssql
+        sentence: ''
+      - dialect: mysql
+        sentence: ''
+      - dialect: oracle
+        sentence: ''
+      - dialect: postgres
+        sentence: ''
+    errors: 0
+    expression: ' Products.distinct(p => p)'
+    completeExpression: >-
+      Products.distinct(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model: {}
+    parameters: []
+    fields: []
+    executions: []
+  - name: query 15
+    lambda: '() => Products.page(1, 1)'
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  
+    errors: 0
+    expression: ' Products.page(1, 1)'
+    completeExpression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: *ref_0
+    fields: *ref_1
+    executions: []
+  - name: query 16
+    context: a
+    lambda: () => Products.distinct(p => p.category.name)
+    sentences:
+      - dialect: mariadb
+        sentence: ''
+      - dialect: mssql
+        sentence: ''
+      - dialect: mysql
+        sentence: ''
+      - dialect: oracle
+        sentence: ''
+      - dialect: postgres
+        sentence: ''
+    errors: 0
+    expression: ' Products.distinct(p => p.category.name)'
+    completeExpression: Products.distinct(p=>p.category.name)
+    model: {}
+    parameters: []
+    fields: []
+    executions: []
+  - name: query 17
+    lambda: >-
+      () => Products.first(p => ({ category: p.category.name, name: p.name,
+      quantity: p.quantity, inStock: p.inStock }))
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID 
+      - dialect: mssql
+        sentence: >-
+          SELECT c.CategoryName AS [category], p.ProductName AS [name],
+          p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID 
+      - dialect: mysql
+        sentence: >-
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID 
+      - dialect: oracle
+        sentence: >-
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID 
+      - dialect: postgres
+        sentence: >-
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID 
+    errors: 0
+    expression: ' Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))'
+    completeExpression: >-
+      Products.sort(p=>p.id).page(1,1).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
+    model:
+      category: string
+      name: string
+      quantity: string
+      inStock: decimal
+    parameters: []
+    fields:
+      - name: category
+        type: string
+      - name: name
+        type: string
+      - name: quantity
+        type: string
+      - name: inStock
+        type: decimal
+    executions: []
+  - name: query 18
+    lambda: () => Products.filter(p => p.discontinued != false).last(p => p)
+    sentences:
+      - dialect: mariadb
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
+          <> FALSE ORDER BY `id` desc 
+      - dialect: mssql
+        sentence: >-
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  WHERE p.Discontinued
+          <> FALSE ORDER BY [id] desc 
+      - dialect: mysql
+        sentence: >-
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
+          <> FALSE ORDER BY `id` desc 
+      - dialect: oracle
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.Discontinued
+          <> FALSE ORDER BY "id" desc 
+      - dialect: postgres
+        sentence: >-
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.Discontinued
+          <> FALSE ORDER BY "id" desc 
+    errors: 0
+    expression: ' Products.filter(p => p.discontinued != false).last(p => p)'
+    completeExpression: >-
+      Products.filter(p=>(p.discontinued!=false)).sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      id: integer
+      name: string
+      supplierId: integer
+      categoryId: integer
+      quantity: string
+      price: decimal
+      inStock: decimal
+      onOrder: decimal
+      reorderLevel: decimal
+      discontinued: boolean
+    parameters: []
+    fields:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
     executions: []
 errors: 0
