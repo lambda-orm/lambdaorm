@@ -66,17 +66,16 @@ export class SchemaImport extends SchemaActionDML {
 							const keys:any[] = []
 							for (const p in entity.uniqueKey) {
 								const value = row[entity.uniqueKey[p]]
-								if (value == null)
-								// TODO: reemplazar por un archivo de salida de inconsistencias
-								// eslint-disable-next-line brace-style
-								{ console.error(`for entity ${entity.name} and row ${i.toString()} unique ${entity.uniqueKey[p]} is null`) }
+								if (value == null) {
+									// TODO: reemplazar por un archivo de salida de inconsistencias
+									console.error(`for entity ${entity.name} and row ${i.toString()} unique ${entity.uniqueKey[p]} is null`)
+								}
 								keys.push(value)
 							}
-							if (keys.length === 0)
-							// TODO: reemplazar por un archivo de salida de inconsistencias
-							// eslint-disable-next-line brace-style
-							{ console.error(`for entity ${entity.name} and row ${i.toString()} had not unique key`) }
-
+							if (keys.length === 0) {
+								// TODO: reemplazar por un archivo de salida de inconsistencias
+								console.error(`for entity ${entity.name} and row ${i.toString()} had not unique key`)
+							}
 							pendingsRows.push({ keys: keys, externalId: externalId })
 							row[relation.from] = null
 						}
