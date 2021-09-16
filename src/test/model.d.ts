@@ -1,4 +1,4 @@
-import './../sintaxis'
+import { Entity,ManyToOne,OneToMany} from  './../orm'
 
 declare global {
   interface Category{
