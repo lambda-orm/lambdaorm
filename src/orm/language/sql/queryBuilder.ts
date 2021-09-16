@@ -47,6 +47,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		}
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public deserialize (serialized:any):Operand {
 		throw new Error('NotImplemented')
 	}

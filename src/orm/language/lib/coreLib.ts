@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Library } from './../library'
 import { Operator, ArrowFunction } from '../operands'
 

@@ -83,6 +83,7 @@ export class OperandManager {
 		if (operand instanceof Sentence) { return { n: operand.name, t: operand.constructor.name, c: children, f: operand.columns, p: operand.parameters, e: operand.entity, a: operand.autoincrement } } else if (operand instanceof SentenceInclude) { return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation, v: operand.variable } } else if (operand instanceof Insert) { return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause, a: operand.autoincrement } } else if (operand instanceof KeyValue) { return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping } } else if (operand instanceof Field) { return { n: operand.name, t: operand.constructor.name, c: children, e: operand.entity, m: operand.mapping } } else if (operand instanceof Variable) { return { n: operand.name, t: operand.constructor.name, c: children, u: operand.number } } else { return { n: operand.name, t: operand.constructor.name, c: children } }
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public deserialize (serialized:any):Operand {
 		throw new Error('NotImplemented')
 	}
@@ -204,7 +205,7 @@ export class OperandManager {
 		switch (node.type) {
 		case 'const':
 			return new Constant(node.name)
-		case 'var':
+		case 'var': {
 			const parts = node.name.split('.')
 			if (parts[0] === context.current.arrowVar) {
 				if (parts.length === 1) {
@@ -251,6 +252,7 @@ export class OperandManager {
 					}
 				}
 			} else { return new Variable(node.name) }
+		}
 		case 'keyVal':
 			return new KeyValue(node.name, children)
 		case 'array':
@@ -432,7 +434,7 @@ export class OperandManager {
 		throw new Error('Sentence Update incorrect!!!')
 	}
 
-	private createSelectInclude (node:Node, schema:SchemaHelper, context:ExpressionContext, clause = 'map'):SentenceInclude {
+	private createSelectInclude (node:Node, schema:SchemaHelper, context:ExpressionContext):SentenceInclude {
 		let relation:any
 		let current = node
 		while (current) {
@@ -645,17 +647,15 @@ export class OperandManager {
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
-				// en el caso que el pametro tenga un tipo defido y el hijo no, asigna al hijo el tipo del parametro
 				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
+					// en el caso que el pametro tenga un tipo defido y el hijo no, asigna al hijo el tipo del parametro
 					child.type = param.type
-				}
-				// en el caso que el pametro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
-				else if (param.type === 'T' && child.type !== 'any') {
+				} else if (param.type === 'T' && child.type !== 'any') {
+					// en el caso que el pametro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
 					tType = child.type
-				}
-				// en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
-				// en caso de lograrlo determina que T es el tipo de hijo
-				else if (param.type === 'T' && child.type === 'any') {
+				} else if (param.type === 'T' && child.type === 'any') {
+					// en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
+					// en caso de lograrlo determina que T es el tipo de hijo
 					const childType = this.solveTypes(child, context)
 					if (childType !== 'any') {
 						tType = childType

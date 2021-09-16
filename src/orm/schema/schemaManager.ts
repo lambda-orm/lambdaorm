@@ -77,29 +77,30 @@ export class SchemaManager {
 	}
 
 	public model (source:Schema):string {
-		const lines:string[] = []
-		lines.push('import \'./../sintaxis\'')
+		const lines: string[] = []
+		// TODO: resolver para que agreggue las referencias ManyToOne,OneToMany,OneToOne solo cuando sea necesario
+		lines.push('import { Entity,ManyToOne,OneToMany} from  \'../orm\'')
 		lines.push('declare global {')
 		for (const p in source.entities) {
 			const entity = source.entities[p]
-			lines.push(`  interface ${Helper.singular(entity.name)}{`)
+			lines.push(`\tinterface ${Helper.singular(entity.name)}{`)
 			for (const q in entity.properties) {
 				const property = entity.properties[q]
 				const type = Helper.tsType(property.type)
-				lines.push(`    ${property.name}: ${type}`)
+				lines.push(`\t\t${property.name}: ${type}`)
 			}
 			for (const q in entity.relations) {
 				const relation = entity.relations[q]
 				const relationEntity = Helper.singular(relation.entity)
 				switch (relation.type) {
 				case 'oneToMany':
-					lines.push(`    ${relation.name}: ${relationEntity} & OneToMany<${relationEntity}>`)
+					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToMany<${relationEntity}>`)
 					break
 				case 'oneToOne':
-					lines.push(`    ${relation.name}: ${relationEntity} & OneToOne<${relationEntity}>`)
+					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToOne<${relationEntity}>`)
 					break
 				case 'manyToOne':
-					lines.push(`    ${relation.name}: ManyToOne<${relationEntity}>`)
+					lines.push(`\t\t${relation.name}: ManyToOne<${relationEntity}>`)
 					break
 				}
 			}
@@ -107,7 +108,7 @@ export class SchemaManager {
 		}
 		for (const p in source.entities) {
 			const entity = source.entities[p]
-			lines.push(`  let ${entity.name}: Entity<${Helper.singular(entity.name)}>`)
+			lines.push(`\tlet ${entity.name}: Entity<${Helper.singular(entity.name)}>`)
 		}
 		lines.push('}\n')
 		return lines.join('\n')

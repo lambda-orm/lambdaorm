@@ -1,4 +1,4 @@
-import { Context, Entity, Property, Parameter } from './../model/index'
+import { Context, Property, Parameter } from './../model/index'
 import { Helper } from '../helper'
 import { OperandMetadata } from './operandMetadata'
 const SqlString = require('sqlstring')
@@ -35,6 +35,7 @@ export abstract class Operand {
 		// return new this.constructor(this.name, children)
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public set (value: any) { throw new Error('NotImplemented') }
 	public abstract eval(): any
 }
@@ -48,7 +49,7 @@ export class Constant extends Operand {
 		case 'string':
 			return SqlString.escape(this.name)
 		case 'boolean':
-			return this.name == 'true'
+			return this.name === 'true'
 		case 'number':
 			return parseFloat(this.name)
 		default:
@@ -146,6 +147,7 @@ export class FunctionRef extends Operand {
 	public eval (): any {
 		if (this.metadata) {
 			const funcMetadata = this.metadata.getFunctionMetadata(this.name)
+			// eslint-disable-next-line new-cap
 			if (funcMetadata.custom) { return new funcMetadata.custom(this.name, this.children).eval() } else {
 				const args = []
 				for (let i = 0; i < this.children.length; i++) {
