@@ -8,7 +8,7 @@ export class SqlLanguage implements ILanguage {
 	public name:string
 	public libraries:any
 	public dialects:any
-	public hadQuery:boolean
+	public hadQuery: boolean
 	private schemaBuilder:SqlSchemaBuilder
 	private queryBuilder:SqlQueryBuilder
 	private operandExecutor:SqlExecutor

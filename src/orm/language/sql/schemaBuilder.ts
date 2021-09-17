@@ -60,9 +60,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder {
 				if (changed.name === 'relation') {
 					if (!changed.delta) continue
 					for (const c in changed.delta.changed) {
+						const newRelation = changed.delta.changed[c].new as Relation
 						const oldRelation = changed.delta.changed[c].old as Relation
-						if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
-							sql.push(this.dropFk(entityChanged.new, oldRelation, metadata))
+						if (this.changeRelation(oldRelation, newRelation)) {
+							if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
+								sql.push(this.dropFk(entityChanged.new, oldRelation, metadata))
+							}
 						}
 					}
 					for (const r in changed.delta.remove) {
@@ -198,9 +201,12 @@ export class SqlSchemaBuilder implements ISchemaBuilder {
 							}
 						}
 						for (const c in changed.delta.changed) {
-							const changeRelation = changed.delta.changed[c].new as Relation
-							if (changeRelation.type === 'oneToMany' || changeRelation.type === 'oneToOne') {
-								sql.push(this.addFk(schema, entityChanged.new, changeRelation, metadata))
+							const newRelation = changed.delta.changed[c].new as Relation
+							const oldRelation = changed.delta.changed[c].old as Relation
+							if (this.changeRelation(oldRelation, newRelation)) {
+								if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
+									sql.push(this.addFk(schema, entityChanged.new, newRelation, metadata))
+								}
 							}
 						}
 					}
@@ -463,5 +469,9 @@ export class SqlSchemaBuilder implements ISchemaBuilder {
 		text = text.replace('{name}', metadata.delimiter(entity.mapping + '_' + index.name))
 		text = text.replace('{table}', metadata.delimiter(entity.mapping))
 		return text
+	}
+
+	private changeRelation (a: Relation, b: Relation): boolean {
+		return a.entity !== b.entity || a.from !== b.from || a.name !== b.name || a.to !== b.to || a.type !== b.type
 	}
 }
