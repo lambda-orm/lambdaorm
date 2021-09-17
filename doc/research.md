@@ -122,3 +122,16 @@ npx mocha
 - [node lib](https://github.com/firebase/firebase-admin-node)
 - [retrive data](https://firebase.google.com/docs/database/admin/retrieve-data)
 - [manager user](https://firebase.google.com/docs/auth/admin/manage-users)
+
+### CLI
+
+install mysql shell client
+[mysql-shell-windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html)
+[install visual studio 2019 redistributable](https://docs.microsoft.com/es-es/visualstudio/releases/2019/redistribution#vs2019-download)
+
+install grunt
+
+``` sh
+npm intall grunt -D
+npm install -g grunt-cli
+```
