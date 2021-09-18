@@ -77,6 +77,8 @@ GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;
 
 ```
 
+./wait-until-healthy.sh lambda-orm-source
+
 ## install client
 
 mysql
