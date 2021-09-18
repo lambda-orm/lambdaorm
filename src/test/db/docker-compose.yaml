@@ -1,37 +1,51 @@
 version: '3'
+
+networks:
+  default:
+    name: lambda-orm
+
 services:
   source:
-    image: biarms/mysql:5.7.33-beta-circleci
-    command: --default-authentication-plugin=mysql_native_password
+    container_name: lambda-orm-source
+    image: mysql:5.7
+    # image: biarms/mysql:5.7.33-beta-circleci
+    # command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root      
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
       - MYSQL_DATABASE=tests
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
       - source:/var/lib/mysql
     ports:
-      - '3306:3306'
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-utest", "-ptest", "status"]
+      interval: 3s
+      timeout: 1s
+      retries: 10  
   mysql:
     container_name: lambda-orm-mysql-57
-    image: biarms/mysql:5.7.33-beta-circleci
-    command: --default-authentication-plugin=mysql_native_password
+    image: mysql:5.7
+    # image: biarms/mysql:5.7.33-beta-circleci
+    # command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root      
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
       - MYSQL_DATABASE=tests
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
       - mysql:/var/lib/mysql
     ports:
       - '3307:3306' 
-  postgres:  
+  postgres:
+    container_name: lambda-orm-postgres  
     image: postgres:10
     restart: always
     environment:
@@ -42,68 +56,72 @@ services:
       - postgres:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-  mariadb:
-    image: monstrenyatko/rpi-mariadb
-    container_name: mariadb
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
-    volumes:
-      - mariadb-data:/var/lib/mysql
-      - mariadb-log:/var/log/mysql
-    ports:
-      - 3308:3306
-    # restart: unless-stopped    
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    restart: always
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Adm1n_Adm1n
-    volumes:
-      - mssql:/var/opt/mssql
-    ports:
-      - '1433:1433'
-  mongo:
-    image: arm7/mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongodb:/data/db  
-  oracle:
-    # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
-    # image: oracle/database:11.2.0.2-xe
-    image: oracleinanutshell/oracle-xe-11g:latest
-    ports:
-      - 1521:1521
-      - 8085:8080
-    shm_size: 1g   
-    environment:
-      - ORACLE_PWD=oracle
-      - ORACLE_ALLOW_REMOTE=true
-      - ORACLE_DISABLE_ASYNCH_IO=true
-    restart: unless-stopped
-    volumes:
-      - oracle:/u01/app/oracle/oradata 
+  # mariadb:
+  #   container_name: lambda-orm-mariadb
+  #   image: monstrenyatko/rpi-mariadb
+  #   container_name: mariadb
+  #   restart: always
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_USER=admin
+  #     - MYSQL_PASSWORD=admin
+  #   volumes:
+  #     - mariadb-data:/var/lib/mysql
+  #     - mariadb-log:/var/log/mysql
+  #   ports:
+  #     - 3308:3306
+  #   # restart: unless-stopped    
+  # mssql:
+  #   container_name: lambda-orm-mssql  
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   restart: always
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=Adm1n_Adm1n
+  #   volumes:
+  #     - mssql:/var/opt/mssql
+  #   ports:
+  #     - '1433:1433'
+  # mongo:
+  #   container_name: lambda-orm-mongo  
+  #   image: arm7/mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: admin
+  #   ports:
+  #     - '27017:27017'
+  #   volumes:
+  #     - mongodb:/data/db  
+  # oracle:
+  #   # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+  #   # image: oracle/database:11.2.0.2-xe
+  #   container_name: lambda-orm-oracle    
+  #   image: oracleinanutshell/oracle-xe-11g:latest
+  #   ports:
+  #     - 1521:1521
+  #     - 8085:8080
+  #   shm_size: 1g   
+  #   environment:
+  #     - ORACLE_PWD=oracle
+  #     - ORACLE_ALLOW_REMOTE=true
+  #     - ORACLE_DISABLE_ASYNCH_IO=true
+  #   restart: unless-stopped
+  #   volumes:
+  #     - oracle:/u01/app/oracle/oradata 
     
-    # hostname: localhost
-    # port: 1521
-    # sid: xe
-    # username: system
-    # password: oracle
+  #   # hostname: localhost
+  #   # port: 1521
+  #   # sid: xe
+  #   # username: system
+  #   # password: oracle
       
 volumes:
     source:
     mysql:      
     postgres:
-    mariadb-data:
-    mariadb-log: 
-    mssql:
-    mongodb:
-    oracle:          
+    # mariadb-data:
+    # mariadb-log: 
+    # mssql:
+    # mongodb:
+    # oracle:          

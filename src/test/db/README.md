@@ -17,7 +17,7 @@ docker volume create --name oracle --opt type=none --opt device=~/volumes/oracle
 
 windows:
 
-``` sh
+``` bat
 docker volume create --name source --opt type=none --opt device=C:\volumes\source --opt o=bind
 docker volume create --name mysql --opt type=none --opt device=C:\volumes\mysql --opt o=bind
 docker volume create --name mariadb-data --opt type=none --opt device=C:\volumes\mariadb\data --opt o=bind
@@ -54,6 +54,13 @@ docker volume rm oracle
 ```
 
 ## install client
+
+mysql
+
+``` sh
+sudo apt-get update
+sudo apt-get install mysql-client
+```
 
 mariadb
 
