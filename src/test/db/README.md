@@ -53,6 +53,30 @@ docker volume rm mongodb
 docker volume rm oracle
 ```
 
+### connect mysql
+
+grant user test
+
+``` sh
+docker exec lambda-orm-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+
+```
+
+``` sh
+docker exec -ti lambda-orm-source  bash
+mysql --host 127.0.0.1 --port 3306 -uroot -proot
+```
+
+``` mysql
+mysqladmin -uroot -proot status
+mysqladmin -uadmin -padmin status
+
+select Host, User from mysql.user;
+CREATE USER 'test2'@'%' IDENTIFIED WITH mysql_native_password BY 'test2';
+GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;
+
+```
+
 ## install client
 
 mysql
@@ -74,7 +98,9 @@ sudo apt-get install mariadb-client-10.0
 host
 
 ``` sh
-mysql --host=0.0.0.0 --port=3306 --user=root --password=root northwind
+mysql --host=0.0.0.0 --port=3306 --user=root --password=root tests
+
+mysql --host=0.0.0.0 --port=3306 --user=test --password=test test
 mysql --host=0.0.0.0 --port=3307 --user=root --password=root northwind
 ```
 

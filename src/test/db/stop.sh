@@ -2,13 +2,14 @@
 
 docker-compose down --remove-orphans
 
-docker volume rm source
-docker volume rm mysql
-docker volume rm postgres
-docker volume rm mariadb-data
-docker volume rm mariadb-log
-docker volume rm mssql
-docker volume rm mongodb
-docker volume rm oracle
+docker volume rm db_source
+docker volume rm db_mysql
+docker volume rm db_postgres
+docker volume rm db_mariadb-data
+docker volume rm db_mariadb-log
+docker volume rm db_mssql
+docker volume rm db_mongodb
+docker volume rm db_oracle
 
-echo "stopped Databases (if it was running)."
+
+echo "INFO: stopped Databases (if it was running)."

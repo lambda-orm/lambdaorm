@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/volumes
-
-docker volume create --name source --opt type=none --opt device=~/volumes/source --opt o=bind
-docker volume create --name mysql --opt type=none --opt device=~/volumes/mysql --opt o=bind
-docker volume create --name mariadb-data --opt type=none --opt device=~/volumes/mariadb/data --opt o=bind
-docker volume create --name mariadb-log --opt type=none --opt device=~/volumes/mariadb/log --opt o=bind
-docker volume create --name postgres --opt type=none --opt device=~/volumes/postgres --opt o=bind
-docker volume create --name mssql --opt type=none --opt device=~/volumes/mssql --opt o=bind
-docker volume create --name mongodb --opt type=none --opt device=~/volumes/mongodb --opt o=bind
-docker volume create --name oracle --opt type=none --opt device=~/volumes/oracle --opt o=bind
-
 docker-compose up -d
 
-# docker exec lambda-orm-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+./wait-until-healthy.sh lambda-orm-source
+./wait-until-healthy.sh lambda-orm-mysql-57
+./wait-until-healthy.sh lambda-orm-postgres-10
+./wait-until-healthy.sh lambda-orm-mariadb-103
+./wait-until-healthy.sh lambda-orm-mssql-2019
 
+docker exec lambda-orm-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambda-orm-mysql-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambda-orm-mariadb-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambda-orm-mssql-2019 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
 
-echo "Local Databases instances is ready for tests."
+echo "INFO: Local Databases instances is ready for tests."
