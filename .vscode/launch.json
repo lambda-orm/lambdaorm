@@ -12,7 +12,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/dist/lab/test.js",
-			"envFile": "${workspaceFolder}/src/test/.env"
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"type": "node",
@@ -22,7 +22,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/dist/app/index.js",
-			"envFile": "${workspaceFolder}/src/test/.env"
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"type": "node",
@@ -32,7 +32,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/dist/test/generateModel.js",
-			"envFile": "${workspaceFolder}/src/test/.env"
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"type": "node",
@@ -42,7 +42,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/dist/test/generateDataForTest.js",
-			"envFile": "${workspaceFolder}/src/test/.env"
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"type": "node",
@@ -52,7 +52,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/dist/test/completeExpressions.js",
-			"envFile": "${workspaceFolder}/src/test/.env"
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"command": "npm run test",
@@ -63,12 +63,12 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "create Source",
+			"name": "load Source",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/createSource.js",
-			"envFile": "${workspaceFolder}/src/test/.env"
+			"program": "${workspaceFolder}/dist/test/loadSource.js",
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"type": "node",
