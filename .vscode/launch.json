@@ -63,12 +63,11 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "load Source",
+			"name": "populate Source",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/loadSource.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"program": "${workspaceFolder}/dist/test/populateSource.js"
 		},
 		{
 			"type": "node",

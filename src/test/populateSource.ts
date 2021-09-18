@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const mysql = require('mysql2/promise')
+require('dotenv').config({ path: 'src/test/test.env' })
 
 const start = async () => {
 
