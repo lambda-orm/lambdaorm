@@ -16,6 +16,7 @@ services:
     ports:
       - '3306:3306'
   mysql:
+    container_name: lambda-orm-mysql-57
     image: biarms/mysql:5.7.33-beta-circleci
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -29,7 +30,18 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     ports:
-      - '3307:3306'       
+      - '3307:3306' 
+  postgres:  
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=tests
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
   mariadb:
     image: monstrenyatko/rpi-mariadb
     container_name: mariadb
@@ -43,18 +55,7 @@ services:
       - mariadb-log:/var/log/mysql
     ports:
       - 3308:3306
-    # restart: unless-stopped
-  postgres:  
-    image: postgres:10
-    restart: always
-    environment:
-      - POSTGRES_DB=tests
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
+    # restart: unless-stopped    
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     restart: always
@@ -99,10 +100,10 @@ services:
       
 volumes:
     source:
-    mysql:
-    mariadb-data:
-    mariadb-log:   
+    mysql:      
     postgres:
+    mariadb-data:
+    mariadb-log: 
     mssql:
     mongodb:
     oracle:          

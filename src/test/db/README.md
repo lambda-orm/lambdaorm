@@ -1,8 +1,10 @@
 # Install
+
 ## create volume
 
 linux:
-```
+
+``` sh
 docker volume create --name source --opt type=none --opt device=~/volumes/source --opt o=bind
 docker volume create --name mysql --opt type=none --opt device=~/volumes/mysql --opt o=bind
 docker volume create --name mariadb-data --opt type=none --opt device=~/volumes/mariadb/data --opt o=bind
@@ -14,7 +16,8 @@ docker volume create --name oracle --opt type=none --opt device=~/volumes/oracle
 ```
 
 windows:
-```
+
+``` sh
 docker volume create --name source --opt type=none --opt device=C:\volumes\source --opt o=bind
 docker volume create --name mysql --opt type=none --opt device=C:\volumes\mysql --opt o=bind
 docker volume create --name mariadb-data --opt type=none --opt device=C:\volumes\mariadb\data --opt o=bind
@@ -26,16 +29,20 @@ docker volume create --name oracle --opt type=none --opt device=C:\volumes\oracl
 ```
 
 ## install database
-```
+
+``` sh
 docker-compose up -d
 ```
 
 ## uninstall
-```
+
+``` sh
 docker-compose down
 ```
+
 ### remove volumes
-```
+
+``` sh
 docker volume rm source
 docker volume rm mysql
 docker volume rm mariadb-data
@@ -46,30 +53,32 @@ docker volume rm mongodb
 docker volume rm oracle
 ```
 
-# install client
+## install client
 
 mariadb
-```
+
+``` sh
 sudo apt-get update
 sudo apt-get install mariadb-client-10.0
 ```
 
+## connect
 
-# connect
 host
-```
+
+``` sh
 mysql --host=0.0.0.0 --port=3306 --user=root --password=root northwind
 mysql --host=0.0.0.0 --port=3307 --user=root --password=root northwind
 ```
 
-
-
 container
-```
+
+``` sh
 docker exec -it mariadb mysql -h localhost -u root -p 
 ```
 
 ## connection string
+
 - source: mysql://root:root@0.0.0.0:3306/northwind
 - mysql: mysql://root:root@0.0.0.0:3307/northwind
 - mariadb: mysql://root:admin@0.0.0.0:3308/northwind
@@ -78,10 +87,8 @@ docker exec -it mariadb mysql -h localhost -u root -p
 - mongodb:
 - oracle:
 
+## references
 
-
-
-# references
 - [mariadb docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
 - [mariadb-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)
 - [mysql in nodejs](https://evertpot.com/executing-a-mysql-query-in-nodejs/)
