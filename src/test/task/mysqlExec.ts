@@ -1,12 +1,7 @@
-const fs = require('fs')
-const path = require('path')
 const mysql = require('mysql2/promise')
-require('dotenv').config({ path: 'src/test/test.env' })
 
-const start = async () => {
+export async function start(script: string, callback: any) {
 
-	const sourceFile = 'src/test/db/northwind-mysql.sql'
-	const script = fs.readFileSync(sourceFile, { encoding: 'utf8' })
 	const lines = script.split(';')
 	let sentences: string[] = []
 	let results: string[] = []
@@ -23,9 +18,9 @@ const start = async () => {
 			const result = await cnx.execute(sentence)
 			results.push(result)
 		} catch (error) {
-			console.log(`sentence ${sentence} error: ${error}`)
+			// console.log(`sentence ${sentence} error: ${error}`)
 		}
 	}
 	await cnx.close()
+	callback()
 }
-start()
