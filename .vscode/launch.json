@@ -61,13 +61,24 @@
 			"type": "node-terminal"
 		},
 		{
+			"name": "populate source",
 			"type": "node",
 			"request": "launch",
-			"name": "populate Source",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"populate_source"
 			],
-			"program": "${workspaceFolder}/dist/test/populateSource.js"
+			"stopOnEntry": false
+		},
+		{
+			"name": "populate databases",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"populate_databases"
+			],
+			"stopOnEntry": false
 		},
 		{
 			"type": "node",

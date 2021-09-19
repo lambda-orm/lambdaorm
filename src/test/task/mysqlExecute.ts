@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise')
 
-export async function start(script: string, callback: any) {
+export async function apply(script: string, connection: any, callback: any) {
 
 	const lines = script.split(';')
 	let sentences: string[] = []
@@ -8,7 +8,6 @@ export async function start(script: string, callback: any) {
 	for (let i = 0; i < lines.length; i++) {
 		sentences.push(lines[i].replace(/(?:\r\n|\r|\n)/g, ' ').trim())
 	}
-	const connection = JSON.parse(process.env.ORM_CNN_SOURCE as string)
 	const cnx = await mysql.createConnection(connection)
 	await cnx.connect()
 	for (let i = 0; i < sentences.length; i++) {

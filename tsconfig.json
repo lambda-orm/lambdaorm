@@ -1,4 +1,4 @@
-{    
+{
     "compilerOptions": {
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -10,13 +10,14 @@
         "module": "commonjs",
         "outDir": "./dist",
         "strict": true,
-        "baseUrl": "./src",        
+        "baseUrl": "./src",
         "typeRoots": [
             "node_modules/@types"
-          ]
+        ]
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "Gruntfile.js"
     ],
     "exclude": [
         "node_modules"
