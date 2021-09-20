@@ -27,7 +27,7 @@ ddl:
   addFk: 'ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})'
   alterColumn: 'MODIFY {columnDefine}'
   dropDatabase: 'DROP DATABASE IF EXISTS {name}'
-  dropTable: 'DROP TABLE {name}'
+  dropTable: 'DROP TABLE IF EXISTS {name}'
   dropColumn: 'DROP COLUMN {name}'
   dropPk: 'DROP PRIMARY KEY {name}'
   dropUk: 'DROP UNIQUE {name}'

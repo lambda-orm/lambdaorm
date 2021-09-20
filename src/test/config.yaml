@@ -1,0 +1,38 @@
+paths:
+  schemas: "src/test/schemas"
+  state: "src/test/state"
+databases:
+  - name: source
+    schema: northwind:0.0.2
+    dialect: mysql
+    # disable: true
+    connectionSource: env
+    connection: ORM_CNN_SOURCE
+  - name: mysql
+    schema: northwind:0.0.2
+    dialect: mysql
+    # disable: true
+    connectionSource: direct
+    connection:
+      host: "0.0.0.0"
+      port: 3307
+      user: test
+      password: test
+      database: northwind
+  # - name: mariadb
+  #   schema: northwind:0.0.2
+  #   dialect: mariadb
+  #   # disable: true
+  #   connectionSource: env
+  #   connection: ORM_CNN_3
+  - name: postgres
+    schema: northwind:0.0.2
+    dialect: postgres
+    # disable: true
+    connectionSource: env
+    connection: ORM_CNN_POSTGRES
+  # - name: mssql
+  #   schema: northwind:0.0.2
+  #   dialect: mssql
+  #   connectionSource: env
+  #   connection: ORM_CNN_MSSQL
