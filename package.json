@@ -1,11 +1,8 @@
 {
-	"name": "js-orm",
+	"name": "lamda-orm",
 	"version": "0.0.1",
 	"description": "ORM",
-	"main": "./lib/js-orm",
-	"bin": {
-		"config-extends": "bin/js-orm"
-	},
+	"main": "./dist/orm/orm.js",
 	"scripts": {
 		"start": "node dist/app/index.js",
 		"predev": "npm run swagger",
@@ -15,8 +12,7 @@
 		"dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
 		"swagger": "tsoa spec",
 		"standard": "standard",
-		"test": "mocha",
-		"test-populate-source": "node dist/test/populateSource.js"
+		"test": "mocha"
 	},
 	"nodemonConfig": {
 		"watch": [
@@ -27,7 +23,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/FlavioLionelRita/js-orm.git"
+		"url": "git+https://github.com/FlavioLionelRita/lambda-orm.git"
 	},
 	"keywords": [
 		"orm",
@@ -42,9 +38,9 @@
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
 	"bugs": {
-		"url": "https://github.com/FlavioLionelRita/js-orm/issues"
+		"url": "https://github.com/FlavioLionelRita/lambda-orm/issues"
 	},
-	"homepage": "https://github.com/FlavioLionelRita/js-orm#readme",
+	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
 	"dependencies": {
 		"express": "^4.17.1",
 		"generic-pool": "^3.7.8",
