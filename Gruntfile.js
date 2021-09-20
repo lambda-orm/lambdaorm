@@ -34,8 +34,15 @@ module.exports = function (grunt) {
 		populateDatabases.apply(configPath, done)
 	})
 
+	grunt.registerTask('generate_data_for_test', 'generate data for test', function () {
+		const generateDataForTest = require('./dist/test/task/generateDataForTest')
+		const configPath = './src/test/config.yaml'
+		const done = this.async()
+		generateDataForTest.apply(configPath, done)
+	})
+
 	// Default task(s).
 	// grunt.registerTask('default', ['populate_source'])
-	grunt.registerTask('test', ['create_dbs', 'populate_source', 'populate_databases', 'drop_dbs'])
+	grunt.registerTask('generate_test', ['create_dbs', 'populate_source', 'populate_databases', 'generate_data_for_test', 'drop_dbs'])
 	grunt.registerTask('default', [])
 }

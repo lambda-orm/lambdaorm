@@ -81,6 +81,16 @@
 			"stopOnEntry": false
 		},
 		{
+			"name": "generate data for test",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"generate_data_for_test"
+			],
+			"stopOnEntry": false
+		},
+		{
 			"type": "node",
 			"request": "launch",
 			"name": "update config",

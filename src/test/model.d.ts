@@ -1,11 +1,11 @@
 import '../orm/sintaxis'
 declare global {
-	interface Category{
+	interface Category {
 		id: number
 		name: string
 		description: string
-  }
-	interface Customer{
+	}
+	interface Customer {
 		id: string
 		name: string
 		contact: string
@@ -15,9 +15,10 @@ declare global {
 		region: string
 		postalCode: string
 		country: string
+		// eslint-disable-next-line no-use-before-define
 		orders: ManyToOne<Order>
-  }
-	interface Employee{
+	}
+	interface Employee {
 		id: number
 		lastName: string
 		firstName: string
@@ -33,13 +34,13 @@ declare global {
 		postalCode: string
 		country: string
 		reportsTo: Employee & OneToMany<Employee>
-  }
-	interface Shipper{
+	}
+	interface Shipper {
 		id: number
 		name: string
 		phone: string
-  }
-	interface Supplier{
+	}
+	interface Supplier {
 		id: number
 		name: string
 		contact: string
@@ -50,8 +51,8 @@ declare global {
 		region: string
 		postalCode: string
 		country: string
-  }
-	interface Product{
+	}
+	interface Product {
 		id: number
 		name: string
 		supplierId: number
@@ -64,8 +65,8 @@ declare global {
 		discontinued: boolean
 		supplier: Supplier & OneToMany<Supplier>
 		category: Category & OneToMany<Category>
-  }
-	interface Order{
+	}
+	interface Order {
 		id: number
 		customerId: string
 		employeeId: number
@@ -82,9 +83,10 @@ declare global {
 		country: string
 		customer: Customer & OneToMany<Customer>
 		employee: Employee & OneToMany<Employee>
+		// eslint-disable-next-line no-use-before-define
 		details: ManyToOne<OrderDetail>
-  }
-	interface OrderDetail{
+	}
+	interface OrderDetail {
 		orderId: number
 		productId: number
 		unitPrice: number
@@ -92,7 +94,7 @@ declare global {
 		discount: number
 		order: Order & OneToMany<Order>
 		product: Product & OneToMany<Product>
-  }
+	}
 	let Categories: Entity<Category>
 	let Customers: Entity<Customer>
 	let Employees: Entity<Employee>
