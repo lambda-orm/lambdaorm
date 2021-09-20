@@ -12,12 +12,12 @@ export async function apply(script: string, connection: any, callback: any) {
 	await cnx.connect()
 	for (let i = 0; i < sentences.length; i++) {
 		const sentence = sentences[i]
-		if (sentence.startsWith('#')) continue
+		if (!sentence || sentence.trim() === '' || sentence.startsWith('#')) continue
 		try {
 			const result = await cnx.execute(sentence)
 			results.push(result)
 		} catch (error) {
-			// console.log(`sentence ${sentence} error: ${error}`)
+			console.log(`sentence ${sentence} error: ${error}`)
 		}
 	}
 	await cnx.close()

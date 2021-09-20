@@ -48,6 +48,9 @@ export class MySqlConnection extends Connection {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async bulkInsert (sql:string, array:any[], parameters:Parameter[], fieldId?:string):Promise<number[]> {
 		try {
+			if (!array || array.length === 0) {
+				return []
+			}
 			// https://github.com/sidorares/node-mysql2/issues/830
 			const result = await this.cnx.query(sql, [array])
 
@@ -57,9 +60,8 @@ export class MySqlConnection extends Connection {
 			const lastInsertedIds:number[] = []
 			for (let i = start; i <= end; i++)lastInsertedIds.push(i)
 			return lastInsertedIds
-		} catch (error) {
-			console.log(error)
-			throw error
+		} catch (error:any) {
+			throw new Error(`sentence: ${sql} error: ${error.message}`)
 		}
 	}
 
