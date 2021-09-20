@@ -4,14 +4,8 @@
 	"description": "ORM",
 	"main": "./dist/orm/orm.js",
 	"scripts": {
-		"start": "node dist/app/index.js",
-		"predev": "npm run swagger",
-		"prebuild": "npm run swagger",
 		"build-all": "node config/build.js && tsc",
 		"build": "tsc",
-		"dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
-		"swagger": "tsoa spec",
-		"standard": "standard",
 		"test": "mocha"
 	},
 	"nodemonConfig": {
@@ -27,13 +21,26 @@
 	},
 	"keywords": [
 		"orm",
+		"mysql",
+		"mariadb",
+		"sqlite",
+		"postgresql",
+		"postgres",
+		"pg",
+		"mssql",
+		"sqlserver",
 		"sql",
 		"query",
 		"builder",
 		"expression",
 		"parser",
 		"database",
-		"data access"
+		"data access",
+		"nodejs",
+		"object relational mapper",
+		"db",
+		"lambda",
+		"lambda-orm"
 	],
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -42,18 +49,12 @@
 	},
 	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
 	"dependencies": {
-		"express": "^4.17.1",
-		"generic-pool": "^3.7.8",
 		"luxon": "^2.0.2",
-		"morgan": "^1.10.0",
-		"mysql2": "^2.2.5",
-		"pg": "^8.7.1",
-		"reflect-metadata": "^0.1.13",
-		"sqlstring": "^2.3.2",
-		"swagger-ui-express": "^4.1.6",
-		"tsoa": "^3.8.0"
+		"sqlstring": "^2.3.2"
 	},
 	"devDependencies": {
+		"mysql2": "^2.2.5",
+		"pg": "^8.7.1",
 		"@babel/eslint-parser": "^7.15.4",
 		"@types/express": "^4.17.12",
 		"@types/morgan": "^1.9.2",
