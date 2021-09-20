@@ -1,5 +1,5 @@
 {
-	"name": "lamda-orm",
+	"name": "lambda-orm",
 	"version": "0.0.1",
 	"description": "ORM",
 	"main": "./dist/orm/orm.js",
