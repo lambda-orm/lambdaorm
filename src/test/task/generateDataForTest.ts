@@ -1,4 +1,5 @@
-import { orm, Parameter } from '../../orm'
+import { orm } from '../../orm'
+import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
 const path = require('path')
@@ -15,46 +16,7 @@ async function exec(fn: any) {
   }
   return result
 }
-interface Test {
-  schema: string
-  categories: CategoryTest[]
-}
-interface CategoryTest {
-  name: string
-  schema: string
-  context: any
-  test: ExpressionTest[]
-  errors?: number
-}
-interface ExpressionTest {
-  name: string
-  lambda: any
-  context?: any
-  expression?: string
-  completeExpression?: string
-  model?: any
-  fields?: any
-  parameters?: Parameter[]
-  sentences?: SentenceTest[]
-  executions?: ExecutionTest[]
-  error?: string
-  errors?: number
-  result?: any
-}
-interface SentenceTest {
-  dialect: string
-  sentence?: any
-  error?: string
-}
-interface ExecutionTest {
-  database: string
-  result?: any
-  error?: string
-}
-interface ExecutionResult {
-  database: string
-  result?: any
-}
+
 async function writeTest(dialects: string[], databases: string[], category: CategoryTest): Promise<number> {
   category.errors = 0
   for (const q in category.test) {
