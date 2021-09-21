@@ -126,11 +126,20 @@ install mysql shell client
 [mysql-shell-windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html)
 [install visual studio 2019 redistributable](https://docs.microsoft.com/es-es/visualstudio/releases/2019/redistribution#vs2019-download)
 
-install grunt
+#### grunt
 
 ``` sh
 npm intall grunt -D
 npm install -g grunt-cli
+```
+
+#### glup
+
+- [example](https://www.typescriptlang.org/docs/handbook/gulp.html)
+
+``` sh
+npm install --save-dev gulp gulp-typescript
+npm install -g gulp-cli
 ```
 
 ## Publish
