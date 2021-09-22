@@ -61,6 +61,16 @@
 			"type": "node-terminal"
 		},
 		{
+			"name": "drop dbs",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"drop_dbs"
+			],
+			"stopOnEntry": false
+		},
+		{
 			"name": "populate source",
 			"type": "node",
 			"request": "launch",
@@ -90,26 +100,36 @@
 			],
 			"stopOnEntry": false
 		},
-		// {
-		// 	"name": "generate test",
-		// 	"type": "node",
-		// 	"request": "launch",
-		// 	"program": "/usr/bin/grunt",
-		// 	"args": [
-		// 		"generate_test"
-		// 	],
-		// 	"stopOnEntry": false
-		// },
 		{
+			"name": "generate test",
 			"type": "node",
 			"request": "launch",
-			"name": "generate test",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"generate_test"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateTest.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"stopOnEntry": false
 		},
+		{
+			"name": "build test",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"build_test"
+			],
+			"stopOnEntry": false
+		},
+		// {
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"name": "generate test",
+		// 	"skipFiles": [
+		// 		"<node_internals>/**"
+		// 	],
+		// 	"program": "${workspaceFolder}/dist/test/task/generateTest.js",
+		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// },
 		{
 			"type": "node",
 			"request": "launch",
