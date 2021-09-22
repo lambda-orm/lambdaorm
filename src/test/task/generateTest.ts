@@ -112,11 +112,8 @@ async function writeIntegrationTest(databases: string[], category: CategoryTest)
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
 }
 
-
-export async function apply(dataForTestPath:string,callback: any) {
-
-	let databases: string[] = ['mysql', 'postgres']
-  let dialects = Object.values(orm.language.dialects).filter((p: any) => p.language == 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']
+export async function apply(dataForTestPath:string,databases:string[],callback: any) {
+  let dialects = Object.values(orm.language.dialects).filter((p: any) => p.language == 'sql').map((p: any) => p.name)
 	const testData = await ConfigExtends.apply(dataForTestPath)
 	for (const k in testData) {
 		await writeUnitTest(dialects, testData[k])
@@ -126,4 +123,4 @@ export async function apply(dataForTestPath:string,callback: any) {
   callback()
 }
 
-apply(path.join(process.cwd(),'src/test/dataForTest'),function () { console.log('end')})
+apply(path.join(process.cwd(),'src/test/dataForTest'),['mysql', 'postgres'],function () { console.log('end')})
