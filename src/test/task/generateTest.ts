@@ -1,15 +1,12 @@
 import { orm } from '../../orm'
-import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
+import { CategoryTest, ExpressionTest } from './testModel'
+import fs from 'fs'
+import path from 'path'
 const ConfigExtends = require('config-extends')
-
-const fs = require('fs')
-const path = require('path')
-
 
 async function writeUnitTest(dialects: string[], category: CategoryTest): Promise<void> {
   
-	const lines: string[] = []
-	
+	const lines: string[] = []	
   lines.push(`import { orm } from '../../orm'`) 
 	lines.push(`beforeAll(async () => {`)
 	lines.push(`\trequire('dotenv').config({ path: './src/test/test.env' })`)
