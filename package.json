@@ -7,7 +7,8 @@
 	"scripts": {
 		"build": "node config/build.js && tsc",
 		"lint": "npx eslint src",
-		"test": "jest --config jestconfig.json",
+		"unit-test": "jest --config jest-unit-config.json",
+		"integration-test": "jest --config jest-integration-config.json",
 		"test-old": "mocha"
 	},
 	"nodemonConfig": {
