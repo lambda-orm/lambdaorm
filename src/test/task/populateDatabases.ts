@@ -19,27 +19,36 @@ async function schemaImport(source: string, target: string) {
   await orm.database.import(target, data)
 }
 
-export async function apply(configPath: string, callback: any) {
+export async function apply(configPath: string, databases: string[], callback: any) {
 
   await orm.init(configPath)
 
   await schemaSync('source')
   await schemaExport('source')
-  //test mysql
-  await schemaDrop('mysql', true)
-  await schemaSync('mysql')
-  await schemaImport('source', 'mysql')
-  await schemaExport('mysql')
-  // //test mariadb
-  // await schemaDrop('mariadb',true)
-  // await schemaSync('mariadb')
-  // await schemaImport('source','mariadb')
-  // await schemaExport('mariadb')
-  //test postgres
-  await schemaDrop('postgres', true)
-  await schemaSync('postgres')
-  await schemaImport('source', 'postgres')
-  await schemaExport('postgres')
+
+  for (const p in databases) {
+    const database = databases[p]
+    await schemaDrop(database, true)
+    await schemaSync(database)
+    await schemaImport('source', database)
+    await schemaExport(database)
+  }
+
+  // //test mysql
+  // await schemaDrop('mysql', true)
+  // await schemaSync('mysql')
+  // await schemaImport('source', 'mysql')
+  // await schemaExport('mysql')
+  // // //test mariadb
+  // // await schemaDrop('mariadb',true)
+  // // await schemaSync('mariadb')
+  // // await schemaImport('source','mariadb')
+  // // await schemaExport('mariadb')
+  // //test postgres
+  // await schemaDrop('postgres', true)
+  // await schemaSync('postgres')
+  // await schemaImport('source', 'postgres')
+  // await schemaExport('postgres')
 
   callback()
 }

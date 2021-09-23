@@ -71,6 +71,16 @@
 			"stopOnEntry": false
 		},
 		{
+			"name": "clean data",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"clean_data"
+			],
+			"stopOnEntry": false
+		},
+		{
 			"name": "populate source",
 			"type": "node",
 			"request": "launch",
