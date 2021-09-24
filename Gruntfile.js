@@ -42,7 +42,7 @@ module.exports = function (grunt) {
 		const task = require('./dist/test/task/generateDataForTest')
 		const configPath = './src/test/config.yaml'
 		const done = this.async()
-		task.apply(configPath, done)
+		task.apply(configPath, databases, done)
 	})
 
 	grunt.registerTask('generate_test', 'generate test', function () {
@@ -54,6 +54,6 @@ module.exports = function (grunt) {
 
 	// Default task(s).
 	// grunt.registerTask('default', ['populate_source'])
-	grunt.registerTask('build_test', ['drop_dbs', 'clean_data', 'create_dbs', 'populate_source', 'populate_databases', 'generate_data_for_test', 'generate_test', 'drop_dbs'])
+	grunt.registerTask('build_test', ['drop_dbs', 'clean_data', 'create_dbs', 'populate_source', 'populate_databases', 'generate_data_for_test', 'generate_test'])
 	grunt.registerTask('default', [])
 }
