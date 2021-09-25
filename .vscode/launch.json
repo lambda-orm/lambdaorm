@@ -100,15 +100,25 @@
 			],
 			"stopOnEntry": false
 		},
+		// {
+		// 	"name": "generate data for test",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate_data_for_test"
+		// 	],
+		// 	"stopOnEntry": false
+		// },
 		{
 			"name": "generate data for test",
 			"type": "node",
 			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"generate_data_for_test"
+			"skipFiles": [
+				"<node_internals>/**"
 			],
-			"stopOnEntry": false
+			"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"name": "generate test",

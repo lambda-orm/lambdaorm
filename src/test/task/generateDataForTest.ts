@@ -1036,6 +1036,9 @@ export async function apply(configPath: string, databases: string[], callback: a
   // await applySchema(schemas)
   // await bulkInsert2(orm)
 
+	await orm.end()
+
   console.log(`INFO: ${errors} errors`)
   callback()
 }
+apply('./src/test/config.yaml', ['mysql'], function () { console.log('end')})

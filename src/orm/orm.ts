@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Cache, IOrm, Context, Config } from './model'
 import { Model, NodeManager } from './node/index'
 import { Expression, MemoryCache, Transaction } from './manager'
@@ -86,6 +87,13 @@ class Orm implements IOrm {
 				this.database.load(database)
 			}
 		}
+	}
+
+	/**
+	 * Frees the resources used, for example the connection pools
+	 */
+	public async end ():Promise<void> {
+		await orm.connection.end()
 	}
 
 	public get node ():NodeManager {

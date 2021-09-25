@@ -1,44 +1,30 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-tabs */
+
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
-import util from 'util'
-// import { promisify } from 'util'
 
-// import * as mysql from 'mysql2/promise'
 export class MySqlConnectionPool extends ConnectionPool {
-private static mysql:any
-private pool:any
-constructor (config:ConnectionConfig) {
-	super(config)
-	if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2/promise') }
+	private static mysql:any
+	private pool:any
+	constructor (config:ConnectionConfig) {
+		super(config)
+		if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2') }
+		this.pool = MySqlConnectionPool.mysql.createPool(config.connection)
+	}
 
-	const _config = { ...config.connection, ...{ waitForConnections: true, connectionLimit: 10, queueLimit: 0 } }
-	this.pool = MySqlConnectionPool.mysql.createPool(_config)
-}
+	public async acquire (): Promise<Connection> {
+		const cnx = await this.pool.promise().getConnection()
+		return new MySqlConnection(cnx, this)
+	}
 
-public async acquire ():Promise<Connection> {
-	const cnx = await util.promisify(this.pool.getConnection)
-	// await cnx.connect()
-	return new MySqlConnection(cnx, this)
-	// let cnx = await this.pool.getConnection();
-	// const cnx = await new Promise((resolve, reject) => {
-	//     this.pool.getConnection((error:any, connection:any) => {
-	//       if (error) {
-	//         reject(error);
-	//       } else {
-	//         resolve(connection);
-	//       }
-	//     });
-	// });
-	// const cnx = await MySqlConnectionPool.mysql.createConnection(this.config.connection)
-	// await cnx.connect()
-	// return new MySqlConnection(cnx, this)
-}
+	public async release (connection:Connection):Promise<void> {
+		await connection.cnx.release()
+	}
 
-public async release (connection:Connection):Promise<void> {
-	// await connection.cnx.end()
-	await connection.cnx.release()
-	// this.pool.releaseConnection(connection.cnx);
-}
+	public async end (): Promise<void> {
+		this.pool.end()
+	}
 }
 
 export class MySqlConnection extends Connection {

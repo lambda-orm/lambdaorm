@@ -1,17 +1,27 @@
-// import { ConnectionConfig } from './..'
-// import { MySqlConnection, MySqlConnectionPool } from './mysql'
-import { MySqlConnectionPool } from './mysql'
-export class MariadbConnectionPool extends MySqlConnectionPool {
-// private static mariadb:any
-// private pool:any
-// constructor (config:ConnectionConfig) {
-// super(config)
-// if (!MariadbConnectionPool.mariadb) { MariadbConnectionPool.mariadb = require('mysql2') }
+/* eslint-disable linebreak-style */
+import { Connection, ConnectionConfig, ConnectionPool } from './..'
+import { MySqlConnection } from './mysql'
 
-	// const _config = { ...config.connection, ...{ waitForConnections: true, connectionLimit: 10, queueLimit: 0 } }
-	// this.pool = MariadbConnectionPool.mariadb.createPool(_config)
-	// }
-	// }
-	// export class MariaDbConnection extends MySqlConnection {
+export class MariadbConnectionPool extends ConnectionPool {
+	private static mariadb:any
+	private pool:any
+	constructor (config:ConnectionConfig) {
+		super(config)
+		if (!MariadbConnectionPool.mariadb) { MariadbConnectionPool.mariadb = require('mysql2') }
+		this.pool = MariadbConnectionPool.mariadb.createPool(config.connection)
+	}
 
+	public async acquire (): Promise<Connection> {
+		const cnx = await this.pool.promise().getConnection()
+		return new MySqlConnection(cnx, this)
+	}
+
+	public async release (connection:Connection):Promise<void> {
+		await connection.cnx.release()
+	}
+
+	public async end (): Promise<void> {
+		// https://github.com/mysqljs/mysql/issues/1395
+		this.pool.end()
+	}
 }

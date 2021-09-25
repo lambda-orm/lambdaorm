@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
 import { Helper } from './../../helper'
@@ -46,6 +47,10 @@ export class PostgresConnectionPool extends ConnectionPool {
 
 	public async release (connection:Connection):Promise<void> {
 		await connection.cnx.end()
+	}
+
+	public async end (): Promise<void> {
+		console.log('postgres end pool not Implemented')
 	}
 }
 export class PostgresConnection extends Connection {

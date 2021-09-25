@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Connection } from './connection'
 import { ConnectionPool } from './connectionPool'
 import { Executor } from './executor'
@@ -29,6 +30,13 @@ export class ConnectionManager {
 		const pool = this.pools[name] as ConnectionPool
 		if (!pool) { throw new Error(`connection ${name} not found`) }
 		return pool
+	}
+
+	public async end ():Promise<void> {
+		for (const k in this.pools) {
+			const pool = this.pools[k] as ConnectionPool
+			await pool.end()
+		}
 	}
 
 	public get (name:string):ConnectionConfig {
