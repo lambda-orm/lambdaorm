@@ -9,12 +9,12 @@ export class MySqlConnectionPool extends ConnectionPool {
 	private pool:any
 	constructor (config:ConnectionConfig) {
 		super(config)
-		if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2') }
+		if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2/promise') }
 		this.pool = MySqlConnectionPool.mysql.createPool(config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {
-		const cnx = await this.pool.promise().getConnection()
+		const cnx = await this.pool.getConnection()
 		return new MySqlConnection(cnx, this)
 	}
 

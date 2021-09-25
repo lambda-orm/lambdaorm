@@ -7,12 +7,12 @@ export class MariadbConnectionPool extends ConnectionPool {
 	private pool:any
 	constructor (config:ConnectionConfig) {
 		super(config)
-		if (!MariadbConnectionPool.mariadb) { MariadbConnectionPool.mariadb = require('mysql2') }
+		if (!MariadbConnectionPool.mariadb) { MariadbConnectionPool.mariadb = require('mysql2/promise') }
 		this.pool = MariadbConnectionPool.mariadb.createPool(config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {
-		const cnx = await this.pool.promise().getConnection()
+		const cnx = await this.pool.getConnection()
 		return new MySqlConnection(cnx, this)
 	}
 
@@ -21,7 +21,6 @@ export class MariadbConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		// https://github.com/mysqljs/mysql/issues/1395
 		this.pool.end()
 	}
 }
