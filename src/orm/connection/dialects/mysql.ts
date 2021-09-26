@@ -3,7 +3,6 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
-import { timeStamp } from 'console'
 
 const DECIMAL = 0
 // const TINY = 1
