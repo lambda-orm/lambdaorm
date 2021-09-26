@@ -124,26 +124,26 @@ async function writeQueryTest(dialects: string[], databases: string[]): Promise<
       , b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
     }
     , test: [
-      // { name: 'query 1', lambda: () => Products.map(p => p) }
-      // , { name: 'query 2', lambda: () => Products }
-      // , { name: 'query 3', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => p) }
-      // , { name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id) }
-      // , { name: 'query 5', context: 'a', lambda: () => Products.map(p => p.category.name) }
-      // , { name: 'query 6', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
-      // , { name: 'query 7', lambda: () => Products.filter(p => p.discontinued != false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) }
-      // , { name: 'query 8', context: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
-      // , { name: 'query 9', lambda: () => OrderDetails.map(p => ({ order: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })) }
-      // , { name: 'query 10', lambda: () => Products.page(1, 1) }
-      // , { name: 'query 11', lambda: () => Products.first(p => p) }
-      // , { name: 'query 12', lambda: () => Products.last(p => p) }
-      // , { name: 'query 13', lambda: () => Products.take(p => p) }       
-      //, { name: 'query 14', lambda: () => Products.page(1, 1) }      
-      // , { name: 'query 15', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
-      // , { name: 'query 16', lambda: () => Products.filter(p => p.discontinued != false).last(p => p) }
-			{ name: 'query 17', lambda: () => Products.distinct(p => p) }
-			, { name: 'query 18', context: 'a', lambda: () => Products.distinct(p => p.category.name) }
-			, { name: 'query 19', context: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })) }
-			, { name: 'query 20', context: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p=> p.category ) }
+      { name: 'query 1', lambda: () => Products.map(p => p) }
+      , { name: 'query 2', lambda: () => Products }
+      , { name: 'query 3', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => p).sort(p => p.id) }
+      , { name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).sort(p => p.id) }
+      , { name: 'query 5', context: 'a', lambda: () => Products.map(p => p.category.name) }
+      , { name: 'query 6', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) }
+      , { name: 'query 7', lambda: () => Products.filter(p => p.discontinued != false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) }
+      , { name: 'query 8', context: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
+      , { name: 'query 9', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
+      , { name: 'query 10', lambda: () => Products.page(1, 1) }
+      , { name: 'query 11', lambda: () => Products.first(p => p) }
+      , { name: 'query 12', lambda: () => Products.last(p => p) }
+      , { name: 'query 13', lambda: () => Products.take(p => p) }
+      , { name: 'query 14', lambda: () => Products.page(1, 1) }
+      , { name: 'query 15', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
+      , { name: 'query 16', lambda: () => Products.filter(p => p.discontinued != false).last(p => p) }
+      , { name: 'query 17', lambda: () => Products.distinct(p => p) }
+      , { name: 'query 18', context: 'a', lambda: () => Products.distinct(p => p.category.name) }
+      , { name: 'query 19', context: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) }
+      , { name: 'query 20', context: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
     ]
   })
 }
@@ -1038,9 +1038,9 @@ export async function apply(configPath: string, databases: string[], callback: a
   // await applySchema(schemas)
   // await bulkInsert2(orm)
 
-	await orm.end()
+  await orm.end()
 
   console.log(`INFO: ${errors} errors`)
   callback()
 }
-apply('./src/test/config.yaml', ['mysql','postgres'], function () { console.log('end')})
+// apply('./src/test/config.yaml', ['mysql','postgres'], function () { console.log('end')})

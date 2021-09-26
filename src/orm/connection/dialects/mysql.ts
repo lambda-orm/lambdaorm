@@ -5,7 +5,7 @@ import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
 
 const DECIMAL = 0
-// const TINY = 1
+const TINY = 1
 // const SHORT = 2
 const LONG = 3
 const FLOAT = 4
@@ -155,6 +155,11 @@ export class MySqlConnection extends Connection {
 				const value = row[col.name]
 				if (value !== null) {
 					switch (col.columnType) {
+					case TINY:
+						// Boolean
+						// https://www.javatpoint.com/mysql-boolean#:~:text=MySQL%20does%20not%20contain%20built,to%200%20and%201%20value.
+						row[col.name] = value === 1
+						break
 					case DECIMAL:
 					case LONG:
 					case FLOAT:

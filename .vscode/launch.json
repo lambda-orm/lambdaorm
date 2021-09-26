@@ -90,46 +90,46 @@
 			],
 			"stopOnEntry": false
 		},
-		// {
-		// 	"name": "populate databases",
-		// 	"type": "node",
-		// 	"request": "launch",
-		// 	"program": "/usr/bin/grunt",
-		// 	"args": [
-		// 		"populate_databases"
-		// 	],
-		// 	"stopOnEntry": false
-		// },
 		{
 			"name": "populate databases",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"populate_databases"
 			],
-			"program": "${workspaceFolder}/dist/test/task/populateDatabases.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"stopOnEntry": false
 		},
 		// {
-		// 	"name": "generate data for test",
+		// 	"name": "populate databases",
 		// 	"type": "node",
 		// 	"request": "launch",
-		// 	"program": "/usr/bin/grunt",
-		// 	"args": [
-		// 		"generate_data_for_test"
+		// 	"skipFiles": [
+		// 		"<node_internals>/**"
 		// 	],
-		// 	"stopOnEntry": false
+		// 	"program": "${workspaceFolder}/dist/test/task/populateDatabases.js",
+		// 	"envFile": "${workspaceFolder}/src/test/test.env"
 		// },
 		{
 			"name": "generate data for test",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"generate_data_for_test"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"stopOnEntry": false
 		},
+		// {
+		// 	"name": "generate data for test",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"skipFiles": [
+		// 		"<node_internals>/**"
+		// 	],
+		// 	"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
+		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// },
 		{
 			"name": "generate test",
 			"type": "node",
