@@ -124,8 +124,8 @@ async function writeQueryTest(dialects: string[], databases: string[]): Promise<
       , b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
     }
     , test: [
-      { name: 'query 1', lambda: () => Products.map(p => p) }
-      , { name: 'query 2', lambda: () => Products }
+      { name: 'query 1', lambda: () => Products.map(p => p).page(1, 1) }
+      , { name: 'query 2', lambda: () => Products.page(1, 1) }
       , { name: 'query 3', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => p).sort(p => p.id) }
       , { name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).sort(p => p.id) }
       , { name: 'query 5', context: 'a', lambda: () => Products.map(p => p.category.name) }
