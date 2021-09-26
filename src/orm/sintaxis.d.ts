@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 interface PageClauses<T> {
@@ -143,7 +144,9 @@ declare function asc(value:any):void
 /**  */
 declare function between(value:any, from:any, to:any):boolean
 /**  */
-declare function includes(value:any, list:any[]):boolean
+declare function includes(value: any, list: any[]): boolean
+/**  */
+declare function distinct(value:any):any
 // numeric -------------------------------------------------------------------
 /** Get the absolute value */
 declare function abs(value:number):number

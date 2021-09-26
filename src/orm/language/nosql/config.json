@@ -91,7 +91,8 @@
           "desc": "{0} desc",
           "asc": "{0} asc",
           "between": "{0} BETWEEN {1} AND {2}",
-          "includes": " {0} IN ({1})"
+          "includes": " {0} IN ({1})",
+          "distinct": "DISTINCT {0} "
         },
         "numeric": {
           "abs": "ABS({0})",
@@ -289,7 +290,8 @@
         "desc": "{0} desc",
         "asc": "{0} asc",
         "between": "{0} BETWEEN {1} AND {2}",
-        "includes": " {0} IN ({1})"
+        "includes": " {0} IN ({1})",
+        "distinct": "DISTINCT {0} "
       },
       "numeric": {
         "abs": "ABS({0})",

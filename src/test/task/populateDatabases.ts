@@ -32,23 +32,8 @@ export async function apply(configPath: string, databases: string[], callback: a
     await schemaSync(database)
     await schemaImport('source', database)
     await schemaExport(database)
-  }
-
-  // //test mysql
-  // await schemaDrop('mysql', true)
-  // await schemaSync('mysql')
-  // await schemaImport('source', 'mysql')
-  // await schemaExport('mysql')
-  // // //test mariadb
-  // // await schemaDrop('mariadb',true)
-  // // await schemaSync('mariadb')
-  // // await schemaImport('source','mariadb')
-  // // await schemaExport('mariadb')
-  // //test postgres
-  // await schemaDrop('postgres', true)
-  // await schemaSync('postgres')
-  // await schemaImport('source', 'postgres')
-  // await schemaExport('postgres')
-
+	}
+	await orm.end()
   callback()
 }
+apply('./src/test/config.yaml', ['mysql', 'postgres'], function () { console.log('end')})

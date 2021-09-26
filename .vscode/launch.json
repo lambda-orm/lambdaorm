@@ -90,15 +90,25 @@
 			],
 			"stopOnEntry": false
 		},
+		// {
+		// 	"name": "populate databases",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"populate_databases"
+		// 	],
+		// 	"stopOnEntry": false
+		// },
 		{
 			"name": "populate databases",
 			"type": "node",
 			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"populate_databases"
+			"skipFiles": [
+				"<node_internals>/**"
 			],
-			"stopOnEntry": false
+			"program": "${workspaceFolder}/dist/test/task/populateDatabases.js",
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		// {
 		// 	"name": "generate data for test",
