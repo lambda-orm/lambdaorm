@@ -3,6 +3,36 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
+import { timeStamp } from 'console'
+
+const DECIMAL = 0
+const TINY = 1
+const SHORT = 2
+const LONG = 3
+const FLOAT = 4
+const DOUBLE = 5
+const NULL = 6
+const TIMESTAMP = 7
+const LONGLONG = 8
+const INT24 = 9
+const DATE = 10
+const TIME = 11
+const DATETIME = 12
+const YEAR = 13
+const NEWDATE = 14
+const VARCHAR = 15
+const BIT = 16
+const JSON = 245
+const NEWDECIMAL = 246
+const ENUM = 247
+const SET = 248
+const TINY_BLOB = 249
+const MEDIUM_BLOB = 250
+const LONG_BLOB = 251
+const BLOB = 252
+const VAR_STRING = 253
+const STRING = 254
+const GEOMETRY = 255
 
 export class MySqlConnectionPool extends ConnectionPool {
 	private static mysql:any
@@ -101,6 +131,7 @@ export class MySqlConnection extends Connection {
 		// Solve array parameters , example IN(?) where ? is array[]
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
+		let result:any
 		const values:any[] = []
 		// en el caso de haber un array con elementos string no se esta pudiendo resolver el IN(,,,) con execute
 		// por este motivo se esta usando query en este caso.
@@ -111,12 +142,61 @@ export class MySqlConnection extends Connection {
 		for (let i = 0; i < params.length; i++) { values.push(params[i].value) }
 
 		if (useExecute) {
-			const result = await this.cnx.execute(sql, values)
-			return result[0]
+			result = await this.cnx.execute(sql, values)
 		} else {
-			const result = await this.cnx.query(sql, values)
-			return result[0]
+			result = await this.cnx.query(sql, values)
 		}
+
+		const rows = result[0]
+		const cols = result[1]
+		for (let i = 0; i < rows.length; i++) {
+			const row = rows[i]
+			for (let j = 0; j < cols.length; j++) {
+				const col = cols[j]
+				const value = row[col.name]
+				if (value !== null) {
+					switch (col.columnType) {
+					case DECIMAL:
+					case LONG:
+					case FLOAT:
+					case DOUBLE:
+					case LONGLONG:
+					case INT24:
+					case NEWDECIMAL:
+						row[col.name] = Number(value)
+						break
+					case DATETIME:
+					case DATE:
+					case TIME:
+					case NEWDATE:
+					case TIMESTAMP:
+						row[col.name] = new Date(value)
+						break
+					case BIT:
+						row[col.name] = Boolean(value)
+						break
+					}
+				}
+			}
+		}
+		return rows
+
+		// const TINY = 1
+		// const SHORT = 2
+		// const NULL = 6
+		// const YEAR = 13
+		// const VARCHAR = 15
+		// const JSON = 245
+		// const ENUM = 247
+		// const SET = 248
+		// const TINY_BLOB = 249
+		// const MEDIUM_BLOB = 250
+		// const LONG_BLOB = 251
+		// const BLOB = 252
+		// const VAR_STRING = 253
+		// const STRING = 254
+		// const GEOMETRY = 255
+
 		// for(let i=0;i<params.length;i++){
 		//     let param = params[i];
 		//     if(param.type=='array')
