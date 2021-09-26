@@ -137,9 +137,9 @@ async function writeQueryTest(dialects: string[], databases: string[]): Promise<
       , { name: 'query 11', lambda: () => Products.first(p => p) }
       , { name: 'query 12', lambda: () => Products.last(p => p) }
       , { name: 'query 13', lambda: () => Products.take(p => p) }
-      , { name: 'query 14', lambda: () => Products.distinct(p => p) }
+      //, { name: 'query 14', lambda: () => Products.distinct(p => p) }
       , { name: 'query 15', lambda: () => Products.page(1, 1) }
-      , { name: 'query 16', context: 'a', lambda: () => Products.distinct(p => p.category.name) }
+      //, { name: 'query 16', context: 'a', lambda: () => Products.distinct(p => p.category.name) }
       , { name: 'query 17', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
       , { name: 'query 18', lambda: () => Products.filter(p => p.discontinued != false).last(p => p) }
     ]
@@ -1016,7 +1016,7 @@ export async function apply(configPath: string, databases: string[], callback: a
   let errors = 0
   let dialects = Object.values(orm.language.dialects).filter((p: any) => p.language == 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']
 
-  // errors = +await writeQueryTest(dialects, databases)
+  errors = +await writeQueryTest(dialects, databases)
   errors = +await writeNumeriFunctionsTest(dialects, databases)
   // errors = +await writeGroupByTest(dialects, databases)
   // errors = +await writeIncludeTest(dialects, databases)
