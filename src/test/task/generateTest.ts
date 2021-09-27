@@ -39,7 +39,7 @@ async function writeUnitTest(dialects: string[], category: CategoryTest): Promis
 		lines.push(`\t\tconst serialize = await orm.expression(expression).serialize('${category.schema}')`)
 		lines.push(`\t\texpect(modelExpected).toStrictEqual(model)`)
 		lines.push(`\t\texpect(fieldsExpected).toStrictEqual(serialize.f)`)
-		lines.push(`\t\texpect(parametersExpected).toStrictEqual(serialize.p)`)
+		//lines.push(`\t\texpect(parametersExpected).toStrictEqual(serialize.p)`)
 		lines.push(`\t})`)
 	}
 	lines.push(`})`)

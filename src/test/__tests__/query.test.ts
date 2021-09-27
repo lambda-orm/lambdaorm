@@ -135,7 +135,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 2', async () => {
 		const expression = 'Products.page(1, 1)'
@@ -146,7 +145,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 3', async () => {
 		const expression = 'Products.filter(p => p.id == id).map(p => p).sort(p => p.id)'
@@ -157,7 +155,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 4', async () => {
 		const expression = 'Products.filter(p => p.id == id).sort(p => p.id)'
@@ -168,7 +165,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 5', async () => {
 		const expression = 'Products.map(p => p.category.name)'
@@ -179,7 +175,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 6', async () => {
 		const expression = 'Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)'
@@ -190,7 +185,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 7', async () => {
 		const expression = 'Products.filter(p => p.discontinued != false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])'
@@ -201,7 +195,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 8', async () => {
 		const expression = 'OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product])'
@@ -212,7 +205,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 9', async () => {
 		const expression = 'OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId)'
@@ -223,7 +215,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 10', async () => {
 		const expression = 'Products.page(1, 1)'
@@ -234,7 +225,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 11', async () => {
 		const expression = 'Products.first(p => p)'
@@ -245,7 +235,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 12', async () => {
 		const expression = 'Products.last(p => p)'
@@ -256,7 +245,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 13', async () => {
 		const expression = 'Products.take(p => p)'
@@ -267,7 +255,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 14', async () => {
 		const expression = 'Products.page(1, 1)'
@@ -278,7 +265,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 15', async () => {
 		const expression = 'Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))'
@@ -289,7 +275,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 16', async () => {
 		const expression = 'Products.filter(p => p.discontinued != false).last(p => p)'
@@ -300,7 +285,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 17', async () => {
 		const expression = 'Products.distinct(p => p)'
@@ -311,7 +295,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 18', async () => {
 		const expression = 'Products.distinct(p => p.category.name)'
@@ -322,7 +305,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 19', async () => {
 		const expression = 'Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category)'
@@ -333,7 +315,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 	test('query 20', async () => {
 		const expression = 'Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)'
@@ -344,7 +325,6 @@ describe('Metadata', () => {
 		const serialize = await orm.expression(expression).serialize('northwind:0.0.2')
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(serialize.f)
-		expect(parametersExpected).toStrictEqual(serialize.p)
 	})
 })
 describe('Sentences', () => {
