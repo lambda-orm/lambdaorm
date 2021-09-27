@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   unit-test:
+    name: Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,7 +28,7 @@ jobs:
     needs: [unit-test]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     env:
-      GN_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v2
