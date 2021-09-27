@@ -130,15 +130,25 @@
 			"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
+		// {
+		// 	"name": "generate test",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate_test"
+		// 	],
+		// 	"stopOnEntry": false
+		// },
 		{
 			"name": "generate test",
 			"type": "node",
 			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"generate_test"
+			"skipFiles": [
+				"<node_internals>/**"
 			],
-			"stopOnEntry": false
+			"program": "${workspaceFolder}/dist/test/task/generateTest.js",
+			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
 			"name": "build test",

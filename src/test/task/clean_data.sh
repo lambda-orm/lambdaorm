@@ -8,4 +8,4 @@ done
 rm -rf ./../data/*
 rm -rf ./../dataForTest/*
 rm -rf ./../__integration__/*
-rm -rf ./../__unit__/*
+rm -rf ./../__tests__/*

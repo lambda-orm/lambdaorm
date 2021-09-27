@@ -67,7 +67,7 @@ async function writeUnitTest(dialects: string[], category: CategoryTest): Promis
 	lines.push(`})`)
 
 	const content = lines.join('\n')
-	const testFolder = 'src/test/__unit__'
+	const testFolder = 'src/test/__tests__'
 	if (!fs.existsSync(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
