@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
 import { Helper } from './../../helper'

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Connection } from './connection'
 import { ConnectionPool } from './connectionPool'
 import { Executor } from './executor'

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'

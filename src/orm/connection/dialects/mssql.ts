@@ -1,4 +1,5 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
 import { debug } from 'console'

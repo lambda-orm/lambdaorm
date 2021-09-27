@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Cache, IOrm, Context, Config } from './model'
 import { Model, NodeManager } from './node/index'
 import { Expression, MemoryCache, Transaction } from './manager'
