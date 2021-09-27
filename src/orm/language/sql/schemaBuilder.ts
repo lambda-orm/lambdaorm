@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Property, Relation, Index, Delta } from './../../model'
 import { ISchemaBuilder } from '../'
 import { SchemaHelper } from '../../schema/schemaHelper'

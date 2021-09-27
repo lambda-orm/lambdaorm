@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Helper } from '../../helper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Context, Parameter } from './../../model'
 import { IOperandExecutor } from '../'
 import { Executor } from '../../connection'

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { MySqlConnection } from './mysql'
 
