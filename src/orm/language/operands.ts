@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Context, Property, Parameter } from './../model/index'
 import { Helper } from '../helper'
 import { OperandMetadata } from './operandMetadata'
@@ -184,7 +185,6 @@ export class Join extends Operand {
 	}
 }
 export class Map extends ArrowFunction { }
-export class Distinct extends ArrowFunction { }
 export class Filter extends ArrowFunction { }
 export class GroupBy extends ArrowFunction { }
 export class Having extends ArrowFunction { }

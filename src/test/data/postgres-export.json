@@ -1697,10 +1697,10 @@
           "supplierId": 1,
           "categoryId": 1,
           "quantity": "10 boxes x 20 bags",
-          "price": "18.0000",
-          "inStock": "39.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 18,
+          "inStock": 39,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -1709,10 +1709,10 @@
           "supplierId": 1,
           "categoryId": 1,
           "quantity": "24 - 12 oz bottles",
-          "price": "19.0000",
-          "inStock": "17.0000",
-          "onOrder": "40.0000",
-          "reorderLevel": "25.0000",
+          "price": 19,
+          "inStock": 17,
+          "onOrder": 40,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -1721,10 +1721,10 @@
           "supplierId": 1,
           "categoryId": 2,
           "quantity": "12 - 550 ml bottles",
-          "price": "10.0000",
-          "inStock": "13.0000",
-          "onOrder": "70.0000",
-          "reorderLevel": "25.0000",
+          "price": 10,
+          "inStock": 13,
+          "onOrder": 70,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -1733,10 +1733,10 @@
           "supplierId": 2,
           "categoryId": 2,
           "quantity": "48 - 6 oz jars",
-          "price": "22.0000",
-          "inStock": "53.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 22,
+          "inStock": 53,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1745,10 +1745,10 @@
           "supplierId": 2,
           "categoryId": 2,
           "quantity": "36 boxes",
-          "price": "21.3500",
-          "inStock": "0.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 21.35,
+          "inStock": 0,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -1757,10 +1757,10 @@
           "supplierId": 3,
           "categoryId": 2,
           "quantity": "12 - 8 oz jars",
-          "price": "25.0000",
-          "inStock": "120.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "25.0000",
+          "price": 25,
+          "inStock": 120,
+          "onOrder": 0,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -1769,10 +1769,10 @@
           "supplierId": 3,
           "categoryId": 7,
           "quantity": "12 - 1 lb pkgs.",
-          "price": "30.0000",
-          "inStock": "15.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 30,
+          "inStock": 15,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -1781,10 +1781,10 @@
           "supplierId": 3,
           "categoryId": 2,
           "quantity": "12 - 12 oz jars",
-          "price": "40.0000",
-          "inStock": "6.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 40,
+          "inStock": 6,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1793,10 +1793,10 @@
           "supplierId": 4,
           "categoryId": 6,
           "quantity": "18 - 500 g pkgs.",
-          "price": "97.0000",
-          "inStock": "29.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 97,
+          "inStock": 29,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -1805,10 +1805,10 @@
           "supplierId": 4,
           "categoryId": 8,
           "quantity": "12 - 200 ml jars",
-          "price": "31.0000",
-          "inStock": "31.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 31,
+          "inStock": 31,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1817,10 +1817,10 @@
           "supplierId": 5,
           "categoryId": 4,
           "quantity": "1 kg pkg.",
-          "price": "21.0000",
-          "inStock": "22.0000",
-          "onOrder": "30.0000",
-          "reorderLevel": "30.0000",
+          "price": 21,
+          "inStock": 22,
+          "onOrder": 30,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -1829,10 +1829,10 @@
           "supplierId": 5,
           "categoryId": 4,
           "quantity": "10 - 500 g pkgs.",
-          "price": "38.0000",
-          "inStock": "86.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 38,
+          "inStock": 86,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1841,10 +1841,10 @@
           "supplierId": 6,
           "categoryId": 8,
           "quantity": "2 kg box",
-          "price": "6.0000",
-          "inStock": "24.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "5.0000",
+          "price": 6,
+          "inStock": 24,
+          "onOrder": 0,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -1853,10 +1853,10 @@
           "supplierId": 6,
           "categoryId": 7,
           "quantity": "40 - 100 g pkgs.",
-          "price": "23.2500",
-          "inStock": "35.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 23.25,
+          "inStock": 35,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1865,10 +1865,10 @@
           "supplierId": 6,
           "categoryId": 2,
           "quantity": "24 - 250 ml bottles",
-          "price": "15.5000",
-          "inStock": "39.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "5.0000",
+          "price": 15.5,
+          "inStock": 39,
+          "onOrder": 0,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -1877,10 +1877,10 @@
           "supplierId": 7,
           "categoryId": 3,
           "quantity": "32 - 500 g boxes",
-          "price": "17.4500",
-          "inStock": "29.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 17.45,
+          "inStock": 29,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -1889,10 +1889,10 @@
           "supplierId": 7,
           "categoryId": 6,
           "quantity": "20 - 1 kg tins",
-          "price": "39.0000",
-          "inStock": "0.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 39,
+          "inStock": 0,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -1901,10 +1901,10 @@
           "supplierId": 7,
           "categoryId": 8,
           "quantity": "16 kg pkg.",
-          "price": "62.5000",
-          "inStock": "42.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 62.5,
+          "inStock": 42,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1913,10 +1913,10 @@
           "supplierId": 8,
           "categoryId": 3,
           "quantity": "10 boxes x 12 pieces",
-          "price": "9.2000",
-          "inStock": "25.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "5.0000",
+          "price": 9.2,
+          "inStock": 25,
+          "onOrder": 0,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -1925,10 +1925,10 @@
           "supplierId": 8,
           "categoryId": 3,
           "quantity": "30 gift boxes",
-          "price": "81.0000",
-          "inStock": "40.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 81,
+          "inStock": 40,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -1937,10 +1937,10 @@
           "supplierId": 8,
           "categoryId": 3,
           "quantity": "24 pkgs. x 4 pieces",
-          "price": "10.0000",
-          "inStock": "3.0000",
-          "onOrder": "40.0000",
-          "reorderLevel": "5.0000",
+          "price": 10,
+          "inStock": 3,
+          "onOrder": 40,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -1949,10 +1949,10 @@
           "supplierId": 9,
           "categoryId": 5,
           "quantity": "24 - 500 g pkgs.",
-          "price": "21.0000",
-          "inStock": "104.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "25.0000",
+          "price": 21,
+          "inStock": 104,
+          "onOrder": 0,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -1961,10 +1961,10 @@
           "supplierId": 9,
           "categoryId": 5,
           "quantity": "12 - 250 g pkgs.",
-          "price": "9.0000",
-          "inStock": "61.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "25.0000",
+          "price": 9,
+          "inStock": 61,
+          "onOrder": 0,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -1973,10 +1973,10 @@
           "supplierId": 10,
           "categoryId": 1,
           "quantity": "12 - 355 ml cans",
-          "price": "4.5000",
-          "inStock": "20.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 4.5,
+          "inStock": 20,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -1985,10 +1985,10 @@
           "supplierId": 11,
           "categoryId": 3,
           "quantity": "20 - 450 g glasses",
-          "price": "14.0000",
-          "inStock": "76.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "30.0000",
+          "price": 14,
+          "inStock": 76,
+          "onOrder": 0,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -1997,10 +1997,10 @@
           "supplierId": 11,
           "categoryId": 3,
           "quantity": "100 - 250 g bags",
-          "price": "31.2300",
-          "inStock": "15.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 31.23,
+          "inStock": 15,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2009,10 +2009,10 @@
           "supplierId": 11,
           "categoryId": 3,
           "quantity": "100 - 100 g pieces",
-          "price": "43.9000",
-          "inStock": "49.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "30.0000",
+          "price": 43.9,
+          "inStock": 49,
+          "onOrder": 0,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -2021,10 +2021,10 @@
           "supplierId": 12,
           "categoryId": 7,
           "quantity": "25 - 825 g cans",
-          "price": "45.6000",
-          "inStock": "26.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 45.6,
+          "inStock": 26,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -2033,10 +2033,10 @@
           "supplierId": 12,
           "categoryId": 6,
           "quantity": "50 bags x 30 sausgs.",
-          "price": "123.7900",
-          "inStock": "0.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 123.79,
+          "inStock": 0,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -2045,10 +2045,10 @@
           "supplierId": 13,
           "categoryId": 8,
           "quantity": "10 - 200 g glasses",
-          "price": "25.8900",
-          "inStock": "10.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 25.89,
+          "inStock": 10,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2057,10 +2057,10 @@
           "supplierId": 14,
           "categoryId": 4,
           "quantity": "12 - 100 g pkgs",
-          "price": "12.5000",
-          "inStock": "0.0000",
-          "onOrder": "70.0000",
-          "reorderLevel": "20.0000",
+          "price": 12.5,
+          "inStock": 0,
+          "onOrder": 70,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2069,10 +2069,10 @@
           "supplierId": 14,
           "categoryId": 4,
           "quantity": "24 - 200 g pkgs.",
-          "price": "32.0000",
-          "inStock": "9.0000",
-          "onOrder": "40.0000",
-          "reorderLevel": "25.0000",
+          "price": 32,
+          "inStock": 9,
+          "onOrder": 40,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2081,10 +2081,10 @@
           "supplierId": 15,
           "categoryId": 4,
           "quantity": "500 g",
-          "price": "2.5000",
-          "inStock": "112.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "20.0000",
+          "price": 2.5,
+          "inStock": 112,
+          "onOrder": 0,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2093,10 +2093,10 @@
           "supplierId": 16,
           "categoryId": 1,
           "quantity": "24 - 12 oz bottles",
-          "price": "14.0000",
-          "inStock": "111.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 14,
+          "inStock": 111,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2105,10 +2105,10 @@
           "supplierId": 16,
           "categoryId": 1,
           "quantity": "24 - 12 oz bottles",
-          "price": "18.0000",
-          "inStock": "20.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 18,
+          "inStock": 20,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2117,10 +2117,10 @@
           "supplierId": 17,
           "categoryId": 8,
           "quantity": "24 - 250 g  jars",
-          "price": "19.0000",
-          "inStock": "112.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "20.0000",
+          "price": 19,
+          "inStock": 112,
+          "onOrder": 0,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2129,10 +2129,10 @@
           "supplierId": 17,
           "categoryId": 8,
           "quantity": "12 - 500 g pkgs.",
-          "price": "26.0000",
-          "inStock": "11.0000",
-          "onOrder": "50.0000",
-          "reorderLevel": "25.0000",
+          "price": 26,
+          "inStock": 11,
+          "onOrder": 50,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2141,10 +2141,10 @@
           "supplierId": 18,
           "categoryId": 1,
           "quantity": "12 - 75 cl bottles",
-          "price": "263.5000",
-          "inStock": "17.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 263.5,
+          "inStock": 17,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2153,10 +2153,10 @@
           "supplierId": 18,
           "categoryId": 1,
           "quantity": "750 cc per bottle",
-          "price": "18.0000",
-          "inStock": "69.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "5.0000",
+          "price": 18,
+          "inStock": 69,
+          "onOrder": 0,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -2165,10 +2165,10 @@
           "supplierId": 19,
           "categoryId": 8,
           "quantity": "24 - 4 oz tins",
-          "price": "18.4000",
-          "inStock": "123.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "30.0000",
+          "price": 18.4,
+          "inStock": 123,
+          "onOrder": 0,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -2177,10 +2177,10 @@
           "supplierId": 19,
           "categoryId": 8,
           "quantity": "12 - 12 oz cans",
-          "price": "9.6500",
-          "inStock": "85.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 9.65,
+          "inStock": 85,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -2189,10 +2189,10 @@
           "supplierId": 20,
           "categoryId": 5,
           "quantity": "32 - 1 kg pkgs.",
-          "price": "14.0000",
-          "inStock": "26.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 14,
+          "inStock": 26,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -2201,10 +2201,10 @@
           "supplierId": 20,
           "categoryId": 1,
           "quantity": "16 - 500 g tins",
-          "price": "46.0000",
-          "inStock": "17.0000",
-          "onOrder": "10.0000",
-          "reorderLevel": "25.0000",
+          "price": 46,
+          "inStock": 17,
+          "onOrder": 10,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2213,10 +2213,10 @@
           "supplierId": 20,
           "categoryId": 2,
           "quantity": "20 - 2 kg bags",
-          "price": "19.4500",
-          "inStock": "27.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 19.45,
+          "inStock": 27,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2225,10 +2225,10 @@
           "supplierId": 21,
           "categoryId": 8,
           "quantity": "1k pkg.",
-          "price": "9.5000",
-          "inStock": "5.0000",
-          "onOrder": "70.0000",
-          "reorderLevel": "15.0000",
+          "price": 9.5,
+          "inStock": 5,
+          "onOrder": 70,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2237,10 +2237,10 @@
           "supplierId": 21,
           "categoryId": 8,
           "quantity": "4 - 450 g glasses",
-          "price": "12.0000",
-          "inStock": "95.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 12,
+          "inStock": 95,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2249,10 +2249,10 @@
           "supplierId": 22,
           "categoryId": 3,
           "quantity": "10 - 4 oz boxes",
-          "price": "9.5000",
-          "inStock": "36.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 9.5,
+          "inStock": 36,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2261,10 +2261,10 @@
           "supplierId": 22,
           "categoryId": 3,
           "quantity": "10 pkgs.",
-          "price": "12.7500",
-          "inStock": "15.0000",
-          "onOrder": "70.0000",
-          "reorderLevel": "25.0000",
+          "price": 12.75,
+          "inStock": 15,
+          "onOrder": 70,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2273,10 +2273,10 @@
           "supplierId": 23,
           "categoryId": 3,
           "quantity": "24 - 50 g pkgs.",
-          "price": "20.0000",
-          "inStock": "10.0000",
-          "onOrder": "60.0000",
-          "reorderLevel": "15.0000",
+          "price": 20,
+          "inStock": 10,
+          "onOrder": 60,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2285,10 +2285,10 @@
           "supplierId": 23,
           "categoryId": 3,
           "quantity": "12 - 100 g bars",
-          "price": "16.2500",
-          "inStock": "65.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "30.0000",
+          "price": 16.25,
+          "inStock": 65,
+          "onOrder": 0,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -2297,10 +2297,10 @@
           "supplierId": 24,
           "categoryId": 7,
           "quantity": "50 - 300 g pkgs.",
-          "price": "53.0000",
-          "inStock": "20.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 53,
+          "inStock": 20,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -2309,10 +2309,10 @@
           "supplierId": 24,
           "categoryId": 5,
           "quantity": "16 - 2 kg boxes",
-          "price": "7.0000",
-          "inStock": "38.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "25.0000",
+          "price": 7,
+          "inStock": 38,
+          "onOrder": 0,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2321,10 +2321,10 @@
           "supplierId": 24,
           "categoryId": 6,
           "quantity": "48 pieces",
-          "price": "32.8000",
-          "inStock": "0.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 32.8,
+          "inStock": 0,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": true
         },
         {
@@ -2333,10 +2333,10 @@
           "supplierId": 25,
           "categoryId": 6,
           "quantity": "16 pies",
-          "price": "7.4500",
-          "inStock": "21.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 7.45,
+          "inStock": 21,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -2345,10 +2345,10 @@
           "supplierId": 25,
           "categoryId": 6,
           "quantity": "24 boxes x 2 pies",
-          "price": "24.0000",
-          "inStock": "115.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "20.0000",
+          "price": 24,
+          "inStock": 115,
+          "onOrder": 0,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2357,10 +2357,10 @@
           "supplierId": 26,
           "categoryId": 5,
           "quantity": "24 - 250 g pkgs.",
-          "price": "38.0000",
-          "inStock": "21.0000",
-          "onOrder": "10.0000",
-          "reorderLevel": "30.0000",
+          "price": 38,
+          "inStock": 21,
+          "onOrder": 10,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -2369,10 +2369,10 @@
           "supplierId": 26,
           "categoryId": 5,
           "quantity": "24 - 250 g pkgs.",
-          "price": "19.5000",
-          "inStock": "36.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "20.0000",
+          "price": 19.5,
+          "inStock": 36,
+          "onOrder": 0,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2381,10 +2381,10 @@
           "supplierId": 27,
           "categoryId": 8,
           "quantity": "24 pieces",
-          "price": "13.2500",
-          "inStock": "62.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "20.0000",
+          "price": 13.25,
+          "inStock": 62,
+          "onOrder": 0,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2393,10 +2393,10 @@
           "supplierId": 28,
           "categoryId": 4,
           "quantity": "5 kg pkg.",
-          "price": "55.0000",
-          "inStock": "79.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 55,
+          "inStock": 79,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2405,10 +2405,10 @@
           "supplierId": 28,
           "categoryId": 4,
           "quantity": "15 - 300 g rounds",
-          "price": "34.0000",
-          "inStock": "19.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 34,
+          "inStock": 19,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2417,10 +2417,10 @@
           "supplierId": 29,
           "categoryId": 2,
           "quantity": "24 - 500 ml bottles",
-          "price": "28.5000",
-          "inStock": "113.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "25.0000",
+          "price": 28.5,
+          "inStock": 113,
+          "onOrder": 0,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2429,10 +2429,10 @@
           "supplierId": 29,
           "categoryId": 3,
           "quantity": "48 pies",
-          "price": "49.3000",
-          "inStock": "17.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 49.3,
+          "inStock": 17,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2441,10 +2441,10 @@
           "supplierId": 7,
           "categoryId": 2,
           "quantity": "15 - 625 g jars",
-          "price": "43.9000",
-          "inStock": "24.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "5.0000",
+          "price": 43.9,
+          "inStock": 24,
+          "onOrder": 0,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -2453,10 +2453,10 @@
           "supplierId": 12,
           "categoryId": 5,
           "quantity": "20 bags x 4 pieces",
-          "price": "33.2500",
-          "inStock": "22.0000",
-          "onOrder": "80.0000",
-          "reorderLevel": "30.0000",
+          "price": 33.25,
+          "inStock": 22,
+          "onOrder": 80,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -2465,10 +2465,10 @@
           "supplierId": 2,
           "categoryId": 2,
           "quantity": "32 - 8 oz bottles",
-          "price": "21.0500",
-          "inStock": "76.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 21.05,
+          "inStock": 76,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2477,10 +2477,10 @@
           "supplierId": 2,
           "categoryId": 2,
           "quantity": "24 - 8 oz jars",
-          "price": "17.0000",
-          "inStock": "4.0000",
-          "onOrder": "100.0000",
-          "reorderLevel": "20.0000",
+          "price": 17,
+          "inStock": 4,
+          "onOrder": 100,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2489,10 +2489,10 @@
           "supplierId": 16,
           "categoryId": 1,
           "quantity": "24 - 12 oz bottles",
-          "price": "14.0000",
-          "inStock": "52.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "10.0000",
+          "price": 14,
+          "inStock": 52,
+          "onOrder": 0,
+          "reorderLevel": 10,
           "discontinued": false
         },
         {
@@ -2501,10 +2501,10 @@
           "supplierId": 8,
           "categoryId": 3,
           "quantity": "10 boxes x 8 pieces",
-          "price": "12.5000",
-          "inStock": "6.0000",
-          "onOrder": "10.0000",
-          "reorderLevel": "15.0000",
+          "price": 12.5,
+          "inStock": 6,
+          "onOrder": 10,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2513,10 +2513,10 @@
           "supplierId": 15,
           "categoryId": 4,
           "quantity": "10 kg pkg.",
-          "price": "36.0000",
-          "inStock": "26.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 36,
+          "inStock": 26,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         },
         {
@@ -2525,10 +2525,10 @@
           "supplierId": 7,
           "categoryId": 1,
           "quantity": "24 - 355 ml bottles",
-          "price": "15.0000",
-          "inStock": "15.0000",
-          "onOrder": "10.0000",
-          "reorderLevel": "30.0000",
+          "price": 15,
+          "inStock": 15,
+          "onOrder": 10,
+          "reorderLevel": 30,
           "discontinued": false
         },
         {
@@ -2537,10 +2537,10 @@
           "supplierId": 15,
           "categoryId": 4,
           "quantity": "10 - 500 g pkgs.",
-          "price": "21.5000",
-          "inStock": "26.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 21.5,
+          "inStock": 26,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2549,10 +2549,10 @@
           "supplierId": 14,
           "categoryId": 4,
           "quantity": "24 - 200 g pkgs.",
-          "price": "34.8000",
-          "inStock": "14.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "0.0000",
+          "price": 34.8,
+          "inStock": 14,
+          "onOrder": 0,
+          "reorderLevel": 0,
           "discontinued": false
         },
         {
@@ -2561,10 +2561,10 @@
           "supplierId": 17,
           "categoryId": 8,
           "quantity": "24 - 150 g jars",
-          "price": "15.0000",
-          "inStock": "101.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "5.0000",
+          "price": 15,
+          "inStock": 101,
+          "onOrder": 0,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -2573,10 +2573,10 @@
           "supplierId": 4,
           "categoryId": 7,
           "quantity": "5 kg pkg.",
-          "price": "10.0000",
-          "inStock": "4.0000",
-          "onOrder": "20.0000",
-          "reorderLevel": "5.0000",
+          "price": 10,
+          "inStock": 4,
+          "onOrder": 20,
+          "reorderLevel": 5,
           "discontinued": false
         },
         {
@@ -2585,10 +2585,10 @@
           "supplierId": 12,
           "categoryId": 1,
           "quantity": "24 - 0.5 l bottles",
-          "price": "7.7500",
-          "inStock": "125.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "25.0000",
+          "price": 7.75,
+          "inStock": 125,
+          "onOrder": 0,
+          "reorderLevel": 25,
           "discontinued": false
         },
         {
@@ -2597,10 +2597,10 @@
           "supplierId": 23,
           "categoryId": 1,
           "quantity": "500 ml",
-          "price": "18.0000",
-          "inStock": "57.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "20.0000",
+          "price": 18,
+          "inStock": 57,
+          "onOrder": 0,
+          "reorderLevel": 20,
           "discontinued": false
         },
         {
@@ -2609,10 +2609,10 @@
           "supplierId": 12,
           "categoryId": 2,
           "quantity": "12 boxes",
-          "price": "13.0000",
-          "inStock": "32.0000",
-          "onOrder": "0.0000",
-          "reorderLevel": "15.0000",
+          "price": 13,
+          "inStock": 32,
+          "onOrder": 0,
+          "reorderLevel": 15,
           "discontinued": false
         }
       ]

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
 import { debug } from 'console'
@@ -38,6 +39,10 @@ export class MssqlConnectionPool extends ConnectionPool {
 			connection.cnx.close()
 			debug('connection closed')
 		})
+	}
+
+	public async end (): Promise<void> {
+		console.log('mssql end pool not Implemented')
 	}
 }
 

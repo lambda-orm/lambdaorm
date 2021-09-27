@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Cache, IOrm, Context, Config } from './model'
 import { Model, NodeManager } from './node/index'
 import { Expression, MemoryCache, Transaction } from './manager'
@@ -88,6 +89,13 @@ class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Frees the resources used, for example the connection pools
+	 */
+	public async end ():Promise<void> {
+		await orm.connection.end()
+	}
+
 	public get node ():NodeManager {
 		return this.nodeManager
 	}
@@ -162,14 +170,14 @@ class Orm implements IOrm {
 	}
 
 	public expression (value:string):Expression {
-		return new Expression(this, value)
+		return new Expression(this, value.trim())
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public lambda (value:Function):Expression {
-		const str = value.toString()
+		const str = value.toString().trim()
 		const index = str.indexOf('=>') + 2
-		const expression = str.substring(index, str.length)
+		const expression = str.substring(index, str.length).trim()
 		return new Expression(this, expression)
 	}
 

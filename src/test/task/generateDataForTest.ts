@@ -1,4 +1,5 @@
-import { orm, Parameter } from '../../orm'
+import { orm } from '../../orm'
+import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
 const path = require('path')
@@ -15,46 +16,7 @@ async function exec(fn: any) {
   }
   return result
 }
-interface Test {
-  schema: string
-  categories: CategoryTest[]
-}
-interface CategoryTest {
-  name: string
-  schema: string
-  context: any
-  test: ExpressionTest[]
-  errors?: number
-}
-interface ExpressionTest {
-  name: string
-  lambda: any
-  context?: any
-  expression?: string
-  completeExpression?: string
-  model?: any
-  fields?: any
-  parameters?: Parameter[]
-  sentences?: SentenceTest[]
-  executions?: ExecutionTest[]
-  error?: string
-  errors?: number
-  result?: any
-}
-interface SentenceTest {
-  dialect: string
-  sentence?: any
-  error?: string
-}
-interface ExecutionTest {
-  database: string
-  result?: any
-  error?: string
-}
-interface ExecutionResult {
-  database: string
-  result?: any
-}
+
 async function writeTest(dialects: string[], databases: string[], category: CategoryTest): Promise<number> {
   category.errors = 0
   for (const q in category.test) {
@@ -139,7 +101,7 @@ async function writeTest(dialects: string[], databases: string[], category: Cate
     category.errors += expressionTest.errors
   }
   try {
-    let yamlStr = yaml.safeDump(category)
+    let yamlStr = yaml.safeDump(JSON.parse(JSON.stringify(category)))
     fs.writeFileSync(path.join('src/test/dataForTest', category.name.replace(' ', '_') + '.yaml'), yamlStr)
   } catch (error) {
     console.error(error)
@@ -162,24 +124,26 @@ async function writeQueryTest(dialects: string[], databases: string[]): Promise<
       , b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
     }
     , test: [
-      { name: 'query 1', lambda: () => Products.map(p => p) }
-      , { name: 'query 2', lambda: () => Products }
-      , { name: 'query 3', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => p) }
-      , { name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id) }
+      { name: 'query 1', lambda: () => Products.map(p => p).page(1, 1) }
+      , { name: 'query 2', lambda: () => Products.page(1, 1) }
+      , { name: 'query 3', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => p).sort(p => p.id) }
+      , { name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).sort(p => p.id) }
       , { name: 'query 5', context: 'a', lambda: () => Products.map(p => p.category.name) }
-      , { name: 'query 6', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
+      , { name: 'query 6', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) }
       , { name: 'query 7', lambda: () => Products.filter(p => p.discontinued != false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) }
       , { name: 'query 8', context: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
-      , { name: 'query 9', lambda: () => OrderDetails.map(p => ({ order: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })) }
+      , { name: 'query 9', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
       , { name: 'query 10', lambda: () => Products.page(1, 1) }
       , { name: 'query 11', lambda: () => Products.first(p => p) }
       , { name: 'query 12', lambda: () => Products.last(p => p) }
       , { name: 'query 13', lambda: () => Products.take(p => p) }
-      , { name: 'query 14', lambda: () => Products.distinct(p => p) }
-      , { name: 'query 15', lambda: () => Products.page(1, 1) }
-      , { name: 'query 16', context: 'a', lambda: () => Products.distinct(p => p.category.name) }
-      , { name: 'query 17', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
-      , { name: 'query 18', lambda: () => Products.filter(p => p.discontinued != false).last(p => p) }
+      , { name: 'query 14', lambda: () => Products.page(1, 1) }
+      , { name: 'query 15', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) }
+      , { name: 'query 16', lambda: () => Products.filter(p => p.discontinued != false).last(p => p) }
+      , { name: 'query 17', lambda: () => Products.distinct(p => p) }
+      , { name: 'query 18', context: 'a', lambda: () => Products.distinct(p => p.category.name) }
+      , { name: 'query 19', context: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) }
+      , { name: 'query 20', context: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
     ]
   })
 }
@@ -188,21 +152,22 @@ async function writeNumeriFunctionsTest(dialects: string[], databases: string[])
     name: 'numeric functions', schema: 'northwind:0.0.2'
     , context: { a: { id: 1 } }
     , test:
-      [{ name: 'function abs', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price * -1, result: abs(p.price * -1) })) }
-        , { name: 'function acos', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: acos(0.25) })) }
-        , { name: 'function asin', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: asin(0.25) })) }
-        , { name: 'function atan', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: atan(0.25) })) }
-        , { name: 'function atan2', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.50, result: atan2(0.25, 1) })) }
-        , { name: 'function ceil', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: ceil(25.75) })) }
-        , { name: 'function cos', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: cos(2) })) }
-        , { name: 'function exp', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1, result: exp(1) })) }
-        , { name: 'function floor', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: floor(25.75) })) }
-        , { name: 'function ln', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: ln(2) })) }
-        , { name: 'function log', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10, n: 20, result: log(10, 20) })) }
+      [
+        { name: 'function abs', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price * -1, result: round(abs(p.price * -1), 10) })) }
+        , { name: 'function acos', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: round(acos(0.25), 10) })) }
+        , { name: 'function asin', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: round(asin(0.25), 10) })) }
+        , { name: 'function atan', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25, result: round(atan(0.25), 10) })) }
+        , { name: 'function atan2', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.50, result: round(atan2(0.25, 1), 10) })) }
+        , { name: 'function ceil', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: round(ceil(25.75), 10) })) }
+        , { name: 'function cos', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: round(cos(2), 10) })) }
+        , { name: 'function exp', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1, result: round(exp(1), 10) })) }
+        , { name: 'function floor', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75, result: round(floor(25.75), 10) })) }
+        , { name: 'function ln', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2, result: round(ln(2), 10) })) }
+        , { name: 'function log', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10, n: 20, result: round(log(10, 20), 10) })) }
         , { name: 'function round', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: round(135.375, 2) })) }
-        , { name: 'function sign', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 255.5, result: sign(255.5) })) }
-        , { name: 'function tan', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1.75, result: tan(1.75) })) }
-        , { name: 'function trunc', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: trunc(135.375, 2) })) }
+        , { name: 'function sign', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 255.5, result: round(sign(255.5), 10) })) }
+        , { name: 'function tan', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1.75, result: round(tan(1.75), 10) })) }
+        , { name: 'function trunc', context: 'a', lambda: (id: number) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 135.375, result: round(trunc(135.375, 2), 10) })) }
       ]
   })
 }
@@ -1047,11 +1012,10 @@ async function bulkInsert2() {
   let result = await exec(async () => (await orm.expression(expression).execute(orders, 'source')))
 }
 
-export async function apply(configPath: string, callback: any) {
+export async function apply(configPath: string, databases: string[], callback: any) {
 
   await orm.init(configPath)
   let errors = 0
-  let databases: string[] = ['mysql', 'postgres']
   let dialects = Object.values(orm.language.dialects).filter((p: any) => p.language == 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']
 
   errors = +await writeQueryTest(dialects, databases)
@@ -1074,6 +1038,9 @@ export async function apply(configPath: string, callback: any) {
   // await applySchema(schemas)
   // await bulkInsert2(orm)
 
+  await orm.end()
+
   console.log(`INFO: ${errors} errors`)
   callback()
 }
+// apply('./src/test/config.yaml', ['mysql', 'postgres'], function () { console.log('end')})

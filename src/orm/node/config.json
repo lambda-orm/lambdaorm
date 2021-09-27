@@ -623,6 +623,17 @@
         }
       ]
     },
+    "distinct": {
+      "desc": null,
+      "category": "general",
+      "return": "T",
+      "params": [
+        {
+          "name": "value",
+          "type": "T"
+        }
+      ]
+    },
     "desc": {
       "desc": null,
       "category": "sort",

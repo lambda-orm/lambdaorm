@@ -1,38 +1,70 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-tabs */
+
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
-// import { promisify } from 'util'
 
-// import * as mysql from 'mysql2/promise'
+const DECIMAL = 0
+const TINY = 1
+// const SHORT = 2
+const LONG = 3
+const FLOAT = 4
+const DOUBLE = 5
+// const NULL = 6
+const TIMESTAMP = 7
+const LONGLONG = 8
+const INT24 = 9
+const DATE = 10
+const TIME = 11
+const DATETIME = 12
+// const YEAR = 13
+const NEWDATE = 14
+// const VARCHAR = 15
+const BIT = 16
+// const JSON = 245
+const NEWDECIMAL = 246
+// const ENUM = 247
+// const SET = 248
+// const TINY_BLOB = 249
+// const MEDIUM_BLOB = 250
+// const LONG_BLOB = 251
+// const BLOB = 252
+// const VAR_STRING = 253
+// const STRING = 254
+// const GEOMETRY = 255
+
 export class MySqlConnectionPool extends ConnectionPool {
-private static mysql:any
-// private pool:any
-constructor (config:ConnectionConfig) {
-	super(config)
-	if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2/promise') }
-	// let _config = { ...config.connection, ...{waitForConnections: true,connectionLimit: 10,queueLimit: 0}};
-	// this.pool = MySqlConnectionPool.mysql.createPool(_config);
-}
+	private static mysql:any
+	private pool:any
+	constructor (config:ConnectionConfig) {
+		super(config)
+		if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2/promise') }
+		// https://github.com/sidorares/node-mysql2/issues/795
+		// https:// stackoverflow.com/questions/64774472/how-do-i-determine-the-column-type-name-from-the-columntype-integer-value-in-mys
+		const casts = {
+			typeCast: function (field:any, next:any) {
+				if (field.type === 'DECIMAL') {
+					const value = field.string()
+					return (value === null) ? null : Number(value)
+				}
+				return next()
+			}
+		}
+		this.pool = MySqlConnectionPool.mysql.createPool({ ...config.connection, ...casts })
+	}
 
-public async acquire ():Promise<Connection> {
-	// let cnx = await this.pool.getConnection();
-	// const cnx = await new Promise((resolve, reject) => {
-	//     this.pool.getConnection((error:any, connection:any) => {
-	//       if (error) {
-	//         reject(error);
-	//       } else {
-	//         resolve(connection);
-	//       }
-	//     });
-	// });
-	const cnx = await MySqlConnectionPool.mysql.createConnection(this.config.connection)
-	await cnx.connect()
-	return new MySqlConnection(cnx, this)
-}
+	public async acquire (): Promise<Connection> {
+		const cnx = await this.pool.getConnection()
+		return new MySqlConnection(cnx, this)
+	}
 
-public async release (connection:Connection):Promise<void> {
-	await connection.cnx.end()
-// this.pool.releaseConnection(connection.cnx);
-}
+	public async release (connection:Connection):Promise<void> {
+		await connection.cnx.release()
+	}
+
+	public async end (): Promise<void> {
+		this.pool.end()
+	}
 }
 
 export class MySqlConnection extends Connection {
@@ -98,6 +130,7 @@ export class MySqlConnection extends Connection {
 		// Solve array parameters , example IN(?) where ? is array[]
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
+		let result:any
 		const values:any[] = []
 		// en el caso de haber un array con elementos string no se esta pudiendo resolver el IN(,,,) con execute
 		// por este motivo se esta usando query en este caso.
@@ -108,12 +141,66 @@ export class MySqlConnection extends Connection {
 		for (let i = 0; i < params.length; i++) { values.push(params[i].value) }
 
 		if (useExecute) {
-			const result = await this.cnx.execute(sql, values)
-			return result[0]
+			result = await this.cnx.execute(sql, values)
 		} else {
-			const result = await this.cnx.query(sql, values)
-			return result[0]
+			result = await this.cnx.query(sql, values)
 		}
+
+		const rows = result[0]
+		const cols = result[1]
+		for (let i = 0; i < rows.length; i++) {
+			const row = rows[i]
+			for (let j = 0; j < cols.length; j++) {
+				const col = cols[j]
+				const value = row[col.name]
+				if (value !== null) {
+					switch (col.columnType) {
+					case TINY:
+						// Boolean
+						// https://www.javatpoint.com/mysql-boolean#:~:text=MySQL%20does%20not%20contain%20built,to%200%20and%201%20value.
+						row[col.name] = value === 1
+						break
+					case DECIMAL:
+					case LONG:
+					case FLOAT:
+					case DOUBLE:
+					case LONGLONG:
+					case INT24:
+					case NEWDECIMAL:
+						row[col.name] = Number(value)
+						break
+					case DATETIME:
+					case DATE:
+					case TIME:
+					case NEWDATE:
+					case TIMESTAMP:
+						row[col.name] = new Date(value)
+						break
+					case BIT:
+						row[col.name] = Boolean(value)
+						break
+					}
+				}
+			}
+		}
+		return rows
+
+		// const TINY = 1
+		// const SHORT = 2
+		// const NULL = 6
+		// const YEAR = 13
+		// const VARCHAR = 15
+		// const JSON = 245
+		// const ENUM = 247
+		// const SET = 248
+		// const TINY_BLOB = 249
+		// const MEDIUM_BLOB = 250
+		// const LONG_BLOB = 251
+		// const BLOB = 252
+		// const VAR_STRING = 253
+		// const STRING = 254
+		// const GEOMETRY = 255
+
 		// for(let i=0;i<params.length;i++){
 		//     let param = params[i];
 		//     if(param.type=='array')

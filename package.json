@@ -2,11 +2,14 @@
 	"name": "lambda-orm",
 	"version": "0.0.1",
 	"description": "ORM",
-	"main": "./dist/orm/orm.js",
+	"main": "dist/orm/index.js",
+	"types": "dist/orm/index.ts",
 	"scripts": {
-		"build-all": "node config/build.js && tsc",
-		"build": "tsc",
-		"test": "mocha"
+		"build": "node config/build.js && tsc",
+		"lint": "npx eslint src",
+		"unit-test": "jest --config jest-unit-config.json",
+		"integration-test": "jest --config jest-integration-config.json",
+		"test-old": "mocha"
 	},
 	"nodemonConfig": {
 		"watch": [
@@ -50,13 +53,13 @@
 	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
 	"dependencies": {
 		"luxon": "^2.0.2",
-		"sqlstring": "^2.3.2"
+		"sqlstring": "^2.3.2",
+		"config-extends": "^1.0.4"
 	},
 	"devDependencies": {
-		"mysql2": "^2.2.5",
-		"pg": "^8.7.1",
 		"@babel/eslint-parser": "^7.15.4",
 		"@types/express": "^4.17.12",
+		"@types/jest": "^27.0.1",
 		"@types/morgan": "^1.9.2",
 		"@types/mysql": "^2.15.18",
 		"@types/node": "^15.12.2",
@@ -65,7 +68,6 @@
 		"@typescript-eslint/parser": "^4.31.1",
 		"chai": "^4.2.0",
 		"concurrently": "^6.2.0",
-		"config-extends": "^1.0.4",
 		"dotenv": "^10.0.0",
 		"eslint": "^7.32.0",
 		"eslint-config-standard": "^16.0.3",
@@ -77,8 +79,12 @@
 		"grunt-contrib-jshint": "^3.0.0",
 		"grunt-contrib-uglify": "^5.0.1",
 		"grunt-exec": "^3.0.0",
+		"jest": "^27.2.1",
 		"mocha": "^8.2.1",
+		"mysql2": "^2.2.5",
 		"nodemon": "^2.0.7",
+		"pg": "^8.7.1",
+		"ts-jest": "^27.0.5",
 		"ts-node": "^10.0.0",
 		"typescript": "^4.3.5"
 	}

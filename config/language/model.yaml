@@ -388,7 +388,14 @@ functions:
     - name: value
       type: T
     - name: name
-      type: string 
+      type: string
+  distinct:
+    desc:
+    category: general 
+    return: T
+    params:
+    - name: value
+      type: T      
 # sort:---------------------------------------------------------         
   desc:
     desc:
@@ -424,7 +431,7 @@ functions:
     - name: value
       type: T
     - name: list
-      type: T[] 
+      type: T[]      
 # numeric:---------------------------------------------------------       
   abs:
     desc: Get the absolute value     

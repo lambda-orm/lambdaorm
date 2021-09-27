@@ -1,9 +1,10 @@
+/* eslint-disable linebreak-style */
 import { Node } from '../node/index'
 import { Property, Parameter, Context } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
-	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Insert, Update, Delete,
+	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
 	SentenceInclude, ArrowFunction, ChildFunction
 } from './operands'
 import { LanguageManager } from './languageManager'
@@ -352,6 +353,12 @@ export class OperandManager {
 				operand = this.createClause(clause, schema, context)
 				children.push(operand)
 			}
+			if (clauses.page) {
+				const clause = clauses.page
+				const childs = clause.children.map((p:Node) => this.nodeToOperand(p, schema, context))
+				operand = new Page(clause.name, childs)
+				children.push(operand)
+			}
 		}
 		if (clauses.include) {
 			if (!createInclude) { throw new Error('Include not implemented!!!') }
@@ -392,8 +399,6 @@ export class OperandManager {
 		case 'filter': return new Filter(clause.name, [child])
 		case 'having': return new Having(clause.name, [child])
 		case 'sort': return new Sort(clause.name, [child])
-			// case 'limit':
-			// case 'offset':
 		default: throw new Error('clause : ' + clause.name + ' not supported')
 		}
 	}
@@ -519,10 +524,17 @@ export class OperandManager {
 	}
 
 	private fieldsInSelect (operand:Operand):Property[] {
-		const fields:Property[] = []
+		const fields: Property[] = []
 		if (operand.children.length === 1) {
-			if (operand.children[0] instanceof Obj) {
-				const obj = operand.children[0]
+			let child:Operand
+			if (operand.children[0] instanceof FunctionRef && operand.children[0].name === 'distinct') {
+				child = operand.children[0].children[0]
+			} else {
+				child = operand.children[0]
+			}
+
+			if (child instanceof Obj) {
+				const obj = child
 				for (const p in obj.children) {
 					const keyVal = obj.children[p]
 					if (keyVal.children[0] instanceof Field) {
@@ -534,8 +546,8 @@ export class OperandManager {
 						fields.push(field)
 					}
 				}
-			} else if (operand.children[0] instanceof List) {
-				const array = operand.children[0]
+			} else if (child instanceof List) {
+				const array = child
 				for (let i = 0; i < array.children.length; i++) {
 					const element = array.children[i]
 					if (element instanceof Field) {
@@ -548,9 +560,9 @@ export class OperandManager {
 						fields.push(field)
 					}
 				}
-			} else if (operand.children[0] instanceof Field) {
-				const parts = operand.children[0].name.split('.')
-				const _field = operand.children[0] as Field
+			} else if (child instanceof Field) {
+				const parts = child.name.split('.')
+				const _field = child as Field
 				const field = { name: parts[parts.length - 1], type: _field.type }
 				fields.push(field)
 			} else {
