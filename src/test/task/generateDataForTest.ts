@@ -1019,9 +1019,9 @@ export async function apply(configPath: string, databases: string[], callback: a
   let dialects = Object.values(orm.language.dialects).filter((p: any) => p.language == 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']
 
   errors = +await writeQueryTest(dialects, databases)
-  // errors = +await writeNumeriFunctionsTest(dialects, databases)
-  // errors = +await writeGroupByTest(dialects, databases)
-  // errors = +await writeIncludeTest(dialects, databases)
+  errors = +await writeNumeriFunctionsTest(dialects, databases)
+  errors = +await writeGroupByTest(dialects, databases)
+  errors = +await writeIncludeTest(dialects, databases)
   // errors=+await writeInsertsTest(dialects,databases)
   // errors=+await writeUpdateTest(dialects,databases)
   // errors=+await writeDeleteTest(dialects,databases)
@@ -1043,4 +1043,4 @@ export async function apply(configPath: string, databases: string[], callback: a
   console.log(`INFO: ${errors} errors`)
   callback()
 }
-// apply('./src/test/config.yaml', ['mysql','postgres'], function () { console.log('end')})
+// apply('./src/test/config.yaml', ['mysql'], function () { console.log('end')})

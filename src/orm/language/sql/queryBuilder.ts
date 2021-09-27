@@ -207,8 +207,8 @@ export class SqlQueryBuilder implements IQueryBuilder {
 
 	private buildPage (operand:Page, metadata:SqlDialectMetadata):string {
 		let template = metadata.dml('page')
-		let page = parseInt(operand.children[0].name)
-		const records = parseInt(operand.children[1].name)
+		let page = parseInt(operand.children[1].name)
+		const records = parseInt(operand.children[2].name)
 		if (page < 1)page = 1
 		template = template.replace('{offset}', ((page - 1) * records).toString())
 		template = Helper.replace(template, '{records}', records.toString())

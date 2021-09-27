@@ -4,7 +4,7 @@ import { Property, Parameter, Context } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
-	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Insert, Update, Delete,
+	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
 	SentenceInclude, ArrowFunction, ChildFunction
 } from './operands'
 import { LanguageManager } from './languageManager'
@@ -353,6 +353,12 @@ export class OperandManager {
 				operand = this.createClause(clause, schema, context)
 				children.push(operand)
 			}
+			if (clauses.page) {
+				const clause = clauses.page
+				const childs = clause.children.map((p:Node) => this.nodeToOperand(p, schema, context))
+				operand = new Page(clause.name, childs)
+				children.push(operand)
+			}
 		}
 		if (clauses.include) {
 			if (!createInclude) { throw new Error('Include not implemented!!!') }
@@ -393,8 +399,6 @@ export class OperandManager {
 		case 'filter': return new Filter(clause.name, [child])
 		case 'having': return new Having(clause.name, [child])
 		case 'sort': return new Sort(clause.name, [child])
-			// case 'limit':
-			// case 'offset':
 		default: throw new Error('clause : ' + clause.name + ' not supported')
 		}
 	}

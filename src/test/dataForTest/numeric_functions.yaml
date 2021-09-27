@@ -58,7 +58,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: -18
@@ -113,7 +112,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 0.25
@@ -168,7 +166,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 0.25
@@ -223,7 +220,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 0.25
@@ -282,7 +278,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 0.5
@@ -341,7 +336,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 25.75
@@ -395,7 +389,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 2
@@ -449,7 +442,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 1
@@ -508,7 +500,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 25.75
@@ -562,7 +553,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 2
@@ -624,7 +614,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         m: 10
@@ -680,7 +669,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 135.375
@@ -739,7 +727,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 255.5
@@ -793,7 +780,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 1.75
@@ -852,7 +838,6 @@ test:
         type: any
     executions:
       - database: mysql
-      - database: postgres
     result:
       - name: Chai
         source: 135.375
