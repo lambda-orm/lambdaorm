@@ -1,9 +1,9 @@
-name: Develop-CI
+name: Main-CI
 on:
   push:
-    branches: [develop]
+    branches: [main]
   pull_request:
-    branches: [develop]
+    branches: [main]
   workflow_dispatch:
 jobs:
   unit-test:
@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+      - run: npm install -g grunt-cli
       - run: npm install
       - name: Build
         run: npm run build
