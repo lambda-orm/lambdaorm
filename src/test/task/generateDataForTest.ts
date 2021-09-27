@@ -1043,4 +1043,4 @@ export async function apply(configPath: string, databases: string[], callback: a
   console.log(`INFO: ${errors} errors`)
   callback()
 }
-// apply('./src/test/config.yaml', ['mysql'], function () { console.log('end')})
+// apply('./src/test/config.yaml', ['mysql', 'postgres'], function () { console.log('end')})
