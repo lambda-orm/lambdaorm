@@ -1,4 +1,4 @@
-import { orm } from '../../orm'
+import { orm,Helper } from '../../orm'
 import { CategoryTest, ExpressionTest } from './testModel'
 import fs from 'fs'
 import path from 'path'
@@ -7,7 +7,7 @@ const ConfigExtends = require('config-extends')
 async function writeUnitTest(dialects: string[], category: CategoryTest): Promise<void> {
 
 	const lines: string[] = []
-	lines.push(`import { orm } from '../../orm'`)
+	lines.push(`import { orm,Helper } from '../../orm'`)
 	lines.push(`beforeAll(async () => {`)
 	lines.push(`\trequire('dotenv').config({ path: './src/test/test.env' })`)
 	lines.push(`\tawait orm.init('./src/test/config.yaml')`)
@@ -53,10 +53,12 @@ async function writeUnitTest(dialects: string[], category: CategoryTest): Promis
 			for (const r in dialects) {
 				const dialect = dialects[r]
 				if (expTest.sentences !== undefined) {
-					const sentence = expTest.sentences.find(p => p.dialect == dialect && p.error === undefined)?.sentence
+					let sentence = expTest.sentences.find(p => p.dialect == dialect && p.error === undefined)?.sentence
+					sentence=Helper.replace(sentence,'\n','; ')
 					if (sentence) {
 						lines.push(`\t\tconst ${dialect}Expected = '${sentence}'`)
-						lines.push(`\t\tconst ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.schema}')`)
+						lines.push(`\t\let ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.schema}')`)
+						lines.push(`\t\t${dialect}=Helper.replace(${dialect},'\\n','; ')`)
 						lines.push(`\t\texpect(${dialect}Expected).toBe(${dialect})`)
 					}
 				}
@@ -120,4 +122,4 @@ export async function apply(dataForTestPath: string, databases: string[], callba
 	callback()
 }
 
-// apply(path.join(process.cwd(),'src/test/dataForTest'),['mysql', 'postgres'],function () { console.log('end')})
+apply(path.join(process.cwd(),'src/test/dataForTest'),['mysql', 'postgres'],function () { console.log('end')})
