@@ -1,5 +1,4 @@
 const fs = require('fs')
-// const path = require('path')
 require('dotenv').config({ path: './src/test/test.env' })
 
 const databases = ['mysql', 'postgres']
@@ -51,8 +50,8 @@ module.exports = function (grunt) {
 		task.apply(dataForTestPath, databases, done)
 	})
 
-	// Default task(s).
-	// grunt.registerTask('default', ['populate_source'])
-	grunt.registerTask('build_test', ['drop_dbs', 'clean_data', 'create_dbs', 'populate_source', 'populate_databases', 'generate_data_for_test', 'generate_test'])
+	grunt.registerTask('prepate_databases', ['drop_dbs', 'clean_data', 'create_dbs', 'populate_source', 'populate_databases'])
+	grunt.registerTask('build_test', ['prepate_databases', 'generate_data_for_test', 'generate_test'])
+	grunt.registerTask('end_test', ['drop_dbs', 'clean_data'])
 	grunt.registerTask('default', [])
 }
