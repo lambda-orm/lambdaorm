@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { ConnectionConfig } from './connectionConfig'
 import { Connection } from './connection'
 

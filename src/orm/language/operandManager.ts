@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Node } from '../node/index'
 import { Property, Parameter, Context } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
