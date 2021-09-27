@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Node, Model } from '../node/index'
 import { Context, Delta, IOrm } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { ConnectionConfig } from './connectionConfig'
 import { Connection } from './connection'
 
@@ -7,8 +8,7 @@ export abstract class ConnectionPool {
 		this.config = config
 	}
 
-	// public async initialize():Promise<void>{}
 	public abstract acquire():Promise<Connection>
-	public abstract release(connection:Connection):Promise<void>
-	// public async finalize():Promise<void>{}
+	public abstract release(connection: Connection): Promise<void>
+	public abstract end():Promise<void>
 }

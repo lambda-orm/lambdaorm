@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
 import { Helper } from './../../helper'
@@ -8,7 +9,34 @@ export class PostgresConnectionPool extends ConnectionPool {
 	private static pg:any
 	constructor (config:ConnectionConfig) {
 		super(config)
-		if (!PostgresConnectionPool.pg) { PostgresConnectionPool.pg = require('pg') }
+		if (!PostgresConnectionPool.pg) {
+			const pg = require('pg')
+			// Solve error number as string in queries
+			// https://stackoverflow.com/questions/39168501/pg-promise-returns-integers-as-strings
+			// https://www.npmjs.com/package/pg-types
+			pg.types.setTypeParser(pg.types.builtins.INT2, (value: string) => {
+				return parseInt(value)
+			})
+			pg.types.setTypeParser(pg.types.builtins.INT4, (value: string) => {
+				return parseInt(value)
+			})
+			pg.types.setTypeParser(pg.types.builtins.INT8, (value: string) => {
+				return parseInt(value)
+			})
+			pg.types.setTypeParser(pg.types.builtins.FLOAT4, (value: string) => {
+				return parseFloat(value)
+			})
+			pg.types.setTypeParser(pg.types.builtins.FLOAT8, (value: string) => {
+				return parseFloat(value)
+			})
+			pg.types.setTypeParser(pg.types.builtins.NUMERIC, (value: string) => {
+				return parseFloat(value)
+			})
+			pg.types.setTypeParser(pg.types.builtins.MONEY, (value: string) => {
+				return parseFloat(value)
+			})
+			PostgresConnectionPool.pg = pg
+		}
 	}
 
 	public async acquire ():Promise<Connection> {
@@ -19,6 +47,10 @@ export class PostgresConnectionPool extends ConnectionPool {
 
 	public async release (connection:Connection):Promise<void> {
 		await connection.cnx.end()
+	}
+
+	public async end (): Promise<void> {
+		console.log('postgres end pool not Implemented')
 	}
 }
 export class PostgresConnection extends Connection {

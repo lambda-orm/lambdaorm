@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Node } from '../node/index'
 import { SchemaHelper } from '../schema/schemaHelper'
 
@@ -72,9 +73,12 @@ export class QueryCompleter {
 				const map = clauses.map
 				this.completeMapNode(entity, map, schema)
 			} else if (clauses.distinct) {
-				compleInclude = this.completeDisctintInclude
-				const map = clauses.distinct
-				this.completeMapNode(entity, map, schema)
+				// Replace distict for map and add function distinct to child of map
+				compleInclude = this.completeMapInclude
+				const node = clauses.distinct
+				node.name = 'map'
+				this.completeMapNode(entity, node, schema)
+				node.children[2] = new Node('distinct', 'funcRef', [node.children[2]])
 			} else if (clauses.first) {
 				// Add orderby and limit , replace first for map
 				// example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1
@@ -251,10 +255,6 @@ export class QueryCompleter {
 
 	private completeMapInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
 		return this.completeSelectInclude(entity, arrowVar, node, schema, 'map')
-	}
-
-	private completeDisctintInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
-		return this.completeSelectInclude(entity, arrowVar, node, schema, 'distinct')
 	}
 
 	private completeSelectInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper, clause:string):Node {

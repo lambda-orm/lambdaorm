@@ -1,7 +1,8 @@
+/* eslint-disable linebreak-style */
 import { Helper } from '../../helper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
-	Sentence, From, Join, Map, Distinct, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
+	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
 	SentenceInclude, Query, Include
 } from './../operands'
 import { IQueryBuilder } from './../iQueryBuilder'
@@ -103,8 +104,6 @@ export class SqlQueryBuilder implements IQueryBuilder {
 
 	private buildSentence (sentence:Sentence, metadata:SqlDialectMetadata):string {
 		const map = sentence.children.find(p => p.name === 'map')as Map|undefined
-		const distinct = sentence.children.find(p => p.name === 'distinct')as Distinct|undefined
-		const select = distinct !== undefined ? distinct : map
 		const insert = sentence.children.find(p => p instanceof Insert) as Insert|undefined
 		const update = sentence.children.find(p => p instanceof Update) as Update|undefined
 		const _delete = sentence.children.find(p => p instanceof Delete) as Delete|undefined
@@ -115,10 +114,10 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		const page = sentence.children.find(p => p.name === 'page')as Page|undefined
 
 		let text = ''
-		if (select) {
+		if (map) {
 			const from = sentence.children.find(p => p instanceof From) as Operand
 			const joins = sentence.children.filter(p => p instanceof Join)
-			text = this.buildArrowFunction(select, metadata) + ' ' + this.solveFrom(from, metadata) + ' ' + this.solveJoins(joins, metadata)
+			text = this.buildArrowFunction(map, metadata) + ' ' + this.solveFrom(from, metadata) + ' ' + this.solveJoins(joins, metadata)
 		} else if (insert)text = this.buildInsert(insert, metadata)
 		else if (update)text = this.buildUpdate(update, metadata)
 		else if (_delete)text = this.buildDelete(_delete, metadata)
@@ -208,8 +207,8 @@ export class SqlQueryBuilder implements IQueryBuilder {
 
 	private buildPage (operand:Page, metadata:SqlDialectMetadata):string {
 		let template = metadata.dml('page')
-		let page = parseInt(operand.children[0].name)
-		const records = parseInt(operand.children[1].name)
+		let page = parseInt(operand.children[1].name)
+		const records = parseInt(operand.children[2].name)
 		if (page < 1)page = 1
 		template = template.replace('{offset}', ((page - 1) * records).toString())
 		template = Helper.replace(template, '{records}', records.toString())

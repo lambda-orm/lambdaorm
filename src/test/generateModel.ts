@@ -6,7 +6,8 @@ const start = async () => {
   try {
     await orm.init(path.join(process.cwd(), 'src/test/config.yaml'))
     const content = orm.database.model('source')
-    fs.writeFileSync('src/test/model.d.ts', content)
+		fs.writeFileSync('src/test/model.d.ts', content)
+		await orm.end()
   } catch (error) {
     console.log(error)
   }

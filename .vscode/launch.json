@@ -61,6 +61,26 @@
 			"type": "node-terminal"
 		},
 		{
+			"name": "drop dbs",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"drop_dbs"
+			],
+			"stopOnEntry": false
+		},
+		{
+			"name": "clean data",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"clean_data"
+			],
+			"stopOnEntry": false
+		},
+		{
 			"name": "populate source",
 			"type": "node",
 			"request": "launch",
@@ -80,16 +100,76 @@
 			],
 			"stopOnEntry": false
 		},
+		// {
+		// 	"name": "populate databases",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"skipFiles": [
+		// 		"<node_internals>/**"
+		// 	],
+		// 	"program": "${workspaceFolder}/dist/test/task/populateDatabases.js",
+		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// },
+		// {
+		// 	"name": "generate data for test",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate_data_for_test"
+		// 	],
+		// 	"stopOnEntry": false
+		// },
 		{
 			"name": "generate data for test",
 			"type": "node",
 			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
+			"envFile": "${workspaceFolder}/src/test/test.env"
+		},
+		// {
+		// 	"name": "generate test",
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate_test"
+		// 	],
+		// 	"stopOnEntry": false
+		// },
+		{
+			"name": "generate test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/dist/test/task/generateTest.js",
+			"envFile": "${workspaceFolder}/src/test/test.env"
+		},
+		{
+			"name": "build test",
+			"type": "node",
+			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"generate_data_for_test"
+				"build_test"
 			],
 			"stopOnEntry": false
 		},
+		// {
+		// 	"type": "node",
+		// 	"request": "launch",
+		// 	"name": "generate test",
+		// 	"skipFiles": [
+		// 		"<node_internals>/**"
+		// 	],
+		// 	"program": "${workspaceFolder}/dist/test/task/generateTest.js",
+		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// },
 		{
 			"type": "node",
 			"request": "launch",

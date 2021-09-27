@@ -2,14 +2,18 @@ _extends: [sql]
 types:
   datetime: TIMESTAMP
 ddl:
-  incrementalColumDefine: '{name} serial'
-  dropPk: 'DROP CONSTRAINT {name}'
-  dropUk: 'DROP CONSTRAINT {name}'
-  dropFk: 'DROP CONSTRAINT {name}'
-  dropIndex: 'DROP INDEX {name}'
+  incrementalColumDefine: "{name} serial"
+  dropPk: "DROP CONSTRAINT {name}"
+  dropUk: "DROP CONSTRAINT {name}"
+  dropFk: "DROP CONSTRAINT {name}"
+  dropIndex: "DROP INDEX {name}"
 dml:
-  page: OFFSET {offset} LIMIT {records} 
+  page: OFFSET {offset} LIMIT {records}
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id
-  bulkInsert: INSERT INTO {name}({fields}) VALUES 
+  bulkInsert: INSERT INTO {name}({fields}) VALUES
 others:
-  variable: '${number}'
+  variable: "${number}"
+functions:
+  numeric:
+    round: "ROUND(CAST({0} AS DECIMAL),{1})"
+    remainder: "MOD({0},{1})"
