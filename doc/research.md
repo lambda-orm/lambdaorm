@@ -145,3 +145,4 @@ npm install -g gulp-cli
 ## Publish
 
 - [publish](https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c)
+- [guthub wf](https://dev.to/savchenko91/auto-publish-npm-package-with-github-actions-57jh)

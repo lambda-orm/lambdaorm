@@ -3,7 +3,7 @@
 	"version": "0.0.15",
 	"description": "ORM",
 	"main": "dist/orm/index.js",
-	"types": "dist/orm/index.ts",
+	"types": "dist/orm/index.d.ts",
 	"scripts": {
 		"build": "node config/build.js && tsc",
 		"lint": "npx eslint src",
