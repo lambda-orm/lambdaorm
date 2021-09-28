@@ -17,14 +17,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: npm install -g grunt-cli
-      - run: npm install
-      - name: Lint
-        run: npm run lint
+      - run: yarn install
       # set up git since we will later push to the repo
       - run: git config --global user.name "FlavioLionelRita"
       - run: git config --global user.email "flaviolrita@gmail.com"
-      - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
       # upgrade npm version in package.json to the tag used in the release.
       - run: npm version ${{ github.event.release.tag_name }}
       # build the project
@@ -33,6 +29,7 @@ jobs:
       # run tests just in case
       - name: Unit Tests
         run: npm run unit-test
+      - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
       # publish to NPM -> there is one caveat, continue reading for the fix
       - run: npm publish --tag ${{ github.event.release.target_commitish }}
         env:
