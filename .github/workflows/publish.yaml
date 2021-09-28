@@ -25,6 +25,8 @@ jobs:
       # build the project
       - name: Build
         run: npm run build
+      - name: Lint
+        run: npm run lint
       # run tests just in case
       - name: Unit Tests
         run: npm run unit-test
