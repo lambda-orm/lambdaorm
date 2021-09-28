@@ -12,6 +12,9 @@
 		"test-old": "mocha",
 		"semantic-release": "semantic-release"
 	},
+	"publishConfig": {
+		"tag": "v1-latest"
+	},
 	"release": {
 		"branches": [
 			"main"
