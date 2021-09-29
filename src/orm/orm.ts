@@ -68,6 +68,9 @@ class Orm implements IOrm {
 		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaORM.yaml'))) {
 			// if the default file exists in the root of the project
 			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaORM.yaml'))
+		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaorm.yaml'))) {
+			// if the default file exists in the root of the project
+			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaorm.yaml'))
 		} else {
 			console.log('lambdaomr [INFO] pending define configuration ')
 			return
@@ -76,7 +79,12 @@ class Orm implements IOrm {
 		if (!this.config.paths) { this.config.paths = {} }
 		if (!this.config.paths.state) { this.config.paths.state = path.join(process.cwd(), 'state') }
 		if (!this.config.paths.schemas) { this.config.paths.schemas = path.join(process.cwd(), 'schemas') }
-		if (!fs.existsSync(this.config.paths.state)) { fs.mkdirSync(this.config.paths.state) }
+		if (!this.config.paths.schemas) { this.config.paths.logs = path.join(process.cwd(), 'logs') }
+		if (!this.config.paths.schemas) { this.config.paths.data = path.join(process.cwd(), 'data') }
+		if (!fs.existsSync(this.config.paths.state)) { fs.mkdirSync(this.config.paths.state, { recursive: true }) }
+		if (!fs.existsSync(this.config.paths.schemas)) { fs.mkdirSync(this.config.paths.schemas, { recursive: true }) }
+		if (!fs.existsSync(this.config.paths.logs)) { fs.mkdirSync(this.config.paths.logs, { recursive: true }) }
+		if (!fs.existsSync(this.config.paths.data)) { fs.mkdirSync(this.config.paths.data, { recursive: true }) }
 		const _schemas = await ConfigExtends.apply(this.config.paths.schemas)
 		if (_schemas) {
 			for (const p in _schemas) {
