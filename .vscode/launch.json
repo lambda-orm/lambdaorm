@@ -11,17 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/lab/lab.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "app",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/dist/app/index.js",
+			"program": "${workspaceFolder}/src/test/lab/lab.ts",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
@@ -31,7 +21,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateModel.js",
+			"program": "${workspaceFolder}/src/test/task/generateModel.ts",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
@@ -41,24 +31,8 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/generateDataForTest.js",
+			"program": "${workspaceFolder}/src/test/generateDataForTest.ts",
 			"envFile": "${workspaceFolder}/src/test/test.env"
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "test complete expressions",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/dist/test/completeExpressions.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
-		},
-		{
-			"command": "npm run test",
-			"name": "test",
-			"request": "launch",
-			"type": "node-terminal"
 		},
 		{
 			"name": "drop dbs",
@@ -107,7 +81,7 @@
 		// 	"skipFiles": [
 		// 		"<node_internals>/**"
 		// 	],
-		// 	"program": "${workspaceFolder}/dist/test/task/populateDatabases.js",
+		// 	"program": "${workspaceFolder}/src/test/task/populateDatabases.ts",
 		// 	"envFile": "${workspaceFolder}/src/test/test.env"
 		// },
 		// {
@@ -127,7 +101,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
+			"program": "${workspaceFolder}/src/test/task/generateDataForTest.ts",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		// {
@@ -147,7 +121,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateTest.js",
+			"program": "${workspaceFolder}/src/test/task/generateTest.ts",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
@@ -167,7 +141,7 @@
 		// 	"skipFiles": [
 		// 		"<node_internals>/**"
 		// 	],
-		// 	"program": "${workspaceFolder}/dist/test/task/generateTest.js",
+		// 	"program": "${workspaceFolder}/src/test/task/generateTest.ts",
 		// 	"envFile": "${workspaceFolder}/src/test/test.env"
 		// },
 		{
@@ -178,12 +152,6 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/config/build.js"
-		},
-		{
-			"command": "npm run swagger",
-			"name": "Run npm swagger",
-			"request": "launch",
-			"type": "node-terminal"
-		},
+		}
 	]
 }

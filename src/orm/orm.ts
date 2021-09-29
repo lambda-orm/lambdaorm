@@ -16,7 +16,8 @@ const path = require('path')
 class Orm implements IOrm {
 	private _cache:Cache
 	public config:Config
-	private languageModel:Model
+	private languageModel: Model
+	// TODO: cambiar el nombre nodeManager por parserManager
 	private nodeManager:NodeManager
 	private schemaManager:SchemaManager
 	private databaseManager:DatabaseManager
