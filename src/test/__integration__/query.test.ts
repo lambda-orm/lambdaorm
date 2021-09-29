@@ -1,7 +1,7 @@
 import { orm } from '../../orm'
 beforeAll(async () => {
-	require('dotenv').config({ path: './src/test/test.env' })
-	await orm.init('./src/test/config.yaml')
+	require('dotenv').config({ path: './test.env' })
+	await orm.init()
 })
 describe('Execute', () => {
 	const context = {"a":{"id":1},"b":{"minValue":10,"from":"1997-01-01","to":"1997-12-31"}}

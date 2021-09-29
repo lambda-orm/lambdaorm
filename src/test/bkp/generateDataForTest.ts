@@ -1041,7 +1041,7 @@
 
 //   try
 //   {  
-//     await orm.init(path.join(process.cwd(),'src/test/config.yaml'))
+//     await orm.init()
 //     let errors=0
 //     let databases:string[]=[]//['mysql','postgres']
 //     let dialects = Object.values(orm.language.dialects).filter((p:any)=>p.language=='sql').map((p:any)=> p.name)// ['mysql','postgres','mssql','oracle']

@@ -1,38 +1,42 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+# NOTE
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+  This is used to report product bugs:
+  To report a security vulnerability, please visit [issues](https://github.com/FlavioLionelRita/lambda-orm/issues)
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Bug description
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Affected product area (please put an X in all that apply)
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+[ ] Docs
+[ ] Installation
+[ ] Networking
+[ ] Performance and Scalability
+[ ] Extensions and Telemetry
+[ ] Security
+[ ] Test and Release
+[ ] User Experience
+[ ] Developer Infrastructure
+[ ] Upgrade
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## Affected features (please put an X in all that apply)
 
-**Additional context**
-Add any other context about the problem here.
+[ ] Multi Cluster
+[ ] Virtual Machine
+[ ] Multi Control Plane
+
+## Expected behavior
+
+## Steps to reproduce the bug
+
+## Version
+
+ (include the output of `istioctl version --remote` and `kubectl version --short` and `helm version --short` if you used Helm)
+
+## Environment where the bug was observed (cloud vendor, OS, etc)
+
+Additionally, please consider running `istioctl bug-report` and attach the generated cluster-state tarball to this issue.
+Refer [cluster state archive](http://istio.io/help/bugs/#generating-a-cluster-state-archive) for more details.

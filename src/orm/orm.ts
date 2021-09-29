@@ -10,14 +10,15 @@ import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './node/config.json'
 import sqlConfig from './language/sql/config.json'
-import { Helper } from './helper'
+import { isGeneratorFunction } from 'util/types'
 const ConfigExtends = require('config-extends')
 const fs = require('fs')
 const path = require('path')
 class Orm implements IOrm {
 	private _cache:Cache
 	public config:Config
-	private languageModel:Model
+	private languageModel: Model
+	// TODO: cambiar el nombre nodeManager por parserManager
 	private nodeManager:NodeManager
 	private schemaManager:SchemaManager
 	private databaseManager:DatabaseManager
@@ -58,8 +59,21 @@ class Orm implements IOrm {
 	// this.connection.addType('oracle',OracleConnectionPool)
 	}
 
-	public async init (configPath:string = process.cwd()):Promise<void> {
-		this.config = await ConfigExtends.apply(configPath)
+	public async init (configPath?: string): Promise<void> {
+		if (configPath !== undefined && fs.existsSync(configPath)) {
+			// if a path is passed per argument
+			this.config = await ConfigExtends.apply(configPath)
+		} else if (process.env.LAMBDA_ORM_CONFIG !== undefined) {
+			// if the default environment variable exists
+			this.config = JSON.parse(process.env.LAMBDA_ORM_CONFIG)
+		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaORM.yaml'))) {
+			// if the default file exists in the root of the project
+			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaORM.yaml'))
+		} else {
+			console.log('lambdaomr [INFO] pending define configuration ')
+			return
+		}
+
 		if (!this.config.paths) { this.config.paths = {} }
 		if (!this.config.paths.state) { this.config.paths.state = path.join(process.cwd(), 'state') }
 		if (!this.config.paths.schemas) { this.config.paths.schemas = path.join(process.cwd(), 'schemas') }
@@ -74,16 +88,16 @@ class Orm implements IOrm {
 		if (this.config.databases) {
 			for (const p in this.config.databases) {
 				const database = this.config.databases[p]
-				if (!Helper.nvl(database.disable, false)) {
-					const connectionConfig:ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
-					if (database.connectionSource == null || database.connectionSource === 'direct') {
-						connectionConfig.connection = database.connection
-					} else if (database.connectionSource === 'env') {
-						const value = process.env[database.connection] as string
-						connectionConfig.connection = JSON.parse(value)
-					}
-					this.connection.load(connectionConfig)
+				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
+				if (typeof database.connection === 'string') {
+					const value = process.env[database.connection] as string
+					connectionConfig.connection = JSON.parse(value)
+				} else if (typeof database.connection === 'object') {
+					connectionConfig.connection = database.connection
+				} else {
+					throw new Error(`wrong connection in database ${database.name} `)
 				}
+				this.connection.load(connectionConfig)
 				this.database.load(database)
 			}
 		}

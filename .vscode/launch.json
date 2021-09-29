@@ -5,60 +5,43 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "node",
-			"request": "launch",
 			"name": "lab",
+			"type": "node",
+			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/lab/test.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"program": "${workspaceFolder}/src/dev/lab/lab.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "build config",
 			"type": "node",
 			"request": "launch",
-			"name": "app",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/app/index.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
 		},
 		{
-			"type": "node",
-			"request": "launch",
 			"name": "generate model",
+			"type": "node",
+			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/generateModel.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"program": "${workspaceFolder}/src/dev/task/generateModel.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
-			"type": "node",
-			"request": "launch",
 			"name": "generate data test files",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/dist/test/generateDataForTest.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
-		},
-		{
 			"type": "node",
 			"request": "launch",
-			"name": "test complete expressions",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/completeExpressions.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
-		},
-		{
-			"command": "npm run test",
-			"name": "test",
-			"request": "launch",
-			"type": "node-terminal"
+			"program": "${workspaceFolder}/src/dev/generateDataForTest.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "drop dbs",
@@ -66,7 +49,7 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"drop_dbs"
+				"drop-dbs"
 			],
 			"stopOnEntry": false
 		},
@@ -76,7 +59,7 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"clean_data"
+				"clean-data"
 			],
 			"stopOnEntry": false
 		},
@@ -86,7 +69,7 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"populate_source"
+				"populate-source"
 			],
 			"stopOnEntry": false
 		},
@@ -96,7 +79,7 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"populate_databases"
+				"populate-databases"
 			],
 			"stopOnEntry": false
 		},
@@ -107,8 +90,8 @@
 		// 	"skipFiles": [
 		// 		"<node_internals>/**"
 		// 	],
-		// 	"program": "${workspaceFolder}/dist/test/task/populateDatabases.js",
-		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// 	"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
+		// 	"envFile": "${workspaceFolder}/test.env"
 		// },
 		// {
 		// 	"name": "generate data for test",
@@ -116,7 +99,7 @@
 		// 	"request": "launch",
 		// 	"program": "/usr/bin/grunt",
 		// 	"args": [
-		// 		"generate_data_for_test"
+		// 		"generate-data-for-test"
 		// 	],
 		// 	"stopOnEntry": false
 		// },
@@ -127,8 +110,8 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateDataForTest.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		// {
 		// 	"name": "generate test",
@@ -136,7 +119,7 @@
 		// 	"request": "launch",
 		// 	"program": "/usr/bin/grunt",
 		// 	"args": [
-		// 		"generate_test"
+		// 		"generate-test"
 		// 	],
 		// 	"stopOnEntry": false
 		// },
@@ -147,8 +130,8 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/task/generateTest.js",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"program": "${workspaceFolder}/src/dev/task/generateTest.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "build test",
@@ -156,10 +139,10 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"build_test"
+				"build-test"
 			],
 			"stopOnEntry": false
-		},
+		}
 		// {
 		// 	"type": "node",
 		// 	"request": "launch",
@@ -167,23 +150,8 @@
 		// 	"skipFiles": [
 		// 		"<node_internals>/**"
 		// 	],
-		// 	"program": "${workspaceFolder}/dist/test/task/generateTest.js",
-		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// 	"program": "${workspaceFolder}/src/dev/task/generateTest.ts",
+		// 	"envFile": "${workspaceFolder}/test.env"
 		// },
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "update config",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/config/build.js"
-		},
-		{
-			"command": "npm run swagger",
-			"name": "Run npm swagger",
-			"request": "launch",
-			"type": "node-terminal"
-		},
 	]
 }
