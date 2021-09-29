@@ -1,27 +1,27 @@
 {
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "strict": true,
-        "declaration": true,
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "target": "ES6",
-        "module": "commonjs",
-        "outDir": "./dist",
-        "baseUrl": "./src",
-        "typeRoots": [
-            "node_modules/@types"
-        ]
-    },
-    "include": [
-        "src/**/*",
-        "Gruntfile.js"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/__jest__/*"
-    ]
+	"compilerOptions": {
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"declaration": true,
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"target": "ES6",
+		"module": "commonjs",
+		"outDir": "./build",
+		"baseUrl": "./src",
+		"typeRoots": [
+			"node_modules/@types"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"Gruntfile.js"
+	],
+	"exclude": [
+		"node_modules",
+		"**/__jest__/*"
+	]
 }

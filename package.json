@@ -5,11 +5,17 @@
 	"main": "dist/orm/index.js",
 	"types": "dist/orm/index.d.ts",
 	"scripts": {
-		"build": "node config/build.js && tsc",
-		"lint": "npx eslint src",
+		"----------------------------------------- tests ---------------------------------------------------": "",
 		"unit-test": "jest --config jest-unit-config.json",
 		"integration-test": "jest --config jest-integration-config.json",
-		"test-old": "mocha"
+		"----------------------------------------- tasks ---------------------------------------------------": "",
+		"build": "npm run build-config -- -w && tsc",
+		"build-config": "grunt build-config",
+		"lint": "npx eslint src",
+		"databases-down": "grunt databases-down",
+		"databases-up": "grunt databases-up",
+		"build-test": "grunt build-test",
+		"generate-test": "grunt generate-test"
 	},
 	"repository": {
 		"type": "git",
@@ -73,6 +79,7 @@
 		"grunt-contrib-uglify": "^5.0.1",
 		"grunt-exec": "^3.0.0",
 		"jest": "^27.2.1",
+		"load-grunt-tasks": "^5.1.0",
 		"mocha": "^8.2.1",
 		"mysql2": "^2.2.5",
 		"pg": "^8.7.1",

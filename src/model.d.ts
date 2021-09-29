@@ -1,4 +1,5 @@
-import '../orm/sintaxis'
+/* eslint-disable no-use-before-define */
+import './orm/sintaxis'
 declare global {
 	interface Category {
 		id: number
@@ -14,7 +15,7 @@ declare global {
 		city: string
 		region: string
 		postalCode: string
-		country: string		
+		country: string
 		orders: ManyToOne<Order>
 	}
 	interface Employee {
@@ -81,7 +82,7 @@ declare global {
 		postalCode: string
 		country: string
 		customer: Customer & OneToMany<Customer>
-		employee: Employee & OneToMany<Employee>		
+		employee: Employee & OneToMany<Employee>
 		details: ManyToOne<OrderDetail>
 	}
 	interface OrderDetail {

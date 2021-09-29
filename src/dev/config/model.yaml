@@ -155,6 +155,16 @@ operators:
         type: T
       - name: b
         type: T 
+    '===':
+      name: equal
+      category: comparison
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T     
     '!=':
       name: notEqual
       category: comparison
@@ -165,6 +175,16 @@ operators:
         type: T
       - name: b
         type: T 
+    '!==':
+      name: notEqual
+      category: comparison
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T     
     '>':
       name: greaterThan
       category: comparison

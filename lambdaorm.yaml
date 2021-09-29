@@ -1,6 +1,9 @@
 paths:
-  schemas: "src/test/schemas"
-  state: "src/test/state"
+  schemas: "lambdaorm/schemas"
+  state: "lambdaorm/state"
+  data: "lambdaorm/data"
+  logs: "lambdaorm/logs"
+  src: "src"
 databases:
   - name: source
     schema: northwind:0.0.2
