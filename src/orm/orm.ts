@@ -10,7 +10,6 @@ import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './node/config.json'
 import sqlConfig from './language/sql/config.json'
-import { isGeneratorFunction } from 'util/types'
 const ConfigExtends = require('config-extends')
 const fs = require('fs')
 const path = require('path')
