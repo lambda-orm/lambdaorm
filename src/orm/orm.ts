@@ -68,6 +68,9 @@ class Orm implements IOrm {
 		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaORM.yaml'))) {
 			// if the default file exists in the root of the project
 			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaORM.yaml'))
+		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaorm.yaml'))) {
+			// if the default file exists in the root of the project
+			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaorm.yaml'))
 		} else {
 			console.log('lambdaomr [INFO] pending define configuration ')
 			return
