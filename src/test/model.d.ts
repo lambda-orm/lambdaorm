@@ -14,8 +14,7 @@ declare global {
 		city: string
 		region: string
 		postalCode: string
-		country: string
-		// eslint-disable-next-line no-use-before-define
+		country: string		
 		orders: ManyToOne<Order>
 	}
 	interface Employee {
@@ -82,8 +81,7 @@ declare global {
 		postalCode: string
 		country: string
 		customer: Customer & OneToMany<Customer>
-		employee: Employee & OneToMany<Employee>
-		// eslint-disable-next-line no-use-before-define
+		employee: Employee & OneToMany<Employee>		
 		details: ManyToOne<OrderDetail>
 	}
 	interface OrderDetail {

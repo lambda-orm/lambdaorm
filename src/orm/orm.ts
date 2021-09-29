@@ -74,16 +74,16 @@ class Orm implements IOrm {
 		if (this.config.databases) {
 			for (const p in this.config.databases) {
 				const database = this.config.databases[p]
-				if (!Helper.nvl(database.disable, false)) {
-					const connectionConfig:ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
-					if (database.connectionSource == null || database.connectionSource === 'direct') {
-						connectionConfig.connection = database.connection
-					} else if (database.connectionSource === 'env') {
-						const value = process.env[database.connection] as string
-						connectionConfig.connection = JSON.parse(value)
-					}
-					this.connection.load(connectionConfig)
+				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
+				if (typeof database.connection === 'string') {
+					const value = process.env[database.connection] as string
+					connectionConfig.connection = JSON.parse(value)
+				} else if (typeof database.connection === 'object') {
+					connectionConfig.connection = database.connection
+				} else {
+					throw new Error(`wrong connection in database ${database.name} `)
 				}
+				this.connection.load(connectionConfig)
 				this.database.load(database)
 			}
 		}

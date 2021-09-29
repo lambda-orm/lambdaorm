@@ -5,13 +5,11 @@ databases:
   - name: source
     schema: northwind:0.0.2
     dialect: mysql
-    # disable: true
     connectionSource: env
     connection: ORM_CNN_SOURCE
   - name: mysql
     schema: northwind:0.0.2
     dialect: mysql
-    # disable: true
     connectionSource: direct
     connection:
       host: "0.0.0.0"
@@ -19,16 +17,18 @@ databases:
       user: test
       password: test
       database: northwind
+      multipleStatements: true
+      waitForConnections: true
+      connectionLimit: 10
+      queueLimit: 0
   # - name: mariadb
   #   schema: northwind:0.0.2
   #   dialect: mariadb
-  #   # disable: true
   #   connectionSource: env
   #   connection: ORM_CNN_3
   - name: postgres
     schema: northwind:0.0.2
     dialect: postgres
-    # disable: true
     connectionSource: env
     connection: ORM_CNN_POSTGRES
   # - name: mssql

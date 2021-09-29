@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/lab/test.js",
+			"program": "${workspaceFolder}/dist/test/lab/lab.js",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
@@ -31,7 +31,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/dist/test/generateModel.js",
+			"program": "${workspaceFolder}/dist/test/task/generateModel.js",
 			"envFile": "${workspaceFolder}/src/test/test.env"
 		},
 		{
