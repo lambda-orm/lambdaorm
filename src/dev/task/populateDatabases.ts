@@ -18,8 +18,8 @@ async function schemaImport (source: string, target: string) {
 	await orm.database.import(target, data)
 }
 
-export async function apply (configPath: string, databases: string[], callback: any) {
-	await orm.init(configPath)
+export async function apply (databases: string[], callback: any) {
+	await orm.init()
 
 	await schemaSync('source')
 	await schemaExport('source')
@@ -34,4 +34,4 @@ export async function apply (configPath: string, databases: string[], callback: 
 	await orm.end()
 	callback()
 }
-// apply('./lambdaorm.yaml', ['mysql', 'postgres'], function () { console.log('end')})
+// apply(['mysql', 'postgres'], function () { console.log('end')})

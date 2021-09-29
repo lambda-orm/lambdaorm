@@ -2,7 +2,6 @@ const fs = require('fs')
 require('dotenv').config({ path: './test.env' })
 
 const databases = ['mysql', 'postgres']
-const configPath = './lambdaorm.yaml'
 
 module.exports = function (grunt) {
 	// Load the plugins
@@ -59,12 +58,12 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('populate-databases', 'populate databases for test', function () {
 		const task = require('./build/dev/task/populateDatabases')
-		task.apply(configPath, databases, this.async())
+		task.apply(databases, this.async())
 	})
 
 	grunt.registerTask('generate-data-for-test', 'generate data for test', function () {
 		const task = require('./build/dev/task/generateDataForTest')
-		task.apply(configPath, databases, this.async())
+		task.apply(databases, this.async())
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {

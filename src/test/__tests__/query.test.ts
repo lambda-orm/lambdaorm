@@ -1,7 +1,7 @@
 import { orm,Helper } from '../../orm'
 beforeAll(async () => {
 	require('dotenv').config({ path: './test.env' })
-	await orm.init('./lambdaorm.yaml')
+	await orm.init()
 })
 describe('Complete Expression', () => {
 	test('query 1', () => {

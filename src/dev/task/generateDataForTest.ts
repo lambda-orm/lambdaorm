@@ -1006,8 +1006,8 @@ async function bulkInsert2 () {
 	const result = await exec(async () => (await orm.expression(expression).execute(orders, 'source')))
 }
 
-export async function apply (configPath: string, databases: string[], callback: any) {
-	await orm.init(configPath)
+export async function apply (databases: string[], callback: any) {
+	await orm.init()
 	let errors = 0
 	const dialects = Object.values(orm.language.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']
 
@@ -1035,4 +1035,4 @@ export async function apply (configPath: string, databases: string[], callback: 
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-// apply('./lambdaorm.yaml', ['mysql', 'postgres'], function () { console.log('end')})
+// apply(['mysql', 'postgres'], function () { console.log('end')})

@@ -1,9 +1,9 @@
 import { orm } from '../../orm'
 const fs = require('fs')
 
-export async function apply (configPath: string, callback: any) {
+export async function apply (callback: any) {
 	try {
-		await orm.init(configPath)
+		await orm.init()
 		const content = orm.database.model('source')
 		fs.writeFileSync('src/test/model.d.ts', content)
 	} catch (error) {
@@ -13,4 +13,4 @@ export async function apply (configPath: string, callback: any) {
 		callback()
 	}
 }
-// apply('./lambdaorm.yaml'), function () {console.log('end') })
+// apply(function () {console.log('end') })
