@@ -79,7 +79,7 @@ class Orm implements IOrm {
 		if (!this.config.paths) { this.config.paths = {} }
 		if (!this.config.paths.state) { this.config.paths.state = path.join(process.cwd(), 'state') }
 		if (!this.config.paths.schemas) { this.config.paths.schemas = path.join(process.cwd(), 'schemas') }
-		if (!fs.existsSync(this.config.paths.state)) { fs.mkdirSync(this.config.paths.state) }
+		if (!fs.existsSync(this.config.paths.state)) { fs.mkdirSync(this.config.paths.state, { recursive: true }) }
 		const _schemas = await ConfigExtends.apply(this.config.paths.schemas)
 		if (_schemas) {
 			for (const p in _schemas) {
