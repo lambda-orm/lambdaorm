@@ -1,7 +1,7 @@
 import { orm } from '../../orm'
 beforeAll(async () => {
-	require('dotenv').config({ path: './src/test/test.env' })
-	await orm.init('./src/test/config.yaml')
+	require('dotenv').config({ path: './test.env' })
+	await orm.init('./lambdaorm.yaml')
 })
 describe('Execute', () => {
 	const context = {"a":{"id":1,"list_id":[null],"list_orderId":[1]}}

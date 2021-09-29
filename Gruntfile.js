@@ -1,5 +1,5 @@
 const fs = require('fs')
-require('dotenv').config({ path: './src/test/test.env' })
+require('dotenv').config({ path: './test.env' })
 
 const databases = ['mysql', 'postgres']
 const configPath = './lambdaorm.yaml'

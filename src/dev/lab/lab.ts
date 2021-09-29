@@ -15,4 +15,4 @@ export async function apply (configPath: string, callback: any) {
 		callback()
 	}
 }
-apply(path.join(process.cwd(), 'src/test/config.yaml'), function () { console.log('end') })
+apply(path.join(process.cwd(), './lambdaorm.yaml'), function () { console.log('end') })

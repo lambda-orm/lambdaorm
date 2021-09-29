@@ -12,7 +12,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "build config",
@@ -31,7 +31,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/generateModel.ts",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "generate data test files",
@@ -41,7 +41,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "drop dbs",
@@ -91,7 +91,7 @@
 		// 		"<node_internals>/**"
 		// 	],
 		// 	"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
-		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// 	"envFile": "${workspaceFolder}/test.env"
 		// },
 		// {
 		// 	"name": "generate data for test",
@@ -111,7 +111,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		// {
 		// 	"name": "generate test",
@@ -131,7 +131,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/generateTest.ts",
-			"envFile": "${workspaceFolder}/src/test/test.env"
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "build test",
@@ -151,7 +151,7 @@
 		// 		"<node_internals>/**"
 		// 	],
 		// 	"program": "${workspaceFolder}/src/dev/task/generateTest.ts",
-		// 	"envFile": "${workspaceFolder}/src/test/test.env"
+		// 	"envFile": "${workspaceFolder}/test.env"
 		// },
 	]
 }

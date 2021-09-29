@@ -1035,4 +1035,4 @@ export async function apply (configPath: string, databases: string[], callback: 
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-// apply('./src/test/config.yaml', ['mysql', 'postgres'], function () { console.log('end')})
+// apply('./lambdaorm.yaml', ['mysql', 'postgres'], function () { console.log('end')})

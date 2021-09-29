@@ -8,8 +8,8 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 	const lines: string[] = []
 	lines.push('import { orm,Helper } from \'../../orm\'')
 	lines.push('beforeAll(async () => {')
-	lines.push('\trequire(\'dotenv\').config({ path: \'./src/test/test.env\' })')
-	lines.push('\tawait orm.init(\'./src/test/config.yaml\')')
+	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
+	lines.push('\tawait orm.init(\'./lambdaorm.yaml\')')
 	lines.push('})')
 
 	lines.push('describe(\'Complete Expression\', () => {')
@@ -79,8 +79,8 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 
 	lines.push('import { orm } from \'../../orm\'')
 	lines.push('beforeAll(async () => {')
-	lines.push('\trequire(\'dotenv\').config({ path: \'./src/test/test.env\' })')
-	lines.push('\tawait orm.init(\'./src/test/config.yaml\')')
+	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
+	lines.push('\tawait orm.init(\'./lambdaorm.yaml\')')
 	lines.push('})')
 
 	lines.push('describe(\'Execute\', () => {')
