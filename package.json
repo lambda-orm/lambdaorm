@@ -1,15 +1,15 @@
 {
 	"name": "lambda-orm",
-	"version": "0.0.15",
+	"version": "0.0.20",
 	"description": "ORM",
-	"main": "dist/orm/index.js",
-	"types": "dist/orm/index.d.ts",
 	"scripts": {
-		"build": "node config/build.js && tsc",
 		"lint": "npx eslint src",
+		"build": "grunt build-config && tsc",
+		"build-test": "grunt build-test",
+		"generate-test": "grunt generate-test",
 		"unit-test": "jest --config jest-unit-config.json",
 		"integration-test": "jest --config jest-integration-config.json",
-		"test-old": "mocha"
+		"dist": "grunt build-dist"
 	},
 	"repository": {
 		"type": "git",
@@ -68,11 +68,14 @@
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-promise": "^5.1.0",
 		"grunt": "^1.4.1",
+		"grunt-contrib-clean": "^2.0.0",
 		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-copy": "^1.0.0",
 		"grunt-contrib-jshint": "^3.0.0",
 		"grunt-contrib-uglify": "^5.0.1",
 		"grunt-exec": "^3.0.0",
 		"jest": "^27.2.1",
+		"load-grunt-tasks": "^5.1.0",
 		"mocha": "^8.2.1",
 		"mysql2": "^2.2.5",
 		"pg": "^8.7.1",

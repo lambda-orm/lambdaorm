@@ -1,4 +1,5 @@
-import '../orm/sintaxis'
+/* eslint-disable no-use-before-define */
+import './orm/sintaxis'
 declare global {
 	interface Category {
 		id: number
@@ -15,7 +16,6 @@ declare global {
 		region: string
 		postalCode: string
 		country: string
-		// eslint-disable-next-line no-use-before-define
 		orders: ManyToOne<Order>
 	}
 	interface Employee {
@@ -83,7 +83,6 @@ declare global {
 		country: string
 		customer: Customer & OneToMany<Customer>
 		employee: Employee & OneToMany<Employee>
-		// eslint-disable-next-line no-use-before-define
 		details: ManyToOne<OrderDetail>
 	}
 	interface OrderDetail {

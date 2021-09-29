@@ -53,7 +53,7 @@
 // }
 // (async () => {
 //   try {
-//     await orm.init(path.join(process.cwd(), 'src/test/config.yaml'))
+//     await orm.init()
 //     await toExpression()
 //   } catch (error) {
 //     console.log(error)

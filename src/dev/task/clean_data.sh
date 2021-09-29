@@ -6,6 +6,3 @@ do
   rm -f "./../state/${database}-state.json"
 done
 rm -rf ./../data/*
-rm -rf ./../dataForTest/*
-rm -rf ./../__integration__/*
-rm -rf ./../__tests__/*
