@@ -1,8 +1,8 @@
 paths:
-  schemas: "lambdaorm/schemas"
-  state: "lambdaorm/state"
-  data: "lambdaorm/data"
-  logs: "lambdaorm/logs"
+  schemas: "lambdaORM/schemas"
+  state: "lambdaORM/state"
+  data: "lambdaORM/data"
+  logs: "lambdaORM/logs"
   src: "src"
 databases:
   - name: source
