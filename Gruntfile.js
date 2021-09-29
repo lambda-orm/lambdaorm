@@ -50,8 +50,8 @@ module.exports = function (grunt) {
 		task.apply(dataForTestPath, databases, done)
 	})
 
-	grunt.registerTask('prepate_databases', ['drop_dbs', 'clean_data', 'create_dbs', 'populate_source', 'populate_databases'])
-	grunt.registerTask('build_test', ['prepate_databases', 'generate_data_for_test', 'generate_test'])
+	grunt.registerTask('prepare_databases', ['drop_dbs', 'clean_data', 'create_dbs', 'populate_source', 'populate_databases'])
+	grunt.registerTask('build_test', ['prepare_databases', 'generate_data_for_test', 'generate_test'])
 	grunt.registerTask('end_test', ['drop_dbs', 'clean_data'])
 	grunt.registerTask('default', [])
 }
