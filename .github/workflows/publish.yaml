@@ -30,6 +30,8 @@ jobs:
       # run tests just in case
       - name: Unit Tests
         run: npm run unit-test
+      - name: Build dist
+        run: npm run dist
       - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
       # publish to NPM -> there is one caveat, continue reading for the fix
       # - run: npm publish --tag ${{ github.event.release.target_commitish }}

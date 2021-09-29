@@ -116,8 +116,7 @@ export async function apply (dataForTestPath: string, databases: string[], callb
 		await writeUnitTest(dialects, testData[k])
 		await writeIntegrationTest(databases, testData[k])
 	}
-	console.log(testData)
 	callback()
 }
 
-// apply(path.join(process.cwd(),'src/dev/task/dataForTest'),['mysql', 'postgres'],function () { console.log('end')})
+apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres'], function () { console.log('end') })
