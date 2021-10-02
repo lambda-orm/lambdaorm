@@ -81,7 +81,22 @@ export class OperandManager {
 		for (const k in operand.children) {
 			children.push(this.serialize(operand.children[k]))
 		}
-		if (operand instanceof Sentence) { return { n: operand.name, t: operand.constructor.name, c: children, f: operand.columns, p: operand.parameters, e: operand.entity, a: operand.autoincrement } } else if (operand instanceof SentenceInclude) { return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation, v: operand.variable } } else if (operand instanceof Insert) { return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause, a: operand.autoincrement } } else if (operand instanceof KeyValue) { return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping } } else if (operand instanceof Field) { return { n: operand.name, t: operand.constructor.name, c: children, e: operand.entity, m: operand.mapping } } else if (operand instanceof Variable) { return { n: operand.name, t: operand.constructor.name, c: children, u: operand.number } } else { return { n: operand.name, t: operand.constructor.name, c: children } }
+		if (operand instanceof Sentence) {
+			return { n: operand.name, t: operand.constructor.name, c: children, f: operand.columns, p: operand.parameters, e: operand.entity, a: operand.autoincrement }
+		} else if (operand instanceof SentenceInclude) {
+			// return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation, v: operand.variable }
+			return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation }
+		} else if (operand instanceof Insert) {
+			return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause, a: operand.autoincrement }
+		} else if (operand instanceof KeyValue) {
+			return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping }
+		} else if (operand instanceof Field) {
+			return { n: operand.name, t: operand.constructor.name, c: children, e: operand.entity, m: operand.mapping }
+		} else if (operand instanceof Variable) {
+			return { n: operand.name, t: operand.constructor.name, c: children, u: operand.number }
+		} else {
+			return { n: operand.name, t: operand.constructor.name, c: children }
+		}
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -454,8 +469,8 @@ export class OperandManager {
 			if (current.children.length > 0) { current = current.children[0] } else { break }
 		}
 		const child = this.createSentence(node, schema, context)
-		const variableName = 'list_' + relation.to
-		return new SentenceInclude(relation.name, [child], relation, variableName)
+		// return new SentenceInclude(relation.name, [child], relation, '__parentId')
+		return new SentenceInclude(relation.name, [child], relation)
 	}
 
 	private createInclude (node:Node, schema:SchemaHelper, context:ExpressionContext):SentenceInclude {
@@ -473,7 +488,8 @@ export class OperandManager {
 			if (current.children.length > 0) { current = current.children[0] } else { break }
 		}
 		const child = this.createSentence(node, schema, context)
-		return new SentenceInclude(relationName, [child], relation, relation.to)
+		// return new SentenceInclude(relationName, [child], relation, relation.to)
+		return new SentenceInclude(relationName, [child], relation)
 	}
 
 	private getSentence (node:Node):any {

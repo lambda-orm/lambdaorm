@@ -1,4 +1,5 @@
 
+import { Helper } from './../helper'
 import { Node } from '../node/index'
 import { SchemaHelper } from '../schema/schemaHelper'
 
@@ -37,7 +38,7 @@ export class QueryCompleter {
 	}
 
 	private completeSentence (mainNode:Node, schema:SchemaHelper, entityName?:string):void {
-		let compleInclude:any
+		let compleInclude: any
 		const clauses:any = this.getClauses(mainNode)
 		const entity = schema.getEntity(entityName || clauses.from.name)
 		if (clauses.insert) {
@@ -58,7 +59,7 @@ export class QueryCompleter {
 			const node = clauses.updateAll
 			node.name = 'update'
 			// TODO: validar que tenga un objeto definido
-			// Example: Orders.update({name:'test'})
+			// Example: Entity.update({name:'test'})
 		} else if (clauses.delete) {
 			compleInclude = this.completeDeleteInclude
 			const node = clauses.delete
@@ -70,22 +71,21 @@ export class QueryCompleter {
 		} else {
 			if (clauses.map) {
 				compleInclude = this.completeMapInclude
-				const map = clauses.map
-				this.completeMapNode(entity, map, schema)
+				this.completeMapNode(entity, clauses.map, schema)
 			} else if (clauses.distinct) {
-				// Replace distict for map and add function distinct to child of map
+				// Replace distinct for map and add function distinct to child of map
 				compleInclude = this.completeMapInclude
-				const node = clauses.distinct
-				node.name = 'map'
-				this.completeMapNode(entity, node, schema)
-				node.children[2] = new Node('distinct', 'funcRef', [node.children[2]])
+				clauses.map = clauses.distinct
+				clauses.map.name = 'map'
+				this.completeMapNode(entity, clauses.map, schema)
+				clauses.map.children[2] = new Node('distinct', 'funcRef', [clauses.map.children[2]])
 			} else if (clauses.first) {
 				// Add orderby and limit , replace first for map
 				// example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1
 				compleInclude = this.completeMapInclude
-				const node = clauses.first
-				node.name = 'map'
-				this.completeMapNode(entity, node, schema)
+				clauses.map = clauses.first
+				clauses.map.name = 'map'
+				this.completeMapNode(entity, clauses.map, schema)
 				if (!clauses.sort) {
 					const autoincrement = schema.getAutoincrement(entity.name)
 					if (autoincrement !== undefined) {
@@ -103,9 +103,9 @@ export class QueryCompleter {
 				// Add orderby desc and limit, replace last for map
 				// example: SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 0,1
 				compleInclude = this.completeMapInclude
-				const node = clauses.last
-				node.name = 'map'
-				this.completeMapNode(entity, node, schema)
+				clauses.map = clauses.last
+				clauses.map.name = 'map'
+				this.completeMapNode(entity, clauses.map, schema)
 				if (!clauses.sort) {
 					const autoincrement = schema.getAutoincrement(entity.name)
 					if (autoincrement !== undefined) {
@@ -124,8 +124,8 @@ export class QueryCompleter {
 				// Add limit , replace take for map
 				// example: SELECT * FROM Orders  LIMIT 0,1
 				compleInclude = this.completeMapInclude
-				const node = clauses.take
-				node.name = 'map'
+				clauses.map = clauses.take
+				clauses.map.name = 'map'
 				if (!clauses.page) {
 					const constPage = new Node('1', 'const', [])
 					const constRecords = new Node('1', 'const', [])
@@ -136,10 +136,9 @@ export class QueryCompleter {
 				compleInclude = this.completeMapInclude
 				const varArrow = new Node('p', 'var', [])
 				const varAll = new Node('p', 'var', [])
-
 				mainNode.children[0] = new Node('map', 'arrow', [mainNode.children[0], varArrow, varAll])
 				clauses.map = mainNode.children[0]
-				this.completeMapNode(entity, mainNode.children[0], schema)
+				this.completeMapNode(entity, clauses.map, schema)
 			}
 		}
 		if (clauses.include) {
@@ -151,11 +150,31 @@ export class QueryCompleter {
 			if (body.type === 'array') {
 				for (let i = 0; i < body.children.length; i++) {
 					body.children[i] = compleInclude.bind(this)(entity, arrowVar, body.children[i], schema)
+					if (clauses.map) {
+						this.addChildFieldField(clauses.map, entity, body.children[i])
+					}
 				}
 			} else {
 				clauseInclude.children[2] = compleInclude.bind(this)(entity, arrowVar, body, schema)
+				if (clauses.map) {
+					this.addChildFieldField(clauses.map, entity, body)
+				}
 			}
 		}
+	}
+
+	private addChildFieldField (map:Node, entity:any, include:Node):void {
+		const relation = this.getIncludeRelation(entity, include)
+		const objArrowVar = map.children[1].name
+		const fieldToAdd = new Node(objArrowVar + '.' + relation.from, 'var')
+		const keyVal = new Node('__' + relation.from, 'keyVal', [fieldToAdd])
+		map.children[2].children.push(keyVal)
+		// if (map.children[2].type === 'obj' && !map.children[2].children.some((p: Node) => p.name === relation.from)) {
+		// const objArrowVar = map.children[1].name
+		// const fieldToAdd = new Node(objArrowVar + '.' + relation.from, 'var')
+		// const keyVal = new Node(relation.from, 'keyVal', [fieldToAdd])
+		// map.children[2].children.push(keyVal)
+		// }
 	}
 
 	private completeMapNode (entity:any, node:Node, schema:SchemaHelper):void {
@@ -163,8 +182,21 @@ export class QueryCompleter {
 			const arrowVar = node.children[1].name
 			const fields = node.children[2]
 			if (fields.children.length === 0 && fields.name === arrowVar) {
-				// Example: Orders.map(p=> p)
+				// Example: Entity.map(p=> p) to  Entity.map(p=> {field1:p.field1,field2:p.field2,field3:p.field3,...})
 				node.children[2] = this.createNodeFields(entity, schema, arrowVar)
+			} else if (fields.type === 'var') {
+				// Example: Entity.map(p=> p.name) to  Entity.map(p=> {name:p.name})
+				const keyVal = this.fieldToKeyVal(arrowVar, fields)
+				node.children[2] = new Node('obj', 'obj', [keyVal])
+			} else if (fields.type === 'array') {
+				// Example: Entity.map(p=> [p.id, p.name]) to  Entity.map(p=> {id:p.id,name:p.name})
+				const obj = new Node('obj', 'obj', [])
+				for (const p in fields.children) {
+					const child = fields.children[p]
+					const keyVal = this.fieldToKeyVal(arrowVar, child)
+					obj.children.push(keyVal)
+				}
+				node.children[2] = obj
 			}
 		} else {
 			const varArrow = new Node('p', 'var', [])
@@ -174,29 +206,42 @@ export class QueryCompleter {
 		}
 	}
 
+	private fieldToKeyVal (arrowVar:string, field:Node):Node {
+		let key: string
+		if (field.name.startsWith(arrowVar + '.')) {
+			key = field.name.replace(arrowVar + '.', '')
+			if (key.includes('.')) {
+				key = Helper.replace(key, '.', '_')
+			}
+		} else {
+			key = field.name
+		}
+		return new Node(key, 'keyVal', [field])
+	}
+
 	private completeInsertNode (entity:any, node:Node, schema:SchemaHelper):void {
 		if (node.children.length === 1) {
-			// example: Orders.insert()
+			// example: Entity.insert()
 			const fields = this.createNodeFields(entity, schema, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
-			// example: Orders.insert(entity)
+			// example: Entity.insert(entity)
 			node.children[1] = this.createNodeFields(entity, schema, node.children[1].name, false, true)
 		}
 	}
 
 	private completeUpdateNode (entity:any, node:Node, schema:SchemaHelper):void {
 		if (node.children.length === 1) {
-			// Example: Orders.update()
+			// Example: Entity.update()
 			// In the case that the mapping is not defined, it assumes that the context will be the entity to update
 			const fields = this.createNodeFields(entity, schema, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
-			// Example: Orders.update(entity)
+			// Example: Entity.update(entity)
 			// In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
 			node.children[1] = this.createNodeFields(entity, schema, node.children[1].name, true)
 		} else if (node.children.length === 3 && node.type === 'arrow' && node.children[1].name === node.children[2].name) {
-			// Example: Orders.update({ name: entity.name }).include(p => p.details.update(p => p))
+			// Example: Entity.update({ name: entity.name }).include(p => p.details.update(p => p))
 			node.children[2] = this.createNodeFields(entity, schema, node.children[1].name, true)
 		}
 	}
@@ -216,22 +261,22 @@ export class QueryCompleter {
 
 	private createClauseFilter (entity:any, node:Node, schema:SchemaHelper):void {
 		if (node.children.length === 1) {
-			// Example: Orders.delete()
+			// Example: Entity.delete()
 			const condition = this.createFilter(entity, schema, 'p')
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
-			// Example Orders.update(entity) ,Orders.delete(entity)
+			// Example Entity.update(entity) ,Entity.delete(entity)
 			const condition = this.createFilter(entity, schema, 'p', node.children[1].name)
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 2 && node.children[1].type === 'obj') {
-			// Example Orders.update({unitPrice:unitPrice,productId:productId)
+			// Example Entity.update({unitPrice:unitPrice,productId:productId)
 			const condition = this.createFilter(entity, schema, 'p', node.children[1].name)
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 3) {
-			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
+			// Example: Entity.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			// Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
 			const condition = this.createFilter(entity, schema, 'p')
 			const arrowVar = new Node('p', 'var', [])
@@ -292,7 +337,8 @@ export class QueryCompleter {
 		const childFilter = clauses.filter
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const fieldRelation = new Node(arrowFilterVar + '.' + relation.to, 'var') // new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
-		const varRelation = new Node('list_' + relation.to, 'var')
+		// const varRelation = new Node('list_' + relation.to, 'var')
+		const varRelation = new Node('__parentId', 'var')
 		const filterInclude = new Node('includes', 'funcRef', [fieldRelation, varRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Node(arrowFilterVar, 'var', [])
@@ -300,6 +346,23 @@ export class QueryCompleter {
 		} else {
 			childFilter.children[0] = new Node('&&', 'oper', [childFilter.children[0], filterInclude])
 		}
+		// If the column for which the include is to be resolved is not in the select, it must be added
+		const arrowSelect = clauses.map.children[1].name
+		const field = new Node(arrowSelect + '.' + relation.to, 'var')
+		clauses.map.children[2].children.push(new Node('__parentId', 'keyVal', [field]))
+		// clauses.map.children[2].children.push(new Node(fieldName, 'var'))
+		// switch (clauses.map.children[2].type) {
+		// case 'var':
+		// if (clauses.map.children[2].name !== fieldName) {
+		// const nodeToAdd = new Node(fieldName, 'var')
+		// clauses.map.children[2] = new Node('array', 'array', [clauses.map.children[2], nodeToAdd])
+		// }
+		// break
+		// case 'array':
+		// if (!clauses.map.children[2].children.some((p: Node) => p.name === fieldName)) {
+		// clauses.map.children[2].children.push(new Node(fieldName, 'var'))
+		// }
+		// }
 		return map
 	}
 
@@ -319,8 +382,7 @@ export class QueryCompleter {
 		return this.completeInclude(entity, arrowVar, node, schema, 'delete')
 	}
 
-	private completeInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper, clause:string):Node {
-		let clauseNode:Node, relation:any
+	private getIncludeRelation (entity:any, node:Node):any {
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.insert())
 			let current = node
@@ -329,26 +391,70 @@ export class QueryCompleter {
 					// p.details
 					const parts = current.name.split('.')
 					const relationName = parts[1]
-					relation = entity.relation[relationName]
+					return entity.relation[relationName]
 					break
 				}
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
-			const clauses:any = this.getClauses(node)
-			clauseNode = clauses[clause] ? clauses[clause] : new Node(clause, 'childFunc', [node])
-			this.completeSentence(clauseNode, schema, relation.entity)
 		} else if (node.type === 'var') {
 			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
 			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
-
 			const parts = node.name.split('.')
 			const relationName = parts[1]
-			relation = entity.relation[relationName]
-			clauseNode = new Node(clause, 'childFunc', [node])
+			return entity.relation[relationName]
+		} else {
+			throw new Error('not found relation in include node ' + node.type + ':' + node.name)
+		}
+	}
+
+	private completeInclude (entity: any, arrowVar: string, node: Node, schema: SchemaHelper, clause: string): Node {
+		if (node.type === 'arrow') {
+		// resuelve el siguiente caso  .includes(details.insert())
+			const relation = this.getIncludeRelation(entity, node)
+			const clauses:any = this.getClauses(node)
+			const clauseNode = clauses[clause] ? clauses[clause] : new Node(clause, 'childFunc', [node])
 			this.completeSentence(clauseNode, schema, relation.entity)
+			return clauseNode
+		} else if (node.type === 'var') {
+			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
+			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
+			const relation = this.getIncludeRelation(entity, node)
+			const clauseNode = new Node(clause, 'childFunc', [node])
+			this.completeSentence(clauseNode, schema, relation.entity)
+			return clauseNode
 		} else {
 			throw new Error('Error to add include node ' + node.type + ':' + node.name)
 		}
-		return clauseNode
+
+		// let clauseNode:Node, relation:any
+		// if (node.type === 'arrow') {
+		// // resuelve el siguiente caso  .includes(details.insert())
+		// let current = node
+		// while (current) {
+		// if (current.type === 'var') {
+		// // p.details
+		// const parts = current.name.split('.')
+		// const relationName = parts[1]
+		// relation = entity.relation[relationName]
+		// break
+		// }
+		// if (current.children.length > 0) { current = current.children[0] } else { break }
+		// }
+		// const clauses:any = this.getClauses(node)
+		// clauseNode = clauses[clause] ? clauses[clause] : new Node(clause, 'childFunc', [node])
+		// this.completeSentence(clauseNode, schema, relation.entity)
+		// } else if (node.type === 'var') {
+		// // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
+		// // entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
+
+		// const parts = node.name.split('.')
+		// const relationName = parts[1]
+		// relation = entity.relation[relationName]
+		// clauseNode = new Node(clause, 'childFunc', [node])
+		// this.completeSentence(clauseNode, schema, relation.entity)
+		// } else {
+		// throw new Error('Error to add include node ' + node.type + ':' + node.name)
+		// }
+		// return clauseNode
 	}
 }
