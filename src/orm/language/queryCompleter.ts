@@ -169,12 +169,6 @@ export class QueryCompleter {
 		const fieldToAdd = new Node(objArrowVar + '.' + relation.from, 'var')
 		const keyVal = new Node('__' + relation.from, 'keyVal', [fieldToAdd])
 		map.children[2].children.push(keyVal)
-		// if (map.children[2].type === 'obj' && !map.children[2].children.some((p: Node) => p.name === relation.from)) {
-		// const objArrowVar = map.children[1].name
-		// const fieldToAdd = new Node(objArrowVar + '.' + relation.from, 'var')
-		// const keyVal = new Node(relation.from, 'keyVal', [fieldToAdd])
-		// map.children[2].children.push(keyVal)
-		// }
 	}
 
 	private completeMapNode (entity:any, node:Node, schema:SchemaHelper):void {

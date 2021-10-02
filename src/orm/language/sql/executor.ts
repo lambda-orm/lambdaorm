@@ -180,20 +180,6 @@ export class SqlExecutor implements IOperandExecutor {
 					const childContext = new Context(relation, context)
 					await this._execute(include.children[0] as Query, childContext, metadata, executor)
 				}
-				// switch (include.relation.type) {
-				// case 'manyToOne':
-				// for (let i = 0; i < relation.length; i++) {
-				// const child = relation[i]
-				// const childContext = new Context(child, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// }
-				// break
-				// case 'oneToOne':
-				// case 'oneToMany':
-				// const childContext = new Context(relation, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// break
-				// }
 			}
 		}
 		return changeCount
@@ -215,20 +201,6 @@ export class SqlExecutor implements IOperandExecutor {
 					const childContext = new Context(relation, context)
 					await this._execute(include.children[0] as Query, childContext, metadata, executor)
 				}
-				// switch (include.relation.type) {
-				// case 'manyToOne':
-				// for (let i = 0; i < relation.length; i++) {
-				// const child = relation[i]
-				// const childContext = new Context(child, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// }
-				// break
-				// case 'oneToOne':
-				// case 'oneToMany':
-				// const childContext = new Context(relation, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// break
-				// }
 			}
 		}
 		// remove main entity
