@@ -1,7 +1,7 @@
 import { Node } from './node'
 import { Model } from './model'
 
-export class NodeManager {
+export class ParserManager {
 	public doubleOperators:string[]
 	public tripleOperators:string[]
 	public assigmentOperators:string[]
@@ -207,7 +207,7 @@ export class NodeManager {
 }
 
 class Parser {
-	private mgr:NodeManager
+	private mgr:ParserManager
 	private reAlphanumeric:RegExp
 	private reInt:RegExp
 	private reFloat:RegExp
@@ -215,7 +215,7 @@ class Parser {
 	private length:number
 	private index:number
 
-	constructor (mgr:NodeManager, buffer:string[]) {
+	constructor (mgr:ParserManager, buffer:string[]) {
 		this.mgr = mgr
 		// eslint-disable-next-line prefer-regex-literals
 		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') /// [a-zA-Z0-9_.]+$'/ //

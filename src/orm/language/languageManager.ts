@@ -1,5 +1,5 @@
 
-import { Node, Model } from '../node/index'
+import { Node, Model } from '../parser/index'
 import { Context, Delta, IOrm } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
 import { ILanguage } from './iLanguage'
@@ -51,7 +51,7 @@ export class LanguageManager {
 
 	public complete (node:Node, schema:SchemaHelper): Node {
 		const completeNode = this.queryCompleter.complete(node, schema)
-		this.orm.node.setParent(completeNode)
+		this.orm.parser.setParent(completeNode)
 		return completeNode
 	}
 

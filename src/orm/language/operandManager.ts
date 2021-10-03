@@ -1,5 +1,5 @@
 
-import { Node } from '../node/index'
+import { Node } from '../parser/index'
 import { Property, Parameter, Context } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
 import {

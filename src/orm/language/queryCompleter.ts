@@ -1,6 +1,6 @@
 
 import { Helper } from './../helper'
-import { Node } from '../node/index'
+import { Node } from '../parser/index'
 import { SchemaHelper } from '../schema/schemaHelper'
 
 export class QueryCompleter {
