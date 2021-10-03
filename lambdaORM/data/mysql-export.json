@@ -31815,7 +31815,7 @@
           "inStock": 39,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 2,
@@ -31827,7 +31827,7 @@
           "inStock": 17,
           "onOrder": 40,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 3,
@@ -31839,7 +31839,7 @@
           "inStock": 13,
           "onOrder": 70,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 4,
@@ -31851,7 +31851,7 @@
           "inStock": 53,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 5,
@@ -31863,7 +31863,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 6,
@@ -31875,7 +31875,7 @@
           "inStock": 120,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 7,
@@ -31887,7 +31887,7 @@
           "inStock": 15,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 8,
@@ -31899,7 +31899,7 @@
           "inStock": 6,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 9,
@@ -31911,7 +31911,7 @@
           "inStock": 29,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 10,
@@ -31923,7 +31923,7 @@
           "inStock": 31,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 11,
@@ -31935,7 +31935,7 @@
           "inStock": 22,
           "onOrder": 30,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 12,
@@ -31947,7 +31947,7 @@
           "inStock": 86,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 13,
@@ -31959,7 +31959,7 @@
           "inStock": 24,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 14,
@@ -31971,7 +31971,7 @@
           "inStock": 35,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 15,
@@ -31983,7 +31983,7 @@
           "inStock": 39,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 16,
@@ -31995,7 +31995,7 @@
           "inStock": 29,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 17,
@@ -32007,7 +32007,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 18,
@@ -32019,7 +32019,7 @@
           "inStock": 42,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 19,
@@ -32031,7 +32031,7 @@
           "inStock": 25,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 20,
@@ -32043,7 +32043,7 @@
           "inStock": 40,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 21,
@@ -32055,7 +32055,7 @@
           "inStock": 3,
           "onOrder": 40,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 22,
@@ -32067,7 +32067,7 @@
           "inStock": 104,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 23,
@@ -32079,7 +32079,7 @@
           "inStock": 61,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 24,
@@ -32091,7 +32091,7 @@
           "inStock": 20,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 25,
@@ -32103,7 +32103,7 @@
           "inStock": 76,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 26,
@@ -32115,7 +32115,7 @@
           "inStock": 15,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 27,
@@ -32127,7 +32127,7 @@
           "inStock": 49,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 28,
@@ -32139,7 +32139,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 29,
@@ -32151,7 +32151,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 30,
@@ -32163,7 +32163,7 @@
           "inStock": 10,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 31,
@@ -32175,7 +32175,7 @@
           "inStock": 0,
           "onOrder": 70,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 32,
@@ -32187,7 +32187,7 @@
           "inStock": 9,
           "onOrder": 40,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 33,
@@ -32199,7 +32199,7 @@
           "inStock": 112,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 34,
@@ -32211,7 +32211,7 @@
           "inStock": 111,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 35,
@@ -32223,7 +32223,7 @@
           "inStock": 20,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 36,
@@ -32235,7 +32235,7 @@
           "inStock": 112,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 37,
@@ -32247,7 +32247,7 @@
           "inStock": 11,
           "onOrder": 50,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 38,
@@ -32259,7 +32259,7 @@
           "inStock": 17,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 39,
@@ -32271,7 +32271,7 @@
           "inStock": 69,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 40,
@@ -32283,7 +32283,7 @@
           "inStock": 123,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 41,
@@ -32295,7 +32295,7 @@
           "inStock": 85,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 42,
@@ -32307,7 +32307,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 43,
@@ -32319,7 +32319,7 @@
           "inStock": 17,
           "onOrder": 10,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 44,
@@ -32331,7 +32331,7 @@
           "inStock": 27,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 45,
@@ -32343,7 +32343,7 @@
           "inStock": 5,
           "onOrder": 70,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 46,
@@ -32355,7 +32355,7 @@
           "inStock": 95,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 47,
@@ -32367,7 +32367,7 @@
           "inStock": 36,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 48,
@@ -32379,7 +32379,7 @@
           "inStock": 15,
           "onOrder": 70,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 49,
@@ -32391,7 +32391,7 @@
           "inStock": 10,
           "onOrder": 60,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 50,
@@ -32403,7 +32403,7 @@
           "inStock": 65,
           "onOrder": 0,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 51,
@@ -32415,7 +32415,7 @@
           "inStock": 20,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 52,
@@ -32427,7 +32427,7 @@
           "inStock": 38,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 53,
@@ -32439,7 +32439,7 @@
           "inStock": 0,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 1
+          "discontinued": true
         },
         {
           "id": 54,
@@ -32451,7 +32451,7 @@
           "inStock": 21,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 55,
@@ -32463,7 +32463,7 @@
           "inStock": 115,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 56,
@@ -32475,7 +32475,7 @@
           "inStock": 21,
           "onOrder": 10,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 57,
@@ -32487,7 +32487,7 @@
           "inStock": 36,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 58,
@@ -32499,7 +32499,7 @@
           "inStock": 62,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 59,
@@ -32511,7 +32511,7 @@
           "inStock": 79,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 60,
@@ -32523,7 +32523,7 @@
           "inStock": 19,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 61,
@@ -32535,7 +32535,7 @@
           "inStock": 113,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 62,
@@ -32547,7 +32547,7 @@
           "inStock": 17,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 63,
@@ -32559,7 +32559,7 @@
           "inStock": 24,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 64,
@@ -32571,7 +32571,7 @@
           "inStock": 22,
           "onOrder": 80,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 65,
@@ -32583,7 +32583,7 @@
           "inStock": 76,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 66,
@@ -32595,7 +32595,7 @@
           "inStock": 4,
           "onOrder": 100,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 67,
@@ -32607,7 +32607,7 @@
           "inStock": 52,
           "onOrder": 0,
           "reorderLevel": 10,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 68,
@@ -32619,7 +32619,7 @@
           "inStock": 6,
           "onOrder": 10,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 69,
@@ -32631,7 +32631,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 70,
@@ -32643,7 +32643,7 @@
           "inStock": 15,
           "onOrder": 10,
           "reorderLevel": 30,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 71,
@@ -32655,7 +32655,7 @@
           "inStock": 26,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 72,
@@ -32667,7 +32667,7 @@
           "inStock": 14,
           "onOrder": 0,
           "reorderLevel": 0,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 73,
@@ -32679,7 +32679,7 @@
           "inStock": 101,
           "onOrder": 0,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 74,
@@ -32691,7 +32691,7 @@
           "inStock": 4,
           "onOrder": 20,
           "reorderLevel": 5,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 75,
@@ -32703,7 +32703,7 @@
           "inStock": 125,
           "onOrder": 0,
           "reorderLevel": 25,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 76,
@@ -32715,7 +32715,7 @@
           "inStock": 57,
           "onOrder": 0,
           "reorderLevel": 20,
-          "discontinued": 0
+          "discontinued": false
         },
         {
           "id": 77,
@@ -32727,7 +32727,7 @@
           "inStock": 32,
           "onOrder": 0,
           "reorderLevel": 15,
-          "discontinued": 0
+          "discontinued": false
         }
       ]
     }

@@ -101,7 +101,9 @@ LIMIT 0,1
 Lambda
 
 ``` ts
-Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category)
+Products
+	.distinct(p => ({ quantity: p.quantity, category: p.category.name }))
+	.sort(p => p.category)
 
 ```
 
@@ -118,7 +120,9 @@ ORDER BY `category`
 Lambda
 
 ``` ts
-Products.filter(p => p.price > 10).map(p => ({ name: p.name, category: p.category.name }))
+Products
+	.filter(p => p.price > 10)
+	.map(p => ({ name: p.name, category: p.category.name }))
 ```
 
 SQL
@@ -272,7 +276,9 @@ c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?)
 Lambda
 
 ``` ts
-Orders.filter(p => p.id == id).include(p => [p.details.include(q => q.product.include(r => r.category)), p.customer])
+Orders
+	.filter(p => p.id == id)
+	.include(p => [p.details.include(q => q.product.include(r => r.category)), p.customer])
 
 ```
 
@@ -315,10 +321,10 @@ Lambda
 Orders
 filter(p => p.id == id)
 .include(p => [p.customer.map(p => p.name), 
-							p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name))
-											 .map(p => [p.quantity, p.unitPrice])]
-			)
-
+	p.details.include(p => p.product.
+		include(p => p.category.map(p => p.name))
+	.map(p => p.name))
+.map(p => [p.quantity, p.unitPrice])])
 ```
 
 SQL

@@ -13,29 +13,19 @@ module.exports = function (grunt) {
 		exec: {
 			create_dbs: { cmd: './create_dbs.sh', options: { cwd: './src/test/db' } },
 			drop_dbs: { cmd: './drop_dbs.sh', options: { cwd: './src/test/db' } },
-			clean_data: { cmd: './clean_data.sh ' + databases.join(','), options: { cwd: './src/test/task' } },
-			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/test/task' } }
+			clean_data: { cmd: './clean_data.sh ' + databases.join(','), options: { cwd: './src/dev/task' } },
+			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
+			lint: { cmd: 'npx eslint src ' },
+			unit_test: { cmd: 'jest --config jest-unit-config.json ' },
+			integration_test: { cmd: 'jest --config jest-integration-config.json ' }
 		},
 		clean: {
 			dist: ['dist']
 		},
 		copy: {
-			orm: {
-				expand: true,
-				cwd: 'build/orm',
-				src: '**',
-				dest: 'dist/'
-			},
-			readme: {
-				expand: true,
-				src: './README.md',
-				dest: 'dist/'
-			},
-			license: {
-				expand: true,
-				src: './LICENSE',
-				dest: 'dist/'
-			}
+			orm: { expand: true, cwd: 'build/orm', src: '**', dest: 'dist/' },
+			readme: { expand: true, src: './README.md', dest: 'dist/' },
+			license: { expand: true, src: './LICENSE', dest: 'dist/' }
 		}
 	})
 
@@ -81,6 +71,9 @@ module.exports = function (grunt) {
 	grunt.registerTask('databases-down', ['exec:drop_dbs', 'exec:clean_data'])
 	grunt.registerTask('databases-up', ['databases-down', 'exec:create_dbs', 'populate-source', 'populate-databases'])
 	grunt.registerTask('build-test', ['databases-up', 'exec:clean_test', 'generate-data-for-test', 'generate-test', 'databases-down'])
+	grunt.registerTask('lint', ['exec:lint'])
+	grunt.registerTask('unit-test', ['exec:unit_test'])
+	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
 	grunt.registerTask('build-dist', ['clean:dist', 'copy:orm', 'copy:readme', 'copy:license', 'create-package'])
 
 	grunt.registerTask('default', [])

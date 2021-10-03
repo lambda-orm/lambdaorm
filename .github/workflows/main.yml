@@ -22,3 +22,5 @@ jobs:
         run: npm run build
       - name: Unit Tests
         run: npm run unit-test
+      # - name: Integration Tests
+      #   run: npm run integration-test

@@ -3,12 +3,12 @@
 	"version": "0.0.24",
 	"description": "ORM",
 	"scripts": {
-		"lint": "npx eslint src",
+		"lint": "grunt lint",
 		"build": "grunt build-config && tsc",
 		"build-test": "grunt build-test",
 		"generate-test": "grunt generate-test",
-		"unit-test": "jest --config jest-unit-config.json",
-		"integration-test": "jest --config jest-integration-config.json",
+		"unit-test": "grunt unit-test",
+		"integration-test": "grunt integration-test",
 		"dist": "grunt build-dist"
 	},
 	"repository": {
