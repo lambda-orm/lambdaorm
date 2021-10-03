@@ -7,8 +7,8 @@ test:
   - name: function abs
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      p.price * -1, result: round(abs(p.price * -1), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: p.price * -1, result: round(abs(p.price * -1), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -37,10 +37,10 @@ test:
           Products p  WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price
-      * -1, result: round(abs(p.price * -1), 10) }))
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source:
+      p.price * -1, result: round(abs(p.price * -1), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:(p.price*-1),result:round(abs((p.price*-1)),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:(p.price*-1),result:round(abs((p.price*-1)),10)})
     model:
       name: string
       source: any
@@ -58,6 +58,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: -18
@@ -65,8 +66,8 @@ test:
   - name: function acos
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      0.25, result: round(acos(0.25), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 0.25, result: round(acos(0.25), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -91,10 +92,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25,
       result: round(acos(0.25), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.25,result:round(acos(0.25),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(acos(0.25),10)})
     model:
       name: string
       source: any
@@ -112,6 +113,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 0.25
@@ -119,8 +121,8 @@ test:
   - name: function asin
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      0.25, result: round(asin(0.25), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 0.25, result: round(asin(0.25), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -145,10 +147,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25,
       result: round(asin(0.25), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.25,result:round(asin(0.25),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(asin(0.25),10)})
     model:
       name: string
       source: any
@@ -166,6 +168,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 0.25
@@ -173,8 +176,8 @@ test:
   - name: function atan
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      0.25, result: round(atan(0.25), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 0.25, result: round(atan(0.25), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -199,10 +202,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.25,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25,
       result: round(atan(0.25), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.25,result:round(atan(0.25),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(atan(0.25),10)})
     model:
       name: string
       source: any
@@ -220,6 +223,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 0.25
@@ -227,8 +231,8 @@ test:
   - name: function atan2
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      0.50, result: round(atan2(0.25, 1), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 0.50, result: round(atan2(0.25, 1), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -257,10 +261,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 0.50,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.50,
       result: round(atan2(0.25, 1), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:0.5,result:round(atan2(0.25,1),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.5,result:round(atan2(0.25,1),10)})
     model:
       name: string
       source: any
@@ -278,6 +282,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 0.5
@@ -285,8 +290,8 @@ test:
   - name: function ceil
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      25.75, result: round(ceil(25.75), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 25.75, result: round(ceil(25.75), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -315,10 +320,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 25.75,
       result: round(ceil(25.75), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:25.75,result:round(ceil(25.75),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(ceil(25.75),10)})
     model:
       name: string
       source: any
@@ -336,6 +341,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 25.75
@@ -343,8 +349,8 @@ test:
   - name: function cos
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      2, result: round(cos(2), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 2, result: round(cos(2), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -368,10 +374,10 @@ test:
           DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 2,
       result: round(cos(2), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:2,result:round(cos(2),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(cos(2),10)})
     model:
       name: string
       source: any
@@ -389,6 +395,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 2
@@ -396,8 +403,8 @@ test:
   - name: function exp
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      1, result: round(exp(1), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 1, result: round(exp(1), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -421,10 +428,10 @@ test:
           DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 1,
       result: round(exp(1), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:1,result:round(exp(1),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:1,result:round(exp(1),10)})
     model:
       name: string
       source: any
@@ -442,6 +449,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 1
@@ -449,8 +457,8 @@ test:
   - name: function floor
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      25.75, result: round(floor(25.75), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 25.75, result: round(floor(25.75), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -479,10 +487,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 25.75,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 25.75,
       result: round(floor(25.75), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:25.75,result:round(floor(25.75),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(floor(25.75),10)})
     model:
       name: string
       source: any
@@ -500,6 +508,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 25.75
@@ -507,8 +516,8 @@ test:
   - name: function ln
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      2, result: round(ln(2), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 2, result: round(ln(2), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -532,10 +541,10 @@ test:
           DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 2,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 2,
       result: round(ln(2), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:2,result:round(ln(2),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(ln(2),10)})
     model:
       name: string
       source: any
@@ -553,6 +562,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 2
@@ -560,7 +570,7 @@ test:
   - name: function log
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10,
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name, m: 10,
       n: 20, result: round(log(10, 20), 10) }))
     sentences:
       - dialect: mariadb
@@ -590,10 +600,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, m: 10, n: 20,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, m: 10, n: 20,
       result: round(log(10, 20), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,m:10,n:20,result:round(log(10,20),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,m:10,n:20,result:round(log(10,20),10)})
     model:
       name: string
       m: any
@@ -614,6 +624,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         m: 10
@@ -622,8 +633,8 @@ test:
   - name: function round
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      135.375, result: round(135.375, 2) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 135.375, result: round(135.375, 2) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -648,10 +659,10 @@ test:
           p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source:
       135.375, result: round(135.375, 2) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
     model:
       name: string
       source: any
@@ -669,6 +680,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 135.375
@@ -676,8 +688,8 @@ test:
   - name: function sign
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      255.5, result: round(sign(255.5), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 255.5, result: round(sign(255.5), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -706,10 +718,10 @@ test:
           WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 255.5,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 255.5,
       result: round(sign(255.5), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:255.5,result:round(sign(255.5),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:255.5,result:round(sign(255.5),10)})
     model:
       name: string
       source: any
@@ -727,6 +739,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 255.5
@@ -734,8 +747,8 @@ test:
   - name: function tan
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      1.75, result: round(tan(1.75), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 1.75, result: round(tan(1.75), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -759,10 +772,10 @@ test:
           AS DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source: 1.75,
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 1.75,
       result: round(tan(1.75), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:1.75,result:round(tan(1.75),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:1.75,result:round(tan(1.75),10)})
     model:
       name: string
       source: any
@@ -780,6 +793,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 1.75
@@ -787,8 +801,8 @@ test:
   - name: function trunc
     context: a
     lambda: >-
-      (id) => Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
-      135.375, result: round(trunc(135.375, 2), 10) }))
+      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: 135.375, result: round(trunc(135.375, 2), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -817,10 +831,10 @@ test:
           p  WHERE p.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id == id).map(p => ({ name: p.name, source:
+      Products.filter(p => p.id === id).map(p => ({ name: p.name, source:
       135.375, result: round(trunc(135.375, 2), 10) }))
     completeExpression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:135.375,result:round(trunc(135.375,2),10)})
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(trunc(135.375,2),10)})
     model:
       name: string
       source: any
@@ -838,6 +852,7 @@ test:
         type: any
     executions:
       - database: mysql
+      - database: postgres
     result:
       - name: Chai
         source: 135.375

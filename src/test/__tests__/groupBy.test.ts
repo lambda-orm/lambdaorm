@@ -47,8 +47,8 @@ describe('Complete Expression', () => {
 		expect(expected).toBe(target)
 	})
 	test('groupBy 8', () => {
-		const source = 'Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
-		const expected = 'Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
+		const source = 'Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const expected = 'Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
 		const target = orm.expression(source).complete('northwind:0.0.2')
 		expect(expected).toBe(target)
 	})
@@ -143,7 +143,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(serialize.f)
 	})
 	test('groupBy 8', async () => {
-		const expression = 'Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const expression = 'Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
 		const modelExpected :any= {"name":"string","source":"decimal","result":"any"}
 		const parametersExpected:any = [{"name":"id","type":"integer","value":1}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"source","type":"decimal"},{"name":"result","type":"any"}]
@@ -346,7 +346,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 8', async () => {
-		const expression = 'Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const expression = 'Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
 		const mariadbExpected = 'SELECT p.ProductName AS `name`, p.UnitPrice AS `source`, ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind:0.0.2')
 		mariadb=Helper.replace(mariadb,'\n','; ')

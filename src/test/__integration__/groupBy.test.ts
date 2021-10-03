@@ -62,7 +62,7 @@ describe('Execute', () => {
 		expect(expected).toBe(postgresResult)
 	})
 	test('groupBy 8', async () => {
-		const expression = 'Products.filter(p => p.id == id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const expression = 'Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
 		const expected = [{"name":"Chai","source":18,"result":18}]
 		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
 		expect(expected).toBe(mysqlResult)

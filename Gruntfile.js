@@ -13,8 +13,8 @@ module.exports = function (grunt) {
 		exec: {
 			create_dbs: { cmd: './create_dbs.sh', options: { cwd: './src/test/db' } },
 			drop_dbs: { cmd: './drop_dbs.sh', options: { cwd: './src/test/db' } },
-			clean_data: { cmd: './clean_data.sh ' + databases.join(','), options: { cwd: './src/test/task' } },
-			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/test/task' } }
+			clean_data: { cmd: './clean_data.sh ' + databases.join(','), options: { cwd: './src/dev/task' } },
+			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } }
 		},
 		clean: {
 			dist: ['dist']
