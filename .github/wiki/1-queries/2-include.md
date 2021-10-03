@@ -1,0 +1,403 @@
+
+# Include
+
+Usamos include para obtener datos de una entidad relacionada como parte de la consulta.
+
+For each include a query is created, which are executed within the same transaction.
+
+By performance, all the data is obtained for each query and then the result is assembled in memory.
+
+## Include relation OneToMany
+
+In this example the data of an Order and the customer is obtained
+
+Lambda
+
+``` ts
+ Orders.filter(p => p.id == id).include(p => p.customer)
+```
+
+SQL
+
+``` sql
+SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+`requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+`shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+`region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+FROM Orders o  WHERE o.OrderID = ? 
+
+SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+`contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?)
+
+```
+
+Result:
+
+```json
+[
+  {
+    "id": 10248,
+    "customerId": "VINET",
+    "employeeId": 5,
+    "orderDate": "1996-07-03T22:00:00.000Z",
+    "requiredDate": "1996-07-31T22:00:00.000Z",
+    "shippedDate": "1996-07-15T22:00:00.000Z",
+    "shipViaId": 3,
+    "freight": 32.38,
+    "name": "Vins et alcools Chevalier",
+    "address": "59 rue de l-Abbaye",
+    "city": "Reims",
+    "region": null,
+    "postalCode": "51100",
+    "country": "France",
+    "customer": {
+      "id": "VINET",
+      "name": "Vins et alcools Chevalier",
+      "contact": "Paul Henriot",
+      "phone": "Accounting Manager",
+      "address": "59 rue de l'Abbaye",
+      "city": "Reims",
+      "region": null,
+      "postalCode": "51100",
+      "country": "France"
+    }
+  }
+]
+```
+
+## Include relation OneToMany and manyToOne
+
+In this example, the data of an Order, the customer and the details of the related Order are obtained.
+
+Lambda
+
+``` ts
+ Orders.filter(p => p.id == id).include(p => [p.details,p.customer])
+```
+
+SQL
+
+``` sql
+SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+`requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+`shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+`region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+FROM Orders o  WHERE o.OrderID = ? 
+
+SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+`discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+
+SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+`contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?)
+
+```
+
+Result:
+
+```json
+[
+  {
+    "id": 10248,
+    "customerId": "VINET",
+    "employeeId": 5,
+    "orderDate": "1996-07-03T22:00:00.000Z",
+    "requiredDate": "1996-07-31T22:00:00.000Z",
+    "shippedDate": "1996-07-15T22:00:00.000Z",
+    "shipViaId": 3,
+    "freight": 32.38,
+    "name": "Vins et alcools Chevalier",
+    "address": "59 rue de l-Abbaye",
+    "city": "Reims",
+    "region": null,
+    "postalCode": "51100",
+    "country": "France",
+    "details": [
+      {
+        "orderId": 10248,
+        "productId": 11,
+        "unitPrice": 14,
+        "quantity": 12,
+        "discount": 0
+      },
+      {
+        "orderId": 10248,
+        "productId": 42,
+        "unitPrice": 9.8,
+        "quantity": 10,
+        "discount": 0
+      },
+      {
+        "orderId": 10248,
+        "productId": 72,
+        "unitPrice": 34.8,
+        "quantity": 5,
+        "discount": 0
+      }
+    ],
+    "customer": {
+      "id": "VINET",
+      "name": "Vins et alcools Chevalier",
+      "contact": "Paul Henriot",
+      "phone": "Accounting Manager",
+      "address": "59 rue de l'Abbaye",
+      "city": "Reims",
+      "region": null,
+      "postalCode": "51100",
+      "country": "France"
+    }
+  }
+]
+```
+
+## Nested includes
+
+In this example, in the relationship with Ordentes detail, its relationship with Product is brought and in turn for each product its relationship with Category is brought.
+
+Lambda
+
+``` ts
+Orders
+	.filter(p => p.id == id)
+	.include(p => [p.details.include(q => q.product.include(r => r.category)), p.customer])
+
+```
+
+SQL
+
+``` sql
+SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+`requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+`shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+`region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
+FROM Orders o  WHERE o.OrderID = ? 
+
+SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+`discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+
+SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+`supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+`quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
+IN (?) 
+
+SELECT c.CategoryID AS `id`, c.CategoryName AS `name`, c.Description
+AS `description` FROM Categories c  WHERE  c.CategoryID IN (?) 
+
+SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`, c1.ContactName
+AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
+c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
+`postalCode`, c1.Country AS `country` FROM Customers c1  WHERE 
+c1.CustomerID IN (?) 
+
+```
+
+Result:
+
+```json
+[
+  {
+    "id": 10248,
+    "customerId": "VINET",
+    "employeeId": 5,
+    "orderDate": "1996-07-03T22:00:00.000Z",
+    "requiredDate": "1996-07-31T22:00:00.000Z",
+    "shippedDate": "1996-07-15T22:00:00.000Z",
+    "shipViaId": 3,
+    "freight": 32.38,
+    "name": "Vins et alcools Chevalier",
+    "address": "59 rue de l-Abbaye",
+    "city": "Reims",
+    "region": null,
+    "postalCode": "51100",
+    "country": "France",
+    "details": [
+      {
+        "orderId": 10248,
+        "productId": 11,
+        "unitPrice": 14,
+        "quantity": 12,
+        "discount": 0,
+        "product": {
+          "id": 11,
+          "name": "Queso Cabrales",
+          "supplierId": 5,
+          "categoryId": 4,
+          "quantity": "1 kg pkg.",
+          "price": 21,
+          "inStock": 22,
+          "onOrder": 30,
+          "reorderLevel": 30,
+          "discontinued": false,
+          "category": {
+            "id": 4,
+            "name": "Dairy Products",
+            "description": "Cheeses"
+          }
+        }
+      },
+      {
+        "orderId": 10248,
+        "productId": 42,
+        "unitPrice": 9.8,
+        "quantity": 10,
+        "discount": 0,
+        "product": {
+          "id": 42,
+          "name": "Singaporean Hokkien Fried Mee",
+          "supplierId": 20,
+          "categoryId": 5,
+          "quantity": "32 - 1 kg pkgs.",
+          "price": 14,
+          "inStock": 26,
+          "onOrder": 0,
+          "reorderLevel": 0,
+          "discontinued": true,
+          "category": {
+            "id": 5,
+            "name": "Grains/Cereals",
+            "description": "Breads, crackers, pasta, and cereal"
+          }
+        }
+      },
+      {
+        "orderId": 10248,
+        "productId": 72,
+        "unitPrice": 34.8,
+        "quantity": 5,
+        "discount": 0,
+        "product": {
+          "id": 72,
+          "name": "Mozzarella di Giovanni",
+          "supplierId": 14,
+          "categoryId": 4,
+          "quantity": "24 - 200 g pkgs.",
+          "price": 34.8,
+          "inStock": 14,
+          "onOrder": 0,
+          "reorderLevel": 0,
+          "discontinued": false,
+          "category": {
+            "id": 4,
+            "name": "Dairy Products",
+            "description": "Cheeses"
+          }
+        }
+      }
+    ],
+    "customer": {
+      "id": "VINET",
+      "name": "Vins et alcools Chevalier",
+      "contact": "Paul Henriot",
+      "phone": "Accounting Manager",
+      "address": "59 rue de l'Abbaye",
+      "city": "Reims",
+      "region": null,
+      "postalCode": "51100",
+      "country": "France"
+    }
+  }
+]
+```
+
+## includes with some fields
+
+In this example some fields are brought from the main entity as well as from the included entities.
+This allows us to create queries that return only the data we need.
+
+Lambda
+
+``` ts
+Orders
+	.filter(p => p.id === id)
+	.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
+			p.details.include(p => p.product
+				.include(p => p.category.map(p => p.name))
+			.map(p => p.name))
+		.map(p => [p.quantity, p.unitPrice])])
+	.map(p => p.orderDate)
+```
+
+SQL
+
+``` sql
+SELECT o.OrderDate AS `orderDate`
+FROM Orders o  
+WHERE o.OrderID = ? 
+
+SELECT c.CompanyName AS `name`, CONCAT(c.Address,', ',c.City,' (',c.PostalCode,')  ',c.Country) AS `address`
+FROM Customers c  
+WHERE  c.CustomerID IN (?) 
+
+SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`
+FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+
+SELECT p.ProductName AS `name` 
+FROM Products p  
+WHERE  p.ProductID IN (?) 
+
+SELECT c1.CategoryName AS `name`
+FROM Categories c1  
+WHERE  c1.CategoryID IN (?) 
+
+```
+
+Result:
+
+```json
+[
+  [
+		{
+			"orderDate": "1996-07-03T22:00:00.000Z",
+			"customer": {
+				"name": "Vins et alcools Chevalier",
+				"address": "59 rue de l'Abbaye, Reims (51100)  France"
+			},
+			"details": [
+				{
+					"quantity": 12,
+					"unitPrice": 14,
+					"product": {
+						"name": "Queso Cabrales",
+						"category": {
+							"name": "Dairy Products"
+						}
+					}
+				},
+				{
+					"quantity": 10,
+					"unitPrice": 9.8,
+					"product": {
+						"name": "Singaporean Hokkien Fried Mee",
+						"category": {
+							"name": "Grains/Cereals"
+						}
+					}
+				},
+				{
+					"quantity": 5,
+					"unitPrice": 34.8,
+					"product": {
+						"name": "Mozzarella di Giovanni",
+						"category": {
+							"name": "Dairy Products"
+						}
+					}
+				}
+			]
+		}
+	]
+]
+```
