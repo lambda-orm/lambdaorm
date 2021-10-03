@@ -1015,10 +1015,10 @@ export async function apply (databases: string[], callback: any) {
 	errors = +await writeNumeriFunctionsTest(dialects, databases)
 	errors = +await writeGroupByTest(dialects, databases)
 	errors = +await writeIncludeTest(dialects, databases)
-	// errors=+await writeInsertsTest(dialects,databases)
-	// errors=+await writeUpdateTest(dialects,databases)
-	// errors=+await writeDeleteTest(dialects,databases)
-	// errors=+await writeBulkInsertTest(dialects,databases)
+	errors = +await writeInsertsTest(dialects, databases)
+	errors = +await writeUpdateTest(dialects, databases)
+	errors = +await writeDeleteTest(dialects, databases)
+	errors = +await writeBulkInsertTest(dialects, databases)
 	// //operators comparation , matematica
 	// //string functions
 	// //datetime functions
