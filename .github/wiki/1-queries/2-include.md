@@ -7,7 +7,9 @@ For each include a query is created, which are executed within the same transact
 
 By performance, all the data is obtained for each query and then the result is assembled in memory.
 
-## Include relation OneToMany
+## Examples
+
+### Include relation OneToMany
 
 In this example the data of an Order and the customer is obtained
 
@@ -69,7 +71,7 @@ Result:
 ]
 ```
 
-## Include relation OneToMany and manyToOne
+### Include relation OneToMany and manyToOne
 
 In this example, the data of an Order, the customer and the details of the related Order are obtained.
 
@@ -158,7 +160,7 @@ Result:
 ]
 ```
 
-## Nested includes
+### Nested includes
 
 In this example, in the relationship with Ordentes detail, its relationship with Product is brought and in turn for each product its relationship with Category is brought.
 
@@ -312,7 +314,7 @@ Result:
 ]
 ```
 
-## includes with some fields
+### includes with some fields
 
 In this example some fields are brought from the main entity as well as from the included entities.
 This allows us to create queries that return only the data we need.
@@ -400,4 +402,26 @@ Result:
 		}
 	]
 ]
+```
+
+## Code example
+
+``` ts
+import { orm } from 'lambda-orm'
+
+async function example () {
+	await orm.init()
+
+	const query = (id:number) => Orders
+		.filter(p => p.id === id)
+		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
+			p.details.include(p => p.product
+				.include(p => p.category.map(p => p.name)).map(p => p.name))
+				.map(p => [p.quantity, p.unitPrice])])
+		.map(p => p.orderDate)
+
+	const result = await orm.lambda(query).execute({ id: 830 }, 'mysql')
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+}
 ```

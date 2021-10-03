@@ -185,21 +185,28 @@ class Orm implements IOrm {
 			}
 			return operand as Query
 		} catch (error:any) {
-			console.log(error)
 			throw new Error('query expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
-	public expression (value:string):Expression {
-		return new Expression(this, value.trim())
-	}
+	// public expression (value:string):Expression {
+	// return new Expression(this, value.trim())
+	// }
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public lambda (value:Function):Expression {
-		const str = value.toString().trim()
-		const index = str.indexOf('=>') + 2
-		const expression = str.substring(index, str.length).trim()
-		return new Expression(this, expression)
+	public lambda (value: string | Function): Expression {
+		if (!value) {
+			throw new Error('empty expression}')
+		} else if (typeof value === 'string') {
+			return new Expression(this, value.trim())
+		} else if (typeof value === 'function') {
+			const str = value.toString().trim()
+			const index = str.indexOf('=>') + 2
+			const expression = str.substring(index, str.length).trim()
+			return new Expression(this, expression)
+		} else {
+			throw new Error(`invalid expression  ${value}`)
+		}
 	}
 
 	public async eval (expression:string, context:any, schema:string):Promise<any> {

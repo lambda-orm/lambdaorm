@@ -1,6 +1,8 @@
 
 # Select
 
+## Examples
+
 Lambda
 
 ``` ts
@@ -210,4 +212,24 @@ GROUP BY c.CategoryName
 HAVING MAX(p.UnitPrice) > 50 
 ORDER BY `largestPrice` desc 
 
+```
+
+## Code example
+
+``` ts
+import { orm } from 'lambda-orm'
+
+async function example () {
+	await orm.init()
+
+	const query = () => Products
+						.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+						.having(p => max(p.price) > 50)
+						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+						.sort(p => desc(p.largestPrice))
+
+	const result = await orm.lambda(query).execute({}, 'mysql')
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+}
 ```

@@ -19,7 +19,7 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 			lines.push(`\ttest('${expTest.name}', () => {`)
 			lines.push(`\t\tconst source = '${expTest.expression.trim()}'`)
 			lines.push(`\t\tconst expected = '${expTest.completeExpression.trim()}'`)
-			lines.push(`\t\tconst target = orm.expression(source).complete('${category.schema}')`)
+			lines.push(`\t\tconst target = orm.lambda(source).complete('${category.schema}')`)
 			lines.push('\t\texpect(expected).toBe(target)')
 			lines.push('\t})')
 		}
@@ -34,8 +34,8 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
-		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.schema}')`)
-		lines.push(`\t\tconst serialize = await orm.expression(expression).serialize('${category.schema}')`)
+		lines.push(`\t\tconst model = await orm.lambda(expression).model('${category.schema}')`)
+		lines.push(`\t\tconst serialize = await orm.lambda(expression).serialize('${category.schema}')`)
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
 		lines.push('\t\texpect(fieldsExpected).toStrictEqual(serialize.f)')
 		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(serialize.p)`)
@@ -56,7 +56,7 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 					sentence = Helper.replace(sentence, '\n', '; ')
 					if (sentence) {
 						lines.push(`\t\tconst ${dialect}Expected = '${sentence}'`)
-						lines.push(`\t\tlet ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.schema}')`)
+						lines.push(`\t\tlet ${dialect} =  await orm.lambda(expression).sentence('${dialect}', '${category.schema}')`)
 						lines.push(`\t\t${dialect}=Helper.replace(${dialect},'\\n','; ')`)
 						lines.push(`\t\texpect(${dialect}Expected).toBe(${dialect})`)
 					}
@@ -93,7 +93,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in databases) {
 				const database = databases[p]
-				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute(context, '${database}')`)
+				lines.push(`\t\tconst ${database}Result =  await orm.lambda(expression).execute(context, '${database}')`)
 				lines.push(`\t\texpect(expected).toEqual(${database}Result)`)
 			}
 			lines.push('\t})')
