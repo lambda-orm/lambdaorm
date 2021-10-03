@@ -8,49 +8,49 @@ describe('Execute', () => {
 	test('insert 1', async () => {
 		const expression = 'Categories.insert()'
 		const expected = 9
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.lambda(expression).execute(context, 'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.lambda(expression).execute(context, 'postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert({ name: name, description: description })'
 		const expected = 10
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.lambda(expression).execute(context, 'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.lambda(expression).execute(context, 'postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
 		const expected = 11
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.lambda(expression).execute(context, 'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.lambda(expression).execute(context, 'postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('insert 4', async () => {
 		const expression = 'Orders.insert()'
 		const expected = 831
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.lambda(expression).execute(context, 'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.lambda(expression).execute(context, 'postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert().include(p => p.details)'
 		const expected = 832
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.lambda(expression).execute(context, 'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.lambda(expression).execute(context, 'postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p => [p.details, p.customer])'
 		const expected = 833
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.lambda(expression).execute(context, 'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.lambda(expression).execute(context, 'postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 })
