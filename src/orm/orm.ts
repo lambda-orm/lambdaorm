@@ -189,10 +189,6 @@ class Orm implements IOrm {
 		}
 	}
 
-	// public expression (value:string):Expression {
-	// return new Expression(this, value.trim())
-	// }
-
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public lambda (value: string | Function): Expression {
 		if (!value) {
