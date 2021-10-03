@@ -1,5 +1,4 @@
 import { IOrm } from './../model'
-import { NodeExpression } from './nodeExpression'
 import { Sentence, Operand } from './../language'
 
 export class Expression {
@@ -8,12 +7,6 @@ export class Expression {
 	constructor (orm:IOrm, expression:string) {
 		this.orm = orm
 		this.expression = expression
-	}
-
-	public parse ():NodeExpression {
-		if (!this.expression) throw new Error('Expression not defined')
-		const node = this.orm.node.parse(this.expression)
-		return new NodeExpression(this.orm.node, node)
 	}
 
 	public complete (schemaName:string):string {

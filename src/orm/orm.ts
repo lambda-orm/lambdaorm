@@ -1,6 +1,6 @@
 
 import { Cache, IOrm, Context, Config } from './model'
-import { Model, NodeManager } from './node/index'
+import { Model, ParserManager } from './parser/index'
 import { Expression, MemoryCache, Transaction } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
@@ -8,7 +8,7 @@ import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, Postgres
 import { LanguageManager, Operand, Sentence, Query } from './language'
 import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
-import modelConfig from './node/config.json'
+import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
 const ConfigExtends = require('config-extends')
 const fs = require('fs')
@@ -18,7 +18,7 @@ class Orm implements IOrm {
 	public config:Config
 	private languageModel: Model
 	// TODO: cambiar el nombre nodeManager por parserManager
-	private nodeManager:NodeManager
+	private parserManager:ParserManager
 	private schemaManager:SchemaManager
 	private databaseManager:DatabaseManager
 	private connectionManager:ConnectionManager
@@ -39,7 +39,7 @@ class Orm implements IOrm {
 
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)
-		this.nodeManager = new NodeManager(this.languageModel)
+		this.parserManager = new ParserManager(this.languageModel)
 
 		this.schemaManager = new SchemaManager(this)
 		this.databaseManager = new DatabaseManager(this)
@@ -117,8 +117,8 @@ class Orm implements IOrm {
 		await orm.connection.end()
 	}
 
-	public get node ():NodeManager {
-		return this.nodeManager
+	public get parser ():ParserManager {
+		return this.parserManager
 	}
 
 	public get schema ():SchemaManager {
@@ -148,9 +148,9 @@ class Orm implements IOrm {
 	public complete (expression:string, schema:string):string {
 		try {
 			const _schema = this.schemaManager.getInstance(schema)
-			const node = this.node.parse(expression)
+			const node = this.parser.parse(expression)
 			const completeNode = this.language.complete(node, _schema)
-			return this.node.toExpression(completeNode)
+			return this.parser.toExpression(completeNode)
 		} catch (error:any) {
 			console.log(error)
 			throw new Error('complete expression: ' + expression + ' error: ' + error.toString())
@@ -163,7 +163,7 @@ class Orm implements IOrm {
 			let operand = await this._cache.get(key)
 			if (!operand) {
 				const _schema = this.schemaManager.getInstance(schema)
-				const node = this.node.parse(expression)
+				const node = this.parser.parse(expression)
 				operand = this.language.build(node, _schema)
 				await this._cache.set(key, operand)
 			}

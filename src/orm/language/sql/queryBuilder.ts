@@ -44,7 +44,8 @@ export class SqlQueryBuilder implements IQueryBuilder {
 			for (const k in include.children) {
 				children.push(this.serialize(include.children[k]))
 			}
-			return { n: include.name, t: include.constructor.name, c: children, r: include.relation, v: include.variable }
+			// return { n: include.name, t: include.constructor.name, c: children, r: include.relation, v: include.variable }
+			return { n: include.name, t: include.constructor.name, c: children, r: include.relation }
 		}
 	}
 
@@ -59,7 +60,8 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
 			const query = this._build(sentenceInclude.children[0] as Sentence, metadata)
-			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation, sentenceInclude.variable)
+			// const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation, sentenceInclude.variable)
+			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}
 		const sqlSentence = this.buildSentence(sentence, metadata as SqlDialectMetadata)

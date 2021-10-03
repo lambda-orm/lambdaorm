@@ -36,21 +36,40 @@ export class SqlExecutor implements IOperandExecutor {
 		if (mainResult.length > 0) {
 			for (const p in query.children) {
 				const include = query.children[p] as SentenceInclude
-				if (!context.contains(include.variable)) {
-					const ids:any[] = []
-					for (let i = 0; i < mainResult.length; i++) {
-						const id = mainResult[i][include.relation.from]
-						if (!ids.includes(id)) { ids.push(id) }
-					}
-					context.set(include.variable, ids)
+				// if (!context.contains(include.variable)) {
+				// if (!context.contains('__parentId')) {
+				const ids:any[] = []
+				for (let i = 0; i < mainResult.length; i++) {
+					const id = mainResult[i]['__' + include.relation.from]
+					if (!ids.includes(id)) { ids.push(id) }
 				}
+				// context.set(include.variable, ids)
+				context.set('__parentId', ids)
+				// }
 				const includeResult = await this._execute(include.children[0] as Query, context, metadata, executor)
 				for (let i = 0; i < mainResult.length; i++) {
 					const element = mainResult[i]
-					const relationId = element[include.relation.from]
+					const relationId = element['__' + include.relation.from]
 					element[include.name] = (include.relation.type === 'manyToOne')
-						? includeResult.filter((p:any) => p[include.relation.to] === relationId)
-						: includeResult.find((p:any) => p[include.relation.to] === relationId)
+						? includeResult.filter((p:any) => p.__parentId === relationId)
+						: includeResult.find((p: any) => p.__parentId === relationId)
+						// ? includeResult.filter((p:any) => p[include.relation.to] === relationId)
+						// : includeResult.find((p:any) => p[include.relation.to] === relationId)
+				}
+				// clear temporal fields used for include relations
+				for (let i = 0; i < mainResult.length; i++) {
+					const element = mainResult[i]
+					delete element['__' + include.relation.from]
+					if (include.relation.type === 'manyToOne') {
+						for (let j = 0; j < element[include.name].length; j++) {
+							const child = element[include.name][j]
+							if (child.__parentId) {
+								delete child.__parentId
+							}
+						}
+					} else if (element[include.name] && element[include.name].__parentId) {
+						delete element[include.name].__parentId
+					}
 				}
 			}
 		}
@@ -161,20 +180,6 @@ export class SqlExecutor implements IOperandExecutor {
 					const childContext = new Context(relation, context)
 					await this._execute(include.children[0] as Query, childContext, metadata, executor)
 				}
-				// switch (include.relation.type) {
-				// case 'manyToOne':
-				// for (let i = 0; i < relation.length; i++) {
-				// const child = relation[i]
-				// const childContext = new Context(child, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// }
-				// break
-				// case 'oneToOne':
-				// case 'oneToMany':
-				// const childContext = new Context(relation, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// break
-				// }
 			}
 		}
 		return changeCount
@@ -196,20 +201,6 @@ export class SqlExecutor implements IOperandExecutor {
 					const childContext = new Context(relation, context)
 					await this._execute(include.children[0] as Query, childContext, metadata, executor)
 				}
-				// switch (include.relation.type) {
-				// case 'manyToOne':
-				// for (let i = 0; i < relation.length; i++) {
-				// const child = relation[i]
-				// const childContext = new Context(child, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// }
-				// break
-				// case 'oneToOne':
-				// case 'oneToMany':
-				// const childContext = new Context(relation, context)
-				// const includeResult = await this._execute(include.children[0] as Query, childContext, metadata, executor)
-				// break
-				// }
 			}
 		}
 		// remove main entity

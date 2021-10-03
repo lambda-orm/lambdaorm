@@ -3,14 +3,14 @@ schema: 'northwind:0.0.2'
 context:
   a:
     id: 1
-    list_id:
-      - null
-    list_orderId:
+    __parentId:
+      - 7
       - 1
+      - 8
 test:
   - name: include 1
     context: a
-    lambda: (id) => Orders.filter(p => p.id == id).include(p => p.customer)
+    lambda: (id) => Orders.filter(p => p.id === id).include(p => p.customer)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -19,13 +19,15 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.CustomerID AS `__customerId` FROM Orders o  WHERE
+          o.OrderID = ? 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -33,14 +35,15 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.CustomerID AS [__customerId] FROM Orders o  WHERE
+          o.OrderID = :id 
 
           SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
-          c.Country AS [country] FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -48,13 +51,15 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.CustomerID AS `__customerId` FROM Orders o  WHERE
+          o.OrderID = ? 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -62,14 +67,15 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.CustomerID AS "__customerId" FROM Orders o  WHERE
+          o.OrderID = :id 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -77,17 +83,19 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.CustomerID AS "__customerId" FROM Orders o  WHERE
+          o.OrderID = $1 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN ($1) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
     errors: 0
-    expression: Orders.filter(p => p.id == id).include(p => p.customer)
+    expression: Orders.filter(p => p.id === id).include(p => p.customer)
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>p.customer.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}))
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id}))
     model:
       id: integer
       customerId: string
@@ -103,6 +111,7 @@ test:
       region: string
       postalCode: string
       country: string
+      __customerId: string
       customer:
         id: string
         name: string
@@ -113,6 +122,7 @@ test:
         region: string
         postalCode: string
         country: string
+        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -146,8 +156,11 @@ test:
         type: string
       - name: country
         type: string
+      - name: __customerId
+        type: string
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -175,7 +188,7 @@ test:
           country: Germany
   - name: include 2
     context: a
-    lambda: (id) => Orders.filter(p => p.id == id).include(p => p.details)
+    lambda: (id) => Orders.filter(p => p.id === id).include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -184,12 +197,13 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -197,13 +211,13 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.OrderID AS [__id] FROM Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
           o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
-          [discount] FROM [Order Details] o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          [discount], o1.OrderID AS [__parentId] FROM [Order Details] o1  WHERE 
+          o1.OrderID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -211,12 +225,13 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -224,13 +239,13 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+          o1.OrderID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -238,16 +253,17 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+          "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+          o1.OrderID IN ($1) 
     errors: 0
-    expression: Orders.filter(p => p.id == id).include(p => p.details)
+    expression: Orders.filter(p => p.id === id).include(p => p.details)
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>p.details.filter(p=>includes(p.orderId,list_orderId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount}))
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}))
     model:
       id: integer
       customerId: string
@@ -263,12 +279,14 @@ test:
       region: string
       postalCode: string
       country: string
+      __id: integer
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
+          __parentId: integer
     parameters:
       - name: id
         type: integer
@@ -302,8 +320,11 @@ test:
         type: string
       - name: country
         type: string
+      - name: __id
+        type: integer
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -338,7 +359,7 @@ test:
   - name: include 3
     context: a
     lambda: >-
-      (id) => Orders.filter(p => p.id == id).include(p => [p.details,
+      (id) => Orders.filter(p => p.id === id).include(p => [p.details,
       p.customer])
     sentences:
       - dialect: mariadb
@@ -348,17 +369,20 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -366,19 +390,20 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
           o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
-          [discount] FROM [Order Details] o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          [discount], o1.OrderID AS [__parentId] FROM [Order Details] o1  WHERE 
+          o1.OrderID IN (:__parentId) 
 
           SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
-          c.Country AS [country] FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -386,17 +411,20 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -404,19 +432,20 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+          o1.OrderID IN (:__parentId) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -424,21 +453,24 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+          "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+          o1.OrderID IN ($1) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN ($1) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
     errors: 0
-    expression: 'Orders.filter(p => p.id == id).include(p => [p.details, p.customer])'
+    expression: 'Orders.filter(p => p.id === id).include(p => [p.details, p.customer])'
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.details.filter(p=>includes(p.orderId,list_orderId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount}),p.customer.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
       id: integer
       customerId: string
@@ -454,12 +486,15 @@ test:
       region: string
       postalCode: string
       country: string
+      __id: integer
+      __customerId: string
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
+          __parentId: integer
       customer:
         id: string
         name: string
@@ -470,6 +505,7 @@ test:
         region: string
         postalCode: string
         country: string
+        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -503,8 +539,13 @@ test:
         type: string
       - name: country
         type: string
+      - name: __id
+        type: integer
+      - name: __customerId
+        type: string
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -549,7 +590,7 @@ test:
   - name: include 4
     context: a
     lambda: >-
-      (id) => Orders.filter(p => p.id == id).include(p => [p.details.include(q
+      (id) => Orders.filter(p => p.id === id).include(p => [p.details.include(q
       => q.product), p.customer])
     sentences:
       - dialect: mariadb
@@ -559,24 +600,27 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.ProductID AS `__productId`, o1.OrderID AS `__parentId`
+          FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
-          IN (?) 
+          p.Discontinued AS `discontinued`, p.ProductID AS `__parentId` FROM
+          Products p  WHERE  p.ProductID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -584,26 +628,27 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
           o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
-          [discount] FROM [Order Details] o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          [discount], o1.ProductID AS [__productId], o1.OrderID AS [__parentId]
+          FROM [Order Details] o1  WHERE  o1.OrderID IN (:__parentId) 
 
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
           [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
           p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
-          p.Discontinued AS [discontinued] FROM Products p  WHERE  p.ProductID
-          IN (:list_id) 
+          p.Discontinued AS [discontinued], p.ProductID AS [__parentId] FROM
+          Products p  WHERE  p.ProductID IN (:__parentId) 
 
           SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
-          c.Country AS [country] FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -611,24 +656,27 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.ProductID AS `__productId`, o1.OrderID AS `__parentId`
+          FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
-          IN (?) 
+          p.Discontinued AS `discontinued`, p.ProductID AS `__parentId` FROM
+          Products p  WHERE  p.ProductID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -636,26 +684,27 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          "discount", o1.ProductID AS "__productId", o1.OrderID AS "__parentId"
+          FROM "Order Details" o1  WHERE  o1.OrderID IN (:__parentId) 
 
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-          p.Discontinued AS "discontinued" FROM Products p  WHERE  p.ProductID
-          IN (:list_id) 
+          p.Discontinued AS "discontinued", p.ProductID AS "__parentId" FROM
+          Products p  WHERE  p.ProductID IN (:__parentId) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -663,30 +712,33 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+          "discount", o1.ProductID AS "__productId", o1.OrderID AS "__parentId"
+          FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
 
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-          p.Discontinued AS "discontinued" FROM Products p  WHERE  p.ProductID
-          IN ($1) 
+          p.Discontinued AS "discontinued", p.ProductID AS "__parentId" FROM
+          Products p  WHERE  p.ProductID IN ($1) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN ($1) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id == id).include(p => [p.details.include(q =>
+      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product), p.customer])
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount}).filter(p=>includes(p.orderId,list_orderId)).include(q=>q.product.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})),p.customer.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,__parentId:p.orderId}).filter(p=>includes(p.orderId,__parentId)).include(q=>q.product.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__parentId:p.id})),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
       id: integer
       customerId: string
@@ -702,12 +754,16 @@ test:
       region: string
       postalCode: string
       country: string
+      __id: integer
+      __customerId: string
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
+          __productId: integer
+          __parentId: integer
           product:
             id: integer
             name: string
@@ -719,6 +775,7 @@ test:
             onOrder: decimal
             reorderLevel: decimal
             discontinued: boolean
+            __parentId: integer
       customer:
         id: string
         name: string
@@ -729,6 +786,7 @@ test:
         region: string
         postalCode: string
         country: string
+        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -762,8 +820,13 @@ test:
         type: string
       - name: country
         type: string
+      - name: __id
+        type: integer
+      - name: __customerId
+        type: string
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -841,7 +904,7 @@ test:
   - name: include 5
     context: a
     lambda: >-
-      (id) => Orders.filter(p => p.id == id).include(p => [p.details.include(q
+      (id) => Orders.filter(p => p.id === id).include(p => [p.details.include(q
       => q.product.include(p => p.category)), p.customer])
     sentences:
       - dialect: mariadb
@@ -851,28 +914,32 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.ProductID AS `__productId`, o1.OrderID AS `__parentId`
+          FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
-          IN (?) 
+          p.Discontinued AS `discontinued`, p.CategoryID AS `__categoryId`,
+          p.ProductID AS `__parentId` FROM Products p  WHERE  p.ProductID IN
+          (?) 
 
           SELECT c.CategoryID AS `id`, c.CategoryName AS `name`, c.Description
-          AS `description` FROM Categories c  WHERE  c.CategoryID IN (?) 
+          AS `description`, c.CategoryID AS `__parentId` FROM Categories c 
+          WHERE  c.CategoryID IN (?) 
 
           SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`, c1.ContactName
           AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
           c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
-          `postalCode`, c1.Country AS `country` FROM Customers c1  WHERE 
-          c1.CustomerID IN (?) 
+          `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
+          FROM Customers c1  WHERE  c1.CustomerID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -880,29 +947,32 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
           o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
-          [discount] FROM [Order Details] o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          [discount], o1.ProductID AS [__productId], o1.OrderID AS [__parentId]
+          FROM [Order Details] o1  WHERE  o1.OrderID IN (:__parentId) 
 
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
           [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
           p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
-          p.Discontinued AS [discontinued] FROM Products p  WHERE  p.ProductID
-          IN (:list_id) 
+          p.Discontinued AS [discontinued], p.CategoryID AS [__categoryId],
+          p.ProductID AS [__parentId] FROM Products p  WHERE  p.ProductID IN
+          (:__parentId) 
 
           SELECT c.CategoryID AS [id], c.CategoryName AS [name], c.Description
-          AS [description] FROM Categories c  WHERE  c.CategoryID IN (:list_id) 
+          AS [description], c.CategoryID AS [__parentId] FROM Categories c 
+          WHERE  c.CategoryID IN (:__parentId) 
 
           SELECT c1.CustomerID AS [id], c1.CompanyName AS [name], c1.ContactName
           AS [contact], c1.ContactTitle AS [phone], c1.Address AS [address],
           c1.City AS [city], c1.Region AS [region], c1.PostalCode AS
-          [postalCode], c1.Country AS [country] FROM Customers c1  WHERE 
-          c1.CustomerID IN (:list_id) 
+          [postalCode], c1.Country AS [country], c1.CustomerID AS [__parentId]
+          FROM Customers c1  WHERE  c1.CustomerID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -910,28 +980,32 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
-          `discount` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+          `discount`, o1.ProductID AS `__productId`, o1.OrderID AS `__parentId`
+          FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
-          IN (?) 
+          p.Discontinued AS `discontinued`, p.CategoryID AS `__categoryId`,
+          p.ProductID AS `__parentId` FROM Products p  WHERE  p.ProductID IN
+          (?) 
 
           SELECT c.CategoryID AS `id`, c.CategoryName AS `name`, c.Description
-          AS `description` FROM Categories c  WHERE  c.CategoryID IN (?) 
+          AS `description`, c.CategoryID AS `__parentId` FROM Categories c 
+          WHERE  c.CategoryID IN (?) 
 
           SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`, c1.ContactName
           AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
           c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
-          `postalCode`, c1.Country AS `country` FROM Customers c1  WHERE 
-          c1.CustomerID IN (?) 
+          `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
+          FROM Customers c1  WHERE  c1.CustomerID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -939,29 +1013,32 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN
-          (:list_orderId) 
+          "discount", o1.ProductID AS "__productId", o1.OrderID AS "__parentId"
+          FROM "Order Details" o1  WHERE  o1.OrderID IN (:__parentId) 
 
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-          p.Discontinued AS "discontinued" FROM Products p  WHERE  p.ProductID
-          IN (:list_id) 
+          p.Discontinued AS "discontinued", p.CategoryID AS "__categoryId",
+          p.ProductID AS "__parentId" FROM Products p  WHERE  p.ProductID IN
+          (:__parentId) 
 
           SELECT c.CategoryID AS "id", c.CategoryName AS "name", c.Description
-          AS "description" FROM Categories c  WHERE  c.CategoryID IN (:list_id) 
+          AS "description", c.CategoryID AS "__parentId" FROM Categories c 
+          WHERE  c.CategoryID IN (:__parentId) 
 
           SELECT c1.CustomerID AS "id", c1.CompanyName AS "name", c1.ContactName
           AS "contact", c1.ContactTitle AS "phone", c1.Address AS "address",
           c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
-          "postalCode", c1.Country AS "country" FROM Customers c1  WHERE 
-          c1.CustomerID IN (:list_id) 
+          "postalCode", c1.Country AS "country", c1.CustomerID AS "__parentId"
+          FROM Customers c1  WHERE  c1.CustomerID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -969,34 +1046,38 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
 
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
-          "discount" FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+          "discount", o1.ProductID AS "__productId", o1.OrderID AS "__parentId"
+          FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
 
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-          p.Discontinued AS "discontinued" FROM Products p  WHERE  p.ProductID
-          IN ($1) 
+          p.Discontinued AS "discontinued", p.CategoryID AS "__categoryId",
+          p.ProductID AS "__parentId" FROM Products p  WHERE  p.ProductID IN
+          ($1) 
 
           SELECT c.CategoryID AS "id", c.CategoryName AS "name", c.Description
-          AS "description" FROM Categories c  WHERE  c.CategoryID IN ($1) 
+          AS "description", c.CategoryID AS "__parentId" FROM Categories c 
+          WHERE  c.CategoryID IN ($1) 
 
           SELECT c1.CustomerID AS "id", c1.CompanyName AS "name", c1.ContactName
           AS "contact", c1.ContactTitle AS "phone", c1.Address AS "address",
           c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
-          "postalCode", c1.Country AS "country" FROM Customers c1  WHERE 
-          c1.CustomerID IN ($1) 
+          "postalCode", c1.Country AS "country", c1.CustomerID AS "__parentId"
+          FROM Customers c1  WHERE  c1.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id == id).include(p => [p.details.include(q =>
+      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product.include(p => p.category)), p.customer])
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount}).filter(p=>includes(p.orderId,list_orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>includes(p.id,list_id)).include(p=>p.category.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,description:p.description}))),p.customer.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,__parentId:p.orderId}).filter(p=>includes(p.orderId,__parentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,__parentId:p.id}).filter(p=>includes(p.id,__parentId)).include(p=>p.category.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,description:p.description,__parentId:p.id}))),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
       id: integer
       customerId: string
@@ -1012,12 +1093,16 @@ test:
       region: string
       postalCode: string
       country: string
+      __id: integer
+      __customerId: string
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
+          __productId: integer
+          __parentId: integer
           product:
             id: integer
             name: string
@@ -1029,10 +1114,13 @@ test:
             onOrder: decimal
             reorderLevel: decimal
             discontinued: boolean
+            __categoryId: integer
+            __parentId: integer
             category:
               id: integer
               name: string
               description: string
+              __parentId: integer
       customer:
         id: string
         name: string
@@ -1043,6 +1131,7 @@ test:
         region: string
         postalCode: string
         country: string
+        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1076,8 +1165,13 @@ test:
         type: string
       - name: country
         type: string
+      - name: __id
+        type: integer
+      - name: __customerId
+        type: string
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -1167,9 +1261,9 @@ test:
   - name: include 6
     context: a
     lambda: >-
-      (id) => Orders.filter(p => p.id == id).include(p => [p.details.map(p => ({
-      quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
-      p.customer])
+      (id) => Orders.filter(p => p.id === id).include(p => [p.details.map(p =>
+      ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId
+      })), p.customer])
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -1178,17 +1272,19 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-          o1.ProductID AS `productId` FROM `Order Details` o1  WHERE  o1.OrderID
-          IN (?) 
+          o1.ProductID AS `productId`, o1.OrderID AS `__parentId` FROM `Order
+          Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -1196,18 +1292,19 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
-          o1.ProductID AS [productId] FROM [Order Details] o1  WHERE  o1.OrderID
-          IN (:list_orderId) 
+          o1.ProductID AS [productId], o1.OrderID AS [__parentId] FROM [Order
+          Details] o1  WHERE  o1.OrderID IN (:__parentId) 
 
           SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
-          c.Country AS [country] FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -1215,17 +1312,19 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-          o1.ProductID AS `productId` FROM `Order Details` o1  WHERE  o1.OrderID
-          IN (?) 
+          o1.ProductID AS `productId`, o1.OrderID AS `__parentId` FROM `Order
+          Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -1233,18 +1332,19 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-          o1.ProductID AS "productId" FROM "Order Details" o1  WHERE  o1.OrderID
-          IN (:list_orderId) 
+          o1.ProductID AS "productId", o1.OrderID AS "__parentId" FROM "Order
+          Details" o1  WHERE  o1.OrderID IN (:__parentId) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -1252,24 +1352,26 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
 
           SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-          o1.ProductID AS "productId" FROM "Order Details" o1  WHERE  o1.OrderID
-          IN ($1) 
+          o1.ProductID AS "productId", o1.OrderID AS "__parentId" FROM "Order
+          Details" o1  WHERE  o1.OrderID IN ($1) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN ($1) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id == id).include(p => [p.details.map(p => ({
+      Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({
       quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
       p.customer])
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.details.filter(p=>includes(p.orderId,list_orderId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
       id: integer
       customerId: string
@@ -1285,10 +1387,13 @@ test:
       region: string
       postalCode: string
       country: string
+      __id: integer
+      __customerId: string
       details:
         - quantity: decimal
           unitPrice: decimal
           productId: integer
+          __parentId: integer
       customer:
         id: string
         name: string
@@ -1299,6 +1404,7 @@ test:
         region: string
         postalCode: string
         country: string
+        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1332,8 +1438,13 @@ test:
         type: string
       - name: country
         type: string
+      - name: __id
+        type: integer
+      - name: __customerId
+        type: string
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -1349,7 +1460,16 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - quantity: 15
+            unitPrice: 45.6
+            productId: 28
+          - quantity: 21
+            unitPrice: 18
+            productId: 39
+          - quantity: 2
+            unitPrice: 12
+            productId: 46
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -1363,7 +1483,7 @@ test:
   - name: include 7
     context: a
     lambda: >-
-      (id) => Orders.filter(p => p.id == id).include(p => [p.details.include(q
+      (id) => Orders.filter(p => p.id === id).include(p => [p.details.include(q
       => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
       productId: p.productId })), p.customer])
     sentences:
@@ -1374,24 +1494,26 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-          o1.ProductID AS `productId` FROM `Order Details` o1  WHERE  o1.OrderID
-          IN (?) 
+          o1.ProductID AS `productId`, o1.ProductID AS `__productId`, o1.OrderID
+          AS `__parentId` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
-          IN (?) 
+          p.Discontinued AS `discontinued`, p.ProductID AS `__parentId` FROM
+          Products p  WHERE  p.ProductID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -1399,25 +1521,27 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
-          o1.ProductID AS [productId] FROM [Order Details] o1  WHERE  o1.OrderID
-          IN (:list_orderId) 
+          o1.ProductID AS [productId], o1.ProductID AS [__productId], o1.OrderID
+          AS [__parentId] FROM [Order Details] o1  WHERE  o1.OrderID IN
+          (:__parentId) 
 
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
           [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
           p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
-          p.Discontinued AS [discontinued] FROM Products p  WHERE  p.ProductID
-          IN (:list_id) 
+          p.Discontinued AS [discontinued], p.ProductID AS [__parentId] FROM
+          Products p  WHERE  p.ProductID IN (:__parentId) 
 
           SELECT c.CustomerID AS [id], c.CompanyName AS [name], c.ContactName AS
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
-          c.Country AS [country] FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -1425,24 +1549,26 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
 
           SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-          o1.ProductID AS `productId` FROM `Order Details` o1  WHERE  o1.OrderID
-          IN (?) 
+          o1.ProductID AS `productId`, o1.ProductID AS `__productId`, o1.OrderID
+          AS `__parentId` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
 
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  WHERE  p.ProductID
-          IN (?) 
+          p.Discontinued AS `discontinued`, p.ProductID AS `__parentId` FROM
+          Products p  WHERE  p.ProductID IN (?) 
 
           SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
-          c.Country AS `country` FROM Customers c  WHERE  c.CustomerID IN (?) 
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -1450,25 +1576,27 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = :id 
 
           SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-          o1.ProductID AS "productId" FROM "Order Details" o1  WHERE  o1.OrderID
-          IN (:list_orderId) 
+          o1.ProductID AS "productId", o1.ProductID AS "__productId", o1.OrderID
+          AS "__parentId" FROM "Order Details" o1  WHERE  o1.OrderID IN
+          (:__parentId) 
 
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-          p.Discontinued AS "discontinued" FROM Products p  WHERE  p.ProductID
-          IN (:list_id) 
+          p.Discontinued AS "discontinued", p.ProductID AS "__parentId" FROM
+          Products p  WHERE  p.ProductID IN (:__parentId) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -1476,31 +1604,33 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
 
           SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-          o1.ProductID AS "productId" FROM "Order Details" o1  WHERE  o1.OrderID
-          IN ($1) 
+          o1.ProductID AS "productId", o1.ProductID AS "__productId", o1.OrderID
+          AS "__parentId" FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
 
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-          p.Discontinued AS "discontinued" FROM Products p  WHERE  p.ProductID
-          IN ($1) 
+          p.Discontinued AS "discontinued", p.ProductID AS "__parentId" FROM
+          Products p  WHERE  p.ProductID IN ($1) 
 
           SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
-          c.Country AS "country" FROM Customers c  WHERE  c.CustomerID IN ($1) 
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id == id).include(p => [p.details.include(q =>
+      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
       productId: p.productId })), p.customer])
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})).filter(p=>includes(p.orderId,list_orderId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer.filter(p=>includes(p.id,list_id)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__parentId:p.id})).filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
       id: integer
       customerId: string
@@ -1516,10 +1646,14 @@ test:
       region: string
       postalCode: string
       country: string
+      __id: integer
+      __customerId: string
       details:
         - quantity: decimal
           unitPrice: decimal
           productId: integer
+          __productId: integer
+          __parentId: integer
           product:
             id: integer
             name: string
@@ -1531,6 +1665,7 @@ test:
             onOrder: decimal
             reorderLevel: decimal
             discontinued: boolean
+            __parentId: integer
       customer:
         id: string
         name: string
@@ -1541,6 +1676,7 @@ test:
         region: string
         postalCode: string
         country: string
+        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1574,8 +1710,13 @@ test:
         type: string
       - name: country
         type: string
+      - name: __id
+        type: integer
+      - name: __customerId
+        type: string
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -1591,7 +1732,49 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - quantity: 15
+            unitPrice: 45.6
+            productId: 28
+            product:
+              id: 28
+              name: Rssle Sauerkraut
+              supplierId: 12
+              categoryId: 7
+              quantity: 25 - 825 g cans
+              price: 45.6
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+          - quantity: 21
+            unitPrice: 18
+            productId: 39
+            product:
+              id: 39
+              name: Chartreuse verte
+              supplierId: 18
+              categoryId: 1
+              quantity: 750 cc per bottle
+              price: 18
+              inStock: 69
+              onOrder: 0
+              reorderLevel: 5
+              discontinued: false
+          - quantity: 2
+            unitPrice: 12
+            productId: 46
+            product:
+              id: 46
+              name: Spegesild
+              supplierId: 21
+              categoryId: 8
+              quantity: 4 - 450 g glasses
+              price: 12
+              inStock: 95
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -1605,7 +1788,7 @@ test:
   - name: include 8
     context: a
     lambda: >-
-      (id) => Orders.filter(p => p.id == id).include(p => [p.customer.map(p =>
+      (id) => Orders.filter(p => p.id === id).include(p => [p.customer.map(p =>
       p.name), p.details.include(p => p.product.include(p => p.category.map(p =>
       p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
     sentences:
@@ -1616,18 +1799,23 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM
+          Orders o  WHERE o.OrderID = ? 
 
-          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN (?) 
+          SELECT c.CompanyName AS `name`, c.CustomerID AS `__parentId` FROM
+          Customers c  WHERE  c.CustomerID IN (?) 
 
-          SELECT o1.Quantity, o1.UnitPrice FROM `Order Details` o1  WHERE 
-          o1.OrderID IN (?) 
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `__productId`, o1.OrderID AS `__parentId` FROM `Order
+          Details` o1  WHERE  o1.OrderID IN (?) 
 
-          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN (?) 
-
-          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
+          SELECT p.ProductName AS `name`, p.CategoryID AS `__categoryId`,
+          p.ProductID AS `__parentId` FROM Products p  WHERE  p.ProductID IN
           (?) 
+
+          SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
+          Categories c1  WHERE  c1.CategoryID IN (?) 
       - dialect: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
@@ -1635,20 +1823,23 @@ test:
           [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
           [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
           o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
-          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS [country]
-          FROM Orders o  WHERE o.OrderID = :id 
+          [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+          [country], o.CustomerID AS [__customerId], o.OrderID AS [__id] FROM
+          Orders o  WHERE o.OrderID = :id 
 
-          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          SELECT c.CompanyName AS [name], c.CustomerID AS [__parentId] FROM
+          Customers c  WHERE  c.CustomerID IN (:__parentId) 
 
-          SELECT o1.Quantity, o1.UnitPrice FROM [Order Details] o1  WHERE 
-          o1.OrderID IN (:list_orderId) 
+          SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
+          o1.ProductID AS [__productId], o1.OrderID AS [__parentId] FROM [Order
+          Details] o1  WHERE  o1.OrderID IN (:__parentId) 
 
-          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN
-          (:list_id) 
+          SELECT p.ProductName AS [name], p.CategoryID AS [__categoryId],
+          p.ProductID AS [__parentId] FROM Products p  WHERE  p.ProductID IN
+          (:__parentId) 
 
-          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
-          (:list_id) 
+          SELECT c1.CategoryName AS [name], c1.CategoryID AS [__parentId] FROM
+          Categories c1  WHERE  c1.CategoryID IN (:__parentId) 
       - dialect: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
@@ -1656,18 +1847,23 @@ test:
           `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
           `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
           o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS `country`
-          FROM Orders o  WHERE o.OrderID = ? 
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM
+          Orders o  WHERE o.OrderID = ? 
 
-          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN (?) 
+          SELECT c.CompanyName AS `name`, c.CustomerID AS `__parentId` FROM
+          Customers c  WHERE  c.CustomerID IN (?) 
 
-          SELECT o1.Quantity, o1.UnitPrice FROM `Order Details` o1  WHERE 
-          o1.OrderID IN (?) 
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `__productId`, o1.OrderID AS `__parentId` FROM `Order
+          Details` o1  WHERE  o1.OrderID IN (?) 
 
-          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN (?) 
-
-          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
+          SELECT p.ProductName AS `name`, p.CategoryID AS `__categoryId`,
+          p.ProductID AS `__parentId` FROM Products p  WHERE  p.ProductID IN
           (?) 
+
+          SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
+          Categories c1  WHERE  c1.CategoryID IN (?) 
       - dialect: oracle
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -1675,20 +1871,23 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = :id 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.CustomerID AS "__customerId", o.OrderID AS "__id" FROM
+          Orders o  WHERE o.OrderID = :id 
 
-          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN
-          (:list_id) 
+          SELECT c.CompanyName AS "name", c.CustomerID AS "__parentId" FROM
+          Customers c  WHERE  c.CustomerID IN (:__parentId) 
 
-          SELECT o1.Quantity, o1.UnitPrice FROM "Order Details" o1  WHERE 
-          o1.OrderID IN (:list_orderId) 
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "__productId", o1.OrderID AS "__parentId" FROM "Order
+          Details" o1  WHERE  o1.OrderID IN (:__parentId) 
 
-          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN
-          (:list_id) 
+          SELECT p.ProductName AS "name", p.CategoryID AS "__categoryId",
+          p.ProductID AS "__parentId" FROM Products p  WHERE  p.ProductID IN
+          (:__parentId) 
 
-          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
-          (:list_id) 
+          SELECT c1.CategoryName AS "name", c1.CategoryID AS "__parentId" FROM
+          Categories c1  WHERE  c1.CategoryID IN (:__parentId) 
       - dialect: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
@@ -1696,25 +1895,30 @@ test:
           "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
           "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
           o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS "country"
-          FROM Orders o  WHERE o.OrderID = $1 
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.CustomerID AS "__customerId", o.OrderID AS "__id" FROM
+          Orders o  WHERE o.OrderID = $1 
 
-          SELECT c.CompanyName FROM Customers c  WHERE  c.CustomerID IN ($1) 
+          SELECT c.CompanyName AS "name", c.CustomerID AS "__parentId" FROM
+          Customers c  WHERE  c.CustomerID IN ($1) 
 
-          SELECT o1.Quantity, o1.UnitPrice FROM "Order Details" o1  WHERE 
-          o1.OrderID IN ($1) 
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "__productId", o1.OrderID AS "__parentId" FROM "Order
+          Details" o1  WHERE  o1.OrderID IN ($1) 
 
-          SELECT p.ProductName FROM Products p  WHERE  p.ProductID IN ($1) 
-
-          SELECT c1.CategoryName FROM Categories c1  WHERE  c1.CategoryID IN
+          SELECT p.ProductName AS "name", p.CategoryID AS "__categoryId",
+          p.ProductID AS "__parentId" FROM Products p  WHERE  p.ProductID IN
           ($1) 
+
+          SELECT c1.CategoryName AS "name", c1.CategoryID AS "__parentId" FROM
+          Categories c1  WHERE  c1.CategoryID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id == id).include(p => [p.customer.map(p => p.name),
+      Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
       p.details.include(p => p.product.include(p => p.category.map(p =>
       p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country}).include(p=>[p.customer.filter(p=>includes(p.id,list_id)).map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,list_id)).map(p=>p.name)).filter(p=>includes(p.id,list_id)).map(p=>p.name)).filter(p=>includes(p.orderId,list_orderId)).map(p=>[p.quantity,p.unitPrice])])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).include(p=>[p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__parentId:p.id}),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__parentId:p.id})).filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__categoryId:p.categoryId,__parentId:p.id})).filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,__productId:p.productId,__parentId:p.orderId})])
     model:
       id: integer
       customerId: string
@@ -1730,15 +1934,23 @@ test:
       region: string
       postalCode: string
       country: string
+      __customerId: string
+      __id: integer
       customer:
         name: string
+        __parentId: string
       details:
         - quantity: decimal
           unitPrice: decimal
+          __productId: integer
+          __parentId: integer
           product:
             name: string
+            __categoryId: integer
+            __parentId: integer
             category:
               name: string
+              __parentId: integer
     parameters:
       - name: id
         type: integer
@@ -1772,8 +1984,13 @@ test:
         type: string
       - name: country
         type: string
+      - name: __customerId
+        type: string
+      - name: __id
+        type: integer
     executions:
       - database: mysql
+      - database: postgres
     result:
       - id: 1
         customerId: ALFKI
@@ -1789,5 +2006,25 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        customer:
+          name: Alfreds Futterkiste
+        details:
+          - quantity: 15
+            unitPrice: 45.6
+            product:
+              name: Rssle Sauerkraut
+              category:
+                name: Produce
+          - quantity: 21
+            unitPrice: 18
+            product:
+              name: Chartreuse verte
+              category:
+                name: Beverages
+          - quantity: 2
+            unitPrice: 12
+            product:
+              name: Spegesild
+              category:
+                name: Seafood
 errors: 0

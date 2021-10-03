@@ -267,11 +267,11 @@ export class Sentence extends Operand {
 }
 export class SentenceInclude extends Operand {
 	public relation: any
-	public variable: string
-	constructor (name: string, children: Operand[] = [], relation: any, variable: string) {
+	// public variable: string
+	constructor (name: string, children: Operand[] = [], relation: any) {
 		super(name, children)
 		this.relation = relation
-		this.variable = variable
+		// this.variable = variable
 	}
 
 	public eval (): any {
@@ -301,11 +301,12 @@ export class Query extends Operand {
 }
 export class Include extends Operand {
 	public relation: any
-	public variable: string
-	constructor (name: string, children: Operand[] = [], relation: any, variable: string) {
+	// public variable: string
+	// constructor(name: string, children: Operand[] = [], relation: any, variable: string) {
+	constructor (name: string, children: Operand[] = [], relation: any) {
 		super(name, children)
 		this.relation = relation
-		this.variable = variable
+		// this.variable = variable
 	}
 
 	public eval (): any {
