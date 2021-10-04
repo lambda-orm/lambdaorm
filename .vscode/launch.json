@@ -15,6 +15,16 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "generate doc",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/generateDoc.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
 			"name": "build config",
 			"type": "node",
 			"request": "launch",
