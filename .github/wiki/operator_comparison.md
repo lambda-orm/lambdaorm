@@ -1,3 +1,5 @@
+# comparison operators
+
 |Operator    |Description                                   |
 |------------|----------------------------------------------|
 |==|equal|

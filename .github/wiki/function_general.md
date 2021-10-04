@@ -1,13 +1,15 @@
+# general functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|as|null|
-|distinct|null|
+|as|Is used to assign a new name temporarily to a table column or even a table|
+|distinct|Is used with SELECT key word to retrieve only distinct or unique data.|
 
 ## Definition
 
 ### as
 
-- description: null
+- description: Is used to assign a new name temporarily to a table column or even a table
 - deterministic: undefined
 - return: T
 - params:
@@ -16,7 +18,7 @@
 
 ### distinct
 
-- description: null
+- description: Is used with SELECT key word to retrieve only distinct or unique data.
 - deterministic: undefined
 - return: T
 - params:

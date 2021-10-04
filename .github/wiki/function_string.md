@@ -1,3 +1,5 @@
+# string functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |chr|Get character from ASCII code|

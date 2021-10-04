@@ -1,3 +1,5 @@
+# metadata functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |user|get username|

@@ -1,15 +1,17 @@
+# nullable functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|nvl|null|
-|nvl2|null|
-|isNull|null|
-|isNotNull|null|
+|nvl|Allows you to replace null values with a default value.|
+|nvl2|Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.|
+|isNull|Evaluate if it is null|
+|isNotNull|Evaluate if it is not null|
 
 ## Definition
 
 ### nvl
 
-- description: null
+- description: Allows you to replace null values with a default value.
 - deterministic: true
 - return: T
 - params:
@@ -18,7 +20,7 @@
 
 ### nvl2
 
-- description: null
+- description: Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.
 - deterministic: true
 - return: T
 - params:
@@ -28,7 +30,7 @@
 
 ### isNull
 
-- description: null
+- description: Evaluate if it is null
 - deterministic: true
 - return: boolean
 - params:
@@ -36,7 +38,7 @@
 
 ### isNotNull
 
-- description: null
+- description: Evaluate if it is not null
 - deterministic: true
 - return: boolean
 - params:

@@ -1,3 +1,5 @@
+# numeric functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |abs|Get the absolute value|

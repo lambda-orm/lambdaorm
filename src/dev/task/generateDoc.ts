@@ -4,7 +4,7 @@ const ConfigExtends = require('config-extends')
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
-	lines.push(`# ${category} functions\n`)
+	// lines.push(`# ${category} functions\n`)
 
 	lines.push('|Function    |Description                                   |')
 	lines.push('|------------|----------------------------------------------|')
@@ -39,7 +39,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 
 async function writeOperators (category:string, list: any): Promise<void> {
 	const lines: string[] = []
-	lines.push(`# ${category} operators\n`)
+	// lines.push(`# ${category} operators\n`)
 
 	lines.push('|Operator    |Description                                   |')
 	lines.push('|------------|----------------------------------------------|')

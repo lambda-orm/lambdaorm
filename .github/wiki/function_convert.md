@@ -1,14 +1,16 @@
+# convert functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|toString|null|
-|toJson|null|
-|toNumber|null|
+|toString|convert to string|
+|toJson|convert to json|
+|toNumber|convert to number|
 
 ## Definition
 
 ### toString
 
-- description: null
+- description: convert to string
 - deterministic: true
 - return: string
 - params:
@@ -16,7 +18,7 @@
 
 ### toJson
 
-- description: null
+- description: convert to json
 - deterministic: true
 - return: object
 - params:
@@ -24,7 +26,7 @@
 
 ### toNumber
 
-- description: null
+- description: convert to number
 - deterministic: true
 - return: number
 - params:

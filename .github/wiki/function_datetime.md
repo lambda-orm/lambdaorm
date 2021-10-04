@@ -1,27 +1,29 @@
+# datetime functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |curtime|Get the current time|
 |today|Get the current date|
 |now|Get the current datetime|
-|time|null|
-|date|null|
-|datetime|null|
-|year|null|
-|month|null|
-|day|null|
-|weekday|null|
-|hours|null|
-|minutes|null|
-|seconds|null|
-|addYear|null|
-|addMonth|null|
-|addDay|null|
-|addHours|null|
-|addMinutes|null|
-|addSeconds|null|
-|addTime|null|
-|dateDiff|null|
-|timeDiff|null|
+|time|Convert string to time|
+|date|Convert string to date|
+|datetime|Convert string to datetime|
+|year|Get year from date|
+|month|Get month from date|
+|day|Get day of month from date|
+|weekday|get date of week from date|
+|hours|get hour from date|
+|minutes|Get minutes from date|
+|seconds|Get seconds from date|
+|addYear|Add years to a date|
+|addMonth|Add months to a date|
+|addDay|Add days to a date|
+|addHours|Add hours to a date|
+|addMinutes|Add minutes to a date|
+|addSeconds|Add seconds to a date|
+|addTime|Add time to a date|
+|dateDiff|difference between two dates|
+|timeDiff|difference between two times|
 
 ## Definition
 
@@ -48,7 +50,7 @@
 
 ### time
 
-- description: null
+- description: Convert string to time
 - deterministic: true
 - return: Date
 - params:
@@ -56,7 +58,7 @@
 
 ### date
 
-- description: null
+- description: Convert string to date
 - deterministic: true
 - return: Date
 - params:
@@ -64,7 +66,7 @@
 
 ### datetime
 
-- description: null
+- description: Convert string to datetime
 - deterministic: true
 - return: Date
 - params:
@@ -72,7 +74,7 @@
 
 ### year
 
-- description: null
+- description: Get year from date
 - deterministic: true
 - return: number
 - params:
@@ -80,7 +82,7 @@
 
 ### month
 
-- description: null
+- description: Get month from date
 - deterministic: true
 - return: number
 - params:
@@ -88,7 +90,7 @@
 
 ### day
 
-- description: null
+- description: Get day of month from date
 - deterministic: true
 - return: number
 - params:
@@ -96,7 +98,7 @@
 
 ### weekday
 
-- description: null
+- description: get date of week from date
 - deterministic: true
 - return: number
 - params:
@@ -104,7 +106,7 @@
 
 ### hours
 
-- description: null
+- description: get hour from date
 - deterministic: true
 - return: number
 - params:
@@ -112,7 +114,7 @@
 
 ### minutes
 
-- description: null
+- description: Get minutes from date
 - deterministic: true
 - return: number
 - params:
@@ -120,7 +122,7 @@
 
 ### seconds
 
-- description: null
+- description: Get seconds from date
 - deterministic: true
 - return: number
 - params:
@@ -128,7 +130,7 @@
 
 ### addYear
 
-- description: null
+- description: Add years to a date
 - deterministic: true
 - return: Date
 - params:
@@ -137,7 +139,7 @@
 
 ### addMonth
 
-- description: null
+- description: Add months to a date
 - deterministic: true
 - return: Date
 - params:
@@ -146,7 +148,7 @@
 
 ### addDay
 
-- description: null
+- description: Add days to a date
 - deterministic: true
 - return: Date
 - params:
@@ -155,7 +157,7 @@
 
 ### addHours
 
-- description: null
+- description: Add hours to a date
 - deterministic: true
 - return: Date
 - params:
@@ -164,7 +166,7 @@
 
 ### addMinutes
 
-- description: null
+- description: Add minutes to a date
 - deterministic: true
 - return: Date
 - params:
@@ -173,7 +175,7 @@
 
 ### addSeconds
 
-- description: null
+- description: Add seconds to a date
 - deterministic: true
 - return: Date
 - params:
@@ -182,7 +184,7 @@
 
 ### addTime
 
-- description: null
+- description: Add time to a date
 - deterministic: true
 - return: Date
 - params:
@@ -191,7 +193,7 @@
 
 ### dateDiff
 
-- description: null
+- description: difference between two dates
 - deterministic: true
 - return: Date
 - params:
@@ -200,7 +202,7 @@
 
 ### timeDiff
 
-- description: null
+- description: difference between two times
 - deterministic: true
 - return: Date
 - params:

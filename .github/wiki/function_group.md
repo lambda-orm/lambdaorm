@@ -1,18 +1,20 @@
+# group functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|avg|null|
-|count|null|
-|first|null|
-|last|null|
-|max|null|
-|min|null|
-|sum|null|
+|avg|Calculates the average of the specified columns in a set of rows|
+|count|Calculating the number of rows in a set.|
+|first|Returns the first value of the selected column|
+|last|Returns the last value of the selected column.|
+|max|Calculating the maximum.|
+|min|Calculating the minimum.|
+|sum|Calculating the sum.|
 
 ## Definition
 
 ### avg
 
-- description: null
+- description: Calculates the average of the specified columns in a set of rows
 - deterministic: undefined
 - return: number
 - params:
@@ -20,7 +22,7 @@
 
 ### count
 
-- description: null
+- description: Calculating the number of rows in a set.
 - deterministic: undefined
 - return: number
 - params:
@@ -28,7 +30,7 @@
 
 ### first
 
-- description: null
+- description: Returns the first value of the selected column
 - deterministic: undefined
 - return: T
 - params:
@@ -36,7 +38,7 @@
 
 ### last
 
-- description: null
+- description: Returns the last value of the selected column.
 - deterministic: undefined
 - return: T
 - params:
@@ -44,7 +46,7 @@
 
 ### max
 
-- description: null
+- description: Calculating the maximum.
 - deterministic: undefined
 - return: T
 - params:
@@ -52,7 +54,7 @@
 
 ### min
 
-- description: null
+- description: Calculating the minimum.
 - deterministic: undefined
 - return: T
 - params:
@@ -60,7 +62,7 @@
 
 ### sum
 
-- description: null
+- description: Calculating the sum.
 - deterministic: undefined
 - return: number
 - params:

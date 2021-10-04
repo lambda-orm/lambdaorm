@@ -1,13 +1,15 @@
+# condition functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|between|null|
-|includes|null|
+|between|Specifies how to retrieve values from an expression within a specific range.|
+|includes|Is used to reduce the use of multiple OR conditions|
 
 ## Definition
 
 ### between
 
-- description: null
+- description: Specifies how to retrieve values from an expression within a specific range.
 - deterministic: undefined
 - return: boolean
 - params:
@@ -17,7 +19,7 @@
 
 ### includes
 
-- description: null
+- description: Is used to reduce the use of multiple OR conditions
 - deterministic: undefined
 - return: boolean
 - params:

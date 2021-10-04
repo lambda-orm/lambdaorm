@@ -1,13 +1,15 @@
+# sort functions
+
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|desc|null|
-|asc|null|
+|desc|This statement is used to sort data in descending order|
+|asc|This statement is used to sort data in ascending order.|
 
 ## Definition
 
 ### desc
 
-- description: null
+- description: This statement is used to sort data in descending order
 - deterministic: undefined
 - return: void
 - params:
@@ -15,7 +17,7 @@
 
 ### asc
 
-- description: null
+- description: This statement is used to sort data in ascending order.
 - deterministic: undefined
 - return: void
 - params:
