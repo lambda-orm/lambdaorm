@@ -15,6 +15,20 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "cli init",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"init",
+				"-n",
+				"test"
+			]
+		},
+		{
 			"name": "generate doc",
 			"type": "node",
 			"request": "launch",
