@@ -1,7 +1,21 @@
 {
 	"name": "lambda-orm",
-	"version": "0.0.26",
+	"version": "0.0.27",
 	"description": "ORM",
+	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
+	"license": "Apache-2.0 License",
+	"main": "./index.js",
+	"bin": {
+		"lambdaorm": "./cli.js"
+	},
+	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
+	"bugs": {
+		"url": "https://github.com/FlavioLionelRita/lambda-orm/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/FlavioLionelRita/lambda-orm.git"
+	},
 	"scripts": {
 		"lint": "grunt lint",
 		"build": "grunt build-config && tsc",
@@ -9,45 +23,16 @@
 		"generate-test": "grunt generate-test",
 		"unit-test": "grunt unit-test",
 		"integration-test": "grunt integration-test",
-		"dist": "grunt build-dist"
+		"dist": "tsc && grunt build-dist"
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/FlavioLionelRita/lambda-orm.git"
-	},
-	"keywords": [
-		"orm",
-		"mysql",
-		"mariadb",
-		"sqlite",
-		"postgresql",
-		"postgres",
-		"pg",
-		"mssql",
-		"sqlserver",
-		"sql",
-		"query",
-		"builder",
-		"expression",
-		"parser",
-		"database",
-		"data access",
-		"nodejs",
-		"object relational mapper",
-		"db",
-		"lambda",
-		"lambda-orm"
-	],
-	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
-	"license": "Apache-2.0 License",
-	"bugs": {
-		"url": "https://github.com/FlavioLionelRita/lambda-orm/issues"
-	},
-	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
 	"dependencies": {
+		"chalk": "^4.1.2",
 		"config-extends": "^1.0.4",
+		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
-		"sqlstring": "^2.3.2"
+		"sqlstring": "^2.3.2",
+		"yargonaut": "^1.1.4",
+		"yargs": "^17.2.1"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.15.4",
@@ -77,5 +62,51 @@
 		"ts-jest": "^27.0.5",
 		"ts-node": "^10.0.0",
 		"typescript": "^4.3.5"
-	}
+	},
+	"keywords": [
+		"orm",
+		"mysql",
+		"mariadb",
+		"sqlite",
+		"postgresql",
+		"postgres",
+		"pg",
+		"mssql",
+		"sqlserver",
+		"sql",
+		"query",
+		"builder",
+		"expression",
+		"parser",
+		"database",
+		"data access",
+		"nodejs",
+		"object relational mapper",
+		"db",
+		"lambda",
+		"lambda-orm"
+	],
+	"tags": [
+		"orm",
+		"mysql",
+		"mariadb",
+		"sqlite",
+		"postgresql",
+		"postgres",
+		"pg",
+		"mssql",
+		"sqlserver",
+		"sql",
+		"query",
+		"builder",
+		"expression",
+		"parser",
+		"database",
+		"data access",
+		"nodejs",
+		"object relational mapper",
+		"db",
+		"lambda",
+		"lambda-orm"
+	]
 }

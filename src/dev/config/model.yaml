@@ -401,7 +401,7 @@ operators:
 functions:
 # general:---------------------------------------------------------       
   as:
-    desc:
+    desc:  Is used to assign a new name temporarily to a table column or even a table
     category: general 
     return: T
     params:
@@ -410,7 +410,7 @@ functions:
     - name: name
       type: string
   distinct:
-    desc:
+    desc:  Is used with SELECT key word to retrieve only distinct or unique data.
     category: general 
     return: T
     params:
@@ -418,14 +418,14 @@ functions:
       type: T      
 # sort:---------------------------------------------------------         
   desc:
-    desc:
+    desc: This statement is used to sort data in descending order
     category: sort 
     return: void
     params:
     - name: value
       type: any 
   asc:
-    desc:
+    desc: This statement is used to sort data in ascending order.
     category: sort 
     return: void
     params:
@@ -433,7 +433,7 @@ functions:
       type: any 
 # condition:---------------------------------------------------------       
   between:
-    desc:
+    desc: Specifies how to retrieve values from an expression within a specific range.
     category: condition 
     return: boolean
     params:
@@ -444,7 +444,7 @@ functions:
     - name: to
       type: T  
   includes:
-    desc:
+    desc: Is used to reduce the use of multiple OR conditions
     category: condition 
     return: boolean
     params:
@@ -749,7 +749,7 @@ functions:
     category: datetime 
     return: Date 
   time:
-    desc: 
+    desc: Convert string to time
     category: datetime
     deterministic: true 
     return: Date 
@@ -757,7 +757,7 @@ functions:
     - name: value
       type: string 
   date:
-    desc: 
+    desc: Convert string to date
     category: datetime
     deterministic: true 
     return: Date 
@@ -765,7 +765,7 @@ functions:
     - name: value
       type: string  
   datetime:
-    desc: 
+    desc: Convert string to datetime
     category: datetime
     deterministic: true 
     return: Date 
@@ -773,7 +773,7 @@ functions:
     - name: value
       type: string              
   year:
-    desc: 
+    desc: Get year from date
     category: datetime
     deterministic: true 
     return: number 
@@ -781,7 +781,7 @@ functions:
     - name: value
       type: Date
   month:
-    desc: 
+    desc: Get month from date
     category: datetime
     deterministic: true 
     return: number 
@@ -789,7 +789,7 @@ functions:
     - name: value
       type: Date     
   day:
-    desc: 
+    desc: Get day of month from date
     category: datetime
     deterministic: true 
     return: number 
@@ -797,7 +797,7 @@ functions:
     - name: value
       type: Date
   weekday:
-    desc: 
+    desc: get date of week from date
     category: datetime
     deterministic: true 
     return: number 
@@ -805,7 +805,7 @@ functions:
     - name: value
       type: Date
   hours:
-    desc: 
+    desc: get hour from date
     category: datetime
     deterministic: true 
     return: number 
@@ -813,7 +813,7 @@ functions:
     - name: value
       type: Date
   minutes:
-    desc: 
+    desc: Get minutes from date
     category: datetime
     deterministic: true 
     return: number 
@@ -821,7 +821,7 @@ functions:
     - name: value
       type: Date    
   seconds:
-    desc: 
+    desc: Get seconds from date
     category: datetime
     deterministic: true 
     return: number 
@@ -829,7 +829,7 @@ functions:
     - name: value
       type: Date
   addYear:
-    desc: 
+    desc: Add years to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -839,7 +839,7 @@ functions:
     - name: value
       type: number 
   addMonth:
-    desc: 
+    desc: Add months to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -849,7 +849,7 @@ functions:
     - name: value
       type: number 
   addDay:
-    desc: 
+    desc: Add days to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -859,7 +859,7 @@ functions:
     - name: value
       type: number
   addHours:
-    desc: 
+    desc: Add hours to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -869,7 +869,7 @@ functions:
     - name: value
       type: number 
   addMinutes:
-    desc: 
+    desc: Add minutes to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -879,7 +879,7 @@ functions:
     - name: value
       type: number 
   addSeconds:
-    desc: 
+    desc: Add seconds to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -889,7 +889,7 @@ functions:
     - name: value
       type: number  
   addTime:
-    desc: 
+    desc: Add time to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -899,7 +899,7 @@ functions:
     - name: value
       type: Date 
   dateDiff:
-    desc: 
+    desc: difference between two dates
     category: datetime
     deterministic: true 
     return: Date 
@@ -909,7 +909,7 @@ functions:
     - name: date2
       type: Date 
   timeDiff:
-    desc: 
+    desc: difference between two times
     category: datetime
     deterministic: true 
     return: Date 
@@ -920,7 +920,7 @@ functions:
       type: Date                                    
 # convert :---------------------------------------------------------
   toString:
-    desc: 
+    desc: convert to string
     category: convert
     deterministic: true 
     return: string 
@@ -928,7 +928,7 @@ functions:
     - name: value
       type: any 
   toJson:
-    desc: 
+    desc: convert to json
     category: convert
     deterministic: true 
     return: object 
@@ -936,7 +936,7 @@ functions:
     - name: value
       type: string 
   toNumber:
-    desc: 
+    desc: convert to number
     category: convert
     deterministic: true 
     return: number 
@@ -954,7 +954,7 @@ functions:
     return: string  
 # null: ---------------------------------------------------------
   nvl:
-    desc: 
+    desc: Allows you to replace null values with a default value. 
     category: nullable
     deterministic: true 
     return: T 
@@ -964,7 +964,7 @@ functions:
     - name: _default 
       type: T  
   nvl2:
-    desc: 
+    desc: Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.
     category: nullable
     deterministic: true 
     return: T 
@@ -976,7 +976,7 @@ functions:
     - name: b 
       type: T
   isNull:
-    desc: 
+    desc: Evaluate if it is null
     category: nullable
     deterministic: true 
     return: boolean 
@@ -984,7 +984,7 @@ functions:
     - name: value 
       type: any
   isNotNull:
-    desc: 
+    desc: Evaluate if it is not null
     category: nullable
     deterministic: true 
     return: boolean 
@@ -993,49 +993,49 @@ functions:
       type: any                
 # group: ---------------------------------------------------------
   avg:
-    desc: 
+    desc: Calculates the average of the specified columns in a set of rows
     category: group 
     return: number 
     params:
     - name: value 
       type: number
   count:
-    desc: 
+    desc: Calculating the number of rows in a set.
     category: group 
     return: number 
     params:
     - name: value 
       type: any 
   first:
-    desc: 
+    desc: Returns the first value of the selected column
     category: group 
     return: T 
     params:
     - name: value 
       type: T 
   last:
-    desc: 
+    desc: Returns the last value of the selected column.
     category: group 
     return: T 
     params:
     - name: value 
       type: T 
   max:
-    desc: 
+    desc: Calculating the maximum.
     category: group 
     return: T 
     params:
     - name: value 
       type: T  
   min:
-    desc: 
+    desc: Calculating the minimum.
     category: group 
     return: T 
     params:
     - name: value 
       type: T  
   sum:
-    desc: 
+    desc: Calculating the sum.
     category: group 
     return: number 
     params:
