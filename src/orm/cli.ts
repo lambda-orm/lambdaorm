@@ -1,20 +1,23 @@
 #!/usr/bin/env node
-// eslint-disable-next-line no-unused-expressions
-// require('yargs/yargs')(process.argv.slice(2))
-// .commandDir('cmd')
-// .demandCommand()
-// .help()
-// .argv
-
 import yargs from 'yargs'
 import { InitCommand } from './cli/cmd/init'
 import { VersionCommand } from './cli/cmd/version'
+import { DropCommand } from './cli/cmd/drop'
+import { SyncCommand } from './cli/cmd/sync'
+import { ImportCommand } from './cli/cmd/import'
+import { ExportCommand } from './cli/cmd/export'
+import { LambdaCommand } from './cli/cmd/lambda'
 
 // eslint-disable-next-line no-unused-expressions
 yargs
 	.usage('Usage: $0 <command> [options]')
 	.command(new InitCommand())
 	.command(new VersionCommand())
+	.command(new DropCommand())
+	.command(new SyncCommand())
+	.command(new ImportCommand())
+	.command(new ExportCommand())
+	.command(new LambdaCommand())
 	.recommendCommands()
 	.demandCommand(1)
 	.strict()
