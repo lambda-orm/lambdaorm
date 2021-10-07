@@ -17,13 +17,15 @@ module.exports = function (grunt) {
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
 			unit_test: { cmd: 'jest --config jest-unit-config.json ' },
-			integration_test: { cmd: 'jest --config jest-integration-config.json ' }
+			integration_test: { cmd: 'jest --config jest-integration-config.json ' },
+			tsc: { cmd: 'npx tsc ' }
 		},
 		clean: {
 			dist: ['dist']
 		},
 		copy: {
 			orm: { expand: true, cwd: 'build/orm', src: '**', dest: 'dist/' },
+			sintaxis: { expand: true, cwd: './src', src: './sintaxis.d.ts', dest: 'build/orm/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
 			license: { expand: true, src: './LICENSE', dest: 'dist/' }
 		}
@@ -71,10 +73,11 @@ module.exports = function (grunt) {
 	grunt.registerTask('databases-down', ['exec:drop_dbs', 'exec:clean_data'])
 	grunt.registerTask('databases-up', ['databases-down', 'exec:create_dbs', 'populate-source', 'populate-databases'])
 	grunt.registerTask('build-test', ['databases-up', 'exec:clean_test', 'generate-data-for-test', 'generate-test', 'databases-down'])
+	grunt.registerTask('build', ['build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('lint', ['exec:lint'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
-	grunt.registerTask('build-dist', ['clean:dist', 'copy:orm', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['exec:tsc', 'clean:dist', 'copy:orm', 'copy:readme', 'copy:license', 'create-package'])
 
 	grunt.registerTask('default', [])
 }

@@ -18,12 +18,12 @@
 	},
 	"scripts": {
 		"lint": "grunt lint",
-		"build": "grunt build-config && tsc",
+		"build": "grunt build",
 		"build-test": "grunt build-test",
 		"generate-test": "grunt generate-test",
 		"unit-test": "grunt unit-test",
 		"integration-test": "grunt integration-test",
-		"dist": "tsc && grunt build-dist"
+		"dist": "grunt dist"
 	},
 	"dependencies": {
 		"chalk": "^4.1.2",

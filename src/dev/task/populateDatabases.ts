@@ -8,12 +8,12 @@ async function schemaDrop (target: string, TryAndContinue = false) {
 	if (orm.database.exists(target)) { await orm.database.clean(target).execute(TryAndContinue) }
 }
 async function schemaExport (source: string) {
-	const exportFile = 'lambdaORM/data/' + source + '-export.json'
+	const exportFile = 'data/' + source + '-export.json'
 	const data = await orm.database.export(source)
 	fs.writeFileSync(exportFile, JSON.stringify(data, null, 2))
 }
 async function schemaImport (source: string, target: string) {
-	const sourceFile = 'lambdaORM/data/' + source + '-export.json'
+	const sourceFile = 'data/' + source + '-export.json'
 	const data = JSON.parse(fs.readFileSync(sourceFile, 'utf8'))
 	await orm.database.import(target, data)
 }

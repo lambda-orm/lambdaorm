@@ -65,6 +65,15 @@ export class Helper {
 		})
 	}
 
+	public static async copyFile (src: string, dest:string): Promise<void> {
+		if (!fs.existsSync(src)) {
+			throw new Error(`not exists ${src}`)
+		}
+		return new Promise<void>((resolve, reject) => {
+			fs.copyFile(src, dest, err => err ? reject(err) : resolve())
+		})
+	}
+
 	public static async writeFile (filePath: string, content: string, override = true): Promise<void> {
 		const dir = path.dirname(filePath)
 		if (!fs.existsSync(dir)) {

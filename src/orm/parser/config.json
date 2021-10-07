@@ -641,7 +641,7 @@
   },
   "functions": {
     "as": {
-      "desc": null,
+      "desc": "Is used to assign a new name temporarily to a table column or even a table",
       "category": "general",
       "return": "T",
       "params": [
@@ -656,7 +656,7 @@
       ]
     },
     "distinct": {
-      "desc": null,
+      "desc": "Is used with SELECT key word to retrieve only distinct or unique data.",
       "category": "general",
       "return": "T",
       "params": [
@@ -667,7 +667,7 @@
       ]
     },
     "desc": {
-      "desc": null,
+      "desc": "This statement is used to sort data in descending order",
       "category": "sort",
       "return": "void",
       "params": [
@@ -678,7 +678,7 @@
       ]
     },
     "asc": {
-      "desc": null,
+      "desc": "This statement is used to sort data in ascending order.",
       "category": "sort",
       "return": "void",
       "params": [
@@ -689,7 +689,7 @@
       ]
     },
     "between": {
-      "desc": null,
+      "desc": "Specifies how to retrieve values from an expression within a specific range.",
       "category": "condition",
       "return": "boolean",
       "params": [
@@ -708,7 +708,7 @@
       ]
     },
     "includes": {
-      "desc": null,
+      "desc": "Is used to reduce the use of multiple OR conditions",
       "category": "condition",
       "return": "boolean",
       "params": [
@@ -1171,7 +1171,7 @@
       "return": "Date"
     },
     "time": {
-      "desc": null,
+      "desc": "Convert string to time",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1183,7 +1183,7 @@
       ]
     },
     "date": {
-      "desc": null,
+      "desc": "Convert string to date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1195,7 +1195,7 @@
       ]
     },
     "datetime": {
-      "desc": null,
+      "desc": "Convert string to datetime",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1207,7 +1207,7 @@
       ]
     },
     "year": {
-      "desc": null,
+      "desc": "Get year from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1219,7 +1219,7 @@
       ]
     },
     "month": {
-      "desc": null,
+      "desc": "Get month from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1231,7 +1231,7 @@
       ]
     },
     "day": {
-      "desc": null,
+      "desc": "Get day of month from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1243,7 +1243,7 @@
       ]
     },
     "weekday": {
-      "desc": null,
+      "desc": "get date of week from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1255,7 +1255,7 @@
       ]
     },
     "hours": {
-      "desc": null,
+      "desc": "get hour from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1267,7 +1267,7 @@
       ]
     },
     "minutes": {
-      "desc": null,
+      "desc": "Get minutes from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1279,7 +1279,7 @@
       ]
     },
     "seconds": {
-      "desc": null,
+      "desc": "Get seconds from date",
       "category": "datetime",
       "deterministic": true,
       "return": "number",
@@ -1291,7 +1291,7 @@
       ]
     },
     "addYear": {
-      "desc": null,
+      "desc": "Add years to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1307,7 +1307,7 @@
       ]
     },
     "addMonth": {
-      "desc": null,
+      "desc": "Add months to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1323,7 +1323,7 @@
       ]
     },
     "addDay": {
-      "desc": null,
+      "desc": "Add days to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1339,7 +1339,7 @@
       ]
     },
     "addHours": {
-      "desc": null,
+      "desc": "Add hours to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1355,7 +1355,7 @@
       ]
     },
     "addMinutes": {
-      "desc": null,
+      "desc": "Add minutes to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1371,7 +1371,7 @@
       ]
     },
     "addSeconds": {
-      "desc": null,
+      "desc": "Add seconds to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1387,7 +1387,7 @@
       ]
     },
     "addTime": {
-      "desc": null,
+      "desc": "Add time to a date",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1403,7 +1403,7 @@
       ]
     },
     "dateDiff": {
-      "desc": null,
+      "desc": "difference between two dates",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1419,7 +1419,7 @@
       ]
     },
     "timeDiff": {
-      "desc": null,
+      "desc": "difference between two times",
       "category": "datetime",
       "deterministic": true,
       "return": "Date",
@@ -1435,7 +1435,7 @@
       ]
     },
     "toString": {
-      "desc": null,
+      "desc": "convert to string",
       "category": "convert",
       "deterministic": true,
       "return": "string",
@@ -1447,7 +1447,7 @@
       ]
     },
     "toJson": {
-      "desc": null,
+      "desc": "convert to json",
       "category": "convert",
       "deterministic": true,
       "return": "object",
@@ -1459,7 +1459,7 @@
       ]
     },
     "toNumber": {
-      "desc": null,
+      "desc": "convert to number",
       "category": "convert",
       "deterministic": true,
       "return": "number",
@@ -1481,7 +1481,7 @@
       "return": "string"
     },
     "nvl": {
-      "desc": null,
+      "desc": "Allows you to replace null values with a default value.",
       "category": "nullable",
       "deterministic": true,
       "return": "T",
@@ -1497,7 +1497,7 @@
       ]
     },
     "nvl2": {
-      "desc": null,
+      "desc": "Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.",
       "category": "nullable",
       "deterministic": true,
       "return": "T",
@@ -1517,7 +1517,7 @@
       ]
     },
     "isNull": {
-      "desc": null,
+      "desc": "Evaluate if it is null",
       "category": "nullable",
       "deterministic": true,
       "return": "boolean",
@@ -1529,7 +1529,7 @@
       ]
     },
     "isNotNull": {
-      "desc": null,
+      "desc": "Evaluate if it is not null",
       "category": "nullable",
       "deterministic": true,
       "return": "boolean",
@@ -1541,7 +1541,7 @@
       ]
     },
     "avg": {
-      "desc": null,
+      "desc": "Calculates the average of the specified columns in a set of rows",
       "category": "group",
       "return": "number",
       "params": [
@@ -1552,7 +1552,7 @@
       ]
     },
     "count": {
-      "desc": null,
+      "desc": "Calculating the number of rows in a set.",
       "category": "group",
       "return": "number",
       "params": [
@@ -1563,7 +1563,7 @@
       ]
     },
     "first": {
-      "desc": null,
+      "desc": "Returns the first value of the selected column",
       "category": "group",
       "return": "T",
       "params": [
@@ -1574,7 +1574,7 @@
       ]
     },
     "last": {
-      "desc": null,
+      "desc": "Returns the last value of the selected column.",
       "category": "group",
       "return": "T",
       "params": [
@@ -1585,7 +1585,7 @@
       ]
     },
     "max": {
-      "desc": null,
+      "desc": "Calculating the maximum.",
       "category": "group",
       "return": "T",
       "params": [
@@ -1596,7 +1596,7 @@
       ]
     },
     "min": {
-      "desc": null,
+      "desc": "Calculating the minimum.",
       "category": "group",
       "return": "T",
       "params": [
@@ -1607,7 +1607,7 @@
       ]
     },
     "sum": {
-      "desc": null,
+      "desc": "Calculating the sum.",
       "category": "group",
       "return": "number",
       "params": [

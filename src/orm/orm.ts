@@ -33,7 +33,7 @@ class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.config = { paths: {} }
+		this.config = { src: 'src', data: 'data' }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 
@@ -75,21 +75,12 @@ class Orm implements IOrm {
 			console.log('lambdaomr [INFO] pending define configuration ')
 			return
 		}
-
-		if (!this.config.paths) { this.config.paths = {} }
-		if (!this.config.paths.state) { this.config.paths.state = path.join(process.cwd(), 'state') }
-		if (!this.config.paths.schemas) { this.config.paths.schemas = path.join(process.cwd(), 'schemas') }
-		if (!this.config.paths.schemas) { this.config.paths.logs = path.join(process.cwd(), 'logs') }
-		if (!this.config.paths.schemas) { this.config.paths.data = path.join(process.cwd(), 'data') }
-		if (!fs.existsSync(this.config.paths.state)) { fs.mkdirSync(this.config.paths.state, { recursive: true }) }
-		if (!fs.existsSync(this.config.paths.schemas)) { fs.mkdirSync(this.config.paths.schemas, { recursive: true }) }
-		if (!fs.existsSync(this.config.paths.logs)) { fs.mkdirSync(this.config.paths.logs, { recursive: true }) }
-		if (!fs.existsSync(this.config.paths.data)) { fs.mkdirSync(this.config.paths.data, { recursive: true }) }
-		const _schemas = await ConfigExtends.apply(this.config.paths.schemas)
-		if (_schemas) {
-			for (const p in _schemas) {
-				if (p === 'abstract') continue
-				this.schema.load(_schemas[p])
+		if (this.config.src === undefined) {
+			this.config.src = 'src'
+		}
+		if (this.config.schemas) {
+			for (const p in this.config.schemas) {
+				this.schema.load(this.config.schemas[p])
 			}
 		}
 		if (this.config.databases) {
