@@ -1,4 +1,7 @@
-import { Delta } from './model'
+import { exec } from 'child_process'
+import fs from 'fs'
+import path from 'path'
+import { Delta } from './index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
@@ -35,6 +38,42 @@ export class Helper {
 
 	public static nvl (value:any, _default:any):any {
 		return !this.isEmpty(value) ? value : _default
+	}
+
+	public static async exec (command: string):Promise<any> {
+		return new Promise<string>((resolve, reject) => {
+			exec(command, (error: any, stdout: any, stderr: any) => {
+				if (stdout) return resolve(stdout)
+				if (stderr) return resolve(stderr)
+				if (error) return reject(error)
+				return resolve('')
+			})
+		})
+	}
+
+	public static async createIfNotExists (fullPath:string):Promise<void> {
+		if (fs.existsSync(fullPath)) { return }
+		return new Promise<void>((resolve, reject) => {
+			fs.mkdir(fullPath, { recursive: true }, err => err ? reject(err) : resolve())
+		})
+	}
+
+	public static async readFile (filePath: string): Promise<string|null> {
+		if (!fs.existsSync(filePath)) { return null }
+		return new Promise<string>((resolve, reject) => {
+			fs.readFile(filePath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')))
+		})
+	}
+
+	public static async writeFile (filePath: string, content: string, override = true): Promise<void> {
+		const dir = path.dirname(filePath)
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir, { recursive: true })
+		}
+		return new Promise<void>((resolve, reject) => {
+			if (override === false && fs.existsSync(filePath)) { return resolve() }
+			fs.writeFile(filePath, content, { encoding: 'utf8' }, err => err ? reject(err) : resolve())
+		})
 	}
 
 	public static deltaWithSimpleArrays (current:any, old?:any):Delta {

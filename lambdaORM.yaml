@@ -8,12 +8,10 @@ databases:
   - name: source
     schema: northwind:0.0.2
     dialect: mysql
-    connectionSource: env
     connection: ORM_CNN_SOURCE
   - name: mysql
     schema: northwind:0.0.2
     dialect: mysql
-    connectionSource: direct
     connection:
       host: "0.0.0.0"
       port: 3307
@@ -32,7 +30,6 @@ databases:
   - name: postgres
     schema: northwind:0.0.2
     dialect: postgres
-    connectionSource: env
     connection: ORM_CNN_POSTGRES
   # - name: mssql
   #   schema: northwind:0.0.2

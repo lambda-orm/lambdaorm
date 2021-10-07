@@ -1,6 +1,6 @@
 {
 	"name": "lambda-orm",
-	"version": "0.0.26",
+	"version": "0.0.27",
 	"description": "ORM",
 	"scripts": {
 		"lint": "grunt lint",
@@ -9,7 +9,7 @@
 		"generate-test": "grunt generate-test",
 		"unit-test": "grunt unit-test",
 		"integration-test": "grunt integration-test",
-		"dist": "grunt build-dist"
+		"dist": "tsc && grunt build-dist"
 	},
 	"repository": {
 		"type": "git",
@@ -45,9 +45,13 @@
 	},
 	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
 	"dependencies": {
+		"chalk": "^4.1.2",
 		"config-extends": "^1.0.4",
+		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
-		"sqlstring": "^2.3.2"
+		"sqlstring": "^2.3.2",
+		"yargonaut": "^1.1.4",
+		"yargs": "^17.2.1"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.15.4",

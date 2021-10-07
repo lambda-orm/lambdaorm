@@ -1,6 +1,10 @@
+export interface EnumValue {
+	name: string
+	value: any
+}
 export interface Enum {
 	name: string
-	values: any[]
+	values: EnumValue[]
 }
 export interface Property {
 	name: string

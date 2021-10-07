@@ -1,7 +1,7 @@
 
 # Include
 
-Usamos include para obtener datos de una entidad relacionada como parte de la consulta.
+We use include to get data from a related entity as part of the query.
 
 For each include a query is created, which are executed within the same transaction.
 
