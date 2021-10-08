@@ -1,3 +1,4 @@
+import { Schema } from './schema'
 export interface Database
 {
 	name: string
@@ -5,8 +6,14 @@ export interface Database
 	connection:any
 	schema:string
 }
+export interface Paths
+{
+	src: string
+	data: string
+}
 export interface Config
 {
-	paths: any
-	databases?:Database[]
+	paths: Paths
+	databases?: Database[]
+	schemas?:Schema[]
 }

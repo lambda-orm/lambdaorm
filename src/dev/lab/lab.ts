@@ -7,10 +7,10 @@ export async function apply () {
 		p.name), p.details.include(p => p.product.include(p => p.category.map(p =>
 		p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
 
-	const expression = await orm.lambda(query).complete('northwind:0.0.2')
+	const expression = await orm.lambda(query).complete('northwind')
 	console.log(expression)
 
-	const sentence = await orm.lambda(query).sentence('mysql', 'northwind:0.0.2')
+	const sentence = await orm.lambda(query).sentence('mysql', 'northwind')
 	console.log(sentence)
 
 	const result = await orm.lambda(query).execute({ id: 10248 }, 'source')
@@ -25,7 +25,7 @@ apply()
 // await orm.init()
 
 // const query = () => Products.filter(p => p.price > 10).map(p => ({ name: p.name, category: p.category.name })).sort(p => p.category).page(1, 10)
-// const sentence = await orm.lambda(query).sentence('mysql', 'northwind:0.0.2')
+// const sentence = await orm.lambda(query).sentence('mysql', 'northwind')
 // console.log(sentence)
 // } catch (error) {
 // console.error(error)

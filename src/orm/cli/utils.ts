@@ -8,28 +8,22 @@ export class Utils {
 	public static async writeConfig (workspace: string, database: string, dialect:string, connection?:any): Promise<void> {
 		await Helper.createIfNotExists(workspace)
 		const configPath = path.join(workspace, 'lambdaORM.yaml')
-		let config: Config
-		if (fs.existsSync(configPath)) { config = ConfigExtends.extends(configPath) } else {
-			config = {
-				paths: {},
-				databases: []
-			}
+		let config: Config = { paths: { src: 'src', data: 'data' } }
+		if (fs.existsSync(configPath)) {
+			config = await ConfigExtends.apply(configPath)
 		}
 		// complete config structure
-		if (config === undefined) config = { paths: {} }
-		if (config.paths === undefined) config.paths = {}
-		if (config.paths.schemas === undefined) config.paths.schemas = 'lambdaORM/schemas'
-		if (config.paths.state === undefined) config.paths.state = 'lambdaORM/state'
-		if (config.paths.data === undefined) config.paths.data = 'lambdaORM/data'
-		if (config.paths.logs === undefined) config.paths.logs = 'lambdaORM/logs'
-		if (config.paths.src === undefined) config.paths.src = 'src'
+		if (config === undefined) {
+			config = { paths: { src: 'src', data: 'data' } }
+		}
+		if (config.paths === undefined) {
+			config.paths = { src: 'src', data: 'data' }
+		} else {
+			if (config.paths.src === undefined) config.paths.src = 'src'
+			if (config.paths.data === undefined) config.paths.data = 'data'
+		}
 		if (config.databases === undefined) config.databases = []
-		// create lambdaORM directory
-		await Helper.createIfNotExists(path.join(workspace, config.paths.schemas))
-		await Helper.createIfNotExists(path.join(workspace, config.paths.state))
-		await Helper.createIfNotExists(path.join(workspace, config.paths.data))
-		await Helper.createIfNotExists(path.join(workspace, config.paths.logs))
-		await Helper.createIfNotExists(path.join(workspace, config.paths.src))
+		if (config.schemas === undefined) config.schemas = []
 
 		let db = config.databases.find(p => p.name === database)
 		if (db === undefined) {
@@ -40,12 +34,17 @@ export class Utils {
 			db.dialect = dialect
 			if (connection !== undefined) { db.connection = connection }
 		}
-		// create schema if not exists
-		const schemaPath = path.join(workspace, config.paths.schemas, db.schema + '.yaml')
-		if (!fs.existsSync(schemaPath)) {
-			const schemaContent = yaml.dump({ name: db.schema, enums: [], entities: [] })
-			await Helper.writeFile(schemaPath, schemaContent, true)
+
+		if (db.schema !== undefined) {
+			const schema = config.schemas.find(p => p.name === db?.schema)
+			if (schema === undefined) {
+				config.schemas.push({ name: db.schema, enums: [], entities: [] })
+			}
 		}
+
+		// create sintaxis file
+		await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(workspace, config.paths.src, 'sintaxis.d.ts'))
+
 		// write lambdaORM.yaml
 		const content = yaml.dump(config)
 		await Helper.writeFile(configPath, content, true)

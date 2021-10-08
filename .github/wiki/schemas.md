@@ -88,10 +88,10 @@ entities:
 
 ## Example
 
-northwind:0.0.2:
+northwind:
 
 ``` yaml
-name: northwind:0.0.2
+name: northwind
 enums:
 entities:
   - name: Categories

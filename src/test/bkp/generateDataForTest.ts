@@ -145,7 +145,7 @@
 // }
 // async function writeQueryTest(dialects:string[],databases:string[]):Promise<number>
 // {
-//   return await writeTest(dialects,databases,{name:'query',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'query',schema:'northwind'
 //   ,context:{ a:{ id: 1}
 //            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
 //    }
@@ -172,7 +172,7 @@
 // }
 // async function writeNumeriFunctionsTest(dialects:string[],databases:string[]):Promise<number>
 // { 
-//   return await writeTest(dialects,databases,{name:'numeric functions',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'numeric functions',schema:'northwind'
 //   ,context:{ a:{ id: 1}}
 //   ,test:    
 //     [{name:'function abs',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id ).map(p=> ({name:p.name,source:p.price*-1 ,result:abs(p.price*-1)}) ) }
@@ -194,7 +194,7 @@
 // }  
 // async function writeGroupByTest(dialects:string[],databases:string[]):Promise<number>
 // {    
-//   return await writeTest(dialects,databases,{name:'groupBy',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'groupBy',schema:'northwind'
 //   ,context:{ a:{ id: 1}}
 //   ,test:   
 //     [{name:'groupBy 1',lambda: ()=>  Products.map(p=> ({maxPrice:max(p.price)})) }
@@ -212,7 +212,7 @@
 // }
 // async function writeIncludeTest(dialects:string[],databases:string[]):Promise<number>
 // {     
-//   return await writeTest(dialects,databases,{name:'include',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'include',schema:'northwind'
 //   ,context:{ a:{ id: 1}}
 //   ,test:    
 //     [
@@ -228,7 +228,7 @@
 // }
 // async function writeInsertsTest(dialects:string[],databases:string[]):Promise<number>
 // {  
-//   return await writeTest(dialects,databases,{name:'inserts',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'inserts',schema:'northwind'
 //   ,context:{ a:{name: "Beverages20", description: "Soft drinks, coffees, teas, beers, and ales" }
 //             ,b:{name: "Beverages21", description: "Soft drinks, coffees, teas, beers, and ales" }
 //             ,c:{entity:{name: "Beverages22", description: "Soft drinks, coffees, teas, beers, and ales" }}
@@ -280,7 +280,7 @@
 // }
 // async function writeUpdateTest(dialects:string[],databases:string[]):Promise<number>
 // {    
-//   return await writeTest(dialects,databases,{name:'update',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'update',schema:'northwind'
 // ,context:{
 //           a:{
 //               "id": 7,
@@ -574,7 +574,7 @@
 // }
 // async function writeDeleteTest(dialects:string[],databases:string[]):Promise<number>
 // {     
-//   return await writeTest(dialects,databases,{name:'delete',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'delete',schema:'northwind'
 //   ,context:{ 
 //             a: {id:9} 
 //            ,b: {
@@ -727,7 +727,7 @@
 // //TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details) 
 // async function writeBulkInsertTest(dialects:string[],databases:string[]):Promise<number>
 // {    
-//   return await writeTest(dialects,databases,{name:'bulkInsert',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'bulkInsert',schema:'northwind'
 //   ,context:{a: [{
 //                   name: "Beverages4",
 //                   description: "Soft drinks, coffees, teas, beers, and ales"

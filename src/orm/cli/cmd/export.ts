@@ -31,7 +31,7 @@ export class ExportCommand implements CommandModule {
 
 		try {
 			orm.init()
-			const exportFile = Helper.nvl(args.target, 'lambdaORM/data/' + database + '-export.json')
+			const exportFile = Helper.nvl(args.target, 'data/' + database + '-export.json')
 			const data = await orm.database.export(database)
 			await Helper.writeFile(exportFile, JSON.stringify(data), true)
 		} catch (error) {

@@ -107,7 +107,7 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 async function writeQueryTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'query',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -139,7 +139,7 @@ async function writeQueryTest (dialects: string[], databases: string[]): Promise
 async function writeNumeriFunctionsTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'numeric functions',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -164,7 +164,7 @@ async function writeNumeriFunctionsTest (dialects: string[], databases: string[]
 async function writeGroupByTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'groupBy',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
@@ -184,7 +184,7 @@ async function writeGroupByTest (dialects: string[], databases: string[]): Promi
 async function writeIncludeTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'include',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -202,7 +202,7 @@ async function writeIncludeTest (dialects: string[], databases: string[]): Promi
 async function writeInsertsTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'inserts',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -257,7 +257,7 @@ async function writeInsertsTest (dialects: string[], databases: string[]): Promi
 async function writeUpdateTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'update',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: {
 				id: 7,
@@ -555,7 +555,7 @@ async function writeUpdateTest (dialects: string[], databases: string[]): Promis
 async function writeDeleteTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'delete',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { id: 9 },
 			b: {
@@ -713,7 +713,7 @@ async function writeDeleteTest (dialects: string[], databases: string[]): Promis
 async function writeBulkInsertTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'bulkInsert',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: [{
 				name: 'Beverages4',

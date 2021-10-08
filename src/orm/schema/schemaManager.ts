@@ -78,7 +78,7 @@ export class SchemaManager {
 
 	public model (source:Schema):string {
 		const lines: string[] = []
-		lines.push('import \'../orm/sintaxis\'')
+		lines.push('import \'./sintaxis\'')
 		lines.push('declare global {')
 		for (const p in source.entities) {
 			const entity = source.entities[p]

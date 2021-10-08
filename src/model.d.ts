@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import './orm/sintaxis'
+import './sintaxis'
 declare global {
 	interface Category {
 		id: number
