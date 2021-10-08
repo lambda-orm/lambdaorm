@@ -225,7 +225,6 @@ context:
 test:
   - name: update 1
     context: a
-    lambda: () => Orders.update()
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -355,7 +354,6 @@ test:
     result: 0
   - name: update 2
     context: b
-    lambda: (entity) => Orders.update(entity)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -489,7 +487,6 @@ test:
     result: 0
   - name: update 3
     context: c
-    lambda: '(postalCode) => Orders.updateAll({ postalCode: postalCode })'
     sentences:
       - dialect: mariadb
         sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
@@ -519,9 +516,6 @@ test:
     result: 833
   - name: update 4
     context: b
-    lambda: >-
-      (entity) => Orders.update({ name: entity.name }).filter(p => p.id ===
-      entity.id)
     sentences:
       - dialect: mariadb
         sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
@@ -558,9 +552,6 @@ test:
     result: 1
   - name: update 5
     context: b
-    lambda: >-
-      (entity) => Orders.update({ name: entity.name }).include(p =>
-      p.details.update(p => p)).filter(p => p.id === entity.id)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -627,10 +618,6 @@ test:
     result: 1
   - name: update 6
     context: b
-    lambda: >-
-      (entity) => Orders.update({ name: entity.name }).include(p =>
-      p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId
-      }))).filter(p => p.id === entity.id)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -694,7 +681,6 @@ test:
     result: 1
   - name: update 7
     context: a
-    lambda: () => Orders.update().include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -852,7 +838,6 @@ test:
     result: 0
   - name: update 8
     context: c
-    lambda: () => Customers.update().include(p => p.orders.include(p => p.details))
     sentences:
       - dialect: mariadb
         sentence: >-

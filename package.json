@@ -1,5 +1,5 @@
 {
-	"name": "lambda-orm",
+	"name": "lambdaorm",
 	"version": "0.0.28",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
@@ -84,7 +84,7 @@
 		"object relational mapper",
 		"db",
 		"lambda",
-		"lambda-orm"
+		"lambdaorm"
 	],
 	"tags": [
 		"orm",
@@ -107,6 +107,6 @@
 		"object relational mapper",
 		"db",
 		"lambda",
-		"lambda-orm"
+		"lambdaorm"
 	]
 }

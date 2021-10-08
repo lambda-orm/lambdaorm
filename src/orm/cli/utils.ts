@@ -5,9 +5,9 @@ const ConfigExtends = require('config-extends')
 const yaml = require('js-yaml')
 
 export class Utils {
-	public static async writeConfig (workspace: string, database: string, dialect:string, connection?:any): Promise<void> {
+	public static async writeConfig (workspace: string, database: string, dialect: string, connection?: any): Promise<void> {
 		await Helper.createIfNotExists(workspace)
-		const configPath = path.join(workspace, 'lambdaORM.yaml')
+		const configPath = path.join(workspace, 'lambdaorm.yaml')
 		let config: Config = { paths: { src: 'src', data: 'data' } }
 		if (fs.existsSync(configPath)) {
 			config = await ConfigExtends.apply(configPath)
@@ -45,7 +45,7 @@ export class Utils {
 		// create sintaxis file
 		await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(workspace, config.paths.src, 'sintaxis.d.ts'))
 
-		// write lambdaORM.yaml
+		// write lambdaorm.yaml
 		const content = yaml.dump(config)
 		await Helper.writeFile(configPath, content, true)
 	}

@@ -5,7 +5,6 @@ context:
     id: 1
 test:
   - name: groupBy 1
-    lambda: '() => Products.map(p => ({ maxPrice: max(p.price) }))'
     sentences:
       - dialect: mariadb
         sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
@@ -32,7 +31,6 @@ test:
     result:
       - maxPrice: 263.5
   - name: groupBy 2
-    lambda: '() => Products.map(p => ({ minPrice: min(p.price) }))'
     sentences:
       - dialect: mariadb
         sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
@@ -59,7 +57,6 @@ test:
     result:
       - minPrice: 2.5
   - name: groupBy 3
-    lambda: '() => Products.map(p => ({ total: sum(p.price) }))'
     sentences:
       - dialect: mariadb
         sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
@@ -86,7 +83,6 @@ test:
     result:
       - total: 2222.71
   - name: groupBy 4
-    lambda: '() => Products.map(p => ({ average: avg(p.price) }))'
     sentences:
       - dialect: mariadb
         sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
@@ -116,7 +112,6 @@ test:
     result:
       - average: 28.86636364
   - name: groupBy 5
-    lambda: '() => Products.map(p => ({ count: count(1) }))'
     sentences:
       - dialect: mariadb
         sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
@@ -143,9 +138,6 @@ test:
     result:
       - count: 77
   - name: groupBy 6
-    lambda: >-
-      () => Products.map(p => ({ category: p.categoryId, largestPrice:
-      max(p.price) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -186,22 +178,22 @@ test:
       - database: postgres
         error: not equal mysql
         result:
-          - category: 3
-            largestPrice: 81
-          - category: 5
-            largestPrice: 38
-          - category: 4
-            largestPrice: 55
-          - category: 6
-            largestPrice: 123.79
-          - category: 2
-            largestPrice: 43.9
+          - category: 8
+            largestPrice: 62.5
           - category: 7
             largestPrice: 53
           - category: 1
             largestPrice: 263.5
-          - category: 8
-            largestPrice: 62.5
+          - category: 5
+            largestPrice: 38
+          - category: 4
+            largestPrice: 55
+          - category: 2
+            largestPrice: 43.9
+          - category: 6
+            largestPrice: 123.79
+          - category: 3
+            largestPrice: 81
     result:
       - category: 1
         largestPrice: 263.5
@@ -220,9 +212,6 @@ test:
       - category: 8
         largestPrice: 62.5
   - name: groupBy 7
-    lambda: >-
-      () => Products.map(p => ({ category: p.category.name, largestPrice:
-      max(p.price) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -303,9 +292,6 @@ test:
         largestPrice: 62.5
   - name: groupBy 8
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: p.price, result: abs(p.price) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -356,9 +342,6 @@ test:
         source: 18
         result: 18
   - name: groupBy 9
-    lambda: >-
-      () => Products.having(p => max(p.price) > 100).map(p => ({ category:
-      p.category.name, largestPrice: max(p.price) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -409,10 +392,6 @@ test:
       - category: Meat/Poultry
         largestPrice: 123.79
   - name: groupBy 10
-    lambda: >-
-      () => Products.having(p => max(p.price) > 100).map(p => ({ category:
-      p.category.name, largestPrice: max(p.price) })).sort(p =>
-      desc(p.largestPrice))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -469,10 +448,6 @@ test:
       - category: Meat/Poultry
         largestPrice: 123.79
   - name: groupBy 11
-    lambda: >-
-      () => Products.filter(p => p.price > 5).having(p => max(p.price) >
-      50).map(p => ({ category: p.category.name, largestPrice: max(p.price)
-      })).sort(p => desc(p.largestPrice))
     sentences:
       - dialect: mariadb
         sentence: >-

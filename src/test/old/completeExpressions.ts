@@ -47,7 +47,7 @@
 //   for (const p in expressions) {
 //     const expression = expressions[p]
 //     // const node = orm.node.parse(expression)
-//     const expressionComplete = orm.lambda(expression).complete('northwind')
+//     const expressionComplete = orm.expression(expression).complete('northwind')
 //     console.log(`source: ${expression}\ntarget: ${expressionComplete}\n`) 
 //   }
 // }
