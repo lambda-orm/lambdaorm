@@ -25,14 +25,14 @@ class Orm implements IOrm {
 	private languageManager: LanguageManager
 
 	private static _instance: Orm
-	public static get instance(): Orm {
+	public static get instance (): Orm {
 		if (!this._instance) {
 			this._instance = new Orm()
 		}
 		return this._instance
 	}
 
-	constructor() {
+	constructor () {
 		this.config = { paths: { src: 'src', data: 'data' } }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
@@ -66,9 +66,6 @@ class Orm implements IOrm {
 			// if the default environment variable exists
 			this.config = JSON.parse(process.env.LAMBDA_ORM_CONFIG)
 		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaorm.yaml'))) {
-			// if the default file exists in the root of the project
-			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaorm.yaml'))
-		} else if ( fs.existsSync(path.join(process.cwd(), 'lambdaorm.yaml'))) {
 			// if the default file exists in the root of the project
 			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaorm.yaml'))
 		} else {
@@ -111,39 +108,39 @@ class Orm implements IOrm {
 	/**
 	 * Frees the resources used, for example the connection pools
 	 */
-	public async end(): Promise<void> {
+	public async end (): Promise<void> {
 		await orm.connection.end()
 	}
 
-	public get parser(): ParserManager {
+	public get parser (): ParserManager {
 		return this.parserManager
 	}
 
-	public get schema(): SchemaManager {
+	public get schema (): SchemaManager {
 		return this.schemaManager
 	}
 
-	public get language(): LanguageManager {
+	public get language (): LanguageManager {
 		return this.languageManager
 	}
 
-	public get database(): DatabaseManager {
+	public get database (): DatabaseManager {
 		return this.databaseManager
 	}
 
-	public get connection(): ConnectionManager {
+	public get connection (): ConnectionManager {
 		return this.connectionManager
 	}
 
-	public get cache(): Cache {
+	public get cache (): Cache {
 		return this._cache
 	}
 
-	public set cache(value: Cache) {
+	public set cache (value: Cache) {
 		this._cache = value
 	}
 
-	public complete(expression: string, schema: string): string {
+	public complete (expression: string, schema: string): string {
 		try {
 			const _schema = this.schemaManager.getInstance(schema)
 			const node = this.parser.parse(expression)

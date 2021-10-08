@@ -5,7 +5,7 @@ const ConfigExtends = require('config-extends')
 const yaml = require('js-yaml')
 
 export class Utils {
-	public static async writeConfig(workspace: string, database: string, dialect: string, connection?: any): Promise<void> {
+	public static async writeConfig (workspace: string, database: string, dialect: string, connection?: any): Promise<void> {
 		await Helper.createIfNotExists(workspace)
 		const configPath = path.join(workspace, 'lambdaorm.yaml')
 		let config: Config = { paths: { src: 'src', data: 'data' } }
@@ -50,76 +50,76 @@ export class Utils {
 		await Helper.writeFile(configPath, content, true)
 	}
 
-	public static defaultConnection(dialect: string): any {
+	public static defaultConnection (dialect: string): any {
 		switch (dialect) {
-			case 'mysql':
-				return {
-					type: 'mysql',
-					host: 'localhost',
-					port: 3306,
-					username: 'test',
-					password: 'test',
-					database: 'test'
-				}
-			case 'mariadb':
-				return {
-					type: 'mariadb',
-					host: 'localhost',
-					port: 3306,
-					username: 'test',
-					password: 'test',
-					database: 'test'
-				}
-			case 'sqlite':
-				return {
-					type: 'sqlite',
-					database: 'database.sqlite'
-				}
-			case 'better-sqlite3':
-				return {
-					type: 'better-sqlite3',
-					database: 'database.sqlite'
-				}
-			case 'postgres':
-				return {
-					type: 'postgres',
-					host: 'localhost',
-					port: 5432,
-					username: 'test',
-					password: 'test',
-					database: 'test'
-				}
-			case 'cockroachdb':
-				return {
-					type: 'cockroachdb',
-					host: 'localhost',
-					port: 26257,
-					username: 'root',
-					password: '',
-					database: 'defaultdb'
-				}
-			case 'mssql':
-				return {
-					type: 'mssql',
-					host: 'localhost',
-					username: 'sa',
-					password: 'Admin12345',
-					database: 'tempdb'
-				}
-			case 'oracle':
-				return {
-					type: 'oracle',
-					host: 'localhost',
-					username: 'system',
-					password: 'oracle',
-					port: 1521,
-					sid: 'xe.oracle.docker'
-				}
-			case 'mongodb':
-				return {
-					type: 'mongodb',
-					database: 'test'
-				}
+		case 'mysql':
+			return {
+				type: 'mysql',
+				host: 'localhost',
+				port: 3306,
+				username: 'test',
+				password: 'test',
+				database: 'test'
+			}
+		case 'mariadb':
+			return {
+				type: 'mariadb',
+				host: 'localhost',
+				port: 3306,
+				username: 'test',
+				password: 'test',
+				database: 'test'
+			}
+		case 'sqlite':
+			return {
+				type: 'sqlite',
+				database: 'database.sqlite'
+			}
+		case 'better-sqlite3':
+			return {
+				type: 'better-sqlite3',
+				database: 'database.sqlite'
+			}
+		case 'postgres':
+			return {
+				type: 'postgres',
+				host: 'localhost',
+				port: 5432,
+				username: 'test',
+				password: 'test',
+				database: 'test'
+			}
+		case 'cockroachdb':
+			return {
+				type: 'cockroachdb',
+				host: 'localhost',
+				port: 26257,
+				username: 'root',
+				password: '',
+				database: 'defaultdb'
+			}
+		case 'mssql':
+			return {
+				type: 'mssql',
+				host: 'localhost',
+				username: 'sa',
+				password: 'Admin12345',
+				database: 'tempdb'
+			}
+		case 'oracle':
+			return {
+				type: 'oracle',
+				host: 'localhost',
+				username: 'system',
+				password: 'oracle',
+				port: 1521,
+				sid: 'xe.oracle.docker'
+			}
+		case 'mongodb':
+			return {
+				type: 'mongodb',
+				database: 'test'
+			}
 		}
 	}
 }
