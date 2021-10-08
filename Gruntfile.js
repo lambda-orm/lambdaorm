@@ -16,8 +16,8 @@ module.exports = function (grunt) {
 			clean_data: { cmd: './clean_data.sh ' + databases.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
-			unit_test: { cmd: 'jest --config jest-unit-config.json ' },
-			integration_test: { cmd: 'jest --config jest-integration-config.json ' },
+			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
+			integration_test: { cmd: 'npx jest --config jest-integration-config.json ' },
 			tsc: { cmd: 'npx tsc ' }
 		},
 		clean: {
