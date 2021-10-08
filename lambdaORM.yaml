@@ -1,10 +1,6 @@
-# paths:
-#   schemas: "lambdaORM/schemas"
-#   state: "lambdaORM/state"
-#   data: "lambdaORM/data"
-#   logs: "lambdaORM/logs"
-#   src: "src"
-src: "src"
+path:
+  src: src
+  data: data
 databases:
   - name: source
     schema: northwind
@@ -69,7 +65,7 @@ abstract:
         fields: ["city"]
 schemas:
   northwind:
-    name: northwind:0.0.2
+    name: northwind
     enums:
     entities:
       - name: Categories

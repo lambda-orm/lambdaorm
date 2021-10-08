@@ -33,7 +33,7 @@ class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.config = { src: 'src', data: 'data' }
+		this.config = { paths: { src: 'src', data: 'data' } }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 
@@ -75,8 +75,15 @@ class Orm implements IOrm {
 			console.log('lambdaomr [INFO] pending define configuration ')
 			return
 		}
-		if (this.config.src === undefined) {
-			this.config.src = 'src'
+		if (this.config.paths === undefined) {
+			this.config.paths = { src: 'src', data: 'data' }
+		} else {
+			if (this.config.paths.src === undefined) {
+				this.config.paths.src = 'src'
+			}
+			if (this.config.paths.data === undefined) {
+				this.config.paths.data = 'data'
+			}
 		}
 		if (this.config.schemas) {
 			for (const p in this.config.schemas) {
@@ -185,7 +192,12 @@ class Orm implements IOrm {
 		if (!value) {
 			throw new Error('empty expression}')
 		} else if (typeof value === 'string') {
-			return new Expression(this, value.trim())
+			let expression = value.trim()
+			if (expression.startsWith('(')) {
+				const index = expression.indexOf('=>') + 2
+				expression = expression.substring(index, expression.length).trim()
+			}
+			return new Expression(this, expression)
 		} else if (typeof value === 'function') {
 			const str = value.toString().trim()
 			const index = str.indexOf('=>') + 2

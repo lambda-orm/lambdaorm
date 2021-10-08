@@ -70,6 +70,7 @@ module.exports = function (grunt) {
 		task.apply(dataForTestPath, databases, this.async())
 	})
 
+	grunt.registerTask('clean-test', ['exec:clean_test'])
 	grunt.registerTask('databases-down', ['exec:drop_dbs', 'exec:clean_data'])
 	grunt.registerTask('databases-up', ['databases-down', 'exec:create_dbs', 'populate-source', 'populate-databases'])
 	grunt.registerTask('build-test', ['databases-up', 'exec:clean_test', 'generate-data-for-test', 'generate-test', 'databases-down'])

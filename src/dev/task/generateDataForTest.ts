@@ -6,7 +6,7 @@ const fs = require('fs')
 const path = require('path')
 const yaml = require('js-yaml')
 
-async function exec (fn: any) {
+async function exec(fn: any) {
 	const t1 = Date.now()
 	const result = await fn()
 	const t2 = Date.now()
@@ -18,7 +18,7 @@ async function exec (fn: any) {
 	return result
 }
 
-async function writeTest (dialects: string[], databases: string[], category: CategoryTest): Promise<number> {
+async function writeTest(dialects: string[], databases: string[], category: CategoryTest): Promise<number> {
 	category.errors = 0
 	for (const q in category.test) {
 		const expressionTest = category.test[q] as ExpressionTest
@@ -104,10 +104,10 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 	}
 	return category.errors
 }
-async function writeQueryTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeQueryTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'query',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -136,10 +136,10 @@ async function writeQueryTest (dialects: string[], databases: string[]): Promise
 		]
 	})
 }
-async function writeNumeriFunctionsTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeNumeriFunctionsTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'numeric functions',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -161,30 +161,30 @@ async function writeNumeriFunctionsTest (dialects: string[], databases: string[]
 			]
 	})
 }
-async function writeGroupByTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeGroupByTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'groupBy',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
-				{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
-				{ name: 'groupBy 3', lambda: () => Products.map(p => ({ total: sum(p.price) })) },
-				{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: avg(p.price) })) },
-				{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
-				{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
-				{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-				{ name: 'groupBy 8', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
-				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-				{ name: 'groupBy 10', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
-				{ name: 'groupBy 11', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
+			{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
+			{ name: 'groupBy 3', lambda: () => Products.map(p => ({ total: sum(p.price) })) },
+			{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: avg(p.price) })) },
+			{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
+			{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
+			{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
+			{ name: 'groupBy 8', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
+			{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
+			{ name: 'groupBy 10', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
+			{ name: 'groupBy 11', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
 			]
 	})
 }
-async function writeIncludeTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeIncludeTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'include',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -199,10 +199,10 @@ async function writeIncludeTest (dialects: string[], databases: string[]): Promi
 			]
 	})
 }
-async function writeInsertsTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeInsertsTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'inserts',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -254,10 +254,10 @@ async function writeInsertsTest (dialects: string[], databases: string[]): Promi
 			]
 	})
 }
-async function writeUpdateTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeUpdateTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'update',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: {
 				id: 7,
@@ -552,10 +552,10 @@ async function writeUpdateTest (dialects: string[], databases: string[]): Promis
 			]
 	})
 }
-async function writeDeleteTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeDeleteTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'delete',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { id: 9 },
 			b: {
@@ -700,20 +700,20 @@ async function writeDeleteTest (dialects: string[], databases: string[]): Promis
 		},
 		test:
 			[{ name: 'delete 1', context: 'a', lambda: (id: number) => OrderDetails.delete().filter(p => p.orderId === id) },
-				{ name: 'delete 2', context: 'b', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 3', context: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
-				{ name: 'delete 4', context: 'd', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 4', context: 'd', lambda: (entity: OrderDetail) => OrderDetails.delete(entity) },
-				{ name: 'delete 5', context: 'e', lambda: (entity: Order) => Orders.delete(entity).include(p => p.details) },
-				{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
+			{ name: 'delete 2', context: 'b', lambda: () => Orders.delete().include(p => p.details) },
+			{ name: 'delete 3', context: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
+			{ name: 'delete 4', context: 'd', lambda: () => Orders.delete().include(p => p.details) },
+			{ name: 'delete 4', context: 'd', lambda: (entity: OrderDetail) => OrderDetails.delete(entity) },
+			{ name: 'delete 5', context: 'e', lambda: (entity: Order) => Orders.delete(entity).include(p => p.details) },
+			{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
 			]
 	})
 }
 // TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details)
-async function writeBulkInsertTest (dialects: string[], databases: string[]): Promise<number> {
+async function writeBulkInsertTest(dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'bulkInsert',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: [{
 				name: 'Beverages4',
@@ -818,11 +818,11 @@ async function writeBulkInsertTest (dialects: string[], databases: string[]): Pr
 		},
 		test:
 			[{ name: 'bulkInsert 1', context: 'a', lambda: () => Categories.bulkInsert() },
-				{ name: 'bulkInsert 2', context: 'b', lambda: () => Orders.bulkInsert().include(p => p.details) }
+			{ name: 'bulkInsert 2', context: 'b', lambda: () => Orders.bulkInsert().include(p => p.details) }
 			]
 	})
 }
-async function crud () {
+async function crud() {
 	const order = {
 		customerId: 'VINET',
 		employeeId: 5,
@@ -887,7 +887,7 @@ async function crud () {
 		console.log(error)
 	}
 }
-async function bulkInsert () {
+async function bulkInsert() {
 	const expression = 'Categories.bulkInsert()'
 	const categories = [
 		{
@@ -906,7 +906,7 @@ async function bulkInsert () {
 	// await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
 	const result = await exec(async () => (await orm.lambda(expression).execute(categories, 'source')))
 }
-async function bulkInsert2 () {
+async function bulkInsert2() {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
 	const orders = [
 		{
@@ -1006,7 +1006,7 @@ async function bulkInsert2 () {
 	const result = await exec(async () => (await orm.lambda(expression).execute(orders, 'source')))
 }
 
-export async function apply (databases: string[], callback: any) {
+export async function apply(databases: string[], callback: any) {
 	await orm.init()
 	let errors = 0
 	const dialects = Object.values(orm.language.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']

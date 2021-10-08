@@ -1,5 +1,5 @@
 name: bulkInsert
-schema: 'northwind:0.0.2'
+schema: northwind
 context:
   a:
     - name: Beverages4

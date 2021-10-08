@@ -6,10 +6,14 @@ export interface Database
 	connection:any
 	schema:string
 }
-export interface Config
+export interface Paths
 {
 	src: string
 	data: string
+}
+export interface Config
+{
+	paths: Paths
 	databases?: Database[]
 	schemas?:Schema[]
 }

@@ -1,5 +1,5 @@
 name: numeric functions
-schema: 'northwind:0.0.2'
+schema: northwind
 context:
   a:
     id: 1

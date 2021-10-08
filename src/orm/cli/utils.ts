@@ -8,13 +8,20 @@ export class Utils {
 	public static async writeConfig (workspace: string, database: string, dialect:string, connection?:any): Promise<void> {
 		await Helper.createIfNotExists(workspace)
 		const configPath = path.join(workspace, 'lambdaORM.yaml')
-		let config: Config = { src: 'src', data: 'data' }
+		let config: Config = { paths: { src: 'src', data: 'data' } }
 		if (fs.existsSync(configPath)) {
 			config = await ConfigExtends.apply(configPath)
 		}
 		// complete config structure
-		if (config === undefined) config = { src: 'src', data: 'data' }
-		if (config.src === undefined) config.src = 'src'
+		if (config === undefined) {
+			config = { paths: { src: 'src', data: 'data' } }
+		}
+		if (config.paths === undefined) {
+			config.paths = { src: 'src', data: 'data' }
+		} else {
+			if (config.paths.src === undefined) config.paths.src = 'src'
+			if (config.paths.data === undefined) config.paths.data = 'data'
+		}
 		if (config.databases === undefined) config.databases = []
 		if (config.schemas === undefined) config.schemas = []
 
@@ -36,7 +43,7 @@ export class Utils {
 		}
 
 		// create sintaxis file
-		await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(workspace, config.src, 'sintaxis.d.ts'))
+		await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(workspace, config.paths.src, 'sintaxis.d.ts'))
 
 		// write lambdaORM.yaml
 		const content = yaml.dump(config)
