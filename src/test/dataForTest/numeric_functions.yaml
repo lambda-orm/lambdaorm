@@ -6,9 +6,6 @@ context:
 test:
   - name: function abs
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: p.price * -1, result: round(abs(p.price * -1), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -65,9 +62,6 @@ test:
         result: 18
   - name: function acos
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 0.25, result: round(acos(0.25), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -120,9 +114,6 @@ test:
         result: 1.3181160717
   - name: function asin
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 0.25, result: round(asin(0.25), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -175,9 +166,6 @@ test:
         result: 0.2526802551
   - name: function atan
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 0.25, result: round(atan(0.25), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -230,9 +218,6 @@ test:
         result: 0.2449786631
   - name: function atan2
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 0.50, result: round(atan2(0.25, 1), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -289,9 +274,6 @@ test:
         result: 0.2449786631
   - name: function ceil
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 25.75, result: round(ceil(25.75), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -348,9 +330,6 @@ test:
         result: 26
   - name: function cos
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 2, result: round(cos(2), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -402,9 +381,6 @@ test:
         result: -0.4161468365
   - name: function exp
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 1, result: round(exp(1), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -456,9 +432,6 @@ test:
         result: 2.7182818285
   - name: function floor
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 25.75, result: round(floor(25.75), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -515,9 +488,6 @@ test:
         result: 25
   - name: function ln
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 2, result: round(ln(2), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -569,9 +539,6 @@ test:
         result: 0.6931471806
   - name: function log
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name, m: 10,
-      n: 20, result: round(log(10, 20), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -632,9 +599,6 @@ test:
         result: 1.3010299957
   - name: function round
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 135.375, result: round(135.375, 2) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -687,9 +651,6 @@ test:
         result: 135.38
   - name: function sign
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 255.5, result: round(sign(255.5), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -746,9 +707,6 @@ test:
         result: 1
   - name: function tan
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 1.75, result: round(tan(1.75), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -800,9 +758,6 @@ test:
         result: -5.5203799225
   - name: function trunc
     context: a
-    lambda: >-
-      (id) => Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: 135.375, result: round(trunc(135.375, 2), 10) }))
     sentences:
       - dialect: mariadb
         sentence: >-

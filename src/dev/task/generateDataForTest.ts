@@ -25,7 +25,7 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 		expressionTest.sentences = []
 		expressionTest.errors = 0
 		try {
-			expressionTest.expression = orm.expression(expressionTest.lambda).expression
+			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
 			// expressionTest.lambda = expressionTest.lambda.toString()
 			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema)
 			expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema)
@@ -55,7 +55,7 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 				let error
 				try {
 					const context = expressionTest.context !== undefined ? category.context[expressionTest.context] : {}
-					result = await orm.expression(expressionTest.lambda).execute(context, database)
+					result = await orm.lambda(expressionTest.lambda).execute(context, database)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {

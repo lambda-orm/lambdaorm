@@ -4,7 +4,7 @@ import { CommandModule } from 'yargs'
 
 export class VersionCommand implements CommandModule {
 	command = 'version';
-	describe = 'Prints lambdaORM version this project uses.';
+	describe = 'Prints lambdaorm version this project uses.';
 
 	async handler () {
 		const localNpmList = await Helper.exec('npm list --depth=0')
@@ -18,17 +18,17 @@ export class VersionCommand implements CommandModule {
 		if (localNpmVersion) {
 			console.log('Local installed version:', localNpmVersion)
 		} else {
-			console.log('No local installed lambdaORM was found.')
+			console.log('No local installed lambdaorm was found.')
 		}
 		if (globalNpmVersion) {
-			console.log('Global installed lambdaORM version:', globalNpmVersion)
+			console.log('Global installed lambdaorm version:', globalNpmVersion)
 		} else {
 			console.log('No global installed was found.')
 		}
 
 		if (localNpmVersion && globalNpmVersion && localNpmVersion !== globalNpmVersion) {
-			console.log(`To avoid issues with CLI please make sure your global and local lambdaORM versions match,
-	or you are using locally installed lambdaORM instead of global one.`)
+			console.log(`To avoid issues with CLI please make sure your global and local lambdaorm versions match,
+	or you are using locally installed lambdaorm instead of global one.`)
 		}
 	}
 }
