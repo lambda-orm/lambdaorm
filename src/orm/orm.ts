@@ -187,26 +187,44 @@ class Orm implements IOrm {
 		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public lambda (value: string | Function): Expression {
-		if (!value) {
+	public expression (expression: string): Expression {
+		if (!expression) {
 			throw new Error('empty expression}')
-		} else if (typeof value === 'string') {
-			let expression = value.trim()
-			if (expression.startsWith('(')) {
-				const index = expression.indexOf('=>') + 2
-				expression = expression.substring(index, expression.length).trim()
-			}
-			return new Expression(this, expression)
-		} else if (typeof value === 'function') {
-			const str = value.toString().trim()
-			const index = str.indexOf('=>') + 2
-			const expression = str.substring(index, str.length).trim()
-			return new Expression(this, expression)
-		} else {
-			throw new Error(`invalid expression  ${value}`)
 		}
+		return new Expression(this, expression)
 	}
+
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public lambda (func: Function): Expression {
+		if (!func) {
+			throw new Error('empty lambda function}')
+		}
+		const str = func.toString().trim()
+		const index = str.indexOf('=>') + 2
+		const expression = str.substring(index, str.length).trim()
+		return new Expression(this, expression)
+	}
+
+	// // eslint-disable-next-line @typescript-eslint/ban-types
+	// public lambda (value: string | Function): Expression {
+	// if (!value) {
+	// throw new Error('empty expression}')
+	// } else if (typeof value === 'string') {
+	// let expression = value.trim()
+	// if (expression.startsWith('(')) {
+	// const index = expression.indexOf('=>') + 2
+	// expression = expression.substring(index, expression.length).trim()
+	// }
+	// return new Expression(this, expression)
+	// } else if (typeof value === 'function') {
+	// const str = value.toString().trim()
+	// const index = str.indexOf('=>') + 2
+	// const expression = str.substring(index, str.length).trim()
+	// return new Expression(this, expression)
+	// } else {
+	// throw new Error(`invalid expression  ${value}`)
+	// }
+	// }
 
 	public async eval (expression:string, context:any, schema:string):Promise<any> {
 		const operand = await this.build(expression, schema)

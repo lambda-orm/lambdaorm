@@ -10,7 +10,7 @@
 //         let expected =[{"name":"Chai","source":-18,"result":18}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -21,7 +21,7 @@
 //         let expected =[{"name":"Chai","source":0.25,"result":1.318116071652818}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -32,7 +32,7 @@
 //         let expected = [{"name":"Chai","source":0.25,"result":0.25268025514207865}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -43,7 +43,7 @@
 //         let expected = [{"name":"Chai","source":0.25,"result":0.24497866312686414}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -54,7 +54,7 @@
 //         let expected = [{"name":"Chai","source":0.5,"result":0.24497866312686414}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -65,7 +65,7 @@
 //         let expected =[{"name":"Chai","source":25.75,"result":26}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -76,7 +76,7 @@
 //         let expected = [{"name":"Chai","source":2,"result":-0.4161468365471424}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -87,7 +87,7 @@
 //         let expected =[{"name":"Chai","source":1,"result":2.7182818284590455}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -98,7 +98,7 @@
 //         let expected = [{"name":"Chai","source":25.75,"result":25}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -109,7 +109,7 @@
 //         let expected =[{"name":"Chai","source":2,"result":0.6931471805599453}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -120,7 +120,7 @@
 //         let expected =[{"name":"Chai","m":10,"n":20,"result":2.302585092994046}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -132,7 +132,7 @@
 //     //     let expected =[{"name":"Chai","source":135.375,"result":135.38}];
 //     //     it(expression, async function() {
 //     //         let context = {id:1}
-//     //         result = await orm.lambda(expression).execute(context,'northwind');
+//     //         result = await orm.expression(expression).execute(context,'northwind');
 //     //         assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //     //     });
 //     // });
@@ -143,7 +143,7 @@
 //         let expected =[{"name":"Chai","source":135.375,"result":135.38}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -154,7 +154,7 @@
 //         let expected =[{"name":"Chai","source":255.5,"result":1}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -165,7 +165,7 @@
 //         let expected =[{"name":"Chai","source":1.75,"result":-5.52037992250933}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });
@@ -176,7 +176,7 @@
 //         let expected =[{"name":"Chai","source":135.375,"result":135.37}];
 //         it(expression, async function() {
 //             let context = {id:1}
-//             result = await orm.lambda(expression).execute(context,'northwind');
+//             result = await orm.expression(expression).execute(context,'northwind');
 //             assert.strictEqual(JSON.stringify(result),JSON.stringify(expected));
 //         });
 //     });

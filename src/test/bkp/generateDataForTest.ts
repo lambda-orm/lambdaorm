@@ -64,11 +64,11 @@
 //     expressionTest.sentences=[]
 //     expressionTest.errors=0
 //     try{               
-//       expressionTest.expression = orm.lambda(expressionTest.lambda).expression
+//       expressionTest.expression = orm.expression(expressionTest.lambda).expression
 //       expressionTest.lambda=expressionTest.lambda.toString()
-//       expressionTest.completeExpression = orm.lambda(expressionTest.expression).complete(category.schema) 
-//       expressionTest.model = await orm.lambda(expressionTest.expression).model(category.schema)
-//       const serialize:any = await orm.lambda(expressionTest.expression).serialize(category.schema)
+//       expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema) 
+//       expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema)
+//       const serialize:any = await orm.expression(expressionTest.expression).serialize(category.schema)
 //       expressionTest.parameters =serialize.p 
 //       expressionTest.fields =serialize.f
 //       for(const r in dialects){
@@ -76,7 +76,7 @@
 //         let sentence=undefined
 //         let error=undefined                 
 //         try{               
-//           sentence = await orm.lambda(expressionTest.expression).sentence(dialect,category.schema)        
+//           sentence = await orm.expression(expressionTest.expression).sentence(dialect,category.schema)        
 //         }
 //         catch(err:any)
 //         {
@@ -101,7 +101,7 @@
 //         let error=undefined   
 //         try{
 //           const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{}
-//           result = await orm.lambda(expressionTest.lambda).execute(context,database)
+//           result = await orm.expression(expressionTest.lambda).execute(context,database)
 //         }
 //         catch(err:any)
 //         {
@@ -914,11 +914,11 @@
 //     }
 //   ]
 
-//   //await exec( async()=>(await orm.lambda(expression).parse()).serialize())
-//   //await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-//   //await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).sentence())
-//   // await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
-//   let result = await exec(async()=>(await orm.lambda(expression).execute(categories,'source')))
+//   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
+//   //await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+//   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
+//   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+//   let result = await exec(async()=>(await orm.expression(expression).execute(categories,'source')))
 // }
 // async function bulkInsert2(){
 //   const expression = `Orders.bulkInsert().include(p=> p.details)`
@@ -1013,11 +1013,11 @@
 //     },
 //   ]
 
-//   //await exec( async()=>(await orm.lambda(expression).parse()).serialize())
-//   // await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-//   //await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).sentence())
-//   // await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
-//   let result = await exec(async()=>(await orm.lambda(expression).execute(orders,'source')))
+//   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
+//   // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+//   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
+//   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+//   let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')))
 // }
 // async function schemaSync(target:string){
 //   await orm.database.sync(target).execute()

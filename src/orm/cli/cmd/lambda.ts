@@ -49,19 +49,19 @@ export class LambdaCommand implements CommandModule {
 			if (sentences || metadata) {
 				const DatabaseData = orm.database.get(database)
 				if (sentences) {
-					const resullt = await orm.lambda(lambda).sentence(DatabaseData.dialect, DatabaseData.schema)
+					const resullt = await orm.expression(lambda).sentence(DatabaseData.dialect, DatabaseData.schema)
 					console.log(resullt)
 				}
 				if (metadata) {
-					const model = await orm.lambda(lambda).model(DatabaseData.schema)
-					const data = await orm.lambda(lambda).serialize(DatabaseData.schema)
+					const model = await orm.expression(lambda).model(DatabaseData.schema)
+					const data = await orm.expression(lambda).serialize(DatabaseData.schema)
 					console.log('model:')
 					console.log(JSON.stringify(model, null, 2))
 					console.log('metadata:')
 					console.log(JSON.stringify(data, null, 2))
 				}
 			} else {
-				const resullt = await orm.lambda(lambda).execute({}, database)
+				const resullt = await orm.expression(lambda).execute({}, database)
 				console.log(resullt)
 			}
 		} catch (error) {
