@@ -1,5 +1,5 @@
 import { IOrm } from './../model'
-import { Sentence, Operand } from './../language'
+import { Sentence } from './../language'
 
 export class Expression {
 	private orm:IOrm
@@ -33,10 +33,6 @@ export class Expression {
 		const operand = await this.orm.build(this.expression, schemaName)
 		return this.orm.language.serialize(operand)
 	}
-
-	// public async deserialize (serialized:any):Promise<Operand> {
-	// return this.orm.language.deserialize(serialized)
-	// }
 
 	public async execute (database: string, context: any = {}) {
 		return await this.orm.execute(this.expression, context, database)
