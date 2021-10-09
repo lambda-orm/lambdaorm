@@ -225,19 +225,6 @@ try {
 })()
 ```
 
-Class ORM
-
-|method    	|Description                                   									  |
-|:------------|:----------------------------------------------------------------|
-|	version	 		| Prints lambdaorm version this project uses.											|
-|	init				| Generates lambdaorm project structure.													|
-|	model				| Generate model.																									|
-|	sync				|	Syncronize database.																						|
-|	export			| Export data from a database 																		|
-|	import			| Import data from file to database																|
-|	drop				|	Removes all database objects but not the database.							|
-|	expression	| Run an expression lambda or return information									|
-
 ## Transactions
 
 To work with transactions use the orm.transaction method.
