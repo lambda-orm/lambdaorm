@@ -263,34 +263,35 @@ path:
   data: path where files generated in operations synchronization, export, import, etc. will be stored
 databases:
   - name: name with which the database will be identified
-    schema: database schema name 
+    schema: database schema name
     dialect: [mysql|mariadb|postgres|mssql|oracle|mongo]
-    connection: connectionString  | environment variable with the connectionString 
+    connection: connectionString  | environment variable with the connectionString
 schemas:
   schemaCode:
-	name: schema name
-	enums: []
-	entities:
-	- name: name of entity
-		mapping: name table on database
-		primaryKey: []
-		uniqueKey: []
-		properties:
-		- name: name of property
-			mapping: name field on database
-			type: [string|boolean|integer|decimal|datetime|date|time]
-			nullable: [true|false]
-			autoincrement: [true|false]	
-			indexes:
-			- name: nameOfIndex
-			fields: []
-			relations:
-			- name: name of relation
-				type: [manyToOne|oneTpMany|oneToOne]
-				composite: [true|false]	
-				from: field From
-				entity: name of entity related
-				to: field in entity related					
+    name: schema name
+    enums: []
+    entities:
+      - name: name of entity
+        mapping: name table on database
+        primaryKey: []
+        uniqueKey: []
+        properties:
+          - name: name of property
+            mapping: name field on database
+            type: [string|boolean|integer|decimal|datetime|date|time]
+            nullable: [true|false]
+            autoincrement: [true|false]
+        indexes:
+          - name: nameOfIndex
+            fields: []
+        relations:
+          - name: name of relation
+            type: [manyToOne|oneTpMany|oneToOne]
+            composite: [true|false]
+            from: field From
+            entity: name of entity related
+            to: field in entity related
+				
 ```
 
 Example:
