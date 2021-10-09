@@ -268,29 +268,29 @@ databases:
     connection: connectionString  | environment variable with the connectionString 
 schemas:
   schemaCode:
-	 name: schema name
-	 enums: []
-	 entities:
-	 - name: name of entity
-	   mapping: name table on database
-	   primaryKey: []
-	   uniqueKey: []
-	   properties:
-		 - name: name of property
-		   mapping: name field on database
-		   type: [string|boolean|integer|decimal|datetime|date|time]
-			 nullable: [true|false]
-			 autoincrement: [true|false]	
-		  indexes:
-			 - name: nameOfIndex
-			   fields: []
-		  relations:
-		   - name: name of relation
-			   type: [manyToOne|oneTpMany|oneToOne]
-			   composite: [true|false]	
-			   from: field From
-			   entity: name of entity related
-			   to: field in entity related					
+	name: schema name
+	enums: []
+	entities:
+	- name: name of entity
+		mapping: name table on database
+		primaryKey: []
+		uniqueKey: []
+		properties:
+		- name: name of property
+			mapping: name field on database
+			type: [string|boolean|integer|decimal|datetime|date|time]
+			nullable: [true|false]
+			autoincrement: [true|false]	
+			indexes:
+			- name: nameOfIndex
+			fields: []
+			relations:
+			- name: name of relation
+				type: [manyToOne|oneTpMany|oneToOne]
+				composite: [true|false]	
+				from: field From
+				entity: name of entity related
+				to: field in entity related					
 ```
 
 Example:
