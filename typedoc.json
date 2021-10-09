@@ -12,5 +12,6 @@
 	"out": "doc",
 	"excludePrivate": true,
 	"excludeProtected": true,
-	"name": "Lambda ORM"
+	"name": "Lambda ORM",
+	"readme": "none"
 }
