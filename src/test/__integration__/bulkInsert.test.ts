@@ -8,17 +8,17 @@ describe('Execute', () => {
 	test('bulkInsert 1', async () => {
 		const expression = 'Categories.bulkInsert()'
 		const expected = [12,13]
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p => p.details)'
 		const expected = [834,835,836]
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 })

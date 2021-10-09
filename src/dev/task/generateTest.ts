@@ -36,10 +36,10 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
 		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.schema}')`)
-		lines.push(`\t\tconst serialize = await orm.expression(expression).serialize('${category.schema}')`)
+		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.schema}')`)
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
-		lines.push('\t\texpect(fieldsExpected).toStrictEqual(serialize.f)')
-		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(serialize.p)`)
+		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
+		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
 		lines.push('\t})')
 	}
 	lines.push('})')
@@ -94,7 +94,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in databases) {
 				const database = databases[p]
-				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute(context, '${database}')`)
+				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute('${database}',context)`)
 				lines.push(`\t\texpect(expected).toEqual(${database}Result)`)
 			}
 			lines.push('\t})')

@@ -248,7 +248,7 @@ export class Orm implements IOrm {
 		return this.language.eval(operand, _context)
 	}
 
-	public async execute (expression: string, context: any, database: string): Promise<any> {
+	public async execute (expression: string, database: string, context: any = {}): Promise<any> {
 		const _database = this.database.get(database)
 		const operand = await this.query(expression, _database.dialect, _database.schema)
 		try {

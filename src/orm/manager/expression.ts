@@ -19,21 +19,26 @@ export class Expression {
 		return this.orm.language.model(operand as Sentence)
 	}
 
+	public async parameters (schemaName:string):Promise<any> {
+		const operand = await this.orm.build(this.expression, schemaName)
+		return this.orm.language.parameters(operand as Sentence)
+	}
+
 	public async sentence (dialect:string, schemaName:string):Promise<string> {
 		const query = await this.orm.query(this.expression, dialect, schemaName)
 		return this.orm.language.sentence(dialect, query)
 	}
 
-	public async serialize (schemaName:string):Promise<any> {
+	public async metadata (schemaName:string):Promise<any> {
 		const operand = await this.orm.build(this.expression, schemaName)
 		return this.orm.language.serialize(operand)
 	}
 
-	public async deserialize (serialized:any):Promise<Operand> {
-		return this.orm.language.deserialize(serialized)
-	}
+	// public async deserialize (serialized:any):Promise<Operand> {
+	// return this.orm.language.deserialize(serialized)
+	// }
 
-	public async execute (context:any, database:string) {
+	public async execute (database: string, context: any = {}) {
 		return await this.orm.execute(this.expression, context, database)
 	}
 }

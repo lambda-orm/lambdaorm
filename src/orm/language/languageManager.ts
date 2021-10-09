@@ -59,6 +59,10 @@ export class LanguageManager {
 		return this.operandManager.model(sentence)
 	}
 
+	public parameters (sentence:Sentence):any {
+		return this.operandManager.parameters(sentence)
+	}
+
 	public query (dialect:string, sentence:Sentence): Query {
 		return this.get(dialect).query.build(sentence, dialect)
 	}
