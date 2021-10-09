@@ -1,72 +1,33 @@
 path:
-  src: src
-  data: data
+  src: path where the project code is located
+  data: path where files generated in operations synchronization, export, import, etc. will be stored
 databases:
-  - name: mydb
-    schema: library
-    dialect: mysql
-    connection: MY_DB_STRING_CONNECTION
+  - name: name with which the database will be identified
+    schema: database schema name
+    dialect: [mysql|mariadb|postgres|mssql|oracle|mongo]
+    connection: connectionString  | environment variable with the connectionString
 schemas:
-  library:
-    name: library
-    enums:
+  schemaCode:
+    name: schema name
+    enums: []
     entities:
-      - name: Reader
-        mapping: TB_READERS
-        primaryKey: ["id"]
-        uniqueKey: ["name"]
+      - name: name of entity
+        mapping: name table on database
+        primaryKey: []
+        uniqueKey: []
         properties:
-          - name: id
-            mapping: READER_ID
-            type: integer
-            nullable: false
-            autoincrement: true
-          - name: name
-            mapping: NAME
-            nullable: false
-            type: string
-            length: 80
-      - name: Book
-        mapping: TB_BOOKS
-        primaryKey: ["id"]
-        uniqueKey: ["title"]
-        properties:
-          - name: id
-            mapping: BOOK_ID
-            type: integer
-            length: 14
-            nullable: false
-            autoincrement: true
-          - name: title
-            mapping: TITLE
-            nullable: false
-            type: string
-            length: 80
-      - name: Loan
-        mapping: TB_LOAN
-        primaryKey: ["readerId", "bookId"]
-        uniqueKey: ["lastName", "firstName"]
-        properties:
-          - name: readerId
-            mapping: READER_ID
-            type: integer
-            nullable: false
-          - name: bookId
-            mapping: BOOK_ID
-            type: integer
-            nullable: false
-          - name: date
-            mapping: LOAN_DATE
-            type: datetime
-            nullable: false
+          - name: name of property
+            mapping: name field on database
+            type: [string|boolean|integer|decimal|datetime|date|time]
+            nullable: [true|false]
+            autoincrement: [true|false]
+        indexes:
+          - name: nameOfIndex
+            fields: []
         relations:
-          - name: reader
-            type: oneToMany
-            from: readerId
-            entity: Reader
-            to: id
-          - name: book
-            type: oneToMany
-            from: bookId
-            entity: Book
-            to: id
+          - name: name of relation
+            type: [manyToOne|oneTpMany|oneToOne]
+            composite: [true|false]
+            from: field From
+            entity: name of entity related
+            to: field in entity related
