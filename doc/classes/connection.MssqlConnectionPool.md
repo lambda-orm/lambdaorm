@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[connection/dialects/mssql.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mssql.ts#L17)
+[connection/dialects/mssql.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L17)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mssql.ts#L15)
+[connection/dialects/mssql.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L15)
 
 ## Methods
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mssql.ts#L25)
+[connection/dialects/mssql.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L25)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mssql.ts#L45)
+[connection/dialects/mssql.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L45)
 
 ___
 
@@ -129,4 +129,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mssql.ts#L33)
+[connection/dialects/mssql.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L33)

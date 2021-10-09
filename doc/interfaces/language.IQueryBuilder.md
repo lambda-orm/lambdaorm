@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[language/iQueryBuilder.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/iQueryBuilder.ts#L4)
+[language/iQueryBuilder.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iQueryBuilder.ts#L4)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[language/iQueryBuilder.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/iQueryBuilder.ts#L7)
+[language/iQueryBuilder.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iQueryBuilder.ts#L7)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[language/iQueryBuilder.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/iQueryBuilder.ts#L5)
+[language/iQueryBuilder.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iQueryBuilder.ts#L5)
 
 ___
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[language/iQueryBuilder.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/iQueryBuilder.ts#L6)
+[language/iQueryBuilder.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iQueryBuilder.ts#L6)

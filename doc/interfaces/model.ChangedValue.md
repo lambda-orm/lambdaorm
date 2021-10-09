@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[model/delta.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L45)
+[model/delta.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L45)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[model/delta.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L42)
+[model/delta.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L42)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[model/delta.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L43)
+[model/delta.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L43)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[model/delta.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L44)
+[model/delta.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L44)

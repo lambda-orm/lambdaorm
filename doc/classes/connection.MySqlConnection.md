@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connection.ts#L9)
+[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L9)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connection.ts#L6)
+[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L6)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connection.ts#L8)
+[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L8)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connection.ts#L7)
+[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L7)
 
 ## Accessors
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connection.ts#L15)
+[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L15)
 
 ## Methods
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:114](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L114)
+[connection/dialects/mysql.ts:114](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L114)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L81)
+[connection/dialects/mysql.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L81)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:119](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L119)
+[connection/dialects/mysql.ts:119](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L119)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:105](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L105)
+[connection/dialects/mysql.ts:105](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L105)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:110](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L110)
+[connection/dialects/mysql.ts:110](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L110)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:75](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L75)
+[connection/dialects/mysql.ts:75](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L75)
 
 ___
 
@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:124](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L124)
+[connection/dialects/mysql.ts:124](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L124)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:71](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L71)
+[connection/dialects/mysql.ts:71](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L71)
 
 ___
 
@@ -318,4 +318,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:100](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mysql.ts#L100)
+[connection/dialects/mysql.ts:100](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L100)

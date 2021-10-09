@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mariadb.ts#L8)
+[connection/dialects/mariadb.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L8)
 
 ## Properties
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -76,7 +76,7 @@
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mariadb.ts#L14)
+[connection/dialects/mariadb.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L14)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mariadb.ts#L23)
+[connection/dialects/mariadb.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L23)
 
 ___
 
@@ -118,4 +118,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/mariadb.ts#L19)
+[connection/dialects/mariadb.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L19)

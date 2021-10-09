@@ -40,7 +40,7 @@ SchemaActionDML.constructor
 
 #### Defined in
 
-[schema/schemaActionDML.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/schema/schemaActionDML.ts#L9)
+[schema/schemaActionDML.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaActionDML.ts#L9)
 
 ## Methods
 
@@ -60,7 +60,7 @@ SchemaActionDML.constructor
 
 #### Defined in
 
-[schema/schemaExport.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/schema/schemaExport.ts#L5)
+[schema/schemaExport.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaExport.ts#L5)
 
 ___
 
@@ -84,4 +84,4 @@ SchemaActionDML.sentence
 
 #### Defined in
 
-[schema/schemaActionDML.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/schema/schemaActionDML.ts#L15)
+[schema/schemaActionDML.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaActionDML.ts#L15)

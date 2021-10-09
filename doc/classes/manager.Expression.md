@@ -17,11 +17,11 @@
 ### Methods
 
 - [complete](manager.Expression.md#complete)
-- [deserialize](manager.Expression.md#deserialize)
 - [execute](manager.Expression.md#execute)
+- [metadata](manager.Expression.md#metadata)
 - [model](manager.Expression.md#model)
+- [parameters](manager.Expression.md#parameters)
 - [sentence](manager.Expression.md#sentence)
-- [serialize](manager.Expression.md#serialize)
 
 ## Constructors
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[manager/expression.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L7)
+[manager/expression.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L7)
 
 ## Properties
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[manager/expression.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L6)
+[manager/expression.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L6)
 
 ## Methods
 
@@ -68,40 +68,20 @@
 
 #### Defined in
 
-[manager/expression.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L12)
-
-___
-
-### deserialize
-
-▸ **deserialize**(`serialized`): `Promise`<[`Operand`](language.Operand.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `serialized` | `any` |
-
-#### Returns
-
-`Promise`<[`Operand`](language.Operand.md)\>
-
-#### Defined in
-
-[manager/expression.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L32)
+[manager/expression.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L12)
 
 ___
 
 ### execute
 
-▸ **execute**(`context`, `database`): `Promise`<`any`\>
+▸ **execute**(`database`, `context?`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `context` | `any` |
 | `database` | `string` |
+| `context` | `any` |
 
 #### Returns
 
@@ -109,7 +89,27 @@ ___
 
 #### Defined in
 
-[manager/expression.ts:36](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L36)
+[manager/expression.ts:41](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L41)
+
+___
+
+### metadata
+
+▸ **metadata**(`schemaName`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schemaName` | `string` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Defined in
+
+[manager/expression.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L32)
 
 ___
 
@@ -129,7 +129,27 @@ ___
 
 #### Defined in
 
-[manager/expression.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L17)
+[manager/expression.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L17)
+
+___
+
+### parameters
+
+▸ **parameters**(`schemaName`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schemaName` | `string` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Defined in
+
+[manager/expression.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L22)
 
 ___
 
@@ -150,24 +170,4 @@ ___
 
 #### Defined in
 
-[manager/expression.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L22)
-
-___
-
-### serialize
-
-▸ **serialize**(`schemaName`): `Promise`<`any`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `schemaName` | `string` |
-
-#### Returns
-
-`Promise`<`any`\>
-
-#### Defined in
-
-[manager/expression.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/manager/expression.ts#L27)
+[manager/expression.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/expression.ts#L27)

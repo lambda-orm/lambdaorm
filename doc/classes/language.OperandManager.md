@@ -16,6 +16,7 @@
 - [deserialize](language.OperandManager.md#deserialize)
 - [eval](language.OperandManager.md#eval)
 - [model](language.OperandManager.md#model)
+- [parameters](language.OperandManager.md#parameters)
 - [serialize](language.OperandManager.md#serialize)
 
 ## Constructors
@@ -32,7 +33,7 @@
 
 #### Defined in
 
-[language/operandManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/operandManager.ts#L45)
+[language/operandManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L45)
 
 ## Methods
 
@@ -53,7 +54,7 @@
 
 #### Defined in
 
-[language/operandManager.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/operandManager.ts#L49)
+[language/operandManager.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L49)
 
 ___
 
@@ -73,7 +74,7 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:103](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/operandManager.ts#L103)
+[language/operandManager.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L123)
 
 ___
 
@@ -94,7 +95,7 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:107](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/operandManager.ts#L107)
+[language/operandManager.ts:127](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L127)
 
 ___
 
@@ -114,7 +115,27 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/operandManager.ts#L60)
+[language/operandManager.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L60)
+
+___
+
+### parameters
+
+▸ **parameters**(`sentence`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `sentence` | [`Sentence`](language.Sentence.md) |
+
+#### Returns
+
+`any`
+
+#### Defined in
+
+[language/operandManager.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L81)
 
 ___
 
@@ -134,4 +155,4 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/operandManager.ts#L79)
+[language/operandManager.ts:99](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/operandManager.ts#L99)

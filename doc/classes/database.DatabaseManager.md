@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[database/databaseManager.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L11)
+[database/databaseManager.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L11)
 
 ## Properties
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[database/databaseManager.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L9)
+[database/databaseManager.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L9)
 
 ## Methods
 
@@ -73,7 +73,7 @@
 
 #### Defined in
 
-[database/databaseManager.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L29)
+[database/databaseManager.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L29)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L51)
+[database/databaseManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L51)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L40)
+[database/databaseManager.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L40)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L20)
+[database/databaseManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L20)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L56)
+[database/databaseManager.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L56)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L45)
+[database/databaseManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L45)
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L16)
+[database/databaseManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L16)
 
 ___
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L34)
+[database/databaseManager.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L34)
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L77)
+[database/databaseManager.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L77)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L24)
+[database/databaseManager.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L24)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L69)
+[database/databaseManager.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L69)
 
 ___
 
@@ -297,4 +297,4 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/database/databaseManager.ts#L62)
+[database/databaseManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L62)

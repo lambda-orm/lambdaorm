@@ -3,10 +3,10 @@ schema: northwind
 context:
   a:
     - name: Beverages4
-      description: 'Soft drinks, coffees, teas, beers, and ales'
+      description: Soft drinks, coffees, teas, beers, and ales
       id: 12
     - name: Condiments4
-      description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
+      description: Sweet and savory sauces, relishes, spreads, and seasonings
       id: 13
   b:
     - customerId: ALFKI
@@ -89,22 +89,22 @@ test:
     context: a
     sentences:
       - dialect: mariadb
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES
           :name,:description
       - dialect: mysql
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
       - dialect: oracle
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES
           :name,:description
       - dialect: postgres
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES
     errors: 0
     expression: Categories.bulkInsert()
-    completeExpression: 'Categories.bulkInsert({name:name,description:description})'
+    completeExpression: Categories.bulkInsert({name:name,description:description})
     model:
       name: string
       description: string

@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[model/parameter.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/parameter.ts#L3)
+[model/parameter.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/parameter.ts#L3)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[model/parameter.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/parameter.ts#L4)
+[model/parameter.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/parameter.ts#L4)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[model/parameter.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/parameter.ts#L5)
+[model/parameter.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/parameter.ts#L5)

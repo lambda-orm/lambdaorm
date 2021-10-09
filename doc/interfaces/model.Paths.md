@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[model/config.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/config.ts#L12)
+[model/config.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L12)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[model/config.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/config.ts#L11)
+[model/config.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L11)

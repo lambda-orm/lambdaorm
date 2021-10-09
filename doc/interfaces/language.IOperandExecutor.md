@@ -30,4 +30,4 @@
 
 #### Defined in
 
-[language/iOperandExecutor.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/language/iOperandExecutor.ts#L7)
+[language/iOperandExecutor.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iOperandExecutor.ts#L7)

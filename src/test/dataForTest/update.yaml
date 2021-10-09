@@ -500,7 +500,7 @@ test:
         sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
     errors: 0
     expression: 'Orders.updateAll({ postalCode: postalCode })'
-    completeExpression: 'Orders.update({postalCode:postalCode})'
+    completeExpression: Orders.update({postalCode:postalCode})
     model:
       postalCode: string
     parameters:
@@ -533,7 +533,7 @@ test:
         sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
     errors: 0
     expression: 'Orders.update({ name: entity.name }).filter(p => p.id === entity.id)'
-    completeExpression: 'Orders.update({name:entity.name}).filter(p=>(p.id===entity.id))'
+    completeExpression: Orders.update({name:entity.name}).filter(p=>(p.id===entity.id))
     model:
       name: string
     parameters:

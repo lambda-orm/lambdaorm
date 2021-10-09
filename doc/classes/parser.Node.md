@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[parser/node.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L10)
+[parser/node.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L10)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[parser/node.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L4)
+[parser/node.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L4)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L5)
+[parser/node.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L5)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L7)
+[parser/node.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L7)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L8)
+[parser/node.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L8)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L2)
+[parser/node.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L2)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L6)
+[parser/node.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L6)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[parser/node.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/node.ts#L3)
+[parser/node.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/node.ts#L3)

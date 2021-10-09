@@ -52,7 +52,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[orm.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L43)
+[orm.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L43)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Property that exposes the configuration
 
 #### Defined in
 
-[orm.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L32)
+[orm.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L32)
 
 ## Accessors
 
@@ -84,7 +84,7 @@ Get reference to cache manager
 
 #### Defined in
 
-[orm.ts:166](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L166)
+[orm.ts:166](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L166)
 
 • `set` **cache**(`value`): `void`
 
@@ -102,7 +102,7 @@ set to cache manager
 
 #### Defined in
 
-[orm.ts:173](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L173)
+[orm.ts:173](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L173)
 
 ___
 
@@ -118,7 +118,7 @@ Get reference to connection manager
 
 #### Defined in
 
-[orm.ts:159](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L159)
+[orm.ts:159](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L159)
 
 ___
 
@@ -134,7 +134,7 @@ Get reference to database manager
 
 #### Defined in
 
-[orm.ts:152](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L152)
+[orm.ts:152](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L152)
 
 ___
 
@@ -150,7 +150,7 @@ Get reference to language manager
 
 #### Defined in
 
-[orm.ts:145](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L145)
+[orm.ts:145](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L145)
 
 ___
 
@@ -166,7 +166,7 @@ Get reference to parser manager
 
 #### Defined in
 
-[orm.ts:131](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L131)
+[orm.ts:131](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L131)
 
 ___
 
@@ -182,7 +182,7 @@ Get reference to schema manager
 
 #### Defined in
 
-[orm.ts:138](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L138)
+[orm.ts:138](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L138)
 
 ___
 
@@ -198,7 +198,7 @@ Singleton
 
 #### Defined in
 
-[orm.ts:36](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L36)
+[orm.ts:36](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L36)
 
 ## Methods
 
@@ -223,7 +223,7 @@ Singleton
 
 #### Defined in
 
-[orm.ts:195](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L195)
+[orm.ts:195](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L195)
 
 ___
 
@@ -252,7 +252,7 @@ full expression
 
 #### Defined in
 
-[orm.ts:183](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L183)
+[orm.ts:183](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L183)
 
 ___
 
@@ -268,7 +268,7 @@ Frees the resources used, for example the connection pools
 
 #### Defined in
 
-[orm.ts:124](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L124)
+[orm.ts:124](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L124)
 
 ___
 
@@ -294,21 +294,21 @@ ___
 
 #### Defined in
 
-[orm.ts:245](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L245)
+[orm.ts:245](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L245)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `context`, `database`): `Promise`<`any`\>
+▸ **execute**(`expression`, `database`, `context?`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `context` | `any` |
 | `database` | `string` |
+| `context` | `any` |
 
 #### Returns
 
@@ -320,7 +320,7 @@ ___
 
 #### Defined in
 
-[orm.ts:251](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L251)
+[orm.ts:251](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L251)
 
 ___
 
@@ -345,7 +345,7 @@ ___
 
 #### Defined in
 
-[orm.ts:279](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L279)
+[orm.ts:279](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L279)
 
 ___
 
@@ -369,7 +369,7 @@ ___
 
 #### Defined in
 
-[orm.ts:227](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L227)
+[orm.ts:227](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L227)
 
 ___
 
@@ -397,7 +397,7 @@ promise void
 
 #### Defined in
 
-[orm.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L74)
+[orm.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L74)
 
 ___
 
@@ -421,7 +421,7 @@ ___
 
 #### Defined in
 
-[orm.ts:235](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L235)
+[orm.ts:235](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L235)
 
 ___
 
@@ -447,7 +447,7 @@ ___
 
 #### Defined in
 
-[orm.ts:212](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L212)
+[orm.ts:212](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L212)
 
 ___
 
@@ -472,4 +472,4 @@ ___
 
 #### Defined in
 
-[orm.ts:284](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/orm.ts#L284)
+[orm.ts:284](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/orm.ts#L284)

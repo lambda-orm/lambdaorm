@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[connection/executor.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L7)
+[connection/executor.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L7)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[connection/executor.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L6)
+[connection/executor.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[connection/executor.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L26)
+[connection/executor.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L26)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[connection/executor.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L40)
+[connection/executor.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L40)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[connection/executor.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L47)
+[connection/executor.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L47)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[connection/executor.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L19)
+[connection/executor.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L19)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 #### Defined in
 
-[connection/executor.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L12)
+[connection/executor.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L12)
 
 ___
 
@@ -181,4 +181,4 @@ ___
 
 #### Defined in
 
-[connection/executor.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executor.ts#L33)
+[connection/executor.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executor.ts#L33)

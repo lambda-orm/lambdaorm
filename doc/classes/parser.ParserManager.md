@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L10)
+[parser/parserManager.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L10)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L7)
+[parser/parserManager.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L7)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L5)
+[parser/parserManager.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L5)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L6)
+[parser/parserManager.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L6)
 
 ## Methods
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:144](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L144)
+[parser/parserManager.ts:144](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L144)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L47)
+[parser/parserManager.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L47)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L43)
+[parser/parserManager.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L43)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L39)
+[parser/parserManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L39)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:169](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L169)
+[parser/parserManager.ts:169](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L169)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L51)
+[parser/parserManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L51)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L30)
+[parser/parserManager.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L30)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L20)
+[parser/parserManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L20)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:140](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L140)
+[parser/parserManager.ts:140](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L140)
 
 ___
 
@@ -272,7 +272,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:149](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L149)
+[parser/parserManager.ts:149](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L149)
 
 ___
 
@@ -292,4 +292,4 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:64](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/parser/parserManager.ts#L64)
+[parser/parserManager.ts:64](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/parserManager.ts#L64)

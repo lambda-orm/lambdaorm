@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[model/delta.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L25)
+[model/delta.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L25)
 
 ## Properties
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[model/delta.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L21)
+[model/delta.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L21)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[model/delta.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L24)
+[model/delta.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L24)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[model/delta.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L20)
+[model/delta.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L20)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[model/delta.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L23)
+[model/delta.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L23)
 
 ___
 
@@ -76,4 +76,4 @@ ___
 
 #### Defined in
 
-[model/delta.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/delta.ts#L22)
+[model/delta.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/delta.ts#L22)

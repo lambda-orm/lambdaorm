@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[connection/executionResult.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executionResult.ts#L8)
+[connection/executionResult.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executionResult.ts#L8)
 
 ___
 
@@ -35,4 +35,4 @@ ___
 
 #### Defined in
 
-[connection/executionResult.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/executionResult.ts#L7)
+[connection/executionResult.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/executionResult.ts#L7)

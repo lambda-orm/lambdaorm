@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[connection/dialects/postgres.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/postgres.ts#L10)
+[connection/dialects/postgres.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L10)
 
 ## Properties
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -76,7 +76,7 @@
 
 #### Defined in
 
-[connection/dialects/postgres.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/postgres.ts#L42)
+[connection/dialects/postgres.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L42)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/postgres.ts#L52)
+[connection/dialects/postgres.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L52)
 
 ___
 
@@ -118,4 +118,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/connection/dialects/postgres.ts#L48)
+[connection/dialects/postgres.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L48)

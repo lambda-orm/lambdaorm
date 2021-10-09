@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[model/iOrm.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L11)
+[model/iOrm.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L11)
 
 ## Accessors
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[model/iOrm.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L17)
+[model/iOrm.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L17)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L15)
+[model/iOrm.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L15)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L16)
+[model/iOrm.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L16)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L13)
+[model/iOrm.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L13)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L12)
+[model/iOrm.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L12)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L14)
+[model/iOrm.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L14)
 
 ## Methods
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L23)
+[model/iOrm.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L23)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L22)
+[model/iOrm.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L22)
 
 ___
 
@@ -198,21 +198,21 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L25)
+[model/iOrm.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L25)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `context`, `database`): `Promise`<`any`\>
+▸ **execute**(`expression`, `database`, `context`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `context` | `any` |
 | `database` | `string` |
+| `context` | `any` |
 
 #### Returns
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L26)
+[model/iOrm.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L26)
 
 ___
 
@@ -241,7 +241,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L27)
+[model/iOrm.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L27)
 
 ___
 
@@ -261,7 +261,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L19)
+[model/iOrm.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L19)
 
 ___
 
@@ -281,7 +281,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L18)
+[model/iOrm.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L18)
 
 ___
 
@@ -301,7 +301,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L21)
+[model/iOrm.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L21)
 
 ___
 
@@ -323,7 +323,7 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L24)
+[model/iOrm.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L24)
 
 ___
 
@@ -344,4 +344,4 @@ ___
 
 #### Defined in
 
-[model/iOrm.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/daf3ab1/src/orm/model/iOrm.ts#L28)
+[model/iOrm.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/iOrm.ts#L28)

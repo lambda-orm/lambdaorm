@@ -110,7 +110,6 @@ test:
       region: string
       postalCode: string
       country: string
-      __customerId: string
       customer:
         id: string
         name: string
@@ -121,7 +120,6 @@ test:
         region: string
         postalCode: string
         country: string
-        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -277,14 +275,12 @@ test:
       region: string
       postalCode: string
       country: string
-      __id: integer
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
-          __parentId: integer
     parameters:
       - name: id
         type: integer
@@ -463,7 +459,7 @@ test:
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
     errors: 0
-    expression: 'Orders.filter(p => p.id === id).include(p => [p.details, p.customer])'
+    expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
@@ -481,15 +477,12 @@ test:
       region: string
       postalCode: string
       country: string
-      __id: integer
-      __customerId: string
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
-          __parentId: integer
       customer:
         id: string
         name: string
@@ -500,7 +493,6 @@ test:
         region: string
         postalCode: string
         country: string
-        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -746,16 +738,12 @@ test:
       region: string
       postalCode: string
       country: string
-      __id: integer
-      __customerId: string
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
-          __productId: integer
-          __parentId: integer
           product:
             id: integer
             name: string
@@ -767,7 +755,6 @@ test:
             onOrder: decimal
             reorderLevel: decimal
             discontinued: boolean
-            __parentId: integer
       customer:
         id: string
         name: string
@@ -778,7 +765,6 @@ test:
         region: string
         postalCode: string
         country: string
-        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1082,16 +1068,12 @@ test:
       region: string
       postalCode: string
       country: string
-      __id: integer
-      __customerId: string
       details:
         - orderId: integer
           productId: integer
           unitPrice: decimal
           quantity: decimal
           discount: decimal
-          __productId: integer
-          __parentId: integer
           product:
             id: integer
             name: string
@@ -1103,13 +1085,10 @@ test:
             onOrder: decimal
             reorderLevel: decimal
             discontinued: boolean
-            __categoryId: integer
-            __parentId: integer
             category:
               id: integer
               name: string
               description: string
-              __parentId: integer
       customer:
         id: string
         name: string
@@ -1120,7 +1099,6 @@ test:
         region: string
         postalCode: string
         country: string
-        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1216,7 +1194,7 @@ test:
               category:
                 id: 1
                 name: Beverages
-                description: 'Soft drinks, coffees, teas, beers, and ales'
+                description: Soft drinks, coffees, teas, beers, and ales
           - orderId: 1
             productId: 46
             unitPrice: 12
@@ -1372,13 +1350,10 @@ test:
       region: string
       postalCode: string
       country: string
-      __id: integer
-      __customerId: string
       details:
         - quantity: decimal
           unitPrice: decimal
           productId: integer
-          __parentId: integer
       customer:
         id: string
         name: string
@@ -1389,7 +1364,6 @@ test:
         region: string
         postalCode: string
         country: string
-        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1627,14 +1601,10 @@ test:
       region: string
       postalCode: string
       country: string
-      __id: integer
-      __customerId: string
       details:
         - quantity: decimal
           unitPrice: decimal
           productId: integer
-          __productId: integer
-          __parentId: integer
           product:
             id: integer
             name: string
@@ -1646,7 +1616,6 @@ test:
             onOrder: decimal
             reorderLevel: decimal
             discontinued: boolean
-            __parentId: integer
       customer:
         id: string
         name: string
@@ -1657,7 +1626,6 @@ test:
         region: string
         postalCode: string
         country: string
-        __parentId: string
     parameters:
       - name: id
         type: integer
@@ -1911,23 +1879,15 @@ test:
       region: string
       postalCode: string
       country: string
-      __customerId: string
-      __id: integer
       customer:
         name: string
-        __parentId: string
       details:
         - quantity: decimal
           unitPrice: decimal
-          __productId: integer
-          __parentId: integer
           product:
             name: string
-            __categoryId: integer
-            __parentId: integer
             category:
               name: string
-              __parentId: integer
     parameters:
       - name: id
         type: integer

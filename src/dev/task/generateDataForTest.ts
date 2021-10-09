@@ -89,14 +89,14 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 		category.errors += expressionTest.errors
 	}
 	try {
-		const yamlStr = yaml.safeDump(JSON.parse(JSON.stringify(category)))
+		const yamlStr = yaml.dump(JSON.parse(JSON.stringify(category)))
 		fs.writeFileSync(path.join('src/test/dataForTest', category.name.replace(' ', '_') + '.yaml'), yamlStr)
 	} catch (error) {
 		console.error(error)
 		for (const q in category.test) {
 			try {
 				const expressionTest = category.test[q] as ExpressionTest
-				const yamlStr = yaml.safeDump(expressionTest)
+				const yamlStr = yaml.dump(expressionTest)
 			} catch (error) {
 				console.error(error)
 			}
