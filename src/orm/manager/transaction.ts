@@ -11,10 +11,15 @@ export class Transaction {
 		this.transaction = transaction
 	}
 
-	public async execute (expression:string, context:any):Promise<any> {
+	public async expression (expression:string, context:any):Promise<any> {
 		const _context = new Context(context)
 		const operand = await this.orm.query(expression, this.database.dialect, this.database.schema)
 		return await this.orm.language.execute(this.database.dialect, operand, _context, this.transaction)
+	}
+
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public async lambda (lambda:Function, context:any):Promise<any> {
+		return await this.expression(this.orm.lambda(lambda).expression, context)
 	}
 
 	public async executeSentence (sentence:any):Promise<any> {
