@@ -290,8 +290,7 @@ schemas:
             composite: [true|false]
             from: field From
             entity: name of entity related
-            to: field in entity related
-				
+            to: field in entity related			
 ```
 
 Example:
