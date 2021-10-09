@@ -9,7 +9,7 @@ export class SchemaExport extends SchemaActionDML {
 		await this.orm.transaction(database, async (transaction) => {
 			for (let i = 0; i < schemaExpression.entities.length; i++) {
 				const entityExpression = schemaExpression.entities[i]
-				const rows = await transaction.execute(entityExpression.expression, context)
+				const rows = await transaction.expression(entityExpression.expression, context)
 				schemaExport.entities.push({ entity: entityExpression.entity, rows: rows })
 			}
 		})

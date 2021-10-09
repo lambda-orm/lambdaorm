@@ -823,64 +823,30 @@ async function writeBulkInsertTest (dialects: string[], databases: string[]): Pr
 	})
 }
 async function crud () {
-	const order = {
-		customerId: 'VINET',
-		employeeId: 5,
-		orderDate: '1996-07-03T22:00:00.000Z',
-		requiredDate: '1996-07-31T22:00:00.000Z',
-		shippedDate: '1996-07-15T22:00:00.000Z',
-		shipViaId: 3,
-		freight: 32.38,
-		name: 'Vins et alcools Chevalier',
-		address: '59 rue de l-Abbaye',
-		city: 'Reims',
-		region: null,
-		postalCode: '51100',
-		country: 'France',
-		details: [
-			{
-				productId: 11,
-				unitPrice: 14,
-				quantity: 12,
-				discount: false
-			},
-			{
-				productId: 42,
-				unitPrice: 9.8,
-				quantity: 10,
-				discount: false
-			},
-			{
-				productId: 72,
-				unitPrice: 34.8,
-				quantity: 5,
-				discount: false
-			}
-		]
-	}
+	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
 		orm.transaction('source', async (tr) => {
 			// create order
-			const orderId = await exec(async () => (await tr.execute('Orders.insert().include(p => p.details)', order)))
+			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
-			const result = await exec(async () => (await tr.execute('Orders.filter(p=> p.id == id).include(p => p.details)', { id: orderId })))
+			const result = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			const order2 = result[0]
 			// updated order
 			order2.address = 'changed 59 rue de l-Abbaye'
 			order2.details[0].discount = true
 			order2.details[1].unitPrice = 10
 			order2.details[2].quantity = 7
-			const updateCount = await exec(async () => (await tr.execute('Orders.update().include(p => p.details)', order2)))
+			const updateCount = await tr.lambda(() => Orders.update().include(p => p.details), order2)
 			console.log(updateCount)
 			// get order
-			const order3 = await exec(async () => (await tr.execute('Orders.filter(p=> p.id == id).include(p => p.details)', { id: orderId })))
+			const order3 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order3))
 			// delete
-			const deleteCount = await exec(async () => (await tr.execute('Orders.delete().include(p=> p.details)', order3[0])))
+			const deleteCount = await tr.lambda(() => Orders.delete().include(p => p.details), order3[0])
 			console.log(deleteCount)
 			// get order
-			const order4 = await exec(async () => (await tr.execute('Orders.filter(p=> p.id == id).include(p => p.details)', { id: orderId })))
+			const order4 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order4))
 		})
 	} catch (error) {

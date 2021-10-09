@@ -13,7 +13,7 @@ export class SchemaImport extends SchemaActionDML {
 					const aux:any = {}
 					this.loadExternalIds(entityData.entity, entityData.rows, aux)
 					this.solveInternalsIds(entityData.entity, entityData.rows, mapping, pendings)
-					await tr.execute(entityExpression.expression, entityData.rows)
+					await tr.expression(entityExpression.expression, entityData.rows)
 					this.completeMapping(entityData.entity, entityData.rows, aux, mapping)
 				}
 			}
@@ -39,7 +39,7 @@ export class SchemaImport extends SchemaActionDML {
 						const internalId = mapping[relation.entity][relation.to][row.externalId]
 						values[relation.from] = internalId
 						for (const p in entity.uniqueKey) { values[entity.uniqueKey[p]] = row.keys[p] }
-						await tr.execute(expression, values)
+						await tr.expression(expression, values)
 					} else {
 						stillPending.push(row)
 					}
