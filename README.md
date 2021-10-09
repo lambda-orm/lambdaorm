@@ -3,6 +3,7 @@
 ## **IMPORTANT:** the library is in an Alpha version!!!
 
 LambdaORM is an ORM based on using the same syntax of lambda expressions in javascript to write the expressions that will be translated into SQL sentences according to the database.
+
 When starting from javascript lambda expressions we can use the IDE's own intellisense to write the sentences.
 
 ## Queries:
