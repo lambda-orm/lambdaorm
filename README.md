@@ -527,5 +527,5 @@ npm install lambdaorm -g
 
 ## Documentation
 
-[Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
-[Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
+- [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
+- [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
