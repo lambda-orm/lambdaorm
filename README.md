@@ -398,7 +398,6 @@ try {
 })()
 ```
 
-
 ## Metadata
 
 Lambda ORM has the following methods to extract metadata information from expressions.
