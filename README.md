@@ -302,10 +302,10 @@ ath:
 databases:
   - name: mydb
     schema: library
-    dialect: mysql
+    dialect: postgres
     connection: MY_DB_STRING_CONNECTION
-  - name: mysql
-    schema: northwind
+  - name: otherDb
+    schema: library
     dialect: mysql
     connection:
       host: "0.0.0.0"
