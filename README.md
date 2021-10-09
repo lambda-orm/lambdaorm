@@ -14,10 +14,10 @@ import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()
 	const expression = (country:string)=>Products
-						.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
-						.having(p => max(p.price) > 50)
-						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-						.sort(p => desc(p.largestPrice))
+				.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+				.having(p => max(p.price) > 50)
+				.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+				.sort(p => desc(p.largestPrice))
 
 	const result = await orm.lambda(expression).execute('mysql')
 	console.log(JSON.stringify(result, null, 2))
