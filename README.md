@@ -108,14 +108,22 @@ Includes can be used in selects, insert, update, delete, and bulckinsert.
 Example:
 
 ``` ts
-Orders
-	.filter(p => p.id === id)
-	.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
+import { orm } from 'lambdaorm'
+(async () => {
+	await orm.init()
+	const expression = (id:number) => Orders
+		.filter(p => p.id === id)
+		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
 			p.details.include(p => p.product
 				.include(p => p.category.map(p => p.name))
-			.map(p => p.name))
-		.map(p => [p.quantity, p.unitPrice])])
-	.map(p => p.orderDate)
+				.map(p => p.name))
+				.map(p => [p.quantity, p.unitPrice])])
+		.map(p => p.orderDate)
+
+	const result = await orm.lambda(expression).execute('mysql')
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+})()
 ```
 
 The previous sentence will bring us the following result:
