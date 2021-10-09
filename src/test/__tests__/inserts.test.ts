@@ -48,9 +48,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"name","type":"string","value":"Beverages20"},{"name":"description","type":"string","value":"Soft drinks, coffees, teas, beers, and ales"}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"description","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert({ name: name, description: description })'
@@ -58,9 +58,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"name","type":"string","value":"Beverages21"},{"name":"description","type":"string","value":"Soft drinks, coffees, teas, beers, and ales"}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"description","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
@@ -68,9 +68,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Beverages22"},{"name":"entity.description","type":"string","value":"Soft drinks, coffees, teas, beers, and ales"}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"description","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('insert 4', async () => {
 		const expression = 'Orders.insert()'
@@ -78,9 +78,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"VINET"},{"name":"employeeId","type":"integer","value":5},{"name":"orderDate","type":"datetime","value":"1996-07-04 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-08-01 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-07-16 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":32.38},{"name":"name","type":"string","value":"Vins et alcools Chevalier"},{"name":"address","type":"string","value":"59 rue de l-Abbaye"},{"name":"city","type":"string","value":"Reims"},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"51100"},{"name":"country","type":"string","value":"France"}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert().include(p => p.details)'
@@ -88,9 +88,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"VINET"},{"name":"employeeId","type":"integer","value":5},{"name":"orderDate","type":"datetime","value":"1996-07-04 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-08-01 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-07-16 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":32.38},{"name":"name","type":"string","value":"Vins et alcools Chevalier"},{"name":"address","type":"string","value":"59 rue de l-Abbaye"},{"name":"city","type":"string","value":"Reims"},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"51100"},{"name":"country","type":"string","value":"France"}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p => [p.details, p.customer])'
@@ -98,9 +98,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"VINET"},{"name":"employeeId","type":"integer","value":5},{"name":"orderDate","type":"datetime","value":"1996-07-04 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-08-01 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-07-16 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":32.38},{"name":"name","type":"string","value":"Vins et alcools Chevalier"},{"name":"address","type":"string","value":"59 rue de l-Abbaye"},{"name":"city","type":"string","value":"Reims"},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"51100"},{"name":"country","type":"string","value":"France"}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 })
 describe('Sentences', () => {

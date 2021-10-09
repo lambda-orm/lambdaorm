@@ -1,0 +1,17 @@
+{
+	"entryPoints": [
+		"src/orm/connection",
+		"src/orm/database",
+		"src/orm/language",
+		"src/orm/manager",
+		"src/orm/model",
+		"src/orm/parser",
+		"src/orm/schema",
+		"src/orm/orm.ts"
+	],
+	"out": "doc",
+	"excludePrivate": true,
+	"excludeProtected": true,
+	"name": "Lambda ORM",
+	"readme": "none"
+}

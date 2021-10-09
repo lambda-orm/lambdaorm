@@ -3,16 +3,16 @@ schema: northwind
 context:
   a:
     name: Beverages20
-    description: 'Soft drinks, coffees, teas, beers, and ales'
+    description: Soft drinks, coffees, teas, beers, and ales
     id: 9
   b:
     name: Beverages21
-    description: 'Soft drinks, coffees, teas, beers, and ales'
+    description: Soft drinks, coffees, teas, beers, and ales
     id: 10
   c:
     entity:
       name: Beverages22
-      description: 'Soft drinks, coffees, teas, beers, and ales'
+      description: Soft drinks, coffees, teas, beers, and ales
     id: 11
   order:
     customerId: VINET
@@ -50,13 +50,13 @@ test:
     context: a
     sentences:
       - dialect: mariadb
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
           VALUES(:name,:description)
       - dialect: mysql
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: oracle
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
@@ -67,7 +67,7 @@ test:
           RETURNING CategoryID AS id
     errors: 0
     expression: Categories.insert()
-    completeExpression: 'Categories.insert({name:name,description:description})'
+    completeExpression: Categories.insert({name:name,description:description})
     model:
       name: string
       description: string
@@ -77,7 +77,7 @@ test:
         value: Beverages20
       - name: description
         type: string
-        value: 'Soft drinks, coffees, teas, beers, and ales'
+        value: Soft drinks, coffees, teas, beers, and ales
     fields:
       - name: name
         type: string
@@ -91,13 +91,13 @@ test:
     context: b
     sentences:
       - dialect: mariadb
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
           VALUES(:name,:description)
       - dialect: mysql
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: oracle
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
@@ -108,7 +108,7 @@ test:
           RETURNING CategoryID AS id
     errors: 0
     expression: 'Categories.insert({ name: name, description: description })'
-    completeExpression: 'Categories.insert({name:name,description:description})'
+    completeExpression: Categories.insert({name:name,description:description})
     model:
       name: string
       description: string
@@ -118,7 +118,7 @@ test:
         value: Beverages21
       - name: description
         type: string
-        value: 'Soft drinks, coffees, teas, beers, and ales'
+        value: Soft drinks, coffees, teas, beers, and ales
     fields:
       - name: name
         type: string
@@ -132,13 +132,13 @@ test:
     context: c
     sentences:
       - dialect: mariadb
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
           VALUES(:entity.name,:entity.description)
       - dialect: mysql
-        sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: oracle
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
@@ -149,7 +149,7 @@ test:
           RETURNING CategoryID AS id
     errors: 0
     expression: Categories.insert(entity)
-    completeExpression: 'Categories.insert({name:entity.name,description:entity.description})'
+    completeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
       name: string
       description: string
@@ -159,7 +159,7 @@ test:
         value: Beverages22
       - name: entity.description
         type: string
-        value: 'Soft drinks, coffees, teas, beers, and ales'
+        value: Soft drinks, coffees, teas, beers, and ales
     fields:
       - name: name
         type: string
@@ -501,7 +501,7 @@ test:
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
     errors: 0
-    expression: 'Orders.insert().include(p => [p.details, p.customer])'
+    expression: Orders.insert().include(p => [p.details, p.customer])
     completeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
     model:

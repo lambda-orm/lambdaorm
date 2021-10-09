@@ -46,7 +46,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: 'Products.map(p => p).page(1, 1)'
+    expression: Products.map(p => p).page(1, 1)
     completeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
@@ -134,7 +134,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: 'Products.page(1, 1)'
+    expression: Products.page(1, 1)
     completeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
@@ -403,7 +403,7 @@ test:
           Categories c ON c.CategoryID = p.CategoryID 
     errors: 1
     expression: Products.map(p => p.category.name)
-    completeExpression: 'Products.map(p=>{category_name:p.category.name})'
+    completeExpression: Products.map(p=>{category_name:p.category.name})
     model:
       category_name: string
     parameters: []
@@ -9698,7 +9698,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: 'Products.page(1, 1)'
+    expression: Products.page(1, 1)
     completeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
@@ -9948,7 +9948,7 @@ test:
         sentence: 'SELECT p.* FROM Products p  OFFSET 0 LIMIT 1  '
     errors: 1
     expression: Products.take(p => p)
-    completeExpression: 'Products.page(1,1).map(p=>p)'
+    completeExpression: Products.page(1,1).map(p=>p)
     model:
       '*': any
     parameters: []
@@ -10019,7 +10019,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: 'Products.page(1, 1)'
+    expression: Products.page(1, 1)
     completeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
@@ -11873,7 +11873,7 @@ test:
           INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
     errors: 1
     expression: Products.distinct(p => p.category.name)
-    completeExpression: 'Products.map(p=>distinct({category_name:p.category.name}))'
+    completeExpression: Products.map(p=>distinct({category_name:p.category.name}))
     model:
       category_name: string
     parameters: []
@@ -12262,7 +12262,7 @@ test:
     expression: >-
       Products.distinct(p => ({ category: p.category.name })).sort(p =>
       p.category)
-    completeExpression: 'Products.map(p=>distinct({category:p.category.name})).sort(p=>p.category)'
+    completeExpression: Products.map(p=>distinct({category:p.category.name})).sort(p=>p.category)
     model:
       category: string
     parameters: []

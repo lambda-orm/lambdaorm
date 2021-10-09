@@ -60,9 +60,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"ANATR"},{"name":"employeeId","type":"integer","value":7},{"name":"orderDate","type":"datetime","value":"1996-09-18 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-10-16 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-09-24 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":"1.6100"},{"name":"name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"address","type":"string","value":"Avda. de la Constitucin 2222"},{"name":"city","type":"string","value":"Mxico D.F."},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"5021"},{"name":"country","type":"string","value":"Mexico"},{"name":"obj.id","type":"integer","value":null}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 2', async () => {
 		const expression = 'Orders.update(entity)'
@@ -70,9 +70,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.customerId","type":"string","value":"ANATR"},{"name":"entity.employeeId","type":"integer","value":3},{"name":"entity.orderDate","type":"datetime","value":"1997-08-08 00:00:00"},{"name":"entity.requiredDate","type":"datetime","value":"1997-09-05 00:00:00"},{"name":"entity.shippedDate","type":"datetime","value":"1997-08-14 00:00:00"},{"name":"entity.shipViaId","type":"integer","value":1},{"name":"entity.freight","type":"decimal","value":"43.9000"},{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.address","type":"string","value":"Avda. de la Constitucin 2222"},{"name":"entity.city","type":"string","value":"Mxico D.F."},{"name":"entity.region","type":"string","value":null},{"name":"entity.postalCode","type":"string","value":"5021"},{"name":"entity.country","type":"string","value":"Mexico"},{"name":"obj.id","type":"integer","value":null}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 3', async () => {
 		const expression = 'Orders.updateAll({ postalCode: postalCode })'
@@ -80,9 +80,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"postalCode","type":"string","value":"xxx"}]
 		const fieldsExpected :any= [{"name":"postalCode","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 4', async () => {
 		const expression = 'Orders.update({ name: entity.name }).filter(p => p.id === entity.id)'
@@ -90,9 +90,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 5', async () => {
 		const expression = 'Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id)'
@@ -100,9 +100,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 6', async () => {
 		const expression = 'Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id)'
@@ -110,9 +110,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 7', async () => {
 		const expression = 'Orders.update().include(p => p.details)'
@@ -120,9 +120,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"ANATR"},{"name":"employeeId","type":"integer","value":7},{"name":"orderDate","type":"datetime","value":"1996-09-18 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-10-16 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-09-24 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":"1.6100"},{"name":"name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"address","type":"string","value":"Avda. de la Constitucin 2222"},{"name":"city","type":"string","value":"Mxico D.F."},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"5021"},{"name":"country","type":"string","value":"Mexico"},{"name":"obj.id","type":"integer","value":null}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('update 8', async () => {
 		const expression = 'Customers.update().include(p => p.orders.include(p => p.details))'
@@ -130,9 +130,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"id","type":"string","value":null},{"name":"name","type":"string","value":null},{"name":"contact","type":"string","value":null},{"name":"phone","type":"string","value":null},{"name":"address","type":"string","value":null},{"name":"city","type":"string","value":null},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"xxx"},{"name":"country","type":"string","value":null},{"name":"obj.id","type":"string","value":null}]
 		const fieldsExpected :any= [{"name":"id","type":"string"},{"name":"name","type":"string"},{"name":"contact","type":"string"},{"name":"phone","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 })
 describe('Sentences', () => {

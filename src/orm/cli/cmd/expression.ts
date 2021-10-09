@@ -54,14 +54,14 @@ export class ExpressionCommand implements CommandModule {
 				}
 				if (metadata) {
 					const model = await orm.expression(expression).model(DatabaseData.schema)
-					const data = await orm.expression(expression).serialize(DatabaseData.schema)
+					const metadata = await orm.expression(expression).metadata(DatabaseData.schema)
 					console.log('model:')
 					console.log(JSON.stringify(model, null, 2))
 					console.log('metadata:')
-					console.log(JSON.stringify(data, null, 2))
+					console.log(JSON.stringify(metadata, null, 2))
 				}
 			} else {
-				const resullt = await orm.expression(expression).execute({}, database)
+				const resullt = await orm.expression(expression).execute(database, {})
 				console.log(resullt)
 			}
 		} catch (error) {

@@ -8,57 +8,57 @@ describe('Execute', () => {
 	test('delete 1', async () => {
 		const expression = 'OrderDetails.delete().filter(p => p.orderId === id)'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p => p.details)'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p => p.id === id).include(p => p.details)'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p => p.details)'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
 		const expected = 0
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p => p.details)'
 		const expected = 0
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
 		const expected = 2154
-		const mysqlResult =  await orm.expression(expression).execute(context, 'mysql')
+		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute(context, 'postgres')
+		const postgresResult =  await orm.expression(expression).execute('postgres',context)
 		expect(expected).toEqual(postgresResult)
 	})
 })

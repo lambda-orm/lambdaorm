@@ -78,9 +78,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"maxPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 2', async () => {
 		const expression = 'Products.map(p => ({ minPrice: min(p.price) }))'
@@ -88,9 +88,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"minPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 3', async () => {
 		const expression = 'Products.map(p => ({ total: sum(p.price) }))'
@@ -98,9 +98,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"total","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 4', async () => {
 		const expression = 'Products.map(p => ({ average: avg(p.price) }))'
@@ -108,9 +108,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"average","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 5', async () => {
 		const expression = 'Products.map(p => ({ count: count(1) }))'
@@ -118,9 +118,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"count","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 6', async () => {
 		const expression = 'Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))'
@@ -128,9 +128,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"integer"},{"name":"largestPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 7', async () => {
 		const expression = 'Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
@@ -138,9 +138,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 8', async () => {
 		const expression = 'Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
@@ -148,9 +148,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"id","type":"integer","value":1}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"source","type":"decimal"},{"name":"result","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 9', async () => {
 		const expression = 'Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
@@ -158,9 +158,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 10', async () => {
 		const expression = 'Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
@@ -168,9 +168,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 11', async () => {
 		const expression = 'Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
@@ -178,9 +178,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 })
 describe('Sentences', () => {

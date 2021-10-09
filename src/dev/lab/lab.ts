@@ -1,18 +1,10 @@
 import { orm } from '../../orm'
 
 (async () => {
-	await orm.init()
-
+	await orm.init('/home/my/db/book.yaml')
 	try {
-		// writing the statement as a lambda expression in javascript
-		const query = (id: number) => Orders.filter(p => p.id === id).include(p => p.details)
-		let result = await orm.lambda(query).execute({ id: 10248 }, 'source')
-		console.log(JSON.stringify(result, null, 2))
-
-		// writing the statement as a lambda expression to a text string
-		const expression = 'Orders.filter(p => p.id === id).include(p => p.details)'
-		result = await orm.expression(expression).execute({ id: 10248 }, 'source')
-		console.log(JSON.stringify(result, null, 2))
+		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
+		console.log(result)
 	} catch (error) {
 		console.log(error)
 	} finally {
