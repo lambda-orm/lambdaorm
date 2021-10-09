@@ -1,7 +1,5 @@
 ## Examples
 
-### A
-
 Lambda
 
 ``` ts
@@ -14,8 +12,6 @@ SQL
 DELETE o FROM `Order Details` AS o WHERE o.OrderID = ?
 
 ```
-
-### A1
 
 Lambda
 
@@ -30,8 +26,6 @@ DELETE o FROM `Order Details` AS o WHERE o.OrderID = ?
 
 ```
 
-### B
-
 Lambda
 
 ``` ts
@@ -45,8 +39,6 @@ SQL
 DELETE o FROM `Order Details` AS o 
 
 ```
-
-### C
 
 Lambda
 
