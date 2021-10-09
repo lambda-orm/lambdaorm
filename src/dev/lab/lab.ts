@@ -2,11 +2,14 @@ import { orm } from '../../orm'
 
 (async () => {
 	await orm.init()
-	const expression = (country:string) => Products
-		.filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
-		.having(p => max(p.price) > 50)
-		.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-		.sort(p => desc(p.largestPrice))
+	const expression = (id:number) => Orders
+		.filter(p => p.id === id)
+		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
+			p.details.include(p => p.product
+				.include(p => p.category.map(p => p.name))
+				.map(p => p.name))
+				.map(p => [p.quantity, p.unitPrice])])
+		.map(p => p.orderDate)
 
 	const result = await orm.lambda(expression).execute('mysql')
 	console.log(JSON.stringify(result, null, 2))
