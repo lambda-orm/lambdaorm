@@ -6,6 +6,59 @@ LambdaORM is an ORM based on using the same syntax of lambda expressions in java
 
 When starting from javascript lambda expressions we can use the IDE's own intellisense to write the sentences.
 
+Example:
+
+```ts
+import { orm } from 'lambdaorm'
+
+(async () => {
+	await orm.init()
+	const expression = (country:string)=>Products
+						.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+						.having(p => max(p.price) > 50)
+						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+						.sort(p => desc(p.largestPrice))
+
+	const result = await orm.lambda(expression).execute('mysql')
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+})()
+```
+
+where the SQL equivalent of the expression is:
+
+```sql
+SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` 
+FROM Products p 
+INNER JOIN Suppliers s ON s.SupplierID = p.SupplierID 
+INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
+WHERE ((p.UnitPrice > 5 AND s.Country = ?) OR p.UnitsInStock < 3) 
+GROUP BY c.CategoryName 
+HAVING MAX(p.UnitPrice) > 50 
+ORDER BY `largestPrice` desc 
+```
+
+You could also write the expression to a string.
+
+In this case you should use the **orm.expression** method instead of **orm.lambda**
+
+```ts
+import { orm } from 'lambdaorm'
+
+(async () => {
+	await orm.init()
+	const expression = `Products
+						.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+						.having(p => max(p.price) > 50)
+						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+						.sort(p => desc(p.largestPrice))`
+
+	const result = await orm.expression(expression).execute('mysql')
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+})()
+```
+
 ## Queries:
 
 Starting from the entity we have the following methods to assemble the sentences.
@@ -33,34 +86,13 @@ There are no methods for the INNER JOIN clause since it is deduced when navigati
 
 There are no methods for the GROUP BY clause since this is deduced when grouping methods are used.
 
-Example:
-
-``` ts
-OrderDetails
-	.filter(p => p.order.customer.name == customerName)
-	.map(p => ({ order: p.order.orderDate, total: sum(p.quantity * p.unitPrice) }))
-	.sort(p => desc(p.total))
-```
-
-the previous expression is equivalent to the following statement for MySQL.
-
-``` sql
-SELECT o1.OrderDate AS `order`, SUM(o.Quantity * o.UnitPrice) AS `total` 
-FROM `Order Details` o 
-INNER JOIN Orders o1 ON o1.OrderID = o.OrderID 
-INNER JOIN Customers c ON c.CustomerID = o1.CustomerID 
-WHERE c.CompanyName = ? 
-GROUP BY o1.OrderDate 
-ORDER BY `total` desc 
-```
-
 More info:
 
 - [queries](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)
 - [insert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Insert)
 - [update](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)
 - [delete](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)
-- [bulkinsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Bulkinsert)
+- [bulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)
 - [include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
 ## Includes:

@@ -1,6 +1,4 @@
 
-# Insert
-
 ## Examples
 
 ### Insert Simple
@@ -61,7 +59,7 @@ VALUES(?,?,?,?,?)
 ## Code example
 
 ``` ts
-import { orm } from 'lambda-orm'
+import { orm } from 'lambdaorm'
 
 async function example () {
 	await orm.init()
@@ -98,7 +96,7 @@ async function example () {
 	}
 	const insert = () => Orders.insert().include(p => p.details)
 
-	const result = await orm.lambda(insert).execute(order, 'mysql')
+	const result = await orm.lambda(insert).execute('mysql',order)
 	console.log(result)
 	await orm.end()
 }
