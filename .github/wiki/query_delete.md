@@ -1,5 +1,3 @@
-# Delete
-
 ## Examples
 
 ### A
@@ -71,7 +69,7 @@ DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?)
 Lambda
 
 ``` ts
-import { orm } from 'lambda-orm'
+import { orm } from 'lambdaorm'
 
 async function example () {
 	await orm.init()
@@ -110,7 +108,7 @@ async function example () {
 	}
 
 	const _delete = () => Orders.delete().include(p => p.details)
-	const result = await orm.lambda(_delete).execute(order, 'mysql')
+	const result = await orm.lambda(_delete).execute('mysql',order)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

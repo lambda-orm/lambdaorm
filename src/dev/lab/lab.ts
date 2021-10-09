@@ -1,15 +1,16 @@
 import { orm } from '../../orm'
 
 (async () => {
-	await orm.init('/home/my/db/book.yaml')
-	try {
-		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
-		console.log(result)
-	} catch (error) {
-		console.log(error)
-	} finally {
-		await orm.end()
-	}
+	await orm.init()
+	const expression = (country:string) => Products
+		.filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
+		.having(p => max(p.price) > 50)
+		.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+		.sort(p => desc(p.largestPrice))
+
+	const result = await orm.lambda(expression).execute('mysql')
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
 })()
 
 // export async function apply (callback: any) {

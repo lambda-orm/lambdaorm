@@ -1,5 +1,3 @@
-# Bulkinsert
-
 ## Examples
 
 Lambda
@@ -36,7 +34,7 @@ INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUE
 Lambda
 
 ``` ts
-import { orm } from 'lambda-orm'
+import { orm } from 'lambdaorm'
 
 async function example () {
 	await orm.init()
@@ -55,7 +53,7 @@ async function example () {
 	]
 
 	const insert = () => Categories.bulkInsert()
-	const result = await orm.lambda(insert).execute(categories, 'mysql')
+	const result = await orm.lambda(insert).execute('mysql',categories)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

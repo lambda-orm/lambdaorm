@@ -1,6 +1,4 @@
 
-# Include
-
 We use include to get data from a related entity as part of the query.
 
 For each include a query is created, which are executed within the same transaction.
@@ -407,7 +405,7 @@ Result:
 ## Code example
 
 ``` ts
-import { orm } from 'lambda-orm'
+import { orm } from 'lambdaorm'
 
 async function example () {
 	await orm.init()
@@ -420,7 +418,7 @@ async function example () {
 				.map(p => [p.quantity, p.unitPrice])])
 		.map(p => p.orderDate)
 
-	const result = await orm.lambda(query).execute({ id: 830 }, 'mysql')
+	const result = await orm.lambda(query).execute('mysql',{ id: 830 })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

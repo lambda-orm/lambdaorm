@@ -1,9 +1,5 @@
 
-# Update
-
 ## Examples
-
-### A
 
 Lambda
 
@@ -18,8 +14,6 @@ UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?
 WHERE o.OrderID = ?
 ```
 
-### C
-
 Lambda
 
 ``` ts
@@ -33,8 +27,6 @@ UPDATE Orders o SET ShipPostalCode = ?
 
 ```
 
-### D
-
 Lambda
 
 ``` ts
@@ -46,8 +38,6 @@ SQL
 ``` sql
 UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ?
 ```
-
-### E
 
 Lambda
 
@@ -65,8 +55,6 @@ UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Di
 WHERE (o1.OrderID = ? AND o1.ProductID = ?)
 ```
 
-### F
-
 Lambda
 
 ``` ts
@@ -82,8 +70,6 @@ WHERE o.OrderID = ?
 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID 
 WHERE (o1.OrderID = ? AND o1.ProductID = ?)
 ```
-
-### G
 
 Lambda
 
@@ -107,7 +93,7 @@ WHERE (o1.OrderID = ? AND o1.ProductID = ?)
 ## Code example
 
 ``` ts
-import { orm } from 'lambda-orm'
+import { orm } from 'lambdaorm'
 
 async function example () {
 	await orm.init()
@@ -194,7 +180,7 @@ async function example () {
 
 	const update = () => Customers.update().include(p => p.orders.include(p => p.details))
 
-	const result = await orm.lambda(update).execute(customer, 'mysql')
+	const result = await orm.lambda(update).execute('mysql',customer)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }
