@@ -64,11 +64,11 @@
 //     expressionTest.sentences=[]
 //     expressionTest.errors=0
 //     try{               
-//       expressionTest.expression = orm.lambda(expressionTest.lambda).expression
+//       expressionTest.expression = orm.expression(expressionTest.lambda).expression
 //       expressionTest.lambda=expressionTest.lambda.toString()
-//       expressionTest.completeExpression = orm.lambda(expressionTest.expression).complete(category.schema) 
-//       expressionTest.model = await orm.lambda(expressionTest.expression).model(category.schema)
-//       const serialize:any = await orm.lambda(expressionTest.expression).serialize(category.schema)
+//       expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema) 
+//       expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema)
+//       const serialize:any = await orm.expression(expressionTest.expression).serialize(category.schema)
 //       expressionTest.parameters =serialize.p 
 //       expressionTest.fields =serialize.f
 //       for(const r in dialects){
@@ -76,7 +76,7 @@
 //         let sentence=undefined
 //         let error=undefined                 
 //         try{               
-//           sentence = await orm.lambda(expressionTest.expression).sentence(dialect,category.schema)        
+//           sentence = await orm.expression(expressionTest.expression).sentence(dialect,category.schema)        
 //         }
 //         catch(err:any)
 //         {
@@ -101,7 +101,7 @@
 //         let error=undefined   
 //         try{
 //           const context =expressionTest.context!=undefined?category.context[expressionTest.context]:{}
-//           result = await orm.lambda(expressionTest.lambda).execute(context,database)
+//           result = await orm.expression(expressionTest.lambda).execute(context,database)
 //         }
 //         catch(err:any)
 //         {
@@ -145,7 +145,7 @@
 // }
 // async function writeQueryTest(dialects:string[],databases:string[]):Promise<number>
 // {
-//   return await writeTest(dialects,databases,{name:'query',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'query',schema:'northwind'
 //   ,context:{ a:{ id: 1}
 //            , b:{minValue:10,from:'1997-01-01',to:'1997-12-31'}
 //    }
@@ -172,7 +172,7 @@
 // }
 // async function writeNumeriFunctionsTest(dialects:string[],databases:string[]):Promise<number>
 // { 
-//   return await writeTest(dialects,databases,{name:'numeric functions',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'numeric functions',schema:'northwind'
 //   ,context:{ a:{ id: 1}}
 //   ,test:    
 //     [{name:'function abs',context:'a',lambda: (id:number)=> Products.filter(p=>p.id == id ).map(p=> ({name:p.name,source:p.price*-1 ,result:abs(p.price*-1)}) ) }
@@ -194,7 +194,7 @@
 // }  
 // async function writeGroupByTest(dialects:string[],databases:string[]):Promise<number>
 // {    
-//   return await writeTest(dialects,databases,{name:'groupBy',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'groupBy',schema:'northwind'
 //   ,context:{ a:{ id: 1}}
 //   ,test:   
 //     [{name:'groupBy 1',lambda: ()=>  Products.map(p=> ({maxPrice:max(p.price)})) }
@@ -212,7 +212,7 @@
 // }
 // async function writeIncludeTest(dialects:string[],databases:string[]):Promise<number>
 // {     
-//   return await writeTest(dialects,databases,{name:'include',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'include',schema:'northwind'
 //   ,context:{ a:{ id: 1}}
 //   ,test:    
 //     [
@@ -228,7 +228,7 @@
 // }
 // async function writeInsertsTest(dialects:string[],databases:string[]):Promise<number>
 // {  
-//   return await writeTest(dialects,databases,{name:'inserts',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'inserts',schema:'northwind'
 //   ,context:{ a:{name: "Beverages20", description: "Soft drinks, coffees, teas, beers, and ales" }
 //             ,b:{name: "Beverages21", description: "Soft drinks, coffees, teas, beers, and ales" }
 //             ,c:{entity:{name: "Beverages22", description: "Soft drinks, coffees, teas, beers, and ales" }}
@@ -280,7 +280,7 @@
 // }
 // async function writeUpdateTest(dialects:string[],databases:string[]):Promise<number>
 // {    
-//   return await writeTest(dialects,databases,{name:'update',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'update',schema:'northwind'
 // ,context:{
 //           a:{
 //               "id": 7,
@@ -574,7 +574,7 @@
 // }
 // async function writeDeleteTest(dialects:string[],databases:string[]):Promise<number>
 // {     
-//   return await writeTest(dialects,databases,{name:'delete',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'delete',schema:'northwind'
 //   ,context:{ 
 //             a: {id:9} 
 //            ,b: {
@@ -727,7 +727,7 @@
 // //TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details) 
 // async function writeBulkInsertTest(dialects:string[],databases:string[]):Promise<number>
 // {    
-//   return await writeTest(dialects,databases,{name:'bulkInsert',schema:'northwind:0.0.2'
+//   return await writeTest(dialects,databases,{name:'bulkInsert',schema:'northwind'
 //   ,context:{a: [{
 //                   name: "Beverages4",
 //                   description: "Soft drinks, coffees, teas, beers, and ales"
@@ -914,11 +914,11 @@
 //     }
 //   ]
 
-//   //await exec( async()=>(await orm.lambda(expression).parse()).serialize())
-//   //await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-//   //await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).sentence())
-//   // await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
-//   let result = await exec(async()=>(await orm.lambda(expression).execute(categories,'source')))
+//   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
+//   //await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+//   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
+//   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+//   let result = await exec(async()=>(await orm.expression(expression).execute(categories,'source')))
 // }
 // async function bulkInsert2(){
 //   const expression = `Orders.bulkInsert().include(p=> p.details)`
@@ -1013,11 +1013,11 @@
 //     },
 //   ]
 
-//   //await exec( async()=>(await orm.lambda(expression).parse()).serialize())
-//   // await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-//   //await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).sentence())
-//   // await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
-//   let result = await exec(async()=>(await orm.lambda(expression).execute(orders,'source')))
+//   //await exec( async()=>(await orm.expression(expression).parse()).serialize())
+//   // await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+//   //await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
+//   // await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+//   let result = await exec(async()=>(await orm.expression(expression).execute(orders,'source')))
 // }
 // async function schemaSync(target:string){
 //   await orm.database.sync(target).execute()

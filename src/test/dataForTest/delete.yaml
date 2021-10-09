@@ -1,5 +1,5 @@
 name: delete
-schema: 'northwind:0.0.2'
+schema: northwind
 context:
   a:
     id: 9
@@ -118,7 +118,6 @@ context:
 test:
   - name: delete 1
     context: a
-    lambda: (id) => OrderDetails.delete().filter(p => p.orderId === id)
     sentences:
       - dialect: mariadb
         sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
@@ -145,7 +144,6 @@ test:
     result: 1
   - name: delete 2
     context: b
-    lambda: () => Orders.delete().include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -195,7 +193,6 @@ test:
     result: 1
   - name: delete 3
     context: c
-    lambda: (id) => Orders.delete().filter(p => p.id === id).include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -245,7 +242,6 @@ test:
     result: 1
   - name: delete 4
     context: d
-    lambda: () => Orders.delete().include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -295,7 +291,6 @@ test:
     result: 1
   - name: delete 4
     context: d
-    lambda: (entity) => OrderDetails.delete(entity)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -336,7 +331,6 @@ test:
     result: 0
   - name: delete 5
     context: e
-    lambda: (entity) => Orders.delete(entity).include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -385,7 +379,6 @@ test:
       - database: postgres
     result: 0
   - name: delete 6
-    lambda: () => OrderDetails.deleteAll()
     sentences:
       - dialect: mariadb
         sentence: 'DELETE o FROM `Order Details` AS o '

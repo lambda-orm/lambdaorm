@@ -5,7 +5,7 @@ import { Utils } from '../utils'
 
 export class InitCommand implements CommandModule {
 	command = 'init';
-	describe = 'Generates lambdaORM project structure.';
+	describe = 'Generates lambdaorm project structure.';
 
 	builder (args: Argv) {
 		return args
@@ -29,10 +29,14 @@ export class InitCommand implements CommandModule {
 	}
 
 	async handler (args: Arguments) {
-		const name = args.name as string
-		const workspace = args.workspace as string || path.join(process.cwd(), name)
-		const dialect: string = args.dialect as string
-		const connection: string = args.connection as string
-		await Utils.writeConfig(workspace, name, dialect, connection)
+		try {
+			const name = args.name as string
+			const workspace = args.workspace as string || path.join(process.cwd(), name)
+			const dialect: string = args.dialect as string
+			const connection: string = args.connection as string
+			await Utils.writeConfig(workspace, name, dialect, connection)
+		} catch (error) {
+			console.error(`error: ${error}`)
+		}
 	}
 }

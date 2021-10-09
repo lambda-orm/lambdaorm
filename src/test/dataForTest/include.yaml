@@ -1,5 +1,5 @@
 name: include
-schema: 'northwind:0.0.2'
+schema: northwind
 context:
   a:
     id: 1
@@ -10,7 +10,6 @@ context:
 test:
   - name: include 1
     context: a
-    lambda: (id) => Orders.filter(p => p.id === id).include(p => p.customer)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -188,7 +187,6 @@ test:
           country: Germany
   - name: include 2
     context: a
-    lambda: (id) => Orders.filter(p => p.id === id).include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -358,9 +356,6 @@ test:
             discount: 0
   - name: include 3
     context: a
-    lambda: >-
-      (id) => Orders.filter(p => p.id === id).include(p => [p.details,
-      p.customer])
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -589,9 +584,6 @@ test:
           country: Germany
   - name: include 4
     context: a
-    lambda: >-
-      (id) => Orders.filter(p => p.id === id).include(p => [p.details.include(q
-      => q.product), p.customer])
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -903,9 +895,6 @@ test:
           country: Germany
   - name: include 5
     context: a
-    lambda: >-
-      (id) => Orders.filter(p => p.id === id).include(p => [p.details.include(q
-      => q.product.include(p => p.category)), p.customer])
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -1260,10 +1249,6 @@ test:
           country: Germany
   - name: include 6
     context: a
-    lambda: >-
-      (id) => Orders.filter(p => p.id === id).include(p => [p.details.map(p =>
-      ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId
-      })), p.customer])
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -1482,10 +1467,6 @@ test:
           country: Germany
   - name: include 7
     context: a
-    lambda: >-
-      (id) => Orders.filter(p => p.id === id).include(p => [p.details.include(q
-      => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
-      productId: p.productId })), p.customer])
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -1787,10 +1768,6 @@ test:
           country: Germany
   - name: include 8
     context: a
-    lambda: >-
-      (id) => Orders.filter(p => p.id === id).include(p => [p.customer.map(p =>
-      p.name), p.details.include(p => p.product.include(p => p.category.map(p =>
-      p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
     sentences:
       - dialect: mariadb
         sentence: >-

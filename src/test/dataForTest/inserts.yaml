@@ -1,5 +1,5 @@
 name: inserts
-schema: 'northwind:0.0.2'
+schema: northwind
 context:
   a:
     name: Beverages20
@@ -48,7 +48,6 @@ context:
 test:
   - name: insert 1
     context: a
-    lambda: () => Categories.insert()
     sentences:
       - dialect: mariadb
         sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
@@ -90,9 +89,6 @@ test:
     result: 9
   - name: insert 2
     context: b
-    lambda: >-
-      (name, description) => Categories.insert({ name: name, description:
-      description })
     sentences:
       - dialect: mariadb
         sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
@@ -134,7 +130,6 @@ test:
     result: 10
   - name: insert 3
     context: c
-    lambda: (entity) => Categories.insert(entity)
     sentences:
       - dialect: mariadb
         sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
@@ -176,7 +171,6 @@ test:
     result: 11
   - name: insert 4
     context: order
-    lambda: () => Orders.insert()
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -295,7 +289,6 @@ test:
     result: 831
   - name: insert 5
     context: order
-    lambda: () => Orders.insert().include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-
@@ -440,7 +433,6 @@ test:
     result: 832
   - name: insert 6
     context: order
-    lambda: '() => Orders.insert().include(p => [p.details, p.customer])'
     sentences:
       - dialect: mariadb
         sentence: >-

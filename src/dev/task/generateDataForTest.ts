@@ -26,10 +26,10 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 		expressionTest.errors = 0
 		try {
 			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
-			expressionTest.lambda = expressionTest.lambda.toString()
-			expressionTest.completeExpression = orm.lambda(expressionTest.expression).complete(category.schema)
-			expressionTest.model = await orm.lambda(expressionTest.expression).model(category.schema)
-			const serialize: any = await orm.lambda(expressionTest.expression).serialize(category.schema)
+			// expressionTest.lambda = expressionTest.lambda.toString()
+			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema)
+			expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema)
+			const serialize: any = await orm.expression(expressionTest.expression).serialize(category.schema)
 			expressionTest.parameters = serialize.p
 			expressionTest.fields = serialize.f
 			for (const r in dialects) {
@@ -37,7 +37,7 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 				let sentence
 				let error
 				try {
-					sentence = await orm.lambda(expressionTest.expression).sentence(dialect, category.schema)
+					sentence = await orm.expression(expressionTest.expression).sentence(dialect, category.schema)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -107,7 +107,7 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 async function writeQueryTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'query',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -139,7 +139,7 @@ async function writeQueryTest (dialects: string[], databases: string[]): Promise
 async function writeNumeriFunctionsTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'numeric functions',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -164,7 +164,7 @@ async function writeNumeriFunctionsTest (dialects: string[], databases: string[]
 async function writeGroupByTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'groupBy',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
@@ -184,7 +184,7 @@ async function writeGroupByTest (dialects: string[], databases: string[]): Promi
 async function writeIncludeTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'include',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -202,7 +202,7 @@ async function writeIncludeTest (dialects: string[], databases: string[]): Promi
 async function writeInsertsTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'inserts',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -257,7 +257,7 @@ async function writeInsertsTest (dialects: string[], databases: string[]): Promi
 async function writeUpdateTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'update',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: {
 				id: 7,
@@ -555,7 +555,7 @@ async function writeUpdateTest (dialects: string[], databases: string[]): Promis
 async function writeDeleteTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'delete',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: { id: 9 },
 			b: {
@@ -713,7 +713,7 @@ async function writeDeleteTest (dialects: string[], databases: string[]): Promis
 async function writeBulkInsertTest (dialects: string[], databases: string[]): Promise<number> {
 	return await writeTest(dialects, databases, {
 		name: 'bulkInsert',
-		schema: 'northwind:0.0.2',
+		schema: 'northwind',
 		context: {
 			a: [{
 				name: 'Beverages4',
@@ -823,64 +823,30 @@ async function writeBulkInsertTest (dialects: string[], databases: string[]): Pr
 	})
 }
 async function crud () {
-	const order = {
-		customerId: 'VINET',
-		employeeId: 5,
-		orderDate: '1996-07-03T22:00:00.000Z',
-		requiredDate: '1996-07-31T22:00:00.000Z',
-		shippedDate: '1996-07-15T22:00:00.000Z',
-		shipViaId: 3,
-		freight: 32.38,
-		name: 'Vins et alcools Chevalier',
-		address: '59 rue de l-Abbaye',
-		city: 'Reims',
-		region: null,
-		postalCode: '51100',
-		country: 'France',
-		details: [
-			{
-				productId: 11,
-				unitPrice: 14,
-				quantity: 12,
-				discount: false
-			},
-			{
-				productId: 42,
-				unitPrice: 9.8,
-				quantity: 10,
-				discount: false
-			},
-			{
-				productId: 72,
-				unitPrice: 34.8,
-				quantity: 5,
-				discount: false
-			}
-		]
-	}
+	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
 		orm.transaction('source', async (tr) => {
 			// create order
-			const orderId = await exec(async () => (await tr.execute('Orders.insert().include(p => p.details)', order)))
+			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
-			const result = await exec(async () => (await tr.execute('Orders.filter(p=> p.id == id).include(p => p.details)', { id: orderId })))
+			const result = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			const order2 = result[0]
 			// updated order
 			order2.address = 'changed 59 rue de l-Abbaye'
 			order2.details[0].discount = true
 			order2.details[1].unitPrice = 10
 			order2.details[2].quantity = 7
-			const updateCount = await exec(async () => (await tr.execute('Orders.update().include(p => p.details)', order2)))
+			const updateCount = await tr.lambda(() => Orders.update().include(p => p.details), order2)
 			console.log(updateCount)
 			// get order
-			const order3 = await exec(async () => (await tr.execute('Orders.filter(p=> p.id == id).include(p => p.details)', { id: orderId })))
+			const order3 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order3))
 			// delete
-			const deleteCount = await exec(async () => (await tr.execute('Orders.delete().include(p=> p.details)', order3[0])))
+			const deleteCount = await tr.lambda(() => Orders.delete().include(p => p.details), order3[0])
 			console.log(deleteCount)
 			// get order
-			const order4 = await exec(async () => (await tr.execute('Orders.filter(p=> p.id == id).include(p => p.details)', { id: orderId })))
+			const order4 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order4))
 		})
 	} catch (error) {
@@ -900,11 +866,11 @@ async function bulkInsert () {
 		}
 	]
 
-	// await exec( async()=>(await orm.lambda(expression).parse()).serialize())
-	// await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-	// await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).sentence())
-	// await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.lambda(expression).execute(categories, 'source')))
+	// await exec( async()=>(await orm.expression(expression).parse()).serialize())
+	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
+	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+	const result = await exec(async () => (await orm.expression(expression).execute(categories, 'source')))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -999,11 +965,11 @@ async function bulkInsert2 () {
 		}
 	]
 
-	// await exec( async()=>(await orm.lambda(expression).parse()).serialize())
-	// await exec( async()=>(await orm.lambda(expression).compile('mysql','northwind')).serialize())
-	// await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).sentence())
-	// await exec(async()=>(await orm.lambda(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.lambda(expression).execute(orders, 'source')))
+	// await exec( async()=>(await orm.expression(expression).parse()).serialize())
+	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
+	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
+	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
+	const result = await exec(async () => (await orm.expression(expression).execute(orders, 'source')))
 }
 
 export async function apply (databases: string[], callback: any) {

@@ -2,8 +2,8 @@
 import { CommandModule, Argv, Arguments } from 'yargs'
 import { orm } from '../../index'
 
-export class LambdaCommand implements CommandModule {
-	command = 'run';
+export class ExpressionCommand implements CommandModule {
+	command = 'expression';
 	describe = 'Run an expression lambda or return information';
 
 	builder (args: Argv) {
@@ -12,9 +12,9 @@ export class LambdaCommand implements CommandModule {
 				alias: 'database',
 				describe: 'Name of database'
 			})
-			.option('l', {
-				alias: 'lambda',
-				describe: 'Lambda sentence'
+			.option('e', {
+				alias: 'expression',
+				describe: 'Expression'
 			})
 			.option('s', {
 				alias: 'sentences',
@@ -28,15 +28,15 @@ export class LambdaCommand implements CommandModule {
 
 	async handler (args: Arguments) {
 		const database = args.database as string
-		const lambda = args.lambda as string
+		const expression = args.expression as string
 		const sentences = args.sentences !== undefined
 		const metadata = args.metadata !== undefined
 		if (database === undefined) {
 			console.error('the database argument is required')
 			return
 		}
-		if (lambda === undefined) {
-			console.error('the lambda argument is required')
+		if (expression === undefined) {
+			console.error('the expression argument is required')
 			return
 		}
 		if (!orm.database.exists(database)) {
@@ -49,19 +49,19 @@ export class LambdaCommand implements CommandModule {
 			if (sentences || metadata) {
 				const DatabaseData = orm.database.get(database)
 				if (sentences) {
-					const resullt = await orm.lambda(lambda).sentence(DatabaseData.dialect, DatabaseData.schema)
+					const resullt = await orm.expression(expression).sentence(DatabaseData.dialect, DatabaseData.schema)
 					console.log(resullt)
 				}
 				if (metadata) {
-					const model = await orm.lambda(lambda).model(DatabaseData.schema)
-					const data = await orm.lambda(lambda).serialize(DatabaseData.schema)
+					const model = await orm.expression(expression).model(DatabaseData.schema)
+					const data = await orm.expression(expression).serialize(DatabaseData.schema)
 					console.log('model:')
 					console.log(JSON.stringify(model, null, 2))
 					console.log('metadata:')
 					console.log(JSON.stringify(data, null, 2))
 				}
 			} else {
-				const resullt = await orm.lambda(lambda).execute({}, database)
+				const resullt = await orm.expression(expression).execute({}, database)
 				console.log(resullt)
 			}
 		} catch (error) {

@@ -1,5 +1,5 @@
 name: bulkInsert
-schema: 'northwind:0.0.2'
+schema: northwind
 context:
   a:
     - name: Beverages4
@@ -87,7 +87,6 @@ context:
 test:
   - name: bulkInsert 1
     context: a
-    lambda: () => Categories.bulkInsert()
     sentences:
       - dialect: mariadb
         sentence: 'INSERT INTO Categories(CategoryName,Description) VALUES ?'
@@ -127,7 +126,6 @@ test:
       - 13
   - name: bulkInsert 2
     context: b
-    lambda: () => Orders.bulkInsert().include(p => p.details)
     sentences:
       - dialect: mariadb
         sentence: >-

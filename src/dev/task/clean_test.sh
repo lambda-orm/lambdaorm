@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-rm -rf ./../dataForTest/*
-rm -rf ./../__integration__/*
-rm -rf ./../__tests__/*
+rm -rf ./../../test/dataForTest/*
+rm -rf ./../../test/__integration__/*
+rm -rf ./../../test/__tests__/*

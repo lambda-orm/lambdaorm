@@ -14,18 +14,18 @@ const ConfigExtends = require('config-extends')
 const fs = require('fs')
 const path = require('path')
 class Orm implements IOrm {
-	private _cache:Cache
-	public config:Config
+	private _cache: Cache
+	public config: Config
 	private languageModel: Model
 	// TODO: cambiar el nombre nodeManager por parserManager
-	private parserManager:ParserManager
-	private schemaManager:SchemaManager
-	private databaseManager:DatabaseManager
-	private connectionManager:ConnectionManager
-	private languageManager:LanguageManager
+	private parserManager: ParserManager
+	private schemaManager: SchemaManager
+	private databaseManager: DatabaseManager
+	private connectionManager: ConnectionManager
+	private languageManager: LanguageManager
 
 	private static _instance: Orm
-	public static get instance ():Orm {
+	public static get instance (): Orm {
 		if (!this._instance) {
 			this._instance = new Orm()
 		}
@@ -33,7 +33,7 @@ class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.config = { paths: {} }
+		this.config = { paths: { src: 'src', data: 'data' } }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 
@@ -54,8 +54,8 @@ class Orm implements IOrm {
 		this.connection.addType('mysql', MySqlConnectionPool)
 		this.connection.addType('mariadb', MariadbConnectionPool)
 		this.connection.addType('postgres', PostgresConnectionPool)
-	// this.connection.addType('mssql',MssqlConnectionPool)
-	// this.connection.addType('oracle',OracleConnectionPool)
+		// this.connection.addType('mssql',MssqlConnectionPool)
+		// this.connection.addType('oracle',OracleConnectionPool)
 	}
 
 	public async init (configPath?: string): Promise<void> {
@@ -65,9 +65,6 @@ class Orm implements IOrm {
 		} else if (process.env.LAMBDA_ORM_CONFIG !== undefined) {
 			// if the default environment variable exists
 			this.config = JSON.parse(process.env.LAMBDA_ORM_CONFIG)
-		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaORM.yaml'))) {
-			// if the default file exists in the root of the project
-			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaORM.yaml'))
 		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaorm.yaml'))) {
 			// if the default file exists in the root of the project
 			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaorm.yaml'))
@@ -75,21 +72,19 @@ class Orm implements IOrm {
 			console.log('lambdaomr [INFO] pending define configuration ')
 			return
 		}
-
-		if (!this.config.paths) { this.config.paths = {} }
-		if (!this.config.paths.state) { this.config.paths.state = path.join(process.cwd(), 'state') }
-		if (!this.config.paths.schemas) { this.config.paths.schemas = path.join(process.cwd(), 'schemas') }
-		if (!this.config.paths.schemas) { this.config.paths.logs = path.join(process.cwd(), 'logs') }
-		if (!this.config.paths.schemas) { this.config.paths.data = path.join(process.cwd(), 'data') }
-		if (!fs.existsSync(this.config.paths.state)) { fs.mkdirSync(this.config.paths.state, { recursive: true }) }
-		if (!fs.existsSync(this.config.paths.schemas)) { fs.mkdirSync(this.config.paths.schemas, { recursive: true }) }
-		if (!fs.existsSync(this.config.paths.logs)) { fs.mkdirSync(this.config.paths.logs, { recursive: true }) }
-		if (!fs.existsSync(this.config.paths.data)) { fs.mkdirSync(this.config.paths.data, { recursive: true }) }
-		const _schemas = await ConfigExtends.apply(this.config.paths.schemas)
-		if (_schemas) {
-			for (const p in _schemas) {
-				if (p === 'abstract') continue
-				this.schema.load(_schemas[p])
+		if (this.config.paths === undefined) {
+			this.config.paths = { src: 'src', data: 'data' }
+		} else {
+			if (this.config.paths.src === undefined) {
+				this.config.paths.src = 'src'
+			}
+			if (this.config.paths.data === undefined) {
+				this.config.paths.data = 'data'
+			}
+		}
+		if (this.config.schemas) {
+			for (const p in this.config.schemas) {
+				this.schema.load(this.config.schemas[p])
 			}
 		}
 		if (this.config.databases) {
@@ -113,51 +108,51 @@ class Orm implements IOrm {
 	/**
 	 * Frees the resources used, for example the connection pools
 	 */
-	public async end ():Promise<void> {
+	public async end (): Promise<void> {
 		await orm.connection.end()
 	}
 
-	public get parser ():ParserManager {
+	public get parser (): ParserManager {
 		return this.parserManager
 	}
 
-	public get schema ():SchemaManager {
+	public get schema (): SchemaManager {
 		return this.schemaManager
 	}
 
-	public get language ():LanguageManager {
+	public get language (): LanguageManager {
 		return this.languageManager
 	}
 
-	public get database ():DatabaseManager {
+	public get database (): DatabaseManager {
 		return this.databaseManager
 	}
 
-	public get connection ():ConnectionManager {
+	public get connection (): ConnectionManager {
 		return this.connectionManager
 	}
 
-	public get cache ():Cache {
+	public get cache (): Cache {
 		return this._cache
 	}
 
-	public set cache (value:Cache) {
+	public set cache (value: Cache) {
 		this._cache = value
 	}
 
-	public complete (expression:string, schema:string):string {
+	public complete (expression: string, schema: string): string {
 		try {
 			const _schema = this.schemaManager.getInstance(schema)
 			const node = this.parser.parse(expression)
 			const completeNode = this.language.complete(node, _schema)
 			return this.parser.toExpression(completeNode)
-		} catch (error:any) {
+		} catch (error: any) {
 			console.log(error)
 			throw new Error('complete expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
-	public async build (expression:string, schema:string):Promise<Operand> {
+	public async build (expression: string, schema: string): Promise<Operand> {
 		try {
 			const key = 'build_' + expression
 			let operand = await this._cache.get(key)
@@ -168,13 +163,13 @@ class Orm implements IOrm {
 				await this._cache.set(key, operand)
 			}
 			return operand as Operand
-		} catch (error:any) {
+		} catch (error: any) {
 			console.log(error)
 			throw new Error('build expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
-	public async query (expression:string, dialect:string, schema:string):Promise<Query> {
+	public async query (expression: string, dialect: string, schema: string): Promise<Query> {
 		try {
 			const key = dialect + '-query_' + expression
 			let operand = await this._cache.get(key)
@@ -184,34 +179,36 @@ class Orm implements IOrm {
 				await this._cache.set(key, operand)
 			}
 			return operand as Query
-		} catch (error:any) {
+		} catch (error: any) {
 			throw new Error('query expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public lambda (value: string | Function): Expression {
-		if (!value) {
+	public expression (expression: string): Expression {
+		if (!expression) {
 			throw new Error('empty expression}')
-		} else if (typeof value === 'string') {
-			return new Expression(this, value.trim())
-		} else if (typeof value === 'function') {
-			const str = value.toString().trim()
-			const index = str.indexOf('=>') + 2
-			const expression = str.substring(index, str.length).trim()
-			return new Expression(this, expression)
-		} else {
-			throw new Error(`invalid expression  ${value}`)
 		}
+		return new Expression(this, expression)
 	}
 
-	public async eval (expression:string, context:any, schema:string):Promise<any> {
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public lambda (func: Function): Expression {
+		if (!func) {
+			throw new Error('empty lambda function}')
+		}
+		const str = func.toString().trim()
+		const index = str.indexOf('=>') + 2
+		const expression = str.substring(index, str.length).trim()
+		return new Expression(this, expression)
+	}
+
+	public async eval (expression: string, context: any, schema: string): Promise<any> {
 		const operand = await this.build(expression, schema)
 		const _context = new Context(context)
 		return this.language.eval(operand, _context)
 	}
 
-	public async execute (expression:string, context:any, database:string):Promise<any> {
+	public async execute (expression: string, context: any, database: string): Promise<any> {
 		const _database = this.database.get(database)
 		const operand = await this.query(expression, _database.dialect, _database.schema)
 		try {
@@ -234,17 +231,17 @@ class Orm implements IOrm {
 				}
 			}
 			return result
-		} catch (error:any) {
+		} catch (error: any) {
 			throw new Error('execute: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
-	public async executeSentence (sentence:any, database:string):Promise<any> {
+	public async executeSentence (sentence: any, database: string): Promise<any> {
 		const executor = this.connectionManager.createExecutor(database)
 		return await executor.execute(sentence)
 	}
 
-	public async transaction (database:string, callback:{(tr:Transaction): Promise<void>}):Promise<void> {
+	public async transaction (database: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _database = this.database.get(database)
 		const tr = this.connectionManager.createTransaction(database)
 		try {
