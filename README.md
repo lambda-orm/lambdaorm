@@ -116,6 +116,36 @@ More info:
 
 - [include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
+## Operators
+
+The operators used are the same as those of javascript.
+
+below access to their documentation:
+
+- [Arithmectic](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
+- [Assignment](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
+- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
+- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
+- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
+- [Array](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
+
+## Functions
+
+In the case of functions, some correspond to javascript functions and others are specific to sql
+
+below access to their documentation:
+
+- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
+- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
+- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
+- [Convert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
+- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
+- [General](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
+- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
+- [Conditionals](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
+- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
+- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
+
 ## Using the ORM
 
 To work with the orm we do it through a singleton object called "orm".
@@ -216,36 +246,6 @@ orm.transaction('source', async (tr) => {
 })()
 ```
 
-### Operators
-
-The operators used are the same as those of javascript.
-
-below access to their documentation:
-
-- [Arithmectic](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
-- [Assignment](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
-- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
-- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
-- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
-- [Array](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
-
-### Functions
-
-In the case of functions, some correspond to javascript functions and others are specific to sql
-
-below access to their documentation:
-
-- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
-- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
-- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
-- [Convert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
-- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
-- [General](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
-- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
-- [Conditionals](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
-- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
-- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
-
 ## Config
 
 Lambda OMR configuration is through a file called lambdaorm.yaml
@@ -268,28 +268,29 @@ databases:
     connection: connectionString  | environment variable with the connectionString 
 schemas:
   schemaCode:
-    name: schema name
-    enums: []
-    entities:
-      - name: name of entity
-        mapping: name table on database
-        primaryKey: []
-        uniqueKey: []
-        properties:
-          - name: name of property
-            mapping: name field on database
-            type: [string|boolean|integer|decimal|datetime|date|time]
-            nullable: [true|false]
-            autoincrement: [true|false]	
-				indexes:
-          - name: nameOfIndex
-            fields: []
-				- name: name of relation
-            type: [manyToOne|oneTpMany|oneToOne]
-            composite: [true|false]	
-            from: field From
-            entity: name of entity related
-            to: field in entity related					
+	 name: schema name
+	 enums: []
+	 entities:
+	 - name: name of entity
+	   mapping: name table on database
+	   primaryKey: []
+	   uniqueKey: []
+	   properties:
+		 - name: name of property
+		   mapping: name field on database
+		   type: [string|boolean|integer|decimal|datetime|date|time]
+			 nullable: [true|false]
+			 autoincrement: [true|false]	
+		  indexes:
+			 - name: nameOfIndex
+			   fields: []
+		  relations:
+		   - name: name of relation
+			   type: [manyToOne|oneTpMany|oneToOne]
+			   composite: [true|false]	
+			   from: field From
+			   entity: name of entity related
+			   to: field in entity related					
 ```
 
 Example:
@@ -523,3 +524,8 @@ npm install lambdaorm -g
 |	import			| Import data from file to database																|
 |	drop				|	Removes all database objects but not the database.							|
 |	expression	| Run an expression lambda or return information									|
+
+## Documentation
+
+[Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
+[Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
