@@ -54,9 +54,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"id","type":"integer","value":9}]
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p => p.details)'
@@ -64,9 +64,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"id","type":"integer","value":4}]
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p => p.id === id).include(p => p.details)'
@@ -74,9 +74,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"id","type":"integer","value":2}]
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p => p.details)'
@@ -84,9 +84,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"id","type":"integer","value":4}]
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
@@ -94,9 +94,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.orderId","type":"integer","value":null},{"name":"entity.productId","type":"integer","value":null}]
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p => p.details)'
@@ -104,9 +104,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"entity.id","type":"integer","value":null}]
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
@@ -114,9 +114,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = []
 		const fieldsExpected :any= []
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 })
 describe('Sentences', () => {

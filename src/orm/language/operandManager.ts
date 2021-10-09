@@ -61,7 +61,9 @@ export class OperandManager {
 		const result:any = {}
 		for (let i = 0; i < sentence.columns.length; i++) {
 			const column = sentence.columns[i]
-			result[column.name] = column.type
+			if (!column.name.startsWith('__')) {
+				result[column.name] = column.type
+			}
 		}
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
@@ -71,6 +73,24 @@ export class OperandManager {
 				result[include.name] = [childsSchema]
 			} else {
 				result[include.name] = childsSchema
+			}
+		}
+		return result
+	}
+
+	public parameters (sentence:Sentence):any {
+		const result:any = {}
+		for (let i = 0; i < sentence.parameters.length; i++) {
+			const parameter = sentence.parameters[i]
+			result[parameter.name] = parameter.type
+		}
+		const includes = sentence.getIncludes()
+		for (const p in includes) {
+			const include = includes[p]
+			const childsParameter = this.parameters(include.children[0] as Sentence)
+			for (const q in childsParameter) {
+				const childParameter = childsParameter[q]
+				result[childParameter.name] = childParameter.type
 			}
 		}
 		return result

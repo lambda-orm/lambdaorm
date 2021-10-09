@@ -24,9 +24,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"name","type":"string"},{"name":"description","type":"string"}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"description","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p => p.details)'
@@ -34,9 +34,9 @@ describe('Metadata', () => {
 		const parametersExpected:any = [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const model = await orm.expression(expression).model('northwind')
-		const serialize = await orm.expression(expression).serialize('northwind')
+		const metadata = await orm.expression(expression).metadata('northwind')
 		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(serialize.f)
+		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 })
 describe('Sentences', () => {

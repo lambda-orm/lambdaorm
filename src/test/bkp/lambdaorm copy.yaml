@@ -1,0 +1,72 @@
+path:
+  src: src
+  data: data
+databases:
+  - name: mydb
+    schema: library
+    dialect: mysql
+    connection: MY_DB_STRING_CONNECTION
+schemas:
+  library:
+    name: library
+    enums:
+    entities:
+      - name: Reader
+        mapping: TB_READERS
+        primaryKey: ["id"]
+        uniqueKey: ["name"]
+        properties:
+          - name: id
+            mapping: READER_ID
+            type: integer
+            nullable: false
+            autoincrement: true
+          - name: name
+            mapping: NAME
+            nullable: false
+            type: string
+            length: 80
+      - name: Book
+        mapping: TB_BOOKS
+        primaryKey: ["id"]
+        uniqueKey: ["title"]
+        properties:
+          - name: id
+            mapping: BOOK_ID
+            type: integer
+            length: 14
+            nullable: false
+            autoincrement: true
+          - name: title
+            mapping: TITLE
+            nullable: false
+            type: string
+            length: 80
+      - name: Loan
+        mapping: TB_LOAN
+        primaryKey: ["readerId", "bookId"]
+        uniqueKey: ["lastName", "firstName"]
+        properties:
+          - name: readerId
+            mapping: READER_ID
+            type: integer
+            nullable: false
+          - name: bookId
+            mapping: BOOK_ID
+            type: integer
+            nullable: false
+          - name: date
+            mapping: LOAN_DATE
+            type: datetime
+            nullable: false
+        relations:
+          - name: reader
+            type: oneToMany
+            from: readerId
+            entity: Reader
+            to: id
+          - name: book
+            type: oneToMany
+            from: bookId
+            entity: Book
+            to: id

@@ -18,7 +18,7 @@ test:
         sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
     errors: 0
     expression: 'Products.map(p => ({ maxPrice: max(p.price) }))'
-    completeExpression: 'Products.map(p=>{maxPrice:max(p.price)})'
+    completeExpression: Products.map(p=>{maxPrice:max(p.price)})
     model:
       maxPrice: any
     parameters: []
@@ -44,7 +44,7 @@ test:
         sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
     errors: 0
     expression: 'Products.map(p => ({ minPrice: min(p.price) }))'
-    completeExpression: 'Products.map(p=>{minPrice:min(p.price)})'
+    completeExpression: Products.map(p=>{minPrice:min(p.price)})
     model:
       minPrice: any
     parameters: []
@@ -70,7 +70,7 @@ test:
         sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
     errors: 0
     expression: 'Products.map(p => ({ total: sum(p.price) }))'
-    completeExpression: 'Products.map(p=>{total:sum(p.price)})'
+    completeExpression: Products.map(p=>{total:sum(p.price)})
     model:
       total: any
     parameters: []
@@ -96,7 +96,7 @@ test:
         sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
     errors: 1
     expression: 'Products.map(p => ({ average: avg(p.price) }))'
-    completeExpression: 'Products.map(p=>{average:avg(p.price)})'
+    completeExpression: Products.map(p=>{average:avg(p.price)})
     model:
       average: any
     parameters: []
@@ -125,7 +125,7 @@ test:
         sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
     errors: 0
     expression: 'Products.map(p => ({ count: count(1) }))'
-    completeExpression: 'Products.map(p=>{count:count(1)})'
+    completeExpression: Products.map(p=>{count:count(1)})
     model:
       count: any
     parameters: []
@@ -163,7 +163,7 @@ test:
     expression: >-
       Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price)
       }))
-    completeExpression: 'Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
+    completeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
       category: integer
       largestPrice: any
@@ -178,22 +178,22 @@ test:
       - database: postgres
         error: not equal mysql
         result:
-          - category: 8
-            largestPrice: 62.5
-          - category: 7
-            largestPrice: 53
-          - category: 1
-            largestPrice: 263.5
+          - category: 3
+            largestPrice: 81
           - category: 5
             largestPrice: 38
           - category: 4
             largestPrice: 55
-          - category: 2
-            largestPrice: 43.9
           - category: 6
             largestPrice: 123.79
-          - category: 3
-            largestPrice: 81
+          - category: 2
+            largestPrice: 43.9
+          - category: 7
+            largestPrice: 53
+          - category: 1
+            largestPrice: 263.5
+          - category: 8
+            largestPrice: 62.5
     result:
       - category: 1
         largestPrice: 263.5
@@ -242,7 +242,7 @@ test:
     expression: >-
       Products.map(p => ({ category: p.category.name, largestPrice: max(p.price)
       }))
-    completeExpression: 'Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
+    completeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       category: string
       largestPrice: any

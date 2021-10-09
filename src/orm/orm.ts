@@ -13,18 +13,26 @@ import sqlConfig from './language/sql/config.json'
 const ConfigExtends = require('config-extends')
 const fs = require('fs')
 const path = require('path')
-class Orm implements IOrm {
+
+/**
+ * Facade through which you can access all the functionalities of the library.
+ */
+export class Orm implements IOrm {
 	private _cache: Cache
-	public config: Config
 	private languageModel: Model
-	// TODO: cambiar el nombre nodeManager por parserManager
 	private parserManager: ParserManager
 	private schemaManager: SchemaManager
 	private databaseManager: DatabaseManager
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
-
 	private static _instance: Orm
+	/**
+	 * Property that exposes the configuration
+	 */
+	public config: Config
+	/**
+	 * Singleton
+	 */
 	public static get instance (): Orm {
 		if (!this._instance) {
 			this._instance = new Orm()
@@ -58,6 +66,11 @@ class Orm implements IOrm {
 		// this.connection.addType('oracle',OracleConnectionPool)
 	}
 
+	/**
+	 * metodo para incializar la libreria de orm
+	 * @param configPath optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
+	 * @returns promise void
+	 */
 	public async init (configPath?: string): Promise<void> {
 		if (configPath !== undefined && fs.existsSync(configPath)) {
 			// if a path is passed per argument
@@ -109,37 +122,64 @@ class Orm implements IOrm {
 	 * Frees the resources used, for example the connection pools
 	 */
 	public async end (): Promise<void> {
-		await orm.connection.end()
+		await this.connection.end()
 	}
 
+	/**
+	* Get reference to parser manager
+	*/
 	public get parser (): ParserManager {
 		return this.parserManager
 	}
 
+	/**
+	* Get reference to schema manager
+	*/
 	public get schema (): SchemaManager {
 		return this.schemaManager
 	}
 
+	/**
+	* Get reference to language manager
+	*/
 	public get language (): LanguageManager {
 		return this.languageManager
 	}
 
+	/**
+	* Get reference to database manager
+	*/
 	public get database (): DatabaseManager {
 		return this.databaseManager
 	}
 
+	/**
+	* Get reference to connection manager
+	*/
 	public get connection (): ConnectionManager {
 		return this.connectionManager
 	}
 
+	/**
+	* Get reference to cache manager
+	*/
 	public get cache (): Cache {
 		return this._cache
 	}
 
+	/**
+	* set to cache manager
+	*/
 	public set cache (value: Cache) {
 		this._cache = value
 	}
 
+	/**
+	 * complete the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a complete expression from a simplified expression.
+	 * @param expression expression that can be simplified
+	 * @param schema schema name
+	 * @returns full expression
+	 */
 	public complete (expression: string, schema: string): string {
 		try {
 			const _schema = this.schemaManager.getInstance(schema)
@@ -208,7 +248,7 @@ class Orm implements IOrm {
 		return this.language.eval(operand, _context)
 	}
 
-	public async execute (expression: string, context: any, database: string): Promise<any> {
+	public async execute (expression: string, database: string, context: any = {}): Promise<any> {
 		const _database = this.database.get(database)
 		const operand = await this.query(expression, _database.dialect, _database.schema)
 		try {
@@ -256,4 +296,4 @@ class Orm implements IOrm {
 		}
 	}
 }
-export const orm = Orm.instance
+// export const orm = Orm.instance
