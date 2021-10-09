@@ -68,6 +68,10 @@ LambdaORM includes the Include method to load related entities, both for OnetoMa
 
 We can also apply filters or bring us some fields from the related entities.
 
+For each include, a statement is executed bringing all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
+
+Includes can be used in selects, insert, update, delete, and bulckinsert.
+
 Example:
 
 ``` ts
@@ -153,6 +157,19 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
+Class ORM
+
+|method    	|Description                                   									  |
+|:------------|:----------------------------------------------------------------|
+|	version	 		| Prints lambdaorm version this project uses.											|
+|	init				| Generates lambdaorm project structure.													|
+|	model				| Generate model.																									|
+|	sync				|	Syncronize database.																						|
+|	export			| Export data from a database 																		|
+|	import			| Import data from file to database																|
+|	drop				|	Removes all database objects but not the database.							|
+|	expression	| Run an expression lambda or return information									|
+
 ## Transactions
 
 To work with transactions use the orm.transaction method.
@@ -207,12 +224,12 @@ The operators used are the same as those of javascript.
 
 below access to their documentation:
 
-- ["Arithmectic"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
-- ["Assignment"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
-- ["Bitwise"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
-- ["Comparison"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
-- ["Logical"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
-- ["Array"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
+- [Arithmectic](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
+- [Assignment](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
+- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
+- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
+- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
+- [Array](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
 
 ### Functions
 
@@ -220,16 +237,16 @@ In the case of functions, some correspond to javascript functions and others are
 
 below access to their documentation:
 
-- ["Numeric"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
-- ["String"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
-- ["Datetime"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
-- ["Convert"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
-- ["Nullable"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
-- ["General"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
-- ["Sort"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
-- ["Conditionals"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
-- ["Group"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
-- ["Metadata"](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
+- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
+- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
+- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
+- [Convert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
+- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
+- [General](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
+- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
+- [Conditionals](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
+- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
+- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
 
 ## Metadata
 
@@ -272,4 +289,13 @@ npm install lambdaorm -g
 
 ## CLI
 
-TODO
+|Command    	|Description                                   									  |
+|:------------|:----------------------------------------------------------------|
+|	version	 		| Prints lambdaorm version this project uses.											|
+|	init				| Generates lambdaorm project structure.													|
+|	model				| Generate model.																									|
+|	sync				|	Syncronize database.																						|
+|	export			| Export data from a database 																		|
+|	import			| Import data from file to database																|
+|	drop				|	Removes all database objects but not the database.							|
+|	expression	| Run an expression lambda or return information									|
