@@ -35,6 +35,6 @@ export class Expression {
 	}
 
 	public async execute (database: string, context: any = {}) {
-		return await this.orm.execute(this.expression, context, database)
+		return await this.orm.execute(this.expression, database, context)
 	}
 }
