@@ -1,19 +1,16 @@
 import { orm } from '../../orm'
 
 (async () => {
-	await orm.init()
-	const expression = (id:number) => Orders
-		.filter(p => p.id === id)
-		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
-			p.details.include(p => p.product
-				.include(p => p.category.map(p => p.name))
-				.map(p => p.name))
-				.map(p => [p.quantity, p.unitPrice])])
-		.map(p => p.orderDate)
-
-	const result = await orm.lambda(expression).execute('mysql')
-	console.log(JSON.stringify(result, null, 2))
-	await orm.end()
+	try {
+		await orm.init()
+		const query = () => Customers
+		const result = await orm.lambda(query).execute('mysql')
+		console.log(JSON.stringify(result, null, 2))
+	} catch (error) {
+		console.error(error)
+	} finally {
+		await orm.end()
+	}
 })()
 
 // export async function apply (callback: any) {
