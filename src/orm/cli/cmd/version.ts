@@ -8,11 +8,11 @@ export class VersionCommand implements CommandModule {
 
 	async handler () {
 		const localNpmList = await Helper.exec('npm list --depth=0')
-		const localMatches = localNpmList.match(/ lambda-orm@(.*)\n/)
+		const localMatches = localNpmList.match(/ lambdaorm@(.*)\n/)
 		const localNpmVersion = (localMatches && localMatches[1] ? localMatches[1] : '').replace(/"invalid"/gi, '').trim()
 
 		const globalNpmList = await Helper.exec('npm list -g --depth=0')
-		const globalMatches = globalNpmList.match(/ lambda-orm@(.*)\n/)
+		const globalMatches = globalNpmList.match(/ lambdaorm@(.*)\n/)
 		const globalNpmVersion = (globalMatches && globalMatches[1] ? globalMatches[1] : '').replace(/"invalid"/gi, '').trim()
 
 		if (localNpmVersion) {

@@ -2,11 +2,11 @@ version: '3'
 
 networks:
   default:
-    name: lambda-orm
+    name: lambdaorm
 
 services:
   source:
-    container_name: lambda-orm-source
+    container_name: lambdaorm-source
     image: mysql:5.7
     restart: always
     environment:
@@ -28,7 +28,7 @@ services:
       timeout: 1s
       retries: 10  
   mysql:
-    container_name: lambda-orm-mysql-57
+    container_name: lambdaorm-mysql-57
     image: mysql:5.7
     restart: always
     environment:
@@ -50,7 +50,7 @@ services:
       timeout: 1s
       retries: 10   
   postgres:
-    container_name: lambda-orm-postgres-10  
+    container_name: lambdaorm-postgres-10  
     image: postgres:10
     restart: always
     environment:
@@ -67,7 +67,7 @@ services:
       timeout: 1s
       retries: 10  
   mariadb:
-    container_name: lambda-orm-mariadb-103
+    container_name: lambdaorm-mariadb-103
     image: mariadb:10.3
     restart: always
     environment:
@@ -89,7 +89,7 @@ services:
       retries: 10  
     # restart: unless-stopped    
   mssql:
-    container_name: lambda-orm-mssql-2019  
+    container_name: lambdaorm-mssql-2019  
     image: mcr.microsoft.com/mssql/server:2019-latest
     restart: always
     environment:
@@ -107,7 +107,7 @@ services:
       timeout: 1s
       retries: 10  
   # mongo:
-  #   container_name: lambda-orm-mongo  
+  #   container_name: lambdaorm-mongo  
   #   image: arm7/mongo
   #   restart: always
   #   environment:
@@ -120,7 +120,7 @@ services:
   # oracle:
   #   # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
   #   # image: oracle/database:11.2.0.2-xe
-  #   container_name: lambda-orm-oracle    
+  #   container_name: lambdaorm-oracle    
   #   image: oracleinanutshell/oracle-xe-11g:latest
   #   ports:
   #     - 1521:1521
