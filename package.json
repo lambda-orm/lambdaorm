@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.0.33",
+	"version": "0.0.35",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
