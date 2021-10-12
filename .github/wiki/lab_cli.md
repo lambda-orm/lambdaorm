@@ -1,15 +1,13 @@
 
-# Laboratory 01
-
 ## Create project
 
-creara la carpeta del proyecto con la estructura basica.
+will create the project folder with the basic structure.
 
 ```sh
 lambdaorm init -w lab_01
 ```
 
-posicionese dentro de la carpeta del proyecto:
+position inside the project folder.
 
 ```sh
 cd lab_01
@@ -17,8 +15,8 @@ cd lab_01
 
 ## Complete Schema
 
-En la creacion del proyecto el esquema fue creado pero sin ninguna entidad.
-Agregue la entidad Country como se ve en el siguiente ejemplo
+In the creation of the project the schema was created but without any entity.
+Add the Country entity as seen in the following example
 
 ```yaml
 paths:
@@ -72,7 +70,7 @@ schemas:
 lambdaorm model
 ```
 
-se creara el archivo model.d.ts dentro de src con el siguiente contenido
+the file model.d.ts will be created inside src with the following content
 
 ```ts
 import './sintaxis'
@@ -87,7 +85,7 @@ declare global {
 }
 ```
 
-Generara un archivo de estado en la carpeta "data", con el siguiente contenido:
+It will generate a status file in the "data" folder, with the following content:
 
 ```json
 {
@@ -118,11 +116,11 @@ Generara un archivo de estado en la carpeta "data", con el siguiente contenido:
 
 ## Popuplate Data
 
-en la raiz del proyecto creamos un archivo llamado countries.json y agregamos los registros que se encuentran en el siguiente link
+At the root of the project we create a file called countries.json and add the records found in the following link
 
 [cuntries](https://github.com/stefangabos/world_countries/blob/master/data/en/countries.json)
 
-luego ejecutamos
+then we execute
 
 ```sh
 lambdaorm run -e Country.bulkInsert() -c ./countries.json
@@ -134,27 +132,29 @@ lambdaorm run -e Country.bulkInsert() -c ./countries.json
 lambdaorm export 
 ```
 
-generara un archivo llamado  "lab_01-export.json"
+will generate a file called "lab_01-export.json"
 
 ## Import Data
 
-Antes de importar vamos a borrar todos los registros:
+Before importing we are going to delete all the records:
 
 ```sh
 lambdaorm run -e Country.deleteAll()
 ```
 
-verificamos que no quedan registros:
+We verify that there are no records left:
 
 ```sh
 lambdaorm run -e Country
 ```
 
+we import the file that we generate when exporting
+
 ```sh
 lambdaorm import -s ./lab_01-export.json
 ```
 
-verificamos que se importaron los datos.
+We verify that the data was imported.
 
 ```sh
 lambdaorm run -e Country
@@ -162,10 +162,8 @@ lambdaorm run -e Country
 
 ## Drop
 
-remueve todas las tablas del esquema y borra el archivo de estado, lab_01-state.json
+remove all tables from the schema and delete the state file, lab_01-state.json
 
 ```sh
 lambdaorm drop
 ```
-
-[para-otas-pruebas](https://github.com/mledoze/countries/blob/master/data/arg.topo.json)

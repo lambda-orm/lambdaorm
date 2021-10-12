@@ -391,7 +391,13 @@ npm install lambdaorm -g
 |	import			| Import data from file to database																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-import)			|
 |	drop				|	Removes all database objects but not the database.							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-drop)				|
 
+- [Lab CLI](https://github.com/FlavioLionelRita/lambdaorm/wiki/Lab-CLI)
+
 ## Documentation
 
 - [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
 - [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
+
+### Labs
+
+- [CLI](https://github.com/FlavioLionelRita/lambdaorm/wiki/Lab-CLI)
