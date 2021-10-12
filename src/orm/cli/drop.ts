@@ -1,6 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { orm } from '../index'
+import { Orm, Database } from '../index'
+import path from 'path'
 
 export class DropCommand implements CommandModule {
 	command = 'drop';
@@ -8,8 +9,12 @@ export class DropCommand implements CommandModule {
 
 	builder (args: Argv) {
 		return args
-			.option('d', {
-				alias: 'database',
+			.option('w', {
+				alias: 'workspace',
+				describe: 'project path.'
+			})
+			.option('n', {
+				alias: 'name',
 				describe: 'Name of database'
 			})
 			.option('s', {
@@ -23,30 +28,40 @@ export class DropCommand implements CommandModule {
 	}
 
 	async handler (args: Arguments) {
+		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const database = args.database as string
 		const sentences = args.sentences !== undefined
 		const force = args.force !== undefined
-		if (database === undefined) {
-			console.error('the database argument is required')
-			return
-		}
-		if (!orm.database.exists(database)) {
-			console.error(`database ${database} not exists`)
-			return
-		}
+		const orm = new Orm()
 
 		try {
-			orm.init()
+			await orm.init(workspace)
+			const configInfo = await orm.lib.getConfigInfo(workspace)
+			// get database
+			let db:Database|undefined
+			if (database === undefined) {
+				if (configInfo.config.databases.length === 1) {
+					db = configInfo.config.databases[0]
+				} else {
+					throw new Error('the database argument is required')
+				}
+			} else {
+				db = configInfo.config.databases.find(p => p.name === database)
+				if (db === undefined) {
+					throw new Error(`database: ${database} not found in config`)
+				}
+			}
+
 			if (sentences) {
-				const result = await orm.database.clean(database).sentence()
+				const result = await orm.database.clean(db.name).sentence()
 				console.log(result)
 			} else {
-				await orm.database.clean(database).execute(force)
+				await orm.database.clean(db.name).execute(force)
 			}
 		} catch (error) {
 			console.error(`error: ${error}`)
 		} finally {
-			orm.end()
+			await orm.end()
 		}
 	}
 }

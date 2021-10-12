@@ -1,5 +1,5 @@
 import { Delta, IOrm, Database, Schema } from '../model/index'
-import { SchemaSync, ExecutionSyncResult } from '../schema'
+import { ExecutionSyncResult } from '../schema'
 
 export class DatabaseSync {
 	protected orm:IOrm

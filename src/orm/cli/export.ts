@@ -1,6 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { orm, Helper } from '../index'
+import { Orm, Database, Helper } from '../index'
+import path from 'path'
 
 export class ExportCommand implements CommandModule {
 	command = 'export';
@@ -8,8 +9,12 @@ export class ExportCommand implements CommandModule {
 
 	builder (args: Argv) {
 		return args
-			.option('d', {
-				alias: 'database',
+			.option('w', {
+				alias: 'workspace',
+				describe: 'project path.'
+			})
+			.option('n', {
+				alias: 'name',
 				describe: 'Name of database'
 			})
 			.option('t', {
@@ -19,25 +24,36 @@ export class ExportCommand implements CommandModule {
 	}
 
 	async handler (args: Arguments) {
+		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const database = args.database as string
-		if (database === undefined) {
-			console.error('the database argument is required')
-			return
-		}
-		if (!orm.database.exists(database)) {
-			console.error(`database ${database} not exists`)
-			return
-		}
+		const target = path.resolve(process.cwd(), args.target as string || '.')
+		const orm = new Orm()
 
 		try {
-			orm.init()
-			const exportFile = Helper.nvl(args.target, 'data/' + database + '-export.json')
-			const data = await orm.database.export(database)
+			await orm.init(workspace)
+			const configInfo = await orm.lib.getConfigInfo(workspace)
+			// get database
+			let db:Database|undefined
+			if (database === undefined) {
+				if (configInfo.config.databases.length === 1) {
+					db = configInfo.config.databases[0]
+				} else {
+					throw new Error('the database argument is required')
+				}
+			} else {
+				db = configInfo.config.databases.find(p => p.name === database)
+				if (db === undefined) {
+					throw new Error(`database: ${database} not found in config`)
+				}
+			}
+
+			const exportFile = path.join(target, db.name + '-export.json')
+			const data = await orm.database.export(db.name)
 			await Helper.writeFile(exportFile, JSON.stringify(data), true)
 		} catch (error) {
 			console.error(`error: ${error}`)
 		} finally {
-			orm.end()
+			await orm.end()
 		}
 	}
 }

@@ -6,7 +6,7 @@ import { DropCommand } from './cli/drop'
 import { SyncCommand } from './cli/sync'
 import { ImportCommand } from './cli/import'
 import { ExportCommand } from './cli/export'
-import { ExpressionCommand } from './cli/expression'
+import { RunCommand } from './cli/run'
 import { ModelCommand } from './cli/model'
 
 // eslint-disable-next-line no-unused-expressions
@@ -18,7 +18,7 @@ yargs
 	.command(new SyncCommand())
 	.command(new ImportCommand())
 	.command(new ExportCommand())
-	.command(new ExpressionCommand())
+	.command(new RunCommand())
 	.command(new ModelCommand())
 	.recommendCommands()
 	.demandCommand(1)

@@ -170,6 +170,14 @@ export class Helper {
 		return typeof value
 	}
 
+	public static tryParse (value:string):any|null {
+		try {
+			return JSON.parse(value)
+		} catch {
+			return null
+		}
+	}
+
 	public static dateFormat (value:any, format:string):string {
 		return DateTime.fromISO(value).toFormat(format)
 	}
