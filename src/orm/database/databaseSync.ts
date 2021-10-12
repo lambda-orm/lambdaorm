@@ -11,24 +11,24 @@ export class DatabaseSync {
 
 	public async serialize ():Promise<Delta> {
 		const current = this.orm.schema.get(this.database.schema) as Schema
-		return (await this.schemaSync(current)).serialize()
+		const state = await this.orm.database.getState(this.database.name)
+		const schemaSync = await this.orm.schema.sync(current, state.schema)
+		return await schemaSync.serialize()
 	}
 
 	public async sentence ():Promise<any[]> {
 		const current = this.orm.schema.get(this.database.schema) as Schema
-		const connection = this.orm.connection.get(this.database.name)
-		return (await this.schemaSync(current)).sentence(connection.dialect)
+		const state = await this.orm.database.getState(this.database.name)
+		const schemaSync = await this.orm.schema.sync(current, state.schema)
+		return await schemaSync.sentence(this.database.dialect)
 	}
 
 	public async execute ():Promise<ExecutionSyncResult> {
 		const current = this.orm.schema.get(this.database.schema) as Schema
-		const result = await (await this.schemaSync(current)).execute(this.database.name)
+		const state = await this.orm.database.getState(this.database.name)
+		const schemaSync = await this.orm.schema.sync(current, state.schema)
+		const result = await schemaSync.execute(this.database.name)
 		await this.orm.database.updateSchemaState(this.database.name, current)
 		return result
-	}
-
-	protected async schemaSync (current:Schema):Promise<SchemaSync> {
-		const state = await this.orm.database.getState(this.database.name)
-		return this.orm.schema.sync(current, state.schema)
 	}
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule } from 'yargs'
-import { orm } from './../../index'
+import { orm } from './../index'
 
 export class VersionCommand implements CommandModule {
 	command = 'version';

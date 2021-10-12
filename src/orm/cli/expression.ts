@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { orm } from '../../index'
+import { orm } from '../index'
 
 export class ExpressionCommand implements CommandModule {
 	command = 'expression';

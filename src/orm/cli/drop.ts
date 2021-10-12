@@ -1,10 +1,10 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { orm } from '../../index'
+import { orm } from '../index'
 
-export class SyncCommand implements CommandModule {
-	command = 'sync';
-	describe = 'Syncronize database.';
+export class DropCommand implements CommandModule {
+	command = 'drop';
+	describe = 'Removes all database objects but not the database.';
 
 	builder (args: Argv) {
 		return args
@@ -16,22 +16,32 @@ export class SyncCommand implements CommandModule {
 				alias: 'sentences',
 				describe: 'Generates the sentences but does not apply.'
 			})
+			.option('f', {
+				alias: 'force',
+				describe: 'If there is an error in a statement, continue executing the next statements.'
+			})
 	}
 
 	async handler (args: Arguments) {
 		const database = args.database as string
-		const sentences = args.sentences as string
+		const sentences = args.sentences !== undefined
+		const force = args.force !== undefined
 		if (database === undefined) {
 			console.error('the database argument is required')
 			return
 		}
+		if (!orm.database.exists(database)) {
+			console.error(`database ${database} not exists`)
+			return
+		}
+
 		try {
 			orm.init()
-			if (sentences !== undefined) {
-				const result = await orm.database.sync(database).sentence()
+			if (sentences) {
+				const result = await orm.database.clean(database).sentence()
 				console.log(result)
 			} else {
-				await orm.database.sync(database).execute()
+				await orm.database.clean(database).execute(force)
 			}
 		} catch (error) {
 			console.error(`error: ${error}`)

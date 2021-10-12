@@ -129,35 +129,38 @@ export class LibManager {
 		switch (dialect) {
 		case 'mysql':
 			return {
-				type: 'mysql',
 				host: 'localhost',
 				port: 3306,
-				username: 'test',
+				user: 'test',
 				password: 'test',
-				database: 'test'
+				database: 'test',
+				multipleStatements: true,
+				waitForConnections: true,
+				connectionLimit: 10,
+				queueLimit: 0
 			}
 		case 'mariadb':
 			return {
-				type: 'mariadb',
 				host: 'localhost',
 				port: 3306,
-				username: 'test',
+				user: 'test',
 				password: 'test',
-				database: 'test'
+				database: 'test',
+				multipleStatements: true,
+				waitForConnections: true,
+				connectionLimit: 10,
+				queueLimit: 0
 			}
 		case 'sqlite':
 			return {
-				type: 'sqlite',
 				database: 'database.sqlite'
 			}
 		case 'better-sqlite3':
 			return {
-				type: 'better-sqlite3',
 				database: 'database.sqlite'
 			}
 		case 'postgres':
 			return {
-				type: 'postgres',
 				host: 'localhost',
 				port: 5432,
 				username: 'test',
@@ -166,15 +169,16 @@ export class LibManager {
 			}
 		case 'mssql':
 			return {
-				type: 'mssql',
-				host: 'localhost',
-				username: 'sa',
-				password: 'Admin12345',
-				database: 'tempdb'
+				// host: 'localhost',
+				// username: 'sa',
+				// password: 'Admin12345',
+				// database: 'tempdb',
+				server: 'localhost',
+				authentication: { type: 'default', options: { userName: 'sa', password: 'Admin12345' } },
+				options: { encrypt: false, database: 'tempdb' }
 			}
 		case 'oracle':
 			return {
-				type: 'oracle',
 				host: 'localhost',
 				username: 'system',
 				password: 'oracle',
@@ -183,7 +187,6 @@ export class LibManager {
 			}
 		case 'mongodb':
 			return {
-				type: 'mongodb',
 				database: 'test'
 			}
 		default:
@@ -225,5 +228,33 @@ export class LibManager {
 		const globalNpmList = await Helper.exec('npm list -g --depth=0')
 		const globalMatches = globalNpmList.match(exp)
 		return (globalMatches && globalMatches[1] ? globalMatches[1] : '').replace(/"invalid"/gi, '').trim()
+	}
+
+	public getTypescriptContent () {
+		return {
+			compilerOptions: {
+				experimentalDecorators: true,
+				emitDecoratorMetadata: true,
+				resolveJsonModule: true,
+				esModuleInterop: true,
+				strict: true,
+				declaration: true,
+				moduleResolution: 'node',
+				sourceMap: true,
+				target: 'ES6',
+				module: 'commonjs',
+				outDir: './build',
+				baseUrl: './src',
+				typeRoots: [
+					'node_modules/@types'
+				]
+			},
+			include: [
+				'src/**/*'
+			],
+			exclude: [
+				'node_modules'
+			]
+		}
 	}
 }

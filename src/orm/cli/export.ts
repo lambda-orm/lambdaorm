@@ -1,11 +1,10 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { orm } from '../../index'
-import fs from 'fs'
+import { orm, Helper } from '../index'
 
-export class ImportCommand implements CommandModule {
-	command = 'import';
-	describe = 'Import data from file to database';
+export class ExportCommand implements CommandModule {
+	command = 'export';
+	describe = 'Export data from a database';
 
 	builder (args: Argv) {
 		return args
@@ -13,36 +12,28 @@ export class ImportCommand implements CommandModule {
 				alias: 'database',
 				describe: 'Name of database'
 			})
-			.option('s', {
-				alias: 'source',
-				describe: 'Source file to import.'
+			.option('t', {
+				alias: 'target',
+				describe: 'Destination file with export data.'
 			})
 	}
 
 	async handler (args: Arguments) {
 		const database = args.database as string
-		const source = args.source as string
 		if (database === undefined) {
 			console.error('the database argument is required')
-			return
-		}
-		if (source === undefined) {
-			console.error('the source argument is required')
 			return
 		}
 		if (!orm.database.exists(database)) {
 			console.error(`database ${database} not exists`)
 			return
 		}
-		if (!fs.existsSync(source)) {
-			console.error(`source: ${source} not exists`)
-			return
-		}
 
 		try {
 			orm.init()
-			const data = JSON.parse(fs.readFileSync(source, 'utf8'))
-			await orm.database.import(database, data)
+			const exportFile = Helper.nvl(args.target, 'data/' + database + '-export.json')
+			const data = await orm.database.export(database)
+			await Helper.writeFile(exportFile, JSON.stringify(data), true)
 		} catch (error) {
 			console.error(`error: ${error}`)
 		} finally {

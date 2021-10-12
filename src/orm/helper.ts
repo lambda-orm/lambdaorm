@@ -51,6 +51,10 @@ export class Helper {
 		})
 	}
 
+	public static async existsPath (fullPath:string):Promise<boolean> {
+		return fs.existsSync(fullPath)
+	}
+
 	public static async createIfNotExists (fullPath:string):Promise<void> {
 		if (fs.existsSync(fullPath)) { return }
 		return new Promise<void>((resolve, reject) => {
@@ -62,6 +66,13 @@ export class Helper {
 		if (!fs.existsSync(filePath)) { return null }
 		return new Promise<string>((resolve, reject) => {
 			fs.readFile(filePath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')))
+		})
+	}
+
+	public static async removeFile (fullPath:string):Promise<void> {
+		if (fs.existsSync(fullPath)) { return }
+		return new Promise<void>((resolve, reject) => {
+			fs.unlink(fullPath, err => err ? reject(err) : resolve())
 		})
 	}
 

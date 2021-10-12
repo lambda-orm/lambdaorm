@@ -75,13 +75,14 @@ export class Orm implements IOrm {
 	 * @param configPath optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
 	 * @returns promise void
 	 */
-	public async init (config?:string | Config): Promise<void> {
+	public async init (config?:string | Config, connect = true): Promise<void> {
 		this.configInfo = await this.libManager.getConfigInfo(config)
 		if (this.configInfo.config.schemas) {
 			for (const p in this.configInfo.config.schemas) {
 				this.schema.load(this.configInfo.config.schemas[p])
 			}
 		}
+
 		if (this.configInfo.config.databases) {
 			for (const p in this.configInfo.config.databases) {
 				const database = this.configInfo.config.databases[p]
@@ -94,7 +95,9 @@ export class Orm implements IOrm {
 				} else {
 					throw new Error(`wrong connection in database ${database.name} `)
 				}
-				this.connection.load(connectionConfig)
+				if (connect) {
+					this.connection.load(connectionConfig)
+				}
 				this.database.load(database)
 			}
 		}

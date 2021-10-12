@@ -1,6 +1,6 @@
 import { CommandModule, Argv, Arguments } from 'yargs'
 import path from 'path'
-import { orm, Helper } from './../../index'
+import { orm, Helper } from './../index'
 
 export class InitCommand implements CommandModule {
 	command = 'init';
@@ -47,14 +47,27 @@ export class InitCommand implements CommandModule {
 			// create initial structure
 			await Helper.createIfNotExists(path.join(workspace, configInfo.config.paths.src))
 			await Helper.createIfNotExists(path.join(workspace, configInfo.config.paths.data))
-			await Helper.copyFile(path.join(__dirname, './../../sintaxis.d.ts'), path.join(workspace, configInfo.config.paths.src, 'sintaxis.d.ts'))
+			await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(workspace, configInfo.config.paths.src, 'sintaxis.d.ts'))
 
 			// si no existe el package.json lo crea
 			const packagePath = path.join(workspace, 'package.json')
-			const packageJson = await Helper.readFile(packagePath)
-			if (packageJson === null) {
+			if (!await Helper.existsPath(packagePath)) {
 				await Helper.writeFile(packagePath, JSON.stringify({ dependencies: {} }, null, 2))
 			}
+
+			// si no existe el tsconfig.json lo crea
+			const tsconfigPath = path.join(workspace, 'tsconfig.json')
+			if (!await Helper.existsPath(tsconfigPath)) {
+				const tsconfigContent = orm.lib.getTypescriptContent()
+				await Helper.writeFile(tsconfigPath, JSON.stringify(tsconfigContent, null, 2))
+			}
+
+			// instala typescript si no esta instalado.
+			const typescriptLib = await orm.lib.getLocalPackage('typescript', workspace)
+			if (typescriptLib === '') {
+				await Helper.exec('npm install typescript -D', workspace)
+			}
+
 			// instala ambdaorm si no esta instalado.
 			const lambdaormLib = await orm.lib.getLocalPackage('lambdaorm', workspace)
 			if (lambdaormLib === '') {

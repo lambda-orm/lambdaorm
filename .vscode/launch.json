@@ -25,7 +25,35 @@
 			"args": [
 				"init",
 				"-w",
-				"test"
+				"lab_01"
+			]
+		},
+		{
+			"name": "cli model",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"model",
+				"-w",
+				"lab_01"
+			]
+		},
+		{
+			"name": "cli sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"sync",
+				"-w",
+				"lab_01"
 			]
 		},
 		{

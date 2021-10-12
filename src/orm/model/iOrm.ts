@@ -16,7 +16,7 @@ export interface IOrm
 	get connection():ConnectionManager
 	get database():DatabaseManager
 	set cache(value:Cache)
-	init(configPath:string):Promise<void>
+	init(configPath?:string, connect?:boolean):Promise<void>
 	expression(expression: string): Expression
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	lambda(lambda:Function):Expression
