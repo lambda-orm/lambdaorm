@@ -336,8 +336,6 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-
-
 - [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Config)
 
 ## Metadata
