@@ -4,6 +4,7 @@ import { Orm } from './orm'
 // export * from './language/dialect'
 // export * from './helper'
 // export * from './connection/index'
-export { Config, Parameter, Delta } from './model'
+export * from './model'
 export { Helper } from './helper'
+export { Orm } from './orm'
 export const orm = Orm.instance

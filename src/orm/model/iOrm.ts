@@ -1,14 +1,15 @@
-import { Config, Cache } from './../model/index'
+import { ConfigInfo, Cache } from './../model/index'
 import { LanguageManager, Operand, Query } from '../language'
 import { ConnectionManager } from '../connection'
 import { ParserManager } from '../parser/index'
-import { Expression, Transaction } from './../manager'
+import { Expression, Transaction, LibManager } from './../manager'
 import { SchemaManager } from './../schema/index'
 import { DatabaseManager } from '../database'
 
 export interface IOrm
 {
-	config:Config
+	configInfo: ConfigInfo
+	get lib (): LibManager
 	get parser():ParserManager
 	get language():LanguageManager
 	get schema():SchemaManager

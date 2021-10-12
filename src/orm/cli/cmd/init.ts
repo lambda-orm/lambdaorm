@@ -1,7 +1,6 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
 import path from 'path'
-import { Utils } from '../utils'
+import { orm, Helper } from './../../index'
 
 export class InitCommand implements CommandModule {
 	command = 'init';
@@ -11,15 +10,15 @@ export class InitCommand implements CommandModule {
 		return args
 			.option('w', {
 				alias: 'workspace',
+				default: 'my-project',
 				describe: 'project path.'
 			})
 			.option('n', {
 				alias: 'name',
-				describe: 'Name of the project.'
+				describe: 'Name of database.'
 			})
 			.option('d', {
 				alias: 'dialect',
-				default: 'mysql',
 				describe: 'Database type you\'ll use in your project.'
 			})
 			.option('c', {
@@ -30,11 +29,48 @@ export class InitCommand implements CommandModule {
 
 	async handler (args: Arguments) {
 		try {
-			const name = args.name as string
-			const workspace = args.workspace as string || path.join(process.cwd(), name)
+			const workspace = path.resolve(process.cwd(), args.workspace as string || '.') // args.workspace as string || path.join(process.cwd(), name)
+			const database = args.name as string || path.basename(workspace) // name of database
 			const dialect: string = args.dialect as string
 			const connection: string = args.connection as string
-			await Utils.writeConfig(workspace, name, dialect, connection)
+
+			// create workspace
+			await Helper.createIfNotExists(workspace)
+			// create config file if not exists
+			const configInfo = await orm.lib.getConfigInfo(workspace)
+			if (configInfo.configFile === undefined) {
+				configInfo.configFile = 'lambdaorm.yaml'
+			}
+			const db = orm.lib.completeConfig(configInfo, database, dialect, connection)
+			await orm.lib.writeConfig(configInfo)
+
+			// create initial structure
+			await Helper.createIfNotExists(path.join(workspace, configInfo.config.paths.src))
+			await Helper.createIfNotExists(path.join(workspace, configInfo.config.paths.data))
+			await Helper.copyFile(path.join(__dirname, './../../sintaxis.d.ts'), path.join(workspace, configInfo.config.paths.src, 'sintaxis.d.ts'))
+
+			// si no existe el package.json lo crea
+			const packagePath = path.join(workspace, 'package.json')
+			const packageJson = await Helper.readFile(packagePath)
+			if (packageJson === null) {
+				await Helper.writeFile(packagePath, JSON.stringify({ dependencies: {} }, null, 2))
+			}
+			// instala ambdaorm si no esta instalado.
+			const lambdaormLib = await orm.lib.getLocalPackage('lambdaorm', workspace)
+			if (lambdaormLib === '') {
+				await Helper.exec('npm install lambdaorm', workspace)
+			}
+			// si no esta instalada la libreria localmente correspodiente al dialecto la instala
+			const lib = orm.lib.getLib(db.dialect)
+			const localLib = await orm.lib.getLocalPackage(lib, workspace)
+			if (localLib === '') {
+				await Helper.exec(`npm install ${lib}`, workspace)
+			}
+			// si no esta instalada la libreria localmente correspodiente al dialecto la instala
+			const globalLib = await orm.lib.getGlobalPackage(lib)
+			if (globalLib === '') {
+				await Helper.exec(`npm install ${globalLib} -g`, workspace)
+			}
 		} catch (error) {
 			console.error(`error: ${error}`)
 		}

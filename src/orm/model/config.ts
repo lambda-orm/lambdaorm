@@ -14,6 +14,12 @@ export interface Paths
 export interface Config
 {
 	paths: Paths
-	databases?: Database[]
-	schemas?:Schema[]
+	databases: Database[]
+	schemas:Schema[]
+}
+export interface ConfigInfo
+{
+	workspace: string
+	configFile?: string
+	config:Config
 }

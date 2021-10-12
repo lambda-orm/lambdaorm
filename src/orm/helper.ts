@@ -40,9 +40,9 @@ export class Helper {
 		return !this.isEmpty(value) ? value : _default
 	}
 
-	public static async exec (command: string):Promise<any> {
+	public static async exec (command: string, cwd:string = process.cwd()):Promise<any> {
 		return new Promise<string>((resolve, reject) => {
-			exec(command, (error: any, stdout: any, stderr: any) => {
+			exec(command, { cwd: cwd }, (error: any, stdout: any, stderr: any) => {
 				if (stdout) return resolve(stdout)
 				if (stderr) return resolve(stderr)
 				if (error) return reject(error)

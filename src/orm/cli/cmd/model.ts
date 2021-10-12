@@ -24,7 +24,7 @@ export class ModelCommand implements CommandModule {
 		try {
 			orm.init()
 			const content = orm.database.model('source')
-			await Helper.writeFile(path.join(orm.config.paths.src, 'model.d.ts'), content)
+			await Helper.writeFile(path.join(orm.configInfo.config.paths.src, 'model.d.ts'), content)
 		} catch (error) {
 			console.error(`error: ${error}`)
 		} finally {

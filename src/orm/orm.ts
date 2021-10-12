@@ -1,7 +1,7 @@
 
-import { Cache, IOrm, Context, Config } from './model'
+import { Cache, IOrm, Context, ConfigInfo, Config } from './model'
 import { Model, ParserManager } from './parser/index'
-import { Expression, MemoryCache, Transaction } from './manager'
+import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, PostgresConnectionPool, ConnectionConfig } from './connection'
@@ -10,9 +10,11 @@ import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
-const ConfigExtends = require('config-extends')
-const fs = require('fs')
-const path = require('path')
+// import { Helper } from './helper'
+
+// const ConfigExtends = require('config-extends')
+// const fs = require('fs')
+// const path = require('path')
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -25,11 +27,12 @@ export class Orm implements IOrm {
 	private databaseManager: DatabaseManager
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
+	private libManager:LibManager
 	private static _instance: Orm
 	/**
 	 * Property that exposes the configuration
 	 */
-	public config: Config
+	public configInfo: ConfigInfo
 	/**
 	 * Singleton
 	 */
@@ -41,9 +44,10 @@ export class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.config = { paths: { src: 'src', data: 'data' } }
+		this.configInfo = { workspace: process.cwd(), config: { paths: { src: 'src', data: 'data' }, databases: [], schemas: [] } }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
+		this.libManager = new LibManager()
 
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)
@@ -71,38 +75,16 @@ export class Orm implements IOrm {
 	 * @param configPath optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
 	 * @returns promise void
 	 */
-	public async init (configPath?: string): Promise<void> {
-		if (configPath !== undefined && fs.existsSync(configPath)) {
-			// if a path is passed per argument
-			this.config = await ConfigExtends.apply(configPath)
-		} else if (process.env.LAMBDA_ORM_CONFIG !== undefined) {
-			// if the default environment variable exists
-			this.config = JSON.parse(process.env.LAMBDA_ORM_CONFIG)
-		} else if (fs.existsSync(path.join(process.cwd(), 'lambdaorm.yaml'))) {
-			// if the default file exists in the root of the project
-			this.config = await ConfigExtends.apply(path.join(process.cwd(), 'lambdaorm.yaml'))
-		} else {
-			console.log('lambdaomr [INFO] pending define configuration ')
-			return
-		}
-		if (this.config.paths === undefined) {
-			this.config.paths = { src: 'src', data: 'data' }
-		} else {
-			if (this.config.paths.src === undefined) {
-				this.config.paths.src = 'src'
-			}
-			if (this.config.paths.data === undefined) {
-				this.config.paths.data = 'data'
+	public async init (config?:string | Config): Promise<void> {
+		this.configInfo = await this.libManager.getConfigInfo(config)
+		if (this.configInfo.config.schemas) {
+			for (const p in this.configInfo.config.schemas) {
+				this.schema.load(this.configInfo.config.schemas[p])
 			}
 		}
-		if (this.config.schemas) {
-			for (const p in this.config.schemas) {
-				this.schema.load(this.config.schemas[p])
-			}
-		}
-		if (this.config.databases) {
-			for (const p in this.config.databases) {
-				const database = this.config.databases[p]
+		if (this.configInfo.config.databases) {
+			for (const p in this.configInfo.config.databases) {
+				const database = this.configInfo.config.databases[p]
 				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
 				if (typeof database.connection === 'string') {
 					const value = process.env[database.connection] as string
@@ -123,6 +105,13 @@ export class Orm implements IOrm {
 	 */
 	public async end (): Promise<void> {
 		await this.connection.end()
+	}
+
+	/**
+	* Get reference to config manager
+	*/
+	public get lib (): LibManager {
+		return this.libManager
 	}
 
 	/**
