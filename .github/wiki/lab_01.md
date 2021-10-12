@@ -144,8 +144,20 @@ Antes de importar vamos a borrar todos los registros:
 lambdaorm run -e Country.deleteAll()
 ```
 
+verificamos que no quedan registros:
+
 ```sh
-lambdaorm impory -s ./lab_01-export.json
+lambdaorm run -e Country
+```
+
+```sh
+lambdaorm import -s ./lab_01-export.json
+```
+
+verificamos que se importaron los datos.
+
+```sh
+lambdaorm run -e Country
 ```
 
 ## Drop
