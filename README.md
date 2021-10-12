@@ -265,9 +265,93 @@ orm.transaction('source', async (tr) => {
 
 ## Config
 
+When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
+
+This configuration contains the main sections, paths, databases and schemas.
+
+- In the paths section the src and data paths are defined.
+- In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
+- In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
+
+Example:
+
+```json
+{
+  "paths": { "src": "src", "data": "data"  },
+  "databases": [
+    {
+      "name": "lab_01",
+      "dialect": "mysql",
+      "schema": "lab_01",
+      "connection": { "type": "mysql", "host": "localhost", "port": 3306, "username": "test", "password": "test", "database": "test"  }
+    }
+  ],
+  "schemas": [
+    {
+      "name": "lab_01",
+      "enums": [],
+      "entities": [
+        {
+          "name": "Country",
+          "mapping": "COUNTRY",
+          "primaryKey": [ "id"  ],
+          "uniqueKey": [ "name" ],
+          "properties": [
+            { "name": "id", "mapping": "ID", "type": "integer","nullable": false },
+            { "name": "name","mapping": "NAME", "nullable": false, "type": "string", "length": 127 },
+            { "name": "alpha2","mapping": "ALPHA_2", "nullable": false,"type": "string","length": 2 },
+            { "name": "alpha3", "mapping": "ALPHA_3", "nullable": false, "type": "string", "length": 3 }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+There are the following options to define the settings.
+
+- Invoke the orm.init () method without the first argument and write this configuration in a file called lambdaorm.json or lambdaorm.yaml in the root of the project.
+according to the lambdaorm extension you will know how to read it.
+
+- Invoke the orm.init () method, pass as an argument the path where the configuration file is located.
+This path must include the extension .yaml or .json since this way we will know how to read it.
+
+- Invoke the orm.init () method passing the configuration as a json object as an argument
+
+Example passing the path of the configuration file:
+
+```ts
+import { orm } from 'lambdaorm'
+(async () => {
+	await orm.init('/home/my/db/book.yaml')
+	try {
+		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
+		console.log(result)	
+	} catch (error) {
+		console.log(error)
+	} finally {
+		await orm.end()
+	}
+})()
+```
+
+
+
 - [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Config)
 
 ## Metadata
+
+Lambda ORM has the following methods to extract metadata information from expressions.
+
+To execute these methods it is not necessary to connect to the database.
+
+|method    		|Description          															|Path                         						  						|
+|:------------|:--------------------------------------------------|:------------------------------------------------------|
+|	parameters	| returns the list of parameters in the expression	| orm.lambda(query).parameters(schema) 									|
+|	model				| returns the model of the result in an execution		| orm.lambda(query).model(schema)												|
+|	metadata		| returns the metadata of the expression						| orm.lambda(query).metadata(schema)										|
+|	sentence		| returns the sentence in the specified dialect			| orm.lambda(query).sentence('mysql','northwind')				|
 
 - [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/metadata)
 

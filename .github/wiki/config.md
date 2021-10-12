@@ -139,14 +139,14 @@ Example:
 ```ts
 import { orm } from 'lambdaorm'
 (async () => {
-await orm.init('/home/my/db/book.yaml')
-try {
-	const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
-	console.log(result)	
-} catch (error) {
-	console.log(error)
-} finally {
-	await orm.end()
-}
+	await orm.init('/home/my/db/book.yaml')
+	try {
+		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
+		console.log(result)	
+	} catch (error) {
+		console.log(error)
+	} finally {
+		await orm.end()
+	}
 })()
 ```
