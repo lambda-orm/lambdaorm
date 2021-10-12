@@ -63,39 +63,60 @@ import { orm } from 'lambdaorm'
 
 Starting from the entity we have the following methods to assemble the sentences.
 
-|Operator    |Description                                   										| SQL Equivalent								|
-|:-----------|:-----------------------------------------------------------------|:------------------------------|
-|filter			 | To filter the records.																						| WHERE 												|
-|having 		 | To filter on groupings.																					|	HAVING 												|
-|map				 | To specify the fields to return. 																| SELECT 												|
-|distinct		 | to specify the fields to return by sending duplicate records.		|																|
-|first			 | returns the first record																					| SELECT + ORDER BY + LIMIT 		|
-|last 		 	 | returns the last record																					|	SELECT + ORDER BY DESC + LIMIT|
-|take 		 	 | returns one record																								|	SELECT +  LIMIT 							|
-|sort				 | To specify the order in which the records are returned.					| ORDER BY 											|
-|page				 | To paginate.																											| LIMIT  (MySQL)								|
-|include		 | To get records of related entities																|																|
-|insert			 | To insert records																								| INSERT												|
-|update			 | To update records always including a filter											| UPDATE with WHERE							|
-|updateAll	 | to be able to update all the records of an entity								| UPDATE without WHERE					|
-|delete			 | To delete records always including a filter											| DELETE with WHERE							|
-|deleteAll	 | To be able to delete all records of an entity										| DELETE without WHERE					|
-|bulkinsert	 | to insert records in bulk																				| INSERT												|
+|Operator    |Description                                   										| SQL Equivalent								|																																								|
+|:-----------|:-----------------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------:|
+|filter			 | To filter the records.																						| WHERE 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|having 		 | To filter on groupings.																					|	HAVING 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|map				 | To specify the fields to return. 																| SELECT 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|distinct		 | to specify the fields to return by sending duplicate records.		|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|first			 | returns the first record																					| SELECT + ORDER BY + LIMIT 		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|last 		 	 | returns the last record																					|	SELECT + ORDER BY DESC + LIMIT|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|take 		 	 | returns one record																								|	SELECT +  LIMIT 							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|sort				 | To specify the order in which the records are returned.					| ORDER BY 											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|page				 | To paginate.																											| LIMIT  (MySQL)								|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|include		 | To get records of related entities																|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)	|
+|insert			 | To insert records																								| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
+|update			 | To update records always including a filter											| UPDATE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
+|updateAll	 | to be able to update all the records of an entity								| UPDATE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
+|delete			 | To delete records always including a filter											| DELETE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
+|deleteAll	 | To be able to delete all records of an entity										| DELETE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
+|bulkinsert	 | to insert records in bulk																				| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)|
 
 There are no methods for the INNER JOIN clause since it is deduced when navigating through the relations of a property.
 
 There are no methods for the GROUP BY clause since this is deduced when grouping methods are used.
 
-More info:
+### Operators
 
-- [queries](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)
-- [insert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Insert)
-- [update](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)
-- [delete](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)
-- [bulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)
-- [include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
+The operators used are the same as those of javascript.
 
-## Includes:
+below access to their documentation:
+
+- [Arithmectic](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
+- [Assignment](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
+- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
+- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
+- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
+- [Array](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
+
+### Functions
+
+In the case of functions, some correspond to javascript functions and others are specific to sql
+
+below access to their documentation:
+
+- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
+- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
+- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
+- [Convert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
+- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
+- [General](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
+- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
+- [Conditionals](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
+- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
+- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
+
+### Includes:
 
 LambdaORM includes the Include method to load related entities, both for OnetoMany, manyToOne and oneToOne relationships.
 
@@ -104,6 +125,8 @@ We can also apply filters or bring us some fields from the related entities.
 For each include, a statement is executed bringing all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
 
 Includes can be used in selects, insert, update, delete, and bulckinsert.
+
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
 Example:
 
@@ -152,40 +175,6 @@ The previous sentence will bring us the following result:
 }
 ]]
 ```
-
-More info:
-
-- [include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
-
-## Operators
-
-The operators used are the same as those of javascript.
-
-below access to their documentation:
-
-- [Arithmectic](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
-- [Assignment](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
-- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
-- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
-- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
-- [Array](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
-
-## Functions
-
-In the case of functions, some correspond to javascript functions and others are specific to sql
-
-below access to their documentation:
-
-- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
-- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
-- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
-- [Convert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
-- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
-- [General](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
-- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
-- [Conditionals](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
-- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
-- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
 
 ## Using the ORM
 
@@ -542,18 +531,18 @@ npm install lambdaorm -g
 
 ## CLI
 
-|Command    	|Description                                   									  |
-|:------------|:----------------------------------------------------------------|
-|	version	 		| Prints lambdaorm version this project uses.											|
-|	init				| Generates lambdaorm project structure.													|
-|	model				| Generate model.																									|
-|	sync				|	Syncronize database.																						|
-|	export			| Export data from a database 																		|
-|	import			| Import data from file to database																|
-|	drop				|	Removes all database objects but not the database.							|
-|	expression	| Run an expression lambda or return information									|
+|Command    	|Description                                   									  |																																								|
+|:------------|:----------------------------------------------------------------|:-----------------------------------------------------------------------------:|
+|	version	 		| Prints lambdaorm version this project uses.											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-version)		|
+|	init				| Generates lambdaorm project structure.													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-init)				|
+|	model				| Generate model.																									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-model)			|
+|	sync				|	Syncronize database.																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-sync)				|
+|	run					| Run an expression lambda or return information									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-run)				|
+|	export			| Export data from a database 																		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-export)			|
+|	import			| Import data from file to database																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-import)			|
+|	drop				|	Removes all database objects but not the database.							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-drop)				|
 
 ## Documentation
 
-- [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
 - [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
+- [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
