@@ -2,7 +2,8 @@ import { Schema, IOrm, Database } from '../model'
 import { SchemaData } from '../schema/index'
 import { DatabaseSync } from './databaseSync'
 import { DatabaseClean } from './databaseClean'
-const fs = require('fs')
+import { Helper } from './../helper'
+// const fs = require('fs')
 const path = require('path')
 
 export class DatabaseManager {
@@ -48,22 +49,28 @@ export class DatabaseManager {
 		await this.updateDataState(name, state.mapping, state.pending)
 	}
 
-	public exists (name:string) {
+	public async exists (name:string) {
 		const file = this.getStateFile(name)
-		return fs.existsSync(file)
+		return await Helper.existsPath(file)
 	}
 
 	public async getState (name:string):Promise<any> {
 		const file = this.getStateFile(name)
-		if (!fs.existsSync(file)) { return { schema: null, mapping: {}, pending: [] } }
-		return JSON.parse(fs.readFileSync(file))
+		const exists = await Helper.existsPath(file)
+		if (exists) {
+			const content = await Helper.readFile(file)
+			if (content) {
+				return JSON.parse(content)
+			}
+		}
+		return { schema: null, mapping: {}, pending: [] }
 	}
 
 	public async updateSchemaState (name:string, schema:Schema):Promise<void> {
 		const stateFile = this.getStateFile(name)
 		const state = await this.getState(name)
 		state.schema = schema
-		fs.writeFileSync(stateFile, JSON.stringify(state))
+		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 
 	public async updateDataState (name:string, mapping:any, pending:any[]):Promise<void> {
@@ -71,15 +78,17 @@ export class DatabaseManager {
 		const state = await this.getState(name)
 		state.mapping = mapping
 		state.pending = pending
-		fs.writeFileSync(stateFile, JSON.stringify(state))
+		// fs.writeFileSync(stateFile, JSON.stringify(state))
+		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 
 	public async removeState (name:string):Promise<any> {
 		const file = this.getStateFile(name)
-		if (fs.existsSync(file)) { fs.unlinkSync(file) }
+		await Helper.removeFile(file)
+		// if (fs.existsSync(file)) { fs.unlinkSync(file) }
 	}
 
 	protected getStateFile (name:string) {
-		return path.join(this.orm.config.paths.data, `${name}-state.json`)
+		return path.join(this.orm.configInfo.workspace, this.orm.configInfo.config.paths.data, `${name}-state.json`)
 	}
 }

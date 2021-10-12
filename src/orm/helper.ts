@@ -40,15 +40,19 @@ export class Helper {
 		return !this.isEmpty(value) ? value : _default
 	}
 
-	public static async exec (command: string):Promise<any> {
+	public static async exec (command: string, cwd:string = process.cwd()):Promise<any> {
 		return new Promise<string>((resolve, reject) => {
-			exec(command, (error: any, stdout: any, stderr: any) => {
+			exec(command, { cwd: cwd }, (error: any, stdout: any, stderr: any) => {
 				if (stdout) return resolve(stdout)
 				if (stderr) return resolve(stderr)
 				if (error) return reject(error)
 				return resolve('')
 			})
 		})
+	}
+
+	public static async existsPath (fullPath:string):Promise<boolean> {
+		return fs.existsSync(fullPath)
 	}
 
 	public static async createIfNotExists (fullPath:string):Promise<void> {
@@ -62,6 +66,13 @@ export class Helper {
 		if (!fs.existsSync(filePath)) { return null }
 		return new Promise<string>((resolve, reject) => {
 			fs.readFile(filePath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')))
+		})
+	}
+
+	public static async removeFile (fullPath:string):Promise<void> {
+		if (fs.existsSync(fullPath)) { return }
+		return new Promise<void>((resolve, reject) => {
+			fs.unlink(fullPath, err => err ? reject(err) : resolve())
 		})
 	}
 
@@ -157,6 +168,14 @@ export class Helper {
 			return 'string'
 		}
 		return typeof value
+	}
+
+	public static tryParse (value:string):any|null {
+		try {
+			return JSON.parse(value)
+		} catch {
+			return null
+		}
 	}
 
 	public static dateFormat (value:any, format:string):string {

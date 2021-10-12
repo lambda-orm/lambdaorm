@@ -29,7 +29,6 @@ posibles names: lambda-orm
 - [](https://owasp.org/www-community/attacks/SQL_Injection)
 - [](https://www.geeksforgeeks.org/how-to-save-connection-result-in-a-variable-in-node-js/)
 - [express-typescript](https://rsbh.dev/blog/rest-api-with-express-typescript)
-- [sort clause](https://www.postgresqltutorial.com/postgresql-having/)
 
 ## Orm examples
 

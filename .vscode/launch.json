@@ -24,8 +24,115 @@
 			"program": "${workspaceFolder}/src/orm/cli.ts",
 			"args": [
 				"init",
-				"-n",
-				"test"
+				"-w",
+				"lab_01"
+			]
+		},
+		{
+			"name": "cli model",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"model",
+				"-w",
+				"lab_01"
+			]
+		},
+		{
+			"name": "cli sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"sync",
+				"-w",
+				"lab_01"
+			]
+		},
+		{
+			"name": "cli run",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"run",
+				"-w",
+				"lab_01",
+				"-e",
+				"Country.bulkInsert()",
+				"-c",
+				"./lab_01/countries.json"
+				//"[{ \"\"id\"\": 4, \"\"name\"\": \"\"Afghanistan2\"\", \"\"alpha2\"\": \"\"af\"\", \"\"alpha3\"\": \"\"afg\"\"}]"
+			]
+		},
+		{
+			"name": "cli export",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"export",
+				"-w",
+				"lab_01"
+			]
+		},
+		{
+			"name": "cli run delete",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"run",
+				"-w",
+				"lab_01",
+				"-e",
+				"Country.deleteAll()"
+			]
+		},
+		{
+			"name": "cli import",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"import",
+				"-w",
+				"lab_01",
+				"-s",
+				"lab_01-export.json"
+			]
+		},
+		{
+			"name": "cli drop",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"args": [
+				"drop",
+				"-w",
+				"lab_01"
 			]
 		},
 		{

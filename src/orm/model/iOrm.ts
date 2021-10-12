@@ -1,21 +1,22 @@
-import { Config, Cache } from './../model/index'
+import { ConfigInfo, Cache } from './../model/index'
 import { LanguageManager, Operand, Query } from '../language'
 import { ConnectionManager } from '../connection'
 import { ParserManager } from '../parser/index'
-import { Expression, Transaction } from './../manager'
+import { Expression, Transaction, LibManager } from './../manager'
 import { SchemaManager } from './../schema/index'
 import { DatabaseManager } from '../database'
 
 export interface IOrm
 {
-	config:Config
+	configInfo: ConfigInfo
+	get lib (): LibManager
 	get parser():ParserManager
 	get language():LanguageManager
 	get schema():SchemaManager
 	get connection():ConnectionManager
 	get database():DatabaseManager
 	set cache(value:Cache)
-	init(configPath:string):Promise<void>
+	init(configPath?:string, connect?:boolean):Promise<void>
 	expression(expression: string): Expression
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	lambda(lambda:Function):Expression

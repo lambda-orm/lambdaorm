@@ -5,7 +5,9 @@ async function schemaSync (target: string) {
 	await orm.database.sync(target).execute()
 }
 async function schemaDrop (target: string, TryAndContinue = false) {
-	if (orm.database.exists(target)) { await orm.database.clean(target).execute(TryAndContinue) }
+	if (await orm.database.exists(target)) {
+		await orm.database.clean(target).execute(TryAndContinue)
+	}
 }
 async function schemaExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
