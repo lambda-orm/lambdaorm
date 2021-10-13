@@ -85,26 +85,17 @@ export class Orm implements IOrm {
 			}
 			this.config = _config
 		}
-
-		// this.configInfo = await this.libManager.getConfigInfo(config)
+		Helper.solveEnriromentVariables(this.config)
 		if (this.config.schemas) {
 			for (const p in this.config.schemas) {
 				this.schema.load(this.config.schemas[p])
 			}
 		}
-
 		if (this.config.databases) {
 			for (const p in this.config.databases) {
 				const database = this.config.databases[p]
 				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
-				if (typeof database.connection === 'string') {
-					const value = process.env[database.connection] as string
-					connectionConfig.connection = Helper.tryParse(value)
-				} else if (typeof database.connection === 'object') {
-					connectionConfig.connection = database.connection
-				} else {
-					throw new Error(`wrong connection in database ${database.name} `)
-				}
+				connectionConfig.connection = database.connection
 				if (connect) {
 					this.connection.load(connectionConfig)
 				}

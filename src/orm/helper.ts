@@ -96,6 +96,30 @@ export class Helper {
 		})
 	}
 
+	public static solveEnriromentVariables (source:any): void {
+		if (typeof source === 'object') {
+			for (const name in source) {
+				const child = source[name]
+				if (typeof child === 'string' && child.startsWith('$')) {
+					const envrironmentVariable = child.substring(1)
+					const environmentVariableValue = process.env[envrironmentVariable]
+					if (environmentVariableValue === undefined || environmentVariableValue === null) {
+						source[name] = null
+					} else {
+						const objValue = Helper.tryParse(environmentVariableValue)
+						if (objValue) {
+							source[name] = objValue
+						} else {
+							source[name] = environmentVariableValue
+						}
+					}
+				} else if (typeof child === 'object') {
+					Helper.solveEnriromentVariables(child)
+				}
+			}
+		}
+	}
+
 	public static deltaWithSimpleArrays (current:any, old?:any):Delta {
 		const delta = new Delta()
 		if (current === undefined || current === null) {
