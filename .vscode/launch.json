@@ -22,6 +22,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"init",
 				"-w",
@@ -36,6 +37,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"model",
 				"-w",
@@ -50,6 +52,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"sync",
 				"-w",
@@ -64,6 +67,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"run",
 				"-w",
@@ -83,6 +87,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"export",
 				"-w",
@@ -97,6 +102,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"run",
 				"-w",
@@ -113,6 +119,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"import",
 				"-w",
@@ -129,10 +136,30 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
 			"args": [
 				"drop",
 				"-w",
 				"lab_01"
+			]
+		},
+		{
+			"name": "cli debug",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
+			"args": [
+				"run",
+				"-w",
+				"./",
+				"-n",
+				"source",
+				"-e",
+				"Customers.filter( p=> p.id == 'WOLZA').include(p=> p.orders)"
 			]
 		},
 		{

@@ -25,26 +25,13 @@ export class SyncCommand implements CommandModule {
 
 	async handler (args: Arguments) {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
-		const database = args.database as string
+		const database = args.name as string
 		const sentences = args.sentences as string
 		const orm = new Orm()
 		try {
-			await orm.init(workspace)
-			const configInfo = await orm.lib.getConfigInfo(workspace)
-
-			let db:Database|undefined
-			if (database === undefined) {
-				if (configInfo.config.databases.length === 1) {
-					db = configInfo.config.databases[0]
-				} else {
-					throw new Error('the database argument is required')
-				}
-			} else {
-				db = configInfo.config.databases.find(p => p.name === database)
-				if (db === undefined) {
-					throw new Error(`database: ${database} not found in config`)
-				}
-			}
+			const config = await orm.lib.getConfig(workspace)
+			const db = orm.lib.getDatabase(database, config)
+			await orm.init(config)
 
 			if (sentences !== undefined) {
 				const result = await orm.database.sync(db.name).sentence()

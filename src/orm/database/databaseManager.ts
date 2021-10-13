@@ -88,7 +88,7 @@ export class DatabaseManager {
 		// if (fs.existsSync(file)) { fs.unlinkSync(file) }
 	}
 
-	protected getStateFile (name:string) {
-		return path.join(this.orm.configInfo.workspace, this.orm.configInfo.config.paths.data, `${name}-state.json`)
+	protected getStateFile (name: string) {
+		return path.join(this.orm.config.paths.workspace, this.orm.config.paths.data, `${name}-state.json`)
 	}
 }

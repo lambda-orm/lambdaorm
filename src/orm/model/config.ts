@@ -10,6 +10,8 @@ export interface Paths
 {
 	src: string
 	data: string
+	workspace: string,
+	configFile?: string
 }
 export interface Config
 {
@@ -17,9 +19,9 @@ export interface Config
 	databases: Database[]
 	schemas:Schema[]
 }
-export interface ConfigInfo
-{
-	workspace: string
-	configFile?: string
-	config:Config
-}
+// export interface ConfigInfo
+// {
+// workspace: string
+// configFile?: string
+// config:Config
+// }

@@ -37,52 +37,55 @@ export class InitCommand implements CommandModule {
 			// create workspace
 			await Helper.createIfNotExists(workspace)
 			// create config file if not exists
-			const configInfo = await orm.lib.getConfigInfo(workspace)
-			if (configInfo.configFile === undefined) {
-				configInfo.configFile = 'lambdaorm.yaml'
+			const config = await orm.lib.getConfig(workspace)
+			if (config.paths.workspace === undefined) {
+				config.paths.workspace = workspace
 			}
-			const db = orm.lib.completeConfig(configInfo, database, dialect, connection)
-			await orm.lib.writeConfig(configInfo)
+			if (config.paths.configFile === undefined) {
+				config.paths.configFile = 'lambdaorm.yaml'
+			}
+			const db = orm.lib.completeConfig(config, database, dialect, connection)
+			await orm.lib.writeConfig(config)
 
 			// create initial structure
-			await Helper.createIfNotExists(path.join(workspace, configInfo.config.paths.src))
-			await Helper.createIfNotExists(path.join(workspace, configInfo.config.paths.data))
-			await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(workspace, configInfo.config.paths.src, 'sintaxis.d.ts'))
+			await Helper.createIfNotExists(path.join(config.paths.workspace, config.paths.src))
+			await Helper.createIfNotExists(path.join(config.paths.workspace, config.paths.data))
+			await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), path.join(config.paths.workspace, config.paths.src, 'sintaxis.d.ts'))
 
 			// if the package.json does not exist create it
-			const packagePath = path.join(workspace, 'package.json')
+			const packagePath = path.join(config.paths.workspace, 'package.json')
 			if (!await Helper.existsPath(packagePath)) {
 				await Helper.writeFile(packagePath, JSON.stringify({ dependencies: {} }, null, 2))
 			}
 
 			// if there is no tsconfig.json create it
-			const tsconfigPath = path.join(workspace, 'tsconfig.json')
+			const tsconfigPath = path.join(config.paths.workspace, 'tsconfig.json')
 			if (!await Helper.existsPath(tsconfigPath)) {
 				const tsconfigContent = orm.lib.getTypescriptContent()
 				await Helper.writeFile(tsconfigPath, JSON.stringify(tsconfigContent, null, 2))
 			}
 
 			// install typescript if not installed.
-			const typescriptLib = await orm.lib.getLocalPackage('typescript', workspace)
+			const typescriptLib = await orm.lib.getLocalPackage('typescript', config.paths.workspace)
 			if (typescriptLib === '') {
-				await Helper.exec('npm install typescript -D', workspace)
+				await Helper.exec('npm install typescript -D', config.paths.workspace)
 			}
 
 			// install lambdaorm if it is not installed.
-			const lambdaormLib = await orm.lib.getLocalPackage('lambdaorm', workspace)
+			const lambdaormLib = await orm.lib.getLocalPackage('lambdaorm', config.paths.workspace)
 			if (lambdaormLib === '') {
-				await Helper.exec('npm install lambdaorm', workspace)
+				await Helper.exec('npm install lambdaorm', config.paths.workspace)
 			}
 			// if the library is not installed locally corresponding to the dialect it will be installed
 			const lib = orm.lib.getLib(db.dialect)
-			const localLib = await orm.lib.getLocalPackage(lib, workspace)
+			const localLib = await orm.lib.getLocalPackage(lib, config.paths.workspace)
 			if (localLib === '') {
-				await Helper.exec(`npm install ${lib}`, workspace)
+				await Helper.exec(`npm install ${lib}`, config.paths.workspace)
 			}
 			// if the library is not installed locally corresponding to the dialect it will be installed
 			const globalLib = await orm.lib.getGlobalPackage(lib)
 			if (globalLib === '') {
-				await Helper.exec(`npm install ${globalLib} -g`, workspace)
+				await Helper.exec(`npm install ${globalLib} -g`, config.paths.workspace)
 			}
 		} catch (error) {
 			console.error(`error: ${error}`)

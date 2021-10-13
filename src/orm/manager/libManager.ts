@@ -1,40 +1,41 @@
 import fs from 'fs'
 import path from 'path'
-import { ConfigInfo, Config, Database } from '../model'
+import { Config, Database } from '../model'
 import { Helper } from '../helper'
 const ConfigExtends = require('config-extends')
 const yaml = require('js-yaml')
 
 export class LibManager {
-	public async getConfigInfo (source?: string | Config): Promise<ConfigInfo> {
-		const configInfo: ConfigInfo = { workspace: process.cwd(), config: { paths: { src: 'src', data: 'data' }, databases: [], schemas: [] } }
+	public async getConfig (source?: string): Promise<Config> {
+		let workspace : string
+		let configFile: string|undefined
+
+		workspace = process.cwd()
+
 		if (source === undefined) {
-			configInfo.configFile = this.getConfigFileName(configInfo.workspace)
+			configFile = this.getConfigFileName(workspace)
 		} else if (typeof source === 'string') {
 			const lstat = fs.lstatSync(source)
 			if (lstat.isFile()) {
-				configInfo.configFile = path.basename(source)
-				configInfo.workspace = path.dirname(source)
+				configFile = path.basename(source)
+				workspace = path.dirname(source)
 			} else {
-				configInfo.workspace = source
-				configInfo.configFile = this.getConfigFileName(configInfo.workspace)
+				workspace = source
+				configFile = this.getConfigFileName(workspace)
 			}
 		} else {
-			const config = source as Config
-			if (config === undefined) {
-				throw new Error(`Config: ${source} not supported`)
-			}
-			configInfo.config = config
+			throw new Error(`Config: ${source} not supported`)
 		}
 
-		if (configInfo.configFile !== undefined) {
-			const configPath = path.join(configInfo.workspace, configInfo.configFile)
-			if (path.extname(configInfo.configFile) === '.yaml' || path.extname(configInfo.configFile) === '.yml') {
-				configInfo.config = await ConfigExtends.apply(configPath)
-			} else if (path.extname(configInfo.configFile) === '.json') {
+		let config: Config = { paths: { workspace: workspace, configFile: configFile, src: 'src', data: 'data' }, databases: [], schemas: [] }
+		if (configFile !== undefined) {
+			const configPath = path.join(workspace, configFile)
+			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
+				config = await ConfigExtends.apply(configPath)
+			} else if (path.extname(configFile) === '.json') {
 				const content = await Helper.readFile(configPath)
 				if (content !== null) {
-					configInfo.config = JSON.parse(content)
+					config = JSON.parse(content)
 				} else {
 					throw new Error(`Config file: ${configPath} empty`)
 				}
@@ -43,20 +44,26 @@ export class LibManager {
 			}
 		}
 
-		if (configInfo.config.paths === undefined) {
-			configInfo.config.paths = { src: 'src', data: 'data' }
+		if (config.paths === undefined) {
+			config.paths = { workspace: workspace, configFile: configFile, src: 'src', data: 'data' }
 		} else {
-			if (configInfo.config.paths.src === undefined) {
-				configInfo.config.paths.src = 'src'
+			if (config.paths.workspace === undefined) {
+				config.paths.workspace = workspace
 			}
-			if (configInfo.config.paths.data === undefined) {
-				configInfo.config.paths.data = 'data'
+			if (config.paths.configFile === undefined) {
+				config.paths.configFile = configFile
+			}
+			if (config.paths.src === undefined) {
+				config.paths.src = 'src'
+			}
+			if (config.paths.data === undefined) {
+				config.paths.data = 'data'
 			}
 		}
-		if (configInfo.config.databases === undefined) configInfo.config.databases = []
-		if (configInfo.config.schemas === undefined) configInfo.config.schemas = []
+		if (config.databases === undefined) config.databases = []
+		if (config.schemas === undefined) config.schemas = []
 
-		return configInfo
+		return config
 	}
 
 	public getConfigFileName (workspace:string):string|undefined {
@@ -71,14 +78,14 @@ export class LibManager {
 		}
 	}
 
-	public async writeConfig (configInfo: ConfigInfo): Promise<void> {
-		if (configInfo.configFile !== undefined) {
-			const configPath = path.join(configInfo.workspace, configInfo.configFile)
+	public async writeConfig (config: Config): Promise<void> {
+		if (config.paths.configFile !== undefined) {
+			const configPath = path.join(config.paths.workspace, config.paths.configFile)
 			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
-				const content = yaml.dump(configInfo.config)
+				const content = yaml.dump(config)
 				await Helper.writeFile(configPath, content, true)
 			} else if (path.extname(configPath) === '.json') {
-				const content = JSON.stringify(configInfo.config, null, 2)
+				const content = JSON.stringify(config, null, 2)
 				await Helper.writeFile(configPath, content, true)
 			} else {
 				throw new Error(`Config file: ${configPath} not supported`)
@@ -88,15 +95,33 @@ export class LibManager {
 		}
 	}
 
-	public completeConfig (configInfo: ConfigInfo, database: string, dialect?:string, connection?: any):Database {
-		let db = configInfo.config.databases.find(p => p.name === database)
+	public getDatabase (database:string, config:Config):Database {
+		// get database
+		let db:Database|undefined
+		if (database === undefined) {
+			if (config.databases.length === 1) {
+				db = config.databases[0]
+			} else {
+				throw new Error('the name argument with the name of the database is required')
+			}
+		} else {
+			db = config.databases.find(p => p.name === database)
+			if (db === undefined) {
+				throw new Error(`database: ${database} not found in config`)
+			}
+		}
+		return db
+	}
+
+	public completeConfig (config: Config, database: string, dialect?:string, connection?: any):Database {
+		let db = config.databases.find(p => p.name === database)
 		if (db === undefined) {
 			// si la base de datos no esta definida la crea
 			if (connection === undefined) {
 				connection = this.defaultConnection(dialect || 'mysql')
 			}
 			db = { name: database, dialect: dialect || 'mysql', schema: database, connection: connection }
-			configInfo.config.databases.push(db)
+			config.databases.push(db)
 		} else {
 			// si la base de datos esta definida
 
@@ -115,12 +140,12 @@ export class LibManager {
 				db.schema = db.name
 			}
 		}
-		const schema = configInfo.config.schemas.find(p => p.name === db?.schema)
+		const schema = config.schemas.find(p => p.name === db?.schema)
 		if (schema === undefined) {
-			configInfo.config.schemas.push({ name: db.schema, enums: [], entities: [] })
+			config.schemas.push({ name: db.schema, enums: [], entities: [] })
 		}
-		if (configInfo.configFile === undefined) {
-			configInfo.configFile = 'lambdaorm.yaml'
+		if (config.paths.configFile === undefined) {
+			config.paths.configFile = 'lambdaorm.yaml'
 		}
 		return db
 	}

@@ -1,5 +1,5 @@
 
-import { Cache, IOrm, Context, ConfigInfo, Config } from './model'
+import { Cache, IOrm, Context, Config } from './model'
 import { Model, ParserManager } from './parser/index'
 import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
@@ -10,7 +10,7 @@ import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
-// import { Helper } from './helper'
+import { Helper } from './helper'
 
 // const ConfigExtends = require('config-extends')
 // const fs = require('fs')
@@ -32,7 +32,7 @@ export class Orm implements IOrm {
 	/**
 	 * Property that exposes the configuration
 	 */
-	public configInfo: ConfigInfo
+	public config: Config
 	/**
 	 * Singleton
 	 */
@@ -44,7 +44,7 @@ export class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.configInfo = { workspace: process.cwd(), config: { paths: { src: 'src', data: 'data' }, databases: [], schemas: [] } }
+		this.config = { paths: { workspace: process.cwd(), src: 'src', data: 'data' }, databases: [], schemas: [] }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
@@ -72,24 +72,34 @@ export class Orm implements IOrm {
 
 	/**
 	 * metodo para incializar la libreria de orm
-	 * @param configPath optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
+	 * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
 	 * @returns promise void
 	 */
-	public async init (config?:string | Config, connect = true): Promise<void> {
-		this.configInfo = await this.libManager.getConfigInfo(config)
-		if (this.configInfo.config.schemas) {
-			for (const p in this.configInfo.config.schemas) {
-				this.schema.load(this.configInfo.config.schemas[p])
+	public async init (source?: string | Config, connect = true): Promise<void> {
+		if (source === undefined || typeof source === 'string') {
+			this.config = await this.libManager.getConfig(source)
+		} else {
+			const _config = source as Config
+			if (_config === undefined) {
+				throw new Error(`Config: ${source} not supported`)
+			}
+			this.config = _config
+		}
+
+		// this.configInfo = await this.libManager.getConfigInfo(config)
+		if (this.config.schemas) {
+			for (const p in this.config.schemas) {
+				this.schema.load(this.config.schemas[p])
 			}
 		}
 
-		if (this.configInfo.config.databases) {
-			for (const p in this.configInfo.config.databases) {
-				const database = this.configInfo.config.databases[p]
+		if (this.config.databases) {
+			for (const p in this.config.databases) {
+				const database = this.config.databases[p]
 				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
 				if (typeof database.connection === 'string') {
 					const value = process.env[database.connection] as string
-					connectionConfig.connection = JSON.parse(value)
+					connectionConfig.connection = Helper.tryParse(value)
 				} else if (typeof database.connection === 'object') {
 					connectionConfig.connection = database.connection
 				} else {

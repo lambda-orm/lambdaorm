@@ -39,7 +39,7 @@ export class RunCommand implements CommandModule {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const expression = args.expression as string
 		let context = args.context || {}
-		const database = args.database as string
+		const database = args.name as string
 		const sentences = args.sentences as string
 		const metadata = args.metadata !== undefined
 		const orm = new Orm()
@@ -48,22 +48,9 @@ export class RunCommand implements CommandModule {
 			return
 		}
 		try {
-			await orm.init(workspace)
-			const configInfo = await orm.lib.getConfigInfo(workspace)
-			// get database
-			let db:Database|undefined
-			if (database === undefined) {
-				if (configInfo.config.databases.length === 1) {
-					db = configInfo.config.databases[0]
-				} else {
-					throw new Error('the database argument is required')
-				}
-			} else {
-				db = configInfo.config.databases.find(p => p.name === database)
-				if (db === undefined) {
-					throw new Error(`database: ${database} not found in config`)
-				}
-			}
+			const config = await orm.lib.getConfig(workspace)
+			const db = orm.lib.getDatabase(database, config)
+			await orm.init(config)
 			// read context
 			if (typeof context === 'string') {
 				let data = Helper.tryParse(context as string)
@@ -93,8 +80,8 @@ export class RunCommand implements CommandModule {
 					console.log(JSON.stringify(metadata, null, 2))
 				}
 			} else {
-				const resullt = await orm.expression(expression).execute(db.name, context)
-				console.log(resullt)
+				const result = await orm.expression(expression).execute(db.name, context)
+				console.log(JSON.stringify(result, null, 2))
 			}
 		} catch (error) {
 			console.error(`error: ${error}`)
