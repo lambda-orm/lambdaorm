@@ -9,16 +9,7 @@ databases:
   - name: mysql
     schema: northwind
     dialect: mysql
-    connection:
-      host: "0.0.0.0"
-      port: 3307
-      user: test
-      password: test
-      database: northwind
-      multipleStatements: true
-      waitForConnections: true
-      connectionLimit: 10
-      queueLimit: 0
+    connection: $ORM_CNN_MYSQL
   # - name: mariadb
   #   schema: northwind
   #   dialect: mariadb

@@ -283,7 +283,7 @@ Example:
       "name": "lab_01",
       "dialect": "mysql",
       "schema": "lab_01",
-      "connection": { "type": "mysql", "host": "localhost", "port": 3306, "username": "test", "password": "test", "database": "test"  }
+      "connection": "$ORM_CNN_MYSQL"
     }
   ],
   "schemas": [
