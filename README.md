@@ -2,9 +2,32 @@
 
 ## **IMPORTANT:** the library is in an Alpha version!!!
 
-LambdaORM is an ORM based on using the same syntax of lambda expressions in javascript to write the expressions that will be translated into SQL sentences according to the database.
+## Por que Lambda ORM
 
-When starting from javascript lambda expressions we can use the IDE's own intellisense to write the sentences.
+1. Misma Sintaxis: Utiliza expressiones lambda de Javascritp para escribir las sentencias. Por lo cual no debemos aprender otro lenguaje para escribir las consultas/
+2. Intellisense: Al utilizar la misma sintaxis de javascript y contar con la definicion del modelo se hace uso del Intellisense. Lo cual ayuda la escritura de las sentenias y evita errores de sintaxis
+
+3. String expressiones: Las mismas expressiones se pueden escribir tanto en javascript como dentro de una cadena de texto, lo cual permite persistirlas y/o ejecutarlas desde otros contextos.
+
+4. CLI: cuenta con varios comandos por CLI que nos permiten desde crear un proyecto, exportar , importar, ejecutar consultas, etc.
+
+5. Definicion de esquema por configuracion. simplifica y unifica la definicion del esquema , lo cual lo hace que sea rapida y facil su escritura.
+ La configuracion puede realizarse en archivos yaml o json.
+
+6. Multiples Databases: Permite trabajar con multiples bases de datos de diferentes dialectos en el mismo proyecto.
+
+7. Metadata: propociona metodos para obtener informacion de metadata de una expression, con la cual se puede obtener cual es la estrutura del resultado, cuales son los parametros y tipo de la expression, etc.
+
+LambdaORM es un ORM basado en usar la misma sintaxis de expresiones lambda en javascript para escribir las expresiones que serán traducidas a sentencias SQL según la base de datos.
+
+Al comenzar con expresiones lambda de javascript, podemos usar el intellisense propio del IDE para escribir las oraciones.
+
+
+Lambda ORM utiliza expressiones lambda de javascript para escribir las consultas y de alli su nombre. 
+Esta escrito integramente en Typescript
+
+
+
 
 Example:
 

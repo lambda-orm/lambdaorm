@@ -1,6 +1,7 @@
-paths:
+app:
   src: src
   data: data
+  defaulDatabase: source
 databases:
   - name: source
     schema: northwind

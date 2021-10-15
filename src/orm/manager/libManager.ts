@@ -27,7 +27,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { paths: { workspace: workspace, configFile: configFile, src: 'src', data: 'data' }, databases: [], schemas: [] }
+		let config: Config = { app: { workspace: workspace, configFile: configFile, src: 'src', data: 'data' }, databases: [], schemas: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -44,20 +44,20 @@ export class LibManager {
 			}
 		}
 
-		if (config.paths === undefined) {
-			config.paths = { workspace: workspace, configFile: configFile, src: 'src', data: 'data' }
+		if (config.app === undefined) {
+			config.app = { workspace: workspace, configFile: configFile, src: 'src', data: 'data' }
 		} else {
-			if (config.paths.workspace === undefined) {
-				config.paths.workspace = workspace
+			if (config.app.workspace === undefined) {
+				config.app.workspace = workspace
 			}
-			if (config.paths.configFile === undefined) {
-				config.paths.configFile = configFile
+			if (config.app.configFile === undefined) {
+				config.app.configFile = configFile
 			}
-			if (config.paths.src === undefined) {
-				config.paths.src = 'src'
+			if (config.app.src === undefined) {
+				config.app.src = 'src'
 			}
-			if (config.paths.data === undefined) {
-				config.paths.data = 'data'
+			if (config.app.data === undefined) {
+				config.app.data = 'data'
 			}
 		}
 		if (config.databases === undefined) config.databases = []
@@ -79,8 +79,8 @@ export class LibManager {
 	}
 
 	public async writeConfig (config: Config): Promise<void> {
-		if (config.paths.configFile !== undefined) {
-			const configPath = path.join(config.paths.workspace, config.paths.configFile)
+		if (config.app.configFile !== undefined) {
+			const configPath = path.join(config.app.workspace, config.app.configFile)
 			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
 				const content = yaml.dump(config)
 				await Helper.writeFile(configPath, content, true)
@@ -101,6 +101,11 @@ export class LibManager {
 		if (database === undefined) {
 			if (config.databases.length === 1) {
 				db = config.databases[0]
+			} else if (config.databases.length > 1 && config.app.defaultDatabase !== undefined) {
+				db = config.databases.find(p => p.name === config.app.defaultDatabase)
+				if (db === undefined) {
+					throw new Error(`database: ${config.app.defaultDatabase} not found in config`)
+				}
 			} else {
 				throw new Error('the name argument with the name of the database is required')
 			}
@@ -144,8 +149,11 @@ export class LibManager {
 		if (schema === undefined) {
 			config.schemas.push({ name: db.schema, enums: [], entities: [] })
 		}
-		if (config.paths.configFile === undefined) {
-			config.paths.configFile = 'lambdaorm.yaml'
+		if (config.app.configFile === undefined) {
+			config.app.configFile = 'lambdaorm.yaml'
+		}
+		if (config.app.defaultDatabase === undefined) {
+			config.app.defaultDatabase = db.name
 		}
 		return db
 	}

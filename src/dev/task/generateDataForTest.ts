@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm } from '../../orm'
+import { orm, Queryable } from '../../orm'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
 const path = require('path')
 const yaml = require('js-yaml')
+
+let Categories : Queryable<QryCategory>
+let Customers: Queryable<QryCustomer>
+let Employees: Queryable<QryEmployee>
+let Shippers: Queryable<QryShipper>
+let Suppliers: Queryable<QrySupplier>
+let Products: Queryable<QryProduct>
+let Orders: Queryable<QryOrder>
+let OrderDetails: Queryable<QryOrderDetail>
 
 async function exec (fn: any) {
 	const t1 = Date.now()
@@ -247,7 +256,8 @@ async function writeInsertsTest (dialects: string[], databases: string[]): Promi
 			[
 				{ name: 'insert 1', context: 'a', lambda: () => Categories.insert() },
 				{ name: 'insert 2', context: 'b', lambda: (name: string, description: string) => Categories.insert({ name: name, description: description }) },
-				{ name: 'insert 3', context: 'c', lambda: (entity: Category) => Categories.insert(entity) },
+				// { name: 'insert 3', context: 'c', lambda: (entity: Category) => Categories.insert(entity) },
+				{ name: 'insert 3', context: 'c', lambda: (entity: any) => Categories.insert(entity) },
 				{ name: 'insert 4', context: 'order', lambda: () => Orders.insert() },
 				{ name: 'insert 5', context: 'order', lambda: () => Orders.insert().include(p => p.details) },
 				{ name: 'insert 6', context: 'order', lambda: () => Orders.insert().include(p => [p.details, p.customer]) }
@@ -542,11 +552,15 @@ async function writeUpdateTest (dialects: string[], databases: string[]): Promis
 		test:
 			[
 				{ name: 'update 1', context: 'a', lambda: () => Orders.update() },
-				{ name: 'update 2', context: 'b', lambda: (entity: Order) => Orders.update(entity) },
+				// { name: 'update 2', context: 'b', lambda: (entity: Order) => Orders.update(entity) },
+				{ name: 'update 2', context: 'b', lambda: (entity: any) => Orders.update(entity) },
 				{ name: 'update 3', context: 'c', lambda: (postalCode: string) => Orders.updateAll({ postalCode: postalCode }) },
-				{ name: 'update 4', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
-				{ name: 'update 5', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
-				{ name: 'update 6', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				// { name: 'update 4', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
+				// { name: 'update 5', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
+				// { name: 'update 6', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				{ name: 'update 4', context: 'b', lambda: (entity: any) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
+				{ name: 'update 5', context: 'b', lambda: (entity: any) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
+				{ name: 'update 6', context: 'b', lambda: (entity: any) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
 				{ name: 'update 7', context: 'a', lambda: () => Orders.update().include(p => p.details) },
 				{ name: 'update 8', context: 'c', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
 			]
@@ -703,8 +717,8 @@ async function writeDeleteTest (dialects: string[], databases: string[]): Promis
 				{ name: 'delete 2', context: 'b', lambda: () => Orders.delete().include(p => p.details) },
 				{ name: 'delete 3', context: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
 				{ name: 'delete 4', context: 'd', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 4', context: 'd', lambda: (entity: OrderDetail) => OrderDetails.delete(entity) },
-				{ name: 'delete 5', context: 'e', lambda: (entity: Order) => Orders.delete(entity).include(p => p.details) },
+				{ name: 'delete 4', context: 'd', lambda: (entity: any) => OrderDetails.delete(entity) },
+				{ name: 'delete 5', context: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
 				{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
 			]
 	})

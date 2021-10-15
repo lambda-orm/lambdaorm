@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { Orm, Helper, Database } from '../index'
+import { Orm, Helper } from '../index'
 import path from 'path'
 
 export class ModelCommand implements CommandModule {
@@ -29,7 +29,7 @@ export class ModelCommand implements CommandModule {
 			await orm.init(config)
 
 			const content = orm.database.model(db.name)
-			await Helper.writeFile(path.join(config.paths.workspace, config.paths.src, 'model.d.ts'), content)
+			await Helper.writeFile(path.join(config.app.workspace, config.app.src, 'model.d.ts'), content)
 		} catch (error) {
 			console.error(`error: ${error}`)
 		}

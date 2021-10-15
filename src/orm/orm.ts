@@ -44,7 +44,7 @@ export class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.config = { paths: { workspace: process.cwd(), src: 'src', data: 'data' }, databases: [], schemas: [] }
+		this.config = { app: { workspace: process.cwd(), src: 'src', data: 'data' }, databases: [], schemas: [] }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()

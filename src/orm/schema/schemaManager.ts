@@ -82,7 +82,7 @@ export class SchemaManager {
 		lines.push('declare global {')
 		for (const p in source.entities) {
 			const entity = source.entities[p]
-			lines.push(`\tinterface ${Helper.singular(entity.name)}{`)
+			lines.push(`\tclass ${Helper.singular(entity.name)} extends Entity {`)
 			for (const q in entity.properties) {
 				const property = entity.properties[q]
 				const type = Helper.tsType(property.type)
@@ -93,13 +93,13 @@ export class SchemaManager {
 				const relationEntity = Helper.singular(relation.entity)
 				switch (relation.type) {
 				case 'oneToMany':
-					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToMany<${relationEntity}>`)
+					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToMany<${relationEntity}> & ${relationEntity}`)
 					break
 				case 'oneToOne':
-					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToOne<${relationEntity}>`)
+					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToOne<${relationEntity}> & ${relationEntity}`)
 					break
 				case 'manyToOne':
-					lines.push(`\t\t${relation.name}: ManyToOne<${relationEntity}>`)
+					lines.push(`\t\t${relation.name}: ManyToOne<${relationEntity}> & ${relationEntity}[]`)
 					break
 				}
 			}
@@ -107,7 +107,7 @@ export class SchemaManager {
 		}
 		for (const p in source.entities) {
 			const entity = source.entities[p]
-			lines.push(`\tlet ${entity.name}: Entity<${Helper.singular(entity.name)}>`)
+			lines.push(`\tlet ${entity.name}: Queryable<${Helper.singular(entity.name)}>`)
 		}
 		lines.push('}\n')
 		return lines.join('\n')

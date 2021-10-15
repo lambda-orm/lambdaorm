@@ -1,99 +1,102 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
-interface PageClauses<T> {
-	/**  */
-	page(page:number, records:number):void
-}
-interface MapClauses<T> extends PageClauses<T> {
-	/**  */
-	sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): PageClauses<T>
-}
-interface Map2Clauses<T> {
-	/**  */
-	sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any):void
-}
-interface ModifyFilterClauses<T> {
-	/**  */
-	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): void
-}
-interface ModifyIncludeClauses<T> {
-	/**  */
-	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyFilterClauses<T>
-}
-interface ModifyClauses<T> {
-	/**  */
-	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyFilterClauses<T>
-	/**  */
-	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
-}
 
-interface ModifyAllClauses<T> {
-	/**  */
-	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
-}
+// declare class Entity { }
 
-interface HavingClauses<T> extends MapClauses<T> {
-	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-}
-interface FilterIncludeClauses<T> extends HavingClauses<T> {
-	/**  */
-	having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-}
-interface IncludeClauses<T> extends HavingClauses<T> {
-	/**  */
-	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterIncludeClauses<T>
-	/**  */
-	having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-}
-interface FilterClauses<T> extends HavingClauses<T> {
-	/**  */
-	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
-	/**  */
-	having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-}
-interface Entity<T> extends MapClauses<T> {
-	/**  */
-	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
-	/**  */
-	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
-	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-	/**  */
-	having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-	/**  */
-	insert(value?: T|Object): ModifyClauses<T>
-	/**  */
-	update(value?:T|Object): ModifyClauses<T>
-	/**  */
-	updateAll(value?:T|Object): ModifyAllClauses<T>
-	/**  */
-	delete(value?: T|Object): ModifyClauses<T>
-	/**  */
-	deleteAll(value?:T|Object): ModifyAllClauses<T>
-	/**  */
-	sync(value?:T|Object): ModifyClauses<T>
-	// include(...args:string[]):Entity<T>
-	/**  */
-	bulkInsert(value?:T|Object): ModifyAllClauses<T>
-}
+// interface PageClauses<T> {
+// /**  */
+// page(page:number, records:number):void
+// }
+// interface MapClauses<T> extends PageClauses<T> {
+// /**  */
+// sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): PageClauses<T>
+// }
+// interface Map2Clauses<T> {
+// /**  */
+// sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any):void
+// }
+// interface ModifyFilterClauses<T> {
+// /**  */
+// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): void
+// }
+// interface ModifyIncludeClauses<T> {
+// /**  */
+// filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyFilterClauses<T>
+// }
+// interface ModifyClauses<T> {
+// /**  */
+// filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyFilterClauses<T>
+// /**  */
+// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
+// }
+
+// interface ModifyAllClauses<T> {
+// /**  */
+// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
+// }
+
+// interface HavingClauses<T> extends MapClauses<T> {
+// /**  */
+// map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+// /**  */
+// first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+// /**  */
+// last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+// /**  */
+// take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+// /**  */
+// distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+// }
+// interface FilterIncludeClauses<T> extends HavingClauses<T> {
+// /**  */
+// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
+// }
+// interface IncludeClauses<T> extends HavingClauses<T> {
+// /**  */
+// filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterIncludeClauses<T>
+// /**  */
+// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
+// }
+// interface FilterClauses<T> extends HavingClauses<T> {
+// /**  */
+// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
+// /**  */
+// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
+// }
+// interface Queryable<T> extends MapClauses<T> {
+// /**  */
+// filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
+// /**  */
+// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
+// /**  */
+// map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+// /**  */
+// first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+// /**  */
+// last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+// /**  */
+// take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+// /**  */
+// distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+// /**  */
+// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
+// /**  */
+// insert(value?: T|Object): ModifyClauses<T>
+// /**  */
+// update(value?:T|Object): ModifyClauses<T>
+// /**  */
+// updateAll(value?:T|Object): ModifyAllClauses<T>
+// /**  */
+// delete(value?: T|Object): ModifyClauses<T>
+// /**  */
+// deleteAll(value?:T|Object): ModifyAllClauses<T>
+// /**  */
+// sync(value?:T|Object): ModifyClauses<T>
+// // include(...args:string[]):Entity<T>
+// /**  */
+// bulkInsert(value?:T|Object): ModifyAllClauses<T>
+// }
 
 interface RelationMapClauses<T> {
 	/**  */
