@@ -338,10 +338,8 @@ export class Parser {
 			}
 		} else if (this.current + this.next === '=>') {
 			// example: => {name:name}
-			if (this.offset(2) === '=' && this.offset(3) === '>') {
-				isArrow = true
-				this.index += 2 // [=>]
-			}
+			isArrow = true
+			this.index += 2 // [=>]
 		}
 		if (isArrow) {
 			const variable = new Node(variableName, 'var')

@@ -124,10 +124,13 @@ interface Relation<T> {
 	/**  */
 	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
 	/**  */
-	update(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+	update(predicate?:(value:T) => unknown):void
+	// update(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
 	/**  */
-	insert(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+	insert(predicate?:(value:T) => unknown): void
+	// insert(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
 	// update(value:T|Object):void
+
 }
 type OneToMany<T> = Relation<T>
 type OneToOne<T> = Relation<T>

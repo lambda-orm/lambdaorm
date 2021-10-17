@@ -45,8 +45,7 @@ export class LanguageManager {
 	}
 
 	public build (node:Node, schema:SchemaHelper): Operand {
-		const _node = this.complete(node, schema)
-		return this.operandManager.build(_node, schema)
+		return this.operandManager.build(node, schema)
 	}
 
 	public complete (node:Node, schema:SchemaHelper): Node {

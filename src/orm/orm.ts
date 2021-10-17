@@ -189,7 +189,8 @@ export class Orm implements IOrm {
 			if (!operand) {
 				const _schema = this.schemaManager.getInstance(schema)
 				const node = this.parser.parse(expression)
-				operand = this.language.build(node, _schema)
+				const compleNode = this.language.complete(node, _schema)
+				operand = this.language.build(compleNode, _schema)
 				await this._cache.set(key, operand)
 			}
 			return operand as Operand
@@ -228,9 +229,15 @@ export class Orm implements IOrm {
 		}
 		let expression = Helper.clearLambda(func)
 		const node = this.parser.parse(expression)
-		if (node.name.includes('.')) {
+		let aux = node
+		while (aux.type !== 'var') {
+			if (aux.children.length > 0) {
+				aux = aux.children[0]
+			}
+		}
+		if (aux.name.includes('.')) {
 			// Example: model_1.Products.map(p=>p) =>  Products.map(p=>p)
-			node.name = node.name.split('.')[1]
+			aux.name = aux.name.split('.')[1]
 		}
 		expression = this.parser.toExpression(node)
 		return new Expression(this, expression)

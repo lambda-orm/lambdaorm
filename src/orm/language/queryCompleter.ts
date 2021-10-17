@@ -9,10 +9,6 @@ export class QueryCompleter {
 			// Example: Products => Products.map(p=>p)
 			const arrowVariable = new Node('p', 'var')
 			const allFields = new Node('p', 'var')
-			if (node.name.includes('.')) {
-				// Example: model_1.Products.map(p=>p) =>  Products.map(p=>p)
-				node.name = node.name.split('.')[1]
-			}
 			const map = new Node('map', 'arrow', [node, arrowVariable, allFields])
 			this.completeNode(map, schema)
 			return map

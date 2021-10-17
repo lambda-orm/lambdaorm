@@ -1,5 +1,5 @@
 import { orm } from '../../orm'
-import { CustomerRespository, Customer, Order, Categories, Customers } from '../../schemas/northwind'
+import { CustomerRespository, Customer, Order, Categories, Customers, Products, Orders } from '../../schemas/northwind'
 
 // class OrderRepository extends Respository<Order, QryOrder> {
 // constructor (database: string) {
@@ -24,9 +24,17 @@ import { CustomerRespository, Customer, Order, Categories, Customers } from '../
 		// complete = orm.lambda(query).complete('northwind')
 		// console.log(complete)
 
-		const query2 = () => Customers
-		console.log(orm.lambda(query2).expression)
-		console.log(orm.lambda(query2).complete('northwind'))
+		// const query2 = () => Customers
+		// console.log(orm.lambda(query2).expression)
+		// console.log(orm.lambda(query2).complete('northwind'))
+
+		// const query3 = () => Products.map(p => p).page(1, 1)
+		// console.log(orm.lambda(query3).expression)
+		// console.log(orm.lambda(query3).complete('northwind'))
+		const query4 = (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => (p.id === entity.id))
+		// const query4 = (entity: any) => Orders.update(() => ({ name: entity.name })).filter(p => (p.id === entity.id))
+		// // console.log(orm.lambda(query4).expression)
+		console.log(orm.lambda(query4).complete('northwind'))
 
 		// const result = await orm.lambda(query).execute({ name: 'test1', description: 'test1' })
 		// console.log(result)
