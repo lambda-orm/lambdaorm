@@ -10,30 +10,28 @@ import { CustomerRespository, Customer, Order, Categories, Customers, Products, 
 (async () => {
 	try {
 		await orm.init()
-		// const customerRepository = new CustomerRespository('mysql')
-		// const customer = new Customer()
-		// customer.name = 'a'
-		// customer.orders.push(new Order())
-		// const name = 'a'
+		const customerRepository = new CustomerRespository('mysql')
+		const customer = new Customer()
+		customer.name = 'a'
+		customer.orders.push(new Order())
+		const name = 'a'
 
-		// await customerRepository.insert().execute(customer)
+		await customerRepository.insert().execute(customer)
 
-		// let complete = customerRepository.insert(() => ({ name: name })).include(p => p.orders).complete()
-		// console.log(complete)
-		// const query = (name: string, description: string) => Categories.insert(() => ({ name: name, description: description }))
-		// complete = orm.lambda(query).complete('northwind')
-		// console.log(complete)
+		let complete = customerRepository.insert(() => ({ name: name })).include(p => p.orders).complete()
+		console.log(complete)
+		const query = (name: string, description: string) => Categories.insert(() => ({ name: name, description: description }))
+		complete = orm.lambda(query).complete('northwind')
+		console.log(complete)
 
-		// const query2 = () => Customers
-		// console.log(orm.lambda(query2).expression)
-		// console.log(orm.lambda(query2).complete('northwind'))
+		const query2 = () => Customers
+		console.log(orm.lambda(query2).expression)
+		console.log(orm.lambda(query2).complete('northwind'))
 
-		// const query3 = () => Products.map(p => p).page(1, 1)
-		// console.log(orm.lambda(query3).expression)
-		// console.log(orm.lambda(query3).complete('northwind'))
+		const query3 = () => Products.map(p => p).page(1, 1)
+		console.log(orm.lambda(query3).expression)
+		console.log(orm.lambda(query3).complete('northwind'))
 		const query4 = (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => (p.id === entity.id))
-		// const query4 = (entity: any) => Orders.update(() => ({ name: entity.name })).filter(p => (p.id === entity.id))
-		// // console.log(orm.lambda(query4).expression)
 		console.log(orm.lambda(query4).complete('northwind'))
 
 		// const result = await orm.lambda(query).execute({ name: 'test1', description: 'test1' })
