@@ -290,7 +290,7 @@ When the orm.init () method is invoked, the initialization of the orm will be ex
 
 This configuration contains the main sections, paths, databases and schemas.
 
-- In the paths section the src and data paths are defined.
+- In the app section, the general configuration of the application is set, such as the main paths, default database, etc.
 - In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
 - In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
 
@@ -298,7 +298,7 @@ Example:
 
 ```json
 {
-  "paths": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "lab_01" },
+  "app:": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "lab_01" },
   "databases": [
     {
       "name": "lab_01",
