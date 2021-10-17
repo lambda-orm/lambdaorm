@@ -8,11 +8,12 @@ context:
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
+    id: 10
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
+    id: 11
   order:
     customerId: VINET
     employeeId: 5
@@ -65,8 +66,8 @@ test:
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
     errors: 0
-    expression: northwind_1.Categories.insert()
-    completeExpression: northwind_1.Categories.insert({name:name,description:description})
+    expression: Categories.insert()
+    completeExpression: Categories.insert({name:name,description:description})
     model:
       name: string
       description: string
@@ -88,16 +89,45 @@ test:
     result: 9
   - name: insert 2
     context: b
-    sentences: []
-    errors: 1
-    expression: northwind_1.Categories.insert(=>{name:name,description:description})
-    error: >-
-      Error: complete expression:
-      northwind_1.Categories.insert(=>{name:name,description:description})
-      error: Error: expression:
-      northwind_1.Categories.insert(=>{name:name,description:description})
-      error: Error: set parent: insert error: Error: set parent: = error:
-      TypeError: Cannot read property 'name' of null
+    sentences:
+      - dialect: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - dialect: mssql
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:name,:description)
+      - dialect: mysql
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - dialect: oracle
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description)
+          VALUES(:name,:description)
+      - dialect: postgres
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id
+    errors: 0
+    expression: Categories.insert(=>{name:name,description:description})
+    completeExpression: Categories.insert(=>{name:name,description:description})
+    model:
+      name: string
+      description: string
+    parameters:
+      - name: name
+        type: string
+        value: Beverages21
+      - name: description
+        type: string
+        value: Soft drinks, coffees, teas, beers, and ales
+    fields:
+      - name: name
+        type: string
+      - name: description
+        type: string
+    executions:
+      - database: mysql
+      - database: postgres
+    result: 10
   - name: insert 3
     context: c
     sentences:
@@ -118,9 +148,8 @@ test:
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
     errors: 0
-    expression: northwind_1.Categories.insert(entity)
-    completeExpression: >-
-      northwind_1.Categories.insert({name:entity.name,description:entity.description})
+    expression: Categories.insert(entity)
+    completeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
       name: string
       description: string
@@ -139,7 +168,7 @@ test:
     executions:
       - database: mysql
       - database: postgres
-    result: 10
+    result: 11
   - name: insert 4
     context: order
     sentences:
@@ -170,9 +199,9 @@ test:
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
           AS id
     errors: 0
-    expression: northwind_1.Orders.insert()
+    expression: Orders.insert()
     completeExpression: >-
-      northwind_1.Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
       customerId: string
       employeeId: integer
@@ -308,9 +337,9 @@ test:
           Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
     errors: 0
-    expression: northwind_1.Orders.insert().include(p=>p.details)
+    expression: Orders.insert().include(p=>p.details)
     completeExpression: >-
-      northwind_1.Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
       customerId: string
       employeeId: integer
@@ -472,9 +501,9 @@ test:
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
     errors: 0
-    expression: northwind_1.Orders.insert().include(p=>[p.details,p.customer])
+    expression: Orders.insert().include(p=>[p.details,p.customer])
     completeExpression: >-
-      northwind_1.Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
     model:
       customerId: string
       employeeId: integer
@@ -576,4 +605,4 @@ test:
       - database: mysql
       - database: postgres
     result: 833
-errors: 1
+errors: 0

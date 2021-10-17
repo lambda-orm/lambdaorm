@@ -1632,43 +1632,43 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  OFFSET 0 LIMIT 1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.map(p=>p).page(1,1)
+    expression: Products.map(p=>p).page(1,1)
     completeExpression: >-
-      northwind_1.Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
       id: integer
       name: string
@@ -1720,43 +1720,43 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  OFFSET 0 LIMIT 1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.page(1,1)
+    expression: Products.page(1,1)
     completeExpression: >-
-      northwind_1.Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
       id: integer
       name: string
@@ -1809,48 +1809,48 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID =
           :id ORDER BY [id] 
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
           :id ORDER BY "id" 
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
           $1 ORDER BY "id" 
     errors: 0
-    expression: northwind_1.Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)
+    expression: Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)
     completeExpression: >-
-      northwind_1.Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>p.id)
+      Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>p.id)
     model:
       id: integer
       name: string
@@ -1906,48 +1906,48 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID =
           :id ORDER BY [id] 
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
           :id ORDER BY "id" 
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  WHERE n.ProductID =
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
           $1 ORDER BY "id" 
     errors: 0
-    expression: northwind_1.Products.filter(p=>(p.id===id)).sort(p=>p.id)
+    expression: Products.filter(p=>(p.id===id)).sort(p=>p.id)
     completeExpression: >-
-      northwind_1.Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>p.id)
+      Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>p.id)
     model:
       id: integer
       name: string
@@ -2003,27 +2003,27 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category_name` FROM Products n INNER JOIN
-          Categories c ON c.CategoryID = n.CategoryID 
+          SELECT c.CategoryName AS `category_name` FROM Products p INNER JOIN
+          Categories c ON c.CategoryID = p.CategoryID 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category_name] FROM Products n INNER JOIN
-          Categories c ON c.CategoryID = n.CategoryID 
+          SELECT c.CategoryName AS [category_name] FROM Products p INNER JOIN
+          Categories c ON c.CategoryID = p.CategoryID 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category_name` FROM Products n INNER JOIN
-          Categories c ON c.CategoryID = n.CategoryID 
+          SELECT c.CategoryName AS `category_name` FROM Products p INNER JOIN
+          Categories c ON c.CategoryID = p.CategoryID 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category_name" FROM Products n INNER JOIN
-          Categories c ON c.CategoryID = n.CategoryID 
+          SELECT c.CategoryName AS "category_name" FROM Products p INNER JOIN
+          Categories c ON c.CategoryID = p.CategoryID 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category_name" FROM Products n INNER JOIN
-          Categories c ON c.CategoryID = n.CategoryID 
+          SELECT c.CategoryName AS "category_name" FROM Products p INNER JOIN
+          Categories c ON c.CategoryID = p.CategoryID 
     errors: 1
-    expression: northwind_1.Products.map(p=>p.category.name)
-    completeExpression: northwind_1.Products.map(p=>{category_name:p.category.name})
+    expression: Products.map(p=>p.category.name)
+    completeExpression: Products.map(p=>{category_name:p.category.name})
     model:
       category_name: string
     parameters: []
@@ -2194,39 +2194,39 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, n.ProductName AS `name`,
-          n.QuantityPerUnit AS `quantity`, n.UnitsInStock AS `inStock` FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY `name` 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], n.ProductName AS [name],
-          n.QuantityPerUnit AS [quantity], n.UnitsInStock AS [inStock] FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
+          SELECT c.CategoryName AS [category], p.ProductName AS [name],
+          p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY [name] 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, n.ProductName AS `name`,
-          n.QuantityPerUnit AS `quantity`, n.UnitsInStock AS `inStock` FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY `name` 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", n.ProductName AS "name",
-          n.QuantityPerUnit AS "quantity", n.UnitsInStock AS "inStock" FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY "name" 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", n.ProductName AS "name",
-          n.QuantityPerUnit AS "quantity", n.UnitsInStock AS "inStock" FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY "name" 
     errors: 1
     expression: >-
-      northwind_1.Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
     completeExpression: >-
-      northwind_1.Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
     model:
       category: string
       name: string
@@ -2868,39 +2868,39 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, n.ProductName AS `name`,
-          n.QuantityPerUnit AS `quantity`, n.UnitsInStock AS `inStock` FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          WHERE n.Discontinued <> FALSE ORDER BY `category`, `name` desc 
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], n.ProductName AS [name],
-          n.QuantityPerUnit AS [quantity], n.UnitsInStock AS [inStock] FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          WHERE n.Discontinued <> FALSE ORDER BY [category], [name] desc 
+          SELECT c.CategoryName AS [category], p.ProductName AS [name],
+          p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          WHERE p.Discontinued <> FALSE ORDER BY [category], [name] desc 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, n.ProductName AS `name`,
-          n.QuantityPerUnit AS `quantity`, n.UnitsInStock AS `inStock` FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          WHERE n.Discontinued <> FALSE ORDER BY `category`, `name` desc 
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", n.ProductName AS "name",
-          n.QuantityPerUnit AS "quantity", n.UnitsInStock AS "inStock" FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          WHERE n.Discontinued <> FALSE ORDER BY "category", "name" desc 
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", n.ProductName AS "name",
-          n.QuantityPerUnit AS "quantity", n.UnitsInStock AS "inStock" FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          WHERE n.Discontinued <> FALSE ORDER BY "category", "name" desc 
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc 
     errors: 1
     expression: >-
-      northwind_1.Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
+      Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
     completeExpression: >-
-      northwind_1.Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
+      Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
     model:
       category: string
       name: string
@@ -2992,48 +2992,48 @@ test:
       - dialect: mariadb
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
-          n.UnitPrice AS `unitPrice`, n.Quantity AS `quantity` FROM `Order
-          Details` n INNER JOIN Orders o ON o.OrderID = n.OrderID INNER JOIN
-          Products p ON p.ProductID = n.ProductID INNER JOIN Categories c ON
-          c.CategoryID = p.CategoryID WHERE (o.ShippedDate BETWEEN ? AND ? AND
-          n.UnitPrice > ?) ORDER BY `category`, `product` 
+          o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
+          Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
+          o.UnitPrice > ?) ORDER BY `category`, `product` 
       - dialect: mssql
         sentence: >-
           SELECT c.CategoryName AS [category], p.ProductName AS [product],
-          n.UnitPrice AS [unitPrice], n.Quantity AS [quantity] FROM [Order
-          Details] n INNER JOIN Orders o ON o.OrderID = n.OrderID INNER JOIN
-          Products p ON p.ProductID = n.ProductID INNER JOIN Categories c ON
-          c.CategoryID = p.CategoryID WHERE (o.ShippedDate BETWEEN :from AND :to
-          AND n.UnitPrice > :minValue) ORDER BY [category], [product] 
+          o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order
+          Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND
+          :to AND o.UnitPrice > :minValue) ORDER BY [category], [product] 
       - dialect: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
-          n.UnitPrice AS `unitPrice`, n.Quantity AS `quantity` FROM `Order
-          Details` n INNER JOIN Orders o ON o.OrderID = n.OrderID INNER JOIN
-          Products p ON p.ProductID = n.ProductID INNER JOIN Categories c ON
-          c.CategoryID = p.CategoryID WHERE (o.ShippedDate BETWEEN ? AND ? AND
-          n.UnitPrice > ?) ORDER BY `category`, `product` 
+          o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
+          Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
+          o.UnitPrice > ?) ORDER BY `category`, `product` 
       - dialect: oracle
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "product",
-          n.UnitPrice AS "unitPrice", n.Quantity AS "quantity" FROM "Order
-          Details" n INNER JOIN Orders o ON o.OrderID = n.OrderID INNER JOIN
-          Products p ON p.ProductID = n.ProductID INNER JOIN Categories c ON
-          c.CategoryID = p.CategoryID WHERE (o.ShippedDate BETWEEN :from AND :to
-          AND n.UnitPrice > :minValue) ORDER BY "category", "product" 
+          o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
+          Details" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND
+          :to AND o.UnitPrice > :minValue) ORDER BY "category", "product" 
       - dialect: postgres
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "product",
-          n.UnitPrice AS "unitPrice", n.Quantity AS "quantity" FROM "Order
-          Details" n INNER JOIN Orders o ON o.OrderID = n.OrderID INNER JOIN
-          Products p ON p.ProductID = n.ProductID INNER JOIN Categories c ON
-          c.CategoryID = p.CategoryID WHERE (o.ShippedDate BETWEEN $1 AND $2 AND
-          n.UnitPrice > $3) ORDER BY "category", "product" 
+          o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
+          Details" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN $1 AND $2
+          AND o.UnitPrice > $3) ORDER BY "category", "product" 
     errors: 1
     expression: >-
-      northwind_1.OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])
+      OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])
     completeExpression: >-
-      northwind_1.OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])
+      OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])
     model:
       category: string
       product: string
@@ -9572,34 +9572,34 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.OrderID AS `orderId`, SUM(((n.UnitPrice * (n.Quantity * (1 -
-          (n.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` n 
-          GROUP BY n.OrderID ORDER BY `orderId` 
+          SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
+          GROUP BY o.OrderID ORDER BY `orderId` 
       - dialect: mssql
         sentence: >-
-          SELECT n.OrderID AS [orderId], SUM(((n.UnitPrice * (n.Quantity * (1 -
-          (n.Discount / 100)))) * 100)) AS [subTotal] FROM [Order Details] n 
-          GROUP BY n.OrderID ORDER BY [orderId] 
+          SELECT o.OrderID AS [orderId], SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS [subTotal] FROM [Order Details] o 
+          GROUP BY o.OrderID ORDER BY [orderId] 
       - dialect: mysql
         sentence: >-
-          SELECT n.OrderID AS `orderId`, SUM(((n.UnitPrice * (n.Quantity * (1 -
-          (n.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` n 
-          GROUP BY n.OrderID ORDER BY `orderId` 
+          SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
+          GROUP BY o.OrderID ORDER BY `orderId` 
       - dialect: oracle
         sentence: >-
-          SELECT n.OrderID AS "orderId", SUM(((n.UnitPrice * (n.Quantity * (1 -
-          (n.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" n 
-          GROUP BY n.OrderID ORDER BY "orderId" 
+          SELECT o.OrderID AS "orderId", SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" o 
+          GROUP BY o.OrderID ORDER BY "orderId" 
       - dialect: postgres
         sentence: >-
-          SELECT n.OrderID AS "orderId", SUM(((n.UnitPrice * (n.Quantity * (1 -
-          (n.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" n 
-          GROUP BY n.OrderID ORDER BY "orderId" 
+          SELECT o.OrderID AS "orderId", SUM(((o.UnitPrice * (o.Quantity * (1 -
+          (o.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" o 
+          GROUP BY o.OrderID ORDER BY "orderId" 
     errors: 0
     expression: >-
-      northwind_1.OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)
+      OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)
     completeExpression: >-
-      northwind_1.OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)
+      OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)
     model:
       orderId: integer
       subTotal: any
@@ -11277,43 +11277,43 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  OFFSET 0 LIMIT 1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.page(1,1)
+    expression: Products.page(1,1)
     completeExpression: >-
-      northwind_1.Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
       id: integer
       name: string
@@ -11365,48 +11365,48 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  ORDER BY `id` LIMIT
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` LIMIT
           0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  ORDER BY [id] LIMIT
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  ORDER BY [id] LIMIT
           0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  ORDER BY `id` LIMIT
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` LIMIT
           0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  ORDER BY "id" LIMIT
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" LIMIT
           0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  ORDER BY "id" OFFSET
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" OFFSET
           0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.first(p=>p)
+    expression: Products.first(p=>p)
     completeExpression: >-
-      northwind_1.Products.sort(p=>p.id).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+      Products.sort(p=>p.id).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
     model:
       id: integer
       name: string
@@ -11458,48 +11458,48 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  ORDER BY `id` desc
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc
           LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  ORDER BY [id] desc
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  ORDER BY [id] desc
           LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  ORDER BY `id` desc
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc
           LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  ORDER BY "id" desc
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" desc
           LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  ORDER BY "id" desc
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" desc
           OFFSET 0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.last(p=>p)
+    expression: Products.last(p=>p)
     completeExpression: >-
-      northwind_1.Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+      Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
     model:
       id: integer
       name: string
@@ -11550,18 +11550,18 @@ test:
   - name: query 14
     sentences:
       - dialect: mariadb
-        sentence: 'SELECT n.* FROM Products n  LIMIT 0,1  '
+        sentence: 'SELECT p.* FROM Products p  LIMIT 0,1  '
       - dialect: mssql
-        sentence: 'SELECT n.* FROM Products n  LIMIT 0,1  '
+        sentence: 'SELECT p.* FROM Products p  LIMIT 0,1  '
       - dialect: mysql
-        sentence: 'SELECT n.* FROM Products n  LIMIT 0,1  '
+        sentence: 'SELECT p.* FROM Products p  LIMIT 0,1  '
       - dialect: oracle
-        sentence: 'SELECT n.* FROM Products n  LIMIT 0,1  '
+        sentence: 'SELECT p.* FROM Products p  LIMIT 0,1  '
       - dialect: postgres
-        sentence: 'SELECT n.* FROM Products n  OFFSET 0 LIMIT 1  '
+        sentence: 'SELECT p.* FROM Products p  OFFSET 0 LIMIT 1  '
     errors: 1
-    expression: northwind_1.Products.take(p=>p)
-    completeExpression: northwind_1.Products.page(1,1).map(p=>p)
+    expression: Products.take(p=>p)
+    completeExpression: Products.page(1,1).map(p=>p)
     model:
       '*': any
     parameters: []
@@ -11598,43 +11598,43 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  LIMIT 0,1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  OFFSET 0 LIMIT 1  
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.page(1,1)
+    expression: Products.page(1,1)
     completeExpression: >-
-      northwind_1.Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
     model:
       id: integer
       name: string
@@ -11686,39 +11686,39 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, n.ProductName AS `name`,
-          n.QuantityPerUnit AS `quantity`, n.UnitsInStock AS `inStock` FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          ORDER BY n.ProductID LIMIT 0,1  
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], n.ProductName AS [name],
-          n.QuantityPerUnit AS [quantity], n.UnitsInStock AS [inStock] FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          ORDER BY n.ProductID LIMIT 0,1  
+          SELECT c.CategoryName AS [category], p.ProductName AS [name],
+          p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, n.ProductName AS `name`,
-          n.QuantityPerUnit AS `quantity`, n.UnitsInStock AS `inStock` FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          ORDER BY n.ProductID LIMIT 0,1  
+          SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
+          p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", n.ProductName AS "name",
-          n.QuantityPerUnit AS "quantity", n.UnitsInStock AS "inStock" FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          ORDER BY n.ProductID LIMIT 0,1  
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", n.ProductName AS "name",
-          n.QuantityPerUnit AS "quantity", n.UnitsInStock AS "inStock" FROM
-          Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID
-          ORDER BY n.ProductID OFFSET 0 LIMIT 1  
+          SELECT c.CategoryName AS "category", p.ProductName AS "name",
+          p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+          Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
+          ORDER BY p.ProductID OFFSET 0 LIMIT 1  
     errors: 0
     expression: >-
-      northwind_1.Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
+      Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
     completeExpression: >-
-      northwind_1.Products.sort(p=>p.id).page(1,1).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
+      Products.sort(p=>p.id).page(1,1).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
     model:
       category: string
       name: string
@@ -11746,48 +11746,48 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  WHERE n.Discontinued
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY `id` desc LIMIT 0,1  
       - dialect: mssql
         sentence: >-
-          SELECT n.ProductID AS [id], n.ProductName AS [name], n.SupplierID AS
-          [supplierId], n.CategoryID AS [categoryId], n.QuantityPerUnit AS
-          [quantity], n.UnitPrice AS [price], n.UnitsInStock AS [inStock],
-          n.UnitsOnOrder AS [onOrder], n.ReorderLevel AS [reorderLevel],
-          n.Discontinued AS [discontinued] FROM Products n  WHERE n.Discontinued
+          SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
+          [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
+          [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
+          p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
+          p.Discontinued AS [discontinued] FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY [id] desc LIMIT 0,1  
       - dialect: mysql
         sentence: >-
-          SELECT n.ProductID AS `id`, n.ProductName AS `name`, n.SupplierID AS
-          `supplierId`, n.CategoryID AS `categoryId`, n.QuantityPerUnit AS
-          `quantity`, n.UnitPrice AS `price`, n.UnitsInStock AS `inStock`,
-          n.UnitsOnOrder AS `onOrder`, n.ReorderLevel AS `reorderLevel`,
-          n.Discontinued AS `discontinued` FROM Products n  WHERE n.Discontinued
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY `id` desc LIMIT 0,1  
       - dialect: oracle
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  WHERE n.Discontinued
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY "id" desc LIMIT 0,1  
       - dialect: postgres
         sentence: >-
-          SELECT n.ProductID AS "id", n.ProductName AS "name", n.SupplierID AS
-          "supplierId", n.CategoryID AS "categoryId", n.QuantityPerUnit AS
-          "quantity", n.UnitPrice AS "price", n.UnitsInStock AS "inStock",
-          n.UnitsOnOrder AS "onOrder", n.ReorderLevel AS "reorderLevel",
-          n.Discontinued AS "discontinued" FROM Products n  WHERE n.Discontinued
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued" FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY "id" desc OFFSET 0 LIMIT 1  
     errors: 0
-    expression: northwind_1.Products.filter(p=>(p.discontinued!==false)).last(p=>p)
+    expression: Products.filter(p=>(p.discontinued!==false)).last(p=>p)
     completeExpression: >-
-      northwind_1.Products.filter(p=>(p.discontinued!==false)).sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+      Products.filter(p=>(p.discontinued!==false)).sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
     model:
       id: integer
       name: string
@@ -11839,48 +11839,48 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT DISTINCT n.ProductID AS `id`, n.ProductName AS `name`,
-          n.SupplierID AS `supplierId`, n.CategoryID AS `categoryId`,
-          n.QuantityPerUnit AS `quantity`, n.UnitPrice AS `price`,
-          n.UnitsInStock AS `inStock`, n.UnitsOnOrder AS `onOrder`,
-          n.ReorderLevel AS `reorderLevel`, n.Discontinued AS `discontinued`
-          FROM Products n  
+          SELECT DISTINCT p.ProductID AS `id`, p.ProductName AS `name`,
+          p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
+          p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
+          p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
+          p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued`
+          FROM Products p  
       - dialect: mssql
         sentence: >-
-          SELECT DISTINCT n.ProductID AS [id], n.ProductName AS [name],
-          n.SupplierID AS [supplierId], n.CategoryID AS [categoryId],
-          n.QuantityPerUnit AS [quantity], n.UnitPrice AS [price],
-          n.UnitsInStock AS [inStock], n.UnitsOnOrder AS [onOrder],
-          n.ReorderLevel AS [reorderLevel], n.Discontinued AS [discontinued]
-          FROM Products n  
+          SELECT DISTINCT p.ProductID AS [id], p.ProductName AS [name],
+          p.SupplierID AS [supplierId], p.CategoryID AS [categoryId],
+          p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price],
+          p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder],
+          p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued]
+          FROM Products p  
       - dialect: mysql
         sentence: >-
-          SELECT DISTINCT n.ProductID AS `id`, n.ProductName AS `name`,
-          n.SupplierID AS `supplierId`, n.CategoryID AS `categoryId`,
-          n.QuantityPerUnit AS `quantity`, n.UnitPrice AS `price`,
-          n.UnitsInStock AS `inStock`, n.UnitsOnOrder AS `onOrder`,
-          n.ReorderLevel AS `reorderLevel`, n.Discontinued AS `discontinued`
-          FROM Products n  
+          SELECT DISTINCT p.ProductID AS `id`, p.ProductName AS `name`,
+          p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
+          p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
+          p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
+          p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued`
+          FROM Products p  
       - dialect: oracle
         sentence: >-
-          SELECT DISTINCT n.ProductID AS "id", n.ProductName AS "name",
-          n.SupplierID AS "supplierId", n.CategoryID AS "categoryId",
-          n.QuantityPerUnit AS "quantity", n.UnitPrice AS "price",
-          n.UnitsInStock AS "inStock", n.UnitsOnOrder AS "onOrder",
-          n.ReorderLevel AS "reorderLevel", n.Discontinued AS "discontinued"
-          FROM Products n  
+          SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
+          p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
+          p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
+          p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
+          p.ReorderLevel AS "reorderLevel", p.Discontinued AS "discontinued"
+          FROM Products p  
       - dialect: postgres
         sentence: >-
-          SELECT DISTINCT n.ProductID AS "id", n.ProductName AS "name",
-          n.SupplierID AS "supplierId", n.CategoryID AS "categoryId",
-          n.QuantityPerUnit AS "quantity", n.UnitPrice AS "price",
-          n.UnitsInStock AS "inStock", n.UnitsOnOrder AS "onOrder",
-          n.ReorderLevel AS "reorderLevel", n.Discontinued AS "discontinued"
-          FROM Products n  
+          SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
+          p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
+          p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
+          p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
+          p.ReorderLevel AS "reorderLevel", p.Discontinued AS "discontinued"
+          FROM Products p  
     errors: 1
-    expression: northwind_1.Products.distinct(p=>p)
+    expression: Products.distinct(p=>p)
     completeExpression: >-
-      northwind_1.Products.map(p=>distinct({id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}))
+      Products.map(p=>distinct({id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}))
     model:
       id: integer
       name: string
@@ -13465,27 +13465,27 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS `category_name` FROM Products n
-          INNER JOIN Categories c ON c.CategoryID = n.CategoryID 
+          SELECT DISTINCT c.CategoryName AS `category_name` FROM Products p
+          INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
       - dialect: mssql
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS [category_name] FROM Products n
-          INNER JOIN Categories c ON c.CategoryID = n.CategoryID 
+          SELECT DISTINCT c.CategoryName AS [category_name] FROM Products p
+          INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
       - dialect: mysql
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS `category_name` FROM Products n
-          INNER JOIN Categories c ON c.CategoryID = n.CategoryID 
+          SELECT DISTINCT c.CategoryName AS `category_name` FROM Products p
+          INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
       - dialect: oracle
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS "category_name" FROM Products n
-          INNER JOIN Categories c ON c.CategoryID = n.CategoryID 
+          SELECT DISTINCT c.CategoryName AS "category_name" FROM Products p
+          INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
       - dialect: postgres
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS "category_name" FROM Products n
-          INNER JOIN Categories c ON c.CategoryID = n.CategoryID 
+          SELECT DISTINCT c.CategoryName AS "category_name" FROM Products p
+          INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
     errors: 1
-    expression: northwind_1.Products.distinct(p=>p.category.name)
-    completeExpression: northwind_1.Products.map(p=>distinct({category_name:p.category.name}))
+    expression: Products.distinct(p=>p.category.name)
+    completeExpression: Products.map(p=>distinct({category_name:p.category.name}))
     model:
       category_name: string
     parameters: []
@@ -13519,34 +13519,34 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT DISTINCT n.QuantityPerUnit AS `quantity`, c.CategoryName AS
-          `category` FROM Products n INNER JOIN Categories c ON c.CategoryID =
-          n.CategoryID ORDER BY `category` 
+          SELECT DISTINCT p.QuantityPerUnit AS `quantity`, c.CategoryName AS
+          `category` FROM Products p INNER JOIN Categories c ON c.CategoryID =
+          p.CategoryID ORDER BY `category` 
       - dialect: mssql
         sentence: >-
-          SELECT DISTINCT n.QuantityPerUnit AS [quantity], c.CategoryName AS
-          [category] FROM Products n INNER JOIN Categories c ON c.CategoryID =
-          n.CategoryID ORDER BY [category] 
+          SELECT DISTINCT p.QuantityPerUnit AS [quantity], c.CategoryName AS
+          [category] FROM Products p INNER JOIN Categories c ON c.CategoryID =
+          p.CategoryID ORDER BY [category] 
       - dialect: mysql
         sentence: >-
-          SELECT DISTINCT n.QuantityPerUnit AS `quantity`, c.CategoryName AS
-          `category` FROM Products n INNER JOIN Categories c ON c.CategoryID =
-          n.CategoryID ORDER BY `category` 
+          SELECT DISTINCT p.QuantityPerUnit AS `quantity`, c.CategoryName AS
+          `category` FROM Products p INNER JOIN Categories c ON c.CategoryID =
+          p.CategoryID ORDER BY `category` 
       - dialect: oracle
         sentence: >-
-          SELECT DISTINCT n.QuantityPerUnit AS "quantity", c.CategoryName AS
-          "category" FROM Products n INNER JOIN Categories c ON c.CategoryID =
-          n.CategoryID ORDER BY "category" 
+          SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
+          "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
+          p.CategoryID ORDER BY "category" 
       - dialect: postgres
         sentence: >-
-          SELECT DISTINCT n.QuantityPerUnit AS "quantity", c.CategoryName AS
-          "category" FROM Products n INNER JOIN Categories c ON c.CategoryID =
-          n.CategoryID ORDER BY "category" 
+          SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
+          "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
+          p.CategoryID ORDER BY "category" 
     errors: 1
     expression: >-
-      northwind_1.Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>p.category)
+      Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>p.category)
     completeExpression: >-
-      northwind_1.Products.map(p=>distinct({quantity:p.quantity,category:p.category.name})).sort(p=>p.category)
+      Products.map(p=>distinct({quantity:p.quantity,category:p.category.name})).sort(p=>p.category)
     model:
       quantity: string
       category: string
@@ -13851,29 +13851,27 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS `category` FROM Products n INNER
-          JOIN Categories c ON c.CategoryID = n.CategoryID ORDER BY `category` 
+          SELECT DISTINCT c.CategoryName AS `category` FROM Products p INNER
+          JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `category` 
       - dialect: mssql
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS [category] FROM Products n INNER
-          JOIN Categories c ON c.CategoryID = n.CategoryID ORDER BY [category] 
+          SELECT DISTINCT c.CategoryName AS [category] FROM Products p INNER
+          JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY [category] 
       - dialect: mysql
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS `category` FROM Products n INNER
-          JOIN Categories c ON c.CategoryID = n.CategoryID ORDER BY `category` 
+          SELECT DISTINCT c.CategoryName AS `category` FROM Products p INNER
+          JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `category` 
       - dialect: oracle
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS "category" FROM Products n INNER
-          JOIN Categories c ON c.CategoryID = n.CategoryID ORDER BY "category" 
+          SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
+          JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY "category" 
       - dialect: postgres
         sentence: >-
-          SELECT DISTINCT c.CategoryName AS "category" FROM Products n INNER
-          JOIN Categories c ON c.CategoryID = n.CategoryID ORDER BY "category" 
+          SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
+          JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY "category" 
     errors: 0
-    expression: >-
-      northwind_1.Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)
-    completeExpression: >-
-      northwind_1.Products.map(p=>distinct({category:p.category.name})).sort(p=>p.category)
+    expression: Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)
+    completeExpression: Products.map(p=>distinct({category:p.category.name})).sort(p=>p.category)
     model:
       category: string
     parameters: []
