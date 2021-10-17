@@ -8,23 +8,23 @@ Is an ORM that uses the syntax of lambda expressions in javascript to write the 
 
 - Data mapper pattern
 - Repositories
-- indices
-- transactions
-- using multiple database connections
-- sentences
-	- javascript lambda expressions
-	- string expressions
-	- implicit joins and group by
-	- include
+- Indices
+- Transactions
+- Using multiple database connections
+- Expressions
+	- Based on javascript lambda
+	- String expressions
+	- Implicit joins and group by
+	- Eager loading using the Include() method.
 - Configuration
-	- schema declaration in models or separate configuration files
-	- configuration in json or yml formats
-	- environment variables
+	- Schema declaration in models or separate configuration files
+	- Configuration in json or yml formats
+	- Environment variables
 - CLI
-	- init and update commands
-	- run expressions
-	- sync and drop schema
-	- imports and exports
+	- Init and update commands
+	- Run expressions
+	- Sync and drop schema
+	- Imports and exports
 
 ## Example:
 
