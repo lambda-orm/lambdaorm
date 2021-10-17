@@ -11,7 +11,6 @@ import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
 import { Helper } from './helper'
-import { type } from 'os'
 
 /**
  * Facade through which you can access all the functionalities of the library.

@@ -24,15 +24,15 @@ class CustomerRespository extends Respository<Customer, QryCustomer> {
 (async () => {
 	try {
 		await orm.init()
-		// const customerRepository = new CustomerRespository('mysql')
-		// const customer = new Customer()
-		// customer.name = 'a'
-		// customer.orders.push(new Order())
-		// const name = 'a'
-		// let complete = customerRepository.insert(() => ({ name: name })).include(p => p.orders).complete()
-		// console.log(complete)
+		const customerRepository = new CustomerRespository('mysql')
+		const customer = new Customer()
+		customer.name = 'a'
+		customer.orders.push(new Order())
+		const name = 'a'
+		let complete = customerRepository.insert(() => ({ name: name })).include(p => p.orders).complete()
+		console.log(complete)
 		const query = (name: string, description: string) => Categories.insert(() => ({ name: name, description: description }))
-		const complete = orm.lambda(query).complete('northwind')
+		complete = orm.lambda(query).complete('northwind')
 		console.log(complete)
 
 		const result = await orm.lambda(query).execute({ name: 'test1', description: 'test1' })
