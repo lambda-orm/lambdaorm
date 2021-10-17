@@ -226,7 +226,14 @@ export class Orm implements IOrm {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
-		return new Expression(this, Helper.clearLambda(func))
+		let expression = Helper.clearLambda(func)
+		const node = this.parser.parse(expression)
+		if (node.name.includes('.')) {
+			// Example: model_1.Products.map(p=>p) =>  Products.map(p=>p)
+			node.name = node.name.split('.')[1]
+		}
+		expression = this.parser.toExpression(node)
+		return new Expression(this, expression)
 	}
 
 	public async eval (expression: string, context: any, schema: string): Promise<any> {
