@@ -1,12 +1,18 @@
 import { orm, Respository } from '../../orm'
+import { Customer, Order } from '../../model'
 
-class Customers extends Respository<Customer, QryCustomer> {
+class CustomerRespository extends Respository<Customer, QryCustomer> {
 	constructor (database: string) {
 		super('Customers', database)
 	}
 
 	async findByName (firstName: string, lastName: string):Promise<Customer[]> {
-		return await this.query.filter(p => p.name === firstName).execute({ firstName: firstName, lastName: lastName })
+		return await this.query().filter(p => p.name === firstName).execute({ firstName: firstName, lastName: lastName })
+	}
+
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public lambda (func: Function):string {
+		return orm.lambda(func).complete('')
 	}
 }
 // class OrderRepository extends Respository<Order, QryOrder> {
@@ -18,27 +24,40 @@ class Customers extends Respository<Customer, QryCustomer> {
 (async () => {
 	try {
 		await orm.init()
-		const customers = new Customers('mysql')
-		const customer = new Customer()
-		customer.name = 'a'
-		customer.orders.push(new Order())
-		customers.insert.include(p => p.orders).execute(customer)
+		// const customerRepository = new CustomerRespository('mysql')
+		// const customer = new Customer()
+		// customer.name = 'a'
+		// customer.orders.push(new Order())
+		// const name = 'a'
+		// let complete = customerRepository.insert(() => ({ name: name })).include(p => p.orders).complete()
+		// console.log(complete)
+		const query = (name: string, description: string) => Categories.insert(() => ({ name: name, description: description }))
+		const complete = orm.lambda(query).complete('northwind')
+		console.log(complete)
 
-		// const orderRespository = new OrderRepository('mysql')
-		// orderRespository.save(customer.orders, p => p.details)
+		const result = await orm.lambda(query).execute({ name: 'test1', description: 'test1' })
+		console.log(result)
+		// complete = customerRepository.update(p => [p.name, p.id]).include(p => p.orders).complete()
+		// console.log(complete)
 
-		const result2 = await customers.query.filter(p => p.name !== 'XX').include(p => p.orders.map(p => p.orderDate)).execute()
+		// // const orderRespository = new OrderRepository('mysql')
+		// // orderRespository.save(customer.orders, p => p.details)
 
-		// const a = 'a'
-		// customerRepository.filter(p => p.name === a)
+		// complete = customerRepository.query().filter(p => p.name !== 'XX').include(p => p.orders.map(p => p.orderDate)).complete()
+		// console.log(complete)
 
-		// customerRepository.query().filter(p => p.name === a).include(p => p.orders)
+		// const result2 = await customerRepository.query().filter(p => p.name !== 'XX').include(p => p.orders.map(p => p.orderDate)).execute()
 
-		console.log(JSON.stringify(result2, null, 2))
+		// // const a = 'a'
+		// // customerRepository.filter(p => p.name === a)
 
-		const query = () => Customers
-		const result = await orm.lambda(query).execute('mysql')
-		console.log(JSON.stringify(result, null, 2))
+		// // customerRepository.query().filter(p => p.name === a).include(p => p.orders)
+
+		// console.log(JSON.stringify(result2, null, 2))
+
+		// const query2 = () => Customers
+		// const result = await orm.lambda(query2).execute({}, 'mysql')
+		// console.log(JSON.stringify(result, null, 2))
 	} catch (error) {
 		console.error(error)
 	} finally {

@@ -1,7 +1,7 @@
 app:
   src: src
   data: data
-  defaulDatabase: source
+  defaultDatabase: source
 databases:
   - name: source
     schema: northwind

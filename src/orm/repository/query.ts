@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { IExpressionActions } from './expressionActions'
 
 class QueryAction {
@@ -75,12 +76,12 @@ export class ModifyClauses<T> extends QueryAction {
 	}
 }
 
-// class ModifyAllClauses<T> extends QueryAction {
-// /**  */
-// include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
-// return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
-// }
-// }
+export class ModifyAllClauses<T> extends QueryAction {
+/**  */
+	include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
+		return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
+	}
+}
 
 class HavingClauses<T> extends MapClauses<T> {
 	/**  */
@@ -178,83 +179,82 @@ export class Queryable<T> extends MapClauses<T> {
 	}
 
 	/**  */
-	insert (): ModifyClauses<T> {
-		return new ModifyClauses(this.actions, `${this.expression}.insert()`)
+	insert(): ModifyClauses<T>
+	/**  */
+	insert(predicate: (value:T|Object) => unknown): ModifyClauses<T>
+	insert (predicate?: (value:T|Object) => unknown): ModifyClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyClauses(this.actions, `${this.expression}.insert()`)
+		} else {
+			return new ModifyClauses(this.actions, `${this.expression}.insert(${predicate.toString()})`)
+		}
 	}
 
-	update (): ModifyClauses<T> {
-		return new ModifyClauses(this.actions, `${this.expression}.update()`)
+	/**  */
+	update(): ModifyClauses<T>
+	/**  */
+	update(predicate: (value:T|Object) => unknown): ModifyClauses<T>
+	update (predicate?: (value:T|Object) => unknown): ModifyClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyClauses(this.actions, `${this.expression}.update()`)
+		} else {
+			return new ModifyClauses(this.actions, `${this.expression}.update(${predicate.toString()})`)
+		}
 	}
 
-	delete (): ModifyClauses<T> {
-		return new ModifyClauses(this.actions, `${this.expression}.delete()`)
+	/**  */
+	updateAll(): ModifyClauses<T>
+	/**  */
+	updateAll(predicate: (value:T) => unknown): ModifyClauses<T>
+	public updateAll (predicate?:(value:T) => unknown): ModifyAllClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyAllClauses(this.actions, `${this.expression}.updateAll()`)
+		} else {
+			return new ModifyAllClauses(this.actions, `${this.expression}.updateAll(${predicate.toString()})`)
+		}
 	}
 
-	bulkInsert (): ModifyClauses<T> {
-		return new ModifyClauses(this.actions, `${this.expression}.bulkInsert()`)
+	/**  */
+	merge(): ModifyClauses<T>
+	/**  */
+	merge(predicate: (value:T) => unknown): ModifyClauses<T>
+	merge (predicate?: (value:T)=> unknown): ModifyClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyClauses(this.actions, `${this.expression}.merge()`)
+		} else {
+			return new ModifyClauses(this.actions, `${this.expression}.merge(${predicate.toString()})`)
+		}
 	}
 
-	// include(...args:string[]):Entity<T>
+	/**  */
+	delete(): ModifyClauses<T>
+	/**  */
+	delete(predicate: (value:T) => unknown): ModifyClauses<T>
+	delete (predicate?: (value:T) => unknown): ModifyClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyClauses(this.actions, `${this.expression}.delete()`)
+		} else {
+			return new ModifyClauses(this.actions, `${this.expression}.delete(${predicate.toString()})`)
+		}
+	}
 
-	// /**  */
-	// insert (value?: T): ModifyClauses<T> {
-	// if (value === undefined) {
-	// return new ModifyClauses(this.actions, `${this.expression}.insert()`)
-	// } else {
-	// return new ModifyClauses(this.actions, `${this.expression}.insert(${value})`)
-	// }
-	// }
+	/**  */
+	deleteAll(): ModifyClauses<T>
+	/**  */
+	deleteAll(predicate: (value:T) => unknown): ModifyClauses<T>
+	public deleteAll (predicate?: (value: T) => unknown): ModifyAllClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyAllClauses(this.actions, `${this.expression}.deleteAll()`)
+		} else {
+			return new ModifyAllClauses(this.actions, `${this.expression}.deleteAll(${predicate.toString()})`)
+		}
+	}
 
-// /**  */
-// update(value?:T|Object): ModifyClauses<T>
-// /**  */
-// updateAll(value?:T|Object): ModifyAllClauses<T>
-// /**  */
-// delete(value?: T|Object): ModifyClauses<T>
-// /**  */
-// deleteAll(value?:T|Object): ModifyAllClauses<T>
-// /**  */
-// sync(value?:T|Object): ModifyClauses<T>
-// // include(...args:string[]):Entity<T>
-// /**  */
-// bulkInsert(value?:T|Object): ModifyAllClauses<T>
+	bulkInsert (predicate?: (value:T) => unknown): ModifyClauses<T> {
+		if (predicate === undefined) {
+			return new ModifyClauses(this.actions, `${this.expression}.bulkInsert()`)
+		} else {
+			return new ModifyClauses(this.actions, `${this.expression}.bulkInsert(${predicate.toString()})`)
+		}
+	}
 }
-
-interface RelationMapClauses<T> {
-	/**  */
-	sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): void
-}
-interface RelationIncludeClauses<T> {
-	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-}
-interface Relation<T> {
-	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
-	/**  */
-	update(callbackfn: (value: T, item: T, index: number, array: T[]) => T, hisArg?:T):void
-	/**  */
-	insert(callbackfn: (value: T, item: T, index: number, array: T[]) => T, hisArg?:T):void
-	// update(value:T|Object):void
-}
-export type OneToMany<T> = Relation<T>
-export type OneToOne<T> = Relation<T>
-export type ManyToOne<T> = Relation<T>

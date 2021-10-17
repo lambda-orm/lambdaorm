@@ -34,7 +34,7 @@ export class Expression {
 		return this.orm.language.serialize(operand)
 	}
 
-	public async execute (database: string, context: any = {}) {
-		return await this.orm.execute(this.expression, database, context)
+	public async execute (context: any = {}, database?: string) {
+		return await this.orm.execute(this.expression, context, database)
 	}
 }

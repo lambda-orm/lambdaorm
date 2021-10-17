@@ -11,10 +11,7 @@ import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
 import { Helper } from './helper'
-
-// const ConfigExtends = require('config-extends')
-// const fs = require('fs')
-// const path = require('path')
+import { type } from 'os'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -102,6 +99,7 @@ export class Orm implements IOrm {
 				this.database.load(database)
 			}
 		}
+		this.database.default = this.config.app.defaultDatabase
 	}
 
 	/**
@@ -229,10 +227,7 @@ export class Orm implements IOrm {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
-		const str = func.toString().trim()
-		const index = str.indexOf('=>') + 2
-		const expression = str.substring(index, str.length).trim()
-		return new Expression(this, expression)
+		return new Expression(this, Helper.clearLambda(func))
 	}
 
 	public async eval (expression: string, context: any, schema: string): Promise<any> {
@@ -241,21 +236,24 @@ export class Orm implements IOrm {
 		return this.language.eval(operand, _context)
 	}
 
-	public async execute (expression: string, database: string, context: any = {}): Promise<any> {
-		const _database = this.database.get(database)
-		const operand = await this.query(expression, _database.dialect, _database.schema)
+	public async execute (expression: string, context: any = {}, database?: string): Promise<any> {
 		try {
+			if (typeof context !== 'object') {
+				throw new Error(`object type ${typeof context} is invalied`)
+			}
+
+			const db = this.database.get(database)
+			const operand = await this.query(expression, db.dialect, db.schema)
 			const _context = new Context(context)
-			const _database = this.database.get(database)
 			let result
 			if (operand.children.length === 0) {
-				const executor = this.connectionManager.createExecutor(_database.name)
-				result = await this.language.execute(_database.dialect, operand, _context, executor)
+				const executor = this.connectionManager.createExecutor(db.name)
+				result = await this.language.execute(db.dialect, operand, _context, executor)
 			} else {
-				const tr = this.connectionManager.createTransaction(database)
+				const tr = this.connectionManager.createTransaction(db.name)
 				try {
 					await tr.begin()
-					result = await this.language.execute(_database.dialect, operand, _context, tr)
+					result = await this.language.execute(db.dialect, operand, _context, tr)
 					await tr.commit()
 				} catch (error) {
 					console.log(error)

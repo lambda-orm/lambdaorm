@@ -96,6 +96,13 @@ export class Helper {
 		})
 	}
 
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public static clearLambda (func:Function) {
+		const str = func.toString().trim()
+		const index = str.indexOf('=>') + 2
+		return str.substring(index, str.length).trim()
+	}
+
 	public static solveEnriromentVariables (source:any): void {
 		if (typeof source === 'object') {
 			for (const name in source) {

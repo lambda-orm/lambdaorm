@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { Orm, Database, Helper } from '../index'
+import { Orm, Helper } from '../index'
 import path from 'path'
 
 export class RunCommand implements CommandModule {
@@ -80,7 +80,7 @@ export class RunCommand implements CommandModule {
 					console.log(JSON.stringify(metadata, null, 2))
 				}
 			} else {
-				const result = await orm.expression(expression).execute(db.name, context)
+				const result = await orm.expression(expression).execute(context, db.name)
 				console.log(JSON.stringify(result, null, 2))
 			}
 		} catch (error) {

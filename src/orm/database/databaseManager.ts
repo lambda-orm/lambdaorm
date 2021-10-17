@@ -7,7 +7,8 @@ import { Helper } from './../helper'
 const path = require('path')
 
 export class DatabaseManager {
-	public databases:any
+	public databases: any
+	public default?:string
 	private orm:IOrm
 	constructor (orm:IOrm) {
 		this.orm = orm
@@ -18,7 +19,21 @@ export class DatabaseManager {
 		this.databases[database.name] = database
 	}
 
-	public get (name:string):Database {
+	public get (name?: string): Database {
+		if (name === undefined) {
+			if (this.default !== undefined) {
+				const db = this.databases[this.default]
+				if (db === undefined) {
+					throw new Error(`default database: ${this.default} not found`)
+				}
+				return db as Database
+			} else if (Object.keys(this.databases).length === 1) {
+				const key = Object.keys(this.databases)[0]
+				return this.databases[key] as Database
+			} else {
+				throw new Error('the name of the database is required')
+			}
+		}
 		return this.databases[name]as Database
 	}
 

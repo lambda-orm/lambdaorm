@@ -94,7 +94,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in databases) {
 				const database = databases[p]
-				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute('${database}',context)`)
+				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute('context,${database}')`)
 				lines.push(`\t\texpect(expected).toEqual(${database}Result)`)
 			}
 			lines.push('\t})')

@@ -1,19 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm, Queryable } from '../../orm'
+import { orm } from '../../orm'
+// import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from './../../model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
 const path = require('path')
 const yaml = require('js-yaml')
-
-let Categories : Queryable<QryCategory>
-let Customers: Queryable<QryCustomer>
-let Employees: Queryable<QryEmployee>
-let Shippers: Queryable<QryShipper>
-let Suppliers: Queryable<QrySupplier>
-let Products: Queryable<QryProduct>
-let Orders: Queryable<QryOrder>
-let OrderDetails: Queryable<QryOrderDetail>
 
 async function exec (fn: any) {
 	const t1 = Date.now()
@@ -122,26 +114,27 @@ async function writeQueryTest (dialects: string[], databases: string[]): Promise
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
 		},
 		test: [
-			{ name: 'query 1', lambda: () => Products.map(p => p).page(1, 1) },
-			{ name: 'query 2', lambda: () => Products.page(1, 1) },
-			{ name: 'query 3', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
-			{ name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
-			{ name: 'query 5', context: 'a', lambda: () => Products.map(p => p.category.name) },
-			{ name: 'query 6', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
-			{ name: 'query 7', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 8', context: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
-			{ name: 'query 9', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) },
-			{ name: 'query 10', lambda: () => Products.page(1, 1) },
-			{ name: 'query 11', lambda: () => Products.first(p => p) },
-			{ name: 'query 12', lambda: () => Products.last(p => p) },
-			{ name: 'query 13', lambda: () => Products.take(p => p) },
-			{ name: 'query 14', lambda: () => Products.page(1, 1) },
-			{ name: 'query 15', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
-			{ name: 'query 16', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p) },
-			{ name: 'query 17', lambda: () => Products.distinct(p => p) },
-			{ name: 'query 18', context: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 19', context: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 20', context: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 1', lambda: () => Products },
+			{ name: 'query 2', lambda: () => Products.map(p => p).page(1, 1) },
+			{ name: 'query 3', lambda: () => Products.page(1, 1) },
+			{ name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
+			{ name: 'query 5', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
+			{ name: 'query 6', context: 'a', lambda: () => Products.map(p => p.category.name) },
+			{ name: 'query 7', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
+			{ name: 'query 8', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
+			{ name: 'query 9', context: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
+			{ name: 'query 10', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) },
+			{ name: 'query 11', lambda: () => Products.page(1, 1) },
+			{ name: 'query 12', lambda: () => Products.first(p => p) },
+			{ name: 'query 13', lambda: () => Products.last(p => p) },
+			{ name: 'query 14', lambda: () => Products.take(p => p) },
+			{ name: 'query 15', lambda: () => Products.page(1, 1) },
+			{ name: 'query 16', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
+			{ name: 'query 17', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p) },
+			{ name: 'query 18', lambda: () => Products.distinct(p => p) },
+			{ name: 'query 19', context: 'a', lambda: () => Products.distinct(p => p.category.name) },
+			{ name: 'query 20', context: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 21', context: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
 		]
 	})
 }
@@ -255,7 +248,7 @@ async function writeInsertsTest (dialects: string[], databases: string[]): Promi
 		test:
 			[
 				{ name: 'insert 1', context: 'a', lambda: () => Categories.insert() },
-				{ name: 'insert 2', context: 'b', lambda: (name: string, description: string) => Categories.insert({ name: name, description: description }) },
+				{ name: 'insert 2', context: 'b', lambda: (name: string, description: string) => Categories.insert(() => ({ name: name, description: description })) },
 				// { name: 'insert 3', context: 'c', lambda: (entity: Category) => Categories.insert(entity) },
 				{ name: 'insert 3', context: 'c', lambda: (entity: any) => Categories.insert(entity) },
 				{ name: 'insert 4', context: 'order', lambda: () => Orders.insert() },
@@ -554,15 +547,16 @@ async function writeUpdateTest (dialects: string[], databases: string[]): Promis
 				{ name: 'update 1', context: 'a', lambda: () => Orders.update() },
 				// { name: 'update 2', context: 'b', lambda: (entity: Order) => Orders.update(entity) },
 				{ name: 'update 2', context: 'b', lambda: (entity: any) => Orders.update(entity) },
-				{ name: 'update 3', context: 'c', lambda: (postalCode: string) => Orders.updateAll({ postalCode: postalCode }) },
-				// { name: 'update 4', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
-				// { name: 'update 5', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
-				// { name: 'update 6', context: 'b', lambda: (entity: Order) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
-				{ name: 'update 4', context: 'b', lambda: (entity: any) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
-				{ name: 'update 5', context: 'b', lambda: (entity: any) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
-				{ name: 'update 6', context: 'b', lambda: (entity: any) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
-				{ name: 'update 7', context: 'a', lambda: () => Orders.update().include(p => p.details) },
-				{ name: 'update 8', context: 'c', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
+				{ name: 'update 3', context: 'c', lambda: (postalCode: string) => Orders.updateAll(() => ({ postalCode: postalCode })) },
+				// { name: 'update 4', context: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
+				// { name: 'update 5', context: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
+				// { name: 'update 6', context: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				{ name: 'update 4', context: 'b', lambda: (entity: any) => Orders.update(p => ({ name: entity.name })).filter(p => p.id === entity.id) },
+				{ name: 'update 5', context: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details).filter(p => p.id === entity.id) },
+				{ name: 'update 6', context: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
+				{ name: 'update 7', context: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				{ name: 'update 8', context: 'a', lambda: () => Orders.update().include(p => p.details) },
+				{ name: 'update 9', context: 'c', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
 			]
 	})
 }
@@ -884,7 +878,7 @@ async function bulkInsert () {
 	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.expression(expression).execute('source', categories)))
+	const result = await exec(async () => (await orm.expression(expression).execute(categories, 'source')))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -983,7 +977,7 @@ async function bulkInsert2 () {
 	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.expression(expression).execute('source', orders)))
+	const result = await exec(async () => (await orm.expression(expression).execute(orders, 'source')))
 }
 
 export async function apply (databases: string[], callback: any) {
