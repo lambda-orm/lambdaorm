@@ -120,18 +120,18 @@ test:
     context: a
     sentences:
       - dialect: mariadb
-        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
+        sentence: 'DELETE n FROM `Order Details` AS n WHERE n.OrderID = ? '
       - dialect: mssql
-        sentence: 'DELETE FROM [Order Details] o WHERE o.OrderID = :id '
+        sentence: 'DELETE FROM [Order Details] n WHERE n.OrderID = :id '
       - dialect: mysql
-        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
+        sentence: 'DELETE n FROM `Order Details` AS n WHERE n.OrderID = ? '
       - dialect: oracle
-        sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = :id '
+        sentence: 'DELETE FROM "Order Details" n WHERE n.OrderID = :id '
       - dialect: postgres
-        sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = $1 '
+        sentence: 'DELETE FROM "Order Details" n WHERE n.OrderID = $1 '
     errors: 0
-    expression: OrderDetails.delete().filter(p => p.orderId === id)
-    completeExpression: OrderDetails.delete().filter(p=>(p.orderId===id))
+    expression: northwind_1.OrderDetails.delete().filter(p => p.orderId === id)
+    completeExpression: northwind_1.OrderDetails.delete().filter(p=>(p.orderId===id))
     model: {}
     parameters:
       - name: id
@@ -147,38 +147,38 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
+          DELETE FROM Orders n WHERE n.OrderID = :id 
 
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM [Order Details] o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: mysql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: oracle
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
+          DELETE FROM Orders n WHERE n.OrderID = :id 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: postgres
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
+          DELETE FROM Orders n WHERE n.OrderID = $1 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
+          $2) 
     errors: 0
-    expression: Orders.delete().include(p => p.details)
+    expression: northwind_1.Orders.delete().include(p => p.details)
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+      northwind_1.Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
       details:
         - {}
@@ -196,38 +196,40 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
+          DELETE FROM Orders n WHERE n.OrderID = :id 
 
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM [Order Details] o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: mysql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: oracle
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
+          DELETE FROM Orders n WHERE n.OrderID = :id 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: postgres
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
+          DELETE FROM Orders n WHERE n.OrderID = $1 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
+          $2) 
     errors: 0
-    expression: Orders.delete().filter(p => p.id === id).include(p => p.details)
+    expression: >-
+      northwind_1.Orders.delete().filter(p => p.id === id).include(p =>
+      p.details)
     completeExpression: >-
-      Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+      northwind_1.Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
       details:
         - {}
@@ -245,38 +247,38 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
+          DELETE FROM Orders n WHERE n.OrderID = :id 
 
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM [Order Details] o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: mysql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: oracle
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
+          DELETE FROM Orders n WHERE n.OrderID = :id 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: postgres
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
+          DELETE FROM Orders n WHERE n.OrderID = $1 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
+          $2) 
     errors: 0
-    expression: Orders.delete().include(p => p.details)
+    expression: northwind_1.Orders.delete().include(p => p.details)
     completeExpression: >-
-      Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+      northwind_1.Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
       details:
         - {}
@@ -294,28 +296,28 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
-          o.ProductID = ?) 
+          DELETE n FROM `Order Details` AS n WHERE (n.OrderID = ? AND
+          n.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          DELETE FROM [Order Details] o WHERE (o.OrderID = :entity.orderId AND
-          o.ProductID = :entity.productId) 
+          DELETE FROM [Order Details] n WHERE (n.OrderID = :entity.orderId AND
+          n.ProductID = :entity.productId) 
       - dialect: mysql
         sentence: >-
-          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
-          o.ProductID = ?) 
+          DELETE n FROM `Order Details` AS n WHERE (n.OrderID = ? AND
+          n.ProductID = ?) 
       - dialect: oracle
         sentence: >-
-          DELETE FROM "Order Details" o WHERE (o.OrderID = :entity.orderId AND
-          o.ProductID = :entity.productId) 
+          DELETE FROM "Order Details" n WHERE (n.OrderID = :entity.orderId AND
+          n.ProductID = :entity.productId) 
       - dialect: postgres
         sentence: >-
-          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
+          DELETE FROM "Order Details" n WHERE (n.OrderID = $1 AND n.ProductID =
           $2) 
     errors: 0
-    expression: OrderDetails.delete(entity)
+    expression: northwind_1.OrderDetails.delete(entity)
     completeExpression: >-
-      OrderDetails.filter(p=>((p.orderId==entity.orderId)&&(p.productId==entity.productId))).delete(entity)
+      northwind_1.OrderDetails.filter(p=>((p.orderId==entity.orderId)&&(p.productId==entity.productId))).delete(entity)
     model: {}
     parameters:
       - name: entity.orderId
@@ -334,38 +336,38 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :entity.id 
+          DELETE FROM Orders n WHERE n.OrderID = :entity.id 
 
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM [Order Details] o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: mysql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE n FROM Orders AS n WHERE n.OrderID = ? 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
       - dialect: oracle
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :entity.id 
+          DELETE FROM Orders n WHERE n.OrderID = :entity.id 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = :orderId AND
+          o.ProductID = :productId) 
       - dialect: postgres
         sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
+          DELETE FROM Orders n WHERE n.OrderID = $1 
 
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
+          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
+          $2) 
     errors: 0
-    expression: Orders.delete(entity).include(p => p.details)
+    expression: northwind_1.Orders.delete(entity).include(p => p.details)
     completeExpression: >-
-      Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+      northwind_1.Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
       details:
         - {}
@@ -381,18 +383,18 @@ test:
   - name: delete 6
     sentences:
       - dialect: mariadb
-        sentence: 'DELETE o FROM `Order Details` AS o '
+        sentence: 'DELETE n FROM `Order Details` AS n '
       - dialect: mssql
-        sentence: 'DELETE FROM [Order Details] o '
+        sentence: 'DELETE FROM [Order Details] n '
       - dialect: mysql
-        sentence: 'DELETE o FROM `Order Details` AS o '
+        sentence: 'DELETE n FROM `Order Details` AS n '
       - dialect: oracle
-        sentence: 'DELETE FROM "Order Details" o '
+        sentence: 'DELETE FROM "Order Details" n '
       - dialect: postgres
-        sentence: 'DELETE FROM "Order Details" o '
+        sentence: 'DELETE FROM "Order Details" n '
     errors: 0
-    expression: OrderDetails.deleteAll()
-    completeExpression: OrderDetails.delete()
+    expression: northwind_1.OrderDetails.deleteAll()
+    completeExpression: northwind_1.OrderDetails.delete()
     model: {}
     parameters: []
     fields: []

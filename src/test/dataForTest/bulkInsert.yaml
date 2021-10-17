@@ -103,8 +103,8 @@ test:
       - dialect: postgres
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES
     errors: 0
-    expression: Categories.bulkInsert()
-    completeExpression: Categories.bulkInsert({name:name,description:description})
+    expression: northwind_1.Categories.bulkInsert()
+    completeExpression: northwind_1.Categories.bulkInsert({name:name,description:description})
     model:
       name: string
       description: string
@@ -172,9 +172,9 @@ test:
           INSERT INTO "Order
           Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
     errors: 0
-    expression: Orders.bulkInsert().include(p => p.details)
+    expression: northwind_1.Orders.bulkInsert().include(p => p.details)
     completeExpression: >-
-      Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
+      northwind_1.Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
       customerId: string
       employeeId: integer

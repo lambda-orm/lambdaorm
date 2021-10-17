@@ -66,8 +66,8 @@ test:
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
     errors: 0
-    expression: Categories.insert()
-    completeExpression: Categories.insert({name:name,description:description})
+    expression: northwind_1.Categories.insert()
+    completeExpression: northwind_1.Categories.insert({name:name,description:description})
     model:
       name: string
       description: string
@@ -107,8 +107,10 @@ test:
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
     errors: 0
-    expression: 'Categories.insert(() => ({ name: name, description: description }))'
-    completeExpression: Categories.insert(=>{name:name,description:description})
+    expression: >-
+      northwind_1.Categories.insert(() => ({ name: name, description:
+      description }))
+    completeExpression: northwind_1.Categories.insert(=>{name:name,description:description})
     model:
       name: string
       description: string
@@ -148,8 +150,9 @@ test:
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
     errors: 0
-    expression: Categories.insert(entity)
-    completeExpression: Categories.insert({name:entity.name,description:entity.description})
+    expression: northwind_1.Categories.insert(entity)
+    completeExpression: >-
+      northwind_1.Categories.insert({name:entity.name,description:entity.description})
     model:
       name: string
       description: string
@@ -199,9 +202,9 @@ test:
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
           AS id
     errors: 0
-    expression: Orders.insert()
+    expression: northwind_1.Orders.insert()
     completeExpression: >-
-      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
+      northwind_1.Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
       customerId: string
       employeeId: integer
@@ -337,9 +340,9 @@ test:
           Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
     errors: 0
-    expression: Orders.insert().include(p => p.details)
+    expression: northwind_1.Orders.insert().include(p => p.details)
     completeExpression: >-
-      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
+      northwind_1.Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
       customerId: string
       employeeId: integer
@@ -501,9 +504,9 @@ test:
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
     errors: 0
-    expression: Orders.insert().include(p => [p.details, p.customer])
+    expression: northwind_1.Orders.insert().include(p => [p.details, p.customer])
     completeExpression: >-
-      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
+      northwind_1.Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
     model:
       customerId: string
       employeeId: integer

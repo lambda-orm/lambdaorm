@@ -7,18 +7,18 @@ test:
   - name: groupBy 1
     sentences:
       - dialect: mariadb
-        sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
+        sentence: 'SELECT MAX(n.UnitPrice) AS `maxPrice` FROM Products n  '
       - dialect: mssql
-        sentence: 'SELECT MAX(p.UnitPrice) AS [maxPrice] FROM Products p  '
+        sentence: 'SELECT MAX(n.UnitPrice) AS [maxPrice] FROM Products n  '
       - dialect: mysql
-        sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
+        sentence: 'SELECT MAX(n.UnitPrice) AS `maxPrice` FROM Products n  '
       - dialect: oracle
-        sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
+        sentence: 'SELECT MAX(n.UnitPrice) AS "maxPrice" FROM Products n  '
       - dialect: postgres
-        sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
+        sentence: 'SELECT MAX(n.UnitPrice) AS "maxPrice" FROM Products n  '
     errors: 0
-    expression: 'Products.map(p => ({ maxPrice: max(p.price) }))'
-    completeExpression: Products.map(p=>{maxPrice:max(p.price)})
+    expression: 'northwind_1.Products.map(p => ({ maxPrice: max(p.price) }))'
+    completeExpression: northwind_1.Products.map(p=>{maxPrice:max(p.price)})
     model:
       maxPrice: any
     parameters: []
@@ -33,18 +33,18 @@ test:
   - name: groupBy 2
     sentences:
       - dialect: mariadb
-        sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
+        sentence: 'SELECT MIN(n.UnitPrice) AS `minPrice` FROM Products n  '
       - dialect: mssql
-        sentence: 'SELECT MIN(p.UnitPrice) AS [minPrice] FROM Products p  '
+        sentence: 'SELECT MIN(n.UnitPrice) AS [minPrice] FROM Products n  '
       - dialect: mysql
-        sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
+        sentence: 'SELECT MIN(n.UnitPrice) AS `minPrice` FROM Products n  '
       - dialect: oracle
-        sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
+        sentence: 'SELECT MIN(n.UnitPrice) AS "minPrice" FROM Products n  '
       - dialect: postgres
-        sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
+        sentence: 'SELECT MIN(n.UnitPrice) AS "minPrice" FROM Products n  '
     errors: 0
-    expression: 'Products.map(p => ({ minPrice: min(p.price) }))'
-    completeExpression: Products.map(p=>{minPrice:min(p.price)})
+    expression: 'northwind_1.Products.map(p => ({ minPrice: min(p.price) }))'
+    completeExpression: northwind_1.Products.map(p=>{minPrice:min(p.price)})
     model:
       minPrice: any
     parameters: []
@@ -59,18 +59,18 @@ test:
   - name: groupBy 3
     sentences:
       - dialect: mariadb
-        sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
+        sentence: 'SELECT SUM(n.UnitPrice) AS `total` FROM Products n  '
       - dialect: mssql
-        sentence: 'SELECT SUM(p.UnitPrice) AS [total] FROM Products p  '
+        sentence: 'SELECT SUM(n.UnitPrice) AS [total] FROM Products n  '
       - dialect: mysql
-        sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
+        sentence: 'SELECT SUM(n.UnitPrice) AS `total` FROM Products n  '
       - dialect: oracle
-        sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
+        sentence: 'SELECT SUM(n.UnitPrice) AS "total" FROM Products n  '
       - dialect: postgres
-        sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
+        sentence: 'SELECT SUM(n.UnitPrice) AS "total" FROM Products n  '
     errors: 0
-    expression: 'Products.map(p => ({ total: sum(p.price) }))'
-    completeExpression: Products.map(p=>{total:sum(p.price)})
+    expression: 'northwind_1.Products.map(p => ({ total: sum(p.price) }))'
+    completeExpression: northwind_1.Products.map(p=>{total:sum(p.price)})
     model:
       total: any
     parameters: []
@@ -85,18 +85,18 @@ test:
   - name: groupBy 4
     sentences:
       - dialect: mariadb
-        sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
+        sentence: 'SELECT AVG(n.UnitPrice) AS `average` FROM Products n  '
       - dialect: mssql
-        sentence: 'SELECT AVG(p.UnitPrice) AS [average] FROM Products p  '
+        sentence: 'SELECT AVG(n.UnitPrice) AS [average] FROM Products n  '
       - dialect: mysql
-        sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
+        sentence: 'SELECT AVG(n.UnitPrice) AS `average` FROM Products n  '
       - dialect: oracle
-        sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
+        sentence: 'SELECT AVG(n.UnitPrice) AS "average" FROM Products n  '
       - dialect: postgres
-        sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
+        sentence: 'SELECT AVG(n.UnitPrice) AS "average" FROM Products n  '
     errors: 1
-    expression: 'Products.map(p => ({ average: avg(p.price) }))'
-    completeExpression: Products.map(p=>{average:avg(p.price)})
+    expression: 'northwind_1.Products.map(p => ({ average: avg(p.price) }))'
+    completeExpression: northwind_1.Products.map(p=>{average:avg(p.price)})
     model:
       average: any
     parameters: []
@@ -114,18 +114,18 @@ test:
   - name: groupBy 5
     sentences:
       - dialect: mariadb
-        sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
+        sentence: 'SELECT COUNT(1) AS `count` FROM Products n  '
       - dialect: mssql
-        sentence: 'SELECT COUNT(1) AS [count] FROM Products p  '
+        sentence: 'SELECT COUNT(1) AS [count] FROM Products n  '
       - dialect: mysql
-        sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
+        sentence: 'SELECT COUNT(1) AS `count` FROM Products n  '
       - dialect: oracle
-        sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
+        sentence: 'SELECT COUNT(1) AS "count" FROM Products n  '
       - dialect: postgres
-        sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
+        sentence: 'SELECT COUNT(1) AS "count" FROM Products n  '
     errors: 0
-    expression: 'Products.map(p => ({ count: count(1) }))'
-    completeExpression: Products.map(p=>{count:count(1)})
+    expression: 'northwind_1.Products.map(p => ({ count: count(1) }))'
+    completeExpression: northwind_1.Products.map(p=>{count:count(1)})
     model:
       count: any
     parameters: []
@@ -141,29 +141,30 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice`
-          FROM Products p  GROUP BY p.CategoryID 
+          SELECT n.CategoryID AS `category`, MAX(n.UnitPrice) AS `largestPrice`
+          FROM Products n  GROUP BY n.CategoryID 
       - dialect: mssql
         sentence: >-
-          SELECT p.CategoryID AS [category], MAX(p.UnitPrice) AS [largestPrice]
-          FROM Products p  GROUP BY p.CategoryID 
+          SELECT n.CategoryID AS [category], MAX(n.UnitPrice) AS [largestPrice]
+          FROM Products n  GROUP BY n.CategoryID 
       - dialect: mysql
         sentence: >-
-          SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice`
-          FROM Products p  GROUP BY p.CategoryID 
+          SELECT n.CategoryID AS `category`, MAX(n.UnitPrice) AS `largestPrice`
+          FROM Products n  GROUP BY n.CategoryID 
       - dialect: oracle
         sentence: >-
-          SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS "largestPrice"
-          FROM Products p  GROUP BY p.CategoryID 
+          SELECT n.CategoryID AS "category", MAX(n.UnitPrice) AS "largestPrice"
+          FROM Products n  GROUP BY n.CategoryID 
       - dialect: postgres
         sentence: >-
-          SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS "largestPrice"
-          FROM Products p  GROUP BY p.CategoryID 
+          SELECT n.CategoryID AS "category", MAX(n.UnitPrice) AS "largestPrice"
+          FROM Products n  GROUP BY n.CategoryID 
     errors: 1
     expression: >-
-      Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price)
-      }))
-    completeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
+      northwind_1.Products.map(p => ({ category: p.categoryId, largestPrice:
+      max(p.price) }))
+    completeExpression: >-
+      northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
       category: integer
       largestPrice: any
@@ -178,22 +179,22 @@ test:
       - database: postgres
         error: not equal mysql
         result:
-          - category: 8
-            largestPrice: 62.5
-          - category: 7
-            largestPrice: 53
-          - category: 1
-            largestPrice: 263.5
+          - category: 3
+            largestPrice: 81
           - category: 5
             largestPrice: 38
           - category: 4
             largestPrice: 55
-          - category: 2
-            largestPrice: 43.9
           - category: 6
             largestPrice: 123.79
-          - category: 3
-            largestPrice: 81
+          - category: 2
+            largestPrice: 43.9
+          - category: 7
+            largestPrice: 53
+          - category: 1
+            largestPrice: 263.5
+          - category: 8
+            largestPrice: 62.5
     result:
       - category: 1
         largestPrice: 263.5
@@ -215,34 +216,35 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
-          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
+          SELECT c.CategoryName AS [category], MAX(n.UnitPrice) AS
+          [largestPrice] FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName 
     errors: 1
     expression: >-
-      Products.map(p => ({ category: p.category.name, largestPrice: max(p.price)
-      }))
-    completeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
+      northwind_1.Products.map(p => ({ category: p.category.name, largestPrice:
+      max(p.price) }))
+    completeExpression: >-
+      northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       category: string
       largestPrice: any
@@ -295,30 +297,30 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-          ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
+          SELECT n.ProductName AS `name`, n.UnitPrice AS `source`,
+          ABS(n.UnitPrice) AS `result` FROM Products n  WHERE n.ProductID = ? 
       - dialect: mssql
         sentence: >-
-          SELECT p.ProductName AS [name], p.UnitPrice AS [source],
-          ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = :id 
+          SELECT n.ProductName AS [name], n.UnitPrice AS [source],
+          ABS(n.UnitPrice) AS [result] FROM Products n  WHERE n.ProductID = :id 
       - dialect: mysql
         sentence: >-
-          SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-          ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
+          SELECT n.ProductName AS `name`, n.UnitPrice AS `source`,
+          ABS(n.UnitPrice) AS `result` FROM Products n  WHERE n.ProductID = ? 
       - dialect: oracle
         sentence: >-
-          SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-          ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID = :id 
+          SELECT n.ProductName AS "name", n.UnitPrice AS "source",
+          ABS(n.UnitPrice) AS "result" FROM Products n  WHERE n.ProductID = :id 
       - dialect: postgres
         sentence: >-
-          SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-          ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID = $1 
+          SELECT n.ProductName AS "name", n.UnitPrice AS "source",
+          ABS(n.UnitPrice) AS "result" FROM Products n  WHERE n.ProductID = $1 
     errors: 0
     expression: >-
-      Products.filter(p => p.id === id).map(p => ({ name: p.name, source:
-      p.price, result: abs(p.price) }))
+      northwind_1.Products.filter(p => p.id === id).map(p => ({ name: p.name,
+      source: p.price, result: abs(p.price) }))
     completeExpression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+      northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
     model:
       name: string
       source: decimal
@@ -345,35 +347,35 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
-          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          SELECT c.CategoryName AS [category], MAX(n.UnitPrice) AS
+          [largestPrice] FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 
     errors: 0
     expression: >-
-      Products.having(p => max(p.price) > 100).map(p => ({ category:
+      northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category:
       p.category.name, largestPrice: max(p.price) }))
     completeExpression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+      northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       category: string
       largestPrice: any
@@ -395,41 +397,41 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100
           ORDER BY `largestPrice` desc 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
-          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          SELECT c.CategoryName AS [category], MAX(n.UnitPrice) AS
+          [largestPrice] FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100
           ORDER BY [largestPrice] desc 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100
           ORDER BY `largestPrice` desc 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100
           ORDER BY "largestPrice" desc 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100
           ORDER BY "largestPrice" desc 
     errors: 0
     expression: >-
-      Products.having(p => max(p.price) > 100).map(p => ({ category:
+      northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category:
       p.category.name, largestPrice: max(p.price) })).sort(p =>
       desc(p.largestPrice))
     completeExpression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
+      northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     model:
       category: string
       largestPrice: any
@@ -451,41 +453,41 @@ test:
     sentences:
       - dialect: mariadb
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc 
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID WHERE n.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(n.UnitPrice) > 50 ORDER BY `largestPrice` desc 
       - dialect: mssql
         sentence: >-
-          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
-          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY [largestPrice] desc 
+          SELECT c.CategoryName AS [category], MAX(n.UnitPrice) AS
+          [largestPrice] FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID WHERE n.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(n.UnitPrice) > 50 ORDER BY [largestPrice] desc 
       - dialect: mysql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc 
+          SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS
+          `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID WHERE n.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(n.UnitPrice) > 50 ORDER BY `largestPrice` desc 
       - dialect: oracle
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc 
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID WHERE n.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(n.UnitPrice) > 50 ORDER BY "largestPrice" desc 
       - dialect: postgres
         sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc 
+          SELECT c.CategoryName AS "category", MAX(n.UnitPrice) AS
+          "largestPrice" FROM Products n INNER JOIN Categories c ON c.CategoryID
+          = n.CategoryID WHERE n.UnitPrice > 5 GROUP BY c.CategoryName HAVING
+          MAX(n.UnitPrice) > 50 ORDER BY "largestPrice" desc 
     errors: 0
     expression: >-
-      Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p =>
-      ({ category: p.category.name, largestPrice: max(p.price) })).sort(p =>
-      desc(p.largestPrice))
+      northwind_1.Products.filter(p => p.price > 5).having(p => max(p.price) >
+      50).map(p => ({ category: p.category.name, largestPrice: max(p.price)
+      })).sort(p => desc(p.largestPrice))
     completeExpression: >-
-      Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
+      northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     model:
       category: string
       largestPrice: any
