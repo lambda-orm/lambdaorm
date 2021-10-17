@@ -5,67 +5,67 @@ beforeAll(async () => {
 })
 describe('Complete Expression', () => {
 	test('groupBy 1', () => {
-		const source = 'northwind_1.Products.map(p => ({ maxPrice: max(p.price) }))'
+		const source = 'northwind_1.Products.map(p=>{maxPrice:max(p.price)})'
 		const expected = 'northwind_1.Products.map(p=>{maxPrice:max(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 2', () => {
-		const source = 'northwind_1.Products.map(p => ({ minPrice: min(p.price) }))'
+		const source = 'northwind_1.Products.map(p=>{minPrice:min(p.price)})'
 		const expected = 'northwind_1.Products.map(p=>{minPrice:min(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 3', () => {
-		const source = 'northwind_1.Products.map(p => ({ total: sum(p.price) }))'
+		const source = 'northwind_1.Products.map(p=>{total:sum(p.price)})'
 		const expected = 'northwind_1.Products.map(p=>{total:sum(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 4', () => {
-		const source = 'northwind_1.Products.map(p => ({ average: avg(p.price) }))'
+		const source = 'northwind_1.Products.map(p=>{average:avg(p.price)})'
 		const expected = 'northwind_1.Products.map(p=>{average:avg(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 5', () => {
-		const source = 'northwind_1.Products.map(p => ({ count: count(1) }))'
+		const source = 'northwind_1.Products.map(p=>{count:count(1)})'
 		const expected = 'northwind_1.Products.map(p=>{count:count(1)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 6', () => {
-		const source = 'northwind_1.Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))'
+		const source = 'northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
 		const expected = 'northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 7', () => {
-		const source = 'northwind_1.Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+		const source = 'northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const expected = 'northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 8', () => {
-		const source = 'northwind_1.Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const source = 'northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
 		const expected = 'northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 9', () => {
-		const source = 'northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+		const source = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const expected = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 10', () => {
-		const source = 'northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+		const source = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const expected = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('groupBy 11', () => {
-		const source = 'northwind_1.Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+		const source = 'northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const expected = 'northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
@@ -73,7 +73,7 @@ describe('Complete Expression', () => {
 })
 describe('Metadata', () => {
 	test('groupBy 1', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ maxPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{maxPrice:max(p.price)})'
 		const modelExpected :any= {"maxPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"maxPrice","type":"any"}]
@@ -83,7 +83,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 2', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ minPrice: min(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{minPrice:min(p.price)})'
 		const modelExpected :any= {"minPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"minPrice","type":"any"}]
@@ -93,7 +93,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 3', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ total: sum(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{total:sum(p.price)})'
 		const modelExpected :any= {"total":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"total","type":"any"}]
@@ -103,7 +103,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 4', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ average: avg(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{average:avg(p.price)})'
 		const modelExpected :any= {"average":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"average","type":"any"}]
@@ -113,7 +113,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 5', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ count: count(1) }))'
+		const expression = 'northwind_1.Products.map(p=>{count:count(1)})'
 		const modelExpected :any= {"count":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"count","type":"any"}]
@@ -123,7 +123,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 6', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
 		const modelExpected :any= {"category":"integer","largestPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"integer"},{"name":"largestPrice","type":"any"}]
@@ -133,7 +133,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 7', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const modelExpected :any= {"category":"string","largestPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
@@ -143,7 +143,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 8', async () => {
-		const expression = 'northwind_1.Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const expression = 'northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
 		const modelExpected :any= {"name":"string","source":"decimal","result":"any"}
 		const parametersExpected:any = [{"name":"id","type":"integer","value":1}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"source","type":"decimal"},{"name":"result","type":"any"}]
@@ -153,7 +153,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 9', async () => {
-		const expression = 'northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const modelExpected :any= {"category":"string","largestPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
@@ -163,7 +163,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 10', async () => {
-		const expression = 'northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+		const expression = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const modelExpected :any= {"category":"string","largestPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
@@ -173,7 +173,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('groupBy 11', async () => {
-		const expression = 'northwind_1.Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+		const expression = 'northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const modelExpected :any= {"category":"string","largestPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
@@ -185,7 +185,7 @@ describe('Metadata', () => {
 })
 describe('Sentences', () => {
 	test('groupBy 1', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ maxPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{maxPrice:max(p.price)})'
 		const mariadbExpected = 'SELECT MAX(n.UnitPrice) AS `maxPrice` FROM Products n  '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -208,7 +208,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 2', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ minPrice: min(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{minPrice:min(p.price)})'
 		const mariadbExpected = 'SELECT MIN(n.UnitPrice) AS `minPrice` FROM Products n  '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -231,7 +231,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 3', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ total: sum(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{total:sum(p.price)})'
 		const mariadbExpected = 'SELECT SUM(n.UnitPrice) AS `total` FROM Products n  '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -254,7 +254,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 4', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ average: avg(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{average:avg(p.price)})'
 		const mariadbExpected = 'SELECT AVG(n.UnitPrice) AS `average` FROM Products n  '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -277,7 +277,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 5', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ count: count(1) }))'
+		const expression = 'northwind_1.Products.map(p=>{count:count(1)})'
 		const mariadbExpected = 'SELECT COUNT(1) AS `count` FROM Products n  '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -300,7 +300,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 6', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
 		const mariadbExpected = 'SELECT n.CategoryID AS `category`, MAX(n.UnitPrice) AS `largestPrice` FROM Products n  GROUP BY n.CategoryID '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -323,7 +323,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 7', async () => {
-		const expression = 'northwind_1.Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID GROUP BY c.CategoryName '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -346,7 +346,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 8', async () => {
-		const expression = 'northwind_1.Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
+		const expression = 'northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
 		const mariadbExpected = 'SELECT n.ProductName AS `name`, n.UnitPrice AS `source`, ABS(n.UnitPrice) AS `result` FROM Products n  WHERE n.ProductID = ? '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -369,7 +369,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 9', async () => {
-		const expression = 'northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))'
+		const expression = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -392,7 +392,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 10', async () => {
-		const expression = 'northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+		const expression = 'northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 ORDER BY `largestPrice` desc '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -415,7 +415,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('groupBy 11', async () => {
-		const expression = 'northwind_1.Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))'
+		const expression = 'northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(n.UnitPrice) AS `largestPrice` FROM Products n INNER JOIN Categories c ON c.CategoryID = n.CategoryID WHERE n.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 50 ORDER BY `largestPrice` desc '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')

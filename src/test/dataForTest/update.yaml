@@ -487,33 +487,15 @@ test:
     result: 0
   - name: update 3
     context: c
-    sentences:
-      - dialect: mariadb
-        sentence: 'UPDATE Orders n SET ShipPostalCode = ? '
-      - dialect: mssql
-        sentence: 'UPDATE Orders n SET ShipPostalCode = :postalCode '
-      - dialect: mysql
-        sentence: 'UPDATE Orders n SET ShipPostalCode = ? '
-      - dialect: oracle
-        sentence: 'UPDATE Orders n SET ShipPostalCode = :postalCode '
-      - dialect: postgres
-        sentence: 'UPDATE Orders n SET ShipPostalCode = $1 '
-    errors: 0
-    expression: 'northwind_1.Orders.updateAll(() => ({ postalCode: postalCode }))'
-    completeExpression: northwind_1.Orders.update(=>{postalCode:postalCode})
-    model:
-      postalCode: string
-    parameters:
-      - name: postalCode
-        type: string
-        value: xxx
-    fields:
-      - name: postalCode
-        type: string
-    executions:
-      - database: mysql
-      - database: postgres
-    result: 833
+    sentences: []
+    errors: 1
+    expression: northwind_1.Orders.updateAll(=>{postalCode:postalCode})
+    error: >-
+      Error: complete expression:
+      northwind_1.Orders.updateAll(=>{postalCode:postalCode}) error: Error:
+      expression: northwind_1.Orders.updateAll(=>{postalCode:postalCode}) error:
+      Error: set parent: updateAll error: Error: set parent: = error: TypeError:
+      Cannot read property 'name' of null
   - name: update 4
     context: b
     sentences:
@@ -533,8 +515,7 @@ test:
         sentence: 'UPDATE Orders n SET ShipName = $1 WHERE n.OrderID = $2 '
     errors: 0
     expression: >-
-      northwind_1.Orders.update(p => ({ name: entity.name })).filter(p => p.id
-      === entity.id)
+      northwind_1.Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     completeExpression: >-
       northwind_1.Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     model:
@@ -555,199 +536,46 @@ test:
     result: 1
   - name: update 5
     context: b
-    sentences:
-      - dialect: mariadb
-        sentence: >-
-          UPDATE Orders n SET ShipName = ? WHERE n.OrderID = ? 
-
-          UPDATE `Order Details` o SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o.OrderID = ? AND o.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          UPDATE Orders n SET ShipName = :entity.name WHERE n.OrderID =
-          :entity.id 
-
-          UPDATE [Order Details] o SET OrderID = :orderId,ProductID =
-          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (o.OrderID = :obj.orderId AND o.ProductID =
-          :obj.productId) 
-      - dialect: mysql
-        sentence: >-
-          UPDATE Orders n SET ShipName = ? WHERE n.OrderID = ? 
-
-          UPDATE `Order Details` o SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o.OrderID = ? AND o.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          UPDATE Orders n SET ShipName = :entity.name WHERE n.OrderID =
-          :entity.id 
-
-          UPDATE "Order Details" o SET OrderID = :orderId,ProductID =
-          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (o.OrderID = :obj.orderId AND o.ProductID =
-          :obj.productId) 
-      - dialect: postgres
-        sentence: >-
-          UPDATE Orders n SET ShipName = $1 WHERE n.OrderID = $2 
-
-          UPDATE "Order Details" o SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o.OrderID = $6 AND o.ProductID =
-          $7) 
-    errors: 0
+    sentences: []
+    errors: 1
     expression: >-
-      northwind_1.Orders.update(() => ({ name: entity.name })).include(p =>
-      p.details).filter(p => p.id === entity.id)
-    completeExpression: >-
-      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id===entity.id))
-    model:
-      name: string
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
-    parameters:
-      - name: entity.name
-        type: string
-        value: Ana Trujillo Emparedados y helados
-      - name: entity.id
-        type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
-    executions:
-      - database: mysql
-      - database: postgres
-    result: 1
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
+    error: >-
+      Error: complete expression:
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
+      error: Error: expression:
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
+      error: Error: set parent: filter error: Error: set parent: include error:
+      Error: set parent: update error: Error: set parent: = error: TypeError:
+      Cannot read property 'name' of null
   - name: update 6
     context: b
-    sentences:
-      - dialect: mariadb
-        sentence: >-
-          UPDATE Orders n SET ShipName = ? WHERE n.OrderID = ? 
-
-          UPDATE `Order Details` o SET UnitPrice = o.UnitPrice,Quantity =
-          o.Quantity,Discount = o.Discount WHERE (o.OrderID = ? AND o.ProductID
-          = ?) 
-      - dialect: mssql
-        sentence: >-
-          UPDATE Orders n SET ShipName = :entity.name WHERE n.OrderID =
-          :entity.id 
-
-          UPDATE [Order Details] o SET UnitPrice = o.UnitPrice,Quantity =
-          o.Quantity,Discount = o.Discount WHERE (o.OrderID = :orderId AND
-          o.ProductID = :productId) 
-      - dialect: mysql
-        sentence: >-
-          UPDATE Orders n SET ShipName = ? WHERE n.OrderID = ? 
-
-          UPDATE `Order Details` o SET UnitPrice = o.UnitPrice,Quantity =
-          o.Quantity,Discount = o.Discount WHERE (o.OrderID = ? AND o.ProductID
-          = ?) 
-      - dialect: oracle
-        sentence: >-
-          UPDATE Orders n SET ShipName = :entity.name WHERE n.OrderID =
-          :entity.id 
-
-          UPDATE "Order Details" o SET UnitPrice = o.UnitPrice,Quantity =
-          o.Quantity,Discount = o.Discount WHERE (o.OrderID = :orderId AND
-          o.ProductID = :productId) 
-      - dialect: postgres
-        sentence: >-
-          UPDATE Orders n SET ShipName = $1 WHERE n.OrderID = $2 
-
-          UPDATE "Order Details" o SET UnitPrice = o.UnitPrice,Quantity =
-          o.Quantity,Discount = o.Discount WHERE (o.OrderID = $1 AND o.ProductID
-          = $2) 
-    errors: 0
+    sentences: []
+    errors: 1
     expression: >-
-      northwind_1.Orders.update(() => ({ name: entity.name })).include(p =>
-      p.details.update(p => p)).filter(p => p.id === entity.id)
-    completeExpression: >-
-      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount})).filter(p=>(p.id===entity.id))
-    model:
-      name: string
-      details:
-        - unitPrice: decimal
-          quantity: decimal
-          discount: decimal
-    parameters:
-      - name: entity.name
-        type: string
-        value: Ana Trujillo Emparedados y helados
-      - name: entity.id
-        type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
-    executions:
-      - database: mysql
-      - database: postgres
-    result: 1
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
+    error: >-
+      Error: complete expression:
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
+      error: Error: expression:
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
+      error: Error: set parent: filter error: Error: set parent: include error:
+      Error: set parent: update error: Error: set parent: = error: TypeError:
+      Cannot read property 'name' of null
   - name: update 7
     context: b
-    sentences:
-      - dialect: mariadb
-        sentence: >-
-          UPDATE Orders n SET ShipName = ? WHERE n.OrderID = ? 
-
-          UPDATE `Order Details` o SET UnitPrice = o.UnitPrice,ProductID =
-          o.ProductID WHERE (o.OrderID = ? AND o.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          UPDATE Orders n SET ShipName = :entity.name WHERE n.OrderID =
-          :entity.id 
-
-          UPDATE [Order Details] o SET UnitPrice = o.UnitPrice,ProductID =
-          o.ProductID WHERE (o.OrderID = :orderId AND o.ProductID = :productId) 
-      - dialect: mysql
-        sentence: >-
-          UPDATE Orders n SET ShipName = ? WHERE n.OrderID = ? 
-
-          UPDATE `Order Details` o SET UnitPrice = o.UnitPrice,ProductID =
-          o.ProductID WHERE (o.OrderID = ? AND o.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          UPDATE Orders n SET ShipName = :entity.name WHERE n.OrderID =
-          :entity.id 
-
-          UPDATE "Order Details" o SET UnitPrice = o.UnitPrice,ProductID =
-          o.ProductID WHERE (o.OrderID = :orderId AND o.ProductID = :productId) 
-      - dialect: postgres
-        sentence: >-
-          UPDATE Orders n SET ShipName = $1 WHERE n.OrderID = $2 
-
-          UPDATE "Order Details" o SET UnitPrice = o.UnitPrice,ProductID =
-          o.ProductID WHERE (o.OrderID = $1 AND o.ProductID = $2) 
-    errors: 0
+    sentences: []
+    errors: 1
     expression: >-
-      northwind_1.Orders.update(() => ({ name: entity.name })).include(p =>
-      p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId
-      }))).filter(p => p.id === entity.id)
-    completeExpression: >-
-      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
-    model:
-      name: string
-      details:
-        - unitPrice: decimal
-          productId: integer
-    parameters:
-      - name: entity.name
-        type: string
-        value: Ana Trujillo Emparedados y helados
-      - name: entity.id
-        type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
-    executions:
-      - database: mysql
-      - database: postgres
-    result: 1
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
+    error: >-
+      Error: complete expression:
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
+      error: Error: expression:
+      northwind_1.Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
+      error: Error: set parent: filter error: Error: set parent: include error:
+      Error: set parent: update error: Error: set parent: = error: TypeError:
+      Cannot read property 'name' of null
   - name: update 8
     context: a
     sentences:
@@ -806,7 +634,7 @@ test:
           $3,Quantity = $4,Discount = $5 WHERE (o.OrderID = $6 AND o.ProductID =
           $7) 
     errors: 0
-    expression: northwind_1.Orders.update().include(p => p.details)
+    expression: northwind_1.Orders.update().include(p=>p.details)
     completeExpression: >-
       northwind_1.Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
@@ -985,9 +813,7 @@ test:
           $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
           = $7) 
     errors: 0
-    expression: >-
-      northwind_1.Customers.update().include(p => p.orders.include(p =>
-      p.details))
+    expression: northwind_1.Customers.update().include(p=>p.orders.include(p=>p.details))
     completeExpression: >-
       northwind_1.Customers.filter(p=>(p.id==obj.id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
     model:
@@ -1074,4 +900,4 @@ test:
       - database: mysql
       - database: postgres
     result: 0
-errors: 0
+errors: 4

@@ -17,7 +17,7 @@ test:
       - dialect: postgres
         sentence: 'SELECT MAX(n.UnitPrice) AS "maxPrice" FROM Products n  '
     errors: 0
-    expression: 'northwind_1.Products.map(p => ({ maxPrice: max(p.price) }))'
+    expression: northwind_1.Products.map(p=>{maxPrice:max(p.price)})
     completeExpression: northwind_1.Products.map(p=>{maxPrice:max(p.price)})
     model:
       maxPrice: any
@@ -43,7 +43,7 @@ test:
       - dialect: postgres
         sentence: 'SELECT MIN(n.UnitPrice) AS "minPrice" FROM Products n  '
     errors: 0
-    expression: 'northwind_1.Products.map(p => ({ minPrice: min(p.price) }))'
+    expression: northwind_1.Products.map(p=>{minPrice:min(p.price)})
     completeExpression: northwind_1.Products.map(p=>{minPrice:min(p.price)})
     model:
       minPrice: any
@@ -69,7 +69,7 @@ test:
       - dialect: postgres
         sentence: 'SELECT SUM(n.UnitPrice) AS "total" FROM Products n  '
     errors: 0
-    expression: 'northwind_1.Products.map(p => ({ total: sum(p.price) }))'
+    expression: northwind_1.Products.map(p=>{total:sum(p.price)})
     completeExpression: northwind_1.Products.map(p=>{total:sum(p.price)})
     model:
       total: any
@@ -95,7 +95,7 @@ test:
       - dialect: postgres
         sentence: 'SELECT AVG(n.UnitPrice) AS "average" FROM Products n  '
     errors: 1
-    expression: 'northwind_1.Products.map(p => ({ average: avg(p.price) }))'
+    expression: northwind_1.Products.map(p=>{average:avg(p.price)})
     completeExpression: northwind_1.Products.map(p=>{average:avg(p.price)})
     model:
       average: any
@@ -124,7 +124,7 @@ test:
       - dialect: postgres
         sentence: 'SELECT COUNT(1) AS "count" FROM Products n  '
     errors: 0
-    expression: 'northwind_1.Products.map(p => ({ count: count(1) }))'
+    expression: northwind_1.Products.map(p=>{count:count(1)})
     completeExpression: northwind_1.Products.map(p=>{count:count(1)})
     model:
       count: any
@@ -161,8 +161,7 @@ test:
           FROM Products n  GROUP BY n.CategoryID 
     errors: 1
     expression: >-
-      northwind_1.Products.map(p => ({ category: p.categoryId, largestPrice:
-      max(p.price) }))
+      northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     completeExpression: >-
       northwind_1.Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
@@ -241,8 +240,7 @@ test:
           = n.CategoryID GROUP BY c.CategoryName 
     errors: 1
     expression: >-
-      northwind_1.Products.map(p => ({ category: p.category.name, largestPrice:
-      max(p.price) }))
+      northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     completeExpression: >-
       northwind_1.Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
@@ -317,8 +315,7 @@ test:
           ABS(n.UnitPrice) AS "result" FROM Products n  WHERE n.ProductID = $1 
     errors: 0
     expression: >-
-      northwind_1.Products.filter(p => p.id === id).map(p => ({ name: p.name,
-      source: p.price, result: abs(p.price) }))
+      northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
     completeExpression: >-
       northwind_1.Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
     model:
@@ -372,8 +369,7 @@ test:
           = n.CategoryID GROUP BY c.CategoryName HAVING MAX(n.UnitPrice) > 100 
     errors: 0
     expression: >-
-      northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category:
-      p.category.name, largestPrice: max(p.price) }))
+      northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     completeExpression: >-
       northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
@@ -427,9 +423,7 @@ test:
           ORDER BY "largestPrice" desc 
     errors: 0
     expression: >-
-      northwind_1.Products.having(p => max(p.price) > 100).map(p => ({ category:
-      p.category.name, largestPrice: max(p.price) })).sort(p =>
-      desc(p.largestPrice))
+      northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     completeExpression: >-
       northwind_1.Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     model:
@@ -483,9 +477,7 @@ test:
           MAX(n.UnitPrice) > 50 ORDER BY "largestPrice" desc 
     errors: 0
     expression: >-
-      northwind_1.Products.filter(p => p.price > 5).having(p => max(p.price) >
-      50).map(p => ({ category: p.category.name, largestPrice: max(p.price)
-      })).sort(p => desc(p.largestPrice))
+      northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     completeExpression: >-
       northwind_1.Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
     model:
