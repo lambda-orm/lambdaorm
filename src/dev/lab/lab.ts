@@ -1,5 +1,5 @@
 import { orm } from '../../orm'
-import { CustomerRespository, Customer, Order, Categories, Customers, Products, Orders } from '../../schemas/northwind'
+import { CustomerRespository, Customer, Order, Categories, Customers, Products, Orders } from '../../models/northwind'
 
 // class OrderRepository extends Respository<Order, QryOrder> {
 // constructor (database: string) {

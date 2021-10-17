@@ -16,6 +16,7 @@ Is an ORM that uses the syntax of lambda expressions in javascript to write the 
 	- String expressions
 	- Implicit joins and group by
 	- Eager loading using the Include() method.
+	- Metadata
 - Configuration
 	- Schema declaration in models or separate configuration files
 	- Configuration in json or yml formats
@@ -375,27 +376,10 @@ To execute these methods it is not necessary to connect to the database.
 
 ## Installation
 
-install Lambda ORM
-
-```sh
-npm install lambdaorm 
-```
-
-And add the packages according to the databases to be used
-
-```sh
-npm install mysql2 
-npm install mariadb
-npm install pg # Postgres 
-npm install tedious # Microsoft SQL Server
-npm install oracledb
-```
-
-to use cli commands install package globally
+Install the package globally to use the CLI commands to help you create and maintain projects
 
 ```sh
 npm install lambdaorm -g
-
 ```
 
 ## CLI
