@@ -27,7 +27,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { app: { workspace: workspace, configFile: configFile, src: 'src', data: 'data', schemas: 'schemas' }, databases: [], schemas: [] }
+		let config: Config = { app: { workspace: workspace, configFile: configFile, src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -45,7 +45,7 @@ export class LibManager {
 		}
 
 		if (config.app === undefined) {
-			config.app = { workspace: workspace, configFile: configFile, src: 'src', data: 'data', schemas: 'schemas' }
+			config.app = { workspace: workspace, configFile: configFile, src: 'src', data: 'data', models: 'models' }
 		} else {
 			if (config.app.workspace === undefined) {
 				config.app.workspace = workspace
@@ -59,8 +59,8 @@ export class LibManager {
 			if (config.app.data === undefined) {
 				config.app.data = 'data'
 			}
-			if (config.app.schemas === undefined) {
-				config.app.schemas = 'schemas'
+			if (config.app.models === undefined) {
+				config.app.models = 'models'
 			}
 		}
 		if (config.databases === undefined) config.databases = []
@@ -349,22 +349,32 @@ export class LibManager {
 	}
 
 	public async writeModel (config: Config) {
+		const files:string[] = []
 		for (const p in config.schemas) {
 			const schema = config.schemas[p] as Schema
 			const content = this.getModelContent(schema)
-			const schemasPath = path.join(config.app.workspace, config.app.src, config.app.schemas, schema.name)
-			Helper.createIfNotExists(schemasPath)
-			const schemaPath = path.join(schemasPath, 'model.ts')
+			const modelsPath = path.join(config.app.workspace, config.app.src, config.app.models, schema.name)
+			Helper.createIfNotExists(modelsPath)
+			const schemaPath = path.join(modelsPath, 'model.ts')
+			files.push('model.ts')
 			await Helper.writeFile(schemaPath, content, true)
 
 			for (const q in schema.entities) {
 				const entity = schema.entities[q]
-				const repositoryPath = path.join(schemasPath, `repository${Helper.singular(entity.name)}.ts`)
+				const filename = `repository${Helper.singular(entity.name)}.ts`
+				const repositoryPath = path.join(modelsPath, filename)
+				files.push(filename)
 				if (!Helper.existsPath(repositoryPath)) {
 					const repositoryContent = this.getRepositoryContent(entity)
 					await Helper.writeFile(repositoryPath, repositoryContent, true)
 				}
 			}
+			const lines:string[] = []
+			for (const p in files) {
+				const file = files[p]
+				lines.push(`export * from './${file}'\n`)
+			}
+			await Helper.writeFile(path.join(modelsPath, 'index.ts'), lines.join('\n'), true)
 		}
 	}
 
