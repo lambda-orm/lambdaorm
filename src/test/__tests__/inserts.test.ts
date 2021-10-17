@@ -11,8 +11,8 @@ describe('Complete Expression', () => {
 		expect(expected).toBe(target)
 	})
 	test('insert 2', () => {
-		const source = 'Categories.insert({ name: name, description: description })'
-		const expected = 'Categories.insert({name:name,description:description})'
+		const source = 'Categories.insert(() => ({ name: name, description: description }))'
+		const expected = 'Categories.insert(=>{name:name,description:description})'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
@@ -53,7 +53,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('insert 2', async () => {
-		const expression = 'Categories.insert({ name: name, description: description })'
+		const expression = 'Categories.insert(() => ({ name: name, description: description }))'
 		const modelExpected :any= {"name":"string","description":"string"}
 		const parametersExpected:any = [{"name":"name","type":"string","value":"Beverages21"},{"name":"description","type":"string","value":"Soft drinks, coffees, teas, beers, and ales"}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"description","type":"string"}]
@@ -128,7 +128,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('insert 2', async () => {
-		const expression = 'Categories.insert({ name: name, description: description })'
+		const expression = 'Categories.insert(() => ({ name: name, description: description }))'
 		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')

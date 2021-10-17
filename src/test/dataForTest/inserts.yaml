@@ -107,8 +107,8 @@ test:
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
     errors: 0
-    expression: 'Categories.insert({ name: name, description: description })'
-    completeExpression: Categories.insert({name:name,description:description})
+    expression: 'Categories.insert(() => ({ name: name, description: description }))'
+    completeExpression: Categories.insert(=>{name:name,description:description})
     model:
       name: string
       description: string
