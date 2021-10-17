@@ -1,35 +1,32 @@
 # Lambda ORM
 
-## **IMPORTANT:** the library is in an Alpha version!!!
+**IMPORTANT: the library is in an Alpha version!!!**
 
-## Por que Lambda ORM
+Is an ORM that uses the syntax of lambda expressions in javascript to write the expressions, which are translated into sentences according to the dialect of the database.
 
-1. Misma Sintaxis: Utiliza expressiones lambda de Javascritp para escribir las sentencias. Por lo cual no debemos aprender otro lenguaje para escribir las consultas/
-2. Intellisense: Al utilizar la misma sintaxis de javascript y contar con la definicion del modelo se hace uso del Intellisense. Lo cual ayuda la escritura de las sentenias y evita errores de sintaxis
+## Features
 
-3. String expressiones: Las mismas expressiones se pueden escribir tanto en javascript como dentro de una cadena de texto, lo cual permite persistirlas y/o ejecutarlas desde otros contextos.
+- Data mapper pattern
+- Repositories
+- indices
+- transactions
+- using multiple database connections
+- sentences
+	- javascript lambda expressions
+	- string expressions
+	- implicit joins and group by
+	- include
+- Configuration
+	- schema declaration in models or separate configuration files
+	- configuration in json or yml formats
+	- environment variables
+- CLI
+	- init and update commands
+	- run expressions
+	- sync and drop schema
+	- imports and exports
 
-4. CLI: cuenta con varios comandos por CLI que nos permiten desde crear un proyecto, exportar , importar, ejecutar consultas, etc.
-
-5. Definicion de esquema por configuracion. simplifica y unifica la definicion del esquema , lo cual lo hace que sea rapida y facil su escritura.
- La configuracion puede realizarse en archivos yaml o json.
-
-6. Multiples Databases: Permite trabajar con multiples bases de datos de diferentes dialectos en el mismo proyecto.
-
-7. Metadata: propociona metodos para obtener informacion de metadata de una expression, con la cual se puede obtener cual es la estrutura del resultado, cuales son los parametros y tipo de la expression, etc.
-
-LambdaORM es un ORM basado en usar la misma sintaxis de expresiones lambda en javascript para escribir las expresiones que serán traducidas a sentencias SQL según la base de datos.
-
-Al comenzar con expresiones lambda de javascript, podemos usar el intellisense propio del IDE para escribir las oraciones.
-
-
-Lambda ORM utiliza expressiones lambda de javascript para escribir las consultas y de alli su nombre. 
-Esta escrito integramente en Typescript
-
-
-
-
-Example:
+## Example:
 
 ```ts
 import { orm } from 'lambdaorm'
@@ -407,7 +404,7 @@ npm install lambdaorm -g
 |:------------|:----------------------------------------------------------------|:-----------------------------------------------------------------------------:|
 |	version	 		| Prints lambdaorm version this project uses.											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-version)		|
 |	init				| Generates lambdaorm project structure.													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-init)				|
-|	model				| Generate model.																									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-model)			|
+|	updaye			| update model, packages and project structure.										|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-update)			|
 |	sync				|	Syncronize database.																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-sync)				|
 |	run					| Run an expression lambda or return information									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-run)				|
 |	export			| Export data from a database 																		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-export)			|
