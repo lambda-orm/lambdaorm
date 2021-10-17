@@ -1,6 +1,7 @@
 app:
   src: src
   data: data
+  schemas: schemas
   defaultDatabase: source
 databases:
   - name: source

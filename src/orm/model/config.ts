@@ -10,6 +10,7 @@ export interface App
 {
 	src: string
 	data: string
+	schemas:string
 	workspace: string,
 	configFile?: string,
 	defaultDatabase?: string

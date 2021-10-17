@@ -2,7 +2,7 @@ import { orm } from '../../orm'
 import { Queryable, ModifyClauses, ModifyAllClauses } from './query'
 import { IExpressionActions } from './expressionActions'
 
-export class Respository<TEntity, TQuery> implements IExpressionActions {
+export class Respository<TQuery> implements IExpressionActions {
 	public name
 	public database
 	private orm
@@ -19,8 +19,8 @@ export class Respository<TEntity, TQuery> implements IExpressionActions {
 	/**  */
 	insert(): ModifyClauses<TQuery>
 	/**  */
-	insert(predicate: (value:TEntity) => unknown): ModifyClauses<TQuery>
-	public insert (predicate?: (value:TEntity) => unknown): ModifyClauses<TQuery> {
+	insert(predicate: (value:TQuery) => unknown): ModifyClauses<TQuery>
+	public insert (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
 		if (predicate === undefined) {
 			return new ModifyClauses(this, '.insert()')
 		} else {
@@ -31,8 +31,8 @@ export class Respository<TEntity, TQuery> implements IExpressionActions {
 	/**  */
 	update(): ModifyClauses<TQuery>
 	/**  */
-	update(predicate: (value:TEntity) => unknown): ModifyClauses<TQuery>
-	public update (predicate?: (value:TEntity) => unknown): ModifyClauses<TQuery> {
+	update(predicate: (value:TQuery) => unknown): ModifyClauses<TQuery>
+	public update (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
 		if (predicate === undefined) {
 			return new ModifyClauses(this, '.update()')
 		} else {
@@ -43,8 +43,8 @@ export class Respository<TEntity, TQuery> implements IExpressionActions {
 	/**  */
 	updateAll(): ModifyClauses<TQuery>
 	/**  */
-	updateAll(predicate:(value:TEntity) => unknown): ModifyClauses<TQuery>
-	public updateAll (predicate?: (value: TEntity) => unknown): ModifyAllClauses<TQuery> {
+	updateAll(predicate:(value:TQuery) => unknown): ModifyClauses<TQuery>
+	public updateAll (predicate?: (value: TQuery) => unknown): ModifyAllClauses<TQuery> {
 		if (predicate === undefined) {
 			return new ModifyClauses(this, '.updateAll()')
 		} else {
@@ -55,8 +55,8 @@ export class Respository<TEntity, TQuery> implements IExpressionActions {
 	/**  */
 	merge(): ModifyClauses<TQuery>
 	/**  */
-	merge(predicate: (value:TEntity) => unknown): ModifyClauses<TQuery>
-	public merge (predicate?: (value:TEntity) => unknown): ModifyClauses<TQuery> {
+	merge(predicate: (value:TQuery) => unknown): ModifyClauses<TQuery>
+	public merge (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
 		if (predicate === undefined) {
 			return new ModifyClauses(this, '.merge()')
 		} else {
@@ -67,8 +67,8 @@ export class Respository<TEntity, TQuery> implements IExpressionActions {
 	/**  */
 	delete(): ModifyClauses<TQuery>
 	/**  */
-	delete(predicate:(value:TEntity) => unknown): ModifyClauses<TQuery>
-	public delete (predicate?: (value:TEntity) => unknown): ModifyClauses<TQuery> {
+	delete(predicate:(value:TQuery) => unknown): ModifyClauses<TQuery>
+	public delete (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
 		if (predicate === undefined) {
 			return new ModifyClauses(this, '.delete()')
 		} else {
@@ -79,8 +79,8 @@ export class Respository<TEntity, TQuery> implements IExpressionActions {
 	/**  */
 	deleteAll(): ModifyClauses<TQuery>
 	/**  */
-	deleteAll(predicate:(value:TEntity) => unknown): ModifyClauses<TQuery>
-	public deleteAll (predicate?: (value: TEntity) => unknown): ModifyAllClauses<TQuery> {
+	deleteAll(predicate:(value:TQuery) => unknown): ModifyClauses<TQuery>
+	public deleteAll (predicate?: (value: TQuery) => unknown): ModifyAllClauses<TQuery> {
 		if (predicate === undefined) {
 			return new ModifyClauses(this, '.deleteAll()')
 		} else {

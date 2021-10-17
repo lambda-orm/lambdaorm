@@ -182,16 +182,6 @@
 			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
 		},
 		{
-			"name": "generate model",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/task/generateModel.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
 			"name": "generate data test files",
 			"type": "node",
 			"request": "launch",

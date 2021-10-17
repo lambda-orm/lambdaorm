@@ -47,12 +47,6 @@ export class DatabaseManager {
 		return new DatabaseClean(this.orm, database)
 	}
 
-	public model (name:string):string {
-		const database = this.get(name)
-		const schema:Schema = this.orm.schema.get(database.schema) as Schema
-		return this.orm.schema.model(schema)
-	}
-
 	public async export (name:string):Promise<SchemaData> {
 		const state = await this.getState(name)
 		return await this.orm.schema.export(state.schema).execute(name)
