@@ -130,7 +130,7 @@ test:
       - dialect: postgres
         sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = $1 '
     errors: 0
-    expression: OrderDetails.delete().filter(p => p.orderId === id)
+    expression: OrderDetails.delete().filter(p=>(p.orderId===id))
     completeExpression: OrderDetails.delete().filter(p=>(p.orderId===id))
     model: {}
     parameters:
@@ -176,7 +176,7 @@ test:
           DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
           = $2) 
     errors: 0
-    expression: Orders.delete().include(p => p.details)
+    expression: Orders.delete().include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
@@ -225,7 +225,7 @@ test:
           DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
           = $2) 
     errors: 0
-    expression: Orders.delete().filter(p => p.id === id).include(p => p.details)
+    expression: Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)
     completeExpression: >-
       Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
@@ -274,7 +274,7 @@ test:
           DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
           = $2) 
     errors: 0
-    expression: Orders.delete().include(p => p.details)
+    expression: Orders.delete().include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:
@@ -363,7 +363,7 @@ test:
           DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
           = $2) 
     errors: 0
-    expression: Orders.delete(entity).include(p => p.details)
+    expression: Orders.delete(entity).include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
     model:

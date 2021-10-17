@@ -92,7 +92,7 @@ test:
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
     errors: 0
-    expression: Orders.filter(p => p.id === id).include(p => p.customer)
+    expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id}))
     model:
@@ -257,7 +257,7 @@ test:
           "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
           o1.OrderID IN ($1) 
     errors: 0
-    expression: Orders.filter(p => p.id === id).include(p => p.details)
+    expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}))
     model:
@@ -459,7 +459,7 @@ test:
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
     errors: 0
-    expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
+    expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
@@ -719,8 +719,7 @@ test:
           WHERE  c.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
-      q.product), p.customer])
+      Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,__parentId:p.orderId}).filter(p=>includes(p.orderId,__parentId)).include(q=>q.product.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__parentId:p.id})),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
@@ -1049,8 +1048,7 @@ test:
           FROM Customers c1  WHERE  c1.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
-      q.product.include(p => p.category)), p.customer])
+      Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,__parentId:p.orderId}).filter(p=>includes(p.orderId,__parentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,__parentId:p.id}).filter(p=>includes(p.id,__parentId)).include(p=>p.category.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,description:p.description,__parentId:p.id}))),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
@@ -1330,9 +1328,7 @@ test:
           WHERE  c.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({
-      quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
-      p.customer])
+      Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
@@ -1581,9 +1577,7 @@ test:
           WHERE  c.CustomerID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
-      q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
-      productId: p.productId })), p.customer])
+      Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__parentId:p.id})).filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
     model:
@@ -1859,9 +1853,7 @@ test:
           Categories c1  WHERE  c1.CategoryID IN ($1) 
     errors: 0
     expression: >-
-      Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
-      p.details.include(p => p.product.include(p => p.category.map(p =>
-      p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
+      Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     completeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).include(p=>[p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__parentId:p.id}),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__parentId:p.id})).filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__categoryId:p.categoryId,__parentId:p.id})).filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,__productId:p.productId,__parentId:p.orderId})])
     model:

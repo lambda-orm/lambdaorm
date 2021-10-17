@@ -1,5 +1,5 @@
 
-import { Cache, IOrm, Context, ConfigInfo, Config } from './model'
+import { Cache, IOrm, Context, Config } from './model'
 import { Model, ParserManager } from './parser/index'
 import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
@@ -10,11 +10,7 @@ import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
-// import { Helper } from './helper'
-
-// const ConfigExtends = require('config-extends')
-// const fs = require('fs')
-// const path = require('path')
+import { Helper } from './helper'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -32,7 +28,7 @@ export class Orm implements IOrm {
 	/**
 	 * Property that exposes the configuration
 	 */
-	public configInfo: ConfigInfo
+	public config: Config
 	/**
 	 * Singleton
 	 */
@@ -44,7 +40,7 @@ export class Orm implements IOrm {
 	}
 
 	constructor () {
-		this.configInfo = { workspace: process.cwd(), config: { paths: { src: 'src', data: 'data' }, databases: [], schemas: [] } }
+		this.config = { app: { workspace: process.cwd(), src: 'src', data: 'data', schemas: 'schemas' }, databases: [], schemas: [] }
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
@@ -72,35 +68,37 @@ export class Orm implements IOrm {
 
 	/**
 	 * metodo para incializar la libreria de orm
-	 * @param configPath optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
+	 * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
 	 * @returns promise void
 	 */
-	public async init (config?:string | Config, connect = true): Promise<void> {
-		this.configInfo = await this.libManager.getConfigInfo(config)
-		if (this.configInfo.config.schemas) {
-			for (const p in this.configInfo.config.schemas) {
-				this.schema.load(this.configInfo.config.schemas[p])
+	public async init (source?: string | Config, connect = true): Promise<void> {
+		if (source === undefined || typeof source === 'string') {
+			this.config = await this.libManager.getConfig(source)
+		} else {
+			const _config = source as Config
+			if (_config === undefined) {
+				throw new Error(`Config: ${source} not supported`)
+			}
+			this.config = _config
+		}
+		Helper.solveEnriromentVariables(this.config)
+		if (this.config.schemas) {
+			for (const p in this.config.schemas) {
+				this.schema.load(this.config.schemas[p])
 			}
 		}
-
-		if (this.configInfo.config.databases) {
-			for (const p in this.configInfo.config.databases) {
-				const database = this.configInfo.config.databases[p]
+		if (this.config.databases) {
+			for (const p in this.config.databases) {
+				const database = this.config.databases[p]
 				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
-				if (typeof database.connection === 'string') {
-					const value = process.env[database.connection] as string
-					connectionConfig.connection = JSON.parse(value)
-				} else if (typeof database.connection === 'object') {
-					connectionConfig.connection = database.connection
-				} else {
-					throw new Error(`wrong connection in database ${database.name} `)
-				}
+				connectionConfig.connection = database.connection
 				if (connect) {
 					this.connection.load(connectionConfig)
 				}
 				this.database.load(database)
 			}
 		}
+		this.database.default = this.config.app.defaultDatabase
 	}
 
 	/**
@@ -191,7 +189,8 @@ export class Orm implements IOrm {
 			if (!operand) {
 				const _schema = this.schemaManager.getInstance(schema)
 				const node = this.parser.parse(expression)
-				operand = this.language.build(node, _schema)
+				const compleNode = this.language.complete(node, _schema)
+				operand = this.language.build(compleNode, _schema)
 				await this._cache.set(key, operand)
 			}
 			return operand as Operand
@@ -228,9 +227,19 @@ export class Orm implements IOrm {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
-		const str = func.toString().trim()
-		const index = str.indexOf('=>') + 2
-		const expression = str.substring(index, str.length).trim()
+		let expression = Helper.clearLambda(func)
+		const node = this.parser.parse(expression)
+		let aux = node
+		while (aux.type !== 'var') {
+			if (aux.children.length > 0) {
+				aux = aux.children[0]
+			}
+		}
+		if (aux.name.includes('.')) {
+			// Example: model_1.Products.map(p=>p) =>  Products.map(p=>p)
+			aux.name = aux.name.split('.')[1]
+		}
+		expression = this.parser.toExpression(node)
 		return new Expression(this, expression)
 	}
 
@@ -240,21 +249,24 @@ export class Orm implements IOrm {
 		return this.language.eval(operand, _context)
 	}
 
-	public async execute (expression: string, database: string, context: any = {}): Promise<any> {
-		const _database = this.database.get(database)
-		const operand = await this.query(expression, _database.dialect, _database.schema)
+	public async execute (expression: string, context: any = {}, database?: string): Promise<any> {
 		try {
+			if (typeof context !== 'object') {
+				throw new Error(`object type ${typeof context} is invalied`)
+			}
+
+			const db = this.database.get(database)
+			const operand = await this.query(expression, db.dialect, db.schema)
 			const _context = new Context(context)
-			const _database = this.database.get(database)
 			let result
 			if (operand.children.length === 0) {
-				const executor = this.connectionManager.createExecutor(_database.name)
-				result = await this.language.execute(_database.dialect, operand, _context, executor)
+				const executor = this.connectionManager.createExecutor(db.name)
+				result = await this.language.execute(db.dialect, operand, _context, executor)
 			} else {
-				const tr = this.connectionManager.createTransaction(database)
+				const tr = this.connectionManager.createTransaction(db.name)
 				try {
 					await tr.begin()
-					result = await this.language.execute(_database.dialect, operand, _context, tr)
+					result = await this.language.execute(db.dialect, operand, _context, tr)
 					await tr.commit()
 				} catch (error) {
 					console.log(error)

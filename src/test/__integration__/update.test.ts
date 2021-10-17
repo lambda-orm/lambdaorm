@@ -8,65 +8,73 @@ describe('Execute', () => {
 	test('update 1', async () => {
 		const expression = 'Orders.update()'
 		const expected = 0
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 2', async () => {
 		const expression = 'Orders.update(entity)'
 		const expected = 0
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 3', async () => {
-		const expression = 'Orders.updateAll({ postalCode: postalCode })'
+		const expression = 'Orders.updateAll(=>{postalCode:postalCode})'
 		const expected = 833
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 4', async () => {
-		const expression = 'Orders.update({ name: entity.name }).filter(p => p.id === entity.id)'
+		const expression = 'Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 5', async () => {
-		const expression = 'Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id)'
+		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 6', async () => {
-		const expression = 'Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id)'
+		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))'
 		const expected = 1
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 7', async () => {
-		const expression = 'Orders.update().include(p => p.details)'
-		const expected = 0
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))'
+		const expected = 1
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 	test('update 8', async () => {
-		const expression = 'Customers.update().include(p => p.orders.include(p => p.details))'
+		const expression = 'Orders.update().include(p=>p.details)'
 		const expected = 0
-		const mysqlResult =  await orm.expression(expression).execute('mysql',context)
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('postgres',context)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
+		expect(expected).toEqual(postgresResult)
+	})
+	test('update 9', async () => {
+		const expression = 'Customers.update().include(p=>p.orders.include(p=>p.details))'
+		const expected = 0
+		const mysqlResult =  await orm.expression(expression).execute('context,mysql')
+		expect(expected).toEqual(mysqlResult)
+		const postgresResult =  await orm.expression(expression).execute('context,postgres')
 		expect(expected).toEqual(postgresResult)
 	})
 })

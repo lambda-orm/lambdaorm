@@ -49,7 +49,11 @@ export class SchemaHelper {
 		return entity ? entity.mapping : null
 	}
 
-	public getEntity (name:string):any {
+	public getEntity (name: string): any {
+		if (name.includes('.')) {
+			const entityName = name.split('.')[1]
+			return this._schema.entity[entityName]
+		}
 		return this._schema.entity[name]
 	}
 

@@ -5,6 +5,7 @@ import { Orm } from './orm'
 // export * from './helper'
 // export * from './connection/index'
 export * from './model'
+export * from './repository'
 export { Helper } from './helper'
 export { Orm } from './orm'
 export const orm = Orm.instance

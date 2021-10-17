@@ -76,43 +76,6 @@ export class SchemaManager {
 		return new SchemaImport(this.orm, schemaHelper)
 	}
 
-	public model (source:Schema):string {
-		const lines: string[] = []
-		lines.push('import \'./sintaxis\'')
-		lines.push('declare global {')
-		for (const p in source.entities) {
-			const entity = source.entities[p]
-			lines.push(`\tinterface ${Helper.singular(entity.name)}{`)
-			for (const q in entity.properties) {
-				const property = entity.properties[q]
-				const type = Helper.tsType(property.type)
-				lines.push(`\t\t${property.name}: ${type}`)
-			}
-			for (const q in entity.relations) {
-				const relation = entity.relations[q]
-				const relationEntity = Helper.singular(relation.entity)
-				switch (relation.type) {
-				case 'oneToMany':
-					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToMany<${relationEntity}>`)
-					break
-				case 'oneToOne':
-					lines.push(`\t\t${relation.name}: ${relationEntity} & OneToOne<${relationEntity}>`)
-					break
-				case 'manyToOne':
-					lines.push(`\t\t${relation.name}: ManyToOne<${relationEntity}>`)
-					break
-				}
-			}
-			lines.push('  }')
-		}
-		for (const p in source.entities) {
-			const entity = source.entities[p]
-			lines.push(`\tlet ${entity.name}: Entity<${Helper.singular(entity.name)}>`)
-		}
-		lines.push('}\n')
-		return lines.join('\n')
-	}
-
 	public transform (source:Schema):any {
 		const target:any = { entity: {}, enum: {} }
 		target.name = source.name

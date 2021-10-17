@@ -6,20 +6,24 @@ export interface Database
 	connection:any
 	schema:string
 }
-export interface Paths
+export interface App
 {
 	src: string
 	data: string
+	schemas:string
+	workspace: string,
+	configFile?: string,
+	defaultDatabase?: string
 }
 export interface Config
 {
-	paths: Paths
+	app: App
 	databases: Database[]
 	schemas:Schema[]
 }
-export interface ConfigInfo
-{
-	workspace: string
-	configFile?: string
-	config:Config
-}
+// export interface ConfigInfo
+// {
+// workspace: string
+// configFile?: string
+// config:Config
+// }

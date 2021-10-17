@@ -7,7 +7,7 @@ import { SyncCommand } from './cli/sync'
 import { ImportCommand } from './cli/import'
 import { ExportCommand } from './cli/export'
 import { RunCommand } from './cli/run'
-import { ModelCommand } from './cli/model'
+import { UpdateCommand } from './cli/update'
 
 // eslint-disable-next-line no-unused-expressions
 yargs
@@ -19,7 +19,7 @@ yargs
 	.command(new ImportCommand())
 	.command(new ExportCommand())
 	.command(new RunCommand())
-	.command(new ModelCommand())
+	.command(new UpdateCommand())
 	.recommendCommands()
 	.demandCommand(1)
 	.strict()
@@ -27,9 +27,3 @@ yargs
 	.help('h')
 	.alias('h', 'help')
 	.argv
-
-require('yargonaut')
-	.style('blue')
-	.style('yellow', 'required')
-	.helpStyle('green')
-	.errorsStyle('red')

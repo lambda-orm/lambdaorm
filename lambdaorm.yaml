@@ -1,38 +1,31 @@
-path:
+app:
   src: src
   data: data
+  schemas: schemas
+  defaultDatabase: source
 databases:
   - name: source
     schema: northwind
     dialect: mysql
-    connection: ORM_CNN_SOURCE
+    connection: $ORM_CNN_SOURCE
   - name: mysql
     schema: northwind
     dialect: mysql
-    connection:
-      host: "0.0.0.0"
-      port: 3307
-      user: test
-      password: test
-      database: northwind
-      multipleStatements: true
-      waitForConnections: true
-      connectionLimit: 10
-      queueLimit: 0
+    connection: $ORM_CNN_MYSQL
   # - name: mariadb
   #   schema: northwind
   #   dialect: mariadb
   #   connectionSource: env
-  #   connection: ORM_CNN_3
+  #   connection: $ORM_CNN_3
   - name: postgres
     schema: northwind
     dialect: postgres
-    connection: ORM_CNN_POSTGRES
+    connection: $ORM_CNN_POSTGRES
   # - name: mssql
   #   schema: northwind
   #   dialect: mssql
   #   connectionSource: env
-  #   connection: ORM_CNN_MSSQL
+  #   connection: $ORM_CNN_MSSQL
 abstract:
   address:
     properties:

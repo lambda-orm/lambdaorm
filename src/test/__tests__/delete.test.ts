@@ -5,25 +5,25 @@ beforeAll(async () => {
 })
 describe('Complete Expression', () => {
 	test('delete 1', () => {
-		const source = 'OrderDetails.delete().filter(p => p.orderId === id)'
+		const source = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const expected = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('delete 2', () => {
-		const source = 'Orders.delete().include(p => p.details)'
+		const source = 'Orders.delete().include(p=>p.details)'
 		const expected = 'Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('delete 3', () => {
-		const source = 'Orders.delete().filter(p => p.id === id).include(p => p.details)'
+		const source = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
 		const expected = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
 	})
 	test('delete 4', () => {
-		const source = 'Orders.delete().include(p => p.details)'
+		const source = 'Orders.delete().include(p=>p.details)'
 		const expected = 'Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
@@ -35,7 +35,7 @@ describe('Complete Expression', () => {
 		expect(expected).toBe(target)
 	})
 	test('delete 5', () => {
-		const source = 'Orders.delete(entity).include(p => p.details)'
+		const source = 'Orders.delete(entity).include(p=>p.details)'
 		const expected = 'Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
@@ -49,7 +49,7 @@ describe('Complete Expression', () => {
 })
 describe('Metadata', () => {
 	test('delete 1', async () => {
-		const expression = 'OrderDetails.delete().filter(p => p.orderId === id)'
+		const expression = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const modelExpected :any= {}
 		const parametersExpected:any = [{"name":"id","type":"integer","value":9}]
 		const fieldsExpected :any= []
@@ -59,7 +59,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 2', async () => {
-		const expression = 'Orders.delete().include(p => p.details)'
+		const expression = 'Orders.delete().include(p=>p.details)'
 		const modelExpected :any= {"details":[{}]}
 		const parametersExpected:any = [{"name":"id","type":"integer","value":4}]
 		const fieldsExpected :any= []
@@ -69,7 +69,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 3', async () => {
-		const expression = 'Orders.delete().filter(p => p.id === id).include(p => p.details)'
+		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
 		const modelExpected :any= {"details":[{}]}
 		const parametersExpected:any = [{"name":"id","type":"integer","value":2}]
 		const fieldsExpected :any= []
@@ -79,7 +79,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 4', async () => {
-		const expression = 'Orders.delete().include(p => p.details)'
+		const expression = 'Orders.delete().include(p=>p.details)'
 		const modelExpected :any= {"details":[{}]}
 		const parametersExpected:any = [{"name":"id","type":"integer","value":4}]
 		const fieldsExpected :any= []
@@ -99,7 +99,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('delete 5', async () => {
-		const expression = 'Orders.delete(entity).include(p => p.details)'
+		const expression = 'Orders.delete(entity).include(p=>p.details)'
 		const modelExpected :any= {"details":[{}]}
 		const parametersExpected:any = [{"name":"entity.id","type":"integer","value":null}]
 		const fieldsExpected :any= []
@@ -121,7 +121,7 @@ describe('Metadata', () => {
 })
 describe('Sentences', () => {
 	test('delete 1', async () => {
-		const expression = 'OrderDetails.delete().filter(p => p.orderId === id)'
+		const expression = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const mariadbExpected = 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -144,7 +144,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('delete 2', async () => {
-		const expression = 'Orders.delete().include(p => p.details)'
+		const expression = 'Orders.delete().include(p=>p.details)'
 		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -167,7 +167,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('delete 3', async () => {
-		const expression = 'Orders.delete().filter(p => p.id === id).include(p => p.details)'
+		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
 		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -190,7 +190,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('delete 4', async () => {
-		const expression = 'Orders.delete().include(p => p.details)'
+		const expression = 'Orders.delete().include(p=>p.details)'
 		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
@@ -236,7 +236,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('delete 5', async () => {
-		const expression = 'Orders.delete(entity).include(p => p.details)'
+		const expression = 'Orders.delete(entity).include(p=>p.details)'
 		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')

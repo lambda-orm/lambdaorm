@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.0.37",
+	"version": "0.0.38",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -27,12 +27,10 @@
 		"doc": "typedoc"
 	},
 	"dependencies": {
-		"chalk": "^4.1.2",
 		"config-extends": "^1.0.4",
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
 		"sqlstring": "^2.3.2",
-		"yargonaut": "^1.1.4",
 		"yargs": "^17.2.1"
 	},
 	"devDependencies": {

@@ -11,7 +11,7 @@ describe('Complete Expression', () => {
 		expect(expected).toBe(target)
 	})
 	test('bulkInsert 2', () => {
-		const source = 'Orders.bulkInsert().include(p => p.details)'
+		const source = 'Orders.bulkInsert().include(p=>p.details)'
 		const expected = 'Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))'
 		const target = orm.expression(source).complete('northwind')
 		expect(expected).toBe(target)
@@ -29,7 +29,7 @@ describe('Metadata', () => {
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
 	test('bulkInsert 2', async () => {
-		const expression = 'Orders.bulkInsert().include(p => p.details)'
+		const expression = 'Orders.bulkInsert().include(p=>p.details)'
 		const modelExpected :any= {"customerId":"string","employeeId":"integer","orderDate":"datetime","requiredDate":"datetime","shippedDate":"datetime","shipViaId":"integer","freight":"decimal","name":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string","details":[{"orderId":"integer","productId":"integer","unitPrice":"decimal","quantity":"decimal","discount":"decimal"}]}
 		const parametersExpected:any = [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
@@ -64,7 +64,7 @@ describe('Sentences', () => {
 		expect(postgresExpected).toBe(postgres)
 	})
 	test('bulkInsert 2', async () => {
-		const expression = 'Orders.bulkInsert().include(p => p.details)'
+		const expression = 'Orders.bulkInsert().include(p=>p.details)'
 		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?; INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?'
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')

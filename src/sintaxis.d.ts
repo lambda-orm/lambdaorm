@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 interface PageClauses<T> {
@@ -35,15 +34,15 @@ interface ModifyAllClauses<T> {
 
 interface HavingClauses<T> extends MapClauses<T> {
 	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+	map<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
 	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+	first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
 }
 interface FilterIncludeClauses<T> extends HavingClauses<T> {
 	/**  */
@@ -61,38 +60,38 @@ interface FilterClauses<T> extends HavingClauses<T> {
 	/**  */
 	having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
 }
-interface Entity<T> extends MapClauses<T> {
+interface Queryable<T> extends MapClauses<T> {
 	/**  */
 	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
 	/**  */
 	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
 	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+	map<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
 	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+	first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
+	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
+	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
 	/**  */
 	having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
 	/**  */
-	insert(value?: T|Object): ModifyClauses<T>
+	insert(predicate?:(value:T) => unknown): ModifyClauses<T>
 	/**  */
-	update(value?:T|Object): ModifyClauses<T>
+	update(predicate?:(value:T) => unknown): ModifyClauses<T>
 	/**  */
-	updateAll(value?:T|Object): ModifyAllClauses<T>
+	updateAll(predicate?:(value:T) => unknown): ModifyAllClauses<T>
 	/**  */
-	delete(value?: T|Object): ModifyClauses<T>
+	delete(predicate?:(value:T) => unknown): ModifyClauses<T>
 	/**  */
-	deleteAll(value?:T|Object): ModifyAllClauses<T>
+	deleteAll(predicate?:(value:T) => unknown): ModifyAllClauses<T>
 	/**  */
-	sync(value?:T|Object): ModifyClauses<T>
+	sync(predicate?:(value:T) => unknown): ModifyClauses<T>
 	// include(...args:string[]):Entity<T>
 	/**  */
-	bulkInsert(value?:T|Object): ModifyAllClauses<T>
+	bulkInsert(predicate?:(value:T) => unknown): ModifyAllClauses<T>
 }
 
 interface RelationMapClauses<T> {
@@ -101,34 +100,37 @@ interface RelationMapClauses<T> {
 }
 interface RelationIncludeClauses<T> {
 	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	map<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 }
 interface Relation<T> {
 	/**  */
-	map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	map<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	first<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	last<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	take<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	distinct<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
+	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
 	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): RelationIncludeClauses<T>
 	/**  */
-	update(callbackfn: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+	update(predicate?:(value:T) => unknown):void
+	// update(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
 	/**  */
-	insert(callbackfn: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
+	insert(predicate?:(value:T) => unknown): void
+	// insert(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
 	// update(value:T|Object):void
+
 }
 type OneToMany<T> = Relation<T>
 type OneToOne<T> = Relation<T>

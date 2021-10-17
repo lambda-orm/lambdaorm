@@ -1,12 +1,32 @@
 # Lambda ORM
 
-## **IMPORTANT:** the library is in an Alpha version!!!
+**IMPORTANT: the library is in an Alpha version!!!**
 
-LambdaORM is an ORM based on using the same syntax of lambda expressions in javascript to write the expressions that will be translated into SQL sentences according to the database.
+Is an ORM that uses the syntax of lambda expressions in javascript to write the expressions, which are translated into sentences according to the dialect of the database.
 
-When starting from javascript lambda expressions we can use the IDE's own intellisense to write the sentences.
+## Features
 
-Example:
+- Data mapper pattern
+- Repositories
+- Indices
+- Transactions
+- Using multiple database connections
+- Expressions
+	- Simple expressions based on javascript lambda.
+	- String expressions
+	- Implicit joins and group by
+	- Eager loading using the Include() method.
+- Configuration
+	- Schema declaration in models or separate configuration files
+	- Configuration in json or yml formats
+	- Environment variables
+- CLI
+	- Init and update commands
+	- Run expressions
+	- Sync and drop schema
+	- Imports and exports
+
+## Example:
 
 ```ts
 import { orm } from 'lambdaorm'
@@ -283,7 +303,7 @@ Example:
       "name": "lab_01",
       "dialect": "mysql",
       "schema": "lab_01",
-      "connection": { "type": "mysql", "host": "localhost", "port": 3306, "username": "test", "password": "test", "database": "test"  }
+      "connection": "$ORM_CNN_MYSQL"
     }
   ],
   "schemas": [
@@ -336,8 +356,6 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-
-
 - [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Config)
 
 ## Metadata
@@ -386,14 +404,20 @@ npm install lambdaorm -g
 |:------------|:----------------------------------------------------------------|:-----------------------------------------------------------------------------:|
 |	version	 		| Prints lambdaorm version this project uses.											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-version)		|
 |	init				| Generates lambdaorm project structure.													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-init)				|
-|	model				| Generate model.																									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-model)			|
+|	updaye			| update model, packages and project structure.										|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-update)			|
 |	sync				|	Syncronize database.																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-sync)				|
 |	run					| Run an expression lambda or return information									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-run)				|
 |	export			| Export data from a database 																		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-export)			|
 |	import			| Import data from file to database																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-import)			|
 |	drop				|	Removes all database objects but not the database.							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-drop)				|
 
+- [Lab CLI](https://github.com/FlavioLionelRita/lambdaorm/wiki/Lab-CLI)
+
 ## Documentation
 
 - [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
 - [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
+
+### Labs
+
+- [CLI](https://github.com/FlavioLionelRita/lambdaorm/wiki/Lab-CLI)

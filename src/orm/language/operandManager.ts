@@ -449,9 +449,17 @@ export class OperandManager {
 
 	private createInsertClause (clause:Node, schema:SchemaHelper, context:ExpressionContext):Operand {
 		if (clause.children.length === 2) {
+			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === 'obj') {
 				const autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity)
 				const child = this.nodeToOperand(clause.children[1], schema, context)
+				return new Insert(context.current.metadata.mapping, [child], clause.name, autoincremente?.mapping)
+			} else { throw new Error('Args incorrect in Sentence Insert') }
+		} else if (clause.children.length === 3) {
+			// Example: Categories.insert(() => ({ name: name, description: description }))
+			if (clause.children[2].type === 'obj') {
+				const autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity)
+				const child = this.nodeToOperand(clause.children[2], schema, context)
 				return new Insert(context.current.metadata.mapping, [child], clause.name, autoincremente?.mapping)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		}
