@@ -12,7 +12,7 @@ Is an ORM that uses the syntax of lambda expressions in javascript to write the 
 - Transactions
 - Using multiple database connections
 - Expressions
-	- Based on javascript lambda
+	- Simple expressions based on javascript lambda.
 	- String expressions
 	- Implicit joins and group by
 	- Eager loading using the Include() method.
