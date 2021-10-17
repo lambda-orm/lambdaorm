@@ -298,7 +298,7 @@ Example:
 
 ```json
 {
-  "paths": { "src": "src", "data": "data"  },
+  "paths": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "lab_01" },
   "databases": [
     {
       "name": "lab_01",
