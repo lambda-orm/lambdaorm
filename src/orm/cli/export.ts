@@ -27,7 +27,7 @@ export class ExportCommand implements CommandModule {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const database = args.name as string
 		const target = path.resolve(process.cwd(), args.target as string || '.')
-		const orm = new Orm()
+		const orm = new Orm(workspace)
 
 		try {
 			const config = await orm.lib.getConfig(workspace)

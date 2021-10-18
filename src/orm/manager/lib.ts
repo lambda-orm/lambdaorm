@@ -1,15 +1,19 @@
 import fs from 'fs'
 import path from 'path'
-import { Config, Database, Schema, Entity } from '../model'
+import { Config, Database, Schema, Entity, IOrm } from '../model'
 import { Helper } from '../helper'
 const ConfigExtends = require('config-extends')
 const yaml = require('js-yaml')
 
 export class LibManager {
+	private orm:IOrm
+	constructor (orm:IOrm) {
+		this.orm = orm
+	}
+
 	public async getConfig (source?: string): Promise<Config> {
 		let workspace : string
 		let configFile: string|undefined
-
 		workspace = process.cwd()
 
 		if (source === undefined) {
@@ -27,7 +31,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { app: { workspace: workspace, configFile: configFile, src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+		let config: Config = { app: { configFile: configFile, src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -45,11 +49,8 @@ export class LibManager {
 		}
 
 		if (config.app === undefined) {
-			config.app = { workspace: workspace, configFile: configFile, src: 'src', data: 'data', models: 'models' }
+			config.app = { configFile: configFile, src: 'src', data: 'data', models: 'models' }
 		} else {
-			if (config.app.workspace === undefined) {
-				config.app.workspace = workspace
-			}
 			if (config.app.configFile === undefined) {
 				config.app.configFile = configFile
 			}
@@ -71,38 +72,38 @@ export class LibManager {
 
 	public async createStructure (config: Config) {
 		// create initial structure
-		await Helper.createIfNotExists(path.join(config.app.workspace, config.app.src))
-		await Helper.createIfNotExists(path.join(config.app.workspace, config.app.data))
+		await Helper.createIfNotExists(path.join(this.orm.workspace, config.app.src))
+		await Helper.createIfNotExists(path.join(this.orm.workspace, config.app.data))
 
 		// if the sintaxis.d.ts does not exist create it
-		const sintaxisPath = path.join(config.app.workspace, config.app.src, 'sintaxis.d.ts')
+		const sintaxisPath = path.join(this.orm.workspace, config.app.src, 'sintaxis.d.ts')
 		if (!await Helper.existsPath(sintaxisPath)) {
 			await Helper.copyFile(path.join(__dirname, './../sintaxis.d.ts'), sintaxisPath)
 		}
 
 		// if the package.json does not exist create it
-		const packagePath = path.join(config.app.workspace, 'package.json')
+		const packagePath = path.join(this.orm.workspace, 'package.json')
 		if (!await Helper.existsPath(packagePath)) {
 			await Helper.writeFile(packagePath, JSON.stringify({ dependencies: {} }, null, 2))
 		}
 
 		// if there is no tsconfig.json create it
-		const tsconfigPath = path.join(config.app.workspace, 'tsconfig.json')
+		const tsconfigPath = path.join(this.orm.workspace, 'tsconfig.json')
 		if (!await Helper.existsPath(tsconfigPath)) {
 			const tsconfigContent = this.getTypescriptContent()
 			await Helper.writeFile(tsconfigPath, JSON.stringify(tsconfigContent, null, 2))
 		}
 
 		// install typescript if not installed.
-		const typescriptLib = await this.getLocalPackage('typescript', config.app.workspace)
+		const typescriptLib = await this.getLocalPackage('typescript', this.orm.workspace)
 		if (typescriptLib === '') {
-			await Helper.exec('npm install typescript -D', config.app.workspace)
+			await Helper.exec('npm install typescript -D', this.orm.workspace)
 		}
 
 		// install lambdaorm if it is not installed.
-		const lambdaormLib = await this.getLocalPackage('lambdaorm', config.app.workspace)
+		const lambdaormLib = await this.getLocalPackage('lambdaorm', this.orm.workspace)
 		if (lambdaormLib === '') {
-			await Helper.exec('npm install lambdaorm', config.app.workspace)
+			await Helper.exec('npm install lambdaorm', this.orm.workspace)
 		}
 	}
 
@@ -111,14 +112,14 @@ export class LibManager {
 			const database = config.databases[p]
 			// if the library is not installed locally corresponding to the dialect it will be installed
 			const lib = this.getLib(database.dialect)
-			const localLib = await this.getLocalPackage(lib, config.app.workspace)
+			const localLib = await this.getLocalPackage(lib, this.orm.workspace)
 			if (localLib === '') {
-				await Helper.exec(`npm install ${lib}`, config.app.workspace)
+				await Helper.exec(`npm install ${lib}`, this.orm.workspace)
 			}
 			// if the library is not installed locally corresponding to the dialect it will be installed
 			const globalLib = await this.getGlobalPackage(lib)
 			if (globalLib === '') {
-				await Helper.exec(`npm install ${globalLib} -g`, config.app.workspace)
+				await Helper.exec(`npm install ${globalLib} -g`, this.orm.workspace)
 			}
 		}
 	}
@@ -137,7 +138,7 @@ export class LibManager {
 
 	public async writeConfig (config: Config): Promise<void> {
 		if (config.app.configFile !== undefined) {
-			const configPath = path.join(config.app.workspace, config.app.configFile)
+			const configPath = path.join(this.orm.workspace, config.app.configFile)
 			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
 				const content = yaml.dump(config)
 				await Helper.writeFile(configPath, content)
@@ -349,11 +350,11 @@ export class LibManager {
 	}
 
 	public async writeModel (config: Config) {
-		const references:string[] = []
+		const references: string[] = []
 		for (const p in config.schemas) {
 			const schema = config.schemas[p] as Schema
 			const content = this.getModelContent(schema)
-			const modelsPath = path.join(config.app.workspace, config.app.src, config.app.models, schema.name)
+			const modelsPath = path.join(this.orm.workspace, config.app.src, config.app.models, schema.name)
 			Helper.createIfNotExists(modelsPath)
 			const schemaPath = path.join(modelsPath, 'model.ts')
 			references.push('model')
@@ -403,14 +404,14 @@ export class LibManager {
 			lines.push(`export class ${singular} {`)
 
 			if (entity.relations && entity.relations.some(p => p.type === 'manyToOne')) {
-				lines.push('constructor () {')
+				lines.push('\tconstructor () {')
 				for (const q in entity.relations) {
 					const relation = entity.relations[q]
 					if (relation.type === 'manyToOne') {
-						lines.push(`\tthis.${relation.name}=[]`)
+						lines.push(`\t\tthis.${relation.name}=[]`)
 					}
 				}
-				lines.push('}')
+				lines.push('\t}')
 			}
 
 			for (const q in entity.properties) {

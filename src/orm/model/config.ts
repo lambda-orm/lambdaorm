@@ -11,7 +11,7 @@ export interface App
 	src: string
 	data: string
 	models:string
-	workspace: string,
+	// workspace: string,
 	configFile?: string,
 	defaultDatabase?: string
 }

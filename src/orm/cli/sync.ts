@@ -27,7 +27,7 @@ export class SyncCommand implements CommandModule {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const database = args.name as string
 		const sentences = args.sentences as string
-		const orm = new Orm()
+		const orm = new Orm(workspace)
 		try {
 			const config = await orm.lib.getConfig(workspace)
 			const db = orm.lib.getDatabase(database, config)

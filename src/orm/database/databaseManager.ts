@@ -3,7 +3,6 @@ import { SchemaData } from '../schema/index'
 import { DatabaseSync } from './databaseSync'
 import { DatabaseClean } from './databaseClean'
 import { Helper } from './../helper'
-// const fs = require('fs')
 const path = require('path')
 
 export class DatabaseManager {
@@ -96,6 +95,6 @@ export class DatabaseManager {
 	}
 
 	protected getStateFile (name: string) {
-		return path.join(this.orm.config.app.workspace, this.orm.config.app.data, `${name}-state.json`)
+		return path.join(this.orm.workspace, this.orm.config.app.data, `${name}-state.json`)
 	}
 }

@@ -29,6 +29,8 @@ export class Orm implements IOrm {
 	 * Property that exposes the configuration
 	 */
 	public config: Config
+
+	public workspace:string
 	/**
 	 * Singleton
 	 */
@@ -39,11 +41,12 @@ export class Orm implements IOrm {
 		return this._instance
 	}
 
-	constructor () {
-		this.config = { app: { workspace: process.cwd(), src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+	constructor (workspace:string = process.cwd()) {
+		this.config = { app: { src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+		this.workspace = workspace
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
-		this.libManager = new LibManager()
+		this.libManager = new LibManager(this)
 
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)

@@ -11,9 +11,9 @@ export interface QryCategory {
 	description: string
 }
 export class Customer {
-constructor () {
-	this.orders=[]
-}
+	constructor () {
+		this.orders=[]
+	}
 	id?: string
 	name?: string
 	contact?: string
@@ -134,9 +134,9 @@ export interface QryProduct {
 	category: Category & OneToMany<Category> & Category
 }
 export class Order {
-constructor () {
-	this.details=[]
-}
+	constructor () {
+		this.details=[]
+	}
 	id?: number
 	customerId?: string
 	employeeId?: number
