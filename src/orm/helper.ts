@@ -78,7 +78,7 @@ export class Helper {
 	}
 
 	public static async removeFile (fullPath:string):Promise<void> {
-		if (await Helper.existsPath(fullPath)) { return }
+		if (!await Helper.existsPath(fullPath)) { return }
 		return new Promise<void>((resolve, reject) => {
 			fs.unlink(fullPath, err => err ? reject(err) : resolve())
 		})

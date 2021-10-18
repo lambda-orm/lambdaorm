@@ -16,7 +16,7 @@ databases:
   #   schema: northwind
   #   dialect: mariadb
   #   connectionSource: env
-  #   connection: $ORM_CNN_3
+  #   connection: $ORM_CNN_MARIADB
   - name: postgres
     schema: northwind
     dialect: postgres

@@ -48,13 +48,28 @@ export class DatabaseManager {
 
 	public async export (name:string):Promise<SchemaData> {
 		const state = await this.getState(name)
-		return await this.orm.schema.export(state.schema).execute(name)
+		if (state.schema === undefined || state.schema === {}) {
+			// If there is no database status file, it takes the schema from the configuration
+			const db = this.get(name)
+			const schema = this.orm.schema.get(db.schema)
+			return await this.orm.schema.export(schema).execute(name)
+		} else {
+			return await this.orm.schema.export(state.schema).execute(name)
+		}
 	}
 
 	public async import (name:string, data:SchemaData) {
 		const state = await this.getState(name)
-		await this.orm.schema.import(state.schema).execute(data, state.mapping, state.pending, name)
-		await this.updateDataState(name, state.mapping, state.pending)
+		if (state.schema === undefined || state.schema === {}) {
+			// If there is no database status file, it takes the schema from the configuration
+			const db = this.get(name)
+			const schema = this.orm.schema.get(db.schema)
+			await this.orm.schema.import(schema).execute(data, state.mapping, state.pending, name)
+			await this.updateDataState(name, state.mapping, state.pending)
+		} else {
+			await this.orm.schema.import(state.schema).execute(data, state.mapping, state.pending, name)
+			await this.updateDataState(name, state.mapping, state.pending)
+		}
 	}
 
 	public async exists (name:string) {
@@ -71,10 +86,7 @@ export class DatabaseManager {
 				return JSON.parse(content)
 			}
 		}
-		// If there is no database status file, it takes the schema from the configuration
-		const db = this.get(name)
-		const schema = this.orm.schema.get(db.schema)
-		return { schema: schema, mapping: {}, pending: [] }
+		return { schema: {}, mapping: {}, pending: [] }
 	}
 
 	public async updateSchemaState (name:string, schema:Schema):Promise<void> {
