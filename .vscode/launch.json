@@ -43,7 +43,7 @@
 			]
 		},
 		{
-			"name": "cli model",
+			"name": "cli update",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -52,7 +52,7 @@
 			"program": "${workspaceFolder}/src/orm/cli.ts",
 			"envFile": "${workspaceFolder}/test.env",
 			"args": [
-				"model",
+				"update",
 				"-w",
 				"lab_01"
 			]

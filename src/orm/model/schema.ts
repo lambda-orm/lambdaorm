@@ -29,6 +29,7 @@ export interface Index {
 }
 export interface Entity {
 	name: string
+	singular?: string
 	mapping?: string
 	primaryKey?:string[]
 	uniqueKey?:string[]

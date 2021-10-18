@@ -70,7 +70,7 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 
 	const content = lines.join('\n')
 	const testFolder = 'src/test/__tests__'
-	if (!fs.existsSync(testFolder)) {
+	if (!await Helper.existsPath(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
@@ -104,7 +104,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 
 	const content = lines.join('\n')
 	const testFolder = 'src/test/__integration__'
-	if (!fs.existsSync(testFolder)) {
+	if (!await Helper.existsPath(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)

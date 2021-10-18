@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { Helper } from './../../orm'
 const ConfigExtends = require('config-extends')
 
 async function writeFunctions (category:string, list: any): Promise<void> {
@@ -31,7 +32,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = '.github/wiki'
-	if (!fs.existsSync(targetFolder)) {
+	if (!await Helper.existsPath(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
@@ -65,7 +66,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = '.github/wiki'
-	if (!fs.existsSync(targetFolder)) {
+	if (!await Helper.existsPath(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'operator_' + category.replace(' ', '_') + '.md'), content)

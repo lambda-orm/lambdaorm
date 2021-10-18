@@ -87,14 +87,12 @@ export class DatabaseManager {
 		const state = await this.getState(name)
 		state.mapping = mapping
 		state.pending = pending
-		// fs.writeFileSync(stateFile, JSON.stringify(state))
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 
 	public async removeState (name:string):Promise<any> {
 		const file = this.getStateFile(name)
 		await Helper.removeFile(file)
-		// if (fs.existsSync(file)) { fs.unlinkSync(file) }
 	}
 
 	protected getStateFile (name: string) {

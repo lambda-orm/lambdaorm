@@ -36,7 +36,7 @@ export class ExportCommand implements CommandModule {
 
 			const exportFile = path.join(target, db.name + '-export.json')
 			const data = await orm.database.export(db.name)
-			await Helper.writeFile(exportFile, JSON.stringify(data), true)
+			await Helper.writeFile(exportFile, JSON.stringify(data))
 		} catch (error) {
 			console.error(`error: ${error}`)
 		} finally {
