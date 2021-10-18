@@ -20,7 +20,6 @@ Add the Country entity as seen in the following example
 
 ```yaml
 app:
-  workspace: C:\personal\develop\lab_01
   configFile: lambdaorm.yaml
   src: src
   data: data
@@ -44,7 +43,7 @@ schemas:
   - name: lab_01
     enums: []
     entities:
-      - name: Country
+      - name: Countries
         mapping: COUNTRY
         primaryKey: ["id"]
         uniqueKey: ["name"]

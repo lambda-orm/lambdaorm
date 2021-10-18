@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { Orm, Database } from '../index'
+import { Orm } from '../index'
 import path from 'path'
 
 export class SyncCommand implements CommandModule {
