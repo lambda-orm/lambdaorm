@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { Orm, Database, Helper } from '../index'
+import { Orm, Helper } from '../index'
 import path from 'path'
 
 export class ExportCommand implements CommandModule {

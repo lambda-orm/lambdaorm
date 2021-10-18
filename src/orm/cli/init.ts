@@ -1,6 +1,6 @@
 import { CommandModule, Argv, Arguments } from 'yargs'
 import path from 'path'
-import { orm, Helper } from './../index'
+import { Orm, Helper } from './../index'
 
 export class InitCommand implements CommandModule {
 	command = 'init';
@@ -33,6 +33,7 @@ export class InitCommand implements CommandModule {
 			const database = args.name as string || path.basename(workspace) // name of database
 			const dialect: string = args.dialect as string
 			const connection: string = args.connection as string
+			const orm = new Orm()
 
 			// create workspace
 			await Helper.createIfNotExists(workspace)

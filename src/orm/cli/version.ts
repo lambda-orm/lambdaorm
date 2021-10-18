@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule } from 'yargs'
-import { orm } from './../index'
+import { Orm } from './../index'
 
 export class VersionCommand implements CommandModule {
 	command = 'version';
@@ -8,6 +8,7 @@ export class VersionCommand implements CommandModule {
 
 	async handler () {
 		const packageName = 'lambdaorm'
+		const orm = new Orm()
 		const localNpmVersion = await orm.lib.getLocalPackage(packageName, process.cwd())
 		const globalNpmVersion = await orm.lib.getGlobalPackage(packageName)
 
