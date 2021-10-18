@@ -1,4 +1,3 @@
-import fs from 'fs'
 import path from 'path'
 import { Config, Database, Schema, Entity, IOrm } from '../model'
 import { Helper } from '../helper'
@@ -19,7 +18,7 @@ export class LibManager {
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
 		} else if (typeof source === 'string') {
-			const lstat = fs.lstatSync(source)
+			const lstat = await Helper.lstat(source)
 			if (lstat.isFile()) {
 				configFile = path.basename(source)
 				workspace = path.dirname(source)

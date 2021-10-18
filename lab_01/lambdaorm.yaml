@@ -14,7 +14,7 @@ databases:
       port: 3306
       user: test
       password: test
-      database: test
+      database: northwind
       multipleStatements: true
       waitForConnections: true
       connectionLimit: 10

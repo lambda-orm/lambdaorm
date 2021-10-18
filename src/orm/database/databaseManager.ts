@@ -71,7 +71,10 @@ export class DatabaseManager {
 				return JSON.parse(content)
 			}
 		}
-		return { schema: null, mapping: {}, pending: [] }
+		// If there is no database status file, it takes the schema from the configuration
+		const db = this.get(name)
+		const schema = this.orm.schema.get(db.schema)
+		return { schema: schema, mapping: {}, pending: [] }
 	}
 
 	public async updateSchemaState (name:string, schema:Schema):Promise<void> {

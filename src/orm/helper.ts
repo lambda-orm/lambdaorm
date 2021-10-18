@@ -96,10 +96,22 @@ export class Helper {
 	public static async writeFile (filePath: string, content: string): Promise<void> {
 		const dir = path.dirname(filePath)
 		if (!await Helper.existsPath(dir)) {
-			fs.mkdirSync(dir, { recursive: true })
+			await Helper.mkdir(dir)
 		}
 		return new Promise<void>((resolve, reject) => {
 			fs.writeFile(filePath, content, { encoding: 'utf8' }, err => err ? reject(err) : resolve())
+		})
+	}
+
+	public static async mkdir (fullPath:string):Promise<void> {
+		return new Promise<void>((resolve, reject) => {
+			fs.mkdir(fullPath, { recursive: true }, err => err ? reject(err) : resolve())
+		})
+	}
+
+	public static async lstat (fullPath:string):Promise<fs.Stats> {
+		return new Promise<fs.Stats>((resolve, reject) => {
+			fs.lstat(fullPath, (err, stats) => err ? reject(err) : resolve(stats))
 		})
 	}
 
