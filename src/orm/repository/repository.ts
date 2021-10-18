@@ -1,4 +1,4 @@
-import { orm } from '../../orm'
+import { orm } from './../index'
 import { Queryable, ModifyClauses, ModifyAllClauses } from './query'
 import { IExpressionActions } from './expressionActions'
 
