@@ -15,6 +15,19 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "cli version",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
+			"args": [
+				"version"
+			]
+		},
+		{
 			"name": "cli init",
 			"type": "node",
 			"request": "launch",
