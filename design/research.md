@@ -48,47 +48,28 @@ posibles names: lambda-orm
 - [graphile](https://www.graphile.org/)
 - [postgraphile](https://github.com/graphile/postgraphile)
 
-## Pools
+## Generics Pools
 
 - [generic-pool](https://www.npmjs.com/package/generic-pool)
 - [node pool](https://github.com/coopernurse/node-pool/tree/v2.5)
 - [sequelize-pool](https://github.com/sequelize/sequelize-pool)
 
-## Bullk
+## Dialects
 
-### Mysql Bullk
+### MySQL
+
+- [mysql2](https://www.npmjs.com/package/mysql2)
+- [oracle to mysql](https://sqlines.com/oracle-to-mysql)
+
+#### MySQL Bullk
 
 - [](https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/56241509)
 - [](https://github.com/sidorares/node-mysql2/issues/830)
 - [](https://www.technicalkeeda.com/nodejs-tutorials/insert-multiple-records-into-mysql-using-nodejs)
 
-#### Postgres Bullk
-
-- [](https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/)
-- [](https://www.npmjs.com/package/pg-essential)
-- [](https://node-postgres.com/api/client)
-
-## Dialects
-
-### Mssql
-
-- [tedious](https://github.com/tediousjs/tedious)
-- [tedious datatypes](https://tediousjs.github.io/tedious/api-datatypes.html)
-
-### MySql
-
-- [mysql2](https://www.npmjs.com/package/mysql2)
-- [oracle to mysql](https://sqlines.com/oracle-to-mysql)
-
 ### MariaDb
 
 - [mariadb](https://www.npmjs.com/package/mariadb)
-
-### Sqlite3
-
-- [description](https://blog.escuelactec.com/que-es-sqlite/)
-- [tutorial](https://www.sqlitetutorial.net/)
-- [npm](https://www.npmjs.com/package/sqlite3)
 
 ### Postgres
 
@@ -96,6 +77,33 @@ posibles names: lambda-orm
 - [pg - documentation](https://node-postgres.com)
 - [node-postgres](https://www.npmjs.com/package/node-postgres)
 - [pg-hstore](https://www.npmjs.com/package/pg-hstore)
+
+#### Postgres Bullk
+
+- [](https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/)
+- [](https://www.npmjs.com/package/pg-essential)
+- [](https://node-postgres.com/api/client)
+
+### Mssql
+
+- [tedious](https://github.com/tediousjs/tedious)
+- [getting-started](https://tediousjs.github.io/tedious/getting-started.html)
+- [tedious datatypes](https://tediousjs.github.io/tedious/api-datatypes.html)
+- [transactions](https://github.com/tediousjs/tedious/blob/master/examples/transaction.js)
+- [examples](https://docs.microsoft.com/es-es/sql/connect/node-js/step-3-proof-of-concept-connecting-to-sql-using-node-js?view=sql-server-ver15)
+- [alternative to tedious](https://tediousjs.github.io/node-mssql/)
+
+#### Mssql Pool
+
+- [pool](https://tediousjs.github.io/tedious/api.html)
+- [tedious-connection-pool](https://github.com/tediousjs/tedious-connection-pool)
+- [examples pool](https://github.com/tediousjs/tedious-connection-pool/blob/master/test/test.js)
+
+### Sqlite3
+
+- [description](https://blog.escuelactec.com/que-es-sqlite/)
+- [tutorial](https://www.sqlitetutorial.net/)
+- [npm](https://www.npmjs.com/package/sqlite3)
 
 ### Oracle
 

@@ -110,15 +110,18 @@ export class LibManager {
 		for (const p in config.databases) {
 			const database = config.databases[p]
 			// if the library is not installed locally corresponding to the dialect it will be installed
-			const lib = this.getLib(database.dialect)
-			const localLib = await this.getLocalPackage(lib, this.orm.workspace)
-			if (localLib === '') {
-				await Helper.exec(`npm install ${lib}`, this.orm.workspace)
-			}
-			// if the library is not installed locally corresponding to the dialect it will be installed
-			const globalLib = await this.getGlobalPackage(lib)
-			if (globalLib === '') {
-				await Helper.exec(`npm install ${globalLib} -g`, this.orm.workspace)
+			const libs = this.getLibs(database.dialect)
+			for (const p in libs) {
+				const lib = libs[p]
+				const localLib = await this.getLocalPackage(lib, this.orm.workspace)
+				if (localLib === '') {
+					await Helper.exec(`npm install ${lib}`, this.orm.workspace)
+				}
+				// if the library is not installed locally corresponding to the dialect it will be installed
+				const globalLib = await this.getGlobalPackage(lib)
+				if (globalLib === '') {
+					await Helper.exec(`npm install ${globalLib} -g`, this.orm.workspace)
+				}
 			}
 		}
 	}
@@ -284,23 +287,23 @@ export class LibManager {
 		}
 	}
 
-	public getLib (dialect: string): string {
+	public getLibs (dialect: string): string[] {
 		switch (dialect) {
 		case 'mysql':
 		case 'mariadb':
-			return 'mysql2'
+			return ['mysql2']
 		case 'sqlite':
-			return 'sqlite3'
+			return ['sqlite3']
 		case 'better-sqlite3':
-			return 'better-sqlite3'
+			return ['better-sqlite3']
 		case 'postgres':
-			return 'pg'
+			return ['pg']
 		case 'mssql':
-			return 'tedious'
+			return ['tedious']
 		case 'oracle':
-			return 'oracledb'
+			return ['oracledb']
 		case 'mongodb':
-			return 'mongodb'
+			return ['mongodb']
 		default:
 			throw new Error(`dialect: ${dialect} not supported`)
 		}
