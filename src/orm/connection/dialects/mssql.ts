@@ -16,14 +16,8 @@ export class MssqlConnectionPool extends ConnectionPool {
 			MssqlConnectionPool.tedious = require('tedious')
 			MssqlConnectionPool.MssqlConnectionPool = require('tedious-connection-pool')
 		}
-		const poolConfig = { min: 2, max: 4, log: true }
-		const connectionConfig = {
-			userName: 'sa',
-			password: 'Lambda1234!',
-			server: 'localhost'
-		}
-		// const _config = { ...config.connection, ...{ waitForConnections: true, connectionLimit: 10, queueLimit: 0 } }
-		this.pool = new MssqlConnectionPool.MssqlConnectionPool(poolConfig, connectionConfig)// MssqlConnectionPool.tedious.createPool(_config)
+		const defaultPoolConfig = { min: 2, max: 4, log: false }
+		this.pool = new MssqlConnectionPool.MssqlConnectionPool(config.connection.pool || defaultPoolConfig, config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -48,7 +42,6 @@ export class MssqlConnectionPool extends ConnectionPool {
 
 	public async end (): Promise<void> {
 		await this.pool.drain()
-		// console.log('mssql end pool not Implemented')
 	}
 }
 
