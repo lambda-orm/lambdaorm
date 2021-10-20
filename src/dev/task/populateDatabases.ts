@@ -36,5 +36,6 @@ export async function apply (databases: string[], callback: any) {
 	await orm.end()
 	callback()
 }
+apply(['mssql'], function () { console.log('end') })
 // apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
 // apply(['mysql'], function () { console.log('end') })

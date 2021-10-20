@@ -31,6 +31,7 @@
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
 		"sqlstring": "^2.3.2",
+		"tedious-connection-pool": "^1.0.5",
 		"yargs": "^17.2.1"
 	},
 	"devDependencies": {

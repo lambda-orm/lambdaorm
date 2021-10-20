@@ -78,7 +78,7 @@ export class MySqlConnection extends Connection {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (sql:string, array:any[], parameters:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (sql:string, array:any[], params:Parameter[], fieldId?:string):Promise<number[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []

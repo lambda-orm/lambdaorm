@@ -21,8 +21,10 @@ export class ConnectionManager {
 
 	public load (config:ConnectionConfig):void {
 		const DialectPool = this.dialectsPool[config.dialect]
+		if (DialectPool === undefined) {
+			throw new Error(`Connection to ${config.dialect} not supported`)
+		}
 		const pool = new DialectPool(config) as ConnectionPool
-		// await pool.initialize()
 		this.pools[config.name] = pool
 	}
 

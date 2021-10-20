@@ -1,4 +1,11 @@
 _extends: [sql]
+types:
+  boolean: BIT
+ddl:
+  createPk: "PRIMARY KEY ({columns})"
+  incrementalColumDefine: "{name} {type} {nullable} IDENTITY (1, 1)"
+dml:
+  bulkInsert: INSERT INTO {name}({fields})
 others:
-  delimiter: '[{name}]'
+  delimiter: "[{name}]"
   sepatatorSql: ' \nGO'

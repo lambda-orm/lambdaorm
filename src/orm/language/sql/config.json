@@ -214,20 +214,8 @@
       }
     },
     "mssql": {
-      "others": {
-        "delimiter": "[{name}]",
-        "sepatatorSql": " \\nGO",
-        "notNullable": "NOT NULL",
-        "variable": ":{name}",
-        "field": "{entityAlias}.{name}",
-        "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "FALSE",
-        "true": "TRUE"
-      },
       "types": {
-        "boolean": "BOOLEAN",
+        "boolean": "BIT",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -235,17 +223,12 @@
         "date": "DATE",
         "time": "TIME"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
+        "createPk": "PRIMARY KEY ({columns})",
+        "incrementalColumDefine": "{name} {type} {nullable} IDENTITY (1, 1)",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
-        "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
-        "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
         "createFk": "CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
@@ -265,6 +248,7 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "bulkInsert": "INSERT INTO {name}({fields})",
         "map": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
         "filter": "WHERE {0}",
@@ -274,8 +258,24 @@
         "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}",
-        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
+        "delete": "DELETE FROM {name} {alias}"
+      },
+      "others": {
+        "delimiter": "[{name}]",
+        "sepatatorSql": " \\nGO",
+        "notNullable": "NOT NULL",
+        "variable": ":{name}",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "false": "FALSE",
+        "true": "TRUE"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "operators": {
         "unary": {

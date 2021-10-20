@@ -4,7 +4,8 @@ import { Model, ParserManager } from './parser/index'
 import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, PostgresConnectionPool, ConnectionConfig } from './connection'
+import { ExpressionCompleter } from './manager/expressionCompleter'
+import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, ConnectionConfig } from './connection'
 import { LanguageManager, Operand, Sentence, Query } from './language'
 import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
@@ -23,7 +24,8 @@ export class Orm implements IOrm {
 	private databaseManager: DatabaseManager
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
-	private libManager:LibManager
+	private libManager: LibManager
+	private expressionCompleter:ExpressionCompleter
 	private static _instance: Orm
 	/**
 	 * Property that exposes the configuration
@@ -51,6 +53,7 @@ export class Orm implements IOrm {
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)
 		this.parserManager = new ParserManager(this.languageModel)
+		this.expressionCompleter = new ExpressionCompleter()
 
 		this.schemaManager = new SchemaManager(this)
 		this.databaseManager = new DatabaseManager(this)
@@ -58,14 +61,14 @@ export class Orm implements IOrm {
 		const sqlLanguage = new SqlLanguage()
 		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
 
-		this.languageManager = new LanguageManager(this, this.languageModel)
+		this.languageManager = new LanguageManager(this.languageModel)
 		this.language.addLibrary(new CoreLib())
 		this.language.add(sqlLanguage)
 
 		this.connection.addType('mysql', MySqlConnectionPool)
 		this.connection.addType('mariadb', MariadbConnectionPool)
 		this.connection.addType('postgres', PostgresConnectionPool)
-		// this.connection.addType('mssql',MssqlConnectionPool)
+		this.connection.addType('mssql', MssqlConnectionPool)
 		// this.connection.addType('oracle',OracleConnectionPool)
 	}
 
@@ -177,7 +180,8 @@ export class Orm implements IOrm {
 		try {
 			const _schema = this.schemaManager.getInstance(schema)
 			const node = this.parser.parse(expression)
-			const completeNode = this.language.complete(node, _schema)
+			const completeNode = this.expressionCompleter.complete(node, _schema)
+			this.parser.setParent(completeNode)
 			return this.parser.toExpression(completeNode)
 		} catch (error: any) {
 			console.log(error)
@@ -192,8 +196,9 @@ export class Orm implements IOrm {
 			if (!operand) {
 				const _schema = this.schemaManager.getInstance(schema)
 				const node = this.parser.parse(expression)
-				const compleNode = this.language.complete(node, _schema)
-				operand = this.language.build(compleNode, _schema)
+				const completeNode = this.expressionCompleter.complete(node, _schema)
+				this.parser.setParent(completeNode)
+				operand = this.language.build(completeNode, _schema)
 				await this._cache.set(key, operand)
 			}
 			return operand as Operand

@@ -89,23 +89,31 @@ services:
       retries: 10  
     # restart: unless-stopped    
   mssql:
-    container_name: lambdaorm-mssql-2019  
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    restart: always
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Lambda1234!
-    volumes:
-      - mssql:/var/opt/mssql
+    image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
+    container_name: "lambdaorm-mssql"
     ports:
-      - '1433:1433'
-    command: >
-      /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"  
-    healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "SA", "-P", "Lambda1234!", "-l", "30", "-Q", "SELECT 1"]
-      interval: 3s
-      timeout: 1s
-      retries: 10  
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Lambda1234!"
+      ACCEPT_EULA: "Y"
+  # mssql:
+  #   container_name: lambdaorm-mssql-2019  
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   restart: always
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=Lambda1234!
+  #   volumes:
+  #     - mssql:/var/opt/mssql
+  #   ports:
+  #     - '1433:1433'
+  #   command: >
+  #     /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"  
+  #   healthcheck:
+  #     test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "SA", "-P", "Lambda1234!", "-l", "30", "-Q", "SELECT 1"]
+  #     interval: 3s
+  #     timeout: 1s
+  #     retries: 10  
   # mongo:
   #   container_name: lambdaorm-mongo  
   #   image: arm7/mongo
