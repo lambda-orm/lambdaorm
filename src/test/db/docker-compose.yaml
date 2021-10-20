@@ -96,6 +96,41 @@ services:
     environment:
       SA_PASSWORD: "Lambda1234!"
       ACCEPT_EULA: "Y"
+    # volumes:
+    #   - mssql:/var/opt/mssql
+  mongodb:
+    image: "mongo:3.4.18"
+    container_name: lambdaorm-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db 
+  redis:
+    image: "redis:3.0.3"
+    container_name: "lambdaorm-redis"
+    ports:
+      - "6379:6379"
+  oracle:
+    # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+    # image: oracle/database:11.2.0.2-xe
+    container_name: lambdaorm-oracle    
+    image: oracleinanutshell/oracle-xe-11g:latest
+    ports:
+      - 1521:1521
+      - 8085:8080
+    shm_size: 1g   
+    environment:
+      - ORACLE_PWD=oracle
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+    restart: unless-stopped
+    volumes:
+      - oracle:/u01/app/oracle/oradata    
+  #   # hostname: localhost
+  #   # port: 1521
+  #   # sid: xe
+  #   # username: system
+  #   # password: oracle    
   # mssql:
   #   container_name: lambdaorm-mssql-2019  
   #   image: mcr.microsoft.com/mssql/server:2019-latest
@@ -113,7 +148,7 @@ services:
   #     test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "SA", "-P", "Lambda1234!", "-l", "30", "-Q", "SELECT 1"]
   #     interval: 3s
   #     timeout: 1s
-  #     retries: 10  
+  #     retries: 10      
   # mongo:
   #   container_name: lambdaorm-mongo  
   #   image: arm7/mongo
@@ -124,29 +159,20 @@ services:
   #   ports:
   #     - '27017:27017'
   #   volumes:
-  #     - mongodb:/data/db  
-  # oracle:
-  #   # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
-  #   # image: oracle/database:11.2.0.2-xe
-  #   container_name: lambdaorm-oracle    
-  #   image: oracleinanutshell/oracle-xe-11g:latest
+  #     - mongodb:/data/db      
+  # cockroachdb:
+  #   image: "cockroachdb/cockroach:latest-v21.1"
+  #   container_name: "lambdaorm-cockroachdb"
+  #   command: start-single-node --insecure --cache=.25 --store=type=mem,size=.25 --logtostderr=NONE --log-dir=""
   #   ports:
-  #     - 1521:1521
-  #     - 8085:8080
-  #   shm_size: 1g   
-  #   environment:
-  #     - ORACLE_PWD=oracle
-  #     - ORACLE_ALLOW_REMOTE=true
-  #     - ORACLE_DISABLE_ASYNCH_IO=true
-  #   restart: unless-stopped
-  #   volumes:
-  #     - oracle:/u01/app/oracle/oradata 
-    
-  #   # hostname: localhost
-  #   # port: 1521
-  #   # sid: xe
-  #   # username: system
-  #   # password: oracle
+  #     - "26257:26257"  
+  
+  # oracle:
+  #   image: imnotjames/oracle-xe:18
+  #   container_name: "lambdaorm-oracle"
+  #   ports:
+  #     - "1521:1521"    
+  
       
 volumes:
   source:
@@ -155,5 +181,5 @@ volumes:
   mariadb-data:
   mariadb-log: 
   mssql:
-  # mongodb:
-  # oracle:          
+  mongodb:
+  oracle:          

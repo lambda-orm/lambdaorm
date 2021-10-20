@@ -104,6 +104,8 @@ posibles names: lambda-orm
 - [description](https://blog.escuelactec.com/que-es-sqlite/)
 - [tutorial](https://www.sqlitetutorial.net/)
 - [npm](https://www.npmjs.com/package/sqlite3)
+- [sqlite-nodejs](https://www.sqlitetutorial.net/sqlite-nodejs/)
+- [commands](https://www.sqlitetutorial.net/sqlite-commands/)
 
 ### Oracle
 
@@ -112,6 +114,10 @@ posibles names: lambda-orm
 - [github](https://github.com/oracle/node-oracledb)
 - [npm](https://www.npmjs.com/package/oracledb)
 - [mysql to oracle](https://sqlines.com/mysql-to-oracle)
+
+- [install client on windows](https://www.oracle.com/es/database/technologies/instant-client/winx64-64-downloads.
+html)
+- [install-oracle-odbc-driver](https://windowsreport.com/install-oracle-odbc-driver-windows-10/)
 
 ### Sqljs
 
@@ -126,6 +132,11 @@ posibles names: lambda-orm
 - [node lib](https://github.com/firebase/firebase-admin-node)
 - [retrive data](https://firebase.google.com/docs/database/admin/retrieve-data)
 - [manager user](https://firebase.google.com/docs/auth/admin/manage-users)
+
+### cockroachdb
+
+-[quickstart](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html)
+-[info](https://blog.friendsofgo.tech/posts/empezando-con-cockroachdb/)
 
 ### CLI
 

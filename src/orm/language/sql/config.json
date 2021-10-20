@@ -248,6 +248,8 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "update": "UPDATE {alias} SET {assings} FROM {name} {alias}",
+        "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields})",
         "map": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
@@ -256,15 +258,13 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}"
+        "insert": "INSERT INTO {name}({fields}) VALUES({values})"
       },
       "others": {
         "delimiter": "[{name}]",
         "sepatatorSql": " \\nGO",
+        "variable": "@{name}",
         "notNullable": "NOT NULL",
-        "variable": ":{name}",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "from": "FROM {name} {alias} ",
