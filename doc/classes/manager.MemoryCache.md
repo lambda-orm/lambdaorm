@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[manager/memoryCache.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/memoryCache.ts#L5)
+[manager/memoryCache.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/memoryCache.ts#L5)
 
 ## Methods
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[manager/memoryCache.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/memoryCache.ts#L17)
+[manager/memoryCache.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/memoryCache.ts#L17)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[manager/memoryCache.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/memoryCache.ts#L9)
+[manager/memoryCache.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/memoryCache.ts#L9)
 
 ___
 
@@ -101,4 +101,4 @@ ___
 
 #### Defined in
 
-[manager/memoryCache.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/memoryCache.ts#L13)
+[manager/memoryCache.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/memoryCache.ts#L13)

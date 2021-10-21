@@ -1,6 +1,9 @@
 import { IOrm } from './../model'
 import { Sentence } from './../language'
 
+/**
+ * Expression Manager
+ */
 export class Expression {
 	private orm:IOrm
 	public expression:string
@@ -9,31 +12,63 @@ export class Expression {
 		this.expression = expression
 	}
 
-	public complete (schemaName:string):string {
+	/**
+	 * Complete expression
+	 * @param schema Schema name
+	 * @returns Expression complete
+	 */
+	public complete (schema:string):string {
 		if (!this.expression) throw new Error('Expression not defined')
-		return this.orm.complete(this.expression, schemaName)
+		return this.orm.complete(this.expression, schema)
 	}
 
-	public async model (schemaName:string):Promise<any> {
-		const operand = await this.orm.build(this.expression, schemaName)
+	/**
+	 * Get model of expression
+	 * @param schema Schema name
+	 * @returns Model of expression
+	 */
+	public async model (schema:string):Promise<any> {
+		const operand = await this.orm.build(this.expression, schema)
 		return this.orm.language.model(operand as Sentence)
 	}
 
-	public async parameters (schemaName:string):Promise<any> {
-		const operand = await this.orm.build(this.expression, schemaName)
+	/**
+	 * Get parameters of expression
+	 * @param schema  Schema name
+	 * @returns Parameters of expression
+	 */
+	public async parameters (schema:string):Promise<any> {
+		const operand = await this.orm.build(this.expression, schema)
 		return this.orm.language.parameters(operand as Sentence)
 	}
 
-	public async sentence (dialect:string, schemaName:string):Promise<string> {
-		const query = await this.orm.query(this.expression, dialect, schemaName)
+	/**
+	 * Get sentence of expression
+	 * @param dialect Dialect name
+	 * @param schema Schema name
+	 * @returns Sentence of expression
+	 */
+	public async sentence (dialect:string, schema:string):Promise<string> {
+		const query = await this.orm.query(this.expression, dialect, schema)
 		return this.orm.language.sentence(dialect, query)
 	}
 
-	public async metadata (schemaName:string):Promise<any> {
-		const operand = await this.orm.build(this.expression, schemaName)
+	/**
+	 * Get metadata of expression
+	 * @param schema Schema name
+	 * @returns metadata of expression
+	 */
+	public async metadata (schema:string):Promise<any> {
+		const operand = await this.orm.build(this.expression, schema)
 		return this.orm.language.serialize(operand)
 	}
 
+	/**
+	 * Execute expression
+	 * @param context Context with variables
+	 * @param database Database name
+	 * @returns Result of execution
+	 */
 	public async execute (context: any = {}, database?: string) {
 		return await this.orm.execute(this.expression, context, database)
 	}

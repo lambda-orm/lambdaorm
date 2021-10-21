@@ -38,7 +38,12 @@ export class MySqlConnectionPool extends ConnectionPool {
 	private pool:any
 	constructor (config:ConnectionConfig) {
 		super(config)
-		if (!MySqlConnectionPool.mysql) { MySqlConnectionPool.mysql = require('mysql2/promise') }
+		if (!MySqlConnectionPool.mysql) {
+			MySqlConnectionPool.mysql = require('mysql2/promise')
+		}
+	}
+
+	public async init (): Promise<void> {
 		// https://github.com/sidorares/node-mysql2/issues/795
 		// https:// stackoverflow.com/questions/64774472/how-do-i-determine-the-column-type-name-from-the-columntype-integer-value-in-mys
 		const casts = {
@@ -50,7 +55,7 @@ export class MySqlConnectionPool extends ConnectionPool {
 				return next()
 			}
 		}
-		this.pool = MySqlConnectionPool.mysql.createPool({ ...config.connection, ...casts })
+		this.pool = MySqlConnectionPool.mysql.createPool({ ...this.config.connection, ...casts })
 	}
 
 	public async acquire (): Promise<Connection> {

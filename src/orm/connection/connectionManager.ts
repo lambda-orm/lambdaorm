@@ -34,6 +34,13 @@ export class ConnectionManager {
 		return pool
 	}
 
+	public async init ():Promise<void> {
+		for (const k in this.pools) {
+			const pool = this.pools[k] as ConnectionPool
+			await pool.init()
+		}
+	}
+
 	public async end ():Promise<void> {
 		for (const k in this.pools) {
 			const pool = this.pools[k] as ConnectionPool

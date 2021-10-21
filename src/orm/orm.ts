@@ -5,7 +5,7 @@ import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
 import { ExpressionCompleter } from './manager/expressionCompleter'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, ConnectionConfig } from './connection'
+import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, ConnectionConfig } from './connection'
 import { LanguageManager, Operand, Sentence, Query } from './language'
 import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
@@ -69,6 +69,7 @@ export class Orm implements IOrm {
 		this.connection.addType('mariadb', MariadbConnectionPool)
 		this.connection.addType('postgres', PostgresConnectionPool)
 		this.connection.addType('mssql', MssqlConnectionPool)
+		this.connection.addType('sqljs', SqlJsConnectionPool)
 		// this.connection.addType('oracle',OracleConnectionPool)
 	}
 
@@ -105,6 +106,7 @@ export class Orm implements IOrm {
 			}
 		}
 		this.database.default = this.config.app.defaultDatabase
+		await this.connection.init()
 	}
 
 	/**
@@ -189,6 +191,12 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Build expression
+	 * @param expression expression to build
+	 * @param schema schema name
+	 * @returns Operand
+	 */
 	public async build (expression: string, schema: string): Promise<Operand> {
 		try {
 			const key = 'build_' + expression
@@ -208,6 +216,13 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Build expression and convert in Query
+	 * @param expression expression to build
+	 * @param dialect Dialect name
+	 * @param schema Schema name
+	 * @returns Query
+	 */
 	public async query (expression: string, dialect: string, schema: string): Promise<Query> {
 		try {
 			const key = dialect + '-query_' + expression
@@ -223,6 +238,11 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Read expression
+	 * @param expression string expression
+	 * @returns Expression manager
+	 */
 	public expression (expression: string): Expression {
 		if (!expression) {
 			throw new Error('empty expression}')
@@ -230,6 +250,11 @@ export class Orm implements IOrm {
 		return new Expression(this, expression)
 	}
 
+	/**
+	 * Read lambda expression
+	 * @param func lambda expression
+	 * @returns Expression manager
+	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public lambda (func: Function): Expression {
 		if (!func) {
@@ -251,12 +276,26 @@ export class Orm implements IOrm {
 		return new Expression(this, expression)
 	}
 
+	/**
+	 * Evaluate and solve expression
+	 * @param expression  string expression
+	 * @param context Context with variables
+	 * @param schema Schema name
+	 * @returns Result of the evaluale expression
+	 */
 	public async eval (expression: string, context: any, schema: string): Promise<any> {
 		const operand = await this.build(expression, schema)
 		const _context = new Context(context)
 		return this.language.eval(operand, _context)
 	}
 
+	/**
+	 * Execute expression and return result
+	 * @param expression string expression
+	 * @param context Context with variables
+	 * @param database Database name
+	 * @returns result of expression
+	 */
 	public async execute (expression: string, context: any = {}, database?: string): Promise<any> {
 		try {
 			if (typeof context !== 'object') {
@@ -288,11 +327,22 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Execute Sentence
+	 * @param sentence Sentence
+	 * @param database Database name
+	 * @returns result of sentence
+	 */
 	public async executeSentence (sentence: any, database: string): Promise<any> {
 		const executor = this.connectionManager.createExecutor(database)
 		return await executor.execute(sentence)
 	}
 
+	/**
+	 * Crea una transaccion
+	 * @param database Database name
+	 * @param callback Codigo que se ejecutara en transaccion
+	 */
 	public async transaction (database: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _database = this.database.get(database)
 		const tr = this.connectionManager.createTransaction(database)
@@ -308,4 +358,3 @@ export class Orm implements IOrm {
 		}
 	}
 }
-// export const orm = Orm.instance

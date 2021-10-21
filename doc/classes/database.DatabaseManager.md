@@ -13,6 +13,7 @@
 ### Properties
 
 - [databases](database.DatabaseManager.md#databases)
+- [default](database.DatabaseManager.md#default)
 
 ### Methods
 
@@ -23,7 +24,6 @@
 - [getState](database.DatabaseManager.md#getstate)
 - [import](database.DatabaseManager.md#import)
 - [load](database.DatabaseManager.md#load)
-- [model](database.DatabaseManager.md#model)
 - [removeState](database.DatabaseManager.md#removestate)
 - [sync](database.DatabaseManager.md#sync)
 - [updateDataState](database.DatabaseManager.md#updatedatastate)
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[database/databaseManager.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L11)
+[database/databaseManager.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L12)
 
 ## Properties
 
@@ -53,7 +53,17 @@
 
 #### Defined in
 
-[database/databaseManager.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L9)
+[database/databaseManager.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L9)
+
+___
+
+### default
+
+• `Optional` **default**: `string`
+
+#### Defined in
+
+[database/databaseManager.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L10)
 
 ## Methods
 
@@ -73,13 +83,13 @@
 
 #### Defined in
 
-[database/databaseManager.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L29)
+[database/databaseManager.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L44)
 
 ___
 
 ### exists
 
-▸ **exists**(`name`): `any`
+▸ **exists**(`name`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -89,11 +99,11 @@ ___
 
 #### Returns
 
-`any`
+`Promise`<`boolean`\>
 
 #### Defined in
 
-[database/databaseManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L51)
+[database/databaseManager.ts:75](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L75)
 
 ___
 
@@ -113,19 +123,19 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L40)
+[database/databaseManager.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L49)
 
 ___
 
 ### get
 
-▸ **get**(`name`): [`Database`](../interfaces/model.Database.md)
+▸ **get**(`name?`): [`Database`](../interfaces/model.Database.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `name?` | `string` |
 
 #### Returns
 
@@ -133,7 +143,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L20)
+[database/databaseManager.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L21)
 
 ___
 
@@ -153,7 +163,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L56)
+[database/databaseManager.ts:80](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L80)
 
 ___
 
@@ -174,7 +184,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L45)
+[database/databaseManager.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L61)
 
 ___
 
@@ -194,27 +204,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L16)
-
-___
-
-### model
-
-▸ **model**(`name`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[database/databaseManager.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L34)
+[database/databaseManager.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L17)
 
 ___
 
@@ -234,7 +224,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L77)
+[database/databaseManager.ts:107](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L107)
 
 ___
 
@@ -254,7 +244,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L24)
+[database/databaseManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L39)
 
 ___
 
@@ -276,7 +266,7 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L69)
+[database/databaseManager.ts:99](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L99)
 
 ___
 
@@ -297,4 +287,4 @@ ___
 
 #### Defined in
 
-[database/databaseManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseManager.ts#L62)
+[database/databaseManager.ts:92](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseManager.ts#L92)

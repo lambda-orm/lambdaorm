@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[language/iLanguage.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iLanguage.ts#L7)
+[language/iLanguage.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iLanguage.ts#L7)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[language/iLanguage.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iLanguage.ts#L6)
+[language/iLanguage.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iLanguage.ts#L6)
 
 ## Accessors
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[language/iLanguage.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iLanguage.ts#L10)
+[language/iLanguage.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iLanguage.ts#L10)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[language/iLanguage.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iLanguage.ts#L9)
+[language/iLanguage.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iLanguage.ts#L9)
 
 ___
 
@@ -77,4 +77,4 @@ ___
 
 #### Defined in
 
-[language/iLanguage.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iLanguage.ts#L8)
+[language/iLanguage.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iLanguage.ts#L8)

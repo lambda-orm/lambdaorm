@@ -14,6 +14,7 @@
 - [primaryKey](model.Entity.md#primarykey)
 - [properties](model.Entity.md#properties)
 - [relations](model.Entity.md#relations)
+- [singular](model.Entity.md#singular)
 - [uniqueKey](model.Entity.md#uniquekey)
 
 ## Properties
@@ -24,7 +25,7 @@
 
 #### Defined in
 
-[model/schema.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L37)
+[model/schema.ts:38](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L38)
 
 ___
 
@@ -34,7 +35,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L32)
+[model/schema.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L33)
 
 ___
 
@@ -44,7 +45,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L31)
+[model/schema.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L31)
 
 ___
 
@@ -54,7 +55,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L33)
+[model/schema.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L34)
 
 ___
 
@@ -64,7 +65,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:35](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L35)
+[model/schema.ts:36](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L36)
 
 ___
 
@@ -74,7 +75,17 @@ ___
 
 #### Defined in
 
-[model/schema.ts:36](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L36)
+[model/schema.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L37)
+
+___
+
+### singular
+
+• `Optional` **singular**: `string`
+
+#### Defined in
+
+[model/schema.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L32)
 
 ___
 
@@ -84,4 +95,4 @@ ___
 
 #### Defined in
 
-[model/schema.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/schema.ts#L34)
+[model/schema.ts:35](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L35)

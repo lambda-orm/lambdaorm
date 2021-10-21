@@ -19,12 +19,14 @@
 ### Properties
 
 - [config](connection.MssqlConnectionPool.md#config)
+- [MssqlConnectionPool](connection.MssqlConnectionPool.md#mssqlconnectionpool)
 - [tedious](connection.MssqlConnectionPool.md#tedious)
 
 ### Methods
 
 - [acquire](connection.MssqlConnectionPool.md#acquire)
 - [end](connection.MssqlConnectionPool.md#end)
+- [init](connection.MssqlConnectionPool.md#init)
 - [release](connection.MssqlConnectionPool.md#release)
 
 ## Constructors
@@ -45,7 +47,7 @@
 
 #### Defined in
 
-[connection/dialects/mssql.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L17)
+[connection/dialects/mssql.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L13)
 
 ## Properties
 
@@ -59,7 +61,17 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionPool.ts#L6)
+
+___
+
+### MssqlConnectionPool
+
+▪ `Static` **MssqlConnectionPool**: `any`
+
+#### Defined in
+
+[connection/dialects/mssql.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L11)
 
 ___
 
@@ -69,7 +81,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L15)
+[connection/dialects/mssql.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L10)
 
 ## Methods
 
@@ -87,7 +99,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L25)
+[connection/dialects/mssql.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L26)
 
 ___
 
@@ -105,7 +117,25 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L45)
+[connection/dialects/mssql.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L46)
+
+___
+
+### init
+
+▸ **init**(): `Promise`<`void`\>
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Overrides
+
+[ConnectionPool](connection.ConnectionPool.md).[init](connection.ConnectionPool.md#init)
+
+#### Defined in
+
+[connection/dialects/mssql.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L21)
 
 ___
 
@@ -129,4 +159,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L33)
+[connection/dialects/mssql.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L39)

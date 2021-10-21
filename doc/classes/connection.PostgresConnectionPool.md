@@ -24,6 +24,7 @@
 
 - [acquire](connection.PostgresConnectionPool.md#acquire)
 - [end](connection.PostgresConnectionPool.md#end)
+- [init](connection.PostgresConnectionPool.md#init)
 - [release](connection.PostgresConnectionPool.md#release)
 
 ## Constructors
@@ -44,7 +45,7 @@
 
 #### Defined in
 
-[connection/dialects/postgres.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L10)
+[connection/dialects/postgres.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L10)
 
 ## Properties
 
@@ -58,7 +59,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -76,7 +77,7 @@
 
 #### Defined in
 
-[connection/dialects/postgres.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L42)
+[connection/dialects/postgres.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L46)
 
 ___
 
@@ -94,7 +95,25 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L52)
+[connection/dialects/postgres.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L56)
+
+___
+
+### init
+
+▸ **init**(): `Promise`<`void`\>
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Overrides
+
+[ConnectionPool](connection.ConnectionPool.md).[init](connection.ConnectionPool.md#init)
+
+#### Defined in
+
+[connection/dialects/postgres.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L42)
 
 ___
 
@@ -118,4 +137,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/postgres.ts#L48)
+[connection/dialects/postgres.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L52)

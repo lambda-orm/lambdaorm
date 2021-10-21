@@ -304,6 +304,8 @@ export class LibManager {
 			return ['oracledb']
 		case 'mongodb':
 			return ['mongodb']
+		case 'sqljs':
+			return ['sql.js']
 		default:
 			throw new Error(`dialect: ${dialect} not supported`)
 		}
@@ -383,11 +385,11 @@ export class LibManager {
 	private getRepositoryContent (entity: Entity): string {
 		const lines: string[] = []
 		const singular = entity.singular ? entity.singular : Helper.singular(entity.name)
-		lines.push('import { Respository } from \'lambdaorm\'')
+		lines.push('import { Respository,IOrm } from \'lambdaorm\'')
 		lines.push(`import { Qry${singular} } from './model'`)
 		lines.push(`export class ${singular}Respository extends Respository<Qry${singular}> {`)
-		lines.push('\tconstructor (database: string) {')
-		lines.push(`\t\tsuper('${entity.name}', database)`)
+		lines.push('\tconstructor (database?: string, Orm?:IOrm) {')
+		lines.push(`\t\tsuper('${entity.name}', database,Orm)`)
 		lines.push('\t}')
 		lines.push('\t// Add your code here')
 		lines.push('}')

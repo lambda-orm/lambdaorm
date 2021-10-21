@@ -24,6 +24,7 @@
 
 - [acquire](connection.MySqlConnectionPool.md#acquire)
 - [end](connection.MySqlConnectionPool.md#end)
+- [init](connection.MySqlConnectionPool.md#init)
 - [release](connection.MySqlConnectionPool.md#release)
 
 ## Constructors
@@ -44,7 +45,7 @@
 
 #### Defined in
 
-[connection/dialects/mysql.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L39)
+[connection/dialects/mysql.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L39)
 
 ## Properties
 
@@ -58,7 +59,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -76,7 +77,7 @@
 
 #### Defined in
 
-[connection/dialects/mysql.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L56)
+[connection/dialects/mysql.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L61)
 
 ___
 
@@ -94,7 +95,25 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L65)
+[connection/dialects/mysql.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L70)
+
+___
+
+### init
+
+▸ **init**(): `Promise`<`void`\>
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Overrides
+
+[ConnectionPool](connection.ConnectionPool.md).[init](connection.ConnectionPool.md#init)
+
+#### Defined in
+
+[connection/dialects/mysql.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L46)
 
 ___
 
@@ -118,4 +137,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mysql.ts#L61)
+[connection/dialects/mysql.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L66)

@@ -39,6 +39,10 @@ export class PostgresConnectionPool extends ConnectionPool {
 		}
 	}
 
+	public async init (): Promise<void> {
+		console.info('postgres init pool not Implemented')
+	}
+
 	public async acquire ():Promise<Connection> {
 		const cnx = new PostgresConnectionPool.pg.Client(this.config.connection)
 		cnx.connect()
@@ -50,7 +54,7 @@ export class PostgresConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		console.log('postgres end pool not Implemented')
+		console.info('postgres end pool not Implemented')
 	}
 }
 export class PostgresConnection extends Connection {

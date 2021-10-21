@@ -1,4 +1,4 @@
-import { orm } from './../index'
+import { orm, IOrm } from './../index'
 import { Queryable, ModifyClauses, ModifyAllClauses } from './query'
 import { IExpressionActions } from './expressionActions'
 
@@ -6,10 +6,10 @@ export class Respository<TQuery> implements IExpressionActions {
 	public name
 	public database
 	private orm
-	constructor (name: string, database?:string) {
+	constructor (name: string, database?:string, Orm?:IOrm) {
 		this.name = name
 		this.database = database
-		this.orm = orm
+		this.orm = Orm !== undefined ? Orm : orm
 	}
 
 	public query (): Queryable<TQuery> {

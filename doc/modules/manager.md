@@ -7,5 +7,6 @@
 ### Classes
 
 - [Expression](../classes/manager.Expression.md)
+- [LibManager](../classes/manager.LibManager.md)
 - [MemoryCache](../classes/manager.MemoryCache.md)
 - [Transaction](../classes/manager.Transaction.md)

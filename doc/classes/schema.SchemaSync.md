@@ -42,7 +42,7 @@ SchemaActionDDL.constructor
 
 #### Defined in
 
-[schema/schemaSync.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaSync.ts#L8)
+[schema/schemaSync.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaSync.ts#L8)
 
 ## Methods
 
@@ -66,7 +66,7 @@ SchemaActionDDL.execute
 
 #### Defined in
 
-[schema/schemaSync.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaSync.ts#L21)
+[schema/schemaSync.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaSync.ts#L21)
 
 ___
 
@@ -90,7 +90,7 @@ SchemaActionDDL.sentence
 
 #### Defined in
 
-[schema/schemaSync.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaSync.ts#L17)
+[schema/schemaSync.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaSync.ts#L17)
 
 ___
 
@@ -104,4 +104,4 @@ ___
 
 #### Defined in
 
-[schema/schemaSync.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaSync.ts#L13)
+[schema/schemaSync.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaSync.ts#L13)

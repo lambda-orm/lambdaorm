@@ -16,8 +16,11 @@ export class MssqlConnectionPool extends ConnectionPool {
 			MssqlConnectionPool.tedious = require('tedious')
 			MssqlConnectionPool.MssqlConnectionPool = require('tedious-connection-pool')
 		}
+	}
+
+	public async init (): Promise<void> {
 		const defaultPoolConfig = { min: 2, max: 4, log: false }
-		this.pool = new MssqlConnectionPool.MssqlConnectionPool(config.connection.pool || defaultPoolConfig, config.connection)
+		this.pool = new MssqlConnectionPool.MssqlConnectionPool(this.config.connection.pool || defaultPoolConfig, this.config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {
