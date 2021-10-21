@@ -226,6 +226,10 @@
       "ddl": {
         "createPk": "PRIMARY KEY ({columns})",
         "incrementalColumDefine": "{name} {type} {nullable} IDENTITY (1, 1)",
+        "dropPk": "DROP CONSTRAINT {name}",
+        "dropUk": "DROP CONSTRAINT {name}",
+        "dropFk": "DROP CONSTRAINT {name}",
+        "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "columnDefine": "{name} {type} {nullable} ",
@@ -241,10 +245,6 @@
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "dropPk": "DROP PRIMARY KEY {name}",
-        "dropUk": "DROP UNIQUE {name}",
-        "dropFk": "DROP FOREIGN KEY {name}",
-        "dropIndex": "DROP INDEX {name} ON {table}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
@@ -639,21 +639,11 @@
       }
     },
     "oracle": {
-      "types": {
-        "boolean": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "datetime": "DATETIME",
-        "date": "DATE",
-        "time": "TIME"
-      },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
+        "dropPk": "DROP CONSTRAINT {name}",
+        "dropUk": "DROP CONSTRAINT {name}",
+        "dropFk": "DROP CONSTRAINT {name}",
+        "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
@@ -671,11 +661,21 @@
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "dropPk": "DROP PRIMARY KEY {name}",
-        "dropUk": "DROP UNIQUE {name}",
-        "dropFk": "DROP FOREIGN KEY {name}",
-        "dropIndex": "DROP INDEX {name} ON {table}",
         "truncateTable": "TRUNCATE TABLE {name}"
+      },
+      "types": {
+        "boolean": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "dml": {
         "map": "SELECT {0}",

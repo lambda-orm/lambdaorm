@@ -3,7 +3,7 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter } from '../../model'
-import { Helper } from 'orm'
+import { Helper } from './../../helper'
 
 export class SqlJsConnectionPool extends ConnectionPool {
 	private static lib:any
