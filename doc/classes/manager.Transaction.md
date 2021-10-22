@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/transaction.ts#L8)
+[manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L8)
 
 ## Methods
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[manager/transaction.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/transaction.ts#L25)
+[manager/transaction.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L25)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[manager/transaction.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/transaction.ts#L14)
+[manager/transaction.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L14)
 
 ___
 
@@ -94,4 +94,4 @@ ___
 
 #### Defined in
 
-[manager/transaction.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/manager/transaction.ts#L21)
+[manager/transaction.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L21)

@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[model/config.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L6)
+[model/config.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L6)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[model/config.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L5)
+[model/config.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L5)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[model/config.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L4)
+[model/config.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L4)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[model/config.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L7)
+[model/config.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L7)

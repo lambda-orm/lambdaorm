@@ -34,6 +34,12 @@ docker volume create --name oracle --opt type=none --opt device=C:\volumes\oracl
 docker-compose up -d
 ```
 
+## create database
+
+```sql
+CREATE DATABASE IF NOT EXISTS northwind
+```
+
 ## create users
 
 ``` sh

@@ -11,6 +11,7 @@
 
 ### Interfaces
 
+- [App](../interfaces/model.App.md)
 - [Cache](../interfaces/model.Cache.md)
 - [ChangedValue](../interfaces/model.ChangedValue.md)
 - [ChildDelta](../interfaces/model.ChildDelta.md)
@@ -24,7 +25,6 @@
 - [Index](../interfaces/model.Index.md)
 - [NewValue](../interfaces/model.NewValue.md)
 - [Parameter](../interfaces/model.Parameter.md)
-- [Paths](../interfaces/model.Paths.md)
 - [Property](../interfaces/model.Property.md)
 - [Relation](../interfaces/model.Relation.md)
 - [RemovedValue](../interfaces/model.RemovedValue.md)

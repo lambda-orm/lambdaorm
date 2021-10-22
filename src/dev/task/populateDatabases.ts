@@ -1,5 +1,4 @@
-import fs from 'fs'
-import { orm } from '../../orm'
+import { orm, Helper } from '../../orm'
 
 async function schemaSync (target: string) {
 	await orm.database.sync(target).execute()
@@ -12,11 +11,12 @@ async function schemaDrop (target: string, TryAndContinue = false) {
 async function schemaExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
 	const data = await orm.database.export(source)
-	fs.writeFileSync(exportFile, JSON.stringify(data, null, 2))
+	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
 async function schemaImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
-	const data = JSON.parse(fs.readFileSync(sourceFile, 'utf8'))
+	const content = await Helper.readFile(sourceFile) as string
+	const data = JSON.parse(content)
 	await orm.database.import(target, data)
 }
 
@@ -36,4 +36,6 @@ export async function apply (databases: string[], callback: any) {
 	await orm.end()
 	callback()
 }
-// apply(['mysql', 'postgres'], function () { console.log('end')})
+// apply(['mssql'], function () { console.log('end') })
+// apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
+// apply(['mysql'], function () { console.log('end') })

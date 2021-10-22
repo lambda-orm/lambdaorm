@@ -8,36 +8,36 @@
 
 ### Properties
 
+- [app](model.Config.md#app)
 - [databases](model.Config.md#databases)
-- [paths](model.Config.md#paths)
 - [schemas](model.Config.md#schemas)
 
 ## Properties
 
-### databases
+### app
 
-• `Optional` **databases**: [`Database`](model.Database.md)[]
+• **app**: [`App`](model.App.md)
 
 #### Defined in
 
-[model/config.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L17)
+[model/config.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L20)
 
 ___
 
-### paths
+### databases
 
-• **paths**: [`Paths`](model.Paths.md)
+• **databases**: [`Database`](model.Database.md)[]
 
 #### Defined in
 
-[model/config.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L16)
+[model/config.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L21)
 
 ___
 
 ### schemas
 
-• `Optional` **schemas**: [`Schema`](model.Schema.md)[]
+• **schemas**: [`Schema`](model.Schema.md)[]
 
 #### Defined in
 
-[model/config.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/model/config.ts#L18)
+[model/config.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/config.ts#L22)

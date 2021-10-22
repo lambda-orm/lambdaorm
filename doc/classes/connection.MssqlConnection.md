@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L9)
+[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L9)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L6)
+[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L6)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L8)
+[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L8)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L7)
+[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L7)
 
 ## Accessors
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connection.ts#L15)
+[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L15)
 
 ## Methods
 
@@ -131,13 +131,13 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L81)
+[connection/dialects/mssql.ts:108](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L108)
 
 ___
 
 ### bulkInsert
 
-▸ **bulkInsert**(`sql`, `array`, `parameters`, `fieldId?`): `Promise`<`number`[]\>
+▸ **bulkInsert**(`sql`, `array`, `params`, `fieldId?`): `Promise`<`any`[]\>
 
 #### Parameters
 
@@ -145,12 +145,12 @@ ___
 | :------ | :------ |
 | `sql` | `string` |
 | `array` | `any`[] |
-| `parameters` | [`Parameter`](../interfaces/model.Parameter.md)[] |
+| `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 | `fieldId?` | `string` |
 
 #### Returns
 
-`Promise`<`number`[]\>
+`Promise`<`any`[]\>
 
 #### Overrides
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L61)
+[connection/dialects/mssql.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L62)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L86)
+[connection/dialects/mssql.ts:121](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L121)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:71](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L71)
+[connection/dialects/mssql.ts:100](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L100)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L77)
+[connection/dialects/mssql.ts:104](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L104)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:55](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L55)
+[connection/dialects/mssql.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L57)
 
 ___
 
@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L91)
+[connection/dialects/mssql.ts:134](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L134)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L51)
+[connection/dialects/mssql.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L52)
 
 ___
 
@@ -318,4 +318,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mssql.ts#L65)
+[connection/dialects/mssql.ts:96](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L96)

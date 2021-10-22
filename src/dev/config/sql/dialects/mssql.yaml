@@ -1,4 +1,18 @@
 _extends: [sql]
+types:
+  boolean: BIT
+ddl:
+  createPk: "PRIMARY KEY ({columns})"
+  incrementalColumDefine: "{name} {type} {nullable} IDENTITY (1, 1)"
+  dropPk: "DROP CONSTRAINT {name}"
+  dropUk: "DROP CONSTRAINT {name}"
+  dropFk: "DROP CONSTRAINT {name}"
+  dropIndex: "DROP INDEX {name} ON {table}"
+dml:
+  update: UPDATE {alias} SET {assings} FROM {name} {alias}
+  delete: DELETE FROM {name} {alias}
+  bulkInsert: INSERT INTO {name}({fields})
 others:
-  delimiter: '[{name}]'
+  delimiter: "[{name}]"
   sepatatorSql: ' \nGO'
+  variable: "@{name}"

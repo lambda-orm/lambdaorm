@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[language/iSchemaBuilder.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iSchemaBuilder.ts#L8)
+[language/iSchemaBuilder.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iSchemaBuilder.ts#L8)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[language/iSchemaBuilder.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iSchemaBuilder.ts#L7)
+[language/iSchemaBuilder.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iSchemaBuilder.ts#L7)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[language/iSchemaBuilder.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/iSchemaBuilder.ts#L9)
+[language/iSchemaBuilder.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/iSchemaBuilder.ts#L9)

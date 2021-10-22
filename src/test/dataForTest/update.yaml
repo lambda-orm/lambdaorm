@@ -234,12 +234,12 @@ test:
           ?,ShipCountry = ? WHERE o.OrderID = ? 
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
-          :employeeId,OrderDate = :orderDate,RequiredDate =
-          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
-          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
-          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE o.OrderID = :obj.id 
+          UPDATE o SET CustomerID = @customerId,EmployeeID =
+          @employeeId,OrderDate = @orderDate,RequiredDate =
+          @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight
+          = @freight,ShipName = @name,ShipAddress = @address,ShipCity =
+          @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry =
+          @country FROM Orders o WHERE o.OrderID = @obj.id 
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
@@ -363,14 +363,14 @@ test:
           ?,ShipCountry = ? WHERE o.OrderID = ? 
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
-          :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate =
-          :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia =
-          :entity.shipViaId,Freight = :entity.freight,ShipName =
-          :entity.name,ShipAddress = :entity.address,ShipCity =
-          :entity.city,ShipRegion = :entity.region,ShipPostalCode =
-          :entity.postalCode,ShipCountry = :entity.country WHERE o.OrderID =
-          :obj.id 
+          UPDATE o SET CustomerID = @entity.customerId,EmployeeID =
+          @entity.employeeId,OrderDate = @entity.orderDate,RequiredDate =
+          @entity.requiredDate,ShippedDate = @entity.shippedDate,ShipVia =
+          @entity.shipViaId,Freight = @entity.freight,ShipName =
+          @entity.name,ShipAddress = @entity.address,ShipCity =
+          @entity.city,ShipRegion = @entity.region,ShipPostalCode =
+          @entity.postalCode,ShipCountry = @entity.country FROM Orders o WHERE
+          o.OrderID = @obj.id 
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
@@ -491,7 +491,7 @@ test:
       - dialect: mariadb
         sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
       - dialect: mssql
-        sentence: 'UPDATE Orders o SET ShipPostalCode = :postalCode '
+        sentence: 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
       - dialect: mysql
         sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
       - dialect: oracle
@@ -521,8 +521,8 @@ test:
         sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-          :entity.id 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
       - dialect: mysql
         sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
       - dialect: oracle
@@ -562,13 +562,13 @@ test:
           ?) 
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-          :entity.id 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
 
-          UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
-          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID =
-          :obj.productId) 
+          UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice =
+          @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order
+          Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID =
+          @obj.productId) 
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
@@ -631,12 +631,12 @@ test:
           o1.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-          :entity.id 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
 
-          UPDATE [Order Details] o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
+          UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount
+          = o1.Discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+          o1.ProductID = @productId) 
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
@@ -695,12 +695,12 @@ test:
           o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-          :entity.id 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
 
-          UPDATE [Order Details] o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
-          :productId) 
+          UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID FROM
+          [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID =
+          @productId) 
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
@@ -760,17 +760,17 @@ test:
           ?) 
       - dialect: mssql
         sentence: >-
-          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
-          :employeeId,OrderDate = :orderDate,RequiredDate =
-          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
-          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
-          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE o.OrderID = :obj.id 
+          UPDATE o SET CustomerID = @customerId,EmployeeID =
+          @employeeId,OrderDate = @orderDate,RequiredDate =
+          @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight
+          = @freight,ShipName = @name,ShipAddress = @address,ShipCity =
+          @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry =
+          @country FROM Orders o WHERE o.OrderID = @obj.id 
 
-          UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
-          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID =
-          :obj.productId) 
+          UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice =
+          @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order
+          Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID =
+          @obj.productId) 
       - dialect: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
@@ -921,22 +921,22 @@ test:
           ?) 
       - dialect: mssql
         sentence: >-
-          UPDATE Customers c SET CustomerID = :id,CompanyName =
-          :name,ContactName = :contact,ContactTitle = :phone,Address =
-          :address,City = :city,Region = :region,PostalCode =
-          :postalCode,Country = :country WHERE c.CustomerID = :obj.id 
+          UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName =
+          @contact,ContactTitle = @phone,Address = @address,City = @city,Region
+          = @region,PostalCode = @postalCode,Country = @country FROM Customers c
+          WHERE c.CustomerID = @obj.id 
 
-          UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
-          :employeeId,OrderDate = :orderDate,RequiredDate =
-          :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight
-          = :freight,ShipName = :name,ShipAddress = :address,ShipCity =
-          :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry =
-          :country WHERE o.OrderID = :obj.id 
+          UPDATE o SET CustomerID = @customerId,EmployeeID =
+          @employeeId,OrderDate = @orderDate,RequiredDate =
+          @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight
+          = @freight,ShipName = @name,ShipAddress = @address,ShipCity =
+          @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry =
+          @country FROM Orders o WHERE o.OrderID = @obj.id 
 
-          UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID =
-          :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount =
-          :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID =
-          :obj.productId) 
+          UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice =
+          @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order
+          Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID =
+          @obj.productId) 
       - dialect: mysql
         sentence: >-
           UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =

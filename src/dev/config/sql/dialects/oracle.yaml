@@ -1,1 +1,6 @@
 _extends: [sql]
+ddl:
+  dropPk: "DROP CONSTRAINT {name}"
+  dropUk: "DROP CONSTRAINT {name}"
+  dropFk: "DROP CONSTRAINT {name}"
+  dropIndex: "DROP INDEX {name} ON {table}"

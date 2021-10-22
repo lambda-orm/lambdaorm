@@ -17,7 +17,7 @@ export class UpdateCommand implements CommandModule {
 
 	async handler (args: Arguments) {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
-		const orm = new Orm()
+		const orm = new Orm(workspace)
 		try {
 			const config = await orm.lib.getConfig(workspace)
 			// write models

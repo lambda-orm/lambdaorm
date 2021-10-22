@@ -91,9 +91,7 @@ test:
       - dialect: mariadb
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
       - dialect: mssql
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description) VALUES
-          :name,:description
+        sentence: INSERT INTO Categories(CategoryName,Description)
       - dialect: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
       - dialect: oracle
@@ -139,12 +137,9 @@ test:
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES
-          :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country
 
           INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
-          :orderId,:productId,:unitPrice,:quantity,:discount
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
       - dialect: mysql
         sentence: >-
           INSERT INTO

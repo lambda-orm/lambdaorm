@@ -4,7 +4,8 @@ import { Model, ParserManager } from './parser/index'
 import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, PostgresConnectionPool, ConnectionConfig } from './connection'
+import { ExpressionCompleter } from './manager/expressionCompleter'
+import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, ConnectionConfig } from './connection'
 import { LanguageManager, Operand, Sentence, Query } from './language'
 import { SqlLanguage } from './language/sql/index'
 import { CoreLib } from './language/lib/coreLib'
@@ -23,12 +24,15 @@ export class Orm implements IOrm {
 	private databaseManager: DatabaseManager
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
-	private libManager:LibManager
+	private libManager: LibManager
+	private expressionCompleter:ExpressionCompleter
 	private static _instance: Orm
 	/**
 	 * Property that exposes the configuration
 	 */
 	public config: Config
+
+	public workspace:string
 	/**
 	 * Singleton
 	 */
@@ -39,15 +43,17 @@ export class Orm implements IOrm {
 		return this._instance
 	}
 
-	constructor () {
-		this.config = { app: { workspace: process.cwd(), src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+	constructor (workspace:string = process.cwd()) {
+		this.config = { app: { src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+		this.workspace = workspace
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
-		this.libManager = new LibManager()
+		this.libManager = new LibManager(this)
 
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)
 		this.parserManager = new ParserManager(this.languageModel)
+		this.expressionCompleter = new ExpressionCompleter()
 
 		this.schemaManager = new SchemaManager(this)
 		this.databaseManager = new DatabaseManager(this)
@@ -55,14 +61,15 @@ export class Orm implements IOrm {
 		const sqlLanguage = new SqlLanguage()
 		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
 
-		this.languageManager = new LanguageManager(this, this.languageModel)
+		this.languageManager = new LanguageManager(this.languageModel)
 		this.language.addLibrary(new CoreLib())
 		this.language.add(sqlLanguage)
 
 		this.connection.addType('mysql', MySqlConnectionPool)
 		this.connection.addType('mariadb', MariadbConnectionPool)
 		this.connection.addType('postgres', PostgresConnectionPool)
-		// this.connection.addType('mssql',MssqlConnectionPool)
+		this.connection.addType('mssql', MssqlConnectionPool)
+		this.connection.addType('sqljs', SqlJsConnectionPool)
 		// this.connection.addType('oracle',OracleConnectionPool)
 	}
 
@@ -99,6 +106,7 @@ export class Orm implements IOrm {
 			}
 		}
 		this.database.default = this.config.app.defaultDatabase
+		await this.connection.init()
 	}
 
 	/**
@@ -174,7 +182,8 @@ export class Orm implements IOrm {
 		try {
 			const _schema = this.schemaManager.getInstance(schema)
 			const node = this.parser.parse(expression)
-			const completeNode = this.language.complete(node, _schema)
+			const completeNode = this.expressionCompleter.complete(node, _schema)
+			this.parser.setParent(completeNode)
 			return this.parser.toExpression(completeNode)
 		} catch (error: any) {
 			console.log(error)
@@ -182,6 +191,12 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Build expression
+	 * @param expression expression to build
+	 * @param schema schema name
+	 * @returns Operand
+	 */
 	public async build (expression: string, schema: string): Promise<Operand> {
 		try {
 			const key = 'build_' + expression
@@ -189,8 +204,9 @@ export class Orm implements IOrm {
 			if (!operand) {
 				const _schema = this.schemaManager.getInstance(schema)
 				const node = this.parser.parse(expression)
-				const compleNode = this.language.complete(node, _schema)
-				operand = this.language.build(compleNode, _schema)
+				const completeNode = this.expressionCompleter.complete(node, _schema)
+				this.parser.setParent(completeNode)
+				operand = this.language.build(completeNode, _schema)
 				await this._cache.set(key, operand)
 			}
 			return operand as Operand
@@ -200,6 +216,13 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Build expression and convert in Query
+	 * @param expression expression to build
+	 * @param dialect Dialect name
+	 * @param schema Schema name
+	 * @returns Query
+	 */
 	public async query (expression: string, dialect: string, schema: string): Promise<Query> {
 		try {
 			const key = dialect + '-query_' + expression
@@ -215,6 +238,11 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Read expression
+	 * @param expression string expression
+	 * @returns Expression manager
+	 */
 	public expression (expression: string): Expression {
 		if (!expression) {
 			throw new Error('empty expression}')
@@ -222,6 +250,11 @@ export class Orm implements IOrm {
 		return new Expression(this, expression)
 	}
 
+	/**
+	 * Read lambda expression
+	 * @param func lambda expression
+	 * @returns Expression manager
+	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public lambda (func: Function): Expression {
 		if (!func) {
@@ -243,12 +276,26 @@ export class Orm implements IOrm {
 		return new Expression(this, expression)
 	}
 
+	/**
+	 * Evaluate and solve expression
+	 * @param expression  string expression
+	 * @param context Context with variables
+	 * @param schema Schema name
+	 * @returns Result of the evaluale expression
+	 */
 	public async eval (expression: string, context: any, schema: string): Promise<any> {
 		const operand = await this.build(expression, schema)
 		const _context = new Context(context)
 		return this.language.eval(operand, _context)
 	}
 
+	/**
+	 * Execute expression and return result
+	 * @param expression string expression
+	 * @param context Context with variables
+	 * @param database Database name
+	 * @returns result of expression
+	 */
 	public async execute (expression: string, context: any = {}, database?: string): Promise<any> {
 		try {
 			if (typeof context !== 'object') {
@@ -280,11 +327,22 @@ export class Orm implements IOrm {
 		}
 	}
 
+	/**
+	 * Execute Sentence
+	 * @param sentence Sentence
+	 * @param database Database name
+	 * @returns result of sentence
+	 */
 	public async executeSentence (sentence: any, database: string): Promise<any> {
 		const executor = this.connectionManager.createExecutor(database)
 		return await executor.execute(sentence)
 	}
 
+	/**
+	 * Crea una transaccion
+	 * @param database Database name
+	 * @param callback Codigo que se ejecutara en transaccion
+	 */
 	public async transaction (database: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _database = this.database.get(database)
 		const tr = this.connectionManager.createTransaction(database)
@@ -300,4 +358,3 @@ export class Orm implements IOrm {
 		}
 	}
 }
-// export const orm = Orm.instance

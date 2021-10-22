@@ -42,7 +42,7 @@ export class RunCommand implements CommandModule {
 		const database = args.name as string
 		const sentences = args.sentences as string
 		const metadata = args.metadata !== undefined
-		const orm = new Orm()
+		const orm = new Orm(workspace)
 		if (expression === undefined) {
 			console.error('the expression argument is required')
 			return

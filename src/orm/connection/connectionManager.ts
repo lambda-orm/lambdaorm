@@ -21,8 +21,10 @@ export class ConnectionManager {
 
 	public load (config:ConnectionConfig):void {
 		const DialectPool = this.dialectsPool[config.dialect]
+		if (DialectPool === undefined) {
+			throw new Error(`Connection to ${config.dialect} not supported`)
+		}
 		const pool = new DialectPool(config) as ConnectionPool
-		// await pool.initialize()
 		this.pools[config.name] = pool
 	}
 
@@ -30,6 +32,13 @@ export class ConnectionManager {
 		const pool = this.pools[name] as ConnectionPool
 		if (!pool) { throw new Error(`connection ${name} not found`) }
 		return pool
+	}
+
+	public async init ():Promise<void> {
+		for (const k in this.pools) {
+			const pool = this.pools[k] as ConnectionPool
+			await pool.init()
+		}
 	}
 
 	public async end ():Promise<void> {

@@ -32,15 +32,15 @@ posibles names: lambda-orm
 
 ## Orm examples
 
-- [knexjs](https://knexjs.org/)
-- [refineorm](https://www.npmjs.com/package/refineorm)
-- [arrow orm](https://www.npmjs.com/package/arrow-orm)
+- [sequelize](https://github.com/sequelize/sequelize)
 - [typeorm](https://github.com/typeorm/typeorm)
+- [prisma](https://github.com/prisma/prisma)
+- [objection](https://github.com/Vincit/objection.js)
+- [knexjs](https://knexjs.org/)
+- [arrow orm](https://www.npmjs.com/package/arrow-orm)
 - [mikro-orm](https://github.com/mikro-orm/mikro-orm)
 - [fireorm](https://github.com/wovalle/fireorm)
-- [prisma](https://github.com/prisma/prisma)
-- [sequelize](https://github.com/sequelize/sequelize)
-- [objection](https://github.com/Vincit/objection.js)
+- [refineorm](https://www.npmjs.com/package/refineorm)
 
 ## api builder to databases
 
@@ -48,47 +48,28 @@ posibles names: lambda-orm
 - [graphile](https://www.graphile.org/)
 - [postgraphile](https://github.com/graphile/postgraphile)
 
-## Pools
+## Generics Pools
 
 - [generic-pool](https://www.npmjs.com/package/generic-pool)
 - [node pool](https://github.com/coopernurse/node-pool/tree/v2.5)
 - [sequelize-pool](https://github.com/sequelize/sequelize-pool)
 
-## Bullk
+## Dialects
 
-### Mysql Bullk
+### MySQL
+
+- [mysql2](https://www.npmjs.com/package/mysql2)
+- [oracle to mysql](https://sqlines.com/oracle-to-mysql)
+
+#### MySQL Bullk
 
 - [](https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/56241509)
 - [](https://github.com/sidorares/node-mysql2/issues/830)
 - [](https://www.technicalkeeda.com/nodejs-tutorials/insert-multiple-records-into-mysql-using-nodejs)
 
-#### Postgres Bullk
-
-- [](https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/)
-- [](https://www.npmjs.com/package/pg-essential)
-- [](https://node-postgres.com/api/client)
-
-## Dialects
-
-### Mssql
-
-- [tedious](https://github.com/tediousjs/tedious)
-- [tedious datatypes](https://tediousjs.github.io/tedious/api-datatypes.html)
-
-### MySql
-
-- [mysql2](https://www.npmjs.com/package/mysql2)
-- [oracle to mysql](https://sqlines.com/oracle-to-mysql)
-
 ### MariaDb
 
 - [mariadb](https://www.npmjs.com/package/mariadb)
-
-### Sqlite3
-
-- [description](https://blog.escuelactec.com/que-es-sqlite/)
-- [tutorial](https://www.sqlitetutorial.net/)
-- [npm](https://www.npmjs.com/package/sqlite3)
 
 ### Postgres
 
@@ -97,6 +78,35 @@ posibles names: lambda-orm
 - [node-postgres](https://www.npmjs.com/package/node-postgres)
 - [pg-hstore](https://www.npmjs.com/package/pg-hstore)
 
+#### Postgres Bullk
+
+- [](https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/)
+- [](https://www.npmjs.com/package/pg-essential)
+- [](https://node-postgres.com/api/client)
+
+### Mssql
+
+- [tedious](https://github.com/tediousjs/tedious)
+- [getting-started](https://tediousjs.github.io/tedious/getting-started.html)
+- [tedious datatypes](https://tediousjs.github.io/tedious/api-datatypes.html)
+- [transactions](https://github.com/tediousjs/tedious/blob/master/examples/transaction.js)
+- [examples](https://docs.microsoft.com/es-es/sql/connect/node-js/step-3-proof-of-concept-connecting-to-sql-using-node-js?view=sql-server-ver15)
+- [alternative to tedious](https://tediousjs.github.io/node-mssql/)
+
+#### Mssql Pool
+
+- [pool](https://tediousjs.github.io/tedious/api.html)
+- [tedious-connection-pool](https://github.com/tediousjs/tedious-connection-pool)
+- [examples pool](https://github.com/tediousjs/tedious-connection-pool/blob/master/test/test.js)
+
+### Sqlite3
+
+- [description](https://blog.escuelactec.com/que-es-sqlite/)
+- [tutorial](https://www.sqlitetutorial.net/)
+- [npm](https://www.npmjs.com/package/sqlite3)
+- [sqlite-nodejs](https://www.sqlitetutorial.net/sqlite-nodejs/)
+- [commands](https://www.sqlitetutorial.net/sqlite-commands/)
+
 ### Oracle
 
 - [Oracle Node.js](https://www.oracle.com/es/database/technologies/appdev/nodejs.html)
@@ -104,6 +114,10 @@ posibles names: lambda-orm
 - [github](https://github.com/oracle/node-oracledb)
 - [npm](https://www.npmjs.com/package/oracledb)
 - [mysql to oracle](https://sqlines.com/mysql-to-oracle)
+
+- [install client on windows](https://www.oracle.com/es/database/technologies/instant-client/winx64-64-downloads.
+html)
+- [install-oracle-odbc-driver](https://windowsreport.com/install-oracle-odbc-driver-windows-10/)
 
 ### Sqljs
 
@@ -118,6 +132,11 @@ posibles names: lambda-orm
 - [node lib](https://github.com/firebase/firebase-admin-node)
 - [retrive data](https://firebase.google.com/docs/database/admin/retrieve-data)
 - [manager user](https://firebase.google.com/docs/auth/admin/manage-users)
+
+### cockroachdb
+
+-[quickstart](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html)
+-[info](https://blog.friendsofgo.tech/posts/empezando-con-cockroachdb/)
 
 ### CLI
 

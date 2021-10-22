@@ -15,6 +15,19 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "cli version",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
+			"args": [
+				"version"
+			]
+		},
+		{
 			"name": "cli init",
 			"type": "node",
 			"request": "launch",
@@ -30,7 +43,7 @@
 			]
 		},
 		{
-			"name": "cli model",
+			"name": "cli update",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -39,7 +52,7 @@
 			"program": "${workspaceFolder}/src/orm/cli.ts",
 			"envFile": "${workspaceFolder}/test.env",
 			"args": [
-				"model",
+				"update",
 				"-w",
 				"lab_01"
 			]
@@ -221,26 +234,26 @@
 			],
 			"stopOnEntry": false
 		},
-		{
-			"name": "populate databases",
-			"type": "node",
-			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"populate-databases"
-			],
-			"stopOnEntry": false
-		},
 		// {
 		// 	"name": "populate databases",
 		// 	"type": "node",
 		// 	"request": "launch",
-		// 	"skipFiles": [
-		// 		"<node_internals>/**"
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"populate-databases"
 		// 	],
-		// 	"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
-		// 	"envFile": "${workspaceFolder}/test.env"
+		// 	"stopOnEntry": false
 		// },
+		{
+			"name": "populate databases",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
 		{
 			"name": "generate data for test",
 			"type": "node",

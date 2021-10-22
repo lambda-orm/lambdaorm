@@ -24,6 +24,7 @@
 
 - [acquire](connection.MariadbConnectionPool.md#acquire)
 - [end](connection.MariadbConnectionPool.md#end)
+- [init](connection.MariadbConnectionPool.md#init)
 - [release](connection.MariadbConnectionPool.md#release)
 
 ## Constructors
@@ -44,7 +45,7 @@
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L8)
+[connection/dialects/mariadb.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mariadb.ts#L8)
 
 ## Properties
 
@@ -58,7 +59,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/connectionPool.ts#L6)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -76,7 +77,7 @@
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L14)
+[connection/dialects/mariadb.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mariadb.ts#L28)
 
 ___
 
@@ -94,7 +95,25 @@ ___
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L23)
+[connection/dialects/mariadb.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mariadb.ts#L37)
+
+___
+
+### init
+
+▸ **init**(): `Promise`<`void`\>
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Overrides
+
+[ConnectionPool](connection.ConnectionPool.md).[init](connection.ConnectionPool.md#init)
+
+#### Defined in
+
+[connection/dialects/mariadb.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mariadb.ts#L15)
 
 ___
 
@@ -118,4 +137,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mariadb.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/connection/dialects/mariadb.ts#L19)
+[connection/dialects/mariadb.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mariadb.ts#L33)

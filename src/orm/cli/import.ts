@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { Orm, Database, Helper } from '../index'
+import { Orm, Helper } from '../index'
 import path from 'path'
 
 export class ImportCommand implements CommandModule {
@@ -27,7 +27,7 @@ export class ImportCommand implements CommandModule {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const database = args.name as string
 		const source = args.source as string
-		const orm = new Orm()
+		const orm = new Orm(workspace)
 
 		if (source === undefined) {
 			console.error('the source argument is required')

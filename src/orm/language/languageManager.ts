@@ -1,12 +1,12 @@
 
 import { Node, Model } from '../parser/index'
-import { Context, Delta, IOrm } from './../model'
+import { Context, Delta } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
 import { ILanguage } from './iLanguage'
 import { Executor } from '../connection'
 import { OperandManager } from './operandManager'
 import { Operand, Query, Sentence } from './operands'
-import { QueryCompleter } from './queryCompleter'
+
 import { OperandMetadata } from './operandMetadata'
 import { Library } from './library'
 
@@ -15,17 +15,12 @@ export class LanguageManager {
 	public languageModel:Model
 	public metadata:OperandMetadata
 	private languages:any
-	private orm:IOrm
-	private queryCompleter:QueryCompleter
 	private operandManager:OperandManager
 
-	constructor (orm:IOrm, languageModel:Model) {
-		this.orm = orm
+	constructor (languageModel:Model) {
 		this.languageModel = languageModel
-		this.queryCompleter = new QueryCompleter()
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(this)
-
 		this.languages = {}
 		this.dialects = {}
 	}
@@ -46,12 +41,6 @@ export class LanguageManager {
 
 	public build (node:Node, schema:SchemaHelper): Operand {
 		return this.operandManager.build(node, schema)
-	}
-
-	public complete (node:Node, schema:SchemaHelper): Node {
-		const completeNode = this.queryCompleter.complete(node, schema)
-		this.orm.parser.setParent(completeNode)
-		return completeNode
 	}
 
 	public model (sentence:Sentence):any {

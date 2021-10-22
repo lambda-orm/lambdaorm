@@ -1,6 +1,6 @@
 import { CommandModule, Argv, Arguments } from 'yargs'
 import path from 'path'
-import { orm, Helper } from './../index'
+import { Orm, Helper } from './../index'
 
 export class InitCommand implements CommandModule {
 	command = 'init';
@@ -33,14 +33,15 @@ export class InitCommand implements CommandModule {
 			const database = args.name as string || path.basename(workspace) // name of database
 			const dialect: string = args.dialect as string
 			const connection: string = args.connection as string
+			const orm = new Orm(workspace)
 
 			// create workspace
 			await Helper.createIfNotExists(workspace)
 			// create config file if not exists
 			const config = await orm.lib.getConfig(workspace)
-			if (config.app.workspace === undefined) {
-				config.app.workspace = workspace
-			}
+			// if (config.app.workspace === undefined) {
+			// config.app.workspace = workspace
+			// }
 			if (config.app.configFile === undefined) {
 				config.app.configFile = 'lambdaorm.yaml'
 			}

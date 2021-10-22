@@ -1822,7 +1822,7 @@ test:
           [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
           p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
           p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID =
-          :id ORDER BY [id] 
+          @id ORDER BY [id] 
       - dialect: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
@@ -1919,7 +1919,7 @@ test:
           [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock],
           p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel],
           p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID =
-          :id ORDER BY [id] 
+          @id ORDER BY [id] 
       - dialect: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
@@ -3003,8 +3003,8 @@ test:
           o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order
           Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
           Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
-          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND
-          :to AND o.UnitPrice > :minValue) ORDER BY [category], [product] 
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN @from AND
+          @to AND o.UnitPrice > @minValue) ORDER BY [category], [product] 
       - dialect: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,

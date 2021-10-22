@@ -24,7 +24,6 @@
 - [import](schema.SchemaManager.md#import)
 - [list](schema.SchemaManager.md#list)
 - [load](schema.SchemaManager.md#load)
-- [model](schema.SchemaManager.md#model)
 - [sync](schema.SchemaManager.md#sync)
 - [transform](schema.SchemaManager.md#transform)
 - [truncate](schema.SchemaManager.md#truncate)
@@ -44,7 +43,7 @@
 
 #### Defined in
 
-[schema/schemaManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L13)
+[schema/schemaManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L13)
 
 ## Properties
 
@@ -54,7 +53,7 @@
 
 #### Defined in
 
-[schema/schemaManager.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L11)
+[schema/schemaManager.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L11)
 
 ## Methods
 
@@ -74,7 +73,7 @@
 
 #### Defined in
 
-[schema/schemaManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L22)
+[schema/schemaManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L22)
 
 ___
 
@@ -94,7 +93,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:55](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L55)
+[schema/schemaManager.ts:55](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L55)
 
 ___
 
@@ -114,7 +113,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L67)
+[schema/schemaManager.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L67)
 
 ___
 
@@ -134,7 +133,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L26)
+[schema/schemaManager.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L26)
 
 ___
 
@@ -154,7 +153,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L40)
+[schema/schemaManager.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L40)
 
 ___
 
@@ -174,7 +173,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:73](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L73)
+[schema/schemaManager.ts:73](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L73)
 
 ___
 
@@ -188,7 +187,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L32)
+[schema/schemaManager.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L32)
 
 ___
 
@@ -208,27 +207,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L18)
-
-___
-
-### model
-
-▸ **model**(`source`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `source` | [`Schema`](../interfaces/model.Schema.md) |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[schema/schemaManager.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L79)
+[schema/schemaManager.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L18)
 
 ___
 
@@ -249,7 +228,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L46)
+[schema/schemaManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L46)
 
 ___
 
@@ -269,7 +248,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:116](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L116)
+[schema/schemaManager.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L79)
 
 ___
 
@@ -289,7 +268,7 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L61)
+[schema/schemaManager.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L61)
 
 ___
 
@@ -309,4 +288,4 @@ ___
 
 #### Defined in
 
-[schema/schemaManager.ts:149](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/schema/schemaManager.ts#L149)
+[schema/schemaManager.ts:112](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/schema/schemaManager.ts#L112)

@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[database/databaseClean.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseClean.ts#L8)
+[database/databaseClean.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseClean.ts#L8)
 
 ## Methods
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[database/databaseClean.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseClean.ts#L18)
+[database/databaseClean.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseClean.ts#L18)
 
 ___
 
@@ -64,4 +64,4 @@ ___
 
 #### Defined in
 
-[database/databaseClean.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseClean.ts#L13)
+[database/databaseClean.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseClean.ts#L13)

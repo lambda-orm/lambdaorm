@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[parser/model.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L5)
+[parser/model.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L5)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[parser/model.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L3)
+[parser/model.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L3)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L4)
+[parser/model.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L4)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L2)
+[parser/model.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L2)
 
 ## Methods
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L11)
+[parser/model.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L11)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L50)
+[parser/model.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L50)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L28)
+[parser/model.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L28)
 
 ___
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L24)
+[parser/model.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L24)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L20)
+[parser/model.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L20)
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L66)
+[parser/model.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L66)
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:54](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L54)
+[parser/model.ts:54](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L54)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[parser/model.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L15)
+[parser/model.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L15)
 
 ___
 
@@ -252,4 +252,4 @@ ___
 
 #### Defined in
 
-[parser/model.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/parser/model.ts#L33)
+[parser/model.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/parser/model.ts#L33)

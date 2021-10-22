@@ -39,6 +39,10 @@ export class PostgresConnectionPool extends ConnectionPool {
 		}
 	}
 
+	public async init (): Promise<void> {
+		// console.info('postgres init pool not Implemented')
+	}
+
 	public async acquire ():Promise<Connection> {
 		const cnx = new PostgresConnectionPool.pg.Client(this.config.connection)
 		cnx.connect()
@@ -50,7 +54,7 @@ export class PostgresConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		console.log('postgres end pool not Implemented')
+		// console.info('postgres end pool not Implemented')
 	}
 }
 export class PostgresConnection extends Connection {
@@ -60,9 +64,6 @@ export class PostgresConnection extends Connection {
 	}
 
 	public async insert (sql:string, params:Parameter[]):Promise<number> {
-		// Example
-		// create table my_table(my_id serial,name text);
-		// insert into my_table(name) values('pepe') returning my_id as id
 		try {
 			const result = await this._execute(sql, params)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -72,14 +73,14 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (sql:string, array:any[], parameters:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (sql:string, array:any[], params:Parameter[], fieldId?:string):Promise<number[]> {
 		try {
 			const rows:string[] = []
 			for (const p in array) {
 				const values = array[p]
 				const row:any[] = []
-				for (let i = 0; i < parameters.length; i++) {
-					const parameter = parameters[i]
+				for (let i = 0; i < params.length; i++) {
+					const parameter = params[i]
 					let value = values[i]
 					if (value == null || value === undefined) {
 						value = 'null'

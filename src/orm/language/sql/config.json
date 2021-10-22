@@ -214,20 +214,8 @@
       }
     },
     "mssql": {
-      "others": {
-        "delimiter": "[{name}]",
-        "sepatatorSql": " \\nGO",
-        "notNullable": "NOT NULL",
-        "variable": ":{name}",
-        "field": "{entityAlias}.{name}",
-        "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "FALSE",
-        "true": "TRUE"
-      },
       "types": {
-        "boolean": "BOOLEAN",
+        "boolean": "BIT",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
@@ -235,17 +223,16 @@
         "date": "DATE",
         "time": "TIME"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
+        "createPk": "PRIMARY KEY ({columns})",
+        "incrementalColumDefine": "{name} {type} {nullable} IDENTITY (1, 1)",
+        "dropPk": "DROP CONSTRAINT {name}",
+        "dropUk": "DROP CONSTRAINT {name}",
+        "dropFk": "DROP CONSTRAINT {name}",
+        "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
-        "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
-        "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
         "createFk": "CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
@@ -258,13 +245,12 @@
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "dropPk": "DROP PRIMARY KEY {name}",
-        "dropUk": "DROP UNIQUE {name}",
-        "dropFk": "DROP FOREIGN KEY {name}",
-        "dropIndex": "DROP INDEX {name} ON {table}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "update": "UPDATE {alias} SET {assings} FROM {name} {alias}",
+        "delete": "DELETE FROM {name} {alias}",
+        "bulkInsert": "INSERT INTO {name}({fields})",
         "map": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
         "filter": "WHERE {0}",
@@ -272,10 +258,24 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}",
-        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
+        "insert": "INSERT INTO {name}({fields}) VALUES({values})"
+      },
+      "others": {
+        "delimiter": "[{name}]",
+        "sepatatorSql": " \\nGO",
+        "variable": "@{name}",
+        "notNullable": "NOT NULL",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "false": "FALSE",
+        "true": "TRUE"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "operators": {
         "unary": {
@@ -639,21 +639,11 @@
       }
     },
     "oracle": {
-      "types": {
-        "boolean": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "datetime": "DATETIME",
-        "date": "DATE",
-        "time": "TIME"
-      },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
+        "dropPk": "DROP CONSTRAINT {name}",
+        "dropUk": "DROP CONSTRAINT {name}",
+        "dropFk": "DROP CONSTRAINT {name}",
+        "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
@@ -671,11 +661,21 @@
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "dropPk": "DROP PRIMARY KEY {name}",
-        "dropUk": "DROP UNIQUE {name}",
-        "dropFk": "DROP FOREIGN KEY {name}",
-        "dropIndex": "DROP INDEX {name} ON {table}",
         "truncateTable": "TRUNCATE TABLE {name}"
+      },
+      "types": {
+        "boolean": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "datetime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "dml": {
         "map": "SELECT {0}",

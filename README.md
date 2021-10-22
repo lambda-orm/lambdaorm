@@ -2,7 +2,33 @@
 
 **IMPORTANT: the library is in an Alpha version!!!**
 
-Is an ORM that uses the syntax of lambda expressions in javascript to write the expressions, which are translated into sentences according to the dialect of the database.
+The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+
+Queries are written using [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) of javascript.
+
+Example:
+
+```js
+User.map(p => {name: p.lastname + ', ' + p.firstname })
+```
+
+Advantage:
+
+ - Use of the same programming language.
+ - It is not necessary to learn a new language.
+ - Easy to write and understand expressions.
+ - Use of the intellisense offered by the IDE to write the expressions.
+ - Avoid syntax errors.
+
+The engine also allows us to write the expressions in a string.
+
+Example:
+
+```js
+'User.map(p => {name: p.lastname + \', \' + p.firstname })'
+```
+
+This is useful if we need to persist expressions or execute them from UI (example: command line)
 
 ## Features
 
@@ -27,20 +53,32 @@ Is an ORM that uses the syntax of lambda expressions in javascript to write the 
 	- Sync and drop schema
 	- Imports and exports
 
-## Example:
+## Usage
+
+To work with the orm we do it through a singleton object called "orm".
+
+This object acts as a facade and from this we access all the functionalities.
+
+to execute we have two methods, one lambda to which the expression is passed as a javascript lambda function and another expression to which we pass a string containing the expression.
+
+If we are going to write the expression in the code, we should do it with the lambda function, since this way we will have the help of intellisense and make sure that the expression does not have syntax errors.
+
+But if the expression comes to us from another side, UI, CLI command, persisted, etc, in this case we will use the expression in a string
+
+Example:
 
 ```ts
 import { orm } from 'lambdaorm'
 
 (async () => {
 	await orm.init()
-	const expression = (country:string)=>Products
-			.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
-			.having(p => max(p.price) > 50)
-			.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-			.sort(p => desc(p.largestPrice))
+	const exp = (country:string)=>
+				Products.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+						.having(p => max(p.price) > 50)
+						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+						.sort(p => desc(p.largestPrice))
 
-	const result = await orm.lambda(expression).execute('mysql')
+	const result = await orm.lambda(exp).execute('mydb')
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
@@ -68,23 +106,26 @@ import { orm } from 'lambdaorm'
 
 (async () => {
 	await orm.init()
-	const expression = `Products
-						.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+	const exp = `Products.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
 						.having(p => max(p.price) > 50)
 						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 						.sort(p => desc(p.largestPrice))`
 
-	const result = await orm.expression(expression).execute('mysql')
+	const result = await orm.expression(exp).execute('mydb')
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
 ```
 
-## Queries:
+## Expressions:
 
-Starting from the entity we have the following methods to assemble the sentences.
+To write the expressions we use methods, operators and functions.
 
-|Operator    |Description                                   										| SQL Equivalent								|																																								|
+### Methods:
+
+Starting from the entity we have the following methods.
+
+|Method    		|Description                                   										| SQL Equivalent								|																																								|
 |:-----------|:-----------------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------:|
 |filter			 | To filter the records.																						| WHERE 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
 |having 		 | To filter on groupings.																					|	HAVING 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
@@ -113,12 +154,13 @@ The operators used are the same as those of javascript.
 
 below access to their documentation:
 
-- [Arithmectic](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic)
-- [Assignment](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Assignment)
-- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)
-- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)
-- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical)
-- [Array](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array)
+|Category    	|Operators                				|																																												|
+|:------------|:-------------------------------:|:-------------------------------------------------------------------------------------:|
+|Arithmectic 	| -, +, *, /, **, //, % 					| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic) |
+|Bitwise 			| ~,&,^,<<,>> 										| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)			|
+|Comparison 	| ==, ===, !=, !==, >, <, >=, <= 	| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)	|
+|Logical 			| !, && 														| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
+|Array 				| [] 															| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array) 				|
 
 ### Functions
 
@@ -126,18 +168,20 @@ In the case of functions, some correspond to javascript functions and others are
 
 below access to their documentation:
 
-- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)
-- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)
-- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)
-- [Convert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)
-- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)
-- [General](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)
-- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)
-- [Conditionals](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)
-- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)
-- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)
+|Category    	|functions                																						|																																												|
+|:------------|:--------------------------------------------------------------------|--------------------------------------------------------------------------------------:|
+|Numeric			|abs,ceil,cos,exp,ln,log,remainder,round,sign,sin,tan,trunc...				|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)			|
+|String				|chr,lower,lpad,ltrim,replace,rpad,rtrim,substr,trim,upper,concat...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)				|
+|Datetime			|curtime,today,now,time,date,datetime,year,month,day,weekday,hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)			|
+|Convert			|toString,toJson,toNumber																							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)			|
+|Nullable			|nvl,nvl2,isNull,isNotNull																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)			|
+|General			|as,distinct																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)			|
+|Sort					|asc,desc																															|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)					|
+|Conditionals	|between,includes																											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)	|
+|Group				|avg,count,first,last,max,min,sum																			|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)				|
+|Metadata			|user,source																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)			|
 
-### Includes:
+## Includes:
 
 LambdaORM includes the Include method to load related entities, both for OnetoMany, manyToOne and oneToOne relationships.
 
@@ -146,8 +190,6 @@ We can also apply filters or bring us some fields from the related entities.
 For each include, a statement is executed bringing all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
 
 Includes can be used in selects, insert, update, delete, and bulckinsert.
-
-[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
 Example:
 
@@ -164,7 +206,7 @@ import { orm } from 'lambdaorm'
 				.map(p => [p.quantity, p.unitPrice])])
 		.map(p => p.orderDate)
 
-	const result = await orm.lambda(expression).execute('mysql')
+	const result = await orm.lambda(expression).execute('mydb')
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
@@ -197,45 +239,9 @@ The previous sentence will bring us the following result:
 ]]
 ```
 
-## Using the ORM
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
-To work with the orm we do it through a singleton object called "orm".
-
-This object acts as a facade and from this we access all the functionalities.
-
-to execute we have two methods, one lambda to which the expression is passed as a javascript lambda function and another expression to which we pass a string containing the expression.
-
-If we are going to write the expression in the code, we should do it with the lambda function, since this way we will have the help of intellisense and make sure that the expression does not have syntax errors.
-
-But if the expression comes to us from another side, UI, CLI command, persisted, etc, in this case we will use the expression in a string
-
-Example:
-
-``` ts
-import { orm } from 'lambdaorm'
-
-(async () => {
-await orm.init()
-try {
-	//writing the statement as a lambda expression in javascript
-	const query = (id: number) => Orders.filter(p => p.id === id).include(p => p.details)
-	let result = await orm.lambda(query).execute('source',{ id: 10248 })
-	console.log(JSON.stringify(result, null, 2))
-
-	//writing the statement as a lambda expression to a text string
-	const expression = 'Orders.filter(p => p.id === id).include(p => p.details)'
-	result = await orm.expression(expression).execute('source',{ id: 10248 })
-	console.log(JSON.stringify(result, null, 2))
-
-} catch (error) {
-	console.log(error)
-} finally {
-	await orm.end()
-}
-})()
-```
-
-### Transactions
+## Transactions
 
 To work with transactions use the orm.transaction method.
 
@@ -255,7 +261,7 @@ import { orm } from 'lambdaorm'
 const order={customerId:"VINET",employeeId:5,orderDate:"1996-07-03T22:00:00.000Z",requiredDate:"1996-07-31T22:00:00.000Z",shippedDate:"1996-07-15T22:00:00.000Z",shipViaId:3,freight:32.38,name:"Vins et alcools Chevalier",address:"59 rue de l-Abbaye",city:"Reims",region:null,postalCode:"51100",country:"France",details:[{productId:11,unitPrice:14,quantity:12,discount:!1},{productId:42,unitPrice:9.8,quantity:10,discount:!1},{productId:72,unitPrice:34.8,quantity:5,discount:!1}]};
 
 try {
-orm.transaction('source', async (tr) => {
+orm.transaction('mydb', async (tr) => {
 	// create order
 	const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 	// get order
@@ -284,6 +290,8 @@ orm.transaction('source', async (tr) => {
 })()
 ```
 
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
+
 ## Config
 
 When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
@@ -298,18 +306,18 @@ Example:
 
 ```json
 {
-  "app:": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "lab_01" },
+  "app:": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "mydb" },
   "databases": [
     {
-      "name": "lab_01",
+      "name": "mydb",
       "dialect": "mysql",
-      "schema": "lab_01",
-      "connection": "$ORM_CNN_MYSQL"
+      "schema": "location",
+      "connection": "$CNN_MYSQL"
     }
   ],
   "schemas": [
     {
-      "name": "lab_01",
+      "name": "location",
       "enums": [],
       "entities": [
         {
@@ -388,7 +396,7 @@ npm install lambdaorm -g
 |:------------|:----------------------------------------------------------------|:-----------------------------------------------------------------------------:|
 |	version	 		| Prints lambdaorm version this project uses.											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-version)		|
 |	init				| Generates lambdaorm project structure.													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-init)				|
-|	updaye			| update model, packages and project structure.										|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-update)			|
+|	update			| update model, packages and project structure.										|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-update)			|
 |	sync				|	Syncronize database.																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-sync)				|
 |	run					| Run an expression lambda or return information									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-run)				|
 |	export			| Export data from a database 																		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-export)			|

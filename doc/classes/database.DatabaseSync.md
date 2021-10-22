@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[database/databaseSync.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseSync.ts#L7)
+[database/databaseSync.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseSync.ts#L7)
 
 ## Methods
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[database/databaseSync.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseSync.ts#L23)
+[database/databaseSync.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseSync.ts#L26)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[database/databaseSync.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseSync.ts#L17)
+[database/databaseSync.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseSync.ts#L19)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-[database/databaseSync.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/database/databaseSync.ts#L12)
+[database/databaseSync.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/database/databaseSync.ts#L12)

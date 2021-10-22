@@ -1,9 +1,12 @@
 
-import { Helper } from './../helper'
+import { Helper } from '../helper'
 import { Node } from '../parser/index'
 import { SchemaHelper } from '../schema/schemaHelper'
 
-export class QueryCompleter {
+/**
+ *  Expression completer
+ */
+export class ExpressionCompleter {
 	public complete (node:Node, schema:SchemaHelper):Node {
 		if (node.type === 'var' && node.children.length === 0) {
 			// Example: Products => Products.map(p=>p)

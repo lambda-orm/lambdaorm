@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { CommandModule, Argv, Arguments } from 'yargs'
-import { Orm, Database } from '../index'
+import { Orm } from '../index'
 import path from 'path'
 
 export class DropCommand implements CommandModule {
@@ -32,7 +32,7 @@ export class DropCommand implements CommandModule {
 		const database = args.name as string
 		const sentences = args.sentences !== undefined
 		const force = args.force !== undefined
-		const orm = new Orm()
+		const orm = new Orm(workspace)
 
 		try {
 			const config = await orm.lib.getConfig(workspace)

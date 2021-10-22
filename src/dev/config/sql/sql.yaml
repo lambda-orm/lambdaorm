@@ -11,7 +11,7 @@ formats:
   datetime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss'  
-ddl:
+ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'
   incrementalColumDefine: '{name} {type} {nullable} AUTO_INCREMENT' 

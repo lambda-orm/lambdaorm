@@ -7,8 +7,22 @@ export class MariadbConnectionPool extends ConnectionPool {
 	private pool:any
 	constructor (config:ConnectionConfig) {
 		super(config)
-		if (!MariadbConnectionPool.mariadb) { MariadbConnectionPool.mariadb = require('mysql2/promise') }
-		this.pool = MariadbConnectionPool.mariadb.createPool(config.connection)
+		if (!MariadbConnectionPool.mariadb) {
+			MariadbConnectionPool.mariadb = require('mysql2/promise')
+		}
+	}
+
+	public async init (): Promise<void> {
+		const casts = {
+			typeCast: function (field:any, next:any) {
+				if (field.type === 'DECIMAL') {
+					const value = field.string()
+					return (value === null) ? null : Number(value)
+				}
+				return next()
+			}
+		}
+		this.pool = MariadbConnectionPool.mariadb.createPool({ ...this.config.connection, ...casts })
 	}
 
 	public async acquire (): Promise<Connection> {

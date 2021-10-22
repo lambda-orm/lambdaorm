@@ -193,8 +193,8 @@ export class SqlQueryBuilder implements IQueryBuilder {
 			}
 		}
 		const parts = operand.name.split('.')
-		template = template.replace('{name}', metadata.delimiter(parts[0]))
-		template = template.replace('{alias}', parts[1])
+		template = Helper.replace(template, '{name}', metadata.delimiter(parts[0]))
+		template = Helper.replace(template, '{alias}', parts[1])
 		template = template.replace('{assings}', assings.join(','))
 		return template.trim() + ' '
 	}
@@ -202,7 +202,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 	private buildDelete (operand:Delete, metadata:SqlDialectMetadata):string {
 		let template = metadata.dml('delete')
 		const parts = operand.name.split('.')
-		template = template.replace('{name}', metadata.delimiter(parts[0]))
+		template = Helper.replace(template, '{name}', metadata.delimiter(parts[0]))
 		template = Helper.replace(template, '{alias}', parts[1])
 		return template.trim() + ' '
 	}
@@ -221,7 +221,8 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		let template = metadata.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(operand.children[i], metadata)
-			template = template.replace('{' + i + '}', text)
+			// template = template.replace('{' + i + '}', text)
+			template = Helper.replace(template, '{' + i + '}', text) // template.replace('{' + i + '}', text)
 		}
 		return template.trim()
 	}
@@ -234,13 +235,13 @@ export class SqlQueryBuilder implements IQueryBuilder {
 			const template = funcData.template
 			text = this.buildOperand(operand.children[0], metadata)
 			for (let i = 1; i < operand.children.length; i++) {
-				text = template.replace('{acumulated}', text)
-				text = text.replace('{value}', this.buildOperand(operand.children[i], metadata))
+				text = Helper.replace(template, '{acumulated}', text)
+				text = Helper.replace(text, '{value}', this.buildOperand(operand.children[i], metadata))
 			}
 		} else {
 			text = funcData.template
 			for (let i = 0; i < operand.children.length; i++) {
-				text = text.replace('{' + i + '}', this.buildOperand(operand.children[i], metadata))
+				text = Helper.replace(text, '{' + i + '}', this.buildOperand(operand.children[i], metadata))
 			}
 		}
 		return text

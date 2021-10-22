@@ -19,25 +19,31 @@ In the creation of the project the schema was created but without any entity.
 Add the Country entity as seen in the following example
 
 ```yaml
-paths:
+app:
+  configFile: lambdaorm.yaml
   src: src
   data: data
+  models: models
+  defaultDatabase: lab_01
 databases:
   - name: lab_01
     dialect: mysql
     schema: lab_01
     connection:
-      type: mysql
       host: localhost
       port: 3306
-      username: test
+      user: test
       password: test
       database: test
+      multipleStatements: true
+      waitForConnections: true
+      connectionLimit: 10
+      queueLimit: 0
 schemas:
   - name: lab_01
     enums: []
     entities:
-      - name: Country
+      - name: Countries
         mapping: COUNTRY
         primaryKey: ["id"]
         uniqueKey: ["name"]
@@ -64,10 +70,10 @@ schemas:
 
 ```
 
-## Update Model
+## Update
 
 ```sh
-lambdaorm model
+lambdaorm update
 ```
 
 the file model.d.ts will be created inside src with the following content

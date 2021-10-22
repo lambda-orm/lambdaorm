@@ -21,7 +21,6 @@
 - [add](language.LanguageManager.md#add)
 - [addLibrary](language.LanguageManager.md#addlibrary)
 - [build](language.LanguageManager.md#build)
-- [complete](language.LanguageManager.md#complete)
 - [deserialize](language.LanguageManager.md#deserialize)
 - [deserializeQuery](language.LanguageManager.md#deserializequery)
 - [drop](language.LanguageManager.md#drop)
@@ -41,18 +40,17 @@
 
 ### constructor
 
-• **new LanguageManager**(`orm`, `languageModel`)
+• **new LanguageManager**(`languageModel`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `orm` | [`IOrm`](../interfaces/model.IOrm.md) |
 | `languageModel` | [`Model`](parser.Model.md) |
 
 #### Defined in
 
-[language/languageManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L22)
+[language/languageManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L20)
 
 ## Properties
 
@@ -62,7 +60,7 @@
 
 #### Defined in
 
-[language/languageManager.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L14)
+[language/languageManager.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L14)
 
 ___
 
@@ -72,7 +70,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L15)
+[language/languageManager.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L15)
 
 ___
 
@@ -82,7 +80,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L16)
+[language/languageManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L16)
 
 ## Methods
 
@@ -102,7 +100,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L37)
+[language/languageManager.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L32)
 
 ___
 
@@ -122,7 +120,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L33)
+[language/languageManager.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L28)
 
 ___
 
@@ -143,28 +141,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L47)
-
-___
-
-### complete
-
-▸ **complete**(`node`, `schema`): [`Node`](parser.Node.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | [`Node`](parser.Node.md) |
-| `schema` | [`SchemaHelper`](schema.SchemaHelper.md) |
-
-#### Returns
-
-[`Node`](parser.Node.md)
-
-#### Defined in
-
-[language/languageManager.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L52)
+[language/languageManager.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L42)
 
 ___
 
@@ -184,7 +161,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L78)
+[language/languageManager.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L66)
 
 ___
 
@@ -205,7 +182,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L86)
+[language/languageManager.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L74)
 
 ___
 
@@ -226,7 +203,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:102](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L102)
+[language/languageManager.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L90)
 
 ___
 
@@ -247,7 +224,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L94)
+[language/languageManager.ts:82](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L82)
 
 ___
 
@@ -270,7 +247,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L90)
+[language/languageManager.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L78)
 
 ___
 
@@ -290,7 +267,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L42)
+[language/languageManager.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L37)
 
 ___
 
@@ -310,7 +287,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:58](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L58)
+[language/languageManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L46)
 
 ___
 
@@ -330,7 +307,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L62)
+[language/languageManager.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L50)
 
 ___
 
@@ -351,7 +328,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L66)
+[language/languageManager.ts:54](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L54)
 
 ___
 
@@ -372,7 +349,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L70)
+[language/languageManager.ts:58](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L58)
 
 ___
 
@@ -392,7 +369,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L74)
+[language/languageManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L62)
 
 ___
 
@@ -413,7 +390,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:82](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L82)
+[language/languageManager.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L70)
 
 ___
 
@@ -435,7 +412,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:98](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L98)
+[language/languageManager.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L86)
 
 ___
 
@@ -456,4 +433,4 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:106](https://github.com/FlavioLionelRita/lambda-orm/blob/eec4cd3/src/orm/language/languageManager.ts#L106)
+[language/languageManager.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L94)
