@@ -351,7 +351,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], p.UnitPrice AS [source], ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], p.UnitPrice AS [source], ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)

@@ -54,7 +54,7 @@ test:
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
-          VALUES(:name,:description)
+          VALUES(@name,@description)
       - dialect: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: oracle
@@ -95,7 +95,7 @@ test:
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
-          VALUES(:name,:description)
+          VALUES(@name,@description)
       - dialect: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: oracle
@@ -136,7 +136,7 @@ test:
       - dialect: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description)
-          VALUES(:entity.name,:entity.description)
+          VALUES(@entity.name,@entity.description)
       - dialect: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
       - dialect: oracle
@@ -181,7 +181,7 @@ test:
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
       - dialect: mysql
         sentence: >-
           INSERT INTO
@@ -303,11 +303,11 @@ test:
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
 
           INSERT INTO [Order
           Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
+          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
       - dialect: mysql
         sentence: >-
           INSERT INTO
@@ -451,15 +451,15 @@ test:
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
 
           INSERT INTO [Order
           Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
+          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
 
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country)
+          VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
       - dialect: mysql
         sentence: >-
           INSERT INTO

@@ -419,7 +419,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID = :id ORDER BY [id] '
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID = @id ORDER BY [id] '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -442,7 +442,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID = :id ORDER BY [id] '
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID = @id ORDER BY [id] '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -534,7 +534,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT c.CategoryName AS [category], p.ProductName AS [product], o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND :to AND o.UnitPrice > :minValue) ORDER BY [category], [product] '
+		const mssqlExpected = 'SELECT c.CategoryName AS [category], p.ProductName AS [product], o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN @from AND @to AND o.UnitPrice > @minValue) ORDER BY [category], [product] '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)

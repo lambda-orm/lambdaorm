@@ -158,7 +158,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET CustomerID = :customerId,EmployeeID = :employeeId,OrderDate = :orderDate,RequiredDate = :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight = :freight,ShipName = :name,ShipAddress = :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry = :country WHERE o.OrderID = :obj.id '
+		const mssqlExpected = 'UPDATE o SET CustomerID = @customerId,EmployeeID = @employeeId,OrderDate = @orderDate,RequiredDate = @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight = @freight,ShipName = @name,ShipAddress = @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID = @obj.id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -181,7 +181,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID = :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate = :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia = :entity.shipViaId,Freight = :entity.freight,ShipName = :entity.name,ShipAddress = :entity.address,ShipCity = :entity.city,ShipRegion = :entity.region,ShipPostalCode = :entity.postalCode,ShipCountry = :entity.country WHERE o.OrderID = :obj.id '
+		const mssqlExpected = 'UPDATE o SET CustomerID = @entity.customerId,EmployeeID = @entity.employeeId,OrderDate = @entity.orderDate,RequiredDate = @entity.requiredDate,ShippedDate = @entity.shippedDate,ShipVia = @entity.shipViaId,Freight = @entity.freight,ShipName = @entity.name,ShipAddress = @entity.address,ShipCity = @entity.city,ShipRegion = @entity.region,ShipPostalCode = @entity.postalCode,ShipCountry = @entity.country FROM Orders o WHERE o.OrderID = @obj.id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -204,7 +204,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET ShipPostalCode = :postalCode '
+		const mssqlExpected = 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -227,7 +227,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID = :entity.id '
+		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -250,7 +250,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID = :entity.id ; UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID = :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount = :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID = :obj.productId) '
+		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id ; UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID = @obj.productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -273,7 +273,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID = :entity.id ; UPDATE [Order Details] o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId) '
+		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id ; UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -296,7 +296,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID = :entity.id ; UPDATE [Order Details] o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId) '
+		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id ; UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -319,7 +319,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Orders o SET CustomerID = :customerId,EmployeeID = :employeeId,OrderDate = :orderDate,RequiredDate = :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight = :freight,ShipName = :name,ShipAddress = :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry = :country WHERE o.OrderID = :obj.id ; UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID = :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount = :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID = :obj.productId) '
+		const mssqlExpected = 'UPDATE o SET CustomerID = @customerId,EmployeeID = @employeeId,OrderDate = @orderDate,RequiredDate = @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight = @freight,ShipName = @name,ShipAddress = @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID = @obj.id ; UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID = @obj.productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -342,7 +342,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE Customers c SET CustomerID = :id,CompanyName = :name,ContactName = :contact,ContactTitle = :phone,Address = :address,City = :city,Region = :region,PostalCode = :postalCode,Country = :country WHERE c.CustomerID = :obj.id ; UPDATE Orders o SET CustomerID = :customerId,EmployeeID = :employeeId,OrderDate = :orderDate,RequiredDate = :requiredDate,ShippedDate = :shippedDate,ShipVia = :shipViaId,Freight = :freight,ShipName = :name,ShipAddress = :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode = :postalCode,ShipCountry = :country WHERE o.OrderID = :obj.id ; UPDATE [Order Details] o1 SET OrderID = :orderId,ProductID = :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount = :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID = :obj.productId) '
+		const mssqlExpected = 'UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName = @contact,ContactTitle = @phone,Address = @address,City = @city,Region = @region,PostalCode = @postalCode,Country = @country FROM Customers c WHERE c.CustomerID = @obj.id ; UPDATE o SET CustomerID = @customerId,EmployeeID = @employeeId,OrderDate = @orderDate,RequiredDate = @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight = @freight,ShipName = @name,ShipAddress = @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID = @obj.id ; UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID = @obj.productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)

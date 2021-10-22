@@ -254,7 +254,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], (p.UnitPrice * -1) AS [source], ROUND(ABS((p.UnitPrice * -1)),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], (p.UnitPrice * -1) AS [source], ROUND(ABS((p.UnitPrice * -1)),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -277,7 +277,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.25 AS [source], ROUND(ACOS(0.25),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.25 AS [source], ROUND(ACOS(0.25),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -300,7 +300,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.25 AS [source], ROUND(ASIN(0.25),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.25 AS [source], ROUND(ASIN(0.25),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -323,7 +323,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.25 AS [source], ROUND(ATAN(0.25),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.25 AS [source], ROUND(ATAN(0.25),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -346,7 +346,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.5 AS [source], ROUND(ATAN2(0.25,1),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 0.5 AS [source], ROUND(ATAN2(0.25,1),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -369,7 +369,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 25.75 AS [source], ROUND(CEIL(25.75),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 25.75 AS [source], ROUND(CEIL(25.75),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -392,7 +392,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 2 AS [source], ROUND(COS(2),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 2 AS [source], ROUND(COS(2),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -415,7 +415,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 1 AS [source], ROUND(EXP(1),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 1 AS [source], ROUND(EXP(1),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -438,7 +438,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 25.75 AS [source], ROUND(FLOOR(25.75),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 25.75 AS [source], ROUND(FLOOR(25.75),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -461,7 +461,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 2 AS [source], ROUND(LN(2),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 2 AS [source], ROUND(LN(2),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -484,7 +484,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 10 AS [m], 20 AS [n], ROUND(LOG(10,20),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 10 AS [m], 20 AS [n], ROUND(LOG(10,20),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -507,7 +507,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 135.375 AS [source], ROUND(135.375,2) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 135.375 AS [source], ROUND(135.375,2) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -530,7 +530,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 255.5 AS [source], ROUND(SIGN(255.5),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 255.5 AS [source], ROUND(SIGN(255.5),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -553,7 +553,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 1.75 AS [source], ROUND(TAN(1.75),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 1.75 AS [source], ROUND(TAN(1.75),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -576,7 +576,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], 135.375 AS [source], ROUND(TRUNC(135.375,2),10) AS [result] FROM Products p  WHERE p.ProductID = :id '
+		const mssqlExpected = 'SELECT p.ProductName AS [name], 135.375 AS [source], ROUND(TRUNC(135.375,2),10) AS [result] FROM Products p  WHERE p.ProductID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)

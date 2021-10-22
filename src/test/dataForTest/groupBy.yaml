@@ -296,7 +296,7 @@ test:
       - dialect: mssql
         sentence: >-
           SELECT p.ProductName AS [name], p.UnitPrice AS [source],
-          ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = :id 
+          ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = @id 
       - dialect: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,

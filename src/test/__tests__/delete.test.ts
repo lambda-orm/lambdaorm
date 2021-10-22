@@ -126,7 +126,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'DELETE FROM [Order Details] o WHERE o.OrderID = :id '
+		const mssqlExpected = 'DELETE FROM [Order Details] o WHERE o.OrderID = @id '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -149,7 +149,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = :id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId) '
+		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = @id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -172,7 +172,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = :id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId) '
+		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = @id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -195,7 +195,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = :id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId) '
+		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = @id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -218,7 +218,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'DELETE FROM [Order Details] o WHERE (o.OrderID = :entity.orderId AND o.ProductID = :entity.productId) '
+		const mssqlExpected = 'DELETE FROM [Order Details] o WHERE (o.OrderID = @entity.orderId AND o.ProductID = @entity.productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
@@ -241,7 +241,7 @@ describe('Sentences', () => {
 		let mariadb =  await orm.expression(expression).sentence('mariadb', 'northwind')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = :entity.id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = :orderId AND o1.ProductID = :productId) '
+		const mssqlExpected = 'DELETE FROM Orders o WHERE o.OrderID = @entity.id ; DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
 		let mssql =  await orm.expression(expression).sentence('mssql', 'northwind')
 		mssql=Helper.replace(mssql,'\n','; ')
 		expect(mssqlExpected).toBe(mssql)
