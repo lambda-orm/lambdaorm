@@ -386,8 +386,8 @@ export class LibManager {
 		const lines: string[] = []
 		const singular = entity.singular ? entity.singular : Helper.singular(entity.name)
 		lines.push('import { Respository,IOrm } from \'lambdaorm\'')
-		lines.push(`import { Qry${singular} } from './model'`)
-		lines.push(`export class ${singular}Respository extends Respository<Qry${singular}> {`)
+		lines.push(`import {${singular}, Qry${singular} } from './model'`)
+		lines.push(`export class ${singular}Respository extends Respository<${singular},Qry${singular}> {`)
 		lines.push('\tconstructor (database?: string, Orm?:IOrm) {')
 		lines.push(`\t\tsuper('${entity.name}', database,Orm)`)
 		lines.push('\t}')
