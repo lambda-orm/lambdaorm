@@ -8,7 +8,7 @@ Queries are written using [lambda expressions](https://developer.mozilla.org/en-
 
 Example:
 
-```js
+```ts
 User.map(p => {name: p.lastname + ', ' + p.firstname })
 ```
 
@@ -24,7 +24,7 @@ The engine also allows us to write the expressions in a string.
 
 Example:
 
-```js
+```ts
 'User.map(p => {name: p.lastname + \', \' + p.firstname })'
 ```
 
@@ -55,30 +55,32 @@ This is useful if we need to persist expressions or execute them from UI (exampl
 
 ## Usage
 
-To work with the orm we do it through a singleton object called "orm".
+To work with the orm we can do it using the singleton object called "orm" or using repositories.
 
-This object acts as a facade and from this we access all the functionalities.
+### Objeto __orm__
 
-to execute we have two methods, one lambda to which the expression is passed as a javascript lambda function and another expression to which we pass a string containing the expression.
+This orm object acts as a facade and from this we access all the functionalities.
 
-If we are going to write the expression in the code, we should do it with the lambda function, since this way we will have the help of intellisense and make sure that the expression does not have syntax errors.
+To execute a query we have two methods
 
-But if the expression comes to us from another side, UI, CLI command, persisted, etc, in this case we will use the expression in a string
+#### __Lambda method__:
 
-Example:
+This method receives the expression as a javascript lambda function.
+
+If we are going to write the expression in the code, we must do it with the lambda function, since in this way we will have the help of intellisense and we will make sure that the expression does not have syntax errors.
 
 ```ts
 import { orm } from 'lambdaorm'
 
 (async () => {
-	await orm.init()
+	await orm.init()	
 	const exp = (country:string)=>
 				Products.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
 						.having(p => max(p.price) > 50)
 						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 						.sort(p => desc(p.largestPrice))
 
-	const result = await orm.lambda(exp).execute('mydb')
+	const result = await orm.lambda(exp).execute({ country: 'USA' },'mydb')
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
@@ -97,25 +99,55 @@ HAVING MAX(p.UnitPrice) > 50
 ORDER BY `largestPrice` desc 
 ```
 
-You could also write the expression to a string.
+#### __Expression method__:
 
-In this case you should use the **orm.expression** method instead of **orm.lambda**
+This method receives the expression as a text string.
+
+if the expression comes from somewhere else, UI, CLI command, persisted, etc, in this case we will use the expression in a string
 
 ```ts
 import { orm } from 'lambdaorm'
 
 (async () => {
 	await orm.init()
+	const country = 'USA'
 	const exp = `Products.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
 						.having(p => max(p.price) > 50)
 						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 						.sort(p => desc(p.largestPrice))`
 
-	const result = await orm.expression(exp).execute('mydb')
+	const result = await orm.expression(exp).execute({ country: country },'mydb')
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
 ```
+
+### Repositories
+
+Repositories are associated with an entity and have several methods to interact with it.
+
+Example:
+
+```ts
+import { orm } from 'lambdaorm'
+import { ProductRespository } from './models/northwind'
+
+(async () => {
+	await orm.init()
+	const productRepository = new ProductRespository('mydb')
+	const country = 'USA'
+	const result = awaitproductRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
+			.having(p => max(p.price) > 50)
+			.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+			.sort(p => desc(p.largestPrice))
+			.execute({ country: country })
+	
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+})()
+```
+
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 
 ## Expressions:
 
@@ -159,7 +191,7 @@ below access to their documentation:
 |Arithmectic 	| -, +, *, /, **, //, % 					| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic) |
 |Bitwise 			| ~,&,^,<<,>> 										| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)			|
 |Comparison 	| ==, ===, !=, !==, >, <, >=, <= 	| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)	|
-|Logical 			| !, && 														| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
+|Logical 			| !, && 													| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
 |Array 				| [] 															| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array) 				|
 
 ### Functions

@@ -1,38 +1,45 @@
 import { orm } from '../../orm'
-import { CustomerRespository, Customer, Order, Categories, Customers, Products, Orders } from '../../models/northwind'
-
-// class OrderRepository extends Respository<Order, QryOrder> {
-// constructor (database: string) {
-// super('Orders', database)
-// }
-// }
+import { CategoryRespository, Category, ProductRespository } from '../../models/northwind'
 
 (async () => {
 	try {
 		await orm.init()
-		const customerRepository = new CustomerRespository('mysql')
-		const customer = new Customer()
-		customer.name = 'a'
-		customer.orders.push(new Order())
-		const name = 'a'
 
-		await customerRepository.insert().execute(customer)
+		const productRepository = new ProductRespository('mysql')
 
-		let complete = customerRepository.insert(() => ({ name: name })).include(p => p.orders).complete()
-		console.log(complete)
-		const query = (name: string, description: string) => Categories.insert(() => ({ name: name, description: description }))
-		complete = orm.lambda(query).complete('northwind')
-		console.log(complete)
+		const country = 'USA'
+		productRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
+			.having(p => max(p.price) > 50)
+			.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+			.sort(p => desc(p.largestPrice))
+			.execute({ country: country })
 
-		const query2 = () => Customers
-		console.log(orm.lambda(query2).expression)
-		console.log(orm.lambda(query2).complete('northwind'))
+		const categoryRepository = new CategoryRespository('mysql')
+		let category = new Category()
+		category.name = 'general'
+		category.description = 'general products'
+		const id = await categoryRepository.insert(category)
 
-		const query3 = () => Products.map(p => p).page(1, 1)
-		console.log(orm.lambda(query3).expression)
-		console.log(orm.lambda(query3).complete('northwind'))
-		const query4 = (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => (p.id === entity.id))
-		console.log(orm.lambda(query4).complete('northwind'))
+		category = await categoryRepository.get({ id: id }, p => p.id === id)
+		console.log(category)
+
+		categoryRepository.delete(category)
+
+		// let complete = await customerRepository.insert(customer, p => p.orders.include(p=> p.details))
+		// console.log(complete)
+		// const query = (name: string, description: string) => Categories.insert(() => ({ name: name, description: description }))
+		// complete = orm.lambda(query).complete('northwind')
+		// console.log(complete)
+
+		// const query2 = () => Customers
+		// console.log(orm.lambda(query2).expression)
+		// console.log(orm.lambda(query2).complete('northwind'))
+
+		// const query3 = () => Products.map(p => p).page(1, 1)
+		// console.log(orm.lambda(query3).expression)
+		// console.log(orm.lambda(query3).complete('northwind'))
+		// const query4 = (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => (p.id === entity.id))
+		// console.log(orm.lambda(query4).complete('northwind'))
 
 		// const result = await orm.lambda(query).execute({ name: 'test1', description: 'test1' })
 		// console.log(result)
