@@ -1,8 +1,8 @@
 import { orm, IOrm } from './../index'
-import { Queryable, ModifyClauses, ModifyAllClauses } from './query'
-import { IExpressionActions } from './expressionActions'
+import { Queryable } from './query'
+import { ExpressionActions } from './expressionActions'
 
-export class Respository<TQuery> implements IExpressionActions {
+export class Respository<TEntity, TQuery> {
 	public name
 	public database
 	private orm
@@ -12,108 +12,201 @@ export class Respository<TQuery> implements IExpressionActions {
 		this.orm = Orm !== undefined ? Orm : orm
 	}
 
-	public query (): Queryable<TQuery> {
-		return new Queryable<TQuery>(this, '')
+	/**  */
+	insert(entity:TEntity): Promise<number>
+	/**  */
+	insert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
+	public async insert (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number> {
+		let expression = `${this.name}.insert()`
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(entity, this.database)
 	}
 
 	/**  */
-	insert(): ModifyClauses<TQuery>
+	bulkInsert(entity:TEntity): Promise<number[]>
 	/**  */
-	insert(predicate: (value:TQuery) => unknown): ModifyClauses<TQuery>
-	public insert (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this, '.insert()')
-		} else {
-			return new ModifyClauses(this, `.insert(${predicate.toString()})`)
+	bulkInsert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number[]>
+	public async bulkInsert (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number[]> {
+		let expression = `${this.name}.bulkInsert()`
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
 		}
+		return await this.orm.expression(expression).execute(entity, this.database)
 	}
 
 	/**  */
-	update(): ModifyClauses<TQuery>
+	update(entity:TEntity): Promise<void>
 	/**  */
-	update(predicate: (value:TQuery) => unknown): ModifyClauses<TQuery>
-	public update (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this, '.update()')
-		} else {
-			return new ModifyClauses(this, `.update(${predicate.toString()})`)
+	update(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void>
+	public async update (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void> {
+		let expression = `${this.name}.update()`
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
 		}
+		return await this.orm.expression(expression).execute(entity, this.database)
+	}
+
+	public async updateAll (data:any,
+		map: (value: TEntity) => unknown,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<number> {
+		let expression = `${this.name}.updateAll(${map.toString()})`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
+		}
+		if (include !== undefined) {
+			expression = `${expression}.filter(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(data, this.database)
 	}
 
 	/**  */
-	updateAll(): ModifyClauses<TQuery>
+	merge(entity:TEntity): Promise<void>
 	/**  */
-	updateAll(predicate:(value:TQuery) => unknown): ModifyClauses<TQuery>
-	public updateAll (predicate?: (value: TQuery) => unknown): ModifyAllClauses<TQuery> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this, '.updateAll()')
-		} else {
-			return new ModifyClauses(this, `.updateAll(${predicate.toString()})`)
+	merge(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void>
+	public async merge (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void> {
+		let expression = `${this.name}.merge()`
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
 		}
+		return await this.orm.expression(expression).execute(entity, this.database)
 	}
 
 	/**  */
-	merge(): ModifyClauses<TQuery>
+	delete(entity:TEntity): Promise<void>
 	/**  */
-	merge(predicate: (value:TQuery) => unknown): ModifyClauses<TQuery>
-	public merge (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this, '.merge()')
-		} else {
-			return new ModifyClauses(this, `.merge(${predicate.toString()})`)
+	delete(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void>
+	public async delete (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void> {
+		let expression = `${this.name}.delete()`
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
 		}
+		return await this.orm.expression(expression).execute(entity, this.database)
 	}
 
-	/**  */
-	delete(): ModifyClauses<TQuery>
-	/**  */
-	delete(predicate:(value:TQuery) => unknown): ModifyClauses<TQuery>
-	public delete (predicate?: (value:TQuery) => unknown): ModifyClauses<TQuery> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this, '.delete()')
-		} else {
-			return new ModifyClauses(this, `.delete(${predicate.toString()})`)
+	public async deleteAll (data:any,
+		map: (value: TEntity) => unknown,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<number> {
+		let expression = `${this.name}.deleteAll(${map.toString()})`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
 		}
-	}
-
-	/**  */
-	deleteAll(): ModifyClauses<TQuery>
-	/**  */
-	deleteAll(predicate:(value:TQuery) => unknown): ModifyClauses<TQuery>
-	public deleteAll (predicate?: (value: TQuery) => unknown): ModifyAllClauses<TQuery> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this, '.deleteAll()')
-		} else {
-			return new ModifyClauses(this, `.deleteAll(${predicate.toString()})`)
+		if (include !== undefined) {
+			expression = `${expression}.filter(${include.toString()})`
 		}
+		return await this.orm.expression(expression).execute(data, this.database)
 	}
 
 	public async execute (expresion: string, data?: any): Promise<any> {
 		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.database)
 	}
 
-	public complete (expresion: string): string {
-		const db = this.orm.database.get(this.database)
-		return this.orm.expression(`${this.name}${expresion}`).complete(db.schema)
+	public async get (data: any,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<TEntity> {
+		let expression = `${this.name}`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
+		}
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(data, this.database) as TEntity
 	}
 
-	public async model (expresion: string): Promise<any> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).model(db.schema)
+	public async distinct (data: any,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<TEntity> {
+		let expression = `${this.name}.distinct()`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
+		}
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(data, this.database) as TEntity
 	}
 
-	public async parameters (expresion: string): Promise<any> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).parameters(db.schema)
+	public async first (data: any,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<TEntity> {
+		let expression = `${this.name}.first()`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
+		}
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(data, this.database) as TEntity
 	}
 
-	public async metadata (expresion: string): Promise<any> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).metadata(db.schema)
+	public async last (data: any,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<TEntity> {
+		let expression = `${this.name}.last()`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
+		}
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(data, this.database) as TEntity
 	}
 
-	public async sentence (expresion: string): Promise<string> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).sentence(db.dialect, db.schema)
+	public async take (data: any,
+		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+	): Promise<TEntity> {
+		let expression = `${this.name}.take()`
+		if (filter !== undefined) {
+			expression = `${expression}.filter(${filter.toString()})`
+		}
+		if (include !== undefined) {
+			expression = `${expression}.include(${include.toString()})`
+		}
+		return await this.orm.expression(expression).execute(data, this.database) as TEntity
+	}
+
+	// public async list (data: any,
+	// map?: (value: TEntity) => unknown,
+	// filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+	// include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+	// having?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+	// sort?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+	// page?: {page:number, records: number }
+	// ): Promise<TEntity[]> {
+	// let expression = `${this.name}.take()`
+	// if (map !== undefined) {
+	// expression = `${expression}.map(${map.toString()})`
+	// }
+	// if (filter !== undefined) {
+	// expression = `${expression}.filter(${filter.toString()})`
+	// }
+	// if (include !== undefined) {
+	// expression = `${expression}.include(${include.toString()})`
+	// }
+	// if (having !== undefined) {
+	// expression = `${expression}.having(${having.toString()})`
+	// }
+	// if (sort !== undefined) {
+	// expression = `${expression}.sort(${sort.toString()})`
+	// }
+	// if (page !== undefined) {
+	// expression = `${expression}.page(${page.toString()})`
+	// }
+	// return await this.orm.expression(expression).execute(data, this.database) as TEntity[]
+	// }
+
+	public query (): Queryable<TQuery> {
+		return new Queryable<TQuery>(new ExpressionActions(this.name, this.orm, this.database), '')
 	}
 }

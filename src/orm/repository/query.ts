@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { IExpressionActions } from './expressionActions'
+import { ExpressionActions } from './expressionActions'
 
 class QueryAction {
 	protected actions
 	protected expression
-	constructor (actions:IExpressionActions, expression: string) {
+	constructor (actions:ExpressionActions, expression: string) {
 		this.actions = actions
 		this.expression = expression
 	}
@@ -52,36 +52,36 @@ class Map2Clauses<T> extends QueryAction {
 		return new PageClauses(this.actions, `${this.expression}.sort(${predicate.toString()})`)
 	}
 }
-class ModifyFilterClauses<T> extends QueryAction {
-/**  */
-	include (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
-		return new QueryAction(this.actions, `${this.expression}.include(${predicate.toString()})`)
-	}
-}
-class ModifyIncludeClauses<T> extends QueryAction {
-/**  */
-	filter (predicate: (value: T, index: number, array: T[]) => unknown): ModifyFilterClauses<T> {
-		return new ModifyFilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
-	}
-}
-export class ModifyClauses<T> extends QueryAction {
-/**  */
-	filter (predicate: (value: T, index: number, array: T[]) => unknown): ModifyFilterClauses<T> {
-		return new ModifyFilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
-	}
+// class ModifyFilterClauses<T> extends QueryAction {
+// /**  */
+// include (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
+// return new QueryAction(this.actions, `${this.expression}.include(${predicate.toString()})`)
+// }
+// }
+// class ModifyIncludeClauses<T> extends QueryAction {
+// /**  */
+// filter (predicate: (value: T, index: number, array: T[]) => unknown): ModifyFilterClauses<T> {
+// return new ModifyFilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
+// }
+// }
+// export class ModifyClauses<T> extends QueryAction {
+// /**  */
+// filter (predicate: (value: T, index: number, array: T[]) => unknown): ModifyFilterClauses<T> {
+// return new ModifyFilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
+// }
 
-	/**  */
-	include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
-		return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
-	}
-}
+// /**  */
+// include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
+// return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
+// }
+// }
 
-export class ModifyAllClauses<T> extends QueryAction {
-/**  */
-	include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
-		return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
-	}
-}
+// export class ModifyAllClauses<T> extends QueryAction {
+// /**  */
+// include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
+// return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
+// }
+// }
 
 class HavingClauses<T> extends MapClauses<T> {
 	/**  */
@@ -178,83 +178,83 @@ export class Queryable<T> extends MapClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
 	}
 
-	/**  */
-	insert(): ModifyClauses<T>
-	/**  */
-	insert(predicate: (value:T|Object) => unknown): ModifyClauses<T>
-	insert (predicate?: (value:T|Object) => unknown): ModifyClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this.actions, `${this.expression}.insert()`)
-		} else {
-			return new ModifyClauses(this.actions, `${this.expression}.insert(${predicate.toString()})`)
-		}
-	}
+	// /**  */
+	// insert(): ModifyClauses<T>
+	// /**  */
+	// insert(predicate: (value:T|Object) => unknown): ModifyClauses<T>
+	// insert (predicate?: (value:T|Object) => unknown): ModifyClauses<T> {
+	// if (predicate === undefined) {
+	// return new ModifyClauses(this.actions, `${this.expression}.insert()`)
+	// } else {
+	// return new ModifyClauses(this.actions, `${this.expression}.insert(${predicate.toString()})`)
+	// }
+	// }
 
-	/**  */
-	update(): ModifyClauses<T>
-	/**  */
-	update(predicate: (value:T|Object) => unknown): ModifyClauses<T>
-	update (predicate?: (value:T|Object) => unknown): ModifyClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this.actions, `${this.expression}.update()`)
-		} else {
-			return new ModifyClauses(this.actions, `${this.expression}.update(${predicate.toString()})`)
-		}
-	}
+	// /**  */
+	// update(): ModifyClauses<T>
+	// /**  */
+	// update(predicate: (value:T|Object) => unknown): ModifyClauses<T>
+	// update (predicate?: (value:T|Object) => unknown): ModifyClauses<T> {
+	// if (predicate === undefined) {
+	// return new ModifyClauses(this.actions, `${this.expression}.update()`)
+	// } else {
+	// return new ModifyClauses(this.actions, `${this.expression}.update(${predicate.toString()})`)
+	// }
+	// }
 
-	/**  */
-	updateAll(): ModifyClauses<T>
-	/**  */
-	updateAll(predicate: (value:T) => unknown): ModifyClauses<T>
-	public updateAll (predicate?:(value:T) => unknown): ModifyAllClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyAllClauses(this.actions, `${this.expression}.updateAll()`)
-		} else {
-			return new ModifyAllClauses(this.actions, `${this.expression}.updateAll(${predicate.toString()})`)
-		}
-	}
+	// /**  */
+	// updateAll(): ModifyClauses<T>
+	// /**  */
+	// updateAll(predicate: (value:T) => unknown): ModifyClauses<T>
+	// public updateAll (predicate?:(value:T) => unknown): ModifyAllClauses<T> {
+	// if (predicate === undefined) {
+	// return new ModifyAllClauses(this.actions, `${this.expression}.updateAll()`)
+	// } else {
+	// return new ModifyAllClauses(this.actions, `${this.expression}.updateAll(${predicate.toString()})`)
+	// }
+	// }
 
-	/**  */
-	merge(): ModifyClauses<T>
-	/**  */
-	merge(predicate: (value:T) => unknown): ModifyClauses<T>
-	merge (predicate?: (value:T)=> unknown): ModifyClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this.actions, `${this.expression}.merge()`)
-		} else {
-			return new ModifyClauses(this.actions, `${this.expression}.merge(${predicate.toString()})`)
-		}
-	}
+	// /**  */
+	// merge(): ModifyClauses<T>
+	// /**  */
+	// merge(predicate: (value:T) => unknown): ModifyClauses<T>
+	// merge (predicate?: (value:T)=> unknown): ModifyClauses<T> {
+	// if (predicate === undefined) {
+	// return new ModifyClauses(this.actions, `${this.expression}.merge()`)
+	// } else {
+	// return new ModifyClauses(this.actions, `${this.expression}.merge(${predicate.toString()})`)
+	// }
+	// }
 
-	/**  */
-	delete(): ModifyClauses<T>
-	/**  */
-	delete(predicate: (value:T) => unknown): ModifyClauses<T>
-	delete (predicate?: (value:T) => unknown): ModifyClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this.actions, `${this.expression}.delete()`)
-		} else {
-			return new ModifyClauses(this.actions, `${this.expression}.delete(${predicate.toString()})`)
-		}
-	}
+	// /**  */
+	// delete(): ModifyClauses<T>
+	// /**  */
+	// delete(predicate: (value:T) => unknown): ModifyClauses<T>
+	// delete (predicate?: (value:T) => unknown): ModifyClauses<T> {
+	// if (predicate === undefined) {
+	// return new ModifyClauses(this.actions, `${this.expression}.delete()`)
+	// } else {
+	// return new ModifyClauses(this.actions, `${this.expression}.delete(${predicate.toString()})`)
+	// }
+	// }
 
-	/**  */
-	deleteAll(): ModifyClauses<T>
-	/**  */
-	deleteAll(predicate: (value:T) => unknown): ModifyClauses<T>
-	public deleteAll (predicate?: (value: T) => unknown): ModifyAllClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyAllClauses(this.actions, `${this.expression}.deleteAll()`)
-		} else {
-			return new ModifyAllClauses(this.actions, `${this.expression}.deleteAll(${predicate.toString()})`)
-		}
-	}
+	// /**  */
+	// deleteAll(): ModifyClauses<T>
+	// /**  */
+	// deleteAll(predicate: (value:T) => unknown): ModifyClauses<T>
+	// public deleteAll (predicate?: (value: T) => unknown): ModifyAllClauses<T> {
+	// if (predicate === undefined) {
+	// return new ModifyAllClauses(this.actions, `${this.expression}.deleteAll()`)
+	// } else {
+	// return new ModifyAllClauses(this.actions, `${this.expression}.deleteAll(${predicate.toString()})`)
+	// }
+	// }
 
-	bulkInsert (predicate?: (value:T) => unknown): ModifyClauses<T> {
-		if (predicate === undefined) {
-			return new ModifyClauses(this.actions, `${this.expression}.bulkInsert()`)
-		} else {
-			return new ModifyClauses(this.actions, `${this.expression}.bulkInsert(${predicate.toString()})`)
-		}
-	}
+// bulkInsert (predicate?: (value:T) => unknown): ModifyClauses<T> {
+// if (predicate === undefined) {
+// return new ModifyClauses(this.actions, `${this.expression}.bulkInsert()`)
+// } else {
+// return new ModifyClauses(this.actions, `${this.expression}.bulkInsert(${predicate.toString()})`)
+// }
+// }
 }

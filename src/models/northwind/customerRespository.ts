@@ -1,7 +1,7 @@
 import { Respository, IOrm } from '../../orm'
-import { QryCustomer } from './model'
+import { Customer, QryCustomer } from './model'
 
-export class CustomerRespository extends Respository<QryCustomer> {
+export class CustomerRespository extends Respository<Customer, QryCustomer> {
 	constructor (database?: string, Orm?:IOrm) {
 		super('Customers', database, Orm)
 	}
