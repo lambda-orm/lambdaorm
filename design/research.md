@@ -32,15 +32,15 @@ posibles names: lambda-orm
 
 ## Orm examples
 
-- [knexjs](https://knexjs.org/)
-- [refineorm](https://www.npmjs.com/package/refineorm)
-- [arrow orm](https://www.npmjs.com/package/arrow-orm)
+- [sequelize](https://github.com/sequelize/sequelize)
 - [typeorm](https://github.com/typeorm/typeorm)
+- [prisma](https://github.com/prisma/prisma)
+- [objection](https://github.com/Vincit/objection.js)
+- [knexjs](https://knexjs.org/)
+- [arrow orm](https://www.npmjs.com/package/arrow-orm)
 - [mikro-orm](https://github.com/mikro-orm/mikro-orm)
 - [fireorm](https://github.com/wovalle/fireorm)
-- [prisma](https://github.com/prisma/prisma)
-- [sequelize](https://github.com/sequelize/sequelize)
-- [objection](https://github.com/Vincit/objection.js)
+- [refineorm](https://www.npmjs.com/package/refineorm)
 
 ## api builder to databases
 
