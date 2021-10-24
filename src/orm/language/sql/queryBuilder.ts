@@ -2,8 +2,7 @@
 import { Helper } from '../../helper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
-	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
-	SentenceInclude
+	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete
 } from './../operands'
 import { IQueryBuilder } from './../iQueryBuilder'
 import { DialectMetadata } from '../dialectMetadata'
