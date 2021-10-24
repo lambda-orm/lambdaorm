@@ -1,4 +1,4 @@
-import { IOrm, Database, Context } from '../model'
+import { IOrm, Database, Context, Query } from '../model'
 import * as c from './../connection/transaction'
 
 export class Transaction {
@@ -22,7 +22,7 @@ export class Transaction {
 		return await this.expression(this.orm.lambda(lambda).expression, context)
 	}
 
-	public async executeSentence (sentence:any):Promise<any> {
-		return await this.transaction.execute(sentence)
+	public async execute (query:Query):Promise<any> {
+		return await this.transaction.execute(query)
 	}
 }

@@ -1,6 +1,6 @@
-import { Helper } from './../../helper'
+import { Helper } from '../helper'
 
-export class SqlDialectMetadata {
+export class DialectMetadata {
 	public name:string
 	private _operators?:any={}
 	private _functions?:any={}

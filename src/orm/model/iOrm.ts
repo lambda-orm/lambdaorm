@@ -1,5 +1,5 @@
-import { Config, Cache } from './../model/index'
-import { LanguageManager, Operand, Query } from '../language'
+import { Config, Cache, Query } from './../model/index'
+import { LanguageManager, Operand } from '../language'
 import { ConnectionManager } from '../connection'
 import { ParserManager } from '../parser/index'
 import { Expression, Transaction, LibManager } from './../manager'

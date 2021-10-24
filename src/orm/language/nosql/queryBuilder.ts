@@ -8,9 +8,10 @@ import {
 import { IQueryBuilder } from './../iQueryBuilder'
 import { DialectMetadata } from '../dialectMetadata'
 import { Query, Include } from './../../model'
+
 const SqlString = require('sqlstring')
 
-export class SqlQueryBuilder implements IQueryBuilder {
+export class NoSqlQueryBuilder implements IQueryBuilder {
 	public build (sentence:Sentence, metadata:DialectMetadata):Query {
 		return this._build(sentence, metadata)
 	}

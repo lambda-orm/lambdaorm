@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
-import { Parameter } from '../../model'
+import { Parameter, Query } from '../../model'
 
 const DECIMAL = 0
 const TINY = 1
@@ -73,23 +73,23 @@ export class MySqlConnectionPool extends ConnectionPool {
 }
 
 export class MySqlConnection extends Connection {
-	public async select (sql:string, params:Parameter[]):Promise<any> {
-		return await this._execute(sql, params)
+	public async select (query:Query, params:Parameter[]):Promise<any> {
+		return await this._execute(query, params)
 	}
 
-	public async insert (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async insert (query:Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (sql:string, array:any[], params:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (query:Query, array:any[], params:Parameter[]):Promise<number[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []
 			}
 			// https://github.com/sidorares/node-mysql2/issues/830
-			const result = await this.cnx.query(sql, [array])
+			const result = await this.cnx.query(query, [array])
 
 			// TODO: verificar https://github.com/sidorares/node-mysql2/issues/435
 			const start = result[0].insertId
@@ -98,22 +98,22 @@ export class MySqlConnection extends Connection {
 			for (let i = start; i <= end; i++)lastInsertedIds.push(i)
 			return lastInsertedIds
 		} catch (error:any) {
-			throw new Error(`sentence: ${sql} error: ${error.message}`)
+			throw new Error(`sentence: ${query.sentence} error: ${error.message}`)
 		}
 	}
 
-	public async update (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async update (query:Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result.affectedRows
 	}
 
-	public async delete (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async delete (query:Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result.affectedRows
 	}
 
-	public async execute (sql:string):Promise<any> {
-		return await this.cnx.query(sql)
+	public async execute (query:Query):Promise<any> {
+		return await this.cnx.query(query.sentence)
 	}
 
 	public async beginTransaction ():Promise<void> {
@@ -131,7 +131,7 @@ export class MySqlConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (sql:string, params:Parameter[] = []) {
+	protected async _execute (query:Query, params:Parameter[] = []) {
 		// Solve array parameters , example IN(?) where ? is array[]
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
@@ -146,9 +146,9 @@ export class MySqlConnection extends Connection {
 		for (let i = 0; i < params.length; i++) { values.push(params[i].value) }
 
 		if (useExecute) {
-			result = await this.cnx.execute(sql, values)
+			result = await this.cnx.execute(query.sentence, values)
 		} else {
-			result = await this.cnx.query(sql, values)
+			result = await this.cnx.query(query.sentence, values)
 		}
 
 		const rows = result[0]

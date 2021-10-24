@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
-import { Parameter } from '../../model'
+import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
 
 // https://node-postgres.com/features/connecting
@@ -58,14 +58,14 @@ export class PostgresConnectionPool extends ConnectionPool {
 	}
 }
 export class PostgresConnection extends Connection {
-	public async select (sql:string, params:Parameter[]):Promise<any> {
-		const result = await this._execute(sql, params)
+	public async select (query:Query, params:Parameter[]):Promise<any> {
+		const result = await this._execute(query, params)
 		return result.rows
 	}
 
-	public async insert (sql:string, params:Parameter[]):Promise<number> {
+	public async insert (query:Query, params:Parameter[]):Promise<number> {
 		try {
-			const result = await this._execute(sql, params)
+			const result = await this._execute(query, params)
 			return result.rows.length > 0 ? result.rows[0].id : null
 		} catch (error) {
 			console.error(error)
@@ -73,7 +73,9 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (sql:string, array:any[], params:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (query: Query, array: any[], params: Parameter[]): Promise<number[]> {
+		const fieldId:string|undefined = query.autoincrement ? query.autoincrement.mapping : undefined
+		const sql = query.sentence
 		try {
 			const rows:string[] = []
 			for (const p in array) {
@@ -120,18 +122,18 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async update (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async update (query:Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result.rowCount
 	}
 
-	public async delete (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async delete (query:Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result.rowCount
 	}
 
-	public async execute (sql:string):Promise<any> {
-		return await this._execute(sql)
+	public async execute (query:Query):Promise<any> {
+		return await this._execute(query)
 	}
 
 	public async beginTransaction ():Promise<void> {
@@ -149,8 +151,9 @@ export class PostgresConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (sql:string, params:Parameter[] = []):Promise<any> {
-		const values:any[] = []
+	protected async _execute (query:Query, params:Parameter[] = []):Promise<any> {
+		const values: any[] = []
+		let sql = query.sentence
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
 			if (param.type === 'array') {

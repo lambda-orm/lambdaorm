@@ -1,4 +1,4 @@
-import { Delta, IOrm } from '../model/index'
+import { Delta, IOrm, Query } from '../model/index'
 import { SchemaHelper } from './schemaHelper'
 import { SchemaActionDDL } from './schemaActionDDL'
 import { ExecutionSyncResult } from './executionSyncResult'
@@ -14,7 +14,7 @@ export class SchemaSync extends SchemaActionDDL {
 		return this.delta
 	}
 
-	public sentence (dialect:string):any[] {
+	public queries (dialect:string):Query[] {
 		return this.orm.language.sync(dialect, this.delta, this.schema)
 	}
 

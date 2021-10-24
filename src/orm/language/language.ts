@@ -1,0 +1,51 @@
+import { IQueryBuilder } from './iQueryBuilder'
+import { ISchemaBuilder } from './iSchemaBuilder'
+import { DialectMetadata } from './dialectMetadata'
+// export interface ILanguage
+// {
+// name:string
+// dialects: any
+// get schema():ISchemaBuilder
+// get query():IQueryBuilder
+// get executor(): QueryExecutor
+// metadata (dialect:string):DialectMetadata
+// }
+
+export class Language {
+	public name:string
+	public libraries:any
+	public dialects:any
+	public hadQuery: boolean
+	private schemaBuilder:ISchemaBuilder
+	private queryBuilder:IQueryBuilder
+	constructor (name:string, queryBuilder:IQueryBuilder, schemaBuilder:ISchemaBuilder) {
+		this.name = name
+		this.hadQuery = true
+		this.libraries = {}
+		this.dialects = {}
+		this.queryBuilder = queryBuilder
+		this.schemaBuilder = schemaBuilder
+	}
+
+	public addLibrary (library:any):void {
+		this.libraries[library.name] = library
+		for (const name in library.dialects) {
+			const data = library.dialects[name]
+			const dialect = new DialectMetadata(name)
+			dialect.add(data)
+			this.dialects[name] = dialect
+		}
+	}
+
+	public get schema ():ISchemaBuilder {
+		return this.schemaBuilder
+	}
+
+	public get query ():IQueryBuilder {
+		return this.queryBuilder
+	}
+
+	public metadata (dialect:string):DialectMetadata {
+		return this.dialects[dialect] as DialectMetadata
+	}
+}

@@ -1,4 +1,4 @@
-import { Parameter } from '../model'
+import { Parameter, Query } from '../model'
 import { Connection } from './connection'
 import { Executor } from './executor'
 
@@ -10,34 +10,34 @@ export class Transaction extends Executor {
 		await this.connection.beginTransaction()
 	}
 
-	public async select (sql:string, params:Parameter[]):Promise<any> {
+	public async select (query:Query, params:Parameter[]):Promise<any> {
 		if (!this.connection) { throw new Error('Connection is closed') }
-		return this.connection.select(sql, params)
+		return this.connection.select(query, params)
 	}
 
-	public async insert (sql:string, params:Parameter[]):Promise<number> {
+	public async insert (query:Query, params:Parameter[]):Promise<number> {
 		if (!this.connection) { throw new Error('Connection is closed') }
-		return this.connection.insert(sql, params)
+		return this.connection.insert(query, params)
 	}
 
-	public async bulkInsert (sql:string, array:any[], parameters:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (query:Query, array:any[], parameters:Parameter[]):Promise<number[]> {
 		if (!this.connection) { throw new Error('Connection is closed') }
-		return this.connection.bulkInsert(sql, array, parameters, fieldId)
+		return this.connection.bulkInsert(query, array, parameters)
 	}
 
-	public async update (sql:string, params:Parameter[]):Promise<number> {
+	public async update (query:Query, params:Parameter[]):Promise<number> {
 		if (!this.connection) { throw new Error('Connection is closed') }
-		return this.connection.update(sql, params)
+		return this.connection.update(query, params)
 	}
 
-	public async delete (sql:string, params:Parameter[]):Promise<number> {
+	public async delete (query:Query, params:Parameter[]):Promise<number> {
 		if (!this.connection) { throw new Error('Connection is closed') }
-		return this.connection.delete(sql, params)
+		return this.connection.delete(query, params)
 	}
 
-	public async execute (sql:string):Promise<any> {
+	public async execute (query:Query):Promise<any> {
 		if (!this.connection) { throw new Error('Connection is closed') }
-		return this.connection.execute(sql)
+		return this.connection.execute(query)
 	}
 
 	public async commit ():Promise<void> {

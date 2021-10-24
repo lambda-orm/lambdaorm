@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
-import { Parameter } from '../../model'
+import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
 
 export class SqlJsConnectionPool extends ConnectionPool {
@@ -46,17 +46,18 @@ export class SqlJsConnectionPool extends ConnectionPool {
 }
 
 export class SqlJsConnection extends Connection {
-	public async select (sql:string, params:Parameter[]):Promise<any> {
-		return await this._execute(sql, params)
+	public async select (query: Query, params:Parameter[]):Promise<any> {
+		return await this._execute(query, params)
 	}
 
-	public async insert (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async insert (query: Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result as number
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (sql:string, array:any[], params:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (query: Query, array: any[], params: Parameter[]): Promise<number[]> {
+		const sql = query.sentence
 		try {
 			if (!array || array.length === 0) {
 				return []
@@ -75,18 +76,18 @@ export class SqlJsConnection extends Connection {
 		}
 	}
 
-	public async update (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async update (query: Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result
 	}
 
-	public async delete (sql:string, params:Parameter[]):Promise<number> {
-		const result = await this._execute(sql, params)
+	public async delete (query: Query, params:Parameter[]):Promise<number> {
+		const result = await this._execute(query, params)
 		return result
 	}
 
-	public async execute (sql:string):Promise<any> {
-		return await this.cnx._query(sql)
+	public async execute (query: Query):Promise<any> {
+		return await this.cnx._query(query)
 	}
 
 	public async beginTransaction ():Promise<void> {
@@ -104,7 +105,8 @@ export class SqlJsConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (sql:string, params:Parameter[] = []):Promise<any> {
+	protected async _execute (query: Query, params: Parameter[] = []): Promise<any> {
+		const sql = query.sentence
 		const values:any[] = []
 		for (let i = 0; i < params.length; i++) {
 			values.push(params[i].value)
@@ -112,7 +114,8 @@ export class SqlJsConnection extends Connection {
 		return this.cnx.db.run(sql, values)
 	}
 
-	protected async _query (sql:string, params:Parameter[] = []):Promise<any[]> {
+	protected async _query (query: Query, params: Parameter[] = []): Promise<any[]> {
+		const sql = query.sentence
 		const values:any[] = []
 		for (let i = 0; i < params.length; i++) {
 			values.push(params[i].value)

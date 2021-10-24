@@ -1,26 +1,29 @@
 
 import { Node, Model } from '../parser/index'
-import { Context, Delta } from './../model'
+import { Context, Delta, Query } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
-import { ILanguage } from './iLanguage'
+import { Language } from './language'
 import { Executor } from '../connection'
 import { OperandManager } from './operandManager'
-import { Operand, Query, Sentence } from './operands'
+import { Operand, Sentence } from './operands'
 
 import { OperandMetadata } from './operandMetadata'
 import { Library } from './library'
+import { QueryExecutor } from './QueryExecutor'
 
 export class LanguageManager {
 	public dialects:any
 	public languageModel:Model
 	public metadata:OperandMetadata
 	private languages:any
-	private operandManager:OperandManager
+	private operandManager: OperandManager
+	private queryExecutor:QueryExecutor
 
 	constructor (languageModel:Model) {
 		this.languageModel = languageModel
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(this)
+		this.queryExecutor = new QueryExecutor()
 		this.languages = {}
 		this.dialects = {}
 	}
@@ -29,14 +32,14 @@ export class LanguageManager {
 		this.metadata.addLibrary(library)
 	}
 
-	public add (language:ILanguage) {
+	public add (language:Language) {
 		this.languages[language.name] = language
 		for (const name in language.dialects) { this.dialects[name] = { name: name, language: language.name } }
 	}
 
-	public get (dialect:string):ILanguage {
+	public get (dialect:string):Language {
 		const info = this.dialects[dialect]
-		return this.languages[info.language] as ILanguage
+		return this.languages[info.language] as Language
 	}
 
 	public build (node:Node, schema:SchemaHelper): Operand {
@@ -51,8 +54,9 @@ export class LanguageManager {
 		return this.operandManager.parameters(sentence)
 	}
 
-	public query (dialect:string, sentence:Sentence): Query {
-		return this.get(dialect).query.build(sentence, dialect)
+	public query (dialect: string, sentence: Sentence): Query {
+		const metadata = this.get(dialect).metadata(dialect)
+		return this.get(dialect).query.build(sentence, metadata)
 	}
 
 	public sentence (dialect:string, operand:Query):any {
@@ -75,23 +79,27 @@ export class LanguageManager {
 		return this.get(dialect).query.deserialize(serialized)
 	}
 
-	public async execute (dialect:string, operand:Operand, context:Context, executor:Executor):Promise<any> {
-		return await this.get(dialect).executor.execute(operand, context, executor)
+	public async execute (dialect: string, query: Query, context: Context, executor: Executor): Promise<any> {
+		const metadata = this.get(dialect).metadata(dialect)
+		return await this.queryExecutor.execute(query, context, metadata, executor)
 	}
 
 	public eval (operand:Operand, context:Context):any {
 		return this.operandManager.eval(operand, context)
 	}
 
-	public sync (dialect:string, delta:Delta, schema:SchemaHelper):any[] {
-		return this.get(dialect).schema.sync(delta, dialect, schema)
+	public sync (dialect: string, delta: Delta, schema: SchemaHelper):Query[] {
+		const metadata = this.get(dialect).metadata(dialect)
+		return this.get(dialect).schema.sync(delta, metadata, schema)
 	}
 
-	public drop (dialect:string, schema:SchemaHelper):string[] {
-		return this.get(dialect).schema.drop(dialect, schema)
+	public drop (dialect: string, schema: SchemaHelper): Query[] {
+		const metadata = this.get(dialect).metadata(dialect)
+		return this.get(dialect).schema.drop(metadata, schema)
 	}
 
-	public truncate (dialect:string, schema:SchemaHelper):string[] {
-		return this.get(dialect).schema.truncate(dialect, schema)
+	public truncate (dialect: string, schema: SchemaHelper): Query[] {
+		const metadata = this.get(dialect).metadata(dialect)
+		return this.get(dialect).schema.truncate(metadata, schema)
 	}
 }

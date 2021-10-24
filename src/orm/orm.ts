@@ -1,16 +1,18 @@
 
-import { Cache, IOrm, Context, Config } from './model'
+import { Cache, IOrm, Context, Config, Query } from './model'
 import { Model, ParserManager } from './parser/index'
 import { Expression, MemoryCache, Transaction, LibManager } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
 import { ExpressionCompleter } from './manager/expressionCompleter'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, ConnectionConfig } from './connection'
-import { LanguageManager, Operand, Sentence, Query } from './language'
-import { SqlLanguage } from './language/sql/index'
+import { LanguageManager, Operand, Sentence, Language } from './language'
+import { SqlQueryBuilder, SqlSchemaBuilder } from './language/sql'
+import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
+import nosqlConfig from './language/nosql/config.json'
 import { Helper } from './helper'
 
 /**
@@ -58,12 +60,16 @@ export class Orm implements IOrm {
 		this.schemaManager = new SchemaManager(this)
 		this.databaseManager = new DatabaseManager(this)
 
-		const sqlLanguage = new SqlLanguage()
+		const sqlLanguage = new Language('sql', new SqlQueryBuilder(), new SqlSchemaBuilder())
 		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
+
+		const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())
+		nosqlLanguage.addLibrary({ name: 'nosql', dialects: nosqlConfig.dialects })
 
 		this.languageManager = new LanguageManager(this.languageModel)
 		this.language.addLibrary(new CoreLib())
 		this.language.add(sqlLanguage)
+		this.language.add(nosqlLanguage)
 
 		this.connection.addType('mysql', MySqlConnectionPool)
 		this.connection.addType('mariadb', MariadbConnectionPool)

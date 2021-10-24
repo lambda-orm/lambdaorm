@@ -1,5 +1,5 @@
 
-import { Parameter } from '../model'
+import { Parameter, Query } from '../model'
 import { ConnectionConfig } from './connectionConfig'
 
 export abstract class Connection {
@@ -16,12 +16,13 @@ export abstract class Connection {
 		return this.pool.config
 	}
 
-	public abstract select(sql:string, params:Parameter[]):Promise<any>
-	public abstract insert(sql:string, params:Parameter[]):Promise<number>
-	public abstract update(sql:string, params:Parameter[]):Promise<number>
-	public abstract delete(sql:string, params:Parameter[]):Promise<number>
-	public abstract execute(sql:string):Promise<any>
-	public abstract bulkInsert(sql:string, array:any[], parameters:Parameter[], fieldId?:string):Promise<number[]>
+	public abstract select(query:Query, params:Parameter[]):Promise<any>
+	public abstract insert(query:Query, params:Parameter[]):Promise<number>
+	public abstract update(query:Query, params:Parameter[]):Promise<number>
+	public abstract delete(query: Query, params: Parameter[]): Promise<number>
+	public abstract execute(query:Query):Promise<any>
+	public abstract bulkInsert(query:Query, array:any[], parameters:Parameter[]):Promise<number[]>
+
 	public abstract beginTransaction():Promise<void>
 	public abstract commit():Promise<void>
 	public abstract rollback():Promise<void>

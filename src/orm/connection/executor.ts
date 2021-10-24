@@ -1,4 +1,4 @@
-import { Parameter } from '../model'
+import { Parameter, Query } from '../model'
 import { ConnectionManager } from './connectionManager'
 
 export class Executor {
@@ -9,44 +9,57 @@ export class Executor {
 		this.connectionName = connectionName
 	}
 
-	public async select (sql:string, params:Parameter[]):Promise<any> {
+	public async select (query:Query, params:Parameter[]):Promise<any> {
 		const connection = await this.connectionManager.acquire(this.connectionName)
-		const result = await connection.select(sql, params)
+		const result = await connection.select(query, params)
 		await this.connectionManager.release(connection)
 		return result
 	}
 
-	public async insert (sql:string, params:Parameter[]):Promise<number> {
+	public async insert (query:Query, params:Parameter[]):Promise<number> {
 		const connection = await this.connectionManager.acquire(this.connectionName)
-		const result = await connection.insert(sql, params)
+		const result = await connection.insert(query, params)
 		await this.connectionManager.release(connection)
 		return result
 	}
 
-	public async bulkInsert (sql:string, array:any[], parameters:Parameter[], fieldId?:string):Promise<number[]> {
+	public async bulkInsert (query:Query, array:any[], parameters:Parameter[]):Promise<number[]> {
 		const connection = await this.connectionManager.acquire(this.connectionName)
-		const result = await connection.bulkInsert(sql, array, parameters, fieldId)
+		const result = await connection.bulkInsert(query, array, parameters)
 		await this.connectionManager.release(connection)
 		return result
 	}
 
-	public async update (sql:string, params:Parameter[]):Promise<number> {
+	public async update (query:Query, params:Parameter[]):Promise<number> {
 		const connection = await this.connectionManager.acquire(this.connectionName)
-		const result = await connection.update(sql, params)
+		const result = await connection.update(query, params)
 		await this.connectionManager.release(connection)
 		return result
 	}
 
-	public async delete (sql:string, params:Parameter[]):Promise<number> {
+	public async delete (query:Query, params:Parameter[]):Promise<number> {
 		const connection = await this.connectionManager.acquire(this.connectionName)
-		const result = await connection.delete(sql, params)
+		const result = await connection.delete(query, params)
 		await this.connectionManager.release(connection)
 		return result
 	}
 
-	public async execute (sql:string):Promise<any> {
+	// protected async _execute (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
+	// let result:any
+	// switch (query.name) {
+	// case 'select': result = await this.select(query, context, metadata, executor); break
+	// case 'insert': result = await this.insert(query, context, metadata, executor); break
+	// case 'update': result = await this.update(query, context, metadata, executor); break
+	// case 'delete': result = await this.delete(query, context, metadata, executor); break
+	// case 'bulkInsert': result = await this.bulkInsert(query, context, metadata, executor); break
+	// default: throw new Error(`sentence ${query.name} not implemented`)
+	// }
+	// return result
+	// }
+
+	public async execute (query:Query):Promise<any> {
 		const connection = await this.connectionManager.acquire(this.connectionName)
-		const result = await connection.execute(sql)
+		const result = await connection.execute(query)
 		await this.connectionManager.release(connection)
 		return result
 	}

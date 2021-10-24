@@ -265,44 +265,10 @@ export class Sentence extends Operand {
 		throw new Error('NotImplemented')
 	}
 }
+
 export class SentenceInclude extends Operand {
 	public relation: any
 	// public variable: string
-	constructor (name: string, children: Operand[] = [], relation: any) {
-		super(name, children)
-		this.relation = relation
-		// this.variable = variable
-	}
-
-	public eval (): any {
-		throw new Error('NotImplemented')
-	}
-}
-export class Query extends Operand {
-	public sentence: string
-	public dialect: string
-	public entity: string
-	public autoincrement?: Property
-	public columns: Property[]
-	public parameters: Parameter[]
-	constructor (name: string, children: Operand[] = [], dialect: string, sentence: string, entity: string, autoincrement?: Property, columns: Property[] = [], parameters: Parameter[] = []) {
-		super(name, children)
-		this.dialect = dialect
-		this.sentence = sentence
-		this.entity = entity
-		this.autoincrement = autoincrement
-		this.columns = columns
-		this.parameters = parameters
-	}
-
-	public eval (): any {
-		throw new Error('NotImplemented')
-	}
-}
-export class Include extends Operand {
-	public relation: any
-	// public variable: string
-	// constructor(name: string, children: Operand[] = [], relation: any, variable: string) {
 	constructor (name: string, children: Operand[] = [], relation: any) {
 		super(name, children)
 		this.relation = relation

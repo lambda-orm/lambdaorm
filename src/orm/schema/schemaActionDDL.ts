@@ -1,4 +1,4 @@
-import { IOrm } from '../model/index'
+import { IOrm, Query } from '../model/index'
 import { SchemaHelper } from './schemaHelper'
 import { ExecutionResult, ExecutionSentenceResult } from '../connection'
 
@@ -10,33 +10,41 @@ export abstract class SchemaActionDDL {
 		this.schema = schema
 	}
 
-	public abstract sentence(dialect:string):any[]
+	public sentence (dialect: string): string[] {
+		const sentences: string[] = []
+		const list = this.queries(dialect)
+		for (const p in list) {
+			sentences.push(list[p].sentence)
+		}
+		return sentences
+	}
+
+	public abstract queries(dialect:string):Query[]
 	public async execute (database:string, tryAllCan = false):Promise<ExecutionResult> {
-	// let _database= this.orm.database.get(database)
 		const config = this.orm.connection.get(database)
-		const sentences = this.sentence(config.dialect)
+		const queries = this.queries(config.dialect)
 		const results:ExecutionSentenceResult[] = []
 		await this.orm.transaction(database, async (tr) => {
-			let sentence:any
+			let query:Query
 			if (tryAllCan) {
-				for (let i = 0; i < sentences.length; i++) {
-					sentence = sentences[i]
+				for (let i = 0; i < queries.length; i++) {
+					query = queries[i]
 					try {
-						const result = await tr.executeSentence(sentence)
-						results.push({ result: result, sentence: sentence })
+						const result = await tr.execute(query)
+						results.push({ result: result, sentence: query.sentence })
 					} catch (error) {
-						results.push({ error: error, sentence: sentence })
+						results.push({ error: error, sentence: query.sentence })
 					}
 				}
 			} else {
 				try {
-					for (let i = 0; i < sentences.length; i++) {
-						sentence = sentences[i]
-						const result = await tr.executeSentence(sentence)
-						results.push({ result: result, sentence: sentence })
+					for (let i = 0; i < queries.length; i++) {
+						query = queries[i]
+						const result = await tr.execute(query)
+						results.push({ result: result, sentence: query.sentence })
 					}
-				} catch (error:any) {
-					throw new Error(`sentence: ${sentence.toString()} error: ${error.toString()}`)
+				} catch (error: any) {
+					throw new Error(`error: ${error.toString()}`)
 				}
 			}
 		})
