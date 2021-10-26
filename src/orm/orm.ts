@@ -1,7 +1,7 @@
 
 import { Cache, IOrm, Context, Config, Query } from './model'
 import { Model, ParserManager } from './parser/index'
-import { Expression, MemoryCache, Transaction, LibManager } from './manager'
+import { Expression, MemoryCache, Transaction, LibManager, QueryExecutor } from './manager'
 import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
 import { ExpressionCompleter } from './manager/expressionCompleter'
@@ -27,7 +27,7 @@ export class Orm implements IOrm {
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
 	private libManager: LibManager
-	private expressionCompleter:ExpressionCompleter
+	private expressionCompleter: ExpressionCompleter
 	private static _instance: Orm
 	/**
 	 * Property that exposes the configuration
@@ -309,17 +309,19 @@ export class Orm implements IOrm {
 			}
 
 			const db = this.database.get(database)
-			const operand = await this.query(expression, db.dialect, db.schema)
+			const metadata = this.language.dialectMetadata(db.dialect)
+			const query = await this.query(expression, db.dialect, db.schema)
+
 			const _context = new Context(context)
 			let result
-			if (operand.children.length === 0) {
+			if (query.children.length === 0) {
 				const executor = this.connectionManager.createExecutor(db.name)
-				result = await this.language.execute(db.dialect, operand, _context, executor)
+				result = await new QueryExecutor().execute(query, _context, metadata, executor)
 			} else {
 				const tr = this.connectionManager.createTransaction(db.name)
 				try {
 					await tr.begin()
-					result = await this.language.execute(db.dialect, operand, _context, tr)
+					result = await new QueryExecutor().execute(query, _context, metadata, tr)
 					await tr.commit()
 				} catch (error) {
 					console.log(error)

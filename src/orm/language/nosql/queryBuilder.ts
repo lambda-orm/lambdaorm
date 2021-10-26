@@ -128,7 +128,7 @@ export class NoSqlQueryBuilder implements IQueryBuilder {
 
 	private solveJoins (joins:Operand[], metadata:DialectMetadata):string {
 		const list:string[] = []
-		const template = metadata.other('join')
+		const template = metadata.dml('join')
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			const parts = join.name.split('.')
@@ -141,7 +141,7 @@ export class NoSqlQueryBuilder implements IQueryBuilder {
 	}
 
 	private solveFrom (from:Operand, metadata:DialectMetadata):string {
-		let template = metadata.other('from')
+		let template = metadata.dml('from')
 		const parts = from.name.split('.')
 		template = template.replace('{name}', metadata.delimiter(parts[0]))
 		template = Helper.replace(template, '{alias}', parts[1])

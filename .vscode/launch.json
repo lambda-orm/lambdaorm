@@ -15,6 +15,15 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab mongo",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/labs/mongo/lab.js"
+		},
+		{
 			"name": "cli version",
 			"type": "node",
 			"request": "launch",

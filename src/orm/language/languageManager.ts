@@ -3,13 +3,11 @@ import { Node, Model } from '../parser/index'
 import { Context, Delta, Query } from './../model'
 import { SchemaHelper } from '../schema/schemaHelper'
 import { Language } from './language'
-import { Executor } from '../connection'
 import { OperandManager } from './operandManager'
 import { Operand, Sentence } from './operands'
-
 import { OperandMetadata } from './operandMetadata'
 import { Library } from './library'
-import { QueryExecutor } from './QueryExecutor'
+import { DialectMetadata } from './dialectMetadata'
 
 export class LanguageManager {
 	public dialects:any
@@ -17,13 +15,12 @@ export class LanguageManager {
 	public metadata:OperandMetadata
 	private languages:any
 	private operandManager: OperandManager
-	private queryExecutor:QueryExecutor
 
 	constructor (languageModel:Model) {
 		this.languageModel = languageModel
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(this)
-		this.queryExecutor = new QueryExecutor()
+
 		this.languages = {}
 		this.dialects = {}
 	}
@@ -40,6 +37,10 @@ export class LanguageManager {
 	public get (dialect:string):Language {
 		const info = this.dialects[dialect]
 		return this.languages[info.language] as Language
+	}
+
+	public dialectMetadata (dialect:string):DialectMetadata {
+		return this.get(dialect).metadata(dialect)
 	}
 
 	public build (node:Node, schema:SchemaHelper): Operand {
@@ -77,11 +78,6 @@ export class LanguageManager {
 
 	public deserializeQuery (dialect:string, serialized:any) {
 		return this.get(dialect).query.deserialize(serialized)
-	}
-
-	public async execute (dialect: string, query: Query, context: Context, executor: Executor): Promise<any> {
-		const metadata = this.get(dialect).metadata(dialect)
-		return await this.queryExecutor.execute(query, context, metadata, executor)
 	}
 
 	public eval (operand:Operand, context:Context):any {

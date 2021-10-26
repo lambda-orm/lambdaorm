@@ -1,5 +1,6 @@
 import { IOrm, Database, Context, Query } from '../model'
 import * as c from './../connection/transaction'
+import { QueryExecutor } from './../manager/queryExecutor'
 
 export class Transaction {
 	private orm:IOrm
@@ -13,8 +14,10 @@ export class Transaction {
 
 	public async expression (expression:string, context:any):Promise<any> {
 		const _context = new Context(context)
-		const operand = await this.orm.query(expression, this.database.dialect, this.database.schema)
-		return await this.orm.language.execute(this.database.dialect, operand, _context, this.transaction)
+		const query = await this.orm.query(expression, this.database.dialect, this.database.schema)
+		const metadata = this.orm.language.dialectMetadata(this.database.dialect)
+		const queryExecutor = new QueryExecutor()
+		return await queryExecutor.execute(query, _context, metadata, this.transaction)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types

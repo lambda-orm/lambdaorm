@@ -1,7 +1,7 @@
 
 import { Context, Parameter, Include, Query } from '../model'
 import { Executor } from '../connection'
-import { DialectMetadata } from './dialectMetadata'
+import { DialectMetadata } from '../language/dialectMetadata'
 
 export class QueryExecutor {
 	public async execute (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
