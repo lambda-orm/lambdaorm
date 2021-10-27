@@ -1,8 +1,8 @@
 
 import { Connection } from './connection'
 import { ConnectionPool } from './connectionPool'
-import { Executor } from './executor'
-import { Transaction } from './transaction'
+// import { Executor } from './executor'
+// import { Transaction } from './transaction'
 import { ConnectionConfig } from './connectionConfig'
 
 // const genericPool = require('generic-pool')
@@ -63,11 +63,11 @@ export class ConnectionManager {
 		await this.pool(connection.config.name).release(connection)
 	}
 
-	public createExecutor (connectionName:string):Executor {
-		return new Executor(this, connectionName)
-	}
+	// public createExecutor (connectionName:string):Executor {
+	// return new Executor(this, connectionName)
+	// }
 
-	public createTransaction (connectionName:string):Transaction {
-		return new Transaction(this, connectionName)
-	}
+// public createTransaction (connectionName:string):Transaction {
+// return new Transaction(this, connectionName)
+// }
 }

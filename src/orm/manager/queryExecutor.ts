@@ -1,28 +1,74 @@
 
-import { Context, Parameter, Include, Query } from '../model'
-import { Executor } from '../connection'
+import { Context, Parameter, Include, Query, Database, IOrm } from '../model'
+import { Connection } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
 
 export class QueryExecutor {
-	public async execute (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
-		return await this._execute(query, context, metadata, executor)
+	private orm: IOrm
+	public database: Database
+	private connections: any
+	private transactionable:boolean
+	constructor (orm:IOrm, database: Database, transactionable = false) {
+		this.orm = orm
+		this.database = database
+		this.transactionable = transactionable
+		this.connections = {}
 	}
 
-	protected async _execute (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
-		let result:any
+	private async getConnection (database: string): Promise<Connection> {
+		const connection = this.connections[database]
+		if (connection === undefined) {
+			const connection = await this.orm.connection.acquire(database)
+			if (this.transactionable) {
+				await connection.beginTransaction()
+			}
+			this.connections[database] = connection
+		}
+		return connection
+	}
+
+	public async commit (): Promise<void> {
+		if (this.transactionable) {
+			for (const p in this.connections) {
+				const connection = this.connections[p]
+				await connection.commit()
+				await this.orm.connection.release(connection)
+			}
+		}
+	}
+
+	public async rollback (): Promise<void> {
+		if (this.transactionable) {
+			for (const p in this.connections) {
+				const connection = this.connections[p]
+				await connection.rollback()
+				await this.orm.connection.release(connection)
+			}
+		}
+	}
+
+	public async execute (query: Query, context: any = {}): Promise<any> {
+		const _context = new Context(context)
+		return await this._execute(query, _context)
+	}
+
+	protected async _execute (query:Query, context:Context):Promise<any> {
+		let result: any
+		const connection = await this.getConnection(query.database)
+		const metadata = this.orm.language.dialectMetadata(query.dialect)
 		switch (query.name) {
-		case 'select': result = await this.select(query, context, metadata, executor); break
-		case 'insert': result = await this.insert(query, context, metadata, executor); break
-		case 'update': result = await this.update(query, context, metadata, executor); break
-		case 'delete': result = await this.delete(query, context, metadata, executor); break
-		case 'bulkInsert': result = await this.bulkInsert(query, context, metadata, executor); break
+		case 'select': result = await this.select(query, context, metadata, connection); break
+		case 'insert': result = await this.insert(query, context, metadata, connection); break
+		case 'update': result = await this.update(query, context, metadata, connection); break
+		case 'delete': result = await this.delete(query, context, metadata, connection); break
+		case 'bulkInsert': result = await this.bulkInsert(query, context, metadata, connection); break
 		default: throw new Error(`sentence ${query.name} not implemented`)
 		}
 		return result
 	}
 
-	protected async select (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
-		const mainResult = await executor.select(query, this.params(query.parameters, metadata, context))
+	protected async select (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<any> {
+		const mainResult = await connection.select(query, this.params(query.parameters, metadata, context))
 		if (mainResult.length > 0) {
 			for (const p in query.children) {
 				const include = query.children[p] as Include
@@ -32,7 +78,7 @@ export class QueryExecutor {
 					if (!ids.includes(id)) { ids.push(id) }
 				}
 				context.set('__parentId', ids)
-				const includeResult = await this._execute(include.children[0] as Query, context, metadata, executor)
+				const includeResult = await this._execute(include.children[0] as Query, context)
 				for (let i = 0; i < mainResult.length; i++) {
 					const element = mainResult[i]
 					const relationId = element['__' + include.relation.from]
@@ -60,7 +106,7 @@ export class QueryExecutor {
 		return mainResult
 	}
 
-	protected async insert (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<number> {
+	protected async insert (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<number> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		for (const p in query.children) {
 			const include = query.children[p] as Include
@@ -68,13 +114,13 @@ export class QueryExecutor {
 			if (relation) {
 				if (include.relation.type === 'oneToOne' || include.relation.type === 'oneToMany') {
 					const relationContext = new Context(relation, context)
-					const relationId = await this._execute(include.children[0] as Query, relationContext, metadata, executor)
+					const relationId = await this._execute(include.children[0] as Query, relationContext)
 					context.set(include.relation.from, relationId)
 				}
 			}
 		}
 		// insert main entity
-		const insertId = await executor.insert(query, this.params(query.parameters, metadata, context))
+		const insertId = await connection.insert(query, this.params(query.parameters, metadata, context))
 		if (query.autoincrement) { context.set(query.autoincrement.name, insertId) }
 		// after insert the relationships of the type oneToOne and manyToOne
 		for (const p in query.children) {
@@ -88,7 +134,7 @@ export class QueryExecutor {
 						const child = relation[i]
 						child[childPropertyName] = parentId
 						const childContext = new Context(child, context)
-						await this._execute(include.children[0] as Query, childContext, metadata, executor)
+						await this._execute(include.children[0] as Query, childContext)
 					}
 				}
 			}
@@ -96,7 +142,7 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	protected async bulkInsert (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<number[]> {
+	protected async bulkInsert (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<number[]> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		for (const p in query.children) {
 			const include = query.children[p] as Include
@@ -108,7 +154,7 @@ export class QueryExecutor {
 					if (child) { allChilds.push(child) }
 				}
 				const childContext = new Context(allChilds, context)
-				const allChildsId = await this._execute(include.children[0] as Query, childContext, metadata, executor)
+				const allChildsId = await this._execute(include.children[0] as Query, childContext)
 				for (let i = 0; i < context.data.length; i++) {
 					const item = context.data[i]
 					if (item[include.relation.name]) { item[include.relation.from] = allChildsId[i] }
@@ -116,7 +162,7 @@ export class QueryExecutor {
 			}
 		}
 		// insert main entity
-		const ids = await executor.bulkInsert(query, this.rows(query, metadata, context.data), query.parameters)
+		const ids = await connection.bulkInsert(query, this.rows(query, metadata, context.data), query.parameters)
 		if (query.autoincrement) {
 			for (let i = 0; i < context.data.length; i++) {
 				context.data[i][query.autoincrement.name] = ids[i]
@@ -141,14 +187,14 @@ export class QueryExecutor {
 					}
 				}
 				const childContext = new Context(allChilds, context)
-				await this._execute(include.children[0] as Query, childContext, metadata, executor)
+				await this._execute(include.children[0] as Query, childContext)
 			}
 		}
 		return ids
 	}
 
-	protected async update (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
-		const changeCount = await executor.update(query, this.params(query.parameters, metadata, context))
+	protected async update (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<any> {
+		const changeCount = await connection.update(query, this.params(query.parameters, metadata, context))
 		for (const p in query.children) {
 			const include = query.children[p] as Include
 			const relation = context.get(include.relation.name)
@@ -157,18 +203,18 @@ export class QueryExecutor {
 					for (let i = 0; i < relation.length; i++) {
 						const child = relation[i]
 						const childContext = new Context(child, context)
-						await this._execute(include.children[0] as Query, childContext, metadata, executor)
+						await this._execute(include.children[0] as Query, childContext)
 					}
 				} else {
 					const childContext = new Context(relation, context)
-					await this._execute(include.children[0] as Query, childContext, metadata, executor)
+					await this._execute(include.children[0] as Query, childContext)
 				}
 			}
 		}
 		return changeCount
 	}
 
-	protected async delete (query:Query, context:Context, metadata:DialectMetadata, executor:Executor):Promise<any> {
+	protected async delete (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<any> {
 	// before remove relations entities
 		for (const p in query.children) {
 			const include = query.children[p] as Include
@@ -178,16 +224,16 @@ export class QueryExecutor {
 					for (let i = 0; i < relation.length; i++) {
 						const child = relation[i]
 						const childContext = new Context(child, context)
-						await this._execute(include.children[0] as Query, childContext, metadata, executor)
+						await this._execute(include.children[0] as Query, childContext)
 					}
 				} else {
 					const childContext = new Context(relation, context)
-					await this._execute(include.children[0] as Query, childContext, metadata, executor)
+					await this._execute(include.children[0] as Query, childContext)
 				}
 			}
 		}
 		// remove main entity
-		const changeCount = await executor.delete(query, this.params(query.parameters, metadata, context))
+		const changeCount = await connection.delete(query, this.params(query.parameters, metadata, context))
 		return changeCount
 	}
 

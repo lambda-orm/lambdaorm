@@ -1,23 +1,12 @@
-import { IOrm, Database, Context, Query } from '../model'
-import * as c from './../connection/transaction'
+import { IOrm, Context, Query } from '../model'
 import { QueryExecutor } from './../manager/queryExecutor'
 
 export class Transaction {
 	private orm:IOrm
-	private database:Database
-	private transaction:c.Transaction
-	constructor (orm:IOrm, database:Database, transaction:c.Transaction) {
+	private queryExecutor:QueryExecutor
+	constructor (orm: IOrm, queryExecutor: QueryExecutor) {
 		this.orm = orm
-		this.database = database
-		this.transaction = transaction
-	}
-
-	public async expression (expression:string, context:any):Promise<any> {
-		const _context = new Context(context)
-		const query = await this.orm.query(expression, this.database.dialect, this.database.schema)
-		const metadata = this.orm.language.dialectMetadata(this.database.dialect)
-		const queryExecutor = new QueryExecutor()
-		return await queryExecutor.execute(query, _context, metadata, this.transaction)
+		this.queryExecutor = queryExecutor
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
@@ -25,7 +14,13 @@ export class Transaction {
 		return await this.expression(this.orm.lambda(lambda).expression, context)
 	}
 
-	public async execute (query:Query):Promise<any> {
-		return await this.transaction.execute(query)
+	public async expression (expression:string, context:any):Promise<any> {
+		const query = await this.orm.query(expression, this.queryExecutor.database.name)
+		return await this.execute(query, context)
+	}
+
+	public async execute (query: Query, context: any = {}): Promise<any> {
+		const _context = new Context(context)
+		return await this.queryExecutor.execute(query, _context)
 	}
 }

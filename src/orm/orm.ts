@@ -6,13 +6,13 @@ import { SchemaManager } from './schema/schemaManager'
 import { DatabaseManager } from './database'
 import { ExpressionCompleter } from './manager/expressionCompleter'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, ConnectionConfig } from './connection'
-import { LanguageManager, Operand, Sentence, Language } from './language'
+import { LanguageManager, Operand, Sentence, Language, QueryBuilder } from './language'
 import { SqlQueryBuilder, SqlSchemaBuilder } from './language/sql'
-import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
+// import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
-import nosqlConfig from './language/nosql/config.json'
+// import nosqlConfig from './language/nosql/config.json'
 import { Helper } from './helper'
 
 /**
@@ -63,13 +63,13 @@ export class Orm implements IOrm {
 		const sqlLanguage = new Language('sql', new SqlQueryBuilder(), new SqlSchemaBuilder())
 		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
 
-		const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())
-		nosqlLanguage.addLibrary({ name: 'nosql', dialects: nosqlConfig.dialects })
+		// const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())
+		// nosqlLanguage.addLibrary({ name: 'nosql', dialects: nosqlConfig.dialects })
 
 		this.languageManager = new LanguageManager(this.languageModel)
 		this.language.addLibrary(new CoreLib())
 		this.language.add(sqlLanguage)
-		this.language.add(nosqlLanguage)
+		// this.language.add(nosqlLanguage)
 
 		this.connection.addType('mysql', MySqlConnectionPool)
 		this.connection.addType('mariadb', MariadbConnectionPool)
@@ -222,23 +222,17 @@ export class Orm implements IOrm {
 		}
 	}
 
-	/**
-	 * Build expression and convert in Query
-	 * @param expression expression to build
-	 * @param dialect Dialect name
-	 * @param schema Schema name
-	 * @returns Query
-	 */
-	public async query (expression: string, dialect: string, schema: string): Promise<Query> {
+	public async query (expression: string, database?: string): Promise<Query> {
 		try {
-			const key = dialect + '-query_' + expression
-			let operand = await this._cache.get(key)
-			if (!operand) {
-				const sentence = await this.build(expression, schema) as Sentence
-				operand = this.language.query(dialect, sentence)
-				await this._cache.set(key, operand)
+			const db = this.database.get(database)
+			const key = db.name + '-query_' + expression
+			let query = await this._cache.get(key)
+			if (!query) {
+				const sentence = await this.build(expression, db.schema) as Sentence
+				query = new QueryBuilder(this, db).build(sentence)
+				await this._cache.set(key, query)
 			}
-			return operand as Query
+			return query as Query
 		} catch (error: any) {
 			throw new Error('query expression: ' + expression + ' error: ' + error.toString())
 		}
@@ -307,43 +301,21 @@ export class Orm implements IOrm {
 			if (typeof context !== 'object') {
 				throw new Error(`object type ${typeof context} is invalied`)
 			}
-
 			const db = this.database.get(database)
-			const metadata = this.language.dialectMetadata(db.dialect)
-			const query = await this.query(expression, db.dialect, db.schema)
+			const query = await this.query(expression, db.name)
 
-			const _context = new Context(context)
 			let result
 			if (query.children.length === 0) {
-				const executor = this.connectionManager.createExecutor(db.name)
-				result = await new QueryExecutor().execute(query, _context, metadata, executor)
+				result = await new QueryExecutor(this, db).execute(query, context)
 			} else {
-				const tr = this.connectionManager.createTransaction(db.name)
-				try {
-					await tr.begin()
-					result = await new QueryExecutor().execute(query, _context, metadata, tr)
-					await tr.commit()
-				} catch (error) {
-					console.log(error)
-					tr.rollback()
-					throw error
-				}
+				this.transaction(db.name, async (tr) => {
+					result = tr.execute(query, context)
+				})
+				return result
 			}
-			return result
 		} catch (error: any) {
 			throw new Error('execute: ' + expression + ' error: ' + error.toString())
 		}
-	}
-
-	/**
-	 * Execute Sentence
-	 * @param sentence Sentence
-	 * @param database Database name
-	 * @returns result of sentence
-	 */
-	public async executeSentence (sentence: any, database: string): Promise<any> {
-		const executor = this.connectionManager.createExecutor(database)
-		return await executor.execute(sentence)
 	}
 
 	/**
@@ -352,16 +324,17 @@ export class Orm implements IOrm {
 	 * @param callback Codigo que se ejecutara en transaccion
 	 */
 	public async transaction (database: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const _database = this.database.get(database)
-		const tr = this.connectionManager.createTransaction(database)
+		const db = this.database.get(database)
+		const queryExecutor = new QueryExecutor(this, db, true)
+		// const tr = this.connectionManager.createTransaction(database)
 		try {
-			await tr.begin()
-			const transaction = new Transaction(this, _database, tr)
+			// await tr.begin()
+			const transaction = new Transaction(this, queryExecutor)
 			await callback(transaction)
-			await tr.commit()
+			await queryExecutor.commit()
 		} catch (error) {
 			console.log(error)
-			tr.rollback()
+			queryExecutor.rollback()
 			throw error
 		}
 	}

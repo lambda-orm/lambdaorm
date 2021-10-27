@@ -1,6 +1,6 @@
 export * from './operands'
 export * from './operandManager'
 export * from './language'
-export * from './iQueryBuilder'
+export * from './queryBuilder'
 export * from './iSchemaBuilder'
 export * from './languageManager'

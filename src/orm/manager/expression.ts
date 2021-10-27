@@ -42,15 +42,9 @@ export class Expression {
 		return this.orm.language.parameters(operand as Sentence)
 	}
 
-	/**
-	 * Get sentence of expression
-	 * @param dialect Dialect name
-	 * @param schema Schema name
-	 * @returns Sentence of expression
-	 */
-	public async sentence (dialect:string, schema:string):Promise<string> {
-		const query = await this.orm.query(this.expression, dialect, schema)
-		return this.orm.language.sentence(dialect, query)
+	public async sentence (dialect:string, database?: string):Promise<string> {
+		const query = await this.orm.query(this.expression, database)
+		return this.orm.language.sentence(query)
 	}
 
 	/**

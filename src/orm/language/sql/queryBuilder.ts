@@ -4,61 +4,15 @@ import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
 	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete
 } from './../operands'
-import { IQueryBuilder } from './../iQueryBuilder'
+import { LanguageQueryBuilder } from '../queryBuilder'
 import { DialectMetadata } from '../dialectMetadata'
-import { Query, Include } from './../../model'
+import { Query } from './../../model'
 const SqlString = require('sqlstring')
 
-export class SqlQueryBuilder implements IQueryBuilder {
-	public build (sentence:Sentence, metadata:DialectMetadata):Query {
-		return this._build(sentence, metadata)
-	}
-
-	public sentence (query:Query):any {
-		let mainSentence = query.sentence + ''
-		for (const p in query.children) {
-			const include = query.children[p] as Include
-			const includeSentence = this.sentence(include.children[0] as Query)
-			mainSentence = mainSentence + '\n' + includeSentence
-		}
-		return mainSentence
-	}
-
-	public serialize (operand:any):any {
-		const children = []
-		if (operand instanceof Query) {
-			const query = operand as Query
-			for (const k in query.children) {
-				children.push(this.serialize(query.children[k]))
-			}
-			return { n: query.name, t: query.constructor.name, c: children, s: query.sentence, f: query.columns, p: query.parameters, e: query.entity, a: query.autoincrement }
-		} else if (operand instanceof Include) {
-			const include = operand as Include
-			for (const k in include.children) {
-				children.push(this.serialize(include.children[k]))
-			}
-			// return { n: include.name, t: include.constructor.name, c: children, r: include.relation, v: include.variable }
-			return { n: include.name, t: include.constructor.name, c: children, r: include.relation }
-		}
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public deserialize (serialized:any):Operand {
-		throw new Error('NotImplemented')
-	}
-
-	public _build (sentence:Sentence, metadata:DialectMetadata):Query {
-		const children = []
-		const includes = sentence.getIncludes()
-		for (const p in includes) {
-			const sentenceInclude = includes[p]
-			const query = this._build(sentenceInclude.children[0] as Sentence, metadata)
-			// const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation, sentenceInclude.variable)
-			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
-			children.push(include)
-		}
+export class SqlQueryBuilder extends LanguageQueryBuilder {
+	public build (sentence:Sentence, database:string, metadata:DialectMetadata):Query {
 		const sqlSentence = this.buildSentence(sentence, metadata as DialectMetadata)
-		return new Query(sentence.name, children, metadata.name, sqlSentence, sentence.entity, sentence.autoincrement, sentence.columns, sentence.parameters)
+		return new Query(sentence.name, database, metadata.name, sqlSentence, sentence.entity, sentence.autoincrement, sentence.columns, sentence.parameters)
 	}
 
 	private buildOperand (operand:Operand, metadata:DialectMetadata):string {

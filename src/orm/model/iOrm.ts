@@ -23,9 +23,8 @@ export interface IOrm
 	lambda(lambda:Function):Expression
 	complete(expression:string, schema:string):string
 	build(expression:string, schema:string):Promise<Operand>
-	query(expression:string, dialect:string, schema:string):Promise<Query>
+	query (expression: string, database?: string): Promise<Query>
 	eval(expression:string, context:any, schema:string):Promise<any>
 	execute(expression:string, context:any, database?: string):Promise<any>
-	executeSentence(sentence:any, database:string):Promise<any>
 	transaction(database:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

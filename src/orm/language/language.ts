@@ -1,5 +1,5 @@
-import { IQueryBuilder } from './iQueryBuilder'
-import { ISchemaBuilder } from './iSchemaBuilder'
+import { LanguageQueryBuilder } from './queryBuilder'
+import { LanguageSchemaBuilder } from './iSchemaBuilder'
 import { DialectMetadata } from './dialectMetadata'
 // export interface ILanguage
 // {
@@ -16,9 +16,9 @@ export class Language {
 	public libraries:any
 	public dialects:any
 	public hadQuery: boolean
-	private schemaBuilder:ISchemaBuilder
-	private queryBuilder:IQueryBuilder
-	constructor (name:string, queryBuilder:IQueryBuilder, schemaBuilder:ISchemaBuilder) {
+	private schemaBuilder:LanguageSchemaBuilder
+	private queryBuilder:LanguageQueryBuilder
+	constructor (name:string, queryBuilder:LanguageQueryBuilder, schemaBuilder:LanguageSchemaBuilder) {
 		this.name = name
 		this.hadQuery = true
 		this.libraries = {}
@@ -37,11 +37,11 @@ export class Language {
 		}
 	}
 
-	public get schema ():ISchemaBuilder {
+	public get schema ():LanguageSchemaBuilder {
 		return this.schemaBuilder
 	}
 
-	public get query ():IQueryBuilder {
+	public get query ():LanguageQueryBuilder {
 		return this.queryBuilder
 	}
 
