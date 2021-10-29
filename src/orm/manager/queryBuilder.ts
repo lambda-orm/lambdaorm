@@ -1,7 +1,8 @@
 import { ConfigManager } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
-import { Query, Database, Include } from '../model'
+import { Query, Database, Include, Entity } from '../model'
+import { SchemaHelper } from './../database'
 
 export abstract class LanguageQueryBuilder {
 	abstract build (sentence:Sentence, database:string, metadata:DialectMetadata):Query
@@ -10,18 +11,21 @@ export abstract class LanguageQueryBuilder {
 export class QueryBuilder {
 	private configManager: ConfigManager
 	private languageManager: LanguageManager
+	private schema:SchemaHelper
 	public database: Database
-	constructor (configManager:ConfigManager, languageManager: LanguageManager, database: Database) {
+
+	constructor (configManager:ConfigManager, schema:SchemaHelper, languageManager: LanguageManager, database: Database) {
 		this.configManager = configManager
+		this.schema = schema
 		this.languageManager = languageManager
 		this.database = database
 	}
 
 	private getDatabase (entity: string): Database {
-		if (entity !== undefined && this.database.externals !== undefined) {
-			const external = this.database.externals.find(p => p.entities.includes(entity))
-			if (external !== undefined) {
-				return this.configManager.database.get(external.name)
+		if (entity !== undefined) {
+			const _entity = this.schema.getEntity(entity) as Entity
+			if (_entity.externalDb !== undefined && _entity.externalDb !== this.database.name) {
+				return this.configManager.database.get(_entity.externalDb)
 			}
 		}
 		return this.database

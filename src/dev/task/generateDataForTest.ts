@@ -28,9 +28,9 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 		try {
 			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
 			// expressionTest.lambda = expressionTest.lambda.toString()
-			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.schema)
-			expressionTest.model = await orm.expression(expressionTest.expression).model(category.schema)
-			const metadata: any = await orm.expression(expressionTest.expression).metadata(category.schema)
+			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.database)
+			expressionTest.model = await orm.expression(expressionTest.expression).model(category.database)
+			const metadata: any = await orm.expression(expressionTest.expression).metadata(category.database)
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
 			for (const r in databases) {
@@ -109,7 +109,7 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 async function writeQueryTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'query',
-		schema: 'northwind',
+		database: 'source',
 		context: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -142,7 +142,7 @@ async function writeQueryTest (databases: string[]): Promise<number> {
 async function writeNumeriFunctionsTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'numeric functions',
-		schema: 'northwind',
+		database: 'source',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -167,7 +167,7 @@ async function writeNumeriFunctionsTest (databases: string[]): Promise<number> {
 async function writeGroupByTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'groupBy',
-		schema: 'northwind',
+		database: 'source',
 		context: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
@@ -187,7 +187,7 @@ async function writeGroupByTest (databases: string[]): Promise<number> {
 async function writeIncludeTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'include',
-		schema: 'northwind',
+		database: 'source',
 		context: { a: { id: 1 } },
 		test:
 			[
@@ -205,7 +205,7 @@ async function writeIncludeTest (databases: string[]): Promise<number> {
 async function writeInsertsTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'inserts',
-		schema: 'northwind',
+		database: 'source',
 		context: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -261,7 +261,7 @@ async function writeInsertsTest (databases: string[]): Promise<number> {
 async function writeUpdateTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'update',
-		schema: 'northwind',
+		database: 'source',
 		context: {
 			a: {
 				id: 7,
@@ -564,7 +564,7 @@ async function writeUpdateTest (databases: string[]): Promise<number> {
 async function writeDeleteTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'delete',
-		schema: 'northwind',
+		database: 'source',
 		context: {
 			a: { id: 9 },
 			b: {
@@ -722,7 +722,7 @@ async function writeDeleteTest (databases: string[]): Promise<number> {
 async function writeBulkInsertTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'bulkInsert',
-		schema: 'northwind',
+		database: 'source',
 		context: {
 			a: [{
 				name: 'Beverages4',

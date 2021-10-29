@@ -20,7 +20,7 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 			lines.push(`\ttest('${expTest.name}', () => {`)
 			lines.push(`\t\tconst source = '${expTest.expression.trim()}'`)
 			lines.push(`\t\tconst expected = '${expTest.completeExpression.trim()}'`)
-			lines.push(`\t\tconst target = orm.expression(source).complete('${category.schema}')`)
+			lines.push(`\t\tconst target = orm.expression(source).complete('${category.database}')`)
 			lines.push('\t\texpect(expected).toBe(target)')
 			lines.push('\t})')
 		}
@@ -35,8 +35,8 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
-		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.schema}')`)
-		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.schema}')`)
+		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.database}')`)
+		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.database}')`)
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
 		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
 		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
@@ -57,7 +57,7 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 					sentence = Helper.replace(sentence, '\n', '; ')
 					if (sentence) {
 						lines.push(`\t\tconst ${dialect}Expected = '${sentence}'`)
-						lines.push(`\t\tlet ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.schema}')`)
+						lines.push(`\t\tlet ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.database}')`)
 						lines.push(`\t\t${dialect}=Helper.replace(${dialect},'\\n','; ')`)
 						lines.push(`\t\texpect(${dialect}Expected).toBe(${dialect})`)
 					}

@@ -31,12 +31,12 @@ export interface ExpressionTest {
 }
 export interface CategoryTest {
 	name: string
-	schema: string
+	database: string
 	context: any
 	test: ExpressionTest[]
 	errors?: number
 }
 export interface Test {
-	schema: string
+	database: string
 	categories: CategoryTest[]
 }

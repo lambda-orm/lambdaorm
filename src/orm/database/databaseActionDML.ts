@@ -1,8 +1,7 @@
-import { Database } from '../model'
+import { Database, Query } from '../model'
 import { ConfigManager, ExpressionManager, Executor } from './../manager'
 import { DatabaseState } from './databaseState'
 import { SchemaHelper } from './schemaHelper'
-import { SchemaExpression, SchemaSentence, SchemaEntityExpression } from './schemaData'
 
 export abstract class DatabaseActionDML {
 	protected state: DatabaseState
@@ -31,31 +30,30 @@ export abstract class DatabaseActionDML {
 		return new SchemaHelper(_schema)
 	}
 
-	public async sentence ():Promise<SchemaSentence> {
-		const schemaSentence: SchemaSentence = { entities: [] }
+	public async sentence ():Promise<any> {
+		const sentences:any[] = []
 		const schema = await this.getSchema()
-		const schemaExportExpression = this.build(schema)
-		for (let i = 0; i < schemaExportExpression.entities.length; i++) {
-			const exportEntityExpression = schemaExportExpression.entities[i]
-			const sentence = await this.orm.expression(exportEntityExpression.expression).sentence(this.database.name)
-			schemaSentence.entities.push({ entity: exportEntityExpression.entity, sentence: sentence })
+		const queries = await this.build(schema)
+		for (let i = 0; i < queries.length; i++) {
+			const query = queries[i]
+			sentences.push(query.sentence)
 		}
-		return schemaSentence
+		return sentences
 	}
 
-	protected build (schema:SchemaHelper):SchemaExpression {
-		const schemaExpression:SchemaExpression = { entities: [] }
+	protected async build (schema:SchemaHelper): Promise<Query[]> {
+		const queries:Query[] = []
 		for (const entityName in schema.entity) {
 			if (!schema.isChild(entityName)) {
 				const entity = schema.entity[entityName]
-				const expression = this.createEntityExpression(schema, entity)
-				schemaExpression.entities.push(expression)
+				const query = await this.createQuery(schema, entity)
+				queries.push(query)
 			}
 		}
-		return schemaExpression
+		return queries
 	}
 
-	protected abstract createEntityExpression(schema:SchemaHelper, entity:any):SchemaEntityExpression
+	protected abstract createQuery(schema:SchemaHelper, entity:any):Promise<Query>
 
 	protected createInclude (schema:SchemaHelper, entity:any, level = 0):string {
 		const arrowVariable = this.arrowVariables[level]

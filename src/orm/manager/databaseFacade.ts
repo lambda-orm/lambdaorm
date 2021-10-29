@@ -1,12 +1,12 @@
-import { ConfigManager, Executor, ExpressionManager } from './../manager'
-import { LanguageManager } from './../language'
-import { DatabaseState } from './databaseState'
-import { DatabaseSync } from './databaseSync'
-import { DatabaseClean } from './databaseClean'
-import { DatabaseExport } from './databaseExport'
-import { DatabaseTruncate } from './databaseTruncate'
-import { DatabaseImport } from './databaseImport'
-import { Helper } from './../helper'
+import { ConfigManager, Executor, ExpressionManager } from '.'
+import { LanguageManager } from '../language'
+import { DatabaseState } from '../database/databaseState'
+import { DatabaseSync } from '../database/databaseSync'
+import { DatabaseClean } from '../database/databaseClean'
+import { DatabaseExport } from '../database/databaseExport'
+import { DatabaseTruncate } from '../database/databaseTruncate'
+import { DatabaseImport } from '../database/databaseImport'
+import { Helper } from '../helper'
 
 export class DatabaseFacade {
 	private state: DatabaseState

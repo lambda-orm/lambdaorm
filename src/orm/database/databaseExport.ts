@@ -1,24 +1,24 @@
 import { DatabaseActionDML } from './databaseActionDML'
-import { SchemaEntityExpression, SchemaData } from './schemaData'
 import { SchemaHelper } from './schemaHelper'
+import { Query, SchemaData } from './../model'
 
 export class DatabaseExport extends DatabaseActionDML {
 	public async execute (): Promise<SchemaData> {
 		const schema = await this.getSchema()
-		const schemaExpression = this.build(schema)
+		const queries = await this.build(schema)
 		const context = {}
 		const schemaExport:SchemaData = { entities: [] }
 		await this.executor.transaction(this.database, async (tr) => {
-			for (let i = 0; i < schemaExpression.entities.length; i++) {
-				const entityExpression = schemaExpression.entities[i]
-				const rows = await tr.expression(entityExpression.expression, context)
-				schemaExport.entities.push({ entity: entityExpression.entity, rows: rows })
+			for (let i = 0; i < queries.length; i++) {
+				const query = queries[i]
+				const rows = await tr.execute(query, context)
+				schemaExport.entities.push({ entity: query.entity, rows: rows })
 			}
 		})
 		return schemaExport
 	}
 
-	protected createEntityExpression (schema:SchemaHelper, entity:any):SchemaEntityExpression {
+	protected async createQuery (schema:SchemaHelper, entity:any):Promise<Query> {
 		let expression = `${entity.name}.map(p=>{`
 		let first = true
 		for (const propertyName in entity.property) {
@@ -27,6 +27,6 @@ export class DatabaseExport extends DatabaseActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(schema, entity)
-		return { entity: entity.name, expression: expression }
+		return await this.expressionManager.toQuery(expression, this.database.name)
 	}
 }

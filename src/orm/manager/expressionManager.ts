@@ -76,7 +76,8 @@ export class ExpressionManager {
 			let query = await this.cache.get(key)
 			if (!query) {
 				const sentence = await this.toOperand(expression, db.schema) as Sentence
-				query = new QueryBuilder(this.configManager, this.languageManager, db).build(sentence)
+				const _schema = this.configManager.schema.getInstance(db.schema)
+				query = new QueryBuilder(this.configManager, _schema, this.languageManager, db).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query

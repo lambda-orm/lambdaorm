@@ -11,14 +11,12 @@ export interface Database
 	dialect: string
 	connection: any
 	schema: string
-	externals?:ExternalDb[]
 }
 export interface App
 {
 	src: string
 	data: string
 	models:string
-	// workspace: string,
 	configFile?: string,
 	defaultDatabase?: string
 }

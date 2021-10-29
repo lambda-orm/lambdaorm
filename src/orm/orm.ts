@@ -1,8 +1,7 @@
 
 import { Cache, IOrm, Config } from './model'
 import { Model } from './parser/index'
-import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, QueryExecutor, Executor, ConfigManager } from './manager'
-import { DatabaseFacade } from './database'
+import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatabaseFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, ConnectionConfig } from './connection'
 import { LanguageManager, Language } from './language'
 import { SqlQueryBuilder, SqlSchemaBuilder } from './language/sql'
@@ -165,35 +164,6 @@ export class Orm implements IOrm {
 		const expression = this.expressionManager.toExpression(func)
 		return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
 	}
-
-	// /**
-	//  * Execute expression and return result
-	//  * @param expression string expression
-	//  * @param context Context with variables
-	//  * @param database Database name
-	//  * @returns result of expression
-	//  */
-	// public async execute (expression: string, context: any = {}, database?: string): Promise<any> {
-	// try {
-	// if (typeof context !== 'object') {
-	// throw new Error(`object type ${typeof context} is invalied`)
-	// }
-	// const db = this.databaseManager.get(database)
-	// const query = await this.query(expression, db.name)
-
-	// let result
-	// if (query.children.length === 0) {
-	// result = await new QueryExecutor(this.connectionManager, this.languageManager, db).execute(query, context)
-	// } else {
-	// this.transaction(db.name, async (tr) => {
-	// result = tr.execute(query, context)
-	// })
-	// return result
-	// }
-	// } catch (error: any) {
-	// throw new Error('execute: ' + expression + ' error: ' + error.toString())
-	// }
-	// }
 
 	/**
  * Crea una transaccion

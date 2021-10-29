@@ -1,24 +1,24 @@
 
-import { SchemaData, SchemaEntityExpression } from './schemaData'
 import { DatabaseActionDML } from './databaseActionDML'
 import { SchemaHelper } from './schemaHelper'
+import { Query, SchemaData } from './../model'
 
 export class DatabaseImport extends DatabaseActionDML {
 	public async execute (data: SchemaData): Promise<void> {
 		const state = await this.state.get(this.database.name)
 		const schema = await this.getSchema()
-		const schemaExpression = this.build(schema)
-		const entitiesExpression = this.sort(schema, schemaExpression.entities)
+		const _queries = await this.build(schema)
+		const queries = this.sort(schema, _queries)
 
 		await this.executor.transaction(this.database, async (tr) => {
-			for (let i = 0; i < entitiesExpression.length; i++) {
-				const entityExpression = entitiesExpression[i]
-				const entityData = data.entities.find(p => p.entity === entityExpression.entity)
+			for (let i = 0; i < queries.length; i++) {
+				const query = queries[i]
+				const entityData = data.entities.find(p => p.entity === query.entity)
 				if (entityData) {
 					const aux:any = {}
 					this.loadExternalIds(schema, entityData.entity, entityData.rows, aux)
 					this.solveInternalsIds(schema, entityData.entity, entityData.rows, state.mapping, state.pendings)
-					await tr.expression(entityExpression.expression, entityData.rows)
+					await tr.execute(query, entityData.rows)
 					this.completeMapping(schema, entityData.entity, entityData.rows, aux, state.mapping)
 				}
 			}
@@ -152,18 +152,21 @@ export class DatabaseImport extends DatabaseActionDML {
 		}
 	}
 
-	protected sort (schema:SchemaHelper, entitiesExpression:SchemaEntityExpression[]):SchemaEntityExpression[] {
-		let entities = entitiesExpression.map(p => p.entity)
+	protected sort (schema:SchemaHelper, queries:Query[]):Query[] {
+		let entities = queries.map(p => p.entity)
 		entities = schema.sortEntities(entities)
-		const result:SchemaEntityExpression[] = []
+		const result:Query[] = []
 		for (let i = 0; i < entities.length; i++) {
-			result.push(entitiesExpression.find(p => p.entity === entities[i]) as SchemaEntityExpression)
+			const query = queries.find(p => p.entity === entities[i])
+			if (query !== undefined) {
+				result.push(query)
+			}
 		}
 		return result
 	}
 
-	protected createEntityExpression (schema:SchemaHelper, entity:any):SchemaEntityExpression {
+	protected async createQuery (schema:SchemaHelper, entity:any):Promise<Query> {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(schema, entity)}`
-		return { entity: entity.name, expression: expression }
+		return await this.expressionManager.toQuery(expression, this.database.name)
 	}
 }

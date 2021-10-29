@@ -68,12 +68,12 @@ export class RunCommand implements CommandModule {
 			// execute or get metadata
 			if (sentences || metadata) {
 				if (sentences) {
-					const resullt = await orm.expression(expression).sentence(db.dialect, db.schema)
+					const resullt = await orm.expression(expression).sentence(db.name)
 					console.log(resullt)
 				}
 				if (metadata) {
-					const model = await orm.expression(expression).model(db.schema)
-					const metadata = await orm.expression(expression).metadata(db.schema)
+					const model = await orm.expression(expression).model(db.name)
+					const metadata = await orm.expression(expression).metadata(db.name)
 					console.log('model:')
 					console.log(JSON.stringify(model, null, 2))
 					console.log('metadata:')
