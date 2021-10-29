@@ -107,6 +107,19 @@ export class MssqlConnection extends Connection {
 		return await this._execute(query)
 	}
 
+	public async executeSentence (sentence: any):Promise<any> {
+		const sql = sentence
+		return await new Promise<any>((resolve, reject) => {
+			const request = new MssqlConnectionPool.tedious.Request(sql, (err: any, raw: any) => {
+				if (err) {
+					reject(err)
+				}
+				resolve(raw)
+			})
+			this.cnx.execSql(request)
+		})
+	}
+
 	public async beginTransaction (): Promise<void> {
 		const me = this
 		return new Promise<void>((resolve, reject) => {

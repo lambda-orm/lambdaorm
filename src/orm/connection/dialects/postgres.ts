@@ -136,6 +136,10 @@ export class PostgresConnection extends Connection {
 		return await this._execute(query)
 	}
 
+	public async executeSentence (sentence: any):Promise<any> {
+		return await this.cnx.query(sentence)
+	}
+
 	public async beginTransaction ():Promise<void> {
 		await this.cnx.query('BEGIN')
 		this.inTransaction = true

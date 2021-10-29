@@ -21,7 +21,9 @@ export abstract class Connection {
 	public abstract update(query:Query, params:Parameter[]):Promise<number>
 	public abstract delete(query: Query, params: Parameter[]): Promise<number>
 	public abstract execute(query:Query):Promise<any>
-	public abstract bulkInsert(query:Query, array:any[], parameters:Parameter[]):Promise<number[]>
+	public abstract bulkInsert(query: Query, array: any[], parameters: Parameter[]): Promise<number[]>
+
+	public abstract executeSentence(sentence:any):Promise<any>
 
 	public abstract beginTransaction():Promise<void>
 	public abstract commit():Promise<void>

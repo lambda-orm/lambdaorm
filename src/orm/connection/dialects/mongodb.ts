@@ -70,7 +70,12 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async execute (query:Query):Promise<any> {
-		return await this.cnx._query(query.sentence)
+		// return await this.cnx._query(query.sentence)
+		throw new Error('not implemented')
+	}
+
+	public async executeSentence (sentence: any):Promise<any> {
+		throw new Error('not implemented')
 	}
 
 	public async beginTransaction ():Promise<void> {

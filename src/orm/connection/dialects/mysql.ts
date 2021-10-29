@@ -116,6 +116,10 @@ export class MySqlConnection extends Connection {
 		return await this.cnx.query(query.sentence)
 	}
 
+	public async executeSentence (sentence: any):Promise<any> {
+		return await this.cnx.query(sentence)
+	}
+
 	public async beginTransaction ():Promise<void> {
 		await this.cnx.beginTransaction()
 		this.inTransaction = true
