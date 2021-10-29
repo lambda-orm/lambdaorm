@@ -1,5 +1,5 @@
-import { LanguageQueryBuilder } from './queryBuilder'
-import { LanguageSchemaBuilder } from './iSchemaBuilder'
+import { LanguageQueryBuilder } from '../manager/queryBuilder'
+import { LanguageSchemaBuilder } from '../manager/schemaBuilder'
 import { DialectMetadata } from './dialectMetadata'
 // export interface ILanguage
 // {

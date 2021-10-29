@@ -1,34 +1,26 @@
-import { Delta, IOrm, Database, Schema } from '../model/index'
-import { ExecutionSyncResult } from '../schema'
+import { Schema, Query } from '../model/index'
+import { SchemaHelper } from './schemaHelper'
+import { ExecutionResult } from '../connection'
+import { Helper } from './../helper'
+import { SchemaBuilder } from 'orm/language'
+import { DatabaseActionDDL } from './databaseActionDDL'
 
-export class DatabaseSync {
-	protected orm:IOrm
-	protected database:Database
-	constructor (orm:IOrm, database:Database) {
-		this.orm = orm
-		this.database = database
+export class DatabaseSync extends DatabaseActionDDL {
+	public async queries (): Promise<Query[]> {
+		const current = this.configManager.schema.get(this.database.schema) as Schema
+		const state = await this.state.get(this.database.name) as Schema
+		const schema = this.configManager.schema.transform(current)
+		const schemaHelper = new SchemaHelper(schema)
+		const _current = schema.entity
+		const _old = state ? this.configManager.schema.transform(state).entity : null
+		const delta = Helper.deltaWithSimpleArrays(_current, _old)
+		return new SchemaBuilder(this.configManager, this.languageManager, this.database).sync(delta, schemaHelper)
 	}
 
-	public async serialize ():Promise<Delta> {
-		const current = this.orm.schema.get(this.database.schema) as Schema
-		const state = await this.orm.database.getState(this.database.name)
-		const schemaSync = await this.orm.schema.sync(current, state.schema)
-		return await schemaSync.serialize()
-	}
-
-	public async sentence ():Promise<any[]> {
-		const current = this.orm.schema.get(this.database.schema) as Schema
-		const state = await this.orm.database.getState(this.database.name)
-		const schemaSync = await this.orm.schema.sync(current, state.schema)
-		return await schemaSync.sentence(this.database.dialect)
-	}
-
-	public async execute ():Promise<ExecutionSyncResult> {
-		const current = this.orm.schema.get(this.database.schema) as Schema
-		const state = await this.orm.database.getState(this.database.name)
-		const schemaSync = await this.orm.schema.sync(current, state.schema)
-		const result = await schemaSync.execute(this.database.name)
-		await this.orm.database.updateSchemaState(this.database.name, current)
+	public async execute (tryAllCan = false):Promise<ExecutionResult> {
+		const current = this.configManager.schema.get(this.database.schema) as Schema
+		const result = await this._execute(tryAllCan)
+		await this.state.updateSchema(this.database.name, current)
 		return result
 	}
 }

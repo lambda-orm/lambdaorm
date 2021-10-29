@@ -1,12 +1,15 @@
-import { SchemaHelper } from '../schema/schemaHelper'
-import { DialectMetadata } from './dialectMetadata'
-import { Query, Delta, Index, IOrm, Database, Relation, Property } from '../model'
+import { SchemaHelper } from '../database'
+import { ConfigManager } from './../manager'
+import { LanguageManager, DialectMetadata } from '../language'
+import { Query, Delta, Index, Database, Relation, Property } from '../model'
 
 export class SchemaBuilder {
-	private orm: IOrm
+	private languageManager: LanguageManager
+	private configManager: ConfigManager
 	public database: Database
-	constructor (orm:IOrm, database: Database) {
-		this.orm = orm
+	constructor (configManager: ConfigManager, languageManager:LanguageManager, database: Database) {
+		this.configManager = configManager
+		this.languageManager = languageManager
 		this.database = database
 	}
 
@@ -18,7 +21,7 @@ export class SchemaBuilder {
 			const entityName = entities[p]
 			const entity = schema.entity[entityName]
 			const database = this.getDatabase(entityName)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			if (entity.relation) {
 				for (const name in entity.relation) {
 					const relation = entity.relation[name] as Relation
@@ -34,7 +37,7 @@ export class SchemaBuilder {
 			const entityName = entities[p]
 			const entity = schema.entity[entityName]
 			const database = this.getDatabase(entityName)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			if (entity.index) {
 				for (const name in entity.index) {
 					const query = this.builder(database.dialect).dropIndex(metadata.name, entity, entity.index[name], metadata)
@@ -52,7 +55,7 @@ export class SchemaBuilder {
 		for (const name in schema.entity) {
 			const entity = schema.entity[name]
 			const database = this.getDatabase(name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			const query = this.builder(database.dialect).truncateEntity(database.name, entity, metadata)
 			queries.push(query)
 		}
@@ -66,7 +69,7 @@ export class SchemaBuilder {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
 			const database = this.getDatabase(entityChanged.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'primaryKey') {
@@ -111,7 +114,7 @@ export class SchemaBuilder {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
 			const database = this.getDatabase(entityChanged.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
@@ -160,7 +163,7 @@ export class SchemaBuilder {
 		for (const name in delta.remove) {
 			const removeEntity = delta.remove[name].old
 			const database = this.getDatabase(removeEntity.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 
 			if (removeEntity.index) {
 				for (const indexName in removeEntity.index) {
@@ -179,7 +182,7 @@ export class SchemaBuilder {
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new
 			const database = this.getDatabase(newEntity.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			const query = this.builder(database.dialect).createEntity(database.name, newEntity, metadata)
 			queries.push(query)
 			// const sentence = this.createTable(newEntity, metadata)
@@ -190,7 +193,7 @@ export class SchemaBuilder {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
 			const database = this.getDatabase(entityChanged.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'property') {
@@ -226,7 +229,7 @@ export class SchemaBuilder {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
 			const database = this.getDatabase(entityChanged.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'property') {
@@ -246,7 +249,7 @@ export class SchemaBuilder {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
 			const database = this.getDatabase(entityChanged.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'primaryKey') {
@@ -301,7 +304,7 @@ export class SchemaBuilder {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
 			const database = this.getDatabase(entityChanged.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'index') {
@@ -355,7 +358,7 @@ export class SchemaBuilder {
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new
 			const database = this.getDatabase(newEntity.name)
-			const metadata = this.orm.language.dialectMetadata(database.dialect)
+			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			if (newEntity.index) {
 				for (const name in newEntity.index) {
 					const query = this.builder(database.dialect).createIndex(database.name, newEntity, newEntity.index[name], metadata)
@@ -379,18 +382,20 @@ export class SchemaBuilder {
 		return queries
 	}
 
+	// TODO: Cambiar , la base de datos debe estar especificado directamente en la entidad en el schema
+	// es para simplificar su comprension y uso
 	private getDatabase (entity: string): Database {
 		if (entity !== undefined && this.database.externals !== undefined) {
 			const external = this.database.externals.find(p => p.entities.includes(entity))
 			if (external !== undefined) {
-				return this.orm.database.get(external.name)
+				return this.configManager.database.get(external.name)
 			}
 		}
 		return this.database
 	}
 
 	private builder (dialect:string):LanguageSchemaBuilder {
-		return this.orm.language.schemaBuilder(dialect)
+		return this.languageManager.schemaBuilder(dialect)
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {

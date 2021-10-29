@@ -1,15 +1,15 @@
 
 import { Node, Model } from '../parser/index'
-import { Context, Delta, Query, Include } from './../model'
-import { SchemaHelper } from '../schema/schemaHelper'
+import { Context, Query, Include } from './../model'
+import { SchemaHelper } from '../database'
 import { Language } from './language'
 import { OperandManager } from './operandManager'
 import { Operand, Sentence } from './operands'
 import { OperandMetadata } from './operandMetadata'
 import { Library } from './library'
 import { DialectMetadata } from './dialectMetadata'
-import { LanguageQueryBuilder } from './queryBuilder'
-import { LanguageSchemaBuilder } from './iSchemaBuilder'
+import { LanguageQueryBuilder } from '../manager/queryBuilder'
+import { LanguageSchemaBuilder } from '../manager/schemaBuilder'
 
 export class LanguageManager {
 	public dialects:any

@@ -1,7 +1,7 @@
 
 import { Node } from '../parser/index'
 import { Property, Parameter, Context } from './../model'
-import { SchemaHelper } from '../schema/schemaHelper'
+import { SchemaHelper } from '../database'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
 	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,

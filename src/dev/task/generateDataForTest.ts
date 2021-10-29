@@ -19,7 +19,7 @@ async function exec (fn: any) {
 	return result
 }
 
-async function writeTest (dialects: string[], databases: string[], category: CategoryTest): Promise<number> {
+async function writeTest (databases: string[], category: CategoryTest): Promise<number> {
 	category.errors = 0
 	for (const q in category.test) {
 		const expressionTest = category.test[q] as ExpressionTest
@@ -33,12 +33,13 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 			const metadata: any = await orm.expression(expressionTest.expression).metadata(category.schema)
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
-			for (const r in dialects) {
-				const dialect = dialects[r]
+			for (const r in databases) {
+				const database = databases[r]
+				const dialect = orm.dialect(database)
 				let sentence
 				let error
 				try {
-					sentence = await orm.expression(expressionTest.expression).sentence(dialect, category.schema)
+					sentence = await orm.expression(expressionTest.expression).sentence(database)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -105,8 +106,8 @@ async function writeTest (dialects: string[], databases: string[], category: Cat
 	}
 	return category.errors
 }
-async function writeQueryTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeQueryTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'query',
 		schema: 'northwind',
 		context: {
@@ -138,8 +139,8 @@ async function writeQueryTest (dialects: string[], databases: string[]): Promise
 		]
 	})
 }
-async function writeNumeriFunctionsTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeNumeriFunctionsTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'numeric functions',
 		schema: 'northwind',
 		context: { a: { id: 1 } },
@@ -163,8 +164,8 @@ async function writeNumeriFunctionsTest (dialects: string[], databases: string[]
 			]
 	})
 }
-async function writeGroupByTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeGroupByTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'groupBy',
 		schema: 'northwind',
 		context: { a: { id: 1 } },
@@ -183,8 +184,8 @@ async function writeGroupByTest (dialects: string[], databases: string[]): Promi
 			]
 	})
 }
-async function writeIncludeTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeIncludeTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'include',
 		schema: 'northwind',
 		context: { a: { id: 1 } },
@@ -201,8 +202,8 @@ async function writeIncludeTest (dialects: string[], databases: string[]): Promi
 			]
 	})
 }
-async function writeInsertsTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeInsertsTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'inserts',
 		schema: 'northwind',
 		context: {
@@ -257,8 +258,8 @@ async function writeInsertsTest (dialects: string[], databases: string[]): Promi
 			]
 	})
 }
-async function writeUpdateTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeUpdateTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'update',
 		schema: 'northwind',
 		context: {
@@ -560,8 +561,8 @@ async function writeUpdateTest (dialects: string[], databases: string[]): Promis
 			]
 	})
 }
-async function writeDeleteTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeDeleteTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'delete',
 		schema: 'northwind',
 		context: {
@@ -718,8 +719,8 @@ async function writeDeleteTest (dialects: string[], databases: string[]): Promis
 	})
 }
 // TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details)
-async function writeBulkInsertTest (dialects: string[], databases: string[]): Promise<number> {
-	return await writeTest(dialects, databases, {
+async function writeBulkInsertTest (databases: string[]): Promise<number> {
+	return await writeTest(databases, {
 		name: 'bulkInsert',
 		schema: 'northwind',
 		context: {
@@ -983,16 +984,15 @@ async function bulkInsert2 () {
 export async function apply (databases: string[], callback: any) {
 	await orm.init()
 	let errors = 0
-	const dialects = Object.values(orm.language.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)// ['mysql','postgres','mssql','oracle']
 
-	errors = +await writeQueryTest(dialects, databases)
-	errors = +await writeNumeriFunctionsTest(dialects, databases)
-	errors = +await writeGroupByTest(dialects, databases)
-	errors = +await writeIncludeTest(dialects, databases)
-	errors = +await writeInsertsTest(dialects, databases)
-	errors = +await writeUpdateTest(dialects, databases)
-	errors = +await writeDeleteTest(dialects, databases)
-	errors = +await writeBulkInsertTest(dialects, databases)
+	errors = +await writeQueryTest(databases)
+	errors = +await writeNumeriFunctionsTest(databases)
+	errors = +await writeGroupByTest(databases)
+	errors = +await writeIncludeTest(databases)
+	errors = +await writeInsertsTest(databases)
+	errors = +await writeUpdateTest(databases)
+	errors = +await writeDeleteTest(databases)
+	errors = +await writeBulkInsertTest(databases)
 	// //operators comparation , matematica
 	// //string functions
 	// //datetime functions

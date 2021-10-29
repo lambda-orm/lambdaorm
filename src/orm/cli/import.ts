@@ -45,7 +45,7 @@ export class ImportCommand implements CommandModule {
 			}
 			// import data
 			const data = JSON.parse(content)
-			await orm.database.import(db.name, data)
+			await orm.database.import(db.name).execute(data)
 		} catch (error) {
 			console.error(`error: ${error}`)
 		} finally {

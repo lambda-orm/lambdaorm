@@ -1,25 +1,30 @@
-import { SchemaData, SchemaEntityExpression } from './schemaData'
-import { SchemaActionDML } from './schemaActionDML'
 
-export class SchemaImport extends SchemaActionDML {
-	public async execute (data:SchemaData, mapping:any, pendings:any[], database:string):Promise<void> {
-		const schemaExpression = this.build(this.schema)
-		const entitiesExpression = this.sort(schemaExpression.entities)
-		await this.orm.transaction(database, async (tr) => {
+import { SchemaData, SchemaEntityExpression } from './schemaData'
+import { DatabaseActionDML } from './databaseActionDML'
+import { SchemaHelper } from './schemaHelper'
+
+export class DatabaseImport extends DatabaseActionDML {
+	public async execute (data: SchemaData): Promise<void> {
+		const state = await this.state.get(this.database.name)
+		const schema = await this.getSchema()
+		const schemaExpression = this.build(schema)
+		const entitiesExpression = this.sort(schema, schemaExpression.entities)
+
+		await this.executor.transaction(this.database, async (tr) => {
 			for (let i = 0; i < entitiesExpression.length; i++) {
 				const entityExpression = entitiesExpression[i]
 				const entityData = data.entities.find(p => p.entity === entityExpression.entity)
 				if (entityData) {
 					const aux:any = {}
-					this.loadExternalIds(entityData.entity, entityData.rows, aux)
-					this.solveInternalsIds(entityData.entity, entityData.rows, mapping, pendings)
+					this.loadExternalIds(schema, entityData.entity, entityData.rows, aux)
+					this.solveInternalsIds(schema, entityData.entity, entityData.rows, state.mapping, state.pendings)
 					await tr.expression(entityExpression.expression, entityData.rows)
-					this.completeMapping(entityData.entity, entityData.rows, aux, mapping)
+					this.completeMapping(schema, entityData.entity, entityData.rows, aux, state.mapping)
 				}
 			}
-			for (let i = 0; i < pendings.length; i++) {
-				const pending = pendings[i]
-				const entity = this.schema.getEntity(pending.entity)
+			for (let i = 0; i < state.pendings.length; i++) {
+				const pending = state.pendings[i]
+				const entity = schema.getEntity(pending.entity)
 				const relation = entity.relation[pending.relation]
 
 				if (!entity.uniqueKey || entity.uniqueKey.length === 0) {
@@ -34,9 +39,9 @@ export class SchemaImport extends SchemaActionDML {
 				const stillPending:any[] = []
 				for (let j = 0; j < pending.rows.length; j++) {
 					const row = pending.rows[j]
-					if (mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][row.externalId]) {
+					if (state.mapping[relation.entity] && state.mapping[relation.entity][relation.to] && state.mapping[relation.entity][relation.to][row.externalId]) {
 						const values:any = {}
-						const internalId = mapping[relation.entity][relation.to][row.externalId]
+						const internalId = state.mapping[relation.entity][relation.to][row.externalId]
 						values[relation.from] = internalId
 						for (const p in entity.uniqueKey) { values[entity.uniqueKey[p]] = row.keys[p] }
 						await tr.expression(expression, values)
@@ -47,14 +52,15 @@ export class SchemaImport extends SchemaActionDML {
 				pending.rows = stillPending
 			}
 		})
+		await this.state.updateData(this.database.name, state.mapping, state.pending)
 	}
 
-	protected solveInternalsIds (entityName:string, rows:any[], mapping:any, pendings:any[], parentEntity?:string):void {
-		const entity = this.schema.getEntity(entityName)
+	protected solveInternalsIds (schema:SchemaHelper, entityName:string, rows:any[], mapping:any, pendings:any[], parentEntity?:string):void {
+		const entity = schema.getEntity(entityName)
 		for (const p in entity.relation) {
 			const relation = entity.relation[p]
 			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
-				const relationEntity = this.schema.getEntity(relation.entity)
+				const relationEntity = schema.getEntity(relation.entity)
 				if (relationEntity.property[relation.to].autoincrement) {
 					const pendingsRows:any[] = []
 					for (let i = 0; i < rows.length; i++) {
@@ -88,16 +94,16 @@ export class SchemaImport extends SchemaActionDML {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]
-					this.solveInternalsIds(relation.entity, childs, mapping, pendings, entityName)
+					this.solveInternalsIds(schema, relation.entity, childs, mapping, pendings, entityName)
 				}
 			}
 		}
 	}
 
-	protected loadExternalIds (entityName:string, rows:any[], aux:any):void {
+	protected loadExternalIds (schema:SchemaHelper, entityName:string, rows:any[], aux:any):void {
 		if (!aux)aux = {}
 		if (aux[entityName] === undefined)aux[entityName] = {}
-		const entity = this.schema.getEntity(entityName)
+		const entity = schema.getEntity(entityName)
 		for (const p in entity.property) {
 			const property = entity.property[p]
 			if (property.autoincrement) {
@@ -114,15 +120,15 @@ export class SchemaImport extends SchemaActionDML {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]
-					this.loadExternalIds(relation.entity, childs, aux)
+					this.loadExternalIds(schema, relation.entity, childs, aux)
 				}
 			}
 		}
 	}
 
-	protected completeMapping (entityName:string, rows:any[], aux:any, mapping:any):void {
+	protected completeMapping (schema:SchemaHelper, entityName:string, rows:any[], aux:any, mapping:any):void {
 		if (mapping[entityName] === undefined)mapping[entityName] = {}
-		const entity = this.schema.getEntity(entityName)
+		const entity = schema.getEntity(entityName)
 		for (const p in entity.property) {
 			const property = entity.property[p]
 			if (property.autoincrement) {
@@ -140,15 +146,15 @@ export class SchemaImport extends SchemaActionDML {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]
-					this.completeMapping(relation.entity, childs, aux, mapping)
+					this.completeMapping(schema, relation.entity, childs, aux, mapping)
 				}
 			}
 		}
 	}
 
-	protected sort (entitiesExpression:SchemaEntityExpression[]):SchemaEntityExpression[] {
+	protected sort (schema:SchemaHelper, entitiesExpression:SchemaEntityExpression[]):SchemaEntityExpression[] {
 		let entities = entitiesExpression.map(p => p.entity)
-		entities = this.schema.sortEntities(entities)
+		entities = schema.sortEntities(entities)
 		const result:SchemaEntityExpression[] = []
 		for (let i = 0; i < entities.length; i++) {
 			result.push(entitiesExpression.find(p => p.entity === entities[i]) as SchemaEntityExpression)
@@ -156,8 +162,8 @@ export class SchemaImport extends SchemaActionDML {
 		return result
 	}
 
-	protected createEntityExpression (entity:any):SchemaEntityExpression {
-		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
+	protected createEntityExpression (schema:SchemaHelper, entity:any):SchemaEntityExpression {
+		const expression = `${entity.name}.bulkInsert()${this.createInclude(schema, entity)}`
 		return { entity: entity.name, expression: expression }
 	}
 }

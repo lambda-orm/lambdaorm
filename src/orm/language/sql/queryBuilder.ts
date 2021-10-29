@@ -4,7 +4,7 @@ import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
 	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete
 } from './../operands'
-import { LanguageQueryBuilder } from '../queryBuilder'
+import { LanguageQueryBuilder } from '../../manager/queryBuilder'
 import { DialectMetadata } from '../dialectMetadata'
 import { Query } from './../../model'
 const SqlString = require('sqlstring')

@@ -1,54 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Property, Relation, Index, Delta, Query } from './../../model'
 import { LanguageSchemaBuilder } from '../'
-import { SchemaHelper } from '../../schema/schemaHelper'
+import { SchemaHelper } from '../../database'
 import { DialectMetadata } from '../dialectMetadata'
 
 export class SqlSchemaBuilder extends LanguageSchemaBuilder {
-	// public drop (metadata:DialectMetadata, schema:SchemaHelper):Query[] {
-	// const entities = schema.sortEntities().reverse()
-	// const queries:Query[] = []
-	// // drop all constraint
-	// for (const p in entities) {
-	// const entityName = entities[p]
-	// const entity = schema.entity[entityName]
-	// if (entity.relation) {
-	// for (const name in entity.relation) {
-	// const relation = entity.relation[name] as Relation
-	// if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-	// const sentence = this.dropFk(entity, relation, metadata)
-	// queries.push(new Query('dropFK', [], metadata.name, sentence, entity))
-	// }
-	// }
-	// }
-	// }
-	// // drop indexes and tables
-	// for (const p in entities) {
-	// const entityName = entities[p]
-	// const entity = schema.entity[entityName]
-	// if (entity.index) {
-	// for (const name in entity.index) {
-	// const sentence = this.dropIndex(entity, entity.index[name], metadata)
-	// queries.push(new Query('dropIndex', [], metadata.name, sentence, entity))
-	// }
-	// }
-	// const sentence = this.dropEntity(entity, metadata)
-	// queries.push(new Query('dropTable', [], metadata.name, sentence, entity))
-	// }
-	// return queries
-	// }
-
-	// public truncate (metadata:DialectMetadata, schema:SchemaHelper):Query[] {
-	// // const metadata = this.language.dialects[dialect] as DialectMetadata
-	// const queries:Query[] = []
-	// for (const name in schema.entity) {
-	// const entity = schema.entity[name]
-	// const sentence = this.truncateTable(entity, metadata)
-	// queries.push(new Query('truncate', [], metadata.name, sentence, entity))
-	// }
-	// return queries
-	// }
-
 	public truncateEntity (database:string, entity:any, metadata:DialectMetadata):Query {
 		let text = metadata.ddl('truncateTable')
 		text = text.replace('{name}', metadata.delimiter(entity.mapping))

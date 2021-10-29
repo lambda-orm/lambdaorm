@@ -17,7 +17,7 @@ async function schemaImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
-	await orm.database.import(target, data)
+	await orm.database.import(target).execute(data)
 }
 
 export async function apply (databases: string[], callback: any) {

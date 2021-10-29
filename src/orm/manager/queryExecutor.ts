@@ -1,15 +1,18 @@
 
-import { Context, Parameter, Include, Query, Database, IOrm } from '../model'
-import { Connection } from '../connection'
+import { Context, Parameter, Include, Query, Database } from '../model'
+import { Connection, ConnectionManager } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
+import { LanguageManager } from 'orm/language'
 
 export class QueryExecutor {
-	private orm: IOrm
 	public database: Database
+	private languageManager: LanguageManager
+	private connectionManager: ConnectionManager
 	private connections: any
 	private transactionable:boolean
-	constructor (orm:IOrm, database: Database, transactionable = false) {
-		this.orm = orm
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, database: Database, transactionable = false) {
+		this.connectionManager = connectionManager
+		this.languageManager = languageManager
 		this.database = database
 		this.transactionable = transactionable
 		this.connections = {}
@@ -18,7 +21,7 @@ export class QueryExecutor {
 	private async getConnection (database: string): Promise<Connection> {
 		const connection = this.connections[database]
 		if (connection === undefined) {
-			const connection = await this.orm.connection.acquire(database)
+			const connection = await this.connectionManager.acquire(database)
 			if (this.transactionable) {
 				await connection.beginTransaction()
 			}
@@ -32,7 +35,7 @@ export class QueryExecutor {
 			for (const p in this.connections) {
 				const connection = this.connections[p]
 				await connection.commit()
-				await this.orm.connection.release(connection)
+				await this.connectionManager.release(connection)
 			}
 		}
 	}
@@ -42,7 +45,7 @@ export class QueryExecutor {
 			for (const p in this.connections) {
 				const connection = this.connections[p]
 				await connection.rollback()
-				await this.orm.connection.release(connection)
+				await this.connectionManager.release(connection)
 			}
 		}
 	}
@@ -55,7 +58,7 @@ export class QueryExecutor {
 	protected async _execute (query:Query, context:Context):Promise<any> {
 		let result: any
 		const connection = await this.getConnection(query.database)
-		const metadata = this.orm.language.dialectMetadata(query.dialect)
+		const metadata = this.languageManager.dialectMetadata(query.dialect)
 		switch (query.name) {
 		case 'select': result = await this.select(query, context, metadata, connection); break
 		case 'insert': result = await this.insert(query, context, metadata, connection); break

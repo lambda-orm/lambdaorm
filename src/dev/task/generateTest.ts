@@ -111,7 +111,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 }
 
 export async function apply (dataForTestPath: string, databases: string[], callback: any) {
-	const dialects = Object.values(orm.language.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)
+	const dialects = Object.values(orm.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)
 	const testData = await ConfigExtends.apply(dataForTestPath)
 	for (const k in testData) {
 		await writeUnitTest(dialects, testData[k])

@@ -1,21 +1,22 @@
-import { IOrm, Context, Query } from '../model'
-import { QueryExecutor } from './../manager/queryExecutor'
+import { Context, Query } from '../model'
+import { QueryExecutor, ExpressionManager } from '.'
 
 export class Transaction {
-	private orm:IOrm
+	private expressionManager:ExpressionManager
 	private queryExecutor:QueryExecutor
-	constructor (orm: IOrm, queryExecutor: QueryExecutor) {
-		this.orm = orm
+	constructor (expressionManager: ExpressionManager, queryExecutor: QueryExecutor) {
+		this.expressionManager = expressionManager
 		this.queryExecutor = queryExecutor
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public async lambda (lambda:Function, context:any):Promise<any> {
-		return await this.expression(this.orm.lambda(lambda).expression, context)
+	public async lambda (lambda: Function, context: any): Promise<any> {
+		const expression = this.expressionManager.toExpression(lambda)
+		return await this.expression(expression, context)
 	}
 
 	public async expression (expression:string, context:any):Promise<any> {
-		const query = await this.orm.query(expression, this.queryExecutor.database.name)
+		const query = await this.expressionManager.toQuery(expression, this.queryExecutor.database.name)
 		return await this.execute(query, context)
 	}
 
