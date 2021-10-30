@@ -1,5 +1,5 @@
 name: delete
-schema: northwind
+database: source
 context:
   a:
     id: 9
@@ -119,16 +119,8 @@ test:
   - name: delete 1
     context: a
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
-      - dialect: mssql
-        sentence: 'DELETE FROM [Order Details] o WHERE o.OrderID = @id '
-      - dialect: mysql
-        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
-      - dialect: oracle
-        sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = :id '
-      - dialect: postgres
-        sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = $1 '
     errors: 0
     expression: OrderDetails.delete().filter(p=>(p.orderId===id))
     completeExpression: OrderDetails.delete().filter(p=>(p.orderId===id))
@@ -140,41 +132,16 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 1
   - name: delete 2
     context: b
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           DELETE o FROM Orders AS o WHERE o.OrderID = ? 
 
           DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
           o1.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = @id 
-
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
-          o1.ProductID = @productId) 
-      - dialect: mysql
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
-      - dialect: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
     errors: 0
     expression: Orders.delete().include(p=>p.details)
     completeExpression: >-
@@ -189,41 +156,16 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 1
   - name: delete 3
     context: c
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           DELETE o FROM Orders AS o WHERE o.OrderID = ? 
 
           DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
           o1.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = @id 
-
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
-          o1.ProductID = @productId) 
-      - dialect: mysql
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
-      - dialect: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
     errors: 0
     expression: Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)
     completeExpression: >-
@@ -238,41 +180,16 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 1
   - name: delete 4
     context: d
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           DELETE o FROM Orders AS o WHERE o.OrderID = ? 
 
           DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
           o1.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = @id 
-
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
-          o1.ProductID = @productId) 
-      - dialect: mysql
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :id 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
-      - dialect: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
     errors: 0
     expression: Orders.delete().include(p=>p.details)
     completeExpression: >-
@@ -287,31 +204,14 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 1
   - name: delete 4
     context: d
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
           o.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          DELETE FROM [Order Details] o WHERE (o.OrderID = @entity.orderId AND
-          o.ProductID = @entity.productId) 
-      - dialect: mysql
-        sentence: >-
-          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
-          o.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          DELETE FROM "Order Details" o WHERE (o.OrderID = :entity.orderId AND
-          o.ProductID = :entity.productId) 
-      - dialect: postgres
-        sentence: >-
-          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
-          $2) 
     errors: 0
     expression: OrderDetails.delete(entity)
     completeExpression: >-
@@ -327,41 +227,16 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 0
   - name: delete 5
     context: e
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           DELETE o FROM Orders AS o WHERE o.OrderID = ? 
 
           DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
           o1.ProductID = ?) 
-      - dialect: mssql
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = @entity.id 
-
-          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
-          o1.ProductID = @productId) 
-      - dialect: mysql
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - dialect: oracle
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = :entity.id 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = :orderId AND
-          o1.ProductID = :productId) 
-      - dialect: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
     errors: 0
     expression: Orders.delete(entity).include(p=>p.details)
     completeExpression: >-
@@ -376,20 +251,11 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 0
   - name: delete 6
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: 'DELETE o FROM `Order Details` AS o '
-      - dialect: mssql
-        sentence: 'DELETE FROM [Order Details] o '
-      - dialect: mysql
-        sentence: 'DELETE o FROM `Order Details` AS o '
-      - dialect: oracle
-        sentence: 'DELETE FROM "Order Details" o '
-      - dialect: postgres
-        sentence: 'DELETE FROM "Order Details" o '
     errors: 0
     expression: OrderDetails.deleteAll()
     completeExpression: OrderDetails.delete()
@@ -398,6 +264,5 @@ test:
     fields: []
     executions:
       - database: mysql
-      - database: postgres
     result: 2154
 errors: 0

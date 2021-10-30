@@ -23,10 +23,12 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 	category.errors = 0
 	for (const q in category.test) {
 		const expressionTest = category.test[q] as ExpressionTest
+
 		expressionTest.sentences = []
 		expressionTest.errors = 0
 		try {
 			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
+			console.log(expressionTest.expression)
 			// expressionTest.lambda = expressionTest.lambda.toString()
 			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.database)
 			expressionTest.model = await orm.expression(expressionTest.expression).model(category.database)
@@ -35,7 +37,6 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 			expressionTest.fields = metadata.f
 			for (const r in databases) {
 				const database = databases[r]
-				const dialect = orm.dialect(database)
 				let sentence
 				let error
 				try {
@@ -44,9 +45,13 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.sentences.push({ dialect: dialect, error: error })
+						expressionTest.sentences.push({ database: database, error: error })
 						expressionTest.errors++
-					} else if (sentence !== undefined) { expressionTest.sentences.push({ dialect: dialect, sentence: sentence }) } else { console.error('error sentence ' + dialect + ' ' + category.name + ':' + expressionTest.name) }
+					} else if (sentence !== undefined) {
+						expressionTest.sentences.push({ database: database, sentence: sentence })
+					} else {
+						console.error('error sentence ' + database + ' ' + category.name + ':' + expressionTest.name)
+					}
 				}
 			}
 			expressionTest.executions = []
@@ -1009,4 +1014,5 @@ export async function apply (databases: string[], callback: any) {
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-// apply(['mysql', 'postgres'], function () { console.log('end')})
+apply(['mysql'], function () { console.log('end') })
+// apply(['mysql', 'postgres'], function () { console.log('end') })

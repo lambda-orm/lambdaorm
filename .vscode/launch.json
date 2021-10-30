@@ -263,26 +263,26 @@
 			"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
-		{
-			"name": "generate data for test",
-			"type": "node",
-			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"generate-data-for-test"
-			],
-			"stopOnEntry": false
-		},
 		// {
 		// 	"name": "generate data for test",
 		// 	"type": "node",
 		// 	"request": "launch",
-		// 	"skipFiles": [
-		// 		"<node_internals>/**"
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate-data-for-test"
 		// 	],
-		// 	"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
-		// 	"envFile": "${workspaceFolder}/test.env"
+		// 	"stopOnEntry": false
 		// },
+		{
+			"name": "generate data for test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
 		// {
 		// 	"name": "generate test",
 		// 	"type": "node",

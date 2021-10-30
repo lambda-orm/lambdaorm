@@ -10,7 +10,7 @@ export interface ExecutionResult {
 	result?: any
 }
 export interface SentenceTest {
-	dialect: string
+	database: string
 	sentence?: any
 	error?: string
 }

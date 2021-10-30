@@ -52,7 +52,14 @@ export class QueryExecutor {
 
 	public async execute (query: Query, context: any = {}): Promise<any> {
 		const _context = new Context(context)
-		return await this._execute(query, _context)
+		const result = await this._execute(query, _context)
+		if (!this.transactionable) {
+			for (const p in this.connections) {
+				const connection = this.connections[p]
+				await this.connectionManager.release(connection)
+			}
+		}
+		return result
 	}
 
 	protected async _execute (query:Query, context:Context):Promise<any> {

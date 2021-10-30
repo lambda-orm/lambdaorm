@@ -2,7 +2,7 @@
 import { Cache, IOrm, Config } from './model'
 import { Model } from './parser/index'
 import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatabaseFacade, Executor, ConfigManager } from './manager'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, ConnectionConfig } from './connection'
+import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager, Language } from './language'
 import { SqlQueryBuilder, SqlSchemaBuilder } from './language/sql'
 // import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'

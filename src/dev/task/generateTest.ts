@@ -5,7 +5,7 @@ import fs from 'fs'
 import path from 'path'
 const ConfigExtends = require('config-extends')
 
-async function writeUnitTest (dialects: string[], category: CategoryTest): Promise<void> {
+async function writeUnitTest (databases: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 	lines.push('import { orm,Helper } from \'../../orm\'')
 	lines.push('beforeAll(async () => {')
@@ -50,16 +50,16 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 		if (expTest.expression && expTest.completeExpression) {
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
-			for (const r in dialects) {
-				const dialect = dialects[r]
+			for (const r in databases) {
+				const database = databases[r]
 				if (expTest.sentences !== undefined) {
-					let sentence = expTest.sentences.find(p => p.dialect === dialect && p.error === undefined)?.sentence
+					let sentence = expTest.sentences.find(p => p.database === database && p.error === undefined)?.sentence
 					sentence = Helper.replace(sentence, '\n', '; ')
 					if (sentence) {
-						lines.push(`\t\tconst ${dialect}Expected = '${sentence}'`)
-						lines.push(`\t\tlet ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.database}')`)
-						lines.push(`\t\t${dialect}=Helper.replace(${dialect},'\\n','; ')`)
-						lines.push(`\t\texpect(${dialect}Expected).toBe(${dialect})`)
+						lines.push(`\t\tconst ${database}Expected = '${sentence}'`)
+						lines.push(`\t\tlet ${database} =  await orm.expression(expression).sentence('${database}')`)
+						lines.push(`\t\t${database}=Helper.replace(${database},'\\n','; ')`)
+						lines.push(`\t\texpect(${database}Expected).toBe(${database})`)
 					}
 				}
 			}
@@ -111,10 +111,9 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 }
 
 export async function apply (dataForTestPath: string, databases: string[], callback: any) {
-	const dialects = Object.values(orm.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)
 	const testData = await ConfigExtends.apply(dataForTestPath)
 	for (const k in testData) {
-		await writeUnitTest(dialects, testData[k])
+		await writeUnitTest(databases, testData[k])
 		await writeIntegrationTest(databases, testData[k])
 	}
 	callback()
