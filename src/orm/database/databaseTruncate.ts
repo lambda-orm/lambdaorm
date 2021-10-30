@@ -2,7 +2,7 @@ import { Query, Schema } from '../model/index'
 import { SchemaHelper } from './schemaHelper'
 import { ExecutionResult } from '../connection'
 import { DatabaseActionDDL } from './databaseActionDDL'
-import { SchemaBuilder } from 'orm/language'
+import { SchemaBuilder } from './../manager/schemaBuilder'
 
 export class DatabaseTruncate extends DatabaseActionDDL {
 	public async queries (): Promise<Query[]> {

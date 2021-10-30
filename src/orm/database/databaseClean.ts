@@ -1,7 +1,7 @@
 import { Query, Schema } from '../model/index'
 import { ExecutionResult } from '../connection'
 import { DatabaseActionDDL } from './databaseActionDDL'
-import { SchemaBuilder } from 'orm/language'
+import { SchemaBuilder } from './../manager/schemaBuilder'
 import { SchemaHelper } from './schemaHelper'
 export class DatabaseClean extends DatabaseActionDDL {
 	public async queries (): Promise<Query[]> {

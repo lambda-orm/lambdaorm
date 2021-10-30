@@ -129,6 +129,7 @@ export class ExpressionCompleter {
 				compleInclude = this.completeMapInclude
 				clauses.map = clauses.take
 				clauses.map.name = 'map'
+				this.completeMapNode(entity, clauses.map, schema)
 				if (!clauses.page) {
 					const constPage = new Node('1', 'const', [])
 					const constRecords = new Node('1', 'const', [])

@@ -95,8 +95,7 @@ export class Orm implements IOrm {
 		if (connect && config.databases) {
 			for (const p in config.databases) {
 				const database = config.databases[p]
-				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
-				this.connectionManager.load(connectionConfig)
+				this.connectionManager.load(database)
 			}
 		}
 		await this.connectionManager.init()

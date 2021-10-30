@@ -19,9 +19,9 @@ export class QueryExecutor {
 	}
 
 	private async getConnection (database: string): Promise<Connection> {
-		const connection = this.connections[database]
+		let connection = this.connections[database]
 		if (connection === undefined) {
-			const connection = await this.connectionManager.acquire(database)
+			connection = await this.connectionManager.acquire(database)
 			if (this.transactionable) {
 				await connection.beginTransaction()
 			}

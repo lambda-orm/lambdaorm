@@ -11,7 +11,7 @@ export class ExpressionActions {
 	}
 
 	public async execute (expresion: string, data:any): Promise<any> {
-		return this.orm.expression(`${this.name}${expresion}`).execute(data, this.database)
+		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.database)
 	}
 
 	public complete (expresion: string): string {

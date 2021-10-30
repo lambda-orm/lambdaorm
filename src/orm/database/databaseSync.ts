@@ -2,7 +2,7 @@ import { Schema, Query } from '../model/index'
 import { SchemaHelper } from './schemaHelper'
 import { ExecutionResult } from '../connection'
 import { Helper } from './../helper'
-import { SchemaBuilder } from 'orm/language'
+import { SchemaBuilder } from './../manager/schemaBuilder'
 import { DatabaseActionDDL } from './databaseActionDDL'
 
 export class DatabaseSync extends DatabaseActionDDL {
