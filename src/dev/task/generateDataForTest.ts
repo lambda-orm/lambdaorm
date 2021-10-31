@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm } from '../../orm'
-import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from '../../models/northwind'
+import { orm } from './../../orm'
+import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from './../../models/northwind'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')

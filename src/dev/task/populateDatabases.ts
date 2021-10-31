@@ -1,4 +1,4 @@
-import { orm, Helper } from '../../orm'
+import { orm, Helper } from './../../orm'
 
 async function schemaSync (target: string) {
 	await orm.database.sync(target).execute()
