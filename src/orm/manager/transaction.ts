@@ -1,5 +1,5 @@
-import { Context, Query } from '../model'
-import { QueryExecutor, ExpressionManager } from '.'
+import { Context, Query } from './../model'
+import { QueryExecutor, ExpressionManager } from './'
 
 export class Transaction {
 	private expressionManager:ExpressionManager

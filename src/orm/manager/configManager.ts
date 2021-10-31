@@ -1,6 +1,6 @@
 import { SchemaHelper } from './../database'
 import { Helper } from '../helper'
-import { Schema, Entity, Property, Relation, Index, Database, Config } from '../model'
+import { Schema, Entity, Property, Relation, Index, Database, Config } from './../model'
 import { ConnectionConfig } from './../connection'
 
 class SchemaConfig {

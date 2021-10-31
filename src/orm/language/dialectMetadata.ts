@@ -1,4 +1,4 @@
-import { Helper } from '../helper'
+import { Helper } from './../helper'
 
 export class DialectMetadata {
 	public name:string

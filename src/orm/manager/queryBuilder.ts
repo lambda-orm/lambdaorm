@@ -1,7 +1,7 @@
-import { ConfigManager } from '.'
-import { Sentence, LanguageManager } from '../language'
-import { DialectMetadata } from '../language/dialectMetadata'
-import { Query, Database, Include, Entity } from '../model'
+import { ConfigManager } from './'
+import { Sentence, LanguageManager } from './../language'
+import { DialectMetadata } from './../language/dialectMetadata'
+import { Query, Database, Include, Entity } from './../model'
 import { SchemaHelper } from './../database'
 
 export abstract class LanguageQueryBuilder {

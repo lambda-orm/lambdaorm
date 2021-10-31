@@ -1,5 +1,5 @@
 
-import { Executor, ExpressionManager, ConfigManager } from '.'
+import { Executor, ExpressionManager, ConfigManager } from './'
 
 /**
  * Expression Manager

@@ -1,7 +1,7 @@
 
-import { Helper } from '../helper'
-import { Node } from '../parser/index'
-import { SchemaHelper } from '../database'
+import { Helper } from './../helper'
+import { Node } from './../parser/index'
+import { SchemaHelper } from './../database'
 
 /**
  *  Expression completer

@@ -1,6 +1,6 @@
 import path from 'path'
-import { Config, Database, Schema, Entity, IOrm } from '../model'
-import { Helper } from '../helper'
+import { Config, Database, Schema, Entity, IOrm } from './../model'
+import { Helper } from './../helper'
 const ConfigExtends = require('config-extends')
 const yaml = require('js-yaml')
 

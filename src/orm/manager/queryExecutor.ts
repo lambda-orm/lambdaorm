@@ -1,8 +1,8 @@
 
-import { Context, Parameter, Include, Query, Database } from '../model'
-import { Connection, ConnectionManager } from '../connection'
-import { DialectMetadata } from '../language/dialectMetadata'
-import { LanguageManager } from 'orm/language'
+import { Context, Parameter, Include, Query, Database } from './../model'
+import { Connection, ConnectionManager } from './../connection'
+import { DialectMetadata } from './../language/dialectMetadata'
+import { LanguageManager } from './../language'
 
 export class QueryExecutor {
 	public database: Database
@@ -245,6 +245,10 @@ export class QueryExecutor {
 		// remove main entity
 		const changeCount = await connection.delete(query, this.params(query.parameters, metadata, context))
 		return changeCount
+	}
+
+	protected async execute (query:Query, connection:Connection):Promise<any> {		
+		return  await connection.execute(query)
 	}
 
 	protected params (parameters:Parameter[], metadata:DialectMetadata, context:Context):Parameter[] {

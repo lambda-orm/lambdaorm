@@ -1,4 +1,4 @@
-import { Property } from '../model/index'
+import { Property } from './../model/index'
 
 export class SchemaHelper {
 	private _schema:any

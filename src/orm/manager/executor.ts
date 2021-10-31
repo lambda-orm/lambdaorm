@@ -1,8 +1,8 @@
 
-import { Query, Database } from '../model'
-import { ConnectionManager, ExecutionResult, ExecutionSentenceResult } from '../connection'
-import { LanguageManager } from 'orm/language'
-import { ExpressionManager, QueryExecutor, Transaction } from '.'
+import { Query, Database } from './../model/index'
+import { ConnectionManager, ExecutionResult, ExecutionSentenceResult } from './../connection'
+import { LanguageManager } from './../language'
+import { ExpressionManager, QueryExecutor, Transaction } from './'
 
 export class Executor {
 	private languageManager: LanguageManager

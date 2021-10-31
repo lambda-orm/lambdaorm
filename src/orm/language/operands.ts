@@ -1,6 +1,6 @@
 
 import { Context, Property, Parameter } from './../model/index'
-import { Helper } from '../helper'
+import { Helper } from './../helper'
 import { OperandMetadata } from './operandMetadata'
 const SqlString = require('sqlstring')
 

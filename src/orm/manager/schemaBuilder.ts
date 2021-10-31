@@ -1,7 +1,7 @@
 import { SchemaHelper } from '../database'
 import { ConfigManager } from './../manager'
-import { LanguageManager, DialectMetadata } from '../language'
-import { Query, Delta, Index, Database, Relation, Entity, Property } from '../model'
+import { LanguageManager, DialectMetadata } from './../language'
+import { Query, Delta, Index, Database, Relation, Entity, Property } from './../model'
 
 export class SchemaBuilder {
 	private languageManager: LanguageManager
