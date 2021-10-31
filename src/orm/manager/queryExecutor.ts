@@ -72,7 +72,8 @@ export class QueryExecutor {
 		case 'update': result = await this.update(query, context, metadata, connection); break
 		case 'delete': result = await this.delete(query, context, metadata, connection); break
 		case 'bulkInsert': result = await this.bulkInsert(query, context, metadata, connection); break
-		default: throw new Error(`sentence ${query.name} not implemented`)
+		default:
+			result = await connection.execute(query)
 		}
 		return result
 	}
@@ -245,10 +246,6 @@ export class QueryExecutor {
 		// remove main entity
 		const changeCount = await connection.delete(query, this.params(query.parameters, metadata, context))
 		return changeCount
-	}
-
-	protected async execute (query:Query, connection:Connection):Promise<any> {		
-		return  await connection.execute(query)
 	}
 
 	protected params (parameters:Parameter[], metadata:DialectMetadata, context:Context):Parameter[] {
