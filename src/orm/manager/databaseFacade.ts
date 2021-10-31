@@ -30,26 +30,41 @@ export class DatabaseFacade {
 
 	public sync (name:string):DatabaseSync {
 		const database = this.configManager.database.get(name)
+		if (database === undefined) {
+			throw new Error(`not exists ${name} database`)
+		}
 		return new DatabaseSync(this.state, this.configManager, this.expressionManager, this.languageManager, this.executor, database)
 	}
 
 	public clean (name:string):DatabaseClean {
 		const database = this.configManager.database.get(name)
+		if (database === undefined) {
+			throw new Error(`not exists ${name} database`)
+		}
 		return new DatabaseClean(this.state, this.configManager, this.expressionManager, this.languageManager, this.executor, database)
 	}
 
 	public truncate (name:string):DatabaseClean {
 		const database = this.configManager.database.get(name)
+		if (database === undefined) {
+			throw new Error(`not exists ${name} database`)
+		}
 		return new DatabaseTruncate(this.state, this.configManager, this.expressionManager, this.languageManager, this.executor, database)
 	}
 
 	public export (name:string):DatabaseExport {
 		const database = this.configManager.database.get(name)
+		if (database === undefined) {
+			throw new Error(`not exists ${name} database`)
+		}
 		return new DatabaseExport(this.state, this.configManager, this.expressionManager, this.executor, database)
 	}
 
 	public import (name:string):DatabaseImport {
 		const database = this.configManager.database.get(name)
+		if (database === undefined) {
+			throw new Error(`not exists ${name} database`)
+		}
 		return new DatabaseImport(this.state, this.configManager, this.expressionManager, this.executor, database)
 	}
 }

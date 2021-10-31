@@ -13,21 +13,25 @@ async function schemaImport (source: string, target: string) {
 }
 
 export async function apply (databases: string[], callback: any) {
-	await orm.init()
+	try {
+		await orm.init()
 
-	await orm.database.sync('source').execute()
-	await schemaExport('source')
-
-	for (const p in databases) {
-		const database = databases[p]
-		await orm.database.clean(database).execute(true)
-		await orm.database.sync(database).execute()
-		await schemaImport('source', database)
-		await schemaExport(database)
+		// await orm.database.sync('source').execute()
+		// await schemaExport('source')
+		for (const p in databases) {
+			const database = databases[p]
+			await orm.database.clean(database).execute(true)
+			await orm.database.sync(database).execute()
+			await schemaImport('source', database)
+			await schemaExport(database)
+		}
+		await orm.end()
+	} catch (error) {
+		console.error(error)
+	} finally {
+		callback()
 	}
-	await orm.end()
-	callback()
 }
-apply(['mysql'], function () { console.log('end') })
+apply(['postgres'], function () { console.log('end') })
 // apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
 // apply(['mysql'], function () { console.log('end') })
