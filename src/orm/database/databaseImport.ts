@@ -17,13 +17,13 @@ export class DatabaseImport extends DatabaseActionDML {
 				if (entityData) {
 					const aux:any = {}
 					this.loadExternalIds(schema, entityData.entity, entityData.rows, aux)
-					this.solveInternalsIds(schema, entityData.entity, entityData.rows, state.mapping, state.pendings)
+					this.solveInternalsIds(schema, entityData.entity, entityData.rows, state.mapping, state.pending)
 					await tr.execute(query, entityData.rows)
 					this.completeMapping(schema, entityData.entity, entityData.rows, aux, state.mapping)
 				}
 			}
-			for (let i = 0; i < state.pendings.length; i++) {
-				const pending = state.pendings[i]
+			for (let i = 0; i < state.pending.length; i++) {
+				const pending = state.pending[i]
 				const entity = schema.getEntity(pending.entity)
 				const relation = entity.relation[pending.relation]
 
@@ -94,7 +94,9 @@ export class DatabaseImport extends DatabaseActionDML {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]
-					this.solveInternalsIds(schema, relation.entity, childs, mapping, pendings, entityName)
+					if (childs && childs.length > 1) {
+						this.solveInternalsIds(schema, relation.entity, childs, mapping, pendings, entityName)
+					}
 				}
 			}
 		}

@@ -19,7 +19,9 @@ class SchemaConfig {
 
 	public get (name:string):Schema {
 		const schema = this.schemas[name]
-		if (!schema) { throw new Error(`schema ${name} not found`) }
+		if (!schema) {
+			throw new Error(`schema ${name} not found`)
+		}
 		return this.untransform(schema)
 	}
 

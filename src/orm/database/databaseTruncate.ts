@@ -13,7 +13,8 @@ export class DatabaseTruncate extends DatabaseActionDDL {
 	}
 
 	public async execute (tryAllCan = false): Promise<ExecutionResult> {
-		const result = await this._execute(tryAllCan)
+		const queries = await this.queries()
+		const result = await this.executor.executeList(this.database, queries, tryAllCan)
 		return result
 	}
 }

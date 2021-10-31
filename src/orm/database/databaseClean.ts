@@ -1,18 +1,22 @@
-import { Query, Schema } from '../model/index'
+import { Query } from '../model/index'
 import { ExecutionResult } from '../connection'
 import { DatabaseActionDDL } from './databaseActionDDL'
 import { SchemaBuilder } from './../manager/schemaBuilder'
 import { SchemaHelper } from './schemaHelper'
 export class DatabaseClean extends DatabaseActionDDL {
 	public async queries (): Promise<Query[]> {
-		const current = this.configManager.schema.get(this.database.schema) as Schema
-		const schema = this.configManager.schema.transform(current)
-		const schemaHelper = new SchemaHelper(schema)
-		return new SchemaBuilder(this.configManager, this.languageManager, this.database).drop(schemaHelper)
+		const state = await this.state.get(this.database.name)
+		if (state && state.schema) {
+			const schema = this.configManager.schema.transform(state.schema)
+			const schemaHelper = new SchemaHelper(schema)
+			return new SchemaBuilder(this.configManager, this.languageManager, this.database).drop(schemaHelper)
+		}
+		return []
 	}
 
 	public async execute (tryAllCan = false): Promise<ExecutionResult> {
-		const result = await this._execute(tryAllCan)
+		const queries = await this.queries()
+		const result = await this.executor.executeList(this.database, queries, tryAllCan)
 		await this.state.remove(this.database.name)
 		return result
 	}

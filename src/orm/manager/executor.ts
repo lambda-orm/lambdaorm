@@ -14,26 +14,42 @@ export class Executor {
 		this.expressionManager = expressionManager
 	}
 
-	public async execute (database:Database, query: Query, context: any = {}): Promise<any> {
-		return await new QueryExecutor(this.connectionManager, this.languageManager, database, false).execute(query, context)
+	public async execute (database: Database, query: Query, context: any = {}): Promise<any> {
+		let error: any
+		let result:any
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
+		try {
+			result = queryExecutor.execute(query, context)
+		} catch (_error) {
+			error = _error
+			await queryExecutor.rollback()
+		} finally {
+			await queryExecutor.release()
+		}
+		if (error) {
+			throw error
+		} else {
+			return result
+		}
 	}
 
 	public async executeList (database:Database, queries: Query[], tryAllCan = false):Promise<ExecutionResult> {
 		const results: ExecutionSentenceResult[] = []
-		let query:Query
+		let query: Query
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
 				try {
-					const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
 					const result = await queryExecutor.execute(query)
 					results.push({ result: result, sentence: query.sentence })
 				} catch (error) {
 					results.push({ error: error, sentence: query.sentence })
+				} finally {
+					await queryExecutor.release()
 				}
 			}
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, true)
 			try {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
@@ -44,6 +60,8 @@ export class Executor {
 			} catch (error: any) {
 				queryExecutor.rollback()
 				throw new Error(`error: ${error.toString()}`)
+			} finally {
+				await queryExecutor.release()
 			}
 		}
 		return { results: results }
@@ -56,13 +74,18 @@ export class Executor {
  */
 	public async transaction (database:Database, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, true)
+		let error:any
 		try {
 			const transaction = new Transaction(this.expressionManager, queryExecutor)
 			await callback(transaction)
 			await queryExecutor.commit()
-		} catch (error) {
-			console.log(error)
-			queryExecutor.rollback()
+		} catch (_error) {
+			error = _error
+			await queryExecutor.rollback()
+		} finally {
+			await queryExecutor.release()
+		}
+		if (error) {
 			throw error
 		}
 	}

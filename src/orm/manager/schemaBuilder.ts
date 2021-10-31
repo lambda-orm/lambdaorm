@@ -14,7 +14,7 @@ export class SchemaBuilder {
 	}
 
 	public drop (schema:SchemaHelper):Query[] {
-		const entities = schema.sortEntities().reverse()
+		const entities = schema.sortEntities(schema.listEntities()).reverse()
 		const queries:Query[] = []
 		// drop all constraint
 		for (const p in entities) {

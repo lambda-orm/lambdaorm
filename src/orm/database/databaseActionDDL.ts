@@ -21,7 +21,6 @@ export abstract class DatabaseActionDDL {
 	}
 
 	abstract queries(): Promise<Query[]>
-
 	public async sentence (): Promise<any[]> {
 		const sentences: any[] = []
 		const queries = await this.queries()
@@ -29,37 +28,5 @@ export abstract class DatabaseActionDDL {
 			sentences.push(queries[p].sentence)
 		}
 		return sentences
-	}
-
-	protected async _execute (tryAllCan = false):Promise<ExecutionResult> {
-		// const results: ExecutionSentenceResult[] = []
-		const queries = await this.queries()
-		return await this.executor.executeList(this.database, queries, tryAllCan)
-
-		// await this.orm.transaction(this.database.name, async (tr) => {
-		// let query:Query
-		// if (tryAllCan) {
-		// for (let i = 0; i < queries.length; i++) {
-		// query = queries[i]
-		// try {
-		// const result = await tr.execute(query)
-		// results.push({ result: result, sentence: query.sentence })
-		// } catch (error) {
-		// results.push({ error: error, sentence: query.sentence })
-		// }
-		// }
-		// } else {
-		// try {
-		// for (let i = 0; i < queries.length; i++) {
-		// query = queries[i]
-		// const result = await tr.execute(query)
-		// results.push({ result: result, sentence: query.sentence })
-		// }
-		// } catch (error: any) {
-		// throw new Error(`error: ${error.toString()}`)
-		// }
-		// }
-		// })
-		// return { results: results }
 	}
 }
