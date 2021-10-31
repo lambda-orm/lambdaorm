@@ -1,4 +1,4 @@
-import { Parameter } from '../../orm'
+import { Parameter } from './../../orm'
 
 export interface ExecutionTest {
 	database: string
