@@ -17,20 +17,24 @@ export class Executor {
 	public async execute (database: Database, query: Query, context: any = {}): Promise<any> {
 		let error: any
 		let result:any
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
-		try {
-			result = queryExecutor.execute(query, context)
-		} catch (_error) {
-			error = _error
-			await queryExecutor.rollback()
-		} finally {
-			await queryExecutor.release()
-		}
-		if (error) {
-			throw error
+		if (query.children && query.children.length > 0) {
+			await this.transaction(database, async function (tr: Transaction) {
+				result = await tr.execute(query, context)
+			})
 		} else {
-			return result
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
+			try {
+				result = await queryExecutor.execute(query, context)
+			} catch (_error) {
+				error = _error
+			} finally {
+				await queryExecutor.release()
+			}
+			if (error) {
+				throw error
+			}
 		}
+		return result
 	}
 
 	public async executeList (database:Database, queries: Query[], tryAllCan = false):Promise<ExecutionResult> {

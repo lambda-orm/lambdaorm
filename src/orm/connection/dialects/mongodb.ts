@@ -23,6 +23,10 @@ export class MongodbConnectionPool extends ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
+		if (this.database === undefined) {
+			await this.init()
+		}
+
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const me = this
 		const cnx = await new Promise<void>((resolve, reject) => {
@@ -43,7 +47,9 @@ export class MongodbConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		// console.info('mongodb end pool not Implemented')
+		if (this.database !== undefined) {
+			// console.info('mongodb end pool not Implemented')
+		}
 	}
 }
 

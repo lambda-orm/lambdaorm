@@ -3,11 +3,45 @@ database: source
 context:
   a:
     id: 1
+    __parentId:
+      - 1
 test:
   - name: include 1
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.CustomerID AS `__customerId` FROM Orders o  WHERE
+          o.OrderID = ? 
+
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.CustomerID AS "__customerId" FROM Orders o  WHERE
+          o.OrderID = $1 
+
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -89,11 +123,65 @@ test:
         type: string
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        customer:
+          id: ALFKI
+          name: Alfreds Futterkiste
+          contact: Maria Anders
+          phone: Sales Representative
+          address: Obere Str. 57
+          city: Berlin
+          region: null
+          postalCode: '12209'
+          country: Germany
   - name: include 2
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? 
+
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
+
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+          o1.OrderID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -169,11 +257,70 @@ test:
         type: integer
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        details: []
   - name: include 3
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
+
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+          o1.OrderID IN (?) 
+
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
+
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+          o1.OrderID IN ($1) 
+
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -268,11 +415,94 @@ test:
         type: string
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        details: []
+        customer:
+          id: ALFKI
+          name: Alfreds Futterkiste
+          contact: Maria Anders
+          phone: Sales Representative
+          address: Obere Str. 57
+          city: Berlin
+          region: null
+          postalCode: '12209'
+          country: Germany
   - name: include 4
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
+
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount`, o1.ProductID AS `__productId`, o1.OrderID AS `__parentId`
+          FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued`, p.ProductID AS `__parentId` FROM
+          Products p  WHERE  p.ProductID IN (?) 
+
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
+
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount", o1.ProductID AS "__productId", o1.OrderID AS "__parentId"
+          FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued", p.ProductID AS "__parentId" FROM
+          Products p  WHERE  p.ProductID IN ($1) 
+
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -386,11 +616,104 @@ test:
         type: string
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        details: []
+        customer:
+          id: ALFKI
+          name: Alfreds Futterkiste
+          contact: Maria Anders
+          phone: Sales Representative
+          address: Obere Str. 57
+          city: Berlin
+          region: null
+          postalCode: '12209'
+          country: Germany
   - name: include 5
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
+
+          SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
+          o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
+          `discount`, o1.ProductID AS `__productId`, o1.OrderID AS `__parentId`
+          FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued`, p.CategoryID AS `__categoryId`,
+          p.ProductID AS `__parentId` FROM Products p  WHERE  p.ProductID IN
+          (?) 
+
+          SELECT c.CategoryID AS `id`, c.CategoryName AS `name`, c.Description
+          AS `description`, c.CategoryID AS `__parentId` FROM Categories c 
+          WHERE  c.CategoryID IN (?) 
+
+          SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`, c1.ContactName
+          AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
+          c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
+          `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
+          FROM Customers c1  WHERE  c1.CustomerID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
+
+          SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+          o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
+          "discount", o1.ProductID AS "__productId", o1.OrderID AS "__parentId"
+          FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued", p.CategoryID AS "__categoryId",
+          p.ProductID AS "__parentId" FROM Products p  WHERE  p.ProductID IN
+          ($1) 
+
+          SELECT c.CategoryID AS "id", c.CategoryName AS "name", c.Description
+          AS "description", c.CategoryID AS "__parentId" FROM Categories c 
+          WHERE  c.CategoryID IN ($1) 
+
+          SELECT c1.CustomerID AS "id", c1.CompanyName AS "name", c1.ContactName
+          AS "contact", c1.ContactTitle AS "phone", c1.Address AS "address",
+          c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
+          "postalCode", c1.Country AS "country", c1.CustomerID AS "__parentId"
+          FROM Customers c1  WHERE  c1.CustomerID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -513,11 +836,78 @@ test:
         type: string
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        details: []
+        customer:
+          id: ALFKI
+          name: Alfreds Futterkiste
+          contact: Maria Anders
+          phone: Sales Representative
+          address: Obere Str. 57
+          city: Berlin
+          region: null
+          postalCode: '12209'
+          country: Germany
   - name: include 6
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
+
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `productId`, o1.OrderID AS `__parentId` FROM `Order
+          Details` o1  WHERE  o1.OrderID IN (?) 
+
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
+
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "productId", o1.OrderID AS "__parentId" FROM "Order
+          Details" o1  WHERE  o1.OrderID IN ($1) 
+
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -610,11 +1000,92 @@ test:
         type: string
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        details: []
+        customer:
+          id: ALFKI
+          name: Alfreds Futterkiste
+          contact: Maria Anders
+          phone: Sales Representative
+          address: Obere Str. 57
+          city: Berlin
+          region: null
+          postalCode: '12209'
+          country: Germany
   - name: include 7
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
+          Orders o  WHERE o.OrderID = ? 
+
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `productId`, o1.ProductID AS `__productId`, o1.OrderID
+          AS `__parentId` FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+
+          SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
+          `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
+          `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
+          p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
+          p.Discontinued AS `discontinued`, p.ProductID AS `__parentId` FROM
+          Products p  WHERE  p.ProductID IN (?) 
+
+          SELECT c.CustomerID AS `id`, c.CompanyName AS `name`, c.ContactName AS
+          `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
+          AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
+          c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
+          WHERE  c.CustomerID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+          Orders o  WHERE o.OrderID = $1 
+
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "productId", o1.ProductID AS "__productId", o1.OrderID
+          AS "__parentId" FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+
+          SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+          "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+          "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+          p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+          p.Discontinued AS "discontinued", p.ProductID AS "__parentId" FROM
+          Products p  WHERE  p.ProductID IN ($1) 
+
+          SELECT c.CustomerID AS "id", c.CompanyName AS "name", c.ContactName AS
+          "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
+          AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
+          c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
+          WHERE  c.CustomerID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -725,11 +1196,86 @@ test:
         type: string
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        details: []
+        customer:
+          id: ALFKI
+          name: Alfreds Futterkiste
+          contact: Maria Anders
+          phone: Sales Representative
+          address: Obere Str. 57
+          city: Berlin
+          region: null
+          postalCode: '12209'
+          country: Germany
   - name: include 8
     context: a
     sentences:
       - database: mysql
+        sentence: >-
+          SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
+          AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
+          `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
+          `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
+          o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
+          `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
+          `country`, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM
+          Orders o  WHERE o.OrderID = ? 
+
+          SELECT c.CompanyName AS `name`, c.CustomerID AS `__parentId` FROM
+          Customers c  WHERE  c.CustomerID IN (?) 
+
+          SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
+          o1.ProductID AS `__productId`, o1.OrderID AS `__parentId` FROM `Order
+          Details` o1  WHERE  o1.OrderID IN (?) 
+
+          SELECT p.ProductName AS `name`, p.CategoryID AS `__categoryId`,
+          p.ProductID AS `__parentId` FROM Products p  WHERE  p.ProductID IN
+          (?) 
+
+          SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
+          Categories c1  WHERE  c1.CategoryID IN (?) 
+      - database: postgres
+        sentence: >-
+          SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+          AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+          "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+          "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+          o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+          "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+          "country", o.CustomerID AS "__customerId", o.OrderID AS "__id" FROM
+          Orders o  WHERE o.OrderID = $1 
+
+          SELECT c.CompanyName AS "name", c.CustomerID AS "__parentId" FROM
+          Customers c  WHERE  c.CustomerID IN ($1) 
+
+          SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+          o1.ProductID AS "__productId", o1.OrderID AS "__parentId" FROM "Order
+          Details" o1  WHERE  o1.OrderID IN ($1) 
+
+          SELECT p.ProductName AS "name", p.CategoryID AS "__categoryId",
+          p.ProductID AS "__parentId" FROM Products p  WHERE  p.ProductID IN
+          ($1) 
+
+          SELECT c1.CategoryName AS "name", c1.CategoryID AS "__parentId" FROM
+          Categories c1  WHERE  c1.CategoryID IN ($1) 
+      - database: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -821,5 +1367,24 @@ test:
         type: integer
     executions:
       - database: mysql
-    result: []
+      - database: postgres
+      - database: mariadb
+    result:
+      - id: 1
+        customerId: ALFKI
+        employeeId: 6
+        orderDate: '1997-08-24T22:00:00.000Z'
+        requiredDate: '1997-09-21T22:00:00.000Z'
+        shippedDate: '1997-09-01T22:00:00.000Z'
+        shipViaId: 1
+        freight: 29.46
+        name: Alfreds Futterkiste
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        customer:
+          name: Alfreds Futterkiste
+        details: []
 errors: 0

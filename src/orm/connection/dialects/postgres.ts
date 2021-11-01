@@ -43,7 +43,10 @@ export class PostgresConnectionPool extends ConnectionPool {
 		// console.info('postgres init pool not Implemented')
 	}
 
-	public async acquire ():Promise<Connection> {
+	public async acquire (): Promise<Connection> {
+		// if (this.pool === undefined) {
+		// await this.init()
+		// }
 		const cnx = new PostgresConnectionPool.pg.Client(this.config.connection)
 		cnx.connect()
 		return new PostgresConnection(cnx, this)

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm } from './../../orm'
+import { orm, Helper } from './../../orm'
 import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from './../../models/northwind'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
@@ -28,7 +28,6 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 		expressionTest.errors = 0
 		try {
 			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
-			console.log(expressionTest.expression)
 			// expressionTest.lambda = expressionTest.lambda.toString()
 			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.database)
 			expressionTest.model = await orm.expression(expressionTest.expression).model(category.database)
@@ -61,6 +60,7 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 				let result
 				let error
 				try {
+					// console.log(expressionTest.expression)
 					const context = expressionTest.context !== undefined ? category.context[expressionTest.context] : {}
 					result = await orm.lambda(expressionTest.lambda).execute(context, database)
 				} catch (err: any) {
@@ -986,9 +986,31 @@ async function bulkInsert2 () {
 	const result = await exec(async () => (await orm.expression(expression).execute(orders, 'source')))
 }
 
+async function schemaExport (source: string) {
+	const exportFile = 'data/' + source + '-export.json'
+	const data = await orm.database.export(source).execute()
+	await Helper.writeFile(exportFile, JSON.stringify(data))
+}
+async function schemaImport (source: string, target: string) {
+	const sourceFile = 'data/' + source + '-export.json'
+	const content = await Helper.readFile(sourceFile) as string
+	const data = JSON.parse(content)
+	await orm.database.import(target).execute(data)
+}
+
 export async function apply (databases: string[], callback: any) {
 	await orm.init()
 	let errors = 0
+
+	await orm.database.sync('source').execute()
+	await schemaExport('source')
+	for (const p in databases) {
+		const database = databases[p]
+		await orm.database.clean(database).execute(true)
+		await orm.database.sync(database).execute()
+		await schemaImport('source', database)
+		await schemaExport(database)
+	}
 
 	errors = +await writeQueryTest(databases)
 	errors = +await writeNumeriFunctionsTest(databases)
@@ -998,6 +1020,7 @@ export async function apply (databases: string[], callback: any) {
 	errors = +await writeUpdateTest(databases)
 	errors = +await writeDeleteTest(databases)
 	errors = +await writeBulkInsertTest(databases)
+
 	// //operators comparation , matematica
 	// //string functions
 	// //datetime functions
@@ -1014,5 +1037,5 @@ export async function apply (databases: string[], callback: any) {
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-// apply(['mysql'], function () { console.log('end') })
-// apply(['mysql', 'postgres'], function () { console.log('end') })
+apply(['mssql'], function () { console.log('end') })
+// apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

@@ -24,6 +24,9 @@ export class MssqlConnectionPool extends ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
+		if (this.pool === undefined) {
+			await this.init()
+		}
 		const me = this
 		return new Promise<Connection>((resolve, reject) => {
 			this.pool.acquire(function (err: any, cnx: any) {
@@ -44,7 +47,9 @@ export class MssqlConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		await this.pool.drain()
+		if (this.pool !== undefined) {
+			await this.pool.drain()
+		}
 	}
 }
 

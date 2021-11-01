@@ -30,15 +30,10 @@ export class ConnectionManager {
 
 	protected pool (name:string):ConnectionPool {
 		const pool = this.pools[name] as ConnectionPool
-		if (!pool) { throw new Error(`connection ${name} not found`) }
-		return pool
-	}
-
-	public async init ():Promise<void> {
-		for (const k in this.pools) {
-			const pool = this.pools[k] as ConnectionPool
-			await pool.init()
+		if (!pool) {
+			throw new Error(`connection ${name} not found`)
 		}
+		return pool
 	}
 
 	public async end ():Promise<void> {

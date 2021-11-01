@@ -98,7 +98,6 @@ export class Orm implements IOrm {
 				this.connectionManager.load(database)
 			}
 		}
-		await this.connectionManager.init()
 	}
 
 	/**

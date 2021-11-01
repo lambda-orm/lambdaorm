@@ -58,17 +58,39 @@ export class MySqlConnectionPool extends ConnectionPool {
 		this.pool = MySqlConnectionPool.mysql.createPool({ ...this.config.connection, ...casts })
 	}
 
+	// private async getConnection (): Promise<void> {
+	// // eslint-disable-next-line @typescript-eslint/no-this-alias
+	// const me = this
+	// return new Promise<void>((resolve, reject) => {
+	// me.pool.getConnection(function (err:any, cnn:any) {
+	// if (err) {
+	// reject(err)
+	// }
+	// resolve(cnn)
+	// })
+	// })
+	// }
+
 	public async acquire (): Promise<Connection> {
+		if (this.pool === undefined) {
+			await this.init()
+		}
 		const cnx = await this.pool.getConnection()
+		// const cnx = await this.getConnection()
 		return new MySqlConnection(cnx, this)
 	}
 
-	public async release (connection:Connection):Promise<void> {
+	public async release (connection: Connection): Promise<void> {
+		// if (this.pool !== undefined) {
+		// this.pool.releaseConnection(connection.cnx)
+		// }
 		await connection.cnx.release()
 	}
 
 	public async end (): Promise<void> {
-		this.pool.end()
+		if (this.pool !== undefined) {
+			this.pool.end()
+		}
 	}
 }
 

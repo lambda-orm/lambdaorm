@@ -118,5 +118,4 @@ export async function apply (dataForTestPath: string, databases: string[], callb
 	}
 	callback()
 }
-
-// apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres'], function () { console.log('end') })
+apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
