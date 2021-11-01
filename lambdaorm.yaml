@@ -20,10 +20,10 @@ databases:
     schema: northwind
     dialect: postgres
     connection: $ORM_CNN_POSTGRES
-  # - name: mssql
-  #   schema: northwind
-  #   dialect: mssql
-  #   connection: $ORM_CNN_MSSQL
+  - name: mssql
+    schema: northwind
+    dialect: mssql
+    connection: $ORM_CNN_MSSQL
 abstract:
   address:
     properties:
