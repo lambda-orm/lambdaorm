@@ -1037,5 +1037,5 @@ export async function apply (databases: string[], callback: any) {
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-apply(['mssql'], function () { console.log('end') })
+apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
 // apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

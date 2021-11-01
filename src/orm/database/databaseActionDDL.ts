@@ -1,5 +1,4 @@
 import { Database, Query } from '../model'
-import { ExecutionResult } from './../connection'
 import { LanguageManager } from './../language'
 import { ConfigManager, ExpressionManager, Executor } from './../manager'
 import { DatabaseState } from './databaseState'

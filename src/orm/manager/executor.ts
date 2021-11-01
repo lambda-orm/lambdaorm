@@ -1,6 +1,6 @@
 
 import { Query, Database } from './../model/index'
-import { ConnectionManager, ExecutionResult, ExecutionSentenceResult } from './../connection'
+import { ConnectionManager } from './../connection'
 import { LanguageManager } from './../language'
 import { ExpressionManager, QueryExecutor, Transaction } from './'
 
@@ -37,8 +37,8 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (database:Database, queries: Query[], tryAllCan = false):Promise<ExecutionResult> {
-		const results: ExecutionSentenceResult[] = []
+	public async executeList (database:Database, queries: Query[], tryAllCan = false):Promise<any> {
+		const results: any[] = []
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
@@ -46,28 +46,35 @@ export class Executor {
 				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
 				try {
 					const result = await queryExecutor.execute(query)
-					results.push({ result: result, sentence: query.sentence })
+					results.push(result)
 				} catch (error) {
-					results.push({ error: error, sentence: query.sentence })
+					console.error(`error: ${error} on sentence:${query.sentence}`)
 				} finally {
 					await queryExecutor.release()
 				}
 			}
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
-			try {
+			await this.transaction(database, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
-					const result = await queryExecutor.execute(query)
-					results.push({ result: result, sentence: query.sentence })
+					const result = await tr.execute(query)
+					results.push(result)
 				}
-				queryExecutor.commit()
-			} catch (error: any) {
-				queryExecutor.rollback()
-				throw new Error(`error: ${error.toString()}`)
-			} finally {
-				await queryExecutor.release()
-			}
+			})
+			// const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
+			// try {
+			// for (let i = 0; i < queries.length; i++) {
+			// query = queries[i]
+			// const result = await queryExecutor.execute(query)
+			// results.push({ result: result, sentence: query.sentence })
+			// }
+			// queryExecutor.commit()
+			// } catch (error: any) {
+			// queryExecutor.rollback()
+			// throw new Error(`error: ${error.toString()}`)
+			// } finally {
+			// await queryExecutor.release()
+			// }
 		}
 		return { results: results }
 	}

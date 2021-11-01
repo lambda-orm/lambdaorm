@@ -1,5 +1,4 @@
 import { Query } from '../model/index'
-import { ExecutionResult } from '../connection'
 import { DatabaseActionDDL } from './databaseActionDDL'
 import { SchemaBuilder } from './../manager/schemaBuilder'
 import { SchemaHelper } from './schemaHelper'
@@ -14,7 +13,7 @@ export class DatabaseClean extends DatabaseActionDDL {
 		return []
 	}
 
-	public async execute (tryAllCan = false): Promise<ExecutionResult> {
+	public async execute (tryAllCan = false): Promise<any[]> {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(this.database, queries, tryAllCan)
 		await this.state.remove(this.database.name)

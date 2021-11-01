@@ -1,6 +1,5 @@
 import { Schema, Query, Database } from '../model/index'
 import { SchemaHelper } from './schemaHelper'
-import { ExecutionResult } from '../connection'
 import { Helper } from './../helper'
 import { SchemaBuilder } from './../manager/schemaBuilder'
 import { DatabaseActionDDL } from './databaseActionDDL'
@@ -25,7 +24,7 @@ export class DatabaseSync extends DatabaseActionDDL {
 		return new SchemaBuilder(this.configManager, this.languageManager, this.database).sync(delta, schemaHelper)
 	}
 
-	public async execute (tryAllCan = false): Promise<ExecutionResult> {
+	public async execute (tryAllCan = false): Promise<any[]> {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(this.database, queries, tryAllCan)
 		await this.state.updateSchema(this.database.name, this.currenSchema)

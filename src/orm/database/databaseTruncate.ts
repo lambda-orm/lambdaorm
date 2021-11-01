@@ -1,6 +1,5 @@
 import { Query, Schema } from '../model/index'
 import { SchemaHelper } from './schemaHelper'
-import { ExecutionResult } from '../connection'
 import { DatabaseActionDDL } from './databaseActionDDL'
 import { SchemaBuilder } from './../manager/schemaBuilder'
 
@@ -12,7 +11,7 @@ export class DatabaseTruncate extends DatabaseActionDDL {
 		return new SchemaBuilder(this.configManager, this.languageManager, this.database).truncate(schemaHelper)
 	}
 
-	public async execute (tryAllCan = false): Promise<ExecutionResult> {
+	public async execute (tryAllCan = false): Promise<any[]> {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(this.database, queries, tryAllCan)
 		return result
