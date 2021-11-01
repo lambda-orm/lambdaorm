@@ -1,4 +1,4 @@
-import { Context, Query } from './../model'
+import { Query } from './../model'
 import { QueryExecutor, ExpressionManager } from './'
 
 export class Transaction {
@@ -21,7 +21,6 @@ export class Transaction {
 	}
 
 	public async execute (query: Query, context: any = {}): Promise<any> {
-		const _context = new Context(context)
-		return await this.queryExecutor.execute(query, _context)
+		return await this.queryExecutor.execute(query, context)
 	}
 }

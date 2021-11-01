@@ -16,8 +16,8 @@ export async function apply (databases: string[], callback: any) {
 	try {
 		await orm.init()
 
-		// await orm.database.sync('source').execute()
-		// await schemaExport('source')
+		await orm.database.sync('source').execute()
+		await schemaExport('source')
 		for (const p in databases) {
 			const database = databases[p]
 			await orm.database.clean(database).execute(true)
@@ -32,6 +32,6 @@ export async function apply (databases: string[], callback: any) {
 		callback()
 	}
 }
-apply(['postgres'], function () { console.log('end') })
+apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
 // apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
 // apply(['mysql'], function () { console.log('end') })

@@ -36,10 +36,10 @@ export class Executor {
 	public async executeList (database:Database, queries: Query[], tryAllCan = false):Promise<ExecutionResult> {
 		const results: ExecutionSentenceResult[] = []
 		let query: Query
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
 				try {
 					const result = await queryExecutor.execute(query)
 					results.push({ result: result, sentence: query.sentence })
@@ -50,6 +50,7 @@ export class Executor {
 				}
 			}
 		} else {
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
 			try {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]

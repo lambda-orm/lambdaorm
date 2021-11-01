@@ -53,6 +53,7 @@ export class QueryExecutor {
 			const connection = this.connections[p]
 			await this.connectionManager.release(connection)
 		}
+		this.connections = {}
 	}
 
 	public async execute (query: Query, context: any = {}): Promise<any> {

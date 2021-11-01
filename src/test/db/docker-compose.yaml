@@ -83,20 +83,20 @@ services:
       - "27017:27017"
     volumes:
       - mongodb:/data/db        
-  # mariadb:
-  #   container_name: lambdaorm-mariadb-103
-  #   image: mariadb:10.3
-  #   restart: always
-  #   environment:
-  #     - MYSQL_DATABASE=northwind      
-  #     - MYSQL_USER=test
-  #     - MYSQL_PASSWORD=test
-  #     - MYSQL_ROOT_PASSWORD=root
-  #   volumes:
-  #     - mariadb-data:/var/lib/mysql
-  #     - mariadb-log:/var/log/mysql
-  #   ports:
-  #     - 3308:3306
+  mariadb:
+    container_name: lambdaorm-mariadb-103
+    image: mariadb:10.3
+    restart: always
+    environment:
+      - MYSQL_DATABASE=northwind      
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - mariadb-log:/var/log/mysql
+    ports:
+      - 3308:3306
   #   # command: >
   #   #   mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"   
   #   healthcheck:

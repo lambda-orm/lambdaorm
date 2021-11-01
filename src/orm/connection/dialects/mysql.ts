@@ -89,7 +89,7 @@ export class MySqlConnection extends Connection {
 				return []
 			}
 			// https://github.com/sidorares/node-mysql2/issues/830
-			const result = await this.cnx.query(query, [array])
+			const result = await this.cnx.query(query.sentence, [array])
 
 			// TODO: verificar https://github.com/sidorares/node-mysql2/issues/435
 			const start = result[0].insertId
