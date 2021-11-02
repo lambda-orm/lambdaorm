@@ -1,5 +1,4 @@
-import { SchemaHelper } from '../database'
-import { ConfigManager } from './../manager'
+import { ConfigManager, SchemaHelper } from './../manager'
 import { LanguageManager, DialectMetadata } from './../language'
 import { Query, Delta, Index, Database, Relation, Entity, Property } from './../model'
 

@@ -88,9 +88,15 @@ test:
   - name: bulkInsert 1
     context: a
     sentences:
+      - database: mysql
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
+      - database: postgres
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES
+      - database: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
       - database: mssql
         sentence: INSERT INTO Categories(CategoryName,Description)
-    errors: 0
+    errors: 1
     expression: Categories.bulkInsert()
     completeExpression: Categories.bulkInsert({name:name,description:description})
     model:
@@ -107,13 +113,44 @@ test:
       - name: description
         type: string
     executions:
+      - database: mysql
+      - database: postgres
+      - database: mariadb
       - database: mssql
+        error: not equal mysql
+        result:
+          - 11
+          - 12
     result:
-      - 11
       - 12
+      - 13
   - name: bulkInsert 2
     context: b
     sentences:
+      - database: mysql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
+      - database: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+      - database: mariadb
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
       - database: mssql
         sentence: >-
           INSERT INTO
@@ -200,9 +237,12 @@ test:
       - name: country
         type: string
     executions:
+      - database: mysql
+      - database: postgres
+      - database: mariadb
       - database: mssql
     result:
       - 834
       - 835
       - 836
-errors: 0
+errors: 1

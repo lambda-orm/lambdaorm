@@ -1,7 +1,7 @@
 
 import { Node, Model } from './../parser/index'
 import { Context, Query, Include } from './../model'
-import { SchemaHelper } from './../database'
+import { SchemaHelper } from './../manager'
 import { Language } from './language'
 import { OperandManager } from './operandManager'
 import { Operand, Sentence } from './operands'

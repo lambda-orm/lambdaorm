@@ -1,4 +1,4 @@
-import { SchemaHelper } from './../database'
+import { SchemaHelper } from './../manager'
 import { Helper } from '../helper'
 import { Schema, Entity, Property, Relation, Index, Database, Config } from './../model'
 import { ConnectionConfig } from './../connection'

@@ -1,5 +1,5 @@
 import { DatabaseActionDML } from './databaseActionDML'
-import { SchemaHelper } from './schemaHelper'
+import { SchemaHelper } from '../manager/schemaHelper'
 import { Query, SchemaData } from './../model'
 
 export class DatabaseExport extends DatabaseActionDML {

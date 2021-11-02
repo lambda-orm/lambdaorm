@@ -3,17 +3,20 @@ import { Context, Parameter, Include, Query, Database } from './../model'
 import { Connection, ConnectionManager } from './../connection'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { LanguageManager } from './../language'
+import { SchemaHelper } from './schemaHelper'
 
 export class QueryExecutor {
 	public database: Database
 	private languageManager: LanguageManager
 	private connectionManager: ConnectionManager
 	private connections: any
-	private transactionable:boolean
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, database: Database, transactionable = false) {
+	private transactionable: boolean
+	private schema:SchemaHelper
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, database: Database, schema:SchemaHelper, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
 		this.database = database
+		this.schema = schema
 		this.transactionable = transactionable
 		this.connections = {}
 	}
@@ -78,7 +81,7 @@ export class QueryExecutor {
 	}
 
 	protected async select (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<any> {
-		const mainResult = await connection.select(query, this.params(query.parameters, metadata, context))
+		const mainResult = await connection.select(this.schema, query, this.params(query.parameters, metadata, context))
 		if (mainResult.length > 0) {
 			for (const p in query.children) {
 				const include = query.children[p] as Include
@@ -118,6 +121,7 @@ export class QueryExecutor {
 
 	protected async insert (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<number> {
 	// before insert the relationships of the type oneToOne and oneToMany
+		const autoincrement = this.schema.getAutoincrement(query.entity)
 		for (const p in query.children) {
 			const include = query.children[p] as Include
 			const relation = context.get(include.relation.name)
@@ -130,8 +134,10 @@ export class QueryExecutor {
 			}
 		}
 		// insert main entity
-		const insertId = await connection.insert(query, this.params(query.parameters, metadata, context))
-		if (query.autoincrement) { context.set(query.autoincrement.name, insertId) }
+		const insertId = await connection.insert(this.schema, query, this.params(query.parameters, metadata, context))
+		if (autoincrement) {
+			context.set(autoincrement.name, insertId)
+		}
 		// after insert the relationships of the type oneToOne and manyToOne
 		for (const p in query.children) {
 			const include = query.children[p] as Include
@@ -154,6 +160,7 @@ export class QueryExecutor {
 
 	protected async bulkInsert (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<number[]> {
 	// before insert the relationships of the type oneToOne and oneToMany
+		const autoincrement = this.schema.getAutoincrement(query.entity)
 		for (const p in query.children) {
 			const include = query.children[p] as Include
 			if (include.relation.type === 'oneToOne' || include.relation.type === 'oneToMany') {
@@ -172,10 +179,10 @@ export class QueryExecutor {
 			}
 		}
 		// insert main entity
-		const ids = await connection.bulkInsert(query, this.rows(query, metadata, context.data), query.parameters)
-		if (query.autoincrement) {
+		const ids = await connection.bulkInsert(this.schema, query, this.rows(query, metadata, context.data), query.parameters)
+		if (autoincrement) {
 			for (let i = 0; i < context.data.length; i++) {
-				context.data[i][query.autoincrement.name] = ids[i]
+				context.data[i][autoincrement.name] = ids[i]
 			}
 		}
 		// after insert the relationships of the type oneToOne and manyToOne
@@ -204,7 +211,7 @@ export class QueryExecutor {
 	}
 
 	protected async update (query:Query, context:Context, metadata:DialectMetadata, connection:Connection):Promise<any> {
-		const changeCount = await connection.update(query, this.params(query.parameters, metadata, context))
+		const changeCount = await connection.update(this.schema, query, this.params(query.parameters, metadata, context))
 		for (const p in query.children) {
 			const include = query.children[p] as Include
 			const relation = context.get(include.relation.name)
@@ -243,7 +250,7 @@ export class QueryExecutor {
 			}
 		}
 		// remove main entity
-		const changeCount = await connection.delete(query, this.params(query.parameters, metadata, context))
+		const changeCount = await connection.delete(this.schema, query, this.params(query.parameters, metadata, context))
 		return changeCount
 	}
 

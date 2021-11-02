@@ -3,15 +3,18 @@ import { Query, Database } from './../model/index'
 import { ConnectionManager } from './../connection'
 import { LanguageManager } from './../language'
 import { ExpressionManager, QueryExecutor, Transaction } from './'
+import { ConfigManager } from './configManager'
 
 export class Executor {
 	private languageManager: LanguageManager
 	private expressionManager: ExpressionManager
 	private connectionManager: ConnectionManager
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, expressionManager:ExpressionManager) {
+	private configManager: ConfigManager
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, expressionManager:ExpressionManager, configManager: ConfigManager) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
 		this.expressionManager = expressionManager
+		this.configManager = configManager
 	}
 
 	public async execute (database: Database, query: Query, context: any = {}): Promise<any> {
@@ -22,7 +25,8 @@ export class Executor {
 				result = await tr.execute(query, context)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
+			const schema = this.configManager.schema.getInstance(database.schema)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, schema, false)
 			try {
 				result = await queryExecutor.execute(query, context)
 			} catch (_error) {
@@ -43,7 +47,8 @@ export class Executor {
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
+				const schema = this.configManager.schema.getInstance(database.schema)
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, schema, false)
 				try {
 					const result = await queryExecutor.execute(query)
 					results.push(result)
@@ -84,8 +89,9 @@ export class Executor {
  * @param database Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (database:Database, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, true)
+	public async transaction (database: Database, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const schema = this.configManager.schema.getInstance(database.schema)
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, schema, true)
 		let error:any
 		try {
 			const transaction = new Transaction(this.expressionManager, queryExecutor)

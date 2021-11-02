@@ -69,7 +69,7 @@ export class Orm implements IOrm {
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
 		this.expressionManager = new ExpressionManager(this._cache, this.configManager, this.languageManager)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager, this.configManager)
 		this.databaseFacade = new DatabaseFacade(this.configManager, this.expressionManager, this.languageManager, this.executor)
 	}
 

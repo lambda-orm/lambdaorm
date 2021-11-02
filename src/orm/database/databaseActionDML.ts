@@ -1,7 +1,7 @@
 import { Database, Query } from '../model'
 import { ConfigManager, ExpressionManager, Executor } from './../manager'
 import { DatabaseState } from './databaseState'
-import { SchemaHelper } from './schemaHelper'
+import { SchemaHelper } from '../manager/schemaHelper'
 
 export abstract class DatabaseActionDML {
 	protected state: DatabaseState

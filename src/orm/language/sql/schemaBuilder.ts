@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Property, Relation, Index, Delta, Query } from './../../model'
 import { LanguageSchemaBuilder } from '../'
-import { SchemaHelper } from '../../database'
+import { SchemaHelper } from '../../manager'
 import { DialectMetadata } from '../dialectMetadata'
 
 export class SqlSchemaBuilder extends LanguageSchemaBuilder {

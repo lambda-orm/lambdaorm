@@ -191,11 +191,11 @@ export class Having extends ArrowFunction { }
 export class Sort extends ArrowFunction { }
 export class Page extends ChildFunction { }
 export class Insert extends ArrowFunction {
-	public autoincrement?: string
+	// public autoincrement?: string
 	public clause: string
-	constructor (name: string, children: Operand[] = [], clause: string, autoincrement?: string) {
+	constructor (name: string, children: Operand[] = [], clause: string) {
 		super(name, children)
-		this.autoincrement = autoincrement
+		// this.autoincrement = autoincrement
 		this.clause = clause
 	}
 }
@@ -205,13 +205,13 @@ export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]
 	public entity: string
-	public autoincrement?: Property
+	// public autoincrement?: Property
 	public alias: string
 	public clause: string
-	constructor (name: string, children: Operand[] = [], entity: string, alias: string, autoincrement?: Property, columns: Property[] = [], parameters: Parameter[] = []) {
+	constructor (name: string, children: Operand[] = [], entity: string, alias: string, columns: Property[] = [], parameters: Parameter[] = []) {
 		super(name, children)
 		this.entity = entity
-		this.autoincrement = autoincrement
+		// this.autoincrement = autoincrement
 		this.alias = alias
 		this.columns = columns
 		this.parameters = parameters

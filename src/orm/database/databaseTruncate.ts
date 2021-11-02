@@ -1,5 +1,5 @@
 import { Query, Schema } from '../model/index'
-import { SchemaHelper } from './schemaHelper'
+import { SchemaHelper } from '../manager/schemaHelper'
 import { DatabaseActionDDL } from './databaseActionDDL'
 import { SchemaBuilder } from './../manager/schemaBuilder'
 

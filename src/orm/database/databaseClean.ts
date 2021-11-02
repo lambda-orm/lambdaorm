@@ -1,7 +1,7 @@
 import { Query } from '../model/index'
 import { DatabaseActionDDL } from './databaseActionDDL'
 import { SchemaBuilder } from './../manager/schemaBuilder'
-import { SchemaHelper } from './schemaHelper'
+import { SchemaHelper } from '../manager/schemaHelper'
 export class DatabaseClean extends DatabaseActionDDL {
 	public async queries (): Promise<Query[]> {
 		const state = await this.state.get(this.database.name)

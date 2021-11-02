@@ -2,6 +2,7 @@
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
+import { SchemaHelper } from './../../manager'
 
 export class MssqlConnectionPool extends ConnectionPool {
 	public static tedious: any
@@ -43,13 +44,14 @@ export class MssqlConnectionPool extends ConnectionPool {
 }
 
 export class MssqlConnection extends Connection {
-	public async select (query:Query, params:Parameter[]):Promise<any> {
+	public async select (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<any> {
 		const result = await this._query(query.sentence, params)
 		return result
 	}
 
-	public async insert (query: Query, params: Parameter[]): Promise<number> {
-		const fieldId: string | undefined = query.autoincrement ? query.autoincrement.mapping : undefined
+	public async insert (schema:SchemaHelper, query: Query, params: Parameter[]): Promise<number> {
+		const autoincrement = schema.getAutoincrement(query.entity)
+		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sentence = fieldId
 			? query.sentence.replace('OUTPUT inserted.0', '')
 			: query.sentence
@@ -61,9 +63,10 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (query:Query, array: any[], params: Parameter[]): Promise<any[]> {
+	public async bulkInsert (schema:SchemaHelper, query:Query, array: any[], params: Parameter[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
-		const fieldId:string|undefined = query.autoincrement ? query.autoincrement.mapping : undefined
+		const autoincrement = schema.getAutoincrement(query.entity)
+		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sql = query.sentence
 		let _query = ''
 		try {
@@ -97,11 +100,11 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async update (query:Query, params:Parameter[]):Promise<number> {
+	public async update (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
 		return await this._execute(query.sentence, params)
 	}
 
-	public async delete (query:Query, params:Parameter[]):Promise<number> {
+	public async delete (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
 		return await this._execute(query.sentence, params)
 	}
 

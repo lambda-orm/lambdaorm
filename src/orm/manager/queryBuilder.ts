@@ -2,10 +2,10 @@ import { ConfigManager } from './'
 import { Sentence, LanguageManager } from './../language'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { Query, Database, Include, Entity } from './../model'
-import { SchemaHelper } from './../database'
+import { SchemaHelper } from './../manager'
 
 export abstract class LanguageQueryBuilder {
-	abstract build (sentence:Sentence, database:string, metadata:DialectMetadata):Query
+	abstract build (sentence:Sentence, schema:SchemaHelper, database:string, metadata:DialectMetadata):Query
 }
 
 export class QueryBuilder {
@@ -43,7 +43,7 @@ export class QueryBuilder {
 			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}
-		const query = this.languageManager.queryBuilder(database.dialect).build(sentence, database.name, metadata)
+		const query = this.languageManager.queryBuilder(database.dialect).build(sentence, this.schema, database.name, metadata)
 		query.children = children
 		return query
 	}

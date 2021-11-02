@@ -9,15 +9,15 @@ export class Query {
 	public dialect: string
 	public database: string
 	public entity: string
-	public autoincrement?: Property
+	// public autoincrement?: Property
 	public columns: Property[]
 	public parameters: Parameter[]
-	constructor (name: string, database:string, dialect: string, sentence: string, entity: string, autoincrement?: Property, columns: Property[] = [], parameters: Parameter[] = []) {
+	constructor (name: string, database:string, dialect: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = []) {
 		this.name = name
 		this.dialect = dialect
 		this.sentence = sentence
 		this.entity = entity
-		this.autoincrement = autoincrement
+		// this.autoincrement = autoincrement
 		this.columns = columns
 		this.parameters = parameters
 		this.database = database
