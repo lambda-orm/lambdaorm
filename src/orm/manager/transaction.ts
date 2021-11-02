@@ -10,9 +10,9 @@ export class Transaction {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public async lambda (lambda: Function, context: any): Promise<any> {
+	public async lambda (lambda: Function, dataContext: any): Promise<any> {
 		const expression = this.expressionManager.toExpression(lambda)
-		return await this.expression(expression, context)
+		return await this.expression(expression, dataContext)
 	}
 
 	public async expression (expression:string, context:any):Promise<any> {
@@ -20,7 +20,7 @@ export class Transaction {
 		return await this.execute(query, context)
 	}
 
-	public async execute (query: Query, context: any = {}): Promise<any> {
-		return await this.queryExecutor.execute(query, context)
+	public async execute (query: Query, dataContext: any = {}): Promise<any> {
+		return await this.queryExecutor.execute(query, dataContext)
 	}
 }

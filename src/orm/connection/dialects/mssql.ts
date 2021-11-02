@@ -118,7 +118,7 @@ export class MssqlConnection extends Connection {
 
 	public async beginTransaction (): Promise<void> {
 		const me = this
-		return await new Promise<void>((resolve, reject) => {
+		await new Promise<void>((resolve, reject) => {
 			me.cnx.beginTransaction((error:any) => {
 				if (error) {
 					reject(new Error(`Mssql connection beginTransaction error: ${error}`))
@@ -130,29 +130,33 @@ export class MssqlConnection extends Connection {
 	}
 
 	public async commit (): Promise<void> {
-		const me = this
-		return await new Promise<void>((resolve, reject) => {
-			me.cnx.commitTransaction((error:any) => {
-				if (error) {
-					reject(new Error(`Mssql connection commit error: ${error}`))
-				}
-				me.inTransaction = false
-				resolve()
+		if (this.cnx.inTransaction) {
+			const me = this
+			await new Promise<void>((resolve, reject) => {
+				me.cnx.commitTransaction((error: any) => {
+					if (error) {
+						reject(new Error(`Mssql connection commit error: ${error}`))
+					}
+					me.inTransaction = false
+					resolve()
+				})
 			})
-		})
+		}
 	}
 
 	public async rollback (): Promise<void> {
-		const me = this
-		return await new Promise<void>((resolve, reject) => {
-			me.cnx.rollbackTransaction((error:any) => {
-				if (error) {
-					reject(new Error(`Mssql connection rollback error: ${error}`))
-				}
-				me.inTransaction = false
-				resolve()
+		if (this.cnx.inTransaction) {
+			const me = this
+			await new Promise<void>((resolve, reject) => {
+				me.cnx.rollbackTransaction((error:any) => {
+					if (error) {
+						reject(new Error(`Mssql connection rollback error: ${error}`))
+					}
+					me.inTransaction = false
+					resolve()
+				})
 			})
-		})
+		}
 	}
 
 	private async _query (sentence:string, params:Parameter[] = []):Promise<any> {

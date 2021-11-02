@@ -32,7 +32,7 @@ export interface ExpressionTest {
 export interface CategoryTest {
 	name: string
 	database: string
-	context: any
+	dataContext: any
 	test: ExpressionTest[]
 	errors?: number
 }

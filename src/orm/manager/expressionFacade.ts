@@ -60,23 +60,23 @@ export class ExpressionFacade {
 	/**
 	 * Evaluate and solve expression
 	 * @param expression  string expression
-	 * @param context Context with variables
+	 * @param context DataContext with variables
 	 * @param schema Schema name
 	 * @returns Result of the evaluale expression
 	 */
-	public async eval (context: any, database?: string): Promise<any> {
-		return await this.expressionManager.eval(this.expression, context, database)
+	public async eval (dataContext: any, database?: string): Promise<any> {
+		return await this.expressionManager.eval(this.expression, dataContext, database)
 	}
 
 	/**
 	 * Execute expression
-	 * @param context Context with variables
+	 * @param context DataContext with variables
 	 * @param database Database name
 	 * @returns Result of execution
 	 */
-	public async execute (context: any = {}, database?: string) {
+	public async execute (dataContext: any = {}, database?: string) {
 		const query = await this.expressionManager.toQuery(this.expression, database)
 		const db = this.configManager.database.get(database)
-		return await this.executor.execute(db, query, context)
+		return await this.executor.execute(db, query, dataContext)
 	}
 }

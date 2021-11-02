@@ -1,6 +1,6 @@
 name: numeric functions
 database: source
-context:
+dataContext:
   a:
     id: 1
 test:

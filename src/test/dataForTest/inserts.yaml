@@ -1,6 +1,6 @@
 name: inserts
 database: source
-context:
+dataContext:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales

@@ -1,6 +1,6 @@
 name: query
 database: source
-context:
+dataContext:
   a:
     id: 1
   b:

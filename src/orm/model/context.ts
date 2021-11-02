@@ -1,13 +1,13 @@
-export class Context {
+export class DataContext {
 	public data: any
 	public parent: any
-	constructor (data:any, parent?:Context) {
+	constructor (data:any, parent?:DataContext) {
 		this.data = data
 		this.parent = parent
 	}
 
-	newContext ():Context {
-		return new Context({}, this)
+	newContext ():DataContext {
+		return new DataContext({}, this)
 	}
 
 	getContext (variable:string):any {

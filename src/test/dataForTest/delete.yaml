@@ -1,6 +1,6 @@
 name: delete
 database: source
-context:
+dataContext:
   a:
     id: 9
   b:

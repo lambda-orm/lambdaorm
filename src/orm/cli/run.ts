@@ -21,9 +21,9 @@ export class RunCommand implements CommandModule {
 				alias: 'expression',
 				describe: 'Expression to execute'
 			})
-			.option('c', {
-				alias: 'context',
-				describe: 'Context used to execute expression'
+			.option('d', {
+				alias: 'data',
+				describe: 'DataContext used to execute expression'
 			})
 			.option('s', {
 				alias: 'sentences',
@@ -38,7 +38,7 @@ export class RunCommand implements CommandModule {
 	async handler (args: Arguments) {
 		const workspace = path.resolve(process.cwd(), args.workspace as string || '.')
 		const expression = args.expression as string
-		let context = args.context || {}
+		let dataContext = args.data || {}
 		const database = args.name as string
 		const sentences = args.sentences as string
 		const metadata = args.metadata !== undefined
@@ -52,14 +52,14 @@ export class RunCommand implements CommandModule {
 			const db = orm.lib.getDatabase(database, config)
 			await orm.init(config)
 			// read context
-			if (typeof context === 'string') {
-				let data = Helper.tryParse(context as string)
+			if (typeof dataContext === 'string') {
+				let data = Helper.tryParse(dataContext as string)
 				if (data !== null) {
-					context = data
+					dataContext = data
 				} else {
 					try {
-						data = await Helper.readFile(path.join(process.cwd(), context as string))
-						context = JSON.parse(data as string)
+						data = await Helper.readFile(path.join(process.cwd(), dataContext as string))
+						dataContext = JSON.parse(data as string)
 					} catch (error) {
 						throw new Error(`Errror to read context: ${error}`)
 					}
@@ -80,7 +80,7 @@ export class RunCommand implements CommandModule {
 					console.log(JSON.stringify(metadata, null, 2))
 				}
 			} else {
-				const result = await orm.expression(expression).execute(context, db.name)
+				const result = await orm.expression(expression).execute(dataContext, db.name)
 				console.log(JSON.stringify(result, null, 2))
 			}
 		} catch (error) {

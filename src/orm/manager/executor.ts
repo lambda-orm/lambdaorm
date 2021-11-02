@@ -17,18 +17,18 @@ export class Executor {
 		this.configManager = configManager
 	}
 
-	public async execute (database: Database, query: Query, context: any = {}): Promise<any> {
+	public async execute (database: Database, query: Query, dataContext: any = {}): Promise<any> {
 		let error: any
 		let result:any
 		if (query.children && query.children.length > 0) {
 			await this.transaction(database, async function (tr: Transaction) {
-				result = await tr.execute(query, context)
+				result = await tr.execute(query, dataContext)
 			})
 		} else {
 			const schema = this.configManager.schema.getInstance(database.schema)
 			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, schema, false)
 			try {
-				result = await queryExecutor.execute(query, context)
+				result = await queryExecutor.execute(query, dataContext)
 			} catch (_error) {
 				error = _error
 			} finally {
@@ -66,20 +66,6 @@ export class Executor {
 					results.push(result)
 				}
 			})
-			// const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, database, false)
-			// try {
-			// for (let i = 0; i < queries.length; i++) {
-			// query = queries[i]
-			// const result = await queryExecutor.execute(query)
-			// results.push({ result: result, sentence: query.sentence })
-			// }
-			// queryExecutor.commit()
-			// } catch (error: any) {
-			// queryExecutor.rollback()
-			// throw new Error(`error: ${error.toString()}`)
-			// } finally {
-			// await queryExecutor.release()
-			// }
 		}
 		return { results: results }
 	}

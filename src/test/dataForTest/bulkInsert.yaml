@@ -1,6 +1,6 @@
 name: bulkInsert
 database: source
-context:
+dataContext:
   a:
     - name: Beverages4
       description: Soft drinks, coffees, teas, beers, and ales

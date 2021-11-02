@@ -85,7 +85,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 	lines.push('})')
 
 	lines.push('describe(\'Execute\', () => {')
-	lines.push(`\tconst context = ${JSON.stringify(category.context)}`)
+	lines.push(`\tconst dataContext = ${JSON.stringify(category.dataContext)}`)
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
 		if (expTest.expression && expTest.completeExpression) {
@@ -94,7 +94,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in databases) {
 				const database = databases[p]
-				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute('context,${database}')`)
+				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute('dataContext,${database}')`)
 				lines.push(`\t\texpect(expected).toEqual(${database}Result)`)
 			}
 			lines.push('\t})')
@@ -118,4 +118,4 @@ export async function apply (dataForTestPath: string, databases: string[], callb
 	}
 	callback()
 }
-apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
+apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

@@ -1,5 +1,5 @@
 
-import { Context, Property, Parameter } from './../model/index'
+import { DataContext, Property, Parameter } from './../model/index'
 import { Helper } from './../helper'
 import { OperandMetadata } from './operandMetadata'
 const SqlString = require('sqlstring')
@@ -59,20 +59,20 @@ export class Constant extends Operand {
 	}
 }
 export class Variable extends Operand {
-	public context?: Context
+	public dataContext?: DataContext
 	public number?: number
 	constructor (name: string, type = 'any') {
 		super(name, [], type)
-		this.context = undefined
+		this.dataContext = undefined
 		this.number = undefined
 	}
 
 	public set (value: any) {
-		if (this.context) { this.context.set(this.name, value) }
+		if (this.dataContext) { this.dataContext.set(this.name, value) }
 	}
 
 	public eval (): any {
-		return this.context ? this.context.get(this.name) : null
+		return this.dataContext ? this.dataContext.get(this.name) : null
 	}
 }
 export class Field extends Operand {
@@ -162,10 +162,10 @@ export class FunctionRef extends Operand {
 	}
 }
 export class ChildFunction extends FunctionRef {
-	public context?: Context
+	public dataContext?: DataContext
 }
 export class ArrowFunction extends FunctionRef {
-	public context?: Context
+	public dataContext?: DataContext
 }
 export class Block extends Operand {
 	public eval (): any {

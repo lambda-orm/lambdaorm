@@ -1,6 +1,6 @@
 
 import { Node, Model } from './../parser/index'
-import { Context, Query, Include } from './../model'
+import { DataContext, Query, Include } from './../model'
 import { SchemaHelper } from './../manager'
 import { Language } from './language'
 import { OperandManager } from './operandManager'
@@ -88,8 +88,8 @@ export class LanguageManager {
 		return this.operandManager.deserialize(serialized)
 	}
 
-	public eval (operand:Operand, context:Context):any {
-		return this.operandManager.eval(operand, context)
+	public eval (operand:Operand, dataContext:DataContext):any {
+		return this.operandManager.eval(operand, dataContext)
 	}
 
 	// public sync (dialect: string, delta: Delta, schema: SchemaHelper):Query[] {

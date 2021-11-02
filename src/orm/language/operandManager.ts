@@ -1,6 +1,6 @@
 
 import { Node } from './../parser/index'
-import { Property, Parameter, Context } from './../model'
+import { Property, Parameter, DataContext } from './../model'
 import { SchemaHelper } from './../manager'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
@@ -124,21 +124,21 @@ export class OperandManager {
 		throw new Error('NotImplemented')
 	}
 
-	public eval (operand:Operand, context:Context):any {
-		this.initialize(operand, new Context(context))
+	public eval (operand:Operand, dataContext:DataContext):any {
+		this.initialize(operand, new DataContext(dataContext))
 		return operand.eval()
 	}
 
-	private initialize (operand:Operand, context:Context) {
-		let current = context
+	private initialize (operand:Operand, dataContext:DataContext) {
+		let current = dataContext
 		if (operand instanceof ArrowFunction) {
 			const childContext = current.newContext()
-			operand.context = childContext
+			operand.dataContext = childContext
 			operand.metadata = this.language.metadata
 			current = childContext
 		} else if (operand instanceof ChildFunction) {
 			const childContext = current.newContext()
-			operand.context = childContext
+			operand.dataContext = childContext
 			operand.metadata = this.language.metadata
 			current = childContext
 		} else if (operand instanceof FunctionRef) {
@@ -146,7 +146,7 @@ export class OperandManager {
 		} else if (operand instanceof Operator) {
 			operand.metadata = this.language.metadata
 		} else if (operand instanceof Variable) {
-			operand.context = current
+			operand.dataContext = current
 		}
 		for (const k in operand.children) {
 			const p = operand.children[k]
@@ -176,7 +176,7 @@ export class OperandManager {
 			}
 		}
 		if (allConstants) {
-			const value = this.eval(operand, new Context({}))
+			const value = this.eval(operand, new DataContext({}))
 			const constant = new Constant(value)
 			constant.parent = operand.parent
 			constant.index = operand.index
@@ -313,7 +313,6 @@ export class OperandManager {
 		context.current.entity = clauses.from.name
 		context.current.metadata = schema.getEntity(context.current.entity)
 		context.current.alias = this.createAlias(context, context.current.entity)
-		const autoincrement = schema.getAutoincrement(context.current.entity)
 		let name = ''
 		const children:Operand[] = []
 		let operand = null

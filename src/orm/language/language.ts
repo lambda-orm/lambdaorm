@@ -1,15 +1,6 @@
 import { LanguageQueryBuilder } from './../manager/queryBuilder'
 import { LanguageSchemaBuilder } from './../manager/schemaBuilder'
 import { DialectMetadata } from './dialectMetadata'
-// export interface ILanguage
-// {
-// name:string
-// dialects: any
-// get schema():ISchemaBuilder
-// get query():IQueryBuilder
-// get executor(): QueryExecutor
-// metadata (dialect:string):DialectMetadata
-// }
 
 export class Language {
 	public name:string

@@ -61,7 +61,7 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 				let error
 				try {
 					// console.log(expressionTest.expression)
-					const context = expressionTest.context !== undefined ? category.context[expressionTest.context] : {}
+					const context = expressionTest.context !== undefined ? category.dataContext[expressionTest.context] : {}
 					result = await orm.lambda(expressionTest.lambda).execute(context, database)
 				} catch (err: any) {
 					error = err.toString()
@@ -119,7 +119,7 @@ async function writeQueryTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'query',
 		database: 'source',
-		context: {
+		dataContext: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
 		},
@@ -152,7 +152,7 @@ async function writeNumeriFunctionsTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'numeric functions',
 		database: 'source',
-		context: { a: { id: 1 } },
+		dataContext: { a: { id: 1 } },
 		test:
 			[
 				{ name: 'function abs', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price * -1, result: round(abs(p.price * -1), 10) })) },
@@ -177,7 +177,7 @@ async function writeGroupByTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'groupBy',
 		database: 'source',
-		context: { a: { id: 1 } },
+		dataContext: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
 				{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
@@ -197,7 +197,7 @@ async function writeIncludeTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'include',
 		database: 'source',
-		context: { a: { id: 1 } },
+		dataContext: { a: { id: 1 } },
 		test:
 			[
 				{ name: 'include 1', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => p.customer) },
@@ -215,7 +215,7 @@ async function writeInsertsTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'inserts',
 		database: 'source',
-		context: {
+		dataContext: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			c: { entity: { name: 'Beverages22', description: 'Soft drinks, coffees, teas, beers, and ales' } },
@@ -271,7 +271,7 @@ async function writeUpdateTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'update',
 		database: 'source',
-		context: {
+		dataContext: {
 			a: {
 				id: 7,
 				customerId: 'ANATR',
@@ -574,7 +574,7 @@ async function writeDeleteTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'delete',
 		database: 'source',
-		context: {
+		dataContext: {
 			a: { id: 9 },
 			b: {
 				id: 1,
@@ -732,7 +732,7 @@ async function writeBulkInsertTest (databases: string[]): Promise<number> {
 	return await writeTest(databases, {
 		name: 'bulkInsert',
 		database: 'source',
-		context: {
+		dataContext: {
 			a: [{
 				name: 'Beverages4',
 				description: 'Soft drinks, coffees, teas, beers, and ales'
