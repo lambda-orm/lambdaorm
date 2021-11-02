@@ -6,12 +6,8 @@ context:
 test:
   - name: groupBy 1
     sentences:
-      - database: mysql
-        sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
-      - database: postgres
-        sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
-      - database: mariadb
-        sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
+      - database: mssql
+        sentence: 'SELECT MAX(p.UnitPrice) AS [maxPrice] FROM Products p  '
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
     completeExpression: Products.map(p=>{maxPrice:max(p.price)})
@@ -22,19 +18,13 @@ test:
       - name: maxPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - maxPrice: 263.5
   - name: groupBy 2
     sentences:
-      - database: mysql
-        sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
-      - database: postgres
-        sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
-      - database: mariadb
-        sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
+      - database: mssql
+        sentence: 'SELECT MIN(p.UnitPrice) AS [minPrice] FROM Products p  '
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
     completeExpression: Products.map(p=>{minPrice:min(p.price)})
@@ -45,19 +35,13 @@ test:
       - name: minPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - minPrice: 2.5
   - name: groupBy 3
     sentences:
-      - database: mysql
-        sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
-      - database: postgres
-        sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
-      - database: mariadb
-        sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
+      - database: mssql
+        sentence: 'SELECT SUM(p.UnitPrice) AS [total] FROM Products p  '
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
     completeExpression: Products.map(p=>{total:sum(p.price)})
@@ -68,20 +52,14 @@ test:
       - name: total
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - total: 2222.71
   - name: groupBy 4
     sentences:
-      - database: mysql
-        sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
-      - database: postgres
-        sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
-      - database: mariadb
-        sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
-    errors: 1
+      - database: mssql
+        sentence: 'SELECT AVG(p.UnitPrice) AS [average] FROM Products p  '
+    errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
     completeExpression: Products.map(p=>{average:avg(p.price)})
     model:
@@ -91,22 +69,13 @@ test:
       - name: average
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-        error: not equal mysql
-        result:
-          - average: 28.866363636363637
-      - database: mariadb
+      - database: mssql
     result:
-      - average: 28.86636364
+      - average: 28.866363
   - name: groupBy 5
     sentences:
-      - database: mysql
-        sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
-      - database: postgres
-        sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
-      - database: mariadb
-        sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
+      - database: mssql
+        sentence: 'SELECT COUNT(1) AS [count] FROM Products p  '
     errors: 0
     expression: Products.map(p=>{count:count(1)})
     completeExpression: Products.map(p=>{count:count(1)})
@@ -117,26 +86,16 @@ test:
       - name: count
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - count: 77
   - name: groupBy 6
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice`
+          SELECT p.CategoryID AS [category], MAX(p.UnitPrice) AS [largestPrice]
           FROM Products p  GROUP BY p.CategoryID 
-      - database: postgres
-        sentence: >-
-          SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS "largestPrice"
-          FROM Products p  GROUP BY p.CategoryID 
-      - database: mariadb
-        sentence: >-
-          SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice`
-          FROM Products p  GROUP BY p.CategoryID 
-    errors: 1
+    errors: 0
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     completeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
@@ -149,27 +108,7 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-        error: not equal mysql
-        result:
-          - category: 3
-            largestPrice: 81
-          - category: 5
-            largestPrice: 38
-          - category: 4
-            largestPrice: 55
-          - category: 6
-            largestPrice: 123.79
-          - category: 2
-            largestPrice: 43.9
-          - category: 7
-            largestPrice: 53
-          - category: 1
-            largestPrice: 263.5
-          - category: 8
-            largestPrice: 62.5
-      - database: mariadb
+      - database: mssql
     result:
       - category: 1
         largestPrice: 263.5
@@ -189,22 +128,12 @@ test:
         largestPrice: 62.5
   - name: groupBy 7
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
+          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
           = p.CategoryID GROUP BY c.CategoryName 
-      - database: postgres
-        sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
-      - database: mariadb
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName 
-    errors: 1
+    errors: 0
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     completeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
@@ -217,27 +146,7 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-        error: not equal mysql
-        result:
-          - category: Grains/Cereals
-            largestPrice: 38
-          - category: Beverages
-            largestPrice: 263.5
-          - category: Dairy Products
-            largestPrice: 55
-          - category: Seafood
-            largestPrice: 62.5
-          - category: Produce
-            largestPrice: 53
-          - category: Condiments
-            largestPrice: 43.9
-          - category: Meat/Poultry
-            largestPrice: 123.79
-          - category: Confections
-            largestPrice: 81
-      - database: mariadb
+      - database: mssql
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -258,18 +167,10 @@ test:
   - name: groupBy 8
     context: a
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-          ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
-      - database: postgres
-        sentence: >-
-          SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-          ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID = $1 
-      - database: mariadb
-        sentence: >-
-          SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-          ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
+          SELECT p.ProductName AS [name], p.UnitPrice AS [source],
+          ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = @id 
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
@@ -291,29 +192,17 @@ test:
       - name: result
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - name: Chai
         source: 18
         result: 18
   - name: groupBy 9
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
-      - database: postgres
-        sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
-      - database: mariadb
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
+          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
           = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
     errors: 0
     expression: >-
@@ -330,9 +219,7 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -340,24 +227,12 @@ test:
         largestPrice: 123.79
   - name: groupBy 10
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
+          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
           = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
-          ORDER BY `largestPrice` desc 
-      - database: postgres
-        sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
-          ORDER BY "largestPrice" desc 
-      - database: mariadb
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
-          ORDER BY `largestPrice` desc 
+          ORDER BY [largestPrice] desc 
     errors: 0
     expression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
@@ -373,9 +248,7 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -383,24 +256,12 @@ test:
         largestPrice: 123.79
   - name: groupBy 11
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
+          SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS
+          [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID
           = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc 
-      - database: postgres
-        sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc 
-      - database: mariadb
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc 
+          MAX(p.UnitPrice) > 50 ORDER BY [largestPrice] desc 
     errors: 0
     expression: >-
       Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
@@ -416,9 +277,7 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - database: mssql
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -432,4 +291,4 @@ test:
         largestPrice: 55
       - category: Produce
         largestPrice: 53
-errors: 3
+errors: 0

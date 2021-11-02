@@ -248,6 +248,7 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "insert": "INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoincrementField} VALUES({values})",
         "update": "UPDATE {alias} SET {assings} FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields})",
@@ -258,7 +259,6 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}"
       },

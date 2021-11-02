@@ -1,55 +1,44 @@
-/* eslint-disable no-prototype-builtins */
 /* eslint-disable @typescript-eslint/no-this-alias */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
 
 export class MssqlConnectionPool extends ConnectionPool {
 	public static tedious: any
-	public static MssqlConnectionPool:any
-	protected pool:any
 	constructor (config: ConnectionConfig) {
 		super(config)
 		if (!MssqlConnectionPool.tedious) {
 			MssqlConnectionPool.tedious = require('tedious')
-			MssqlConnectionPool.MssqlConnectionPool = require('tedious-connection-pool')
 		}
 	}
 
 	public async init (): Promise<void> {
-		const defaultPoolConfig = { min: 2, max: 4, log: false }
-		this.pool = new MssqlConnectionPool.MssqlConnectionPool(this.config.connection.pool || defaultPoolConfig, this.config.connection)
+		console.log('init')
 	}
 
 	public async acquire (): Promise<Connection> {
-		if (this.pool === undefined) {
-			await this.init()
-		}
-		const me = this
 		const cnx = await new Promise<Connection>((resolve, reject) => {
-			me.pool.acquire(function (error: any, cnn: any) {
-				if (error) {
-					reject(new Error(`Acquire mssql connection error: ${error}`))
+			const connection = new MssqlConnectionPool.tedious.Connection(this.config.connection)
+			connection.connect()
+			connection.on('connect', (err:any) => {
+				if (err) {
+					reject(err)
 				}
-				resolve(cnn)
+				resolve(connection)
 			})
 		})
-		return new MssqlConnection(cnx, me)
+		return new MssqlConnection(cnx, this)
 	}
 
 	public async release (connection: Connection): Promise<void> {
 		if (connection.cnx.closed) {
 			return
 		}
-		connection.cnx.release()
+		connection.cnx.close()
 	}
 
 	public async end (): Promise<void> {
-		if (this.pool !== undefined) {
-			await this.pool.drain()
-		}
+		console.log('end')
 	}
 }
 
@@ -59,9 +48,17 @@ export class MssqlConnection extends Connection {
 		return result
 	}
 
-	public async insert (query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
-		return result.insertId
+	public async insert (query: Query, params: Parameter[]): Promise<number> {
+		const fieldId: string | undefined = query.autoincrement ? query.autoincrement.mapping : undefined
+		const sentence = fieldId
+			? query.sentence.replace('OUTPUT inserted.0', '')
+			: query.sentence
+		const result = await this._query(sentence, params)
+		if (fieldId) {
+			return result[fieldId]
+		} else {
+			return 0
+		}
 	}
 
 	public async bulkInsert (query:Query, array: any[], params: Parameter[]): Promise<any[]> {
@@ -101,11 +98,11 @@ export class MssqlConnection extends Connection {
 	}
 
 	public async update (query:Query, params:Parameter[]):Promise<number> {
-		return await this._execute(query, params)
+		return await this._execute(query.sentence, params)
 	}
 
 	public async delete (query:Query, params:Parameter[]):Promise<number> {
-		return await this._execute(query, params)
+		return await this._execute(query.sentence, params)
 	}
 
 	public async execute (query:Query):Promise<any> {
@@ -113,17 +110,7 @@ export class MssqlConnection extends Connection {
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
-		return await this._query(sentence, [])
-		// const me = this
-		// return await new Promise<any>((resolve, reject) => {
-		// const request = new MssqlConnectionPool.tedious.Request(sentence, (err: any, raw: any) => {
-		// if (err) {
-		// reject(err)
-		// }
-		// resolve(raw)
-		// })
-		// me.cnx.execSql(request)
-		// })
+		return await this._query(sentence)
 	}
 
 	public async beginTransaction (): Promise<void> {
@@ -146,7 +133,7 @@ export class MssqlConnection extends Connection {
 				if (error) {
 					reject(new Error(`Mssql connection commit error: ${error}`))
 				}
-				me.inTransaction = true
+				me.inTransaction = false
 				resolve()
 			})
 		})
@@ -159,7 +146,7 @@ export class MssqlConnection extends Connection {
 				if (error) {
 					reject(new Error(`Mssql connection rollback error: ${error}`))
 				}
-				me.inTransaction = true
+				me.inTransaction = false
 				resolve()
 			})
 		})
@@ -170,7 +157,7 @@ export class MssqlConnection extends Connection {
 		return await new Promise<any[]>((resolve, reject) => {
 			try {
 				const rows: any[] = []
-				const request = new MssqlConnectionPool.tedious.Request(sentence, (error: any, raw: any) => {
+				const request = new MssqlConnectionPool.tedious.Request(sentence, (error: any) => {
 					if (error) {
 						reject(new Error(`Mssql connection _query error: ${error}`))
 					}
@@ -184,7 +171,9 @@ export class MssqlConnection extends Connection {
 					}
 					rows.push(row)
 				})
-				me.addParameters(request, params)
+				if (params.length > 0) {
+					me.addParameters(request, params)
+				}
 				me.cnx.execSql(request)
 			} catch (error) {
 				reject(new Error(`Mssql connection _query error: ${error}`))
@@ -192,16 +181,18 @@ export class MssqlConnection extends Connection {
 		})
 	}
 
-	private async _execute (query: Query, params: Parameter[] = []) {
+	private async _execute (sentence:string, params: Parameter[] = []) {
 		const me = this
 		return await new Promise<any>((resolve, reject) => {
-			const request = new MssqlConnectionPool.tedious.Request(query.sentence, (error: any, raw: any) => {
-				if (error) {
-					reject(new Error(`Mssql connection _execute error: ${error}`))
+			const request = new MssqlConnectionPool.tedious.Request(sentence, (err: any, rowCount: any) => {
+				if (err) {
+					reject(new Error(`Mssql connection _execute error: ${err}`))
 				}
-				resolve(raw)
+				resolve(rowCount)
 			})
-			me.addParameters(request, params)
+			if (params.length > 0) {
+				me.addParameters(request, params)
+			}
 			me.cnx.execSql(request)
 		})
 	}

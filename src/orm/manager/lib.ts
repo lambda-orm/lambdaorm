@@ -299,7 +299,7 @@ export class LibManager {
 		case 'postgres':
 			return ['pg']
 		case 'mssql':
-			return ['tedious', 'tedious-connection-pool']
+			return ['tedious']
 		case 'oracle':
 			return ['oracledb']
 		case 'mongodb':

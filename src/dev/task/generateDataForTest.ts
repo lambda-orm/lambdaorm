@@ -69,7 +69,11 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 					if (error !== undefined) {
 						expressionTest.executions.push({ database: database, error: error })
 						expressionTest.errors++
-					} else if (result !== undefined) { results.push({ database: database, result: result }) } else { console.error('error execution ' + database + ' ' + category.name + ':' + expressionTest.name) }
+					} else if (result !== undefined) {
+						results.push({ database: database, result: result })
+					} else {
+						console.error('error execution ' + database + ' ' + category.name + ':' + expressionTest.name)
+					}
 				}
 			}
 			if (results.length === 1) {

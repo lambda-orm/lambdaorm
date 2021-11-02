@@ -15,6 +15,16 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab mssql",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-mssql.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
 			"name": "lab mongo",
 			"type": "node",
 			"request": "launch",
@@ -202,16 +212,6 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
-		},
-		{
-			"name": "generate data test files",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "drop dbs",

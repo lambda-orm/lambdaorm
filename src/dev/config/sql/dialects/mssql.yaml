@@ -9,6 +9,7 @@ ddl:
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name} ON {table}"
 dml:
+  insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoincrementField} VALUES({values})
   update: UPDATE {alias} SET {assings} FROM {name} {alias}
   delete: DELETE FROM {name} {alias}
   bulkInsert: INSERT INTO {name}({fields})

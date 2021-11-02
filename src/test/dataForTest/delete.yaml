@@ -119,13 +119,9 @@ test:
   - name: delete 1
     context: a
     sentences:
-      - database: mysql
-        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
-      - database: postgres
-        sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = $1 '
-      - database: mariadb
-        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
-    errors: 0
+      - database: mssql
+        sentence: 'DELETE FROM [Order Details] o WHERE o.OrderID = @id '
+    errors: 1
     expression: OrderDetails.delete().filter(p=>(p.orderId===id))
     completeExpression: OrderDetails.delete().filter(p=>(p.orderId===id))
     model: {}
@@ -135,32 +131,20 @@ test:
         value: 9
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o'.
   - name: delete 2
     context: b
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE FROM Orders o WHERE o.OrderID = @id 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
-      - database: mariadb
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-    errors: 0
+          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+          o1.ProductID = @productId) 
+    errors: 1
     expression: Orders.delete().include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -170,35 +154,22 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 4
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o1'.
   - name: delete 3
     context: c
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE FROM Orders o WHERE o.OrderID = @id 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
-      - database: mariadb
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-    errors: 0
+          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+          o1.ProductID = @productId) 
+    errors: 1
     expression: Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)
     completeExpression: >-
       Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -208,35 +179,22 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 2
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o1'.
   - name: delete 4
     context: d
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE FROM Orders o WHERE o.OrderID = @id 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
-      - database: mariadb
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-    errors: 0
+          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+          o1.ProductID = @productId) 
+    errors: 1
     expression: Orders.delete().include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -246,29 +204,20 @@ test:
     parameters:
       - name: id
         type: integer
-        value: 4
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o1'.
   - name: delete 4
     context: d
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
-          o.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
-          $2) 
-      - database: mariadb
-        sentence: >-
-          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
-          o.ProductID = ?) 
-    errors: 0
+          DELETE FROM [Order Details] o WHERE (o.OrderID = @entity.orderId AND
+          o.ProductID = @entity.productId) 
+    errors: 1
     expression: OrderDetails.delete(entity)
     completeExpression: >-
       OrderDetails.filter(p=>((p.orderId==entity.orderId)&&(p.productId==entity.productId))).delete(entity)
@@ -282,32 +231,20 @@ test:
         value: null
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o'.
   - name: delete 5
     context: e
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+          DELETE FROM Orders o WHERE o.OrderID = @entity.id 
 
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          DELETE FROM Orders o WHERE o.OrderID = $1 
-
-          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
-          = $2) 
-      - database: mariadb
-        sentence: >-
-          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
-
-          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-    errors: 0
+          DELETE FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+          o1.ProductID = @productId) 
+    errors: 1
     expression: Orders.delete(entity).include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -320,27 +257,23 @@ test:
         value: null
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o'.
   - name: delete 6
     sentences:
-      - database: mysql
-        sentence: 'DELETE o FROM `Order Details` AS o '
-      - database: postgres
-        sentence: 'DELETE FROM "Order Details" o '
-      - database: mariadb
-        sentence: 'DELETE o FROM `Order Details` AS o '
-    errors: 0
+      - database: mssql
+        sentence: 'DELETE FROM [Order Details] o '
+    errors: 1
     expression: OrderDetails.deleteAll()
     completeExpression: OrderDetails.delete()
     model: {}
     parameters: []
     fields: []
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 6
-errors: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Incorrect syntax
+          near 'o'.
+errors: 7

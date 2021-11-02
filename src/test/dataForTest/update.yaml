@@ -226,25 +226,15 @@ test:
   - name: update 1
     context: a
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-      - database: postgres
-        sentence: >-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-      - database: mariadb
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-    errors: 0
+          UPDATE o SET CustomerID = @customerId,EmployeeID =
+          @employeeId,OrderDate = @orderDate,RequiredDate =
+          @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight
+          = @freight,ShipName = @name,ShipAddress = @address,ShipCity =
+          @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry =
+          @country FROM Orders o WHERE o.OrderID = @obj.id 
+    errors: 1
     expression: Orders.update()
     completeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
@@ -333,32 +323,24 @@ test:
       - name: country
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@obj".
   - name: update 2
     context: b
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-      - database: postgres
-        sentence: >-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-      - database: mariadb
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-    errors: 0
+          UPDATE o SET CustomerID = @entity.customerId,EmployeeID =
+          @entity.employeeId,OrderDate = @entity.orderDate,RequiredDate =
+          @entity.requiredDate,ShippedDate = @entity.shippedDate,ShipVia =
+          @entity.shipViaId,Freight = @entity.freight,ShipName =
+          @entity.name,ShipAddress = @entity.address,ShipCity =
+          @entity.city,ShipRegion = @entity.region,ShipPostalCode =
+          @entity.postalCode,ShipCountry = @entity.country FROM Orders o WHERE
+          o.OrderID = @obj.id 
+    errors: 1
     expression: Orders.update(entity)
     completeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country})
@@ -447,19 +429,15 @@ test:
       - name: country
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@entity".
   - name: update 3
     context: c
     sentences:
-      - database: mysql
-        sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
-      - database: postgres
-        sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
-      - database: mariadb
-        sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+      - database: mssql
+        sentence: 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
     errors: 0
     expression: Orders.updateAll(=>{postalCode:postalCode})
     completeExpression: Orders.update(=>{postalCode:postalCode})
@@ -473,20 +451,16 @@ test:
       - name: postalCode
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 833
+      - database: mssql
+    result: 831
   - name: update 4
     context: b
     sentences:
-      - database: mysql
-        sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-      - database: postgres
-        sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-      - database: mariadb
-        sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-    errors: 0
+      - database: mssql
+        sentence: >-
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
+    errors: 1
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     completeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     model:
@@ -502,35 +476,23 @@ test:
       - name: name
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@entity".
   - name: update 5
     context: b
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
 
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
-      - database: postgres
-        sentence: >-
-          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
-
-          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
-          = $7) 
-      - database: mariadb
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
-    errors: 0
+          UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice =
+          @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order
+          Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID =
+          @obj.productId) 
+    errors: 1
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
     completeExpression: >-
@@ -554,35 +516,22 @@ test:
       - name: name
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@entity".
   - name: update 6
     context: b
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
 
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
-
-          UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
-          o1.ProductID = $2) 
-      - database: mariadb
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
-    errors: 0
+          UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount
+          = o1.Discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+          o1.ProductID = @productId) 
+    errors: 1
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
     completeExpression: >-
@@ -604,32 +553,22 @@ test:
       - name: name
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@entity".
   - name: update 7
     context: b
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
+          UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+          @entity.id 
 
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
-      - database: postgres
-        sentence: >-
-          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
-
-          UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
-      - database: mariadb
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
-    errors: 0
+          UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID FROM
+          [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID =
+          @productId) 
+    errors: 1
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
     completeExpression: >-
@@ -650,44 +589,27 @@ test:
       - name: name
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 1
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@entity".
   - name: update 8
     context: a
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
+          UPDATE o SET CustomerID = @customerId,EmployeeID =
+          @employeeId,OrderDate = @orderDate,RequiredDate =
+          @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight
+          = @freight,ShipName = @name,ShipAddress = @address,ShipCity =
+          @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry =
+          @country FROM Orders o WHERE o.OrderID = @obj.id 
 
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
-      - database: postgres
-        sentence: >-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-
-          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
-          = $7) 
-      - database: mariadb
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
-    errors: 0
+          UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice =
+          @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order
+          Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID =
+          @obj.productId) 
+    errors: 1
     expression: Orders.update().include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
@@ -782,56 +704,32 @@ test:
       - name: country
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@obj".
   - name: update 9
     context: c
     sentences:
-      - database: mysql
+      - database: mssql
         sentence: >-
-          UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-          ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-          ?,Country = ? WHERE c.CustomerID = ? 
+          UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName =
+          @contact,ContactTitle = @phone,Address = @address,City = @city,Region
+          = @region,PostalCode = @postalCode,Country = @country FROM Customers c
+          WHERE c.CustomerID = @obj.id 
 
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
+          UPDATE o SET CustomerID = @customerId,EmployeeID =
+          @employeeId,OrderDate = @orderDate,RequiredDate =
+          @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight
+          = @freight,ShipName = @name,ShipAddress = @address,ShipCity =
+          @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry =
+          @country FROM Orders o WHERE o.OrderID = @obj.id 
 
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
-      - database: postgres
-        sentence: >-
-          UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName =
-          $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode =
-          $8,Country = $9 WHERE c.CustomerID = $10 
-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-
-          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
-          = $7) 
-      - database: mariadb
-        sentence: >-
-          UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-          ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-          ?,Country = ? WHERE c.CustomerID = ? 
-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
-    errors: 0
+          UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice =
+          @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order
+          Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID =
+          @obj.productId) 
+    errors: 1
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
     completeExpression: >-
       Customers.filter(p=>(p.id==obj.id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
@@ -916,8 +814,8 @@ test:
       - name: country
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-    result: 0
-errors: 0
+      - database: mssql
+        error: >-
+          Error: Mssql connection _execute error: RequestError: Must declare the
+          scalar variable "@obj".
+errors: 8
