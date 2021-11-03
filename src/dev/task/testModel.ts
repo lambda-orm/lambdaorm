@@ -1,4 +1,4 @@
-import { Parameter } from '../../orm'
+import { Parameter } from './../../orm'
 
 export interface ExecutionTest {
 	database: string
@@ -10,7 +10,7 @@ export interface ExecutionResult {
 	result?: any
 }
 export interface SentenceTest {
-	dialect: string
+	database: string
 	sentence?: any
 	error?: string
 }
@@ -31,12 +31,12 @@ export interface ExpressionTest {
 }
 export interface CategoryTest {
 	name: string
-	schema: string
-	context: any
+	database: string
+	dataContext: any
 	test: ExpressionTest[]
 	errors?: number
 }
 export interface Test {
-	schema: string
+	database: string
 	categories: CategoryTest[]
 }

@@ -1,26 +1,28 @@
 
-import { Node, Model } from '../parser/index'
-import { Context, Delta } from './../model'
-import { SchemaHelper } from '../schema/schemaHelper'
-import { ILanguage } from './iLanguage'
-import { Executor } from '../connection'
+import { Node, Model } from './../parser/index'
+import { DataContext, Query, Include } from './../model'
+import { SchemaHelper } from './../manager'
+import { Language } from './language'
 import { OperandManager } from './operandManager'
-import { Operand, Query, Sentence } from './operands'
-
+import { Operand, Sentence } from './operands'
 import { OperandMetadata } from './operandMetadata'
 import { Library } from './library'
+import { DialectMetadata } from './dialectMetadata'
+import { LanguageQueryBuilder } from './../manager/queryBuilder'
+import { LanguageSchemaBuilder } from './../manager/schemaBuilder'
 
 export class LanguageManager {
 	public dialects:any
 	public languageModel:Model
 	public metadata:OperandMetadata
 	private languages:any
-	private operandManager:OperandManager
+	private operandManager: OperandManager
 
 	constructor (languageModel:Model) {
 		this.languageModel = languageModel
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(this)
+
 		this.languages = {}
 		this.dialects = {}
 	}
@@ -29,14 +31,18 @@ export class LanguageManager {
 		this.metadata.addLibrary(library)
 	}
 
-	public add (language:ILanguage) {
+	public add (language:Language) {
 		this.languages[language.name] = language
 		for (const name in language.dialects) { this.dialects[name] = { name: name, language: language.name } }
 	}
 
-	public get (dialect:string):ILanguage {
+	public get (dialect:string):Language {
 		const info = this.dialects[dialect]
-		return this.languages[info.language] as ILanguage
+		return this.languages[info.language] as Language
+	}
+
+	public dialectMetadata (dialect:string):DialectMetadata {
+		return this.get(dialect).metadata(dialect)
 	}
 
 	public build (node:Node, schema:SchemaHelper): Operand {
@@ -51,12 +57,27 @@ export class LanguageManager {
 		return this.operandManager.parameters(sentence)
 	}
 
-	public query (dialect:string, sentence:Sentence): Query {
-		return this.get(dialect).query.build(sentence, dialect)
+	public queryBuilder (dialect: string): LanguageQueryBuilder {
+		return this.get(dialect).query
 	}
 
-	public sentence (dialect:string, operand:Query):any {
-		return this.get(dialect).query.sentence(operand)
+	public schemaBuilder (dialect: string): LanguageSchemaBuilder {
+		return this.get(dialect).schema
+	}
+
+	// public query (dialect: string, sentence: Sentence): Query {
+	// const metadata = this.dialectMetadata(dialect)
+	// return this.get(dialect).query.build(sentence, metadata)
+	// }
+
+	public sentence (query:Query):any {
+		let mainSentence = query.sentence + ''
+		for (const p in query.children) {
+			const include = query.children[p] as Include
+			const includeSentence = this.sentence(include.children[0] as Query)
+			mainSentence = mainSentence + '\n' + includeSentence
+		}
+		return mainSentence
 	}
 
 	public serialize (operand:Operand):any {
@@ -67,31 +88,22 @@ export class LanguageManager {
 		return this.operandManager.deserialize(serialized)
 	}
 
-	public serializeQuery (dialect:string, operand:Operand):any {
-		return this.get(dialect).query.serialize(operand)
+	public eval (operand:Operand, dataContext:DataContext):any {
+		return this.operandManager.eval(operand, dataContext)
 	}
 
-	public deserializeQuery (dialect:string, serialized:any) {
-		return this.get(dialect).query.deserialize(serialized)
-	}
+	// public sync (dialect: string, delta: Delta, schema: SchemaHelper):Query[] {
+	// const metadata = this.dialectMetadata(dialect)
+	// return this.get(dialect).schema.sync(delta, metadata, schema)
+	// }
 
-	public async execute (dialect:string, operand:Operand, context:Context, executor:Executor):Promise<any> {
-		return await this.get(dialect).executor.execute(operand, context, executor)
-	}
+	// public drop (dialect: string, schema: SchemaHelper): Query[] {
+	// const metadata = this.dialectMetadata(dialect)
+	// return this.get(dialect).schema.drop(metadata, schema)
+	// }
 
-	public eval (operand:Operand, context:Context):any {
-		return this.operandManager.eval(operand, context)
-	}
-
-	public sync (dialect:string, delta:Delta, schema:SchemaHelper):any[] {
-		return this.get(dialect).schema.sync(delta, dialect, schema)
-	}
-
-	public drop (dialect:string, schema:SchemaHelper):string[] {
-		return this.get(dialect).schema.drop(dialect, schema)
-	}
-
-	public truncate (dialect:string, schema:SchemaHelper):string[] {
-		return this.get(dialect).schema.truncate(dialect, schema)
-	}
+	// public truncate (dialect: string, schema: SchemaHelper): Query[] {
+	// const metadata = this.dialectMetadata(dialect)
+	// return this.get(dialect).schema.truncate(metadata, schema)
+	// }
 }

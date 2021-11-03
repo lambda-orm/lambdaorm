@@ -106,10 +106,10 @@ export class Respository<TEntity, TQuery> {
 		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.database)
 	}
 
-	public async get (data: any,
+	public async list (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
-	): Promise<TEntity> {
+	): Promise<TEntity[]> {
 		let expression = `${this.name}`
 		if (filter !== undefined) {
 			expression = `${expression}.filter(${filter.toString()})`
@@ -117,13 +117,13 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.database) as TEntity
+		return await this.orm.expression(expression).execute(data, this.database) as TEntity[]
 	}
 
 	public async distinct (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
-	): Promise<TEntity> {
+	): Promise<any[]> {
 		let expression = `${this.name}.distinct()`
 		if (filter !== undefined) {
 			expression = `${expression}.filter(${filter.toString()})`
@@ -131,13 +131,13 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.database) as TEntity
+		return await this.orm.expression(expression).execute(data, this.database)
 	}
 
 	public async first (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
-	): Promise<TEntity> {
+	): Promise<TEntity|null> {
 		let expression = `${this.name}.first()`
 		if (filter !== undefined) {
 			expression = `${expression}.filter(${filter.toString()})`
@@ -145,13 +145,18 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.database) as TEntity
+		const result = await this.orm.expression(expression).execute(data, this.database)
+		if (result.length >= 1) {
+			return result[0] as TEntity
+		} else {
+			return null
+		}
 	}
 
 	public async last (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
-	): Promise<TEntity> {
+	): Promise<TEntity|null> {
 		let expression = `${this.name}.last()`
 		if (filter !== undefined) {
 			expression = `${expression}.filter(${filter.toString()})`
@@ -159,13 +164,18 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.database) as TEntity
+		const result = await this.orm.expression(expression).execute(data, this.database)
+		if (result.length >= 1) {
+			return result[0] as TEntity
+		} else {
+			return null
+		}
 	}
 
 	public async take (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
-	): Promise<TEntity> {
+	): Promise<TEntity|null> {
 		let expression = `${this.name}.take()`
 		if (filter !== undefined) {
 			expression = `${expression}.filter(${filter.toString()})`
@@ -173,7 +183,12 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.database) as TEntity
+		const result = await this.orm.expression(expression).execute(data, this.database)
+		if (result.length >= 1) {
+			return result[0] as TEntity
+		} else {
+			return null
+		}
 	}
 
 	// public async list (data: any,

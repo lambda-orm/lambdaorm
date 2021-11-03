@@ -11,31 +11,26 @@ export class ExpressionActions {
 	}
 
 	public async execute (expresion: string, data:any): Promise<any> {
-		return this.orm.expression(`${this.name}${expresion}`).execute(data, this.database)
+		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.database)
 	}
 
 	public complete (expresion: string): string {
-		const db = this.orm.database.get(this.database)
-		return this.orm.expression(`${this.name}${expresion}`).complete(db.schema)
+		return this.orm.expression(`${this.name}${expresion}`).complete(this.database)
 	}
 
 	public async model (expresion: string): Promise<any> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).model(db.schema)
+		return await this.orm.expression(`${this.name}${expresion}`).model(this.database)
 	}
 
 	public async parameters (expresion: string): Promise<any> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).parameters(db.schema)
+		return await this.orm.expression(`${this.name}${expresion}`).parameters(this.database)
 	}
 
 	public async metadata (expresion: string): Promise<any> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).metadata(db.schema)
+		return await this.orm.expression(`${this.name}${expresion}`).metadata(this.database)
 	}
 
 	public async sentence (expresion: string): Promise<string> {
-		const db = this.orm.database.get(this.database)
-		return await this.orm.expression(`${this.name}${expresion}`).sentence(db.dialect, db.schema)
+		return await this.orm.expression(`${this.name}${expresion}`).sentence(this.database)
 	}
 }

@@ -92,11 +92,15 @@ export class SchemaHelper {
 		}
 	}
 
-	public sortEntities (entities?:string[]):string[] {
-		if (!entities) {
-			entities = []
-			for (const name in this._schema.entity)entities.push(name)
+	public listEntities (): string[] {
+		const entities = []
+		for (const name in this._schema.entity) {
+			entities.push(name)
 		}
+		return entities
+	}
+
+	public sortEntities (entities:string[] = []): string[] {
 		const sorted:string[] = []
 		while (sorted.length < entities.length) {
 			for (let i = 0; i < entities.length; i++) {

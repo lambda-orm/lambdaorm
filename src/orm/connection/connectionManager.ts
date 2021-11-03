@@ -1,8 +1,8 @@
 
 import { Connection } from './connection'
 import { ConnectionPool } from './connectionPool'
-import { Executor } from './executor'
-import { Transaction } from './transaction'
+// import { Executor } from './executor'
+// import { Transaction } from './transaction'
 import { ConnectionConfig } from './connectionConfig'
 
 // const genericPool = require('generic-pool')
@@ -30,15 +30,10 @@ export class ConnectionManager {
 
 	protected pool (name:string):ConnectionPool {
 		const pool = this.pools[name] as ConnectionPool
-		if (!pool) { throw new Error(`connection ${name} not found`) }
-		return pool
-	}
-
-	public async init ():Promise<void> {
-		for (const k in this.pools) {
-			const pool = this.pools[k] as ConnectionPool
-			await pool.init()
+		if (!pool) {
+			throw new Error(`connection ${name} not found`)
 		}
+		return pool
 	}
 
 	public async end ():Promise<void> {
@@ -63,11 +58,11 @@ export class ConnectionManager {
 		await this.pool(connection.config.name).release(connection)
 	}
 
-	public createExecutor (connectionName:string):Executor {
-		return new Executor(this, connectionName)
-	}
+	// public createExecutor (connectionName:string):Executor {
+	// return new Executor(this, connectionName)
+	// }
 
-	public createTransaction (connectionName:string):Transaction {
-		return new Transaction(this, connectionName)
-	}
+// public createTransaction (connectionName:string):Transaction {
+// return new Transaction(this, connectionName)
+// }
 }

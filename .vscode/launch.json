@@ -15,6 +15,25 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab mssql",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-mssql.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab mongo",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/labs/mongo/lab.js"
+		},
+		{
 			"name": "cli version",
 			"type": "node",
 			"request": "launch",
@@ -195,16 +214,6 @@
 			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
 		},
 		{
-			"name": "generate data test files",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
 			"name": "drop dbs",
 			"type": "node",
 			"request": "launch",
@@ -254,26 +263,26 @@
 			"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
-		{
-			"name": "generate data for test",
-			"type": "node",
-			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"generate-data-for-test"
-			],
-			"stopOnEntry": false
-		},
 		// {
 		// 	"name": "generate data for test",
 		// 	"type": "node",
 		// 	"request": "launch",
-		// 	"skipFiles": [
-		// 		"<node_internals>/**"
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate-data-for-test"
 		// 	],
-		// 	"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
-		// 	"envFile": "${workspaceFolder}/test.env"
+		// 	"stopOnEntry": false
 		// },
+		{
+			"name": "generate data for test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
 		// {
 		// 	"name": "generate test",
 		// 	"type": "node",

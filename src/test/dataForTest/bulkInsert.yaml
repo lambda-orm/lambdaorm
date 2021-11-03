@@ -1,13 +1,13 @@
 name: bulkInsert
-schema: northwind
-context:
+database: source
+dataContext:
   a:
     - name: Beverages4
       description: Soft drinks, coffees, teas, beers, and ales
-      id: 12
+      id: 11
     - name: Condiments4
       description: Sweet and savory sauces, relishes, spreads, and seasonings
-      id: 13
+      id: 12
   b:
     - customerId: ALFKI
       employeeId: 6
@@ -88,19 +88,15 @@ test:
   - name: bulkInsert 1
     context: a
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
-      - dialect: mssql
-        sentence: INSERT INTO Categories(CategoryName,Description)
-      - dialect: mysql
-        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description) VALUES
-          :name,:description
-      - dialect: postgres
+      - database: postgres
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES
-    errors: 0
+      - database: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
+      - database: mssql
+        sentence: INSERT INTO Categories(CategoryName,Description)
+    errors: 1
     expression: Categories.bulkInsert()
     completeExpression: Categories.bulkInsert({name:name,description:description})
     model:
@@ -119,13 +115,19 @@ test:
     executions:
       - database: mysql
       - database: postgres
+      - database: mariadb
+      - database: mssql
+        error: not equal mysql
+        result:
+          - 11
+          - 12
     result:
       - 12
       - 13
   - name: bulkInsert 2
     context: b
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -133,39 +135,29 @@ test:
 
           INSERT INTO `Order
           Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
-      - dialect: mssql
+      - database: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+      - database: mariadb
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
+      - database: mssql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
 
           INSERT INTO [Order
           Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-      - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES ?
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES
-          :customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
-          :orderId,:productId,:unitPrice,:quantity,:discount
-      - dialect: postgres
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
     errors: 0
     expression: Orders.bulkInsert().include(p=>p.details)
     completeExpression: >-
@@ -247,8 +239,10 @@ test:
     executions:
       - database: mysql
       - database: postgres
+      - database: mariadb
+      - database: mssql
     result:
       - 834
       - 835
       - 836
-errors: 0
+errors: 1

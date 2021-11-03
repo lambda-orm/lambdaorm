@@ -26,6 +26,9 @@ export class MariadbConnectionPool extends ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
+		if (this.pool === undefined) {
+			await this.init()
+		}
 		const cnx = await this.pool.getConnection()
 		return new MySqlConnection(cnx, this)
 	}
@@ -35,6 +38,8 @@ export class MariadbConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		this.pool.end()
+		if (this.pool !== undefined) {
+			this.pool.end()
+		}
 	}
 }

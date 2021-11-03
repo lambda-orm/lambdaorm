@@ -1,17 +1,22 @@
 import { Schema } from './schema'
+
+export interface ExternalDb {
+	entities: string[]
+	name: string
+}
+
 export interface Database
 {
 	name: string
 	dialect: string
-	connection:any
-	schema:string
+	connection: any
+	schema: string
 }
 export interface App
 {
 	src: string
 	data: string
 	models:string
-	// workspace: string,
 	configFile?: string,
 	defaultDatabase?: string
 }

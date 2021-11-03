@@ -8,22 +8,28 @@ import { CategoryRespository, Category, ProductRespository } from '../../models/
 		const productRepository = new ProductRespository('mysql')
 
 		const country = 'USA'
-		productRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
+		const result = await productRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
 			.having(p => max(p.price) > 50)
 			.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 			.sort(p => desc(p.largestPrice))
 			.execute({ country: country })
 
+		console.log(JSON.stringify(result, null, 2))
+
+		let category
+
 		const categoryRepository = new CategoryRespository('mysql')
-		let category = new Category()
-		category.name = 'general'
-		category.description = 'general products'
+		category = new Category()
+		category.name = 'general21'
+		category.description = 'general products 2'
 		const id = await categoryRepository.insert(category)
 
-		category = await categoryRepository.get({ id: id }, p => p.id === id)
-		console.log(category)
+		category = await categoryRepository.take({ id: id }, p => p.id === id)
+		console.log(JSON.stringify(category, null, 2))
 
-		categoryRepository.delete(category)
+		if (category !== null) {
+			await categoryRepository.delete(category)
+		}
 
 		// let complete = await customerRepository.insert(customer, p => p.orders.include(p=> p.details))
 		// console.log(complete)

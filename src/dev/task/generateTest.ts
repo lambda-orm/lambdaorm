@@ -1,11 +1,11 @@
-import { orm, Helper } from '../../orm'
+import { Helper } from './../../orm'
 
 import { CategoryTest, ExpressionTest } from './testModel'
 import fs from 'fs'
 import path from 'path'
 const ConfigExtends = require('config-extends')
 
-async function writeUnitTest (dialects: string[], category: CategoryTest): Promise<void> {
+async function writeUnitTest (databases: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 	lines.push('import { orm,Helper } from \'../../orm\'')
 	lines.push('beforeAll(async () => {')
@@ -20,7 +20,7 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 			lines.push(`\ttest('${expTest.name}', () => {`)
 			lines.push(`\t\tconst source = '${expTest.expression.trim()}'`)
 			lines.push(`\t\tconst expected = '${expTest.completeExpression.trim()}'`)
-			lines.push(`\t\tconst target = orm.expression(source).complete('${category.schema}')`)
+			lines.push(`\t\tconst target = orm.expression(source).complete('${category.database}')`)
 			lines.push('\t\texpect(expected).toBe(target)')
 			lines.push('\t})')
 		}
@@ -35,8 +35,8 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
-		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.schema}')`)
-		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.schema}')`)
+		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.database}')`)
+		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.database}')`)
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
 		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
 		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
@@ -50,16 +50,16 @@ async function writeUnitTest (dialects: string[], category: CategoryTest): Promi
 		if (expTest.expression && expTest.completeExpression) {
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
-			for (const r in dialects) {
-				const dialect = dialects[r]
+			for (const r in databases) {
+				const database = databases[r]
 				if (expTest.sentences !== undefined) {
-					let sentence = expTest.sentences.find(p => p.dialect === dialect && p.error === undefined)?.sentence
+					let sentence = expTest.sentences.find(p => p.database === database && p.error === undefined)?.sentence
 					sentence = Helper.replace(sentence, '\n', '; ')
 					if (sentence) {
-						lines.push(`\t\tconst ${dialect}Expected = '${sentence}'`)
-						lines.push(`\t\tlet ${dialect} =  await orm.expression(expression).sentence('${dialect}', '${category.schema}')`)
-						lines.push(`\t\t${dialect}=Helper.replace(${dialect},'\\n','; ')`)
-						lines.push(`\t\texpect(${dialect}Expected).toBe(${dialect})`)
+						lines.push(`\t\tconst ${database}Expected = '${sentence}'`)
+						lines.push(`\t\tlet ${database} =  await orm.expression(expression).sentence('${database}')`)
+						lines.push(`\t\t${database}=Helper.replace(${database},'\\n','; ')`)
+						lines.push(`\t\texpect(${database}Expected).toBe(${database})`)
 					}
 				}
 			}
@@ -85,7 +85,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 	lines.push('})')
 
 	lines.push('describe(\'Execute\', () => {')
-	lines.push(`\tconst context = ${JSON.stringify(category.context)}`)
+	lines.push(`\tconst dataContext = ${JSON.stringify(category.dataContext)}`)
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
 		if (expTest.expression && expTest.completeExpression) {
@@ -94,7 +94,7 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in databases) {
 				const database = databases[p]
-				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute('context,${database}')`)
+				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute(dataContext,'${database}')`)
 				lines.push(`\t\texpect(expected).toEqual(${database}Result)`)
 			}
 			lines.push('\t})')
@@ -111,13 +111,11 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 }
 
 export async function apply (dataForTestPath: string, databases: string[], callback: any) {
-	const dialects = Object.values(orm.language.dialects).filter((p: any) => p.language === 'sql').map((p: any) => p.name)
 	const testData = await ConfigExtends.apply(dataForTestPath)
 	for (const k in testData) {
-		await writeUnitTest(dialects, testData[k])
+		await writeUnitTest(databases, testData[k])
 		await writeIntegrationTest(databases, testData[k])
 	}
 	callback()
 }
-
-apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres'], function () { console.log('end') })
+apply(path.join(process.cwd(), 'src/test/dataForTest'), ['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

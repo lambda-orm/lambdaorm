@@ -1,28 +1,22 @@
-import { IOrm, Database } from '../model/index'
-import { SchemaDrop } from '../schema'
-import { ExecutionResult } from '../connection'
-
-export class DatabaseClean {
-	protected orm:IOrm
-	protected database:Database
-	constructor (orm:IOrm, database:Database) {
-		this.orm = orm
-		this.database = database
+import { Query } from '../model/index'
+import { DatabaseActionDDL } from './databaseActionDDL'
+import { SchemaBuilder } from './../manager/schemaBuilder'
+import { SchemaHelper } from '../manager/schemaHelper'
+export class DatabaseClean extends DatabaseActionDDL {
+	public async queries (): Promise<Query[]> {
+		const state = await this.state.get(this.database.name)
+		if (state && state.schema) {
+			const schema = this.configManager.schema.transform(state.schema)
+			const schemaHelper = new SchemaHelper(schema)
+			return new SchemaBuilder(this.configManager, this.languageManager, this.database).drop(schemaHelper)
+		}
+		return []
 	}
 
-	public async sentence ():Promise<any[]> {
-		const connection = this.orm.connection.get(this.database.name)
-		return (await this.schemaDrop()).sentence(connection.dialect)
-	}
-
-	public async execute (tryAllCan = false):Promise<ExecutionResult> {
-		const result = await (await this.schemaDrop()).execute(this.database.name, tryAllCan)
-		await this.orm.database.removeState(this.database.name)
+	public async execute (tryAllCan = false): Promise<any[]> {
+		const queries = await this.queries()
+		const result = await this.executor.executeList(this.database, queries, tryAllCan)
+		await this.state.remove(this.database.name)
 		return result
-	}
-
-	protected async schemaDrop ():Promise<SchemaDrop> {
-		const state = await this.orm.database.getState(this.database.name)
-		return this.orm.schema.drop(state.schema)
 	}
 }

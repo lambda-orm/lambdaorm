@@ -1,7 +1,7 @@
 
-import { Node } from '../parser/index'
-import { Property, Parameter, Context } from './../model'
-import { SchemaHelper } from '../schema/schemaHelper'
+import { Node } from './../parser/index'
+import { Property, Parameter, DataContext } from './../model'
+import { SchemaHelper } from './../manager'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
 	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
@@ -102,12 +102,12 @@ export class OperandManager {
 			children.push(this.serialize(operand.children[k]))
 		}
 		if (operand instanceof Sentence) {
-			return { n: operand.name, t: operand.constructor.name, c: children, f: operand.columns, p: operand.parameters, e: operand.entity, a: operand.autoincrement }
+			return { n: operand.name, t: operand.constructor.name, c: children, f: operand.columns, p: operand.parameters, e: operand.entity }
 		} else if (operand instanceof SentenceInclude) {
 			// return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation, v: operand.variable }
 			return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation }
 		} else if (operand instanceof Insert) {
-			return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause, a: operand.autoincrement }
+			return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause }
 		} else if (operand instanceof KeyValue) {
 			return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping }
 		} else if (operand instanceof Field) {
@@ -124,21 +124,21 @@ export class OperandManager {
 		throw new Error('NotImplemented')
 	}
 
-	public eval (operand:Operand, context:Context):any {
-		this.initialize(operand, new Context(context))
+	public eval (operand:Operand, dataContext:DataContext):any {
+		this.initialize(operand, new DataContext(dataContext))
 		return operand.eval()
 	}
 
-	private initialize (operand:Operand, context:Context) {
-		let current = context
+	private initialize (operand:Operand, dataContext:DataContext) {
+		let current = dataContext
 		if (operand instanceof ArrowFunction) {
 			const childContext = current.newContext()
-			operand.context = childContext
+			operand.dataContext = childContext
 			operand.metadata = this.language.metadata
 			current = childContext
 		} else if (operand instanceof ChildFunction) {
 			const childContext = current.newContext()
-			operand.context = childContext
+			operand.dataContext = childContext
 			operand.metadata = this.language.metadata
 			current = childContext
 		} else if (operand instanceof FunctionRef) {
@@ -146,7 +146,7 @@ export class OperandManager {
 		} else if (operand instanceof Operator) {
 			operand.metadata = this.language.metadata
 		} else if (operand instanceof Variable) {
-			operand.context = current
+			operand.dataContext = current
 		}
 		for (const k in operand.children) {
 			const p = operand.children[k]
@@ -176,7 +176,7 @@ export class OperandManager {
 			}
 		}
 		if (allConstants) {
-			const value = this.eval(operand, new Context({}))
+			const value = this.eval(operand, new DataContext({}))
 			const constant = new Constant(value)
 			constant.parent = operand.parent
 			constant.index = operand.index
@@ -313,7 +313,6 @@ export class OperandManager {
 		context.current.entity = clauses.from.name
 		context.current.metadata = schema.getEntity(context.current.entity)
 		context.current.alias = this.createAlias(context, context.current.entity)
-		const autoincrement = schema.getAutoincrement(context.current.entity)
 		let name = ''
 		const children:Operand[] = []
 		let operand = null
@@ -422,7 +421,7 @@ export class OperandManager {
 		}
 		for (let i = 0; i < children.length; i++) this.solveTypes(children[i], context)
 		const parameters = this.parametersInSentence(children)
-		const sentence = new Sentence(name, children, context.current.entity, context.current.alias, autoincrement, context.current.fields, parameters)
+		const sentence = new Sentence(name, children, context.current.entity, context.current.alias, context.current.fields, parameters)
 		context.current = context.current.parent ? context.current.parent as EntityContext : new EntityContext()
 		return sentence
 	}
@@ -451,16 +450,14 @@ export class OperandManager {
 		if (clause.children.length === 2) {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === 'obj') {
-				const autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity)
 				const child = this.nodeToOperand(clause.children[1], schema, context)
-				return new Insert(context.current.metadata.mapping, [child], clause.name, autoincremente?.mapping)
+				return new Insert(context.current.metadata.mapping, [child], clause.name)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		} else if (clause.children.length === 3) {
 			// Example: Categories.insert(() => ({ name: name, description: description }))
 			if (clause.children[2].type === 'obj') {
-				const autoincremente:Property|undefined = schema.getAutoincrement(context.current.entity)
 				const child = this.nodeToOperand(clause.children[2], schema, context)
-				return new Insert(context.current.metadata.mapping, [child], clause.name, autoincremente?.mapping)
+				return new Insert(context.current.metadata.mapping, [child], clause.name)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		}
 		throw new Error('Sentence Insert incorrect!!!')

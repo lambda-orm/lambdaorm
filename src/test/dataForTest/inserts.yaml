@@ -1,14 +1,12 @@
 name: inserts
-schema: northwind
-context:
+database: source
+dataContext:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 9
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
   c:
     entity:
       name: Beverages22
@@ -33,7 +31,7 @@ context:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
+        orderId: null
       - productId: 42
         unitPrice: 9.8
         quantity: 10
@@ -44,27 +42,22 @@ context:
         quantity: 5
         discount: 10
         orderId: 833
-    id: 833
 test:
   - name: insert 1
     context: a
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description)
-          VALUES(@name,@description)
-      - dialect: mysql
-        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description)
-          VALUES(:name,:description)
-      - dialect: postgres
+      - database: postgres
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
+      - database: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - database: mssql
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) OUTPUT
+          INSERTED.CategoryID VALUES(@name,@description)
     errors: 0
     expression: Categories.insert()
     completeExpression: Categories.insert({name:name,description:description})
@@ -86,26 +79,23 @@ test:
     executions:
       - database: mysql
       - database: postgres
+      - database: mariadb
     result: 9
   - name: insert 2
     context: b
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description)
-          VALUES(@name,@description)
-      - dialect: mysql
-        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description)
-          VALUES(:name,:description)
-      - dialect: postgres
+      - database: postgres
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
+      - database: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - database: mssql
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) OUTPUT
+          INSERTED.CategoryID VALUES(@name,@description)
     errors: 0
     expression: Categories.insert(=>{name:name,description:description})
     completeExpression: Categories.insert(=>{name:name,description:description})
@@ -127,27 +117,24 @@ test:
     executions:
       - database: mysql
       - database: postgres
+      - database: mariadb
     result: 10
   - name: insert 3
     context: c
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description)
-          VALUES(@entity.name,@entity.description)
-      - dialect: mysql
-        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO Categories(CategoryName,Description)
-          VALUES(:entity.name,:entity.description)
-      - dialect: postgres
+      - database: postgres
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
-    errors: 0
+      - database: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - database: mssql
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) OUTPUT
+          INSERTED.CategoryID VALUES(@entity.name,@entity.description)
+    errors: 1
     expression: Categories.insert(entity)
     completeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
@@ -166,38 +153,39 @@ test:
       - name: description
         type: string
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Must declare the
+          scalar variable "@entity".
       - database: mysql
       - database: postgres
+      - database: mariadb
     result: 11
   - name: insert 4
     context: order
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
           VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
-      - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
-      - dialect: postgres
+      - database: postgres
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
           AS id
+      - database: mariadb
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+      - database: mssql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          OUTPUT INSERTED.OrderID
+          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
     errors: 0
     expression: Orders.insert()
     completeExpression: >-
@@ -286,11 +274,12 @@ test:
     executions:
       - database: mysql
       - database: postgres
+      - database: mariadb
     result: 831
   - name: insert 5
     context: order
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -299,34 +288,7 @@ test:
           INSERT INTO `Order
           Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES(?,?,?,?,?)
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
-
-          INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
-      - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?)
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
-      - dialect: postgres
+      - database: postgres
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -336,7 +298,26 @@ test:
           INSERT INTO "Order
           Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-    errors: 0
+      - database: mariadb
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+          VALUES(?,?,?,?,?)
+      - database: mssql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          OUTPUT INSERTED.OrderID
+          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
+
+          INSERT INTO [Order
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
+          INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+    errors: 1
     expression: Orders.insert().include(p=>p.details)
     completeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
@@ -428,13 +409,18 @@ test:
       - name: country
         type: string
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Incorrect syntax
+          near '.0'.
       - database: mysql
       - database: postgres
+      - database: mariadb
     result: 832
   - name: insert 6
     context: order
     sentences:
-      - dialect: mariadb
+      - database: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -447,46 +433,7 @@ test:
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES(?,?,?,?,?,?,?,?,?)
-      - dialect: mssql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
-
-          INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
-      - dialect: mysql
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-
-          INSERT INTO `Order
-          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(?,?,?,?,?)
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(?,?,?,?,?,?,?,?,?)
-      - dialect: oracle
-        sentence: >-
-          INSERT INTO
-          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-          VALUES(:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
-
-          INSERT INTO "Order
-          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-          VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
-
-          INSERT INTO
-          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-          VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country)
-      - dialect: postgres
+      - database: postgres
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -500,7 +447,35 @@ test:
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
-    errors: 0
+      - database: mariadb
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+          VALUES(?,?,?,?,?)
+
+          INSERT INTO
+          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+          VALUES(?,?,?,?,?,?,?,?,?)
+      - database: mssql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          OUTPUT INSERTED.OrderID
+          VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
+
+          INSERT INTO [Order
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
+          INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+
+          INSERT INTO
+          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+          OUTPUT INSERTED.0
+          VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
+    errors: 1
     expression: Orders.insert().include(p=>[p.details,p.customer])
     completeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
@@ -602,7 +577,12 @@ test:
       - name: country
         type: string
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Incorrect syntax
+          near '.0'.
       - database: mysql
       - database: postgres
+      - database: mariadb
     result: 833
-errors: 0
+errors: 3

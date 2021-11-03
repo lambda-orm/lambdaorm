@@ -138,6 +138,11 @@ html)
 -[quickstart](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html)
 -[info](https://blog.friendsofgo.tech/posts/empezando-con-cockroachdb/)
 
+### Mongodb
+
+- [tutorial](http://expertojava.ua.es/experto/restringido/2015-16/nosql/nosql02.html#_conjunto_de_valores)
+- [mongodb nodejs](https://docs.mongodb.com/drivers/node/current/quick-start/)
+
 ### CLI
 
 install mysql shell client
@@ -175,3 +180,16 @@ npm install -g gulp-cli
 ## Data of test
 
 [para-otas-pruebas](https://github.com/mledoze/countries/blob/master/data/arg.topo.json)
+
+## Others Languages
+
+### Kotlin
+
+- [tutorial](https://www.w3schools.com/kotlin/index.php)
+- [get start](https://www.w3schools.com/kotlin/kotlin_getstarted.php)
+- [ide](https://www.jetbrains.com/idea/download/#section=windows)
+- [tutorial](http://www.androidcurso.com/index.php/99-kotlin/914-lambdas-y-variables-funcion-en-kotlin)
+- [lambda](https://blog.logrocket.com/a-complete-guide-to-kotlin-lambda-expressions/)
+- [lambda](https://www.baeldung.com/kotlin/lambda-expressions)
+- [orm example](https://github.com/kotlin-orm/ktorm)
+- [orm example](https://www.ktorm.org/)

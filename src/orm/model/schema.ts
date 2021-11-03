@@ -35,7 +35,8 @@ export interface Entity {
 	uniqueKey?:string[]
 	properties:Property[]
 	relations:Relation[]
-	indexes?:Index[]
+	indexes?: Index[]
+	externalDb?: string
 }
 export interface Schema {
 	name: string

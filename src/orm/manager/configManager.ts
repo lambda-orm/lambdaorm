@@ -1,17 +1,11 @@
-import { SchemaHelper } from './schemaHelper'
+import { SchemaHelper } from './../manager'
 import { Helper } from '../helper'
-import { Schema, Entity, Property, Relation, Index, IOrm } from '../model/index'
-import { SchemaSync } from './schemaSync'
-import { SchemaDrop } from './schemaDrop'
-import { SchemaTruncate } from './schemaTruncate'
-import { SchemaExport } from './schemaExport'
-import { SchemaImport } from './schemaImport'
+import { Schema, Entity, Property, Relation, Index, Database, Config } from './../model'
+import { ConnectionConfig } from './../connection'
 
-export class SchemaManager {
+class SchemaConfig {
 	public schemas:any
-	private orm:IOrm
-	constructor (orm:IOrm) {
-		this.orm = orm
+	constructor () {
 		this.schemas = {}
 	}
 
@@ -25,7 +19,9 @@ export class SchemaManager {
 
 	public get (name:string):Schema {
 		const schema = this.schemas[name]
-		if (!schema) { throw new Error(`schema ${name} not found`) }
+		if (!schema) {
+			throw new Error(`schema ${name} not found`)
+		}
 		return this.untransform(schema)
 	}
 
@@ -41,39 +37,6 @@ export class SchemaManager {
 		const schema = this.schemas[name]
 		if (!schema) { throw new Error(`schema ${name} not found`) }
 		return new SchemaHelper(schema)
-	}
-
-	public sync (current:Schema, old?:Schema):SchemaSync {
-		const schema = this.transform(current)
-		const schemaHelper = new SchemaHelper(schema)
-		const _current = schema.entity
-		const _old = old ? this.transform(old).entity : null
-		const delta = Helper.deltaWithSimpleArrays(_current, _old)
-		return new SchemaSync(this.orm, schemaHelper, delta)
-	}
-
-	public drop (schema:Schema):SchemaDrop {
-		const _schema = this.transform(schema)
-		const schemaHelper = new SchemaHelper(_schema)
-		return new SchemaDrop(this.orm, schemaHelper)
-	}
-
-	public truncate (current:Schema):SchemaTruncate {
-		const schema = this.transform(current)
-		const schemaHelper = new SchemaHelper(schema)
-		return new SchemaTruncate(this.orm, schemaHelper)
-	}
-
-	public export (schema:Schema):SchemaExport {
-		const _schema = this.transform(schema)
-		const schemaHelper = new SchemaHelper(_schema)
-		return new SchemaExport(this.orm, schemaHelper)
-	}
-
-	public import (schema:Schema):SchemaImport {
-		const _schema = this.transform(schema)
-		const schemaHelper = new SchemaHelper(_schema)
-		return new SchemaImport(this.orm, schemaHelper)
 	}
 
 	public transform (source:Schema):any {
@@ -158,5 +121,67 @@ export class SchemaManager {
 			target.entities.push(targetEntity)
 		}
 		return target
+	}
+}
+
+class DatabaseConfig {
+	public databases: any
+	public default?:string
+
+	constructor () {
+		this.databases = {}
+	}
+
+	public load (database:Database):void {
+		this.databases[database.name] = database
+	}
+
+	public get (name?: string): Database {
+		if (name === undefined) {
+			if (this.default !== undefined) {
+				const db = this.databases[this.default]
+				if (db === undefined) {
+					throw new Error(`default database: ${this.default} not found`)
+				}
+				return db as Database
+			} else if (Object.keys(this.databases).length === 1) {
+				const key = Object.keys(this.databases)[0]
+				return this.databases[key] as Database
+			} else {
+				throw new Error('the name of the database is required')
+			}
+		}
+		return this.databases[name]as Database
+	}
+}
+
+export class ConfigManager {
+	public database: DatabaseConfig
+	public schema: SchemaConfig
+	public config: Config
+	public workspace: string
+	constructor (workspace:string) {
+		this.workspace = workspace
+		this.database = new DatabaseConfig()
+		this.schema = new SchemaConfig()
+		this.config = { app: { src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+	}
+
+	public async load (config: Config): Promise<void> {
+		this.config = config
+		if (this.config.schemas) {
+			for (const p in this.config.schemas) {
+				this.schema.load(this.config.schemas[p])
+			}
+		}
+		if (this.config.databases) {
+			for (const p in this.config.databases) {
+				const database = this.config.databases[p]
+				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
+				connectionConfig.connection = database.connection
+				this.database.load(database)
+			}
+		}
+		this.database.default = this.config.app.defaultDatabase
 	}
 }

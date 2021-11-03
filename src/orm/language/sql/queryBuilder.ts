@@ -2,97 +2,46 @@
 import { Helper } from '../../helper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
-	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
-	SentenceInclude, Query, Include
+	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete
 } from './../operands'
-import { IQueryBuilder } from './../iQueryBuilder'
-import { SqlDialectMetadata } from './dialectMetadata'
-import { SqlLanguage } from './language'
+import { LanguageQueryBuilder } from '../../manager/queryBuilder'
+import { DialectMetadata } from '../dialectMetadata'
+import { Query } from './../../model'
+import { SchemaHelper } from './../../manager'
 const SqlString = require('sqlstring')
 
-export class SqlQueryBuilder implements IQueryBuilder {
-	private language:SqlLanguage
-	constructor (language:SqlLanguage) {
-		this.language = language
+export class SqlQueryBuilder extends LanguageQueryBuilder {
+	public build (sentence: Sentence, schema:SchemaHelper, database: string, metadata: DialectMetadata): Query {
+		const sqlSentence = this.buildSentence(sentence, schema, metadata as DialectMetadata)
+		return new Query(sentence.name, database, metadata.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
 	}
 
-	public build (sentence:Sentence, dialect:string):Query {
-		const metadata = this.language.metadata(dialect)
-		return this._build(sentence, metadata)
-	}
-
-	public sentence (query:Query):any {
-		let mainSentence = query.sentence + ''
-		for (const p in query.children) {
-			const include = query.children[p] as SentenceInclude
-			const includeSentence = this.sentence(include.children[0] as Query)
-			mainSentence = mainSentence + '\n' + includeSentence
-		}
-		return mainSentence
-	}
-
-	public serialize (operand:Operand):any {
-		const children = []
-		if (operand instanceof Query) {
-			const query = operand as Query
-			for (const k in query.children) {
-				children.push(this.serialize(query.children[k]))
-			}
-			return { n: query.name, t: query.constructor.name, c: children, s: query.sentence, f: query.columns, p: query.parameters, e: query.entity, a: query.autoincrement }
-		} else if (operand instanceof Include) {
-			const include = operand as Include
-			for (const k in include.children) {
-				children.push(this.serialize(include.children[k]))
-			}
-			// return { n: include.name, t: include.constructor.name, c: children, r: include.relation, v: include.variable }
-			return { n: include.name, t: include.constructor.name, c: children, r: include.relation }
-		}
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public deserialize (serialized:any):Operand {
-		throw new Error('NotImplemented')
-	}
-
-	public _build (sentence:Sentence, metadata:SqlDialectMetadata):Query {
-		const children = []
-		const includes = sentence.getIncludes()
-		for (const p in includes) {
-			const sentenceInclude = includes[p]
-			const query = this._build(sentenceInclude.children[0] as Sentence, metadata)
-			// const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation, sentenceInclude.variable)
-			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
-			children.push(include)
-		}
-		const sqlSentence = this.buildSentence(sentence, metadata as SqlDialectMetadata)
-		return new Query(sentence.name, children, metadata.name, sqlSentence, sentence.entity, sentence.autoincrement, sentence.columns, sentence.parameters)
-	}
-
-	private buildOperand (operand:Operand, metadata:SqlDialectMetadata):string {
+	private buildOperand (operand: Operand, schema: SchemaHelper, metadata: DialectMetadata): string {
 		if (operand instanceof Sentence) {
-			return this.buildSentence(operand, metadata)
-		} else if (operand instanceof Insert) {
-			return this.buildInsert(operand, metadata)
-		} else if (operand instanceof Update) {
-			return this.buildUpdate(operand, metadata)
-		} else if (operand instanceof Delete) {
-			return this.buildDelete(operand, metadata)
+			return this.buildSentence(operand, schema, metadata)
+		// }
+		// else if (operand instanceof Insert) {
+		// return this.buildInsert(operand, schema, metadata)
+		// } else if (operand instanceof Update) {
+		// return this.buildUpdate(operand, schema, metadata)
+		// } else if (operand instanceof Delete) {
+		// return this.buildDelete(operand, metadata)
 		} else if (operand instanceof Page) {
 			return this.buildPage(operand, metadata)
 		} else if (operand instanceof ArrowFunction) {
-			return this.buildArrowFunction(operand, metadata)
+			return this.buildArrowFunction(operand, schema, metadata)
 		} else if (operand instanceof FunctionRef) {
-			return this.buildFunctionRef(operand, metadata)
+			return this.buildFunctionRef(operand, schema, metadata)
 		} else if (operand instanceof Operator) {
-			return this.buildOperator(operand, metadata)
+			return this.buildOperator(operand, schema, metadata)
 		} else if (operand instanceof Block) {
-			return this.buildBlock(operand, metadata)
+			return this.buildBlock(operand, schema, metadata)
 		} else if (operand instanceof Obj) {
-			return this.buildObject(operand, metadata)
+			return this.buildObject(operand, schema, metadata)
 		} else if (operand instanceof List) {
-			return this.buildList(operand, metadata)
+			return this.buildList(operand, schema, metadata)
 		} else if (operand instanceof KeyValue) {
-			return this.buildKeyValue(operand, metadata)
+			return this.buildKeyValue(operand, schema, metadata)
 		} else if (operand instanceof Field) {
 			return this.buildField(operand, metadata)
 		} else if (operand instanceof Variable) {
@@ -104,7 +53,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		}
 	}
 
-	private buildSentence (sentence:Sentence, metadata:SqlDialectMetadata):string {
+	private buildSentence (sentence:Sentence, schema:SchemaHelper, metadata:DialectMetadata):string {
 		const map = sentence.children.find(p => p.name === 'map')as Map|undefined
 		const insert = sentence.children.find(p => p instanceof Insert) as Insert|undefined
 		const update = sentence.children.find(p => p instanceof Update) as Update|undefined
@@ -119,63 +68,65 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		if (map) {
 			const from = sentence.children.find(p => p instanceof From) as Operand
 			const joins = sentence.children.filter(p => p instanceof Join)
-			text = this.buildArrowFunction(map, metadata) + ' ' + this.solveFrom(from, metadata) + ' ' + this.solveJoins(joins, metadata)
-		} else if (insert)text = this.buildInsert(insert, metadata)
-		else if (update)text = this.buildUpdate(update, metadata)
+			text = this.buildArrowFunction(map, schema, metadata) + ' ' + this.solveFrom(from, metadata) + ' ' + this.solveJoins(joins, schema, metadata)
+		} else if (insert) text = this.buildInsert(insert, sentence.entity, schema, metadata)
+		else if (update)text = this.buildUpdate(update, schema, metadata)
 		else if (_delete)text = this.buildDelete(_delete, metadata)
 
-		if (filter)text = text + this.buildArrowFunction(filter, metadata) + ' '
-		if (groupBy)text = text + this.buildArrowFunction(groupBy, metadata) + ' '
-		if (having)text = text + this.buildArrowFunction(having, metadata) + ' '
-		if (sort)text = text + this.buildArrowFunction(sort, metadata) + ' '
+		if (filter)text = text + this.buildArrowFunction(filter, schema, metadata) + ' '
+		if (groupBy)text = text + this.buildArrowFunction(groupBy, schema, metadata) + ' '
+		if (having)text = text + this.buildArrowFunction(having, schema, metadata) + ' '
+		if (sort)text = text + this.buildArrowFunction(sort, schema, metadata) + ' '
 		if (page)text = text + this.buildPage(page, metadata) + ' '
 		return text
 	}
 
-	private solveJoins (joins:Operand[], metadata:SqlDialectMetadata):string {
+	private solveJoins (joins:Operand[], schema:SchemaHelper, metadata:DialectMetadata):string {
 		const list:string[] = []
-		const template = metadata.other('join')
+		const template = metadata.dml('join')
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			const parts = join.name.split('.')
 			let joinText = template.replace('{name}', metadata.delimiter(parts[0]))
 			joinText = joinText.replace('{alias}', parts[1])
-			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0], metadata)).trim()
+			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0], schema, metadata)).trim()
 			list.push(joinText)
 		}
 		return list.join(' ') + ' '
 	}
 
-	private solveFrom (from:Operand, metadata:SqlDialectMetadata):string {
-		let template = metadata.other('from')
+	private solveFrom (from:Operand, metadata:DialectMetadata):string {
+		let template = metadata.dml('from')
 		const parts = from.name.split('.')
 		template = template.replace('{name}', metadata.delimiter(parts[0]))
 		template = Helper.replace(template, '{alias}', parts[1])
 		return template.trim()
 	}
 
-	private buildInsert (operand:Insert, metadata:SqlDialectMetadata):string {
+	private buildInsert (operand:Insert, entity:string, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let template = metadata.dml(operand.clause)
 		const templateColumn = metadata.other('column')
 		const fields:string[] = []
-		const values:any[] = []
+		const values: any[] = []
+		const autoincrement = schema.getAutoincrement(entity)
 
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
 				const keyVal = obj.children[p] as KeyValue
 				fields.push(templateColumn.replace('{name}', metadata.delimiter(keyVal.mapping ? keyVal.mapping : keyVal.name)))
-				values.push(this.buildOperand(keyVal.children[0], metadata))
+				values.push(this.buildOperand(keyVal.children[0], schema, metadata))
 			}
 		}
+
 		template = template.replace('{name}', metadata.delimiter(operand.name))
 		template = template.replace('{fields}', fields.join(','))
 		template = template.replace('{values}', values.join(','))
-		template = template.replace('{autoincrementField}', operand.autoincrement && operand.autoincrement ? operand.autoincrement : '0')
+		template = template.replace('{autoincrementField}', autoincrement && autoincrement.mapping ? autoincrement.mapping : '0')
 		return template.trim()
 	}
 
-	private buildUpdate (operand:Update, metadata:SqlDialectMetadata):string {
+	private buildUpdate (operand:Update, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let template = metadata.dml('update')
 		const templateColumn = metadata.other('column')
 		const templateAssing = metadata.operator('=', 2)
@@ -186,7 +137,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 			for (const p in obj.children) {
 				const keyVal = obj.children[p] as KeyValue
 				const column = templateColumn.replace('{name}', metadata.delimiter(keyVal.mapping ? keyVal.mapping : keyVal.name))
-				const value = this.buildOperand(keyVal.children[0], metadata)
+				const value = this.buildOperand(keyVal.children[0], schema, metadata)
 				let assing = templateAssing.replace('{0}', column)
 				assing = assing.replace('{1}', value)
 				assings.push(assing)
@@ -199,7 +150,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		return template.trim() + ' '
 	}
 
-	private buildDelete (operand:Delete, metadata:SqlDialectMetadata):string {
+	private buildDelete (operand:Delete, metadata:DialectMetadata):string {
 		let template = metadata.dml('delete')
 		const parts = operand.name.split('.')
 		template = Helper.replace(template, '{name}', metadata.delimiter(parts[0]))
@@ -207,7 +158,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		return template.trim() + ' '
 	}
 
-	private buildPage (operand:Page, metadata:SqlDialectMetadata):string {
+	private buildPage (operand:Page, metadata:DialectMetadata):string {
 		let template = metadata.dml('page')
 		let page = parseInt(operand.children[1].name)
 		const records = parseInt(operand.children[2].name)
@@ -217,57 +168,57 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		return template.trim() + ' '
 	}
 
-	private buildArrowFunction (operand:ArrowFunction, metadata:SqlDialectMetadata):string {
+	private buildArrowFunction (operand:ArrowFunction, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let template = metadata.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
-			const text = this.buildOperand(operand.children[i], metadata)
+			const text = this.buildOperand(operand.children[i], schema, metadata)
 			// template = template.replace('{' + i + '}', text)
 			template = Helper.replace(template, '{' + i + '}', text) // template.replace('{' + i + '}', text)
 		}
 		return template.trim()
 	}
 
-	private buildFunctionRef (operand:FunctionRef, metadata:SqlDialectMetadata):string {
+	private buildFunctionRef (operand:FunctionRef, schema:SchemaHelper, metadata:DialectMetadata):string {
 		const funcData = metadata.function(operand.name)
 		if (!funcData) throw new Error('Function ' + operand.name + ' not found')
 		let text = ''
 		if (funcData.type === 'multiple') {
 			const template = funcData.template
-			text = this.buildOperand(operand.children[0], metadata)
+			text = this.buildOperand(operand.children[0], schema, metadata)
 			for (let i = 1; i < operand.children.length; i++) {
 				text = Helper.replace(template, '{acumulated}', text)
-				text = Helper.replace(text, '{value}', this.buildOperand(operand.children[i], metadata))
+				text = Helper.replace(text, '{value}', this.buildOperand(operand.children[i], schema, metadata))
 			}
 		} else {
 			text = funcData.template
 			for (let i = 0; i < operand.children.length; i++) {
-				text = Helper.replace(text, '{' + i + '}', this.buildOperand(operand.children[i], metadata))
+				text = Helper.replace(text, '{' + i + '}', this.buildOperand(operand.children[i], schema, metadata))
 			}
 		}
 		return text
 	}
 
-	private buildOperator (operand:Operator, metadata:SqlDialectMetadata):string {
+	private buildOperator (operand:Operator, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let text = metadata.operator(operand.name, operand.children.length)
 		for (let i = 0; i < operand.children.length; i++) {
-			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i], metadata))
+			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i], schema, metadata))
 		}
 		return text
 	}
 
-	private buildBlock (operand:Block, metadata:SqlDialectMetadata):string {
+	private buildBlock (operand:Block, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let text = ''
 		for (let i = 0; i < operand.children.length; i++) {
-			text += (this.buildOperand(operand.children[i], metadata) + '')
+			text += (this.buildOperand(operand.children[i], schema, metadata) + '')
 		}
 		return text
 	}
 
-	private buildObject (operand:Obj, metadata:SqlDialectMetadata):string {
+	private buildObject (operand:Obj, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let text = ''
 		const template = metadata.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
-			const value = this.buildOperand(operand.children[i], metadata)
+			const value = this.buildOperand(operand.children[i], schema, metadata)
 			const alias = metadata.delimiter(operand.children[i].name, true)
 			let fieldText = template.replace('{value}', value)
 			fieldText = fieldText.replace('{alias}', alias)
@@ -276,19 +227,19 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		return text
 	}
 
-	private buildList (operand:List, metadata:SqlDialectMetadata):string {
+	private buildList (operand:List, schema:SchemaHelper, metadata:DialectMetadata):string {
 		let text = ''
 		for (let i = 0; i < operand.children.length; i++) {
-			text += (i > 0 ? ', ' : '') + this.buildOperand(operand.children[i], metadata)
+			text += (i > 0 ? ', ' : '') + this.buildOperand(operand.children[i], schema, metadata)
 		}
 		return text
 	}
 
-	private buildKeyValue (operand:KeyValue, metadata:SqlDialectMetadata):string {
-		return this.buildOperand(operand.children[0], metadata)
+	private buildKeyValue (operand:KeyValue, schema:SchemaHelper, metadata:DialectMetadata):string {
+		return this.buildOperand(operand.children[0], schema, metadata)
 	}
 
-	private buildField (operand:Field, metadata:SqlDialectMetadata):string {
+	private buildField (operand:Field, metadata:DialectMetadata):string {
 		const parts = operand.mapping.split('.')
 		if (parts.length === 1) {
 			const name = parts[0]
@@ -303,7 +254,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		}
 	}
 
-	private buildVariable (operand:Variable, metadata:SqlDialectMetadata):string {
+	private buildVariable (operand:Variable, metadata:DialectMetadata):string {
 		const number = operand.number ? operand.number : 0
 		let text = metadata.other('variable')
 		text = text.replace('{name}', operand.name)
@@ -311,7 +262,7 @@ export class SqlQueryBuilder implements IQueryBuilder {
 		return text
 	}
 
-	private buildConstant (operand:Constant, metadata:SqlDialectMetadata):string {
+	private buildConstant (operand:Constant, metadata:DialectMetadata):string {
 		switch (operand.type) {
 		case 'string':
 			return SqlString.escape(operand.name)

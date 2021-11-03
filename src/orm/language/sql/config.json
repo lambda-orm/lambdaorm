@@ -36,7 +36,9 @@
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}"
+        "update": "UPDATE {name} {alias} SET {assings}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -45,8 +47,6 @@
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE"
       },
@@ -248,6 +248,7 @@
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
+        "insert": "INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoincrementField} VALUES({values})",
         "update": "UPDATE {alias} SET {assings} FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields})",
@@ -258,19 +259,18 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values})"
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "[{name}]",
         "sepatatorSql": " \\nGO",
         "variable": "@{name}",
+        "false": 0,
+        "true": 1,
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
-        "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "false": "FALSE",
-        "true": "TRUE"
+        "column": "{name}"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -461,7 +461,9 @@
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}"
+        "update": "UPDATE {name} {alias} SET {assings}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -470,8 +472,6 @@
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE"
       },
@@ -688,7 +688,9 @@
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "delete": "DELETE FROM {name} {alias}",
-        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
+        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "\"{name}\"",
@@ -697,8 +699,6 @@
         "variable": ":{name}",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE"
       },
@@ -895,7 +895,9 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "update": "UPDATE {name} {alias} SET {assings}",
-        "delete": "DELETE FROM {name} {alias}"
+        "delete": "DELETE FROM {name} {alias}",
+        "from": "FROM {name} {alias} ",
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "variable": "${number}",
@@ -904,8 +906,6 @@
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
         "false": "FALSE",
         "true": "TRUE"
       },
@@ -1113,7 +1113,9 @@
       "insert": "INSERT INTO {name}({fields}) VALUES({values})",
       "update": "UPDATE {name} {alias} SET {assings}",
       "delete": "DELETE FROM {name} {alias}",
-      "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}"
+      "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
+      "from": "FROM {name} {alias} ",
+      "join": "INNER JOIN {name} {alias} ON {relation}"
     },
     "others": {
       "delimiter": "\"{name}\"",
@@ -1122,8 +1124,6 @@
       "variable": ":{name}",
       "field": "{entityAlias}.{name}",
       "column": "{name}",
-      "from": "FROM {name} {alias} ",
-      "join": "INNER JOIN {name} {alias} ON {relation}",
       "false": "FALSE",
       "true": "TRUE"
     },

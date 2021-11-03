@@ -12,20 +12,18 @@ databases:
     schema: northwind
     dialect: mysql
     connection: $ORM_CNN_MYSQL
-  # - name: mariadb
-  #   schema: northwind
-  #   dialect: mariadb
-  #   connectionSource: env
-  #   connection: $ORM_CNN_MARIADB
+  - name: mariadb
+    schema: northwind
+    dialect: mariadb
+    connection: $ORM_CNN_MARIADB
   - name: postgres
     schema: northwind
     dialect: postgres
     connection: $ORM_CNN_POSTGRES
-  # - name: mssql
-  #   schema: northwind
-  #   dialect: mssql
-  #   connectionSource: env
-  #   connection: $ORM_CNN_MSSQL
+  - name: mssql
+    schema: northwind
+    dialect: mssql
+    connection: $ORM_CNN_MSSQL
 abstract:
   address:
     properties:

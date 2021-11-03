@@ -46,15 +46,15 @@ dml:
   update: UPDATE {name} {alias} SET {assings} 
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
+  from: 'FROM {name} {alias} '
+  join: 'INNER JOIN {name} {alias} ON {relation}'
 others:
   delimiter: '"{name}"'
   sepatatorSql: ;
   notNullable: NOT NULL
   variable: ':{name}'
   field: '{entityAlias}.{name}'
-  column: '{name}'
-  from: 'FROM {name} {alias} '
-  join: 'INNER JOIN {name} {alias} ON {relation}'
+  column: '{name}'  
   false: 'FALSE'
   true: 'TRUE'
 operators:

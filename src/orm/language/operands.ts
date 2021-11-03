@@ -1,6 +1,6 @@
 
-import { Context, Property, Parameter } from './../model/index'
-import { Helper } from '../helper'
+import { DataContext, Property, Parameter } from './../model/index'
+import { Helper } from './../helper'
 import { OperandMetadata } from './operandMetadata'
 const SqlString = require('sqlstring')
 
@@ -59,20 +59,20 @@ export class Constant extends Operand {
 	}
 }
 export class Variable extends Operand {
-	public context?: Context
+	public dataContext?: DataContext
 	public number?: number
 	constructor (name: string, type = 'any') {
 		super(name, [], type)
-		this.context = undefined
+		this.dataContext = undefined
 		this.number = undefined
 	}
 
 	public set (value: any) {
-		if (this.context) { this.context.set(this.name, value) }
+		if (this.dataContext) { this.dataContext.set(this.name, value) }
 	}
 
 	public eval (): any {
-		return this.context ? this.context.get(this.name) : null
+		return this.dataContext ? this.dataContext.get(this.name) : null
 	}
 }
 export class Field extends Operand {
@@ -162,10 +162,10 @@ export class FunctionRef extends Operand {
 	}
 }
 export class ChildFunction extends FunctionRef {
-	public context?: Context
+	public dataContext?: DataContext
 }
 export class ArrowFunction extends FunctionRef {
-	public context?: Context
+	public dataContext?: DataContext
 }
 export class Block extends Operand {
 	public eval (): any {
@@ -191,11 +191,11 @@ export class Having extends ArrowFunction { }
 export class Sort extends ArrowFunction { }
 export class Page extends ChildFunction { }
 export class Insert extends ArrowFunction {
-	public autoincrement?: string
+	// public autoincrement?: string
 	public clause: string
-	constructor (name: string, children: Operand[] = [], clause: string, autoincrement?: string) {
+	constructor (name: string, children: Operand[] = [], clause: string) {
 		super(name, children)
-		this.autoincrement = autoincrement
+		// this.autoincrement = autoincrement
 		this.clause = clause
 	}
 }
@@ -205,13 +205,13 @@ export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]
 	public entity: string
-	public autoincrement?: Property
+	// public autoincrement?: Property
 	public alias: string
 	public clause: string
-	constructor (name: string, children: Operand[] = [], entity: string, alias: string, autoincrement?: Property, columns: Property[] = [], parameters: Parameter[] = []) {
+	constructor (name: string, children: Operand[] = [], entity: string, alias: string, columns: Property[] = [], parameters: Parameter[] = []) {
 		super(name, children)
 		this.entity = entity
-		this.autoincrement = autoincrement
+		// this.autoincrement = autoincrement
 		this.alias = alias
 		this.columns = columns
 		this.parameters = parameters
@@ -265,44 +265,10 @@ export class Sentence extends Operand {
 		throw new Error('NotImplemented')
 	}
 }
+
 export class SentenceInclude extends Operand {
 	public relation: any
 	// public variable: string
-	constructor (name: string, children: Operand[] = [], relation: any) {
-		super(name, children)
-		this.relation = relation
-		// this.variable = variable
-	}
-
-	public eval (): any {
-		throw new Error('NotImplemented')
-	}
-}
-export class Query extends Operand {
-	public sentence: string
-	public dialect: string
-	public entity: string
-	public autoincrement?: Property
-	public columns: Property[]
-	public parameters: Parameter[]
-	constructor (name: string, children: Operand[] = [], dialect: string, sentence: string, entity: string, autoincrement?: Property, columns: Property[] = [], parameters: Parameter[] = []) {
-		super(name, children)
-		this.dialect = dialect
-		this.sentence = sentence
-		this.entity = entity
-		this.autoincrement = autoincrement
-		this.columns = columns
-		this.parameters = parameters
-	}
-
-	public eval (): any {
-		throw new Error('NotImplemented')
-	}
-}
-export class Include extends Operand {
-	public relation: any
-	// public variable: string
-	// constructor(name: string, children: Operand[] = [], relation: any, variable: string) {
 	constructor (name: string, children: Operand[] = [], relation: any) {
 		super(name, children)
 		this.relation = relation
