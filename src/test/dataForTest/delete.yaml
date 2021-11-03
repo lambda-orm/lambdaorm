@@ -144,7 +144,7 @@ test:
       - database: mysql
       - database: postgres
       - database: mariadb
-    result: 0
+    result: 1
   - name: delete 2
     context: b
     sentences:
@@ -402,5 +402,5 @@ test:
       - database: mysql
       - database: postgres
       - database: mariadb
-    result: 6
+    result: 2154
 errors: 7

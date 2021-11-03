@@ -266,11 +266,11 @@
         "delimiter": "[{name}]",
         "sepatatorSql": " \\nGO",
         "variable": "@{name}",
+        "false": 0,
+        "true": 1,
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
-        "column": "{name}",
-        "false": "FALSE",
-        "true": "TRUE"
+        "column": "{name}"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",

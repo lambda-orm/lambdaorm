@@ -8,25 +8,25 @@ describe('Execute', () => {
 	test('bulkInsert 1', async () => {
 		const expression = 'Categories.bulkInsert()'
 		const expected = [12,13]
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p=>p.details)'
 		const expected = [834,835,836]
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 })

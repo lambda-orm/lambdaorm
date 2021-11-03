@@ -17,3 +17,5 @@ others:
   delimiter: "[{name}]"
   sepatatorSql: ' \nGO'
   variable: "@{name}"
+  false: 0
+  true: 1

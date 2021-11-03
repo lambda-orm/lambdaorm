@@ -62,7 +62,7 @@ export abstract class DatabaseActionDML {
 			const relation = entity.relation[relationName]
 			if (relation.composite) {
 				const childEntity = schema.getEntity(relation.entity)
-				const childInclude = this.createInclude(childEntity, level + 1)
+				const childInclude = this.createInclude(schema, childEntity, level + 1)
 				includes.push(`${arrowVariable}.${relation.name}${childInclude}`)
 			}
 		}

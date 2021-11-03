@@ -4,7 +4,8 @@ dataContext:
   a:
     id: 1
     __parentId:
-      - 1
+      - 49
+      - 60
 test:
   - name: include 1
     context: a
@@ -333,7 +334,17 @@ test:
             region: null
             postalCode: '12209'
             country: Germany
-            details: []
+            details:
+              - orderId: 1
+                productId: 49
+                unitPrice: 16
+                quantity: 24
+                discount: 0
+              - orderId: 1
+                productId: 60
+                unitPrice: 27.2
+                quantity: 40
+                discount: 0
     result:
       - id: 1
         customerId: ALFKI
@@ -349,7 +360,22 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - orderId: 1
+            productId: 28
+            unitPrice: 45.6
+            quantity: 15
+            discount: 0
+          - orderId: 1
+            productId: 39
+            unitPrice: 18
+            quantity: 21
+            discount: 0
+          - orderId: 1
+            productId: 46
+            unitPrice: 12
+            quantity: 2
+            discount: 0
   - name: include 3
     context: a
     sentences:
@@ -530,7 +556,17 @@ test:
             region: null
             postalCode: '12209'
             country: Germany
-            details: []
+            details:
+              - orderId: 1
+                productId: 49
+                unitPrice: 16
+                quantity: 24
+                discount: 0
+              - orderId: 1
+                productId: 60
+                unitPrice: 27.2
+                quantity: 40
+                discount: 0
             customer:
               id: ALFKI
               name: Alfreds Futterkiste
@@ -556,7 +592,22 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - orderId: 1
+            productId: 28
+            unitPrice: 45.6
+            quantity: 15
+            discount: 0
+          - orderId: 1
+            productId: 39
+            unitPrice: 18
+            quantity: 21
+            discount: 0
+          - orderId: 1
+            productId: 46
+            unitPrice: 12
+            quantity: 2
+            discount: 0
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -767,37 +818,13 @@ test:
       - name: __customerId
         type: string
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Conversion failed
+          when converting the nvarchar value '49,60' to data type int.
       - database: mysql
       - database: postgres
       - database: mariadb
-      - database: mssql
-        error: not equal mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
-            shipViaId: 1
-            freight: 29.46
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
     result:
       - id: 1
         customerId: ALFKI
@@ -813,7 +840,55 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - orderId: 1
+            productId: 28
+            unitPrice: 45.6
+            quantity: 15
+            discount: 0
+            product:
+              id: 28
+              name: Rssle Sauerkraut
+              supplierId: 12
+              categoryId: 7
+              quantity: 25 - 825 g cans
+              price: 45.6
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+          - orderId: 1
+            productId: 39
+            unitPrice: 18
+            quantity: 21
+            discount: 0
+            product:
+              id: 39
+              name: Chartreuse verte
+              supplierId: 18
+              categoryId: 1
+              quantity: 750 cc per bottle
+              price: 18
+              inStock: 69
+              onOrder: 0
+              reorderLevel: 5
+              discontinued: false
+          - orderId: 1
+            productId: 46
+            unitPrice: 12
+            quantity: 2
+            discount: 0
+            product:
+              id: 46
+              name: Spegesild
+              supplierId: 21
+              categoryId: 8
+              quantity: 4 - 450 g glasses
+              price: 12
+              inStock: 95
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -1048,37 +1123,13 @@ test:
       - name: __customerId
         type: string
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Conversion failed
+          when converting the nvarchar value '49,60' to data type int.
       - database: mysql
       - database: postgres
       - database: mariadb
-      - database: mssql
-        error: not equal mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
-            shipViaId: 1
-            freight: 29.46
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
     result:
       - id: 1
         customerId: ALFKI
@@ -1094,7 +1145,67 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - orderId: 1
+            productId: 28
+            unitPrice: 45.6
+            quantity: 15
+            discount: 0
+            product:
+              id: 28
+              name: Rssle Sauerkraut
+              supplierId: 12
+              categoryId: 7
+              quantity: 25 - 825 g cans
+              price: 45.6
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+              category:
+                id: 7
+                name: Produce
+                description: Dried fruit and bean curd
+          - orderId: 1
+            productId: 39
+            unitPrice: 18
+            quantity: 21
+            discount: 0
+            product:
+              id: 39
+              name: Chartreuse verte
+              supplierId: 18
+              categoryId: 1
+              quantity: 750 cc per bottle
+              price: 18
+              inStock: 69
+              onOrder: 0
+              reorderLevel: 5
+              discontinued: false
+              category:
+                id: 1
+                name: Beverages
+                description: Soft drinks, coffees, teas, beers, and ales
+          - orderId: 1
+            productId: 46
+            unitPrice: 12
+            quantity: 2
+            discount: 0
+            product:
+              id: 46
+              name: Spegesild
+              supplierId: 21
+              categoryId: 8
+              quantity: 4 - 450 g glasses
+              price: 12
+              inStock: 95
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
+              category:
+                id: 8
+                name: Seafood
+                description: Seaweed and fish
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -1280,7 +1391,13 @@ test:
             region: null
             postalCode: '12209'
             country: Germany
-            details: []
+            details:
+              - quantity: 24
+                unitPrice: 16
+                productId: 49
+              - quantity: 40
+                unitPrice: 27.2
+                productId: 60
             customer:
               id: ALFKI
               name: Alfreds Futterkiste
@@ -1306,7 +1423,16 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - quantity: 15
+            unitPrice: 45.6
+            productId: 28
+          - quantity: 21
+            unitPrice: 18
+            productId: 39
+          - quantity: 2
+            unitPrice: 12
+            productId: 46
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -1512,37 +1638,13 @@ test:
       - name: __customerId
         type: string
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Conversion failed
+          when converting the nvarchar value '49,60' to data type int.
       - database: mysql
       - database: postgres
       - database: mariadb
-      - database: mssql
-        error: not equal mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
-            shipViaId: 1
-            freight: 29.46
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details: []
-            customer:
-              id: ALFKI
-              name: Alfreds Futterkiste
-              contact: Maria Anders
-              phone: Sales Representative
-              address: Obere Str. 57
-              city: Berlin
-              region: null
-              postalCode: '12209'
-              country: Germany
     result:
       - id: 1
         customerId: ALFKI
@@ -1558,7 +1660,49 @@ test:
         region: null
         postalCode: '12209'
         country: Germany
-        details: []
+        details:
+          - quantity: 15
+            unitPrice: 45.6
+            productId: 28
+            product:
+              id: 28
+              name: Rssle Sauerkraut
+              supplierId: 12
+              categoryId: 7
+              quantity: 25 - 825 g cans
+              price: 45.6
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+          - quantity: 21
+            unitPrice: 18
+            productId: 39
+            product:
+              id: 39
+              name: Chartreuse verte
+              supplierId: 18
+              categoryId: 1
+              quantity: 750 cc per bottle
+              price: 18
+              inStock: 69
+              onOrder: 0
+              reorderLevel: 5
+              discontinued: false
+          - quantity: 2
+            unitPrice: 12
+            productId: 46
+            product:
+              id: 46
+              name: Spegesild
+              supplierId: 21
+              categoryId: 8
+              quantity: 4 - 450 g glasses
+              price: 12
+              inStock: 95
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
         customer:
           id: ALFKI
           name: Alfreds Futterkiste
@@ -1735,29 +1879,13 @@ test:
       - name: __id
         type: integer
     executions:
+      - database: mssql
+        error: >-
+          Error: Mssql connection _query error: RequestError: Conversion failed
+          when converting the nvarchar value '49,60' to data type int.
       - database: mysql
       - database: postgres
       - database: mariadb
-      - database: mssql
-        error: not equal mysql
-        result:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
-            shipViaId: 1
-            freight: 29.46
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            customer:
-              name: Alfreds Futterkiste
-            details: []
     result:
       - id: 1
         customerId: ALFKI
@@ -1775,5 +1903,23 @@ test:
         country: Germany
         customer:
           name: Alfreds Futterkiste
-        details: []
+        details:
+          - quantity: 15
+            unitPrice: 45.6
+            product:
+              name: Rssle Sauerkraut
+              category:
+                name: Produce
+          - quantity: 21
+            unitPrice: 18
+            product:
+              name: Chartreuse verte
+              category:
+                name: Beverages
+          - quantity: 2
+            unitPrice: 12
+            product:
+              name: Spegesild
+              category:
+                name: Seafood
 errors: 8

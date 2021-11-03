@@ -8,73 +8,73 @@ describe('Execute', () => {
 	test('insert 1', async () => {
 		const expression = 'Categories.insert()'
 		const expected = 9
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert(=>{name:name,description:description})'
 		const expected = 10
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
 		const expected = 11
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 4', async () => {
 		const expression = 'Orders.insert()'
 		const expected = 831
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert().include(p=>p.details)'
 		const expected = 832
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p=>[p.details,p.customer])'
 		const expected = 833
-		const mysqlResult =  await orm.expression(expression).execute('dataContext,mysql')
+		const mysqlResult =  await orm.expression(expression).execute(dataContext,'mysql')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.expression(expression).execute('dataContext,postgres')
+		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute('dataContext,mariadb')
+		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute('dataContext,mssql')
+		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
 		expect(expected).toEqual(mssqlResult)
 	})
 })
