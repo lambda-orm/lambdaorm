@@ -165,6 +165,19 @@ npm install --save-dev gulp gulp-typescript
 npm install -g gulp-cli
 ```
 
+#### Inetractive command Line
+
+- [yargs interactive](https://www.npmjs.com/package/yargs-interactive)
+- [yargs xample](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
+- [oclif](https://www.npmjs.com/package/oclif)
+- [oclif documentation](https://oclif.io/docs/introduction)
+- [oclif example](https://dev.to/_christiandimas/build-an-interactive-cli-using-typescript-11fl)
+- [commander](https://www.npmjs.com/package/commander)
+
+- [inquirer](https://www.npmjs.com/package/inquirer)
+
+- [tasks status](https://www.npmjs.com/package/listr)
+
 ## Publish
 
 - [publish](https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c)
@@ -181,15 +194,7 @@ npm install -g gulp-cli
 
 [para-otas-pruebas](https://github.com/mledoze/countries/blob/master/data/arg.topo.json)
 
-## Others Languages
 
-### Kotlin
+### Online Examples
 
-- [tutorial](https://www.w3schools.com/kotlin/index.php)
-- [get start](https://www.w3schools.com/kotlin/kotlin_getstarted.php)
-- [ide](https://www.jetbrains.com/idea/download/#section=windows)
-- [tutorial](http://www.androidcurso.com/index.php/99-kotlin/914-lambdas-y-variables-funcion-en-kotlin)
-- [lambda](https://blog.logrocket.com/a-complete-guide-to-kotlin-lambda-expressions/)
-- [lambda](https://www.baeldung.com/kotlin/lambda-expressions)
-- [orm example](https://github.com/kotlin-orm/ktorm)
-- [orm example](https://www.ktorm.org/)
+https://codesandbox.io/

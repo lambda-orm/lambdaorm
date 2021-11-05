@@ -20,15 +20,14 @@ Add the Country entity as seen in the following example
 
 ```yaml
 app:
-  configFile: lambdaorm.yaml
   src: src
   data: data
   models: models
-  defaultDatabase: lab_01
+  defaultDatabase: mydb
 databases:
-  - name: lab_01
+  - name: mydb
     dialect: mysql
-    schema: lab_01
+    schema: default
     connection:
       host: localhost
       port: 3306
@@ -40,7 +39,7 @@ databases:
       connectionLimit: 10
       queueLimit: 0
 schemas:
-  - name: lab_01
+  - name: default
     enums: []
     entities:
       - name: Countries

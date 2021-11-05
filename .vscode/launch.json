@@ -92,7 +92,7 @@
 			]
 		},
 		{
-			"name": "cli run",
+			"name": "cli run bulkInsert",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -105,8 +105,8 @@
 				"-w",
 				"lab_01",
 				"-e",
-				"Country.bulkInsert()",
-				"-c",
+				"Countries.bulkInsert()",
+				"-d",
 				"./lab_01/countries.json"
 				//"[{ \"\"id\"\": 4, \"\"name\"\": \"\"Afghanistan2\"\", \"\"alpha2\"\": \"\"af\"\", \"\"alpha3\"\": \"\"afg\"\"}]"
 			]
@@ -123,7 +123,9 @@
 			"args": [
 				"export",
 				"-w",
-				"lab_01"
+				"lab_01",
+				"-t",
+				"./lab_01/data"
 			]
 		},
 		{
@@ -140,7 +142,7 @@
 				"-w",
 				"lab_01",
 				"-e",
-				"Country.deleteAll()"
+				"Countries.deleteAll()"
 			]
 		},
 		{
@@ -157,7 +159,26 @@
 				"-w",
 				"lab_01",
 				"-s",
-				"lab_01-export.json"
+				"./lab_01/data/mydb-export.json"
+			]
+		},
+		{
+			"name": "cli run query",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/orm/cli.ts",
+			"envFile": "${workspaceFolder}/test.env",
+			"args": [
+				"run",
+				"-w",
+				"lab_01",
+				"-n",
+				"mydb",
+				"-e",
+				"Countries.filter( p=> p.alpha2 == 'br')"
 			]
 		},
 		{
@@ -173,25 +194,6 @@
 				"drop",
 				"-w",
 				"lab_01"
-			]
-		},
-		{
-			"name": "cli debug",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/orm/cli.ts",
-			"envFile": "${workspaceFolder}/test.env",
-			"args": [
-				"run",
-				"-w",
-				"./",
-				"-n",
-				"source",
-				"-e",
-				"Customers.filter( p=> p.id == 'WOLZA').include(p=> p.orders)"
 			]
 		},
 		{

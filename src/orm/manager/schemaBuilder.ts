@@ -39,11 +39,11 @@ export class SchemaBuilder {
 			const metadata = this.languageManager.dialectMetadata(database.dialect)
 			if (entity.index) {
 				for (const name in entity.index) {
-					const query = this.builder(database.dialect).dropIndex(metadata.name, entity, entity.index[name], metadata)
+					const query = this.builder(database.dialect).dropIndex(database.name, entity, entity.index[name], metadata)
 					queries.push(query)
 				}
 			}
-			const query = this.builder(database.dialect).dropEntity(metadata.name, entity, metadata)
+			const query = this.builder(database.dialect).dropEntity(database.name, entity, metadata)
 			queries.push(query)
 		}
 		return queries

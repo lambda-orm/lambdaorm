@@ -48,11 +48,8 @@ export class LibManager {
 		}
 
 		if (config.app === undefined) {
-			config.app = { configFile: configFile, src: 'src', data: 'data', models: 'models' }
+			config.app = { src: 'src', data: 'data', models: 'models' }
 		} else {
-			if (config.app.configFile === undefined) {
-				config.app.configFile = configFile
-			}
 			if (config.app.src === undefined) {
 				config.app.src = 'src'
 			}
@@ -385,11 +382,11 @@ export class LibManager {
 	private getRepositoryContent (entity: Entity): string {
 		const lines: string[] = []
 		const singular = entity.singular ? entity.singular : Helper.singular(entity.name)
-		lines.push('import { Respository,IOrm } from \'lambdaorm\'')
-		lines.push(`import {${singular}, Qry${singular} } from './model'`)
-		lines.push(`export class ${singular}Respository extends Respository<${singular},Qry${singular}> {`)
+		lines.push('import { Respository, IOrm } from \'lambdaorm\'')
+		lines.push(`import { ${singular}, Qry${singular} } from './model'`)
+		lines.push(`export class ${singular}Respository extends Respository<${singular}, Qry${singular}> {`)
 		lines.push('\tconstructor (database?: string, Orm?:IOrm) {')
-		lines.push(`\t\tsuper('${entity.name}', database,Orm)`)
+		lines.push(`\t\tsuper( '${entity.name}', database, Orm)`)
 		lines.push('\t}')
 		lines.push('\t// Add your code here')
 		lines.push('}')
@@ -473,7 +470,7 @@ export class LibManager {
 		for (const p in source.entities) {
 			const entity = source.entities[p]
 			const singular = entity.singular ? entity.singular : Helper.singular(entity.name)
-			lines.push(`\texport let ${entity.name}: Queryable<Qry${singular}>`)
+			lines.push(`export let ${entity.name}: Queryable<Qry${singular}>`)
 		}
 		return lines.join('\n') + '\n'
 	}
