@@ -103,7 +103,7 @@ export class LibManager {
 		}
 	}
 
-	public async addDialects (config: Config, globalPath:string) {
+	public async addDialects (config: Config) {
 		for (const p in config.databases) {
 			const database = config.databases[p]
 			// if the library is not installed locally corresponding to the dialect it will be installed
@@ -113,11 +113,6 @@ export class LibManager {
 				const localLib = await this.getLocalPackage(lib, this.orm.workspace)
 				if (localLib === '') {
 					await Helper.exec(`npm install ${lib}`, this.orm.workspace)
-				}
-				// if the library is not installed locally corresponding to the dialect it will be installed
-				const globalLib = await this.getGlobalPackage(lib)
-				if (globalLib === '') {
-					await Helper.exec(`npm install ${lib}`, globalPath)
 				}
 			}
 		}

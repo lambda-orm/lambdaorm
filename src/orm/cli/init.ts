@@ -51,7 +51,7 @@ export class InitCommand implements CommandModule {
 			// create structure
 			await orm.lib.createStructure(config)
 			// add libraries for dialect
-			await orm.lib.addDialects(config, path.resolve(__dirname, './../../'))
+			await orm.lib.addDialects(config)
 		} catch (error) {
 			console.error(`error: ${error}`)
 		}
