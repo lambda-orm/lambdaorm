@@ -3,10 +3,24 @@ app:
   data: data
   models: models
   defaultDatabase: mydb
+  configFile: lambdaorm.yaml
 databases:
   - name: mydb
     dialect: mysql
     schema: default
+    connection:
+      host: localhost
+      port: 3306
+      user: test
+      password: test
+      database: test
+      multipleStatements: true
+      waitForConnections: true
+      connectionLimit: 10
+      queueLimit: 0
+  - name: lab_01
+    dialect: mysql
+    schema: lab_01
     connection:
       host: localhost
       port: 3306
@@ -23,8 +37,10 @@ schemas:
     entities:
       - name: Countries
         mapping: COUNTRY
-        primaryKey: ["id"]
-        uniqueKey: ["name"]
+        primaryKey:
+          - id
+        uniqueKey:
+          - name
         properties:
           - name: id
             mapping: ID
@@ -45,3 +61,6 @@ schemas:
             nullable: false
             type: string
             length: 3
+  - name: lab_01
+    enums: []
+    entities: []

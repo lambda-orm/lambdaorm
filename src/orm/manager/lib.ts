@@ -103,7 +103,7 @@ export class LibManager {
 		}
 	}
 
-	public async addDialects (config: Config) {
+	public async addDialects (config: Config, globalPath:string) {
 		for (const p in config.databases) {
 			const database = config.databases[p]
 			// if the library is not installed locally corresponding to the dialect it will be installed
@@ -117,7 +117,7 @@ export class LibManager {
 				// if the library is not installed locally corresponding to the dialect it will be installed
 				const globalLib = await this.getGlobalPackage(lib)
 				if (globalLib === '') {
-					await Helper.exec(`npm install ${globalLib} -g`, this.orm.workspace)
+					await Helper.exec(`npm install ${lib}`, globalPath)
 				}
 			}
 		}
@@ -386,7 +386,7 @@ export class LibManager {
 		lines.push(`import { ${singular}, Qry${singular} } from './model'`)
 		lines.push(`export class ${singular}Respository extends Respository<${singular}, Qry${singular}> {`)
 		lines.push('\tconstructor (database?: string, Orm?:IOrm) {')
-		lines.push(`\t\tsuper( '${entity.name}', database, Orm)`)
+		lines.push(`\t\tsuper('${entity.name}', database, Orm)`)
 		lines.push('\t}')
 		lines.push('\t// Add your code here')
 		lines.push('}')
