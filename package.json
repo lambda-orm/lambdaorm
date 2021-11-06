@@ -5,16 +5,13 @@
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
 	"main": "./index.js",
-	"bin": {
-		"lambdaorm": "./cli.js"
-	},
-	"homepage": "https://github.com/FlavioLionelRita/lambda-orm#readme",
+	"homepage": "https://github.com/FlavioLionelRita/lambdaorm#readme",
 	"bugs": {
-		"url": "https://github.com/FlavioLionelRita/lambda-orm/issues"
+		"url": "https://github.com/FlavioLionelRita/lambdaorm/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/FlavioLionelRita/lambda-orm.git"
+		"url": "https://github.com/FlavioLionelRita/lambdaorm.git"
 	},
 	"scripts": {
 		"lint": "grunt lint",
@@ -30,8 +27,7 @@
 		"config-extends": "^1.0.4",
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
-		"sqlstring": "^2.3.2",
-		"yargs": "^17.2.1"
+		"sqlstring": "^2.3.2"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.15.4",
