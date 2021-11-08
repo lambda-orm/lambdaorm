@@ -6,6 +6,4 @@
 
 ### Classes
 
-- [DatabaseClean](../classes/database.DatabaseClean.md)
-- [DatabaseManager](../classes/database.DatabaseManager.md)
-- [DatabaseSync](../classes/database.DatabaseSync.md)
+- [DatabaseState](../classes/database.DatabaseState.md)

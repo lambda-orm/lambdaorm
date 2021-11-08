@@ -9,6 +9,7 @@
 ### Properties
 
 - [autoincrement](model.Property.md#autoincrement)
+- [excludeModel](model.Property.md#excludemodel)
 - [length](model.Property.md#length)
 - [mapping](model.Property.md#mapping)
 - [name](model.Property.md#name)
@@ -24,7 +25,17 @@
 
 #### Defined in
 
-[model/schema.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L16)
+[model/schema.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L16)
+
+___
+
+### excludeModel
+
+• `Optional` **excludeModel**: `boolean`
+
+#### Defined in
+
+[model/schema.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L17)
 
 ___
 
@@ -34,7 +45,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L13)
+[model/schema.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L13)
 
 ___
 
@@ -44,7 +55,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L11)
+[model/schema.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L11)
 
 ___
 
@@ -54,7 +65,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L10)
+[model/schema.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L10)
 
 ___
 
@@ -64,7 +75,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L14)
+[model/schema.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L14)
 
 ___
 
@@ -74,7 +85,7 @@ ___
 
 #### Defined in
 
-[model/schema.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L15)
+[model/schema.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L15)
 
 ___
 
@@ -84,4 +95,4 @@ ___
 
 #### Defined in
 
-[model/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L12)
+[model/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L12)

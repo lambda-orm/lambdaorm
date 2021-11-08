@@ -16,34 +16,21 @@ Facade through which you can access all the functionalities of the library.
 
 - [constructor](orm.Orm.md#constructor)
 
-### Properties
-
-- [config](orm.Orm.md#config)
-- [workspace](orm.Orm.md#workspace)
-
 ### Accessors
 
-- [cache](orm.Orm.md#cache)
-- [connection](orm.Orm.md#connection)
 - [database](orm.Orm.md#database)
-- [language](orm.Orm.md#language)
 - [lib](orm.Orm.md#lib)
-- [parser](orm.Orm.md#parser)
-- [schema](orm.Orm.md#schema)
+- [workspace](orm.Orm.md#workspace)
 - [instance](orm.Orm.md#instance)
 
 ### Methods
 
-- [build](orm.Orm.md#build)
-- [complete](orm.Orm.md#complete)
+- [dialect](orm.Orm.md#dialect)
 - [end](orm.Orm.md#end)
-- [eval](orm.Orm.md#eval)
-- [execute](orm.Orm.md#execute)
-- [executeSentence](orm.Orm.md#executesentence)
 - [expression](orm.Orm.md#expression)
 - [init](orm.Orm.md#init)
 - [lambda](orm.Orm.md#lambda)
-- [query](orm.Orm.md#query)
+- [setCache](orm.Orm.md#setcache)
 - [transaction](orm.Orm.md#transaction)
 
 ## Constructors
@@ -60,119 +47,27 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[orm.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L46)
-
-## Properties
-
-### config
-
-• **config**: [`Config`](../interfaces/model.Config.md)
-
-Property that exposes the configuration
-
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[config](../interfaces/model.IOrm.md#config)
-
-#### Defined in
-
-[orm.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L33)
-
-___
-
-### workspace
-
-• **workspace**: `string`
-
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[workspace](../interfaces/model.IOrm.md#workspace)
-
-#### Defined in
-
-[orm.ts:35](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L35)
+[orm.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L44)
 
 ## Accessors
 
-### cache
-
-• `get` **cache**(): [`Cache`](../interfaces/model.Cache.md)
-
-Get reference to cache manager
-
-#### Returns
-
-[`Cache`](../interfaces/model.Cache.md)
-
-#### Defined in
-
-[orm.ts:163](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L163)
-
-• `set` **cache**(`value`): `void`
-
-set to cache manager
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Cache`](../interfaces/model.Cache.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[orm.ts:170](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L170)
-
-___
-
-### connection
-
-• `get` **connection**(): [`ConnectionManager`](connection.ConnectionManager.md)
-
-Get reference to connection manager
-
-#### Returns
-
-[`ConnectionManager`](connection.ConnectionManager.md)
-
-#### Defined in
-
-[orm.ts:156](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L156)
-
-___
-
 ### database
 
-• `get` **database**(): [`DatabaseManager`](database.DatabaseManager.md)
+• `get` **database**(): [`DatabaseFacade`](manager.DatabaseFacade.md)
 
 Get reference to database manager
 
 #### Returns
 
-[`DatabaseManager`](database.DatabaseManager.md)
+[`DatabaseFacade`](manager.DatabaseFacade.md)
+
+#### Implementation of
+
+IOrm.database
 
 #### Defined in
 
-[orm.ts:149](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L149)
-
-___
-
-### language
-
-• `get` **language**(): [`LanguageManager`](language.LanguageManager.md)
-
-Get reference to language manager
-
-#### Returns
-
-[`LanguageManager`](language.LanguageManager.md)
-
-#### Defined in
-
-[orm.ts:142](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L142)
+[orm.ts:128](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L128)
 
 ___
 
@@ -188,39 +83,25 @@ Get reference to config manager
 
 #### Defined in
 
-[orm.ts:121](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L121)
+[orm.ts:121](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L121)
 
 ___
 
-### parser
+### workspace
 
-• `get` **parser**(): [`ParserManager`](parser.ParserManager.md)
-
-Get reference to parser manager
+• `get` **workspace**(): `string`
 
 #### Returns
 
-[`ParserManager`](parser.ParserManager.md)
+`string`
+
+#### Implementation of
+
+IOrm.workspace
 
 #### Defined in
 
-[orm.ts:128](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L128)
-
-___
-
-### schema
-
-• `get` **schema**(): [`SchemaManager`](schema.SchemaManager.md)
-
-Get reference to schema manager
-
-#### Returns
-
-[`SchemaManager`](schema.SchemaManager.md)
-
-#### Defined in
-
-[orm.ts:135](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L135)
+[orm.ts:110](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L110)
 
 ___
 
@@ -236,65 +117,31 @@ Singleton
 
 #### Defined in
 
-[orm.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L39)
+[orm.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L37)
 
 ## Methods
 
-### build
+### dialect
 
-▸ **build**(`expression`, `schema`): `Promise`<[`Operand`](language.Operand.md)\>
-
-Build expression
+▸ **dialect**(`database`): `string`
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression to build |
-| `schema` | `string` | schema name |
-
-#### Returns
-
-`Promise`<[`Operand`](language.Operand.md)\>
-
-Operand
-
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[build](../interfaces/model.IOrm.md#build)
-
-#### Defined in
-
-[orm.ts:199](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L199)
-
-___
-
-### complete
-
-▸ **complete**(`expression`, `schema`): `string`
-
-complete the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a complete expression from a simplified expression.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression that can be simplified |
-| `schema` | `string` | schema name |
+| Name | Type |
+| :------ | :------ |
+| `database` | `string` |
 
 #### Returns
 
 `string`
 
-full expression
-
 #### Implementation of
 
-[IOrm](../interfaces/model.IOrm.md).[complete](../interfaces/model.IOrm.md#complete)
+[IOrm](../interfaces/model.IOrm.md).[dialect](../interfaces/model.IOrm.md#dialect)
 
 #### Defined in
 
-[orm.ts:180](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L180)
+[orm.ts:114](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L114)
 
 ___
 
@@ -308,104 +155,19 @@ Frees the resources used, for example the connection pools
 
 `Promise`<`void`\>
 
-#### Defined in
-
-[orm.ts:114](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L114)
-
-___
-
-### eval
-
-▸ **eval**(`expression`, `context`, `schema`): `Promise`<`any`\>
-
-Evaluate and solve expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `context` | `any` | Context with variables |
-| `schema` | `string` | Schema name |
-
-#### Returns
-
-`Promise`<`any`\>
-
-Result of the evaluale expression
-
 #### Implementation of
 
-[IOrm](../interfaces/model.IOrm.md).[eval](../interfaces/model.IOrm.md#eval)
+[IOrm](../interfaces/model.IOrm.md).[end](../interfaces/model.IOrm.md#end)
 
 #### Defined in
 
-[orm.ts:285](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L285)
-
-___
-
-### execute
-
-▸ **execute**(`expression`, `context?`, `database?`): `Promise`<`any`\>
-
-Execute expression and return result
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `context` | `any` | Context with variables |
-| `database?` | `string` | Database name |
-
-#### Returns
-
-`Promise`<`any`\>
-
-result of expression
-
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[execute](../interfaces/model.IOrm.md#execute)
-
-#### Defined in
-
-[orm.ts:298](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L298)
-
-___
-
-### executeSentence
-
-▸ **executeSentence**(`sentence`, `database`): `Promise`<`any`\>
-
-Execute Sentence
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `sentence` | `any` | Sentence |
-| `database` | `string` | Database name |
-
-#### Returns
-
-`Promise`<`any`\>
-
-result of sentence
-
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[executeSentence](../interfaces/model.IOrm.md#executesentence)
-
-#### Defined in
-
-[orm.ts:335](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L335)
+[orm.ts:106](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L106)
 
 ___
 
 ### expression
 
-▸ **expression**(`expression`): [`Expression`](manager.Expression.md)
+▸ **expression**(`expression`): [`ExpressionFacade`](manager.ExpressionFacade.md)
 
 Read expression
 
@@ -417,7 +179,7 @@ Read expression
 
 #### Returns
 
-[`Expression`](manager.Expression.md)
+[`ExpressionFacade`](manager.ExpressionFacade.md)
 
 Expression manager
 
@@ -427,7 +189,7 @@ Expression manager
 
 #### Defined in
 
-[orm.ts:245](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L245)
+[orm.ts:144](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L144)
 
 ___
 
@@ -456,13 +218,13 @@ promise void
 
 #### Defined in
 
-[orm.ts:80](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L80)
+[orm.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L81)
 
 ___
 
 ### lambda
 
-▸ **lambda**(`func`): [`Expression`](manager.Expression.md)
+▸ **lambda**(`func`): [`ExpressionFacade`](manager.ExpressionFacade.md)
 
 Read lambda expression
 
@@ -474,47 +236,39 @@ Read lambda expression
 
 #### Returns
 
-[`Expression`](manager.Expression.md)
+[`ExpressionFacade`](manager.ExpressionFacade.md)
 
 Expression manager
 
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[lambda](../interfaces/model.IOrm.md#lambda)
-
 #### Defined in
 
-[orm.ts:258](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L258)
+[orm.ts:157](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L157)
 
 ___
 
-### query
+### setCache
 
-▸ **query**(`expression`, `dialect`, `schema`): `Promise`<[`Query`](language.Query.md)\>
+▸ **setCache**(`value`): `void`
 
-Build expression and convert in Query
+set to cache manager
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression to build |
-| `dialect` | `string` | Dialect name |
-| `schema` | `string` | Schema name |
+| Name | Type |
+| :------ | :------ |
+| `value` | [`Cache`](../interfaces/model.Cache.md) |
 
 #### Returns
 
-`Promise`<[`Query`](language.Query.md)\>
-
-Query
+`void`
 
 #### Implementation of
 
-[IOrm](../interfaces/model.IOrm.md).[query](../interfaces/model.IOrm.md#query)
+[IOrm](../interfaces/model.IOrm.md).[setCache](../interfaces/model.IOrm.md#setcache)
 
 #### Defined in
 
-[orm.ts:225](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L225)
+[orm.ts:135](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L135)
 
 ___
 
@@ -541,4 +295,4 @@ Crea una transaccion
 
 #### Defined in
 
-[orm.ts:345](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/orm.ts#L345)
+[orm.ts:167](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/orm.ts#L167)

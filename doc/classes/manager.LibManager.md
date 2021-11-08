@@ -22,6 +22,7 @@
 - [getGlobalPackage](manager.LibManager.md#getglobalpackage)
 - [getLibs](manager.LibManager.md#getlibs)
 - [getLocalPackage](manager.LibManager.md#getlocalpackage)
+- [getModel](manager.LibManager.md#getmodel)
 - [getTypescriptContent](manager.LibManager.md#gettypescriptcontent)
 - [writeConfig](manager.LibManager.md#writeconfig)
 - [writeModel](manager.LibManager.md#writemodel)
@@ -40,7 +41,7 @@
 
 #### Defined in
 
-[manager/lib.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L9)
+[manager/lib.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L9)
 
 ## Methods
 
@@ -60,7 +61,7 @@
 
 #### Defined in
 
-[manager/lib.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L109)
+[manager/lib.ts:110](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L110)
 
 ___
 
@@ -83,7 +84,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:181](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L181)
+[manager/lib.ts:177](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L177)
 
 ___
 
@@ -103,7 +104,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:72](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L72)
+[manager/lib.ts:73](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L73)
 
 ___
 
@@ -123,7 +124,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:221](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L221)
+[manager/lib.ts:217](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L217)
 
 ___
 
@@ -143,7 +144,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L13)
+[manager/lib.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L13)
 
 ___
 
@@ -163,7 +164,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:129](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L129)
+[manager/lib.ts:125](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L125)
 
 ___
 
@@ -184,7 +185,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:158](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L158)
+[manager/lib.ts:154](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L154)
 
 ___
 
@@ -204,7 +205,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:319](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L319)
+[manager/lib.ts:317](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L317)
 
 ___
 
@@ -224,7 +225,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:290](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L290)
+[manager/lib.ts:286](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L286)
 
 ___
 
@@ -245,7 +246,27 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:312](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L312)
+[manager/lib.ts:310](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L310)
+
+___
+
+### getModel
+
+▸ **getModel**(`config`): [`Schema`](../interfaces/model.Schema.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `config` | [`Config`](../interfaces/model.Config.md) |
+
+#### Returns
+
+[`Schema`](../interfaces/model.Schema.md)[]
+
+#### Defined in
+
+[manager/lib.ts:352](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L352)
 
 ___
 
@@ -278,7 +299,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:326](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L326)
+[manager/lib.ts:324](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L324)
 
 ___
 
@@ -298,7 +319,7 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:141](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L141)
+[manager/lib.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L137)
 
 ___
 
@@ -318,4 +339,4 @@ ___
 
 #### Defined in
 
-[manager/lib.ts:354](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/lib.ts#L354)
+[manager/lib.ts:370](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/lib.ts#L370)

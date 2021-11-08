@@ -14,11 +14,8 @@
 
 - [acquire](connection.ConnectionManager.md#acquire)
 - [addType](connection.ConnectionManager.md#addtype)
-- [createExecutor](connection.ConnectionManager.md#createexecutor)
-- [createTransaction](connection.ConnectionManager.md#createtransaction)
 - [end](connection.ConnectionManager.md#end)
 - [get](connection.ConnectionManager.md#get)
-- [init](connection.ConnectionManager.md#init)
 - [load](connection.ConnectionManager.md#load)
 - [release](connection.ConnectionManager.md#release)
 
@@ -30,7 +27,7 @@
 
 #### Defined in
 
-[connection/connectionManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L13)
+[connection/connectionManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L13)
 
 ## Methods
 
@@ -50,7 +47,7 @@
 
 #### Defined in
 
-[connection/connectionManager.ts:55](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L55)
+[connection/connectionManager.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L50)
 
 ___
 
@@ -71,47 +68,7 @@ ___
 
 #### Defined in
 
-[connection/connectionManager.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L18)
-
-___
-
-### createExecutor
-
-▸ **createExecutor**(`connectionName`): [`Executor`](connection.Executor.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `connectionName` | `string` |
-
-#### Returns
-
-[`Executor`](connection.Executor.md)
-
-#### Defined in
-
-[connection/connectionManager.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L66)
-
-___
-
-### createTransaction
-
-▸ **createTransaction**(`connectionName`): [`Transaction`](connection.Transaction.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `connectionName` | `string` |
-
-#### Returns
-
-[`Transaction`](connection.Transaction.md)
-
-#### Defined in
-
-[connection/connectionManager.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L70)
+[connection/connectionManager.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L18)
 
 ___
 
@@ -125,7 +82,7 @@ ___
 
 #### Defined in
 
-[connection/connectionManager.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L44)
+[connection/connectionManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L39)
 
 ___
 
@@ -145,21 +102,7 @@ ___
 
 #### Defined in
 
-[connection/connectionManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L51)
-
-___
-
-### init
-
-▸ **init**(): `Promise`<`void`\>
-
-#### Returns
-
-`Promise`<`void`\>
-
-#### Defined in
-
-[connection/connectionManager.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L37)
+[connection/connectionManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L46)
 
 ___
 
@@ -179,7 +122,7 @@ ___
 
 #### Defined in
 
-[connection/connectionManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L22)
+[connection/connectionManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L22)
 
 ___
 
@@ -199,4 +142,4 @@ ___
 
 #### Defined in
 
-[connection/connectionManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionManager.ts#L62)
+[connection/connectionManager.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionManager.ts#L57)

@@ -14,6 +14,10 @@
 
   ↳ [`MssqlConnection`](connection.MssqlConnection.md)
 
+  ↳ [`SqlJsConnection`](connection.SqlJsConnection.md)
+
+  ↳ [`MongodbConnection`](connection.MongodbConnection.md)
+
 ## Table of contents
 
 ### Constructors
@@ -37,6 +41,7 @@
 - [commit](connection.Connection.md#commit)
 - [delete](connection.Connection.md#delete)
 - [execute](connection.Connection.md#execute)
+- [executeSentence](connection.Connection.md#executesentence)
 - [insert](connection.Connection.md#insert)
 - [rollback](connection.Connection.md#rollback)
 - [select](connection.Connection.md#select)
@@ -57,7 +62,7 @@
 
 #### Defined in
 
-[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L9)
+[connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L10)
 
 ## Properties
 
@@ -67,7 +72,7 @@
 
 #### Defined in
 
-[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L6)
+[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L7)
 
 ___
 
@@ -77,7 +82,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L8)
+[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L9)
 
 ___
 
@@ -87,7 +92,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L7)
+[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -101,7 +106,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L15)
+[connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L16)
 
 ## Methods
 
@@ -115,22 +120,22 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L25)
+[connection/connection.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L29)
 
 ___
 
 ### bulkInsert
 
-▸ `Abstract` **bulkInsert**(`sql`, `array`, `parameters`, `fieldId?`): `Promise`<`number`[]\>
+▸ `Abstract` **bulkInsert**(`schema`, `query`, `array`, `parameters`): `Promise`<`number`[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `array` | `any`[] |
 | `parameters` | [`Parameter`](../interfaces/model.Parameter.md)[] |
-| `fieldId?` | `string` |
 
 #### Returns
 
@@ -138,7 +143,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L24)
+[connection/connection.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L24)
 
 ___
 
@@ -152,19 +157,20 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L26)
+[connection/connection.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L30)
 
 ___
 
 ### delete
 
-▸ `Abstract` **delete**(`sql`, `params`): `Promise`<`number`\>
+▸ `Abstract` **delete**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -173,19 +179,19 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L22)
+[connection/connection.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L23)
 
 ___
 
 ### execute
 
-▸ `Abstract` **execute**(`sql`): `Promise`<`any`\>
+▸ `Abstract` **execute**(`query`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `query` | [`Query`](model.Query.md) |
 
 #### Returns
 
@@ -193,19 +199,40 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L23)
+[connection/connection.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L25)
 
 ___
 
-### insert
+### executeSentence
 
-▸ `Abstract` **insert**(`sql`, `params`): `Promise`<`number`\>
+▸ `Abstract` **executeSentence**(`sentence`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `sentence` | `any` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Defined in
+
+[connection/connection.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L27)
+
+___
+
+### insert
+
+▸ `Abstract` **insert**(`schema`, `query`, `params`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -214,7 +241,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L20)
+[connection/connection.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L21)
 
 ___
 
@@ -228,19 +255,20 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L27)
+[connection/connection.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L31)
 
 ___
 
 ### select
 
-▸ `Abstract` **select**(`sql`, `params`): `Promise`<`any`\>
+▸ `Abstract` **select**(`schema`, `query`, `params`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -249,19 +277,20 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L19)
+[connection/connection.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L20)
 
 ___
 
 ### update
 
-▸ `Abstract` **update**(`sql`, `params`): `Promise`<`number`\>
+▸ `Abstract` **update**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -270,4 +299,4 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L21)
+[connection/connection.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L22)

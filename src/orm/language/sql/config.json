@@ -639,6 +639,25 @@
       }
     },
     "oracle": {
+      "types": {
+        "boolean": "CHAR(1)",
+        "integer": "LONG",
+        "string": "VARCHAR2({0})",
+        "datetime": "TIMESTAMP",
+        "decimal": "DECIMAL(10,4)",
+        "date": "DATE",
+        "time": "TIME"
+      },
+      "others": {
+        "false": "N",
+        "true": "Y",
+        "delimiter": "\"{name}\"",
+        "sepatatorSql": ";",
+        "notNullable": "NOT NULL",
+        "variable": ":{name}",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}"
+      },
       "ddl": {
         "dropPk": "DROP CONSTRAINT {name}",
         "dropUk": "DROP CONSTRAINT {name}",
@@ -663,15 +682,6 @@
         "dropColumn": "DROP COLUMN {name}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
-      "types": {
-        "boolean": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "datetime": "DATETIME",
-        "date": "DATE",
-        "time": "TIME"
-      },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
         "date": "yyyy-LL-dd",
@@ -691,16 +701,6 @@
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}"
-      },
-      "others": {
-        "delimiter": "\"{name}\"",
-        "sepatatorSql": ";",
-        "notNullable": "NOT NULL",
-        "variable": ":{name}",
-        "field": "{entityAlias}.{name}",
-        "column": "{name}",
-        "false": "FALSE",
-        "true": "TRUE"
       },
       "operators": {
         "unary": {

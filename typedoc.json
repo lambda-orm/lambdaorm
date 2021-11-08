@@ -6,7 +6,6 @@
 		"src/orm/manager",
 		"src/orm/model",
 		"src/orm/parser",
-		"src/orm/schema",
 		"src/orm/orm.ts"
 	],
 	"out": "doc",

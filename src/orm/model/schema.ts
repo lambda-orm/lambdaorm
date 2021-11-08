@@ -14,6 +14,7 @@ export interface Property {
 	nullable?: boolean
 	primaryKey?: boolean
 	autoincrement?: boolean
+	excludeModel?: boolean
 }
 export interface Relation {
 	name: string
@@ -29,6 +30,9 @@ export interface Index {
 }
 export interface Entity {
 	name: string
+	extends?: string
+	abstract?: boolean
+	excludeModel?: boolean
 	singular?: string
 	mapping?: string
 	primaryKey?:string[]
@@ -40,6 +44,9 @@ export interface Entity {
 }
 export interface Schema {
 	name: string
+	abstract?: boolean
+	extends?: string
+	excludeModel?: boolean
 	entities: Entity[]
 	enums: Enum[]
 }

@@ -8,11 +8,24 @@
 
 ### Properties
 
+- [abstract](model.Schema.md#abstract)
 - [entities](model.Schema.md#entities)
 - [enums](model.Schema.md#enums)
+- [excludeModel](model.Schema.md#excludemodel)
+- [extends](model.Schema.md#extends)
 - [name](model.Schema.md#name)
 
 ## Properties
+
+### abstract
+
+• `Optional` **abstract**: `boolean`
+
+#### Defined in
+
+[model/schema.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L47)
+
+___
 
 ### entities
 
@@ -20,7 +33,7 @@
 
 #### Defined in
 
-[model/schema.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L42)
+[model/schema.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L50)
 
 ___
 
@@ -30,7 +43,27 @@ ___
 
 #### Defined in
 
-[model/schema.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L43)
+[model/schema.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L51)
+
+___
+
+### excludeModel
+
+• `Optional` **excludeModel**: `boolean`
+
+#### Defined in
+
+[model/schema.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L49)
+
+___
+
+### extends
+
+• `Optional` **extends**: `string`
+
+#### Defined in
+
+[model/schema.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L48)
 
 ___
 
@@ -40,4 +73,4 @@ ___
 
 #### Defined in
 
-[model/schema.ts:41](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/schema.ts#L41)
+[model/schema.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/schema.ts#L46)

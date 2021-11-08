@@ -33,6 +33,7 @@
 - [commit](connection.MssqlConnection.md#commit)
 - [delete](connection.MssqlConnection.md#delete)
 - [execute](connection.MssqlConnection.md#execute)
+- [executeSentence](connection.MssqlConnection.md#executesentence)
 - [insert](connection.MssqlConnection.md#insert)
 - [rollback](connection.MssqlConnection.md#rollback)
 - [select](connection.MssqlConnection.md#select)
@@ -57,7 +58,7 @@
 
 #### Defined in
 
-[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L9)
+[connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L10)
 
 ## Properties
 
@@ -71,7 +72,7 @@
 
 #### Defined in
 
-[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L6)
+[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L7)
 
 ___
 
@@ -85,7 +86,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L8)
+[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L9)
 
 ___
 
@@ -99,7 +100,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L7)
+[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -111,9 +112,13 @@ ___
 
 [`ConnectionConfig`](../interfaces/connection.ConnectionConfig.md)
 
+#### Inherited from
+
+Connection.config
+
 #### Defined in
 
-[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L15)
+[connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L16)
 
 ## Methods
 
@@ -131,22 +136,22 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:108](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L108)
+[connection/dialects/mssql.ts:119](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L119)
 
 ___
 
 ### bulkInsert
 
-▸ **bulkInsert**(`sql`, `array`, `params`, `fieldId?`): `Promise`<`any`[]\>
+▸ **bulkInsert**(`schema`, `query`, `array`, `params`): `Promise`<`any`[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `array` | `any`[] |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
-| `fieldId?` | `string` |
 
 #### Returns
 
@@ -158,7 +163,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L62)
+[connection/dialects/mssql.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L66)
 
 ___
 
@@ -176,19 +181,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:121](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L121)
+[connection/dialects/mssql.ts:132](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L132)
 
 ___
 
 ### delete
 
-▸ **delete**(`sql`, `params`): `Promise`<`number`\>
+▸ **delete**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -201,19 +207,19 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:100](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L100)
+[connection/dialects/mssql.ts:107](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L107)
 
 ___
 
 ### execute
 
-▸ **execute**(`sql`): `Promise`<`any`\>
+▸ **execute**(`query`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `query` | [`Query`](model.Query.md) |
 
 #### Returns
 
@@ -225,19 +231,44 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:104](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L104)
+[connection/dialects/mssql.ts:111](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L111)
 
 ___
 
-### insert
+### executeSentence
 
-▸ **insert**(`sql`, `params`): `Promise`<`number`\>
+▸ **executeSentence**(`sentence`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `sentence` | `any` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Overrides
+
+[Connection](connection.Connection.md).[executeSentence](connection.Connection.md#executesentence)
+
+#### Defined in
+
+[connection/dialects/mssql.ts:115](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L115)
+
+___
+
+### insert
+
+▸ **insert**(`schema`, `query`, `params`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -250,7 +281,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L57)
+[connection/dialects/mssql.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L52)
 
 ___
 
@@ -268,19 +299,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:134](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L134)
+[connection/dialects/mssql.ts:147](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L147)
 
 ___
 
 ### select
 
-▸ **select**(`sql`, `params`): `Promise`<`any`\>
+▸ **select**(`schema`, `query`, `params`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -293,19 +325,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L52)
+[connection/dialects/mssql.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L47)
 
 ___
 
 ### update
 
-▸ **update**(`sql`, `params`): `Promise`<`number`\>
+▸ **update**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -318,4 +351,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:96](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L96)
+[connection/dialects/mssql.ts:103](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L103)

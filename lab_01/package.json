@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "lambdaorm": "0.0.47",
-    "mysql2": "^2.3.2"
-  },
-  "devDependencies": {
-    "typescript": "^4.4.4"
-  }
-}

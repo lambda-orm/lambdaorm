@@ -24,41 +24,36 @@ databases:
     schema: northwind
     dialect: mssql
     connection: $ORM_CNN_MSSQL
-abstract:
-  address:
-    properties:
-      - name: address
-        mapping: Address
-        type: string
-        length: 80
-      - name: city
-        mapping: City
-        type: string
-        length: 80
-      - name: region
-        mapping: Region
-        type: string
-        length: 80
-      - name: postalCode
-        mapping: PostalCode
-        type: string
-        length: 20
-      - name: country
-        mapping: Country
-        type: string
-        length: 80
-    indexes:
-      - name: postalCode
-        fields: ["postalCode"]
-      - name: region
-        fields: ["region", "country"]
-      - name: city
-        fields: ["city"]
 schemas:
-  northwind:
-    name: northwind
+  - name: northwind
     enums:
     entities:
+      - name: Address
+        abstract: true
+        properties:
+          - name: address
+            mapping: Address
+            type: string
+          - name: city
+            mapping: City
+            type: string
+          - name: region
+            mapping: Region
+            type: string
+          - name: postalCode
+            mapping: PostalCode
+            type: string
+            length: 20
+          - name: country
+            mapping: Country
+            type: string
+        indexes:
+          - name: postalCode
+            fields: ["postalCode"]
+          - name: region
+            fields: ["region", "country"]
+          - name: city
+            fields: ["city"]
       - name: Categories
         mapping: Categories
         primaryKey: ["id"]
@@ -73,13 +68,12 @@ schemas:
             mapping: CategoryName
             nullable: false
             type: string
-            length: 80
           - name: description
             mapping: Description
             type: string
             length: 1000
       - name: Customers
-        _extends: [abstract.address]
+        extends: Address
         mapping: Customers
         primaryKey: ["id"]
         indexes:
@@ -95,15 +89,12 @@ schemas:
             mapping: CompanyName
             nullable: false
             type: string
-            length: 80
           - name: contact
             mapping: ContactName
             type: string
-            length: 80
           - name: phone
             mapping: ContactTitle
             type: string
-            length: 80
         relations:
           - name: orders
             type: manyToOne
@@ -112,7 +103,7 @@ schemas:
             entity: Orders
             to: customerId
       - name: Employees
-        _extends: [abstract.address]
+        extends: Address
         mapping: Employees
         primaryKey: ["id"]
         uniqueKey: ["lastName", "firstName"]
@@ -126,20 +117,16 @@ schemas:
             mapping: LastName
             nullable: false
             type: string
-            length: 80
           - name: firstName
             mapping: FirstName
             nullable: false
             type: string
-            length: 80
           - name: title
             mapping: Title
             type: string
-            length: 80
           - name: titleOfCourtesy
             mapping: TitleOfCourtesy
             type: string
-            length: 80
           - name: birthDate
             mapping: BirthDate
             type: datetime
@@ -149,7 +136,6 @@ schemas:
           - name: phone
             mapping: HomePhone
             type: string
-            length: 80
           - name: reportsToId
             mapping: ReportsTo
             type: integer
@@ -173,13 +159,12 @@ schemas:
             mapping: CompanyName
             nullable: false
             type: string
-            length: 80
           - name: phone
             mapping: Phone
             type: string
             length: 20
       - name: Suppliers
-        _extends: [abstract.address]
+        extends: Address
         mapping: Suppliers
         primaryKey: ["id"]
         uniqueKey: ["name"]
@@ -193,11 +178,9 @@ schemas:
             mapping: CompanyName
             nullable: false
             type: string
-            length: 80
           - name: contact
             mapping: ContactName
             type: string
-            length: 80
           - name: phone
             mapping: Phone
             type: string
@@ -220,7 +203,6 @@ schemas:
             mapping: ProductName
             nullable: false
             type: string
-            length: 80
           - name: supplierId
             mapping: SupplierID
             nullable: false
@@ -231,7 +213,6 @@ schemas:
           - name: quantity
             mapping: QuantityPerUnit
             type: string
-            length: 80
           - name: price
             mapping: UnitPrice
             type: decimal
@@ -304,19 +285,15 @@ schemas:
           - name: name
             mapping: ShipName
             type: string
-            length: 80
           - name: address
             mapping: ShipAddress
             type: string
-            length: 80
           - name: city
             mapping: ShipCity
             type: string
-            length: 80
           - name: region
             mapping: ShipRegion
             type: string
-            length: 80
           - name: postalCode
             mapping: ShipPostalCode
             type: string
@@ -324,7 +301,6 @@ schemas:
           - name: country
             mapping: ShipCountry
             type: string
-            length: 80
         relations:
           - name: customer
             type: oneToMany
@@ -374,3 +350,98 @@ schemas:
             from: productId
             entity: Products
             to: id
+
+  - name: location
+    entities:
+      - name: Locations
+        abstract: true
+        primaryKey: ["id"]
+        uniqueKey: ["code"]
+        properties:
+          - name: id
+            type: integer
+            autoincrement: true
+          - name: parentId
+            type: integer
+          - name: name
+            nullable: false
+            type: string
+          - name: code
+            nullable: false
+            type: string
+          - name: capital
+            nullable: false
+            type: string
+          - name: latitude
+            nullable: false
+            type: string
+            length: 12
+          - name: longitude
+            nullable: false
+            type: string
+            length: 12
+      - name: Countries
+        extends: Locations
+        relations:
+          - name: states
+            type: manyToOne
+            composite: true
+            from: id
+            entity: States
+            to: parentId
+      - name: States
+        extends: Locations
+        relations:
+          - name: country
+            type: oneToMany
+            from: parentId
+            entity: Country
+            to: id
+          - name: cities
+            type: manyToOne
+            composite: true
+            from: id
+            entity: Cities
+            to: parentId
+      - name: Cities
+        extends: Locations
+        relations:
+          - name: state
+            type: oneToMany
+            from: parentId
+            entity: State
+            to: id
+
+  - name: location_2
+    extends: location
+    excludeModel: true
+    entities:
+      - name: Locations
+        properties:
+          - name: type
+            # al ser excludeModel no estara en el modelo que se contruye, ni disponible para los queryes
+            # pero si se utiliza internamente para poder filtrar
+            excludeModel: true
+            nullable: false
+            type: string
+            length: 16
+      - name: Countries
+        extends: Locations
+        mapping: Locations
+        properties:
+          - name: type
+            # el key implica que al momento de instertar se agregue use este valor,
+            # y al momento de select, update , delete o joins se adiera el filtro del campo == key
+            key: country
+      - name: States
+        extends: Locations
+        mapping: Locations
+        properties:
+          - name: type
+            key: state
+      - name: Cities
+        extends: Locations
+        mapping: Locations
+        properties:
+          - name: type
+            key: city

@@ -19,7 +19,6 @@
 ### Properties
 
 - [config](connection.MssqlConnectionPool.md#config)
-- [MssqlConnectionPool](connection.MssqlConnectionPool.md#mssqlconnectionpool)
 - [tedious](connection.MssqlConnectionPool.md#tedious)
 
 ### Methods
@@ -47,7 +46,7 @@
 
 #### Defined in
 
-[connection/dialects/mssql.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L13)
+[connection/dialects/mssql.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L9)
 
 ## Properties
 
@@ -61,17 +60,7 @@
 
 #### Defined in
 
-[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connectionPool.ts#L6)
-
-___
-
-### MssqlConnectionPool
-
-▪ `Static` **MssqlConnectionPool**: `any`
-
-#### Defined in
-
-[connection/dialects/mssql.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L11)
+[connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connectionPool.ts#L6)
 
 ___
 
@@ -81,7 +70,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L10)
+[connection/dialects/mssql.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L8)
 
 ## Methods
 
@@ -99,7 +88,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L26)
+[connection/dialects/mssql.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L20)
 
 ___
 
@@ -117,7 +106,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L46)
+[connection/dialects/mssql.ts:41](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L41)
 
 ___
 
@@ -135,7 +124,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L21)
+[connection/dialects/mssql.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L16)
 
 ___
 
@@ -159,4 +148,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mssql.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mssql.ts#L39)
+[connection/dialects/mssql.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mssql.ts#L34)

@@ -1,11 +1,11 @@
 import path from 'path'
 import { Config, Database, Schema, Entity, IOrm } from './../model'
 import { Helper } from './../helper'
-const ConfigExtends = require('config-extends')
 const yaml = require('js-yaml')
 
 export class LibManager {
-	private orm:IOrm
+	private orm: IOrm
+
 	constructor (orm:IOrm) {
 		this.orm = orm
 	}
@@ -34,7 +34,12 @@ export class LibManager {
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
-				config = await ConfigExtends.apply(configPath)
+				const content = await Helper.readFile(configPath)
+				if (content !== null) {
+					config = yaml.load(content)
+				} else {
+					throw new Error(`Config file: ${configPath} empty`)
+				}
 			} else if (path.extname(configFile) === '.json') {
 				const content = await Helper.readFile(configPath)
 				if (content !== null) {
@@ -62,7 +67,6 @@ export class LibManager {
 		}
 		if (config.databases === undefined) config.databases = []
 		if (config.schemas === undefined) config.schemas = []
-
 		return config
 	}
 
@@ -343,6 +347,24 @@ export class LibManager {
 				'node_modules'
 			]
 		}
+	}
+
+	public getModel (config: Config): Schema[] {
+		const targets:Schema[] = []
+		for (const k in config.schemas) {
+			const source = config.schemas[k]
+			if (source.excludeModel === true) continue
+			const target: Schema = { name: source.name, excludeModel: source.excludeModel, enums: source.enums, entities: [] }
+			if (source.entities !== undefined) {
+				for (let i = 0; i < source.entities.length; i++) {
+					const sourceEntity = source.entities[i]
+					if (sourceEntity.excludeModel === true) continue
+					target.entities.push(sourceEntity)
+				}
+			}
+			targets.push(target)
+		}
+		return targets
 	}
 
 	public async writeModel (config: Config) {
