@@ -45,7 +45,7 @@ export class Orm implements IOrm {
 		this.configManager = new ConfigManager(workspace)
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
-		this.libManager = new LibManager(this)
+		this.libManager = new LibManager()
 
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)
