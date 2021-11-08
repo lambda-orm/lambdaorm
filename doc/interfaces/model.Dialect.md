@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[language/dialect.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/dialect.ts#L3)
+[language/dialect.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/dialect.ts#L3)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[language/dialect.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/dialect.ts#L2)
+[language/dialect.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/dialect.ts#L2)

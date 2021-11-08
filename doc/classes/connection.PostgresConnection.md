@@ -33,6 +33,7 @@
 - [commit](connection.PostgresConnection.md#commit)
 - [delete](connection.PostgresConnection.md#delete)
 - [execute](connection.PostgresConnection.md#execute)
+- [executeSentence](connection.PostgresConnection.md#executesentence)
 - [insert](connection.PostgresConnection.md#insert)
 - [rollback](connection.PostgresConnection.md#rollback)
 - [select](connection.PostgresConnection.md#select)
@@ -57,7 +58,7 @@
 
 #### Defined in
 
-[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L9)
+[connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L10)
 
 ## Properties
 
@@ -71,7 +72,7 @@
 
 #### Defined in
 
-[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L6)
+[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L7)
 
 ___
 
@@ -85,7 +86,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L8)
+[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L9)
 
 ___
 
@@ -99,7 +100,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L7)
+[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -111,9 +112,13 @@ ___
 
 [`ConnectionConfig`](../interfaces/connection.ConnectionConfig.md)
 
+#### Inherited from
+
+Connection.config
+
 #### Defined in
 
-[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L15)
+[connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L16)
 
 ## Methods
 
@@ -131,22 +136,22 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L137)
+[connection/dialects/postgres.ts:148](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L148)
 
 ___
 
 ### bulkInsert
 
-▸ **bulkInsert**(`sql`, `array`, `params`, `fieldId?`): `Promise`<`number`[]\>
+▸ **bulkInsert**(`schema`, `query`, `array`, `params`): `Promise`<`number`[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `array` | `any`[] |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
-| `fieldId?` | `string` |
 
 #### Returns
 
@@ -158,7 +163,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:76](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L76)
+[connection/dialects/postgres.ts:80](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L80)
 
 ___
 
@@ -176,19 +181,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:142](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L142)
+[connection/dialects/postgres.ts:153](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L153)
 
 ___
 
 ### delete
 
-▸ **delete**(`sql`, `params`): `Promise`<`number`\>
+▸ **delete**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -201,19 +207,19 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:128](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L128)
+[connection/dialects/postgres.ts:135](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L135)
 
 ___
 
 ### execute
 
-▸ **execute**(`sql`): `Promise`<`any`\>
+▸ **execute**(`query`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `query` | [`Query`](model.Query.md) |
 
 #### Returns
 
@@ -225,19 +231,44 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:133](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L133)
+[connection/dialects/postgres.ts:140](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L140)
 
 ___
 
-### insert
+### executeSentence
 
-▸ **insert**(`sql`, `params`): `Promise`<`number`\>
+▸ **executeSentence**(`sentence`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `sentence` | `any` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Overrides
+
+[Connection](connection.Connection.md).[executeSentence](connection.Connection.md#executesentence)
+
+#### Defined in
+
+[connection/dialects/postgres.ts:144](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L144)
+
+___
+
+### insert
+
+▸ **insert**(`schema`, `query`, `params`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -250,7 +281,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L66)
+[connection/dialects/postgres.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L70)
 
 ___
 
@@ -268,19 +299,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:147](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L147)
+[connection/dialects/postgres.ts:158](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L158)
 
 ___
 
 ### select
 
-▸ **select**(`sql`, `params`): `Promise`<`any`\>
+▸ **select**(`schema`, `query`, `params`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -293,19 +325,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L61)
+[connection/dialects/postgres.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L65)
 
 ___
 
 ### update
 
-▸ **update**(`sql`, `params`): `Promise`<`number`\>
+▸ **update**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -318,4 +351,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/postgres.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/postgres.ts#L123)
+[connection/dialects/postgres.ts:130](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/postgres.ts#L130)

@@ -5,7 +5,6 @@ export interface IOrm
 {
 	get workspace(): string
 	dialect (database:string): string
-	get dialects():any
 	get database():DatabaseFacade
 	setCache (value: Cache):void
 	init(configPath?: string, connect?: boolean): Promise<void>

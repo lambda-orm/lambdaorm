@@ -33,6 +33,7 @@
 - [commit](connection.MySqlConnection.md#commit)
 - [delete](connection.MySqlConnection.md#delete)
 - [execute](connection.MySqlConnection.md#execute)
+- [executeSentence](connection.MySqlConnection.md#executesentence)
 - [insert](connection.MySqlConnection.md#insert)
 - [rollback](connection.MySqlConnection.md#rollback)
 - [select](connection.MySqlConnection.md#select)
@@ -57,7 +58,7 @@
 
 #### Defined in
 
-[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L9)
+[connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L10)
 
 ## Properties
 
@@ -71,7 +72,7 @@
 
 #### Defined in
 
-[connection/connection.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L6)
+[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L7)
 
 ___
 
@@ -85,7 +86,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L8)
+[connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L9)
 
 ___
 
@@ -99,7 +100,7 @@ ___
 
 #### Defined in
 
-[connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L7)
+[connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -111,9 +112,13 @@ ___
 
 [`ConnectionConfig`](../interfaces/connection.ConnectionConfig.md)
 
+#### Inherited from
+
+Connection.config
+
 #### Defined in
 
-[connection/connection.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/connection.ts#L15)
+[connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/connection.ts#L16)
 
 ## Methods
 
@@ -131,22 +136,22 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:119](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L119)
+[connection/dialects/mysql.ts:146](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L146)
 
 ___
 
 ### bulkInsert
 
-▸ **bulkInsert**(`sql`, `array`, `params`, `fieldId?`): `Promise`<`number`[]\>
+▸ **bulkInsert**(`schema`, `query`, `array`, `params`): `Promise`<`number`[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `array` | `any`[] |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
-| `fieldId?` | `string` |
 
 #### Returns
 
@@ -158,7 +163,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L86)
+[connection/dialects/mysql.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L109)
 
 ___
 
@@ -176,19 +181,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:124](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L124)
+[connection/dialects/mysql.ts:151](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L151)
 
 ___
 
 ### delete
 
-▸ **delete**(`sql`, `params`): `Promise`<`number`\>
+▸ **delete**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -201,19 +207,19 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:110](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L110)
+[connection/dialects/mysql.ts:133](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L133)
 
 ___
 
 ### execute
 
-▸ **execute**(`sql`): `Promise`<`any`\>
+▸ **execute**(`query`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `query` | [`Query`](model.Query.md) |
 
 #### Returns
 
@@ -225,19 +231,44 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:115](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L115)
+[connection/dialects/mysql.ts:138](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L138)
 
 ___
 
-### insert
+### executeSentence
 
-▸ **insert**(`sql`, `params`): `Promise`<`number`\>
+▸ **executeSentence**(`sentence`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `sentence` | `any` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Overrides
+
+[Connection](connection.Connection.md).[executeSentence](connection.Connection.md#executesentence)
+
+#### Defined in
+
+[connection/dialects/mysql.ts:142](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L142)
+
+___
+
+### insert
+
+▸ **insert**(`schema`, `query`, `params`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -250,7 +281,7 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:80](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L80)
+[connection/dialects/mysql.ts:103](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L103)
 
 ___
 
@@ -268,19 +299,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:129](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L129)
+[connection/dialects/mysql.ts:156](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L156)
 
 ___
 
 ### select
 
-▸ **select**(`sql`, `params`): `Promise`<`any`\>
+▸ **select**(`schema`, `query`, `params`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -293,19 +325,20 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:76](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L76)
+[connection/dialects/mysql.ts:99](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L99)
 
 ___
 
 ### update
 
-▸ **update**(`sql`, `params`): `Promise`<`number`\>
+▸ **update**(`schema`, `query`, `params`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sql` | `string` |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
+| `query` | [`Query`](model.Query.md) |
 | `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
@@ -318,4 +351,4 @@ ___
 
 #### Defined in
 
-[connection/dialects/mysql.ts:105](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/connection/dialects/mysql.ts#L105)
+[connection/dialects/mysql.ts:128](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/connection/dialects/mysql.ts#L128)

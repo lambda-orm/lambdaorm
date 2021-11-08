@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[model/delta.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/delta.ts#L5)
+[model/delta.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/delta.ts#L5)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[model/delta.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/model/delta.ts#L6)
+[model/delta.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/model/delta.ts#L6)

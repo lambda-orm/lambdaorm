@@ -12,7 +12,7 @@
 
 ### Methods
 
-- [executeSentence](manager.Transaction.md#executesentence)
+- [execute](manager.Transaction.md#execute)
 - [expression](manager.Transaction.md#expression)
 - [lambda](manager.Transaction.md#lambda)
 
@@ -20,31 +20,31 @@
 
 ### constructor
 
-• **new Transaction**(`orm`, `database`, `transaction`)
+• **new Transaction**(`expressionManager`, `queryExecutor`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `orm` | [`IOrm`](../interfaces/model.IOrm.md) |
-| `database` | [`Database`](../interfaces/model.Database.md) |
-| `transaction` | [`Transaction`](connection.Transaction.md) |
+| `expressionManager` | [`ExpressionManager`](manager.ExpressionManager.md) |
+| `queryExecutor` | [`QueryExecutor`](manager.QueryExecutor.md) |
 
 #### Defined in
 
-[manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L8)
+[manager/transaction.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/transaction.ts#L7)
 
 ## Methods
 
-### executeSentence
+### execute
 
-▸ **executeSentence**(`sentence`): `Promise`<`any`\>
+▸ **execute**(`query`, `dataContext?`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sentence` | `any` |
+| `query` | [`Query`](model.Query.md) |
+| `dataContext` | `any` |
 
 #### Returns
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[manager/transaction.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L25)
+[manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/transaction.ts#L23)
 
 ___
 
@@ -73,20 +73,20 @@ ___
 
 #### Defined in
 
-[manager/transaction.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L14)
+[manager/transaction.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/transaction.ts#L18)
 
 ___
 
 ### lambda
 
-▸ **lambda**(`lambda`, `context`): `Promise`<`any`\>
+▸ **lambda**(`lambda`, `dataContext`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `lambda` | `Function` |
-| `context` | `any` |
+| `dataContext` | `any` |
 
 #### Returns
 
@@ -94,4 +94,4 @@ ___
 
 #### Defined in
 
-[manager/transaction.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/manager/transaction.ts#L21)
+[manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/manager/transaction.ts#L13)

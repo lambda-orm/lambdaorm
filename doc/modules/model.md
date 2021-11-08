@@ -6,8 +6,10 @@
 
 ### Classes
 
-- [Context](../classes/model.Context.md)
+- [DataContext](../classes/model.DataContext.md)
 - [Delta](../classes/model.Delta.md)
+- [Include](../classes/model.Include.md)
+- [Query](../classes/model.Query.md)
 
 ### Interfaces
 
@@ -21,6 +23,7 @@
 - [Entity](../interfaces/model.Entity.md)
 - [Enum](../interfaces/model.Enum.md)
 - [EnumValue](../interfaces/model.EnumValue.md)
+- [ExternalDb](../interfaces/model.ExternalDb.md)
 - [IOrm](../interfaces/model.IOrm.md)
 - [Index](../interfaces/model.Index.md)
 - [NewValue](../interfaces/model.NewValue.md)
@@ -29,4 +32,6 @@
 - [Relation](../interfaces/model.Relation.md)
 - [RemovedValue](../interfaces/model.RemovedValue.md)
 - [Schema](../interfaces/model.Schema.md)
+- [SchemaData](../interfaces/model.SchemaData.md)
+- [SchemaDataEntity](../interfaces/model.SchemaDataEntity.md)
 - [UnchangedValue](../interfaces/model.UnchangedValue.md)

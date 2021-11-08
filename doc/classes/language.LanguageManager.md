@@ -22,19 +22,15 @@
 - [addLibrary](language.LanguageManager.md#addlibrary)
 - [build](language.LanguageManager.md#build)
 - [deserialize](language.LanguageManager.md#deserialize)
-- [deserializeQuery](language.LanguageManager.md#deserializequery)
-- [drop](language.LanguageManager.md#drop)
+- [dialectMetadata](language.LanguageManager.md#dialectmetadata)
 - [eval](language.LanguageManager.md#eval)
-- [execute](language.LanguageManager.md#execute)
 - [get](language.LanguageManager.md#get)
 - [model](language.LanguageManager.md#model)
 - [parameters](language.LanguageManager.md#parameters)
-- [query](language.LanguageManager.md#query)
+- [queryBuilder](language.LanguageManager.md#querybuilder)
+- [schemaBuilder](language.LanguageManager.md#schemabuilder)
 - [sentence](language.LanguageManager.md#sentence)
 - [serialize](language.LanguageManager.md#serialize)
-- [serializeQuery](language.LanguageManager.md#serializequery)
-- [sync](language.LanguageManager.md#sync)
-- [truncate](language.LanguageManager.md#truncate)
 
 ## Constructors
 
@@ -50,7 +46,7 @@
 
 #### Defined in
 
-[language/languageManager.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L20)
+[language/languageManager.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L21)
 
 ## Properties
 
@@ -60,7 +56,7 @@
 
 #### Defined in
 
-[language/languageManager.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L14)
+[language/languageManager.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L15)
 
 ___
 
@@ -70,7 +66,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L15)
+[language/languageManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L16)
 
 ___
 
@@ -80,7 +76,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L16)
+[language/languageManager.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L17)
 
 ## Methods
 
@@ -92,7 +88,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `language` | [`ILanguage`](../interfaces/language.ILanguage.md) |
+| `language` | [`Language`](language.Language.md) |
 
 #### Returns
 
@@ -100,7 +96,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L32)
+[language/languageManager.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L34)
 
 ___
 
@@ -120,7 +116,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L28)
+[language/languageManager.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L30)
 
 ___
 
@@ -133,7 +129,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `node` | [`Node`](parser.Node.md) |
-| `schema` | [`SchemaHelper`](schema.SchemaHelper.md) |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
 
 #### Returns
 
@@ -141,7 +137,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L42)
+[language/languageManager.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L48)
 
 ___
 
@@ -161,62 +157,40 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L66)
+[language/languageManager.ts:87](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L87)
 
 ___
 
-### deserializeQuery
+### dialectMetadata
 
-▸ **deserializeQuery**(`dialect`, `serialized`): [`Operand`](language.Operand.md)
+▸ **dialectMetadata**(`dialect`): [`DialectMetadata`](language.DialectMetadata.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `dialect` | `string` |
-| `serialized` | `any` |
 
 #### Returns
 
-[`Operand`](language.Operand.md)
+[`DialectMetadata`](language.DialectMetadata.md)
 
 #### Defined in
 
-[language/languageManager.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L74)
-
-___
-
-### drop
-
-▸ **drop**(`dialect`, `schema`): `string`[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `schema` | [`SchemaHelper`](schema.SchemaHelper.md) |
-
-#### Returns
-
-`string`[]
-
-#### Defined in
-
-[language/languageManager.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L90)
+[language/languageManager.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L44)
 
 ___
 
 ### eval
 
-▸ **eval**(`operand`, `context`): `any`
+▸ **eval**(`operand`, `dataContext`): `any`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `operand` | [`Operand`](language.Operand.md) |
-| `context` | [`Context`](model.Context.md) |
+| `dataContext` | [`DataContext`](model.DataContext.md) |
 
 #### Returns
 
@@ -224,36 +198,13 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:82](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L82)
-
-___
-
-### execute
-
-▸ **execute**(`dialect`, `operand`, `context`, `executor`): `Promise`<`any`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `operand` | [`Operand`](language.Operand.md) |
-| `context` | [`Context`](model.Context.md) |
-| `executor` | [`Executor`](connection.Executor.md) |
-
-#### Returns
-
-`Promise`<`any`\>
-
-#### Defined in
-
-[language/languageManager.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L78)
+[language/languageManager.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L91)
 
 ___
 
 ### get
 
-▸ **get**(`dialect`): [`ILanguage`](../interfaces/language.ILanguage.md)
+▸ **get**(`dialect`): [`Language`](language.Language.md)
 
 #### Parameters
 
@@ -263,11 +214,11 @@ ___
 
 #### Returns
 
-[`ILanguage`](../interfaces/language.ILanguage.md)
+[`Language`](language.Language.md)
 
 #### Defined in
 
-[language/languageManager.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L37)
+[language/languageManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L39)
 
 ___
 
@@ -287,7 +238,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L46)
+[language/languageManager.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L52)
 
 ___
 
@@ -307,41 +258,59 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L50)
+[language/languageManager.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L56)
 
 ___
 
-### query
+### queryBuilder
 
-▸ **query**(`dialect`, `sentence`): [`Query`](language.Query.md)
+▸ **queryBuilder**(`dialect`): [`LanguageQueryBuilder`](language.LanguageQueryBuilder.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `dialect` | `string` |
-| `sentence` | [`Sentence`](language.Sentence.md) |
 
 #### Returns
 
-[`Query`](language.Query.md)
+[`LanguageQueryBuilder`](language.LanguageQueryBuilder.md)
 
 #### Defined in
 
-[language/languageManager.ts:54](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L54)
+[language/languageManager.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L60)
+
+___
+
+### schemaBuilder
+
+▸ **schemaBuilder**(`dialect`): [`LanguageSchemaBuilder`](language.LanguageSchemaBuilder.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `dialect` | `string` |
+
+#### Returns
+
+[`LanguageSchemaBuilder`](language.LanguageSchemaBuilder.md)
+
+#### Defined in
+
+[language/languageManager.ts:64](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L64)
 
 ___
 
 ### sentence
 
-▸ **sentence**(`dialect`, `operand`): `any`
+▸ **sentence**(`query`): `any`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dialect` | `string` |
-| `operand` | [`Query`](language.Query.md) |
+| `query` | [`Query`](model.Query.md) |
 
 #### Returns
 
@@ -349,7 +318,7 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:58](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L58)
+[language/languageManager.ts:73](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L73)
 
 ___
 
@@ -369,68 +338,4 @@ ___
 
 #### Defined in
 
-[language/languageManager.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L62)
-
-___
-
-### serializeQuery
-
-▸ **serializeQuery**(`dialect`, `operand`): `any`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `operand` | [`Operand`](language.Operand.md) |
-
-#### Returns
-
-`any`
-
-#### Defined in
-
-[language/languageManager.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L70)
-
-___
-
-### sync
-
-▸ **sync**(`dialect`, `delta`, `schema`): `any`[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `delta` | [`Delta`](model.Delta.md) |
-| `schema` | [`SchemaHelper`](schema.SchemaHelper.md) |
-
-#### Returns
-
-`any`[]
-
-#### Defined in
-
-[language/languageManager.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L86)
-
-___
-
-### truncate
-
-▸ **truncate**(`dialect`, `schema`): `string`[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `schema` | [`SchemaHelper`](schema.SchemaHelper.md) |
-
-#### Returns
-
-`string`[]
-
-#### Defined in
-
-[language/languageManager.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/languageManager.ts#L94)
+[language/languageManager.ts:83](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/languageManager.ts#L83)

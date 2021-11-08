@@ -12,8 +12,9 @@ export interface QryCategory {
 }
 export class Customer {
 	constructor () {
-		this.orders=[]
+		this.orders = []
 	}
+
 	id?: string
 	name?: string
 	contact?: string
@@ -135,8 +136,9 @@ export interface QryProduct {
 }
 export class Order {
 	constructor () {
-		this.details=[]
+		this.details = []
 	}
+
 	id?: number
 	customerId?: string
 	employeeId?: number
@@ -192,11 +194,11 @@ export interface QryOrderDetail {
 	order: Order & OneToMany<Order> & Order
 	product: Product & OneToMany<Product> & Product
 }
-	export let Categories: Queryable<QryCategory>
-	export let Customers: Queryable<QryCustomer>
-	export let Employees: Queryable<QryEmployee>
-	export let Shippers: Queryable<QryShipper>
-	export let Suppliers: Queryable<QrySupplier>
-	export let Products: Queryable<QryProduct>
-	export let Orders: Queryable<QryOrder>
-	export let OrderDetails: Queryable<QryOrderDetail>
+export let Categories: Queryable<QryCategory>
+export let Customers: Queryable<QryCustomer>
+export let Employees: Queryable<QryEmployee>
+export let Shippers: Queryable<QryShipper>
+export let Suppliers: Queryable<QrySupplier>
+export let Products: Queryable<QryProduct>
+export let Orders: Queryable<QryOrder>
+export let OrderDetails: Queryable<QryOrderDetail>

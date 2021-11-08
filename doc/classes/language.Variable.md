@@ -19,7 +19,7 @@
 ### Properties
 
 - [children](language.Variable.md#children)
-- [context](language.Variable.md#context)
+- [dataContext](language.Variable.md#datacontext)
 - [id](language.Variable.md#id)
 - [index](language.Variable.md#index)
 - [level](language.Variable.md#level)
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[language/operands.ts:64](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L64)
+[language/operands.ts:64](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L64)
 
 ## Properties
 
@@ -67,17 +67,17 @@
 
 #### Defined in
 
-[language/operands.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L14)
+[language/operands.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L14)
 
 ___
 
-### context
+### dataContext
 
-• `Optional` **context**: [`Context`](model.Context.md)
+• `Optional` **dataContext**: [`DataContext`](model.DataContext.md)
 
 #### Defined in
 
-[language/operands.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L62)
+[language/operands.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L62)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L10)
+[language/operands.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L10)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L12)
+[language/operands.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L12)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L13)
+[language/operands.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L13)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L8)
+[language/operands.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L8)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:63](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L63)
+[language/operands.ts:63](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L63)
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L11)
+[language/operands.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L11)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L9)
+[language/operands.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L9)
 
 ## Methods
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L25)
+[language/operands.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L25)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[language/operands.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L74)
+[language/operands.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L74)
 
 ___
 
@@ -231,4 +231,4 @@ ___
 
 #### Defined in
 
-[language/operands.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operands.ts#L70)
+[language/operands.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operands.ts#L70)

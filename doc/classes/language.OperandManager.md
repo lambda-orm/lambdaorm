@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[language/operandManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L45)
+[language/operandManager.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L45)
 
 ## Methods
 
@@ -46,7 +46,7 @@
 | Name | Type |
 | :------ | :------ |
 | `node` | [`Node`](parser.Node.md) |
-| `schema` | [`SchemaHelper`](schema.SchemaHelper.md) |
+| `schema` | [`SchemaHelper`](manager.SchemaHelper.md) |
 
 #### Returns
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[language/operandManager.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L49)
+[language/operandManager.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L49)
 
 ___
 
@@ -74,20 +74,20 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L123)
+[language/operandManager.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L123)
 
 ___
 
 ### eval
 
-▸ **eval**(`operand`, `context`): `any`
+▸ **eval**(`operand`, `dataContext`): `any`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `operand` | [`Operand`](language.Operand.md) |
-| `context` | [`Context`](model.Context.md) |
+| `dataContext` | [`DataContext`](model.DataContext.md) |
 
 #### Returns
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:127](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L127)
+[language/operandManager.ts:127](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L127)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L60)
+[language/operandManager.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L60)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L81)
+[language/operandManager.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L81)
 
 ___
 
@@ -155,4 +155,4 @@ ___
 
 #### Defined in
 
-[language/operandManager.ts:99](https://github.com/FlavioLionelRita/lambda-orm/blob/8689963/src/orm/language/operandManager.ts#L99)
+[language/operandManager.ts:99](https://github.com/FlavioLionelRita/lambda-orm/blob/5fe00b8/src/orm/language/operandManager.ts#L99)

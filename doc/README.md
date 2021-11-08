@@ -13,4 +13,3 @@ Lambda ORM
 - [model](modules/model.md)
 - [orm](modules/orm.md)
 - [parser](modules/parser.md)
-- [schema](modules/schema.md)

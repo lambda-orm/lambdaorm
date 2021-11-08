@@ -136,10 +136,6 @@ export class Orm implements IOrm {
 		this._cache = value
 	}
 
-	public get dialects ():any {
-		return this.languageManager.dialects
-	}
-
 	/**
  * Read expression
  * @param expression string expression

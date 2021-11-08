@@ -4,13 +4,16 @@ import { Schema, Entity, Property, Relation, Index, Database, Config } from './.
 import { ConnectionConfig } from './../connection'
 
 class SchemaConfig {
-	public schemas:any
+	public schemas: any
+
 	constructor () {
 		this.schemas = {}
 	}
 
 	public load (value:Schema):void {
-		if (value && value.name) { this.schemas[value.name] = this.transform(value) }
+		if (value && value.name) {
+			this.schemas[value.name] = this.transform(value)
+		}
 	}
 
 	public delete (name:string):void {
@@ -46,7 +49,7 @@ class SchemaConfig {
 			const sourceEntity = source.entities[p]
 			const targetEntity:any = {
 				name: sourceEntity.name,
-				mapping: sourceEntity.mapping,
+				mapping: sourceEntity.mapping || sourceEntity.name,
 				primaryKey: sourceEntity.primaryKey,
 				uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
 				property: {},
@@ -55,6 +58,12 @@ class SchemaConfig {
 			}
 			for (const q in sourceEntity.properties) {
 				const sourceProperty = sourceEntity.properties[q]
+				if (sourceProperty.type === 'string' && sourceProperty.length === undefined) {
+					sourceProperty.length = 80
+				}
+				if (sourceProperty.autoincrement) {
+					sourceProperty.nullable = false
+				}
 				targetEntity.property[sourceProperty.name] = sourceProperty
 			}
 			for (const q in sourceEntity.relations) {
@@ -155,20 +164,188 @@ class DatabaseConfig {
 	}
 }
 
+class ConfigExtender {
+	extend (config:Config):Config {
+		this.extendSchemas(config.schemas)
+		config.schemas = this.clear(config.schemas)
+		this.complete(config.schemas)
+		return config
+	}
+
+	private extendSchemas (schemas:Schema[]):void {
+		for (const k in schemas) {
+			schemas[k] = this.extendSchema(schemas[k], schemas)
+		}
+	}
+
+	private clear (sources: Schema[]): Schema[] {
+		const targets:Schema[] = []
+		for (const k in sources) {
+			const source = sources[k]
+			if (source.abstract === true) continue
+			const target: Schema = { name: source.name, excludeModel: source.excludeModel, enums: source.enums, entities: [] }
+			if (source.entities !== undefined) {
+				for (let i = 0; i < source.entities.length; i++) {
+					const sourceEntity = source.entities[i]
+					if (sourceEntity.abstract === true) continue
+					// delete sourceEntity.extends
+					target.entities.push(sourceEntity)
+				}
+			}
+			targets.push(target)
+		}
+		return targets
+	}
+
+	private complete (schemas:Schema[]):void {
+		for (const k in schemas) {
+			const schema = schemas[k]
+			if (schema.entities !== undefined) {
+				for (let i = 0; i < schema.entities.length; i++) {
+					const entity = schema.entities[i]
+					if (entity.mapping === undefined) entity.mapping = entity.name
+					if (entity.properties !== undefined) {
+						for (let j = 0; j < entity.properties.length; j++) {
+							const property = entity.properties[j]
+							if (property.mapping === undefined) property.mapping = property.name
+							if (property.type === undefined) property.type = 'string'
+							if (property.type === 'string' && property.length === undefined) property.length = 80
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private extendSchema (schema: Schema, schemas: Schema[]):Schema {
+		if (schema.extends !== undefined) {
+			const schemaBase = schemas.find(p => p.name === schema.extends)
+			if (schemaBase === undefined) {
+				throw new Error(`${schema.extends} not found`)
+			}
+			this.extendSchema(schemaBase, schemas)
+
+			// extiendo enums
+			if (schemaBase.enums !== undefined && schemaBase.enums.length > 0) {
+				if (schema.enums === undefined) {
+					schema.enums = []
+				}
+				this.extendObject(schema.enums, schemaBase.enums)
+			}
+			// extiendo entidades
+			if (schemaBase.entities !== undefined && schemaBase.entities.length > 0) {
+				if (schema.entities === undefined) {
+					schema.entities = []
+				}
+
+				for (let i = 0; i < schemaBase.entities.length; i++) {
+					const entityBase = schemaBase.entities[i]
+					const entity = schema.entities.find((p: any) => p.name === entityBase.name)
+					if (entity === undefined) {
+						schema.entities.push(entityBase)
+					} else {
+						this.extendObject(entity, entityBase)
+					}
+				}
+
+				// primero extiendo las entidades del schema base
+				this.extendEntities(schema)
+			}
+			// se setea dado que ya fue extendido
+			delete schema.extends
+		} else {
+			this.extendEntities(schema)
+		}
+		return schema
+	}
+
+	private extendEntities (schema: Schema): void {
+		if (schema.entities) {
+			for (const k in schema.entities) {
+				this.extendEntiy(schema.entities[k], schema)
+			}
+		}
+	}
+
+	private extendEntiy (entity: Entity, schema: Schema):void {
+		if (entity.extends !== undefined) {
+			const entityBase = schema.entities.find(p => p.name === entity.extends)
+			if (entityBase === undefined) {
+				throw new Error(`${entity.extends} not found`)
+			}
+			this.extendEntiy(entityBase, schema)
+			if (entity.externalDb === undefined && entityBase.externalDb !== undefined) entity.externalDb = entityBase.externalDb
+			if (entity.mapping === undefined && entityBase.mapping !== undefined) entity.mapping = entityBase.mapping
+			if (entity.primaryKey === undefined && entityBase.primaryKey !== undefined) entity.primaryKey = entityBase.primaryKey
+			if (entity.uniqueKey === undefined && entityBase.uniqueKey !== undefined) entity.uniqueKey = entityBase.uniqueKey
+			// extend indexes
+			if (entityBase.indexes !== undefined && entityBase.indexes.length > 0) {
+				if (entity.indexes === undefined) {
+					entity.indexes = []
+				}
+				this.extendObject(entity.indexes, entityBase.indexes)
+			}
+			// extend properties
+			if (entityBase.properties !== undefined && entityBase.properties.length > 0) {
+				if (entity.properties === undefined) {
+					entity.properties = []
+				}
+				this.extendObject(entity.properties, entityBase.properties)
+			}
+			// extend relations
+			if (entityBase.relations !== undefined && entityBase.relations.length > 0) {
+				if (entity.relations === undefined) {
+					entity.relations = []
+				}
+				this.extendObject(entity.relations, entityBase.relations)
+			}
+			// se setea dado que ya fue extendido
+			delete entity.extends
+		}
+	}
+
+	private extendObject (obj:any, base:any) {
+		if (Array.isArray(base)) {
+			for (let i = 0; i < base.length; i++) {
+				const baseChild = base[i]
+				const objChild = obj.find((p: any) => p.name === baseChild.name)
+				if (objChild === undefined) {
+					obj.push(baseChild)
+				} else {
+					this.extendObject(objChild, baseChild)
+				}
+			}
+		} else if (typeof base === 'object') {
+			for (const k in base) {
+				if (obj[k] === undefined) {
+					obj[k] = base[k]
+				} else if (typeof obj[k] === 'object') {
+					this.extendObject(obj[k], base[k])
+				}
+			}
+		}
+		return obj
+	}
+}
+
 export class ConfigManager {
 	public database: DatabaseConfig
 	public schema: SchemaConfig
 	public config: Config
 	public workspace: string
+	private configExtender:ConfigExtender
+
 	constructor (workspace:string) {
 		this.workspace = workspace
 		this.database = new DatabaseConfig()
 		this.schema = new SchemaConfig()
 		this.config = { app: { src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+		this.configExtender = new ConfigExtender()
 	}
 
 	public async load (config: Config): Promise<void> {
-		this.config = config
+		this.config = this.configExtender.extend(config)
+		// console.log(JSON.stringify(this.config, null, 2))
 		if (this.config.schemas) {
 			for (const p in this.config.schemas) {
 				this.schema.load(this.config.schemas[p])
