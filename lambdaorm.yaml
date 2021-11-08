@@ -33,20 +33,15 @@ schemas:
         properties:
           - name: address
             mapping: Address
-            type: string
           - name: city
             mapping: City
-            type: string
           - name: region
             mapping: Region
-            type: string
           - name: postalCode
             mapping: PostalCode
-            type: string
             length: 20
           - name: country
             mapping: Country
-            type: string
         indexes:
           - name: postalCode
             fields: ["postalCode"]
@@ -67,10 +62,8 @@ schemas:
           - name: name
             mapping: CategoryName
             nullable: false
-            type: string
           - name: description
             mapping: Description
-            type: string
             length: 1000
       - name: Customers
         extends: Address
@@ -82,19 +75,15 @@ schemas:
         properties:
           - name: id
             mapping: CustomerID
-            type: string
             length: 5
             nullable: false
           - name: name
             mapping: CompanyName
             nullable: false
-            type: string
           - name: contact
             mapping: ContactName
-            type: string
           - name: phone
             mapping: ContactTitle
-            type: string
         relations:
           - name: orders
             type: manyToOne
@@ -116,17 +105,13 @@ schemas:
           - name: lastName
             mapping: LastName
             nullable: false
-            type: string
           - name: firstName
             mapping: FirstName
             nullable: false
-            type: string
           - name: title
             mapping: Title
-            type: string
           - name: titleOfCourtesy
             mapping: TitleOfCourtesy
-            type: string
           - name: birthDate
             mapping: BirthDate
             type: datetime
@@ -135,13 +120,11 @@ schemas:
             type: datetime
           - name: phone
             mapping: HomePhone
-            type: string
           - name: reportsToId
             mapping: ReportsTo
             type: integer
         relations:
           - name: reportsTo
-            type: oneToMany
             from: reportsToId
             entity: Employees
             to: id
@@ -158,10 +141,8 @@ schemas:
           - name: name
             mapping: CompanyName
             nullable: false
-            type: string
           - name: phone
             mapping: Phone
-            type: string
             length: 20
       - name: Suppliers
         extends: Address
@@ -177,17 +158,13 @@ schemas:
           - name: name
             mapping: CompanyName
             nullable: false
-            type: string
           - name: contact
             mapping: ContactName
-            type: string
           - name: phone
             mapping: Phone
-            type: string
             length: 20
           - name: homepage
             mapping: HomePage
-            type: string
             length: 200
       - name: Products
         mapping: Products
@@ -202,7 +179,6 @@ schemas:
           - name: name
             mapping: ProductName
             nullable: false
-            type: string
           - name: supplierId
             mapping: SupplierID
             nullable: false
@@ -212,7 +188,6 @@ schemas:
             type: integer
           - name: quantity
             mapping: QuantityPerUnit
-            type: string
           - name: price
             mapping: UnitPrice
             type: decimal
@@ -235,12 +210,10 @@ schemas:
             default: false
         relations:
           - name: supplier
-            type: oneToMany
             from: supplierId
             entity: Suppliers
             to: id
           - name: category
-            type: oneToMany
             from: categoryId
             entity: Categories
             to: id
@@ -261,7 +234,6 @@ schemas:
           - name: customerId
             mapping: CustomerID
             nullable: false
-            type: string
             length: 5
           - name: employeeId
             mapping: EmployeeID
@@ -284,31 +256,23 @@ schemas:
             type: decimal
           - name: name
             mapping: ShipName
-            type: string
           - name: address
             mapping: ShipAddress
-            type: string
           - name: city
             mapping: ShipCity
-            type: string
           - name: region
             mapping: ShipRegion
-            type: string
           - name: postalCode
             mapping: ShipPostalCode
-            type: string
             length: 20
           - name: country
             mapping: ShipCountry
-            type: string
         relations:
           - name: customer
-            type: oneToMany
             from: customerId
             entity: Customers
             to: id
           - name: employee
-            type: oneToMany
             from: employeeId
             entity: Employees
             to: id
@@ -341,12 +305,10 @@ schemas:
             type: decimal
         relations:
           - name: order
-            type: oneToMany
             from: orderId
             entity: Orders
             to: id
           - name: product
-            type: oneToMany
             from: productId
             entity: Products
             to: id
@@ -365,20 +327,12 @@ schemas:
             type: integer
           - name: name
             nullable: false
-            type: string
           - name: code
             nullable: false
-            type: string
           - name: capital
-            nullable: false
-            type: string
           - name: latitude
-            nullable: false
-            type: string
             length: 12
           - name: longitude
-            nullable: false
-            type: string
             length: 12
       - name: Countries
         extends: Locations
@@ -393,7 +347,6 @@ schemas:
         extends: Locations
         relations:
           - name: country
-            type: oneToMany
             from: parentId
             entity: Country
             to: id
@@ -407,7 +360,6 @@ schemas:
         extends: Locations
         relations:
           - name: state
-            type: oneToMany
             from: parentId
             entity: State
             to: id
@@ -423,7 +375,6 @@ schemas:
             # pero si se utiliza internamente para poder filtrar
             excludeModel: true
             nullable: false
-            type: string
             length: 16
       - name: Countries
         extends: Locations

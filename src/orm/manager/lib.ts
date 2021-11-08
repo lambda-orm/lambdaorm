@@ -1,5 +1,5 @@
 import path from 'path'
-import { Config, Database, Schema } from './../model'
+import { Config, Database, Schema, Entity, Property } from './../model'
 import { Helper } from './../helper'
 const yaml = require('js-yaml')
 
@@ -109,7 +109,24 @@ export class LibManager {
 				for (let i = 0; i < source.entities.length; i++) {
 					const sourceEntity = source.entities[i]
 					if (sourceEntity.excludeModel === true) continue
-					target.entities.push(sourceEntity)
+					const entity: Entity = { name: sourceEntity.name, abstract: sourceEntity.abstract, extends: sourceEntity.extends, properties: [], relations: sourceEntity.relations }
+					if (sourceEntity.properties !== undefined) {
+						for (let j = 0; j < sourceEntity.properties.length; j++) {
+							const sourceProperty = sourceEntity.properties[j]
+							if (sourceProperty.excludeModel === true) continue
+							const property: Property = { name: sourceProperty.name, nullable: sourceProperty.nullable, type: sourceProperty.type, length: sourceProperty.length }
+							if (property.type === undefined) property.type = 'string'
+							if (property.type === 'string' && property.length === undefined) property.length = 80
+							entity.properties.push(property)
+						}
+					}
+					if (entity.relations !== undefined) {
+						for (let j = 0; j < entity.relations.length; j++) {
+							const relation = entity.relations[j]
+							if (relation.type === undefined) relation.type = 'oneToMany'
+						}
+					}
+					target.entities.push(entity)
 				}
 			}
 			targets.push(target)
