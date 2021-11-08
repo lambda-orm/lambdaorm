@@ -212,6 +212,12 @@ class ConfigExtender {
 							if (property.type === 'string' && property.length === undefined) property.length = 80
 						}
 					}
+					if (entity.relations !== undefined) {
+						for (let j = 0; j < entity.relations.length; j++) {
+							const relation = entity.relations[j]
+							if (relation.type === undefined) relation.type = 'oneToMany'
+						}
+					}
 				}
 			}
 		}
