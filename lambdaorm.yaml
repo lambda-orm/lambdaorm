@@ -348,7 +348,7 @@ schemas:
         relations:
           - name: country
             from: parentId
-            entity: Country
+            entity: Countries
             to: id
           - name: cities
             type: manyToOne
@@ -361,7 +361,7 @@ schemas:
         relations:
           - name: state
             from: parentId
-            entity: State
+            entity: States
             to: id
 
   - name: location_2

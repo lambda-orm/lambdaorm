@@ -1,10 +1,11 @@
 {
 	"name": "lambdaorm",
-	"version": "0.0.53-alpha",
+	"version": "0.0.54-alpha",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
 	"main": "./index.js",
+	"private": true,
 	"homepage": "https://github.com/FlavioLionelRita/lambdaorm#readme",
 	"bugs": {
 		"url": "https://github.com/FlavioLionelRita/lambdaorm/issues"
