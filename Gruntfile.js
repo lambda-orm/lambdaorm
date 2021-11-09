@@ -35,6 +35,7 @@ module.exports = function (grunt) {
 		const data = require('./package.json')
 		delete data.devDependencies
 		delete data.scripts
+		delete data.private
 		data.main = 'index.js'
 		data.types = 'index.d.ts'
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')

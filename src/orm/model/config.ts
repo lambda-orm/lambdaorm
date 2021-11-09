@@ -17,7 +17,6 @@ export interface App
 	src: string
 	data: string
 	models:string
-	configFile?: string,
 	defaultDatabase?: string
 }
 export interface Config
@@ -26,9 +25,3 @@ export interface Config
 	databases: Database[]
 	schemas:Schema[]
 }
-// export interface ConfigInfo
-// {
-// workspace: string
-// configFile?: string
-// config:Config
-// }
