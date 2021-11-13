@@ -24,6 +24,10 @@ export class DDLBuilder {
 			if (entity.relation) {
 				for (const name in entity.relation) {
 					const relation = entity.relation[name] as Relation
+
+					const relatedEntity = schema.getEntity(relation.entity)
+					if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
 						const query = this.builder(database.dialect).dropFk(database.name, entity, relation, metadata)
 						queries.push(query)
@@ -139,6 +143,10 @@ export class DDLBuilder {
 					for (const c in changed.delta.changed) {
 						const newRelation = changed.delta.changed[c].new as Relation
 						const oldRelation = changed.delta.changed[c].old as Relation
+
+						const relatedEntity = schema.getEntity(newRelation.entity)
+						if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 						if (this.changeRelation(oldRelation, newRelation)) {
 							if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
 								const query = this.builder(database.dialect).dropFk(database.name, entityChanged.new, oldRelation, metadata)
@@ -150,6 +158,10 @@ export class DDLBuilder {
 					}
 					for (const r in changed.delta.remove) {
 						const removeRelation = changed.delta.remove[r].old as Relation
+
+						const relatedEntity = schema.getEntity(removeRelation.entity)
+						if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 						const query = this.builder(database.dialect).dropFk(database.name, entityChanged.new, removeRelation, metadata)
 						queries.push(query)
 						// const sentence = this.dropFk(entityChanged.new, removeRelation, metadata)
@@ -330,6 +342,10 @@ export class DDLBuilder {
 					if (changed.delta) {
 						for (const n in changed.delta.new) {
 							const newRelation = changed.delta.new[n].new as Relation
+
+							const relatedEntity = schema.getEntity(newRelation.entity)
+							if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 							if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
 								const query = this.builder(database.dialect).addFk(database.name, schema, entityChanged.new, newRelation, metadata)
 								queries.push(query)
@@ -340,6 +356,10 @@ export class DDLBuilder {
 						for (const c in changed.delta.changed) {
 							const newRelation = changed.delta.changed[c].new as Relation
 							const oldRelation = changed.delta.changed[c].old as Relation
+
+							const relatedEntity = schema.getEntity(newRelation.entity)
+							if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 							if (this.changeRelation(oldRelation, newRelation)) {
 								if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
 									const query = this.builder(database.dialect).addFk(database.name, schema, entityChanged.new, newRelation, metadata)
@@ -369,6 +389,10 @@ export class DDLBuilder {
 			if (newEntity.relation) {
 				for (const name in newEntity.relation) {
 					const relation = newEntity.relation[name] as Relation
+
+					const relatedEntity = schema.getEntity(relation.entity)
+					if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
 						const query = this.builder(database.dialect).addFk(database.name, schema, newEntity, newEntity.relation[name], metadata)
 						queries.push(query)
