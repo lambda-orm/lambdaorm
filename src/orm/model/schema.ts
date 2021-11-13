@@ -40,7 +40,7 @@ export interface Entity {
 	properties:Property[]
 	relations:Relation[]
 	indexes?: Index[]
-	externalDb?: string
+	database?: string
 }
 export interface Schema {
 	name: string

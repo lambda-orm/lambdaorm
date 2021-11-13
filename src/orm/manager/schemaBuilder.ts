@@ -384,8 +384,8 @@ export class SchemaBuilder {
 	private getDatabase (schema:SchemaHelper, entity: string): Database {
 		if (entity !== undefined) {
 			const _entity = schema.getEntity(entity) as Entity
-			if (_entity.externalDb !== undefined && _entity.externalDb !== this.database.name) {
-				return this.configManager.database.get(_entity.externalDb)
+			if (_entity.database !== undefined && _entity.database !== this.database.name) {
+				return this.configManager.database.get(_entity.database)
 			}
 		}
 		return this.database

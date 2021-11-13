@@ -21,6 +21,7 @@ module.exports = function (grunt) {
 			tsc: { cmd: 'npx tsc ' }
 		},
 		clean: {
+			build: ['build'],
 			dist: ['dist']
 		},
 		copy: {
@@ -75,11 +76,11 @@ module.exports = function (grunt) {
 	grunt.registerTask('databases-down', ['exec:drop_dbs', 'exec:clean_data'])
 	grunt.registerTask('databases-up', ['databases-down', 'exec:create_dbs', 'populate-source', 'populate-databases'])
 	grunt.registerTask('build-test', ['databases-up', 'exec:clean_test', 'generate-data-for-test', 'generate-test', 'databases-down'])
-	grunt.registerTask('build', ['build-config', 'exec:tsc', 'copy:sintaxis'])
+	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('lint', ['exec:lint'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
-	grunt.registerTask('dist', ['exec:tsc', 'clean:dist', 'copy:orm', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['clean:dist', 'copy:orm', 'copy:readme', 'copy:license', 'create-package'])
 
 	grunt.registerTask('default', [])
 }
