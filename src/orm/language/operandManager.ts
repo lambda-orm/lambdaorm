@@ -318,6 +318,8 @@ export class OperandManager {
 		let operand = null
 
 		if (clauses.filter) {
+			// TODO: Si la sentencia es Select, Update o Delete y la entidad tienen una o mas propiedades con key.
+			// Se debe agregar el filtro por esta key
 			const clause = clauses.filter
 			operand = this.createClause(clause, schema, context)
 			children.push(operand)
@@ -328,6 +330,8 @@ export class OperandManager {
 			children.push(operand)
 		}
 		if (clauses.insert) {
+			// TODO: Si la entidad tienen una o mas propiedades con key.
+			// Se debe agregar el seteo de estas propieades usando el key
 			name = 'insert'
 			createInclude = this.createInclude
 			const clause = clauses.insert as Node
@@ -413,6 +417,8 @@ export class OperandManager {
 			const relationAlias = context.current.joins[key]
 			const relationProperty = info.relationSchema.property[info.relationData.to]
 
+			// TODO: Aqui usar el key para agregar el filtro que corresponda
+			// si una entidad tiene uno o mas propiedades con key, se debe agregar un filtro por el key
 			const relatedField = new Field(info.previousSchema.name, info.relationData.from, relatedProperty.type, relatedAlias + '.' + relatedProperty.mapping)
 			const relationField = new Field(info.relationSchema.name, info.relationData.to, relationProperty.type, relationAlias + '.' + relationProperty.mapping)
 			const equal = new Operator('==', [relationField, relatedField])
@@ -532,7 +538,9 @@ export class OperandManager {
 		let relation = ''
 		for (let i = 1; i < to; i++) {
 			relation = (i > 1 ? relation + '.' : '') + parts[i]
-			if (!context.current.joins[relation]) { context.current.joins[relation] = this.createAlias(context, parts[i], relation) }
+			if (!context.current.joins[relation]) {
+				context.current.joins[relation] = this.createAlias(context, parts[i], relation)
+			}
 		}
 		return relation
 	}

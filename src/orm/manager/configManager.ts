@@ -280,7 +280,7 @@ class ConfigExtender {
 				throw new Error(`${entity.extends} not found`)
 			}
 			this.extendEntiy(entityBase, schema)
-			if (entity.externalDb === undefined && entityBase.externalDb !== undefined) entity.externalDb = entityBase.externalDb
+			if (entity.database === undefined && entityBase.database !== undefined) entity.database = entityBase.database
 			if (entity.mapping === undefined && entityBase.mapping !== undefined) entity.mapping = entityBase.mapping
 			if (entity.primaryKey === undefined && entityBase.primaryKey !== undefined) entity.primaryKey = entityBase.primaryKey
 			if (entity.uniqueKey === undefined && entityBase.uniqueKey !== undefined) entity.uniqueKey = entityBase.uniqueKey
