@@ -1,5 +1,5 @@
-import { LanguageQueryBuilder } from './../manager/queryBuilder'
-import { LanguageSchemaBuilder } from './../manager/schemaBuilder'
+import { LanguageDMLBuilder } from '../manager/dmlBuilder'
+import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 import { DialectMetadata } from './dialectMetadata'
 
 export class Language {
@@ -7,15 +7,15 @@ export class Language {
 	public libraries:any
 	public dialects:any
 	public hadQuery: boolean
-	private schemaBuilder:LanguageSchemaBuilder
-	private queryBuilder:LanguageQueryBuilder
-	constructor (name:string, queryBuilder:LanguageQueryBuilder, schemaBuilder:LanguageSchemaBuilder) {
+	private ddlBuilder:LanguageDDLBuilder
+	private dmlBuilder:LanguageDMLBuilder
+	constructor (name:string, ddlBuilder:LanguageDDLBuilder, dmlBuilder:LanguageDMLBuilder) {
 		this.name = name
 		this.hadQuery = true
 		this.libraries = {}
 		this.dialects = {}
-		this.queryBuilder = queryBuilder
-		this.schemaBuilder = schemaBuilder
+		this.ddlBuilder = ddlBuilder
+		this.dmlBuilder = dmlBuilder
 	}
 
 	public addLibrary (library:any):void {
@@ -28,12 +28,12 @@ export class Language {
 		}
 	}
 
-	public get schema ():LanguageSchemaBuilder {
-		return this.schemaBuilder
+	public get ddl ():LanguageDDLBuilder {
+		return this.ddlBuilder
 	}
 
-	public get query ():LanguageQueryBuilder {
-		return this.queryBuilder
+	public get dml ():LanguageDMLBuilder {
+		return this.dmlBuilder
 	}
 
 	public metadata (dialect:string):DialectMetadata {

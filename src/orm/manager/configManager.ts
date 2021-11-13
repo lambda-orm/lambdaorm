@@ -56,6 +56,15 @@ class SchemaConfig {
 				relation: {},
 				index: {}
 			}
+			if (sourceEntity.database !== undefined) {
+				targetEntity.database = sourceEntity.database
+			}
+			if (sourceEntity.singular !== undefined) {
+				targetEntity.singular = sourceEntity.singular
+			}
+			if (sourceEntity.abstract !== undefined) {
+				targetEntity.abstract = sourceEntity.abstract
+			}
 			for (const q in sourceEntity.properties) {
 				const sourceProperty = sourceEntity.properties[q]
 				if (sourceProperty.type === 'string' && sourceProperty.length === undefined) {
@@ -93,6 +102,15 @@ class SchemaConfig {
 				properties: [],
 				relations: [],
 				indexes: []
+			}
+			if (sourceEntity.database !== undefined) {
+				targetEntity.database = sourceEntity.database
+			}
+			if (sourceEntity.singular !== undefined) {
+				targetEntity.singular = sourceEntity.singular
+			}
+			if (sourceEntity.abstract !== undefined) {
+				targetEntity.abstract = sourceEntity.abstract
 			}
 			for (const q in sourceEntity.property) {
 				const sourceProperty = sourceEntity.property[q]

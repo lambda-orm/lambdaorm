@@ -76,7 +76,7 @@ export class LibManager {
 		}
 	}
 
-	public getDatabase (database:string, config:Config):Database {
+	public getDatabase (database:string|undefined, config:Config):Database {
 		// get database
 		let db:Database|undefined
 		if (database === undefined) {

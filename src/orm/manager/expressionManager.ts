@@ -1,7 +1,7 @@
 import { Cache, Query, DataContext } from './../model'
 import { Model, ParserManager } from './../parser/index'
 import { ConfigManager, ExpressionCompleter } from './index'
-import { LanguageManager, Operand, Sentence, QueryBuilder } from './../language'
+import { LanguageManager, Operand, Sentence, DMLBuilder } from './../language'
 import modelConfig from './../parser/config.json'
 import { Helper } from './../helper'
 
@@ -77,7 +77,7 @@ export class ExpressionManager {
 			if (!query) {
 				const sentence = await this.toOperand(expression, db.name) as Sentence
 				const _schema = this.configManager.schema.getInstance(db.schema)
-				query = new QueryBuilder(this.configManager, _schema, this.languageManager, db).build(sentence)
+				query = new DMLBuilder(this.configManager, _schema, this.languageManager, db).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query

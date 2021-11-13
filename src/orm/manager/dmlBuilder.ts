@@ -1,14 +1,13 @@
-import { ConfigManager } from './'
-import { Sentence, LanguageManager } from './../language'
-import { DialectMetadata } from './../language/dialectMetadata'
-import { Query, Database, Include, Entity } from './../model'
-import { SchemaHelper } from './../manager'
+import { ConfigManager, SchemaHelper } from '.'
+import { Sentence, LanguageManager } from '../language'
+import { DialectMetadata } from '../language/dialectMetadata'
+import { Query, Database, Include, Entity } from '../model'
 
-export abstract class LanguageQueryBuilder {
+export abstract class LanguageDMLBuilder {
 	abstract build (sentence:Sentence, schema:SchemaHelper, database:string, metadata:DialectMetadata):Query
 }
 
-export class QueryBuilder {
+export class DMLBuilder {
 	private configManager: ConfigManager
 	private languageManager: LanguageManager
 	private schema:SchemaHelper
@@ -43,7 +42,7 @@ export class QueryBuilder {
 			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}
-		const query = this.languageManager.queryBuilder(database.dialect).build(sentence, this.schema, database.name, metadata)
+		const query = this.languageManager.dmlBuilder(database.dialect).build(sentence, this.schema, database.name, metadata)
 		query.children = children
 		return query
 	}

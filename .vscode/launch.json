@@ -34,6 +34,16 @@
 			"program": "${workspaceFolder}/labs/mongo/lab.js"
 		},
 		{
+			"name": "lab sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-sync.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
 			"name": "generate doc",
 			"type": "node",
 			"request": "launch",

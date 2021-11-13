@@ -1,8 +1,8 @@
-import { ConfigManager, SchemaHelper } from './../manager'
-import { LanguageManager, DialectMetadata } from './../language'
-import { Query, Delta, Index, Database, Relation, Entity, Property } from './../model'
+import { ConfigManager, SchemaHelper } from '.'
+import { LanguageManager, DialectMetadata } from '../language'
+import { Query, Delta, Index, Database, Relation, Entity, Property } from '../model'
 
-export class SchemaBuilder {
+export class DDLBuilder {
 	private languageManager: LanguageManager
 	private configManager: ConfigManager
 	public database: Database
@@ -391,8 +391,8 @@ export class SchemaBuilder {
 		return this.database
 	}
 
-	private builder (dialect:string):LanguageSchemaBuilder {
-		return this.languageManager.schemaBuilder(dialect)
+	private builder (dialect:string):LanguageDDLBuilder {
+		return this.languageManager.ddlBuilder(dialect)
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {
@@ -400,7 +400,7 @@ export class SchemaBuilder {
 	}
 }
 
-export abstract class LanguageSchemaBuilder {
+export abstract class LanguageDDLBuilder {
 	abstract truncateEntity(database: string, entity: any, metadata: DialectMetadata): Query
 	abstract dropFk(database: string, entity: any, relation: Relation, metadata: DialectMetadata): Query
 	abstract dropIndex(database: string, entity: any, index: Index, metadata: DialectMetadata): Query

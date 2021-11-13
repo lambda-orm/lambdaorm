@@ -4,7 +4,7 @@ import { Model } from './parser/index'
 import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatabaseFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager, Language } from './language'
-import { SqlQueryBuilder, SqlSchemaBuilder } from './language/sql'
+import { SqlDMLBuilder, SqlDDLBuilder } from './language/sql'
 // import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
 import { CoreLib } from './language/lib/coreLib'
 import modelConfig from './parser/config.json'
@@ -50,7 +50,7 @@ export class Orm implements IOrm {
 		this.languageModel = new Model()
 		this.languageModel.load(modelConfig)
 
-		const sqlLanguage = new Language('sql', new SqlQueryBuilder(), new SqlSchemaBuilder())
+		const sqlLanguage = new Language('sql', new SqlDDLBuilder(), new SqlDMLBuilder())
 		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
 
 		// const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())

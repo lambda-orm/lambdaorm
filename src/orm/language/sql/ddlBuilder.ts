@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Property, Relation, Index, Delta, Query } from './../../model'
-import { LanguageSchemaBuilder } from '../'
+import { Property, Relation, Index, Delta, Query } from '../../model'
+import { LanguageDDLBuilder } from '..'
 import { SchemaHelper } from '../../manager'
 import { DialectMetadata } from '../dialectMetadata'
 
-export class SqlSchemaBuilder extends LanguageSchemaBuilder {
+export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (database:string, entity:any, metadata:DialectMetadata):Query {
 		let text = metadata.ddl('truncateTable')
 		text = text.replace('{name}', metadata.delimiter(entity.mapping))
