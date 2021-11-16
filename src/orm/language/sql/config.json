@@ -38,7 +38,8 @@
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "upsert": null
       },
       "others": {
         "delimiter": "`{name}`",
@@ -260,7 +261,8 @@
         "sort": "ORDER BY {0}",
         "page": "LIMIT {offset},{records}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "upsert": null
       },
       "others": {
         "delimiter": "[{name}]",
@@ -463,7 +465,8 @@
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "upsert": null
       },
       "others": {
         "delimiter": "`{name}`",
@@ -700,7 +703,8 @@
         "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "upsert": null
       },
       "operators": {
         "unary": {
@@ -897,7 +901,8 @@
         "update": "UPDATE {name} {alias} SET {assings}",
         "delete": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "upsert": null
       },
       "others": {
         "variable": "${number}",
@@ -1115,7 +1120,8 @@
       "delete": "DELETE FROM {name} {alias}",
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
       "from": "FROM {name} {alias} ",
-      "join": "INNER JOIN {name} {alias} ON {relation}"
+      "join": "INNER JOIN {name} {alias} ON {relation}",
+      "upsert": null
     },
     "others": {
       "delimiter": "\"{name}\"",

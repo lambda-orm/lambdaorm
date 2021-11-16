@@ -114,9 +114,7 @@ posibles names: lambda-orm
 - [github](https://github.com/oracle/node-oracledb)
 - [npm](https://www.npmjs.com/package/oracledb)
 - [mysql to oracle](https://sqlines.com/mysql-to-oracle)
-
-- [install client on windows](https://www.oracle.com/es/database/technologies/instant-client/winx64-64-downloads.
-html)
+- [install client on windows](https://www.oracle.com/es/database/technologies/instant-client/winx64-64-downloads.html)
 - [install-oracle-odbc-driver](https://windowsreport.com/install-oracle-odbc-driver-windows-10/)
 
 ### Sqljs
@@ -143,20 +141,34 @@ html)
 - [tutorial](http://expertojava.ua.es/experto/restringido/2015-16/nosql/nosql02.html#_conjunto_de_valores)
 - [mongodb nodejs](https://docs.mongodb.com/drivers/node/current/quick-start/)
 
-### CLI
+### Neo4J
+
+- [neo4j](https://neo4j.com/)
+- [Cypher Query Language](https://neo4j.com/developer/cypher/)
+- [basic query](https://neo4j.com/docs/cypher-manual/current/query-tuning/basic-example/)
+- [Writing Queries](https://neo4j.com/developer/cypher/querying/)
+- [Updating](https://neo4j.com/developer/cypher/updating/)
+- [Filtering](https://neo4j.com/developer/cypher/filtering-query-results/)
+- [Controlling Query Processing](https://neo4j.com/developer/cypher/controlling-query-processing/)
+- [Dates, datetimes, and durations](https://neo4j.com/developer/cypher/dates-datetimes-durations/)
+- [Subqueries](https://neo4j.com/developer/cypher/subqueries/)
+- [Getting Started with Cypher](https://neo4j.com/developer/cypher/guide-cypher-basics/)
+- [Tutorial: Build a Cypher Recommendation Engine](https://neo4j.com/developer/cypher/guide-build-a-recommendation-engine/)
+
+## CLI
 
 install mysql shell client
 [mysql-shell-windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html)
 [install visual studio 2019 redistributable](https://docs.microsoft.com/es-es/visualstudio/releases/2019/redistribution#vs2019-download)
 
-#### grunt
+### grunt
 
 ``` sh
 npm intall grunt -D
 npm install -g grunt-cli
 ```
 
-#### glup
+### glup
 
 - [example](https://www.typescriptlang.org/docs/handbook/gulp.html)
 
@@ -165,7 +177,7 @@ npm install --save-dev gulp gulp-typescript
 npm install -g gulp-cli
 ```
 
-#### Inetractive command Line
+### Inetractive command Line
 
 - [yargs interactive](https://www.npmjs.com/package/yargs-interactive)
 - [yargs xample](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
@@ -194,7 +206,27 @@ npm install -g gulp-cli
 
 [para-otas-pruebas](https://github.com/mledoze/countries/blob/master/data/arg.topo.json)
 
-
 ### Online Examples
 
-https://codesandbox.io/
+[site](https://codesandbox.io/)
+
+## Data management architecture:
+
+### Patterns
+
+- [main](https://microservices.io/patterns/index.html)
+- [Database per service](https://microservices.io/patterns/data/database-per-service.html)
+- [Shared database](https://microservices.io/patterns/data/shared-database.html)
+- [Saga](https://microservices.io/patterns/data/saga.html)
+- [API Composition](https://microservices.io/patterns/data/api-composition.html)
+- [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html)
+- [Domain event](https://microservices.io/patterns/data/domain-event.html)
+- [Event sourcing](https://microservices.io/patterns/data/event-sourcing.html)
+
+### Others
+
+- [The Scale Cube](https://microservices.io/articles/scalecube.html)
+
+## Language
+
+- [upsert](https://sqltemuco.wordpress.com/2016/06/14/upsert-el-nuevo-comando/)

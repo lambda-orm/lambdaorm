@@ -2,9 +2,42 @@
 
 **IMPORTANT: the library is in an Alpha version!!!**
 
-The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+LambdaORM is an intermediary between the business model and the persistence of the data.
 
-Queries are written using [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) of javascript.
+Completely decoupling the business model from the data layer.
+
+For this use:
+
+- Queries written in lambda expressions
+- Definition of the schema through configuration.
+
+## Features
+
+- Expressions
+	- Simple expressions based on javascript lambda.
+	- String expressions
+	- Implicit joins and group by
+	- Eager loading using the Include() method.
+	- Metadata
+- Schema
+	- Decoupling the business model from the data layer
+	- Configuration in json or yml formats
+	- mapping
+	- Extends entities and schemas
+	- Environment variables
+- CLI
+	- Init and update commands
+	- Run expressions
+	- Sync and drop schema
+	- Imports and exports
+- Repositories
+- Indices
+- Transactions
+- Using multiple database connections
+
+## Lambda expressions
+
+The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
 
 Example:
 
@@ -12,7 +45,13 @@ Example:
 User.map(p => {name: p.lastname + ', ' + p.firstname })
 ```
 
-Advantage:
+The engine also allows us to write the expressions in a string.
+
+```ts
+'User.map(p => {name: p.lastname + \', \' + p.firstname })'
+```
+
+### Advantage:
 
  - Use of the same programming language.
  - It is not necessary to learn a new language.
@@ -20,38 +59,82 @@ Advantage:
  - Use of the intellisense offered by the IDE to write the expressions.
  - Avoid syntax errors.
 
-The engine also allows us to write the expressions in a string.
+## Schema
 
-Example:
+It is the nexus between the business model and the persistence of the data.
 
-```ts
-'User.map(p => {name: p.lastname + \', \' + p.firstname })'
+The classes that represent the business model are completely clean, without any attributes that link them to persistence.
+
+All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
+
+This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+
+The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+
+### Examples:
+
+#### Simple
+
+The schema defines how the entities of the model are mapped with the database tables.
+
+![schema](images/schema.png)
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
+
+#### Extend entities
+
+In this scheme we can see how to extend entities.
+
+![schema](images/schema2.png)
+
+To understand an entity we use the extends attribute in the definition of the entity
+
+```yaml
+  entities:
+		- name: Positions
+			abstract: true
+			properties:
+				- name: latitude
+					length: 16
+				- name: longitude
+					length: 16
+		- name: Countries
+			extends: Positions
 ```
 
-This is useful if we need to persist expressions or execute them from UI (example: command line)
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
 
-## Features
+#### Extend schemas
 
-- Data mapper pattern
-- Repositories
-- Indices
-- Transactions
-- Using multiple database connections
-- Expressions
-	- Simple expressions based on javascript lambda.
-	- String expressions
-	- Implicit joins and group by
-	- Eager loading using the Include() method.
-	- Metadata
-- Configuration
-	- Schema declaration in models or separate configuration files
-	- Configuration in json or yml formats
-	- Environment variables
-- CLI
-	- Init and update commands
-	- Run expressions
-	- Sync and drop schema
-	- Imports and exports
+In this scheme we can see how to extend the schema.
+
+![schema](images/schema3.png)
+
+We use the extends attribute in the definition of the schema to extend it.
+
+```yaml
+schemas:
+  - name: countries    
+  - name: countries2
+    extends: countries
+```
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
+
+#### One schema related multiples databases
+
+This schema has two entities that are in different databases.
+
+![schema](images/schema4.png)
+
+The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
+
+```yaml
+- name: States
+  database: mydb2
+```
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
 
 ## Usage
 
