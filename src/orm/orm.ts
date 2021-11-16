@@ -1,13 +1,13 @@
 
 import { Cache, IOrm, Config } from './model'
-import { Model } from './parser/index'
+import { ExpressionConfig } from './parser/index'
 import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatabaseFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager, Language } from './language'
-import { SqlQueryBuilder, SqlSchemaBuilder } from './language/sql'
+import { SqlDMLBuilder, SqlDDLBuilder } from './language/sql'
 // import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
 import { CoreLib } from './language/lib/coreLib'
-import modelConfig from './parser/config.json'
+import expConfig from './parser/config.json'
 import sqlConfig from './language/sql/config.json'
 // import nosqlConfig from './language/nosql/config.json'
 import { Helper } from './helper'
@@ -17,7 +17,7 @@ import { Helper } from './helper'
  */
 export class Orm implements IOrm {
 	private _cache: Cache
-	private languageModel: Model
+	private expressionConfig: ExpressionConfig
 	private databaseFacade: DatabaseFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
@@ -47,16 +47,16 @@ export class Orm implements IOrm {
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
 
-		this.languageModel = new Model()
-		this.languageModel.load(modelConfig)
+		this.expressionConfig = new ExpressionConfig()
+		this.expressionConfig.load(expConfig)
 
-		const sqlLanguage = new Language('sql', new SqlQueryBuilder(), new SqlSchemaBuilder())
+		const sqlLanguage = new Language('sql', new SqlDDLBuilder(), new SqlDMLBuilder())
 		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
 
 		// const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())
 		// nosqlLanguage.addLibrary({ name: 'nosql', dialects: nosqlConfig.dialects })
 
-		this.languageManager = new LanguageManager(this.languageModel)
+		this.languageManager = new LanguageManager(this.expressionConfig)
 		this.languageManager.addLibrary(new CoreLib())
 		this.languageManager.add(sqlLanguage)
 		// this.languageManager.add(nosqlLanguage)

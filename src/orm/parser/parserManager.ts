@@ -1,15 +1,15 @@
 import { Node } from './node'
-import { Model } from './model'
+import { ExpressionConfig } from './expressionConfig'
 import { Parser } from './parser'
 
 export class ParserManager {
 	public doubleOperators:string[]
 	public tripleOperators:string[]
 	public assigmentOperators:string[]
-	private model:Model
+	private expressionConfig:ExpressionConfig
 	private reAlphanumeric:RegExp
-	constructor (model:Model) {
-		this.model = model
+	constructor (expressionConfig:ExpressionConfig) {
+		this.expressionConfig = expressionConfig
 		// eslint-disable-next-line prefer-regex-literals
 		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$')
 		this.tripleOperators = []
@@ -19,18 +19,18 @@ export class ParserManager {
 	}
 
 	public refresh () {
-		for (const key in this.model.operators) {
+		for (const key in this.expressionConfig.operators) {
 			if (key.length === 2) this.doubleOperators.push(key)
 			else if (key.length === 3) this.tripleOperators.push(key)
 
-			const operator = this.model.operators[key]
+			const operator = this.expressionConfig.operators[key]
 			if (operator[2] && operator[2].category === 'assignment') { this.assigmentOperators.push(key) }
 		}
 	}
 
 	public priority (name:string, cardinality = 2) {
 		try {
-			const metadata = this.model.operators[name][cardinality]
+			const metadata = this.expressionConfig.operators[name][cardinality]
 			return metadata ? metadata.priority : -1
 		} catch (error) {
 			throw new Error('error to priority : ' + name)
@@ -38,15 +38,15 @@ export class ParserManager {
 	}
 
 	public isEnum (name:string) {
-		return this.model.isEnum(name)
+		return this.expressionConfig.isEnum(name)
 	}
 
 	public getEnumValue (name:string, option:any) {
-		return this.model.getEnumValue(name, option)
+		return this.expressionConfig.getEnumValue(name, option)
 	}
 
 	public getEnum (name:string) {
-		return this.model.getEnum(name)
+		return this.expressionConfig.getEnum(name)
 	}
 
 	public parse (expression:string):Node {

@@ -1,6 +1,6 @@
 import { Query } from '../model/index'
 import { DatabaseActionDDL } from './databaseActionDDL'
-import { SchemaBuilder } from './../manager/schemaBuilder'
+import { DDLBuilder } from '../manager/ddlBuilder'
 import { SchemaHelper } from '../manager/schemaHelper'
 export class DatabaseClean extends DatabaseActionDDL {
 	public async queries (): Promise<Query[]> {
@@ -8,7 +8,7 @@ export class DatabaseClean extends DatabaseActionDDL {
 		if (state && state.schema) {
 			const schema = this.configManager.schema.transform(state.schema)
 			const schemaHelper = new SchemaHelper(schema)
-			return new SchemaBuilder(this.configManager, this.languageManager, this.database).drop(schemaHelper)
+			return new DDLBuilder(this.configManager, this.languageManager, this.database).drop(schemaHelper)
 		}
 		return []
 	}

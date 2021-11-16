@@ -1,0 +1,473 @@
+app:
+  src: src
+  data: data
+  models: models
+  defaultDatabase: mydb
+databases:
+  - name: mydb
+    dialect: mysql
+    schema: countries
+    connection:
+      host: localhost
+      port: 3306
+      user: test
+      password: test
+      database: test
+      multipleStatements: true
+      waitForConnections: true
+      connectionLimit: 10
+      queueLimit: 0
+  - name: mydb2
+    dialect: postgres
+    connection:
+      host: localhost
+      port: 5432
+      user: test
+      password: test
+      database: test
+schemas:
+  - name: countries
+    entities:
+      - name: Positions
+        abstract: true
+        properties:
+          - name: latitude
+            length: 16
+          - name: longitude
+            length: 16
+      - name: Countries
+        extends: Positions
+        primaryKey: ["iso3"]
+        uniqueKey: ["name"]
+        properties:
+          - name: name
+            nullable: false
+          - name: iso3
+            length: 3
+            nullable: false
+          - name: iso2
+            nullable: false
+            length: 2
+          - name: capital
+          - name: currency
+          - name: region
+          - name: subregion
+        relations:
+          - name: states
+            type: manyToOne
+            composite: true
+            from: iso3
+            entity: States
+            to: countryCode
+      - name: States
+        extends: Positions
+        database: mydb2
+        primaryKey: ["id"]
+        uniqueKey: ["countryCode", "name"]
+        properties:
+          - name: id
+            type: integer
+            nullable: false
+          - name: name
+            nullable: false
+          - name: countryCode
+            nullable: false
+            length: 3
+# app:
+#   src: src
+#   data: data
+#   models: models
+#   defaultDatabase: source
+# databases:
+#   - name: source
+#     schema: northwind
+#     dialect: mysql
+#     connection: $ORM_CNN_SOURCE
+#   - name: mysql
+#     schema: northwind
+#     dialect: mysql
+#     connection: $ORM_CNN_MYSQL
+#   - name: mariadb
+#     schema: northwind
+#     dialect: mariadb
+#     connection: $ORM_CNN_MARIADB
+#   - name: postgres
+#     schema: northwind
+#     dialect: postgres
+#     connection: $ORM_CNN_POSTGRES
+#   - name: mssql
+#     schema: northwind
+#     dialect: mssql
+#     connection: $ORM_CNN_MSSQL
+# schemas:
+#   - name: northwind
+#     enums:
+#     entities:
+#       - name: Address
+#         abstract: true
+#         properties:
+#           - name: address
+#             mapping: Address
+#           - name: city
+#             mapping: City
+#           - name: region
+#             mapping: Region
+#           - name: postalCode
+#             mapping: PostalCode
+#             length: 20
+#           - name: country
+#             mapping: Country
+#         indexes:
+#           - name: postalCode
+#             fields: ["postalCode"]
+#           - name: region
+#             fields: ["region", "country"]
+#           - name: city
+#             fields: ["city"]
+#       - name: Categories
+#         mapping: Categories
+#         primaryKey: ["id"]
+#         uniqueKey: ["name"]
+#         properties:
+#           - name: id
+#             mapping: CategoryID
+#             type: integer
+#             nullable: false
+#             autoincrement: true
+#           - name: name
+#             mapping: CategoryName
+#             nullable: false
+#           - name: description
+#             mapping: Description
+#             length: 1000
+#       - name: Customers
+#         extends: Address
+#         mapping: Customers
+#         primaryKey: ["id"]
+#         indexes:
+#           - name: name
+#             fields: ["name"]
+#         properties:
+#           - name: id
+#             mapping: CustomerID
+#             length: 5
+#             nullable: false
+#           - name: name
+#             mapping: CompanyName
+#             nullable: false
+#           - name: contact
+#             mapping: ContactName
+#           - name: phone
+#             mapping: ContactTitle
+#         relations:
+#           - name: orders
+#             type: manyToOne
+#             composite: true
+#             from: id
+#             entity: Orders
+#             to: customerId
+#       - name: Employees
+#         extends: Address
+#         mapping: Employees
+#         primaryKey: ["id"]
+#         uniqueKey: ["lastName", "firstName"]
+#         properties:
+#           - name: id
+#             mapping: EmployeeID
+#             type: integer
+#             nullable: false
+#             autoincrement: true
+#           - name: lastName
+#             mapping: LastName
+#             nullable: false
+#           - name: firstName
+#             mapping: FirstName
+#             nullable: false
+#           - name: title
+#             mapping: Title
+#           - name: titleOfCourtesy
+#             mapping: TitleOfCourtesy
+#           - name: birthDate
+#             mapping: BirthDate
+#             type: datetime
+#           - name: hireDate
+#             mapping: HireDate
+#             type: datetime
+#           - name: phone
+#             mapping: HomePhone
+#           - name: reportsToId
+#             mapping: ReportsTo
+#             type: integer
+#         relations:
+#           - name: reportsTo
+#             from: reportsToId
+#             entity: Employees
+#             to: id
+#       - name: Shippers
+#         mapping: Shippers
+#         primaryKey: ["id"]
+#         uniqueKey: ["name"]
+#         properties:
+#           - name: id
+#             mapping: ShipperID
+#             type: integer
+#             nullable: false
+#             autoincrement: true
+#           - name: name
+#             mapping: CompanyName
+#             nullable: false
+#           - name: phone
+#             mapping: Phone
+#             length: 20
+#       - name: Suppliers
+#         extends: Address
+#         mapping: Suppliers
+#         primaryKey: ["id"]
+#         uniqueKey: ["name"]
+#         properties:
+#           - name: id
+#             mapping: SupplierID
+#             type: integer
+#             nullable: false
+#             autoincrement: true
+#           - name: name
+#             mapping: CompanyName
+#             nullable: false
+#           - name: contact
+#             mapping: ContactName
+#           - name: phone
+#             mapping: Phone
+#             length: 20
+#           - name: homepage
+#             mapping: HomePage
+#             length: 200
+#       - name: Products
+#         mapping: Products
+#         primaryKey: ["id"]
+#         uniqueKey: ["name", "supplierId"]
+#         properties:
+#           - name: id
+#             mapping: ProductID
+#             type: integer
+#             nullable: false
+#             autoincrement: true
+#           - name: name
+#             mapping: ProductName
+#             nullable: false
+#           - name: supplierId
+#             mapping: SupplierID
+#             nullable: false
+#             type: integer
+#           - name: categoryId
+#             mapping: CategoryID
+#             type: integer
+#           - name: quantity
+#             mapping: QuantityPerUnit
+#           - name: price
+#             mapping: UnitPrice
+#             type: decimal
+#             default: 0
+#           - name: inStock
+#             mapping: UnitsInStock
+#             type: decimal
+#             default: 0
+#           - name: onOrder
+#             mapping: UnitsOnOrder
+#             type: decimal
+#             default: 0
+#           - name: reorderLevel
+#             mapping: ReorderLevel
+#             type: decimal
+#             default: 0
+#           - name: discontinued
+#             mapping: Discontinued
+#             type: boolean
+#             default: false
+#         relations:
+#           - name: supplier
+#             from: supplierId
+#             entity: Suppliers
+#             to: id
+#           - name: category
+#             from: categoryId
+#             entity: Categories
+#             to: id
+#       - name: Orders
+#         mapping: Orders
+#         primaryKey: ["id"]
+#         indexes:
+#           - name: orderDate
+#             fields: ["orderDate"]
+#           - name: shippedDate
+#             fields: ["shippedDate"]
+#         properties:
+#           - name: id
+#             mapping: OrderID
+#             type: integer
+#             nullable: false
+#             autoincrement: true
+#           - name: customerId
+#             mapping: CustomerID
+#             nullable: false
+#             length: 5
+#           - name: employeeId
+#             mapping: EmployeeID
+#             nullable: false
+#             type: integer
+#           - name: orderDate
+#             mapping: OrderDate
+#             type: datetime
+#           - name: requiredDate
+#             mapping: RequiredDate
+#             type: datetime
+#           - name: shippedDate
+#             mapping: ShippedDate
+#             type: datetime
+#           - name: shipViaId
+#             mapping: ShipVia
+#             type: integer
+#           - name: freight
+#             mapping: Freight
+#             type: decimal
+#           - name: name
+#             mapping: ShipName
+#           - name: address
+#             mapping: ShipAddress
+#           - name: city
+#             mapping: ShipCity
+#           - name: region
+#             mapping: ShipRegion
+#           - name: postalCode
+#             mapping: ShipPostalCode
+#             length: 20
+#           - name: country
+#             mapping: ShipCountry
+#         relations:
+#           - name: customer
+#             from: customerId
+#             entity: Customers
+#             to: id
+#           - name: employee
+#             from: employeeId
+#             entity: Employees
+#             to: id
+#           - name: details
+#             type: manyToOne
+#             composite: true
+#             from: id
+#             entity: OrderDetails
+#             to: orderId
+#       - name: OrderDetails
+#         mapping: Order Details
+#         primaryKey: ["orderId", "productId"]
+#         properties:
+#           - name: orderId
+#             mapping: OrderID
+#             nullable: false
+#             type: integer
+#           - name: productId
+#             mapping: ProductID
+#             nullable: false
+#             type: integer
+#           - name: unitPrice
+#             mapping: UnitPrice
+#             type: decimal
+#           - name: quantity
+#             mapping: Quantity
+#             type: decimal
+#           - name: discount
+#             mapping: Discount
+#             type: decimal
+#         relations:
+#           - name: order
+#             from: orderId
+#             entity: Orders
+#             to: id
+#           - name: product
+#             from: productId
+#             entity: Products
+#             to: id
+
+#   - name: location
+#     entities:
+#       - name: Locations
+#         abstract: true
+#         primaryKey: ["id"]
+#         uniqueKey: ["code"]
+#         properties:
+#           - name: id
+#             type: integer
+#             autoincrement: true
+#           - name: parentId
+#             type: integer
+#           - name: name
+#             nullable: false
+#           - name: code
+#             nullable: false
+#           - name: capital
+#           - name: latitude
+#             length: 12
+#           - name: longitude
+#             length: 12
+#       - name: Countries
+#         extends: Locations
+#         relations:
+#           - name: states
+#             type: manyToOne
+#             composite: true
+#             from: id
+#             entity: States
+#             to: parentId
+#       - name: States
+#         extends: Locations
+#         relations:
+#           - name: country
+#             from: parentId
+#             entity: Countries
+#             to: id
+#           - name: cities
+#             type: manyToOne
+#             composite: true
+#             from: id
+#             entity: Cities
+#             to: parentId
+#       - name: Cities
+#         extends: Locations
+#         relations:
+#           - name: state
+#             from: parentId
+#             entity: States
+#             to: id
+
+#   - name: location_2
+#     extends: location
+#     excludeModel: true
+#     entities:
+#       - name: Locations
+#         properties:
+#           - name: type
+#             # al ser excludeModel no estara en el modelo que se contruye, ni disponible para los queryes
+#             # pero si se utiliza internamente para poder filtrar
+#             excludeModel: true
+#             nullable: false
+#             length: 16
+#       - name: Countries
+#         extends: Locations
+#         mapping: Locations
+#         properties:
+#           - name: type
+#             # el key implica que al momento de instertar se agregue use este valor,
+#             # y al momento de select, update , delete o joins se adiera el filtro del campo == key
+#             key: country
+#       - name: States
+#         extends: Locations
+#         mapping: Locations
+#         properties:
+#           - name: type
+#             key: state
+#       - name: Cities
+#         extends: Locations
+#         mapping: Locations
+#         properties:
+#           - name: type
+#             key: city

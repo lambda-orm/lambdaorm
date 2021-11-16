@@ -3,14 +3,14 @@ import { Helper } from '../../helper'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
 	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete
-} from './../operands'
-import { LanguageQueryBuilder } from '../../manager/queryBuilder'
+} from '../operands'
+import { LanguageDMLBuilder } from '../../manager/dmlBuilder'
 import { DialectMetadata } from '../dialectMetadata'
-import { Query } from './../../model'
-import { SchemaHelper } from './../../manager'
+import { Query } from '../../model'
+import { SchemaHelper } from '../../manager'
 const SqlString = require('sqlstring')
 
-export class NoSqlQueryBuilder extends LanguageQueryBuilder {
+export class NoSqlDMLBuilder extends LanguageDMLBuilder {
 	public build (sentence: Sentence, schema:SchemaHelper, database: string, metadata: DialectMetadata): Query {
 		const sqlSentence = this.buildSentence(sentence, schema, metadata as DialectMetadata)
 		return new Query(sentence.name, database, metadata.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)

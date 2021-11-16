@@ -1,5 +1,5 @@
 
-import { Node, Model } from './../parser/index'
+import { Node, ExpressionConfig } from './../parser/index'
 import { DataContext, Query, Include } from './../model'
 import { SchemaHelper } from './../manager'
 import { Language } from './language'
@@ -8,18 +8,18 @@ import { Operand, Sentence } from './operands'
 import { OperandMetadata } from './operandMetadata'
 import { Library } from './library'
 import { DialectMetadata } from './dialectMetadata'
-import { LanguageQueryBuilder } from './../manager/queryBuilder'
-import { LanguageSchemaBuilder } from './../manager/schemaBuilder'
+import { LanguageDMLBuilder } from '../manager/dmlBuilder'
+import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 
 export class LanguageManager {
 	public dialects:any
-	public languageModel:Model
+	public expressionConfig:ExpressionConfig
 	public metadata:OperandMetadata
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (languageModel:Model) {
-		this.languageModel = languageModel
+	constructor (expressionConfig:ExpressionConfig) {
+		this.expressionConfig = expressionConfig
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(this)
 
@@ -57,18 +57,13 @@ export class LanguageManager {
 		return this.operandManager.parameters(sentence)
 	}
 
-	public queryBuilder (dialect: string): LanguageQueryBuilder {
-		return this.get(dialect).query
+	public dmlBuilder (dialect: string): LanguageDMLBuilder {
+		return this.get(dialect).dml
 	}
 
-	public schemaBuilder (dialect: string): LanguageSchemaBuilder {
-		return this.get(dialect).schema
+	public ddlBuilder (dialect: string): LanguageDDLBuilder {
+		return this.get(dialect).ddl
 	}
-
-	// public query (dialect: string, sentence: Sentence): Query {
-	// const metadata = this.dialectMetadata(dialect)
-	// return this.get(dialect).query.build(sentence, metadata)
-	// }
 
 	public sentence (query:Query):any {
 		let mainSentence = query.sentence + ''
@@ -91,19 +86,4 @@ export class LanguageManager {
 	public eval (operand:Operand, dataContext:DataContext):any {
 		return this.operandManager.eval(operand, dataContext)
 	}
-
-	// public sync (dialect: string, delta: Delta, schema: SchemaHelper):Query[] {
-	// const metadata = this.dialectMetadata(dialect)
-	// return this.get(dialect).schema.sync(delta, metadata, schema)
-	// }
-
-	// public drop (dialect: string, schema: SchemaHelper): Query[] {
-	// const metadata = this.dialectMetadata(dialect)
-	// return this.get(dialect).schema.drop(metadata, schema)
-	// }
-
-	// public truncate (dialect: string, schema: SchemaHelper): Query[] {
-	// const metadata = this.dialectMetadata(dialect)
-	// return this.get(dialect).schema.truncate(metadata, schema)
-	// }
 }

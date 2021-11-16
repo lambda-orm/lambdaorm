@@ -1,8 +1,8 @@
-import { ConfigManager, SchemaHelper } from './../manager'
-import { LanguageManager, DialectMetadata } from './../language'
-import { Query, Delta, Index, Database, Relation, Entity, Property } from './../model'
+import { ConfigManager, SchemaHelper } from '.'
+import { LanguageManager, DialectMetadata } from '../language'
+import { Query, Delta, Index, Database, Relation, Entity, Property } from '../model'
 
-export class SchemaBuilder {
+export class DDLBuilder {
 	private languageManager: LanguageManager
 	private configManager: ConfigManager
 	public database: Database
@@ -24,6 +24,10 @@ export class SchemaBuilder {
 			if (entity.relation) {
 				for (const name in entity.relation) {
 					const relation = entity.relation[name] as Relation
+
+					const relatedEntity = schema.getEntity(relation.entity)
+					if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
 						const query = this.builder(database.dialect).dropFk(database.name, entity, relation, metadata)
 						queries.push(query)
@@ -139,6 +143,10 @@ export class SchemaBuilder {
 					for (const c in changed.delta.changed) {
 						const newRelation = changed.delta.changed[c].new as Relation
 						const oldRelation = changed.delta.changed[c].old as Relation
+
+						const relatedEntity = schema.getEntity(newRelation.entity)
+						if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 						if (this.changeRelation(oldRelation, newRelation)) {
 							if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
 								const query = this.builder(database.dialect).dropFk(database.name, entityChanged.new, oldRelation, metadata)
@@ -150,6 +158,10 @@ export class SchemaBuilder {
 					}
 					for (const r in changed.delta.remove) {
 						const removeRelation = changed.delta.remove[r].old as Relation
+
+						const relatedEntity = schema.getEntity(removeRelation.entity)
+						if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 						const query = this.builder(database.dialect).dropFk(database.name, entityChanged.new, removeRelation, metadata)
 						queries.push(query)
 						// const sentence = this.dropFk(entityChanged.new, removeRelation, metadata)
@@ -330,6 +342,10 @@ export class SchemaBuilder {
 					if (changed.delta) {
 						for (const n in changed.delta.new) {
 							const newRelation = changed.delta.new[n].new as Relation
+
+							const relatedEntity = schema.getEntity(newRelation.entity)
+							if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 							if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
 								const query = this.builder(database.dialect).addFk(database.name, schema, entityChanged.new, newRelation, metadata)
 								queries.push(query)
@@ -340,6 +356,10 @@ export class SchemaBuilder {
 						for (const c in changed.delta.changed) {
 							const newRelation = changed.delta.changed[c].new as Relation
 							const oldRelation = changed.delta.changed[c].old as Relation
+
+							const relatedEntity = schema.getEntity(newRelation.entity)
+							if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 							if (this.changeRelation(oldRelation, newRelation)) {
 								if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
 									const query = this.builder(database.dialect).addFk(database.name, schema, entityChanged.new, newRelation, metadata)
@@ -369,6 +389,10 @@ export class SchemaBuilder {
 			if (newEntity.relation) {
 				for (const name in newEntity.relation) {
 					const relation = newEntity.relation[name] as Relation
+
+					const relatedEntity = schema.getEntity(relation.entity)
+					if (relatedEntity.database !== undefined && relatedEntity.database !== database.name) continue
+
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
 						const query = this.builder(database.dialect).addFk(database.name, schema, newEntity, newEntity.relation[name], metadata)
 						queries.push(query)
@@ -391,8 +415,8 @@ export class SchemaBuilder {
 		return this.database
 	}
 
-	private builder (dialect:string):LanguageSchemaBuilder {
-		return this.languageManager.schemaBuilder(dialect)
+	private builder (dialect:string):LanguageDDLBuilder {
+		return this.languageManager.ddlBuilder(dialect)
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {
@@ -400,7 +424,7 @@ export class SchemaBuilder {
 	}
 }
 
-export abstract class LanguageSchemaBuilder {
+export abstract class LanguageDDLBuilder {
 	abstract truncateEntity(database: string, entity: any, metadata: DialectMetadata): Query
 	abstract dropFk(database: string, entity: any, relation: Relation, metadata: DialectMetadata): Query
 	abstract dropIndex(database: string, entity: any, index: Index, metadata: DialectMetadata): Query

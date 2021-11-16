@@ -1,7 +1,7 @@
 import { Schema, Query, Database } from '../model/index'
 import { SchemaHelper } from '../manager/schemaHelper'
 import { Helper } from './../helper'
-import { SchemaBuilder } from './../manager/schemaBuilder'
+import { DDLBuilder } from '../manager/ddlBuilder'
 import { DatabaseActionDDL } from './databaseActionDDL'
 import { LanguageManager } from './../language'
 import { ConfigManager, ExpressionManager, Executor } from './../manager'
@@ -21,7 +21,7 @@ export class DatabaseSync extends DatabaseActionDDL {
 		const schemaHelper = new SchemaHelper(current)
 		const _old = state && state.schema ? this.configManager.schema.transform(state.schema) : null
 		const delta = Helper.deltaWithSimpleArrays(current.entity, _old.entity)
-		return new SchemaBuilder(this.configManager, this.languageManager, this.database).sync(delta, schemaHelper)
+		return new DDLBuilder(this.configManager, this.languageManager, this.database).sync(delta, schemaHelper)
 	}
 
 	public async execute (tryAllCan = false): Promise<any[]> {
