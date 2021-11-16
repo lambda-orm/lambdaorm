@@ -2,9 +2,42 @@
 
 **IMPORTANT: the library is in an Alpha version!!!**
 
-The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+LambdaORM is an intermediary between the business model and the persistence of the data.
 
-Queries are written using [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) of javascript.
+Completely decoupling the business model from the data layer.
+
+For this use:
+
+- Queries written in lambda expressions
+- Definition of the schema through configuration.
+
+## Features
+
+- Expressions
+	- Simple expressions based on javascript lambda.
+	- String expressions
+	- Implicit joins and group by
+	- Eager loading using the Include() method.
+	- Metadata
+- Schema
+	- Decoupling the business model from the data layer
+	- Configuration in json or yml formats
+	- mapping
+	- Extends entities and schemas
+	- Environment variables
+- CLI
+	- Init and update commands
+	- Run expressions
+	- Sync and drop schema
+	- Imports and exports
+- Repositories
+- Indices
+- Transactions
+- Using multiple database connections
+
+## Lambda expressions
+
+The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
 
 Example:
 
@@ -12,7 +45,13 @@ Example:
 User.map(p => {name: p.lastname + ', ' + p.firstname })
 ```
 
-Advantage:
+The engine also allows us to write the expressions in a string.
+
+```ts
+'User.map(p => {name: p.lastname + \', \' + p.firstname })'
+```
+
+### Advantage:
 
  - Use of the same programming language.
  - It is not necessary to learn a new language.
@@ -20,38 +59,82 @@ Advantage:
  - Use of the intellisense offered by the IDE to write the expressions.
  - Avoid syntax errors.
 
-The engine also allows us to write the expressions in a string.
+## Schema
 
-Example:
+It is the nexus between the business model and the persistence of the data.
 
-```ts
-'User.map(p => {name: p.lastname + \', \' + p.firstname })'
+The classes that represent the business model are completely clean, without any attributes that link them to persistence.
+
+All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
+
+This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+
+The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+
+### Examples:
+
+#### Simple
+
+The schema defines how the entities of the model are mapped with the database tables.
+
+![schema](images/schema.png)
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
+
+#### Extend entities
+
+In this scheme we can see how to extend entities.
+
+![schema](images/schema2.png)
+
+To understand an entity we use the extends attribute in the definition of the entity
+
+```yaml
+  entities:
+		- name: Positions
+			abstract: true
+			properties:
+				- name: latitude
+					length: 16
+				- name: longitude
+					length: 16
+		- name: Countries
+			extends: Positions
 ```
 
-This is useful if we need to persist expressions or execute them from UI (example: command line)
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
 
-## Features
+#### Extend schemas
 
-- Data mapper pattern
-- Repositories
-- Indices
-- Transactions
-- Using multiple database connections
-- Expressions
-	- Simple expressions based on javascript lambda.
-	- String expressions
-	- Implicit joins and group by
-	- Eager loading using the Include() method.
-	- Metadata
-- Configuration
-	- Schema declaration in models or separate configuration files
-	- Configuration in json or yml formats
-	- Environment variables
-- CLI
-	- Init and update commands
-	- Run expressions
-	- Sync and drop schema
-	- Imports and exports
+In this scheme we can see how to extend the schema.
+
+![schema](images/schema3.png)
+
+We use the extends attribute in the definition of the schema to extend it.
+
+```yaml
+schemas:
+  - name: countries    
+  - name: countries2
+    extends: countries
+```
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
+
+#### One schema related multiples databases
+
+This schema has two entities that are in different databases.
+
+![schema](images/schema4.png)
+
+The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
+
+```yaml
+- name: States
+  database: mydb2
+```
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
 
 ## Usage
 
@@ -416,32 +499,82 @@ To execute these methods it is not necessary to connect to the database.
 
 ## Installation
 
-Install the package globally to use the CLI commands to help you create and maintain projects
-
 ```sh
-npm install lambdaorm -g
+npm install lambdaorm
 ```
 
 ## CLI
 
-|Command    	|Description                                   									  |																																								|
-|:------------|:----------------------------------------------------------------|:-----------------------------------------------------------------------------:|
-|	version	 		| Prints lambdaorm version this project uses.											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-version)		|
-|	init				| Generates lambdaorm project structure.													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-init)				|
-|	update			| update model, packages and project structure.										|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-update)			|
-|	sync				|	Syncronize database.																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-sync)				|
-|	run					| Run an expression lambda or return information									|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-run)				|
-|	export			| Export data from a database 																		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-export)			|
-|	import			| Import data from file to database																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-import)			|
-|	drop				|	Removes all database objects but not the database.							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/cli-drop)				|
+Install the package globally to use the CLI commands to help you create and maintain projects
 
-- [Lab CLI](https://github.com/FlavioLionelRita/lambdaorm/wiki/Lab-CLI)
+```sh
+npm install lambdaorm-cli -g
+```
+
+- [CLI package](https://www.npmjs.com/package/lambdaorm-cli)
 
 ## Documentation
 
 - [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki)
 - [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/README.md)
 
-### Labs
+## Labs
 
-- [CLI](https://github.com/FlavioLionelRita/lambdaorm/wiki/Lab-CLI)
+### Lab northwind
+
+In this laboratory we will see:
+
+Creating the northwind sample database tables and loading it with sample data. This database presents several non-standard cases such as: - Name of tables and fields with spaces - Tables with composite primary keys - Tables with autonumeric ids and others with ids strings
+
+Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation. We will also see some example queries to execute from CLI
+
+[source code](https://github.com/FlavioLionelRita/lambdaorm-lab-northwind)
+
+### Lab 01
+
+In this laboratory we will see:
+
+- How to use the Lambdaorm-cli commands
+- how to create a project that uses lambda ORM
+- How to define a schema
+- how to run a bulckInsert from a file
+- how to export data from a schema
+- how to import data into a schema from a previously generated export file
+
+[source code](https://github.com/FlavioLionelRita/lambdaorm-lab01)
+
+### Lab 02
+
+In this laboratory we will see:
+
+- how to create a project that uses lambda ORM
+- How to define a schema
+- how to extend entities using abstract entities
+- How to insert data from a file.
+- how to run queries from cli to perform different types of queries
+
+[source code](https://github.com/FlavioLionelRita/lambdaorm-lab02)
+
+### Lab 03
+
+In this laboratory we will see:
+
+- How to insert data from a file to more than one table.
+- how to extend entities using abstract entities
+- how to extend a schema to create a new one, overwriting the mapping
+- how to work with two schemas and databases that share the same model
+- how to use imported data from one database to import it into another
+
+[source code](https://github.com/FlavioLionelRita/lambdaorm-lab03)
+
+### Lab 04
+
+In this laboratory we will see:
+
+- How to insert data from a file to more than one table.
+- how to extend entities using abstract entities
+- how to define a schema that works with entities in different databases
+- how to run a bulkinsert on entities in different databases
+- how to export and import entity data in different databases
+
+[source code](https://github.com/FlavioLionelRita/lambdaorm-lab04)

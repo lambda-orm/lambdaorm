@@ -28,7 +28,8 @@ module.exports = function (grunt) {
 			orm: { expand: true, cwd: 'build/orm', src: '**', dest: 'dist/' },
 			sintaxis: { expand: true, cwd: './src', src: './sintaxis.d.ts', dest: 'build/orm/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
-			license: { expand: true, src: './LICENSE', dest: 'dist/' }
+			license: { expand: true, src: './LICENSE', dest: 'dist/' },
+			images: { expand: true, cwd: 'images/', src: '**', dest: 'dist/images/' }
 		}
 	})
 
@@ -80,7 +81,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('lint', ['exec:lint'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
-	grunt.registerTask('dist', ['clean:dist', 'copy:orm', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['clean:dist', 'copy:orm', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 
 	grunt.registerTask('default', [])
 }
