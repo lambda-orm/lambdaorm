@@ -1,4 +1,4 @@
-export class Model {
+export class ExpressionConfig {
 	public operators: any
 	public enums: any
 	public functions: any

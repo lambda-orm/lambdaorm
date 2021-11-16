@@ -701,8 +701,8 @@ export class OperandManager {
 			let tType = 'any'
 			// get metadata of operand
 			const metadata = operand instanceof Operator
-				? this.language.languageModel.getOperator(operand.name, operand.children.length)
-				: this.language.languageModel.getFunction(operand.name)
+				? this.language.expressionConfig.getOperator(operand.name, operand.children.length)
+				: this.language.expressionConfig.getFunction(operand.name)
 
 			// recorre todos los parametros
 			for (let i = 0; i < metadata.params.length; i++) {

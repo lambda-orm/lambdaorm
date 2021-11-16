@@ -1,5 +1,5 @@
 
-import { Node, Model } from './../parser/index'
+import { Node, ExpressionConfig } from './../parser/index'
 import { DataContext, Query, Include } from './../model'
 import { SchemaHelper } from './../manager'
 import { Language } from './language'
@@ -13,13 +13,13 @@ import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 
 export class LanguageManager {
 	public dialects:any
-	public languageModel:Model
+	public expressionConfig:ExpressionConfig
 	public metadata:OperandMetadata
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (languageModel:Model) {
-		this.languageModel = languageModel
+	constructor (expressionConfig:ExpressionConfig) {
+		this.expressionConfig = expressionConfig
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(this)
 

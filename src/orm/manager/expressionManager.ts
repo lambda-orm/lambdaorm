@@ -1,13 +1,11 @@
 import { Cache, Query, DataContext } from './../model'
-import { Model, ParserManager } from './../parser/index'
+import { ParserManager } from './../parser/index'
 import { ConfigManager, ExpressionCompleter } from './index'
 import { LanguageManager, Operand, Sentence, DMLBuilder } from './../language'
-import modelConfig from './../parser/config.json'
 import { Helper } from './../helper'
 
 export class ExpressionManager {
 	private cache: Cache
-	private languageModel: Model
 	private parserManager: ParserManager
 	private configManager: ConfigManager
 	private languageManager: LanguageManager
@@ -15,12 +13,10 @@ export class ExpressionManager {
 
 	constructor (cache: Cache, configManager:ConfigManager, languageManager:LanguageManager) {
 		this.cache = cache
-		this.languageModel = new Model()
-		this.languageModel.load(modelConfig)
-		this.parserManager = new ParserManager(this.languageModel)
-		this.expressionCompleter = new ExpressionCompleter()
 		this.configManager = configManager
 		this.languageManager = languageManager
+		this.parserManager = new ParserManager(languageManager.expressionConfig)
+		this.expressionCompleter = new ExpressionCompleter()
 	}
 
 	/**

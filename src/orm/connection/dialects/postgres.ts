@@ -174,7 +174,12 @@ export class PostgresConnection extends Connection {
 					const type = typeof param.value[0]
 					switch (type) {
 					case 'string':
-						values.push(param.value.join(','))
+						if (param.value.length === 1) {
+							values.push(param.value[0])
+						} else {
+							sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+							values.push(param.value)
+						}
 						break
 					case 'bigint':
 					case 'number':
