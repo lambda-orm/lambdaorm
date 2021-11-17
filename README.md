@@ -9,7 +9,7 @@ Completely decoupling the business model from the data layer.
 For this use:
 
 - Queries written in lambda expressions
-- Definition of the schema through configuration.
+- Definition of schemas by decoupling the model from the database.
 
 ## Features
 
@@ -25,13 +25,13 @@ For this use:
 	- mapping
 	- Extends entities and schemas
 	- Environment variables
+	- define index, unique key, constraints
 - CLI
 	- Init and update commands
 	- Run expressions
 	- Sync and drop schema
 	- Imports and exports
 - Repositories
-- Indices
 - Transactions
 - Using multiple database connections
 
@@ -42,13 +42,13 @@ The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript
 Example:
 
 ```ts
-User.map(p => {name: p.lastname + ', ' + p.firstname })
+Countries.page(1,10).include(p => p.states.map(p=> [p.name,p.latitude,p.longitude] ))
 ```
 
 The engine also allows us to write the expressions in a string.
 
 ```ts
-'User.map(p => {name: p.lastname + \', \' + p.firstname })'
+'Countries.page(1,10).include(p => p.states.map(p=> [p.name,p.latitude,p.longitude] ))'
 ```
 
 ### Advantage:
@@ -91,15 +91,15 @@ To understand an entity we use the extends attribute in the definition of the en
 
 ```yaml
   entities:
-		- name: Positions
-			abstract: true
-			properties:
-				- name: latitude
-					length: 16
-				- name: longitude
-					length: 16
-		- name: Countries
-			extends: Positions
+    - name: Positions	
+      abstract: true
+      properties:
+        - name: latitude
+          length: 16
+        - name: longitude
+          length: 16
+    - name: Countries
+      extends: Positions
 ```
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
@@ -135,6 +135,145 @@ The database attribute is used in the entity to be able to specify that an entit
 ```
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
+
+### Config
+
+When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
+
+This configuration contains the main sections, paths, databases and schemas.
+
+- In the app section, the general configuration of the application is set, such as the main paths, default database, etc.
+- In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
+- In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
+
+Example:
+
+```json
+{
+  "app:": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "mydb" },
+  "databases": [
+    {
+      "name": "mydb",
+      "dialect": "mysql",
+      "schema": "location",
+      "connection": "$CNN_MYSQL"
+    }
+  ],
+  "schemas": [
+    {
+      "name": "location",
+      "enums": [],
+      "entities": [
+        {
+          "name": "Country",
+          "mapping": "COUNTRY",
+          "primaryKey": [ "id"  ],
+          "uniqueKey": [ "name" ],
+          "properties": [
+            { "name": "id", "mapping": "ID", "type": "integer","nullable": false },
+            { "name": "name","mapping": "NAME", "nullable": false, "type": "string", "length": 127 },
+            { "name": "alpha2","mapping": "ALPHA_2", "nullable": false,"type": "string","length": 2 },
+            { "name": "alpha3", "mapping": "ALPHA_3", "nullable": false, "type": "string", "length": 3 }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+There are the following options to define the settings.
+
+- Invoke the orm.init () method without the first argument and write this configuration in a file called lambdaorm.json or lambdaorm.yaml in the root of the project.
+according to the lambdaorm extension you will know how to read it.
+
+- Invoke the orm.init () method, pass as an argument the path where the configuration file is located.
+This path must include the extension .yaml or .json since this way we will know how to read it.
+
+- Invoke the orm.init () method passing the configuration as a json object as an argument
+
+Example passing the path of the configuration file:
+
+```ts
+import { orm } from 'lambdaorm'
+(async () => {
+	await orm.init('/home/my/db/book.yaml')
+	try {
+		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
+		console.log(result)	
+	} catch (error) {
+		console.log(error)
+	} finally {
+		await orm.end()
+	}
+})()
+```
+
+- [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Config)
+
+## Expressions:
+
+To write the expressions we use methods, operators and functions.
+
+### Methods:
+
+Starting from the entity we have the following methods.
+
+|Method    		|Description                                   										| SQL Equivalent								|																																								|
+|:-----------|:-----------------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------:|
+|filter			 | To filter the records.																						| WHERE 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|having 		 | To filter on groupings.																					|	HAVING 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|map				 | To specify the fields to return. 																| SELECT 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|distinct		 | to specify the fields to return by sending duplicate records.		|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|first			 | returns the first record																					| SELECT + ORDER BY + LIMIT 		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|last 		 	 | returns the last record																					|	SELECT + ORDER BY DESC + LIMIT|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|take 		 	 | returns one record																								|	SELECT +  LIMIT 							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|sort				 | To specify the order in which the records are returned.					| ORDER BY 											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|page				 | To paginate.																											| LIMIT  (MySQL)								|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
+|include		 | To get records of related entities																|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)	|
+|insert			 | To insert records																								| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
+|update			 | To update records always including a filter											| UPDATE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
+|updateAll	 | to be able to update all the records of an entity								| UPDATE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
+|delete			 | To delete records always including a filter											| DELETE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
+|deleteAll	 | To be able to delete all records of an entity										| DELETE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
+|bulkinsert	 | to insert records in bulk																				| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)|
+
+There are no methods for the INNER JOIN clause since it is deduced when navigating through the relations of a property.
+
+There are no methods for the GROUP BY clause since this is deduced when grouping methods are used.
+
+### Operators
+
+The operators used are the same as those of javascript.
+
+below access to their documentation:
+
+|Category    	|Operators                				|																																												|
+|:------------|:-------------------------------:|:-------------------------------------------------------------------------------------:|
+|Arithmectic 	| -, +, *, /, **, //, % 					| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic) |
+|Bitwise 			| ~,&,^,<<,>> 										| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)			|
+|Comparison 	| ==, ===, !=, !==, >, <, >=, <= 	| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)	|
+|Logical 			| !, && 													| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
+|Array 				| [] 															| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array) 				|
+
+### Functions
+
+In the case of functions, some correspond to javascript functions and others are specific to sql
+
+below access to their documentation:
+
+|Category    	|functions                																						|																																												|
+|:------------|:--------------------------------------------------------------------|--------------------------------------------------------------------------------------:|
+|Numeric			|abs,ceil,cos,exp,ln,log,remainder,round,sign,sin,tan,trunc...				|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)			|
+|String				|chr,lower,lpad,ltrim,replace,rpad,rtrim,substr,trim,upper,concat...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)				|
+|Datetime			|curtime,today,now,time,date,datetime,year,month,day,weekday,hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)			|
+|Convert			|toString,toJson,toNumber																							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)			|
+|Nullable			|nvl,nvl2,isNull,isNotNull																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)			|
+|General			|as,distinct																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)			|
+|Sort					|asc,desc																															|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)					|
+|Conditionals	|between,includes																											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)	|
+|Group				|avg,count,first,last,max,min,sum																			|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)				|
+|Metadata			|user,source																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)			|
 
 ## Usage
 
@@ -232,71 +371,7 @@ import { ProductRespository } from './models/northwind'
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 
-## Expressions:
-
-To write the expressions we use methods, operators and functions.
-
-### Methods:
-
-Starting from the entity we have the following methods.
-
-|Method    		|Description                                   										| SQL Equivalent								|																																								|
-|:-----------|:-----------------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------:|
-|filter			 | To filter the records.																						| WHERE 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|having 		 | To filter on groupings.																					|	HAVING 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|map				 | To specify the fields to return. 																| SELECT 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|distinct		 | to specify the fields to return by sending duplicate records.		|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|first			 | returns the first record																					| SELECT + ORDER BY + LIMIT 		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|last 		 	 | returns the last record																					|	SELECT + ORDER BY DESC + LIMIT|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|take 		 	 | returns one record																								|	SELECT +  LIMIT 							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|sort				 | To specify the order in which the records are returned.					| ORDER BY 											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|page				 | To paginate.																											| LIMIT  (MySQL)								|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|include		 | To get records of related entities																|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)	|
-|insert			 | To insert records																								| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|update			 | To update records always including a filter											| UPDATE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|updateAll	 | to be able to update all the records of an entity								| UPDATE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|delete			 | To delete records always including a filter											| DELETE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
-|deleteAll	 | To be able to delete all records of an entity										| DELETE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
-|bulkinsert	 | to insert records in bulk																				| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)|
-
-There are no methods for the INNER JOIN clause since it is deduced when navigating through the relations of a property.
-
-There are no methods for the GROUP BY clause since this is deduced when grouping methods are used.
-
-### Operators
-
-The operators used are the same as those of javascript.
-
-below access to their documentation:
-
-|Category    	|Operators                				|																																												|
-|:------------|:-------------------------------:|:-------------------------------------------------------------------------------------:|
-|Arithmectic 	| -, +, *, /, **, //, % 					| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic) |
-|Bitwise 			| ~,&,^,<<,>> 										| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)			|
-|Comparison 	| ==, ===, !=, !==, >, <, >=, <= 	| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)	|
-|Logical 			| !, && 													| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
-|Array 				| [] 															| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array) 				|
-
-### Functions
-
-In the case of functions, some correspond to javascript functions and others are specific to sql
-
-below access to their documentation:
-
-|Category    	|functions                																						|																																												|
-|:------------|:--------------------------------------------------------------------|--------------------------------------------------------------------------------------:|
-|Numeric			|abs,ceil,cos,exp,ln,log,remainder,round,sign,sin,tan,trunc...				|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)			|
-|String				|chr,lower,lpad,ltrim,replace,rpad,rtrim,substr,trim,upper,concat...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)				|
-|Datetime			|curtime,today,now,time,date,datetime,year,month,day,weekday,hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)			|
-|Convert			|toString,toJson,toNumber																							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)			|
-|Nullable			|nvl,nvl2,isNull,isNotNull																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)			|
-|General			|as,distinct																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)			|
-|Sort					|asc,desc																															|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)					|
-|Conditionals	|between,includes																											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)	|
-|Group				|avg,count,first,last,max,min,sum																			|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)				|
-|Metadata			|user,source																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)			|
-
-## Includes:
+### Includes:
 
 LambdaORM includes the Include method to load related entities, both for OnetoMany, manyToOne and oneToOne relationships.
 
@@ -356,7 +431,7 @@ The previous sentence will bring us the following result:
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
-## Transactions
+### Transactions
 
 To work with transactions use the orm.transaction method.
 
@@ -407,82 +482,7 @@ orm.transaction('mydb', async (tr) => {
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
 
-## Config
-
-When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
-
-This configuration contains the main sections, paths, databases and schemas.
-
-- In the app section, the general configuration of the application is set, such as the main paths, default database, etc.
-- In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
-- In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
-
-Example:
-
-```json
-{
-  "app:": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "mydb" },
-  "databases": [
-    {
-      "name": "mydb",
-      "dialect": "mysql",
-      "schema": "location",
-      "connection": "$CNN_MYSQL"
-    }
-  ],
-  "schemas": [
-    {
-      "name": "location",
-      "enums": [],
-      "entities": [
-        {
-          "name": "Country",
-          "mapping": "COUNTRY",
-          "primaryKey": [ "id"  ],
-          "uniqueKey": [ "name" ],
-          "properties": [
-            { "name": "id", "mapping": "ID", "type": "integer","nullable": false },
-            { "name": "name","mapping": "NAME", "nullable": false, "type": "string", "length": 127 },
-            { "name": "alpha2","mapping": "ALPHA_2", "nullable": false,"type": "string","length": 2 },
-            { "name": "alpha3", "mapping": "ALPHA_3", "nullable": false, "type": "string", "length": 3 }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
-There are the following options to define the settings.
-
-- Invoke the orm.init () method without the first argument and write this configuration in a file called lambdaorm.json or lambdaorm.yaml in the root of the project.
-according to the lambdaorm extension you will know how to read it.
-
-- Invoke the orm.init () method, pass as an argument the path where the configuration file is located.
-This path must include the extension .yaml or .json since this way we will know how to read it.
-
-- Invoke the orm.init () method passing the configuration as a json object as an argument
-
-Example passing the path of the configuration file:
-
-```ts
-import { orm } from 'lambdaorm'
-(async () => {
-	await orm.init('/home/my/db/book.yaml')
-	try {
-		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
-		console.log(result)	
-	} catch (error) {
-		console.log(error)
-	} finally {
-		await orm.end()
-	}
-})()
-```
-
-- [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Config)
-
-## Metadata
+### Metadata
 
 Lambda ORM has the following methods to extract metadata information from expressions.
 
