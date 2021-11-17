@@ -2,8 +2,8 @@ app:
   src: src
   data: data
   models: models
-  defaultDatabase: source
-databases:
+  defaultDatastore: source
+datastores:
   - name: source
     schema: northwind
     dialect: mysql

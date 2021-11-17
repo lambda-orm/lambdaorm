@@ -383,6 +383,6 @@ export class ConfigManager {
 				this.datastore.load(datastore)
 			}
 		}
-		this.datastore.default = this.config.app.defaultDatabase
+		this.datastore.default = this.config.app.defaultDatastore
 	}
 }

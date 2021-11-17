@@ -17,7 +17,7 @@ export interface App
 	src: string
 	data: string
 	models:string
-	defaultDatabase?: string
+	defaultDatastore?: string
 }
 export interface Config
 {

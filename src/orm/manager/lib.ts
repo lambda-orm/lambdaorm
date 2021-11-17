@@ -82,10 +82,10 @@ export class LibManager {
 		if (datastore === undefined) {
 			if (config.datastores.length === 1) {
 				db = config.datastores[0]
-			} else if (config.datastores.length > 1 && config.app.defaultDatabase !== undefined) {
-				db = config.datastores.find(p => p.name === config.app.defaultDatabase)
+			} else if (config.datastores.length > 1 && config.app.defaultDatastore !== undefined) {
+				db = config.datastores.find(p => p.name === config.app.defaultDatastore)
 				if (db === undefined) {
-					throw new Error(`datastore: ${config.app.defaultDatabase} not found in config`)
+					throw new Error(`datastore: ${config.app.defaultDatastore} not found in config`)
 				}
 			} else {
 				throw new Error('the name argument with the name of the datastore is required')
