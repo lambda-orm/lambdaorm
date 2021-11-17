@@ -5,7 +5,7 @@ import fs from 'fs'
 import path from 'path'
 const ConfigExtends = require('config-extends')
 
-async function writeUnitTest (databases: string[], category: CategoryTest): Promise<void> {
+async function writeUnitTest (datastores: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 	lines.push('import { orm,Helper } from \'../../orm\'')
 	lines.push('beforeAll(async () => {')
@@ -20,7 +20,7 @@ async function writeUnitTest (databases: string[], category: CategoryTest): Prom
 			lines.push(`\ttest('${expTest.name}', () => {`)
 			lines.push(`\t\tconst source = '${expTest.expression.trim()}'`)
 			lines.push(`\t\tconst expected = '${expTest.completeExpression.trim()}'`)
-			lines.push(`\t\tconst target = orm.expression(source).complete('${category.database}')`)
+			lines.push(`\t\tconst target = orm.expression(source).complete('${category.datastore}')`)
 			lines.push('\t\texpect(expected).toBe(target)')
 			lines.push('\t})')
 		}
@@ -35,8 +35,8 @@ async function writeUnitTest (databases: string[], category: CategoryTest): Prom
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
-		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.database}')`)
-		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.database}')`)
+		lines.push(`\t\tconst model = await orm.expression(expression).model('${category.datastore}')`)
+		lines.push(`\t\tconst metadata = await orm.expression(expression).metadata('${category.datastore}')`)
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
 		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
 		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
@@ -50,16 +50,16 @@ async function writeUnitTest (databases: string[], category: CategoryTest): Prom
 		if (expTest.expression && expTest.completeExpression) {
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
-			for (const r in databases) {
-				const database = databases[r]
+			for (const r in datastores) {
+				const datastore = datastores[r]
 				if (expTest.sentences !== undefined) {
-					let sentence = expTest.sentences.find(p => p.database === database && p.error === undefined)?.sentence
+					let sentence = expTest.sentences.find(p => p.datastore === datastore && p.error === undefined)?.sentence
 					sentence = Helper.replace(sentence, '\n', '; ')
 					if (sentence) {
-						lines.push(`\t\tconst ${database}Expected = '${sentence}'`)
-						lines.push(`\t\tlet ${database} =  await orm.expression(expression).sentence('${database}')`)
-						lines.push(`\t\t${database}=Helper.replace(${database},'\\n','; ')`)
-						lines.push(`\t\texpect(${database}Expected).toBe(${database})`)
+						lines.push(`\t\tconst ${datastore}Expected = '${sentence}'`)
+						lines.push(`\t\tlet ${datastore} =  await orm.expression(expression).sentence('${datastore}')`)
+						lines.push(`\t\t${datastore}=Helper.replace(${datastore},'\\n','; ')`)
+						lines.push(`\t\texpect(${datastore}Expected).toBe(${datastore})`)
 					}
 				}
 			}
@@ -75,7 +75,7 @@ async function writeUnitTest (databases: string[], category: CategoryTest): Prom
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
 }
-async function writeIntegrationTest (databases: string[], category: CategoryTest): Promise<void> {
+async function writeIntegrationTest (datastores: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 
 	lines.push('import { orm } from \'../../orm\'')
@@ -92,10 +92,10 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
-			for (const p in databases) {
-				const database = databases[p]
-				lines.push(`\t\tconst ${database}Result =  await orm.expression(expression).execute(dataContext,'${database}')`)
-				lines.push(`\t\texpect(expected).toEqual(${database}Result)`)
+			for (const p in datastores) {
+				const datastore = datastores[p]
+				lines.push(`\t\tconst ${datastore}Result =  await orm.expression(expression).execute(dataContext,'${datastore}')`)
+				lines.push(`\t\texpect(expected).toEqual(${datastore}Result)`)
 			}
 			lines.push('\t})')
 		}
@@ -110,11 +110,11 @@ async function writeIntegrationTest (databases: string[], category: CategoryTest
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
 }
 
-export async function apply (dataForTestPath: string, databases: string[], callback: any) {
+export async function apply (dataForTestPath: string, datastores: string[], callback: any) {
 	const testData = await ConfigExtends.apply(dataForTestPath)
 	for (const k in testData) {
-		await writeUnitTest(databases, testData[k])
-		await writeIntegrationTest(databases, testData[k])
+		await writeUnitTest(datastores, testData[k])
+		await writeIntegrationTest(datastores, testData[k])
 	}
 	callback()
 }

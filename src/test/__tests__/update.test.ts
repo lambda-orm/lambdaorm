@@ -162,14 +162,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET CustomerID = @customerId,EmployeeID = @employeeId,OrderDate = @orderDate,RequiredDate = @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight = @freight,ShipName = @name,ShipAddress = @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID = @obj.id '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 2', async () => {
 		const expression = 'Orders.update(entity)'
@@ -181,14 +173,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET CustomerID = @entity.customerId,EmployeeID = @entity.employeeId,OrderDate = @entity.orderDate,RequiredDate = @entity.requiredDate,ShippedDate = @entity.shippedDate,ShipVia = @entity.shipViaId,Freight = @entity.freight,ShipName = @entity.name,ShipAddress = @entity.address,ShipCity = @entity.city,ShipRegion = @entity.region,ShipPostalCode = @entity.postalCode,ShipCountry = @entity.country FROM Orders o WHERE o.OrderID = @obj.id '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 3', async () => {
 		const expression = 'Orders.updateAll(=>{postalCode:postalCode})'
@@ -200,14 +184,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipPostalCode = ? '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 4', async () => {
 		const expression = 'Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))'
@@ -219,14 +195,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 5', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))'
@@ -238,14 +206,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id ; UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID = @obj.productId) '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 6', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))'
@@ -257,14 +217,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id ; UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 7', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))'
@@ -276,14 +228,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID = @entity.id ; UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND o1.ProductID = @productId) '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 8', async () => {
 		const expression = 'Orders.update().include(p=>p.details)'
@@ -295,14 +239,6 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE o SET CustomerID = @customerId,EmployeeID = @employeeId,OrderDate = @orderDate,RequiredDate = @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight = @freight,ShipName = @name,ShipAddress = @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID = @obj.id ; UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID = @obj.productId) '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('update 9', async () => {
 		const expression = 'Customers.update().include(p=>p.orders.include(p=>p.details))'
@@ -314,13 +250,5 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ; UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.expression(expression).sentence('mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName = @contact,ContactTitle = @phone,Address = @address,City = @city,Region = @region,PostalCode = @postalCode,Country = @country FROM Customers c WHERE c.CustomerID = @obj.id ; UPDATE o SET CustomerID = @customerId,EmployeeID = @employeeId,OrderDate = @orderDate,RequiredDate = @requiredDate,ShippedDate = @shippedDate,ShipVia = @shipViaId,Freight = @freight,ShipName = @name,ShipAddress = @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode = @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID = @obj.id ; UPDATE o1 SET OrderID = @orderId,ProductID = @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @obj.orderId AND o1.ProductID = @obj.productId) '
-		let mssql =  await orm.expression(expression).sentence('mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 })

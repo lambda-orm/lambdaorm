@@ -1,28 +1,28 @@
-import { Database, Query } from '../model'
-import { ConfigManager, ExpressionManager, Executor } from './../manager'
-import { DatabaseState } from './databaseState'
+import { Datastore, Query } from '../model'
+import { ConfigManager, ExpressionManager, Executor } from '../manager'
+import { DatastoreState } from './datastoreState'
 import { SchemaHelper } from '../manager/schemaHelper'
 
-export abstract class DatabaseActionDML {
-	protected state: DatabaseState
+export abstract class DatastoreActionDML {
+	protected state: DatastoreState
 	protected configManager: ConfigManager
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
-	protected database: Database
+	protected datastore: Datastore
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state:DatabaseState, configManager: ConfigManager, expressionManager: ExpressionManager, executor: Executor, database:Database) {
+	constructor (state:DatastoreState, configManager: ConfigManager, expressionManager: ExpressionManager, executor: Executor, datastore:Datastore) {
 		this.state = state
 		this.configManager = configManager
 		this.expressionManager = expressionManager
 		this.executor = executor
-		this.database = database
+		this.datastore = datastore
 	}
 
 	public async getSchema ():Promise<SchemaHelper> {
-		const state = await this.state.get(this.database.name)
+		const state = await this.state.get(this.datastore.name)
 		let schema
 		if (state.schema === undefined || state.schema === {}) {
-			schema = this.configManager.schema.get(this.database.schema)
+			schema = this.configManager.schema.get(this.datastore.schema)
 		} else {
 			schema = state.schema
 		}

@@ -11,9 +11,9 @@ import { SchemaHelper } from '../../manager'
 const SqlString = require('sqlstring')
 
 export class SqlDMLBuilder extends LanguageDMLBuilder {
-	public build (sentence: Sentence, schema:SchemaHelper, database: string, metadata: DialectMetadata): Query {
+	public build (sentence: Sentence, schema:SchemaHelper, datastore: string, metadata: DialectMetadata): Query {
 		const sqlSentence = this.buildSentence(sentence, schema, metadata as DialectMetadata)
-		return new Query(sentence.name, database, metadata.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
+		return new Query(sentence.name, datastore, metadata.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
 	}
 
 	private buildOperand (operand: Operand, schema: SchemaHelper, metadata: DialectMetadata): string {

@@ -25,9 +25,9 @@ export class ExpressionManager {
 	 * @param schema schema name
 	 * @returns full expression
 	 */
-	public complete (expression: string, database?: string): string {
+	public complete (expression: string, datastore?: string): string {
 		try {
-			const db = this.configManager.database.get(database)
+			const db = this.configManager.datastore.get(datastore)
 			const _schema = this.configManager.schema.getInstance(db.schema)
 			const node = this.parserManager.parse(expression)
 			const completeNode = this.expressionCompleter.complete(node, _schema)
@@ -45,12 +45,12 @@ export class ExpressionManager {
 	 * @param schema schema name
 	 * @returns Operand
 	 */
-	public async toOperand (expression: string, database?: string): Promise<Operand> {
+	public async toOperand (expression: string, datastore?: string): Promise<Operand> {
 		try {
 			const key = 'operand_' + expression
 			let operand = await this.cache.get(key)
 			if (!operand) {
-				const db = this.configManager.database.get(database)
+				const db = this.configManager.datastore.get(datastore)
 				const _schema = this.configManager.schema.getInstance(db.schema)
 				const node = this.parserManager.parse(expression)
 				const completeNode = this.expressionCompleter.complete(node, _schema)
@@ -65,9 +65,9 @@ export class ExpressionManager {
 		}
 	}
 
-	public async toQuery (expression: string, database?: string): Promise<Query> {
+	public async toQuery (expression: string, datastore?: string): Promise<Query> {
 		try {
-			const db = this.configManager.database.get(database)
+			const db = this.configManager.datastore.get(datastore)
 			const key = db.name + 'query_' + expression
 			let query = await this.cache.get(key)
 			if (!query) {
@@ -114,8 +114,8 @@ export class ExpressionManager {
 	 * @param schema Schema name
 	 * @returns Result of the evaluale expression
 	 */
-	public async eval (expression: string, dataContext: any, database?: string): Promise<any> {
-		const operand = await this.toOperand(expression, database)
+	public async eval (expression: string, dataContext: any, datastore?: string): Promise<any> {
+		const operand = await this.toOperand(expression, datastore)
 		const _context = new DataContext(dataContext)
 		return this.languageManager.eval(operand, _context)
 	}
@@ -125,8 +125,8 @@ export class ExpressionManager {
 	 * @param schema Schema name
 	 * @returns Model of expression
 	 */
-	public async model (expression: string, database?: string):Promise<any> {
-		const operand = await this.toOperand(expression, database)
+	public async model (expression: string, datastore?: string):Promise<any> {
+		const operand = await this.toOperand(expression, datastore)
 		return this.languageManager.model(operand as Sentence)
 	}
 
@@ -135,13 +135,13 @@ export class ExpressionManager {
 	 * @param schema  Schema name
 	 * @returns Parameters of expression
 	 */
-	public async parameters (expression: string, database?: string):Promise<any> {
-		const operand = await this.toOperand(expression, database)
+	public async parameters (expression: string, datastore?: string):Promise<any> {
+		const operand = await this.toOperand(expression, datastore)
 		return this.languageManager.parameters(operand as Sentence)
 	}
 
-	public async sentence (expression: string, database?: string):Promise<string> {
-		const query = await this.toQuery(expression, database)
+	public async sentence (expression: string, datastore?: string):Promise<string> {
+		const query = await this.toQuery(expression, datastore)
 		return this.languageManager.sentence(query)
 	}
 
@@ -150,8 +150,8 @@ export class ExpressionManager {
 	 * @param schema Schema name
 	 * @returns metadata of expression
 	 */
-	public async metadata (expression: string, database?: string):Promise<any> {
-		const operand = await this.toOperand(expression, database)
+	public async metadata (expression: string, datastore?: string):Promise<any> {
+		const operand = await this.toOperand(expression, datastore)
 		return this.languageManager.serialize(operand)
 	}
 }

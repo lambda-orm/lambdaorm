@@ -1,5 +1,5 @@
 name: include
-database: source
+datastore: source
 dataContext:
   a:
     id: 1
@@ -10,7 +10,7 @@ test:
   - name: include 1
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -25,8 +25,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: postgres
+          WHERE  c.CustomerID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -41,8 +41,8 @@ test:
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
-          WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+          WHERE  c.CustomerID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -57,8 +57,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: mssql
+          WHERE  c.CustomerID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -73,7 +73,7 @@ test:
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
           c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
-          WHERE  c.CustomerID IN (@__parentId) 
+          WHERE  c.CustomerID IN (@__parentId)
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     completeExpression: >-
@@ -139,25 +139,25 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
             customerId: ALFKI
             employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
+            orderDate: "1997-08-25T00:00:00.000Z"
+            requiredDate: "1997-09-22T00:00:00.000Z"
+            shippedDate: "1997-09-02T00:00:00.000Z"
             shipViaId: 1
             freight: 29.46
             name: Alfreds Futterkiste
             address: Obere Str. 57
             city: Berlin
             region: null
-            postalCode: '12209'
+            postalCode: "12209"
             country: Germany
             customer:
               id: ALFKI
@@ -167,22 +167,22 @@ test:
               address: Obere Str. 57
               city: Berlin
               region: null
-              postalCode: '12209'
+              postalCode: "12209"
               country: Germany
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         customer:
           id: ALFKI
@@ -192,12 +192,12 @@ test:
           address: Obere Str. 57
           city: Berlin
           region: null
-          postalCode: '12209'
+          postalCode: "12209"
           country: Germany
   - name: include 2
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -210,8 +210,8 @@ test:
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
           `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
-          o1.OrderID IN (?) 
-      - database: postgres
+          o1.OrderID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -224,8 +224,8 @@ test:
           SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
           "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
-          o1.OrderID IN ($1) 
-      - database: mariadb
+          o1.OrderID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -238,8 +238,8 @@ test:
           SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
           `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
-          o1.OrderID IN (?) 
-      - database: mssql
+          o1.OrderID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -252,7 +252,7 @@ test:
           SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
           o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity], o1.Discount AS
           [discount], o1.OrderID AS [__parentId] FROM [Order Details] o1  WHERE 
-          o1.OrderID IN (@__parentId) 
+          o1.OrderID IN (@__parentId)
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
     completeExpression: >-
@@ -314,25 +314,25 @@ test:
       - name: __id
         type: integer
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
             customerId: ALFKI
             employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
+            orderDate: "1997-08-25T00:00:00.000Z"
+            requiredDate: "1997-09-22T00:00:00.000Z"
+            shippedDate: "1997-09-02T00:00:00.000Z"
             shipViaId: 1
             freight: 29.46
             name: Alfreds Futterkiste
             address: Obere Str. 57
             city: Berlin
             region: null
-            postalCode: '12209'
+            postalCode: "12209"
             country: Germany
             details:
               - orderId: 1
@@ -349,16 +349,16 @@ test:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         details:
           - orderId: 1
@@ -379,7 +379,7 @@ test:
   - name: include 3
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -399,8 +399,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: postgres
+          WHERE  c.CustomerID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -420,8 +420,8 @@ test:
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
-          WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+          WHERE  c.CustomerID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -441,8 +441,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: mssql
+          WHERE  c.CustomerID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -462,7 +462,7 @@ test:
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
           c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
-          WHERE  c.CustomerID IN (@__parentId) 
+          WHERE  c.CustomerID IN (@__parentId)
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     completeExpression: >-
@@ -536,25 +536,25 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
             customerId: ALFKI
             employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
+            orderDate: "1997-08-25T00:00:00.000Z"
+            requiredDate: "1997-09-22T00:00:00.000Z"
+            shippedDate: "1997-09-02T00:00:00.000Z"
             shipViaId: 1
             freight: 29.46
             name: Alfreds Futterkiste
             address: Obere Str. 57
             city: Berlin
             region: null
-            postalCode: '12209'
+            postalCode: "12209"
             country: Germany
             details:
               - orderId: 1
@@ -575,22 +575,22 @@ test:
               address: Obere Str. 57
               city: Berlin
               region: null
-              postalCode: '12209'
+              postalCode: "12209"
               country: Germany
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         details:
           - orderId: 1
@@ -616,12 +616,12 @@ test:
           address: Obere Str. 57
           city: Berlin
           region: null
-          postalCode: '12209'
+          postalCode: "12209"
           country: Germany
   - name: include 4
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -648,8 +648,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: postgres
+          WHERE  c.CustomerID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -676,8 +676,8 @@ test:
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
-          WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+          WHERE  c.CustomerID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -704,8 +704,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: mssql
+          WHERE  c.CustomerID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -732,7 +732,7 @@ test:
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
           c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
-          WHERE  c.CustomerID IN (@__parentId) 
+          WHERE  c.CustomerID IN (@__parentId)
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
@@ -818,27 +818,27 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         details:
           - orderId: 1
@@ -897,12 +897,12 @@ test:
           address: Obere Str. 57
           city: Berlin
           region: null
-          postalCode: '12209'
+          postalCode: "12209"
           country: Germany
   - name: include 5
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -934,8 +934,8 @@ test:
           AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
           c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
           `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
-          FROM Customers c1  WHERE  c1.CustomerID IN (?) 
-      - database: postgres
+          FROM Customers c1  WHERE  c1.CustomerID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -967,8 +967,8 @@ test:
           AS "contact", c1.ContactTitle AS "phone", c1.Address AS "address",
           c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
           "postalCode", c1.Country AS "country", c1.CustomerID AS "__parentId"
-          FROM Customers c1  WHERE  c1.CustomerID IN ($1) 
-      - database: mariadb
+          FROM Customers c1  WHERE  c1.CustomerID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1000,8 +1000,8 @@ test:
           AS `contact`, c1.ContactTitle AS `phone`, c1.Address AS `address`,
           c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
           `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
-          FROM Customers c1  WHERE  c1.CustomerID IN (?) 
-      - database: mssql
+          FROM Customers c1  WHERE  c1.CustomerID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1033,7 +1033,7 @@ test:
           AS [contact], c1.ContactTitle AS [phone], c1.Address AS [address],
           c1.City AS [city], c1.Region AS [region], c1.PostalCode AS
           [postalCode], c1.Country AS [country], c1.CustomerID AS [__parentId]
-          FROM Customers c1  WHERE  c1.CustomerID IN (@__parentId) 
+          FROM Customers c1  WHERE  c1.CustomerID IN (@__parentId)
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
@@ -1123,27 +1123,27 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         details:
           - orderId: 1
@@ -1214,12 +1214,12 @@ test:
           address: Obere Str. 57
           city: Berlin
           region: null
-          postalCode: '12209'
+          postalCode: "12209"
           country: Germany
   - name: include 6
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1238,8 +1238,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: postgres
+          WHERE  c.CustomerID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1258,8 +1258,8 @@ test:
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
-          WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+          WHERE  c.CustomerID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1278,8 +1278,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: mssql
+          WHERE  c.CustomerID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1298,7 +1298,7 @@ test:
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
           c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
-          WHERE  c.CustomerID IN (@__parentId) 
+          WHERE  c.CustomerID IN (@__parentId)
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
@@ -1371,25 +1371,25 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
             customerId: ALFKI
             employeeId: 6
-            orderDate: '1997-08-25T00:00:00.000Z'
-            requiredDate: '1997-09-22T00:00:00.000Z'
-            shippedDate: '1997-09-02T00:00:00.000Z'
+            orderDate: "1997-08-25T00:00:00.000Z"
+            requiredDate: "1997-09-22T00:00:00.000Z"
+            shippedDate: "1997-09-02T00:00:00.000Z"
             shipViaId: 1
             freight: 29.46
             name: Alfreds Futterkiste
             address: Obere Str. 57
             city: Berlin
             region: null
-            postalCode: '12209'
+            postalCode: "12209"
             country: Germany
             details:
               - quantity: 24
@@ -1406,22 +1406,22 @@ test:
               address: Obere Str. 57
               city: Berlin
               region: null
-              postalCode: '12209'
+              postalCode: "12209"
               country: Germany
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         details:
           - quantity: 15
@@ -1441,12 +1441,12 @@ test:
           address: Obere Str. 57
           city: Berlin
           region: null
-          postalCode: '12209'
+          postalCode: "12209"
           country: Germany
   - name: include 7
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1472,8 +1472,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: postgres
+          WHERE  c.CustomerID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1499,8 +1499,8 @@ test:
           "contact", c.ContactTitle AS "phone", c.Address AS "address", c.City
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
-          WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+          WHERE  c.CustomerID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1526,8 +1526,8 @@ test:
           `contact`, c.ContactTitle AS `phone`, c.Address AS `address`, c.City
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
-          WHERE  c.CustomerID IN (?) 
-      - database: mssql
+          WHERE  c.CustomerID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1554,7 +1554,7 @@ test:
           [contact], c.ContactTitle AS [phone], c.Address AS [address], c.City
           AS [city], c.Region AS [region], c.PostalCode AS [postalCode],
           c.Country AS [country], c.CustomerID AS [__parentId] FROM Customers c 
-          WHERE  c.CustomerID IN (@__parentId) 
+          WHERE  c.CustomerID IN (@__parentId)
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
@@ -1638,27 +1638,27 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         details:
           - quantity: 15
@@ -1711,12 +1711,12 @@ test:
           address: Obere Str. 57
           city: Berlin
           region: null
-          postalCode: '12209'
+          postalCode: "12209"
           country: Germany
   - name: include 8
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1739,8 +1739,8 @@ test:
           (?) 
 
           SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
-          Categories c1  WHERE  c1.CategoryID IN (?) 
-      - database: postgres
+          Categories c1  WHERE  c1.CategoryID IN (?)
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1763,8 +1763,8 @@ test:
           ($1) 
 
           SELECT c1.CategoryName AS "name", c1.CategoryID AS "__parentId" FROM
-          Categories c1  WHERE  c1.CategoryID IN ($1) 
-      - database: mariadb
+          Categories c1  WHERE  c1.CategoryID IN ($1)
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1787,8 +1787,8 @@ test:
           (?) 
 
           SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
-          Categories c1  WHERE  c1.CategoryID IN (?) 
-      - database: mssql
+          Categories c1  WHERE  c1.CategoryID IN (?)
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1811,7 +1811,7 @@ test:
           (@__parentId) 
 
           SELECT c1.CategoryName AS [name], c1.CategoryID AS [__parentId] FROM
-          Categories c1  WHERE  c1.CategoryID IN (@__parentId) 
+          Categories c1  WHERE  c1.CategoryID IN (@__parentId)
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
@@ -1879,27 +1879,27 @@ test:
       - name: __id
         type: integer
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
         employeeId: 6
-        orderDate: '1997-08-24T22:00:00.000Z'
-        requiredDate: '1997-09-21T22:00:00.000Z'
-        shippedDate: '1997-09-01T22:00:00.000Z'
+        orderDate: "1997-08-24T22:00:00.000Z"
+        requiredDate: "1997-09-21T22:00:00.000Z"
+        shippedDate: "1997-09-01T22:00:00.000Z"
         shipViaId: 1
         freight: 29.46
         name: Alfreds Futterkiste
         address: Obere Str. 57
         city: Berlin
         region: null
-        postalCode: '12209'
+        postalCode: "12209"
         country: Germany
         customer:
           name: Alfreds Futterkiste

@@ -12,10 +12,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 2', async () => {
 		const expression = 'Products.map(p=>p).page(1,1)'
@@ -24,10 +20,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 3', async () => {
 		const expression = 'Products.page(1,1)'
@@ -36,10 +28,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 4', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)'
@@ -48,10 +36,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 5', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).sort(p=>p.id)'
@@ -60,10 +44,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 6', async () => {
 		const expression = 'Products.map(p=>p.category.name)'
@@ -72,10 +52,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 7', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)'
@@ -84,10 +60,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 8', async () => {
 		const expression = 'Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])'
@@ -96,10 +68,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 9', async () => {
 		const expression = 'OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])'
@@ -108,10 +76,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 10', async () => {
 		const expression = 'OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)'
@@ -120,10 +84,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 11', async () => {
 		const expression = 'Products.page(1,1)'
@@ -132,10 +92,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 12', async () => {
 		const expression = 'Products.first(p=>p)'
@@ -144,10 +100,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 13', async () => {
 		const expression = 'Products.last(p=>p)'
@@ -156,10 +108,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 14', async () => {
 		const expression = 'Products.take(p=>p)'
@@ -168,10 +116,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 15', async () => {
 		const expression = 'Products.page(1,1)'
@@ -180,10 +124,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 16', async () => {
 		const expression = 'Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})'
@@ -192,10 +132,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 17', async () => {
 		const expression = 'Products.filter(p=>(p.discontinued!==false)).last(p=>p)'
@@ -204,10 +140,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 18', async () => {
 		const expression = 'Products.distinct(p=>p)'
@@ -216,10 +148,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 19', async () => {
 		const expression = 'Products.distinct(p=>p.category.name)'
@@ -228,10 +156,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 20', async () => {
 		const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>p.category)'
@@ -240,10 +164,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('query 21', async () => {
 		const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
@@ -252,9 +172,5 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 })

@@ -1,16 +1,16 @@
 
-import { DatabaseActionDML } from './databaseActionDML'
+import { DatastoreActionDML } from './datastoreActionDML'
 import { SchemaHelper } from '../manager/schemaHelper'
-import { Query, SchemaData } from './../model'
+import { Query, SchemaData } from '../model'
 
-export class DatabaseImport extends DatabaseActionDML {
+export class DatastoreImport extends DatastoreActionDML {
 	public async execute (data: SchemaData): Promise<void> {
-		const state = await this.state.get(this.database.name)
+		const state = await this.state.get(this.datastore.name)
 		const schema = await this.getSchema()
 		const _queries = await this.build(schema)
 		const queries = this.sort(schema, _queries)
 
-		await this.executor.transaction(this.database, async (tr) => {
+		await this.executor.transaction(this.datastore, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const entityData = data.entities.find(p => p.entity === query.entity)
@@ -52,7 +52,7 @@ export class DatabaseImport extends DatabaseActionDML {
 				pending.rows = stillPending
 			}
 		})
-		await this.state.updateData(this.database.name, state.mapping, state.pending)
+		await this.state.updateData(this.datastore.name, state.mapping, state.pending)
 	}
 
 	protected solveInternalsIds (schema:SchemaHelper, entityName:string, rows:any[], mapping:any, pendings:any[], parentEntity?:string):void {
@@ -169,6 +169,6 @@ export class DatabaseImport extends DatabaseActionDML {
 
 	protected async createQuery (schema:SchemaHelper, entity:any):Promise<Query> {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(schema, entity)}`
-		return await this.expressionManager.toQuery(expression, this.database.name)
+		return await this.expressionManager.toQuery(expression, this.datastore.name)
 	}
 }

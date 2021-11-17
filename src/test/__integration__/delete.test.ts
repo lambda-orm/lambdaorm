@@ -12,10 +12,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
@@ -24,10 +20,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
@@ -36,10 +28,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
@@ -48,10 +36,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
@@ -60,10 +44,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p=>p.details)'
@@ -72,10 +52,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
@@ -84,9 +60,5 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.expression(expression).execute(dataContext,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.expression(expression).execute(dataContext,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.expression(expression).execute(dataContext,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 })

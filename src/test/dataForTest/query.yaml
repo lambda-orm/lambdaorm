@@ -1,5 +1,5 @@
 name: query
-database: source
+datastore: source
 dataContext:
   a:
     id: 1
@@ -10,28 +10,28 @@ dataContext:
 test:
   - name: query 1
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -76,8 +76,8 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - id: 1
@@ -850,8 +850,8 @@ test:
             onOrder: 0
             reorderLevel: 15
             discontinued: false
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
@@ -2397,28 +2397,28 @@ test:
         discontinued: false
   - name: query 2
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -2463,13 +2463,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         name: Chai
@@ -2483,28 +2483,28 @@ test:
         discontinued: false
   - name: query 3
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -2549,13 +2549,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         name: Chai
@@ -2570,7 +2570,7 @@ test:
   - name: query 4
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -2578,7 +2578,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -2586,7 +2586,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
           $1 ORDER BY "id" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -2594,7 +2594,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -2643,10 +2643,10 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
     result:
       - id: 1
         name: Chai
@@ -2661,7 +2661,7 @@ test:
   - name: query 5
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -2669,7 +2669,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -2677,7 +2677,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID =
           $1 ORDER BY "id" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -2685,7 +2685,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
           ? ORDER BY `id` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -2734,10 +2734,10 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
     result:
       - id: 1
         name: Chai
@@ -2752,19 +2752,19 @@ test:
   - name: query 6
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT c.CategoryName AS `category_name` FROM Products p INNER JOIN
           Categories c ON c.CategoryID = p.CategoryID 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT c.CategoryName AS "category_name" FROM Products p INNER JOIN
           Categories c ON c.CategoryID = p.CategoryID 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT c.CategoryName AS `category_name` FROM Products p INNER JOIN
           Categories c ON c.CategoryID = p.CategoryID 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT c.CategoryName AS [category_name] FROM Products p INNER JOIN
           Categories c ON c.CategoryID = p.CategoryID 
@@ -2778,8 +2778,8 @@ test:
       - name: category_name
         type: string
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - category_name: Beverages
@@ -2859,8 +2859,8 @@ test:
           - category_name: Beverages
           - category_name: Beverages
           - category_name: Condiments
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - category_name: Beverages
@@ -3020,25 +3020,25 @@ test:
       - category_name: Seafood
   - name: query 7
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY `name` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "name",
           p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY "name" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY `name` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT c.CategoryName AS [category], p.ProductName AS [name],
           p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
@@ -3065,8 +3065,8 @@ test:
       - name: inStock
         type: decimal
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - category: Meat/Poultry
@@ -3377,8 +3377,8 @@ test:
             name: Zaanse koeken
             quantity: 10 - 4 oz boxes
             inStock: 36
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - category: Meat/Poultry
@@ -4000,25 +4000,25 @@ test:
         inStock: 36
   - name: query 8
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "name",
           p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           WHERE p.Discontinued <> FALSE ORDER BY "category", "name" desc 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT c.CategoryName AS [category], p.ProductName AS [name],
           p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
@@ -4045,8 +4045,8 @@ test:
       - name: inStock
         type: decimal
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - category: Beverages
@@ -4081,8 +4081,8 @@ test:
             name: Rssle Sauerkraut
             quantity: 25 - 825 g cans
             inStock: 26
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - category: Beverages
@@ -4153,7 +4153,7 @@ test:
   - name: query 9
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
           o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
@@ -4161,7 +4161,7 @@ test:
           Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
           c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
           o.UnitPrice > ?) ORDER BY `category`, `product` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "product",
           o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
@@ -4169,7 +4169,7 @@ test:
           Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
           c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN $1 AND $2
           AND o.UnitPrice > $3) ORDER BY "category", "product" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
           o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
@@ -4177,7 +4177,7 @@ test:
           Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
           c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
           o.UnitPrice > ?) ORDER BY `category`, `product` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT c.CategoryName AS [category], p.ProductName AS [product],
           o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order
@@ -4215,8 +4215,8 @@ test:
       - name: quantity
         type: decimal
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - category: Beverages
@@ -7471,7 +7471,7 @@ test:
             product: Spegesild
             unitPrice: 12
             quantity: 9
-      - database: mariadb
+      - datastore: mariadb
         error: not equal mysql
         result:
           - category: Beverages
@@ -10726,7 +10726,7 @@ test:
             product: Spegesild
             unitPrice: 12
             quantity: 24
-      - database: mssql
+      - datastore: mssql
         error: not equal mysql
         result:
           - category: Beverages
@@ -17036,22 +17036,22 @@ test:
         quantity: 24
   - name: query 10
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 -
           (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
           GROUP BY o.OrderID ORDER BY `orderId` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "orderId", SUM(((o.UnitPrice * (o.Quantity * (1 -
           (o.Discount / 100)))) * 100)) AS "subTotal" FROM "Order Details" o 
           GROUP BY o.OrderID ORDER BY "orderId" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 -
           (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
           GROUP BY o.OrderID ORDER BY `orderId` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [orderId], SUM(((o.UnitPrice * (o.Quantity * (1 -
           (o.Discount / 100)))) * 100)) AS [subTotal] FROM [Order Details] o 
@@ -17071,10 +17071,10 @@ test:
       - name: subTotal
         type: any
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - orderId: 1
@@ -20400,28 +20400,28 @@ test:
         subTotal: 59160
   - name: query 11
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -20466,13 +20466,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         name: Chai
@@ -20486,7 +20486,7 @@ test:
         discontinued: false
   - name: query 12
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -20494,7 +20494,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` LIMIT
           0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20502,7 +20502,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" OFFSET
           0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -20510,7 +20510,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` LIMIT
           0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -20556,13 +20556,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         name: Chai
@@ -20576,7 +20576,7 @@ test:
         discontinued: false
   - name: query 13
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -20584,7 +20584,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc
           LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20592,7 +20592,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  ORDER BY "id" desc
           OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -20600,7 +20600,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc
           LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -20646,13 +20646,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 77
         name: Original Frankfurter grne Soe
@@ -20666,28 +20666,28 @@ test:
         discontinued: false
   - name: query 14
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -20732,13 +20732,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         name: Chai
@@ -20752,28 +20752,28 @@ test:
         discontinued: false
   - name: query 15
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
           "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -20818,13 +20818,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         name: Chai
@@ -20838,25 +20838,25 @@ test:
         discontinued: false
   - name: query 16
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY p.ProductID LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT c.CategoryName AS "category", p.ProductName AS "name",
           p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY p.ProductID OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
           ORDER BY p.ProductID LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT c.CategoryName AS [category], p.ProductName AS [name],
           p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM
@@ -20883,13 +20883,13 @@ test:
       - name: inStock
         type: decimal
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - category: Beverages
         name: Chai
@@ -20897,7 +20897,7 @@ test:
         inStock: 39
   - name: query 17
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -20905,7 +20905,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY `id` desc LIMIT 0,1  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
           "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20913,7 +20913,7 @@ test:
           p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
           p.Discontinued AS "discontinued" FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY "id" desc OFFSET 0 LIMIT 1  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -20921,7 +20921,7 @@ test:
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
           <> FALSE ORDER BY `id` desc LIMIT 0,1  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS
           [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS
@@ -20967,13 +20967,13 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near 'LIMIT'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 53
         name: Perth Pasties
@@ -20987,7 +20987,7 @@ test:
         discontinued: true
   - name: query 18
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT DISTINCT p.ProductID AS `id`, p.ProductName AS `name`,
           p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
@@ -20995,7 +20995,7 @@ test:
           p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
           p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued`
           FROM Products p  
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
           p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -21003,7 +21003,7 @@ test:
           p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
           p.ReorderLevel AS "reorderLevel", p.Discontinued AS "discontinued"
           FROM Products p  
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT DISTINCT p.ProductID AS `id`, p.ProductName AS `name`,
           p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
@@ -21011,7 +21011,7 @@ test:
           p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
           p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued`
           FROM Products p  
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT DISTINCT p.ProductID AS [id], p.ProductName AS [name],
           p.SupplierID AS [supplierId], p.CategoryID AS [categoryId],
@@ -21057,8 +21057,8 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - id: 36
@@ -21831,8 +21831,8 @@ test:
             onOrder: 0
             reorderLevel: 15
             discontinued: false
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
@@ -23379,19 +23379,19 @@ test:
   - name: query 19
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT DISTINCT c.CategoryName AS `category_name` FROM Products p
           INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT DISTINCT c.CategoryName AS "category_name" FROM Products p
           INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT DISTINCT c.CategoryName AS `category_name` FROM Products p
           INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT DISTINCT c.CategoryName AS [category_name] FROM Products p
           INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
@@ -23405,8 +23405,8 @@ test:
       - name: category_name
         type: string
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - category_name: Grains/Cereals
@@ -23417,8 +23417,8 @@ test:
           - category_name: Condiments
           - category_name: Meat/Poultry
           - category_name: Confections
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
     result:
       - category_name: Beverages
       - category_name: Condiments
@@ -23431,22 +23431,22 @@ test:
   - name: query 20
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT DISTINCT p.QuantityPerUnit AS `quantity`, c.CategoryName AS
           `category` FROM Products p INNER JOIN Categories c ON c.CategoryID =
           p.CategoryID ORDER BY `category` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
           "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
           p.CategoryID ORDER BY "category" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT DISTINCT p.QuantityPerUnit AS `quantity`, c.CategoryName AS
           `category` FROM Products p INNER JOIN Categories c ON c.CategoryID =
           p.CategoryID ORDER BY `category` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT DISTINCT p.QuantityPerUnit AS [quantity], c.CategoryName AS
           [category] FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -23466,8 +23466,8 @@ test:
       - name: category
         type: string
     executions:
-      - database: mysql
-      - database: postgres
+      - datastore: mysql
+      - datastore: postgres
         error: not equal mysql
         result:
           - quantity: 10 boxes x 20 bags
@@ -23612,8 +23612,8 @@ test:
             category: Seafood
           - quantity: 4 - 450 g glasses
             category: Seafood
-      - database: mariadb
-      - database: mssql
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - quantity: 10 boxes x 20 bags
@@ -23904,19 +23904,19 @@ test:
   - name: query 21
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT DISTINCT c.CategoryName AS `category` FROM Products p INNER
           JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `category` 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
           JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY "category" 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT DISTINCT c.CategoryName AS `category` FROM Products p INNER
           JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `category` 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT DISTINCT c.CategoryName AS [category] FROM Products p INNER
           JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY [category] 
@@ -23930,10 +23930,10 @@ test:
       - name: category
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
     result:
       - category: Beverages
       - category: Condiments

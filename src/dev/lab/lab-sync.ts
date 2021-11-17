@@ -7,10 +7,10 @@ import path from 'path'
 	try {
 		let result:any
 		const config = await orm.lib.getConfig(workspace)
-		const db = orm.lib.getDatabase(undefined, config)
+		const db = orm.lib.getDatastore(undefined, config)
 		await orm.init(config)
 
-		await orm.database.sync(db.name).execute()
+		await orm.datastore.sync(db.name).execute()
 
 		result = await orm.expression('Countries.deleteAll()').execute({}, db.name)
 		result = await orm.expression('States.deleteAll()').execute({}, db.name)

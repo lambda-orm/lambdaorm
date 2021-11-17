@@ -5,7 +5,7 @@ export interface ExternalDb {
 	name: string
 }
 
-export interface Database
+export interface Datastore
 {
 	name: string
 	dialect: string
@@ -22,6 +22,6 @@ export interface App
 export interface Config
 {
 	app: App
-	databases: Database[]
+	datastores: Datastore[]
 	schemas:Schema[]
 }

@@ -1,16 +1,16 @@
 import { Parameter } from './../../orm'
 
 export interface ExecutionTest {
-	database: string
+	datastore: string
 	result?: any
 	error?: string
 }
 export interface ExecutionResult {
-	database: string
+	datastore: string
 	result?: any
 }
 export interface SentenceTest {
-	database: string
+	datastore: string
 	sentence?: any
 	error?: string
 }
@@ -31,12 +31,12 @@ export interface ExpressionTest {
 }
 export interface CategoryTest {
 	name: string
-	database: string
+	datastore: string
 	dataContext: any
 	test: ExpressionTest[]
 	errors?: number
 }
 export interface Test {
-	database: string
+	datastore: string
 	categories: CategoryTest[]
 }

@@ -1,6 +1,6 @@
 import { SchemaHelper } from './../manager'
 import { Helper } from '../helper'
-import { Schema, Entity, Property, Relation, Index, Database, Config } from './../model'
+import { Schema, Entity, Property, Relation, Index, Datastore, Config } from './../model'
 import { ConnectionConfig } from './../connection'
 
 class SchemaConfig {
@@ -56,8 +56,8 @@ class SchemaConfig {
 				relation: {},
 				index: {}
 			}
-			if (sourceEntity.database !== undefined) {
-				targetEntity.database = sourceEntity.database
+			if (sourceEntity.datastore !== undefined) {
+				targetEntity.datastore = sourceEntity.datastore
 			}
 			if (sourceEntity.singular !== undefined) {
 				targetEntity.singular = sourceEntity.singular
@@ -103,8 +103,8 @@ class SchemaConfig {
 				relations: [],
 				indexes: []
 			}
-			if (sourceEntity.database !== undefined) {
-				targetEntity.database = sourceEntity.database
+			if (sourceEntity.datastore !== undefined) {
+				targetEntity.datastore = sourceEntity.datastore
 			}
 			if (sourceEntity.singular !== undefined) {
 				targetEntity.singular = sourceEntity.singular
@@ -151,34 +151,34 @@ class SchemaConfig {
 	}
 }
 
-class DatabaseConfig {
-	public databases: any
+class DatastoreConfig {
+	public datastores: any
 	public default?:string
 
 	constructor () {
-		this.databases = {}
+		this.datastores = {}
 	}
 
-	public load (database:Database):void {
-		this.databases[database.name] = database
+	public load (datastore:Datastore):void {
+		this.datastores[datastore.name] = datastore
 	}
 
-	public get (name?: string): Database {
+	public get (name?: string): Datastore {
 		if (name === undefined) {
 			if (this.default !== undefined) {
-				const db = this.databases[this.default]
+				const db = this.datastores[this.default]
 				if (db === undefined) {
-					throw new Error(`default database: ${this.default} not found`)
+					throw new Error(`default datastore: ${this.default} not found`)
 				}
-				return db as Database
-			} else if (Object.keys(this.databases).length === 1) {
-				const key = Object.keys(this.databases)[0]
-				return this.databases[key] as Database
+				return db as Datastore
+			} else if (Object.keys(this.datastores).length === 1) {
+				const key = Object.keys(this.datastores)[0]
+				return this.datastores[key] as Datastore
 			} else {
-				throw new Error('the name of the database is required')
+				throw new Error('the name of the datastore is required')
 			}
 		}
-		return this.databases[name]as Database
+		return this.datastores[name]as Datastore
 	}
 }
 
@@ -298,7 +298,7 @@ class ConfigExtender {
 				throw new Error(`${entity.extends} not found`)
 			}
 			this.extendEntiy(entityBase, schema)
-			if (entity.database === undefined && entityBase.database !== undefined) entity.database = entityBase.database
+			if (entity.datastore === undefined && entityBase.datastore !== undefined) entity.datastore = entityBase.datastore
 			if (entity.mapping === undefined && entityBase.mapping !== undefined) entity.mapping = entityBase.mapping
 			if (entity.primaryKey === undefined && entityBase.primaryKey !== undefined) entity.primaryKey = entityBase.primaryKey
 			if (entity.uniqueKey === undefined && entityBase.uniqueKey !== undefined) entity.uniqueKey = entityBase.uniqueKey
@@ -353,7 +353,7 @@ class ConfigExtender {
 }
 
 export class ConfigManager {
-	public database: DatabaseConfig
+	public datastore: DatastoreConfig
 	public schema: SchemaConfig
 	public config: Config
 	public workspace: string
@@ -361,9 +361,9 @@ export class ConfigManager {
 
 	constructor (workspace:string) {
 		this.workspace = workspace
-		this.database = new DatabaseConfig()
+		this.datastore = new DatastoreConfig()
 		this.schema = new SchemaConfig()
-		this.config = { app: { src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+		this.config = { app: { src: 'src', data: 'data', models: 'models' }, datastores: [], schemas: [] }
 		this.configExtender = new ConfigExtender()
 	}
 
@@ -375,14 +375,14 @@ export class ConfigManager {
 				this.schema.load(this.config.schemas[p])
 			}
 		}
-		if (this.config.databases) {
-			for (const p in this.config.databases) {
-				const database = this.config.databases[p]
-				const connectionConfig: ConnectionConfig = { name: database.name, dialect: database.dialect, connection: {} }
-				connectionConfig.connection = database.connection
-				this.database.load(database)
+		if (this.config.datastores) {
+			for (const p in this.config.datastores) {
+				const datastore = this.config.datastores[p]
+				const connectionConfig: ConnectionConfig = { name: datastore.name, dialect: datastore.dialect, connection: {} }
+				connectionConfig.connection = datastore.connection
+				this.datastore.load(datastore)
 			}
 		}
-		this.database.default = this.config.app.defaultDatabase
+		this.datastore.default = this.config.app.defaultDatabase
 	}
 }

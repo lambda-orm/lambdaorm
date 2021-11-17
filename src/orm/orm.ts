@@ -1,7 +1,7 @@
 
 import { Cache, IOrm, Config } from './model'
 import { ExpressionConfig } from './parser/index'
-import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatabaseFacade, Executor, ConfigManager } from './manager'
+import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatastoreFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager, Language } from './language'
 import { SqlDMLBuilder, SqlDDLBuilder } from './language/sql'
@@ -18,7 +18,7 @@ import { Helper } from './helper'
 export class Orm implements IOrm {
 	private _cache: Cache
 	private expressionConfig: ExpressionConfig
-	private databaseFacade: DatabaseFacade
+	private datastoreFacade: DatastoreFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
 	private libManager: LibManager
@@ -70,7 +70,7 @@ export class Orm implements IOrm {
 
 		this.expressionManager = new ExpressionManager(this._cache, this.configManager, this.languageManager)
 		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager, this.configManager)
-		this.databaseFacade = new DatabaseFacade(this.configManager, this.expressionManager, this.languageManager, this.executor)
+		this.datastoreFacade = new DatastoreFacade(this.configManager, this.expressionManager, this.languageManager, this.executor)
 	}
 
 	/**
@@ -92,10 +92,10 @@ export class Orm implements IOrm {
 		Helper.solveEnriromentVariables(config)
 		this.configManager.load(config)
 
-		if (connect && config.databases) {
-			for (const p in config.databases) {
-				const database = config.databases[p]
-				this.connectionManager.load(database)
+		if (connect && config.datastores) {
+			for (const p in config.datastores) {
+				const datastore = config.datastores[p]
+				this.connectionManager.load(datastore)
 			}
 		}
 	}
@@ -111,8 +111,8 @@ export class Orm implements IOrm {
 		return this.configManager.workspace
 	}
 
-	public dialect (database:string): string {
-		return this.configManager.database.get(database).dialect
+	public dialect (datastore:string): string {
+		return this.configManager.datastore.get(datastore).dialect
 	}
 
 	/**
@@ -123,10 +123,10 @@ export class Orm implements IOrm {
 	}
 
 	/**
-* Get reference to database manager
+* Get reference to datastore manager
 */
-	public get database (): DatabaseFacade {
-		return this.databaseFacade
+	public get datastore (): DatastoreFacade {
+		return this.datastoreFacade
 	}
 
 	/**
@@ -161,11 +161,11 @@ export class Orm implements IOrm {
 
 	/**
  * Crea una transaccion
- * @param database Database name
+ * @param datastore Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (database: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const db = this.configManager.database.get(database)
+	public async transaction (datastore: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const db = this.configManager.datastore.get(datastore)
 		return await this.executor.transaction(db, callback)
 	}
 }

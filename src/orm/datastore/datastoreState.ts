@@ -1,9 +1,9 @@
 import { Schema } from '../model'
 import { ConfigManager } from '../manager'
-import { Helper } from './../helper'
+import { Helper } from '../helper'
 const path = require('path')
 
-export class DatabaseState {
+export class DatastoreState {
 	private config: ConfigManager
 	constructor (config:ConfigManager) {
 		this.config = config

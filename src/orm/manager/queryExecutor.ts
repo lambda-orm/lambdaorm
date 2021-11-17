@@ -1,34 +1,34 @@
 
-import { DataContext, Parameter, Include, Query, Database } from './../model'
+import { DataContext, Parameter, Include, Query, Datastore } from './../model'
 import { Connection, ConnectionManager } from './../connection'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { LanguageManager } from './../language'
 import { SchemaHelper } from './schemaHelper'
 
 export class QueryExecutor {
-	public database: Database
+	public datastore: Datastore
 	private languageManager: LanguageManager
 	private connectionManager: ConnectionManager
 	private connections: any
 	private transactionable: boolean
 	private schema:SchemaHelper
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, database: Database, schema:SchemaHelper, transactionable = false) {
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, datastore: Datastore, schema:SchemaHelper, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
-		this.database = database
+		this.datastore = datastore
 		this.schema = schema
 		this.transactionable = transactionable
 		this.connections = {}
 	}
 
-	private async getConnection (database: string): Promise<Connection> {
-		let connection = this.connections[database]
+	private async getConnection (datastore: string): Promise<Connection> {
+		let connection = this.connections[datastore]
 		if (connection === undefined) {
-			connection = await this.connectionManager.acquire(database)
+			connection = await this.connectionManager.acquire(datastore)
 			if (this.transactionable) {
 				await connection.beginTransaction()
 			}
-			this.connections[database] = connection
+			this.connections[datastore] = connection
 		}
 		return connection
 	}
@@ -62,7 +62,7 @@ export class QueryExecutor {
 
 	protected async _execute (query:Query, context:DataContext):Promise<any> {
 		let result: any
-		const connection = await this.getConnection(query.database)
+		const connection = await this.getConnection(query.datastore)
 		const metadata = this.languageManager.dialectMetadata(query.dialect)
 		switch (query.name) {
 		case 'select': result = await this.select(query, context, metadata, connection); break
