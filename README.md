@@ -39,6 +39,8 @@ For this use:
 
 The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
 
+The purpose is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+
 Example:
 
 ```ts
@@ -68,8 +70,6 @@ The classes that represent the business model are completely clean, without any 
 All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
 
 This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
-
-The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
 
 ### Examples:
 
