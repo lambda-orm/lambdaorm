@@ -79,7 +79,7 @@ The schema defines how the entities of the model are mapped with the database ta
 
 ![schema](images/schema.png)
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
 
 #### Extend entities
 
@@ -102,7 +102,7 @@ To understand an entity we use the extends attribute in the definition of the en
       extends: Positions
 ```
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
 
 #### Extend schemas
 
@@ -119,7 +119,7 @@ schemas:
     extends: countries
 ```
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
 
 #### One schema related multiples databases
 
@@ -134,7 +134,7 @@ The database attribute is used in the entity to be able to specify that an entit
   database: mydb2
 ```
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
 
 ### Config
 
