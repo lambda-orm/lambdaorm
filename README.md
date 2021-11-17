@@ -39,6 +39,8 @@ For this use:
 
 The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
 
+The purpose is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+
 Example:
 
 ```ts
@@ -69,8 +71,6 @@ All the configuration necessary to resolve the relationship between the business
 
 This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
 
-The purpose of this ORM is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
-
 ### Examples:
 
 #### Simple
@@ -79,7 +79,7 @@ The schema defines how the entities of the model are mapped with the database ta
 
 ![schema](images/schema.png)
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
+[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
 
 #### Extend entities
 
@@ -102,7 +102,7 @@ To understand an entity we use the extends attribute in the definition of the en
       extends: Positions
 ```
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
+[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
 
 #### Extend schemas
 
@@ -119,7 +119,7 @@ schemas:
     extends: countries
 ```
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
+[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
 
 #### One schema related multiples databases
 
@@ -134,7 +134,7 @@ The database attribute is used in the entity to be able to specify that an entit
   database: mydb2
 ```
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
+[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
 
 ### Config
 
