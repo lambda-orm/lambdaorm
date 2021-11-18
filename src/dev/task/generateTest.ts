@@ -85,7 +85,7 @@ async function writeIntegrationTest (datastores: string[], category: CategoryTes
 	lines.push('})')
 
 	lines.push('describe(\'Execute\', () => {')
-	lines.push(`\tconst dataContext = ${JSON.stringify(category.dataContext)}`)
+	lines.push(`\tconst data = ${JSON.stringify(category.data)}`)
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
 		if (expTest.expression && expTest.completeExpression) {
@@ -94,7 +94,7 @@ async function writeIntegrationTest (datastores: string[], category: CategoryTes
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in datastores) {
 				const datastore = datastores[p]
-				lines.push(`\t\tconst ${datastore}Result =  await orm.expression(expression).execute(dataContext,'${datastore}')`)
+				lines.push(`\t\tconst ${datastore}Result =  await orm.expression(expression).execute(data,'${datastore}')`)
 				lines.push(`\t\texpect(expected).toEqual(${datastore}Result)`)
 			}
 			lines.push('\t})')

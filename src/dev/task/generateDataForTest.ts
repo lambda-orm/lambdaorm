@@ -61,8 +61,8 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 				let error
 				try {
 					// console.log(expressionTest.expression)
-					const context = expressionTest.context !== undefined ? category.dataContext[expressionTest.context] : {}
-					result = await orm.lambda(expressionTest.lambda).execute(context, datastore)
+					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
+					result = await orm.lambda(expressionTest.lambda).execute(data, datastore)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -119,7 +119,7 @@ async function writeQueryTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'query',
 		datastore: 'source',
-		dataContext: {
+		data: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
 		},
@@ -127,12 +127,12 @@ async function writeQueryTest (datastores: string[]): Promise<number> {
 			{ name: 'query 1', lambda: () => Products },
 			{ name: 'query 2', lambda: () => Products.map(p => p).page(1, 1) },
 			{ name: 'query 3', lambda: () => Products.page(1, 1) },
-			{ name: 'query 4', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
-			{ name: 'query 5', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
-			{ name: 'query 6', context: 'a', lambda: () => Products.map(p => p.category.name) },
+			{ name: 'query 4', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
+			{ name: 'query 5', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
+			{ name: 'query 6', data: 'a', lambda: () => Products.map(p => p.category.name) },
 			{ name: 'query 7', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 8', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 9', context: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
+			{ name: 'query 9', data: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
 			{ name: 'query 10', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) },
 			{ name: 'query 11', lambda: () => Products.page(1, 1) },
 			{ name: 'query 12', lambda: () => Products.first(p => p) },
@@ -142,9 +142,9 @@ async function writeQueryTest (datastores: string[]): Promise<number> {
 			{ name: 'query 16', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
 			{ name: 'query 17', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p) },
 			{ name: 'query 18', lambda: () => Products.distinct(p => p) },
-			{ name: 'query 19', context: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 20', context: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 21', context: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
+			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
 		]
 	})
 }
@@ -152,24 +152,24 @@ async function writeNumeriFunctionsTest (datastores: string[]): Promise<number> 
 	return await writeTest(datastores, {
 		name: 'numeric functions',
 		datastore: 'source',
-		dataContext: { a: { id: 1 } },
+		data: { a: { id: 1 } },
 		test:
 			[
-				{ name: 'function abs', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price * -1, result: round(abs(p.price * -1), 10) })) },
-				{ name: 'function acos', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25, result: round(acos(0.25), 10) })) },
-				{ name: 'function asin', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25, result: round(asin(0.25), 10) })) },
-				{ name: 'function atan', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25, result: round(atan(0.25), 10) })) },
-				{ name: 'function atan2', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.50, result: round(atan2(0.25, 1), 10) })) },
-				{ name: 'function ceil', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 25.75, result: round(ceil(25.75), 10) })) },
-				{ name: 'function cos', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 2, result: round(cos(2), 10) })) },
-				{ name: 'function exp', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 1, result: round(exp(1), 10) })) },
-				{ name: 'function floor', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 25.75, result: round(floor(25.75), 10) })) },
-				{ name: 'function ln', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 2, result: round(ln(2), 10) })) },
-				{ name: 'function log', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, m: 10, n: 20, result: round(log(10, 20), 10) })) },
-				{ name: 'function round', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 135.375, result: round(135.375, 2) })) },
-				{ name: 'function sign', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 255.5, result: round(sign(255.5), 10) })) },
-				{ name: 'function tan', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 1.75, result: round(tan(1.75), 10) })) },
-				{ name: 'function trunc', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 135.375, result: round(trunc(135.375, 2), 10) })) }
+				{ name: 'function abs', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price * -1, result: round(abs(p.price * -1), 10) })) },
+				{ name: 'function acos', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25, result: round(acos(0.25), 10) })) },
+				{ name: 'function asin', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25, result: round(asin(0.25), 10) })) },
+				{ name: 'function atan', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.25, result: round(atan(0.25), 10) })) },
+				{ name: 'function atan2', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 0.50, result: round(atan2(0.25, 1), 10) })) },
+				{ name: 'function ceil', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 25.75, result: round(ceil(25.75), 10) })) },
+				{ name: 'function cos', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 2, result: round(cos(2), 10) })) },
+				{ name: 'function exp', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 1, result: round(exp(1), 10) })) },
+				{ name: 'function floor', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 25.75, result: round(floor(25.75), 10) })) },
+				{ name: 'function ln', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 2, result: round(ln(2), 10) })) },
+				{ name: 'function log', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, m: 10, n: 20, result: round(log(10, 20), 10) })) },
+				{ name: 'function round', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 135.375, result: round(135.375, 2) })) },
+				{ name: 'function sign', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 255.5, result: round(sign(255.5), 10) })) },
+				{ name: 'function tan', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 1.75, result: round(tan(1.75), 10) })) },
+				{ name: 'function trunc', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: 135.375, result: round(trunc(135.375, 2), 10) })) }
 			]
 	})
 }
@@ -177,7 +177,7 @@ async function writeGroupByTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'groupBy',
 		datastore: 'source',
-		dataContext: { a: { id: 1 } },
+		data: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
 				{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
@@ -186,7 +186,7 @@ async function writeGroupByTest (datastores: string[]): Promise<number> {
 				{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
 				{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-				{ name: 'groupBy 8', context: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
+				{ name: 'groupBy 8', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
 				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 10', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
 				{ name: 'groupBy 11', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
@@ -197,17 +197,17 @@ async function writeIncludeTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'include',
 		datastore: 'source',
-		dataContext: { a: { id: 1 } },
+		data: { a: { id: 1 } },
 		test:
 			[
-				{ name: 'include 1', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => p.customer) },
-				{ name: 'include 2', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => p.details) },
-				{ name: 'include 3', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details, p.customer]) },
-				{ name: 'include 4', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product), p.customer]) },
-				{ name: 'include 5', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer]) },
-				{ name: 'include 6', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer]) },
-				{ name: 'include 7', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer]) },
-				{ name: 'include 8', context: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]) }
+				{ name: 'include 1', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => p.customer) },
+				{ name: 'include 2', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => p.details) },
+				{ name: 'include 3', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details, p.customer]) },
+				{ name: 'include 4', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product), p.customer]) },
+				{ name: 'include 5', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer]) },
+				{ name: 'include 6', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer]) },
+				{ name: 'include 7', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer]) },
+				{ name: 'include 8', data: 'a', lambda: (id: number) => Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]) }
 			]
 	})
 }
@@ -215,7 +215,7 @@ async function writeInsertsTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'inserts',
 		datastore: 'source',
-		dataContext: {
+		data: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			c: { entity: { name: 'Beverages22', description: 'Soft drinks, coffees, teas, beers, and ales' } },
@@ -257,13 +257,13 @@ async function writeInsertsTest (datastores: string[]): Promise<number> {
 		},
 		test:
 			[
-				{ name: 'insert 1', context: 'a', lambda: () => Categories.insert() },
-				{ name: 'insert 2', context: 'b', lambda: (name: string, description: string) => Categories.insert(() => ({ name: name, description: description })) },
-				// { name: 'insert 3', context: 'c', lambda: (entity: Category) => Categories.insert(entity) },
-				{ name: 'insert 3', context: 'c', lambda: (entity: any) => Categories.insert(entity) },
-				{ name: 'insert 4', context: 'order', lambda: () => Orders.insert() },
-				{ name: 'insert 5', context: 'order', lambda: () => Orders.insert().include(p => p.details) },
-				{ name: 'insert 6', context: 'order', lambda: () => Orders.insert().include(p => [p.details, p.customer]) }
+				{ name: 'insert 1', data: 'a', lambda: () => Categories.insert() },
+				{ name: 'insert 2', data: 'b', lambda: (name: string, description: string) => Categories.insert(() => ({ name: name, description: description })) },
+				// { name: 'insert 3', data: 'c', lambda: (entity: Category) => Categories.insert(entity) },
+				{ name: 'insert 3', data: 'c', lambda: (entity: any) => Categories.insert(entity) },
+				{ name: 'insert 4', data: 'order', lambda: () => Orders.insert() },
+				{ name: 'insert 5', data: 'order', lambda: () => Orders.insert().include(p => p.details) },
+				{ name: 'insert 6', data: 'order', lambda: () => Orders.insert().include(p => [p.details, p.customer]) }
 			]
 	})
 }
@@ -271,7 +271,7 @@ async function writeUpdateTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'update',
 		datastore: 'source',
-		dataContext: {
+		data: {
 			a: {
 				id: 7,
 				customerId: 'ANATR',
@@ -554,19 +554,19 @@ async function writeUpdateTest (datastores: string[]): Promise<number> {
 		},
 		test:
 			[
-				{ name: 'update 1', context: 'a', lambda: () => Orders.update() },
-				// { name: 'update 2', context: 'b', lambda: (entity: Order) => Orders.update(entity) },
-				{ name: 'update 2', context: 'b', lambda: (entity: any) => Orders.update(entity) },
-				{ name: 'update 3', context: 'c', lambda: (postalCode: string) => Orders.updateAll(() => ({ postalCode: postalCode })) },
-				// { name: 'update 4', context: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
-				// { name: 'update 5', context: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
-				// { name: 'update 6', context: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
-				{ name: 'update 4', context: 'b', lambda: (entity: any) => Orders.update(p => ({ name: entity.name })).filter(p => p.id === entity.id) },
-				{ name: 'update 5', context: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details).filter(p => p.id === entity.id) },
-				{ name: 'update 6', context: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
-				{ name: 'update 7', context: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
-				{ name: 'update 8', context: 'a', lambda: () => Orders.update().include(p => p.details) },
-				{ name: 'update 9', context: 'c', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
+				{ name: 'update 1', data: 'a', lambda: () => Orders.update() },
+				// { name: 'update 2', data: 'b', lambda: (entity: Order) => Orders.update(entity) },
+				{ name: 'update 2', data: 'b', lambda: (entity: any) => Orders.update(entity) },
+				{ name: 'update 3', data: 'c', lambda: (postalCode: string) => Orders.updateAll(() => ({ postalCode: postalCode })) },
+				// { name: 'update 4', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
+				// { name: 'update 5', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
+				// { name: 'update 6', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				{ name: 'update 4', data: 'b', lambda: (entity: any) => Orders.update(p => ({ name: entity.name })).filter(p => p.id === entity.id) },
+				{ name: 'update 5', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details).filter(p => p.id === entity.id) },
+				{ name: 'update 6', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
+				{ name: 'update 7', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				{ name: 'update 8', data: 'a', lambda: () => Orders.update().include(p => p.details) },
+				{ name: 'update 9', data: 'c', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
 			]
 	})
 }
@@ -574,7 +574,7 @@ async function writeDeleteTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'delete',
 		datastore: 'source',
-		dataContext: {
+		data: {
 			a: { id: 9 },
 			b: {
 				id: 1,
@@ -717,12 +717,12 @@ async function writeDeleteTest (datastores: string[]): Promise<number> {
 			}
 		},
 		test:
-			[{ name: 'delete 1', context: 'a', lambda: (id: number) => OrderDetails.delete().filter(p => p.orderId === id) },
-				{ name: 'delete 2', context: 'b', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 3', context: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
-				{ name: 'delete 4', context: 'd', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 4', context: 'd', lambda: (entity: any) => OrderDetails.delete(entity) },
-				{ name: 'delete 5', context: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
+			[{ name: 'delete 1', data: 'a', lambda: (id: number) => OrderDetails.delete().filter(p => p.orderId === id) },
+				{ name: 'delete 2', data: 'b', lambda: () => Orders.delete().include(p => p.details) },
+				{ name: 'delete 3', data: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
+				{ name: 'delete 4', data: 'd', lambda: () => Orders.delete().include(p => p.details) },
+				{ name: 'delete 4', data: 'd', lambda: (entity: any) => OrderDetails.delete(entity) },
+				{ name: 'delete 5', data: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
 				{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
 			]
 	})
@@ -732,7 +732,7 @@ async function writeBulkInsertTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'bulkInsert',
 		datastore: 'source',
-		dataContext: {
+		data: {
 			a: [{
 				name: 'Beverages4',
 				description: 'Soft drinks, coffees, teas, beers, and ales'
@@ -835,8 +835,8 @@ async function writeBulkInsertTest (datastores: string[]): Promise<number> {
 
 		},
 		test:
-			[{ name: 'bulkInsert 1', context: 'a', lambda: () => Categories.bulkInsert() },
-				{ name: 'bulkInsert 2', context: 'b', lambda: () => Orders.bulkInsert().include(p => p.details) }
+			[{ name: 'bulkInsert 1', data: 'a', lambda: () => Categories.bulkInsert() },
+				{ name: 'bulkInsert 2', data: 'b', lambda: () => Orders.bulkInsert().include(p => p.details) }
 			]
 	})
 }

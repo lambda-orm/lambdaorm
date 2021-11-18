@@ -1,4 +1,4 @@
-import { Cache, Query, DataContext } from './../model'
+import { Cache, Query, Data } from './../model'
 import { ParserManager } from './../parser/index'
 import { ConfigManager, ExpressionCompleter } from './index'
 import { LanguageManager, Operand, Sentence, DMLBuilder } from './../language'
@@ -110,14 +110,14 @@ export class ExpressionManager {
 	/**
 	 * Evaluate and solve expression
 	 * @param expression  string expression
-	 * @param context DataContext with variables
+	 * @param data Data with variables
 	 * @param schema Schema name
 	 * @returns Result of the evaluale expression
 	 */
-	public async eval (expression: string, dataContext: any, datastore?: string): Promise<any> {
+	public async eval (expression: string, data: any, datastore?: string): Promise<any> {
 		const operand = await this.toOperand(expression, datastore)
-		const _context = new DataContext(dataContext)
-		return this.languageManager.eval(operand, _context)
+		const _data = new Data(data)
+		return this.languageManager.eval(operand, _data)
 	}
 
 	/**

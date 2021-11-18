@@ -1,6 +1,6 @@
 name: inserts
 datastore: source
-dataContext:
+data:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
@@ -44,7 +44,7 @@ dataContext:
         orderId: 833
 test:
   - name: insert 1
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
@@ -82,7 +82,7 @@ test:
       - datastore: mariadb
     result: 9
   - name: insert 2
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
@@ -120,7 +120,7 @@ test:
       - datastore: mariadb
     result: 10
   - name: insert 3
-    context: c
+    data: c
     sentences:
       - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
@@ -162,7 +162,7 @@ test:
       - datastore: mariadb
     result: 11
   - name: insert 4
-    context: order
+    data: order
     sentences:
       - datastore: mysql
         sentence: >-
@@ -277,7 +277,7 @@ test:
       - datastore: mariadb
     result: 831
   - name: insert 5
-    context: order
+    data: order
     sentences:
       - datastore: mysql
         sentence: >-
@@ -418,7 +418,7 @@ test:
       - datastore: mariadb
     result: 832
   - name: insert 6
-    context: order
+    data: order
     sentences:
       - datastore: mysql
         sentence: >-

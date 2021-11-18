@@ -1,6 +1,6 @@
 name: groupBy
 datastore: source
-dataContext:
+data:
   a:
     id: 1
 test:
@@ -285,7 +285,7 @@ test:
       - category: Seafood
         largestPrice: 62.5
   - name: groupBy 8
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-

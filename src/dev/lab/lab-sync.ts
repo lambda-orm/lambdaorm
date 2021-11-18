@@ -15,12 +15,12 @@ import path from 'path'
 		result = await orm.expression('Countries.deleteAll()').execute({}, ds.name)
 		result = await orm.expression('States.deleteAll()').execute({}, ds.name)
 
-		const data = await Helper.readFile(path.join(process.cwd(), '/labs/countries/data.json' as string))
-		const dataContext = JSON.parse(data as string)
+		const strData = await Helper.readFile(path.join(process.cwd(), '/labs/countries/data.json' as string))
+		const data = JSON.parse(strData as string)
 
-		result = await orm.expression('Countries.bulkInsert().include(p => p.states)').execute(dataContext, ds.name)
+		result = await orm.expression('Countries.bulkInsert().include(p => p.states)').execute(data, ds.name)
 
-		result = await orm.expression('Countries.map(p=>p).include(p => p.states)').execute(dataContext, ds.name)
+		result = await orm.expression('Countries.map(p=>p).include(p => p.states)').execute(data, ds.name)
 		console.log(JSON.stringify(result, null, 2))
 	} catch (error) {
 		console.error(`error: ${error}`)

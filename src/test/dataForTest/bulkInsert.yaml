@@ -1,6 +1,6 @@
 name: bulkInsert
 datastore: source
-dataContext:
+data:
   a:
     - name: Beverages4
       description: Soft drinks, coffees, teas, beers, and ales
@@ -86,7 +86,7 @@ dataContext:
       id: 836
 test:
   - name: bulkInsert 1
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
@@ -125,7 +125,7 @@ test:
       - 12
       - 13
   - name: bulkInsert 2
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: >-

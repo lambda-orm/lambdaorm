@@ -6,12 +6,12 @@ export class DatastoreExport extends DatastoreActionDML {
 	public async execute (): Promise<SchemaData> {
 		const schema = await this.getSchema()
 		const queries = await this.build(schema)
-		const context = {}
+		const data = {}
 		const schemaExport:SchemaData = { entities: [] }
 		await this.executor.transaction(this.datastore, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
-				const rows = await tr.execute(query, context)
+				const rows = await tr.execute(query, data)
 				schemaExport.entities.push({ entity: query.entity, rows: rows })
 			}
 		})

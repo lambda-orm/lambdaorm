@@ -1,6 +1,6 @@
 name: update
 datastore: source
-dataContext:
+data:
   a:
     id: 7
     customerId: ANATR
@@ -224,7 +224,7 @@ dataContext:
             discount: '0.0000'
 test:
   - name: update 1
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -350,7 +350,7 @@ test:
       - datastore: mariadb
     result: 0
   - name: update 2
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: >-
@@ -478,7 +478,7 @@ test:
       - datastore: mariadb
     result: 0
   - name: update 3
-    context: c
+    data: c
     sentences:
       - datastore: mysql
         sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
@@ -509,7 +509,7 @@ test:
         result: 831
     result: 833
   - name: update 4
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
@@ -546,7 +546,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: update 5
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: >-
@@ -611,7 +611,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: update 6
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: >-
@@ -673,7 +673,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: update 7
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: >-
@@ -731,7 +731,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: update 8
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -880,7 +880,7 @@ test:
       - datastore: mariadb
     result: 0
   - name: update 9
-    context: c
+    data: c
     sentences:
       - datastore: mysql
         sentence: >-

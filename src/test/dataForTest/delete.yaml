@@ -1,6 +1,6 @@
 name: delete
 datastore: source
-dataContext:
+data:
   a:
     id: 9
   b:
@@ -117,7 +117,7 @@ dataContext:
           discount: '0.0000'
 test:
   - name: delete 1
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
@@ -146,7 +146,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: delete 2
-    context: b
+    data: b
     sentences:
       - datastore: mysql
         sentence: >-
@@ -194,7 +194,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: delete 3
-    context: c
+    data: c
     sentences:
       - datastore: mysql
         sentence: >-
@@ -242,7 +242,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: delete 4
-    context: d
+    data: d
     sentences:
       - datastore: mysql
         sentence: >-
@@ -290,7 +290,7 @@ test:
       - datastore: mariadb
     result: 1
   - name: delete 4
-    context: d
+    data: d
     sentences:
       - datastore: mysql
         sentence: >-
@@ -331,7 +331,7 @@ test:
       - datastore: mariadb
     result: 0
   - name: delete 5
-    context: e
+    data: e
     sentences:
       - datastore: mysql
         sentence: >-

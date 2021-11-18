@@ -1,6 +1,6 @@
 name: include
 datastore: source
-dataContext:
+data:
   a:
     id: 1
     __parentId:
@@ -8,7 +8,7 @@ dataContext:
       - 60
 test:
   - name: include 1
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -195,7 +195,7 @@ test:
           postalCode: '12209'
           country: Germany
   - name: include 2
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -377,7 +377,7 @@ test:
             quantity: 2
             discount: 0
   - name: include 3
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -619,7 +619,7 @@ test:
           postalCode: '12209'
           country: Germany
   - name: include 4
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -900,7 +900,7 @@ test:
           postalCode: '12209'
           country: Germany
   - name: include 5
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -1217,7 +1217,7 @@ test:
           postalCode: '12209'
           country: Germany
   - name: include 6
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -1444,7 +1444,7 @@ test:
           postalCode: '12209'
           country: Germany
   - name: include 7
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -1714,7 +1714,7 @@ test:
           postalCode: '12209'
           country: Germany
   - name: include 8
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-

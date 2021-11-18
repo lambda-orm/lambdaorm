@@ -17,18 +17,18 @@ export class Executor {
 		this.configManager = configManager
 	}
 
-	public async execute (datastore: Datastore, query: Query, dataContext: any = {}): Promise<any> {
+	public async execute (datastore: Datastore, query: Query, data: any = {}): Promise<any> {
 		let error: any
 		let result:any
 		if (query.children && query.children.length > 0) {
 			await this.transaction(datastore, async function (tr: Transaction) {
-				result = await tr.execute(query, dataContext)
+				result = await tr.execute(query, data)
 			})
 		} else {
 			const schema = this.configManager.schema.getInstance(datastore.schema)
 			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, datastore, schema, false)
 			try {
-				result = await queryExecutor.execute(query, dataContext)
+				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
 				error = _error
 			} finally {

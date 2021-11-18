@@ -29,11 +29,11 @@ datastores:
 #   - name: source
 #     schema: northwind
 #     datastore: source
-#     routings:
+#     rules:
 #       - datastore: postgres
 #         entities: ["Countries"]
 #         actions: ["read"] # [create|read|update|delete]
-#         condition: entity == 'Countries' && value.code == 'ARG'
+#         condition: code == 'ARG'
 
 schemas:
   - name: northwind

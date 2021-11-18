@@ -1,11 +1,11 @@
 name: numeric functions
 datastore: source
-dataContext:
+data:
   a:
     id: 1
 test:
   - name: function abs
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -57,7 +57,7 @@ test:
         source: -18
         result: 18
   - name: function acos
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -106,7 +106,7 @@ test:
         source: 0.25
         result: 1.3181160717
   - name: function asin
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -155,7 +155,7 @@ test:
         source: 0.25
         result: 0.2526802551
   - name: function atan
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -204,7 +204,7 @@ test:
         source: 0.25
         result: 0.2449786631
   - name: function atan2
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -259,7 +259,7 @@ test:
         source: 0.5
         result: 0.2449786631
   - name: function ceil
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -314,7 +314,7 @@ test:
         source: 25.75
         result: 26
   - name: function cos
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -362,7 +362,7 @@ test:
         source: 2
         result: -0.4161468365
   - name: function exp
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -410,7 +410,7 @@ test:
         source: 1
         result: 2.7182818285
   - name: function floor
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -462,7 +462,7 @@ test:
         source: 25.75
         result: 25
   - name: function ln
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -513,7 +513,7 @@ test:
         source: 2
         result: 0.6931471806
   - name: function log
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -575,7 +575,7 @@ test:
         'n': 20
         result: 1.3010299957
   - name: function round
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -624,7 +624,7 @@ test:
         source: 135.375
         result: 135.38
   - name: function sign
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -676,7 +676,7 @@ test:
         source: 255.5
         result: 1
   - name: function tan
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-
@@ -724,7 +724,7 @@ test:
         source: 1.75
         result: -5.5203799225
   - name: function trunc
-    context: a
+    data: a
     sentences:
       - datastore: mysql
         sentence: >-

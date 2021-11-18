@@ -17,7 +17,7 @@ export interface SentenceTest {
 export interface ExpressionTest {
 	name: string
 	lambda: any
-	context?: any
+	data?: any
 	expression?: string
 	completeExpression?: string
 	model?: any
@@ -32,7 +32,7 @@ export interface ExpressionTest {
 export interface CategoryTest {
 	name: string
 	datastore: string
-	dataContext: any
+	data: any
 	test: ExpressionTest[]
 	errors?: number
 }
