@@ -77,7 +77,7 @@ This configuration can be done in a yaml, json file or passed as a parameter whe
 
 The schema defines how the entities of the model are mapped with the database tables.
 
-![schema](images/schema.png)
+![schema](images/schema.svg)
 
 [example lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
 
@@ -85,7 +85,7 @@ The schema defines how the entities of the model are mapped with the database ta
 
 In this scheme we can see how to extend entities.
 
-![schema](images/schema2.png)
+![schema](images/schema2.svg)
 
 To understand an entity we use the extends attribute in the definition of the entity
 
@@ -108,7 +108,7 @@ To understand an entity we use the extends attribute in the definition of the en
 
 In this scheme we can see how to extend the schema.
 
-![schema](images/schema3.png)
+![schema](images/schema3.svg)
 
 We use the extends attribute in the definition of the schema to extend it.
 
@@ -125,7 +125,7 @@ schemas:
 
 This schema has two entities that are in different databases.
 
-![schema](images/schema4.png)
+![schema](images/schema4.svg)
 
 The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
 
