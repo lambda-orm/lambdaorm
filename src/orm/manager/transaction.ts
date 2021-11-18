@@ -16,7 +16,7 @@ export class Transaction {
 	}
 
 	public async expression (expression:string, context:any):Promise<any> {
-		const query = await this.expressionManager.toQuery(expression, this.queryExecutor.database.name)
+		const query = await this.expressionManager.toQuery(expression, this.queryExecutor.datastore.name)
 		return await this.execute(query, context)
 	}
 

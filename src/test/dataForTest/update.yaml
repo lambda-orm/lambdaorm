@@ -1,5 +1,5 @@
 name: update
-database: source
+datastore: source
 dataContext:
   a:
     id: 7
@@ -226,25 +226,25 @@ test:
   - name: update 1
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
           ?,ShipCountry = ? WHERE o.OrderID = ? 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
           $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
           ?,ShipCountry = ? WHERE o.OrderID = ? 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET CustomerID = @customerId,EmployeeID =
           @employeeId,OrderDate = @orderDate,RequiredDate =
@@ -341,36 +341,36 @@ test:
       - name: country
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@obj".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 0
   - name: update 2
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
           ?,ShipCountry = ? WHERE o.OrderID = ? 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
           $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
           $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
           ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
           ?,ShipCountry = ? WHERE o.OrderID = ? 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET CustomerID = @entity.customerId,EmployeeID =
           @entity.employeeId,OrderDate = @entity.orderDate,RequiredDate =
@@ -469,24 +469,24 @@ test:
       - name: country
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@entity".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 0
   - name: update 3
     context: c
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
-      - database: postgres
+      - datastore: postgres
         sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
-      - database: mariadb
+      - datastore: mariadb
         sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
-      - database: mssql
+      - datastore: mssql
         sentence: 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
     errors: 1
     expression: Orders.updateAll(=>{postalCode:postalCode})
@@ -501,23 +501,23 @@ test:
       - name: postalCode
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result: 831
     result: 833
   - name: update 4
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-      - database: postgres
+      - datastore: postgres
         sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-      - database: mariadb
+      - datastore: mariadb
         sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
           @entity.id 
@@ -537,39 +537,39 @@ test:
       - name: name
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@entity".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 1
   - name: update 5
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
 
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
           ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
           ?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
 
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
           $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
           = $7) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
 
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
           ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
           ?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
           @entity.id 
@@ -602,39 +602,39 @@ test:
       - name: name
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@entity".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 1
   - name: update 6
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
 
           UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity =
           o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
           o1.ProductID = ?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
 
           UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity =
           o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
           o1.ProductID = $2) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
 
           UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity =
           o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
           o1.ProductID = ?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
           @entity.id 
@@ -664,36 +664,36 @@ test:
       - name: name
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@entity".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 1
   - name: update 7
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
 
           UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
           o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
 
           UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
           o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
 
           UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
           o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
           @entity.id 
@@ -722,18 +722,18 @@ test:
       - name: name
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@entity".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 1
   - name: update 8
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
@@ -743,7 +743,7 @@ test:
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
           ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
           ?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
           $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
@@ -753,7 +753,7 @@ test:
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
           $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
           = $7) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
           ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
@@ -763,7 +763,7 @@ test:
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
           ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
           ?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE o SET CustomerID = @customerId,EmployeeID =
           @employeeId,OrderDate = @orderDate,RequiredDate =
@@ -871,18 +871,18 @@ test:
       - name: country
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@obj".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 0
   - name: update 9
     context: c
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
           ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
@@ -896,7 +896,7 @@ test:
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
           ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
           ?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName =
           $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode =
@@ -910,7 +910,7 @@ test:
           UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
           $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
           = $7) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
           ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
@@ -924,7 +924,7 @@ test:
           UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
           ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
           ?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName =
           @contact,ContactTitle = @phone,Address = @address,City = @city,Region
@@ -1027,12 +1027,12 @@ test:
       - name: country
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _execute error: RequestError: Must declare the
           scalar variable "@obj".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 0
 errors: 9

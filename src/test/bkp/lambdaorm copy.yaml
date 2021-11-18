@@ -1,9 +1,9 @@
 path:
   src: path where the project code is located
   data: path where files generated in operations synchronization, export, import, etc. will be stored
-databases:
-  - name: name with which the database will be identified
-    schema: database schema name
+datastores:
+  - name: name with which the datastore will be identified
+    schema: datastore schema name
     dialect: [mysql|mariadb|postgres|mssql|oracle|mongo]
     connection: connectionString  | environment variable with the connectionString
 schemas:
@@ -12,12 +12,12 @@ schemas:
     enums: []
     entities:
       - name: name of entity
-        mapping: name table on database
+        mapping: name table on datastore
         primaryKey: []
         uniqueKey: []
         properties:
           - name: name of property
-            mapping: name field on database
+            mapping: name field on datastore
             type: [string|boolean|integer|decimal|datetime|date|time]
             nullable: [true|false]
             autoincrement: [true|false]

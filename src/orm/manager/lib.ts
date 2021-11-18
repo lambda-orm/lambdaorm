@@ -1,5 +1,5 @@
 import path from 'path'
-import { Config, Database, Schema, Entity, Property } from './../model'
+import { Config, Datastore, Schema, Entity, Property } from './../model'
 import { Helper } from './../helper'
 const yaml = require('js-yaml')
 
@@ -24,7 +24,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { app: { src: 'src', data: 'data', models: 'models' }, databases: [], schemas: [] }
+		let config: Config = { app: { src: 'src', data: 'data', models: 'models' }, datastores: [], schemas: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -59,7 +59,7 @@ export class LibManager {
 				config.app.models = 'models'
 			}
 		}
-		if (config.databases === undefined) config.databases = []
+		if (config.datastores === undefined) config.datastores = []
 		if (config.schemas === undefined) config.schemas = []
 		return config
 	}
@@ -76,24 +76,24 @@ export class LibManager {
 		}
 	}
 
-	public getDatabase (database:string|undefined, config:Config):Database {
-		// get database
-		let db:Database|undefined
-		if (database === undefined) {
-			if (config.databases.length === 1) {
-				db = config.databases[0]
-			} else if (config.databases.length > 1 && config.app.defaultDatabase !== undefined) {
-				db = config.databases.find(p => p.name === config.app.defaultDatabase)
+	public getDatastore (datastore:string|undefined, config:Config):Datastore {
+		// get datastore
+		let db:Datastore|undefined
+		if (datastore === undefined) {
+			if (config.datastores.length === 1) {
+				db = config.datastores[0]
+			} else if (config.datastores.length > 1 && config.app.defaultDatastore !== undefined) {
+				db = config.datastores.find(p => p.name === config.app.defaultDatastore)
 				if (db === undefined) {
-					throw new Error(`database: ${config.app.defaultDatabase} not found in config`)
+					throw new Error(`datastore: ${config.app.defaultDatastore} not found in config`)
 				}
 			} else {
-				throw new Error('the name argument with the name of the database is required')
+				throw new Error('the name argument with the name of the datastore is required')
 			}
 		} else {
-			db = config.databases.find(p => p.name === database)
+			db = config.datastores.find(p => p.name === datastore)
 			if (db === undefined) {
-				throw new Error(`database: ${database} not found in config`)
+				throw new Error(`datastore: ${datastore} not found in config`)
 			}
 		}
 		return db

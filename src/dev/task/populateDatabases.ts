@@ -2,28 +2,28 @@ import { orm, Helper } from './../../orm'
 
 async function schemaExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
-	const data = await orm.database.export(source).execute()
+	const data = await orm.datastore.export(source).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
 async function schemaImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
-	await orm.database.import(target).execute(data)
+	await orm.datastore.import(target).execute(data)
 }
 
-export async function apply (databases: string[], callback: any) {
+export async function apply (datastores: string[], callback: any) {
 	try {
 		await orm.init()
 
-		await orm.database.sync('source').execute()
+		await orm.datastore.sync('source').execute()
 		await schemaExport('source')
-		for (const p in databases) {
-			const database = databases[p]
-			await orm.database.clean(database).execute(true)
-			await orm.database.sync(database).execute()
-			await schemaImport('source', database)
-			await schemaExport(database)
+		for (const p in datastores) {
+			const datastore = datastores[p]
+			await orm.datastore.clean(datastore).execute(true)
+			await orm.datastore.sync(datastore).execute()
+			await schemaImport('source', datastore)
+			await schemaExport(datastore)
 		}
 		await orm.end()
 	} catch (error) {

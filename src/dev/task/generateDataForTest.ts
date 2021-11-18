@@ -19,7 +19,7 @@ async function exec (fn: any) {
 	return result
 }
 
-async function writeTest (databases: string[], category: CategoryTest): Promise<number> {
+async function writeTest (datastores: string[], category: CategoryTest): Promise<number> {
 	category.errors = 0
 	for (const q in category.test) {
 		const expressionTest = category.test[q] as ExpressionTest
@@ -29,66 +29,66 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 		try {
 			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
 			// expressionTest.lambda = expressionTest.lambda.toString()
-			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.database)
-			expressionTest.model = await orm.expression(expressionTest.expression).model(category.database)
-			const metadata: any = await orm.expression(expressionTest.expression).metadata(category.database)
+			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.datastore)
+			expressionTest.model = await orm.expression(expressionTest.expression).model(category.datastore)
+			const metadata: any = await orm.expression(expressionTest.expression).metadata(category.datastore)
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
-			for (const r in databases) {
-				const database = databases[r]
+			for (const r in datastores) {
+				const datastore = datastores[r]
 				let sentence
 				let error
 				try {
-					sentence = await orm.expression(expressionTest.expression).sentence(database)
+					sentence = await orm.expression(expressionTest.expression).sentence(datastore)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.sentences.push({ database: database, error: error })
+						expressionTest.sentences.push({ datastore: datastore, error: error })
 						expressionTest.errors++
 					} else if (sentence !== undefined) {
-						expressionTest.sentences.push({ database: database, sentence: sentence })
+						expressionTest.sentences.push({ datastore: datastore, sentence: sentence })
 					} else {
-						console.error('error sentence ' + database + ' ' + category.name + ':' + expressionTest.name)
+						console.error('error sentence ' + datastore + ' ' + category.name + ':' + expressionTest.name)
 					}
 				}
 			}
 			expressionTest.executions = []
 			const results: ExecutionResult[] = []
-			for (const p in databases) {
-				const database = databases[p]
+			for (const p in datastores) {
+				const datastore = datastores[p]
 				let result
 				let error
 				try {
 					// console.log(expressionTest.expression)
 					const context = expressionTest.context !== undefined ? category.dataContext[expressionTest.context] : {}
-					result = await orm.lambda(expressionTest.lambda).execute(context, database)
+					result = await orm.lambda(expressionTest.lambda).execute(context, datastore)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.executions.push({ database: database, error: error })
+						expressionTest.executions.push({ datastore: datastore, error: error })
 						expressionTest.errors++
 					} else if (result !== undefined) {
-						results.push({ database: database, result: result })
+						results.push({ datastore: datastore, result: result })
 					} else {
-						console.error('error execution ' + database + ' ' + category.name + ':' + expressionTest.name)
+						console.error('error execution ' + datastore + ' ' + category.name + ':' + expressionTest.name)
 					}
 				}
 			}
 			if (results.length === 1) {
 				expressionTest.result = results[0].result
-				expressionTest.executions.push({ database: results[0].database })
+				expressionTest.executions.push({ datastore: results[0].datastore })
 			} else if (results.length > 1) {
 				expressionTest.result = results[0].result
-				expressionTest.executions.push({ database: results[0].database })
+				expressionTest.executions.push({ datastore: results[0].datastore })
 				const pattern = JSON.stringify(results[0].result)
 				for (let i = 1; i < results.length; i++) {
 					const result = JSON.stringify(results[i].result)
 					if (result === pattern) {
-						expressionTest.executions.push({ database: results[i].database })
+						expressionTest.executions.push({ datastore: results[i].datastore })
 					} else {
-						expressionTest.executions.push({ database: results[i].database, error: `not equal ${results[0].database}`, result: results[i].result })
+						expressionTest.executions.push({ datastore: results[i].datastore, error: `not equal ${results[0].datastore}`, result: results[i].result })
 						expressionTest.errors++
 					}
 				}
@@ -115,10 +115,10 @@ async function writeTest (databases: string[], category: CategoryTest): Promise<
 	}
 	return category.errors
 }
-async function writeQueryTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeQueryTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'query',
-		database: 'source',
+		datastore: 'source',
 		dataContext: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -148,10 +148,10 @@ async function writeQueryTest (databases: string[]): Promise<number> {
 		]
 	})
 }
-async function writeNumeriFunctionsTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeNumeriFunctionsTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'numeric functions',
-		database: 'source',
+		datastore: 'source',
 		dataContext: { a: { id: 1 } },
 		test:
 			[
@@ -173,10 +173,10 @@ async function writeNumeriFunctionsTest (databases: string[]): Promise<number> {
 			]
 	})
 }
-async function writeGroupByTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeGroupByTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'groupBy',
-		database: 'source',
+		datastore: 'source',
 		dataContext: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
@@ -193,10 +193,10 @@ async function writeGroupByTest (databases: string[]): Promise<number> {
 			]
 	})
 }
-async function writeIncludeTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeIncludeTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'include',
-		database: 'source',
+		datastore: 'source',
 		dataContext: { a: { id: 1 } },
 		test:
 			[
@@ -211,10 +211,10 @@ async function writeIncludeTest (databases: string[]): Promise<number> {
 			]
 	})
 }
-async function writeInsertsTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeInsertsTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'inserts',
-		database: 'source',
+		datastore: 'source',
 		dataContext: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -267,10 +267,10 @@ async function writeInsertsTest (databases: string[]): Promise<number> {
 			]
 	})
 }
-async function writeUpdateTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeUpdateTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'update',
-		database: 'source',
+		datastore: 'source',
 		dataContext: {
 			a: {
 				id: 7,
@@ -570,10 +570,10 @@ async function writeUpdateTest (databases: string[]): Promise<number> {
 			]
 	})
 }
-async function writeDeleteTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeDeleteTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'delete',
-		database: 'source',
+		datastore: 'source',
 		dataContext: {
 			a: { id: 9 },
 			b: {
@@ -728,10 +728,10 @@ async function writeDeleteTest (databases: string[]): Promise<number> {
 	})
 }
 // TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details)
-async function writeBulkInsertTest (databases: string[]): Promise<number> {
-	return await writeTest(databases, {
+async function writeBulkInsertTest (datastores: string[]): Promise<number> {
+	return await writeTest(datastores, {
 		name: 'bulkInsert',
-		database: 'source',
+		datastore: 'source',
 		dataContext: {
 			a: [{
 				name: 'Beverages4',
@@ -992,38 +992,38 @@ async function bulkInsert2 () {
 
 async function schemaExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
-	const data = await orm.database.export(source).execute()
+	const data = await orm.datastore.export(source).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
 async function schemaImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
-	await orm.database.import(target).execute(data)
+	await orm.datastore.import(target).execute(data)
 }
 
-export async function apply (databases: string[], callback: any) {
+export async function apply (datastores: string[], callback: any) {
 	await orm.init()
 	let errors = 0
 
-	await orm.database.sync('source').execute()
+	await orm.datastore.sync('source').execute()
 	await schemaExport('source')
-	for (const p in databases) {
-		const database = databases[p]
-		await orm.database.clean(database).execute(true)
-		await orm.database.sync(database).execute()
-		await schemaImport('source', database)
-		await schemaExport(database)
+	for (const p in datastores) {
+		const datastore = datastores[p]
+		await orm.datastore.clean(datastore).execute(true)
+		await orm.datastore.sync(datastore).execute()
+		await schemaImport('source', datastore)
+		await schemaExport(datastore)
 	}
 
-	errors = +await writeQueryTest(databases)
-	errors = +await writeNumeriFunctionsTest(databases)
-	errors = +await writeGroupByTest(databases)
-	errors = +await writeIncludeTest(databases)
-	errors = +await writeInsertsTest(databases)
-	errors = +await writeUpdateTest(databases)
-	errors = +await writeDeleteTest(databases)
-	errors = +await writeBulkInsertTest(databases)
+	errors = +await writeQueryTest(datastores)
+	errors = +await writeNumeriFunctionsTest(datastores)
+	errors = +await writeGroupByTest(datastores)
+	errors = +await writeIncludeTest(datastores)
+	errors = +await writeInsertsTest(datastores)
+	errors = +await writeUpdateTest(datastores)
+	errors = +await writeDeleteTest(datastores)
+	errors = +await writeBulkInsertTest(datastores)
 
 	// //operators comparation , matematica
 	// //string functions

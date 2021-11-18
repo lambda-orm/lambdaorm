@@ -1,22 +1,22 @@
-import { Database, Query } from '../model'
-import { LanguageManager } from './../language'
-import { ConfigManager, ExpressionManager, Executor } from './../manager'
-import { DatabaseState } from './databaseState'
+import { Datastore, Query } from '../model'
+import { LanguageManager } from '../language'
+import { ConfigManager, ExpressionManager, Executor } from '../manager'
+import { DatastoreState } from './datastoreState'
 
-export abstract class DatabaseActionDDL {
-	protected state: DatabaseState
+export abstract class DatastoreActionDDL {
+	protected state: DatastoreState
 	protected configManager: ConfigManager
 	protected expressionManager: ExpressionManager
 	protected languageManager: LanguageManager
 	protected executor: Executor
-	protected database: Database
-	constructor (state:DatabaseState, configManager: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, database:Database) {
+	protected datastore: Datastore
+	constructor (state:DatastoreState, configManager: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, datastore:Datastore) {
 		this.state = state
 		this.configManager = configManager
 		this.expressionManager = expressionManager
 		this.languageManager = languageManager
 		this.executor = executor
-		this.database = database
+		this.datastore = datastore
 	}
 
 	abstract queries(): Promise<Query[]>

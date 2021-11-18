@@ -1,5 +1,5 @@
 name: inserts
-database: source
+datastore: source
 dataContext:
   a:
     name: Beverages20
@@ -46,15 +46,15 @@ test:
   - name: insert 1
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
-      - database: mariadb
+      - datastore: mariadb
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) OUTPUT
           INSERTED.CategoryID VALUES(@name,@description)
@@ -77,22 +77,22 @@ test:
       - name: description
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 9
   - name: insert 2
     context: b
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
-      - database: mariadb
+      - datastore: mariadb
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) OUTPUT
           INSERTED.CategoryID VALUES(@name,@description)
@@ -115,22 +115,22 @@ test:
       - name: description
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 10
   - name: insert 3
     context: c
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
           RETURNING CategoryID AS id
-      - database: mariadb
+      - datastore: mariadb
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           INSERT INTO Categories(CategoryName,Description) OUTPUT
           INSERTED.CategoryID VALUES(@entity.name,@entity.description)
@@ -153,34 +153,34 @@ test:
       - name: description
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Must declare the
           scalar variable "@entity".
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 11
   - name: insert 4
     context: order
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
           VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
           AS id
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
           VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -272,14 +272,14 @@ test:
       - name: country
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 831
   - name: insert 5
     context: order
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -288,7 +288,7 @@ test:
           INSERT INTO `Order
           Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES(?,?,?,?,?)
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -298,7 +298,7 @@ test:
           INSERT INTO "Order
           Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -307,7 +307,7 @@ test:
           INSERT INTO `Order
           Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
           VALUES(?,?,?,?,?)
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -409,18 +409,18 @@ test:
       - name: country
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near '.0'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 832
   - name: insert 6
     context: order
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -433,7 +433,7 @@ test:
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES(?,?,?,?,?,?,?,?,?)
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -447,7 +447,7 @@ test:
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -460,7 +460,7 @@ test:
           INSERT INTO
           Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
           VALUES(?,?,?,?,?,?,?,?,?)
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -577,12 +577,12 @@ test:
       - name: country
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Incorrect syntax
           near '.0'.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result: 833
 errors: 3

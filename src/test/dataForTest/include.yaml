@@ -1,5 +1,5 @@
 name: include
-database: source
+datastore: source
 dataContext:
   a:
     id: 1
@@ -10,7 +10,7 @@ test:
   - name: include 1
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -26,7 +26,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -42,7 +42,7 @@ test:
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -58,7 +58,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -139,10 +139,10 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
@@ -197,7 +197,7 @@ test:
   - name: include 2
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -211,7 +211,7 @@ test:
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
           `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
           o1.OrderID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -225,7 +225,7 @@ test:
           o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity", o1.Discount AS
           "discount", o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
           o1.OrderID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -239,7 +239,7 @@ test:
           o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`, o1.Discount AS
           `discount`, o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
           o1.OrderID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -314,10 +314,10 @@ test:
       - name: __id
         type: integer
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
@@ -379,7 +379,7 @@ test:
   - name: include 3
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -400,7 +400,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -421,7 +421,7 @@ test:
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -442,7 +442,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -536,10 +536,10 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
@@ -621,7 +621,7 @@ test:
   - name: include 4
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -649,7 +649,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -677,7 +677,7 @@ test:
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -705,7 +705,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -818,13 +818,13 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
@@ -902,7 +902,7 @@ test:
   - name: include 5
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -935,7 +935,7 @@ test:
           c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
           `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
           FROM Customers c1  WHERE  c1.CustomerID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -968,7 +968,7 @@ test:
           c1.City AS "city", c1.Region AS "region", c1.PostalCode AS
           "postalCode", c1.Country AS "country", c1.CustomerID AS "__parentId"
           FROM Customers c1  WHERE  c1.CustomerID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1001,7 +1001,7 @@ test:
           c1.City AS `city`, c1.Region AS `region`, c1.PostalCode AS
           `postalCode`, c1.Country AS `country`, c1.CustomerID AS `__parentId`
           FROM Customers c1  WHERE  c1.CustomerID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1123,13 +1123,13 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
@@ -1219,7 +1219,7 @@ test:
   - name: include 6
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1239,7 +1239,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1259,7 +1259,7 @@ test:
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1279,7 +1279,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1371,10 +1371,10 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mysql
-      - database: postgres
-      - database: mariadb
-      - database: mssql
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
+      - datastore: mssql
         error: not equal mysql
         result:
           - id: 1
@@ -1446,7 +1446,7 @@ test:
   - name: include 7
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1473,7 +1473,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1500,7 +1500,7 @@ test:
           AS "city", c.Region AS "region", c.PostalCode AS "postalCode",
           c.Country AS "country", c.CustomerID AS "__parentId" FROM Customers c 
           WHERE  c.CustomerID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1527,7 +1527,7 @@ test:
           AS `city`, c.Region AS `region`, c.PostalCode AS `postalCode`,
           c.Country AS `country`, c.CustomerID AS `__parentId` FROM Customers c 
           WHERE  c.CustomerID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1638,13 +1638,13 @@ test:
       - name: __customerId
         type: string
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI
@@ -1716,7 +1716,7 @@ test:
   - name: include 8
     context: a
     sentences:
-      - database: mysql
+      - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1740,7 +1740,7 @@ test:
 
           SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
           Categories c1  WHERE  c1.CategoryID IN (?) 
-      - database: postgres
+      - datastore: postgres
         sentence: >-
           SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
           AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1764,7 +1764,7 @@ test:
 
           SELECT c1.CategoryName AS "name", c1.CategoryID AS "__parentId" FROM
           Categories c1  WHERE  c1.CategoryID IN ($1) 
-      - database: mariadb
+      - datastore: mariadb
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1788,7 +1788,7 @@ test:
 
           SELECT c1.CategoryName AS `name`, c1.CategoryID AS `__parentId` FROM
           Categories c1  WHERE  c1.CategoryID IN (?) 
-      - database: mssql
+      - datastore: mssql
         sentence: >-
           SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
           AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
@@ -1879,13 +1879,13 @@ test:
       - name: __id
         type: integer
     executions:
-      - database: mssql
+      - datastore: mssql
         error: >-
           Error: Mssql connection _query error: RequestError: Conversion failed
           when converting the nvarchar value '49,60' to data type int.
-      - database: mysql
-      - database: postgres
-      - database: mariadb
+      - datastore: mysql
+      - datastore: postgres
+      - datastore: mariadb
     result:
       - id: 1
         customerId: ALFKI

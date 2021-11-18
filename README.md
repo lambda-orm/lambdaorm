@@ -77,15 +77,15 @@ This configuration can be done in a yaml, json file or passed as a parameter whe
 
 The schema defines how the entities of the model are mapped with the database tables.
 
-![schema](images/schema.png)
+![schema](images/schema.svg)
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
 
 #### Extend entities
 
 In this scheme we can see how to extend entities.
 
-![schema](images/schema2.png)
+![schema](images/schema2.svg)
 
 To understand an entity we use the extends attribute in the definition of the entity
 
@@ -102,13 +102,13 @@ To understand an entity we use the extends attribute in the definition of the en
       extends: Positions
 ```
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
 
 #### Extend schemas
 
 In this scheme we can see how to extend the schema.
 
-![schema](images/schema3.png)
+![schema](images/schema3.svg)
 
 We use the extends attribute in the definition of the schema to extend it.
 
@@ -119,13 +119,13 @@ schemas:
     extends: countries
 ```
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
 
 #### One schema related multiples databases
 
 This schema has two entities that are in different databases.
 
-![schema](images/schema4.png)
+![schema](images/schema4.svg)
 
 The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
 
@@ -134,7 +134,7 @@ The database attribute is used in the entity to be able to specify that an entit
   database: mydb2
 ```
 
-[exmaple lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
+[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
 
 ### Config
 

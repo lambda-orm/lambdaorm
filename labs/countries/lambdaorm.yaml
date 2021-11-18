@@ -2,8 +2,8 @@ app:
   src: src
   data: data
   models: models
-  defaultDatabase: mydb
-databases:
+  defaultDatastore: mydb
+datastores:
   - name: mydb
     dialect: mysql
     schema: countries
@@ -50,7 +50,7 @@ schemas:
             to: countryCode
       - name: States
         extends: Positions
-        database: mydb2
+        datastore: mydb2
         primaryKey: ["id"]
         uniqueKey: ["countryCode", "name"]
         properties:
