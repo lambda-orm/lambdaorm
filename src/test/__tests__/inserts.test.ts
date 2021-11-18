@@ -114,6 +114,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@name,@description)'
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert(=>{name:name,description:description})'
@@ -125,6 +133,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@name,@description)'
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
@@ -136,6 +152,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@entity.name,@entity.description)'
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('insert 4', async () => {
 		const expression = 'Orders.insert()'
@@ -147,6 +171,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)'
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)'
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert().include(p=>p.details)'
@@ -158,6 +190,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?); INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)'
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country); INSERT INTO [Order Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)'
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p=>[p.details,p.customer])'
@@ -169,5 +209,13 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?); INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?); INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)'
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country); INSERT INTO [Order Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount); INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) OUTPUT INSERTED.0 VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)'
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 })

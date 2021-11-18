@@ -15,16 +15,16 @@ dataContext:
   order:
     customerId: VINET
     employeeId: 5
-    orderDate: "1996-07-03T22:00:00.000Z"
-    requiredDate: "1996-07-31T22:00:00.000Z"
-    shippedDate: "1996-07-15T22:00:00.000Z"
+    orderDate: '1996-07-03T22:00:00.000Z'
+    requiredDate: '1996-07-31T22:00:00.000Z'
+    shippedDate: '1996-07-15T22:00:00.000Z'
     shipViaId: 3
     freight: 32.38
     name: Vins et alcools Chevalier
     address: 59 rue de l-Abbaye
     city: Reims
     region: null
-    postalCode: "51100"
+    postalCode: '51100'
     country: France
     details:
       - productId: 11
@@ -213,13 +213,13 @@ test:
         value: 5
       - name: orderDate
         type: datetime
-        value: "1996-07-04 00:00:00"
+        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: "1996-08-01 00:00:00"
+        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: "1996-07-16 00:00:00"
+        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -240,7 +240,7 @@ test:
         value: null
       - name: postalCode
         type: string
-        value: "51100"
+        value: '51100'
       - name: country
         type: string
         value: France
@@ -350,13 +350,13 @@ test:
         value: 5
       - name: orderDate
         type: datetime
-        value: "1996-07-04 00:00:00"
+        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: "1996-08-01 00:00:00"
+        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: "1996-07-16 00:00:00"
+        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -377,7 +377,7 @@ test:
         value: null
       - name: postalCode
         type: string
-        value: "51100"
+        value: '51100'
       - name: country
         type: string
         value: France
@@ -518,13 +518,13 @@ test:
         value: 5
       - name: orderDate
         type: datetime
-        value: "1996-07-04 00:00:00"
+        value: '1996-07-04 00:00:00'
       - name: requiredDate
         type: datetime
-        value: "1996-08-01 00:00:00"
+        value: '1996-08-01 00:00:00'
       - name: shippedDate
         type: datetime
-        value: "1996-07-16 00:00:00"
+        value: '1996-07-16 00:00:00'
       - name: shipViaId
         type: integer
         value: 3
@@ -545,7 +545,7 @@ test:
         value: null
       - name: postalCode
         type: string
-        value: "51100"
+        value: '51100'
       - name: country
         type: string
         value: France

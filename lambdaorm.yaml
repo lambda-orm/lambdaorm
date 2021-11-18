@@ -24,6 +24,17 @@ datastores:
     schema: northwind
     dialect: mssql
     connection: $ORM_CNN_MSSQL
+
+# context:
+#   - name: source
+#     schema: northwind
+#     datastore: source
+#     routings:
+#       - datastore: postgres
+#         entities: ["Countries"]
+#         actions: ["read"] # [create|read|update|delete]
+#         condition: entity == 'Countries' && value.code == 'ARG'
+
 schemas:
   - name: northwind
     enums:

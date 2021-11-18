@@ -354,6 +354,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 2', async () => {
 		const expression = 'Products.map(p=>p).page(1,1)'
@@ -365,6 +373,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 3', async () => {
 		const expression = 'Products.page(1,1)'
@@ -376,6 +392,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 4', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)'
@@ -387,6 +411,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID = ? ORDER BY `id` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID = @id ORDER BY [id] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 5', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).sort(p=>p.id)'
@@ -398,6 +430,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID = ? ORDER BY `id` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.ProductID = @id ORDER BY [id] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 6', async () => {
 		const expression = 'Products.map(p=>p.category.name)'
@@ -409,6 +449,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT c.CategoryName AS `category_name` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT c.CategoryName AS [category_name] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 7', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)'
@@ -420,6 +468,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT c.CategoryName AS `category`, p.ProductName AS `name`, p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `name` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT c.CategoryName AS [category], p.ProductName AS [name], p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY [name] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 8', async () => {
 		const expression = 'Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])'
@@ -431,6 +487,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT c.CategoryName AS `category`, p.ProductName AS `name`, p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> FALSE ORDER BY `category`, `name` desc '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT c.CategoryName AS [category], p.ProductName AS [name], p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> 0 ORDER BY [category], [name] desc '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 9', async () => {
 		const expression = 'OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])'
@@ -442,6 +506,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT c.CategoryName AS `category`, p.ProductName AS `product`, o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ORDER BY `category`, `product` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT c.CategoryName AS [category], p.ProductName AS [product], o.UnitPrice AS [unitPrice], o.Quantity AS [quantity] FROM [Order Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN @from AND @to AND o.UnitPrice > @minValue) ORDER BY [category], [product] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 10', async () => {
 		const expression = 'OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)'
@@ -453,6 +525,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 - (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o  GROUP BY o.OrderID ORDER BY `orderId` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT o.OrderID AS [orderId], SUM(((o.UnitPrice * (o.Quantity * (1 - (o.Discount / 100)))) * 100)) AS [subTotal] FROM [Order Details] o  GROUP BY o.OrderID ORDER BY [orderId] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 11', async () => {
 		const expression = 'Products.page(1,1)'
@@ -464,6 +544,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 12', async () => {
 		const expression = 'Products.first(p=>p)'
@@ -475,6 +563,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  ORDER BY [id] LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 13', async () => {
 		const expression = 'Products.last(p=>p)'
@@ -486,6 +582,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  ORDER BY `id` desc LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  ORDER BY [id] desc LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 14', async () => {
 		const expression = 'Products.take(p=>p)'
@@ -497,6 +601,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 15', async () => {
 		const expression = 'Products.page(1,1)'
@@ -508,6 +620,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 16', async () => {
 		const expression = 'Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})'
@@ -519,6 +639,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT c.CategoryName AS `category`, p.ProductName AS `name`, p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT c.CategoryName AS [category], p.ProductName AS [name], p.QuantityPerUnit AS [quantity], p.UnitsInStock AS [inStock] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 17', async () => {
 		const expression = 'Products.filter(p=>(p.discontinued!==false)).last(p=>p)'
@@ -530,6 +658,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued <> FALSE ORDER BY `id` desc LIMIT 0,1  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  WHERE p.Discontinued <> 0 ORDER BY [id] desc LIMIT 0,1  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 18', async () => {
 		const expression = 'Products.distinct(p=>p)'
@@ -541,6 +677,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT DISTINCT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`, p.Discontinued AS `discontinued` FROM Products p  '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT DISTINCT p.ProductID AS [id], p.ProductName AS [name], p.SupplierID AS [supplierId], p.CategoryID AS [categoryId], p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price], p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder], p.ReorderLevel AS [reorderLevel], p.Discontinued AS [discontinued] FROM Products p  '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 19', async () => {
 		const expression = 'Products.distinct(p=>p.category.name)'
@@ -552,6 +696,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT DISTINCT c.CategoryName AS `category_name` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT DISTINCT c.CategoryName AS [category_name] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 20', async () => {
 		const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>p.category)'
@@ -563,6 +715,14 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT DISTINCT p.QuantityPerUnit AS `quantity`, c.CategoryName AS `category` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `category` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT DISTINCT p.QuantityPerUnit AS [quantity], c.CategoryName AS [category] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY [category] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 	test('query 21', async () => {
 		const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
@@ -574,5 +734,13 @@ describe('Sentences', () => {
 		let postgres =  await orm.expression(expression).sentence('postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'SELECT DISTINCT c.CategoryName AS `category` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY `category` '
+		let mariadb =  await orm.expression(expression).sentence('mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
+		const mssqlExpected = 'SELECT DISTINCT c.CategoryName AS [category] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY [category] '
+		let mssql =  await orm.expression(expression).sentence('mssql')
+		mssql=Helper.replace(mssql,'\n','; ')
+		expect(mssqlExpected).toBe(mssql)
 	})
 })
