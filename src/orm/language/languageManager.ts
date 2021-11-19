@@ -1,7 +1,7 @@
 
 import { Node, ExpressionConfig } from './../parser/index'
 import { Data, Query, Include } from './../model'
-import { SchemaHelper } from './../manager'
+import { ConfigManager } from './../manager'
 import { Language } from './language'
 import { OperandManager } from './operandManager'
 import { Operand, Sentence } from './operands'
@@ -12,16 +12,18 @@ import { LanguageDMLBuilder } from '../manager/dmlBuilder'
 import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 
 export class LanguageManager {
-	public dialects:any
+	public dialects: any
+	private config: ConfigManager
 	public expressionConfig:ExpressionConfig
 	public metadata:OperandMetadata
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (expressionConfig:ExpressionConfig) {
+	constructor (config: ConfigManager, expressionConfig: ExpressionConfig) {
+		this.config = config
 		this.expressionConfig = expressionConfig
 		this.metadata = new OperandMetadata()
-		this.operandManager = new OperandManager(this)
+		this.operandManager = new OperandManager(config, this)
 
 		this.languages = {}
 		this.dialects = {}
@@ -45,8 +47,8 @@ export class LanguageManager {
 		return this.get(dialect).metadata(dialect)
 	}
 
-	public build (node:Node, schema:SchemaHelper): Operand {
-		return this.operandManager.build(node, schema)
+	public build (node:Node): Operand {
+		return this.operandManager.build(node)
 	}
 
 	public model (sentence:Sentence):any {

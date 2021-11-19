@@ -56,7 +56,7 @@ export class Orm implements IOrm {
 		// const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())
 		// nosqlLanguage.addLibrary({ name: 'nosql', dialects: nosqlConfig.dialects })
 
-		this.languageManager = new LanguageManager(this.expressionConfig)
+		this.languageManager = new LanguageManager(this.configManager, this.expressionConfig)
 		this.languageManager.addLibrary(new CoreLib())
 		this.languageManager.add(sqlLanguage)
 		// this.languageManager.add(nosqlLanguage)

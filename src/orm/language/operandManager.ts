@@ -1,7 +1,7 @@
 
 import { Node } from './../parser/index'
 import { Property, Parameter, Data } from './../model'
-import { SchemaHelper } from './../manager'
+import { ConfigManager } from './../manager'
 import {
 	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
 	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
@@ -41,14 +41,16 @@ class ExpressionContext {
 	}
 }
 export class OperandManager {
-	private language:LanguageManager
-	constructor (language:LanguageManager) {
+	private language: LanguageManager
+	private config: ConfigManager
+	constructor (config: ConfigManager, language: LanguageManager) {
+		this.config = config
 		this.language = language
 	}
 
-	public build (node:Node, schema:SchemaHelper):Sentence {
+	public build (node:Node):Sentence {
 		try {
-			const sentece = this.nodeToOperand(node, schema, new ExpressionContext(new EntityContext())) as Sentence
+			const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
 			const reduced = this.reduce(sentece)
 			return this.setParent(reduced) as Sentence
 		} catch (error) {
@@ -213,21 +215,21 @@ export class OperandManager {
 		}
 	}
 
-	private nodeToOperand (node:Node, schema:SchemaHelper, expressionContext:ExpressionContext):Operand {
+	private nodeToOperand (node:Node, expressionContext:ExpressionContext):Operand {
 		let operand:Operand
 		if (node.type === 'arrow' || node.type === 'childFunc') {
-			operand = this.createSentence(node, schema, expressionContext)
+			operand = this.createSentence(node, expressionContext)
 		} else {
 			const children:Operand[] = []
 			if (node.children) {
 				for (const i in node.children) {
 					const p = node.children[i]
-					const child = this.nodeToOperand(p, schema, expressionContext)
+					const child = this.nodeToOperand(p, expressionContext)
 
 					children.push(child)
 				}
 			}
-			operand = this.createOperand(node, children, schema, expressionContext)
+			operand = this.createOperand(node, children, expressionContext)
 			for (let i = 0; i < children.length; i++) {
 				const child = children[i]
 				child.parent = operand
@@ -237,7 +239,7 @@ export class OperandManager {
 		return operand
 	}
 
-	private createOperand (node:Node, children:Operand[], schema:SchemaHelper, expressionContext:ExpressionContext):Operand {
+	private createOperand (node:Node, children:Operand[], expressionContext:ExpressionContext):Operand {
 		switch (node.type) {
 		case 'const':
 			return new Constant(node.name)
@@ -252,11 +254,11 @@ export class OperandManager {
 					if (_field) {
 						return new Field(expressionContext.current.entity, _field.name, _field.type, _field.name)
 					} else {
-						if (schema.existsProperty(expressionContext.current.entity, parts[1])) {
-							const property = schema.getProperty(expressionContext.current.entity, parts[1])
+						if (this.config.model.existsProperty(expressionContext.current.entity, parts[1])) {
+							const property = this.config.model.getProperty(expressionContext.current.entity, parts[1])
 							return new Field(expressionContext.current.entity, property.name, property.type, expressionContext.current.alias + '.' + property.mapping)
 						} else {
-							const relationInfo = schema.getRelation(expressionContext.current.entity, parts[1])
+							const relationInfo = this.config.model.getRelation(expressionContext.current.entity, parts[1])
 							if (relationInfo) {
 								const relation = this.addJoins(parts, parts.length, expressionContext)
 								const relationAlias = expressionContext.current.joins[relation]
@@ -270,7 +272,7 @@ export class OperandManager {
 				} else {
 					const propertyName = parts[parts.length - 1]
 					const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-					const info = schema.getRelation(expressionContext.current.entity, relation)
+					const info = this.config.model.getRelation(expressionContext.current.entity, relation)
 					const relationAlias = expressionContext.current.joins[relation]
 					const property = info.relationSchema.property[propertyName]
 					if (property) {
@@ -306,12 +308,12 @@ export class OperandManager {
 		}
 	}
 
-	private createSentence (node:Node, schema:SchemaHelper, expressionContext:ExpressionContext):Sentence {
+	private createSentence (node:Node, expressionContext:ExpressionContext):Sentence {
 		expressionContext.current = new EntityContext(expressionContext.current)
 		let createInclude:any
 		const clauses:any = this.getSentence(node)
 		expressionContext.current.entity = clauses.from.name
-		expressionContext.current.metadata = schema.getEntity(expressionContext.current.entity)
+		expressionContext.current.metadata = this.config.model.getEntity(expressionContext.current.entity)
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entity)
 		let name = ''
 		const children:Operand[] = []
@@ -321,7 +323,7 @@ export class OperandManager {
 			// TODO: Si la sentencia es Select, Update o Delete y la entidad tienen una o mas propiedades con key.
 			// Se debe agregar el filtro por esta key
 			const clause = clauses.filter
-			operand = this.createClause(clause, schema, expressionContext)
+			operand = this.createClause(clause, expressionContext)
 			children.push(operand)
 		}
 		if (clauses.from) {
@@ -335,21 +337,21 @@ export class OperandManager {
 			name = 'insert'
 			createInclude = this.createInclude
 			const clause = clauses.insert as Node
-			operand = this.createInsertClause(clause, schema, expressionContext)
+			operand = this.createInsertClause(clause, expressionContext)
 			expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
 			children.push(operand)
 		} else if (clauses.bulkInsert) {
 			name = 'bulkInsert'
 			createInclude = this.createInclude
 			const clause = clauses.bulkInsert as Node
-			operand = this.createInsertClause(clause, schema, expressionContext)
+			operand = this.createInsertClause(clause, expressionContext)
 			expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
 			children.push(operand)
 		} else if (clauses.update) {
 			name = 'update'
 			createInclude = this.createInclude
 			const clause = clauses.update as Node
-			operand = this.createUpdateClause(clause, schema, expressionContext)
+			operand = this.createUpdateClause(clause, expressionContext)
 			expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
 			children.push(operand)
 		} else if (clauses.delete) {
@@ -362,7 +364,7 @@ export class OperandManager {
 			name = 'select'
 			createInclude = this.createSelectInclude
 			const clause = clauses.map
-			operand = this.createMapClause(clause, schema, expressionContext)
+			operand = this.createMapClause(clause, expressionContext)
 			expressionContext.current.fields = this.fieldsInSelect(operand)
 			expressionContext.current.groupByFields = this.groupByFields(operand)
 			children.push(operand)
@@ -383,17 +385,17 @@ export class OperandManager {
 			}
 			if (clauses.having) {
 				const clause = clauses.having
-				operand = this.createClause(clause, schema, expressionContext)
+				operand = this.createClause(clause, expressionContext)
 				children.push(operand)
 			}
 			if (clauses.sort) {
 				const clause = clauses.sort
-				operand = this.createClause(clause, schema, expressionContext)
+				operand = this.createClause(clause, expressionContext)
 				children.push(operand)
 			}
 			if (clauses.page) {
 				const clause = clauses.page
-				const childs = clause.children.map((p:Node) => this.nodeToOperand(p, schema, expressionContext))
+				const childs = clause.children.map((p:Node) => this.nodeToOperand(p, expressionContext))
 				operand = new Page(clause.name, childs)
 				children.push(operand)
 			}
@@ -405,11 +407,11 @@ export class OperandManager {
 			expressionContext.current.arrowVar = clause.children[1].name
 			const body = clause.children[2]
 			if (body.type === 'array') {
-				for (let i = 0; i < body.children.length; i++) { children.push(createInclude.bind(this)(body.children[i], schema, expressionContext)) }
-			} else { children.push(createInclude.bind(this)(body, schema, expressionContext)) }
+				for (let i = 0; i < body.children.length; i++) { children.push(createInclude.bind(this)(body.children[i], expressionContext)) }
+			} else { children.push(createInclude.bind(this)(body, expressionContext)) }
 		}
 		for (const key in expressionContext.current.joins) {
-			const info = schema.getRelation(expressionContext.current.entity, key)
+			const info = this.config.model.getRelation(expressionContext.current.entity, key)
 
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
 			const relatedProperty = info.previousSchema.property[info.relationData.from]
@@ -432,9 +434,9 @@ export class OperandManager {
 		return sentence
 	}
 
-	private createClause (clause:Node, schema:SchemaHelper, expressionContext:ExpressionContext):Operand {
+	private createClause (clause:Node, expressionContext:ExpressionContext):Operand {
 		expressionContext.current.arrowVar = clause.children[1].name
-		const child = this.nodeToOperand(clause.children[2], schema, expressionContext)
+		const child = this.nodeToOperand(clause.children[2], expressionContext)
 		switch (clause.name) {
 		case 'filter': return new Filter(clause.name, [child])
 		case 'having': return new Having(clause.name, [child])
@@ -443,49 +445,49 @@ export class OperandManager {
 		}
 	}
 
-	private createMapClause (clause:Node, schema:SchemaHelper, expressionContext:ExpressionContext):Operand {
+	private createMapClause (clause:Node, expressionContext:ExpressionContext):Operand {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.nodeToOperand(clause.children[2], schema, expressionContext)
+			const child = this.nodeToOperand(clause.children[2], expressionContext)
 			return new Map(clause.name, [child])
 		}
 		throw new Error('Sentence Map incorrect!!!')
 	}
 
-	private createInsertClause (clause:Node, schema:SchemaHelper, expressionContext:ExpressionContext):Operand {
+	private createInsertClause (clause:Node, expressionContext:ExpressionContext):Operand {
 		if (clause.children.length === 2) {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === 'obj') {
-				const child = this.nodeToOperand(clause.children[1], schema, expressionContext)
+				const child = this.nodeToOperand(clause.children[1], expressionContext)
 				return new Insert(expressionContext.current.metadata.mapping, [child], clause.name)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		} else if (clause.children.length === 3) {
 			// Example: Categories.insert(() => ({ name: name, description: description }))
 			if (clause.children[2].type === 'obj') {
-				const child = this.nodeToOperand(clause.children[2], schema, expressionContext)
+				const child = this.nodeToOperand(clause.children[2], expressionContext)
 				return new Insert(expressionContext.current.metadata.mapping, [child], clause.name)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		}
 		throw new Error('Sentence Insert incorrect!!!')
 	}
 
-	private createUpdateClause (clause:Node, schema:SchemaHelper, expressionContext:ExpressionContext):Operand {
+	private createUpdateClause (clause:Node, expressionContext:ExpressionContext):Operand {
 		if (clause.children.length === 2) {
 			if (clause.children[1].type === 'obj') {
 				// Example: Orders.update({name:'test'})
-				const child = this.nodeToOperand(clause.children[1], schema, expressionContext)
+				const child = this.nodeToOperand(clause.children[1], expressionContext)
 				return new Update(expressionContext.current.metadata.mapping + '.' + expressionContext.current.alias, [child])
 			} else { throw new Error('Args incorrect in Sentence Update') }
 		} else if (clause.children.length === 3) {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.nodeToOperand(clause.children[2], schema, expressionContext)
+			const child = this.nodeToOperand(clause.children[2], expressionContext)
 			return new Update(expressionContext.current.metadata.mapping + '.' + expressionContext.current.alias, [child])
 		}
 		throw new Error('Sentence Update incorrect!!!')
 	}
 
-	private createSelectInclude (node:Node, schema:SchemaHelper, expressionContext:ExpressionContext):SentenceInclude {
+	private createSelectInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
 		let relation:any
 		let current = node
 		while (current) {
@@ -499,12 +501,12 @@ export class OperandManager {
 			}
 			if (current.children.length > 0) { current = current.children[0] } else { break }
 		}
-		const child = this.createSentence(node, schema, expressionContext)
+		const child = this.createSentence(node, expressionContext)
 		// return new SentenceInclude(relation.name, [child], relation, '__parentId')
 		return new SentenceInclude(relation.name, [child], relation)
 	}
 
-	private createInclude (node:Node, schema:SchemaHelper, expressionContext:ExpressionContext):SentenceInclude {
+	private createInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
 		let relation:any; let relationName = ''
 		let current = node
 		while (current) {
@@ -518,7 +520,7 @@ export class OperandManager {
 			}
 			if (current.children.length > 0) { current = current.children[0] } else { break }
 		}
-		const child = this.createSentence(node, schema, expressionContext)
+		const child = this.createSentence(node, expressionContext)
 		// return new SentenceInclude(relationName, [child], relation, relation.to)
 		return new SentenceInclude(relationName, [child], relation)
 	}

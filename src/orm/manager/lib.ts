@@ -1,5 +1,5 @@
 import path from 'path'
-import { Config, Datastore, Schema, Entity, Property } from './../model'
+import { Config, Datastore } from './../model'
 import { Helper } from './../helper'
 const yaml = require('js-yaml')
 
@@ -24,7 +24,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { app: { src: 'src', data: 'data', models: 'models' }, datastores: [], schemas: [] }
+		let config: Config = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, datastores: [], mappings: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -47,7 +47,7 @@ export class LibManager {
 		}
 
 		if (config.app === undefined) {
-			config.app = { src: 'src', data: 'data', models: 'models' }
+			config.app = { src: 'src', data: 'data', model: 'model' }
 		} else {
 			if (config.app.src === undefined) {
 				config.app.src = 'src'
@@ -55,12 +55,11 @@ export class LibManager {
 			if (config.app.data === undefined) {
 				config.app.data = 'data'
 			}
-			if (config.app.models === undefined) {
-				config.app.models = 'models'
+			if (config.app.model === undefined) {
+				config.app.model = 'model'
 			}
 		}
 		if (config.datastores === undefined) config.datastores = []
-		if (config.schemas === undefined) config.schemas = []
 		return config
 	}
 
@@ -82,10 +81,10 @@ export class LibManager {
 		if (datastore === undefined) {
 			if (config.datastores.length === 1) {
 				db = config.datastores[0]
-			} else if (config.datastores.length > 1 && config.app.defaultDatastore !== undefined) {
-				db = config.datastores.find(p => p.name === config.app.defaultDatastore)
+			} else if (config.datastores.length > 1 && config.defaultDatastore !== undefined) {
+				db = config.datastores.find(p => p.name === config.defaultDatastore)
 				if (db === undefined) {
-					throw new Error(`datastore: ${config.app.defaultDatastore} not found in config`)
+					throw new Error(`datastore: ${config.defaultDatastore} not found in config`)
 				}
 			} else {
 				throw new Error('the name argument with the name of the datastore is required')
@@ -99,38 +98,38 @@ export class LibManager {
 		return db
 	}
 
-	public getModel (config: Config): Schema[] {
-		const targets:Schema[] = []
-		for (const k in config.schemas) {
-			const source = config.schemas[k]
-			if (source.excludeModel === true) continue
-			const target: Schema = { name: source.name, excludeModel: source.excludeModel, enums: source.enums, entities: [] }
-			if (source.entities !== undefined) {
-				for (let i = 0; i < source.entities.length; i++) {
-					const sourceEntity = source.entities[i]
-					if (sourceEntity.excludeModel === true) continue
-					const entity: Entity = { name: sourceEntity.name, abstract: sourceEntity.abstract, extends: sourceEntity.extends, properties: [], relations: sourceEntity.relations }
-					if (sourceEntity.properties !== undefined) {
-						for (let j = 0; j < sourceEntity.properties.length; j++) {
-							const sourceProperty = sourceEntity.properties[j]
-							if (sourceProperty.excludeModel === true) continue
-							const property: Property = { name: sourceProperty.name, nullable: sourceProperty.nullable, type: sourceProperty.type, length: sourceProperty.length }
-							if (property.type === undefined) property.type = 'string'
-							if (property.type === 'string' && property.length === undefined) property.length = 80
-							entity.properties.push(property)
-						}
-					}
-					if (entity.relations !== undefined) {
-						for (let j = 0; j < entity.relations.length; j++) {
-							const relation = entity.relations[j]
-							if (relation.type === undefined) relation.type = 'oneToMany'
-						}
-					}
-					target.entities.push(entity)
-				}
-			}
-			targets.push(target)
-		}
-		return targets
-	}
+// public getModel (config: Config): Schema[] {
+// const targets:Schema[] = []
+// for (const k in config.schemas) {
+// const source = config.schemas[k]
+// if (source.excludeModel === true) continue
+// const target: Schema = { name: source.name, excludeModel: source.excludeModel, enums: source.enums, entities: [] }
+// if (source.entities !== undefined) {
+// for (let i = 0; i < source.entities.length; i++) {
+// const sourceEntity = source.entities[i]
+// if (sourceEntity.excludeModel === true) continue
+// const entity: Entity = { name: sourceEntity.name, abstract: sourceEntity.abstract, extends: sourceEntity.extends, properties: [], relations: sourceEntity.relations }
+// if (sourceEntity.properties !== undefined) {
+// for (let j = 0; j < sourceEntity.properties.length; j++) {
+// const sourceProperty = sourceEntity.properties[j]
+// if (sourceProperty.excludeModel === true) continue
+// const property: Property = { name: sourceProperty.name, nullable: sourceProperty.nullable, type: sourceProperty.type, length: sourceProperty.length }
+// if (property.type === undefined) property.type = 'string'
+// if (property.type === 'string' && property.length === undefined) property.length = 80
+// entity.properties.push(property)
+// }
+// }
+// if (entity.relations !== undefined) {
+// for (let j = 0; j < entity.relations.length; j++) {
+// const relation = entity.relations[j]
+// if (relation.type === undefined) relation.type = 'oneToMany'
+// }
+// }
+// target.entities.push(entity)
+// }
+// }
+// targets.push(target)
+// }
+// return targets
+// }
 }

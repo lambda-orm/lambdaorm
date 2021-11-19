@@ -16,21 +16,18 @@ export class ExpressionManager {
 		this.configManager = configManager
 		this.languageManager = languageManager
 		this.parserManager = new ParserManager(languageManager.expressionConfig)
-		this.expressionCompleter = new ExpressionCompleter()
+		this.expressionCompleter = new ExpressionCompleter(configManager)
 	}
 
 	/**
 	 * complete the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a complete expression from a simplified expression.
 	 * @param expression expression that can be simplified
-	 * @param schema schema name
 	 * @returns full expression
 	 */
-	public complete (expression: string, datastore?: string): string {
+	public complete (expression: string): string {
 		try {
-			const db = this.configManager.datastore.get(datastore)
-			const _schema = this.configManager.schema.getInstance(db.schema)
 			const node = this.parserManager.parse(expression)
-			const completeNode = this.expressionCompleter.complete(node, _schema)
+			const completeNode = this.expressionCompleter.complete(node)
 			this.parserManager.setParent(completeNode)
 			return this.parserManager.toExpression(completeNode)
 		} catch (error: any) {
@@ -45,17 +42,15 @@ export class ExpressionManager {
 	 * @param schema schema name
 	 * @returns Operand
 	 */
-	public async toOperand (expression: string, datastore?: string): Promise<Operand> {
+	public async toOperand (expression: string): Promise<Operand> {
 		try {
 			const key = 'operand_' + expression
 			let operand = await this.cache.get(key)
 			if (!operand) {
-				const db = this.configManager.datastore.get(datastore)
-				const _schema = this.configManager.schema.getInstance(db.schema)
 				const node = this.parserManager.parse(expression)
-				const completeNode = this.expressionCompleter.complete(node, _schema)
+				const completeNode = this.expressionCompleter.complete(node)
 				this.parserManager.setParent(completeNode)
-				operand = this.languageManager.build(completeNode, _schema)
+				operand = this.languageManager.build(completeNode)
 				await this.cache.set(key, operand)
 			}
 			return operand as Operand
@@ -71,9 +66,8 @@ export class ExpressionManager {
 			const key = db.name + 'query_' + expression
 			let query = await this.cache.get(key)
 			if (!query) {
-				const sentence = await this.toOperand(expression, db.name) as Sentence
-				const _schema = this.configManager.schema.getInstance(db.schema)
-				query = new DMLBuilder(this.configManager, _schema, this.languageManager, db).build(sentence)
+				const sentence = await this.toOperand(expression) as Sentence
+				query = new DMLBuilder(this.configManager, this.languageManager, db).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query
@@ -114,8 +108,8 @@ export class ExpressionManager {
 	 * @param schema Schema name
 	 * @returns Result of the evaluale expression
 	 */
-	public async eval (expression: string, data: any, datastore?: string): Promise<any> {
-		const operand = await this.toOperand(expression, datastore)
+	public async eval (expression: string, data: any): Promise<any> {
+		const operand = await this.toOperand(expression)
 		const _data = new Data(data)
 		return this.languageManager.eval(operand, _data)
 	}
@@ -125,8 +119,8 @@ export class ExpressionManager {
 	 * @param schema Schema name
 	 * @returns Model of expression
 	 */
-	public async model (expression: string, datastore?: string):Promise<any> {
-		const operand = await this.toOperand(expression, datastore)
+	public async model (expression: string):Promise<any> {
+		const operand = await this.toOperand(expression)
 		return this.languageManager.model(operand as Sentence)
 	}
 
@@ -135,8 +129,8 @@ export class ExpressionManager {
 	 * @param schema  Schema name
 	 * @returns Parameters of expression
 	 */
-	public async parameters (expression: string, datastore?: string):Promise<any> {
-		const operand = await this.toOperand(expression, datastore)
+	public async parameters (expression: string):Promise<any> {
+		const operand = await this.toOperand(expression)
 		return this.languageManager.parameters(operand as Sentence)
 	}
 
@@ -150,8 +144,8 @@ export class ExpressionManager {
 	 * @param schema Schema name
 	 * @returns metadata of expression
 	 */
-	public async metadata (expression: string, datastore?: string):Promise<any> {
-		const operand = await this.toOperand(expression, datastore)
+	public async metadata (expression: string):Promise<any> {
+		const operand = await this.toOperand(expression)
 		return this.languageManager.serialize(operand)
 	}
 }

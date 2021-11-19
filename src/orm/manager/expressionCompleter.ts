@@ -1,31 +1,36 @@
 
 import { Helper } from './../helper'
 import { Node } from './../parser/index'
-import { SchemaHelper } from './../manager'
+import { ConfigManager } from './../manager'
 
 /**
  *  Expression completer
  */
 export class ExpressionCompleter {
-	public complete (node:Node, schema:SchemaHelper):Node {
+	private config: ConfigManager
+	constructor (config: ConfigManager) {
+		this.config = config
+	}
+
+	public complete (node:Node):Node {
 		if (node.type === 'var' && node.children.length === 0) {
 			// Example: Products => Products.map(p=>p)
 			const arrowVariable = new Node('p', 'var')
 			const allFields = new Node('p', 'var')
 			const map = new Node('map', 'arrow', [node, arrowVariable, allFields])
-			this.completeNode(map, schema)
+			this.completeNode(map)
 			return map
 		} else {
-			this.completeNode(node, schema)
+			this.completeNode(node)
 			return node
 		}
 	}
 
-	private completeNode (node:Node, schema:SchemaHelper):void {
+	private completeNode (node:Node):void {
 		if (node.type === 'arrow' || node.type === 'childFunc') {
-			this.completeSentence(node, schema)
+			this.completeSentence(node)
 		} else if (node.children) {
-			for (const i in node.children) { this.completeNode(node.children[i], schema) }
+			for (const i in node.children) { this.completeNode(node.children[i]) }
 		}
 	}
 
@@ -40,23 +45,23 @@ export class ExpressionCompleter {
 		return clauses
 	}
 
-	private completeSentence (mainNode:Node, schema:SchemaHelper, entityName?:string):void {
+	private completeSentence (mainNode:Node, entityName?:string):void {
 		let compleInclude: any
 		const clauses:any = this.getClauses(mainNode)
-		const entity = schema.getEntity(entityName || clauses.from.name)
+		const entity = this.config.model.getEntity(entityName || clauses.from.name)
 		if (clauses.insert) {
 			compleInclude = this.completeInsertInclude
 			const node = clauses.insert
-			this.completeInsertNode(entity, node, schema)
+			this.completeInsertNode(entity, node)
 		} else if (clauses.bulkInsert) {
 			compleInclude = this.completeBulkInsertInclude
 			const node = clauses.bulkInsert
-			this.completeInsertNode(entity, node, schema)
+			this.completeInsertNode(entity, node)
 		} else if (clauses.update) {
 			compleInclude = this.completeUpdateInclude
 			const node = clauses.update
-			this.completeUpdateNode(entity, node, schema)
-			if (!clauses.filter) { this.createClauseFilter(entity, node, schema) }
+			this.completeUpdateNode(entity, node)
+			if (!clauses.filter) { this.createClauseFilter(entity, node) }
 		} else if (clauses.updateAll) {
 			compleInclude = this.completeUpdateInclude
 			const node = clauses.updateAll
@@ -66,7 +71,7 @@ export class ExpressionCompleter {
 		} else if (clauses.delete) {
 			compleInclude = this.completeDeleteInclude
 			const node = clauses.delete
-			if (!clauses.filter) { this.createClauseFilter(entity, node, schema) }
+			if (!clauses.filter) { this.createClauseFilter(entity, node) }
 		} else if (clauses.deleteAll) {
 			compleInclude = this.completeDeleteInclude
 			const node = clauses.deleteAll
@@ -74,13 +79,13 @@ export class ExpressionCompleter {
 		} else {
 			if (clauses.map) {
 				compleInclude = this.completeMapInclude
-				this.completeMapNode(entity, clauses.map, schema)
+				this.completeMapNode(entity, clauses.map)
 			} else if (clauses.distinct) {
 				// Replace distinct for map and add function distinct to child of map
 				compleInclude = this.completeMapInclude
 				clauses.map = clauses.distinct
 				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map, schema)
+				this.completeMapNode(entity, clauses.map)
 				clauses.map.children[2] = new Node('distinct', 'funcRef', [clauses.map.children[2]])
 			} else if (clauses.first) {
 				// Add orderby and limit , replace first for map
@@ -88,9 +93,9 @@ export class ExpressionCompleter {
 				compleInclude = this.completeMapInclude
 				clauses.map = clauses.first
 				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map, schema)
+				this.completeMapNode(entity, clauses.map)
 				if (!clauses.sort) {
-					const autoincrement = schema.getAutoincrement(entity.name)
+					const autoincrement = this.config.model.getAutoincrement(entity.name)
 					if (autoincrement !== undefined) {
 						const varArrow = new Node('p', 'var', [])
 						const varSort = new Node('p.' + autoincrement.name, 'var', [])
@@ -108,9 +113,9 @@ export class ExpressionCompleter {
 				compleInclude = this.completeMapInclude
 				clauses.map = clauses.last
 				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map, schema)
+				this.completeMapNode(entity, clauses.map)
 				if (!clauses.sort) {
-					const autoincrement = schema.getAutoincrement(entity.name)
+					const autoincrement = this.config.model.getAutoincrement(entity.name)
 					if (autoincrement !== undefined) {
 						const varArrow = new Node('p', 'var', [])
 						const varSort = new Node('p.' + autoincrement.name, 'var', [])
@@ -129,7 +134,7 @@ export class ExpressionCompleter {
 				compleInclude = this.completeMapInclude
 				clauses.map = clauses.take
 				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map, schema)
+				this.completeMapNode(entity, clauses.map)
 				if (!clauses.page) {
 					const constPage = new Node('1', 'const', [])
 					const constRecords = new Node('1', 'const', [])
@@ -142,7 +147,7 @@ export class ExpressionCompleter {
 				const varAll = new Node('p', 'var', [])
 				mainNode.children[0] = new Node('map', 'arrow', [mainNode.children[0], varArrow, varAll])
 				clauses.map = mainNode.children[0]
-				this.completeMapNode(entity, clauses.map, schema)
+				this.completeMapNode(entity, clauses.map)
 			}
 		}
 		if (clauses.include) {
@@ -153,13 +158,13 @@ export class ExpressionCompleter {
 			const body = clauseInclude.children[2]
 			if (body.type === 'array') {
 				for (let i = 0; i < body.children.length; i++) {
-					body.children[i] = compleInclude.bind(this)(entity, arrowVar, body.children[i], schema)
+					body.children[i] = compleInclude.bind(this)(entity, arrowVar, body.children[i])
 					if (clauses.map) {
 						this.addChildFieldField(clauses.map, entity, body.children[i])
 					}
 				}
 			} else {
-				clauseInclude.children[2] = compleInclude.bind(this)(entity, arrowVar, body, schema)
+				clauseInclude.children[2] = compleInclude.bind(this)(entity, arrowVar, body)
 				if (clauses.map) {
 					this.addChildFieldField(clauses.map, entity, body)
 				}
@@ -175,13 +180,13 @@ export class ExpressionCompleter {
 		map.children[2].children.push(keyVal)
 	}
 
-	private completeMapNode (entity:any, node:Node, schema:SchemaHelper):void {
+	private completeMapNode (entity:any, node:Node):void {
 		if (node.children && node.children.length === 3) {
 			const arrowVar = node.children[1].name
 			const fields = node.children[2]
 			if (fields.children.length === 0 && fields.name === arrowVar) {
 				// Example: Entity.map(p=> p) to  Entity.map(p=> {field1:p.field1,field2:p.field2,field3:p.field3,...})
-				node.children[2] = this.createNodeFields(entity, schema, arrowVar)
+				node.children[2] = this.createNodeFields(entity, arrowVar)
 			} else if (fields.type === 'var') {
 				// Example: Entity.map(p=> p.name) to  Entity.map(p=> {name:p.name})
 				const keyVal = this.fieldToKeyVal(arrowVar, fields)
@@ -198,7 +203,7 @@ export class ExpressionCompleter {
 			}
 		} else {
 			const varArrow = new Node('p', 'var', [])
-			const fields = this.createNodeFields(entity, schema, 'p')
+			const fields = this.createNodeFields(entity, 'p')
 			node.children.push(varArrow)
 			node.children.push(fields)
 		}
@@ -217,34 +222,34 @@ export class ExpressionCompleter {
 		return new Node(key, 'keyVal', [field])
 	}
 
-	private completeInsertNode (entity:any, node:Node, schema:SchemaHelper):void {
+	private completeInsertNode (entity:any, node:Node):void {
 		if (node.children.length === 1) {
 			// example: Entity.insert()
-			const fields = this.createNodeFields(entity, schema, undefined, false, true)
+			const fields = this.createNodeFields(entity, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
 			// example: Entity.insert(entity)
-			node.children[1] = this.createNodeFields(entity, schema, node.children[1].name, false, true)
+			node.children[1] = this.createNodeFields(entity, node.children[1].name, false, true)
 		}
 	}
 
-	private completeUpdateNode (entity:any, node:Node, schema:SchemaHelper):void {
+	private completeUpdateNode (entity:any, node:Node):void {
 		if (node.children.length === 1) {
 			// Example: Entity.update()
 			// In the case that the mapping is not defined, it assumes that the context will be the entity to update
-			const fields = this.createNodeFields(entity, schema, undefined, false, true)
+			const fields = this.createNodeFields(entity, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
 			// Example: Entity.update(entity)
 			// In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
-			node.children[1] = this.createNodeFields(entity, schema, node.children[1].name, true)
+			node.children[1] = this.createNodeFields(entity, node.children[1].name, true)
 		} else if (node.children.length === 3 && node.type === 'arrow' && node.children[1].name === node.children[2].name) {
 			// Example: Entity.update({ name: entity.name }).include(p => p.details.update(p => p))
-			node.children[2] = this.createNodeFields(entity, schema, node.children[1].name, true)
+			node.children[2] = this.createNodeFields(entity, node.children[1].name, true)
 		}
 	}
 
-	private createNodeFields (entity:any, schema:SchemaHelper, parent?:string, excludePrimaryKey = false, excludeAutoincrement = false):any {
+	private createNodeFields (entity:any, parent?:string, excludePrimaryKey = false, excludeAutoincrement = false):any {
 		const obj = new Node('obj', 'obj', [])
 		for (const name in entity.property) {
 			const property = entity.property[name]
@@ -257,32 +262,32 @@ export class ExpressionCompleter {
 		return obj
 	}
 
-	private createClauseFilter (entity:any, node:Node, schema:SchemaHelper):void {
+	private createClauseFilter (entity:any, node:Node):void {
 		if (node.children.length === 1) {
 			// Example: Entity.delete()
-			const condition = this.createFilter(entity, schema, 'p')
+			const condition = this.createFilter(entity, 'p')
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
 			// Example Entity.update(entity) ,Entity.delete(entity)
-			const condition = this.createFilter(entity, schema, 'p', node.children[1].name)
+			const condition = this.createFilter(entity, 'p', node.children[1].name)
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 2 && node.children[1].type === 'obj') {
 			// Example Entity.update({unitPrice:unitPrice,productId:productId)
-			const condition = this.createFilter(entity, schema, 'p', node.children[1].name)
+			const condition = this.createFilter(entity, 'p', node.children[1].name)
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 3) {
 			// Example: Entity.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			// Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
-			const condition = this.createFilter(entity, schema, 'p')
+			const condition = this.createFilter(entity, 'p')
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		}
 	}
 
-	private createFilter (entity:any, schema:SchemaHelper, parent?:string, parentVariable?:string):Node {
+	private createFilter (entity:any, parent?:string, parentVariable?:string):Node {
 		let condition
 		for (const i in entity.primaryKey) {
 			const name = entity.primaryKey[i]
@@ -296,11 +301,11 @@ export class ExpressionCompleter {
 		throw new Error('Create Filter incorrect!!!')
 	}
 
-	private completeMapInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
-		return this.completeSelectInclude(entity, arrowVar, node, schema, 'map')
+	private completeMapInclude (entity:any, arrowVar:string, node:Node):Node {
+		return this.completeSelectInclude(entity, arrowVar, node, 'map')
 	}
 
-	private completeSelectInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper, clause:string):Node {
+	private completeSelectInclude (entity:any, arrowVar:string, node:Node, clause:string):Node {
 		let map:Node, relation:any
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.map(p=>p))
@@ -316,7 +321,7 @@ export class ExpressionCompleter {
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
 			map = node// new Node(clause,'childFunc',[node])
-			this.completeSentence(map, schema, relation.entity)
+			this.completeSentence(map, relation.entity)
 		} else if (node.type === 'var') {
 			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
 			// entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))
@@ -326,7 +331,7 @@ export class ExpressionCompleter {
 			const relationName = parts[1]
 			relation = entity.relation[relationName]
 			map = new Node(clause, 'arrow', [node, varArrowNode, varAll])
-			this.completeSentence(map, schema, relation.entity)
+			this.completeSentence(map, relation.entity)
 		} else {
 			throw new Error('Error to add include node ' + node.type + ':' + node.name)
 		}
@@ -364,20 +369,20 @@ export class ExpressionCompleter {
 		return map
 	}
 
-	private completeBulkInsertInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
-		return this.completeInclude(entity, arrowVar, node, schema, 'bulkInsert')
+	private completeBulkInsertInclude (entity:any, arrowVar:string, node:Node):Node {
+		return this.completeInclude(entity, arrowVar, node, 'bulkInsert')
 	}
 
-	private completeInsertInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
-		return this.completeInclude(entity, arrowVar, node, schema, 'insert')
+	private completeInsertInclude (entity:any, arrowVar:string, node:Node):Node {
+		return this.completeInclude(entity, arrowVar, node, 'insert')
 	}
 
-	private completeUpdateInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
-		return this.completeInclude(entity, arrowVar, node, schema, 'update')
+	private completeUpdateInclude (entity:any, arrowVar:string, node:Node):Node {
+		return this.completeInclude(entity, arrowVar, node, 'update')
 	}
 
-	private completeDeleteInclude (entity:any, arrowVar:string, node:Node, schema:SchemaHelper):Node {
-		return this.completeInclude(entity, arrowVar, node, schema, 'delete')
+	private completeDeleteInclude (entity:any, arrowVar:string, node:Node):Node {
+		return this.completeInclude(entity, arrowVar, node, 'delete')
 	}
 
 	private getIncludeRelation (entity:any, node:Node):any {
@@ -405,20 +410,20 @@ export class ExpressionCompleter {
 		}
 	}
 
-	private completeInclude (entity: any, arrowVar: string, node: Node, schema: SchemaHelper, clause: string): Node {
+	private completeInclude (entity: any, arrowVar: string, node: Node, clause: string): Node {
 		if (node.type === 'arrow') {
 		// resuelve el siguiente caso  .includes(details.insert())
 			const relation = this.getIncludeRelation(entity, node)
 			const clauses:any = this.getClauses(node)
 			const clauseNode = clauses[clause] ? clauses[clause] : new Node(clause, 'childFunc', [node])
-			this.completeSentence(clauseNode, schema, relation.entity)
+			this.completeSentence(clauseNode, relation.entity)
 			return clauseNode
 		} else if (node.type === 'var') {
 			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
 			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
 			const relation = this.getIncludeRelation(entity, node)
 			const clauseNode = new Node(clause, 'childFunc', [node])
-			this.completeSentence(clauseNode, schema, relation.entity)
+			this.completeSentence(clauseNode, relation.entity)
 			return clauseNode
 		} else {
 			throw new Error('Error to add include node ' + node.type + ':' + node.name)
