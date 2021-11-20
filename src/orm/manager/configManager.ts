@@ -1,6 +1,7 @@
 import { Helper } from '../helper'
-import { Entity, Property, Relation, Index, Datastore, Config, Model, Mapping } from './../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, Index, Datastore, Config, Model, Schema } from './../model'
 import { ConnectionConfig } from './../connection'
+import { SchemaHelper } from '../manager'
 
 class ModelConfig {
 	private model: any
@@ -15,7 +16,6 @@ class ModelConfig {
 			const targetEntity:any = {
 				name: sourceEntity.name,
 				primaryKey: sourceEntity.primaryKey,
-				uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
 				property: {},
 				relation: {},
 				index: {}
@@ -40,12 +40,6 @@ class ModelConfig {
 				const sourceRelation = sourceEntity.relations[q]
 				targetEntity.relation[sourceRelation.name] = sourceRelation
 			}
-			if (sourceEntity.indexes) {
-				for (const q in sourceEntity.indexes) {
-					const index = sourceEntity.indexes[q]
-					targetEntity.index[index.name] = index
-				}
-			}
 			target.entity[sourceEntity.name] = targetEntity
 		}
 		return target
@@ -58,10 +52,8 @@ class ModelConfig {
 			const targetEntity:Entity = {
 				name: sourceEntity.name as string,
 				primaryKey: sourceEntity.primaryKey,
-				uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
 				properties: [],
-				relations: [],
-				indexes: []
+				relations: []
 			}
 			if (sourceEntity.singular !== undefined) {
 				targetEntity.singular = sourceEntity.singular
@@ -92,14 +84,6 @@ class ModelConfig {
 					to: sourceRelation.to
 				}
 				targetEntity.relations.push(targetRelation)
-			}
-			for (const q in sourceEntity.index) {
-				const sourceIndex = sourceEntity.index[q]
-				const targetIndex:Index = {
-					name: sourceIndex.name,
-					fields: sourceIndex.fields
-				}
-				targetEntity.indexes?.push(targetIndex)
 			}
 			target.entities.push(targetEntity)
 		}
@@ -243,137 +227,135 @@ class ModelConfig {
 	}
 }
 
-// class ModelConfig {
-// public model: any
+class SchemaConfig {
+	public schemas: any
 
-// constructor (value: Model) {
-// this.model = this.transform(value)
-// }
+	constructor () {
+		this.schemas = {}
+	}
 
-// public load (value:Model):void {
+	public load (value:Schema):void {
+		if (value && value.name) {
+			this.schemas[value.name] = this.transform(value)
+		}
+	}
 
-// }
+	public delete (name:string):void {
+		delete this.schemas[name]
+	}
 
-// public get (name:string):Schema {
-// const schema = this.schemas[name]
-// if (!schema) {
-// throw new Error(`schema ${name} not found`)
-// }
-// return this.untransform(schema)
-// }
+	public get (name:string):Schema {
+		const schema = this.schemas[name]
+		if (!schema) {
+			throw new Error(`schema ${name} not found`)
+		}
+		return this.untransform(schema)
+	}
 
-// public list ():Schema[] {
-// const result:Schema[] = []
-// for (const p in this.schemas) {
-// result.push(this.untransform(this.schemas[p]))
-// }
-// return result
-// }
+	public list ():Schema[] {
+		const result:Schema[] = []
+		for (const p in this.schemas) {
+			result.push(this.untransform(this.schemas[p]))
+		}
+		return result
+	}
 
-// public getInstance (name:string):SchemaHelper {
-// const schema = this.schemas[name]
-// if (!schema) { throw new Error(`schema ${name} not found`) }
-// return new SchemaHelper(schema)
-// }
+	public getInstance (name:string):SchemaHelper {
+		const schema = this.schemas[name]
+		if (!schema) { throw new Error(`schema ${name} not found`) }
+		return new SchemaHelper(schema)
+	}
 
-// public transform (source:Model):any {
-// const target:any = { entity: {}, enum: {} }
-// for (const p in source.entities) {
-// const sourceEntity = source.entities[p]
-// const targetEntity:any = {
-// name: sourceEntity.name,
-// primaryKey: sourceEntity.primaryKey,
-// uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
-// property: {},
-// relation: {},
-// index: {}
-// }
-// if (sourceEntity.singular !== undefined) {
-// targetEntity.singular = sourceEntity.singular
-// }
-// if (sourceEntity.abstract !== undefined) {
-// targetEntity.abstract = sourceEntity.abstract
-// }
-// for (const q in sourceEntity.properties) {
-// const sourceProperty = sourceEntity.properties[q]
-// if (sourceProperty.type === 'string' && sourceProperty.length === undefined) {
-// sourceProperty.length = 80
-// }
-// if (sourceProperty.autoincrement) {
-// sourceProperty.nullable = false
-// }
-// targetEntity.property[sourceProperty.name] = sourceProperty
-// }
-// for (const q in sourceEntity.relations) {
-// const sourceRelation = sourceEntity.relations[q]
-// targetEntity.relation[sourceRelation.name] = sourceRelation
-// }
-// if (sourceEntity.indexes) {
-// for (const q in sourceEntity.indexes) {
-// const index = sourceEntity.indexes[q]
-// targetEntity.index[index.name] = index
-// }
-// }
-// target.entity[sourceEntity.name] = targetEntity
-// }
-// return target
-// }
+	public transform (source:Schema):any {
+		const target:any = { entity: {}, enum: {} }
+		target.name = source.name
+		for (const p in source.entities) {
+			const sourceEntity = source.entities[p]
+			const targetEntity:any = {
+				name: sourceEntity.name,
+				mapping: sourceEntity.mapping || sourceEntity.name,
+				primaryKey: sourceEntity.primaryKey,
+				uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
+				property: {},
+				relation: {},
+				index: {}
+			}
+			for (const q in sourceEntity.properties) {
+				const sourceProperty = sourceEntity.properties[q]
+				if (sourceProperty.type === 'string' && sourceProperty.length === undefined) {
+					sourceProperty.length = 80
+				}
+				if (sourceProperty.autoincrement) {
+					sourceProperty.nullable = false
+				}
+				targetEntity.property[sourceProperty.name] = sourceProperty
+			}
+			for (const q in sourceEntity.relations) {
+				const sourceRelation = sourceEntity.relations[q]
+				targetEntity.relation[sourceRelation.name] = sourceRelation
+			}
+			if (sourceEntity.indexes) {
+				for (const q in sourceEntity.indexes) {
+					const index = sourceEntity.indexes[q]
+					targetEntity.index[index.name] = index
+				}
+			}
+			target.entity[sourceEntity.name] = targetEntity
+		}
+		return target
+	}
 
-// public untransform (source:any):Model {
-// const target:Model = { entities: [], enums: [] }
-// for (const p in source.entity) {
-// const sourceEntity = source.entity[p]
-// const targetEntity:Entity = {
-// name: sourceEntity.name as string,
-// primaryKey: sourceEntity.primaryKey,
-// uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
-// properties: [],
-// relations: [],
-// indexes: []
-// }
-// if (sourceEntity.singular !== undefined) {
-// targetEntity.singular = sourceEntity.singular
-// }
-// if (sourceEntity.abstract !== undefined) {
-// targetEntity.abstract = sourceEntity.abstract
-// }
-// for (const q in sourceEntity.property) {
-// const sourceProperty = sourceEntity.property[q]
-// const targetProperty:Property = {
-// name: sourceProperty.name,
-// type: sourceProperty.type
-// }
-// // properties defined when is necesary
-// if (sourceProperty.length !== undefined)targetProperty.length = sourceProperty.length
-// if (sourceProperty.nullable !== undefined)targetProperty.nullable = sourceProperty.nullable
-// if (sourceProperty.autoincrement !== undefined)targetProperty.autoincrement = sourceProperty.autoincrement
-// targetEntity.properties.push(targetProperty)
-// }
-// for (const q in sourceEntity.relation) {
-// const sourceRelation = sourceEntity.relation[q]
-// const targetRelation:Relation = {
-// name: sourceRelation.name,
-// type: sourceRelation.type,
-// composite: Helper.nvl(sourceRelation.composite, false),
-// from: sourceRelation.from,
-// entity: sourceRelation.entity,
-// to: sourceRelation.to
-// }
-// targetEntity.relations.push(targetRelation)
-// }
-// for (const q in sourceEntity.index) {
-// const sourceIndex = sourceEntity.index[q]
-// const targetIndex:Index = {
-// name: sourceIndex.name,
-// fields: sourceIndex.fields
-// }
-// targetEntity.indexes?.push(targetIndex)
-// }
-// target.entities.push(targetEntity)
-// }
-// return target
-// }
-// }
+	public untransform (source:any):Schema {
+		const target:Schema = { name: source.name as string, entities: [] }
+		for (const p in source.entity) {
+			const sourceEntity = source.entity[p]
+			const targetEntity:EntityMapping = {
+				name: sourceEntity.name as string,
+				mapping: sourceEntity.mapping as string,
+				primaryKey: sourceEntity.primaryKey,
+				uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
+				properties: [],
+				relations: [],
+				indexes: []
+			}
+			for (const q in sourceEntity.property) {
+				const sourceProperty = sourceEntity.property[q]
+				const targetProperty:PropertyMapping = {
+					name: sourceProperty.name,
+					mapping: sourceProperty.mapping,
+					type: sourceProperty.type
+				}
+				// properties defined when is necesary
+				if (sourceProperty.length !== undefined)targetProperty.length = sourceProperty.length
+				if (sourceProperty.nullable !== undefined)targetProperty.nullable = sourceProperty.nullable
+				if (sourceProperty.autoincrement !== undefined)targetProperty.autoincrement = sourceProperty.autoincrement
+				targetEntity.properties.push(targetProperty)
+			}
+			for (const q in sourceEntity.relation) {
+				const sourceRelation = sourceEntity.relation[q]
+				const targetRelation:Relation = {
+					name: sourceRelation.name,
+					type: sourceRelation.type,
+					composite: Helper.nvl(sourceRelation.composite, false),
+					from: sourceRelation.from,
+					entity: sourceRelation.entity,
+					to: sourceRelation.to
+				}
+				targetEntity.relations.push(targetRelation)
+			}
+			for (const q in sourceEntity.index) {
+				const sourceIndex = sourceEntity.index[q]
+				const targetIndex:Index = {
+					name: sourceIndex.name,
+					fields: sourceIndex.fields
+				}
+				targetEntity.indexes?.push(targetIndex)
+			}
+			target.entities.push(targetEntity)
+		}
+		return target
+	}
+}
 
 class DatastoreConfig {
 	public datastores: any
@@ -408,24 +390,41 @@ class DatastoreConfig {
 
 class ConfigExtender {
 	extend (config: Config): Config {
+		// model
 		if (config.model.entities) {
 			const entities = config.model.entities
 			for (const k in entities) {
 				this.extendEntiy(entities[k], entities)
 			}
 		}
-		if (config.mappings) {
-			const mappings = config.mappings
-			for (const k in mappings) {
-				this.extendMapping(mappings[k], mappings)
+		config.model = this.clearModel(config.model)
+		this.completeModel(config.model)
+		// schemas
+		if (config.schemas.length > 0) {
+			// extend entities into schema
+			for (const k in config.schemas) {
+				const entities = config.schemas[k].entities
+				if (entities) {
+					for (const k in entities) {
+						this.extendEntiyMapping(entities[k], entities)
+					}
+				}
 			}
+			// etends schemas
+			for (const k in config.schemas) {
+				this.extendSchema(config.schemas[k], config.schemas)
+			}
+		} else {
+			config.schemas = [{ name: 'default', entities: [] }]
 		}
-		config.model = this.clear(config.model)
-		this.complete(config.model)
+		// extend schema for model
+		for (const k in config.schemas) {
+			this.extendObject(config.schemas[k], config.model)
+		}
 		return config
 	}
 
-	private clear (source: Model): Model {
+	private clearModel (source: Model): Model {
 		const target: Model = { enums: [], entities: [] }
 		if (source.entities !== undefined) {
 			for (let i = 0; i < source.entities.length; i++) {
@@ -437,7 +436,7 @@ class ConfigExtender {
 		return target
 	}
 
-	private complete (model:Model):void {
+	private completeModel (model:Model):void {
 		if (model.entities !== undefined) {
 			for (let i = 0; i < model.entities.length; i++) {
 				const entity = model.entities[i]
@@ -458,19 +457,6 @@ class ConfigExtender {
 		}
 	}
 
-	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
-		if (mapping.extends !== undefined) {
-			const base = mappings.find(p => p.name === mapping.extends)
-			if (base === undefined) {
-				throw new Error(`${mapping.extends} not found`)
-			}
-			this.extendMapping(base, mappings)
-			this.extendObject(mapping, base)
-			// se setea dado que ya fue extendido
-			delete mapping.extends
-		}
-	}
-
 	private extendEntiy (entity: Entity, entities: Entity[]):void {
 		if (entity.extends !== undefined) {
 			const base = entities.find(p => p.name === entity.extends)
@@ -479,6 +465,45 @@ class ConfigExtender {
 			}
 			this.extendEntiy(base, entities)
 			if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
+			// extend properties
+			if (base.properties !== undefined && base.properties.length > 0) {
+				if (entity.properties === undefined) {
+					entity.properties = []
+				}
+				this.extendObject(entity.properties, base.properties)
+			}
+			// extend relations
+			if (base.relations !== undefined && base.relations.length > 0) {
+				if (entity.relations === undefined) {
+					entity.relations = []
+				}
+				this.extendObject(entity.relations, base.relations)
+			}
+			// se setea dado que ya fue extendido
+			delete entity.extends
+		}
+	}
+
+	private extendSchema (schema: Schema, schemas: Schema[]): void {
+		if (schema.extends !== undefined) {
+			const base = schemas.find(p => p.name === schema.extends)
+			if (base === undefined) {
+				throw new Error(`${schema.extends} not found`)
+			}
+			this.extendSchema(base, schemas)
+			this.extendObject(schema, base)
+			// se setea dado que ya fue extendido
+			delete schema.extends
+		}
+	}
+
+	private extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
+		if (entity.extends !== undefined) {
+			const base = entities.find(p => p.name === entity.extends)
+			if (base === undefined) {
+				throw new Error(`${entity.extends} not found`)
+			}
+			this.extendEntiyMapping(base, entities)
 			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) entity.uniqueKey = base.uniqueKey
 			// extend indexes
 			if (base.indexes !== undefined && base.indexes.length > 0) {
@@ -493,13 +518,6 @@ class ConfigExtender {
 					entity.properties = []
 				}
 				this.extendObject(entity.properties, base.properties)
-			}
-			// extend relations
-			if (base.relations !== undefined && base.relations.length > 0) {
-				if (entity.relations === undefined) {
-					entity.relations = []
-				}
-				this.extendObject(entity.relations, base.relations)
 			}
 			// se setea dado que ya fue extendido
 			delete entity.extends
@@ -533,22 +551,23 @@ class ConfigExtender {
 export class ConfigManager {
 	public datastore: DatastoreConfig
 	public model: ModelConfig
+	public schema: SchemaConfig
 	public config: Config
 	public workspace: string
-	private configExtender:ConfigExtender
+	private extender:ConfigExtender
 
 	constructor (workspace:string) {
 		this.workspace = workspace
 		this.datastore = new DatastoreConfig()
 		this.model = new ModelConfig()
-		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, datastores: [] }
-		this.configExtender = new ConfigExtender()
+		this.schema = new SchemaConfig()
+		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, schemas: [], datastores: [] }
+		this.extender = new ConfigExtender()
 	}
 
 	public async load (config: Config): Promise<void> {
-		this.config = this.configExtender.extend(config)
+		this.config = this.extender.extend(config)
 		this.model.set(this.config.model)
-
 		if (this.config.datastores) {
 			for (const p in this.config.datastores) {
 				const datastore = this.config.datastores[p]

@@ -19,29 +19,26 @@ export class ExpressionFacade {
 
 	/**
 	 * Complete expression
-	 * @param schema Schema name
 	 * @returns Expression complete
 	 */
-	public complete (datastore?: string):string {
-		return this.expressionManager.complete(this.expression, datastore)
+	public complete ():string {
+		return this.expressionManager.complete(this.expression)
 	}
 
 	/**
 	 * Get model of expression
-	 * @param schema Schema name
 	 * @returns Model of expression
 	 */
-	public async model (datastore?: string):Promise<any> {
-		return this.expressionManager.model(this.expression, datastore)
+	public async model ():Promise<any> {
+		return this.expressionManager.model(this.expression)
 	}
 
 	/**
 	 * Get parameters of expression
-	 * @param schema  Schema name
 	 * @returns Parameters of expression
 	 */
-	public async parameters (datastore?: string):Promise<any> {
-		return this.expressionManager.parameters(this.expression, datastore)
+	public async parameters ():Promise<any> {
+		return this.expressionManager.parameters(this.expression)
 	}
 
 	public async sentence (datastore?: string):Promise<string> {
@@ -50,22 +47,20 @@ export class ExpressionFacade {
 
 	/**
 	 * Get metadata of expression
-	 * @param schema Schema name
 	 * @returns metadata of expression
 	 */
-	public async metadata (datastore?: string):Promise<any> {
-		return this.expressionManager.metadata(this.expression, datastore)
+	public async metadata ():Promise<any> {
+		return this.expressionManager.metadata(this.expression)
 	}
 
 	/**
 	 * Evaluate and solve expression
 	 * @param expression  string expression
 	 * @param data Data with variables
-	 * @param schema Schema name
 	 * @returns Result of the evaluale expression
 	 */
-	public async eval (data: any, datastore?: string): Promise<any> {
-		return await this.expressionManager.eval(this.expression, data, datastore)
+	public async eval (data: any): Promise<any> {
+		return await this.expressionManager.eval(this.expression, data)
 	}
 
 	/**

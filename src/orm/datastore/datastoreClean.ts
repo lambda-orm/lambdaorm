@@ -6,9 +6,9 @@ export class DatastoreClean extends DatastoreActionDDL {
 	public async queries (): Promise<Query[]> {
 		const state = await this.state.get(this.datastore.name)
 		if (state && state.schema) {
-			const schema = this.configManager.schema.transform(state.schema)
+			const schema = this.config.schema.transform(state.schema)
 			const schemaHelper = new SchemaHelper(schema)
-			return new DDLBuilder(this.configManager, this.languageManager, this.datastore).drop(schemaHelper)
+			return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).drop(schemaHelper)
 		}
 		return []
 	}

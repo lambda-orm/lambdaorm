@@ -1,51 +1,51 @@
-import { ConfigManager } from '.'
+import { ConfigManager, SchemaHelper } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
-import { Query, Datastore, Include, Entity } from '../model'
+import { Query, Datastore, Include, EntityMapping, IEvaluator } from '../model'
 
 export abstract class LanguageDMLBuilder {
-	protected config: ConfigManager
-	constructor (config: ConfigManager) {
-		this.config = config
-	}
-
-	abstract build (sentence:Sentence, datastore:string, metadata:DialectMetadata):Query
+	abstract build (sentence:Sentence, schema:SchemaHelper, datastore:string, metadata:DialectMetadata):Query
 }
 
 export class DMLBuilder {
-	private configManager: ConfigManager
+	private config: ConfigManager
 	private languageManager: LanguageManager
+	private schema: SchemaHelper
+	private evaluator:IEvaluator
 	public datastore: Datastore
 
-	constructor (configManager:ConfigManager, languageManager: LanguageManager, datastore: Datastore) {
-		this.configManager = configManager
+	constructor (config:ConfigManager, evaluator:IEvaluator, schema:SchemaHelper, languageManager: LanguageManager, datastore: Datastore) {
+		this.config = config
+		this.evaluator = evaluator
+		this.schema = schema
 		this.languageManager = languageManager
 		this.datastore = datastore
 	}
 
-	private getDatabase (entity: string): Datastore {
-		// if (entity !== undefined) {
-		// const _entity = this.configManager.model.getEntity(entity) as Entity
-		// if (_entity.datastore !== undefined && _entity.datastore !== this.datastore.name) {
-		// return this.configManager.datastore.get(_entity.datastore)
-		// }
-		// }
+	private async getDatabase (sentence:Sentence): Promise<Datastore> {
+		const context = { entity: sentence.entity, action: sentence.action }
+		for (const i in this.datastore.rules) {
+			const rule = this.datastore.rules[i]
+			if (await this.evaluator.eval(rule.rule, context) === true) {
+				return this.config.datastore.get(rule.datastore)
+			}
+		}
 		return this.datastore
 	}
 
-	public build (sentence:Sentence):Query {
+	public async build (sentence:Sentence):Promise<Query> {
 		const children = []
 		const includes = sentence.getIncludes()
-		const datastore = this.getDatabase(sentence.entity)
+		const datastore = await this.getDatabase(sentence)
 		const metadata = this.languageManager.dialectMetadata(datastore.dialect)
 
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
-			const query = this.build(sentenceInclude.children[0] as Sentence)
+			const query = await this.build(sentenceInclude.children[0] as Sentence)
 			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}
-		const query = this.languageManager.dmlBuilder(datastore.dialect).build(sentence, datastore.name, metadata)
+		const query = this.languageManager.dmlBuilder(datastore.dialect).build(sentence, this.schema, datastore.name, metadata)
 		query.children = children
 		return query
 	}

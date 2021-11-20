@@ -1,4 +1,4 @@
-import { Property } from '../model/index'
+import { PropertyMapping } from '../model/index'
 
 export class SchemaHelper {
 	private _schema:any
@@ -36,7 +36,7 @@ export class SchemaHelper {
 		return property !== undefined
 	}
 
-	public getProperty (entityName:string, name:string):Property {
+	public getProperty (entityName:string, name:string):PropertyMapping {
 		const entity = this.getEntity(entityName)
 		if (!entity) { throw new Error('Not exists entity:' + entityName) }
 		const property = entity.property[name]
@@ -57,11 +57,11 @@ export class SchemaHelper {
 		return this._schema.entity[name]
 	}
 
-	public getAutoincrement (entityName:string):Property | undefined {
+	public getAutoincrement (entityName:string):PropertyMapping | undefined {
 		const entity = this.getEntity(entityName)
 		if (!entity) { throw new Error('Not exists entity:' + entityName) }
 		for (const name in entity.property) {
-			const property = entity.property[name] as Property
+			const property = entity.property[name] as PropertyMapping
 			if (property.autoincrement) { return property }
 		}
 		return undefined

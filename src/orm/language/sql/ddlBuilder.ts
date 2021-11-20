@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Property, Relation, Index, Delta, Query } from '../../model'
+import { PropertyMapping, Relation, Index, Delta, Query } from '../../model'
 import { LanguageDDLBuilder } from '..'
 import { SchemaHelper } from '../../manager'
 import { DialectMetadata } from '../dialectMetadata'
@@ -29,7 +29,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createTable', datastore, metadata.name, text, entity.name)
 	}
 
-	private createColumn (property:Property, metadata:DialectMetadata):string {
+	private createColumn (property:PropertyMapping, metadata:DialectMetadata):string {
 		let type = metadata.type(property.type)
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
 		const nullable = property.nullable !== undefined && property.nullable === false ? metadata.other('notNullable') : ''
@@ -95,7 +95,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createIndex', datastore, metadata.name, text, entity.name)
 	}
 
-	public alterColumn (datastore:string, entity:any, property:Property, metadata:DialectMetadata):Query {
+	public alterColumn (datastore:string, entity:any, property:PropertyMapping, metadata:DialectMetadata):Query {
 		let type = metadata.type(property.type)
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
 		const nullable = property.nullable !== undefined && property.nullable === false ? metadata.other('notNullable') : ''
@@ -109,7 +109,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('alterColumn', datastore, metadata.name, alterEntity + ' ' + text, entity.name)
 	}
 
-	public addColumn (datastore:string, entity:any, property:Property, metadata:DialectMetadata):Query {
+	public addColumn (datastore:string, entity:any, property:PropertyMapping, metadata:DialectMetadata):Query {
 		let type = metadata.type(property.type)
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
 		const nullable = property.nullable !== undefined && property.nullable === false ? metadata.other('notNullable') : ''
@@ -171,7 +171,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('dropTable', datastore, metadata.name, text, entity)
 	}
 
-	public dropColumn (datastore:string, entity:any, property:Property, metadata:DialectMetadata):Query {
+	public dropColumn (datastore:string, entity:any, property:PropertyMapping, metadata:DialectMetadata):Query {
 		const alterEntity = metadata.ddl('alterTable').replace('{name}', metadata.delimiter(entity.mapping))
 		let text = metadata.ddl('dropColumn')
 		text = text.replace('{name}', metadata.delimiter(property.mapping as string))

@@ -22,45 +22,48 @@ export interface Relation {
 	entity: string
 	to: string
 }
-export interface Index {
-	name: string
-	fields: string[]
-}
+
 export interface Entity {
 	name: string
 	extends?: string
 	abstract?: boolean
 	singular?: string
 	primaryKey?:string[]
-	uniqueKey?:string[]
 	properties:Property[]
 	relations:Relation[]
-	indexes?: Index[]
 }
 export interface Model {
 	enums: Enum[]
 	entities: Entity[]
 }
+export interface RuleDatastore
+{
+	rule: string
+	datastore: string
+}
 export interface Datastore
 {
 	name: string
 	dialect: string
-	mapping?: string
+	schema: string
 	connection: any
+	rules: RuleDatastore[]
 }
-export interface EntityKey {
-	field: string
-	value: any
-}
-export interface EntityMapping {
-	name: string
+export interface PropertyMapping extends Property {
 	mapping: string
-	extends?: string
-	properties: any
-	// para poder definir el key, Example: Country and states Mapping with Localtions with Field "type" value "country" and "state"
-	keys: EntityKey[]
+	key?: string
 }
-export interface Mapping {
+export interface Index {
+	name: string
+	fields: string[]
+}
+export interface EntityMapping extends Entity {
+	mapping: string
+	uniqueKey?:string[]
+	indexes?: Index[]
+	properties: PropertyMapping[]
+}
+export interface Schema {
 	extends?: string
 	mapping?: string
 	name: string
@@ -76,7 +79,7 @@ export interface Config
 {
 	app: App
 	model: Model
-	mappings?: Mapping[]
+	schemas: Schema[]
 	defaultDatastore?: string
 	datastores: Datastore[]
 }

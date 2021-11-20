@@ -217,9 +217,11 @@ npm install -g gulp-cli
 - [main](https://microservices.io/patterns/index.html)
 - [Database per service](https://microservices.io/patterns/data/database-per-service.html)
 - [Shared database](https://microservices.io/patterns/data/shared-database.html)
-- [Saga](https://microservices.io/patterns/data/saga.html)
+- CQRS:
+	- [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html)
+	- [description](https://docs.microsoft.com/es-es/azure/architecture/patterns/cqrs)
 - [API Composition](https://microservices.io/patterns/data/api-composition.html)
-- [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html)
+- [Saga](https://microservices.io/patterns/data/saga.html)
 - [Domain event](https://microservices.io/patterns/data/domain-event.html)
 - [Event sourcing](https://microservices.io/patterns/data/event-sourcing.html)
 

@@ -5,10 +5,10 @@ import { DDLBuilder } from '../manager/ddlBuilder'
 
 export class DatastoreTruncate extends DatastoreActionDDL {
 	public async queries (): Promise<Query[]> {
-		const current = this.configManager.schema.get(this.datastore.schema) as Schema
-		const schema = this.configManager.schema.transform(current)
+		const current = this.config.schema.get(this.datastore.schema) as Schema
+		const schema = this.config.schema.transform(current)
 		const schemaHelper = new SchemaHelper(schema)
-		return new DDLBuilder(this.configManager, this.languageManager, this.datastore).truncate(schemaHelper)
+		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).truncate(schemaHelper)
 	}
 
 	public async execute (tryAllCan = false): Promise<any[]> {

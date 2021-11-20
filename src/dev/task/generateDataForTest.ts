@@ -29,9 +29,9 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 		try {
 			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
 			// expressionTest.lambda = expressionTest.lambda.toString()
-			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete(category.datastore)
-			expressionTest.model = await orm.expression(expressionTest.expression).model(category.datastore)
-			const metadata: any = await orm.expression(expressionTest.expression).metadata(category.datastore)
+			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete()
+			expressionTest.model = await orm.expression(expressionTest.expression).model()
+			const metadata: any = await orm.expression(expressionTest.expression).metadata()
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
 			for (const r in datastores) {
@@ -39,7 +39,7 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 				let sentence
 				let error
 				try {
-					sentence = await orm.expression(expressionTest.expression).sentence(datastore)
+					sentence = await orm.expression(expressionTest.expression).sentence()
 				} catch (err: any) {
 					error = err.toString()
 				} finally {

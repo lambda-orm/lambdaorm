@@ -9,19 +9,19 @@ import { DatastoreState } from './datastoreState'
 
 export class DatastoreSync extends DatastoreActionDDL {
 	private currenSchema: Schema
-	constructor (state:DatastoreState, configManager: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, datastore:Datastore) {
-		super(state, configManager, expressionManager, languageManager, executor, datastore)
-		this.currenSchema = { enums: [], entities: [], name: '' }
+	constructor (state:DatastoreState, config: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, datastore:Datastore) {
+		super(state, config, expressionManager, languageManager, executor, datastore)
+		this.currenSchema = { entities: [], name: '' }
 	}
 
 	public async queries (): Promise<Query[]> {
-		this.currenSchema = this.configManager.schema.get(this.datastore.schema) as Schema
+		this.currenSchema = this.config.schema.get(this.datastore.schema) as Schema
 		const state = await this.state.get(this.datastore.name)
-		const current = this.configManager.schema.transform(this.currenSchema)
+		const current = this.config.schema.transform(this.currenSchema)
 		const schemaHelper = new SchemaHelper(current)
-		const _old = state && state.schema ? this.configManager.schema.transform(state.schema) : null
+		const _old = state && state.schema ? this.config.schema.transform(state.schema) : null
 		const delta = Helper.deltaWithSimpleArrays(current.entity, _old.entity)
-		return new DDLBuilder(this.configManager, this.languageManager, this.datastore).sync(delta, schemaHelper)
+		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).sync(delta, schemaHelper)
 	}
 
 	public async execute (tryAllCan = false): Promise<any[]> {

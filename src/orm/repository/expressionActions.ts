@@ -15,22 +15,22 @@ export class ExpressionActions {
 	}
 
 	public complete (expresion: string): string {
-		return this.orm.expression(`${this.name}${expresion}`).complete(this.datastore)
+		return this.orm.expression(`${this.name}${expresion}`).complete()
 	}
 
 	public async model (expresion: string): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).model(this.datastore)
+		return await this.orm.expression(`${this.name}${expresion}`).model()
 	}
 
 	public async parameters (expresion: string): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).parameters(this.datastore)
+		return await this.orm.expression(`${this.name}${expresion}`).parameters()
 	}
 
 	public async metadata (expresion: string): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).metadata(this.datastore)
+		return await this.orm.expression(`${this.name}${expresion}`).metadata()
 	}
 
 	public async sentence (expresion: string): Promise<string> {
-		return await this.orm.expression(`${this.name}${expresion}`).sentence(this.datastore)
+		return await this.orm.expression(`${this.name}${expresion}`).sentence()
 	}
 }

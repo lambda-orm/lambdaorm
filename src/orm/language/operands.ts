@@ -207,7 +207,7 @@ export class Sentence extends Operand {
 	public entity: string
 	// public autoincrement?: Property
 	public alias: string
-	public clause: string
+	public action: string
 	constructor (name: string, children: Operand[] = [], entity: string, alias: string, columns: Property[] = [], parameters: Parameter[] = []) {
 		super(name, children)
 		this.entity = entity
@@ -215,7 +215,7 @@ export class Sentence extends Operand {
 		this.alias = alias
 		this.columns = columns
 		this.parameters = parameters
-		this.clause = ''
+		this.action = ''
 		this.initialize()
 	}
 
@@ -235,16 +235,16 @@ export class Sentence extends Operand {
 
 		const variables: Variable[] = []
 		if (map) {
-			this.clause = 'select'
+			this.action = 'read'
 			this.loadVariables(map, variables)
 		} else if (insert) {
-			this.clause = 'insert'
+			this.action = 'create'
 			this.loadVariables(insert, variables)
 		} else if (update) {
-			this.clause = 'update'
+			this.action = 'update'
 			this.loadVariables(update, variables)
 		} else if (_delete) {
-			this.clause = 'delete'
+			this.action = 'delete'
 			this.loadVariables(_delete, variables)
 		}
 		if (filter) this.loadVariables(filter, variables)

@@ -15,16 +15,8 @@ model:
         - name: postalCode
           length: 20
         - name: country
-      indexes:
-        - name: postalCode
-          fields: ["postalCode"]
-        - name: region
-          fields: ["region", "country"]
-        - name: city
-          fields: ["city"]
     - name: Categories
       primaryKey: ["id"]
-      uniqueKey: ["name"]
       properties:
         - name: id
           type: integer
@@ -37,9 +29,6 @@ model:
     - name: Customers
       extends: Address
       primaryKey: ["id"]
-      indexes:
-        - name: name
-          fields: ["name"]
       properties:
         - name: id
           length: 5
@@ -58,7 +47,6 @@ model:
     - name: Employees
       extends: Address
       primaryKey: ["id"]
-      uniqueKey: ["lastName", "firstName"]
       properties:
         - name: id
           type: integer
@@ -84,7 +72,6 @@ model:
           to: id
     - name: Shippers
       primaryKey: ["id"]
-      uniqueKey: ["name"]
       properties:
         - name: id
           type: integer
@@ -97,7 +84,6 @@ model:
     - name: Suppliers
       extends: Address
       primaryKey: ["id"]
-      uniqueKey: ["name"]
       properties:
         - name: id
           type: integer
@@ -112,7 +98,6 @@ model:
           length: 200
     - name: Products
       primaryKey: ["id"]
-      uniqueKey: ["name", "supplierId"]
       properties:
         - name: id
           type: integer
@@ -152,11 +137,6 @@ model:
           to: id
     - name: Orders
       primaryKey: ["id"]
-      indexes:
-        - name: orderDate
-          fields: ["orderDate"]
-        - name: shippedDate
-          fields: ["shippedDate"]
       properties:
         - name: id
           type: integer
@@ -224,101 +204,187 @@ model:
           from: productId
           entity: Products
           to: id
-mappings:
+schemas:
   - name: northwind
     entities:
       - name: Address
-        mapping: Address
+        abstract: true
+        indexes:
+          - name: postalCode
+            fields: ["postalCode"]
+          - name: region
+            fields: ["region", "country"]
+          - name: city
+            fields: ["city"]
         properties:
-          address: Address
-          city: City
-          region: Region
-          postalCode: PostalCode
-          country: Country
+          - name: address
+            mapping: Address
+          - name: city
+            mapping: City
+          - name: region
+            mapping: Region
+          - name: postalCode
+            mapping: PostalCode
+          - name: country
+            mapping: Country
       - name: Categories
         mapping: Categories
+        uniqueKey: ["name"]
         properties:
-          id: CategoryID
-          name: CategoryName
-          description: Description
+          - name: id
+            mapping: CategoryID
+          - name: name
+            mapping: CategoryName
+          - name: description
+            mapping: Description
       - name: Customers
+        extends: Address
         mapping: Customers
+        indexes:
+          - name: name
+            fields: ["name"]
         properties:
-          id: CustomerID
-          name: CompanyName
-          contact: ContactName
-          phone: ContactTitle
+          - name: id
+            mapping: CustomerID
+          - name: name
+            mapping: CompanyName
+          - name: contact
+            mapping: ContactName
+          - name: phone
+            mapping: ContactTitle
       - name: Employees
+        extends: Address
         mapping: Employees
+        uniqueKey: ["lastName", "firstName"]
         properties:
-          id: EmployeeID
-          lastName: LastName
-          firstName: FirstName
-          title: Title
-          titleOfCourtesy: TitleOfCourtesy
-          birthDate: BirthDate
-          hireDate: HireDate
-          phone: HomePhone
-          reportsToId: ReportsTo
+          - name: id
+            mapping: EmployeeID
+          - name: lastName
+            mapping: LastName
+          - name: firstName
+            mapping: FirstName
+          - name: title
+            mapping: Title
+          - name: titleOfCourtesy
+            mapping: TitleOfCourtesy
+          - name: birthDate
+            mapping: BirthDate
+          - name: hireDate
+            mapping: HireDate
+          - name: phone
+            mapping: HomePhone
+          - name: reportsToId
+            mapping: ReportsTo
       - name: Shippers
         mapping: Shippers
+        uniqueKey: ["name"]
         properties:
-          id: ShipperID
-          name: CompanyName
-          phone: Phone
+          - name: id
+            mapping: ShipperID
+          - name: name
+            mapping: CompanyName
+          - name: phone
+            mapping: Phone
       - name: Suppliers
+        extends: Address
+        uniqueKey: ["name"]
         mapping: Suppliers
         properties:
-          id: SupplierID
-          name: CompanyName
-          contact: ContactName
-          phone: Phone
-          homepage: HomePage
+          - name: id
+            mapping: SupplierID
+          - name: name
+            mapping: CompanyName
+          - name: contact
+            mapping: ContactName
+          - name: phone
+            mapping: Phone
+          - name: homepage
+            mapping: HomePage
       - name: Products
         mapping: Products
+        uniqueKey: ["name", "supplierId"]
         properties:
-          id: ProductID
-          name: ProductName
-          supplierId: SupplierID
-          categoryId: CategoryID
-          quantity: QuantityPerUnit
-          price: UnitPrice
-          inStock: UnitsInStock
-          onOrder: UnitsOnOrder
-          reorderLevel: ReorderLevel
-          discontinued: Discontinued
+          - name: id
+            mapping: ProductID
+          - name: name
+            mapping: ProductName
+          - name: supplierId
+            mapping: SupplierID
+          - name: categoryId
+            mapping: CategoryID
+          - name: quantity
+            mapping: QuantityPerUnit
+          - name: price
+            mapping: UnitPrice
+          - name: inStock
+            mapping: UnitsInStock
+          - name: onOrder
+            mapping: UnitsOnOrder
+          - name: reorderLevel
+            mapping: ReorderLevel
+          - name: discontinued
+            mapping: Discontinued
       - name: Orders
         mapping: Orders
+        indexes:
+          - name: orderDate
+            fields: ["orderDate"]
+          - name: shippedDate
+            fields: ["shippedDate"]
         properties:
-          id: OrderID
-          customerId: CustomerID
-          employeeId: EmployeeID
-          orderDate: OrderDate
-          requiredDate: RequiredDate
-          shippedDate: ShippedDate
-          shipViaId: ShipVia
-          freight: Freight
-          name: ShipName
-          address: ShipAddress
-          city: ShipCity
-          region: ShipRegion
-          postalCode: ShipPostalCode
-          country: ShipCountry
+          - name: id
+            mapping: OrderID
+          - name: customerId
+            mapping: CustomerID
+          - name: employeeId
+            mapping: EmployeeID
+          - name: orderDate
+            mapping: OrderDate
+          - name: requiredDate
+            mapping: RequiredDate
+          - name: shippedDate
+            mapping: ShippedDate
+          - name: shipViaId
+            mapping: ShipVia
+          - name: freight
+            mapping: Freight
+          - name: name
+            mapping: ShipName
+          - name: address
+            mapping: ShipAddress
+          - name: city
+            mapping: ShipCity
+          - name: region
+            mapping: ShipRegion
+          - name: postalCode
+            mapping: ShipPostalCode
+          - name: country
+            mapping: ShipCountry
       - name: OrderDetails
         mapping: Order Details
         properties:
-          orderId: OrderID
-          productId: ProductID
-          unitPrice: UnitPrice
-          quantity: Quantity
-          discount: Discount
+          - name: orderId
+            mapping: OrderID
+          - name: productId
+            mapping: ProductID
+          - name: unitPrice
+            mapping: UnitPrice
+          - name: quantity
+            mapping: Quantity
+          - name: discount
+            mapping: Discount
   - name: northwind2
     extends: northwind
 datastores:
   - name: source
-    mapping: northwind
+    schema: northwind
     dialect: mysql
     connection: $ORM_CNN_SOURCE
+    rules:
+      - rule: entity == "Categories" && action == "read"
+        datastore: source
+      - rule: entity == "Categories" && ["create","update","delete"].includes(action)
+        datastore: source
     # routings:
     #   - name: a
     #     entities: ["Countries"]
@@ -326,18 +392,18 @@ datastores:
     #     expression: code == 'ARG'
     #     datastore: postgres
   - name: mysql
-    mapping: northwind
+    schema: northwind
     dialect: mysql
     connection: $ORM_CNN_MYSQL
   - name: mariadb
-    mapping: northwind
+    schema: northwind
     dialect: mariadb
     connection: $ORM_CNN_MARIADB
   - name: postgres
-    mapping: northwind
+    schema: northwind
     dialect: postgres
     connection: $ORM_CNN_POSTGRES
   - name: mssql
-    mapping: northwind
+    schema: northwind
     dialect: mssql
     connection: $ORM_CNN_MSSQL

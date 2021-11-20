@@ -5,14 +5,14 @@ import { DatastoreState } from './datastoreState'
 
 export abstract class DatastoreActionDDL {
 	protected state: DatastoreState
-	protected configManager: ConfigManager
+	protected config: ConfigManager
 	protected expressionManager: ExpressionManager
 	protected languageManager: LanguageManager
 	protected executor: Executor
 	protected datastore: Datastore
-	constructor (state:DatastoreState, configManager: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, datastore:Datastore) {
+	constructor (state:DatastoreState, config: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, datastore:Datastore) {
 		this.state = state
-		this.configManager = configManager
+		this.config = config
 		this.expressionManager = expressionManager
 		this.languageManager = languageManager
 		this.executor = executor

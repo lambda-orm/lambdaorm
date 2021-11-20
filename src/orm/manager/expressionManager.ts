@@ -1,22 +1,22 @@
-import { Cache, Query, Data } from './../model'
+import { Cache, Query, Data, IEvaluator } from './../model'
 import { ParserManager } from './../parser/index'
 import { ConfigManager, ExpressionCompleter } from './index'
 import { LanguageManager, Operand, Sentence, DMLBuilder } from './../language'
 import { Helper } from './../helper'
 
-export class ExpressionManager {
+export class ExpressionManager implements IEvaluator {
 	private cache: Cache
 	private parserManager: ParserManager
-	private configManager: ConfigManager
+	private config: ConfigManager
 	private languageManager: LanguageManager
 	private expressionCompleter: ExpressionCompleter
 
-	constructor (cache: Cache, configManager:ConfigManager, languageManager:LanguageManager) {
+	constructor (cache: Cache, config:ConfigManager, languageManager:LanguageManager) {
 		this.cache = cache
-		this.configManager = configManager
+		this.config = config
 		this.languageManager = languageManager
 		this.parserManager = new ParserManager(languageManager.expressionConfig)
-		this.expressionCompleter = new ExpressionCompleter(configManager)
+		this.expressionCompleter = new ExpressionCompleter(config)
 	}
 
 	/**
@@ -62,12 +62,13 @@ export class ExpressionManager {
 
 	public async toQuery (expression: string, datastore?: string): Promise<Query> {
 		try {
-			const db = this.configManager.datastore.get(datastore)
+			const db = this.config.datastore.get(datastore)
 			const key = db.name + 'query_' + expression
 			let query = await this.cache.get(key)
 			if (!query) {
+				const schema = this.config.schema.getInstance(db.schema)
 				const sentence = await this.toOperand(expression) as Sentence
-				query = new DMLBuilder(this.configManager, this.languageManager, db).build(sentence)
+				query = new DMLBuilder(this.config, this, schema, this.languageManager, db).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query
@@ -105,7 +106,6 @@ export class ExpressionManager {
 	 * Evaluate and solve expression
 	 * @param expression  string expression
 	 * @param data Data with variables
-	 * @param schema Schema name
 	 * @returns Result of the evaluale expression
 	 */
 	public async eval (expression: string, data: any): Promise<any> {
@@ -116,7 +116,7 @@ export class ExpressionManager {
 
 	/**
 	 * Get model of expression
-	 * @param schema Schema name
+	 * @param expression expression
 	 * @returns Model of expression
 	 */
 	public async model (expression: string):Promise<any> {
@@ -126,7 +126,7 @@ export class ExpressionManager {
 
 	/**
 	 * Get parameters of expression
-	 * @param schema  Schema name
+	 * @param expression  expression
 	 * @returns Parameters of expression
 	 */
 	public async parameters (expression: string):Promise<any> {
@@ -141,7 +141,7 @@ export class ExpressionManager {
 
 	/**
 	 * Get metadata of expression
-	 * @param schema Schema name
+	 * @param expression expression
 	 * @returns metadata of expression
 	 */
 	public async metadata (expression: string):Promise<any> {
