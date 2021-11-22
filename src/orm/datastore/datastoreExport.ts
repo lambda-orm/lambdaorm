@@ -1,5 +1,5 @@
 import { DatastoreActionDML } from './datastoreActionDML'
-import { SchemaHelper } from '../manager/schemaHelper'
+import { SchemaConfig } from '../manager'
 import { Query, SchemaData } from '../model'
 
 export class DatastoreExport extends DatastoreActionDML {
@@ -7,8 +7,9 @@ export class DatastoreExport extends DatastoreActionDML {
 		const schema = await this.getSchema()
 		const queries = await this.build(schema)
 		const data = {}
-		const schemaExport:SchemaData = { entities: [] }
-		await this.executor.transaction(this.datastore, async (tr) => {
+		const schemaExport: SchemaData = { entities: [] }
+		const context = {}
+		await this.executor.transaction(this.datastore, context, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const rows = await tr.execute(query, data)
@@ -18,7 +19,7 @@ export class DatastoreExport extends DatastoreActionDML {
 		return schemaExport
 	}
 
-	protected async createQuery (schema:SchemaHelper, entity:any):Promise<Query> {
+	protected async createQuery (schema:SchemaConfig, entity:any):Promise<Query> {
 		let expression = `${entity.name}.map(p=>{`
 		let first = true
 		for (const propertyName in entity.property) {

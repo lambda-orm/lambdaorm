@@ -1,94 +1,92 @@
-import { ConfigManager, SchemaHelper } from '.'
+import { ConfigManager, SchemaConfig } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
-import { Query, Delta, Index, Datastore, Relation, EntityMapping, PropertyMapping, IEvaluator } from '../model'
+import { Query, Delta, Index, Datastore, Relation, PropertyMapping, IEvaluator, EntityMapping } from '../model'
 
 export class DDLBuilder {
 	private languageManager: LanguageManager
 	private config: ConfigManager
 	private evaluator:IEvaluator
-	public datastore: Datastore
-	constructor (config: ConfigManager, evaluator:IEvaluator, languageManager:LanguageManager, datastore: Datastore) {
+	public dialect: string
+	constructor (config: ConfigManager, evaluator:IEvaluator, languageManager:LanguageManager, dialect: string) {
 		this.config = config
 		this.evaluator = evaluator
 		this.languageManager = languageManager
-		this.datastore = datastore
+		this.dialect = dialect
 	}
 
-	public async drop (schema:SchemaHelper):Promise<Query[]> {
+	public async drop (schema:SchemaConfig):Promise<Query[]> {
 		const entities = schema.sortEntities(schema.listEntities()).reverse()
 		const queries:Query[] = []
 		// drop all constraint
 		for (const p in entities) {
 			const entityName = entities[p]
-			const entity = schema.entity[entityName]
-			const datastore = await this.getDatabase(entityName)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
-			if (entity.relation) {
-				for (const name in entity.relation) {
-					const relation = entity.relation[name] as Relation
+			const entity = schema.getEntity(entityName) as EntityMapping
 
-					const relatedDatabase = await this.getDatabase(relation.entity)
-					if (relatedDatabase.name !== datastore.name) continue
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
+			if (entity.relations) {
+				for (const q in entity.relations) {
+					const relation = entity.relations[q] as Relation
 
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-						const query = this.builder(datastore.dialect).dropFk(datastore.name, entity, relation, metadata)
+						const query = this.builder(this.dialect).dropFk(entity, relation, metadata)
 						queries.push(query)
 					}
 				}
 			}
 		}
 		// drop indexes and tables
-		for (const p in entities) {
-			const entityName = entities[p]
-			const entity = schema.entity[entityName]
-			const datastore = await this.getDatabase(entityName)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
-			if (entity.index) {
-				for (const name in entity.index) {
-					const query = this.builder(datastore.dialect).dropIndex(datastore.name, entity, entity.index[name], metadata)
+		for (const i in entities) {
+			const entityName = entities[i]
+			const entity = schema.getEntity(entityName) as EntityMapping
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
+			if (entity.indexes) {
+				for (const j in entity.indexes) {
+					const index = entity.indexes[j]
+					const query = this.builder(this.dialect).dropIndex(entity, index, metadata)
 					queries.push(query)
 				}
 			}
-			const query = this.builder(datastore.dialect).dropEntity(datastore.name, entity, metadata)
+			const query = this.builder(this.dialect).dropEntity(entity, metadata)
 			queries.push(query)
 		}
 		return queries
 	}
 
-	public async truncate (schema:SchemaHelper):Promise<Query[]> {
+	public async truncate (schema:SchemaConfig):Promise<Query[]> {
 		const queries:Query[] = []
-		for (const name in schema.entity) {
-			const entity = schema.entity[name]
-			const datastore = await this.getDatabase(name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
-			const query = this.builder(datastore.dialect).truncateEntity(datastore.name, entity, metadata)
+		for (const i in schema.entities) {
+			const entity = schema.entities[i]
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
+			const query = this.builder(this.dialect).truncateEntity(entity, metadata)
 			queries.push(query)
 		}
 		return queries
 	}
 
-	public async sync (delta:Delta, schema:SchemaHelper):Promise<Query[]> {
+	public async sync (delta:Delta, schema:SchemaConfig):Promise<Query[]> {
 		const queries:Query[] = []
 		// remove constraints for changes in entities
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const datastore = await this.getDatabase(entityChanged.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'primaryKey') {
 					if (!changed.delta) continue
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					for (const n in changed.delta.remove) {
-						const query = this.builder(datastore.dialect).dropPk(datastore.name, entityChanged.old, metadata)
+						const query = this.builder(this.dialect).dropPk(entityChanged.old, metadata)
 						queries.push(query)
 						// const sentence = this.dropPk(entityChanged.old, metadata)
 						// queries.push(new Query('dropPk', [], metadata.name, sentence, entityChanged.name))
 					}
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					for (const c in changed.delta.changed) {
-						const query = this.builder(datastore.dialect).dropPk(datastore.name, entityChanged.old, metadata)
+						const query = this.builder(this.dialect).dropPk(entityChanged.old, metadata)
 						queries.push(query)
 						// const sentence = this.dropPk(entityChanged.old, metadata)
 						// queries.push(new Query('dropPk', [], metadata.name, sentence, entityChanged.name))
@@ -98,14 +96,14 @@ export class DDLBuilder {
 					if (changed.delta) {
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const n in changed.delta.remove) {
-							const query = this.builder(datastore.dialect).dropUk(datastore.name, entityChanged.old, metadata)
+							const query = this.builder(this.dialect).dropUk(entityChanged.old, metadata)
 							queries.push(query)
 							// const sentence = this.dropUk(entityChanged.old, metadata)
 							// queries.push(new Query('dropUk', [], metadata.name, sentence, entityChanged.name))
 						}
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const c in changed.delta.changed) {
-							const query = this.builder(datastore.dialect).dropUk(datastore.name, entityChanged.old, metadata)
+							const query = this.builder(this.dialect).dropUk(entityChanged.old, metadata)
 							queries.push(query)
 							// const sentence = this.dropUk(entityChanged.old, metadata)
 							// queries.push(new Query('dropUk', [], metadata.name, sentence, entityChanged.name))
@@ -118,8 +116,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const datastore = await this.getDatabase(entityChanged.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
@@ -127,14 +125,14 @@ export class DDLBuilder {
 					if (!changed.delta) continue
 					for (const c in changed.delta.changed) {
 						const oldIndex = changed.delta.changed[c].old as Index
-						const query = this.builder(datastore.dialect).dropIndex(datastore.name, entityChanged.new, oldIndex, metadata)
+						const query = this.builder(this.dialect).dropIndex(entityChanged.new, oldIndex, metadata)
 						queries.push(query)
 						// const sentence = this.dropIndex(entityChanged.new, oldIndex, metadata)
 						// queries.push(new Query('dropIndex', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const r in changed.delta.remove) {
 						const removeIndex = changed.delta.remove[r].old as Index
-						const query = this.builder(datastore.dialect).dropIndex(datastore.name, entityChanged.new, removeIndex, metadata)
+						const query = this.builder(this.dialect).dropIndex(entityChanged.new, removeIndex, metadata)
 						queries.push(query)
 						// const sentence = this.dropIndex(entityChanged.new, removeIndex, metadata)
 						// queries.push(new Query('dropIndex', [], metadata.name, sentence, entityChanged.name))
@@ -146,12 +144,9 @@ export class DDLBuilder {
 						const newRelation = changed.delta.changed[c].new as Relation
 						const oldRelation = changed.delta.changed[c].old as Relation
 
-						const relatedDatabase = await this.getDatabase(newRelation.entity)
-						if (relatedDatabase.name !== datastore.name) continue
-
 						if (this.changeRelation(oldRelation, newRelation)) {
 							if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
-								const query = this.builder(datastore.dialect).dropFk(datastore.name, entityChanged.new, oldRelation, metadata)
+								const query = this.builder(this.dialect).dropFk(entityChanged.new, oldRelation, metadata)
 								queries.push(query)
 								// const sentence = this.dropFk(entityChanged.new, oldRelation, metadata)
 								// queries.push(new Query('dropFk', [], metadata.name, sentence, entityChanged.name))
@@ -161,10 +156,7 @@ export class DDLBuilder {
 					for (const r in changed.delta.remove) {
 						const removeRelation = changed.delta.remove[r].old as Relation
 
-						const relatedDatabase = await this.getDatabase(removeRelation.entity)
-						if (relatedDatabase.name !== datastore.name) continue
-
-						const query = this.builder(datastore.dialect).dropFk(datastore.name, entityChanged.new, removeRelation, metadata)
+						const query = this.builder(this.dialect).dropFk(entityChanged.new, removeRelation, metadata)
 						queries.push(query)
 						// const sentence = this.dropFk(entityChanged.new, removeRelation, metadata)
 						// queries.push(new Query('dropFk', [], metadata.name, sentence, entityChanged.name))
@@ -175,18 +167,18 @@ export class DDLBuilder {
 		// remove indexes and tables for removed entities
 		for (const name in delta.remove) {
 			const removeEntity = delta.remove[name].old
-			const datastore = await this.getDatabase(removeEntity.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 
 			if (removeEntity.index) {
 				for (const indexName in removeEntity.index) {
-					const query = this.builder(datastore.dialect).dropIndex(datastore.name, removeEntity, removeEntity.index[indexName], metadata)
+					const query = this.builder(this.dialect).dropIndex(removeEntity, removeEntity.index[indexName], metadata)
 					queries.push(query)
 					// const sentence = this.dropIndex(removeEntity, removeEntity.index[indexName], metadata)
 					// queries.push(new Query('dropIndex', [], metadata.name, sentence, removeEntity.name))
 				}
 			}
-			const query = this.builder(datastore.dialect).dropEntity(datastore.name, removeEntity, metadata)
+			const query = this.builder(this.dialect).dropEntity(removeEntity, metadata)
 			queries.push(query)
 			// const sentence = this.dropEntity(removeEntity, metadata)
 			// queries.push(new Query('dropTable', [], metadata.name, sentence, name))
@@ -194,9 +186,9 @@ export class DDLBuilder {
 		// create tables
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new
-			const datastore = await this.getDatabase(newEntity.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
-			const query = this.builder(datastore.dialect).createEntity(datastore.name, newEntity, metadata)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
+			const query = this.builder(this.dialect).createEntity(newEntity, metadata)
 			queries.push(query)
 			// const sentence = this.createTable(newEntity, metadata)
 			// queries.push(new Query('createTable', [], metadata.name, sentence, name))
@@ -205,15 +197,15 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const datastore = await this.getDatabase(entityChanged.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'property') {
 					if (!changed.delta) continue
 					for (const n in changed.delta.new) {
 						const newProperty = changed.delta.new[n].new as PropertyMapping
-						const query = this.builder(datastore.dialect).addColumn(datastore.name, entityChanged.new, newProperty, metadata)
+						const query = this.builder(this.dialect).addColumn(entityChanged.new, newProperty, metadata)
 						queries.push(query)
 						// const sentence = this.addColumn(entityChanged.new, newProperty, metadata)
 						// queries.push(new Query('addColumn', [], metadata.name, sentence, entityChanged.name))
@@ -222,7 +214,7 @@ export class DDLBuilder {
 						const newProperty = changed.delta.changed[n].new as PropertyMapping
 						const oldProperty = changed.delta.changed[n].old as PropertyMapping
 						if (newProperty.mapping === oldProperty.mapping) {
-							const query = this.builder(datastore.dialect).alterColumn(datastore.name, entityChanged.new, newProperty, metadata)
+							const query = this.builder(this.dialect).alterColumn(entityChanged.new, newProperty, metadata)
 							queries.push(query)
 							// const sentence = this.alterColumn(entityChanged.new, newProperty, metadata)
 							// queries.push(new Query('alterColumn', [], metadata.name, sentence, entityChanged.name))
@@ -241,15 +233,15 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const datastore = await this.getDatabase(entityChanged.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'property') {
 					if (!changed.delta) continue
 					for (const n in changed.delta.remove) {
 						const oldProperty = changed.delta.remove[n].old as PropertyMapping
-						const query = this.builder(datastore.dialect).dropColumn(datastore.name, entityChanged.old, oldProperty, metadata)
+						const query = this.builder(this.dialect).dropColumn(entityChanged.old, oldProperty, metadata)
 						queries.push(query)
 						// const sentence = this.dropColumn(entityChanged.old, oldProperty, metadata)
 						// queries.push(new Query('dropColumn', [], metadata.name, sentence, entityChanged.name))
@@ -261,22 +253,22 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const datastore = await this.getDatabase(entityChanged.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'primaryKey') {
 					if (!changed.delta) continue
 					for (const n in changed.delta.new) {
 						const newPrimaryKey = changed.delta.new[n].new as string[]
-						const query = this.builder(datastore.dialect).addPk(datastore.name, entityChanged.new, newPrimaryKey, metadata)
+						const query = this.builder(this.dialect).addPk(entityChanged.new, newPrimaryKey, metadata)
 						queries.push(query)
 						// const sentence = this.addPk(entityChanged.new, newPrimaryKey, metadata)
 						// queries.push(new Query('addPk', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const c in changed.delta.changed) {
 						const changePrimaryKey = changed.delta.changed[c].new as string[]
-						const query = this.builder(datastore.dialect).addPk(datastore.name, entityChanged.new, changePrimaryKey, metadata)
+						const query = this.builder(this.dialect).addPk(entityChanged.new, changePrimaryKey, metadata)
 						queries.push(query)
 						// const sentence = this.addPk(entityChanged.new, changePrimaryKey, metadata)
 						// queries.push(new Query('addPk', [], metadata.name, sentence, entityChanged.name))
@@ -286,14 +278,14 @@ export class DDLBuilder {
 					if (changed.delta) {
 						for (const n in changed.delta.new) {
 							const newUniqueKey = changed.delta.new[n].new as string[]
-							const query = this.builder(datastore.dialect).addUk(datastore.name, entityChanged.new, newUniqueKey, metadata)
+							const query = this.builder(this.dialect).addUk(entityChanged.new, newUniqueKey, metadata)
 							queries.push(query)
 							// const sentence = this.addUk(entityChanged.new, newUniqueKey, metadata)
 							// queries.push(new Query('addUk', [], metadata.name, sentence, entityChanged.name))
 						}
 						for (const c in changed.delta.changed) {
 							const chanegUniqueKey = changed.delta.changed[c].new as string[]
-							const query = this.builder(datastore.dialect).addUk(datastore.name, entityChanged.new, chanegUniqueKey, metadata)
+							const query = this.builder(this.dialect).addUk(entityChanged.new, chanegUniqueKey, metadata)
 							queries.push(query)
 							// const sentence = this.addUk(entityChanged.new, chanegUniqueKey, metadata)
 							// queries.push(new Query('addUk', [], metadata.name, sentence, entityChanged.name))
@@ -316,22 +308,22 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const datastore = await this.getDatabase(entityChanged.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'index') {
 					if (!changed.delta) continue
 					for (const n in changed.delta.new) {
 						const newIndex = changed.delta.new[n].new as Index
-						const query = this.builder(datastore.dialect).createIndex(datastore.name, entityChanged.new, newIndex, metadata)
+						const query = this.builder(this.dialect).createIndex(entityChanged.new, newIndex, metadata)
 						queries.push(query)
 						// const sentence = this.createIndex(entityChanged.new, newIndex, metadata)
 						// queries.push(new Query('createIndex', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const c in changed.delta.changed) {
 						const changeIndex = changed.delta.changed[c].new as Index
-						const query = this.builder(datastore.dialect).createIndex(datastore.name, entityChanged.new, changeIndex, metadata)
+						const query = this.builder(this.dialect).createIndex(entityChanged.new, changeIndex, metadata)
 						queries.push(query)
 						// const sentence = this.createIndex(entityChanged.new, changeIndex, metadata)
 						// queries.push(new Query('createIndex', [], metadata.name, sentence, entityChanged.name))
@@ -345,11 +337,8 @@ export class DDLBuilder {
 						for (const n in changed.delta.new) {
 							const newRelation = changed.delta.new[n].new as Relation
 
-							const relatedDatabase = await this.getDatabase(newRelation.entity)
-							if (relatedDatabase.name !== datastore.name) continue
-
 							if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
-								const query = this.builder(datastore.dialect).addFk(datastore.name, schema, entityChanged.new, newRelation, metadata)
+								const query = this.builder(this.dialect).addFk(schema, entityChanged.new, newRelation, metadata)
 								queries.push(query)
 								// const sentence = this.addFk(schema, entityChanged.new, newRelation, metadata)
 								// queries.push(new Query('addFk', [], metadata.name, sentence, entityChanged.name))
@@ -359,12 +348,9 @@ export class DDLBuilder {
 							const newRelation = changed.delta.changed[c].new as Relation
 							const oldRelation = changed.delta.changed[c].old as Relation
 
-							const relatedDatabase = await this.getDatabase(newRelation.entity)
-							if (relatedDatabase.name !== datastore.name) continue
-
 							if (this.changeRelation(oldRelation, newRelation)) {
 								if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
-									const query = this.builder(datastore.dialect).addFk(datastore.name, schema, entityChanged.new, newRelation, metadata)
+									const query = this.builder(this.dialect).addFk(schema, entityChanged.new, newRelation, metadata)
 									queries.push(query)
 									// const sentence = this.addFk(schema, entityChanged.new, newRelation, metadata)
 									// queries.push(new Query('addFk', [], metadata.name, sentence, entityChanged.name))
@@ -378,11 +364,11 @@ export class DDLBuilder {
 		// create indexes and Fks for new entities
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new
-			const datastore = await this.getDatabase(newEntity.name)
-			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
+
+			const metadata = this.languageManager.dialectMetadata(this.dialect)
 			if (newEntity.index) {
 				for (const name in newEntity.index) {
-					const query = this.builder(datastore.dialect).createIndex(datastore.name, newEntity, newEntity.index[name], metadata)
+					const query = this.builder(this.dialect).createIndex(newEntity, newEntity.index[name], metadata)
 					queries.push(query)
 					// const sentence = this.createIndex(newEntity, newEntity.index[name], metadata)
 					// queries.push(new Query('createIndex', [], metadata.name, sentence, newEntity.name))
@@ -392,11 +378,8 @@ export class DDLBuilder {
 				for (const name in newEntity.relation) {
 					const relation = newEntity.relation[name] as Relation
 
-					const relatedDatabase = await this.getDatabase(relation.entity)
-					if (relatedDatabase.name !== datastore.name) continue
-
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-						const query = this.builder(datastore.dialect).addFk(datastore.name, schema, newEntity, newEntity.relation[name], metadata)
+						const query = this.builder(this.dialect).addFk(schema, newEntity, newEntity.relation[name], metadata)
 						queries.push(query)
 						// const sentence = this.addFk(schema, newEntity, newEntity.relation[name], metadata)
 						// queries.push(new Query('addFk', [], metadata.name, sentence, newEntity.name))
@@ -406,27 +389,6 @@ export class DDLBuilder {
 		}
 		return queries
 	}
-
-	private async getDatabase (entity: string): Promise<Datastore> {
-		const context = { entity: entity, action: 'ddl' }
-		for (const i in this.datastore.rules) {
-			const rule = this.datastore.rules[i]
-			if (await this.evaluator.eval(rule.rule, context) === true) {
-				return this.config.datastore.get(rule.datastore)
-			}
-		}
-		return this.datastore
-	}
-
-	// private getDatabase (schema:SchemaHelper, entity: string): Datastore {
-	// if (entity !== undefined) {
-	// const _entity = schema.getEntity(entity) as Entity
-	// if (_entity.datastore !== undefined && _entity.datastore !== this.datastore.name) {
-	// return this.config.datastore.get(_entity.datastore)
-	// }
-	// }
-	// return this.datastore
-	// }
 
 	private builder (dialect:string):LanguageDDLBuilder {
 		return this.languageManager.ddlBuilder(dialect)
@@ -438,19 +400,19 @@ export class DDLBuilder {
 }
 
 export abstract class LanguageDDLBuilder {
-	abstract truncateEntity(datastore: string, entity: any, metadata: DialectMetadata): Query
-	abstract dropFk(datastore: string, entity: any, relation: Relation, metadata: DialectMetadata): Query
-	abstract dropIndex(datastore: string, entity: any, index: Index, metadata: DialectMetadata): Query
-	abstract dropEntity(datastore: string, entity: any, metadata: DialectMetadata): Query
-	abstract dropPk(datastore: string, entity: any, metadata: DialectMetadata): Query
-	abstract dropUk(datastore: string, entity: any, metadata: DialectMetadata): Query
-	abstract createEntity(datastore: string, entity: any, metadata: DialectMetadata): Query
-	abstract addColumn(datastore: string, entity: any, property: PropertyMapping, metadata: DialectMetadata): Query
-	abstract alterColumn(datastore: string, entity: any, property: PropertyMapping, metadata: DialectMetadata): Query
-	abstract dropColumn(datastore: string, entity: any, property: PropertyMapping, metadata: DialectMetadata): Query
-	abstract addPk(datastore: string, entity: any, primaryKey: string[], metadata: DialectMetadata): Query
-	abstract addUk(datastore: string, entity: any, uniqueKey: string[], metadata: DialectMetadata): Query
-	abstract addFk(datastore: string, schema: SchemaHelper, entity: any, relation: Relation, metadata: DialectMetadata): Query
-	abstract createFk(datastore: string, schema: SchemaHelper, entity: any, relation: Relation, metadata: DialectMetadata): Query
-	abstract createIndex (datastore:string, entity:any, index:Index, metadata:DialectMetadata):Query
+	abstract truncateEntity(entity: any, metadata: DialectMetadata): Query
+	abstract dropFk(entity: any, relation: Relation, metadata: DialectMetadata): Query
+	abstract dropIndex(entity: any, index: Index, metadata: DialectMetadata): Query
+	abstract dropEntity(entity: any, metadata: DialectMetadata): Query
+	abstract dropPk(entity: any, metadata: DialectMetadata): Query
+	abstract dropUk(entity: any, metadata: DialectMetadata): Query
+	abstract createEntity(entity: any, metadata: DialectMetadata): Query
+	abstract addColumn(entity: any, property: PropertyMapping, metadata: DialectMetadata): Query
+	abstract alterColumn(entity: any, property: PropertyMapping, metadata: DialectMetadata): Query
+	abstract dropColumn(entity: any, property: PropertyMapping, metadata: DialectMetadata): Query
+	abstract addPk(entity: any, primaryKey: string[], metadata: DialectMetadata): Query
+	abstract addUk(entity: any, uniqueKey: string[], metadata: DialectMetadata): Query
+	abstract addFk(schema: SchemaConfig, entity: any, relation: Relation, metadata: DialectMetadata): Query
+	abstract createFk(schema: SchemaConfig, entity: any, relation: Relation, metadata: DialectMetadata): Query
+	abstract createIndex (entity:any, index:Index, metadata:DialectMetadata):Query
 }

@@ -7,12 +7,12 @@ export class Query {
 	public children: Include[]
 	public sentence: string
 	public dialect: string
-	public datastore: string
+	// public datastore: string
 	public entity: string
 	// public autoincrement?: Property
 	public columns: Property[]
 	public parameters: Parameter[]
-	constructor (name: string, datastore:string, dialect: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = []) {
+	constructor (name: string, dialect: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = []) {
 		this.name = name
 		this.dialect = dialect
 		this.sentence = sentence
@@ -20,7 +20,7 @@ export class Query {
 		// this.autoincrement = autoincrement
 		this.columns = columns
 		this.parameters = parameters
-		this.datastore = datastore
+		// this.datastore = datastore
 		this.children = []
 	}
 }

@@ -4,14 +4,14 @@ export class ExpressionActions {
 	private orm
 	private name
 	private datastore
-	constructor (name: string, orm:IOrm, datastore?:string) {
+	constructor (name: string, orm:IOrm, datastore:string) {
 		this.name = name
 		this.datastore = datastore
 		this.orm = orm
 	}
 
-	public async execute (expresion: string, data:any): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.datastore)
+	public async execute (expresion: string, data:any, context:any): Promise<any> {
+		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.datastore, context)
 	}
 
 	public complete (expresion: string): string {
@@ -31,6 +31,6 @@ export class ExpressionActions {
 	}
 
 	public async sentence (expresion: string): Promise<string> {
-		return await this.orm.expression(`${this.name}${expresion}`).sentence()
+		return await this.orm.expression(`${this.name}${expresion}`).sentence(this.datastore)
 	}
 }

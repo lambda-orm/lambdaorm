@@ -1,7 +1,7 @@
 
 import { DatastoreActionDML } from './datastoreActionDML'
-import { SchemaHelper } from '../manager/schemaHelper'
-import { Query, SchemaData } from '../model'
+import { SchemaConfig } from '../manager'
+import { Query, SchemaData, EntityMapping, Relation } from '../model'
 
 export class DatastoreImport extends DatastoreActionDML {
 	public async execute (data: SchemaData): Promise<void> {
@@ -9,8 +9,9 @@ export class DatastoreImport extends DatastoreActionDML {
 		const schema = await this.getSchema()
 		const _queries = await this.build(schema)
 		const queries = this.sort(schema, _queries)
+		const context = {}
 
-		await this.executor.transaction(this.datastore, async (tr) => {
+		await this.executor.transaction(this.datastore, context, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const entityData = data.entities.find(p => p.entity === query.entity)
@@ -24,8 +25,8 @@ export class DatastoreImport extends DatastoreActionDML {
 			}
 			for (let i = 0; i < state.pending.length; i++) {
 				const pending = state.pending[i]
-				const entity = schema.getEntity(pending.entity)
-				const relation = entity.relation[pending.relation]
+				const entity = schema.getEntity(pending.entity) as EntityMapping
+				const relation = entity.relations.find(p => p.name === pending.relation) as Relation
 
 				if (!entity.uniqueKey || entity.uniqueKey.length === 0) {
 					// TODO: reemplazar por un archivo de salida de inconsistencias
@@ -55,13 +56,14 @@ export class DatastoreImport extends DatastoreActionDML {
 		await this.state.updateData(this.datastore.name, state.mapping, state.pending)
 	}
 
-	protected solveInternalsIds (schema:SchemaHelper, entityName:string, rows:any[], mapping:any, pendings:any[], parentEntity?:string):void {
-		const entity = schema.getEntity(entityName)
-		for (const p in entity.relation) {
-			const relation = entity.relation[p]
+	protected solveInternalsIds (schema:SchemaConfig, entityName:string, rows:any[], mapping:any, pendings:any[], parentEntity?:string):void {
+		const entity = schema.getEntity(entityName) as EntityMapping
+		for (const p in entity.relations) {
+			const relation = entity.relations[p]
 			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
-				const relationEntity = schema.getEntity(relation.entity)
-				if (relationEntity.property[relation.to].autoincrement) {
+				const relationEntity = schema.getEntity(relation.entity) as EntityMapping
+				const reslationProperty = relationEntity.properties.find(p => p.name === relation.to)
+				if (reslationProperty !== undefined && reslationProperty.autoincrement) {
 					const pendingsRows:any[] = []
 					for (let i = 0; i < rows.length; i++) {
 						const row = rows[i]
@@ -70,11 +72,11 @@ export class DatastoreImport extends DatastoreActionDML {
 							row[relation.from] = mapping[relation.entity][relation.to][externalId]
 						} else {
 							const keys:any[] = []
-							for (const p in entity.uniqueKey) {
-								const value = row[entity.uniqueKey[p]]
+							for (const ukProperty in entity.uniqueKey) {
+								const value = row[ukProperty]
 								if (value == null) {
 									// TODO: reemplazar por un archivo de salida de inconsistencias
-									console.error(`for entity ${entity.name} and row ${i.toString()} unique ${entity.uniqueKey[p]} is null`)
+									console.error(`for entity ${entity.name} and row ${i.toString()} unique ${ukProperty} is null`)
 								}
 								keys.push(value)
 							}
@@ -102,12 +104,12 @@ export class DatastoreImport extends DatastoreActionDML {
 		}
 	}
 
-	protected loadExternalIds (schema:SchemaHelper, entityName:string, rows:any[], aux:any):void {
+	protected loadExternalIds (schema:SchemaConfig, entityName:string, rows:any[], aux:any):void {
 		if (!aux)aux = {}
 		if (aux[entityName] === undefined)aux[entityName] = {}
-		const entity = schema.getEntity(entityName)
-		for (const p in entity.property) {
-			const property = entity.property[p]
+		const entity = schema.getEntity(entityName) as EntityMapping
+		for (const p in entity.properties) {
+			const property = entity.properties[p]
 			if (property.autoincrement) {
 				if (aux[entityName][property.name] === undefined) aux[entityName][property.name] = {}
 				for (let i = 0; i < rows.length; i++) {
@@ -116,8 +118,8 @@ export class DatastoreImport extends DatastoreActionDML {
 				}
 			}
 		}
-		for (const p in entity.relation) {
-			const relation = entity.relation[p]
+		for (const p in entity.relations) {
+			const relation = entity.relations[p]
 			if (relation.type === 'manyToOne') {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
@@ -128,11 +130,11 @@ export class DatastoreImport extends DatastoreActionDML {
 		}
 	}
 
-	protected completeMapping (schema:SchemaHelper, entityName:string, rows:any[], aux:any, mapping:any):void {
+	protected completeMapping (schema:SchemaConfig, entityName:string, rows:any[], aux:any, mapping:any):void {
 		if (mapping[entityName] === undefined)mapping[entityName] = {}
-		const entity = schema.getEntity(entityName)
-		for (const p in entity.property) {
-			const property = entity.property[p]
+		const entity = schema.getEntity(entityName) as EntityMapping
+		for (const p in entity.properties) {
+			const property = entity.properties[p]
 			if (property.autoincrement) {
 				if (mapping[entityName][property.name] === undefined) mapping[entityName][property.name] = {}
 				for (let i = 0; i < rows.length; i++) {
@@ -142,8 +144,8 @@ export class DatastoreImport extends DatastoreActionDML {
 				}
 			}
 		}
-		for (const p in entity.relation) {
-			const relation = entity.relation[p]
+		for (const p in entity.relations) {
+			const relation = entity.relations[p]
 			if (relation.type === 'manyToOne') {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
@@ -154,7 +156,7 @@ export class DatastoreImport extends DatastoreActionDML {
 		}
 	}
 
-	protected sort (schema:SchemaHelper, queries:Query[]):Query[] {
+	protected sort (schema:SchemaConfig, queries:Query[]):Query[] {
 		let entities = queries.map(p => p.entity)
 		entities = schema.sortEntities(entities)
 		const result:Query[] = []
@@ -167,7 +169,7 @@ export class DatastoreImport extends DatastoreActionDML {
 		return result
 	}
 
-	protected async createQuery (schema:SchemaHelper, entity:any):Promise<Query> {
+	protected async createQuery (schema:SchemaConfig, entity:any):Promise<Query> {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(schema, entity)}`
 		return await this.expressionManager.toQuery(expression, this.datastore.name)
 	}

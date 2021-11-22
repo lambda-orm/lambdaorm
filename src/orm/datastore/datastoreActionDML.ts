@@ -1,7 +1,6 @@
 import { Datastore, Query } from '../model'
-import { ConfigManager, ExpressionManager, Executor } from '../manager'
+import { ConfigManager, SchemaConfig, ExpressionManager, Executor } from '../manager'
 import { DatastoreState } from './datastoreState'
-import { SchemaHelper } from '../manager/schemaHelper'
 
 export abstract class DatastoreActionDML {
 	protected state: DatastoreState
@@ -18,16 +17,15 @@ export abstract class DatastoreActionDML {
 		this.datastore = datastore
 	}
 
-	public async getSchema ():Promise<SchemaHelper> {
+	public async getSchema ():Promise<SchemaConfig> {
 		const state = await this.state.get(this.datastore.name)
 		let schema
-		if (state.schema === undefined || state.schema === {}) {
+		if (state.schema === undefined) {
 			schema = this.configManager.schema.get(this.datastore.schema)
 		} else {
 			schema = state.schema
 		}
-		const _schema = this.configManager.schema.transform(schema)
-		return new SchemaHelper(_schema)
+		return new SchemaConfig(schema)
 	}
 
 	public async sentence ():Promise<any> {
@@ -41,11 +39,11 @@ export abstract class DatastoreActionDML {
 		return sentences
 	}
 
-	protected async build (schema:SchemaHelper): Promise<Query[]> {
+	protected async build (schema:SchemaConfig): Promise<Query[]> {
 		const queries:Query[] = []
-		for (const entityName in schema.entity) {
-			if (!schema.isChild(entityName)) {
-				const entity = schema.entity[entityName]
+		for (const i in schema.entities) {
+			const entity = schema.entities[i]
+			if (!schema.isChild(entity.name)) {
 				const query = await this.createQuery(schema, entity)
 				queries.push(query)
 			}
@@ -53,9 +51,9 @@ export abstract class DatastoreActionDML {
 		return queries
 	}
 
-	protected abstract createQuery(schema:SchemaHelper, entity:any):Promise<Query>
+	protected abstract createQuery(schema:SchemaConfig, entity:any):Promise<Query>
 
-	protected createInclude (schema:SchemaHelper, entity:any, level = 0):string {
+	protected createInclude (schema:SchemaConfig, entity:any, level = 0):string {
 		const arrowVariable = this.arrowVariables[level]
 		const includes:string[] = []
 		for (const relationName in entity.relation) {

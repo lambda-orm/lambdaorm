@@ -6,52 +6,53 @@ export class Respository<TEntity, TQuery> {
 	public name
 	public datastore
 	private orm
-	constructor (name: string, datastore?:string, Orm?:IOrm) {
+	constructor (name: string, datastore:string, Orm?:IOrm) {
 		this.name = name
 		this.datastore = datastore
 		this.orm = Orm !== undefined ? Orm : orm
 	}
 
 	/**  */
-	insert(entity:TEntity): Promise<number>
+	insert(entity: TEntity, context: any): Promise<number>
 	/**  */
-	insert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
-	public async insert (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number> {
+	insert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any): Promise<number>
+	public async insert (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any = {}): Promise<number> {
 		let expression = `${this.name}.insert()`
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(entity, this.datastore)
+		return await this.orm.expression(expression).execute(entity, this.datastore, context)
 	}
 
 	/**  */
-	bulkInsert(entity:TEntity): Promise<number[]>
+	bulkInsert(entity:TEntity, context:any): Promise<number[]>
 	/**  */
-	bulkInsert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number[]>
-	public async bulkInsert (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number[]> {
+	bulkInsert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any): Promise<number[]>
+	public async bulkInsert (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any = {}): Promise<number[]> {
 		let expression = `${this.name}.bulkInsert()`
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(entity, this.datastore)
+		return await this.orm.expression(expression).execute(entity, this.datastore, context)
 	}
 
 	/**  */
-	update(entity:TEntity): Promise<void>
+	update(entity:TEntity, context:any): Promise<void>
 	/**  */
-	update(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void>
-	public async update (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void> {
+	update(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any): Promise<void>
+	public async update (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown, context: any = {}): Promise<void> {
 		let expression = `${this.name}.update()`
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(entity, this.datastore)
+		return await this.orm.expression(expression).execute(entity, this.datastore, context)
 	}
 
 	public async updateAll (data:any,
 		map: (value: TEntity) => unknown,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<number> {
 		let expression = `${this.name}.updateAll(${map.toString()})`
 		if (filter !== undefined) {
@@ -60,37 +61,38 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.filter(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.datastore)
+		return await this.orm.expression(expression).execute(data, this.datastore, context)
 	}
 
 	/**  */
-	merge(entity:TEntity): Promise<void>
+	merge(entity:TEntity, context:any): Promise<void>
 	/**  */
-	merge(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void>
-	public async merge (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void> {
+	merge(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any): Promise<void>
+	public async merge (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown, context: any = {}): Promise<void> {
 		let expression = `${this.name}.merge()`
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(entity, this.datastore)
+		return await this.orm.expression(expression).execute(entity, this.datastore, context)
 	}
 
 	/**  */
-	delete(entity:TEntity): Promise<void>
+	delete(entity:TEntity, context:any): Promise<void>
 	/**  */
-	delete(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void>
-	public async delete (entity:TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<void> {
+	delete(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown, context:any): Promise<void>
+	public async delete (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown, context: any = {}): Promise<void> {
 		let expression = `${this.name}.delete()`
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(entity, this.datastore)
+		return await this.orm.expression(expression).execute(entity, this.datastore, context)
 	}
 
 	public async deleteAll (data:any,
 		map: (value: TEntity) => unknown,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<number> {
 		let expression = `${this.name}.deleteAll(${map.toString()})`
 		if (filter !== undefined) {
@@ -99,16 +101,17 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.filter(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.datastore)
+		return await this.orm.expression(expression).execute(data, this.datastore, context)
 	}
 
-	public async execute (expresion: string, data?: any): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.datastore)
+	public async execute (expresion: string, data?: any, context: any = {}): Promise<any> {
+		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.datastore, context)
 	}
 
 	public async list (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<TEntity[]> {
 		let expression = `${this.name}`
 		if (filter !== undefined) {
@@ -117,12 +120,13 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.datastore) as TEntity[]
+		return await this.orm.expression(expression).execute(data, this.datastore, context) as TEntity[]
 	}
 
 	public async distinct (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<any[]> {
 		let expression = `${this.name}.distinct()`
 		if (filter !== undefined) {
@@ -131,12 +135,13 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.expression(expression).execute(data, this.datastore)
+		return await this.orm.expression(expression).execute(data, this.datastore, context)
 	}
 
 	public async first (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<TEntity|null> {
 		let expression = `${this.name}.first()`
 		if (filter !== undefined) {
@@ -145,7 +150,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		const result = await this.orm.expression(expression).execute(data, this.datastore)
+		const result = await this.orm.expression(expression).execute(data, this.datastore, context)
 		if (result.length >= 1) {
 			return result[0] as TEntity
 		} else {
@@ -155,7 +160,8 @@ export class Respository<TEntity, TQuery> {
 
 	public async last (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<TEntity|null> {
 		let expression = `${this.name}.last()`
 		if (filter !== undefined) {
@@ -164,7 +170,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		const result = await this.orm.expression(expression).execute(data, this.datastore)
+		const result = await this.orm.expression(expression).execute(data, this.datastore, context)
 		if (result.length >= 1) {
 			return result[0] as TEntity
 		} else {
@@ -174,7 +180,8 @@ export class Respository<TEntity, TQuery> {
 
 	public async take (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
+		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
+		context: any = {}
 	): Promise<TEntity|null> {
 		let expression = `${this.name}.take()`
 		if (filter !== undefined) {
@@ -183,7 +190,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		const result = await this.orm.expression(expression).execute(data, this.datastore)
+		const result = await this.orm.expression(expression).execute(data, this.datastore, context)
 		if (result.length >= 1) {
 			return result[0] as TEntity
 		} else {

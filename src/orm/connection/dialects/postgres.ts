@@ -2,7 +2,7 @@
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
-import { SchemaHelper } from './../../manager'
+import { SchemaConfig } from './../../manager'
 
 // https://node-postgres.com/features/connecting
 
@@ -62,12 +62,12 @@ export class PostgresConnectionPool extends ConnectionPool {
 	}
 }
 export class PostgresConnection extends Connection {
-	public async select (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<any> {
+	public async select (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<any> {
 		const result = await this._execute(query, params)
 		return result.rows
 	}
 
-	public async insert (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
+	public async insert (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
 		try {
 			const result = await this._execute(query, params)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -77,7 +77,7 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (schema: SchemaHelper, query: Query, array: any[], params: Parameter[]): Promise<number[]> {
+	public async bulkInsert (schema: SchemaConfig, query: Query, array: any[], params: Parameter[]): Promise<number[]> {
 		const autoincrement = schema.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sql = query.sentence
@@ -127,12 +127,12 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async update (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
+	public async update (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result.rowCount
 	}
 
-	public async delete (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
+	public async delete (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result.rowCount
 	}

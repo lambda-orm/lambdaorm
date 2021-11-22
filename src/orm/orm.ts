@@ -164,8 +164,8 @@ export class Orm implements IOrm {
  * @param datastore Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (datastore: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (datastore: string, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const db = this.configManager.datastore.get(datastore)
-		return await this.executor.transaction(db, callback)
+		return await this.executor.transaction(db, context, callback)
 	}
 }

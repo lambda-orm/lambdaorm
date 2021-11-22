@@ -1,14 +1,15 @@
 import { Query } from '../model/index'
 import { DatastoreActionDDL } from './datastoreActionDDL'
 import { DDLBuilder } from '../manager/ddlBuilder'
-import { SchemaHelper } from '../manager/schemaHelper'
+import { SchemaConfig } from '../manager'
 export class DatastoreClean extends DatastoreActionDDL {
 	public async queries (): Promise<Query[]> {
 		const state = await this.state.get(this.datastore.name)
 		if (state && state.schema) {
-			const schema = this.config.schema.transform(state.schema)
-			const schemaHelper = new SchemaHelper(schema)
-			return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).drop(schemaHelper)
+			// const schema = this.config.schema.transform(state.schema)
+			// const schemaHelper = new SchemaConfig(schema)
+			const schemaConfig = new SchemaConfig(state.schema)
+			return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore.dialect).drop(schemaConfig)
 		}
 		return []
 	}

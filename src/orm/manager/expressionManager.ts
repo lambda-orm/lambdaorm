@@ -60,7 +60,7 @@ export class ExpressionManager implements IEvaluator {
 		}
 	}
 
-	public async toQuery (expression: string, datastore?: string): Promise<Query> {
+	public async toQuery (expression: string, datastore: string): Promise<Query> {
 		try {
 			const db = this.config.datastore.get(datastore)
 			const key = db.name + 'query_' + expression
@@ -68,7 +68,7 @@ export class ExpressionManager implements IEvaluator {
 			if (!query) {
 				const schema = this.config.schema.getInstance(db.schema)
 				const sentence = await this.toOperand(expression) as Sentence
-				query = new DMLBuilder(this.config, this, schema, this.languageManager, db).build(sentence)
+				query = new DMLBuilder(schema, this.languageManager, db.dialect).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query
@@ -134,7 +134,7 @@ export class ExpressionManager implements IEvaluator {
 		return this.languageManager.parameters(operand as Sentence)
 	}
 
-	public async sentence (expression: string, datastore?: string):Promise<string> {
+	public async sentence (expression: string, datastore: string):Promise<string> {
 		const query = await this.toQuery(expression, datastore)
 		return this.languageManager.sentence(query)
 	}

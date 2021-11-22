@@ -77,15 +77,15 @@ export class Variable extends Operand {
 }
 export class Field extends Operand {
 	public entity: string
-	public mapping: string
-	constructor (entity: string, name: string, type: string, mapping: string) {
+	public alias?: string
+	constructor (entity: string, name: string, type: string, alias?: string) {
 		super(name, [], type)
 		this.entity = entity
-		this.mapping = mapping
+		this.alias = alias
 	}
 
 	public clone () {
-		return new Field(this.entity, this.name, this.type, this.mapping)
+		return new Field(this.entity, this.name, this.type, this.alias)
 	}
 
 	public eval (): any {
@@ -94,7 +94,7 @@ export class Field extends Operand {
 	}
 }
 export class KeyValue extends Operand {
-	public mapping?: string
+	public property?: string
 	public eval (): any {
 		return this.children[0].eval()
 	}
@@ -235,10 +235,10 @@ export class Sentence extends Operand {
 
 		const variables: Variable[] = []
 		if (map) {
-			this.action = 'read'
+			this.action = 'select'
 			this.loadVariables(map, variables)
 		} else if (insert) {
-			this.action = 'create'
+			this.action = 'insert'
 			this.loadVariables(insert, variables)
 		} else if (update) {
 			this.action = 'update'

@@ -5,7 +5,7 @@
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query } from '../../model'
 import { Helper } from '../../helper'
-import { SchemaHelper } from './../../manager'
+import { SchemaConfig } from './../../manager'
 
 export class MongodbConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -55,24 +55,24 @@ export class MongodbConnectionPool extends ConnectionPool {
 }
 
 export class MongodbConnection extends Connection {
-	public async select (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<any> {
+	public async select (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<any> {
 		throw new Error('not implemented')
 	}
 
-	public async insert (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
+	public async insert (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
 		throw new Error('not implemented')
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (schema:SchemaHelper, query:Query, array:any[], params:Parameter[]):Promise<number[]> {
+	public async bulkInsert (schema:SchemaConfig, query:Query, array:any[], params:Parameter[]):Promise<number[]> {
 		throw new Error('not implemented')
 	}
 
-	public async update (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
+	public async update (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
 		throw new Error('not implemented')
 	}
 
-	public async delete (schema:SchemaHelper, query:Query, params:Parameter[]):Promise<number> {
+	public async delete (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
 		throw new Error('not implemented')
 	}
 

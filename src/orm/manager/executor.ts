@@ -3,7 +3,7 @@ import { Query, Datastore } from './../model/index'
 import { ConnectionManager } from './../connection'
 import { LanguageManager } from './../language'
 import { ExpressionManager, QueryExecutor, Transaction } from './'
-import { ConfigManager } from './configManager'
+import { ConfigManager } from './config'
 
 export class Executor {
 	private languageManager: LanguageManager
@@ -17,18 +17,18 @@ export class Executor {
 		this.configManager = configManager
 	}
 
-	public async execute (datastore: Datastore, query: Query, data: any = {}): Promise<any> {
+	public async execute (datastore: Datastore, query: Query, data: any, context: any): Promise<any> {
 		let error: any
 		let result:any
 		if (query.children && query.children.length > 0) {
-			await this.transaction(datastore, async function (tr: Transaction) {
+			await this.transaction(datastore, context, async function (tr: Transaction) {
 				result = await tr.execute(query, data)
 			})
 		} else {
 			const schema = this.configManager.schema.getInstance(datastore.schema)
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, datastore, schema, false)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, schema, false)
 			try {
-				result = await queryExecutor.execute(query, data)
+				result = await queryExecutor.execute(query, data, context)
 			} catch (_error) {
 				error = _error
 			} finally {
@@ -41,16 +41,16 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (datastore:Datastore, queries: Query[], tryAllCan = false):Promise<any> {
+	public async executeList (datastore:Datastore, queries: Query[], context: any, tryAllCan = false):Promise<any> {
 		const results: any[] = []
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
 				const schema = this.configManager.schema.getInstance(datastore.schema)
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, datastore, schema, false)
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, schema, false)
 				try {
-					const result = await queryExecutor.execute(query)
+					const result = await queryExecutor.execute(query, context, {})
 					results.push(result)
 				} catch (error) {
 					console.error(`error: ${error} on sentence:${query.sentence}`)
@@ -59,7 +59,7 @@ export class Executor {
 				}
 			}
 		} else {
-			await this.transaction(datastore, async function (tr: Transaction) {
+			await this.transaction(datastore, context, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
 					const result = await tr.execute(query)
@@ -75,12 +75,12 @@ export class Executor {
  * @param datastore Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (datastore: Datastore, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (datastore: Datastore, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const schema = this.configManager.schema.getInstance(datastore.schema)
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, datastore, schema, true)
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, schema, true)
 		let error:any
 		try {
-			const transaction = new Transaction(this.expressionManager, queryExecutor)
+			const transaction = new Transaction(context, this.expressionManager, queryExecutor)
 			await callback(transaction)
 			await queryExecutor.commit()
 		} catch (_error) {

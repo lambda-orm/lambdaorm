@@ -41,7 +41,7 @@ export class ExpressionFacade {
 		return this.expressionManager.parameters(this.expression)
 	}
 
-	public async sentence (datastore?: string):Promise<string> {
+	public async sentence (datastore: string):Promise<string> {
 		return this.expressionManager.sentence(this.expression, datastore)
 	}
 
@@ -69,9 +69,9 @@ export class ExpressionFacade {
 	 * @param datastore Database name
 	 * @returns Result of execution
 	 */
-	public async execute (data: any = {}, datastore?: string) {
+	public async execute (data: any = {}, datastore: string, context:any) {
 		const query = await this.expressionManager.toQuery(this.expression, datastore)
 		const db = this.configManager.datastore.get(datastore)
-		return await this.executor.execute(db, query, data)
+		return await this.executor.execute(db, query, data, context)
 	}
 }

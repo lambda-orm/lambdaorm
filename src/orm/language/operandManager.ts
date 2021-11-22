@@ -11,9 +11,8 @@ import { LanguageManager } from './languageManager'
 
 class EntityContext {
 	public parent?:EntityContext
-	public entity:string
+	public entityName:string
 	public alias:string
-	public metadata:any
 	public children:EntityContext[]
 	public joins:any
 	public fields:Property[]
@@ -23,7 +22,7 @@ class EntityContext {
 	constructor (parent?:EntityContext) {
 		this.parent = parent
 		if (parent)parent.children.push(this)
-		this.entity = ''
+		this.entityName = ''
 		this.alias = ''
 		this.arrowVar = ''
 		this.children = []
@@ -70,11 +69,11 @@ export class OperandManager {
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const childsSchema = this.model(include.children[0] as Sentence)
+			const child = this.model(include.children[0] as Sentence)
 			if (include.relation.type === 'manyToOne') {
-				result[include.name] = [childsSchema]
+				result[include.name] = [child]
 			} else {
-				result[include.name] = childsSchema
+				result[include.name] = child
 			}
 		}
 		return result
@@ -111,9 +110,10 @@ export class OperandManager {
 		} else if (operand instanceof Insert) {
 			return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause }
 		} else if (operand instanceof KeyValue) {
-			return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping }
+			return { n: operand.name, t: operand.constructor.name, c: children, p: operand.property }
+			// return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping }
 		} else if (operand instanceof Field) {
-			return { n: operand.name, t: operand.constructor.name, c: children, e: operand.entity, m: operand.mapping }
+			return { n: operand.name, t: operand.constructor.name, c: children, e: operand.entity, a: operand.alias }
 		} else if (operand instanceof Variable) {
 			return { n: operand.name, t: operand.constructor.name, c: children, u: operand.number }
 		} else {
@@ -248,38 +248,38 @@ export class OperandManager {
 			if (parts[0] === expressionContext.current.arrowVar) {
 				if (parts.length === 1) {
 					// TODO, aqui se deberia retornar el array de fields
-					return new Field(expressionContext.current.entity, '*', 'any', expressionContext.current.alias + '.*')
+					return new Field(expressionContext.current.entityName, '*', 'any', expressionContext.current.alias)
 				} else if (parts.length === 2) {
 					const _field = expressionContext.current.fields.find(p => p.name === parts[1])
 					if (_field) {
-						return new Field(expressionContext.current.entity, _field.name, _field.type, _field.name)
+						return new Field(expressionContext.current.entityName, _field.name, _field.type, _field.name)
 					} else {
-						if (this.config.model.existsProperty(expressionContext.current.entity, parts[1])) {
-							const property = this.config.model.getProperty(expressionContext.current.entity, parts[1])
-							return new Field(expressionContext.current.entity, property.name, property.type, expressionContext.current.alias + '.' + property.mapping)
+						if (this.config.model.existsProperty(expressionContext.current.entityName, parts[1])) {
+							const property = this.config.model.getProperty(expressionContext.current.entityName, parts[1])
+							return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias)
 						} else {
-							const relationInfo = this.config.model.getRelation(expressionContext.current.entity, parts[1])
+							const relationInfo = this.config.model.getRelation(expressionContext.current.entityName, parts[1])
 							if (relationInfo) {
 								const relation = this.addJoins(parts, parts.length, expressionContext)
 								const relationAlias = expressionContext.current.joins[relation]
 								// TODO, aqui se deberia retornar el array de fields
 								return new Field(relation, '*', 'any', relationAlias + '.*')
 							} else {
-								throw new Error('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entity)
+								throw new Error('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
 							}
 						}
 					}
 				} else {
 					const propertyName = parts[parts.length - 1]
 					const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-					const info = this.config.model.getRelation(expressionContext.current.entity, relation)
+					const info = this.config.model.getRelation(expressionContext.current.entityName, relation)
 					const relationAlias = expressionContext.current.joins[relation]
-					const property = info.relationSchema.property[propertyName]
+					const property = info.entity.properties.find(p => p.name === propertyName)
 					if (property) {
-						return new Field(info.relationSchema.name, property.name, property.type, relationAlias + '.' + property.mapping)
+						return new Field(info.entity.name, property.name, property.type, relationAlias)
 					} else {
-						const relationName = info.relationSchema.relation[propertyName]
-						if (relationName) {
+						const childRelation = info.entity.relations.find(p => p.name === propertyName)
+						if (childRelation) {
 							const relation2 = this.addJoins(parts, parts.length, expressionContext)
 							const relationAlias2 = expressionContext.current.joins[relation2]
 							// TODO, aqui se deberia retornar el array de fields
@@ -312,9 +312,9 @@ export class OperandManager {
 		expressionContext.current = new EntityContext(expressionContext.current)
 		let createInclude:any
 		const clauses:any = this.getSentence(node)
-		expressionContext.current.entity = clauses.from.name
-		expressionContext.current.metadata = this.config.model.getEntity(expressionContext.current.entity)
-		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entity)
+		expressionContext.current.entityName = clauses.from.name
+		// expressionContext.current.metadata = this.config.model.getEntity(expressionContext.current.entityName)
+		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
 		let name = ''
 		const children:Operand[] = []
 		let operand = null
@@ -327,8 +327,7 @@ export class OperandManager {
 			children.push(operand)
 		}
 		if (clauses.from) {
-			const tableName = expressionContext.current.metadata.mapping// schema.entityMapping(clause.name)
-			operand = new From(tableName + '.' + expressionContext.current.alias)
+			operand = new From(expressionContext.current.entityName + '.' + expressionContext.current.alias)
 			children.push(operand)
 		}
 		if (clauses.insert) {
@@ -358,7 +357,7 @@ export class OperandManager {
 			name = 'delete'
 			createInclude = this.createInclude
 			// const clause = clauses.delete
-			operand = new Delete(expressionContext.current.metadata.mapping + '.' + expressionContext.current.alias)
+			operand = new Delete(expressionContext.current.entityName + '.' + expressionContext.current.alias)
 			children.push(operand)
 		} else if (clauses.map) {
 			name = 'select'
@@ -411,25 +410,25 @@ export class OperandManager {
 			} else { children.push(createInclude.bind(this)(body, expressionContext)) }
 		}
 		for (const key in expressionContext.current.joins) {
-			const info = this.config.model.getRelation(expressionContext.current.entity, key)
+			const info = this.config.model.getRelation(expressionContext.current.entityName, key)
 
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
-			const relatedProperty = info.previousSchema.property[info.relationData.from]
-			const relationTable = info.relationSchema.name
+			const relatedProperty = info.previousEntity.properties.find(p => p.name === info.relation.from) as Property
+			const relationTable = info.entity.name
 			const relationAlias = expressionContext.current.joins[key]
-			const relationProperty = info.relationSchema.property[info.relationData.to]
+			const relationProperty = info.entity.properties.find(p => p.name === info.relation.to) as Property
 
 			// TODO: Aqui usar el key para agregar el filtro que corresponda
 			// si una entidad tiene uno o mas propiedades con key, se debe agregar un filtro por el key
-			const relatedField = new Field(info.previousSchema.name, info.relationData.from, relatedProperty.type, relatedAlias + '.' + relatedProperty.mapping)
-			const relationField = new Field(info.relationSchema.name, info.relationData.to, relationProperty.type, relationAlias + '.' + relationProperty.mapping)
+			const relatedField = new Field(info.previousEntity.name, info.relation.from, relatedProperty.type, relatedAlias)
+			const relationField = new Field(info.previousEntity.name, info.relation.to, relationProperty.type, relationAlias)
 			const equal = new Operator('==', [relationField, relatedField])
 			operand = new Join(relationTable + '.' + relationAlias, [equal])
 			children.push(operand)
 		}
 		for (let i = 0; i < children.length; i++) this.solveTypes(children[i], expressionContext)
 		const parameters = this.parametersInSentence(children)
-		const sentence = new Sentence(name, children, expressionContext.current.entity, expressionContext.current.alias, expressionContext.current.fields, parameters)
+		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters)
 		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent as EntityContext : new EntityContext()
 		return sentence
 	}
@@ -459,13 +458,13 @@ export class OperandManager {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === 'obj') {
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
-				return new Insert(expressionContext.current.metadata.mapping, [child], clause.name)
+				return new Insert(expressionContext.current.entityName, [child], clause.name)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		} else if (clause.children.length === 3) {
 			// Example: Categories.insert(() => ({ name: name, description: description }))
 			if (clause.children[2].type === 'obj') {
 				const child = this.nodeToOperand(clause.children[2], expressionContext)
-				return new Insert(expressionContext.current.metadata.mapping, [child], clause.name)
+				return new Insert(expressionContext.current.entityName, [child], clause.name)
 			} else { throw new Error('Args incorrect in Sentence Insert') }
 		}
 		throw new Error('Sentence Insert incorrect!!!')
@@ -476,13 +475,13 @@ export class OperandManager {
 			if (clause.children[1].type === 'obj') {
 				// Example: Orders.update({name:'test'})
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
-				return new Update(expressionContext.current.metadata.mapping + '.' + expressionContext.current.alias, [child])
+				return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
 			} else { throw new Error('Args incorrect in Sentence Update') }
 		} else if (clause.children.length === 3) {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
-			return new Update(expressionContext.current.metadata.mapping + '.' + expressionContext.current.alias, [child])
+			return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
 		}
 		throw new Error('Sentence Update incorrect!!!')
 	}
@@ -495,7 +494,7 @@ export class OperandManager {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				relation = expressionContext.current.metadata.relation[relationName]
+				relation = this.config.model.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relation.entity
 				break
 			}
@@ -514,7 +513,7 @@ export class OperandManager {
 				// p.details
 				const parts = current.name.split('.')
 				relationName = parts[1]
-				relation = expressionContext.current.metadata.relation[relationName]
+				relation = this.config.model.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relation.entity
 				break
 			}
@@ -637,9 +636,9 @@ export class OperandManager {
 				const obj = operand.children[0]
 				for (const p in obj.children) {
 					const keyVal = obj.children[p] as KeyValue
-					const property = expressionContext.current.metadata.property[keyVal.name]
+					const property = this.config.model.getProperty(expressionContext.current.entityName, keyVal.name)
 					const field = { name: keyVal.name, type: property.type }
-					keyVal.mapping = property.mapping // new Field(expressionContext.current.entity,property.name,property.type,property.mapping)
+					keyVal.property = property.name // new Field(expressionContext.current.entity,property.name,property.type,property.mapping)
 					fields.push(field)
 				}
 			}
@@ -693,7 +692,7 @@ export class OperandManager {
 					const obj = operand.children[0]
 					for (const p in obj.children) {
 						const keyVal = obj.children[p] as KeyValue
-						const property = expressionContext.current.metadata.property[keyVal.name]
+						const property = this.config.model.getProperty(expressionContext.current.entityName, keyVal.name)
 						if (keyVal.children[0].type === 'any') { keyVal.children[0].type = property.type }
 					}
 				}

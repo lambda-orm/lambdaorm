@@ -1,4 +1,4 @@
-import { Schema } from '../model'
+import { Schema, SchemaState } from '../model'
 import { ConfigManager } from '../manager'
 import { Helper } from '../helper'
 const path = require('path')
@@ -9,7 +9,7 @@ export class DatastoreState {
 		this.config = config
 	}
 
-	public async get (name:string):Promise<any> {
+	public async get (name:string):Promise<SchemaState> {
 		const file = this.getFile(name)
 		const exists = await Helper.existsPath(file)
 		if (exists) {
@@ -18,7 +18,7 @@ export class DatastoreState {
 				return JSON.parse(content)
 			}
 		}
-		return { schema: {}, mapping: {}, pending: [] }
+		return { schema: { name: '', entities: [] }, mapping: {}, pending: [] }
 	}
 
 	public async updateSchema (name:string, schema:Schema):Promise<void> {

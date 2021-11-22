@@ -10,5 +10,5 @@ export interface IOrm
 	init(configPath?: string, connect?: boolean): Promise<void>
 	end (): Promise<void>
 	expression(expression: string): ExpressionFacade
-	transaction(datastore:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
+	transaction(datastore:string, context:any, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

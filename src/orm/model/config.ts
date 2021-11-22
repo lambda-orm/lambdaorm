@@ -22,7 +22,6 @@ export interface Relation {
 	entity: string
 	to: string
 }
-
 export interface Entity {
 	name: string
 	extends?: string
@@ -32,22 +31,9 @@ export interface Entity {
 	properties:Property[]
 	relations:Relation[]
 }
-export interface Model {
-	enums: Enum[]
+export interface Model{
 	entities: Entity[]
-}
-export interface RuleDatastore
-{
-	rule: string
-	datastore: string
-}
-export interface Datastore
-{
-	name: string
-	dialect: string
-	schema: string
-	connection: any
-	rules: RuleDatastore[]
+	enums: Enum[]
 }
 export interface PropertyMapping extends Property {
 	mapping: string
@@ -74,6 +60,20 @@ export interface App
 	src: string
 	data: string
 	model:string
+}
+export interface RuleDatastore
+{
+	name: string
+	rule: string
+	datastore: string
+}
+export interface Datastore
+{
+	name: string
+	dialect: string
+	schema: string
+	connection: any
+	rules: RuleDatastore[]
 }
 export interface Config
 {

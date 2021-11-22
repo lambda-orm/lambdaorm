@@ -1,6 +1,7 @@
 
 import { Helper } from './../helper'
 import { Node } from './../parser/index'
+import { Entity } from './../model'
 import { ConfigManager } from './../manager'
 
 /**
@@ -49,6 +50,9 @@ export class ExpressionCompleter {
 		let compleInclude: any
 		const clauses:any = this.getClauses(mainNode)
 		const entity = this.config.model.getEntity(entityName || clauses.from.name)
+		if (entity === undefined) {
+			throw new Error(`entity ${entityName} not found`)
+		}
 		if (clauses.insert) {
 			compleInclude = this.completeInsertInclude
 			const node = clauses.insert

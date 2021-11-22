@@ -381,9 +381,11 @@ datastores:
     dialect: mysql
     connection: $ORM_CNN_SOURCE
     rules:
-      - rule: entity == "Categories" && action == "read"
+      - name: a
+        rule: entity == "Categories" && action == "read"
         datastore: source
-      - rule: entity == "Categories" && ["create","update","delete"].includes(action)
+      - name: b
+        rule: entity == "Categories" && ["create","update","delete"].includes(action)
         datastore: source
     # routings:
     #   - name: a
