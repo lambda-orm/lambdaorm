@@ -1,5 +1,4 @@
-import { Helper } from '../helper'
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, Index, Datastore, Config, Model, Schema } from '../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, Datastore, Config, Model, Schema } from '../model'
 import { ConnectionConfig } from '../connection'
 
 interface RelationInfo {

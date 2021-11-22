@@ -1,6 +1,6 @@
 import { ConfigManager, SchemaConfig } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
-import { Query, Delta, Index, Datastore, Relation, PropertyMapping, IEvaluator, EntityMapping } from '../model'
+import { Query, Delta, Index, Relation, PropertyMapping, IEvaluator, EntityMapping } from '../model'
 
 export class DDLBuilder {
 	private languageManager: LanguageManager
