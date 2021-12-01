@@ -9,7 +9,7 @@ export class DatastoreClean extends DatastoreActionDDL {
 			// const schema = this.config.schema.transform(state.schema)
 			// const schemaHelper = new SchemaConfig(schema)
 			const schemaConfig = new SchemaConfig(state.schema)
-			return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore.dialect).drop(schemaConfig)
+			return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).drop(schemaConfig)
 		}
 		return []
 	}

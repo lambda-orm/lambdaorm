@@ -68,7 +68,7 @@ export class ExpressionManager implements IEvaluator {
 			if (!query) {
 				const schema = this.config.schema.getInstance(db.schema)
 				const sentence = await this.toOperand(expression) as Sentence
-				query = new DMLBuilder(schema, this.languageManager, db.dialect).build(sentence)
+				query = new DMLBuilder(this.config, this, schema, this.languageManager, db).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query

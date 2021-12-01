@@ -19,7 +19,7 @@ export class DatastoreSync extends DatastoreActionDDL {
 		const schemaConfig = new SchemaConfig(this.currenSchema)
 		const _old = state && state.schema ? state.schema : null
 		const delta = Helper.deltaWithSimpleArrays(this.currenSchema.entities, _old?.entities)
-		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore.dialect).sync(delta, schemaConfig)
+		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).sync(delta, schemaConfig)
 
 		// this.currenSchema = this.config.schema.get(this.datastore.schema) as Schema
 		// const state = await this.state.get(this.datastore.name)

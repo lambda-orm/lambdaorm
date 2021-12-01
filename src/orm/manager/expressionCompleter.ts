@@ -414,7 +414,7 @@ export class ExpressionCompleter {
 		}
 	}
 
-	private completeInclude (entity: any, arrowVar: string, node: Node, clause: string): Node {
+	private completeInclude (entity: Entity, arrowVar: string, node: Node, clause: string): Node {
 		if (node.type === 'arrow') {
 		// resuelve el siguiente caso  .includes(details.insert())
 			const relation = this.getIncludeRelation(entity, node)

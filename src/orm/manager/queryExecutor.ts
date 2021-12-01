@@ -58,8 +58,9 @@ export class QueryExecutor {
 	}
 
 	private async getDatastore (query: Query, context: any): Promise<string> {
-		const sentenceInfo = { entity: query.entity, action: query.sentence }
-		const _context = { ...context, ...sentenceInfo }
+		const actionType = query.sentence === 'select' ? 'read' : 'command'
+		const queryInfo = { entity: query.entity, action: query.name, actionType: actionType, sentence: query.sentence }
+		const _context = { query: queryInfo, context: context }
 		for (const i in this.datastore.rules) {
 			const rule = this.datastore.rules[i]
 			if (await this.evaluator.eval(rule.rule, _context) === true) {
@@ -85,8 +86,23 @@ export class QueryExecutor {
 		case 'update': result = await this.update(query, data, metadata, connection, context); break
 		case 'delete': result = await this.delete(query, data, metadata, connection, context); break
 		case 'bulkInsert': result = await this.bulkInsert(query, data, metadata, connection, context); break
+		case 'truncateTable': result = await connection.execute(query); break
+		case 'createTable': result = await connection.execute(query); break
+		case 'createFk': result = await connection.execute(query); break
+		case 'createIndex': result = await connection.execute(query); break
+		case 'alterColumn': result = await connection.execute(query); break
+		case 'addColumn': result = await connection.execute(query); break
+		case 'addPk': result = await connection.execute(query); break
+		case 'addUk': result = await connection.execute(query); break
+		case 'addFk': result = await connection.execute(query); break
+		case 'dropTable':result = await connection.execute(query); break
+		case 'dropColumn':result = await connection.execute(query); break
+		case 'dropPk':result = await connection.execute(query); break
+		case 'dropUk':result = await connection.execute(query); break
+		case 'dropFK':result = await connection.execute(query); break
+		case 'dropIndex':result = await connection.execute(query); break
 		default:
-			result = await connection.execute(query)
+			throw new Error(`query ${query.name} undefined`)
 		}
 		return result
 	}

@@ -382,10 +382,10 @@ datastores:
     connection: $ORM_CNN_SOURCE
     rules:
       - name: a
-        rule: entity == "Categories" && action == "read"
+        rule: entity == "Categories" && actionType == "read"
         datastore: source
       - name: b
-        rule: entity == "Categories" && ["create","update","delete"].includes(action)
+        rule: entity == "Categories" && actionType == "command"
         datastore: source
     # routings:
     #   - name: a

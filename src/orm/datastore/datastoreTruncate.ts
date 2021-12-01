@@ -9,7 +9,7 @@ export class DatastoreTruncate extends DatastoreActionDDL {
 		// const schema = this.config.schema.transform(current)
 		// const schemaHelper = new SchemaConfig(schema)
 		const schemaConfig = new SchemaConfig(current)
-		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore.dialect).truncate(schemaConfig)
+		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).truncate(schemaConfig)
 	}
 
 	public async execute (tryAllCan = false): Promise<any[]> {
