@@ -78,7 +78,7 @@ export class Orm implements IOrm {
  * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
  * @returns promise void
  */
-	public async init (source?: string | Config, connect = true): Promise<void> {
+	public async init (source?: string | Config, connect = true): Promise<Config> {
 		let config
 		if (source === undefined || typeof source === 'string') {
 			config = await this.libManager.getConfig(source)
@@ -89,8 +89,8 @@ export class Orm implements IOrm {
 			}
 			config = _config
 		}
-		Helper.solveEnriromentVariables(config)
-		this.configManager.load(config)
+		Helper.solveEnvironmentVariables(config)
+		config = await this.configManager.load(config)
 
 		if (connect && config.datastores) {
 			for (const p in config.datastores) {
@@ -98,6 +98,7 @@ export class Orm implements IOrm {
 				this.connectionManager.load(datastore)
 			}
 		}
+		return config
 	}
 
 	/**

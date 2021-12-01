@@ -296,12 +296,25 @@ class ConfigExtender {
 		// extend schema for model
 		for (const k in config.schemas) {
 			this.extendObject(config.schemas[k], config.model)
+			config.schemas[k] = this.clearSchema(config.schemas[k])
 		}
 		return config
 	}
 
 	private clearModel (source: Model): Model {
 		const target: Model = { enums: [], entities: [] }
+		if (source.entities !== undefined) {
+			for (let i = 0; i < source.entities.length; i++) {
+				const sourceEntity = source.entities[i]
+				if (sourceEntity.abstract === true) continue
+				target.entities.push(sourceEntity)
+			}
+		}
+		return target
+	}
+
+	private clearSchema (source: Schema): Schema {
+		const target: Schema = { name: source.name, mapping: source.mapping, entities: [] }
 		if (source.entities !== undefined) {
 			for (let i = 0; i < source.entities.length; i++) {
 				const sourceEntity = source.entities[i]
@@ -441,9 +454,15 @@ export class ConfigManager {
 		this.extender = new ConfigExtender()
 	}
 
-	public async load (config: Config): Promise<void> {
+	public async load (config: Config): Promise<Config> {
 		this.config = this.extender.extend(config)
 		this.model.set(this.config.model)
+		if (this.config.schemas) {
+			for (const p in this.config.schemas) {
+				const schema = this.config.schemas[p]
+				this.schema.load(schema)
+			}
+		}
 		if (this.config.datastores) {
 			for (const p in this.config.datastores) {
 				const datastore = this.config.datastores[p]
@@ -453,5 +472,6 @@ export class ConfigManager {
 			}
 		}
 		this.datastore.default = this.config.defaultDatastore
+		return this.config
 	}
 }

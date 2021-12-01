@@ -1,14 +1,13 @@
-import { Orm } from '../../orm'
+import { Orm, Helper } from '../../orm'
 
 (async () => {
+	const yaml = require('js-yaml')
 	const workspace = './'
 	const orm = new Orm(workspace)
 	try {
-		const config = await orm.lib.getConfig(workspace)
-		console.log(JSON.stringify(config, null, 2))
-		const ds = orm.lib.getDatastore(undefined, config)
-		console.log(ds.name)
-		await orm.init(config)
+		let config = await orm.lib.getConfig(workspace)
+		config = await orm.init(config)
+		Helper.writeFile('./labs/config/resultConfig.yaml', yaml.dump(config, { noRefs: true }))
 	} catch (error) {
 		console.error(`error: ${error}`)
 	} finally {

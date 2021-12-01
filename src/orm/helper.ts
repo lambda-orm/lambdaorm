@@ -122,7 +122,7 @@ export class Helper {
 		return str.substring(index, str.length).trim()
 	}
 
-	public static solveEnriromentVariables (source:any): void {
+	public static solveEnvironmentVariables (source:any): void {
 		if (typeof source === 'object') {
 			for (const name in source) {
 				const child = source[name]
@@ -140,7 +140,7 @@ export class Helper {
 						}
 					}
 				} else if (typeof child === 'object') {
-					Helper.solveEnriromentVariables(child)
+					Helper.solveEnvironmentVariables(child)
 				}
 			}
 		}
