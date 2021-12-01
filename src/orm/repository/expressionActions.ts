@@ -11,26 +11,26 @@ export class ExpressionActions {
 	}
 
 	public async execute (expresion: string, data:any, context:any): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).execute(data, this.datastore, context)
+		return await this.orm.execute(`${this.name}${expresion}`, data, this.datastore, context)
 	}
 
 	public complete (expresion: string): string {
-		return this.orm.expression(`${this.name}${expresion}`).complete()
+		return this.orm.complete(`${this.name}${expresion}`)
 	}
 
 	public async model (expresion: string): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).model()
+		return await this.orm.model(`${this.name}${expresion}`)
 	}
 
 	public async parameters (expresion: string): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).parameters()
+		return await this.orm.parameters(`${this.name}${expresion}`)
 	}
 
 	public async metadata (expresion: string): Promise<any> {
-		return await this.orm.expression(`${this.name}${expresion}`).metadata()
+		return await this.orm.metadata(`${this.name}${expresion}`)
 	}
 
 	public async sentence (expresion: string): Promise<string> {
-		return await this.orm.expression(`${this.name}${expresion}`).sentence(this.datastore)
+		return await this.orm.sentence(`${this.name}${expresion}`, this.datastore)
 	}
 }

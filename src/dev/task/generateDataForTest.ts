@@ -27,11 +27,11 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 		expressionTest.sentences = []
 		expressionTest.errors = 0
 		try {
-			expressionTest.expression = orm.lambda(expressionTest.lambda).expression
+			expressionTest.expression = orm.toExpression(expressionTest.lambda)
 			// expressionTest.lambda = expressionTest.lambda.toString()
-			expressionTest.completeExpression = orm.expression(expressionTest.expression).complete()
-			expressionTest.model = await orm.expression(expressionTest.expression).model()
-			const metadata: any = await orm.expression(expressionTest.expression).metadata()
+			expressionTest.completeExpression = orm.complete(expressionTest.expression as string)
+			expressionTest.model = await orm.model(expressionTest.expression as string)
+			const metadata: any = await orm.metadata(expressionTest.expression as string)
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
 			for (const r in datastores) {
@@ -39,7 +39,7 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 				let sentence
 				let error
 				try {
-					sentence = await orm.expression(expressionTest.expression).sentence(datastore)
+					sentence = await orm.sentence(expressionTest.expression as string, datastore)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -63,7 +63,7 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
 					const context = category.context !== undefined ? category.context : {}
-					result = await orm.lambda(expressionTest.lambda).execute(data, context, datastore)
+					result = await orm.execute(expressionTest.lambda, data, context, datastore)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -896,7 +896,7 @@ async function bulkInsert () {
 	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.expression(expression).execute(categories, {}, 'source')))
+	const result = await exec(async () => (await orm.execute(expression, categories, {}, 'source')))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -995,7 +995,7 @@ async function bulkInsert2 () {
 	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.expression(expression).execute(orders, {}, 'source')))
+	const result = await exec(async () => (await orm.execute(expression, orders, {}, 'source')))
 }
 
 async function schemaExport (source: string) {

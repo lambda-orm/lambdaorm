@@ -1,4 +1,3 @@
-export * from './expressionFacade'
 export * from './expressionManager'
 export * from './expressionCompleter'
 export * from './memoryCache'

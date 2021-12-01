@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-types */
 
 import { Cache, IOrm, Config } from './model'
 import { ExpressionConfig } from './parser/index'
-import { ExpressionFacade, ExpressionManager, MemoryCache, Transaction, LibManager, DatastoreFacade, Executor, ConfigManager } from './manager'
+import { ExpressionManager, MemoryCache, Transaction, LibManager, DatastoreFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager, Language } from './language'
 import { SqlDMLBuilder, SqlDDLBuilder } from './language/sql'
@@ -137,27 +138,125 @@ export class Orm implements IOrm {
 		this._cache = value
 	}
 
+	// /**
+	//  * Read expression
+	//  * @param expression string expression
+	//  * @returns Expression manager
+	//  */
+	// public expression (expression: string): ExpressionFacade {
+	// if (!expression) {
+	// throw new Error('empty expression}')
+	// }
+	// return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
+	// }
+
+	// /**
+	//  * Read lambda expression
+	//  * @param func lambda expression
+	//  * @returns Expression manager
+	//  */
+	// // eslint-disable-next-line @typescript-eslint/ban-types
+	// public lambda (func: Function): ExpressionFacade {
+	// const expression = this.expressionManager.toExpression(func)
+	// return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
+	// }
+
 	/**
- * Read expression
- * @param expression string expression
- * @returns Expression manager
- */
-	public expression (expression: string): ExpressionFacade {
-		if (!expression) {
-			throw new Error('empty expression}')
-		}
-		return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
+	 * Read lambda expression
+	 * @param lambda lambda expression
+	 * @returns Expression manager
+	 */
+	public toExpression (lambda: Function): string {
+		return this.expressionManager.toExpression(lambda)
 	}
 
 	/**
- * Read lambda expression
- * @param func lambda expression
- * @returns Expression manager
- */
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public lambda (func: Function): ExpressionFacade {
-		const expression = this.expressionManager.toExpression(func)
-		return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
+	 * Complete expression
+	 * @returns Expression complete
+	 */
+	public complete(expression:Function): string
+	public complete(expression:string): string
+	public complete (expression: string|Function): string {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.complete(expression)
+	}
+
+	/**
+	 * Get model of expression
+	 * @returns Model of expression
+	 */
+	public async model(expression:Function): Promise<any>
+	public async model(expression:string): Promise<any>
+	public async model (expression: string|Function): Promise<any> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.model(expression)
+	}
+
+	/**
+	 * Get parameters of expression
+	 * @returns Parameters of expression
+	 */
+	public async parameters(expression:Function): Promise<any>;
+	public async parameters(expression:string): Promise<any>;
+	public async parameters (expression: string|Function): Promise<any> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.parameters(expression)
+	}
+
+	public async sentence(expression: Function, datastore: string): Promise<string>;
+	public async sentence(expression: string, datastore: string): Promise<string>;
+	public async sentence (expression: string|Function, datastore: string): Promise<string> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.sentence(expression, datastore)
+	}
+
+	/**
+	 * Get metadata of expression
+	 * @returns metadata of expression
+	 */
+	public async metadata(expression: Function): Promise<any>
+	public async metadata (expression:string):Promise<any>
+	public async metadata (expression: string|Function): Promise<any> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.metadata(expression)
+	}
+
+	/**
+	 * Evaluate and solve expression
+	 * @param expression  string expression
+	 * @param data Data with variables
+	 * @returns Result of the evaluale expression
+	*/
+	public async eval (expression: string, data: any): Promise<any> {
+		return await this.expressionManager.eval(expression, data)
+	}
+
+	/**
+	 * Execute expression
+	 * @param data Data with variables
+	 * @param context Context
+	 * @param datastore DataStore name
+	 * @returns Result of execution
+	 */
+	public async execute(expression: Function, data: any, context: any, datastore: string):Promise<any>;
+	public async execute(expression: string, data: any, context: any, datastore: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, context: any = {}, datastore: string|undefined): Promise<any> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		const db = this.configManager.datastore.get(datastore)
+		const query = await this.expressionManager.toQuery(expression, db.name)
+		return await this.executor.execute(db, query, data, context)
 	}
 
 	/**
