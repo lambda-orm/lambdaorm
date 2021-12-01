@@ -66,10 +66,11 @@ export class ExpressionFacade {
 	/**
 	 * Execute expression
 	 * @param data Data with variables
-	 * @param datastore Database name
+	 * @param context Context
+	 * @param datastore DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute (data: any = {}, datastore: string, context:any) {
+	public async execute (data: any = {}, context:any, datastore: string):Promise<any> {
 		const query = await this.expressionManager.toQuery(this.expression, datastore)
 		const db = this.configManager.datastore.get(datastore)
 		return await this.executor.execute(db, query, data, context)

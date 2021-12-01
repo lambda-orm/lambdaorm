@@ -62,7 +62,8 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
-					result = await orm.lambda(expressionTest.lambda).execute(data, datastore, {})
+					const context = category.context !== undefined ? category.context : {}
+					result = await orm.lambda(expressionTest.lambda).execute(data, context, datastore)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -118,7 +119,8 @@ async function writeTest (datastores: string[], category: CategoryTest): Promise
 async function writeQueryTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'query',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -151,7 +153,8 @@ async function writeQueryTest (datastores: string[]): Promise<number> {
 async function writeNumeriFunctionsTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'numeric functions',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: { a: { id: 1 } },
 		test:
 			[
@@ -176,7 +179,7 @@ async function writeNumeriFunctionsTest (datastores: string[]): Promise<number> 
 async function writeGroupByTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'groupBy',
-		datastore: 'source',
+		context: {},
 		data: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
@@ -196,7 +199,8 @@ async function writeGroupByTest (datastores: string[]): Promise<number> {
 async function writeIncludeTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'include',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: { a: { id: 1 } },
 		test:
 			[
@@ -214,7 +218,8 @@ async function writeIncludeTest (datastores: string[]): Promise<number> {
 async function writeInsertsTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'inserts',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -270,7 +275,8 @@ async function writeInsertsTest (datastores: string[]): Promise<number> {
 async function writeUpdateTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'update',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: {
 			a: {
 				id: 7,
@@ -573,7 +579,8 @@ async function writeUpdateTest (datastores: string[]): Promise<number> {
 async function writeDeleteTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'delete',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: {
 			a: { id: 9 },
 			b: {
@@ -731,7 +738,8 @@ async function writeDeleteTest (datastores: string[]): Promise<number> {
 async function writeBulkInsertTest (datastores: string[]): Promise<number> {
 	return await writeTest(datastores, {
 		name: 'bulkInsert',
-		datastore: 'source',
+		// datastore: 'source',
+		context: {},
 		data: {
 			a: [{
 				name: 'Beverages4',
@@ -888,7 +896,7 @@ async function bulkInsert () {
 	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.expression(expression).execute(categories, 'source', {})))
+	const result = await exec(async () => (await orm.expression(expression).execute(categories, {}, 'source')))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -987,7 +995,7 @@ async function bulkInsert2 () {
 	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
 	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
-	const result = await exec(async () => (await orm.expression(expression).execute(orders, 'source', {})))
+	const result = await exec(async () => (await orm.expression(expression).execute(orders, {}, 'source')))
 }
 
 async function schemaExport (source: string) {

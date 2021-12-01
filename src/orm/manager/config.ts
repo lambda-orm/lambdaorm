@@ -220,16 +220,10 @@ class SchemasConfig {
 			throw new Error(`schema ${name} not found`)
 		}
 		return schema
-		// return this.untransform(schema)
 	}
 
 	public list (): Schema[] {
 		return this.schemas
-		// const result:Schema[] = []
-		// for (const p in this.schemas) {
-		// result.push(this.untransform(this.schemas[p]))
-		// }
-		// return result
 	}
 
 	public getInstance (name:string):SchemaConfig {
@@ -237,96 +231,6 @@ class SchemasConfig {
 		if (!schema) { throw new Error(`schema ${name} not found`) }
 		return new SchemaConfig(schema)
 	}
-
-	// public transform (source:Schema):any {
-	// const target:any = { entity: {}, enum: {} }
-	// target.name = source.name
-	// for (const p in source.entities) {
-	// const sourceEntity = source.entities[p]
-	// const targetEntity:any = {
-	// name: sourceEntity.name,
-	// mapping: sourceEntity.mapping || sourceEntity.name,
-	// primaryKey: sourceEntity.primaryKey,
-	// uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
-	// property: {},
-	// relation: {},
-	// index: {}
-	// }
-	// for (const q in sourceEntity.properties) {
-	// const sourceProperty = sourceEntity.properties[q]
-	// if (sourceProperty.type === 'string' && sourceProperty.length === undefined) {
-	// sourceProperty.length = 80
-	// }
-	// if (sourceProperty.autoincrement) {
-	// sourceProperty.nullable = false
-	// }
-	// targetEntity.property[sourceProperty.name] = sourceProperty
-	// }
-	// for (const q in sourceEntity.relations) {
-	// const sourceRelation = sourceEntity.relations[q]
-	// targetEntity.relation[sourceRelation.name] = sourceRelation
-	// }
-	// if (sourceEntity.indexes) {
-	// for (const q in sourceEntity.indexes) {
-	// const index = sourceEntity.indexes[q]
-	// targetEntity.index[index.name] = index
-	// }
-	// }
-	// target.entity[sourceEntity.name] = targetEntity
-	// }
-	// return target
-	// }
-
-// public untransform (source:any):Schema {
-// const target:Schema = { name: source.name as string, entities: [] }
-// for (const p in source.entity) {
-// const sourceEntity = source.entity[p]
-// const targetEntity:EntityMapping = {
-// name: sourceEntity.name as string,
-// mapping: sourceEntity.mapping as string,
-// primaryKey: sourceEntity.primaryKey,
-// uniqueKey: sourceEntity.uniqueKey ? sourceEntity.uniqueKey : [],
-// properties: [],
-// relations: [],
-// indexes: []
-// }
-// for (const q in sourceEntity.property) {
-// const sourceProperty = sourceEntity.property[q]
-// const targetProperty:PropertyMapping = {
-// name: sourceProperty.name,
-// mapping: sourceProperty.mapping,
-// type: sourceProperty.type
-// }
-// // properties defined when is necesary
-// if (sourceProperty.length !== undefined)targetProperty.length = sourceProperty.length
-// if (sourceProperty.nullable !== undefined)targetProperty.nullable = sourceProperty.nullable
-// if (sourceProperty.autoincrement !== undefined)targetProperty.autoincrement = sourceProperty.autoincrement
-// targetEntity.properties.push(targetProperty)
-// }
-// for (const q in sourceEntity.relation) {
-// const sourceRelation = sourceEntity.relation[q]
-// const targetRelation:Relation = {
-// name: sourceRelation.name,
-// type: sourceRelation.type,
-// composite: Helper.nvl(sourceRelation.composite, false),
-// from: sourceRelation.from,
-// entity: sourceRelation.entity,
-// to: sourceRelation.to
-// }
-// targetEntity.relations.push(targetRelation)
-// }
-// for (const q in sourceEntity.index) {
-// const sourceIndex = sourceEntity.index[q]
-// const targetIndex:Index = {
-// name: sourceIndex.name,
-// fields: sourceIndex.fields
-// }
-// targetEntity.indexes?.push(targetIndex)
-// }
-// target.entities.push(targetEntity)
-// }
-// return target
-// }
 }
 
 class DatastoreConfig {
