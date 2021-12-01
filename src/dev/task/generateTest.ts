@@ -20,7 +20,7 @@ async function writeUnitTest (datastores: string[], category: CategoryTest): Pro
 			lines.push(`\ttest('${expTest.name}', () => {`)
 			lines.push(`\t\tconst source = '${expTest.expression.trim()}'`)
 			lines.push(`\t\tconst expected = '${expTest.completeExpression.trim()}'`)
-			lines.push('\t\tconst target = orm.expression(source).complete()')
+			lines.push('\t\tconst target = orm.complete(source)')
 			lines.push('\t\texpect(expected).toBe(target)')
 			lines.push('\t})')
 		}
@@ -35,8 +35,8 @@ async function writeUnitTest (datastores: string[], category: CategoryTest): Pro
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
-		lines.push('\t\tconst model = await orm.expression(expression).model()')
-		lines.push('\t\tconst metadata = await orm.expression(expression).metadata()')
+		lines.push('\t\tconst model = await orm.model(expression)')
+		lines.push('\t\tconst metadata = await orm.metadata(expression)')
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
 		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
 		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
@@ -57,7 +57,7 @@ async function writeUnitTest (datastores: string[], category: CategoryTest): Pro
 					sentence = Helper.replace(sentence, '\n', '; ')
 					if (sentence) {
 						lines.push(`\t\tconst ${datastore}Expected = '${sentence}'`)
-						lines.push(`\t\tlet ${datastore} =  await orm.expression(expression).sentence('${datastore}')`)
+						lines.push(`\t\tlet ${datastore} =  await orm.sentence(expression,'${datastore}')`)
 						lines.push(`\t\t${datastore}=Helper.replace(${datastore},'\\n','; ')`)
 						lines.push(`\t\texpect(${datastore}Expected).toBe(${datastore})`)
 					}
@@ -95,7 +95,7 @@ async function writeIntegrationTest (datastores: string[], category: CategoryTes
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in datastores) {
 				const datastore = datastores[p]
-				lines.push(`\t\tconst ${datastore}Result =  await orm.expression(expression).execute(data,context,'${datastore}')`)
+				lines.push(`\t\tconst ${datastore}Result =  await orm.execute(expression, data,context,'${datastore}')`)
 				lines.push(`\t\texpect(expected).toEqual(${datastore}Result)`)
 			}
 			lines.push('\t})')
