@@ -12,15 +12,15 @@ import path from 'path'
 
 		await orm.datastore.sync(ds.name).execute()
 
-		result = await orm.execute('Countries.deleteAll()', {}, {}, ds.name)
-		result = await orm.execute('States.deleteAll()', {}, {}, ds.name)
+		result = await orm.execute('Countries.deleteAll()')
+		result = await orm.execute('States.deleteAll()')
 
 		const strData = await Helper.readFile(path.join(process.cwd(), '/labs/countries/data.json' as string))
 		const data = JSON.parse(strData as string)
 
-		result = await orm.execute('Countries.bulkInsert().include(p => p.states)', data, {}, ds.name)
+		result = await orm.execute('Countries.bulkInsert().include(p => p.states)', data)
 
-		result = await orm.execute('Countries.map(p=>p).include(p => p.states)', data, {}, ds.name)
+		result = await orm.execute('Countries.map(p=>p).include(p => p.states)', data)
 		console.log(JSON.stringify(result, null, 2))
 	} catch (error) {
 		console.error(`error: ${error}`)

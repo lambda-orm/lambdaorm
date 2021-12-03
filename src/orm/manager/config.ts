@@ -297,24 +297,21 @@ class ConfigExtender {
 		for (const k in config.schemas) {
 			this.extendObject(config.schemas[k], config.model)
 			config.schemas[k] = this.clearSchema(config.schemas[k])
+			this.completeSchema(config.schemas[k])
 		}
+		// datastores
+		if (config.datastores.length > 0) {
+			for (const k in config.datastores) {
+				const datastore = config.datastores[k]
+				if (datastore.schema === undefined)datastore.schema = config.schemas[0].name
+			}
+		}
+
 		return config
 	}
 
 	private clearModel (source: Model): Model {
 		const target: Model = { enums: [], entities: [] }
-		if (source.entities !== undefined) {
-			for (let i = 0; i < source.entities.length; i++) {
-				const sourceEntity = source.entities[i]
-				if (sourceEntity.abstract === true) continue
-				target.entities.push(sourceEntity)
-			}
-		}
-		return target
-	}
-
-	private clearSchema (source: Schema): Schema {
-		const target: Schema = { name: source.name, mapping: source.mapping, entities: [] }
 		if (source.entities !== undefined) {
 			for (let i = 0; i < source.entities.length; i++) {
 				const sourceEntity = source.entities[i]
@@ -413,6 +410,18 @@ class ConfigExtender {
 		}
 	}
 
+	private clearSchema (source: Schema): Schema {
+		const target: Schema = { name: source.name, mapping: source.mapping, entities: [] }
+		if (source.entities !== undefined) {
+			for (let i = 0; i < source.entities.length; i++) {
+				const sourceEntity = source.entities[i]
+				if (sourceEntity.abstract === true) continue
+				target.entities.push(sourceEntity)
+			}
+		}
+		return target
+	}
+
 	private extendObject (obj:any, base:any) {
 		if (Array.isArray(base)) {
 			for (let i = 0; i < base.length; i++) {
@@ -434,6 +443,21 @@ class ConfigExtender {
 			}
 		}
 		return obj
+	}
+
+	private completeSchema (schema:Schema):void {
+		if (schema.entities !== undefined) {
+			for (let i = 0; i < schema.entities.length; i++) {
+				const entity = schema.entities[i]
+				if (entity.mapping === undefined) entity.mapping = entity.name
+				if (entity.properties !== undefined) {
+					for (let j = 0; j < entity.properties.length; j++) {
+						const property = entity.properties[j]
+						if (property.mapping === undefined) property.mapping = property.name
+					}
+				}
+			}
+		}
 	}
 }
 

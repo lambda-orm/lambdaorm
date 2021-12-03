@@ -138,29 +138,6 @@ export class Orm implements IOrm {
 		this._cache = value
 	}
 
-	// /**
-	//  * Read expression
-	//  * @param expression string expression
-	//  * @returns Expression manager
-	//  */
-	// public expression (expression: string): ExpressionFacade {
-	// if (!expression) {
-	// throw new Error('empty expression}')
-	// }
-	// return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
-	// }
-
-	// /**
-	//  * Read lambda expression
-	//  * @param func lambda expression
-	//  * @returns Expression manager
-	//  */
-	// // eslint-disable-next-line @typescript-eslint/ban-types
-	// public lambda (func: Function): ExpressionFacade {
-	// const expression = this.expressionManager.toExpression(func)
-	// return new ExpressionFacade(this.expressionManager, this.executor, this.configManager, expression)
-	// }
-
 	/**
 	 * Read lambda expression
 	 * @param lambda lambda expression
@@ -248,8 +225,8 @@ export class Orm implements IOrm {
 	 * @param datastore DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data: any, context: any, datastore: string):Promise<any>;
-	public async execute(expression: string, data: any, context: any, datastore: string):Promise<any>;
+	public async execute(expression: Function, data?: any, context?: any, datastore?: string):Promise<any>;
+	public async execute(expression: string, data?: any, context?: any, datastore?: string):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, context: any = {}, datastore: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
@@ -264,7 +241,7 @@ export class Orm implements IOrm {
  * @param datastore Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (datastore: string, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (context:any, datastore: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const db = this.configManager.datastore.get(datastore)
 		return await this.executor.transaction(db, context, callback)
 	}

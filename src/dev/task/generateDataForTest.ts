@@ -852,7 +852,7 @@ async function crud () {
 	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
-		orm.transaction('source', {}, async (tr) => {
+		orm.transaction({}, 'source', async (tr) => {
 			// create order
 			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
