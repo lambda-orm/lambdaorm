@@ -39,7 +39,7 @@ export class MssqlConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		console.log('end')
+		// console.log('end')
 	}
 }
 

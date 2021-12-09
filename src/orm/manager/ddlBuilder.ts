@@ -453,5 +453,5 @@ export abstract class LanguageDDLBuilder {
 	abstract addUk(datastore: string, entity: EntityMapping, uniqueKey: string[], metadata: DialectMetadata): Query
 	abstract addFk(datastore: string, schema: SchemaConfig, entity: EntityMapping, relation: Relation, metadata: DialectMetadata): Query
 	abstract createFk(datastore: string, schema: SchemaConfig, entity: EntityMapping, relation: Relation, metadata: DialectMetadata): Query
-	abstract createIndex (datastore:string, entity:any, index:Index, metadata:DialectMetadata):Query
+	abstract createIndex (datastore:string, entity:EntityMapping, index:Index, metadata:DialectMetadata):Query
 }

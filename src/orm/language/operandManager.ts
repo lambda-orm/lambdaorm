@@ -400,30 +400,38 @@ export class OperandManager {
 			}
 		}
 		if (clauses.include) {
-			if (!createInclude) { throw new Error('Include not implemented!!!') }
+			if (!createInclude) {
+				throw new Error('Include not implemented!!!')
+			}
 
 			const clause = clauses.include
 			expressionContext.current.arrowVar = clause.children[1].name
 			const body = clause.children[2]
 			if (body.type === 'array') {
-				for (let i = 0; i < body.children.length; i++) { children.push(createInclude.bind(this)(body.children[i], expressionContext)) }
-			} else { children.push(createInclude.bind(this)(body, expressionContext)) }
+				for (let i = 0; i < body.children.length; i++) {
+					const include = createInclude.bind(this)(body.children[i], expressionContext)
+					children.push(include)
+				}
+			} else {
+				const include = createInclude.bind(this)(body, expressionContext)
+				children.push(include)
+			}
 		}
 		for (const key in expressionContext.current.joins) {
 			const info = this.config.model.getRelation(expressionContext.current.entityName, key)
-
+			const relatedEntity = info.previousEntity.name
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
 			const relatedProperty = info.previousEntity.properties.find(p => p.name === info.relation.from) as Property
-			const relationTable = info.entity.name
+			const relationEntity = info.entity.name
 			const relationAlias = expressionContext.current.joins[key]
 			const relationProperty = info.entity.properties.find(p => p.name === info.relation.to) as Property
 
 			// TODO: Aqui usar el key para agregar el filtro que corresponda
 			// si una entidad tiene uno o mas propiedades con key, se debe agregar un filtro por el key
-			const relatedField = new Field(info.previousEntity.name, info.relation.from, relatedProperty.type, relatedAlias)
-			const relationField = new Field(info.previousEntity.name, info.relation.to, relationProperty.type, relationAlias)
+			const relatedField = new Field(relatedEntity, info.relation.from, relatedProperty.type, relatedAlias)
+			const relationField = new Field(relationEntity, info.relation.to, relationProperty.type, relationAlias)
 			const equal = new Operator('==', [relationField, relatedField])
-			operand = new Join(relationTable + '.' + relationAlias, [equal])
+			operand = new Join(relationEntity + '.' + relationAlias, [equal])
 			children.push(operand)
 		}
 		for (let i = 0; i < children.length; i++) this.solveTypes(children[i], expressionContext)
@@ -495,10 +503,14 @@ export class OperandManager {
 				const parts = current.name.split('.')
 				const relationName = parts[1]
 				relation = this.config.model.getRelation(expressionContext.current.entityName, relationName)
-				current.name = relation.entity
+				current.name = relation.entity.name
 				break
 			}
-			if (current.children.length > 0) { current = current.children[0] } else { break }
+			if (current.children.length > 0) {
+				current = current.children[0]
+			} else {
+				break
+			}
 		}
 		const child = this.createSentence(node, expressionContext)
 		// return new SentenceInclude(relation.name, [child], relation, '__parentId')
@@ -514,7 +526,7 @@ export class OperandManager {
 				const parts = current.name.split('.')
 				relationName = parts[1]
 				relation = this.config.model.getRelation(expressionContext.current.entityName, relationName)
-				current.name = relation.entity
+				current.name = relation.entity.name
 				break
 			}
 			if (current.children.length > 0) { current = current.children[0] } else { break }
@@ -692,8 +704,11 @@ export class OperandManager {
 					const obj = operand.children[0]
 					for (const p in obj.children) {
 						const keyVal = obj.children[p] as KeyValue
-						const property = this.config.model.getProperty(expressionContext.current.entityName, keyVal.name)
-						if (keyVal.children[0].type === 'any') { keyVal.children[0].type = property.type }
+						const entityName = operand.name.includes('.') ? operand.name.split('.')[0] : operand.name
+						const property = this.config.model.getProperty(entityName, keyVal.name)
+						if (keyVal.children[0].type === 'any') {
+							keyVal.children[0].type = property.type
+						}
 					}
 				}
 			}
@@ -740,7 +755,9 @@ export class OperandManager {
 			}
 		}
 		// recorre todos los hijos para resolver el tipo
-		for (let i = 0; i < operand.children.length; i++) { this.solveTypes(operand.children[i], expressionContext) }
+		for (let i = 0; i < operand.children.length; i++) {
+			this.solveTypes(operand.children[i], expressionContext)
+		}
 
 		return operand.type
 	}

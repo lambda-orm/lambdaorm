@@ -13,7 +13,7 @@ const SqlString = require('sqlstring')
 export class SqlDMLBuilder extends LanguageDMLBuilder {
 	public build (sentence: Sentence, schema:SchemaConfig, datastore: string, metadata: DialectMetadata): Query {
 		const sqlSentence = this.buildSentence(sentence, schema, metadata as DialectMetadata)
-		return new Query(sentence.name, datastore, metadata.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
+		return new Query(sentence.name, metadata.name, datastore, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
 	}
 
 	private buildOperand (operand: Operand, schema: SchemaConfig, metadata: DialectMetadata): string {
@@ -299,16 +299,21 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		return this.buildOperand(operand.children[0], schema, metadata)
 	}
 
-	private buildField (operand: Field, schema:SchemaConfig, metadata: DialectMetadata): string {
-		const property = schema.getProperty(operand.entity, operand.name)
-		if (operand.alias === undefined) {
-			return metadata.other('column').replace('{name}', metadata.delimiter(property.name, true))
+	private buildField (operand: Field, schema: SchemaConfig, metadata: DialectMetadata): string {
+		if (schema.existsProperty(operand.entity, operand.name)) {
+			const property = schema.getProperty(operand.entity, operand.name)
+			if (operand.alias === undefined) {
+				return metadata.other('column').replace('{name}', metadata.delimiter(property.mapping, true))
+			} else {
+				let text = metadata.other('field')
+				text = text.replace('{entityAlias}', operand.alias)
+				text = text.replace('{name}', metadata.delimiter(property.mapping))
+				return text
+			}
 		} else {
-			let text = metadata.other('field')
-			text = text.replace('{entityAlias}', operand.alias)
-			text = text.replace('{name}', metadata.delimiter(property.name))
-			return text
+			return metadata.other('column').replace('{name}', metadata.delimiter(operand.name))
 		}
+
 		// const parts = operand.mapping.split('.')
 		// if (parts.length === 1) {
 		// const name = parts[0]

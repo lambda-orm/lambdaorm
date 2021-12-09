@@ -1,4 +1,4 @@
-import { Respository, IOrm } from '../../orm'
+import { Respository, IOrm } from '../orm'
 import { Customer, QryCustomer } from './model'
 
 export class CustomerRespository extends Respository<Customer, QryCustomer> {

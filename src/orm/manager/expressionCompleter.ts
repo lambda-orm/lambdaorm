@@ -176,7 +176,7 @@ export class ExpressionCompleter {
 		}
 	}
 
-	private addChildFieldField (map:Node, entity:any, include:Node):void {
+	private addChildFieldField (map:Node, entity:Entity, include:Node):void {
 		const relation = this.getIncludeRelation(entity, include)
 		const objArrowVar = map.children[1].name
 		const fieldToAdd = new Node(objArrowVar + '.' + relation.from, 'var')
@@ -184,7 +184,7 @@ export class ExpressionCompleter {
 		map.children[2].children.push(keyVal)
 	}
 
-	private completeMapNode (entity:any, node:Node):void {
+	private completeMapNode (entity:Entity, node:Node):void {
 		if (node.children && node.children.length === 3) {
 			const arrowVar = node.children[1].name
 			const fields = node.children[2]
@@ -226,7 +226,7 @@ export class ExpressionCompleter {
 		return new Node(key, 'keyVal', [field])
 	}
 
-	private completeInsertNode (entity:any, node:Node):void {
+	private completeInsertNode (entity:Entity, node:Node):void {
 		if (node.children.length === 1) {
 			// example: Entity.insert()
 			const fields = this.createNodeFields(entity, undefined, false, true)
@@ -237,7 +237,7 @@ export class ExpressionCompleter {
 		}
 	}
 
-	private completeUpdateNode (entity:any, node:Node):void {
+	private completeUpdateNode (entity:Entity, node:Node):void {
 		if (node.children.length === 1) {
 			// Example: Entity.update()
 			// In the case that the mapping is not defined, it assumes that the context will be the entity to update
@@ -253,20 +253,20 @@ export class ExpressionCompleter {
 		}
 	}
 
-	private createNodeFields (entity:any, parent?:string, excludePrimaryKey = false, excludeAutoincrement = false):any {
+	private createNodeFields (entity:Entity, parent?:string, excludePrimaryKey = false, excludeAutoincrement = false):any {
 		const obj = new Node('obj', 'obj', [])
-		for (const name in entity.property) {
-			const property = entity.property[name]
-			if ((!property.autoincrement || !excludeAutoincrement) && (!entity.primaryKey.includes(property.name) || !excludePrimaryKey)) {
-				const field = new Node(parent ? parent + '.' + name : name, 'var', [])
-				const keyVal = new Node(name, 'keyVal', [field])
+		for (const i in entity.properties) {
+			const property = entity.properties[i]
+			if ((!property.autoincrement || !excludeAutoincrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
+				const field = new Node(parent ? parent + '.' + property.name : property.name, 'var', [])
+				const keyVal = new Node(property.name, 'keyVal', [field])
 				obj.children.push(keyVal)
 			}
 		}
 		return obj
 	}
 
-	private createClauseFilter (entity:any, node:Node):void {
+	private createClauseFilter (entity:Entity, node:Node):void {
 		if (node.children.length === 1) {
 			// Example: Entity.delete()
 			const condition = this.createFilter(entity, 'p')
@@ -291,25 +291,31 @@ export class ExpressionCompleter {
 		}
 	}
 
-	private createFilter (entity:any, parent?:string, parentVariable?:string):Node {
+	private createFilter (entity:Entity, parent?:string, parentVariable?:string):Node {
 		let condition
-		for (const i in entity.primaryKey) {
-			const name = entity.primaryKey[i]
-			const field = entity.property[name]
-			const fieldNode = new Node(parent ? parent + '.' + field.name : field.name, 'var')
-			const variableNode = new Node(parentVariable ? parentVariable + '.' + name : name, 'var')
-			const equal = new Node('==', 'oper', [fieldNode, variableNode])
-			condition = condition ? new Node('&&', 'oper', [condition, equal]) : equal
+		if (entity.primaryKey !== undefined) {
+			for (let i = 0; i < entity.primaryKey?.length; i++) {
+				const name = entity.primaryKey[i]
+				const field = entity.properties.find(p => p.name === name)
+				if (field !== undefined) {
+					const fieldNode = new Node(parent ? parent + '.' + field.name : field.name, 'var')
+					const variableNode = new Node(parentVariable ? parentVariable + '.' + name : name, 'var')
+					const equal = new Node('==', 'oper', [fieldNode, variableNode])
+					condition = condition ? new Node('&&', 'oper', [condition, equal]) : equal
+				}
+			}
 		}
-		if (condition) { return condition }
+		if (condition) {
+			return condition
+		}
 		throw new Error('Create Filter incorrect!!!')
 	}
 
-	private completeMapInclude (entity:any, arrowVar:string, node:Node):Node {
+	private completeMapInclude (entity:Entity, arrowVar:string, node:Node):Node {
 		return this.completeSelectInclude(entity, arrowVar, node, 'map')
 	}
 
-	private completeSelectInclude (entity:any, arrowVar:string, node:Node, clause:string):Node {
+	private completeSelectInclude (entity:Entity, arrowVar:string, node:Node, clause:string):Node {
 		let map:Node, relation:any
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.map(p=>p))
@@ -319,7 +325,7 @@ export class ExpressionCompleter {
 					// p.details
 					const parts = current.name.split('.')
 					const relationName = parts[1]
-					relation = entity.relation[relationName]
+					relation = entity.relations.find(p => p.name === relationName)
 					break
 				}
 				if (current.children.length > 0) { current = current.children[0] } else { break }
@@ -333,7 +339,7 @@ export class ExpressionCompleter {
 			const varAll = new Node('p', 'var', [])
 			const parts = node.name.split('.')
 			const relationName = parts[1]
-			relation = entity.relation[relationName]
+			relation = entity.relations.find(p => p.name === relationName)
 			map = new Node(clause, 'arrow', [node, varArrowNode, varAll])
 			this.completeSentence(map, relation.entity)
 		} else {
@@ -373,23 +379,23 @@ export class ExpressionCompleter {
 		return map
 	}
 
-	private completeBulkInsertInclude (entity:any, arrowVar:string, node:Node):Node {
+	private completeBulkInsertInclude (entity:Entity, arrowVar:string, node:Node):Node {
 		return this.completeInclude(entity, arrowVar, node, 'bulkInsert')
 	}
 
-	private completeInsertInclude (entity:any, arrowVar:string, node:Node):Node {
+	private completeInsertInclude (entity:Entity, arrowVar:string, node:Node):Node {
 		return this.completeInclude(entity, arrowVar, node, 'insert')
 	}
 
-	private completeUpdateInclude (entity:any, arrowVar:string, node:Node):Node {
+	private completeUpdateInclude (entity:Entity, arrowVar:string, node:Node):Node {
 		return this.completeInclude(entity, arrowVar, node, 'update')
 	}
 
-	private completeDeleteInclude (entity:any, arrowVar:string, node:Node):Node {
+	private completeDeleteInclude (entity:Entity, arrowVar:string, node:Node):Node {
 		return this.completeInclude(entity, arrowVar, node, 'delete')
 	}
 
-	private getIncludeRelation (entity:any, node:Node):any {
+	private getIncludeRelation (entity:Entity, node:Node):any {
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.insert())
 			let current = node
@@ -398,7 +404,7 @@ export class ExpressionCompleter {
 					// p.details
 					const parts = current.name.split('.')
 					const relationName = parts[1]
-					return entity.relation[relationName]
+					return entity.relations.find(p => p.name === relationName)
 					break
 				}
 				if (current.children.length > 0) { current = current.children[0] } else { break }
@@ -408,7 +414,7 @@ export class ExpressionCompleter {
 			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
 			const parts = node.name.split('.')
 			const relationName = parts[1]
-			return entity.relation[relationName]
+			return entity.relations.find(p => p.name === relationName)
 		} else {
 			throw new Error('not found relation in include node ' + node.type + ':' + node.name)
 		}

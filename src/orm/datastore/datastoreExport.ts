@@ -1,6 +1,6 @@
 import { DatastoreActionDML } from './datastoreActionDML'
 import { SchemaConfig } from '../manager'
-import { Query, SchemaData } from '../model'
+import { Query, SchemaData, Entity } from '../model'
 
 export class DatastoreExport extends DatastoreActionDML {
 	public async execute (): Promise<SchemaData> {
@@ -19,11 +19,11 @@ export class DatastoreExport extends DatastoreActionDML {
 		return schemaExport
 	}
 
-	protected async createQuery (schema:SchemaConfig, entity:any):Promise<Query> {
+	protected async createQuery (schema:SchemaConfig, entity:Entity):Promise<Query> {
 		let expression = `${entity.name}.map(p=>{`
 		let first = true
-		for (const propertyName in entity.property) {
-			const property = entity.property[propertyName]
+		for (const i in entity.properties) {
+			const property = entity.properties[i]
 			expression = expression + (first ? '' : ',') + `${property.name}:p.${property.name}`
 			first = false
 		}

@@ -1,7 +1,7 @@
 
 import { DatastoreActionDML } from './datastoreActionDML'
 import { SchemaConfig } from '../manager'
-import { Query, SchemaData, EntityMapping, Relation } from '../model'
+import { Query, SchemaData, EntityMapping, Relation, Entity } from '../model'
 
 export class DatastoreImport extends DatastoreActionDML {
 	public async execute (data: SchemaData): Promise<void> {
@@ -169,7 +169,7 @@ export class DatastoreImport extends DatastoreActionDML {
 		return result
 	}
 
-	protected async createQuery (schema:SchemaConfig, entity:any):Promise<Query> {
+	protected async createQuery (schema:SchemaConfig, entity:Entity):Promise<Query> {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(schema, entity)}`
 		return await this.expressionManager.toQuery(expression, this.datastore.name)
 	}

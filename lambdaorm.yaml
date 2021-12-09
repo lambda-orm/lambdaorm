@@ -380,19 +380,13 @@ datastores:
     schema: northwind
     dialect: mysql
     connection: $ORM_CNN_SOURCE
-    rules:
-      - name: a
-        rule: actionType == "read"
-        datastore: source
-      - name: b
-        rule: actionType == "command"
-        datastore: source
-    # routings:
+    # rules:
     #   - name: a
-    #     entities: ["Countries"]
-    #     actions: ["read"]
-    #     expression: code == 'ARG'
-    #     datastore: postgres
+    #     rule: actionType == "read"
+    #     datastore: source
+    #   - name: b
+    #     rule: actionType == "command"
+    #     datastore: source
   - name: mysql
     schema: northwind
     dialect: mysql

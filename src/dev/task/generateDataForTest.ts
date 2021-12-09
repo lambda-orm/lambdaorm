@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { orm, Helper } from './../../orm'
-import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from './../../models/northwind'
+import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from '../../model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
@@ -1012,7 +1012,7 @@ async function schemaImport (source: string, target: string) {
 
 export async function apply (datastores: string[], callback: any) {
 	await orm.init()
-	let errors = 0
+	const errors = 0
 
 	await orm.datastore.sync('source').execute()
 	await schemaExport('source')
@@ -1024,14 +1024,14 @@ export async function apply (datastores: string[], callback: any) {
 		await schemaExport(datastore)
 	}
 
-	errors = +await writeQueryTest(datastores)
-	errors = +await writeNumeriFunctionsTest(datastores)
-	errors = +await writeGroupByTest(datastores)
-	errors = +await writeIncludeTest(datastores)
-	errors = +await writeInsertsTest(datastores)
-	errors = +await writeUpdateTest(datastores)
-	errors = +await writeDeleteTest(datastores)
-	errors = +await writeBulkInsertTest(datastores)
+	// errors = +await writeQueryTest(datastores)
+	// errors = +await writeNumeriFunctionsTest(datastores)
+	// errors = +await writeGroupByTest(datastores)
+	// errors = +await writeIncludeTest(datastores)
+	// errors = +await writeInsertsTest(datastores)
+	// errors = +await writeUpdateTest(datastores)
+	// errors = +await writeDeleteTest(datastores)
+	// errors = +await writeBulkInsertTest(datastores)
 
 	// //operators comparation , matematica
 	// //string functions
@@ -1049,5 +1049,5 @@ export async function apply (datastores: string[], callback: any) {
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })
+apply(['mysql'], function () { console.log('end') })
 // apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

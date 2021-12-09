@@ -1,4 +1,4 @@
-import { Datastore, Query } from '../model'
+import { Datastore, Query, Entity } from '../model'
 import { ConfigManager, SchemaConfig, ExpressionManager, Executor } from '../manager'
 import { DatastoreState } from './datastoreState'
 
@@ -51,17 +51,19 @@ export abstract class DatastoreActionDML {
 		return queries
 	}
 
-	protected abstract createQuery(schema:SchemaConfig, entity:any):Promise<Query>
+	protected abstract createQuery(schema:SchemaConfig, entity:Entity):Promise<Query>
 
-	protected createInclude (schema:SchemaConfig, entity:any, level = 0):string {
+	protected createInclude (schema:SchemaConfig, entity:Entity, level = 0):string {
 		const arrowVariable = this.arrowVariables[level]
 		const includes:string[] = []
-		for (const relationName in entity.relation) {
-			const relation = entity.relation[relationName]
+		for (const i in entity.relations) {
+			const relation = entity.relations[i]
 			if (relation.composite) {
 				const childEntity = schema.getEntity(relation.entity)
-				const childInclude = this.createInclude(schema, childEntity, level + 1)
-				includes.push(`${arrowVariable}.${relation.name}${childInclude}`)
+				if (childEntity !== undefined) {
+					const childInclude = this.createInclude(schema, childEntity, level + 1)
+					includes.push(`${arrowVariable}.${relation.name}${childInclude}`)
+				}
 			}
 		}
 		return includes.length === 0
