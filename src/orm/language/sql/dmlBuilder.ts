@@ -76,7 +76,9 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		if (filter)text = text + this.buildArrowFunction(filter, schema, metadata) + ' '
 		if (groupBy)text = text + this.buildArrowFunction(groupBy, schema, metadata) + ' '
 		if (having)text = text + this.buildArrowFunction(having, schema, metadata) + ' '
-		if (sort)text = text + this.buildArrowFunction(sort, schema, metadata) + ' '
+		if (sort) {
+			text = text + this.buildArrowFunction(sort, schema, metadata) + ' '
+		}
 		if (page)text = text + this.buildPage(page, metadata) + ' '
 		return text
 	}

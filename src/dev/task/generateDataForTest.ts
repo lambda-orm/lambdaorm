@@ -1012,7 +1012,7 @@ async function schemaImport (source: string, target: string) {
 
 export async function apply (datastores: string[], callback: any) {
 	await orm.init()
-	const errors = 0
+	let errors = 0
 
 	await orm.datastore.sync('source').execute()
 	await schemaExport('source')
@@ -1024,7 +1024,7 @@ export async function apply (datastores: string[], callback: any) {
 		await schemaExport(datastore)
 	}
 
-	// errors = +await writeQueryTest(datastores)
+	errors = +await writeQueryTest(datastores)
 	// errors = +await writeNumeriFunctionsTest(datastores)
 	// errors = +await writeGroupByTest(datastores)
 	// errors = +await writeIncludeTest(datastores)

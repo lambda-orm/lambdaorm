@@ -24,8 +24,8 @@ export class DDLBuilder {
 			const datastore = await this.getDatabase(entityName)
 			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
 			if (entity.relations) {
-				for (const name in entity.relations) {
-					const relation = entity.relations[name] as Relation
+				for (const q in entity.relations) {
+					const relation = entity.relations[q] as Relation
 
 					const relatedDatabase = await this.getDatabase(relation.entity)
 					if (relatedDatabase.name !== datastore.name) continue
@@ -59,7 +59,7 @@ export class DDLBuilder {
 	public async truncate (schema:SchemaConfig):Promise<Query[]> {
 		const queries:Query[] = []
 		for (const i in schema.entities) {
-			const entity = schema.entities[i]
+			const entity = schema.entities[i] as EntityMapping
 			const datastore = await this.getDatabase(entity.name)
 			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
 			const query = this.builder(datastore.dialect).truncateEntity(datastore.name, entity, metadata)
@@ -84,15 +84,11 @@ export class DDLBuilder {
 					for (const n in changed.delta.remove) {
 						const query = this.builder(datastore.dialect).dropPk(datastore.name, entityChanged.old, metadata)
 						queries.push(query)
-						// const sentence = this.dropPk(entityChanged.old, metadata)
-						// queries.push(new Query('dropPk', [], metadata.name, sentence, entityChanged.name))
 					}
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					for (const c in changed.delta.changed) {
 						const query = this.builder(datastore.dialect).dropPk(datastore.name, entityChanged.old, metadata)
 						queries.push(query)
-						// const sentence = this.dropPk(entityChanged.old, metadata)
-						// queries.push(new Query('dropPk', [], metadata.name, sentence, entityChanged.name))
 					}
 				}
 				if (changed.name === 'uniqueKey') {
@@ -101,15 +97,11 @@ export class DDLBuilder {
 						for (const n in changed.delta.remove) {
 							const query = this.builder(datastore.dialect).dropUk(datastore.name, entityChanged.old, metadata)
 							queries.push(query)
-							// const sentence = this.dropUk(entityChanged.old, metadata)
-							// queries.push(new Query('dropUk', [], metadata.name, sentence, entityChanged.name))
 						}
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const c in changed.delta.changed) {
 							const query = this.builder(datastore.dialect).dropUk(datastore.name, entityChanged.old, metadata)
 							queries.push(query)
-							// const sentence = this.dropUk(entityChanged.old, metadata)
-							// queries.push(new Query('dropUk', [], metadata.name, sentence, entityChanged.name))
 						}
 					}
 				}
@@ -130,15 +122,11 @@ export class DDLBuilder {
 						const oldIndex = changed.delta.changed[c].old as Index
 						const query = this.builder(datastore.dialect).dropIndex(datastore.name, entityChanged.new, oldIndex, metadata)
 						queries.push(query)
-						// const sentence = this.dropIndex(entityChanged.new, oldIndex, metadata)
-						// queries.push(new Query('dropIndex', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const r in changed.delta.remove) {
 						const removeIndex = changed.delta.remove[r].old as Index
 						const query = this.builder(datastore.dialect).dropIndex(datastore.name, entityChanged.new, removeIndex, metadata)
 						queries.push(query)
-						// const sentence = this.dropIndex(entityChanged.new, removeIndex, metadata)
-						// queries.push(new Query('dropIndex', [], metadata.name, sentence, entityChanged.name))
 					}
 				}
 				if (changed.name === 'relation') {
@@ -154,8 +142,6 @@ export class DDLBuilder {
 							if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
 								const query = this.builder(datastore.dialect).dropFk(datastore.name, entityChanged.new, oldRelation, metadata)
 								queries.push(query)
-								// const sentence = this.dropFk(entityChanged.new, oldRelation, metadata)
-								// queries.push(new Query('dropFk', [], metadata.name, sentence, entityChanged.name))
 							}
 						}
 					}
@@ -167,40 +153,33 @@ export class DDLBuilder {
 
 						const query = this.builder(datastore.dialect).dropFk(datastore.name, entityChanged.new, removeRelation, metadata)
 						queries.push(query)
-						// const sentence = this.dropFk(entityChanged.new, removeRelation, metadata)
-						// queries.push(new Query('dropFk', [], metadata.name, sentence, entityChanged.name))
 					}
 				}
 			}
 		}
 		// remove indexes and tables for removed entities
 		for (const name in delta.remove) {
-			const removeEntity = delta.remove[name].old
+			const removeEntity = delta.remove[name].old as EntityMapping
 			const datastore = await this.getDatabase(removeEntity.name)
 			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
 
-			if (removeEntity.index) {
-				for (const indexName in removeEntity.index) {
-					const query = this.builder(datastore.dialect).dropIndex(datastore.name, removeEntity, removeEntity.index[indexName], metadata)
+			if (removeEntity.indexes) {
+				for (const i in removeEntity.indexes) {
+					const index = removeEntity.indexes[i]
+					const query = this.builder(datastore.dialect).dropIndex(datastore.name, removeEntity, index, metadata)
 					queries.push(query)
-					// const sentence = this.dropIndex(removeEntity, removeEntity.index[indexName], metadata)
-					// queries.push(new Query('dropIndex', [], metadata.name, sentence, removeEntity.name))
 				}
 			}
 			const query = this.builder(datastore.dialect).dropEntity(datastore.name, removeEntity, metadata)
 			queries.push(query)
-			// const sentence = this.dropEntity(removeEntity, metadata)
-			// queries.push(new Query('dropTable', [], metadata.name, sentence, name))
 		}
 		// create tables
 		for (const name in delta.new) {
-			const newEntity = delta.new[name].new
+			const newEntity = delta.new[name].new as EntityMapping
 			const datastore = await this.getDatabase(newEntity.name)
 			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
 			const query = this.builder(datastore.dialect).createEntity(datastore.name, newEntity, metadata)
 			queries.push(query)
-			// const sentence = this.createTable(newEntity, metadata)
-			// queries.push(new Query('createTable', [], metadata.name, sentence, name))
 		}
 		// add columns for entities changes
 		for (const p in delta.changed) {
@@ -216,8 +195,6 @@ export class DDLBuilder {
 						const newProperty = changed.delta.new[n].new as PropertyMapping
 						const query = this.builder(datastore.dialect).addColumn(datastore.name, entityChanged.new, newProperty, metadata)
 						queries.push(query)
-						// const sentence = this.addColumn(entityChanged.new, newProperty, metadata)
-						// queries.push(new Query('addColumn', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const n in changed.delta.changed) {
 						const newProperty = changed.delta.changed[n].new as PropertyMapping
@@ -225,8 +202,6 @@ export class DDLBuilder {
 						if (newProperty.mapping === oldProperty.mapping) {
 							const query = this.builder(datastore.dialect).alterColumn(datastore.name, entityChanged.new, newProperty, metadata)
 							queries.push(query)
-							// const sentence = this.alterColumn(entityChanged.new, newProperty, metadata)
-							// queries.push(new Query('alterColumn', [], metadata.name, sentence, entityChanged.name))
 						}
 					}
 				}
@@ -252,8 +227,6 @@ export class DDLBuilder {
 						const oldProperty = changed.delta.remove[n].old as PropertyMapping
 						const query = this.builder(datastore.dialect).dropColumn(datastore.name, entityChanged.old, oldProperty, metadata)
 						queries.push(query)
-						// const sentence = this.dropColumn(entityChanged.old, oldProperty, metadata)
-						// queries.push(new Query('dropColumn', [], metadata.name, sentence, entityChanged.name))
 					}
 				}
 			}
@@ -272,15 +245,11 @@ export class DDLBuilder {
 						const newPrimaryKey = changed.delta.new[n].new as string[]
 						const query = this.builder(datastore.dialect).addPk(datastore.name, entityChanged.new, newPrimaryKey, metadata)
 						queries.push(query)
-						// const sentence = this.addPk(entityChanged.new, newPrimaryKey, metadata)
-						// queries.push(new Query('addPk', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const c in changed.delta.changed) {
 						const changePrimaryKey = changed.delta.changed[c].new as string[]
 						const query = this.builder(datastore.dialect).addPk(datastore.name, entityChanged.new, changePrimaryKey, metadata)
 						queries.push(query)
-						// const sentence = this.addPk(entityChanged.new, changePrimaryKey, metadata)
-						// queries.push(new Query('addPk', [], metadata.name, sentence, entityChanged.name))
 					}
 				}
 				if (changed.name === 'uniqueKey') {
@@ -289,15 +258,11 @@ export class DDLBuilder {
 							const newUniqueKey = changed.delta.new[n].new as string[]
 							const query = this.builder(datastore.dialect).addUk(datastore.name, entityChanged.new, newUniqueKey, metadata)
 							queries.push(query)
-							// const sentence = this.addUk(entityChanged.new, newUniqueKey, metadata)
-							// queries.push(new Query('addUk', [], metadata.name, sentence, entityChanged.name))
 						}
 						for (const c in changed.delta.changed) {
 							const chanegUniqueKey = changed.delta.changed[c].new as string[]
 							const query = this.builder(datastore.dialect).addUk(datastore.name, entityChanged.new, chanegUniqueKey, metadata)
 							queries.push(query)
-							// const sentence = this.addUk(entityChanged.new, chanegUniqueKey, metadata)
-							// queries.push(new Query('addUk', [], metadata.name, sentence, entityChanged.name))
 						}
 					}
 				}
@@ -327,15 +292,11 @@ export class DDLBuilder {
 						const newIndex = changed.delta.new[n].new as Index
 						const query = this.builder(datastore.dialect).createIndex(datastore.name, entityChanged.new, newIndex, metadata)
 						queries.push(query)
-						// const sentence = this.createIndex(entityChanged.new, newIndex, metadata)
-						// queries.push(new Query('createIndex', [], metadata.name, sentence, entityChanged.name))
 					}
 					for (const c in changed.delta.changed) {
 						const changeIndex = changed.delta.changed[c].new as Index
 						const query = this.builder(datastore.dialect).createIndex(datastore.name, entityChanged.new, changeIndex, metadata)
 						queries.push(query)
-						// const sentence = this.createIndex(entityChanged.new, changeIndex, metadata)
-						// queries.push(new Query('createIndex', [], metadata.name, sentence, entityChanged.name))
 					}
 					// for(const r in changed.delta.remove){
 					//     let removeIndex=changed.delta.remove[r]
@@ -352,8 +313,6 @@ export class DDLBuilder {
 							if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
 								const query = this.builder(datastore.dialect).addFk(datastore.name, schema, entityChanged.new, newRelation, metadata)
 								queries.push(query)
-								// const sentence = this.addFk(schema, entityChanged.new, newRelation, metadata)
-								// queries.push(new Query('addFk', [], metadata.name, sentence, entityChanged.name))
 							}
 						}
 						for (const c in changed.delta.changed) {
@@ -367,8 +326,6 @@ export class DDLBuilder {
 								if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
 									const query = this.builder(datastore.dialect).addFk(datastore.name, schema, entityChanged.new, newRelation, metadata)
 									queries.push(query)
-									// const sentence = this.addFk(schema, entityChanged.new, newRelation, metadata)
-									// queries.push(new Query('addFk', [], metadata.name, sentence, entityChanged.name))
 								}
 							}
 						}
@@ -378,29 +335,25 @@ export class DDLBuilder {
 		}
 		// create indexes and Fks for new entities
 		for (const name in delta.new) {
-			const newEntity = delta.new[name].new
+			const newEntity = delta.new[name].new as EntityMapping
 			const datastore = await this.getDatabase(newEntity.name)
 			const metadata = this.languageManager.dialectMetadata(datastore.dialect)
-			if (newEntity.index) {
-				for (const name in newEntity.index) {
-					const query = this.builder(datastore.dialect).createIndex(datastore.name, newEntity, newEntity.index[name], metadata)
+			if (newEntity.indexes) {
+				for (const i in newEntity.indexes) {
+					const index = newEntity.indexes[i]
+					const query = this.builder(datastore.dialect).createIndex(datastore.name, newEntity, index, metadata)
 					queries.push(query)
-					// const sentence = this.createIndex(newEntity, newEntity.index[name], metadata)
-					// queries.push(new Query('createIndex', [], metadata.name, sentence, newEntity.name))
 				}
 			}
-			if (newEntity.relation) {
-				for (const name in newEntity.relation) {
-					const relation = newEntity.relation[name] as Relation
-
+			if (newEntity.relations) {
+				for (const p in newEntity.relations) {
+					const relation = newEntity.relations[p]
 					const relatedDatabase = await this.getDatabase(relation.entity)
 					if (relatedDatabase.name !== datastore.name) continue
 
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-						const query = this.builder(datastore.dialect).addFk(datastore.name, schema, newEntity, newEntity.relation[name], metadata)
+						const query = this.builder(datastore.dialect).addFk(datastore.name, schema, newEntity, relation, metadata)
 						queries.push(query)
-						// const sentence = this.addFk(schema, newEntity, newEntity.relation[name], metadata)
-						// queries.push(new Query('addFk', [], metadata.name, sentence, newEntity.name))
 					}
 				}
 			}

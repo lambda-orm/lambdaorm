@@ -252,7 +252,7 @@ export class OperandManager {
 				} else if (parts.length === 2) {
 					const _field = expressionContext.current.fields.find(p => p.name === parts[1])
 					if (_field) {
-						return new Field(expressionContext.current.entityName, _field.name, _field.type, _field.name)
+						return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias)
 					} else {
 						if (this.config.model.existsProperty(expressionContext.current.entityName, parts[1])) {
 							const property = this.config.model.getProperty(expressionContext.current.entityName, parts[1])

@@ -77,32 +77,36 @@ export class QueryExecutor {
 
 	protected async _execute (query:Query, data:Data, context: any):Promise<any> {
 		let result: any
-		const datastore = await this.getDatastore(query, context)
-		const connection = await this.getConnection(datastore)
-		const metadata = this.languageManager.dialectMetadata(query.dialect)
-		switch (query.name) {
-		case 'select': result = await this.select(query, data, metadata, connection, context); break
-		case 'insert': result = await this.insert(query, data, metadata, connection, context); break
-		case 'update': result = await this.update(query, data, metadata, connection, context); break
-		case 'delete': result = await this.delete(query, data, metadata, connection, context); break
-		case 'bulkInsert': result = await this.bulkInsert(query, data, metadata, connection, context); break
-		case 'truncateTable': result = await connection.execute(query); break
-		case 'createTable': result = await connection.execute(query); break
-		case 'createFk': result = await connection.execute(query); break
-		case 'createIndex': result = await connection.execute(query); break
-		case 'alterColumn': result = await connection.execute(query); break
-		case 'addColumn': result = await connection.execute(query); break
-		case 'addPk': result = await connection.execute(query); break
-		case 'addUk': result = await connection.execute(query); break
-		case 'addFk': result = await connection.execute(query); break
-		case 'dropTable':result = await connection.execute(query); break
-		case 'dropColumn':result = await connection.execute(query); break
-		case 'dropPk':result = await connection.execute(query); break
-		case 'dropUk':result = await connection.execute(query); break
-		case 'dropFK':result = await connection.execute(query); break
-		case 'dropIndex':result = await connection.execute(query); break
-		default:
-			throw new Error(`query ${query.name} undefined`)
+		try {
+			const datastore = await this.getDatastore(query, context)
+			const connection = await this.getConnection(datastore)
+			const metadata = this.languageManager.dialectMetadata(query.dialect)
+			switch (query.name) {
+			case 'select': result = await this.select(query, data, metadata, connection, context); break
+			case 'insert': result = await this.insert(query, data, metadata, connection, context); break
+			case 'update': result = await this.update(query, data, metadata, connection, context); break
+			case 'delete': result = await this.delete(query, data, metadata, connection, context); break
+			case 'bulkInsert': result = await this.bulkInsert(query, data, metadata, connection, context); break
+			case 'truncateTable': result = await connection.execute(query); break
+			case 'createTable': result = await connection.execute(query); break
+			case 'createFk': result = await connection.execute(query); break
+			case 'createIndex': result = await connection.execute(query); break
+			case 'alterColumn': result = await connection.execute(query); break
+			case 'addColumn': result = await connection.execute(query); break
+			case 'addPk': result = await connection.execute(query); break
+			case 'addUk': result = await connection.execute(query); break
+			case 'addFk': result = await connection.execute(query); break
+			case 'dropTable': result = await connection.execute(query); break
+			case 'dropColumn': result = await connection.execute(query); break
+			case 'dropPk': result = await connection.execute(query); break
+			case 'dropUk': result = await connection.execute(query); break
+			case 'dropFK': result = await connection.execute(query); break
+			case 'dropIndex': result = await connection.execute(query); break
+			default:
+				throw new Error(`query ${query.name} undefined`)
+			}
+		} catch (error: any) {
+			console.log(error)
 		}
 		return result
 	}
