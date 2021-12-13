@@ -1,5 +1,5 @@
 
-import { Data, Parameter, Include, Query, Datastore, IEvaluator } from './../model'
+import { Data, Parameter, Query, Datastore, IEvaluator } from './../model'
 import { Connection, ConnectionManager } from './../connection'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { LanguageManager } from './../language'

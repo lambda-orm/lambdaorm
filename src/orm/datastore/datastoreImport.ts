@@ -1,6 +1,6 @@
 
 import { DatastoreActionDML } from './datastoreActionDML'
-import { Query, SchemaData, Entity, Relation } from '../model'
+import { Query, SchemaData, Entity } from '../model'
 
 export class DatastoreImport extends DatastoreActionDML {
 	public async execute (data: SchemaData): Promise<void> {
