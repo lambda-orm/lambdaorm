@@ -115,14 +115,14 @@ export class QueryExecutor {
 		const mainResult = await connection.select(this.schema, query, this.params(query.parameters, metadata, data))
 		if (mainResult.length > 0) {
 			for (const p in query.children) {
-				const include = query.children[p] as Include
+				const include = query.children[p]
 				const ids:any[] = []
 				for (let i = 0; i < mainResult.length; i++) {
 					const id = mainResult[i]['__' + include.relation.from]
 					if (!ids.includes(id)) { ids.push(id) }
 				}
 				data.set('__parentId', ids)
-				const includeResult = await this._execute(include.children[0] as Query, data, context)
+				const includeResult = await this._execute(include.children[0], data, context)
 				for (let i = 0; i < mainResult.length; i++) {
 					const element = mainResult[i]
 					const relationId = element['__' + include.relation.from]
@@ -154,12 +154,12 @@ export class QueryExecutor {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = this.schema.getAutoincrement(query.entity)
 		for (const p in query.children) {
-			const include = query.children[p] as Include
+			const include = query.children[p]
 			const relation = data.get(include.relation.name)
 			if (relation) {
 				if (include.relation.type === 'oneToOne' || include.relation.type === 'oneToMany') {
 					const relationData = new Data(relation, data)
-					const relationId = await this._execute(include.children[0] as Query, relationData, context)
+					const relationId = await this._execute(include.children[0], relationData, context)
 					data.set(include.relation.from, relationId)
 				}
 			}
@@ -171,7 +171,7 @@ export class QueryExecutor {
 		}
 		// after insert the relationships of the type oneToOne and manyToOne
 		for (const p in query.children) {
-			const include = query.children[p] as Include
+			const include = query.children[p]
 			const relation = data.get(include.relation.name)
 			if (relation) {
 				if (include.relation.type === 'manyToOne') {
@@ -181,7 +181,7 @@ export class QueryExecutor {
 						const child = relation[i]
 						child[childPropertyName] = parentId
 						const childData = new Data(child, data)
-						await this._execute(include.children[0] as Query, childData, context)
+						await this._execute(include.children[0], childData, context)
 					}
 				}
 			}
@@ -193,7 +193,7 @@ export class QueryExecutor {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = this.schema.getAutoincrement(query.entity)
 		for (const p in query.children) {
-			const include = query.children[p] as Include
+			const include = query.children[p]
 			if (include.relation.type === 'oneToOne' || include.relation.type === 'oneToMany') {
 				const allChilds:any[] = []
 				for (let i = 0; i < data.data.length; i++) {
@@ -202,7 +202,7 @@ export class QueryExecutor {
 					if (child) { allChilds.push(child) }
 				}
 				const childData = new Data(allChilds, data)
-				const allChildsId = await this._execute(include.children[0] as Query, childData, context)
+				const allChildsId = await this._execute(include.children[0], childData, context)
 				for (let i = 0; i < data.data.length; i++) {
 					const item = data.data[i]
 					if (item[include.relation.name]) { item[include.relation.from] = allChildsId[i] }
@@ -218,7 +218,7 @@ export class QueryExecutor {
 		}
 		// after insert the relationships of the type oneToOne and manyToOne
 		for (const p in query.children) {
-			const include = query.children[p] as Include
+			const include = query.children[p]
 			if (include.relation.type === 'manyToOne') {
 				const allChilds:any[] = []
 				for (let i = 0; i < data.data.length; i++) {
@@ -235,7 +235,7 @@ export class QueryExecutor {
 					}
 				}
 				const childData = new Data(allChilds, data)
-				await this._execute(include.children[0] as Query, childData, context)
+				await this._execute(include.children[0], childData, context)
 			}
 		}
 		return ids
@@ -244,18 +244,18 @@ export class QueryExecutor {
 	protected async update (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
 		const changeCount = await connection.update(this.schema, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
-			const include = query.children[p] as Include
+			const include = query.children[p]
 			const relation = data.get(include.relation.name)
 			if (relation) {
 				if (include.relation.type === 'manyToOne') {
 					for (let i = 0; i < relation.length; i++) {
 						const child = relation[i]
 						const childData = new Data(child, data)
-						await this._execute(include.children[0] as Query, childData, context)
+						await this._execute(include.children[0], childData, context)
 					}
 				} else {
 					const childData = new Data(relation, data)
-					await this._execute(include.children[0] as Query, childData, context)
+					await this._execute(include.children[0], childData, context)
 				}
 			}
 		}
@@ -265,18 +265,18 @@ export class QueryExecutor {
 	protected async delete (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
 	// before remove relations entities
 		for (const p in query.children) {
-			const include = query.children[p] as Include
+			const include = query.children[p]
 			const relation = data.get(include.relation.name)
 			if (relation) {
 				if (include.relation.type === 'manyToOne') {
 					for (let i = 0; i < relation.length; i++) {
 						const child = relation[i]
 						const childData = new Data(child, data)
-						await this._execute(include.children[0] as Query, childData, context)
+						await this._execute(include.children[0], childData, context)
 					}
 				} else {
 					const childData = new Data(relation, data)
-					await this._execute(include.children[0] as Query, childData, context)
+					await this._execute(include.children[0], childData, context)
 				}
 			}
 		}

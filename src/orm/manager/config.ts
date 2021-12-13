@@ -1,12 +1,5 @@
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, Datastore, Config, Model, Schema } from '../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, Datastore, Config, Model, Schema, RelationInfo } from '../model'
 import { ConnectionConfig } from '../connection'
-
-interface RelationInfo {
-	previousRelation:string
-	previousEntity: Entity,
-	entity: Entity,
-	relation: Relation
-}
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
 	public abstract get entities(): TEntity[];
@@ -133,7 +126,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	}
 }
 
-class ModelConfig extends _ModelConfig<Entity, Property> {
+export class ModelConfig extends _ModelConfig<Entity, Property> {
 	private model:Model
 
 	constructor () {

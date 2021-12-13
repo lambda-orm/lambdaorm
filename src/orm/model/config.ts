@@ -22,11 +22,17 @@ export interface Relation {
 	entity: string
 	to: string
 }
+export interface Index {
+	name: string
+	fields: string[]
+}
 export interface Entity {
 	name: string
 	extends?: string
 	abstract?: boolean
 	singular?: string
+	uniqueKey?:string[]
+	indexes?: Index[]
 	primaryKey?:string[]
 	properties:Property[]
 	relations:Relation[]
@@ -39,14 +45,9 @@ export interface PropertyMapping extends Property {
 	mapping: string
 	key?: string
 }
-export interface Index {
-	name: string
-	fields: string[]
-}
+
 export interface EntityMapping extends Entity {
 	mapping: string
-	uniqueKey?:string[]
-	indexes?: Index[]
 	properties: PropertyMapping[]
 }
 export interface Schema {
@@ -82,4 +83,11 @@ export interface Config
 	schemas: Schema[]
 	defaultDatastore?: string
 	datastores: Datastore[]
+}
+
+export interface RelationInfo {
+	previousRelation:string
+	previousEntity: Entity,
+	entity: Entity,
+	relation: Relation
 }

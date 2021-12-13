@@ -8,6 +8,13 @@ model:
   entities:
     - name: Address
       abstract: true
+      indexes:
+        - name: postalCode
+          fields: ["postalCode"]
+        - name: region
+          fields: ["region", "country"]
+        - name: city
+          fields: ["city"]
       properties:
         - name: address
         - name: city
@@ -17,6 +24,7 @@ model:
         - name: country
     - name: Categories
       primaryKey: ["id"]
+      uniqueKey: ["name"]
       properties:
         - name: id
           type: integer
@@ -29,6 +37,9 @@ model:
     - name: Customers
       extends: Address
       primaryKey: ["id"]
+      indexes:
+        - name: name
+          fields: ["name"]
       properties:
         - name: id
           length: 5
@@ -47,6 +58,7 @@ model:
     - name: Employees
       extends: Address
       primaryKey: ["id"]
+      uniqueKey: ["lastName", "firstName"]
       properties:
         - name: id
           type: integer
@@ -72,6 +84,7 @@ model:
           to: id
     - name: Shippers
       primaryKey: ["id"]
+      uniqueKey: ["name"]
       properties:
         - name: id
           type: integer
@@ -84,6 +97,7 @@ model:
     - name: Suppliers
       extends: Address
       primaryKey: ["id"]
+      uniqueKey: ["name"]
       properties:
         - name: id
           type: integer
@@ -98,6 +112,7 @@ model:
           length: 200
     - name: Products
       primaryKey: ["id"]
+      uniqueKey: ["name", "supplierId"]
       properties:
         - name: id
           type: integer
@@ -137,6 +152,11 @@ model:
           to: id
     - name: Orders
       primaryKey: ["id"]
+      indexes:
+        - name: orderDate
+          fields: ["orderDate"]
+        - name: shippedDate
+          fields: ["shippedDate"]
       properties:
         - name: id
           type: integer
@@ -209,13 +229,6 @@ schemas:
     entities:
       - name: Address
         abstract: true
-        indexes:
-          - name: postalCode
-            fields: ["postalCode"]
-          - name: region
-            fields: ["region", "country"]
-          - name: city
-            fields: ["city"]
         properties:
           - name: address
             mapping: Address
@@ -229,7 +242,6 @@ schemas:
             mapping: Country
       - name: Categories
         mapping: Categories
-        uniqueKey: ["name"]
         properties:
           - name: id
             mapping: CategoryID
@@ -240,9 +252,6 @@ schemas:
       - name: Customers
         extends: Address
         mapping: Customers
-        indexes:
-          - name: name
-            fields: ["name"]
         properties:
           - name: id
             mapping: CustomerID
@@ -255,7 +264,6 @@ schemas:
       - name: Employees
         extends: Address
         mapping: Employees
-        uniqueKey: ["lastName", "firstName"]
         properties:
           - name: id
             mapping: EmployeeID
@@ -277,7 +285,6 @@ schemas:
             mapping: ReportsTo
       - name: Shippers
         mapping: Shippers
-        uniqueKey: ["name"]
         properties:
           - name: id
             mapping: ShipperID
@@ -287,7 +294,6 @@ schemas:
             mapping: Phone
       - name: Suppliers
         extends: Address
-        uniqueKey: ["name"]
         mapping: Suppliers
         properties:
           - name: id
@@ -302,7 +308,6 @@ schemas:
             mapping: HomePage
       - name: Products
         mapping: Products
-        uniqueKey: ["name", "supplierId"]
         properties:
           - name: id
             mapping: ProductID
@@ -326,11 +331,6 @@ schemas:
             mapping: Discontinued
       - name: Orders
         mapping: Orders
-        indexes:
-          - name: orderDate
-            fields: ["orderDate"]
-          - name: shippedDate
-            fields: ["shippedDate"]
         properties:
           - name: id
             mapping: OrderID

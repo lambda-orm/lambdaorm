@@ -484,7 +484,9 @@ export class OperandManager {
 				// Example: Orders.update({name:'test'})
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
 				return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
-			} else { throw new Error('Args incorrect in Sentence Update') }
+			} else {
+				throw new Error('Args incorrect in Sentence Update')
+			}
 		} else if (clause.children.length === 3) {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
@@ -495,16 +497,16 @@ export class OperandManager {
 	}
 
 	private createSelectInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
-		let relation:any
 		let current = node
 		while (current) {
 			if (current.type === 'var') {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				relation = this.config.model.getRelation(expressionContext.current.entityName, relationName)
-				current.name = relation.entity.name
-				break
+				const relationInfo = this.config.model.getRelation(expressionContext.current.entityName, relationName)
+				current.name = relationInfo.entity.name
+				const child = this.createSentence(node, expressionContext)
+				return new SentenceInclude(relationInfo.relation.name, [child], relationInfo.relation)
 			}
 			if (current.children.length > 0) {
 				current = current.children[0]
@@ -512,28 +514,29 @@ export class OperandManager {
 				break
 			}
 		}
-		const child = this.createSentence(node, expressionContext)
+		throw new Error('Error to create SentenceInclude')
 		// return new SentenceInclude(relation.name, [child], relation, '__parentId')
-		return new SentenceInclude(relation.name, [child], relation)
+		// return new SentenceInclude(relation.relation.name, [child], relation.relation)
 	}
 
 	private createInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
-		let relation:any; let relationName = ''
 		let current = node
 		while (current) {
 			if (current.type === 'var') {
 				// p.details
 				const parts = current.name.split('.')
-				relationName = parts[1]
-				relation = this.config.model.getRelation(expressionContext.current.entityName, relationName)
-				current.name = relation.entity.name
-				break
+				const relationName = parts[1]
+				const relationInfo = this.config.model.getRelation(expressionContext.current.entityName, relationName)
+				current.name = relationInfo.entity.name
+				const child = this.createSentence(node, expressionContext)
+				return new SentenceInclude(relationName, [child], relationInfo.relation)
 			}
-			if (current.children.length > 0) { current = current.children[0] } else { break }
+			if (current.children.length > 0) {
+				current = current.children[0]
+			} else { break }
 		}
-		const child = this.createSentence(node, expressionContext)
+		throw new Error('Error to create SentenceInclude')
 		// return new SentenceInclude(relationName, [child], relation, relation.to)
-		return new SentenceInclude(relationName, [child], relation)
 	}
 
 	private getSentence (node:Node):any {
@@ -542,7 +545,11 @@ export class OperandManager {
 		while (current) {
 			const name = current.type === 'var' ? 'from' : current.name
 			sentence[name] = current
-			if (current.children.length > 0) { current = current.children[0] } else { break }
+			if (current.children.length > 0) {
+				current = current.children[0]
+			} else {
+				break
+			}
 		}
 		return sentence
 	}

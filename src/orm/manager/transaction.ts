@@ -23,6 +23,6 @@ export class Transaction {
 	}
 
 	public async execute (query: Query, data: any = {}): Promise<any> {
-		return await this.queryExecutor.execute(query, this.context, data)
+		return await this.queryExecutor.execute(query, data, this.context)
 	}
 }

@@ -1,5 +1,5 @@
 
-import { Data, Property, Parameter } from './../model/index'
+import { Data, Property, Parameter, Relation } from './../model/index'
 import { Helper } from './../helper'
 import { OperandMetadata } from './operandMetadata'
 const SqlString = require('sqlstring')
@@ -267,9 +267,9 @@ export class Sentence extends Operand {
 }
 
 export class SentenceInclude extends Operand {
-	public relation: any
+	public relation: Relation
 	// public variable: string
-	constructor (name: string, children: Operand[] = [], relation: any) {
+	constructor (name: string, children: Operand[] = [], relation: Relation) {
 		super(name, children)
 		this.relation = relation
 		// this.variable = variable

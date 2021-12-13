@@ -1,10 +1,11 @@
 import { Datastore, Query, Entity } from '../model'
-import { ConfigManager, SchemaConfig, ExpressionManager, Executor } from '../manager'
+import { ConfigManager, ExpressionManager, Executor, ModelConfig } from '../manager'
 import { DatastoreState } from './datastoreState'
 
 export abstract class DatastoreActionDML {
 	protected state: DatastoreState
 	protected configManager: ConfigManager
+	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
 	protected datastore: Datastore
@@ -12,26 +13,26 @@ export abstract class DatastoreActionDML {
 	constructor (state:DatastoreState, configManager: ConfigManager, expressionManager: ExpressionManager, executor: Executor, datastore:Datastore) {
 		this.state = state
 		this.configManager = configManager
+		this.model = configManager.model
 		this.expressionManager = expressionManager
 		this.executor = executor
 		this.datastore = datastore
 	}
 
-	public async getSchema ():Promise<SchemaConfig> {
-		const state = await this.state.get(this.datastore.name)
-		let schema
-		if (state.schema === undefined) {
-			schema = this.configManager.schema.get(this.datastore.schema)
-		} else {
-			schema = state.schema
-		}
-		return new SchemaConfig(schema)
-	}
+	// public async getSchema ():Promise<SchemaConfig> {
+	// const state = await this.state.get(this.datastore.name)
+	// let schema
+	// if (state.schema === undefined) {
+	// schema = this.configManager.schema.get(this.datastore.schema)
+	// } else {
+	// schema = state.schema
+	// }
+	// return new SchemaConfig(schema)
+	// }
 
 	public async sentence ():Promise<any> {
 		const sentences:any[] = []
-		const schema = await this.getSchema()
-		const queries = await this.build(schema)
+		const queries = await this.build()
 		for (let i = 0; i < queries.length; i++) {
 			const query = queries[i]
 			sentences.push(query.sentence)
@@ -39,29 +40,29 @@ export abstract class DatastoreActionDML {
 		return sentences
 	}
 
-	protected async build (schema:SchemaConfig): Promise<Query[]> {
+	protected async build (): Promise<Query[]> {
 		const queries:Query[] = []
-		for (const i in schema.entities) {
-			const entity = schema.entities[i]
-			if (!schema.isChild(entity.name)) {
-				const query = await this.createQuery(schema, entity)
+		for (const i in this.model.entities) {
+			const entity = this.model.entities[i]
+			if (!this.model.isChild(entity.name)) {
+				const query = await this.createQuery(entity)
 				queries.push(query)
 			}
 		}
 		return queries
 	}
 
-	protected abstract createQuery(schema:SchemaConfig, entity:Entity):Promise<Query>
+	protected abstract createQuery(entity:Entity):Promise<Query>
 
-	protected createInclude (schema:SchemaConfig, entity:Entity, level = 0):string {
+	protected createInclude (entity:Entity, level = 0):string {
 		const arrowVariable = this.arrowVariables[level]
 		const includes:string[] = []
 		for (const i in entity.relations) {
 			const relation = entity.relations[i]
 			if (relation.composite) {
-				const childEntity = schema.getEntity(relation.entity)
+				const childEntity = this.model.getEntity(relation.entity)
 				if (childEntity !== undefined) {
-					const childInclude = this.createInclude(schema, childEntity, level + 1)
+					const childInclude = this.createInclude(childEntity, level + 1)
 					includes.push(`${arrowVariable}.${relation.name}${childInclude}`)
 				}
 			}

@@ -1,4 +1,4 @@
-import { Property, Parameter } from './../model/index'
+import { Property, Parameter, Relation } from './../model/index'
 
 // export class Query extends Operand {
 export class Query {
@@ -27,10 +27,10 @@ export class Query {
 export class Include {
 		public name: string
 		public children: Query[]
-		public relation: any
+		public relation: Relation
 		// public variable: string
 		// constructor(name: string, children: Operand[] = [], relation: any, variable: string) {
-		constructor (name: string, children: Query[] = [], relation: any) {
+		constructor (name: string, children: Query[] = [], relation: Relation) {
 			this.name = name
 			this.children = children
 			this.relation = relation
