@@ -165,8 +165,8 @@ test:
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
-          ? ORDER BY id.ProductID 
-    errors: 1
+          ? ORDER BY p.ProductID 
+    errors: 0
     expression: Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)
     completeExpression: >-
       Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>p.id)
@@ -208,7 +208,7 @@ test:
         type: boolean
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''id.ProductID'' in ''order clause'''
+    result: []
   - name: query 5
     data: a
     sentences:
@@ -219,8 +219,8 @@ test:
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.ProductID =
-          ? ORDER BY id.ProductID 
-    errors: 1
+          ? ORDER BY p.ProductID 
+    errors: 0
     expression: Products.filter(p=>(p.id===id)).sort(p=>p.id)
     completeExpression: >-
       Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>p.id)
@@ -262,7 +262,7 @@ test:
         type: boolean
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''id.ProductID'' in ''order clause'''
+    result: []
   - name: query 6
     data: a
     sentences:
@@ -289,8 +289,8 @@ test:
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          ORDER BY name.ProductName 
-    errors: 1
+          ORDER BY p.ProductName 
+    errors: 0
     expression: >-
       Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
     completeExpression: >-
@@ -312,7 +312,7 @@ test:
         type: decimal
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''name.ProductName'' in ''order clause'''
+    result: []
   - name: query 8
     sentences:
       - datastore: mysql
@@ -320,9 +320,8 @@ test:
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
           Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-          WHERE p.Discontinued <> FALSE ORDER BY category, name.ProductName
-          desc 
-    errors: 1
+          WHERE p.Discontinued <> FALSE ORDER BY category, p.ProductName desc 
+    errors: 0
     expression: >-
       Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
     completeExpression: >-
@@ -344,19 +343,19 @@ test:
         type: decimal
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''name.ProductName'' in ''order clause'''
+    result: []
   - name: query 9
     data: b
     sentences:
       - datastore: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
-          o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM OrderDetails
-          o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p
-          ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID =
-          p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice >
-          ?) ORDER BY category, product 
-    errors: 1
+          o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
+          Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+          Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
+          c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND
+          o.UnitPrice > ?) ORDER BY category, product 
+    errors: 0
     expression: >-
       OrderDetails.filter(p=>(between(p.order.shippedDate,from,to)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product])
     completeExpression: >-
@@ -387,15 +386,15 @@ test:
         type: decimal
     executions:
       - datastore: mysql
-        error: 'Error: Table ''northwind.OrderDetails'' doesn''t exist'
+    result: []
   - name: query 10
     sentences:
       - datastore: mysql
         sentence: >-
           SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 -
-          (o.Discount / 100)))) * 100)) AS `subTotal` FROM OrderDetails o  GROUP
-          BY o.OrderID ORDER BY orderId.OrderID 
-    errors: 1
+          (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
+          GROUP BY o.OrderID ORDER BY o.OrderID 
+    errors: 0
     expression: >-
       OrderDetails.map(p=>{orderId:p.orderId,subTotal:sum(((p.unitPrice*(p.quantity*(1-(p.discount/100))))*100))}).sort(p=>p.orderId)
     completeExpression: >-
@@ -411,7 +410,7 @@ test:
         type: any
     executions:
       - datastore: mysql
-        error: 'Error: Table ''northwind.OrderDetails'' doesn''t exist'
+    result: []
   - name: query 11
     sentences:
       - datastore: mysql
@@ -469,9 +468,9 @@ test:
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  ORDER BY
-          id.ProductID LIMIT 0,1  
-    errors: 1
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY p.ProductID
+          LIMIT 0,1  
+    errors: 0
     expression: Products.first(p=>p)
     completeExpression: >-
       Products.sort(p=>p.id).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
@@ -510,7 +509,7 @@ test:
         type: boolean
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''id.ProductID'' in ''order clause'''
+    result: []
   - name: query 13
     sentences:
       - datastore: mysql
@@ -519,9 +518,9 @@ test:
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
-          p.Discontinued AS `discontinued` FROM Products p  ORDER BY
-          id.ProductID desc LIMIT 0,1  
-    errors: 1
+          p.Discontinued AS `discontinued` FROM Products p  ORDER BY p.ProductID
+          desc LIMIT 0,1  
+    errors: 0
     expression: Products.last(p=>p)
     completeExpression: >-
       Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
@@ -560,7 +559,7 @@ test:
         type: boolean
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''id.ProductID'' in ''order clause'''
+    result: []
   - name: query 14
     sentences:
       - datastore: mysql
@@ -699,8 +698,8 @@ test:
           `quantity`, p.UnitPrice AS `price`, p.UnitsInStock AS `inStock`,
           p.UnitsOnOrder AS `onOrder`, p.ReorderLevel AS `reorderLevel`,
           p.Discontinued AS `discontinued` FROM Products p  WHERE p.Discontinued
-          <> FALSE ORDER BY id.ProductID desc LIMIT 0,1  
-    errors: 1
+          <> FALSE ORDER BY p.ProductID desc LIMIT 0,1  
+    errors: 0
     expression: Products.filter(p=>(p.discontinued!==false)).last(p=>p)
     completeExpression: >-
       Products.filter(p=>(p.discontinued!==false)).sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
@@ -739,7 +738,7 @@ test:
         type: boolean
     executions:
       - datastore: mysql
-        error: 'Error: Unknown column ''id.ProductID'' in ''order clause'''
+    result: []
   - name: query 18
     sentences:
       - datastore: mysql
@@ -853,4 +852,4 @@ test:
     executions:
       - datastore: mysql
     result: []
-errors: 9
+errors: 0

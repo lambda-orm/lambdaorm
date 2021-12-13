@@ -68,7 +68,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		if (map) {
 			const from = sentence.children.find(p => p instanceof From) as Operand
 			const joins = sentence.children.filter(p => p instanceof Join)
-			text = this.buildArrowFunction(map, schema, metadata) + ' ' + this.solveFrom(from, metadata) + ' ' + this.solveJoins(joins, schema, metadata)
+			text = this.buildArrowFunction(map, schema, metadata) + ' ' + this.solveFrom(from, schema, metadata) + ' ' + this.solveJoins(joins, schema, metadata)
 		} else if (insert) text = this.buildInsert(insert, sentence.entity, schema, metadata)
 		else if (update)text = this.buildUpdate(update, schema, metadata)
 		else if (_delete)text = this.buildDelete(_delete, metadata)
@@ -89,7 +89,11 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			const parts = join.name.split('.')
-			let joinText = template.replace('{name}', metadata.delimiter(parts[0]))
+			const entityMapping = schema.entityMapping(parts[0])
+			if (entityMapping === undefined) {
+				throw new Error(`not found mapping for ${parts[0]}`)
+			}
+			let joinText = template.replace('{name}', metadata.delimiter(entityMapping))
 			joinText = joinText.replace('{alias}', parts[1])
 			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0], schema, metadata)).trim()
 			list.push(joinText)
@@ -97,10 +101,14 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		return list.join(' ') + ' '
 	}
 
-	private solveFrom (from:Operand, metadata:DialectMetadata):string {
+	private solveFrom (from:Operand, schema:SchemaConfig, metadata:DialectMetadata):string {
 		let template = metadata.dml('from')
 		const parts = from.name.split('.')
-		template = template.replace('{name}', metadata.delimiter(parts[0]))
+		const entityMapping = schema.entityMapping(parts[0])
+		if (entityMapping === undefined) {
+			throw new Error(`not found mapping for ${parts[0]}`)
+		}
+		template = template.replace('{name}', metadata.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', parts[1])
 		return template.trim()
 	}

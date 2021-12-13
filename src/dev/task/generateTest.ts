@@ -53,10 +53,10 @@ async function writeUnitTest (datastores: string[], category: CategoryTest): Pro
 			for (const r in datastores) {
 				const datastore = datastores[r]
 				if (expTest.sentences !== undefined) {
-					let sentence = expTest.sentences.find(p => p.datastore === datastore && p.error === undefined)?.sentence
-					sentence = Helper.replace(sentence, '\n', '; ')
-					if (sentence) {
-						lines.push(`\t\tconst ${datastore}Expected = '${sentence}'`)
+					const sentence = expTest.sentences.find(p => p.datastore === datastore && p.error === undefined)
+					if (sentence !== undefined && sentence.sentence !== undefined) {
+						const _sentence = Helper.replace(sentence.sentence, '\n', '; ')
+						lines.push(`\t\tconst ${datastore}Expected = '${_sentence}'`)
 						lines.push(`\t\tlet ${datastore} =  await orm.sentence(expression,'${datastore}')`)
 						lines.push(`\t\t${datastore}=Helper.replace(${datastore},'\\n','; ')`)
 						lines.push(`\t\texpect(${datastore}Expected).toBe(${datastore})`)

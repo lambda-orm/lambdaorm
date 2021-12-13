@@ -66,7 +66,9 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		while (sorted.length < entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entityName = entities[i]
-				if (sorted.includes(entityName)) { continue }
+				if (sorted.includes(entityName)) {
+					continue
+				}
 				if (this.solveSortEntity(entityName, sorted)) {
 					sorted.push(entityName)
 					break
@@ -82,7 +84,6 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			throw new Error('Not exists entity:' + entityName)
 		}
 		if (entity.relations === undefined || entity.relations.length === 0) {
-			sorted.push(entity.name)
 			return true
 		} else {
 			let unsolved = false

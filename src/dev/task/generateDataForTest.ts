@@ -1025,9 +1025,9 @@ export async function apply (datastores: string[], callback: any) {
 	}
 
 	errors = +await writeQueryTest(datastores)
-	// errors = +await writeNumeriFunctionsTest(datastores)
-	// errors = +await writeGroupByTest(datastores)
-	// errors = +await writeIncludeTest(datastores)
+	errors = +await writeNumeriFunctionsTest(datastores)
+	errors = +await writeGroupByTest(datastores)
+	errors = +await writeIncludeTest(datastores)
 	// errors = +await writeInsertsTest(datastores)
 	// errors = +await writeUpdateTest(datastores)
 	// errors = +await writeDeleteTest(datastores)

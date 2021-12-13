@@ -70,9 +70,10 @@ export class DatastoreImport extends DatastoreActionDML {
 						const externalId = row[relation.from]
 						if (mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][externalId]) {
 							row[relation.from] = mapping[relation.entity][relation.to][externalId]
-						} else {
-							const keys:any[] = []
-							for (const ukProperty in entity.uniqueKey) {
+						} else if (entity.uniqueKey !== undefined) {
+							const keys: any[] = []
+							for (let j = 0; j < entity.uniqueKey.length; j++) {
+								const ukProperty = entity.uniqueKey[j]
 								const value = row[ukProperty]
 								if (value == null) {
 									// TODO: reemplazar por un archivo de salida de inconsistencias
@@ -106,21 +107,27 @@ export class DatastoreImport extends DatastoreActionDML {
 
 	protected loadExternalIds (schema:SchemaConfig, entityName:string, rows:any[], aux:any):void {
 		if (!aux)aux = {}
-		if (aux[entityName] === undefined)aux[entityName] = {}
+		if (aux[entityName] === undefined) {
+			aux[entityName] = {}
+		}
 		const entity = schema.getEntity(entityName) as EntityMapping
 		for (const p in entity.properties) {
 			const property = entity.properties[p]
 			if (property.autoincrement) {
-				if (aux[entityName][property.name] === undefined) aux[entityName][property.name] = {}
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
-					aux[entityName][property.name][i] = row[property.name]
+				if (aux[entityName][property.name] === undefined) {
+					aux[entityName][property.name] = {}
+				}
+				if (rows !== undefined) {
+					for (let i = 0; i < rows.length; i++) {
+						const row = rows[i]
+						aux[entityName][property.name][i] = row[property.name]
+					}
 				}
 			}
 		}
 		for (const p in entity.relations) {
 			const relation = entity.relations[p]
-			if (relation.type === 'manyToOne') {
+			if (relation.type === 'manyToOne' && rows !== undefined) {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]
@@ -131,22 +138,28 @@ export class DatastoreImport extends DatastoreActionDML {
 	}
 
 	protected completeMapping (schema:SchemaConfig, entityName:string, rows:any[], aux:any, mapping:any):void {
-		if (mapping[entityName] === undefined)mapping[entityName] = {}
+		if (mapping[entityName] === undefined) {
+			mapping[entityName] = {}
+		}
 		const entity = schema.getEntity(entityName) as EntityMapping
 		for (const p in entity.properties) {
 			const property = entity.properties[p]
 			if (property.autoincrement) {
-				if (mapping[entityName][property.name] === undefined) mapping[entityName][property.name] = {}
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
-					const externalId = aux[entityName][property.name][i]
-					mapping[entityName][property.name][externalId] = row[property.name]
+				if (mapping[entityName][property.name] === undefined) {
+					mapping[entityName][property.name] = {}
+				}
+				if (rows !== undefined) {
+					for (let i = 0; i < rows.length; i++) {
+						const row = rows[i]
+						const externalId = aux[entityName][property.name][i]
+						mapping[entityName][property.name][externalId] = row[property.name]
+					}
 				}
 			}
 		}
 		for (const p in entity.relations) {
 			const relation = entity.relations[p]
-			if (relation.type === 'manyToOne') {
+			if (relation.type === 'manyToOne' && rows !== undefined) {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]

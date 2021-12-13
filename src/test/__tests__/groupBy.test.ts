@@ -190,18 +190,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT MAX(p.UnitPrice) AS [maxPrice] FROM Products p  '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 2', async () => {
 		const expression = 'Products.map(p=>{minPrice:min(p.price)})'
@@ -209,18 +197,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT MIN(p.UnitPrice) AS [minPrice] FROM Products p  '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 3', async () => {
 		const expression = 'Products.map(p=>{total:sum(p.price)})'
@@ -228,18 +204,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT SUM(p.UnitPrice) AS [total] FROM Products p  '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 4', async () => {
 		const expression = 'Products.map(p=>{average:avg(p.price)})'
@@ -247,18 +211,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT AVG(p.UnitPrice) AS [average] FROM Products p  '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 5', async () => {
 		const expression = 'Products.map(p=>{count:count(1)})'
@@ -266,18 +218,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT COUNT(1) AS "count" FROM Products p  '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT COUNT(1) AS `count` FROM Products p  '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT COUNT(1) AS [count] FROM Products p  '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 6', async () => {
 		const expression = 'Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
@@ -285,18 +225,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p  GROUP BY p.CategoryID '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p  GROUP BY p.CategoryID '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.CategoryID AS [category], MAX(p.UnitPrice) AS [largestPrice] FROM Products p  GROUP BY p.CategoryID '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 7', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
@@ -304,18 +232,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 8', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
@@ -323,18 +239,6 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT p.ProductName AS "name", p.UnitPrice AS "source", ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID = $1 '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT p.ProductName AS `name`, p.UnitPrice AS `source`, ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT p.ProductName AS [name], p.UnitPrice AS [source], ABS(p.UnitPrice) AS [result] FROM Products p  WHERE p.ProductID = @id '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 9', async () => {
 		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
@@ -342,55 +246,19 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 10', async () => {
 		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const mysqlExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY `largestPrice` desc '
+		const mysqlExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc '
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY "largestPrice" desc '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY `largestPrice` desc '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY [largestPrice] desc '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 	test('groupBy 11', async () => {
 		const expression = 'Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const mysqlExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc '
+		const mysqlExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc '
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY "largestPrice" desc '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY `largestPrice` desc '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-		const mssqlExpected = 'SELECT c.CategoryName AS [category], MAX(p.UnitPrice) AS [largestPrice] FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY [largestPrice] desc '
-		let mssql =  await orm.sentence(expression,'mssql')
-		mssql=Helper.replace(mssql,'\n','; ')
-		expect(mssqlExpected).toBe(mssql)
 	})
 })
