@@ -1,4 +1,4 @@
-import { Schema, SchemaState } from '../model'
+import { Mapping, MappingState } from '../model'
 import { ConfigManager } from '../manager'
 import { Helper } from '../helper'
 const path = require('path')
@@ -9,7 +9,7 @@ export class DatastoreState {
 		this.config = config
 	}
 
-	public async get (name:string):Promise<SchemaState> {
+	public async get (name:string):Promise<MappingState> {
 		const file = this.getFile(name)
 		const exists = await Helper.existsPath(file)
 		if (exists) {
@@ -18,21 +18,21 @@ export class DatastoreState {
 				return JSON.parse(content)
 			}
 		}
-		return { schema: { name: '', entities: [] }, mapping: {}, pending: [] }
+		return { mapping: { name: '', entities: [] }, mappingData: {}, pendingData: [] }
 	}
 
-	public async updateSchema (name:string, schema:Schema):Promise<void> {
-		const stateFile = this.getFile(name)
-		const state = await this.get(name)
-		state.schema = schema
-		await Helper.writeFile(stateFile, JSON.stringify(state))
-	}
-
-	public async updateData (name:string, mapping:any, pending:any[]):Promise<void> {
+	public async updateMapping (name:string, mapping:Mapping):Promise<void> {
 		const stateFile = this.getFile(name)
 		const state = await this.get(name)
 		state.mapping = mapping
-		state.pending = pending
+		await Helper.writeFile(stateFile, JSON.stringify(state))
+	}
+
+	public async updateData (name:string, mappingData:any, pendingData:any[]):Promise<void> {
+		const stateFile = this.getFile(name)
+		const state = await this.get(name)
+		state.mappingData = mappingData
+		state.pendingData = pendingData
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 

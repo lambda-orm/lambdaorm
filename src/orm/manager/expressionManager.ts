@@ -62,13 +62,13 @@ export class ExpressionManager implements IEvaluator {
 
 	public async toQuery (expression: string, datastore: string): Promise<Query> {
 		try {
-			const db = this.config.datastore.get(datastore)
-			const key = db.name + 'query_' + expression
+			const dt = this.config.datastore.get(datastore)
+			const key = dt.name + 'query_' + expression
 			let query = await this.cache.get(key)
 			if (!query) {
-				const schema = this.config.schema.getInstance(db.schema)
+				const mapping = this.config.mapping.getInstance(dt.mapping)
 				const sentence = await this.toOperand(expression) as Sentence
-				query = new DMLBuilder(this.config, this, schema, this.languageManager, db).build(sentence)
+				query = new DMLBuilder(this.config, this, mapping, this.languageManager, dt).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query

@@ -3,7 +3,7 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter, Query } from '../../model'
-import { SchemaConfig } from './../../manager'
+import { MappingConfig } from './../../manager'
 
 const DECIMAL = 0
 const TINY = 1
@@ -96,17 +96,17 @@ export class MySqlConnectionPool extends ConnectionPool {
 }
 
 export class MySqlConnection extends Connection {
-	public async select (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<any> {
+	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
 		return await this._execute(query, params)
 	}
 
-	public async insert (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (schema:SchemaConfig, query:Query, array:any[], params:Parameter[]):Promise<number[]> {
+	public async bulkInsert (mapping:MappingConfig, query:Query, array:any[], params:Parameter[]):Promise<number[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []
@@ -125,12 +125,12 @@ export class MySqlConnection extends Connection {
 		}
 	}
 
-	public async update (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result.affectedRows
 	}
 
-	public async delete (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result.affectedRows
 	}

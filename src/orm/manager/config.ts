@@ -1,4 +1,4 @@
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, Datastore, Config, Model, Schema, RelationInfo } from '../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, Datastore, Config, Model, Mapping, RelationInfo } from '../model'
 import { ConnectionConfig } from '../connection'
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
@@ -147,34 +147,34 @@ export class ModelConfig extends _ModelConfig<Entity, Property> {
 	}
 }
 
-export class SchemaConfig extends _ModelConfig<EntityMapping, PropertyMapping> {
-	private schema: Schema
-	constructor (schema: Schema) {
+export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> {
+	private mapping: Mapping
+	constructor (mapping: Mapping) {
 		super()
-		this.schema = schema
+		this.mapping = mapping
 	}
 
 	public get name ():string {
-		return this.schema.name
+		return this.mapping.name
 	}
 
-	public get mapping (): string {
-		if (this.schema.mapping === undefined) {
-			throw new Error(`schema ${this.schema.name} Mapping undefined`)
-		}
-		return this.schema.mapping
+	// public get mapping (): string {
+	// if (this.mapping.mapping === undefined) {
+	// throw new Error(`mapping ${this.mapping.name} Mapping undefined`)
+	// }
+	// return this.mapping.mapping
+	// }
+
+	public get ():Mapping {
+		return this.mapping
 	}
 
-	public get ():Schema {
-		return this.schema
-	}
-
-	public set (value: Schema) {
-		this.schema = value
+	public set (value: Mapping) {
+		this.mapping = value
 	}
 
 	public get entities ():EntityMapping[] {
-		return this.schema.entities
+		return this.mapping.entities
 	}
 
 	public entityMapping (entityName:string):string|undefined {
@@ -183,47 +183,49 @@ export class SchemaConfig extends _ModelConfig<EntityMapping, PropertyMapping> {
 	}
 }
 
-class SchemasConfig {
-	public schemas: Schema[]
+class MappingsConfig {
+	public mappings: Mapping[]
 
 	constructor () {
-		this.schemas = []
+		this.mappings = []
 	}
 
-	public load (value:Schema):void {
+	public load (value:Mapping):void {
 		if (value && value.name) {
-			const index = this.schemas.findIndex(p => p.name === value.name)
+			const index = this.mappings.findIndex(p => p.name === value.name)
 			if (index === -1) {
-				this.schemas.push(value)
+				this.mappings.push(value)
 			} else {
-				this.schemas[index] = value
+				this.mappings[index] = value
 			}
 		}
 	}
 
 	public delete (name: string): void {
-		const index = this.schemas.findIndex(p => p.name === name)
+		const index = this.mappings.findIndex(p => p.name === name)
 		if (index !== -1) {
-			this.schemas.splice(index, 1)
+			this.mappings.splice(index, 1)
 		}
 	}
 
-	public get (name:string):Schema {
-		const schema = this.schemas.find(p => p.name === name)
-		if (!schema) {
-			throw new Error(`schema ${name} not found`)
+	public get (name:string):Mapping {
+		const mapping = this.mappings.find(p => p.name === name)
+		if (!mapping) {
+			throw new Error(`mapping ${name} not found`)
 		}
-		return schema
+		return mapping
 	}
 
-	public list (): Schema[] {
-		return this.schemas
+	public list (): Mapping[] {
+		return this.mappings
 	}
 
-	public getInstance (name:string):SchemaConfig {
-		const schema = this.get(name)
-		if (!schema) { throw new Error(`schema ${name} not found`) }
-		return new SchemaConfig(schema)
+	public getInstance (name:string):MappingConfig {
+		const mapping = this.get(name)
+		if (!mapping) {
+			throw new Error(`mapping ${name} not found`)
+		}
+		return new MappingConfig(mapping)
 	}
 }
 
@@ -269,35 +271,35 @@ class ConfigExtender {
 		}
 		config.model = this.clearModel(config.model)
 		this.completeModel(config.model)
-		// schemas
-		if (config.schemas.length > 0) {
-			// extend entities into schema
-			for (const k in config.schemas) {
-				const entities = config.schemas[k].entities
+		// mappings
+		if (config.mappings.length > 0) {
+			// extend entities into mapping
+			for (const k in config.mappings) {
+				const entities = config.mappings[k].entities
 				if (entities) {
 					for (const k in entities) {
 						this.extendEntiyMapping(entities[k], entities)
 					}
 				}
 			}
-			// etends schemas
-			for (const k in config.schemas) {
-				this.extendSchema(config.schemas[k], config.schemas)
+			// etends mappings
+			for (const k in config.mappings) {
+				this.extendMapping(config.mappings[k], config.mappings)
 			}
 		} else {
-			config.schemas = [{ name: 'default', entities: [] }]
+			config.mappings = [{ name: 'default', entities: [] }]
 		}
-		// extend schema for model
-		for (const k in config.schemas) {
-			this.extendObject(config.schemas[k], config.model)
-			config.schemas[k] = this.clearSchema(config.schemas[k])
-			this.completeSchema(config.schemas[k])
+		// extend mapping for model
+		for (const k in config.mappings) {
+			this.extendObject(config.mappings[k], config.model)
+			config.mappings[k] = this.clearMapping(config.mappings[k])
+			this.completeMapping(config.mappings[k])
 		}
 		// datastores
 		if (config.datastores.length > 0) {
 			for (const k in config.datastores) {
 				const datastore = config.datastores[k]
-				if (datastore.schema === undefined)datastore.schema = config.schemas[0].name
+				if (datastore.mapping === undefined)datastore.mapping = config.mappings[0].name
 			}
 		}
 
@@ -364,16 +366,16 @@ class ConfigExtender {
 		}
 	}
 
-	private extendSchema (schema: Schema, schemas: Schema[]): void {
-		if (schema.extends !== undefined) {
-			const base = schemas.find(p => p.name === schema.extends)
+	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
+		if (mapping.extends !== undefined) {
+			const base = mappings.find(p => p.name === mapping.extends)
 			if (base === undefined) {
-				throw new Error(`${schema.extends} not found`)
+				throw new Error(`${mapping.extends} not found`)
 			}
-			this.extendSchema(base, schemas)
-			this.extendObject(schema, base)
+			this.extendMapping(base, mappings)
+			this.extendObject(mapping, base)
 			// se setea dado que ya fue extendido
-			delete schema.extends
+			delete mapping.extends
 		}
 	}
 
@@ -404,8 +406,8 @@ class ConfigExtender {
 		}
 	}
 
-	private clearSchema (source: Schema): Schema {
-		const target: Schema = { name: source.name, mapping: source.mapping, entities: [] }
+	private clearMapping (source: Mapping): Mapping {
+		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
 		if (source.entities !== undefined) {
 			for (let i = 0; i < source.entities.length; i++) {
 				const sourceEntity = source.entities[i]
@@ -439,10 +441,10 @@ class ConfigExtender {
 		return obj
 	}
 
-	private completeSchema (schema:Schema):void {
-		if (schema.entities !== undefined) {
-			for (let i = 0; i < schema.entities.length; i++) {
-				const entity = schema.entities[i]
+	private completeMapping (mapping:Mapping):void {
+		if (mapping.entities !== undefined) {
+			for (let i = 0; i < mapping.entities.length; i++) {
+				const entity = mapping.entities[i]
 				if (entity.mapping === undefined) entity.mapping = entity.name
 				if (entity.properties !== undefined) {
 					for (let j = 0; j < entity.properties.length; j++) {
@@ -458,7 +460,7 @@ class ConfigExtender {
 export class ConfigManager {
 	public datastore: DatastoreConfig
 	public model: ModelConfig
-	public schema: SchemasConfig
+	public mapping: MappingsConfig
 	public config: Config
 	public workspace: string
 	private extender:ConfigExtender
@@ -467,18 +469,18 @@ export class ConfigManager {
 		this.workspace = workspace
 		this.datastore = new DatastoreConfig()
 		this.model = new ModelConfig()
-		this.schema = new SchemasConfig()
-		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, schemas: [], datastores: [] }
+		this.mapping = new MappingsConfig()
+		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], datastores: [] }
 		this.extender = new ConfigExtender()
 	}
 
 	public async load (config: Config): Promise<Config> {
 		this.config = this.extender.extend(config)
 		this.model.set(this.config.model)
-		if (this.config.schemas) {
-			for (const p in this.config.schemas) {
-				const schema = this.config.schemas[p]
-				this.schema.load(schema)
+		if (this.config.mappings) {
+			for (const p in this.config.mappings) {
+				const mapping = this.config.mappings[p]
+				this.mapping.load(mapping)
 			}
 		}
 		if (this.config.datastores) {

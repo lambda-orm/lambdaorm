@@ -24,7 +24,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, datastores: [], schemas: [] }
+		let config: Config = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, datastores: [], mappings: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {

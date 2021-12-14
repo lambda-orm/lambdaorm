@@ -224,7 +224,7 @@ model:
           from: productId
           entity: Products
           to: id
-schemas:
+mappings:
   - name: northwind
     entities:
       - name: Address
@@ -377,7 +377,7 @@ schemas:
     extends: northwind
 datastores:
   - name: source
-    schema: northwind
+    mapping: northwind
     dialect: mysql
     connection: $ORM_CNN_SOURCE
     # rules:
@@ -388,18 +388,18 @@ datastores:
     #     rule: actionType == "command"
     #     datastore: source
   - name: mysql
-    schema: northwind
+    mapping: northwind
     dialect: mysql
     connection: $ORM_CNN_MYSQL
   - name: mariadb
-    schema: northwind
+    mapping: northwind
     dialect: mariadb
     connection: $ORM_CNN_MARIADB
   - name: postgres
-    schema: northwind
+    mapping: northwind
     dialect: postgres
     connection: $ORM_CNN_POSTGRES
   - name: mssql
-    schema: northwind
+    mapping: northwind
     dialect: mssql
     connection: $ORM_CNN_MSSQL

@@ -25,8 +25,8 @@ export class Executor {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const schema = this.configManager.schema.getInstance(datastore.schema)
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, schema, false)
+			const mapping = this.configManager.mapping.getInstance(datastore.mapping)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, mapping, false)
 			try {
 				result = await queryExecutor.execute(query, data, context)
 			} catch (_error) {
@@ -47,8 +47,8 @@ export class Executor {
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
-				const schema = this.configManager.schema.getInstance(datastore.schema)
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, schema, false)
+				const mapping = this.configManager.mapping.getInstance(datastore.mapping)
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, mapping, false)
 				try {
 					const result = await queryExecutor.execute(query, context, {})
 					results.push(result)
@@ -76,8 +76,8 @@ export class Executor {
  * @param callback Codigo que se ejecutara en transaccion
  */
 	public async transaction (datastore: Datastore, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const schema = this.configManager.schema.getInstance(datastore.schema)
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, schema, true)
+		const mapping = this.configManager.mapping.getInstance(datastore.mapping)
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, datastore, mapping, true)
 		let error:any
 		try {
 			const transaction = new Transaction(context, this.expressionManager, queryExecutor)

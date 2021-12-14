@@ -1,16 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { Cache, IOrm, Config } from './model'
-import { ExpressionConfig } from './parser/index'
 import { ExpressionManager, MemoryCache, Transaction, LibManager, DatastoreFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
-import { LanguageManager, Language } from './language'
-import { SqlDMLBuilder, SqlDDLBuilder } from './language/sql'
+import { LanguageManager } from './language'
+import { SqlLanguage } from './language/sql'
 // import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
 import { CoreLib } from './language/lib/coreLib'
-import expConfig from './parser/config.json'
-import sqlConfig from './language/sql/config.json'
-// import nosqlConfig from './language/nosql/config.json'
 import { Helper } from './helper'
 
 /**
@@ -18,7 +14,7 @@ import { Helper } from './helper'
  */
 export class Orm implements IOrm {
 	private _cache: Cache
-	private expressionConfig: ExpressionConfig
+	// private expressionConfig: ExpressionConfig
 	private datastoreFacade: DatastoreFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
@@ -48,19 +44,10 @@ export class Orm implements IOrm {
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
 
-		this.expressionConfig = new ExpressionConfig()
-		this.expressionConfig.load(expConfig)
-
-		const sqlLanguage = new Language('sql', new SqlDDLBuilder(), new SqlDMLBuilder())
-		sqlLanguage.addLibrary({ name: 'sql', dialects: sqlConfig.dialects })
-
-		// const nosqlLanguage = new Language('nosql', new NoSqlQueryBuilder(), new NoSqlSchemaBuilder())
-		// nosqlLanguage.addLibrary({ name: 'nosql', dialects: nosqlConfig.dialects })
-
-		this.languageManager = new LanguageManager(this.configManager, this.expressionConfig)
+		this.languageManager = new LanguageManager(this.configManager)
 		this.languageManager.addLibrary(new CoreLib())
-		this.languageManager.add(sqlLanguage)
-		// this.languageManager.add(nosqlLanguage)
+		this.languageManager.addLanguage('sql', new SqlLanguage())
+		// this.languageManager.addLanguage('noSql',new NoSqlLanguage())
 
 		this.connectionManager.addType('mysql', MySqlConnectionPool)
 		this.connectionManager.addType('mariadb', MariadbConnectionPool)

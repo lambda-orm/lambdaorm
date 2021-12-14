@@ -1,15 +1,12 @@
-import { Query, Schema } from '../model/index'
-
+import { Query, Mapping } from '../model/index'
 import { DatastoreActionDDL } from './datastoreActionDDL'
-import { DDLBuilder, SchemaConfig } from '../manager'
+import { DDLBuilder, MappingConfig } from '../manager'
 
 export class DatastoreTruncate extends DatastoreActionDDL {
 	public async queries (): Promise<Query[]> {
-		const current = this.config.schema.get(this.datastore.schema) as Schema
-		// const schema = this.config.schema.transform(current)
-		// const schemaHelper = new SchemaConfig(schema)
-		const schemaConfig = new SchemaConfig(current)
-		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).truncate(schemaConfig)
+		const current = this.config.mapping.get(this.datastore.mapping) as Mapping
+		const mappingConfig = new MappingConfig(current)
+		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).truncate(mappingConfig.listEntities())
 	}
 
 	public async execute (tryAllCan = false): Promise<any[]> {

@@ -14,11 +14,11 @@ export class Library {
 		this.functions = {}
 	}
 
-	addEnum (key:string, source:any) {
+	public addEnum (key:string, source:any) {
 		this.enums[key] = source
 	}
 
-	addFunction (name:string, source:any, custom:any = null, isArrowFunction = false) {
+	public addFunction (name:string, source:any, custom:any = null, isArrowFunction = false) {
 		const metadata: {[k: string]: any} = this.getMetadata(source)
 		metadata.lib = this.name
 		metadata['language '] = this.language
@@ -26,7 +26,7 @@ export class Library {
 		this.functions[name] = { function: source, metadata: metadata, custom: custom }
 	}
 
-	addOperator (name:string, source:any, custom:any = null, customFunction:any = null) {
+	public addOperator (name:string, source:any, custom:any = null, customFunction:any = null) {
 		if (!this.operators[name]) this.operators[name] = {}
 		const metadata: {[k: string]: any} = this.getMetadata(source)
 		const operands = metadata.args.length
@@ -35,7 +35,7 @@ export class Library {
 		this.operators[name][operands] = { function: source, metadata: metadata, custom: custom, customFunction: customFunction }
 	}
 
-	getMetadata (source:any) {
+	public getMetadata (source:any) {
 		const args = []
 		const _args = this.getArgs(source)
 		for (const k in _args) {
@@ -55,7 +55,7 @@ export class Library {
 		}
 	}
 
-	getArgs (source:string) {
+	public getArgs (source:string) {
 		const args = (f:any) => f.toString().replace(/[\r\n\s]+/g, ' ')
 			.match(/(?:function\s*\w*)?\s*(?:\((.*?)\)|([^\s]+))/)
 			.slice(1, 3)

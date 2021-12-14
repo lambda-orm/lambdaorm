@@ -1,23 +1,35 @@
-import { ConfigManager, SchemaConfig } from '.'
+import { ConfigManager, MappingConfig } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { Query, Datastore, Include, IEvaluator } from '../model'
 
 export abstract class LanguageDMLBuilder {
-	abstract build (sentence:Sentence, schema:SchemaConfig, datastore:string, metadata:DialectMetadata):Query
+	protected datastore: string
+	protected dialect:string
+	protected mapping:MappingConfig
+	protected metadata:DialectMetadata
+
+	constructor (datastore: string, mapping: MappingConfig, metadata: DialectMetadata) {
+		this.datastore = datastore
+		this.mapping = mapping
+		this.metadata = metadata
+		this.dialect = metadata.name
+	}
+
+	abstract build (sentence:Sentence):Query
 }
 
 export class DMLBuilder {
 	private config: ConfigManager
 	private languageManager: LanguageManager
-	private schema: SchemaConfig
+	private mapping: MappingConfig
 	private evaluator:IEvaluator
 	public datastore: Datastore
 
-	constructor (config:ConfigManager, evaluator:IEvaluator, schema:SchemaConfig, languageManager: LanguageManager, datastore: Datastore) {
+	constructor (config:ConfigManager, evaluator:IEvaluator, mapping:MappingConfig, languageManager: LanguageManager, datastore: Datastore) {
 		this.config = config
 		this.evaluator = evaluator
-		this.schema = schema
+		this.mapping = mapping
 		this.languageManager = languageManager
 		this.datastore = datastore
 	}
@@ -37,7 +49,6 @@ export class DMLBuilder {
 		const children = []
 		const includes = sentence.getIncludes()
 		const datastore = await this.getDatastore(sentence)
-		const metadata = this.languageManager.dialectMetadata(datastore.dialect)
 
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
@@ -45,7 +56,7 @@ export class DMLBuilder {
 			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}
-		const query = this.languageManager.dmlBuilder(datastore.dialect).build(sentence, this.schema, datastore.name, metadata)
+		const query = this.languageManager.dmlBuilder(datastore).build(sentence)
 		query.children = children
 		return query
 	}

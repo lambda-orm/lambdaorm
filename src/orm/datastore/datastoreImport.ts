@@ -16,13 +16,13 @@ export class DatastoreImport extends DatastoreActionDML {
 				if (entityData) {
 					const aux:any = {}
 					this.loadExternalIds(entityData.entity, entityData.rows, aux)
-					this.solveInternalsIds(entityData.entity, entityData.rows, state.mapping, state.pending)
+					this.solveInternalsIds(entityData.entity, entityData.rows, state.mappingData, state.pendingData)
 					await tr.execute(query, entityData.rows)
-					this.completeMapping(entityData.entity, entityData.rows, aux, state.mapping)
+					this.completeMapping(entityData.entity, entityData.rows, aux, state.mappingData)
 				}
 			}
-			for (let i = 0; i < state.pending.length; i++) {
-				const pending = state.pending[i]
+			for (let i = 0; i < state.pendingData.length; i++) {
+				const pending = state.pendingData[i]
 				const entity = this.model.getEntity(pending.entity)
 				if (entity === undefined) {
 					throw new Error(`Entity ${pending.entity} not found`)
@@ -43,9 +43,9 @@ export class DatastoreImport extends DatastoreActionDML {
 				const stillPending:any[] = []
 				for (let j = 0; j < pending.rows.length; j++) {
 					const row = pending.rows[j]
-					if (state.mapping[relation.entity] && state.mapping[relation.entity][relation.to] && state.mapping[relation.entity][relation.to][row.externalId]) {
+					if (state.mappingData[relation.entity] && state.mappingData[relation.entity][relation.to] && state.mappingData[relation.entity][relation.to][row.externalId]) {
 						const values:any = {}
-						const internalId = state.mapping[relation.entity][relation.to][row.externalId]
+						const internalId = state.mappingData[relation.entity][relation.to][row.externalId]
 						values[relation.from] = internalId
 						for (const p in entity.uniqueKey) { values[entity.uniqueKey[p]] = row.keys[p] }
 						await tr.expression(expression, values)
@@ -56,10 +56,10 @@ export class DatastoreImport extends DatastoreActionDML {
 				pending.rows = stillPending
 			}
 		})
-		await this.state.updateData(this.datastore.name, state.mapping, state.pending)
+		await this.state.updateData(this.datastore.name, state.mappingData, state.pendingData)
 	}
 
-	protected solveInternalsIds (entityName:string, rows:any[], mapping:any, pendings:any[], parentEntity?:string):void {
+	protected solveInternalsIds (entityName:string, rows:any[], mappingData:any, pendings:any[], parentEntity?:string):void {
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new Error(`Entity ${entityName} not found`)
@@ -77,8 +77,8 @@ export class DatastoreImport extends DatastoreActionDML {
 					for (let i = 0; i < rows.length; i++) {
 						const row = rows[i]
 						const externalId = row[relation.from]
-						if (mapping[relation.entity] && mapping[relation.entity][relation.to] && mapping[relation.entity][relation.to][externalId]) {
-							row[relation.from] = mapping[relation.entity][relation.to][externalId]
+						if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
+							row[relation.from] = mappingData[relation.entity][relation.to][externalId]
 						} else if (entity.uniqueKey !== undefined) {
 							const keys: any[] = []
 							for (let j = 0; j < entity.uniqueKey.length; j++) {
@@ -107,7 +107,7 @@ export class DatastoreImport extends DatastoreActionDML {
 					const row = rows[i]
 					const childs = row[relation.name]
 					if (childs && childs.length > 1) {
-						this.solveInternalsIds(relation.entity, childs, mapping, pendings, entityName)
+						this.solveInternalsIds(relation.entity, childs, mappingData, pendings, entityName)
 					}
 				}
 			}
@@ -149,9 +149,9 @@ export class DatastoreImport extends DatastoreActionDML {
 		}
 	}
 
-	protected completeMapping (entityName:string, rows:any[], aux:any, mapping:any):void {
-		if (mapping[entityName] === undefined) {
-			mapping[entityName] = {}
+	protected completeMapping (entityName:string, rows:any[], aux:any, mappingData:any):void {
+		if (mappingData[entityName] === undefined) {
+			mappingData[entityName] = {}
 		}
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
@@ -160,14 +160,14 @@ export class DatastoreImport extends DatastoreActionDML {
 		for (const p in entity.properties) {
 			const property = entity.properties[p]
 			if (property.autoincrement) {
-				if (mapping[entityName][property.name] === undefined) {
-					mapping[entityName][property.name] = {}
+				if (mappingData[entityName][property.name] === undefined) {
+					mappingData[entityName][property.name] = {}
 				}
 				if (rows !== undefined) {
 					for (let i = 0; i < rows.length; i++) {
 						const row = rows[i]
 						const externalId = aux[entityName][property.name][i]
-						mapping[entityName][property.name][externalId] = row[property.name]
+						mappingData[entityName][property.name][externalId] = row[property.name]
 					}
 				}
 			}
@@ -178,7 +178,7 @@ export class DatastoreImport extends DatastoreActionDML {
 				for (let i = 0; i < rows.length; i++) {
 					const row = rows[i]
 					const childs = row[relation.name]
-					this.completeMapping(relation.entity, childs, aux, mapping)
+					this.completeMapping(relation.entity, childs, aux, mappingData)
 				}
 			}
 		}

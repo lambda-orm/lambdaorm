@@ -4,7 +4,7 @@
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
-import { SchemaConfig } from './../../manager'
+import { MappingConfig } from './../../manager'
 
 export class SqlJsConnectionPool extends ConnectionPool {
 	private static lib:any
@@ -47,17 +47,17 @@ export class SqlJsConnectionPool extends ConnectionPool {
 }
 
 export class SqlJsConnection extends Connection {
-	public async select (schema:SchemaConfig, query: Query, params:Parameter[]):Promise<any> {
+	public async select (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<any> {
 		return await this._execute(query, params)
 	}
 
-	public async insert (schema:SchemaConfig, query: Query, params:Parameter[]):Promise<number> {
+	public async insert (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result as number
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (schema:SchemaConfig, query: Query, array: any[], params: Parameter[]): Promise<number[]> {
+	public async bulkInsert (mapping:MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<number[]> {
 		const sql = query.sentence
 		try {
 			if (!array || array.length === 0) {
@@ -77,12 +77,12 @@ export class SqlJsConnection extends Connection {
 		}
 	}
 
-	public async update (schema:SchemaConfig, query: Query, params:Parameter[]):Promise<number> {
+	public async update (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result
 	}
 
-	public async delete (schema:SchemaConfig, query: Query, params:Parameter[]):Promise<number> {
+	public async delete (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
 		return result
 	}

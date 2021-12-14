@@ -1,7 +1,7 @@
 
 import { Parameter, Query } from '../model'
 import { ConnectionConfig } from './connectionConfig'
-import { SchemaConfig } from './../manager'
+import { MappingConfig } from './../manager'
 
 export abstract class Connection {
 	public cnx:any
@@ -17,11 +17,11 @@ export abstract class Connection {
 		return this.pool.config
 	}
 
-	public abstract select(schema:SchemaConfig, query:Query, params:Parameter[]):Promise<any>
-	public abstract insert(schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number>
-	public abstract update(schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number>
-	public abstract delete(schema:SchemaConfig, query: Query, params: Parameter[]): Promise<number>
-	public abstract bulkInsert(schema:SchemaConfig, query: Query, array: any[], parameters: Parameter[]): Promise<number[]>
+	public abstract select(mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any>
+	public abstract insert(mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number>
+	public abstract update(mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number>
+	public abstract delete(mapping:MappingConfig, query: Query, params: Parameter[]): Promise<number>
+	public abstract bulkInsert(mapping:MappingConfig, query: Query, array: any[], parameters: Parameter[]): Promise<number[]>
 	public abstract execute(query:Query):Promise<any>
 
 	public abstract executeSentence(sentence:any):Promise<any>

@@ -31,9 +31,9 @@ export interface Entity {
 	extends?: string
 	abstract?: boolean
 	singular?: string
-	uniqueKey?:string[]
-	indexes?: Index[]
-	primaryKey?:string[]
+	uniqueKey:string[]
+	indexes: Index[]
+	primaryKey:string[]
 	properties:Property[]
 	relations:Relation[]
 }
@@ -50,7 +50,7 @@ export interface EntityMapping extends Entity {
 	mapping: string
 	properties: PropertyMapping[]
 }
-export interface Schema {
+export interface Mapping {
 	extends?: string
 	mapping?: string
 	name: string
@@ -72,7 +72,7 @@ export interface Datastore
 {
 	name: string
 	dialect: string
-	schema: string
+	mapping: string
 	connection: any
 	rules: RuleDatastore[]
 }
@@ -80,7 +80,7 @@ export interface Config
 {
 	app: App
 	model: Model
-	schemas: Schema[]
+	mappings: Mapping[]
 	defaultDatastore?: string
 	datastores: Datastore[]
 }

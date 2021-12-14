@@ -2,7 +2,7 @@
 import { Connection, ConnectionConfig, ConnectionPool } from './..'
 import { Parameter, Query } from '../../model'
 import { Helper } from './../../helper'
-import { SchemaConfig } from './../../manager'
+import { MappingConfig } from './../../manager'
 
 export class MssqlConnectionPool extends ConnectionPool {
 	public static tedious: any
@@ -44,13 +44,13 @@ export class MssqlConnectionPool extends ConnectionPool {
 }
 
 export class MssqlConnection extends Connection {
-	public async select (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<any> {
+	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
 		const result = await this._query(query.sentence, params)
 		return result
 	}
 
-	public async insert (schema:SchemaConfig, query: Query, params: Parameter[]): Promise<number> {
-		const autoincrement = schema.getAutoincrement(query.entity)
+	public async insert (mapping:MappingConfig, query: Query, params: Parameter[]): Promise<number> {
+		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sentence = fieldId
 			? query.sentence.replace('OUTPUT inserted.0', '')
@@ -63,9 +63,9 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (schema:SchemaConfig, query:Query, array: any[], params: Parameter[]): Promise<any[]> {
+	public async bulkInsert (mapping:MappingConfig, query:Query, array: any[], params: Parameter[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
-		const autoincrement = schema.getAutoincrement(query.entity)
+		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sql = query.sentence
 		let _query = ''
@@ -100,11 +100,11 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async update (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		return await this._execute(query.sentence, params)
 	}
 
-	public async delete (schema:SchemaConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		return await this._execute(query.sentence, params)
 	}
 

@@ -1,42 +1,23 @@
-import { LanguageDMLBuilder } from '../manager/dmlBuilder'
-import { LanguageDDLBuilder } from '../manager/ddlBuilder'
+import { LanguageDMLBuilder, LanguageDDLBuilder, MappingConfig } from '../manager'
 import { DialectMetadata } from './dialectMetadata'
 
-export class Language {
-	public name:string
-	public libraries:any
+export abstract class Language {
 	public dialects:any
-	public hadQuery: boolean
-	private ddlBuilder:LanguageDDLBuilder
-	private dmlBuilder:LanguageDMLBuilder
-	constructor (name:string, ddlBuilder:LanguageDDLBuilder, dmlBuilder:LanguageDMLBuilder) {
-		this.name = name
-		this.hadQuery = true
-		this.libraries = {}
+	constructor (dialects: any) {
 		this.dialects = {}
-		this.ddlBuilder = ddlBuilder
-		this.dmlBuilder = dmlBuilder
-	}
-
-	public addLibrary (library:any):void {
-		this.libraries[library.name] = library
-		for (const name in library.dialects) {
-			const data = library.dialects[name]
+		for (const name in dialects) {
+			const data = dialects[name]
 			const dialect = new DialectMetadata(name)
 			dialect.add(data)
 			this.dialects[name] = dialect
 		}
 	}
 
-	public get ddl ():LanguageDDLBuilder {
-		return this.ddlBuilder
-	}
-
-	public get dml ():LanguageDMLBuilder {
-		return this.dmlBuilder
-	}
-
-	public metadata (dialect:string):DialectMetadata {
+	public dialectMetadata (dialect: string): DialectMetadata {
 		return this.dialects[dialect] as DialectMetadata
 	}
+
+	public abstract ddlBuilder (datastore: string, dialect: string, mapping: MappingConfig): LanguageDDLBuilder
+
+	public abstract dmlBuilder (datastore: string, dialect: string, mapping: MappingConfig): LanguageDMLBuilder
 }

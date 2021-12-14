@@ -1,3 +1,5 @@
+import expConfig from './config.json'
+
 export class ExpressionConfig {
 	public operators: any
 	public enums: any
@@ -6,31 +8,10 @@ export class ExpressionConfig {
 		this.operators = {}
 		this.enums = {}
 		this.functions = {}
+		this.load(expConfig)
 	}
 
-	addEnum (key:string, source:any):void {
-		this.enums[key] = source
-	}
-
-	isEnum (name:string):boolean {
-		const names = name.split('.')
-		return !!this.enums[names[0]]
-	}
-
-	getEnumValue (name:string, option:string):any {
-		return this.enums[name][option]
-	}
-
-	getEnum (name:string):any {
-		return this.enums[name]
-	}
-
-	addOperator (name:string, operands:number, metadata:any):void {
-		if (!this.operators[name]) this.operators[name] = {}
-		this.operators[name][operands] = metadata
-	}
-
-	load (data:any):void {
+	private load (data:any):void {
 		for (const name in data.enums) {
 			this.addEnum(name, data.enums[name])
 		}
@@ -47,11 +28,33 @@ export class ExpressionConfig {
 		}
 	}
 
-	addFunction (name:string, metadata:any):void {
+	private addEnum (key:string, source:any):void {
+		this.enums[key] = source
+	}
+
+	private addOperator (name:string, operands:number, metadata:any):void {
+		if (!this.operators[name]) this.operators[name] = {}
+		this.operators[name][operands] = metadata
+	}
+
+	private addFunction (name:string, metadata:any):void {
 		this.functions[name] = metadata
 	}
 
-	getOperator (name:string, operands:number):any {
+	public isEnum (name:string):boolean {
+		const names = name.split('.')
+		return !!this.enums[names[0]]
+	}
+
+	public getEnumValue (name:string, option:string):any {
+		return this.enums[name][option]
+	}
+
+	public getEnum (name:string):any {
+		return this.enums[name]
+	}
+
+	public getOperator (name:string, operands:number):any {
 		try {
 			if (this.operators[name]) {
 				const operator = this.operators[name]
@@ -63,7 +66,7 @@ export class ExpressionConfig {
 		}
 	}
 
-	getFunction (name:string):any {
+	public getFunction (name:string):any {
 		try {
 			if (this.functions[name]) { return this.functions[name] }
 			return null

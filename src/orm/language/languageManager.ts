@@ -1,6 +1,6 @@
 
 import { Node, ExpressionConfig } from './../parser/index'
-import { Data, Query, Include } from './../model'
+import { Data, Query, Include, Datastore } from './../model'
 import { ConfigManager } from './../manager'
 import { Language } from './language'
 import { OperandManager } from './operandManager'
@@ -19,12 +19,11 @@ export class LanguageManager {
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (config: ConfigManager, expressionConfig: ExpressionConfig) {
+	constructor (config: ConfigManager) {
 		this.config = config
-		this.expressionConfig = expressionConfig
+		this.expressionConfig = new ExpressionConfig()
 		this.metadata = new OperandMetadata()
 		this.operandManager = new OperandManager(config, this)
-
 		this.languages = {}
 		this.dialects = {}
 	}
@@ -33,18 +32,16 @@ export class LanguageManager {
 		this.metadata.addLibrary(library)
 	}
 
-	public add (language:Language) {
-		this.languages[language.name] = language
-		for (const name in language.dialects) { this.dialects[name] = { name: name, language: language.name } }
+	public addLanguage (name:string, language:Language) {
+		this.languages[name] = language
+		for (const dialectName in language.dialects) {
+			this.dialects[dialectName] = { name: dialectName, language: name }
+		}
 	}
 
 	public get (dialect:string):Language {
 		const info = this.dialects[dialect]
 		return this.languages[info.language] as Language
-	}
-
-	public dialectMetadata (dialect:string):DialectMetadata {
-		return this.get(dialect).metadata(dialect)
 	}
 
 	public build (node:Node): Operand {
@@ -59,12 +56,20 @@ export class LanguageManager {
 		return this.operandManager.parameters(sentence)
 	}
 
-	public dmlBuilder (dialect: string): LanguageDMLBuilder {
-		return this.get(dialect).dml
+	public dialectMetadata (dialect: string): DialectMetadata {
+		return this.get(dialect).dialectMetadata(dialect)
 	}
 
-	public ddlBuilder (dialect: string): LanguageDDLBuilder {
-		return this.get(dialect).ddl
+	public dmlBuilder (datastore: Datastore): LanguageDMLBuilder {
+		// TODO: agregar un cache de DMLBuilder por datastore
+		const mapping = this.config.mapping.getInstance(datastore.mapping)
+		return this.get(datastore.dialect).dmlBuilder(datastore.name, datastore.dialect, mapping)
+	}
+
+	public ddlBuilder (datastore: Datastore): LanguageDDLBuilder {
+		// TODO: agregar un cache de DMLBuilder por datastore
+		const mapping = this.config.mapping.getInstance(datastore.mapping)
+		return this.get(datastore.dialect).ddlBuilder(datastore.name, datastore.dialect, mapping)
 	}
 
 	public sentence (query:Query):any {
