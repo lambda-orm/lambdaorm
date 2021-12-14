@@ -1,34 +1,21 @@
 import { Datastore, Query, Entity } from '../model'
-import { ConfigManager, ExpressionManager, Executor, ModelConfig } from '../manager'
+import { ExpressionManager, Executor, ModelConfig } from '../manager'
 import { DatastoreState } from './datastoreState'
 
 export abstract class DatastoreActionDML {
 	protected state: DatastoreState
-	protected configManager: ConfigManager
 	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
 	protected datastore: Datastore
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state:DatastoreState, configManager: ConfigManager, expressionManager: ExpressionManager, executor: Executor, datastore:Datastore) {
+	constructor (state:DatastoreState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, datastore:Datastore) {
 		this.state = state
-		this.configManager = configManager
-		this.model = configManager.model
+		this.model = model
 		this.expressionManager = expressionManager
 		this.executor = executor
 		this.datastore = datastore
 	}
-
-	// public async getSchema ():Promise<SchemaConfig> {
-	// const state = await this.state.get(this.datastore.name)
-	// let schema
-	// if (state.schema === undefined) {
-	// schema = this.configManager.schema.get(this.datastore.schema)
-	// } else {
-	// schema = state.schema
-	// }
-	// return new SchemaConfig(schema)
-	// }
 
 	public async sentence ():Promise<any> {
 		const sentences:any[] = []

@@ -57,7 +57,7 @@ export class DatastoreFacade {
 		if (datastore === undefined) {
 			throw new Error(`not exists ${name} datastore`)
 		}
-		return new DatastoreExport(this.state, this.configManager, this.expressionManager, this.executor, datastore)
+		return new DatastoreExport(this.state, this.configManager.model, this.expressionManager, this.executor, datastore)
 	}
 
 	public import (name:string):DatastoreImport {
@@ -65,6 +65,6 @@ export class DatastoreFacade {
 		if (datastore === undefined) {
 			throw new Error(`not exists ${name} datastore`)
 		}
-		return new DatastoreImport(this.state, this.configManager, this.expressionManager, this.executor, datastore)
+		return new DatastoreImport(this.state, this.configManager.model, this.expressionManager, this.executor, datastore)
 	}
 }

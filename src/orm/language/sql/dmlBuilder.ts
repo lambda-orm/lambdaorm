@@ -11,7 +11,7 @@ import { SchemaConfig } from '../../manager'
 const SqlString = require('sqlstring')
 
 export class SqlDMLBuilder extends LanguageDMLBuilder {
-	public build (sentence: Sentence, schema:SchemaConfig, datastore: string, metadata: DialectMetadata): Query {
+	public build (sentence: Sentence, schema: SchemaConfig, datastore: string, metadata: DialectMetadata): Query {
 		const sqlSentence = this.buildSentence(sentence, schema, metadata as DialectMetadata)
 		return new Query(sentence.name, metadata.name, datastore, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
 	}
@@ -113,28 +113,6 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		return template.trim()
 	}
 
-	// private buildInsert (operand:Insert, entity:string, schema:SchemaConfig, metadata:DialectMetadata):string {
-	// let template = metadata.dml(operand.clause)
-	// const templateColumn = metadata.other('column')
-	// const fields:string[] = []
-	// const values: any[] = []
-	// const autoincrement = schema.getAutoincrement(entity)
-
-	// if (operand.children[0] instanceof Object) {
-	// const obj = operand.children[0]
-	// for (const p in obj.children) {
-	// const keyVal = obj.children[p] as KeyValue
-	// fields.push(templateColumn.replace('{name}', metadata.delimiter(keyVal.mapping ? keyVal.mapping : keyVal.name)))
-	// values.push(this.buildOperand(keyVal.children[0], schema, metadata))
-	// }
-	// }
-
-	// template = template.replace('{name}', metadata.delimiter(operand.name))
-	// template = template.replace('{fields}', fields.join(','))
-	// template = template.replace('{values}', values.join(','))
-	// template = template.replace('{autoincrementField}', autoincrement && autoincrement.mapping ? autoincrement.mapping : '0')
-	// return template.trim()
-	// }
 	private buildInsert (operand:Insert, entity:string, schema:SchemaConfig, metadata:DialectMetadata):string {
 		let template = metadata.dml(operand.clause)
 		const templateColumn = metadata.other('column')
