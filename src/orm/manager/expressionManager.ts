@@ -39,7 +39,6 @@ export class ExpressionManager implements IEvaluator {
 	/**
 	 * Build expression
 	 * @param expression expression to build
-	 * @param schema schema name
 	 * @returns Operand
 	 */
 	public async toOperand (expression: string): Promise<Operand> {

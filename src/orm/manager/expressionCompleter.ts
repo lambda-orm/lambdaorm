@@ -438,36 +438,5 @@ export class ExpressionCompleter {
 		} else {
 			throw new Error('Error to add include node ' + node.type + ':' + node.name)
 		}
-
-		// let clauseNode:Node, relation:any
-		// if (node.type === 'arrow') {
-		// // resuelve el siguiente caso  .includes(details.insert())
-		// let current = node
-		// while (current) {
-		// if (current.type === 'var') {
-		// // p.details
-		// const parts = current.name.split('.')
-		// const relationName = parts[1]
-		// relation = entity.relation[relationName]
-		// break
-		// }
-		// if (current.children.length > 0) { current = current.children[0] } else { break }
-		// }
-		// const clauses:any = this.getClauses(node)
-		// clauseNode = clauses[clause] ? clauses[clause] : new Node(clause, 'childFunc', [node])
-		// this.completeSentence(clauseNode, schema, relation.entity)
-		// } else if (node.type === 'var') {
-		// // resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
-		// // entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
-
-		// const parts = node.name.split('.')
-		// const relationName = parts[1]
-		// relation = entity.relation[relationName]
-		// clauseNode = new Node(clause, 'childFunc', [node])
-		// this.completeSentence(clauseNode, schema, relation.entity)
-		// } else {
-		// throw new Error('Error to add include node ' + node.type + ':' + node.name)
-		// }
-		// return clauseNode
 	}
 }

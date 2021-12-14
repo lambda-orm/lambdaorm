@@ -891,11 +891,6 @@ async function bulkInsert () {
 			description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
 		}
 	]
-
-	// await exec( async()=>(await orm.expression(expression).parse()).serialize())
-	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
-	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 	const result = await exec(async () => (await orm.execute(expression, categories, {}, 'source')))
 }
 async function bulkInsert2 () {
@@ -990,20 +985,15 @@ async function bulkInsert2 () {
 			]
 		}
 	]
-
-	// await exec( async()=>(await orm.expression(expression).parse()).serialize())
-	// await exec( async()=>(await orm.expression(expression).compile('mysql','northwind')).serialize())
-	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).sentence())
-	// await exec(async()=>(await orm.expression(expression).compile('mysql','northwind')).schema())
 	const result = await exec(async () => (await orm.execute(expression, orders, {}, 'source')))
 }
 
-async function schemaExport (source: string) {
+async function datastoreExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
 	const data = await orm.datastore.export(source).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
-async function schemaImport (source: string, target: string) {
+async function datastoreImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
@@ -1015,13 +1005,13 @@ export async function apply (datastores: string[], callback: any) {
 	let errors = 0
 
 	await orm.datastore.sync('source').execute()
-	await schemaExport('source')
+	await datastoreExport('source')
 	for (const p in datastores) {
 		const datastore = datastores[p]
 		await orm.datastore.clean(datastore).execute(true)
 		await orm.datastore.sync(datastore).execute()
-		await schemaImport('source', datastore)
-		await schemaExport(datastore)
+		await datastoreImport('source', datastore)
+		await datastoreExport(datastore)
 	}
 
 	errors = +await writeQueryTest(datastores)
