@@ -11,7 +11,7 @@
 
 #### Info
 
-- [info](https://geekflare.com/es/api-gateway/)	
+- [info](https://geekflare.com/es/api-gateway/)
 - [info](https://reactiveprogramming.io/blog/es/patrones-arquitectonicos/api-gateway)
 - [info](https://www.itdo.com/blog/api-gateway-en-tu-arquitectura-de-microservicios/)
 

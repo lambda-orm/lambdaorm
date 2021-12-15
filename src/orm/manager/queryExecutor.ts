@@ -58,7 +58,7 @@ export class QueryExecutor {
 	}
 
 	private async getDatastore (query: Query, context: any): Promise<string> {
-		const actionType = query.sentence === 'select' ? 'read' : 'command'
+		const actionType = query.sentence === 'select' ? 'read' : 'write'
 		const queryInfo = { entity: query.entity, action: query.name, actionType: actionType, sentence: query.sentence }
 		const _context = { query: queryInfo, context: context }
 		for (const i in this.dataSource.rules) {

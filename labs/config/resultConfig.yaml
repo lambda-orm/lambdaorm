@@ -1168,7 +1168,7 @@ dataSources:
         rule: entity == "Categories" && actionType == "read"
         dataSource: source
       - name: b
-        rule: entity == "Categories" && actionType == "command"
+        rule: entity == "Categories" && actionType == "write"
         dataSource: source
   - name: mysql
     schema: northwind

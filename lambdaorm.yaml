@@ -385,7 +385,7 @@ dataSources:
     #     rule: actionType == "read"
     #     dataSource: source
     #   - name: b
-    #     rule: actionType == "command"
+    #     rule: actionType == "write"
     #     dataSource: source
   - name: mysql
     mapping: northwind
