@@ -3,7 +3,7 @@ app:
   data: data
   models: models
   defaultDatastore: source
-datastores:
+dataSources:
   - name: source
     schema: northwind
     dialect: mysql
@@ -28,9 +28,9 @@ datastores:
 # context:
 #   - name: source
 #     schema: northwind
-#     datastore: source
+#     dataSource: source
 #     rules:
-#       - datastore: postgres
+#       - dataSource: postgres
 #         entities: ["Countries"]
 #         actions: ["read"] # [create|read|update|delete]
 #         expression: code == 'ARG'

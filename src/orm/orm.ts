@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { Cache, IOrm, Config } from './model'
-import { ExpressionManager, MemoryCache, Transaction, LibManager, DatastoreFacade, Executor, ConfigManager } from './manager'
+import { ExpressionManager, MemoryCache, Transaction, LibManager, DataSourceFacade, Executor, ConfigManager } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager } from './language'
 import { SqlLanguage } from './language/sql'
@@ -15,7 +15,7 @@ import { Helper } from './helper'
 export class Orm implements IOrm {
 	private _cache: Cache
 	// private expressionConfig: ExpressionConfig
-	private datastoreFacade: DatastoreFacade
+	private datastoreFacade: DataSourceFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
 	private libManager: LibManager
@@ -58,7 +58,7 @@ export class Orm implements IOrm {
 
 		this.expressionManager = new ExpressionManager(this._cache, this.configManager, this.languageManager)
 		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager, this.configManager)
-		this.datastoreFacade = new DatastoreFacade(this.configManager, this.expressionManager, this.languageManager, this.executor)
+		this.datastoreFacade = new DataSourceFacade(this.configManager, this.expressionManager, this.languageManager, this.executor)
 	}
 
 	/**
@@ -80,10 +80,10 @@ export class Orm implements IOrm {
 		Helper.solveEnvironmentVariables(config)
 		config = await this.configManager.load(config)
 
-		if (connect && config.datastores) {
-			for (const p in config.datastores) {
-				const datastore = config.datastores[p]
-				this.connectionManager.load(datastore)
+		if (connect && config.dataSources) {
+			for (const p in config.dataSources) {
+				const dataSource = config.dataSources[p]
+				this.connectionManager.load(dataSource)
 			}
 		}
 		return config
@@ -100,8 +100,8 @@ export class Orm implements IOrm {
 		return this.configManager.workspace
 	}
 
-	public dialect (datastore:string): string {
-		return this.configManager.datastore.get(datastore).dialect
+	public dialect (dataSource:string): string {
+		return this.configManager.dataSource.get(dataSource).dialect
 	}
 
 	/**
@@ -112,9 +112,9 @@ export class Orm implements IOrm {
 	}
 
 	/**
-* Get reference to datastore manager
+* Get reference to dataSource manager
 */
-	public get datastore (): DatastoreFacade {
+	public get dataSource (): DataSourceFacade {
 		return this.datastoreFacade
 	}
 
@@ -173,13 +173,13 @@ export class Orm implements IOrm {
 		return this.expressionManager.parameters(expression)
 	}
 
-	public async sentence(expression: Function, datastore: string): Promise<string>;
-	public async sentence(expression: string, datastore: string): Promise<string>;
-	public async sentence (expression: string|Function, datastore: string): Promise<string> {
+	public async sentence(expression: Function, dataSource: string): Promise<string>;
+	public async sentence(expression: string, dataSource: string): Promise<string>;
+	public async sentence (expression: string|Function, dataSource: string): Promise<string> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		return this.expressionManager.sentence(expression, datastore)
+		return this.expressionManager.sentence(expression, dataSource)
 	}
 
 	/**
@@ -209,27 +209,27 @@ export class Orm implements IOrm {
 	 * Execute expression
 	 * @param data Data with variables
 	 * @param context Context
-	 * @param datastore DataStore name
+	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, context?: any, datastore?: string):Promise<any>;
-	public async execute(expression: string, data?: any, context?: any, datastore?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, context: any = {}, datastore: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, context?: any, dataSource?: string):Promise<any>;
+	public async execute(expression: string, data?: any, context?: any, dataSource?: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, context: any = {}, dataSource: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const db = this.configManager.datastore.get(datastore)
+		const db = this.configManager.dataSource.get(dataSource)
 		const query = await this.expressionManager.toQuery(expression, db.name)
 		return await this.executor.execute(db, query, data, context)
 	}
 
 	/**
  * Crea una transaccion
- * @param datastore Database name
+ * @param dataSource Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (context:any, datastore: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const db = this.configManager.datastore.get(datastore)
+	public async transaction (context:any, dataSource: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const db = this.configManager.dataSource.get(dataSource)
 		return await this.executor.transaction(db, context, callback)
 	}
 }

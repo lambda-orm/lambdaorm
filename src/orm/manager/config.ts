@@ -1,4 +1,4 @@
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, Datastore, Config, Model, Mapping, RelationInfo } from '../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Config, Model, Mapping, RelationInfo } from '../model'
 import { ConnectionConfig } from '../connection'
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
@@ -230,33 +230,33 @@ class MappingsConfig {
 }
 
 class DatastoreConfig {
-	public datastores: any
+	public dataSources: any
 	public default?:string
 
 	constructor () {
-		this.datastores = {}
+		this.dataSources = {}
 	}
 
-	public load (datastore:Datastore):void {
-		this.datastores[datastore.name] = datastore
+	public load (dataSource:DataSource):void {
+		this.dataSources[dataSource.name] = dataSource
 	}
 
-	public get (name?: string): Datastore {
+	public get (name?: string): DataSource {
 		if (name === undefined) {
 			if (this.default !== undefined) {
-				const db = this.datastores[this.default]
+				const db = this.dataSources[this.default]
 				if (db === undefined) {
-					throw new Error(`default datastore: ${this.default} not found`)
+					throw new Error(`default dataSource: ${this.default} not found`)
 				}
-				return db as Datastore
-			} else if (Object.keys(this.datastores).length === 1) {
-				const key = Object.keys(this.datastores)[0]
-				return this.datastores[key] as Datastore
+				return db as DataSource
+			} else if (Object.keys(this.dataSources).length === 1) {
+				const key = Object.keys(this.dataSources)[0]
+				return this.dataSources[key] as DataSource
 			} else {
-				throw new Error('the name of the datastore is required')
+				throw new Error('the name of the dataSource is required')
 			}
 		}
-		return this.datastores[name]as Datastore
+		return this.dataSources[name]as DataSource
 	}
 }
 
@@ -295,12 +295,12 @@ class ConfigExtender {
 			config.mappings[k] = this.clearMapping(config.mappings[k])
 			this.completeMapping(config.mappings[k])
 		}
-		// datastores
-		if (config.datastores.length > 0) {
-			for (const k in config.datastores) {
-				const datastore = config.datastores[k]
-				if (datastore.mapping === undefined) {
-					datastore.mapping = config.mappings[0].name
+		// dataSources
+		if (config.dataSources.length > 0) {
+			for (const k in config.dataSources) {
+				const dataSource = config.dataSources[k]
+				if (dataSource.mapping === undefined) {
+					dataSource.mapping = config.mappings[0].name
 				}
 			}
 		}
@@ -460,7 +460,7 @@ class ConfigExtender {
 }
 
 export class ConfigManager {
-	public datastore: DatastoreConfig
+	public dataSource: DatastoreConfig
 	public model: ModelConfig
 	public mapping: MappingsConfig
 	public config: Config
@@ -469,10 +469,10 @@ export class ConfigManager {
 
 	constructor (workspace:string) {
 		this.workspace = workspace
-		this.datastore = new DatastoreConfig()
+		this.dataSource = new DatastoreConfig()
 		this.model = new ModelConfig()
 		this.mapping = new MappingsConfig()
-		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], datastores: [] }
+		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], dataSources: [] }
 		this.extender = new ConfigExtender()
 	}
 
@@ -485,15 +485,15 @@ export class ConfigManager {
 				this.mapping.load(mapping)
 			}
 		}
-		if (this.config.datastores) {
-			for (const p in this.config.datastores) {
-				const datastore = this.config.datastores[p]
-				const connectionConfig: ConnectionConfig = { name: datastore.name, dialect: datastore.dialect, connection: {} }
-				connectionConfig.connection = datastore.connection
-				this.datastore.load(datastore)
+		if (this.config.dataSources) {
+			for (const p in this.config.dataSources) {
+				const dataSource = this.config.dataSources[p]
+				const connectionConfig: ConnectionConfig = { name: dataSource.name, dialect: dataSource.dialect, connection: {} }
+				connectionConfig.connection = dataSource.connection
+				this.dataSource.load(dataSource)
 			}
 		}
-		this.datastore.default = this.config.defaultDatastore
+		this.dataSource.default = this.config.defaultDatastore
 		return this.config
 	}
 }

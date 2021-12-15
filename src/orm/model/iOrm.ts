@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Cache, Config } from './../model/index'
-import { Transaction, DatastoreFacade } from './../manager'
+import { Transaction, DataSourceFacade } from './../manager'
 
 export interface IOrm
 {
 	get workspace(): string
-	dialect (datastore:string): string
-	get datastore (): DatastoreFacade
+	dialect (dataSource:string): string
+	get dataSource (): DataSourceFacade
 	setCache (value: Cache):void
 	init(configPath?: string, connect?: boolean): Promise<Config>
 	end (): Promise<void>
@@ -50,19 +50,19 @@ export interface IOrm
 	/**
 	 *
 	 * @param expression
-	 * @param datastore
+	 * @param dataSource
 	 */
-	sentence(expression: Function, datastore?: string): Promise<string>
-	sentence(expression: string, datastore?: string): Promise<string>
+	sentence(expression: Function, dataSource?: string): Promise<string>
+	sentence(expression: string, dataSource?: string): Promise<string>
 
 	/**
 		* Execute expression
 		* @param data Data with variables
 		* @param context Context
-		* @param datastore DataStore name
+		* @param dataSource DataStore name
 		* @returns Result of execution
 		*/
-	execute(expression: Function, data?: any, context?: any, datastore?: string):Promise<any>
-	execute(expression: string, data?: any, context?: any, datastore?: string):Promise<any>
-	transaction(context:any, datastore:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
+	execute(expression: Function, data?: any, context?: any, dataSource?: string):Promise<any>
+	execute(expression: string, data?: any, context?: any, dataSource?: string):Promise<any>
+	transaction(context:any, dataSource:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

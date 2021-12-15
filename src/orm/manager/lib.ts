@@ -1,5 +1,5 @@
 import path from 'path'
-import { Config, Datastore } from './../model'
+import { Config, DataSource } from './../model'
 import { Helper } from './../helper'
 const yaml = require('js-yaml')
 
@@ -24,7 +24,7 @@ export class LibManager {
 			throw new Error(`Config: ${source} not supported`)
 		}
 
-		let config: Config = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, datastores: [], mappings: [] }
+		let config: Config = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, dataSources: [], mappings: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -59,7 +59,7 @@ export class LibManager {
 				config.app.model = 'model'
 			}
 		}
-		if (config.datastores === undefined) config.datastores = []
+		if (config.dataSources === undefined) config.dataSources = []
 		return config
 	}
 
@@ -75,24 +75,24 @@ export class LibManager {
 		}
 	}
 
-	public getDatastore (datastore:string|undefined, config:Config):Datastore {
-		// get datastore
-		let db:Datastore|undefined
-		if (datastore === undefined) {
-			if (config.datastores.length === 1) {
-				db = config.datastores[0]
-			} else if (config.datastores.length > 1 && config.defaultDatastore !== undefined) {
-				db = config.datastores.find(p => p.name === config.defaultDatastore)
+	public getDatastore (dataSource:string|undefined, config:Config):DataSource {
+		// get dataSource
+		let db:DataSource|undefined
+		if (dataSource === undefined) {
+			if (config.dataSources.length === 1) {
+				db = config.dataSources[0]
+			} else if (config.dataSources.length > 1 && config.defaultDatastore !== undefined) {
+				db = config.dataSources.find(p => p.name === config.defaultDatastore)
 				if (db === undefined) {
-					throw new Error(`datastore: ${config.defaultDatastore} not found in config`)
+					throw new Error(`dataSource: ${config.defaultDatastore} not found in config`)
 				}
 			} else {
-				throw new Error('the name argument with the name of the datastore is required')
+				throw new Error('the name argument with the name of the dataSource is required')
 			}
 		} else {
-			db = config.datastores.find(p => p.name === datastore)
+			db = config.dataSources.find(p => p.name === dataSource)
 			if (db === undefined) {
-				throw new Error(`datastore: ${datastore} not found in config`)
+				throw new Error(`dataSource: ${dataSource} not found in config`)
 			}
 		}
 		return db

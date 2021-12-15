@@ -11,7 +11,7 @@ const SqlString = require('sqlstring')
 export class SqlDMLBuilder extends LanguageDMLBuilder {
 	public build (sentence: Sentence): Query {
 		const sqlSentence = this.buildSentence(sentence)
-		return new Query(sentence.name, this.dialect, this.datastore, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
+		return new Query(sentence.name, this.dialect, this.dataSource, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
 	}
 
 	private buildOperand (operand: Operand): string {

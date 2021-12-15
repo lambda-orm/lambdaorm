@@ -375,7 +375,7 @@ mappings:
             mapping: Discount
   - name: northwind2
     extends: northwind
-datastores:
+dataSources:
   - name: source
     mapping: northwind
     dialect: mysql
@@ -383,10 +383,10 @@ datastores:
     # rules:
     #   - name: a
     #     rule: actionType == "read"
-    #     datastore: source
+    #     dataSource: source
     #   - name: b
     #     rule: actionType == "command"
-    #     datastore: source
+    #     dataSource: source
   - name: mysql
     mapping: northwind
     dialect: mysql

@@ -1,20 +1,20 @@
-import { Datastore, Query, Entity } from '../model'
+import { DataSource, Query, Entity } from '../model'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
-import { DatastoreState } from './datastoreState'
+import { DataSourceState } from './dataSourceState'
 
-export abstract class DatastoreActionDML {
-	protected state: DatastoreState
+export abstract class DataSourceActionDML {
+	protected state: DataSourceState
 	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
-	protected datastore: Datastore
+	protected dataSource: DataSource
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state:DatastoreState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, datastore:Datastore) {
+	constructor (state:DataSourceState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, dataSource:DataSource) {
 		this.state = state
 		this.model = model
 		this.expressionManager = expressionManager
 		this.executor = executor
-		this.datastore = datastore
+		this.dataSource = dataSource
 	}
 
 	public async sentence ():Promise<any> {

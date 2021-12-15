@@ -1,7 +1,7 @@
 const fs = require('fs')
 require('dotenv').config({ path: './test.env' })
 
-const datastores = ['mysql', 'postgres']
+const dataSources = ['mysql', 'postgres']
 
 module.exports = function (grunt) {
 	// Load the plugins
@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 		exec: {
 			create_dbs: { cmd: './create_dbs.sh', options: { cwd: './src/test/db' } },
 			drop_dbs: { cmd: './drop_dbs.sh', options: { cwd: './src/test/db' } },
-			clean_data: { cmd: './clean_data.sh ' + datastores.join(','), options: { cwd: './src/dev/task' } },
+			clean_data: { cmd: './clean_data.sh ' + dataSources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
 			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
@@ -53,12 +53,12 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('populate-databases', 'populate databases for test', function () {
 		const task = require('./build/dev/task/populateDatabases')
-		task.apply(datastores, this.async())
+		task.apply(dataSources, this.async())
 	})
 
 	grunt.registerTask('generate-data-for-test', 'generate data for test', function () {
 		const task = require('./build/dev/task/generateDataForTest')
-		task.apply(datastores, this.async())
+		task.apply(dataSources, this.async())
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('generate-test', 'generate test', function () {
 		const task = require('./build/dev/task/generateTest')
 		const dataForTestPath = './src/test/dataForTest'
-		task.apply(dataForTestPath, datastores, this.async())
+		task.apply(dataForTestPath, dataSources, this.async())
 	})
 
 	grunt.registerTask('clean-test', ['exec:clean_test'])

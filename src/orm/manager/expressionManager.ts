@@ -59,9 +59,9 @@ export class ExpressionManager implements IEvaluator {
 		}
 	}
 
-	public async toQuery (expression: string, datastore: string): Promise<Query> {
+	public async toQuery (expression: string, dataSource: string): Promise<Query> {
 		try {
-			const dt = this.config.datastore.get(datastore)
+			const dt = this.config.dataSource.get(dataSource)
 			const key = dt.name + 'query_' + expression
 			let query = await this.cache.get(key)
 			if (!query) {
@@ -133,8 +133,8 @@ export class ExpressionManager implements IEvaluator {
 		return this.languageManager.parameters(operand as Sentence)
 	}
 
-	public async sentence (expression: string, datastore: string):Promise<string> {
-		const query = await this.toQuery(expression, datastore)
+	public async sentence (expression: string, dataSource: string):Promise<string> {
+		const query = await this.toQuery(expression, dataSource)
 		return this.languageManager.sentence(query)
 	}
 

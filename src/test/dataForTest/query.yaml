@@ -10,7 +10,7 @@ data:
 test:
   - name: query 1
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -55,7 +55,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -829,7 +829,7 @@ test:
         discontinued: false
   - name: query 2
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -874,7 +874,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -888,7 +888,7 @@ test:
         discontinued: false
   - name: query 3
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -933,7 +933,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -948,7 +948,7 @@ test:
   - name: query 4
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -997,7 +997,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -1012,7 +1012,7 @@ test:
   - name: query 5
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -1061,7 +1061,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -1076,7 +1076,7 @@ test:
   - name: query 6
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT c.CategoryName AS `category_name` FROM Products p INNER JOIN
           Categories c ON c.CategoryID = p.CategoryID 
@@ -1090,7 +1090,7 @@ test:
       - name: category_name
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category_name: Beverages
       - category_name: Beverages
@@ -1171,7 +1171,7 @@ test:
       - category_name: Seafood
   - name: query 7
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
@@ -1198,7 +1198,7 @@ test:
       - name: inStock
         type: decimal
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category: Meat/Poultry
         name: Alice Mutton
@@ -1510,7 +1510,7 @@ test:
         inStock: 36
   - name: query 8
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
@@ -1537,7 +1537,7 @@ test:
       - name: inStock
         type: decimal
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category: Beverages
         name: Guaran Fantstica
@@ -1574,7 +1574,7 @@ test:
   - name: query 9
     data: b
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `product`,
           o.UnitPrice AS `unitPrice`, o.Quantity AS `quantity` FROM `Order
@@ -1612,7 +1612,7 @@ test:
       - name: quantity
         type: decimal
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category: Beverages
         product: Chai
@@ -2697,10 +2697,6 @@ test:
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
-        quantity: 3
-      - category: Confections
-        product: Pavlova
-        unitPrice: 17.45
         quantity: 12
       - category: Confections
         product: Pavlova
@@ -2710,6 +2706,10 @@ test:
         product: Pavlova
         unitPrice: 17.45
         quantity: 30
+      - category: Confections
+        product: Pavlova
+        unitPrice: 17.45
+        quantity: 3
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
@@ -2729,11 +2729,11 @@ test:
       - category: Confections
         product: Pavlova
         unitPrice: 13.9
-        quantity: 35
+        quantity: 21
       - category: Confections
         product: Pavlova
         unitPrice: 13.9
-        quantity: 21
+        quantity: 35
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
@@ -2753,11 +2753,11 @@ test:
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
-        quantity: 14
+        quantity: 15
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
-        quantity: 15
+        quantity: 14
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
@@ -3441,11 +3441,11 @@ test:
       - category: Dairy Products
         product: Queso Cabrales
         unitPrice: 21
-        quantity: 50
+        quantity: 10
       - category: Dairy Products
         product: Queso Cabrales
         unitPrice: 21
-        quantity: 10
+        quantity: 50
       - category: Dairy Products
         product: Queso Cabrales
         unitPrice: 16.8
@@ -4417,46 +4417,6 @@ test:
       - category: Seafood
         product: Boston Crab Meat
         unitPrice: 18.4
-        quantity: 5
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 20
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 25
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 20
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 24
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 15
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 20
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 10
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 2
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 10
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
         quantity: 3
       - category: Seafood
         product: Boston Crab Meat
@@ -4511,21 +4471,45 @@ test:
         unitPrice: 18.4
         quantity: 42
       - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 12
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 5
       - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 8
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 20
       - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 50
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
+        product: Boston Crab Meat
+        unitPrice: 18.4
         quantity: 25
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 20
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 24
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 15
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 20
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 10
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 2
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 10
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
@@ -4536,8 +4520,8 @@ test:
         quantity: 4
       - category: Seafood
         product: Carnarvon Tigers
-        unitPrice: 50
-        quantity: 30
+        unitPrice: 62.5
+        quantity: 50
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
@@ -4552,6 +4536,18 @@ test:
         quantity: 21
       - category: Seafood
         product: Carnarvon Tigers
+        unitPrice: 50
+        quantity: 30
+      - category: Seafood
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 12
+      - category: Seafood
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 8
+      - category: Seafood
+        product: Carnarvon Tigers
         unitPrice: 62.5
         quantity: 18
       - category: Seafood
@@ -4559,17 +4555,9 @@ test:
         unitPrice: 62.5
         quantity: 30
       - category: Seafood
-        product: Escargots de Bourgogne
-        unitPrice: 13.25
-        quantity: 6
-      - category: Seafood
-        product: Escargots de Bourgogne
-        unitPrice: 13.25
-        quantity: 30
-      - category: Seafood
-        product: Escargots de Bourgogne
-        unitPrice: 13.25
-        quantity: 12
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 25
       - category: Seafood
         product: Escargots de Bourgogne
         unitPrice: 13.25
@@ -4587,13 +4575,25 @@ test:
         unitPrice: 13.25
         quantity: 30
       - category: Seafood
-        product: Gravad lax
-        unitPrice: 26
-        quantity: 18
+        product: Escargots de Bourgogne
+        unitPrice: 13.25
+        quantity: 6
+      - category: Seafood
+        product: Escargots de Bourgogne
+        unitPrice: 13.25
+        quantity: 30
+      - category: Seafood
+        product: Escargots de Bourgogne
+        unitPrice: 13.25
+        quantity: 12
       - category: Seafood
         product: Gravad lax
         unitPrice: 20.8
         quantity: 10
+      - category: Seafood
+        product: Gravad lax
+        unitPrice: 26
+        quantity: 18
       - category: Seafood
         product: Ikura
         unitPrice: 31
@@ -4609,11 +4609,11 @@ test:
       - category: Seafood
         product: Ikura
         unitPrice: 24.8
-        quantity: 14
+        quantity: 20
       - category: Seafood
         product: Ikura
         unitPrice: 24.8
-        quantity: 20
+        quantity: 14
       - category: Seafood
         product: Ikura
         unitPrice: 31
@@ -4632,12 +4632,12 @@ test:
         quantity: 6
       - category: Seafood
         product: Ikura
-        unitPrice: 31
-        quantity: 2
-      - category: Seafood
-        product: Ikura
         unitPrice: 24.8
         quantity: 20
+      - category: Seafood
+        product: Ikura
+        unitPrice: 31
+        quantity: 2
       - category: Seafood
         product: Ikura
         unitPrice: 31
@@ -4666,6 +4666,38 @@ test:
         product: Ikura
         unitPrice: 31
         quantity: 24
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 20
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 6
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 30
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 25
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 30
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 6
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 15
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 21
       - category: Seafood
         product: Inlagd Sill
         unitPrice: 19
@@ -4695,37 +4727,41 @@ test:
         unitPrice: 19
         quantity: 55
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 20
-      - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 6
-      - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 30
-      - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 25
-      - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 30
-      - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 6
-      - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
         quantity: 15
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 21
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 30
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 30
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 15
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 20
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 20.7
+        quantity: 28
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 20.7
+        quantity: 18
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 15
+      - category: Seafood
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 2
       - category: Seafood
         product: Nord-Ost Matjeshering
         unitPrice: 20.7
@@ -4755,58 +4791,6 @@ test:
         unitPrice: 25.89
         quantity: 10
       - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 15
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 30
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 30
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 15
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 20
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 20.7
-        quantity: 28
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 20.7
-        quantity: 18
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 15
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 2
-      - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 35
-      - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 30
-      - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 35
-      - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 24
-      - category: Seafood
         product: Rd Kaviar
         unitPrice: 15
         quantity: 50
@@ -4835,21 +4819,21 @@ test:
         unitPrice: 12
         quantity: 20
       - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 28
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 35
       - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 45
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 30
       - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 18
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 35
       - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 2
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 24
       - category: Seafood
         product: Spegesild
         unitPrice: 12
@@ -4866,9 +4850,25 @@ test:
         product: Spegesild
         unitPrice: 12
         quantity: 24
+      - category: Seafood
+        product: Spegesild
+        unitPrice: 12
+        quantity: 28
+      - category: Seafood
+        product: Spegesild
+        unitPrice: 12
+        quantity: 45
+      - category: Seafood
+        product: Spegesild
+        unitPrice: 12
+        quantity: 18
+      - category: Seafood
+        product: Spegesild
+        unitPrice: 12
+        quantity: 2
   - name: query 10
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `orderId`, SUM(((o.UnitPrice * (o.Quantity * (1 -
           (o.Discount / 100)))) * 100)) AS `subTotal` FROM `Order Details` o 
@@ -4888,7 +4888,7 @@ test:
       - name: subTotal
         type: any
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - orderId: 1
         subTotal: 108600
@@ -6552,7 +6552,7 @@ test:
         subTotal: 59160
   - name: query 11
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -6597,7 +6597,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -6611,7 +6611,7 @@ test:
         discontinued: false
   - name: query 12
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -6657,7 +6657,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -6671,7 +6671,7 @@ test:
         discontinued: false
   - name: query 13
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -6717,7 +6717,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 77
         name: Original Frankfurter grne Soe
@@ -6731,7 +6731,7 @@ test:
         discontinued: false
   - name: query 14
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -6776,7 +6776,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -6790,7 +6790,7 @@ test:
         discontinued: false
   - name: query 15
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -6835,7 +6835,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -6849,7 +6849,7 @@ test:
         discontinued: false
   - name: query 16
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, p.ProductName AS `name`,
           p.QuantityPerUnit AS `quantity`, p.UnitsInStock AS `inStock` FROM
@@ -6876,7 +6876,7 @@ test:
       - name: inStock
         type: decimal
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category: Beverages
         name: Chai
@@ -6884,7 +6884,7 @@ test:
         inStock: 39
   - name: query 17
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT p.ProductID AS `id`, p.ProductName AS `name`, p.SupplierID AS
           `supplierId`, p.CategoryID AS `categoryId`, p.QuantityPerUnit AS
@@ -6930,7 +6930,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 53
         name: Perth Pasties
@@ -6944,7 +6944,7 @@ test:
         discontinued: true
   - name: query 18
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT DISTINCT p.ProductID AS `id`, p.ProductName AS `name`,
           p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
@@ -6990,7 +6990,7 @@ test:
       - name: discontinued
         type: boolean
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         name: Chai
@@ -7765,7 +7765,7 @@ test:
   - name: query 19
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT DISTINCT c.CategoryName AS `category_name` FROM Products p
           INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
@@ -7779,7 +7779,7 @@ test:
       - name: category_name
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category_name: Beverages
       - category_name: Condiments
@@ -7792,7 +7792,7 @@ test:
   - name: query 20
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT DISTINCT p.QuantityPerUnit AS `quantity`, c.CategoryName AS
           `category` FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -7812,7 +7812,7 @@ test:
       - name: category
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - quantity: 10 boxes x 20 bags
         category: Beverages
@@ -7959,7 +7959,7 @@ test:
   - name: query 21
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT DISTINCT c.CategoryName AS `category` FROM Products p INNER
           JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category 
@@ -7973,7 +7973,7 @@ test:
       - name: category
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - category: Beverages
       - category: Condiments

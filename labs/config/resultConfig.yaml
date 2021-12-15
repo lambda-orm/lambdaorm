@@ -1149,7 +1149,7 @@ schemas:
             entity: Products
             to: id
             type: oneToMany
-datastores:
+dataSources:
   - name: source
     schema: northwind
     dialect: mysql
@@ -1166,10 +1166,10 @@ datastores:
     rules:
       - name: a
         rule: entity == "Categories" && actionType == "read"
-        datastore: source
+        dataSource: source
       - name: b
         rule: entity == "Categories" && actionType == "command"
-        datastore: source
+        dataSource: source
   - name: mysql
     schema: northwind
     dialect: mysql

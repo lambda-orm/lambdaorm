@@ -3,15 +3,15 @@ import { IOrm } from './../index'
 export class ExpressionActions {
 	private orm
 	private name
-	private datastore
-	constructor (name: string, orm:IOrm, datastore:string) {
+	private dataSource
+	constructor (name: string, orm:IOrm, dataSource:string) {
 		this.name = name
-		this.datastore = datastore
+		this.dataSource = dataSource
 		this.orm = orm
 	}
 
 	public async execute (expresion: string, data:any, context:any): Promise<any> {
-		return await this.orm.execute(`${this.name}${expresion}`, data, this.datastore, context)
+		return await this.orm.execute(`${this.name}${expresion}`, data, this.dataSource, context)
 	}
 
 	public complete (expresion: string): string {
@@ -31,6 +31,6 @@ export class ExpressionActions {
 	}
 
 	public async sentence (expresion: string): Promise<string> {
-		return await this.orm.sentence(`${this.name}${expresion}`, this.datastore)
+		return await this.orm.sentence(`${this.name}${expresion}`, this.dataSource)
 	}
 }

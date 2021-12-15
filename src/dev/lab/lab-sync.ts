@@ -10,7 +10,7 @@ import path from 'path'
 		const ds = orm.lib.getDatastore(undefined, config)
 		await orm.init(config)
 
-		await orm.datastore.sync(ds.name).execute()
+		await orm.dataSource.sync(ds.name).execute()
 
 		result = await orm.execute('Countries.deleteAll()')
 		result = await orm.execute('States.deleteAll()')

@@ -1,36 +1,36 @@
 
-import { Data, Parameter, Query, Datastore, IEvaluator } from './../model'
+import { Data, Parameter, Query, DataSource, IEvaluator } from './../model'
 import { Connection, ConnectionManager } from './../connection'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { LanguageManager } from './../language'
 import { MappingConfig } from './config'
 
 export class QueryExecutor {
-	public datastore: Datastore
+	public dataSource: DataSource
 	private languageManager: LanguageManager
 	private connectionManager: ConnectionManager
 	private connections: any
 	private transactionable: boolean
 	private mapping: MappingConfig
 	private evaluator:IEvaluator
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, evaluator:IEvaluator, datastore: Datastore, mapping:MappingConfig, transactionable = false) {
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, evaluator:IEvaluator, dataSource: DataSource, mapping:MappingConfig, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
-		this.datastore = datastore
+		this.dataSource = dataSource
 		this.mapping = mapping
 		this.transactionable = transactionable
 		this.evaluator = evaluator
 		this.connections = {}
 	}
 
-	private async getConnection (datastore: string): Promise<Connection> {
-		let connection = this.connections[datastore]
+	private async getConnection (dataSource: string): Promise<Connection> {
+		let connection = this.connections[dataSource]
 		if (connection === undefined) {
-			connection = await this.connectionManager.acquire(datastore)
+			connection = await this.connectionManager.acquire(dataSource)
 			if (this.transactionable) {
 				await connection.beginTransaction()
 			}
-			this.connections[datastore] = connection
+			this.connections[dataSource] = connection
 		}
 		return connection
 	}
@@ -61,13 +61,13 @@ export class QueryExecutor {
 		const actionType = query.sentence === 'select' ? 'read' : 'command'
 		const queryInfo = { entity: query.entity, action: query.name, actionType: actionType, sentence: query.sentence }
 		const _context = { query: queryInfo, context: context }
-		for (const i in this.datastore.rules) {
-			const rule = this.datastore.rules[i]
+		for (const i in this.dataSource.rules) {
+			const rule = this.dataSource.rules[i]
 			if (await this.evaluator.eval(rule.rule, _context) === true) {
-				return rule.datastore
+				return rule.dataSource
 			}
 		}
-		return this.datastore.name
+		return this.dataSource.name
 	}
 
 	public async execute (query: Query, data: any, context: any): Promise<any> {
@@ -78,8 +78,8 @@ export class QueryExecutor {
 	protected async _execute (query:Query, data:Data, context: any):Promise<any> {
 		let result: any
 		try {
-			const datastore = await this.getDatastore(query, context)
-			const connection = await this.getConnection(datastore)
+			const dataSource = await this.getDatastore(query, context)
+			const connection = await this.getConnection(dataSource)
 			const metadata = this.languageManager.dialectMetadata(query.dialect)
 			switch (query.name) {
 			case 'select': result = await this.select(query, data, metadata, connection, context); break

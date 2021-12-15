@@ -17,7 +17,7 @@ export abstract class Language {
 		return this.dialects[dialect] as DialectMetadata
 	}
 
-	public abstract ddlBuilder (datastore: string, dialect: string, mapping: MappingConfig): LanguageDDLBuilder
+	public abstract ddlBuilder (dataSource: string, dialect: string, mapping: MappingConfig): LanguageDDLBuilder
 
-	public abstract dmlBuilder (datastore: string, dialect: string, mapping: MappingConfig): LanguageDMLBuilder
+	public abstract dmlBuilder (dataSource: string, dialect: string, mapping: MappingConfig): LanguageDMLBuilder
 }

@@ -11,7 +11,7 @@ test:
   - name: include 1
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -92,7 +92,7 @@ test:
       - name: __customerId
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -121,7 +121,7 @@ test:
   - name: include 2
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -196,7 +196,7 @@ test:
       - name: __id
         type: integer
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -231,7 +231,7 @@ test:
   - name: include 3
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -325,7 +325,7 @@ test:
       - name: __customerId
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -370,7 +370,7 @@ test:
   - name: include 4
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -483,7 +483,7 @@ test:
       - name: __customerId
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -561,7 +561,7 @@ test:
   - name: include 5
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -683,7 +683,7 @@ test:
       - name: __customerId
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -773,7 +773,7 @@ test:
   - name: include 6
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -865,7 +865,7 @@ test:
       - name: __customerId
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -904,7 +904,7 @@ test:
   - name: include 7
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1014,7 +1014,7 @@ test:
       - name: __customerId
         type: string
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI
@@ -1086,7 +1086,7 @@ test:
   - name: include 8
     data: a
     sentences:
-      - datastore: mysql
+      - dataSource: mysql
         sentence: >-
           SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
           AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
@@ -1177,7 +1177,7 @@ test:
       - name: __id
         type: integer
     executions:
-      - datastore: mysql
+      - dataSource: mysql
     result:
       - id: 1
         customerId: ALFKI

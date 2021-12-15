@@ -1,15 +1,15 @@
 
-import { DatastoreActionDML } from './datastoreActionDML'
+import { DataSourceActionDML } from './dataSourceActionDML'
 import { Query, SchemaData, Entity } from '../model'
 
-export class DatastoreImport extends DatastoreActionDML {
+export class DataSourceImport extends DataSourceActionDML {
 	public async execute (data: SchemaData): Promise<void> {
-		const state = await this.state.get(this.datastore.name)
+		const state = await this.state.get(this.dataSource.name)
 		const _queries = await this.build()
 		const queries = this.sort(_queries)
 		const context = {}
 
-		await this.executor.transaction(this.datastore, context, async (tr) => {
+		await this.executor.transaction(this.dataSource, context, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const entityData = data.entities.find(p => p.entity === query.entity)
@@ -56,7 +56,7 @@ export class DatastoreImport extends DatastoreActionDML {
 				pending.rows = stillPending
 			}
 		})
-		await this.state.updateData(this.datastore.name, state.mappingData, state.pendingData)
+		await this.state.updateData(this.dataSource.name, state.mappingData, state.pendingData)
 	}
 
 	protected solveInternalsIds (entityName:string, rows:any[], mappingData:any, pendings:any[], parentEntity?:string):void {
@@ -199,6 +199,6 @@ export class DatastoreImport extends DatastoreActionDML {
 
 	protected async createQuery (entity:Entity):Promise<Query> {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return await this.expressionManager.toQuery(expression, this.datastore.name)
+		return await this.expressionManager.toQuery(expression, this.dataSource.name)
 	}
 }

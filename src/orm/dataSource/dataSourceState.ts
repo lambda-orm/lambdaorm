@@ -3,7 +3,7 @@ import { ConfigManager } from '../manager'
 import { Helper } from '../helper'
 const path = require('path')
 
-export class DatastoreState {
+export class DataSourceState {
 	private config: ConfigManager
 	constructor (config:ConfigManager) {
 		this.config = config

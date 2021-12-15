@@ -3,7 +3,7 @@ app:
   data: data
   models: models
   defaultDatastore: mydb
-datastores:
+dataSources:
   - name: mydb
     dialect: mysql
     schema: countries
@@ -50,7 +50,7 @@ schemas:
             to: countryCode
       - name: States
         extends: Positions
-        datastore: mydb2
+        dataSource: mydb2
         primaryKey: ["id"]
         uniqueKey: ["countryCode", "name"]
         properties:

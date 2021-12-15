@@ -9,11 +9,11 @@ export class SqlLanguage extends Language {
 		super(sqlConfig.dialects)
 	}
 
-	public ddlBuilder (datastore: string, dialect: string, mapping: MappingConfig): LanguageDDLBuilder {
-		return new SqlDDLBuilder(datastore, mapping, this.dialectMetadata(dialect))
+	public ddlBuilder (dataSource: string, dialect: string, mapping: MappingConfig): LanguageDDLBuilder {
+		return new SqlDDLBuilder(dataSource, mapping, this.dialectMetadata(dialect))
 	}
 
-	public dmlBuilder (datastore: string, dialect: string, mapping: MappingConfig): LanguageDMLBuilder {
-		return new SqlDMLBuilder(datastore, mapping, this.dialectMetadata(dialect))
+	public dmlBuilder (dataSource: string, dialect: string, mapping: MappingConfig): LanguageDMLBuilder {
+		return new SqlDMLBuilder(dataSource, mapping, this.dialectMetadata(dialect))
 	}
 }

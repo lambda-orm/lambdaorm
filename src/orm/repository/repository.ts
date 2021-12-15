@@ -4,11 +4,11 @@ import { ExpressionActions } from './expressionActions'
 
 export class Respository<TEntity, TQuery> {
 	public name
-	public datastore
+	public dataSource
 	private orm
-	constructor (name: string, datastore:string, Orm?:IOrm) {
+	constructor (name: string, dataSource:string, Orm?:IOrm) {
 		this.name = name
-		this.datastore = datastore
+		this.dataSource = dataSource
 		this.orm = Orm !== undefined ? Orm : orm
 	}
 
@@ -21,7 +21,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, entity, this.datastore, context)
+		return await this.orm.execute(expression, entity, this.dataSource, context)
 	}
 
 	/**  */
@@ -33,7 +33,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, entity, this.datastore, context)
+		return await this.orm.execute(expression, entity, this.dataSource, context)
 	}
 
 	/**  */
@@ -45,7 +45,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, entity, this.datastore, context)
+		return await this.orm.execute(expression, entity, this.dataSource, context)
 	}
 
 	public async updateAll (data:any,
@@ -61,7 +61,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.filter(${include.toString()})`
 		}
-		return await this.orm.execute(expression, data, this.datastore, context)
+		return await this.orm.execute(expression, data, this.dataSource, context)
 	}
 
 	/**  */
@@ -73,7 +73,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, entity, this.datastore, context)
+		return await this.orm.execute(expression, entity, this.dataSource, context)
 	}
 
 	/**  */
@@ -85,7 +85,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, entity, this.datastore, context)
+		return await this.orm.execute(expression, entity, this.dataSource, context)
 	}
 
 	public async deleteAll (data:any,
@@ -101,11 +101,11 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.filter(${include.toString()})`
 		}
-		return await this.orm.execute(expression, data, this.datastore, context)
+		return await this.orm.execute(expression, data, this.dataSource, context)
 	}
 
 	public async execute (expresion: string, data?: any, context: any = {}): Promise<any> {
-		return await this.orm.execute(`${this.name}${expresion}`, data, this.datastore, context)
+		return await this.orm.execute(`${this.name}${expresion}`, data, this.dataSource, context)
 	}
 
 	public async list (data: any,
@@ -120,7 +120,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, data, this.datastore, context) as TEntity[]
+		return await this.orm.execute(expression, data, this.dataSource, context) as TEntity[]
 	}
 
 	public async distinct (data: any,
@@ -135,7 +135,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, data, this.datastore, context)
+		return await this.orm.execute(expression, data, this.dataSource, context)
 	}
 
 	public async first (data: any,
@@ -150,7 +150,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		const result = await this.orm.execute(expression, data, this.datastore, context)
+		const result = await this.orm.execute(expression, data, this.dataSource, context)
 		if (result.length >= 1) {
 			return result[0] as TEntity
 		} else {
@@ -170,7 +170,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		const result = await this.orm.execute(expression, data, this.datastore, context)
+		const result = await this.orm.execute(expression, data, this.dataSource, context)
 		if (result.length >= 1) {
 			return result[0] as TEntity
 		} else {
@@ -190,7 +190,7 @@ export class Respository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		const result = await this.orm.execute(expression, data, this.datastore, context)
+		const result = await this.orm.execute(expression, data, this.dataSource, context)
 		if (result.length >= 1) {
 			return result[0] as TEntity
 		} else {
@@ -225,10 +225,10 @@ export class Respository<TEntity, TQuery> {
 	// if (page !== undefined) {
 	// expression = `${expression}.page(${page.toString()})`
 	// }
-	// return await this.orm.execute(expression, data, this.datastore) as TEntity[]
+	// return await this.orm.execute(expression, data, this.dataSource) as TEntity[]
 	// }
 
 	public query (): Queryable<TQuery> {
-		return new Queryable<TQuery>(new ExpressionActions(this.name, this.orm, this.datastore), '')
+		return new Queryable<TQuery>(new ExpressionActions(this.name, this.orm, this.dataSource), '')
 	}
 }

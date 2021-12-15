@@ -66,9 +66,9 @@ export interface RuleDatastore
 {
 	name: string
 	rule: string
-	datastore: string
+	dataSource: string
 }
-export interface Datastore
+export interface DataSource
 {
 	name: string
 	dialect: string
@@ -82,7 +82,7 @@ export interface Config
 	model: Model
 	mappings: Mapping[]
 	defaultDatastore?: string
-	datastores: Datastore[]
+	dataSources: DataSource[]
 }
 
 export interface RelationInfo {

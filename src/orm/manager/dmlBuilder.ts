@@ -1,16 +1,16 @@
 import { ConfigManager, MappingConfig } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
-import { Query, Datastore, Include, IEvaluator } from '../model'
+import { Query, DataSource, Include, IEvaluator } from '../model'
 
 export abstract class LanguageDMLBuilder {
-	protected datastore: string
+	protected dataSource: string
 	protected dialect:string
 	protected mapping:MappingConfig
 	protected metadata:DialectMetadata
 
-	constructor (datastore: string, mapping: MappingConfig, metadata: DialectMetadata) {
-		this.datastore = datastore
+	constructor (dataSource: string, mapping: MappingConfig, metadata: DialectMetadata) {
+		this.dataSource = dataSource
 		this.mapping = mapping
 		this.metadata = metadata
 		this.dialect = metadata.name
@@ -24,31 +24,31 @@ export class DMLBuilder {
 	private languageManager: LanguageManager
 	private mapping: MappingConfig
 	private evaluator:IEvaluator
-	public datastore: Datastore
+	public dataSource: DataSource
 
-	constructor (config:ConfigManager, evaluator:IEvaluator, mapping:MappingConfig, languageManager: LanguageManager, datastore: Datastore) {
+	constructor (config:ConfigManager, evaluator:IEvaluator, mapping:MappingConfig, languageManager: LanguageManager, dataSource: DataSource) {
 		this.config = config
 		this.evaluator = evaluator
 		this.mapping = mapping
 		this.languageManager = languageManager
-		this.datastore = datastore
+		this.dataSource = dataSource
 	}
 
-	private async getDatastore (sentence:Sentence): Promise<Datastore> {
+	private async getDatastore (sentence:Sentence): Promise<DataSource> {
 		const context = { entity: sentence.entity, action: sentence.action }
-		for (const i in this.datastore.rules) {
-			const rule = this.datastore.rules[i]
+		for (const i in this.dataSource.rules) {
+			const rule = this.dataSource.rules[i]
 			if (await this.evaluator.eval(rule.rule, context) === true) {
-				return this.config.datastore.get(rule.datastore)
+				return this.config.dataSource.get(rule.dataSource)
 			}
 		}
-		return this.datastore
+		return this.dataSource
 	}
 
 	public async build (sentence:Sentence):Promise<Query> {
 		const children = []
 		const includes = sentence.getIncludes()
-		const datastore = await this.getDatastore(sentence)
+		const dataSource = await this.getDatastore(sentence)
 
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
@@ -56,7 +56,7 @@ export class DMLBuilder {
 			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}
-		const query = this.languageManager.dmlBuilder(datastore).build(sentence)
+		const query = this.languageManager.dmlBuilder(dataSource).build(sentence)
 		query.children = children
 		return query
 	}
