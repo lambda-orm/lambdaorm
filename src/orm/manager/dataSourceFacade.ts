@@ -10,17 +10,17 @@ import { Helper } from '../helper'
 
 export class DataSourceFacade {
 	private state: DataSourceState
-	private configManager: SchemaConfig
+	private schemaConfig: SchemaConfig
 	private expressionManager: ExpressionManager
 	protected languageManager: LanguageManager
 	private executor: Executor
 
-	constructor (configManager: SchemaConfig, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor) {
-		this.configManager = configManager
+	constructor (schemaConfig: SchemaConfig, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor) {
+		this.schemaConfig = schemaConfig
 		this.expressionManager = expressionManager
 		this.languageManager = languageManager
 		this.executor = executor
-		this.state = new DataSourceState(configManager)
+		this.state = new DataSourceState(schemaConfig)
 	}
 
 	public async exists (name:string) {
@@ -29,42 +29,42 @@ export class DataSourceFacade {
 	}
 
 	public sync (name:string):DataSourceSync {
-		const dataSource = this.configManager.dataSource.get(name)
+		const dataSource = this.schemaConfig.dataSource.get(name)
 		if (dataSource === undefined) {
 			throw new Error(`not exists ${name} dataSource`)
 		}
-		return new DataSourceSync(this.state, this.configManager, this.expressionManager, this.languageManager, this.executor, dataSource)
+		return new DataSourceSync(this.state, this.schemaConfig, this.expressionManager, this.languageManager, this.executor, dataSource)
 	}
 
 	public clean (name:string):DataSourceClean {
-		const dataSource = this.configManager.dataSource.get(name)
+		const dataSource = this.schemaConfig.dataSource.get(name)
 		if (dataSource === undefined) {
 			throw new Error(`not exists ${name} dataSource`)
 		}
-		return new DataSourceClean(this.state, this.configManager, this.expressionManager, this.languageManager, this.executor, dataSource)
+		return new DataSourceClean(this.state, this.schemaConfig, this.expressionManager, this.languageManager, this.executor, dataSource)
 	}
 
 	public truncate (name:string):DataSourceClean {
-		const dataSource = this.configManager.dataSource.get(name)
+		const dataSource = this.schemaConfig.dataSource.get(name)
 		if (dataSource === undefined) {
 			throw new Error(`not exists ${name} dataSource`)
 		}
-		return new DataSourceTruncate(this.state, this.configManager, this.expressionManager, this.languageManager, this.executor, dataSource)
+		return new DataSourceTruncate(this.state, this.schemaConfig, this.expressionManager, this.languageManager, this.executor, dataSource)
 	}
 
 	public export (name:string):DataSourceExport {
-		const dataSource = this.configManager.dataSource.get(name)
+		const dataSource = this.schemaConfig.dataSource.get(name)
 		if (dataSource === undefined) {
 			throw new Error(`not exists ${name} dataSource`)
 		}
-		return new DataSourceExport(this.state, this.configManager.model, this.expressionManager, this.executor, dataSource)
+		return new DataSourceExport(this.state, this.schemaConfig.model, this.expressionManager, this.executor, dataSource)
 	}
 
 	public import (name:string):DataSourceImport {
-		const dataSource = this.configManager.dataSource.get(name)
+		const dataSource = this.schemaConfig.dataSource.get(name)
 		if (dataSource === undefined) {
 			throw new Error(`not exists ${name} dataSource`)
 		}
-		return new DataSourceImport(this.state, this.configManager.model, this.expressionManager, this.executor, dataSource)
+		return new DataSourceImport(this.state, this.schemaConfig.model, this.expressionManager, this.executor, dataSource)
 	}
 }

@@ -26,7 +26,7 @@ export class Orm implements IOrm {
 	/**
 	 * Property that exposes the configuration
 	 */
-	private configManager: SchemaConfig
+	private schemaConfig: SchemaConfig
 
 	/**
  * Singleton
@@ -39,12 +39,12 @@ export class Orm implements IOrm {
 	}
 
 	constructor (workspace:string = process.cwd()) {
-		this.configManager = new SchemaConfig(workspace)
+		this.schemaConfig = new SchemaConfig(workspace)
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
 
-		this.languageManager = new LanguageManager(this.configManager)
+		this.languageManager = new LanguageManager(this.schemaConfig)
 		this.languageManager.addLibrary(new CoreLib())
 		this.languageManager.addLanguage('sql', new SqlLanguage())
 		// this.languageManager.addLanguage('noSql',new NoSqlLanguage())
@@ -56,9 +56,9 @@ export class Orm implements IOrm {
 		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
-		this.expressionManager = new ExpressionManager(this._cache, this.configManager, this.languageManager)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager, this.configManager)
-		this.datastoreFacade = new DataSourceFacade(this.configManager, this.expressionManager, this.languageManager, this.executor)
+		this.expressionManager = new ExpressionManager(this._cache, this.schemaConfig, this.languageManager)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager, this.schemaConfig)
+		this.datastoreFacade = new DataSourceFacade(this.schemaConfig, this.expressionManager, this.languageManager, this.executor)
 	}
 
 	/**
@@ -78,7 +78,7 @@ export class Orm implements IOrm {
 			schema = _config
 		}
 		Helper.solveEnvironmentVariables(schema)
-		schema = await this.configManager.load(schema)
+		schema = await this.schemaConfig.load(schema)
 
 		if (connect && schema.dataSources) {
 			for (const p in schema.dataSources) {
@@ -97,11 +97,11 @@ export class Orm implements IOrm {
 	}
 
 	public get workspace (): string {
-		return this.configManager.workspace
+		return this.schemaConfig.workspace
 	}
 
 	public dialect (dataSource:string): string {
-		return this.configManager.dataSource.get(dataSource).dialect
+		return this.schemaConfig.dataSource.get(dataSource).dialect
 	}
 
 	/**
@@ -218,7 +218,7 @@ export class Orm implements IOrm {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const db = this.configManager.dataSource.get(dataSource)
+		const db = this.schemaConfig.dataSource.get(dataSource)
 		const query = await this.expressionManager.toQuery(expression, db.name)
 		return await this.executor.execute(db, query, data, context)
 	}
@@ -229,7 +229,7 @@ export class Orm implements IOrm {
  * @param callback Codigo que se ejecutara en transaccion
  */
 	public async transaction (context:any, dataSource: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const db = this.configManager.dataSource.get(dataSource)
+		const db = this.schemaConfig.dataSource.get(dataSource)
 		return await this.executor.transaction(db, context, callback)
 	}
 }
