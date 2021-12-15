@@ -1,4 +1,4 @@
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Config, Model, Mapping, RelationInfo } from '../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Model, Mapping, RelationInfo } from '../model'
 import { ConnectionConfig } from '../connection'
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
@@ -229,7 +229,7 @@ class MappingsConfig {
 	}
 }
 
-class DatastoreConfig {
+class DataSourceConfig {
 	public dataSources: any
 	public default?:string
 
@@ -261,21 +261,21 @@ class DatastoreConfig {
 }
 
 class ConfigExtender {
-	extend (config: Config): Config {
+	extend (schema: Schema): Schema {
 		// model
-		if (config.model.entities) {
-			const entities = config.model.entities
+		if (schema.model.entities) {
+			const entities = schema.model.entities
 			for (const k in entities) {
 				this.extendEntiy(entities[k], entities)
 			}
 		}
-		config.model = this.clearModel(config.model)
-		this.completeModel(config.model)
+		schema.model = this.clearModel(schema.model)
+		this.completeModel(schema.model)
 		// mappings
-		if (config.mappings.length > 0) {
+		if (schema.mappings.length > 0) {
 			// extend entities into mapping
-			for (const k in config.mappings) {
-				const entities = config.mappings[k].entities
+			for (const k in schema.mappings) {
+				const entities = schema.mappings[k].entities
 				if (entities) {
 					for (const k in entities) {
 						this.extendEntiyMapping(entities[k], entities)
@@ -283,29 +283,29 @@ class ConfigExtender {
 				}
 			}
 			// etends mappings
-			for (const k in config.mappings) {
-				this.extendMapping(config.mappings[k], config.mappings)
+			for (const k in schema.mappings) {
+				this.extendMapping(schema.mappings[k], schema.mappings)
 			}
 		} else {
-			config.mappings = [{ name: 'default', entities: [] }]
+			schema.mappings = [{ name: 'default', entities: [] }]
 		}
 		// extend mapping for model
-		for (const k in config.mappings) {
-			this.extendObject(config.mappings[k], config.model)
-			config.mappings[k] = this.clearMapping(config.mappings[k])
-			this.completeMapping(config.mappings[k])
+		for (const k in schema.mappings) {
+			this.extendObject(schema.mappings[k], schema.model)
+			schema.mappings[k] = this.clearMapping(schema.mappings[k])
+			this.completeMapping(schema.mappings[k])
 		}
 		// dataSources
-		if (config.dataSources.length > 0) {
-			for (const k in config.dataSources) {
-				const dataSource = config.dataSources[k]
+		if (schema.dataSources.length > 0) {
+			for (const k in schema.dataSources) {
+				const dataSource = schema.dataSources[k]
 				if (dataSource.mapping === undefined) {
-					dataSource.mapping = config.mappings[0].name
+					dataSource.mapping = schema.mappings[0].name
 				}
 			}
 		}
 
-		return config
+		return schema
 	}
 
 	private clearModel (source: Model): Model {
@@ -459,41 +459,41 @@ class ConfigExtender {
 	}
 }
 
-export class ConfigManager {
-	public dataSource: DatastoreConfig
+export class SchemaConfig {
+	public dataSource: DataSourceConfig
 	public model: ModelConfig
 	public mapping: MappingsConfig
-	public config: Config
+	public schema: Schema
 	public workspace: string
 	private extender:ConfigExtender
 
 	constructor (workspace:string) {
 		this.workspace = workspace
-		this.dataSource = new DatastoreConfig()
+		this.dataSource = new DataSourceConfig()
 		this.model = new ModelConfig()
 		this.mapping = new MappingsConfig()
-		this.config = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], dataSources: [] }
+		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], dataSources: [] }
 		this.extender = new ConfigExtender()
 	}
 
-	public async load (config: Config): Promise<Config> {
-		this.config = this.extender.extend(config)
-		this.model.set(this.config.model)
-		if (this.config.mappings) {
-			for (const p in this.config.mappings) {
-				const mapping = this.config.mappings[p]
+	public async load (schema: Schema): Promise<Schema> {
+		this.schema = this.extender.extend(schema)
+		this.model.set(this.schema.model)
+		if (this.schema.mappings) {
+			for (const p in this.schema.mappings) {
+				const mapping = this.schema.mappings[p]
 				this.mapping.load(mapping)
 			}
 		}
-		if (this.config.dataSources) {
-			for (const p in this.config.dataSources) {
-				const dataSource = this.config.dataSources[p]
+		if (this.schema.dataSources) {
+			for (const p in this.schema.dataSources) {
+				const dataSource = this.schema.dataSources[p]
 				const connectionConfig: ConnectionConfig = { name: dataSource.name, dialect: dataSource.dialect, connection: {} }
 				connectionConfig.connection = dataSource.connection
 				this.dataSource.load(dataSource)
 			}
 		}
-		this.dataSource.default = this.config.defaultDatastore
-		return this.config
+		this.dataSource.default = this.schema.defaultDatastore
+		return this.schema
 	}
 }

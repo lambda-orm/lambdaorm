@@ -3,14 +3,14 @@ import { Query, DataSource } from './../model/index'
 import { ConnectionManager } from './../connection'
 import { LanguageManager } from './../language'
 import { ExpressionManager, QueryExecutor, Transaction } from './'
-import { ConfigManager } from './config'
+import { SchemaConfig } from './schema'
 
 export class Executor {
 	private languageManager: LanguageManager
 	private expressionManager: ExpressionManager
 	private connectionManager: ConnectionManager
-	private configManager: ConfigManager
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, expressionManager:ExpressionManager, configManager: ConfigManager) {
+	private configManager: SchemaConfig
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, expressionManager:ExpressionManager, configManager: SchemaConfig) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
 		this.expressionManager = expressionManager

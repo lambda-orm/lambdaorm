@@ -2,15 +2,15 @@
 import { Helper } from './../helper'
 import { Node } from './../parser/index'
 import { Entity } from './../model'
-import { ConfigManager } from './../manager'
+import { SchemaConfig } from './../manager'
 
 /**
  *  Expression completer
  */
 export class ExpressionCompleter {
-	private config: ConfigManager
-	constructor (config: ConfigManager) {
-		this.config = config
+	private schema: SchemaConfig
+	constructor (schema: SchemaConfig) {
+		this.schema = schema
 	}
 
 	public complete (node:Node):Node {
@@ -49,7 +49,7 @@ export class ExpressionCompleter {
 	private completeSentence (mainNode:Node, entityName?:string):void {
 		let compleInclude: any
 		const clauses:any = this.getClauses(mainNode)
-		const entity = this.config.model.getEntity(entityName || clauses.from.name)
+		const entity = this.schema.model.getEntity(entityName || clauses.from.name)
 		if (entity === undefined) {
 			throw new Error(`entity ${entityName} not found`)
 		}
@@ -99,7 +99,7 @@ export class ExpressionCompleter {
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
 				if (!clauses.sort) {
-					const autoincrement = this.config.model.getAutoincrement(entity.name)
+					const autoincrement = this.schema.model.getAutoincrement(entity.name)
 					if (autoincrement !== undefined) {
 						const varArrow = new Node('p', 'var', [])
 						const varSort = new Node('p.' + autoincrement.name, 'var', [])
@@ -119,7 +119,7 @@ export class ExpressionCompleter {
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
 				if (!clauses.sort) {
-					const autoincrement = this.config.model.getAutoincrement(entity.name)
+					const autoincrement = this.schema.model.getAutoincrement(entity.name)
 					if (autoincrement !== undefined) {
 						const varArrow = new Node('p', 'var', [])
 						const varSort = new Node('p.' + autoincrement.name, 'var', [])

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Cache, Config } from './../model/index'
+import { Cache, Schema } from './../model/index'
 import { Transaction, DataSourceFacade } from './../manager'
 
 export interface IOrm
@@ -8,7 +8,7 @@ export interface IOrm
 	dialect (dataSource:string): string
 	get dataSource (): DataSourceFacade
 	setCache (value: Cache):void
-	init(configPath?: string, connect?: boolean): Promise<Config>
+	init(configPath?: string, connect?: boolean): Promise<Schema>
 	end (): Promise<void>
 	// expression(expression: string): ExpressionFacade
 	/**

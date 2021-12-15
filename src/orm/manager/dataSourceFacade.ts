@@ -1,4 +1,4 @@
-import { ConfigManager, Executor, ExpressionManager } from '.'
+import { SchemaConfig, Executor, ExpressionManager } from '.'
 import { LanguageManager } from '../language'
 import { DataSourceState } from '../dataSource/dataSourceState'
 import { DataSourceSync } from '../dataSource/dataSourceSync'
@@ -10,12 +10,12 @@ import { Helper } from '../helper'
 
 export class DataSourceFacade {
 	private state: DataSourceState
-	private configManager: ConfigManager
+	private configManager: SchemaConfig
 	private expressionManager: ExpressionManager
 	protected languageManager: LanguageManager
 	private executor: Executor
 
-	constructor (configManager: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor) {
+	constructor (configManager: SchemaConfig, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor) {
 		this.configManager = configManager
 		this.expressionManager = expressionManager
 		this.languageManager = languageManager

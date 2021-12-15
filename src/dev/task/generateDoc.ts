@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Helper } from './../../orm'
-const ConfigExtends = require('config-extends')
+const ConfigExtends = require('schema-extends')
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
@@ -73,7 +73,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 }
 
 export async function apply (callback: any) {
-	const model = await ConfigExtends.apply(path.join('src/dev/config/model.yaml'))
+	const model = await ConfigExtends.apply(path.join('src/dev/schema/model.yaml'))
 
 	const funcCategories:any = {}
 	for (const p in model.functions) {

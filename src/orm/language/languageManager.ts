@@ -1,7 +1,7 @@
 
 import { Node, ExpressionConfig } from './../parser/index'
 import { Data, Query, Include, DataSource } from './../model'
-import { ConfigManager } from './../manager'
+import { SchemaConfig } from './../manager'
 import { Language } from './language'
 import { OperandManager } from './operandManager'
 import { Operand, Sentence } from './operands'
@@ -13,17 +13,17 @@ import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 
 export class LanguageManager {
 	public dialects: any
-	private config: ConfigManager
+	private schema: SchemaConfig
 	public expressionConfig:ExpressionConfig
 	public metadata:OperandMetadata
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (config: ConfigManager) {
-		this.config = config
+	constructor (schema: SchemaConfig) {
+		this.schema = schema
 		this.expressionConfig = new ExpressionConfig()
 		this.metadata = new OperandMetadata()
-		this.operandManager = new OperandManager(config, this)
+		this.operandManager = new OperandManager(schema, this)
 		this.languages = {}
 		this.dialects = {}
 	}
@@ -62,13 +62,13 @@ export class LanguageManager {
 
 	public dmlBuilder (dataSource: DataSource): LanguageDMLBuilder {
 		// TODO: agregar un cache de DMLBuilder por dataSource
-		const mapping = this.config.mapping.getInstance(dataSource.mapping)
+		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		return this.get(dataSource.dialect).dmlBuilder(dataSource.name, dataSource.dialect, mapping)
 	}
 
 	public ddlBuilder (dataSource: DataSource): LanguageDDLBuilder {
 		// TODO: agregar un cache de DMLBuilder por dataSource
-		const mapping = this.config.mapping.getInstance(dataSource.mapping)
+		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		return this.get(dataSource.dialect).ddlBuilder(dataSource.name, dataSource.dialect, mapping)
 	}
 

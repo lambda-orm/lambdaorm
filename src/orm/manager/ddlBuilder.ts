@@ -1,16 +1,16 @@
-import { ConfigManager, ModelConfig, MappingConfig } from '.'
+import { SchemaConfig, ModelConfig, MappingConfig } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
 import { Query, Delta, Index, DataSource, Relation, Entity, EntityMapping, PropertyMapping, IEvaluator } from '../model'
 
 export class DDLBuilder {
 	private languageManager: LanguageManager
-	private config: ConfigManager
+	private schema: SchemaConfig
 	private model:ModelConfig
 	private evaluator:IEvaluator
 	public dataSource: DataSource
-	constructor (config: ConfigManager, evaluator:IEvaluator, languageManager:LanguageManager, dataSource: DataSource) {
-		this.config = config
-		this.model = config.model
+	constructor (schema: SchemaConfig, evaluator:IEvaluator, languageManager:LanguageManager, dataSource: DataSource) {
+		this.schema = schema
+		this.model = schema.model
 		this.evaluator = evaluator
 		this.languageManager = languageManager
 		this.dataSource = dataSource
@@ -347,7 +347,7 @@ export class DDLBuilder {
 		for (const i in this.dataSource.rules) {
 			const rule = this.dataSource.rules[i]
 			if (await this.evaluator.eval(rule.rule, context) === true) {
-				return this.config.dataSource.get(rule.dataSource)
+				return this.schema.dataSource.get(rule.dataSource)
 			}
 		}
 		return this.dataSource

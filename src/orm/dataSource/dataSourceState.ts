@@ -1,12 +1,12 @@
 import { Mapping, MappingState } from '../model'
-import { ConfigManager } from '../manager'
+import { SchemaConfig } from '../manager'
 import { Helper } from '../helper'
 const path = require('path')
 
 export class DataSourceState {
-	private config: ConfigManager
-	constructor (config:ConfigManager) {
-		this.config = config
+	private schema: SchemaConfig
+	constructor (schema:SchemaConfig) {
+		this.schema = schema
 	}
 
 	public async get (name:string):Promise<MappingState> {
@@ -42,6 +42,6 @@ export class DataSourceState {
 	}
 
 	public getFile (name: string) {
-		return path.join(this.config.workspace, this.config.config.app.data, `${name}-state.json`)
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-state.json`)
 	}
 }

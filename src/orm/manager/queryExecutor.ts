@@ -3,7 +3,7 @@ import { Data, Parameter, Query, DataSource, IEvaluator } from './../model'
 import { Connection, ConnectionManager } from './../connection'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { LanguageManager } from './../language'
-import { MappingConfig } from './config'
+import { MappingConfig } from './schema'
 
 export class QueryExecutor {
 	public dataSource: DataSource

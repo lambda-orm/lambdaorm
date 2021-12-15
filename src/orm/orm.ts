@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { Cache, IOrm, Config } from './model'
-import { ExpressionManager, MemoryCache, Transaction, LibManager, DataSourceFacade, Executor, ConfigManager } from './manager'
+import { Cache, IOrm, Schema } from './model'
+import { ExpressionManager, MemoryCache, Transaction, LibManager, DataSourceFacade, Executor, SchemaConfig } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager } from './language'
 import { SqlLanguage } from './language/sql'
@@ -26,7 +26,7 @@ export class Orm implements IOrm {
 	/**
 	 * Property that exposes the configuration
 	 */
-	private configManager: ConfigManager
+	private configManager: SchemaConfig
 
 	/**
  * Singleton
@@ -39,7 +39,7 @@ export class Orm implements IOrm {
 	}
 
 	constructor (workspace:string = process.cwd()) {
-		this.configManager = new ConfigManager(workspace)
+		this.configManager = new SchemaConfig(workspace)
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
@@ -66,27 +66,27 @@ export class Orm implements IOrm {
  * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
  * @returns promise void
  */
-	public async init (source?: string | Config, connect = true): Promise<Config> {
-		let config
+	public async init (source?: string | Schema, connect = true): Promise<Schema> {
+		let schema
 		if (source === undefined || typeof source === 'string') {
-			config = await this.libManager.getConfig(source)
+			schema = await this.libManager.getConfig(source)
 		} else {
-			const _config = source as Config
+			const _config = source as Schema
 			if (_config === undefined) {
-				throw new Error(`Config: ${source} not supported`)
+				throw new Error(`Schema: ${source} not supported`)
 			}
-			config = _config
+			schema = _config
 		}
-		Helper.solveEnvironmentVariables(config)
-		config = await this.configManager.load(config)
+		Helper.solveEnvironmentVariables(schema)
+		schema = await this.configManager.load(schema)
 
-		if (connect && config.dataSources) {
-			for (const p in config.dataSources) {
-				const dataSource = config.dataSources[p]
+		if (connect && schema.dataSources) {
+			for (const p in schema.dataSources) {
+				const dataSource = schema.dataSources[p]
 				this.connectionManager.load(dataSource)
 			}
 		}
-		return config
+		return schema
 	}
 
 	/**
@@ -105,7 +105,7 @@ export class Orm implements IOrm {
 	}
 
 	/**
-* Get reference to config manager
+* Get reference to schema manager
 */
 	public get lib (): LibManager {
 		return this.libManager

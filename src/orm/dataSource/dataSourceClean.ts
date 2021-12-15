@@ -7,7 +7,7 @@ export class DataSourceClean extends DataSourceActionDDL {
 		const state = await this.state.get(this.dataSource.name)
 		if (state && state.mapping) {
 			const schemaConfig = new MappingConfig(state.mapping)
-			return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.dataSource).drop(schemaConfig.listEntities())
+			return new DDLBuilder(this.schema, this.expressionManager, this.languageManager, this.dataSource).drop(schemaConfig.listEntities())
 		}
 		return []
 	}

@@ -1,4 +1,4 @@
-import { Mapping } from './config'
+import { Mapping } from './schema'
 
 export interface MappingState
 {

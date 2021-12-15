@@ -1,4 +1,4 @@
-import { ConfigManager, MappingConfig } from '.'
+import { SchemaConfig, MappingConfig } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { Query, DataSource, Include, IEvaluator } from '../model'
@@ -20,14 +20,14 @@ export abstract class LanguageDMLBuilder {
 }
 
 export class DMLBuilder {
-	private config: ConfigManager
+	private schema: SchemaConfig
 	private languageManager: LanguageManager
 	private mapping: MappingConfig
 	private evaluator:IEvaluator
 	public dataSource: DataSource
 
-	constructor (config:ConfigManager, evaluator:IEvaluator, mapping:MappingConfig, languageManager: LanguageManager, dataSource: DataSource) {
-		this.config = config
+	constructor (schema:SchemaConfig, evaluator:IEvaluator, mapping:MappingConfig, languageManager: LanguageManager, dataSource: DataSource) {
+		this.schema = schema
 		this.evaluator = evaluator
 		this.mapping = mapping
 		this.languageManager = languageManager
@@ -39,7 +39,7 @@ export class DMLBuilder {
 		for (const i in this.dataSource.rules) {
 			const rule = this.dataSource.rules[i]
 			if (await this.evaluator.eval(rule.rule, context) === true) {
-				return this.config.dataSource.get(rule.dataSource)
+				return this.schema.dataSource.get(rule.dataSource)
 			}
 		}
 		return this.dataSource

@@ -37,6 +37,12 @@ export interface Entity {
 	properties:Property[]
 	relations:Relation[]
 }
+export interface RelationInfo {
+	previousRelation:string
+	previousEntity: Entity,
+	entity: Entity,
+	relation: Relation
+}
 export interface Model{
 	entities: Entity[]
 	enums: Enum[]
@@ -76,18 +82,11 @@ export interface DataSource
 	connection: any
 	rules: RuleDatastore[]
 }
-export interface Config
+export interface Schema
 {
 	app: App
 	model: Model
 	mappings: Mapping[]
 	defaultDatastore?: string
 	dataSources: DataSource[]
-}
-
-export interface RelationInfo {
-	previousRelation:string
-	previousEntity: Entity,
-	entity: Entity,
-	relation: Relation
 }

@@ -1,10 +1,10 @@
 import path from 'path'
-import { Config, DataSource } from './../model'
+import { Schema, DataSource } from './../model'
 import { Helper } from './../helper'
 const yaml = require('js-yaml')
 
 export class LibManager {
-	public async getConfig (source?: string): Promise<Config> {
+	public async getConfig (source?: string): Promise<Schema> {
 		let workspace : string
 		let configFile: string|undefined
 		workspace = process.cwd()
@@ -21,46 +21,46 @@ export class LibManager {
 				configFile = await this.getConfigFileName(workspace)
 			}
 		} else {
-			throw new Error(`Config: ${source} not supported`)
+			throw new Error(`Schema: ${source} not supported`)
 		}
 
-		let config: Config = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, dataSources: [], mappings: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, dataSources: [], mappings: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
 				const content = await Helper.readFile(configPath)
 				if (content !== null) {
-					config = yaml.load(content)
+					schema = yaml.load(content)
 				} else {
-					throw new Error(`Config file: ${configPath} empty`)
+					throw new Error(`Schema file: ${configPath} empty`)
 				}
 			} else if (path.extname(configFile) === '.json') {
 				const content = await Helper.readFile(configPath)
 				if (content !== null) {
-					config = JSON.parse(content)
+					schema = JSON.parse(content)
 				} else {
-					throw new Error(`Config file: ${configPath} empty`)
+					throw new Error(`Schema file: ${configPath} empty`)
 				}
 			} else {
-				throw new Error(`Config file: ${configPath} not supported`)
+				throw new Error(`Schema file: ${configPath} not supported`)
 			}
 		}
 
-		if (config.app === undefined) {
-			config.app = { src: 'src', data: 'data', model: 'model' }
+		if (schema.app === undefined) {
+			schema.app = { src: 'src', data: 'data', model: 'model' }
 		} else {
-			if (config.app.src === undefined) {
-				config.app.src = 'src'
+			if (schema.app.src === undefined) {
+				schema.app.src = 'src'
 			}
-			if (config.app.data === undefined) {
-				config.app.data = 'data'
+			if (schema.app.data === undefined) {
+				schema.app.data = 'data'
 			}
-			if (config.app.model === undefined) {
-				config.app.model = 'model'
+			if (schema.app.model === undefined) {
+				schema.app.model = 'model'
 			}
 		}
-		if (config.dataSources === undefined) config.dataSources = []
-		return config
+		if (schema.dataSources === undefined) schema.dataSources = []
+		return schema
 	}
 
 	public async getConfigFileName (workspace:string):Promise<string|undefined> {
@@ -75,33 +75,33 @@ export class LibManager {
 		}
 	}
 
-	public getDatastore (dataSource:string|undefined, config:Config):DataSource {
+	public getDatastore (dataSource:string|undefined, schema:Schema):DataSource {
 		// get dataSource
 		let db:DataSource|undefined
 		if (dataSource === undefined) {
-			if (config.dataSources.length === 1) {
-				db = config.dataSources[0]
-			} else if (config.dataSources.length > 1 && config.defaultDatastore !== undefined) {
-				db = config.dataSources.find(p => p.name === config.defaultDatastore)
+			if (schema.dataSources.length === 1) {
+				db = schema.dataSources[0]
+			} else if (schema.dataSources.length > 1 && schema.defaultDatastore !== undefined) {
+				db = schema.dataSources.find(p => p.name === schema.defaultDatastore)
 				if (db === undefined) {
-					throw new Error(`dataSource: ${config.defaultDatastore} not found in config`)
+					throw new Error(`dataSource: ${schema.defaultDatastore} not found in schema`)
 				}
 			} else {
 				throw new Error('the name argument with the name of the dataSource is required')
 			}
 		} else {
-			db = config.dataSources.find(p => p.name === dataSource)
+			db = schema.dataSources.find(p => p.name === dataSource)
 			if (db === undefined) {
-				throw new Error(`dataSource: ${dataSource} not found in config`)
+				throw new Error(`dataSource: ${dataSource} not found in schema`)
 			}
 		}
 		return db
 	}
 
-// public getModel (config: Config): Schema[] {
+// public getModel (schema: Schema): Schema[] {
 // const targets:Schema[] = []
-// for (const k in config.schemas) {
-// const source = config.schemas[k]
+// for (const k in schema.schemas) {
+// const source = schema.schemas[k]
 // if (source.excludeModel === true) continue
 // const target: Schema = { name: source.name, excludeModel: source.excludeModel, enums: source.enums, entities: [] }
 // if (source.entities !== undefined) {

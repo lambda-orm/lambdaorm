@@ -5,7 +5,7 @@ async function testmssql ():Promise<void> {
 	// const connectionConfig = { userName: 'sa', password: 'Lambda1234!', server: 'localhost', options: { encrypt: false, dataSource: 'northwind' } }
 	// const sql = 'CREATE TABLE Categories (CategoryID INTEGER NOT NULL IDENTITY (1, 1),CategoryName VARCHAR(80) NOT NULL ,Description VARCHAR(1000)  ,PRIMARY KEY (CategoryID),CONSTRAINT Categories_UK UNIQUE (CategoryName))'
 	const sql = 'SELECT 1'
-	const config = {
+	const schema = {
 		server: 'localhost',
 		authentication: {
 			type: 'default',
@@ -20,7 +20,7 @@ async function testmssql ():Promise<void> {
 		}
 	}
 
-	const connection = new tedious.Connection(config)
+	const connection = new tedious.Connection(schema)
 	connection.connect()
 	connection.on('connect', (err:any) => {
 		if (err) {

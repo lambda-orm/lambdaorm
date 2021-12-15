@@ -1,18 +1,18 @@
 import { DataSource, Query } from '../model'
 import { LanguageManager } from '../language'
-import { ConfigManager, ExpressionManager, Executor } from '../manager'
+import { SchemaConfig, ExpressionManager, Executor } from '../manager'
 import { DataSourceState } from './dataSourceState'
 
 export abstract class DataSourceActionDDL {
 	protected state: DataSourceState
-	protected config: ConfigManager
+	protected schema: SchemaConfig
 	protected expressionManager: ExpressionManager
 	protected languageManager: LanguageManager
 	protected executor: Executor
 	protected dataSource: DataSource
-	constructor (state:DataSourceState, config: ConfigManager, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, dataSource:DataSource) {
+	constructor (state:DataSourceState, schema: SchemaConfig, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor, dataSource:DataSource) {
 		this.state = state
-		this.config = config
+		this.schema = schema
 		this.expressionManager = expressionManager
 		this.languageManager = languageManager
 		this.executor = executor

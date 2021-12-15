@@ -6,9 +6,9 @@ import path from 'path'
 	const orm = new Orm(workspace)
 	try {
 		let result:any
-		const config = await orm.lib.getConfig(workspace)
-		const ds = orm.lib.getDatastore(undefined, config)
-		await orm.init(config)
+		const schema = await orm.lib.getConfig(workspace)
+		const ds = orm.lib.getDatastore(undefined, schema)
+		await orm.init(schema)
 
 		await orm.dataSource.sync(ds.name).execute()
 

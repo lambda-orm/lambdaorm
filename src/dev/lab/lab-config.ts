@@ -5,9 +5,9 @@ import { Orm, Helper } from '../../orm'
 	const workspace = './'
 	const orm = new Orm(workspace)
 	try {
-		let config = await orm.lib.getConfig(workspace)
-		config = await orm.init(config)
-		Helper.writeFile('./labs/config/resultConfig.yaml', yaml.dump(config, { noRefs: true }))
+		let schema = await orm.lib.getConfig(workspace)
+		schema = await orm.init(schema)
+		Helper.writeFile('./labs/schema/resultConfig.yaml', yaml.dump(schema, { noRefs: true }))
 	} catch (error) {
 		console.error(`error: ${error}`)
 	} finally {
