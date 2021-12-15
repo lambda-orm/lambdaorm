@@ -17,7 +17,7 @@ export class DatastoreSync extends DatastoreActionDDL {
 		this.currenMapping = this.config.mapping.get(this.datastore.mapping) as Mapping
 		const state = await this.state.get(this.datastore.name)
 
-		const _old = state && state.mappingData ? state.mappingData : null
+		const _old = state && state.mapping ? state.mapping : null
 		const delta = Helper.deltaWithSimpleArrays(this.currenMapping.entities, _old?.entities)
 		return new DDLBuilder(this.config, this.expressionManager, this.languageManager, this.datastore).sync(delta)
 	}

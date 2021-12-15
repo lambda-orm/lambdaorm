@@ -299,7 +299,9 @@ class ConfigExtender {
 		if (config.datastores.length > 0) {
 			for (const k in config.datastores) {
 				const datastore = config.datastores[k]
-				if (datastore.mapping === undefined)datastore.mapping = config.mappings[0].name
+				if (datastore.mapping === undefined) {
+					datastore.mapping = config.mappings[0].name
+				}
 			}
 		}
 
