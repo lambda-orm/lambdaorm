@@ -24,6 +24,9 @@
 
 #### Info
 
+- [description](https://www.itdo.com/blog/api-gateway-en-tu-arquitectura-de-microservicios/)
+- [api-gateway-pattern](https://docs.microsoft.com/es-es/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern)
+- [routing](https://www.cloudfoundry.org/blog/a-practical-guide-to-microservice-routing/)
 - [info](https://geekflare.com/es/api-gateway/)
 - [info](https://reactiveprogramming.io/blog/es/patrones-arquitectonicos/api-gateway)
 - [info](https://www.itdo.com/blog/api-gateway-en-tu-arquitectura-de-microservicios/)
@@ -31,3 +34,14 @@
 #### Implementations
 
 - [kong](https://konghq.com/kong/)
+
+### Service Mesh
+
+- [que es](https://galvarado.com.mx/post/hablando-de-microservicios-que-es-service-mesh/)
+- [desciption](https://www.paradigmadigital.com/dev/consolida-arquitectura-microservicios-service-mesh/)
+
+### Service Discovery
+
+### health checking
+
+### Control Plane

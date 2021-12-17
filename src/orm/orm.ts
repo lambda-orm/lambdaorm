@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { Cache, IOrm, Schema } from './model'
-import { ExpressionManager, MemoryCache, Transaction, LibManager, DataSourceFacade, Executor, SchemaConfig } from './manager'
+import { Cache, IOrm, Schema, Stage } from './model'
+import { ExpressionManager, MemoryCache, Transaction, LibManager, StageFacade, Executor, SchemaConfig, Routing } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager } from './language'
 import { SqlLanguage } from './language/sql'
@@ -15,11 +15,12 @@ import { Helper } from './helper'
 export class Orm implements IOrm {
 	private _cache: Cache
 	// private expressionConfig: ExpressionConfig
-	private datastoreFacade: DataSourceFacade
+	private stageFacade: StageFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
 	private libManager: LibManager
 	private expressionManager: ExpressionManager
+	private routing:Routing
 
 	private executor:Executor
 	private static _instance: Orm
@@ -57,8 +58,13 @@ export class Orm implements IOrm {
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaConfig, this.languageManager)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.expressionManager, this.schemaConfig)
-		this.datastoreFacade = new DataSourceFacade(this.schemaConfig, this.expressionManager, this.languageManager, this.executor)
+		this.routing = new Routing(this.schemaConfig, this.expressionManager)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.routing, this.schemaConfig, this.expressionManager)
+		this.stageFacade = new StageFacade(this.schemaConfig, this.routing, this.expressionManager, this.languageManager, this.executor)
+	}
+
+	public get defaultStage ():Stage {
+		return this.schemaConfig.stage.get(undefined)
 	}
 
 	/**
@@ -114,8 +120,8 @@ export class Orm implements IOrm {
 	/**
 * Get reference to dataSource manager
 */
-	public get dataSource (): DataSourceFacade {
-		return this.datastoreFacade
+	public get stage (): StageFacade {
+		return this.stageFacade
 	}
 
 	/**
@@ -173,15 +179,6 @@ export class Orm implements IOrm {
 		return this.expressionManager.parameters(expression)
 	}
 
-	public async sentence(expression: Function, dataSource: string): Promise<string>;
-	public async sentence(expression: string, dataSource: string): Promise<string>;
-	public async sentence (expression: string|Function, dataSource: string): Promise<string> {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
-		return this.expressionManager.sentence(expression, dataSource)
-	}
-
 	/**
 	 * Get metadata of expression
 	 * @returns metadata of expression
@@ -206,21 +203,35 @@ export class Orm implements IOrm {
 	}
 
 	/**
+	 * Get sentence of expression
+	 * @param expression
+	 * @param dataSource
+	 */
+	public async sentence(expression: Function, dataSource: string): Promise<string>;
+	public async sentence(expression: string, dataSource: string): Promise<string>;
+	public async sentence (expression: string|Function, dataSource: string): Promise<string> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.sentence(expression, dataSource)
+	}
+
+	/**
 	 * Execute expression
 	 * @param data Data with variables
 	 * @param context Context
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, context?: any, dataSource?: string):Promise<any>;
-	public async execute(expression: string, data?: any, context?: any, dataSource?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, context: any = {}, dataSource: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, context?: any, stage?: string):Promise<any>;
+	public async execute(expression: string, data?: any, context?: any, stage?: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, context: any = {}, stage: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const db = this.schemaConfig.dataSource.get(dataSource)
-		const query = await this.expressionManager.toQuery(expression, db.name)
-		return await this.executor.execute(db, query, data, context)
+		const _stage = this.schemaConfig.stage.get(stage)
+		const query = await this.expressionManager.toQuery(expression, _stage.name)
+		return await this.executor.execute(query, data, context, _stage.name)
 	}
 
 	/**
@@ -228,8 +239,8 @@ export class Orm implements IOrm {
  * @param dataSource Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (context:any, dataSource: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const db = this.schemaConfig.dataSource.get(dataSource)
-		return await this.executor.transaction(db, context, callback)
+	public async transaction (context:any, stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const _stage = this.schemaConfig.stage.get(stage)
+		return await this.executor.transaction(_stage.name, context, callback)
 	}
 }

@@ -7,10 +7,8 @@ import path from 'path'
 	try {
 		let result:any
 		const schema = await orm.lib.getConfig(workspace)
-		const ds = orm.lib.getDatastore(undefined, schema)
 		await orm.init(schema)
-
-		await orm.dataSource.sync(ds.name).execute()
+		await orm.stage.sync(orm.defaultStage.name).execute()
 
 		result = await orm.execute('Countries.deleteAll()')
 		result = await orm.execute('States.deleteAll()')

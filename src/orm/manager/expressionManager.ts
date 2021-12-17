@@ -1,6 +1,6 @@
 import { Cache, Query, Data, IEvaluator } from './../model'
 import { ParserManager } from './../parser/index'
-import { SchemaConfig, ExpressionCompleter } from './index'
+import { SchemaConfig, ExpressionCompleter, Routing } from './index'
 import { LanguageManager, Operand, Sentence, DMLBuilder } from './../language'
 import { Helper } from './../helper'
 
@@ -10,6 +10,7 @@ export class ExpressionManager implements IEvaluator {
 	private schema: SchemaConfig
 	private languageManager: LanguageManager
 	private expressionCompleter: ExpressionCompleter
+	private routing:Routing
 
 	constructor (cache: Cache, schema:SchemaConfig, languageManager:LanguageManager) {
 		this.cache = cache
@@ -17,6 +18,7 @@ export class ExpressionManager implements IEvaluator {
 		this.languageManager = languageManager
 		this.parserManager = new ParserManager(languageManager.expressionConfig)
 		this.expressionCompleter = new ExpressionCompleter(schema)
+		this.routing = new Routing(schema, this)
 	}
 
 	/**
@@ -59,15 +61,13 @@ export class ExpressionManager implements IEvaluator {
 		}
 	}
 
-	public async toQuery (expression: string, dataSource: string): Promise<Query> {
+	public async toQuery (expression: string, stage: string): Promise<Query> {
 		try {
-			const dt = this.schema.dataSource.get(dataSource)
-			const key = dt.name + 'query_' + expression
+			const key = stage + '_query_' + expression
 			let query = await this.cache.get(key)
 			if (!query) {
-				const mapping = this.schema.mapping.getInstance(dt.mapping)
 				const sentence = await this.toOperand(expression) as Sentence
-				query = new DMLBuilder(this.schema, this, mapping, this.languageManager, dt).build(sentence)
+				query = new DMLBuilder(this.schema, this.routing, this.languageManager, stage).build(sentence)
 				await this.cache.set(key, query)
 			}
 			return query as Query

@@ -24,7 +24,7 @@ export class LibManager {
 			throw new Error(`Schema: ${source} not supported`)
 		}
 
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, dataSources: [], mappings: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { entities: [], enums: [] }, dataSources: [], mappings: [], stages: [] }
 		if (configFile !== undefined) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -75,61 +75,26 @@ export class LibManager {
 		}
 	}
 
-	public getDatastore (dataSource:string|undefined, schema:Schema):DataSource {
-		// get dataSource
-		let db:DataSource|undefined
-		if (dataSource === undefined) {
-			if (schema.dataSources.length === 1) {
-				db = schema.dataSources[0]
-			} else if (schema.dataSources.length > 1 && schema.defaultDatastore !== undefined) {
-				db = schema.dataSources.find(p => p.name === schema.defaultDatastore)
-				if (db === undefined) {
-					throw new Error(`dataSource: ${schema.defaultDatastore} not found in schema`)
-				}
-			} else {
-				throw new Error('the name argument with the name of the dataSource is required')
-			}
-		} else {
-			db = schema.dataSources.find(p => p.name === dataSource)
-			if (db === undefined) {
-				throw new Error(`dataSource: ${dataSource} not found in schema`)
-			}
-		}
-		return db
-	}
-
-// public getModel (schema: Schema): Schema[] {
-// const targets:Schema[] = []
-// for (const k in schema.schemas) {
-// const source = schema.schemas[k]
-// if (source.excludeModel === true) continue
-// const target: Schema = { name: source.name, excludeModel: source.excludeModel, enums: source.enums, entities: [] }
-// if (source.entities !== undefined) {
-// for (let i = 0; i < source.entities.length; i++) {
-// const sourceEntity = source.entities[i]
-// if (sourceEntity.excludeModel === true) continue
-// const entity: Entity = { name: sourceEntity.name, abstract: sourceEntity.abstract, extends: sourceEntity.extends, properties: [], relations: sourceEntity.relations }
-// if (sourceEntity.properties !== undefined) {
-// for (let j = 0; j < sourceEntity.properties.length; j++) {
-// const sourceProperty = sourceEntity.properties[j]
-// if (sourceProperty.excludeModel === true) continue
-// const property: Property = { name: sourceProperty.name, nullable: sourceProperty.nullable, type: sourceProperty.type, length: sourceProperty.length }
-// if (property.type === undefined) property.type = 'string'
-// if (property.type === 'string' && property.length === undefined) property.length = 80
-// entity.properties.push(property)
+// public getDatastore (dataSource:string|undefined, schema:Schema):DataSource {
+// // get dataSource
+// let db:DataSource|undefined
+// if (dataSource === undefined) {
+// if (schema.dataSources.length === 1) {
+// db = schema.dataSources[0]
+// } else if (schema.dataSources.length > 1 && schema.defaultDatastore !== undefined) {
+// db = schema.dataSources.find(p => p.name === schema.defaultDatastore)
+// if (db === undefined) {
+// throw new Error(`dataSource: ${schema.defaultDatastore} not found in schema`)
+// }
+// } else {
+// throw new Error('the name argument with the name of the dataSource is required')
+// }
+// } else {
+// db = schema.dataSources.find(p => p.name === dataSource)
+// if (db === undefined) {
+// throw new Error(`dataSource: ${dataSource} not found in schema`)
 // }
 // }
-// if (entity.relations !== undefined) {
-// for (let j = 0; j < entity.relations.length; j++) {
-// const relation = entity.relations[j]
-// if (relation.type === undefined) relation.type = 'oneToMany'
-// }
-// }
-// target.entities.push(entity)
-// }
-// }
-// targets.push(target)
-// }
-// return targets
+// return db
 // }
 }

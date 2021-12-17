@@ -2,7 +2,7 @@ app:
   src: src
   data: data
   model: model
-defaultDatastore: source
+  defaultStage: default
 model:
   enums:
   entities:
@@ -380,13 +380,6 @@ dataSources:
     mapping: northwind
     dialect: mysql
     connection: $ORM_CNN_SOURCE
-    # rules:
-    #   - name: a
-    #     rule: actionType == "read"
-    #     dataSource: source
-    #   - name: b
-    #     rule: actionType == "write"
-    #     dataSource: source
   - name: mysql
     mapping: northwind
     dialect: mysql
@@ -403,3 +396,19 @@ dataSources:
     mapping: northwind
     dialect: mssql
     connection: $ORM_CNN_MSSQL
+stages:
+  - name: source
+    defaultDataSource: source
+    # dataSources:
+    #   - name: source
+    #     condition: actionType == "read"
+    #   - name: mysql
+    #     condition: actionType == "write"
+  - name: mysql
+    defaultDataSource: mysql
+  - name: mariadb
+    defaultDataSource: mariadb
+  - name: postgres
+    defaultDataSource: postgres
+  - name: mssql
+    defaultDataSource: mssql

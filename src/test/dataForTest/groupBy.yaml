@@ -6,7 +6,7 @@ data:
 test:
   - name: groupBy 1
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
@@ -18,12 +18,12 @@ test:
       - name: maxPrice
         type: any
     executions:
-      - dataSource: mysql
+      - stage: mysql
     result:
-      - maxPrice: 263.5
+      - maxPrice: null
   - name: groupBy 2
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
@@ -35,12 +35,12 @@ test:
       - name: minPrice
         type: any
     executions:
-      - dataSource: mysql
+      - stage: mysql
     result:
-      - minPrice: 2.5
+      - minPrice: null
   - name: groupBy 3
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
@@ -52,12 +52,12 @@ test:
       - name: total
         type: any
     executions:
-      - dataSource: mysql
+      - stage: mysql
     result:
-      - total: 2222.71
+      - total: null
   - name: groupBy 4
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
     errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
@@ -69,12 +69,12 @@ test:
       - name: average
         type: any
     executions:
-      - dataSource: mysql
+      - stage: mysql
     result:
-      - average: 28.86636364
+      - average: null
   - name: groupBy 5
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
     errors: 0
     expression: Products.map(p=>{count:count(1)})
@@ -86,12 +86,12 @@ test:
       - name: count
         type: any
     executions:
-      - dataSource: mysql
+      - stage: mysql
     result:
-      - count: 77
+      - count: 0
   - name: groupBy 6
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice`
           FROM Products p  GROUP BY p.CategoryID 
@@ -108,27 +108,11 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - category: 1
-        largestPrice: 263.5
-      - category: 2
-        largestPrice: 43.9
-      - category: 3
-        largestPrice: 81
-      - category: 4
-        largestPrice: 55
-      - category: 5
-        largestPrice: 38
-      - category: 6
-        largestPrice: 123.79
-      - category: 7
-        largestPrice: 53
-      - category: 8
-        largestPrice: 62.5
+      - stage: mysql
+    result: []
   - name: groupBy 7
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
           `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
@@ -146,28 +130,12 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Condiments
-        largestPrice: 43.9
-      - category: Confections
-        largestPrice: 81
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Grains/Cereals
-        largestPrice: 38
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Produce
-        largestPrice: 53
-      - category: Seafood
-        largestPrice: 62.5
+      - stage: mysql
+    result: []
   - name: groupBy 8
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
           ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -192,14 +160,11 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 18
-        result: 18
+      - stage: mysql
+    result: []
   - name: groupBy 9
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
           `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
@@ -219,15 +184,11 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
+      - stage: mysql
+    result: []
   - name: groupBy 10
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
           `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
@@ -248,15 +209,11 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
+      - stage: mysql
+    result: []
   - name: groupBy 11
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
           `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
@@ -277,18 +234,6 @@ test:
       - name: largestPrice
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Confections
-        largestPrice: 81
-      - category: Seafood
-        largestPrice: 62.5
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Produce
-        largestPrice: 53
+      - stage: mysql
+    result: []
 errors: 0

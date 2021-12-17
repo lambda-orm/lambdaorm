@@ -1,4 +1,4 @@
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Model, Mapping, RelationInfo } from '../model'
+import { Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Model, Mapping, RelationInfo, Stage } from '../model'
 import { ConnectionConfig } from '../connection'
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
@@ -129,9 +129,9 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 export class ModelConfig extends _ModelConfig<Entity, Property> {
 	private model:Model
 
-	constructor () {
+	constructor (model:Model) {
 		super()
-		this.model = { entities: [], enums: [] }
+		this.model = model
 	}
 
 	public get ():Model {
@@ -216,10 +216,6 @@ class MappingsConfig {
 		return mapping
 	}
 
-	public list (): Mapping[] {
-		return this.mappings
-	}
-
 	public getInstance (name:string):MappingConfig {
 		const mapping = this.get(name)
 		if (!mapping) {
@@ -230,47 +226,88 @@ class MappingsConfig {
 }
 
 class DataSourceConfig {
-	public dataSources: any
+	public dataSources: DataSource[]
 	public default?:string
 
 	constructor () {
-		this.dataSources = {}
+		this.dataSources = []
 	}
 
-	public load (dataSource:DataSource):void {
-		this.dataSources[dataSource.name] = dataSource
+	public load (value: DataSource): void {
+		if (value && value.name) {
+			const index = this.dataSources.findIndex(p => p.name === value.name)
+			if (index === -1) {
+				this.dataSources.push(value)
+			} else {
+				this.dataSources[index] = value
+			}
+		}
 	}
 
 	public get (name?: string): DataSource {
-		if (name === undefined) {
-			if (this.default !== undefined) {
-				const db = this.dataSources[this.default]
-				if (db === undefined) {
-					throw new Error(`default dataSource: ${this.default} not found`)
-				}
-				return db as DataSource
-			} else if (Object.keys(this.dataSources).length === 1) {
-				const key = Object.keys(this.dataSources)[0]
-				return this.dataSources[key] as DataSource
+		const _name = name === undefined ? this.default : name
+		if (_name === undefined) {
+			if (this.dataSources.length === 1) {
+				return this.dataSources[0]
 			} else {
 				throw new Error('the name of the dataSource is required')
 			}
 		}
-		return this.dataSources[name]as DataSource
+		const db = this.dataSources.find(p => p.name === _name)
+		if (db === undefined) {
+			throw new Error(`default dataSource: ${_name} not found`)
+		}
+		return db
 	}
 }
 
-class ConfigExtender {
-	extend (schema: Schema): Schema {
+class StageConfig {
+	public stages: Stage[]
+	public default?:string
+
+	constructor () {
+		this.stages = []
+	}
+
+	public load (value:Stage):void {
+		if (value && value.name) {
+			const index = this.stages.findIndex(p => p.name === value.name)
+			if (index === -1) {
+				this.stages.push(value)
+			} else {
+				this.stages[index] = value
+			}
+		}
+	}
+
+	public get (name?: string): Stage {
+		const _name = name === undefined ? this.default : name
+		if (_name === undefined) {
+			if (this.stages.length === 1) {
+				return this.stages[0]
+			} else {
+				throw new Error('the name of the stage is required')
+			}
+		}
+		const stage = this.stages.find(p => p.name === _name)
+		if (stage === undefined) {
+			throw new Error(`Stage: ${_name} not found`)
+		}
+		return stage
+	}
+}
+
+class SchemaExtender {
+	public static extend (schema: Schema): Schema {
 		// model
 		if (schema.model.entities) {
 			const entities = schema.model.entities
 			for (const k in entities) {
-				this.extendEntiy(entities[k], entities)
+				SchemaExtender.extendEntiy(entities[k], entities)
 			}
 		}
-		schema.model = this.clearModel(schema.model)
-		this.completeModel(schema.model)
+		schema.model = SchemaExtender.clearModel(schema.model)
+		SchemaExtender.completeModel(schema.model)
 		// mappings
 		if (schema.mappings.length > 0) {
 			// extend entities into mapping
@@ -278,37 +315,54 @@ class ConfigExtender {
 				const entities = schema.mappings[k].entities
 				if (entities) {
 					for (const k in entities) {
-						this.extendEntiyMapping(entities[k], entities)
+						SchemaExtender.extendEntiyMapping(entities[k], entities)
 					}
 				}
 			}
 			// etends mappings
 			for (const k in schema.mappings) {
-				this.extendMapping(schema.mappings[k], schema.mappings)
+				SchemaExtender.extendMapping(schema.mappings[k], schema.mappings)
 			}
 		} else {
 			schema.mappings = [{ name: 'default', entities: [] }]
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			this.extendObject(schema.mappings[k], schema.model)
-			schema.mappings[k] = this.clearMapping(schema.mappings[k])
-			this.completeMapping(schema.mappings[k])
+			SchemaExtender.extendObject(schema.mappings[k], schema.model)
+			schema.mappings[k] = SchemaExtender.clearMapping(schema.mappings[k])
+			SchemaExtender.completeMapping(schema.mappings[k])
 		}
 		// dataSources
-		if (schema.dataSources.length > 0) {
-			for (const k in schema.dataSources) {
-				const dataSource = schema.dataSources[k]
-				if (dataSource.mapping === undefined) {
-					dataSource.mapping = schema.mappings[0].name
+		if (schema.dataSources === undefined || schema.dataSources.length === 0) {
+			throw new Error('Datasources not defined')
+		}
+		for (const k in schema.dataSources) {
+			const dataSource = schema.dataSources[k]
+			if (dataSource.mapping === undefined) {
+				dataSource.mapping = schema.mappings[0].name
+			}
+		}
+		// stages
+		if (schema.stages === undefined || schema.stages.length === 0) {
+			schema.stages = [{ name: 'default', defaultDataSource: schema.dataSources[0].name, dataSources: [] }]
+		}
+		for (const k in schema.stages) {
+			const stage = schema.stages[k]
+			if (stage.dataSources === undefined) {
+				stage.dataSources = []
+			}
+			if (stage.defaultDataSource === undefined) {
+				if (stage.dataSources.length > 0) {
+					stage.defaultDataSource = stage.dataSources[0].name
+				} else {
+					stage.defaultDataSource = schema.dataSources[0].name
 				}
 			}
 		}
-
 		return schema
 	}
 
-	private clearModel (source: Model): Model {
+	private static clearModel (source: Model): Model {
 		const target: Model = { enums: [], entities: [] }
 		if (source.entities !== undefined) {
 			for (let i = 0; i < source.entities.length; i++) {
@@ -320,7 +374,7 @@ class ConfigExtender {
 		return target
 	}
 
-	private completeModel (model:Model):void {
+	private static completeModel (model:Model):void {
 		if (model.entities !== undefined) {
 			for (let i = 0; i < model.entities.length; i++) {
 				const entity = model.entities[i]
@@ -341,74 +395,74 @@ class ConfigExtender {
 		}
 	}
 
-	private extendEntiy (entity: Entity, entities: Entity[]):void {
+	private static extendEntiy (entity: Entity, entities: Entity[]):void {
 		if (entity.extends !== undefined) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new Error(`${entity.extends} not found`)
 			}
-			this.extendEntiy(base, entities)
+			SchemaExtender.extendEntiy(base, entities)
 			if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
 			// extend properties
 			if (base.properties !== undefined && base.properties.length > 0) {
 				if (entity.properties === undefined) {
 					entity.properties = []
 				}
-				this.extendObject(entity.properties, base.properties)
+				SchemaExtender.extendObject(entity.properties, base.properties)
 			}
 			// extend relations
 			if (base.relations !== undefined && base.relations.length > 0) {
 				if (entity.relations === undefined) {
 					entity.relations = []
 				}
-				this.extendObject(entity.relations, base.relations)
+				SchemaExtender.extendObject(entity.relations, base.relations)
 			}
 			// se setea dado que ya fue extendido
 			delete entity.extends
 		}
 	}
 
-	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
+	private static extendMapping (mapping: Mapping, mappings: Mapping[]): void {
 		if (mapping.extends !== undefined) {
 			const base = mappings.find(p => p.name === mapping.extends)
 			if (base === undefined) {
 				throw new Error(`${mapping.extends} not found`)
 			}
-			this.extendMapping(base, mappings)
-			this.extendObject(mapping, base)
+			SchemaExtender.extendMapping(base, mappings)
+			SchemaExtender.extendObject(mapping, base)
 			// se setea dado que ya fue extendido
 			delete mapping.extends
 		}
 	}
 
-	private extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
+	private static extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
 		if (entity.extends !== undefined) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new Error(`${entity.extends} not found`)
 			}
-			this.extendEntiyMapping(base, entities)
+			SchemaExtender.extendEntiyMapping(base, entities)
 			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) entity.uniqueKey = base.uniqueKey
 			// extend indexes
 			if (base.indexes !== undefined && base.indexes.length > 0) {
 				if (entity.indexes === undefined) {
 					entity.indexes = []
 				}
-				this.extendObject(entity.indexes, base.indexes)
+				SchemaExtender.extendObject(entity.indexes, base.indexes)
 			}
 			// extend properties
 			if (base.properties !== undefined && base.properties.length > 0) {
 				if (entity.properties === undefined) {
 					entity.properties = []
 				}
-				this.extendObject(entity.properties, base.properties)
+				SchemaExtender.extendObject(entity.properties, base.properties)
 			}
 			// se setea dado que ya fue extendido
 			delete entity.extends
 		}
 	}
 
-	private clearMapping (source: Mapping): Mapping {
+	private static clearMapping (source: Mapping): Mapping {
 		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
 		if (source.entities !== undefined) {
 			for (let i = 0; i < source.entities.length; i++) {
@@ -420,7 +474,7 @@ class ConfigExtender {
 		return target
 	}
 
-	private extendObject (obj:any, base:any) {
+	private static extendObject (obj:any, base:any) {
 		if (Array.isArray(base)) {
 			for (let i = 0; i < base.length; i++) {
 				const baseChild = base[i]
@@ -428,7 +482,7 @@ class ConfigExtender {
 				if (objChild === undefined) {
 					obj.push(baseChild)
 				} else {
-					this.extendObject(objChild, baseChild)
+					SchemaExtender.extendObject(objChild, baseChild)
 				}
 			}
 		} else if (typeof base === 'object') {
@@ -436,14 +490,14 @@ class ConfigExtender {
 				if (obj[k] === undefined) {
 					obj[k] = base[k]
 				} else if (typeof obj[k] === 'object') {
-					this.extendObject(obj[k], base[k])
+					SchemaExtender.extendObject(obj[k], base[k])
 				}
 			}
 		}
 		return obj
 	}
 
-	private completeMapping (mapping:Mapping):void {
+	private static completeMapping (mapping:Mapping):void {
 		if (mapping.entities !== undefined) {
 			for (let i = 0; i < mapping.entities.length; i++) {
 				const entity = mapping.entities[i]
@@ -463,21 +517,21 @@ export class SchemaConfig {
 	public dataSource: DataSourceConfig
 	public model: ModelConfig
 	public mapping: MappingsConfig
+	public stage: StageConfig
 	public schema: Schema
 	public workspace: string
-	private extender:ConfigExtender
 
 	constructor (workspace:string) {
 		this.workspace = workspace
 		this.dataSource = new DataSourceConfig()
-		this.model = new ModelConfig()
+		this.model = new ModelConfig({ entities: [], enums: [] })
 		this.mapping = new MappingsConfig()
-		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], dataSources: [] }
-		this.extender = new ConfigExtender()
+		this.stage = new StageConfig()
+		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], dataSources: [], stages: [] }
 	}
 
 	public async load (schema: Schema): Promise<Schema> {
-		this.schema = this.extender.extend(schema)
+		this.schema = SchemaExtender.extend(schema)
 		this.model.set(this.schema.model)
 		if (this.schema.mappings) {
 			for (const p in this.schema.mappings) {
@@ -493,7 +547,13 @@ export class SchemaConfig {
 				this.dataSource.load(dataSource)
 			}
 		}
-		this.dataSource.default = this.schema.defaultDatastore
+		if (this.schema.stages) {
+			for (const p in this.schema.stages) {
+				const stage = this.schema.stages[p]
+				this.stage.load(stage)
+			}
+		}
+		this.stage.default = this.schema.app.defaultStage
 		return this.schema
 	}
 }

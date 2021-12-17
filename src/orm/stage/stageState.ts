@@ -1,15 +1,15 @@
-import { Mapping, MappingState } from '../model'
+import { Model, ModelState } from '../model'
 import { SchemaConfig } from '../manager'
 import { Helper } from '../helper'
 const path = require('path')
 
-export class DataSourceState {
+export class StageState {
 	private schema: SchemaConfig
 	constructor (schema:SchemaConfig) {
 		this.schema = schema
 	}
 
-	public async get (name:string):Promise<MappingState> {
+	public async get (name:string):Promise<ModelState> {
 		const file = this.getFile(name)
 		const exists = await Helper.existsPath(file)
 		if (exists) {
@@ -18,13 +18,13 @@ export class DataSourceState {
 				return JSON.parse(content)
 			}
 		}
-		return { mapping: { name: '', entities: [] }, mappingData: {}, pendingData: [] }
+		return { model: { entities: [], enums: [] }, mappingData: {}, pendingData: [] }
 	}
 
-	public async updateMapping (name:string, mapping:Mapping):Promise<void> {
+	public async updateModel (name:string, model:Model):Promise<void> {
 		const stateFile = this.getFile(name)
 		const state = await this.get(name)
-		state.mapping = mapping
+		state.model = model
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 

@@ -1,13 +1,13 @@
-import { DataSourceActionDML } from './dataSourceActionDML'
+import { StageActionDML } from './stageActionDML'
 import { Query, SchemaData, Entity } from '../model'
 
-export class DataSourceExport extends DataSourceActionDML {
+export class StageExport extends StageActionDML {
 	public async execute (): Promise<SchemaData> {
 		const queries = await this.build()
 		const data = {}
 		const schemaExport: SchemaData = { entities: [] }
 		const context = {}
-		await this.executor.transaction(this.dataSource, context, async (tr) => {
+		await this.executor.transaction(this.stage, context, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const rows = await tr.execute(query, data)
@@ -26,6 +26,6 @@ export class DataSourceExport extends DataSourceActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(entity)
-		return await this.expressionManager.toQuery(expression, this.dataSource.name)
+		return await this.expressionManager.toQuery(expression, this.stage)
 	}
 }

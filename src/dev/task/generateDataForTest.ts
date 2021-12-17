@@ -19,7 +19,7 @@ async function exec (fn: any) {
 	return result
 }
 
-async function writeTest (dataSources: string[], category: CategoryTest): Promise<number> {
+async function writeTest (stages: string[], category: CategoryTest): Promise<number> {
 	category.errors = 0
 	for (const q in category.test) {
 		const expressionTest = category.test[q] as ExpressionTest
@@ -34,62 +34,62 @@ async function writeTest (dataSources: string[], category: CategoryTest): Promis
 			const metadata: any = await orm.metadata(expressionTest.expression as string)
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
-			for (const r in dataSources) {
-				const dataSource = dataSources[r]
+			for (const r in stages) {
+				const stage = stages[r]
 				let sentence
 				let error
 				try {
-					sentence = await orm.sentence(expressionTest.expression as string, dataSource)
+					sentence = await orm.sentence(expressionTest.expression as string, stage)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.sentences.push({ dataSource: dataSource, error: error })
+						expressionTest.sentences.push({ stage: stage, error: error })
 						expressionTest.errors++
 					} else if (sentence !== undefined) {
-						expressionTest.sentences.push({ dataSource: dataSource, sentence: sentence })
+						expressionTest.sentences.push({ stage: stage, sentence: sentence })
 					} else {
-						console.error('error sentence ' + dataSource + ' ' + category.name + ':' + expressionTest.name)
+						console.error('error sentence ' + stage + ' ' + category.name + ':' + expressionTest.name)
 					}
 				}
 			}
 			expressionTest.executions = []
 			const results: ExecutionResult[] = []
-			for (const p in dataSources) {
-				const dataSource = dataSources[p]
+			for (const p in stages) {
+				const stage = stages[p]
 				let result
 				let error
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
 					const context = category.context !== undefined ? category.context : {}
-					result = await orm.execute(expressionTest.lambda, data, context, dataSource)
+					result = await orm.execute(expressionTest.lambda, data, context, stage)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.executions.push({ dataSource: dataSource, error: error })
+						expressionTest.executions.push({ stage: stage, error: error })
 						expressionTest.errors++
 					} else if (result !== undefined) {
-						results.push({ dataSource: dataSource, result: result })
+						results.push({ stage: stage, result: result })
 					} else {
-						console.error('error execution ' + dataSource + ' ' + category.name + ':' + expressionTest.name)
+						console.error('error execution ' + stage + ' ' + category.name + ':' + expressionTest.name)
 					}
 				}
 			}
 			if (results.length === 1) {
 				expressionTest.result = results[0].result
-				expressionTest.executions.push({ dataSource: results[0].dataSource })
+				expressionTest.executions.push({ stage: results[0].stage })
 			} else if (results.length > 1) {
 				expressionTest.result = results[0].result
-				expressionTest.executions.push({ dataSource: results[0].dataSource })
+				expressionTest.executions.push({ stage: results[0].stage })
 				const pattern = JSON.stringify(results[0].result)
 				for (let i = 1; i < results.length; i++) {
 					const result = JSON.stringify(results[i].result)
 					if (result === pattern) {
-						expressionTest.executions.push({ dataSource: results[i].dataSource })
+						expressionTest.executions.push({ stage: results[i].stage })
 					} else {
-						expressionTest.executions.push({ dataSource: results[i].dataSource, error: `not equal ${results[0].dataSource}`, result: results[i].result })
+						expressionTest.executions.push({ stage: results[i].stage, error: `not equal ${results[0].stage}`, result: results[i].result })
 						expressionTest.errors++
 					}
 				}
@@ -116,10 +116,10 @@ async function writeTest (dataSources: string[], category: CategoryTest): Promis
 	}
 	return category.errors
 }
-async function writeQueryTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeQueryTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'query',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: {
 			a: { id: 1 },
@@ -150,10 +150,10 @@ async function writeQueryTest (dataSources: string[]): Promise<number> {
 		]
 	})
 }
-async function writeNumeriFunctionsTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeNumeriFunctionsTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'numeric functions',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: { a: { id: 1 } },
 		test:
@@ -176,8 +176,8 @@ async function writeNumeriFunctionsTest (dataSources: string[]): Promise<number>
 			]
 	})
 }
-async function writeGroupByTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeGroupByTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'groupBy',
 		context: {},
 		data: { a: { id: 1 } },
@@ -196,10 +196,10 @@ async function writeGroupByTest (dataSources: string[]): Promise<number> {
 			]
 	})
 }
-async function writeIncludeTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeIncludeTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'include',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: { a: { id: 1 } },
 		test:
@@ -215,10 +215,10 @@ async function writeIncludeTest (dataSources: string[]): Promise<number> {
 			]
 	})
 }
-async function writeInsertsTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeInsertsTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'inserts',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -272,10 +272,10 @@ async function writeInsertsTest (dataSources: string[]): Promise<number> {
 			]
 	})
 }
-async function writeUpdateTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeUpdateTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'update',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: {
 			a: {
@@ -576,10 +576,10 @@ async function writeUpdateTest (dataSources: string[]): Promise<number> {
 			]
 	})
 }
-async function writeDeleteTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeDeleteTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'delete',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: {
 			a: { id: 9 },
@@ -735,10 +735,10 @@ async function writeDeleteTest (dataSources: string[]): Promise<number> {
 	})
 }
 // TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details)
-async function writeBulkInsertTest (dataSources: string[]): Promise<number> {
-	return await writeTest(dataSources, {
+async function writeBulkInsertTest (stages: string[]): Promise<number> {
+	return await writeTest(stages, {
 		name: 'bulkInsert',
-		// dataSource: 'source',
+		// stage: 'source',
 		context: {},
 		data: {
 			a: [{
@@ -988,40 +988,40 @@ async function bulkInsert2 () {
 	const result = await exec(async () => (await orm.execute(expression, orders, {}, 'source')))
 }
 
-async function datastoreExport (source: string) {
+async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
-	const data = await orm.dataSource.export(source).execute()
+	const data = await orm.stage.export(source).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
-async function datastoreImport (source: string, target: string) {
+async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
-	await orm.dataSource.import(target).execute(data)
+	await orm.stage.import(target).execute(data)
 }
 
-export async function apply (dataSources: string[], callback: any) {
+export async function apply (stages: string[], callback: any) {
 	await orm.init()
 	let errors = 0
 
-	await orm.dataSource.sync('source').execute()
-	await datastoreExport('source')
-	for (const p in dataSources) {
-		const dataSource = dataSources[p]
-		await orm.dataSource.clean(dataSource).execute(true)
-		await orm.dataSource.sync(dataSource).execute()
-		await datastoreImport('source', dataSource)
-		await datastoreExport(dataSource)
+	await orm.stage.sync('source').execute()
+	await stageExport('source')
+	for (const p in stages) {
+		const stage = stages[p]
+		await orm.stage.clean(stage).execute(true)
+		await orm.stage.sync(stage).execute()
+		await stageImport('source', stage)
+		await stageExport(stage)
 	}
 
-	errors = +await writeQueryTest(dataSources)
-	errors = +await writeNumeriFunctionsTest(dataSources)
-	errors = +await writeGroupByTest(dataSources)
-	errors = +await writeIncludeTest(dataSources)
-	// errors = +await writeInsertsTest(dataSources)
-	// errors = +await writeUpdateTest(dataSources)
-	// errors = +await writeDeleteTest(dataSources)
-	// errors = +await writeBulkInsertTest(dataSources)
+	errors = +await writeQueryTest(stages)
+	errors = +await writeNumeriFunctionsTest(stages)
+	errors = +await writeGroupByTest(stages)
+	errors = +await writeIncludeTest(stages)
+	// errors = +await writeInsertsTest(stages)
+	// errors = +await writeUpdateTest(stages)
+	// errors = +await writeDeleteTest(stages)
+	// errors = +await writeBulkInsertTest(stages)
 
 	// //operators comparation , matematica
 	// //string functions

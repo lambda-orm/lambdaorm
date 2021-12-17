@@ -1,16 +1,16 @@
 import { Parameter } from './../../orm'
 
 export interface ExecutionTest {
-	dataSource: string
+	stage: string
 	result?: any
 	error?: string
 }
 export interface ExecutionResult {
-	dataSource: string
+	stage: string
 	result?: any
 }
 export interface SentenceTest {
-	dataSource: string
+	stage: string
 	sentence?: any
 	error?: string
 }
@@ -31,13 +31,12 @@ export interface ExpressionTest {
 }
 export interface CategoryTest {
 	name: string
-	// dataSource: string
 	data: any
 	context: any
 	test: ExpressionTest[]
 	errors?: number
 }
 export interface Test {
-	dataSource: string
+	stage: string
 	categories: CategoryTest[]
 }

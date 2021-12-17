@@ -1,20 +1,20 @@
-import { DataSource, Query, Entity } from '../model'
+import { Query, Entity } from '../model'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
-import { DataSourceState } from './dataSourceState'
+import { StageState } from './stageState'
 
-export abstract class DataSourceActionDML {
-	protected state: DataSourceState
+export abstract class StageActionDML {
+	protected state: StageState
 	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
-	protected dataSource: DataSource
+	protected stage: string
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state:DataSourceState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, dataSource:DataSource) {
+	constructor (state:StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage:string) {
 		this.state = state
 		this.model = model
 		this.expressionManager = expressionManager
 		this.executor = executor
-		this.dataSource = dataSource
+		this.stage = stage
 	}
 
 	public async sentence ():Promise<any> {

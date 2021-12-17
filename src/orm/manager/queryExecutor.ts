@@ -1,25 +1,26 @@
 
-import { Data, Parameter, Query, DataSource, IEvaluator } from './../model'
+import { Data, Parameter, Query, SentenceInfo } from './../model'
 import { Connection, ConnectionManager } from './../connection'
 import { DialectMetadata } from './../language/dialectMetadata'
 import { LanguageManager } from './../language'
 import { MappingConfig } from './schema'
+import { Routing, SchemaConfig } from '.'
 
 export class QueryExecutor {
-	public dataSource: DataSource
+	public stage: string
 	private languageManager: LanguageManager
 	private connectionManager: ConnectionManager
 	private connections: any
 	private transactionable: boolean
-	private mapping: MappingConfig
-	private evaluator:IEvaluator
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, evaluator:IEvaluator, dataSource: DataSource, mapping:MappingConfig, transactionable = false) {
+	private schemaConfig: SchemaConfig
+	private routing:Routing
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, routing:Routing, schemaConfig:SchemaConfig, stage: string, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
-		this.dataSource = dataSource
-		this.mapping = mapping
+		this.stage = stage
+		this.schemaConfig = schemaConfig
 		this.transactionable = transactionable
-		this.evaluator = evaluator
+		this.routing = routing
 		this.connections = {}
 	}
 
@@ -57,18 +58,23 @@ export class QueryExecutor {
 		this.connections = {}
 	}
 
-	private async getDatastore (query: Query, context: any): Promise<string> {
-		const actionType = query.sentence === 'select' ? 'read' : 'write'
-		const queryInfo = { entity: query.entity, action: query.name, actionType: actionType, sentence: query.sentence }
-		const _context = { query: queryInfo, context: context }
-		for (const i in this.dataSource.rules) {
-			const rule = this.dataSource.rules[i]
-			if (await this.evaluator.eval(rule.rule, _context) === true) {
-				return rule.dataSource
-			}
-		}
-		return this.dataSource.name
+	private async getDataSource (query: Query, context: any): Promise<string> {
+		const sentenceInfo: SentenceInfo = { entity: query.entity, name: query.sentence }
+		return await this.routing.getDataSource(sentenceInfo, context, this.stage)
 	}
+
+	// private async getDatastore (query: Query, context: any): Promise<string> {
+	// const actionType = query.sentence === 'select' ? 'read' : 'write'
+	// const queryInfo = { entity: query.entity, action: query.name, actionType: actionType, sentence: query.sentence }
+	// const _context = { query: queryInfo, context: context }
+	// for (const i in this.dataSource.rules) {
+	// const rule = this.dataSource.rules[i]
+	// if (await this.evaluator.eval(rule.rule, _context) === true) {
+	// return rule.dataSource
+	// }
+	// }
+	// return this.dataSource.name
+	// }
 
 	public async execute (query: Query, data: any, context: any): Promise<any> {
 		const _data = new Data(data)
@@ -78,15 +84,17 @@ export class QueryExecutor {
 	protected async _execute (query:Query, data:Data, context: any):Promise<any> {
 		let result: any
 		try {
-			const dataSource = await this.getDatastore(query, context)
-			const connection = await this.getConnection(dataSource)
+			const dataSourceName = await this.getDataSource(query, context)
+			const dataSource = this.schemaConfig.dataSource.get(dataSourceName)
+			const mapping = this.schemaConfig.mapping.getInstance(dataSource.mapping)
+			const connection = await this.getConnection(dataSource.name)
 			const metadata = this.languageManager.dialectMetadata(query.dialect)
 			switch (query.name) {
-			case 'select': result = await this.select(query, data, metadata, connection, context); break
-			case 'insert': result = await this.insert(query, data, metadata, connection, context); break
-			case 'update': result = await this.update(query, data, metadata, connection, context); break
-			case 'delete': result = await this.delete(query, data, metadata, connection, context); break
-			case 'bulkInsert': result = await this.bulkInsert(query, data, metadata, connection, context); break
+			case 'select': result = await this.select(query, data, mapping, metadata, connection, context); break
+			case 'insert': result = await this.insert(query, data, mapping, metadata, connection, context); break
+			case 'update': result = await this.update(query, data, mapping, metadata, connection, context); break
+			case 'delete': result = await this.delete(query, data, mapping, metadata, connection, context); break
+			case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, metadata, connection, context); break
 			case 'truncateTable': result = await connection.execute(query); break
 			case 'createTable': result = await connection.execute(query); break
 			case 'createFk': result = await connection.execute(query); break
@@ -111,8 +119,8 @@ export class QueryExecutor {
 		return result
 	}
 
-	protected async select (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
-		const mainResult = await connection.select(this.mapping, query, this.params(query.parameters, metadata, data))
+	protected async select (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
+		const mainResult = await connection.select(mapping, query, this.params(query.parameters, metadata, data))
 		if (mainResult.length > 0) {
 			for (const p in query.children) {
 				const include = query.children[p]
@@ -150,9 +158,9 @@ export class QueryExecutor {
 		return mainResult
 	}
 
-	protected async insert (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<number> {
+	protected async insert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection, context: any):Promise<number> {
 	// before insert the relationships of the type oneToOne and oneToMany
-		const autoincrement = this.mapping.getAutoincrement(query.entity)
+		const autoincrement = mapping.getAutoincrement(query.entity)
 		for (const p in query.children) {
 			const include = query.children[p]
 			const relation = data.get(include.relation.name)
@@ -165,7 +173,7 @@ export class QueryExecutor {
 			}
 		}
 		// insert main entity
-		const insertId = await connection.insert(this.mapping, query, this.params(query.parameters, metadata, data))
+		const insertId = await connection.insert(mapping, query, this.params(query.parameters, metadata, data))
 		if (autoincrement) {
 			data.set(autoincrement.name, insertId)
 		}
@@ -189,9 +197,9 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	protected async bulkInsert (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<number[]> {
+	protected async bulkInsert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection, context: any):Promise<number[]> {
 	// before insert the relationships of the type oneToOne and oneToMany
-		const autoincrement = this.mapping.getAutoincrement(query.entity)
+		const autoincrement = mapping.getAutoincrement(query.entity)
 		for (const p in query.children) {
 			const include = query.children[p]
 			if (include.relation.type === 'oneToOne' || include.relation.type === 'oneToMany') {
@@ -210,7 +218,7 @@ export class QueryExecutor {
 			}
 		}
 		// insert main entity
-		const ids = await connection.bulkInsert(this.mapping, query, this.rows(query, metadata, data.data), query.parameters)
+		const ids = await connection.bulkInsert(mapping, query, this.rows(query, metadata, data.data), query.parameters)
 		if (autoincrement) {
 			for (let i = 0; i < data.data.length; i++) {
 				data.data[i][autoincrement.name] = ids[i]
@@ -241,8 +249,8 @@ export class QueryExecutor {
 		return ids
 	}
 
-	protected async update (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
-		const changeCount = await connection.update(this.mapping, query, this.params(query.parameters, metadata, data))
+	protected async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
+		const changeCount = await connection.update(mapping, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
 			const include = query.children[p]
 			const relation = data.get(include.relation.name)
@@ -262,7 +270,7 @@ export class QueryExecutor {
 		return changeCount
 	}
 
-	protected async delete (query:Query, data:Data, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
+	protected async delete (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection, context: any):Promise<any> {
 	// before remove relations entities
 		for (const p in query.children) {
 			const include = query.children[p]
@@ -281,7 +289,7 @@ export class QueryExecutor {
 			}
 		}
 		// remove main entity
-		const changeCount = await connection.delete(this.mapping, query, this.params(query.parameters, metadata, data))
+		const changeCount = await connection.delete(mapping, query, this.params(query.parameters, metadata, data))
 		return changeCount
 	}
 

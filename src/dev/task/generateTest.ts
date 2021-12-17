@@ -5,7 +5,7 @@ import fs from 'fs'
 import path from 'path'
 const ConfigExtends = require('config-extends')
 
-async function writeUnitTest (dataSources: string[], category: CategoryTest): Promise<void> {
+async function writeUnitTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 	lines.push('import { orm,Helper } from \'../../orm\'')
 	lines.push('beforeAll(async () => {')
@@ -50,16 +50,16 @@ async function writeUnitTest (dataSources: string[], category: CategoryTest): Pr
 		if (expTest.expression && expTest.completeExpression) {
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
-			for (const r in dataSources) {
-				const dataSource = dataSources[r]
+			for (const r in stages) {
+				const stage = stages[r]
 				if (expTest.sentences !== undefined) {
-					const sentence = expTest.sentences.find(p => p.dataSource === dataSource && p.error === undefined)
+					const sentence = expTest.sentences.find(p => p.stage === stage && p.error === undefined)
 					if (sentence !== undefined && sentence.sentence !== undefined) {
 						const _sentence = Helper.replace(sentence.sentence, '\n', '; ')
-						lines.push(`\t\tconst ${dataSource}Expected = '${_sentence}'`)
-						lines.push(`\t\tlet ${dataSource} =  await orm.sentence(expression,'${dataSource}')`)
-						lines.push(`\t\t${dataSource}=Helper.replace(${dataSource},'\\n','; ')`)
-						lines.push(`\t\texpect(${dataSource}Expected).toBe(${dataSource})`)
+						lines.push(`\t\tconst ${stage}Expected = '${_sentence}'`)
+						lines.push(`\t\tlet ${stage} =  await orm.sentence(expression,'${stage}')`)
+						lines.push(`\t\t${stage}=Helper.replace(${stage},'\\n','; ')`)
+						lines.push(`\t\texpect(${stage}Expected).toBe(${stage})`)
 					}
 				}
 			}
@@ -75,7 +75,7 @@ async function writeUnitTest (dataSources: string[], category: CategoryTest): Pr
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
 }
-async function writeIntegrationTest (dataSources: string[], category: CategoryTest): Promise<void> {
+async function writeIntegrationTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 
 	lines.push('import { orm } from \'../../orm\'')
@@ -93,10 +93,10 @@ async function writeIntegrationTest (dataSources: string[], category: CategoryTe
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
-			for (const p in dataSources) {
-				const dataSource = dataSources[p]
-				lines.push(`\t\tconst ${dataSource}Result =  await orm.execute(expression, data,context,'${dataSource}')`)
-				lines.push(`\t\texpect(expected).toEqual(${dataSource}Result)`)
+			for (const p in stages) {
+				const stage = stages[p]
+				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,context,'${stage}')`)
+				lines.push(`\t\texpect(expected).toEqual(${stage}Result)`)
 			}
 			lines.push('\t})')
 		}
@@ -111,11 +111,11 @@ async function writeIntegrationTest (dataSources: string[], category: CategoryTe
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
 }
 
-export async function apply (dataForTestPath: string, dataSources: string[], callback: any) {
+export async function apply (dataForTestPath: string, stages: string[], callback: any) {
 	const testData = await ConfigExtends.apply(dataForTestPath)
 	for (const k in testData) {
-		await writeUnitTest(dataSources, testData[k])
-		await writeIntegrationTest(dataSources, testData[k])
+		await writeUnitTest(stages, testData[k])
+		await writeIntegrationTest(stages, testData[k])
 	}
 	callback()
 }

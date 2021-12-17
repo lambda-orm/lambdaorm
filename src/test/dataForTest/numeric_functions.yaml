@@ -7,7 +7,7 @@ test:
   - name: function abs
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, (p.UnitPrice * -1) AS `source`,
           ROUND(ABS((p.UnitPrice * -1)),10) AS `result` FROM Products p  WHERE
@@ -33,15 +33,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: -18
-        result: 18
+      - stage: mysql
+    result: []
   - name: function acos
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 0.25 AS `source`, ROUND(ACOS(0.25),10)
           AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -66,15 +63,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 0.25
-        result: 1.3181160717
+      - stage: mysql
+    result: []
   - name: function asin
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 0.25 AS `source`, ROUND(ASIN(0.25),10)
           AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -99,15 +93,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 0.25
-        result: 0.2526802551
+      - stage: mysql
+    result: []
   - name: function atan
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 0.25 AS `source`, ROUND(ATAN(0.25),10)
           AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -132,15 +123,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 0.25
-        result: 0.2449786631
+      - stage: mysql
+    result: []
   - name: function atan2
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 0.5 AS `source`,
           ROUND(ATAN(0.25,1),10) AS `result` FROM Products p  WHERE p.ProductID
@@ -166,15 +154,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 0.5
-        result: 0.2449786631
+      - stage: mysql
+    result: []
   - name: function ceil
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 25.75 AS `source`,
           ROUND(CEIL(25.75),10) AS `result` FROM Products p  WHERE p.ProductID =
@@ -200,15 +185,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 25.75
-        result: 26
+      - stage: mysql
+    result: []
   - name: function cos
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 2 AS `source`, ROUND(COS(2),10) AS
           `result` FROM Products p  WHERE p.ProductID = ? 
@@ -233,15 +215,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 2
-        result: -0.4161468365
+      - stage: mysql
+    result: []
   - name: function exp
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 1 AS `source`, ROUND(EXP(1),10) AS
           `result` FROM Products p  WHERE p.ProductID = ? 
@@ -266,15 +245,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 1
-        result: 2.7182818285
+      - stage: mysql
+    result: []
   - name: function floor
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 25.75 AS `source`,
           ROUND(FLOOR(25.75),10) AS `result` FROM Products p  WHERE p.ProductID
@@ -300,15 +276,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 25.75
-        result: 25
+      - stage: mysql
+    result: []
   - name: function ln
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 2 AS `source`, ROUND(LN(2),10) AS
           `result` FROM Products p  WHERE p.ProductID = ? 
@@ -333,15 +306,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 2
-        result: 0.6931471806
+      - stage: mysql
+    result: []
   - name: function log
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 10 AS `m`, 20 AS `n`,
           ROUND(LOG(10,20),10) AS `result` FROM Products p  WHERE p.ProductID =
@@ -370,16 +340,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        m: 10
-        'n': 20
-        result: 1.3010299957
+      - stage: mysql
+    result: []
   - name: function round
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 135.375 AS `source`, ROUND(135.375,2)
           AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -404,15 +370,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 135.375
-        result: 135.38
+      - stage: mysql
+    result: []
   - name: function sign
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 255.5 AS `source`,
           ROUND(SIGN(255.5),10) AS `result` FROM Products p  WHERE p.ProductID =
@@ -438,15 +401,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 255.5
-        result: 1
+      - stage: mysql
+    result: []
   - name: function tan
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 1.75 AS `source`, ROUND(TAN(1.75),10)
           AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -471,15 +431,12 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 1.75
-        result: -5.5203799225
+      - stage: mysql
+    result: []
   - name: function trunc
     data: a
     sentences:
-      - dataSource: mysql
+      - stage: mysql
         sentence: >-
           SELECT p.ProductName AS `name`, 135.375 AS `source`,
           ROUND(TRUNCATE(135.375,2),10) AS `result` FROM Products p  WHERE
@@ -505,9 +462,6 @@ test:
       - name: result
         type: any
     executions:
-      - dataSource: mysql
-    result:
-      - name: Chai
-        source: 135.375
-        result: 135.37
+      - stage: mysql
+    result: []
 errors: 0

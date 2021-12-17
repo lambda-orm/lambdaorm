@@ -70,7 +70,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 
 	public createFk (entity: Entity, relation: Relation): Query {
 		const entityMapping = this.mapping.getEntity(entity.name) as EntityMapping
-		const column = entity.properties.find(p => p.name === relation.from) as PropertyMapping
+		const column = entityMapping.properties.find(p => p.name === relation.from) as PropertyMapping
 		const fEntity = this.mapping.getEntity(relation.entity) as EntityMapping
 		const fColumn = fEntity.properties.find(p => p.name === relation.to) as PropertyMapping
 		const alterEntity = this.metadata.ddl('alterTable').replace('{name}', this.metadata.delimiter(entityMapping.mapping))
@@ -87,8 +87,8 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		const entityMapping = this.mapping.getEntity(entity.name) as EntityMapping
 		const columnTemplate = this.metadata.other('column')
 		for (let i = 0; i < index.fields.length; i++) {
-			const property = entity.properties.find(p => p.name === index.fields[i]) as PropertyMapping
-			columns.push(columnTemplate.replace('{name}', this.metadata.delimiter(property.mapping)))
+			const propertyMapping = entityMapping.properties.find(p => p.name === index.fields[i]) as PropertyMapping
+			columns.push(columnTemplate.replace('{name}', this.metadata.delimiter(propertyMapping.mapping)))
 		}
 		let text = this.metadata.ddl('createIndex')
 		text = text.replace('{name}', this.metadata.delimiter(entityMapping.mapping + '_' + index.name))
@@ -134,7 +134,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		const entityMapping = this.mapping.getEntity(entity.name) as EntityMapping
 		const columnTemplate = this.metadata.other('column')
 		for (let i = 0; i < primaryKey.length; i++) {
-			const property = entity.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
+			const property = entityMapping.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
 			columns.push(columnTemplate.replace('{name}', this.metadata.delimiter(property.mapping)))
 		}
 		const alterEntity = this.metadata.ddl('alterTable').replace('{name}', this.metadata.delimiter(entityMapping.mapping))
@@ -149,7 +149,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		const entityMapping = this.mapping.getEntity(entity.name) as EntityMapping
 		const columnTemplate = this.metadata.other('column')
 		for (let i = 0; i < uniqueKey.length; i++) {
-			const property = entity.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
+			const property = entityMapping.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
 			columns.push(columnTemplate.replace('{name}', this.metadata.delimiter(property.mapping)))
 		}
 		const alterEntity = this.metadata.ddl('alterTable').replace('{name}', this.metadata.delimiter(entityMapping.mapping))
@@ -161,7 +161,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 
 	public addFk (entity:Entity, relation:Relation):Query {
 		const entityMapping = this.mapping.getEntity(entity.name) as EntityMapping
-		const column = entity.properties.find(p => p.name === relation.from) as PropertyMapping
+		const column = entityMapping.properties.find(p => p.name === relation.from) as PropertyMapping
 		const fEntity = this.mapping.getEntity(relation.entity) as EntityMapping
 		const fColumn = fEntity.properties.find(p => p.name === relation.to) as PropertyMapping
 		const alterEntity = this.metadata.ddl('alterTable').replace('{name}', this.metadata.delimiter(entityMapping.mapping))

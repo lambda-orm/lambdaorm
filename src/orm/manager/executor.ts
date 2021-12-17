@@ -1,32 +1,33 @@
 
-import { Query, DataSource } from './../model/index'
+import { Query } from './../model/index'
 import { ConnectionManager } from './../connection'
 import { LanguageManager } from './../language'
-import { ExpressionManager, QueryExecutor, Transaction } from './'
+import { ExpressionManager, QueryExecutor, Transaction, Routing } from './'
 import { SchemaConfig } from './schema'
 
 export class Executor {
 	private languageManager: LanguageManager
-	private expressionManager: ExpressionManager
+	private routing: Routing
 	private connectionManager: ConnectionManager
 	private schemaConfig: SchemaConfig
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, expressionManager:ExpressionManager, schemaConfig: SchemaConfig) {
+	private expressionManager:ExpressionManager
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, routing:Routing, schemaConfig: SchemaConfig, expressionManager:ExpressionManager) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
-		this.expressionManager = expressionManager
+		this.routing = routing
 		this.schemaConfig = schemaConfig
+		this.expressionManager = expressionManager
 	}
 
-	public async execute (dataSource: DataSource, query: Query, data: any, context: any): Promise<any> {
+	public async execute (query: Query, data: any, context: any, stage:string): Promise<any> {
 		let error: any
 		let result:any
 		if (query.children && query.children.length > 0) {
-			await this.transaction(dataSource, context, async function (tr: Transaction) {
+			await this.transaction(stage, context, async function (tr: Transaction) {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const mapping = this.schemaConfig.mapping.getInstance(dataSource.mapping)
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, dataSource, mapping, false)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.routing, this.schemaConfig, stage, false)
 			try {
 				result = await queryExecutor.execute(query, data, context)
 			} catch (_error) {
@@ -41,14 +42,13 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (dataSource:DataSource, queries: Query[], context: any, tryAllCan = false):Promise<any> {
+	public async executeList (stage: string, queries: Query[], context: any, tryAllCan = false):Promise<any> {
 		const results: any[] = []
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
-				const mapping = this.schemaConfig.mapping.getInstance(dataSource.mapping)
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, dataSource, mapping, false)
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.routing, this.schemaConfig, stage, false)
 				try {
 					const result = await queryExecutor.execute(query, context, {})
 					results.push(result)
@@ -59,7 +59,7 @@ export class Executor {
 				}
 			}
 		} else {
-			await this.transaction(dataSource, context, async function (tr: Transaction) {
+			await this.transaction(stage, context, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
 					const result = await tr.execute(query)
@@ -75,9 +75,8 @@ export class Executor {
  * @param dataSource Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (dataSource: DataSource, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const mapping = this.schemaConfig.mapping.getInstance(dataSource.mapping)
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.expressionManager, dataSource, mapping, true)
+	public async transaction (stage: string, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.routing, this.schemaConfig, stage, true)
 		let error:any
 		try {
 			const transaction = new Transaction(context, this.expressionManager, queryExecutor)

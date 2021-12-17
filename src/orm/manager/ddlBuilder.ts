@@ -1,19 +1,19 @@
-import { SchemaConfig, ModelConfig, MappingConfig } from '.'
+import { SchemaConfig, ModelConfig, MappingConfig, Routing } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
-import { Query, Delta, Index, DataSource, Relation, Entity, EntityMapping, PropertyMapping, IEvaluator } from '../model'
+import { Query, Delta, Index, DataSource, Relation, Entity, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
 
 export class DDLBuilder {
 	private languageManager: LanguageManager
 	private schema: SchemaConfig
 	private model:ModelConfig
-	private evaluator:IEvaluator
-	public dataSource: DataSource
-	constructor (schema: SchemaConfig, evaluator:IEvaluator, languageManager:LanguageManager, dataSource: DataSource) {
+	private routing:Routing
+	public stage: string
+	constructor (schema: SchemaConfig, routing:Routing, languageManager:LanguageManager, stage: string) {
 		this.schema = schema
 		this.model = schema.model
-		this.evaluator = evaluator
+		this.routing = routing
 		this.languageManager = languageManager
-		this.dataSource = dataSource
+		this.stage = stage
 	}
 
 	public async drop (entities: string[]): Promise<Query[]> {
@@ -23,13 +23,13 @@ export class DDLBuilder {
 		for (const p in sortedEntities) {
 			const entityName = sortedEntities[p]
 			const entity = this.model.getEntity(entityName) as Entity
-			const dataSource = await this.getDatastore(entityName)
+			const dataSource = await this.getDataSource(entityName)
 
 			if (entity.relations) {
 				for (const q in entity.relations) {
 					const relation = entity.relations[q] as Relation
 
-					const relatedDatabase = await this.getDatastore(relation.entity)
+					const relatedDatabase = await this.getDataSource(relation.entity)
 					if (relatedDatabase.name !== dataSource.name) continue
 
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
@@ -43,7 +43,7 @@ export class DDLBuilder {
 		for (const i in sortedEntities) {
 			const entityName = sortedEntities[i]
 			const entity = this.model.getEntity(entityName) as Entity
-			const dataSource = await this.getDatastore(entityName)
+			const dataSource = await this.getDataSource(entityName)
 			if (entity.indexes) {
 				for (const j in entity.indexes) {
 					const index = entity.indexes[j]
@@ -62,7 +62,7 @@ export class DDLBuilder {
 		for (const i in entities) {
 			const entityName = entities[i]
 			const entity = this.model.getEntity(entityName) as Entity
-			const dataSource = await this.getDatastore(entity.name)
+			const dataSource = await this.getDataSource(entity.name)
 			const query = this.builder(dataSource).truncateEntity(entity)
 			queries.push(query)
 		}
@@ -75,7 +75,7 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDatastore(entityChanged.name)
+			const dataSource = await this.getDataSource(entityChanged.name)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'primaryKey') {
@@ -111,7 +111,7 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDatastore(entityChanged.name)
+			const dataSource = await this.getDataSource(entityChanged.name)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'index') {
@@ -133,7 +133,7 @@ export class DDLBuilder {
 						const newRelation = changed.delta.changed[c].new as Relation
 						const oldRelation = changed.delta.changed[c].old as Relation
 
-						const relatedDatabase = await this.getDatastore(newRelation.entity)
+						const relatedDatabase = await this.getDataSource(newRelation.entity)
 						if (relatedDatabase.name !== dataSource.name) continue
 
 						if (this.changeRelation(oldRelation, newRelation)) {
@@ -146,7 +146,7 @@ export class DDLBuilder {
 					for (const r in changed.delta.remove) {
 						const removeRelation = changed.delta.remove[r].old as Relation
 
-						const relatedDatabase = await this.getDatastore(removeRelation.entity)
+						const relatedDatabase = await this.getDataSource(removeRelation.entity)
 						if (relatedDatabase.name !== dataSource.name) continue
 
 						const query = this.builder(dataSource).dropFk(entityChanged.new, removeRelation)
@@ -158,7 +158,7 @@ export class DDLBuilder {
 		// remove indexes and tables for removed entities
 		for (const name in delta.remove) {
 			const removeEntity = delta.remove[name].old as EntityMapping
-			const dataSource = await this.getDatastore(removeEntity.name)
+			const dataSource = await this.getDataSource(removeEntity.name)
 
 			if (removeEntity.indexes) {
 				for (const i in removeEntity.indexes) {
@@ -173,7 +173,7 @@ export class DDLBuilder {
 		// create tables
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
-			const dataSource = await this.getDatastore(newEntity.name)
+			const dataSource = await this.getDataSource(newEntity.name)
 			const query = this.builder(dataSource).createEntity(newEntity)
 			queries.push(query)
 		}
@@ -181,7 +181,7 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDatastore(entityChanged.name)
+			const dataSource = await this.getDataSource(entityChanged.name)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'property') {
@@ -212,7 +212,7 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDatastore(entityChanged.name)
+			const dataSource = await this.getDataSource(entityChanged.name)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'property') {
@@ -229,7 +229,7 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDatastore(entityChanged.name)
+			const dataSource = await this.getDataSource(entityChanged.name)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'primaryKey') {
@@ -265,7 +265,7 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDatastore(entityChanged.name)
+			const dataSource = await this.getDataSource(entityChanged.name)
 			for (const q in entityChanged.delta.changed) {
 				const changed = entityChanged.delta.changed[q]
 				if (changed.name === 'index') {
@@ -289,7 +289,7 @@ export class DDLBuilder {
 						for (const n in changed.delta.new) {
 							const newRelation = changed.delta.new[n].new as Relation
 
-							const relatedDatabase = await this.getDatastore(newRelation.entity)
+							const relatedDatabase = await this.getDataSource(newRelation.entity)
 							if (relatedDatabase.name !== dataSource.name) continue
 
 							if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
@@ -301,7 +301,7 @@ export class DDLBuilder {
 							const newRelation = changed.delta.changed[c].new as Relation
 							const oldRelation = changed.delta.changed[c].old as Relation
 
-							const relatedDatabase = await this.getDatastore(newRelation.entity)
+							const relatedDatabase = await this.getDataSource(newRelation.entity)
 							if (relatedDatabase.name !== dataSource.name) continue
 
 							if (this.changeRelation(oldRelation, newRelation)) {
@@ -318,7 +318,7 @@ export class DDLBuilder {
 		// create indexes and Fks for new entities
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
-			const dataSource = await this.getDatastore(newEntity.name)
+			const dataSource = await this.getDataSource(newEntity.name)
 			if (newEntity.indexes) {
 				for (const i in newEntity.indexes) {
 					const index = newEntity.indexes[i]
@@ -329,7 +329,7 @@ export class DDLBuilder {
 			if (newEntity.relations) {
 				for (const p in newEntity.relations) {
 					const relation = newEntity.relations[p]
-					const relatedDatabase = await this.getDatastore(relation.entity)
+					const relatedDatabase = await this.getDataSource(relation.entity)
 					if (relatedDatabase.name !== dataSource.name) continue
 
 					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
@@ -342,16 +342,22 @@ export class DDLBuilder {
 		return queries
 	}
 
-	private async getDatastore (entity: string): Promise<DataSource> {
-		const context = { entity: entity, action: 'ddl' }
-		for (const i in this.dataSource.rules) {
-			const rule = this.dataSource.rules[i]
-			if (await this.evaluator.eval(rule.rule, context) === true) {
-				return this.schema.dataSource.get(rule.dataSource)
-			}
-		}
-		return this.dataSource
+	private async getDataSource (entity: string): Promise<DataSource> {
+		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
+		const datasourceName = await this.routing.getDataSource(sentenceInfo, {}, this.stage)
+		return this.schema.dataSource.get(datasourceName)
 	}
+
+	// private async getDataSource (entity: string): Promise<DataSource> {
+	// const context = { entity: entity, action: 'ddl' }
+	// for (const i in this.dataSource.rules) {
+	// const rule = this.dataSource.rules[i]
+	// if (await this.evaluator.eval(rule.rule, context) === true) {
+	// return this.schema.dataSource.get(rule.dataSource)
+	// }
+	// }
+	// return this.dataSource
+	// }
 
 	private builder (dataSource: DataSource): LanguageDDLBuilder {
 		return this.languageManager.ddlBuilder(dataSource)

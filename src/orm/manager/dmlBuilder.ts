@@ -1,13 +1,13 @@
-import { SchemaConfig, MappingConfig } from '.'
+import { SchemaConfig, MappingConfig, Routing } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
-import { Query, DataSource, Include, IEvaluator } from '../model'
+import { Query, DataSource, Include, SentenceInfo } from '../model'
 
 export abstract class LanguageDMLBuilder {
 	protected dataSource: string
 	protected dialect:string
 	protected mapping:MappingConfig
-	protected metadata:DialectMetadata
+	protected metadata: DialectMetadata
 
 	constructor (dataSource: string, mapping: MappingConfig, metadata: DialectMetadata) {
 		this.dataSource = dataSource
@@ -22,33 +22,28 @@ export abstract class LanguageDMLBuilder {
 export class DMLBuilder {
 	private schema: SchemaConfig
 	private languageManager: LanguageManager
-	private mapping: MappingConfig
-	private evaluator:IEvaluator
-	public dataSource: DataSource
+	// private mapping: MappingConfig
+	public stage: string
+	protected routing: Routing
 
-	constructor (schema:SchemaConfig, evaluator:IEvaluator, mapping:MappingConfig, languageManager: LanguageManager, dataSource: DataSource) {
+	constructor (schema:SchemaConfig, routing:Routing, languageManager: LanguageManager, stage: string) {
 		this.schema = schema
-		this.evaluator = evaluator
-		this.mapping = mapping
+		this.routing = routing
+		// this.mapping = mapping
 		this.languageManager = languageManager
-		this.dataSource = dataSource
+		this.stage = stage
 	}
 
-	private async getDatastore (sentence:Sentence): Promise<DataSource> {
-		const context = { entity: sentence.entity, action: sentence.action }
-		for (const i in this.dataSource.rules) {
-			const rule = this.dataSource.rules[i]
-			if (await this.evaluator.eval(rule.rule, context) === true) {
-				return this.schema.dataSource.get(rule.dataSource)
-			}
-		}
-		return this.dataSource
+	private async getDataSource (sentence: Sentence): Promise<DataSource> {
+		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
+		const datasourceName = await this.routing.getDataSource(sentenceInfo, {}, this.stage)
+		return this.schema.dataSource.get(datasourceName)
 	}
 
 	public async build (sentence:Sentence):Promise<Query> {
 		const children = []
 		const includes = sentence.getIncludes()
-		const dataSource = await this.getDatastore(sentence)
+		const dataSource = await this.getDataSource(sentence)
 
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
