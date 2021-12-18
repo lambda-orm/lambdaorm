@@ -11,8 +11,8 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		exec: {
-			create_dbs: { cmd: './create_dbs.sh', options: { cwd: './src/test/db' } },
-			drop_dbs: { cmd: './drop_dbs.sh', options: { cwd: './src/test/db' } },
+			create_dbs: { cmd: './create_dbs.sh', options: { cwd: './src/dev/db' } },
+			drop_dbs: { cmd: './drop_dbs.sh', options: { cwd: './src/dev/db' } },
 			clean_data: { cmd: './clean_data.sh ' + dataSources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('populate-source', 'populate source db', function () {
 		const task = require('./build/dev/task/mysqlExecute')
-		const sourceFile = './src/test/db/northwind-mysql.sql'
+		const sourceFile = './src/dev/db/northwind-mysql.sql'
 		const connection = JSON.parse(process.env.ORM_CNN_SOURCE)
 		const script = fs.readFileSync(sourceFile, { encoding: 'utf8' })
 		task.apply(script, connection, this.async())
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('generate-test', 'generate test', function () {
 		const task = require('./build/dev/task/generateTest')
-		const dataForTestPath = './src/test/dataForTest'
+		const dataForTestPath = './src/dev/dataForTest'
 		task.apply(dataForTestPath, dataSources, this.async())
 	})
 

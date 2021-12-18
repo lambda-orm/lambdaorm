@@ -20,7 +20,7 @@ test:
     executions:
       - stage: mysql
     result:
-      - maxPrice: null
+      - maxPrice: 263.5
   - name: groupBy 2
     sentences:
       - stage: mysql
@@ -37,7 +37,7 @@ test:
     executions:
       - stage: mysql
     result:
-      - minPrice: null
+      - minPrice: 2.5
   - name: groupBy 3
     sentences:
       - stage: mysql
@@ -54,7 +54,7 @@ test:
     executions:
       - stage: mysql
     result:
-      - total: null
+      - total: 2222.71
   - name: groupBy 4
     sentences:
       - stage: mysql
@@ -71,7 +71,7 @@ test:
     executions:
       - stage: mysql
     result:
-      - average: null
+      - average: 28.86636364
   - name: groupBy 5
     sentences:
       - stage: mysql
@@ -88,7 +88,7 @@ test:
     executions:
       - stage: mysql
     result:
-      - count: 0
+      - count: 77
   - name: groupBy 6
     sentences:
       - stage: mysql
@@ -109,7 +109,23 @@ test:
         type: any
     executions:
       - stage: mysql
-    result: []
+    result:
+      - category: 1
+        largestPrice: 263.5
+      - category: 2
+        largestPrice: 43.9
+      - category: 3
+        largestPrice: 81
+      - category: 4
+        largestPrice: 55
+      - category: 5
+        largestPrice: 38
+      - category: 6
+        largestPrice: 123.79
+      - category: 7
+        largestPrice: 53
+      - category: 8
+        largestPrice: 62.5
   - name: groupBy 7
     sentences:
       - stage: mysql
@@ -131,7 +147,23 @@ test:
         type: any
     executions:
       - stage: mysql
-    result: []
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Condiments
+        largestPrice: 43.9
+      - category: Confections
+        largestPrice: 81
+      - category: Dairy Products
+        largestPrice: 55
+      - category: Grains/Cereals
+        largestPrice: 38
+      - category: Meat/Poultry
+        largestPrice: 123.79
+      - category: Produce
+        largestPrice: 53
+      - category: Seafood
+        largestPrice: 62.5
   - name: groupBy 8
     data: a
     sentences:
@@ -161,7 +193,10 @@ test:
         type: any
     executions:
       - stage: mysql
-    result: []
+    result:
+      - name: Chai
+        source: 18
+        result: 18
   - name: groupBy 9
     sentences:
       - stage: mysql
@@ -185,7 +220,11 @@ test:
         type: any
     executions:
       - stage: mysql
-    result: []
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Meat/Poultry
+        largestPrice: 123.79
   - name: groupBy 10
     sentences:
       - stage: mysql
@@ -210,7 +249,11 @@ test:
         type: any
     executions:
       - stage: mysql
-    result: []
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Meat/Poultry
+        largestPrice: 123.79
   - name: groupBy 11
     sentences:
       - stage: mysql
@@ -235,5 +278,17 @@ test:
         type: any
     executions:
       - stage: mysql
-    result: []
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Meat/Poultry
+        largestPrice: 123.79
+      - category: Confections
+        largestPrice: 81
+      - category: Seafood
+        largestPrice: 62.5
+      - category: Dairy Products
+        largestPrice: 55
+      - category: Produce
+        largestPrice: 53
 errors: 0
