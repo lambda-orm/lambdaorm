@@ -207,13 +207,13 @@ export class Orm implements IOrm {
 	 * @param expression
 	 * @param dataSource
 	 */
-	public async sentence(expression: Function, dataSource: string): Promise<string>;
-	public async sentence(expression: string, dataSource: string): Promise<string>;
-	public async sentence (expression: string|Function, dataSource: string): Promise<string> {
+	public async sentence(expression: Function, stage: string): Promise<string>;
+	public async sentence(expression: string, stage: string): Promise<string>;
+	public async sentence (expression: string|Function, stage: string): Promise<string> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		return this.expressionManager.sentence(expression, dataSource)
+		return this.expressionManager.sentence(expression, stage)
 	}
 
 	/**
@@ -236,7 +236,8 @@ export class Orm implements IOrm {
 
 	/**
  * Crea una transaccion
- * @param dataSource Database name
+ * @param context Context
+ * @param stage Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
 	public async transaction (context:any, stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {

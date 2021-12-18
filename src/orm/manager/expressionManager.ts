@@ -133,8 +133,8 @@ export class ExpressionManager implements IEvaluator {
 		return this.languageManager.parameters(operand as Sentence)
 	}
 
-	public async sentence (expression: string, dataSource: string):Promise<string> {
-		const query = await this.toQuery(expression, dataSource)
+	public async sentence (expression: string, stage: string):Promise<string> {
+		const query = await this.toQuery(expression, stage)
 		return this.languageManager.sentence(query)
 	}
 

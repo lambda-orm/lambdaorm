@@ -50,19 +50,19 @@ export interface IOrm
 	/**
 	 *
 	 * @param expression
-	 * @param dataSource
+	 * @param stage
 	 */
-	sentence(expression: Function, dataSource?: string): Promise<string>
-	sentence(expression: string, dataSource?: string): Promise<string>
+	sentence(expression: Function, stage?: string): Promise<string>
+	sentence(expression: string, stage?: string): Promise<string>
 
 	/**
 		* Execute expression
 		* @param data Data with variables
 		* @param context Context
-		* @param dataSource DataStore name
+		* @param stage Stage name
 		* @returns Result of execution
 		*/
-	execute(expression: Function, data?: any, context?: any, dataSource?: string):Promise<any>
-	execute(expression: string, data?: any, context?: any, dataSource?: string):Promise<any>
-	transaction(context:any, dataSource:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
+	execute(expression: Function, data?: any, context?: any, stage?: string):Promise<any>
+	execute(expression: string, data?: any, context?: any, dataSstageource?: string):Promise<any>
+	transaction(context:any, stage:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }
