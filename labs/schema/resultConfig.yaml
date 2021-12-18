@@ -2,13 +2,15 @@ app:
   src: src
   data: data
   model: model
-defaultDatastore: source
+  defaultStage: default
 model:
   enums: []
   entities:
     - name: Categories
       primaryKey:
         - id
+      uniqueKey:
+        - name
       properties:
         - name: id
           type: integer
@@ -24,6 +26,10 @@ model:
     - name: Customers
       primaryKey:
         - id
+      indexes:
+        - name: name
+          fields:
+            - name
       properties:
         - name: id
           length: 5
@@ -64,6 +70,9 @@ model:
     - name: Employees
       primaryKey:
         - id
+      uniqueKey:
+        - lastName
+        - firstName
       properties:
         - name: id
           type: integer
@@ -116,6 +125,8 @@ model:
     - name: Shippers
       primaryKey:
         - id
+      uniqueKey:
+        - name
       properties:
         - name: id
           type: integer
@@ -131,6 +142,8 @@ model:
     - name: Suppliers
       primaryKey:
         - id
+      uniqueKey:
+        - name
       properties:
         - name: id
           type: integer
@@ -167,6 +180,9 @@ model:
     - name: Products
       primaryKey:
         - id
+      uniqueKey:
+        - name
+        - supplierId
       properties:
         - name: id
           type: integer
@@ -213,6 +229,13 @@ model:
     - name: Orders
       primaryKey:
         - id
+      indexes:
+        - name: orderDate
+          fields:
+            - orderDate
+        - name: shippedDate
+          fields:
+            - shippedDate
       properties:
         - name: id
           type: integer
@@ -298,13 +321,11 @@ model:
           entity: Products
           to: id
           type: oneToMany
-schemas:
+mappings:
   - name: northwind
     entities:
       - name: Categories
         mapping: Categories
-        uniqueKey:
-          - name
         properties:
           - name: id
             mapping: CategoryID
@@ -322,22 +343,10 @@ schemas:
             type: string
         primaryKey:
           - id
+        uniqueKey:
+          - name
       - name: Customers
         mapping: Customers
-        indexes:
-          - name: name
-            fields:
-              - name
-          - name: postalCode
-            fields:
-              - postalCode
-          - name: region
-            fields:
-              - region
-              - country
-          - name: city
-            fields:
-              - city
         properties:
           - name: id
             mapping: CustomerID
@@ -379,6 +388,10 @@ schemas:
             length: 80
         primaryKey:
           - id
+        indexes:
+          - name: name
+            fields:
+              - name
         relations:
           - name: orders
             type: manyToOne
@@ -388,9 +401,6 @@ schemas:
             to: customerId
       - name: Employees
         mapping: Employees
-        uniqueKey:
-          - lastName
-          - firstName
         properties:
           - name: id
             mapping: EmployeeID
@@ -448,19 +458,11 @@ schemas:
             mapping: Country
             type: string
             length: 80
-        indexes:
-          - name: postalCode
-            fields:
-              - postalCode
-          - name: region
-            fields:
-              - region
-              - country
-          - name: city
-            fields:
-              - city
         primaryKey:
           - id
+        uniqueKey:
+          - lastName
+          - firstName
         relations:
           - name: reportsTo
             from: reportsToId
@@ -469,8 +471,6 @@ schemas:
             type: oneToMany
       - name: Shippers
         mapping: Shippers
-        uniqueKey:
-          - name
         properties:
           - name: id
             mapping: ShipperID
@@ -488,9 +488,9 @@ schemas:
             type: string
         primaryKey:
           - id
-      - name: Suppliers
         uniqueKey:
           - name
+      - name: Suppliers
         mapping: Suppliers
         properties:
           - name: id
@@ -535,24 +535,12 @@ schemas:
             mapping: Country
             type: string
             length: 80
-        indexes:
-          - name: postalCode
-            fields:
-              - postalCode
-          - name: region
-            fields:
-              - region
-              - country
-          - name: city
-            fields:
-              - city
         primaryKey:
           - id
-      - name: Products
-        mapping: Products
         uniqueKey:
           - name
-          - supplierId
+      - name: Products
+        mapping: Products
         properties:
           - name: id
             mapping: ProductID
@@ -597,6 +585,9 @@ schemas:
             default: false
         primaryKey:
           - id
+        uniqueKey:
+          - name
+          - supplierId
         relations:
           - name: supplier
             from: supplierId
@@ -610,13 +601,6 @@ schemas:
             type: oneToMany
       - name: Orders
         mapping: Orders
-        indexes:
-          - name: orderDate
-            fields:
-              - orderDate
-          - name: shippedDate
-            fields:
-              - shippedDate
         properties:
           - name: id
             mapping: OrderID
@@ -673,6 +657,13 @@ schemas:
             length: 80
         primaryKey:
           - id
+        indexes:
+          - name: orderDate
+            fields:
+              - orderDate
+          - name: shippedDate
+            fields:
+              - shippedDate
         relations:
           - name: customer
             from: customerId
@@ -728,8 +719,6 @@ schemas:
     entities:
       - name: Categories
         mapping: Categories
-        uniqueKey:
-          - name
         properties:
           - name: id
             mapping: CategoryID
@@ -747,22 +736,10 @@ schemas:
             type: string
         primaryKey:
           - id
+        uniqueKey:
+          - name
       - name: Customers
         mapping: Customers
-        indexes:
-          - name: name
-            fields:
-              - name
-          - name: postalCode
-            fields:
-              - postalCode
-          - name: region
-            fields:
-              - region
-              - country
-          - name: city
-            fields:
-              - city
         properties:
           - name: id
             mapping: CustomerID
@@ -804,6 +781,10 @@ schemas:
             length: 80
         primaryKey:
           - id
+        indexes:
+          - name: name
+            fields:
+              - name
         relations:
           - name: orders
             type: manyToOne
@@ -813,9 +794,6 @@ schemas:
             to: customerId
       - name: Employees
         mapping: Employees
-        uniqueKey:
-          - lastName
-          - firstName
         properties:
           - name: id
             mapping: EmployeeID
@@ -873,19 +851,11 @@ schemas:
             mapping: Country
             type: string
             length: 80
-        indexes:
-          - name: postalCode
-            fields:
-              - postalCode
-          - name: region
-            fields:
-              - region
-              - country
-          - name: city
-            fields:
-              - city
         primaryKey:
           - id
+        uniqueKey:
+          - lastName
+          - firstName
         relations:
           - name: reportsTo
             from: reportsToId
@@ -894,8 +864,6 @@ schemas:
             type: oneToMany
       - name: Shippers
         mapping: Shippers
-        uniqueKey:
-          - name
         properties:
           - name: id
             mapping: ShipperID
@@ -913,9 +881,9 @@ schemas:
             type: string
         primaryKey:
           - id
-      - name: Suppliers
         uniqueKey:
           - name
+      - name: Suppliers
         mapping: Suppliers
         properties:
           - name: id
@@ -960,24 +928,12 @@ schemas:
             mapping: Country
             type: string
             length: 80
-        indexes:
-          - name: postalCode
-            fields:
-              - postalCode
-          - name: region
-            fields:
-              - region
-              - country
-          - name: city
-            fields:
-              - city
         primaryKey:
           - id
-      - name: Products
-        mapping: Products
         uniqueKey:
           - name
-          - supplierId
+      - name: Products
+        mapping: Products
         properties:
           - name: id
             mapping: ProductID
@@ -1022,6 +978,9 @@ schemas:
             default: false
         primaryKey:
           - id
+        uniqueKey:
+          - name
+          - supplierId
         relations:
           - name: supplier
             from: supplierId
@@ -1035,13 +994,6 @@ schemas:
             type: oneToMany
       - name: Orders
         mapping: Orders
-        indexes:
-          - name: orderDate
-            fields:
-              - orderDate
-          - name: shippedDate
-            fields:
-              - shippedDate
         properties:
           - name: id
             mapping: OrderID
@@ -1098,6 +1050,13 @@ schemas:
             length: 80
         primaryKey:
           - id
+        indexes:
+          - name: orderDate
+            fields:
+              - orderDate
+          - name: shippedDate
+            fields:
+              - shippedDate
         relations:
           - name: customer
             from: customerId
@@ -1151,7 +1110,7 @@ schemas:
             type: oneToMany
 dataSources:
   - name: source
-    schema: northwind
+    mapping: northwind
     dialect: mysql
     connection:
       host: 0.0.0.0
@@ -1163,15 +1122,8 @@ dataSources:
       waitForConnections: true
       connectionLimit: 10
       queueLimit: 0
-    rules:
-      - name: a
-        rule: entity == "Categories" && actionType == "read"
-        dataSource: source
-      - name: b
-        rule: entity == "Categories" && actionType == "write"
-        dataSource: source
   - name: mysql
-    schema: northwind
+    mapping: northwind
     dialect: mysql
     connection:
       host: 0.0.0.0
@@ -1184,7 +1136,7 @@ dataSources:
       connectionLimit: 10
       queueLimit: 0
   - name: mariadb
-    schema: northwind
+    mapping: northwind
     dialect: mariadb
     connection:
       host: 0.0.0.0
@@ -1197,7 +1149,7 @@ dataSources:
       connectionLimit: 10
       queueLimit: 0
   - name: postgres
-    schema: northwind
+    mapping: northwind
     dialect: postgres
     connection:
       host: 0.0.0.0
@@ -1206,7 +1158,7 @@ dataSources:
       password: test
       database: northwind
   - name: mssql
-    schema: northwind
+    mapping: northwind
     dialect: mssql
     connection:
       server: 0.0.0.0
@@ -1218,3 +1170,19 @@ dataSources:
       options:
         encrypt: false
         database: northwind
+stages:
+  - name: source
+    defaultDataSource: source
+    dataSources: []
+  - name: mysql
+    defaultDataSource: mysql
+    dataSources: []
+  - name: mariadb
+    defaultDataSource: mariadb
+    dataSources: []
+  - name: postgres
+    defaultDataSource: postgres
+    dataSources: []
+  - name: mssql
+    defaultDataSource: mssql
+    dataSources: []
