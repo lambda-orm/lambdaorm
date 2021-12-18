@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { Cache, IOrm, Schema, Stage } from '../model'
-import { ExpressionManager, MemoryCache, Transaction, LibManager, StageFacade, Executor, SchemaConfig, Routing } from '.'
+import { IOrm, Schema, Stage } from '../model'
+import { ExpressionManager, Transaction, LibManager, StageFacade, Executor, SchemaConfig, Routing } from '.'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from '../connection'
 import { LanguageManager } from '../language'
 import { SqlLanguage } from '../language/sql'
 // import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
-import { CoreLib } from '../language/lib/coreLib'
 import { Helper } from './helper'
+import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -20,7 +20,8 @@ export class Orm implements IOrm {
 	private languageManager: LanguageManager
 	private libManager: LibManager
 	private expressionManager: ExpressionManager
-	private routing:Routing
+	private routing: Routing
+	private expressions:Expressions
 
 	private executor:Executor
 	private static _instance: Orm
@@ -44,9 +45,9 @@ export class Orm implements IOrm {
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
+		this.expressions = expressions
 
-		this.languageManager = new LanguageManager(this.schemaConfig)
-		this.languageManager.addLibrary(new CoreLib())
+		this.languageManager = new LanguageManager(this.schemaConfig, this.expressions)
 		this.languageManager.addLanguage('sql', new SqlLanguage())
 		// this.languageManager.addLanguage('noSql',new NoSqlLanguage())
 
@@ -57,8 +58,8 @@ export class Orm implements IOrm {
 		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
-		this.expressionManager = new ExpressionManager(this._cache, this.schemaConfig, this.languageManager)
-		this.routing = new Routing(this.schemaConfig, this.expressionManager)
+		this.routing = new Routing(this.schemaConfig, this.expressions)
+		this.expressionManager = new ExpressionManager(this._cache, this.schemaConfig, this.languageManager, this.expressions, this.routing)
 		this.executor = new Executor(this.connectionManager, this.languageManager, this.routing, this.schemaConfig, this.expressionManager)
 		this.stageFacade = new StageFacade(this.schemaConfig, this.routing, this.expressionManager, this.languageManager, this.executor)
 	}

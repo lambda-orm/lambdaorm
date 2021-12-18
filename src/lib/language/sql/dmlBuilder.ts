@@ -1,9 +1,7 @@
 
 import { Helper } from '../../manager/helper'
-import {
-	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block,
-	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete
-} from '../operands'
+import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block } from 'js-expressions'
+import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete } from '../../operand/operands'
 import { LanguageDMLBuilder } from '../../manager/dmlBuilder'
 import { Query } from '../../model'
 const SqlString = require('sqlstring')

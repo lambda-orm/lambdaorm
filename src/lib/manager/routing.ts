@@ -1,14 +1,15 @@
 
-import { IEvaluator, SentenceInfo } from '../model'
+import { SentenceInfo } from '../model'
 import { SchemaConfig } from './index'
+import { Expressions } from 'js-expressions'
 
 export class Routing {
 	private schema: SchemaConfig
-	private evaluator: IEvaluator
+	private expressions: Expressions
 
-	constructor (schema: SchemaConfig, evaluator: IEvaluator) {
+	constructor (schema: SchemaConfig, expressions: Expressions) {
 		this.schema = schema
-		this.evaluator = evaluator
+		this.expressions = expressions
 	}
 
 	public async getDataSource (sentenceInfo: SentenceInfo, context: any, stage?: string):Promise<string> {
@@ -16,7 +17,7 @@ export class Routing {
 		const _stage = this.schema.stage.get(stage)
 		for (const i in _stage.dataSources) {
 			const dataSource = _stage.dataSources[i]
-			if (await this.evaluator.eval(dataSource.condition, _context) === true) {
+			if (await this.expressions.eval(dataSource.condition, _context) === true) {
 				return dataSource.name
 			}
 		}

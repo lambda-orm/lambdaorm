@@ -1,8 +1,8 @@
 
 import { Helper } from './helper'
-import { Node } from '../parser/index'
 import { Entity } from '../model'
 import { SchemaConfig } from '.'
+import { Node } from 'js-expressions'
 
 /**
  *  Expression completer

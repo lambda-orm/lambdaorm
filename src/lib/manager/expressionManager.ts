@@ -1,24 +1,25 @@
-import { Cache, Query, Data, IEvaluator } from '../model'
-import { ParserManager } from '../parser/index'
+import { Query, Data } from '../model'
+// import { ParserManager } from '../parser/index'
 import { SchemaConfig, ExpressionCompleter, Routing } from './index'
-import { LanguageManager, Operand, Sentence, DMLBuilder } from '../language'
+import { LanguageManager, Sentence, DMLBuilder } from '../language'
 import { Helper } from './helper'
+import { Expressions, Operand, Cache } from 'js-expressions'
 
-export class ExpressionManager implements IEvaluator {
+export class ExpressionManager {
 	private cache: Cache
-	private parserManager: ParserManager
 	private schema: SchemaConfig
 	private languageManager: LanguageManager
 	private expressionCompleter: ExpressionCompleter
-	private routing:Routing
+	private routing: Routing
+	private expressions:Expressions
 
-	constructor (cache: Cache, schema:SchemaConfig, languageManager:LanguageManager) {
+	constructor (cache: Cache, schema:SchemaConfig, languageManager:LanguageManager, expressions:Expressions, routing:Routing) {
 		this.cache = cache
 		this.schema = schema
 		this.languageManager = languageManager
-		this.parserManager = new ParserManager(languageManager.expressionConfig)
+		this.expressions = expressions
 		this.expressionCompleter = new ExpressionCompleter(schema)
-		this.routing = new Routing(schema, this)
+		this.routing = routing
 	}
 
 	/**
@@ -28,10 +29,10 @@ export class ExpressionManager implements IEvaluator {
 	 */
 	public complete (expression: string): string {
 		try {
-			const node = this.parserManager.parse(expression)
+			const node = this.expressions.parser.parse(expression)
 			const completeNode = this.expressionCompleter.complete(node)
-			this.parserManager.setParent(completeNode)
-			return this.parserManager.toExpression(completeNode)
+			this.expressions.parser.setParent(completeNode)
+			return this.expressions.parser.toExpression(completeNode)
 		} catch (error: any) {
 			console.log(error)
 			throw new Error('complete expression: ' + expression + ' error: ' + error.toString())
@@ -48,9 +49,9 @@ export class ExpressionManager implements IEvaluator {
 			const key = 'operand_' + expression
 			let operand = await this.cache.get(key)
 			if (!operand) {
-				const node = this.parserManager.parse(expression)
+				const node = this.expressions.parser.parse(expression)
 				const completeNode = this.expressionCompleter.complete(node)
-				this.parserManager.setParent(completeNode)
+				this.expressions.parser.setParent(completeNode)
 				operand = this.languageManager.build(completeNode)
 				await this.cache.set(key, operand)
 			}
@@ -87,7 +88,7 @@ export class ExpressionManager implements IEvaluator {
 			throw new Error('empty lambda function}')
 		}
 		const expression = Helper.clearLambda(func)
-		const node = this.parserManager.parse(expression)
+		const node = this.expressions.parser.parse(expression)
 		let aux = node
 		while (aux.type !== 'var') {
 			if (aux.children.length > 0) {
@@ -98,7 +99,7 @@ export class ExpressionManager implements IEvaluator {
 			// Example: model_1.Products.map(p=>p) =>  Products.map(p=>p)
 			aux.name = aux.name.split('.')[1]
 		}
-		return this.parserManager.toExpression(node)
+		return this.expressions.parser.toExpression(node)
 	}
 
 	/**

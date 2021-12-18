@@ -1,13 +1,8 @@
 
-import { Node } from '../parser/index'
 import { Property, Parameter, Data } from '../model'
-import { SchemaConfig } from '../manager'
-import {
-	Operand, Constant, Variable, Field, KeyValue, List, Obj, Operator, FunctionRef, Block,
-	Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete,
-	SentenceInclude, ArrowFunction, ChildFunction
-} from './operands'
-import { LanguageManager } from './languageManager'
+import { ModelConfig } from '../manager'
+import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, OperandMetadata, ExpressionConfig, Node } from 'js-expressions'
+import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from './operands'
 
 class EntityContext {
 	public parent?:EntityContext
@@ -40,11 +35,13 @@ class ExpressionContext {
 	}
 }
 export class OperandManager {
-	private language: LanguageManager
-	private schema: SchemaConfig
-	constructor (schema: SchemaConfig, language: LanguageManager) {
-		this.schema = schema
-		this.language = language
+	private modelConfig: ModelConfig
+	private metadata: OperandMetadata
+	private expressionConfig:ExpressionConfig
+	constructor (modelConfig: ModelConfig, metadata:OperandMetadata, expressionConfig:ExpressionConfig) {
+		this.modelConfig = modelConfig
+		this.metadata = metadata
+		this.expressionConfig = expressionConfig
 	}
 
 	public build (node:Node):Sentence {
@@ -136,17 +133,17 @@ export class OperandManager {
 		if (operand instanceof ArrowFunction) {
 			const childData = current.newData()
 			operand.data = childData
-			operand.metadata = this.language.metadata
+			operand.metadata = this.metadata
 			current = childData
 		} else if (operand instanceof ChildFunction) {
 			const childData = current.newData()
 			operand.data = childData
-			operand.metadata = this.language.metadata
+			operand.metadata = this.metadata
 			current = childData
 		} else if (operand instanceof FunctionRef) {
-			operand.metadata = this.language.metadata
+			operand.metadata = this.metadata
 		} else if (operand instanceof Operator) {
-			operand.metadata = this.language.metadata
+			operand.metadata = this.metadata
 		} else if (operand instanceof Variable) {
 			operand.data = current
 		}
@@ -160,7 +157,7 @@ export class OperandManager {
 		if (operand instanceof Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand instanceof FunctionRef) {
-			const funcMetadata = this.language.metadata.getFunctionMetadata(operand.name)
+			const funcMetadata = this.metadata.getFunctionMetadata(operand.name)
 			if (funcMetadata && funcMetadata.metadata && funcMetadata.metadata.deterministic) {
 				return this.reduceOperand(operand)
 			}
@@ -172,14 +169,14 @@ export class OperandManager {
 		let allConstants = true
 		for (const k in operand.children) {
 			const p = operand.children[k]
-			if (!(p instanceof Constant)) {
+			if (!(p instanceof Constant2)) {
 				allConstants = false
 				break
 			}
 		}
 		if (allConstants) {
 			const value = this.eval(operand, new Data({}))
-			const constant = new Constant(value)
+			const constant = new Constant2(value)
 			constant.parent = operand.parent
 			constant.index = operand.index
 			return constant
@@ -242,7 +239,7 @@ export class OperandManager {
 	private createOperand (node:Node, children:Operand[], expressionContext:ExpressionContext):Operand {
 		switch (node.type) {
 		case 'const':
-			return new Constant(node.name)
+			return new Constant2(node.name)
 		case 'var': {
 			const parts = node.name.split('.')
 			if (parts[0] === expressionContext.current.arrowVar) {
@@ -254,11 +251,11 @@ export class OperandManager {
 					if (_field) {
 						return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias)
 					} else {
-						if (this.schema.model.existsProperty(expressionContext.current.entityName, parts[1])) {
-							const property = this.schema.model.getProperty(expressionContext.current.entityName, parts[1])
+						if (this.modelConfig.existsProperty(expressionContext.current.entityName, parts[1])) {
+							const property = this.modelConfig.getProperty(expressionContext.current.entityName, parts[1])
 							return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias)
 						} else {
-							const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, parts[1])
+							const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, parts[1])
 							if (relationInfo) {
 								const relation = this.addJoins(parts, parts.length, expressionContext)
 								const relationAlias = expressionContext.current.joins[relation]
@@ -272,7 +269,7 @@ export class OperandManager {
 				} else {
 					const propertyName = parts[parts.length - 1]
 					const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-					const info = this.schema.model.getRelation(expressionContext.current.entityName, relation)
+					const info = this.modelConfig.getRelation(expressionContext.current.entityName, relation)
 					const relationAlias = expressionContext.current.joins[relation]
 					const property = info.entity.properties.find(p => p.name === propertyName)
 					if (property) {
@@ -313,7 +310,7 @@ export class OperandManager {
 		let createInclude:any
 		const clauses:any = this.getSentence(node)
 		expressionContext.current.entityName = clauses.from.name
-		// expressionContext.current.metadata = this.schema.model.getEntity(expressionContext.current.entityName)
+		// expressionContext.current.metadata = this.modelConfig.getEntity(expressionContext.current.entityName)
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
 		let name = ''
 		const children:Operand[] = []
@@ -418,7 +415,7 @@ export class OperandManager {
 			}
 		}
 		for (const key in expressionContext.current.joins) {
-			const info = this.schema.model.getRelation(expressionContext.current.entityName, key)
+			const info = this.modelConfig.getRelation(expressionContext.current.entityName, key)
 			const relatedEntity = info.previousEntity.name
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
 			const relatedProperty = info.previousEntity.properties.find(p => p.name === info.relation.from) as Property
@@ -503,7 +500,7 @@ export class OperandManager {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, relationName)
+				const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relationInfo.entity.name
 				const child = this.createSentence(node, expressionContext)
 				return new SentenceInclude(relationInfo.relation.name, [child], relationInfo.relation)
@@ -526,7 +523,7 @@ export class OperandManager {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, relationName)
+				const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relationInfo.entity.name
 				const child = this.createSentence(node, expressionContext)
 				return new SentenceInclude(relationName, [child], relationInfo.relation)
@@ -655,7 +652,7 @@ export class OperandManager {
 				const obj = operand.children[0]
 				for (const p in obj.children) {
 					const keyVal = obj.children[p] as KeyValue
-					const property = this.schema.model.getProperty(expressionContext.current.entityName, keyVal.name)
+					const property = this.modelConfig.getProperty(expressionContext.current.entityName, keyVal.name)
 					const field = { name: keyVal.name, type: property.type }
 					keyVal.property = property.name // new Field(expressionContext.current.entity,property.name,property.type,property.mapping)
 					fields.push(field)
@@ -704,7 +701,7 @@ export class OperandManager {
 	// si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
 	// let type = this.solveType(operand,childNumber)
 	private solveTypes (operand:Operand, expressionContext:ExpressionContext):string {
-		if (operand instanceof Constant || operand instanceof Field || operand instanceof Variable) return operand.type
+		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) return operand.type
 		if (operand instanceof Update || operand instanceof Insert) {
 			if (operand.children.length === 1) {
 				if (operand.children[0] instanceof Object) {
@@ -712,7 +709,7 @@ export class OperandManager {
 					for (const p in obj.children) {
 						const keyVal = obj.children[p] as KeyValue
 						const entityName = operand.name.includes('.') ? operand.name.split('.')[0] : operand.name
-						const property = this.schema.model.getProperty(entityName, keyVal.name)
+						const property = this.modelConfig.getProperty(entityName, keyVal.name)
 						if (keyVal.children[0].type === 'any') {
 							keyVal.children[0].type = property.type
 						}
@@ -724,8 +721,8 @@ export class OperandManager {
 			let tType = 'any'
 			// get metadata of operand
 			const metadata = operand instanceof Operator
-				? this.language.expressionConfig.getOperator(operand.name, operand.children.length)
-				: this.language.expressionConfig.getFunction(operand.name)
+				? this.expressionConfig.getOperator(operand.name, operand.children.length)
+				: this.expressionConfig.getFunction(operand.name)
 
 			// recorre todos los parametros
 			for (let i = 0; i < metadata.params.length; i++) {

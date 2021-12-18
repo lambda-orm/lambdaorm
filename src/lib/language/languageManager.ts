@@ -1,12 +1,10 @@
 
-import { Node, ExpressionConfig } from '../parser/index'
+import { Node, Operand, Expressions } from 'js-expressions'
 import { Data, Query, Include, DataSource } from '../model'
 import { SchemaConfig } from '../manager'
 import { Language } from './language'
-import { OperandManager } from './operandManager'
-import { Operand, Sentence } from './operands'
-import { OperandMetadata } from './operandMetadata'
-import { Library } from './library'
+import { OperandManager } from '../operand/operandManager'
+import { Sentence } from '../operand/operands'
 import { DialectMetadata } from './dialectMetadata'
 import { LanguageDMLBuilder } from '../manager/dmlBuilder'
 import { LanguageDDLBuilder } from '../manager/ddlBuilder'
@@ -14,22 +12,16 @@ import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 export class LanguageManager {
 	public dialects: any
 	private schema: SchemaConfig
-	public expressionConfig:ExpressionConfig
-	public metadata:OperandMetadata
+	private expressions:Expressions
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (schema: SchemaConfig) {
+	constructor (schema: SchemaConfig, expressions:Expressions) {
 		this.schema = schema
-		this.expressionConfig = new ExpressionConfig()
-		this.metadata = new OperandMetadata()
-		this.operandManager = new OperandManager(schema, this)
+		this.expressions = expressions
+		this.operandManager = new OperandManager(schema.model, this.expressions.metadata, this.expressions.config)
 		this.languages = {}
 		this.dialects = {}
-	}
-
-	public addLibrary (library:Library):void {
-		this.metadata.addLibrary(library)
 	}
 
 	public addLanguage (name:string, language:Language) {

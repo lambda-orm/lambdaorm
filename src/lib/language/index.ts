@@ -1,5 +1,5 @@
-export * from './operands'
-export * from './operandManager'
+export * from '../operand/operands'
+export * from '../operand/operandManager'
 export * from './language'
 export * from '../manager/dmlBuilder'
 export * from '../manager/ddlBuilder'

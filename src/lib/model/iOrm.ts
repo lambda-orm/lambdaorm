@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Cache, Schema } from './index'
+import { Schema } from './index'
 import { Transaction, StageFacade } from '../manager'
+import { Cache } from 'js-expressions'
 
 export interface IOrm
 {
