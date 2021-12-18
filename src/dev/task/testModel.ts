@@ -1,4 +1,4 @@
-import { Parameter } from './../../orm'
+import { Parameter } from '../../lib'
 
 export interface ExecutionTest {
 	stage: string

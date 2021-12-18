@@ -1,4 +1,4 @@
-import { Helper } from './../../orm'
+import { Helper } from '../../lib'
 
 import { CategoryTest, ExpressionTest } from './testModel'
 import fs from 'fs'
@@ -7,7 +7,7 @@ const ConfigExtends = require('config-extends')
 
 async function writeUnitTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
-	lines.push('import { orm,Helper } from \'../../orm\'')
+	lines.push('import { orm,Helper } from \'../../lib\'')
 	lines.push('beforeAll(async () => {')
 	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
 	lines.push('\tawait orm.init()')
@@ -78,7 +78,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 async function writeIntegrationTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 
-	lines.push('import { orm } from \'../../orm\'')
+	lines.push('import { orm } from \'../../lib\'')
 	lines.push('beforeAll(async () => {')
 	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
 	lines.push('\tawait orm.init()')

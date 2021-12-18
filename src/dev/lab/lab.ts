@@ -1,4 +1,4 @@
-import { orm } from '../../orm'
+import { orm } from '../../lib'
 import { Categories } from '../../model'
 
 export async function apply (callback: any) {

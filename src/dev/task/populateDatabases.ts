@@ -1,4 +1,4 @@
-import { orm, Helper } from './../../orm'
+import { orm, Helper } from '../../lib'
 
 async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'

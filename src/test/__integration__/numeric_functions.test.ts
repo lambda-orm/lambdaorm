@@ -1,4 +1,4 @@
-import { orm } from '../../orm'
+import { orm } from '../../lib'
 beforeAll(async () => {
 	require('dotenv').config({ path: './test.env' })
 	await orm.init()

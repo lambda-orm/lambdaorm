@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm, Helper } from './../../orm'
+import { orm, Helper } from '../../lib'
 import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from '../../model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 

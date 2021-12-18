@@ -1,4 +1,4 @@
-import { orm } from '../../orm'
+import { orm } from '../../lib'
 import { CategoryRespository, Category, ProductRespository } from '../../model'
 
 (async () => {

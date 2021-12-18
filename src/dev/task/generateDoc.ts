@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { Helper } from './../../orm'
+import { Helper } from '../../lib'
 const ConfigExtends = require('schema-extends')
 
 async function writeFunctions (category:string, list: any): Promise<void> {

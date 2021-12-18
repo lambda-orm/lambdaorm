@@ -1,4 +1,4 @@
-import { Orm, Helper } from '../../orm'
+import { Orm, Helper } from '../../lib'
 
 (async () => {
 	const yaml = require('js-yaml')
