@@ -1018,10 +1018,10 @@ export async function apply (stages: string[], callback: any) {
 	errors = +await writeNumeriFunctionsTest(stages)
 	errors = +await writeGroupByTest(stages)
 	errors = +await writeIncludeTest(stages)
-	// errors = +await writeInsertsTest(stages)
-	// errors = +await writeUpdateTest(stages)
-	// errors = +await writeDeleteTest(stages)
-	// errors = +await writeBulkInsertTest(stages)
+	errors = +await writeInsertsTest(stages)
+	errors = +await writeUpdateTest(stages)
+	errors = +await writeDeleteTest(stages)
+	errors = +await writeBulkInsertTest(stages)
 
 	// //operators comparation , matematica
 	// //string functions

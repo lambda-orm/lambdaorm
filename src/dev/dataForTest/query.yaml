@@ -1616,26 +1616,6 @@ test:
     result:
       - category: Beverages
         product: Chai
-        unitPrice: 18
-        quantity: 30
-      - category: Beverages
-        product: Chai
-        unitPrice: 18
-        quantity: 8
-      - category: Beverages
-        product: Chai
-        unitPrice: 18
-        quantity: 25
-      - category: Beverages
-        product: Chai
-        unitPrice: 14.4
-        quantity: 24
-      - category: Beverages
-        product: Chai
-        unitPrice: 18
-        quantity: 20
-      - category: Beverages
-        product: Chai
         unitPrice: 14.4
         quantity: 10
       - category: Beverages
@@ -1679,29 +1659,25 @@ test:
         unitPrice: 18
         quantity: 8
       - category: Beverages
-        product: Chang
-        unitPrice: 19
+        product: Chai
+        unitPrice: 18
         quantity: 30
       - category: Beverages
-        product: Chang
-        unitPrice: 15.2
-        quantity: 40
+        product: Chai
+        unitPrice: 18
+        quantity: 8
       - category: Beverages
-        product: Chang
-        unitPrice: 15.2
-        quantity: 10
+        product: Chai
+        unitPrice: 18
+        quantity: 25
       - category: Beverages
-        product: Chang
-        unitPrice: 19
-        quantity: 10
+        product: Chai
+        unitPrice: 14.4
+        quantity: 24
       - category: Beverages
-        product: Chang
-        unitPrice: 19
-        quantity: 15
-      - category: Beverages
-        product: Chang
-        unitPrice: 15.2
-        quantity: 60
+        product: Chai
+        unitPrice: 18
+        quantity: 20
       - category: Beverages
         product: Chang
         unitPrice: 15.2
@@ -1751,21 +1727,29 @@ test:
         unitPrice: 19
         quantity: 20
       - category: Beverages
-        product: Chartreuse verte
-        unitPrice: 18
+        product: Chang
+        unitPrice: 19
+        quantity: 30
+      - category: Beverages
+        product: Chang
+        unitPrice: 15.2
+        quantity: 40
+      - category: Beverages
+        product: Chang
+        unitPrice: 15.2
         quantity: 10
       - category: Beverages
-        product: Chartreuse verte
-        unitPrice: 18
+        product: Chang
+        unitPrice: 19
         quantity: 10
       - category: Beverages
-        product: Chartreuse verte
-        unitPrice: 14.4
-        quantity: 6
+        product: Chang
+        unitPrice: 19
+        quantity: 15
       - category: Beverages
-        product: Chartreuse verte
-        unitPrice: 18
-        quantity: 130
+        product: Chang
+        unitPrice: 15.2
+        quantity: 60
       - category: Beverages
         product: Chartreuse verte
         unitPrice: 18
@@ -1803,17 +1787,21 @@ test:
         unitPrice: 18
         quantity: 16
       - category: Beverages
-        product: Cte de Blaye
-        unitPrice: 263.5
-        quantity: 15
+        product: Chartreuse verte
+        unitPrice: 18
+        quantity: 10
       - category: Beverages
-        product: Cte de Blaye
-        unitPrice: 210.8
-        quantity: 49
+        product: Chartreuse verte
+        unitPrice: 18
+        quantity: 10
       - category: Beverages
-        product: Cte de Blaye
-        unitPrice: 210.8
-        quantity: 50
+        product: Chartreuse verte
+        unitPrice: 14.4
+        quantity: 6
+      - category: Beverages
+        product: Chartreuse verte
+        unitPrice: 18
+        quantity: 130
       - category: Beverages
         product: Cte de Blaye
         unitPrice: 263.5
@@ -1839,17 +1827,17 @@ test:
         unitPrice: 263.5
         quantity: 15
       - category: Beverages
-        product: Ipoh Coffee
-        unitPrice: 46
-        quantity: 60
+        product: Cte de Blaye
+        unitPrice: 263.5
+        quantity: 15
       - category: Beverages
-        product: Ipoh Coffee
-        unitPrice: 46
-        quantity: 30
+        product: Cte de Blaye
+        unitPrice: 210.8
+        quantity: 49
       - category: Beverages
-        product: Ipoh Coffee
-        unitPrice: 46
-        quantity: 40
+        product: Cte de Blaye
+        unitPrice: 210.8
+        quantity: 50
       - category: Beverages
         product: Ipoh Coffee
         unitPrice: 46
@@ -1883,33 +1871,17 @@ test:
         unitPrice: 36.8
         quantity: 20
       - category: Beverages
-        product: Lakkalikri
-        unitPrice: 14.4
-        quantity: 14
+        product: Ipoh Coffee
+        unitPrice: 46
+        quantity: 60
       - category: Beverages
-        product: Lakkalikri
-        unitPrice: 18
-        quantity: 10
-      - category: Beverages
-        product: Lakkalikri
-        unitPrice: 18
-        quantity: 15
-      - category: Beverages
-        product: Lakkalikri
-        unitPrice: 18
+        product: Ipoh Coffee
+        unitPrice: 46
         quantity: 30
       - category: Beverages
-        product: Lakkalikri
-        unitPrice: 14.4
-        quantity: 35
-      - category: Beverages
-        product: Lakkalikri
-        unitPrice: 18
-        quantity: 20
-      - category: Beverages
-        product: Lakkalikri
-        unitPrice: 18
-        quantity: 20
+        product: Ipoh Coffee
+        unitPrice: 46
+        quantity: 40
       - category: Beverages
         product: Lakkalikri
         unitPrice: 18
@@ -1924,12 +1896,12 @@ test:
         quantity: 50
       - category: Beverages
         product: Lakkalikri
-        unitPrice: 14.4
-        quantity: 42
-      - category: Beverages
-        product: Lakkalikri
         unitPrice: 18
         quantity: 10
+      - category: Beverages
+        product: Lakkalikri
+        unitPrice: 14.4
+        quantity: 42
       - category: Beverages
         product: Lakkalikri
         unitPrice: 18
@@ -1963,13 +1935,33 @@ test:
         unitPrice: 18
         quantity: 35
       - category: Beverages
-        product: Laughing Lumberjack Lager
-        unitPrice: 14
-        quantity: 25
+        product: Lakkalikri
+        unitPrice: 14.4
+        quantity: 14
       - category: Beverages
-        product: Laughing Lumberjack Lager
-        unitPrice: 14
-        quantity: 3
+        product: Lakkalikri
+        unitPrice: 18
+        quantity: 10
+      - category: Beverages
+        product: Lakkalikri
+        unitPrice: 18
+        quantity: 15
+      - category: Beverages
+        product: Lakkalikri
+        unitPrice: 18
+        quantity: 30
+      - category: Beverages
+        product: Lakkalikri
+        unitPrice: 18
+        quantity: 20
+      - category: Beverages
+        product: Lakkalikri
+        unitPrice: 14.4
+        quantity: 35
+      - category: Beverages
+        product: Lakkalikri
+        unitPrice: 18
+        quantity: 20
       - category: Beverages
         product: Laughing Lumberjack Lager
         unitPrice: 14
@@ -1979,25 +1971,13 @@ test:
         unitPrice: 14
         quantity: 7
       - category: Beverages
-        product: Outback Lager
-        unitPrice: 15
-        quantity: 6
+        product: Laughing Lumberjack Lager
+        unitPrice: 14
+        quantity: 25
       - category: Beverages
-        product: Outback Lager
-        unitPrice: 15
-        quantity: 40
-      - category: Beverages
-        product: Outback Lager
-        unitPrice: 15
-        quantity: 7
-      - category: Beverages
-        product: Outback Lager
-        unitPrice: 12
-        quantity: 12
-      - category: Beverages
-        product: Outback Lager
-        unitPrice: 15
-        quantity: 14
+        product: Laughing Lumberjack Lager
+        unitPrice: 14
+        quantity: 3
       - category: Beverages
         product: Outback Lager
         unitPrice: 15
@@ -2032,12 +2012,12 @@ test:
         quantity: 40
       - category: Beverages
         product: Outback Lager
-        unitPrice: 12
-        quantity: 25
-      - category: Beverages
-        product: Outback Lager
         unitPrice: 15
         quantity: 15
+      - category: Beverages
+        product: Outback Lager
+        unitPrice: 12
+        quantity: 25
       - category: Beverages
         product: Outback Lager
         unitPrice: 15
@@ -2051,12 +2031,24 @@ test:
         unitPrice: 15
         quantity: 35
       - category: Beverages
-        product: Sasquatch Ale
-        unitPrice: 14
-        quantity: 30
+        product: Outback Lager
+        unitPrice: 15
+        quantity: 6
       - category: Beverages
-        product: Sasquatch Ale
-        unitPrice: 14
+        product: Outback Lager
+        unitPrice: 15
+        quantity: 40
+      - category: Beverages
+        product: Outback Lager
+        unitPrice: 15
+        quantity: 7
+      - category: Beverages
+        product: Outback Lager
+        unitPrice: 12
+        quantity: 12
+      - category: Beverages
+        product: Outback Lager
+        unitPrice: 15
         quantity: 14
       - category: Beverages
         product: Sasquatch Ale
@@ -2079,25 +2071,13 @@ test:
         unitPrice: 11.2
         quantity: 35
       - category: Beverages
-        product: Steeleye Stout
-        unitPrice: 18
-        quantity: 3
-      - category: Beverages
-        product: Steeleye Stout
-        unitPrice: 18
-        quantity: 15
-      - category: Beverages
-        product: Steeleye Stout
-        unitPrice: 18
-        quantity: 4
-      - category: Beverages
-        product: Steeleye Stout
-        unitPrice: 18
-        quantity: 20
-      - category: Beverages
-        product: Steeleye Stout
-        unitPrice: 18
+        product: Sasquatch Ale
+        unitPrice: 14
         quantity: 30
+      - category: Beverages
+        product: Sasquatch Ale
+        unitPrice: 14
+        quantity: 14
       - category: Beverages
         product: Steeleye Stout
         unitPrice: 18
@@ -2146,18 +2126,26 @@ test:
         product: Steeleye Stout
         unitPrice: 18
         quantity: 6
-      - category: Condiments
-        product: Chef Anton's Cajun Seasoning
-        unitPrice: 22
-        quantity: 6
-      - category: Condiments
-        product: Chef Anton's Cajun Seasoning
-        unitPrice: 22
-        quantity: 25
-      - category: Condiments
-        product: Chef Anton's Cajun Seasoning
-        unitPrice: 22
-        quantity: 25
+      - category: Beverages
+        product: Steeleye Stout
+        unitPrice: 18
+        quantity: 3
+      - category: Beverages
+        product: Steeleye Stout
+        unitPrice: 18
+        quantity: 15
+      - category: Beverages
+        product: Steeleye Stout
+        unitPrice: 18
+        quantity: 4
+      - category: Beverages
+        product: Steeleye Stout
+        unitPrice: 18
+        quantity: 20
+      - category: Beverages
+        product: Steeleye Stout
+        unitPrice: 18
+        quantity: 30
       - category: Condiments
         product: Chef Anton's Cajun Seasoning
         unitPrice: 22
@@ -2187,6 +2175,18 @@ test:
         unitPrice: 22
         quantity: 50
       - category: Condiments
+        product: Chef Anton's Cajun Seasoning
+        unitPrice: 22
+        quantity: 6
+      - category: Condiments
+        product: Chef Anton's Cajun Seasoning
+        unitPrice: 22
+        quantity: 25
+      - category: Condiments
+        product: Chef Anton's Cajun Seasoning
+        unitPrice: 22
+        quantity: 25
+      - category: Condiments
         product: Chef Anton's Gumbo Mix
         unitPrice: 21.35
         quantity: 4
@@ -2194,10 +2194,6 @@ test:
         product: Chef Anton's Gumbo Mix
         unitPrice: 21.35
         quantity: 15
-      - category: Condiments
-        product: Genen Shouyu
-        unitPrice: 15.5
-        quantity: 50
       - category: Condiments
         product: Genen Shouyu
         unitPrice: 15.5
@@ -2211,29 +2207,17 @@ test:
         unitPrice: 15.5
         quantity: 12
       - category: Condiments
-        product: Grandma's Boysenberry Spread
-        unitPrice: 25
-        quantity: 30
+        product: Genen Shouyu
+        unitPrice: 15.5
+        quantity: 50
       - category: Condiments
         product: Grandma's Boysenberry Spread
         unitPrice: 25
         quantity: 70
       - category: Condiments
-        product: Gula Malacca
-        unitPrice: 15.5
-        quantity: 15
-      - category: Condiments
-        product: Gula Malacca
-        unitPrice: 19.45
-        quantity: 24
-      - category: Condiments
-        product: Gula Malacca
-        unitPrice: 15.5
-        quantity: 100
-      - category: Condiments
-        product: Gula Malacca
-        unitPrice: 19.45
-        quantity: 21
+        product: Grandma's Boysenberry Spread
+        unitPrice: 25
+        quantity: 30
       - category: Condiments
         product: Gula Malacca
         unitPrice: 19.45
@@ -2275,28 +2259,20 @@ test:
         unitPrice: 19.45
         quantity: 21
       - category: Condiments
-        product: Louisiana Fiery Hot Pepper Sauce
-        unitPrice: 21.05
-        quantity: 80
+        product: Gula Malacca
+        unitPrice: 15.5
+        quantity: 15
       - category: Condiments
-        product: Louisiana Fiery Hot Pepper Sauce
-        unitPrice: 21.05
-        quantity: 10
+        product: Gula Malacca
+        unitPrice: 19.45
+        quantity: 24
       - category: Condiments
-        product: Louisiana Fiery Hot Pepper Sauce
-        unitPrice: 21.05
-        quantity: 10
+        product: Gula Malacca
+        unitPrice: 15.5
+        quantity: 100
       - category: Condiments
-        product: Louisiana Fiery Hot Pepper Sauce
-        unitPrice: 21.05
-        quantity: 12
-      - category: Condiments
-        product: Louisiana Fiery Hot Pepper Sauce
-        unitPrice: 21.05
-        quantity: 20
-      - category: Condiments
-        product: Louisiana Fiery Hot Pepper Sauce
-        unitPrice: 21.05
+        product: Gula Malacca
+        unitPrice: 19.45
         quantity: 21
       - category: Condiments
         product: Louisiana Fiery Hot Pepper Sauce
@@ -2343,13 +2319,29 @@ test:
         unitPrice: 21.05
         quantity: 30
       - category: Condiments
-        product: Louisiana Hot Spiced Okra
-        unitPrice: 13.6
-        quantity: 60
+        product: Louisiana Fiery Hot Pepper Sauce
+        unitPrice: 21.05
+        quantity: 80
       - category: Condiments
-        product: Louisiana Hot Spiced Okra
-        unitPrice: 13.6
-        quantity: 60
+        product: Louisiana Fiery Hot Pepper Sauce
+        unitPrice: 21.05
+        quantity: 10
+      - category: Condiments
+        product: Louisiana Fiery Hot Pepper Sauce
+        unitPrice: 21.05
+        quantity: 10
+      - category: Condiments
+        product: Louisiana Fiery Hot Pepper Sauce
+        unitPrice: 21.05
+        quantity: 12
+      - category: Condiments
+        product: Louisiana Fiery Hot Pepper Sauce
+        unitPrice: 21.05
+        quantity: 20
+      - category: Condiments
+        product: Louisiana Fiery Hot Pepper Sauce
+        unitPrice: 21.05
+        quantity: 21
       - category: Condiments
         product: Louisiana Hot Spiced Okra
         unitPrice: 17
@@ -2367,13 +2359,13 @@ test:
         unitPrice: 17
         quantity: 50
       - category: Condiments
-        product: Northwoods Cranberry Sauce
-        unitPrice: 40
-        quantity: 40
+        product: Louisiana Hot Spiced Okra
+        unitPrice: 13.6
+        quantity: 60
       - category: Condiments
-        product: Northwoods Cranberry Sauce
-        unitPrice: 40
-        quantity: 10
+        product: Louisiana Hot Spiced Okra
+        unitPrice: 13.6
+        quantity: 60
       - category: Condiments
         product: Northwoods Cranberry Sauce
         unitPrice: 40
@@ -2387,25 +2379,13 @@ test:
         unitPrice: 40
         quantity: 24
       - category: Condiments
-        product: Original Frankfurter grne Soe
-        unitPrice: 13
-        quantity: 15
+        product: Northwoods Cranberry Sauce
+        unitPrice: 40
+        quantity: 40
       - category: Condiments
-        product: Original Frankfurter grne Soe
-        unitPrice: 10.4
+        product: Northwoods Cranberry Sauce
+        unitPrice: 40
         quantity: 10
-      - category: Condiments
-        product: Original Frankfurter grne Soe
-        unitPrice: 13
-        quantity: 70
-      - category: Condiments
-        product: Original Frankfurter grne Soe
-        unitPrice: 10.4
-        quantity: 14
-      - category: Condiments
-        product: Original Frankfurter grne Soe
-        unitPrice: 13
-        quantity: 35
       - category: Condiments
         product: Original Frankfurter grne Soe
         unitPrice: 13
@@ -2459,21 +2439,25 @@ test:
         unitPrice: 10.4
         quantity: 5
       - category: Condiments
-        product: Sirop d'rable
-        unitPrice: 28.5
+        product: Original Frankfurter grne Soe
+        unitPrice: 13
+        quantity: 15
+      - category: Condiments
+        product: Original Frankfurter grne Soe
+        unitPrice: 10.4
         quantity: 10
       - category: Condiments
-        product: Sirop d'rable
-        unitPrice: 28.5
-        quantity: 20
+        product: Original Frankfurter grne Soe
+        unitPrice: 13
+        quantity: 70
       - category: Condiments
-        product: Sirop d'rable
-        unitPrice: 22.8
-        quantity: 90
+        product: Original Frankfurter grne Soe
+        unitPrice: 10.4
+        quantity: 14
       - category: Condiments
-        product: Sirop d'rable
-        unitPrice: 28.5
-        quantity: 15
+        product: Original Frankfurter grne Soe
+        unitPrice: 13
+        quantity: 35
       - category: Condiments
         product: Sirop d'rable
         unitPrice: 28.5
@@ -2511,13 +2495,21 @@ test:
         unitPrice: 22.8
         quantity: 25
       - category: Condiments
-        product: Vegie-spread
-        unitPrice: 43.9
-        quantity: 6
+        product: Sirop d'rable
+        unitPrice: 28.5
+        quantity: 10
       - category: Condiments
-        product: Vegie-spread
-        unitPrice: 43.9
+        product: Sirop d'rable
+        unitPrice: 28.5
         quantity: 20
+      - category: Condiments
+        product: Sirop d'rable
+        unitPrice: 22.8
+        quantity: 90
+      - category: Condiments
+        product: Sirop d'rable
+        unitPrice: 28.5
+        quantity: 15
       - category: Condiments
         product: Vegie-spread
         unitPrice: 35.1
@@ -2538,10 +2530,14 @@ test:
         product: Vegie-spread
         unitPrice: 35.1
         quantity: 65
-      - category: Confections
-        product: Chocolade
-        unitPrice: 10.2
-        quantity: 70
+      - category: Condiments
+        product: Vegie-spread
+        unitPrice: 43.9
+        quantity: 6
+      - category: Condiments
+        product: Vegie-spread
+        unitPrice: 43.9
+        quantity: 20
       - category: Confections
         product: Chocolade
         unitPrice: 10.2
@@ -2559,29 +2555,9 @@ test:
         unitPrice: 12.75
         quantity: 6
       - category: Confections
-        product: Gumbr Gummibrchen
-        unitPrice: 31.23
-        quantity: 15
-      - category: Confections
-        product: Gumbr Gummibrchen
-        unitPrice: 24.9
-        quantity: 30
-      - category: Confections
-        product: Gumbr Gummibrchen
-        unitPrice: 31.23
-        quantity: 12
-      - category: Confections
-        product: Gumbr Gummibrchen
-        unitPrice: 31.23
-        quantity: 30
-      - category: Confections
-        product: Gumbr Gummibrchen
-        unitPrice: 31.23
-        quantity: 35
-      - category: Confections
-        product: Gumbr Gummibrchen
-        unitPrice: 31.23
-        quantity: 15
+        product: Chocolade
+        unitPrice: 10.2
+        quantity: 70
       - category: Confections
         product: Gumbr Gummibrchen
         unitPrice: 24.9
@@ -2635,17 +2611,29 @@ test:
         unitPrice: 24.9
         quantity: 2
       - category: Confections
-        product: Maxilaku
-        unitPrice: 20
-        quantity: 6
+        product: Gumbr Gummibrchen
+        unitPrice: 31.23
+        quantity: 15
       - category: Confections
-        product: Maxilaku
-        unitPrice: 20
-        quantity: 25
+        product: Gumbr Gummibrchen
+        unitPrice: 24.9
+        quantity: 30
       - category: Confections
-        product: Maxilaku
-        unitPrice: 20
-        quantity: 25
+        product: Gumbr Gummibrchen
+        unitPrice: 31.23
+        quantity: 12
+      - category: Confections
+        product: Gumbr Gummibrchen
+        unitPrice: 31.23
+        quantity: 30
+      - category: Confections
+        product: Gumbr Gummibrchen
+        unitPrice: 31.23
+        quantity: 35
+      - category: Confections
+        product: Gumbr Gummibrchen
+        unitPrice: 31.23
+        quantity: 15
       - category: Confections
         product: Maxilaku
         unitPrice: 16
@@ -2667,13 +2655,17 @@ test:
         unitPrice: 20
         quantity: 18
       - category: Confections
-        product: NuNuCa Nu-Nougat-Creme
-        unitPrice: 11.2
-        quantity: 12
+        product: Maxilaku
+        unitPrice: 20
+        quantity: 6
       - category: Confections
-        product: NuNuCa Nu-Nougat-Creme
-        unitPrice: 11.2
-        quantity: 7
+        product: Maxilaku
+        unitPrice: 20
+        quantity: 25
+      - category: Confections
+        product: Maxilaku
+        unitPrice: 20
+        quantity: 25
       - category: Confections
         product: NuNuCa Nu-Nougat-Creme
         unitPrice: 14
@@ -2691,29 +2683,13 @@ test:
         unitPrice: 14
         quantity: 12
       - category: Confections
-        product: Pavlova
-        unitPrice: 17.45
-        quantity: 10
-      - category: Confections
-        product: Pavlova
-        unitPrice: 13.9
-        quantity: 20
-      - category: Confections
-        product: Pavlova
-        unitPrice: 17.45
-        quantity: 50
-      - category: Confections
-        product: Pavlova
-        unitPrice: 13.9
-        quantity: 18
-      - category: Confections
-        product: Pavlova
-        unitPrice: 17.45
+        product: NuNuCa Nu-Nougat-Creme
+        unitPrice: 11.2
         quantity: 12
       - category: Confections
-        product: Pavlova
-        unitPrice: 17.45
-        quantity: 3
+        product: NuNuCa Nu-Nougat-Creme
+        unitPrice: 11.2
+        quantity: 7
       - category: Confections
         product: Pavlova
         unitPrice: 17.45
@@ -2771,9 +2747,29 @@ test:
         unitPrice: 17.45
         quantity: 14
       - category: Confections
-        product: Schoggi Schokolade
-        unitPrice: 43.9
+        product: Pavlova
+        unitPrice: 17.45
+        quantity: 10
+      - category: Confections
+        product: Pavlova
+        unitPrice: 13.9
+        quantity: 20
+      - category: Confections
+        product: Pavlova
+        unitPrice: 17.45
         quantity: 50
+      - category: Confections
+        product: Pavlova
+        unitPrice: 13.9
+        quantity: 18
+      - category: Confections
+        product: Pavlova
+        unitPrice: 17.45
+        quantity: 12
+      - category: Confections
+        product: Pavlova
+        unitPrice: 17.45
+        quantity: 3
       - category: Confections
         product: Schoggi Schokolade
         unitPrice: 43.9
@@ -2787,17 +2783,9 @@ test:
         unitPrice: 43.9
         quantity: 40
       - category: Confections
-        product: Scottish Longbreads
-        unitPrice: 12.5
-        quantity: 45
-      - category: Confections
-        product: Scottish Longbreads
-        unitPrice: 12.5
-        quantity: 10
-      - category: Confections
-        product: Scottish Longbreads
-        unitPrice: 12.5
-        quantity: 40
+        product: Schoggi Schokolade
+        unitPrice: 43.9
+        quantity: 50
       - category: Confections
         product: Scottish Longbreads
         unitPrice: 12.5
@@ -2835,6 +2823,26 @@ test:
         unitPrice: 12.5
         quantity: 35
       - category: Confections
+        product: Scottish Longbreads
+        unitPrice: 12.5
+        quantity: 45
+      - category: Confections
+        product: Scottish Longbreads
+        unitPrice: 12.5
+        quantity: 10
+      - category: Confections
+        product: Scottish Longbreads
+        unitPrice: 12.5
+        quantity: 40
+      - category: Confections
+        product: Sir Rodney's Marmalade
+        unitPrice: 81
+        quantity: 21
+      - category: Confections
+        product: Sir Rodney's Marmalade
+        unitPrice: 81
+        quantity: 21
+      - category: Confections
         product: Sir Rodney's Marmalade
         unitPrice: 81
         quantity: 39
@@ -2842,42 +2850,6 @@ test:
         product: Sir Rodney's Marmalade
         unitPrice: 81
         quantity: 15
-      - category: Confections
-        product: Sir Rodney's Marmalade
-        unitPrice: 81
-        quantity: 21
-      - category: Confections
-        product: Sir Rodney's Marmalade
-        unitPrice: 81
-        quantity: 21
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 49.3
-        quantity: 10
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 39.4
-        quantity: 35
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 49.3
-        quantity: 10
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 49.3
-        quantity: 80
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 49.3
-        quantity: 40
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 49.3
-        quantity: 10
-      - category: Confections
-        product: Tarte au sucre
-        unitPrice: 39.4
-        quantity: 40
       - category: Confections
         product: Tarte au sucre
         unitPrice: 49.3
@@ -2931,53 +2903,53 @@ test:
         unitPrice: 49.3
         quantity: 3
       - category: Confections
-        product: Valkoinen suklaa
-        unitPrice: 16.25
-        quantity: 25
-      - category: Confections
-        product: Valkoinen suklaa
-        unitPrice: 16.25
-        quantity: 40
-      - category: Confections
-        product: Valkoinen suklaa
-        unitPrice: 13
-        quantity: 25
-      - category: Confections
-        product: Valkoinen suklaa
-        unitPrice: 13
-        quantity: 40
-      - category: Confections
-        product: Valkoinen suklaa
-        unitPrice: 16.25
-        quantity: 20
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 34
-        quantity: 70
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 34
-        quantity: 84
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 34
-        quantity: 15
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 27.2
-        quantity: 60
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 34
+        product: Tarte au sucre
+        unitPrice: 49.3
         quantity: 10
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 34
-        quantity: 24
-      - category: Dairy Products
-        product: Camembert Pierrot
-        unitPrice: 27.2
+      - category: Confections
+        product: Tarte au sucre
+        unitPrice: 39.4
+        quantity: 35
+      - category: Confections
+        product: Tarte au sucre
+        unitPrice: 49.3
+        quantity: 10
+      - category: Confections
+        product: Tarte au sucre
+        unitPrice: 49.3
+        quantity: 80
+      - category: Confections
+        product: Tarte au sucre
+        unitPrice: 49.3
+        quantity: 40
+      - category: Confections
+        product: Tarte au sucre
+        unitPrice: 49.3
+        quantity: 10
+      - category: Confections
+        product: Tarte au sucre
+        unitPrice: 39.4
+        quantity: 40
+      - category: Confections
+        product: Valkoinen suklaa
+        unitPrice: 16.25
+        quantity: 40
+      - category: Confections
+        product: Valkoinen suklaa
+        unitPrice: 13
+        quantity: 25
+      - category: Confections
+        product: Valkoinen suklaa
+        unitPrice: 13
+        quantity: 40
+      - category: Confections
+        product: Valkoinen suklaa
+        unitPrice: 16.25
         quantity: 20
+      - category: Confections
+        product: Valkoinen suklaa
+        unitPrice: 16.25
+        quantity: 25
       - category: Dairy Products
         product: Camembert Pierrot
         unitPrice: 34
@@ -3039,36 +3011,32 @@ test:
         unitPrice: 34
         quantity: 10
       - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
-        quantity: 12
+        product: Camembert Pierrot
+        unitPrice: 34
+        quantity: 70
       - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
-        quantity: 60
+        product: Camembert Pierrot
+        unitPrice: 34
+        quantity: 84
       - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 17.2
-        quantity: 60
-      - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 17.2
-        quantity: 30
-      - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
-        quantity: 30
-      - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
+        product: Camembert Pierrot
+        unitPrice: 34
         quantity: 15
       - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
-        quantity: 8
+        product: Camembert Pierrot
+        unitPrice: 27.2
+        quantity: 60
       - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
+        product: Camembert Pierrot
+        unitPrice: 34
+        quantity: 10
+      - category: Dairy Products
+        product: Camembert Pierrot
+        unitPrice: 34
+        quantity: 24
+      - category: Dairy Products
+        product: Camembert Pierrot
+        unitPrice: 27.2
         quantity: 20
       - category: Dairy Products
         product: Flotemysost
@@ -3077,11 +3045,15 @@ test:
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 21.5
-        quantity: 14
+        quantity: 20
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 17.2
         quantity: 30
+      - category: Dairy Products
+        product: Flotemysost
+        unitPrice: 21.5
+        quantity: 14
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 21.5
@@ -3097,15 +3069,11 @@ test:
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 21.5
-        quantity: 12
-      - category: Dairy Products
-        product: Flotemysost
-        unitPrice: 21.5
         quantity: 9
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 21.5
-        quantity: 30
+        quantity: 12
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 17.2
@@ -3113,6 +3081,10 @@ test:
       - category: Dairy Products
         product: Flotemysost
         unitPrice: 21.5
+        quantity: 30
+      - category: Dairy Products
+        product: Flotemysost
+        unitPrice: 21.5
         quantity: 15
       - category: Dairy Products
         product: Flotemysost
@@ -3127,29 +3099,33 @@ test:
         unitPrice: 17.2
         quantity: 60
       - category: Dairy Products
-        product: Gorgonzola Telino
-        unitPrice: 12.5
-        quantity: 1
-      - category: Dairy Products
-        product: Gorgonzola Telino
-        unitPrice: 12.5
-        quantity: 20
-      - category: Dairy Products
-        product: Gorgonzola Telino
-        unitPrice: 12.5
-        quantity: 2
-      - category: Dairy Products
-        product: Gorgonzola Telino
-        unitPrice: 12.5
+        product: Flotemysost
+        unitPrice: 21.5
         quantity: 60
       - category: Dairy Products
-        product: Gorgonzola Telino
-        unitPrice: 12.5
-        quantity: 8
+        product: Flotemysost
+        unitPrice: 21.5
+        quantity: 12
       - category: Dairy Products
-        product: Gorgonzola Telino
-        unitPrice: 12.5
-        quantity: 6
+        product: Flotemysost
+        unitPrice: 17.2
+        quantity: 30
+      - category: Dairy Products
+        product: Flotemysost
+        unitPrice: 17.2
+        quantity: 60
+      - category: Dairy Products
+        product: Flotemysost
+        unitPrice: 21.5
+        quantity: 30
+      - category: Dairy Products
+        product: Flotemysost
+        unitPrice: 21.5
+        quantity: 15
+      - category: Dairy Products
+        product: Flotemysost
+        unitPrice: 21.5
+        quantity: 8
       - category: Dairy Products
         product: Gorgonzola Telino
         unitPrice: 12.5
@@ -3215,29 +3191,29 @@ test:
         unitPrice: 12.5
         quantity: 35
       - category: Dairy Products
-        product: Gudbrandsdalsost
-        unitPrice: 28.8
+        product: Gorgonzola Telino
+        unitPrice: 12.5
+        quantity: 1
+      - category: Dairy Products
+        product: Gorgonzola Telino
+        unitPrice: 12.5
+        quantity: 20
+      - category: Dairy Products
+        product: Gorgonzola Telino
+        unitPrice: 12.5
+        quantity: 2
+      - category: Dairy Products
+        product: Gorgonzola Telino
+        unitPrice: 12.5
+        quantity: 60
+      - category: Dairy Products
+        product: Gorgonzola Telino
+        unitPrice: 12.5
         quantity: 8
       - category: Dairy Products
-        product: Gudbrandsdalsost
-        unitPrice: 36
-        quantity: 20
-      - category: Dairy Products
-        product: Gudbrandsdalsost
-        unitPrice: 28.8
-        quantity: 15
-      - category: Dairy Products
-        product: Gudbrandsdalsost
-        unitPrice: 28.8
-        quantity: 20
-      - category: Dairy Products
-        product: Gudbrandsdalsost
-        unitPrice: 36
-        quantity: 40
-      - category: Dairy Products
-        product: Gudbrandsdalsost
-        unitPrice: 36
-        quantity: 10
+        product: Gorgonzola Telino
+        unitPrice: 12.5
+        quantity: 6
       - category: Dairy Products
         product: Gudbrandsdalsost
         unitPrice: 36
@@ -3291,13 +3267,29 @@ test:
         unitPrice: 36
         quantity: 30
       - category: Dairy Products
-        product: Mascarpone Fabioli
-        unitPrice: 32
-        quantity: 10
+        product: Gudbrandsdalsost
+        unitPrice: 28.8
+        quantity: 8
       - category: Dairy Products
-        product: Mascarpone Fabioli
-        unitPrice: 32
-        quantity: 24
+        product: Gudbrandsdalsost
+        unitPrice: 36
+        quantity: 20
+      - category: Dairy Products
+        product: Gudbrandsdalsost
+        unitPrice: 28.8
+        quantity: 15
+      - category: Dairy Products
+        product: Gudbrandsdalsost
+        unitPrice: 28.8
+        quantity: 20
+      - category: Dairy Products
+        product: Gudbrandsdalsost
+        unitPrice: 36
+        quantity: 40
+      - category: Dairy Products
+        product: Gudbrandsdalsost
+        unitPrice: 36
+        quantity: 10
       - category: Dairy Products
         product: Mascarpone Fabioli
         unitPrice: 32
@@ -3311,25 +3303,13 @@ test:
         unitPrice: 32
         quantity: 50
       - category: Dairy Products
-        product: Mozzarella di Giovanni
-        unitPrice: 34.8
-        quantity: 21
-      - category: Dairy Products
-        product: Mozzarella di Giovanni
-        unitPrice: 27.8
-        quantity: 40
-      - category: Dairy Products
-        product: Mozzarella di Giovanni
-        unitPrice: 27.8
+        product: Mascarpone Fabioli
+        unitPrice: 32
         quantity: 10
       - category: Dairy Products
-        product: Mozzarella di Giovanni
-        unitPrice: 34.8
-        quantity: 9
-      - category: Dairy Products
-        product: Mozzarella di Giovanni
-        unitPrice: 34.8
-        quantity: 30
+        product: Mascarpone Fabioli
+        unitPrice: 32
+        quantity: 24
       - category: Dairy Products
         product: Mozzarella di Giovanni
         unitPrice: 34.8
@@ -3375,29 +3355,25 @@ test:
         unitPrice: 34.8
         quantity: 15
       - category: Dairy Products
-        product: Queso Cabrales
-        unitPrice: 21
-        quantity: 15
+        product: Mozzarella di Giovanni
+        unitPrice: 34.8
+        quantity: 21
       - category: Dairy Products
-        product: Queso Cabrales
-        unitPrice: 21
-        quantity: 50
+        product: Mozzarella di Giovanni
+        unitPrice: 27.8
+        quantity: 40
       - category: Dairy Products
-        product: Queso Cabrales
-        unitPrice: 21
+        product: Mozzarella di Giovanni
+        unitPrice: 27.8
         quantity: 10
       - category: Dairy Products
-        product: Queso Cabrales
-        unitPrice: 16.8
-        quantity: 10
+        product: Mozzarella di Giovanni
+        unitPrice: 34.8
+        quantity: 9
       - category: Dairy Products
-        product: Queso Cabrales
-        unitPrice: 21
-        quantity: 15
-      - category: Dairy Products
-        product: Queso Cabrales
-        unitPrice: 21
-        quantity: 15
+        product: Mozzarella di Giovanni
+        unitPrice: 34.8
+        quantity: 30
       - category: Dairy Products
         product: Queso Cabrales
         unitPrice: 21
@@ -3451,17 +3427,29 @@ test:
         unitPrice: 16.8
         quantity: 5
       - category: Dairy Products
-        product: Queso Manchego La Pastora
-        unitPrice: 38
-        quantity: 36
+        product: Queso Cabrales
+        unitPrice: 21
+        quantity: 15
       - category: Dairy Products
-        product: Queso Manchego La Pastora
-        unitPrice: 38
-        quantity: 30
+        product: Queso Cabrales
+        unitPrice: 21
+        quantity: 50
       - category: Dairy Products
-        product: Queso Manchego La Pastora
-        unitPrice: 38
-        quantity: 4
+        product: Queso Cabrales
+        unitPrice: 21
+        quantity: 10
+      - category: Dairy Products
+        product: Queso Cabrales
+        unitPrice: 16.8
+        quantity: 10
+      - category: Dairy Products
+        product: Queso Cabrales
+        unitPrice: 21
+        quantity: 15
+      - category: Dairy Products
+        product: Queso Cabrales
+        unitPrice: 21
+        quantity: 15
       - category: Dairy Products
         product: Queso Manchego La Pastora
         unitPrice: 38
@@ -3479,40 +3467,16 @@ test:
         unitPrice: 30.4
         quantity: 15
       - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 44
-        quantity: 20
+        product: Queso Manchego La Pastora
+        unitPrice: 38
+        quantity: 36
       - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
-        quantity: 45
+        product: Queso Manchego La Pastora
+        unitPrice: 38
+        quantity: 30
       - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
-        quantity: 35
-      - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
-        quantity: 7
-      - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
-        quantity: 6
-      - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
-        quantity: 12
-      - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
-        quantity: 1
-      - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 44
-        quantity: 70
-      - category: Dairy Products
-        product: Raclette Courdavault
-        unitPrice: 55
+        product: Queso Manchego La Pastora
+        unitPrice: 38
         quantity: 4
       - category: Dairy Products
         product: Raclette Courdavault
@@ -3594,50 +3558,42 @@ test:
         product: Raclette Courdavault
         unitPrice: 55
         quantity: 2
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 30.4
-        quantity: 30
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
-        quantity: 60
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
-        quantity: 60
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
-        quantity: 40
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 30.4
-        quantity: 5
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
-        quantity: 28
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 44
         quantity: 20
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
-        quantity: 30
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 30.4
-        quantity: 40
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 30.4
-        quantity: 14
-      - category: Grains/Cereals
-        product: Gnocchi di nonna Alice
-        unitPrice: 38
-        quantity: 14
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 45
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 35
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 7
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 6
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 12
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 1
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 44
+        quantity: 70
+      - category: Dairy Products
+        product: Raclette Courdavault
+        unitPrice: 55
+        quantity: 4
       - category: Grains/Cereals
         product: Gnocchi di nonna Alice
         unitPrice: 38
@@ -3727,17 +3683,49 @@ test:
         unitPrice: 38
         quantity: 60
       - category: Grains/Cereals
-        product: Gustaf's Knckebrd
-        unitPrice: 21
-        quantity: 6
+        product: Gnocchi di nonna Alice
+        unitPrice: 30.4
+        quantity: 30
       - category: Grains/Cereals
-        product: Gustaf's Knckebrd
-        unitPrice: 21
-        quantity: 15
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 60
       - category: Grains/Cereals
-        product: Gustaf's Knckebrd
-        unitPrice: 21
-        quantity: 24
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 60
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 40
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 30.4
+        quantity: 5
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 28
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 20
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 30
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 30.4
+        quantity: 40
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 30.4
+        quantity: 14
+      - category: Grains/Cereals
+        product: Gnocchi di nonna Alice
+        unitPrice: 38
+        quantity: 14
       - category: Grains/Cereals
         product: Gustaf's Knckebrd
         unitPrice: 16.8
@@ -3763,13 +3751,17 @@ test:
         unitPrice: 21
         quantity: 48
       - category: Grains/Cereals
-        product: Ravioli Angelo
-        unitPrice: 19.5
-        quantity: 14
+        product: Gustaf's Knckebrd
+        unitPrice: 21
+        quantity: 6
       - category: Grains/Cereals
-        product: Ravioli Angelo
-        unitPrice: 15.6
+        product: Gustaf's Knckebrd
+        unitPrice: 21
         quantity: 15
+      - category: Grains/Cereals
+        product: Gustaf's Knckebrd
+        unitPrice: 21
+        quantity: 24
       - category: Grains/Cereals
         product: Ravioli Angelo
         unitPrice: 19.5
@@ -3795,21 +3787,13 @@ test:
         unitPrice: 19.5
         quantity: 5
       - category: Grains/Cereals
-        product: Singaporean Hokkien Fried Mee
-        unitPrice: 14
-        quantity: 28
+        product: Ravioli Angelo
+        unitPrice: 19.5
+        quantity: 14
       - category: Grains/Cereals
-        product: Singaporean Hokkien Fried Mee
-        unitPrice: 14
-        quantity: 20
-      - category: Grains/Cereals
-        product: Singaporean Hokkien Fried Mee
-        unitPrice: 11.2
-        quantity: 40
-      - category: Grains/Cereals
-        product: Singaporean Hokkien Fried Mee
-        unitPrice: 11.2
-        quantity: 50
+        product: Ravioli Angelo
+        unitPrice: 15.6
+        quantity: 15
       - category: Grains/Cereals
         product: Singaporean Hokkien Fried Mee
         unitPrice: 11.2
@@ -3855,21 +3839,21 @@ test:
         unitPrice: 14
         quantity: 5
       - category: Grains/Cereals
-        product: Wimmers gute Semmelkndel
-        unitPrice: 33.25
-        quantity: 6
-      - category: Grains/Cereals
-        product: Wimmers gute Semmelkndel
-        unitPrice: 26.6
-        quantity: 8
-      - category: Grains/Cereals
-        product: Wimmers gute Semmelkndel
-        unitPrice: 33.25
+        product: Singaporean Hokkien Fried Mee
+        unitPrice: 14
         quantity: 28
       - category: Grains/Cereals
-        product: Wimmers gute Semmelkndel
-        unitPrice: 33.25
-        quantity: 18
+        product: Singaporean Hokkien Fried Mee
+        unitPrice: 14
+        quantity: 20
+      - category: Grains/Cereals
+        product: Singaporean Hokkien Fried Mee
+        unitPrice: 11.2
+        quantity: 40
+      - category: Grains/Cereals
+        product: Singaporean Hokkien Fried Mee
+        unitPrice: 11.2
+        quantity: 50
       - category: Grains/Cereals
         product: Wimmers gute Semmelkndel
         unitPrice: 33.25
@@ -3906,30 +3890,22 @@ test:
         product: Wimmers gute Semmelkndel
         unitPrice: 26.6
         quantity: 35
-      - category: Meat/Poultry
-        product: Alice Mutton
-        unitPrice: 39
-        quantity: 30
-      - category: Meat/Poultry
-        product: Alice Mutton
-        unitPrice: 39
-        quantity: 100
-      - category: Meat/Poultry
-        product: Alice Mutton
-        unitPrice: 39
+      - category: Grains/Cereals
+        product: Wimmers gute Semmelkndel
+        unitPrice: 33.25
+        quantity: 6
+      - category: Grains/Cereals
+        product: Wimmers gute Semmelkndel
+        unitPrice: 26.6
+        quantity: 8
+      - category: Grains/Cereals
+        product: Wimmers gute Semmelkndel
+        unitPrice: 33.25
+        quantity: 28
+      - category: Grains/Cereals
+        product: Wimmers gute Semmelkndel
+        unitPrice: 33.25
         quantity: 18
-      - category: Meat/Poultry
-        product: Alice Mutton
-        unitPrice: 39
-        quantity: 20
-      - category: Meat/Poultry
-        product: Alice Mutton
-        unitPrice: 31.2
-        quantity: 50
-      - category: Meat/Poultry
-        product: Alice Mutton
-        unitPrice: 39
-        quantity: 33
       - category: Meat/Poultry
         product: Alice Mutton
         unitPrice: 39
@@ -3975,9 +3951,29 @@ test:
         unitPrice: 39
         quantity: 8
       - category: Meat/Poultry
-        product: Mishi Kobe Niku
-        unitPrice: 97
-        quantity: 16
+        product: Alice Mutton
+        unitPrice: 39
+        quantity: 30
+      - category: Meat/Poultry
+        product: Alice Mutton
+        unitPrice: 39
+        quantity: 100
+      - category: Meat/Poultry
+        product: Alice Mutton
+        unitPrice: 39
+        quantity: 18
+      - category: Meat/Poultry
+        product: Alice Mutton
+        unitPrice: 39
+        quantity: 20
+      - category: Meat/Poultry
+        product: Alice Mutton
+        unitPrice: 31.2
+        quantity: 50
+      - category: Meat/Poultry
+        product: Alice Mutton
+        unitPrice: 39
+        quantity: 33
       - category: Meat/Poultry
         product: Mishi Kobe Niku
         unitPrice: 97
@@ -3991,25 +3987,9 @@ test:
         unitPrice: 77.6
         quantity: 20
       - category: Meat/Poultry
-        product: Perth Pasties
-        unitPrice: 32.8
-        quantity: 5
-      - category: Meat/Poultry
-        product: Perth Pasties
-        unitPrice: 26.2
-        quantity: 15
-      - category: Meat/Poultry
-        product: Perth Pasties
-        unitPrice: 32.8
-        quantity: 18
-      - category: Meat/Poultry
-        product: Perth Pasties
-        unitPrice: 32.8
-        quantity: 10
-      - category: Meat/Poultry
-        product: Perth Pasties
-        unitPrice: 32.8
-        quantity: 3
+        product: Mishi Kobe Niku
+        unitPrice: 97
+        quantity: 16
       - category: Meat/Poultry
         product: Perth Pasties
         unitPrice: 26.2
@@ -4059,25 +4039,25 @@ test:
         unitPrice: 32.8
         quantity: 6
       - category: Meat/Poultry
-        product: Pt chinois
-        unitPrice: 19.2
-        quantity: 120
+        product: Perth Pasties
+        unitPrice: 32.8
+        quantity: 5
       - category: Meat/Poultry
-        product: Pt chinois
-        unitPrice: 24
-        quantity: 20
+        product: Perth Pasties
+        unitPrice: 26.2
+        quantity: 15
       - category: Meat/Poultry
-        product: Pt chinois
-        unitPrice: 24
-        quantity: 21
+        product: Perth Pasties
+        unitPrice: 32.8
+        quantity: 18
       - category: Meat/Poultry
-        product: Pt chinois
-        unitPrice: 19.2
-        quantity: 2
+        product: Perth Pasties
+        unitPrice: 32.8
+        quantity: 10
       - category: Meat/Poultry
-        product: Pt chinois
-        unitPrice: 19.2
-        quantity: 60
+        product: Perth Pasties
+        unitPrice: 32.8
+        quantity: 3
       - category: Meat/Poultry
         product: Pt chinois
         unitPrice: 24
@@ -4123,21 +4103,25 @@ test:
         unitPrice: 19.2
         quantity: 30
       - category: Meat/Poultry
-        product: Thringer Rostbratwurst
-        unitPrice: 99
-        quantity: 24
+        product: Pt chinois
+        unitPrice: 19.2
+        quantity: 120
       - category: Meat/Poultry
-        product: Thringer Rostbratwurst
-        unitPrice: 99
-        quantity: 18
-      - category: Meat/Poultry
-        product: Thringer Rostbratwurst
-        unitPrice: 123.79
-        quantity: 12
-      - category: Meat/Poultry
-        product: Thringer Rostbratwurst
-        unitPrice: 123.79
+        product: Pt chinois
+        unitPrice: 24
         quantity: 20
+      - category: Meat/Poultry
+        product: Pt chinois
+        unitPrice: 24
+        quantity: 21
+      - category: Meat/Poultry
+        product: Pt chinois
+        unitPrice: 19.2
+        quantity: 2
+      - category: Meat/Poultry
+        product: Pt chinois
+        unitPrice: 19.2
+        quantity: 60
       - category: Meat/Poultry
         product: Thringer Rostbratwurst
         unitPrice: 123.79
@@ -4178,30 +4162,22 @@ test:
         product: Thringer Rostbratwurst
         unitPrice: 123.79
         quantity: 18
-      - category: Produce
-        product: Manjimup Dried Apples
-        unitPrice: 53
-        quantity: 20
-      - category: Produce
-        product: Manjimup Dried Apples
-        unitPrice: 42.4
+      - category: Meat/Poultry
+        product: Thringer Rostbratwurst
+        unitPrice: 99
+        quantity: 24
+      - category: Meat/Poultry
+        product: Thringer Rostbratwurst
+        unitPrice: 99
         quantity: 18
-      - category: Produce
-        product: Manjimup Dried Apples
-        unitPrice: 53
-        quantity: 120
-      - category: Produce
-        product: Manjimup Dried Apples
-        unitPrice: 53
-        quantity: 28
-      - category: Produce
-        product: Manjimup Dried Apples
-        unitPrice: 53
-        quantity: 3
-      - category: Produce
-        product: Manjimup Dried Apples
-        unitPrice: 53
-        quantity: 48
+      - category: Meat/Poultry
+        product: Thringer Rostbratwurst
+        unitPrice: 123.79
+        quantity: 12
+      - category: Meat/Poultry
+        product: Thringer Rostbratwurst
+        unitPrice: 123.79
+        quantity: 20
       - category: Produce
         product: Manjimup Dried Apples
         unitPrice: 53
@@ -4251,25 +4227,29 @@ test:
         unitPrice: 53
         quantity: 7
       - category: Produce
-        product: Rssle Sauerkraut
-        unitPrice: 45.6
+        product: Manjimup Dried Apples
+        unitPrice: 53
         quantity: 20
       - category: Produce
-        product: Rssle Sauerkraut
-        unitPrice: 45.6
-        quantity: 8
+        product: Manjimup Dried Apples
+        unitPrice: 42.4
+        quantity: 18
       - category: Produce
-        product: Rssle Sauerkraut
-        unitPrice: 45.6
-        quantity: 20
+        product: Manjimup Dried Apples
+        unitPrice: 53
+        quantity: 120
       - category: Produce
-        product: Rssle Sauerkraut
-        unitPrice: 36.4
-        quantity: 12
+        product: Manjimup Dried Apples
+        unitPrice: 53
+        quantity: 28
       - category: Produce
-        product: Rssle Sauerkraut
-        unitPrice: 45.6
-        quantity: 10
+        product: Manjimup Dried Apples
+        unitPrice: 53
+        quantity: 3
+      - category: Produce
+        product: Manjimup Dried Apples
+        unitPrice: 53
+        quantity: 48
       - category: Produce
         product: Rssle Sauerkraut
         unitPrice: 45.6
@@ -4315,25 +4295,25 @@ test:
         unitPrice: 45.6
         quantity: 60
       - category: Produce
-        product: Tofu
-        unitPrice: 23.25
-        quantity: 3
+        product: Rssle Sauerkraut
+        unitPrice: 45.6
+        quantity: 20
       - category: Produce
-        product: Tofu
-        unitPrice: 23.25
-        quantity: 21
+        product: Rssle Sauerkraut
+        unitPrice: 45.6
+        quantity: 8
       - category: Produce
-        product: Tofu
-        unitPrice: 23.25
-        quantity: 70
+        product: Rssle Sauerkraut
+        unitPrice: 45.6
+        quantity: 20
       - category: Produce
-        product: Tofu
-        unitPrice: 18.6
+        product: Rssle Sauerkraut
+        unitPrice: 36.4
         quantity: 12
       - category: Produce
-        product: Tofu
-        unitPrice: 23.25
-        quantity: 30
+        product: Rssle Sauerkraut
+        unitPrice: 45.6
+        quantity: 10
       - category: Produce
         product: Tofu
         unitPrice: 23.25
@@ -4375,17 +4355,25 @@ test:
         unitPrice: 18.6
         quantity: 20
       - category: Produce
-        product: Uncle Bob's Organic Dried Pears
-        unitPrice: 30
-        quantity: 50
-      - category: Produce
-        product: Uncle Bob's Organic Dried Pears
-        unitPrice: 30
+        product: Tofu
+        unitPrice: 23.25
         quantity: 3
       - category: Produce
-        product: Uncle Bob's Organic Dried Pears
-        unitPrice: 30
-        quantity: 45
+        product: Tofu
+        unitPrice: 23.25
+        quantity: 21
+      - category: Produce
+        product: Tofu
+        unitPrice: 23.25
+        quantity: 70
+      - category: Produce
+        product: Tofu
+        unitPrice: 18.6
+        quantity: 12
+      - category: Produce
+        product: Tofu
+        unitPrice: 23.25
+        quantity: 30
       - category: Produce
         product: Uncle Bob's Organic Dried Pears
         unitPrice: 30
@@ -4413,6 +4401,58 @@ test:
       - category: Produce
         product: Uncle Bob's Organic Dried Pears
         unitPrice: 30
+        quantity: 10
+      - category: Produce
+        product: Uncle Bob's Organic Dried Pears
+        unitPrice: 30
+        quantity: 50
+      - category: Produce
+        product: Uncle Bob's Organic Dried Pears
+        unitPrice: 30
+        quantity: 3
+      - category: Produce
+        product: Uncle Bob's Organic Dried Pears
+        unitPrice: 30
+        quantity: 45
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 5
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 20
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 25
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 20
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 24
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 15
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 20
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
+        quantity: 10
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 18.4
+        quantity: 2
+      - category: Seafood
+        product: Boston Crab Meat
+        unitPrice: 14.7
         quantity: 10
       - category: Seafood
         product: Boston Crab Meat
@@ -4471,45 +4511,25 @@ test:
         unitPrice: 18.4
         quantity: 42
       - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 5
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 12
       - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 20
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 50
       - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 8
+      - category: Seafood
+        product: Carnarvon Tigers
+        unitPrice: 62.5
         quantity: 25
       - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 20
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 24
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 15
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 20
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 10
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 18.4
-        quantity: 2
-      - category: Seafood
-        product: Boston Crab Meat
-        unitPrice: 14.7
-        quantity: 10
+        product: Carnarvon Tigers
+        unitPrice: 50
+        quantity: 30
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
@@ -4521,15 +4541,11 @@ test:
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
-        quantity: 18
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 30
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
         quantity: 20
+      - category: Seafood
+        product: Carnarvon Tigers
+        unitPrice: 62.5
+        quantity: 18
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
@@ -4537,27 +4553,23 @@ test:
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
-        quantity: 21
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 50
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 12
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 62.5
-        quantity: 8
-      - category: Seafood
-        product: Carnarvon Tigers
-        unitPrice: 50
         quantity: 30
       - category: Seafood
         product: Carnarvon Tigers
         unitPrice: 62.5
-        quantity: 25
+        quantity: 21
+      - category: Seafood
+        product: Escargots de Bourgogne
+        unitPrice: 13.25
+        quantity: 6
+      - category: Seafood
+        product: Escargots de Bourgogne
+        unitPrice: 13.25
+        quantity: 30
+      - category: Seafood
+        product: Escargots de Bourgogne
+        unitPrice: 13.25
+        quantity: 12
       - category: Seafood
         product: Escargots de Bourgogne
         unitPrice: 13.25
@@ -4575,45 +4587,13 @@ test:
         unitPrice: 13.25
         quantity: 30
       - category: Seafood
-        product: Escargots de Bourgogne
-        unitPrice: 13.25
-        quantity: 6
-      - category: Seafood
-        product: Escargots de Bourgogne
-        unitPrice: 13.25
-        quantity: 30
-      - category: Seafood
-        product: Escargots de Bourgogne
-        unitPrice: 13.25
-        quantity: 12
-      - category: Seafood
-        product: Gravad lax
-        unitPrice: 20.8
-        quantity: 10
-      - category: Seafood
         product: Gravad lax
         unitPrice: 26
         quantity: 18
       - category: Seafood
-        product: Ikura
-        unitPrice: 31
-        quantity: 18
-      - category: Seafood
-        product: Ikura
-        unitPrice: 31
-        quantity: 21
-      - category: Seafood
-        product: Ikura
-        unitPrice: 31
-        quantity: 24
-      - category: Seafood
-        product: Ikura
-        unitPrice: 31
+        product: Gravad lax
+        unitPrice: 20.8
         quantity: 10
-      - category: Seafood
-        product: Ikura
-        unitPrice: 31
-        quantity: 70
       - category: Seafood
         product: Ikura
         unitPrice: 31
@@ -4667,6 +4647,54 @@ test:
         unitPrice: 31
         quantity: 18
       - category: Seafood
+        product: Ikura
+        unitPrice: 31
+        quantity: 18
+      - category: Seafood
+        product: Ikura
+        unitPrice: 31
+        quantity: 21
+      - category: Seafood
+        product: Ikura
+        unitPrice: 31
+        quantity: 24
+      - category: Seafood
+        product: Ikura
+        unitPrice: 31
+        quantity: 10
+      - category: Seafood
+        product: Ikura
+        unitPrice: 31
+        quantity: 70
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 30
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 60
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 5
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 30
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 40
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 15.2
+        quantity: 5
+      - category: Seafood
+        product: Inlagd Sill
+        unitPrice: 19
+        quantity: 55
+      - category: Seafood
         product: Inlagd Sill
         unitPrice: 19
         quantity: 20
@@ -4699,33 +4727,33 @@ test:
         unitPrice: 19
         quantity: 21
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 30
+        product: Nord-Ost Matjeshering
+        unitPrice: 20.7
+        quantity: 8
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 60
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 3
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 5
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 15
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 30
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 10
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 40
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 20
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 15.2
-        quantity: 5
+        product: Nord-Ost Matjeshering
+        unitPrice: 20.7
+        quantity: 18
       - category: Seafood
-        product: Inlagd Sill
-        unitPrice: 19
-        quantity: 55
+        product: Nord-Ost Matjeshering
+        unitPrice: 25.89
+        quantity: 10
       - category: Seafood
         product: Nord-Ost Matjeshering
         unitPrice: 25.89
@@ -4763,33 +4791,21 @@ test:
         unitPrice: 25.89
         quantity: 2
       - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 20.7
-        quantity: 8
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 35
       - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 3
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 30
       - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 15
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 35
       - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 10
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 20
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 20.7
-        quantity: 18
-      - category: Seafood
-        product: Nord-Ost Matjeshering
-        unitPrice: 25.89
-        quantity: 10
+        product: Rd Kaviar
+        unitPrice: 15
+        quantity: 24
       - category: Seafood
         product: Rd Kaviar
         unitPrice: 15
@@ -4819,21 +4835,21 @@ test:
         unitPrice: 12
         quantity: 20
       - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 35
+        product: Spegesild
+        unitPrice: 12
+        quantity: 28
       - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 30
+        product: Spegesild
+        unitPrice: 12
+        quantity: 45
       - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 35
+        product: Spegesild
+        unitPrice: 12
+        quantity: 18
       - category: Seafood
-        product: Rd Kaviar
-        unitPrice: 15
-        quantity: 24
+        product: Spegesild
+        unitPrice: 12
+        quantity: 2
       - category: Seafood
         product: Spegesild
         unitPrice: 12
@@ -4850,22 +4866,6 @@ test:
         product: Spegesild
         unitPrice: 12
         quantity: 24
-      - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 28
-      - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 45
-      - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 18
-      - category: Seafood
-        product: Spegesild
-        unitPrice: 12
-        quantity: 2
   - name: query 10
     sentences:
       - stage: mysql

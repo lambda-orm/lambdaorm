@@ -35,7 +35,6 @@ export class Field extends Operand {
 		throw new Error('NotImplemented')
 	}
 }
-
 export class From extends Operand {
 	public eval (): any {
 		throw new Error('NotImplemented')
@@ -127,7 +126,6 @@ export class Sentence extends Operand {
 		throw new Error('NotImplemented')
 	}
 }
-
 export class SentenceInclude extends Operand {
 	public relation: Relation
 	// public variable: string
