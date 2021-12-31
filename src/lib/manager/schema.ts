@@ -183,7 +183,7 @@ export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> 
 	}
 }
 
-class MappingsConfig {
+export class MappingsConfig {
 	public mappings: Mapping[]
 
 	constructor () {
@@ -225,7 +225,7 @@ class MappingsConfig {
 	}
 }
 
-class DataSourceConfig {
+export class DataSourceConfig {
 	public dataSources: DataSource[]
 	public default?:string
 
@@ -261,7 +261,7 @@ class DataSourceConfig {
 	}
 }
 
-class StageConfig {
+export class StageConfig {
 	public stages: Stage[]
 	public default?:string
 
@@ -297,7 +297,7 @@ class StageConfig {
 	}
 }
 
-class SchemaExtender {
+export class SchemaExtender {
 	public static extend (schema: Schema): Schema {
 		// model
 		if (schema.model.entities) {

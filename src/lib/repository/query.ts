@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { ExpressionActions } from './expressionActions'
 
-class QueryAction {
+export class QueryAction {
 	protected actions
 	protected expression
 	constructor (actions:ExpressionActions, expression: string) {
@@ -34,19 +34,19 @@ class QueryAction {
 	}
 }
 
-class PageClauses extends QueryAction {
+export class PageClauses extends QueryAction {
 	/**  */
 	page (page:number, records:number): QueryAction {
 		return new QueryAction(this.actions, `${this.expression}.page(${page},${records})`)
 	}
 }
-class MapClauses<T> extends PageClauses {
+export class MapClauses<T> extends PageClauses {
 	/**  */
 	sort (predicate: (value: T, index: number, array: T[]) => unknown): PageClauses {
 		return new PageClauses(this.actions, `${this.expression}.sort(${predicate.toString()})`)
 	}
 }
-class Map2Clauses<T> extends QueryAction {
+export class Map2Clauses<T> extends QueryAction {
 	/**  */
 	sort (predicate: (value: T, index: number, array: T[]) => unknown): PageClauses {
 		return new PageClauses(this.actions, `${this.expression}.sort(${predicate.toString()})`)
@@ -83,7 +83,7 @@ class Map2Clauses<T> extends QueryAction {
 // }
 // }
 
-class HavingClauses<T> extends MapClauses<T> {
+export class HavingClauses<T> extends MapClauses<T> {
 	/**  */
 	map<U> (predicate: (value: T, index: number, array: T[]) => U): MapClauses<U> {
 		return new MapClauses(this.actions, `${this.expression}.map(${predicate.toString()})`)
@@ -109,13 +109,13 @@ class HavingClauses<T> extends MapClauses<T> {
 		return new MapClauses(this.actions, `${this.expression}.distinct(${predicate.toString()})`)
 	}
 }
-class FilterIncludeClauses<T> extends HavingClauses<T> {
+export class FilterIncludeClauses<T> extends HavingClauses<T> {
 	/**  */
 	having (predicate: (value: T, index: number, array: T[]) => unknown): HavingClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
 	}
 }
-class IncludeClauses<T> extends HavingClauses<T> {
+export class IncludeClauses<T> extends HavingClauses<T> {
 	/**  */
 	filter (predicate: (value: T, index: number, array: T[]) => unknown): FilterIncludeClauses<T> {
 		return new FilterIncludeClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
@@ -126,7 +126,7 @@ class IncludeClauses<T> extends HavingClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
 	}
 }
-class FilterClauses<T> extends HavingClauses<T> {
+export class FilterClauses<T> extends HavingClauses<T> {
 	/**  */
 	include (predicate: (value: T, index: number, array: T[]) => unknown): IncludeClauses<T> {
 		return new IncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)

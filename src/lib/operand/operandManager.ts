@@ -1,7 +1,7 @@
 
 import { Property, Parameter, Data } from '../model'
 import { ModelConfig } from '../manager'
-import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, OperandMetadata, ExpressionConfig, Node } from 'js-expressions'
+import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from './operands'
 
 class EntityContext {
@@ -36,11 +36,9 @@ class ExpressionContext {
 }
 export class OperandManager {
 	private modelConfig: ModelConfig
-	private metadata: OperandMetadata
 	private expressionConfig:ExpressionConfig
-	constructor (modelConfig: ModelConfig, metadata:OperandMetadata, expressionConfig:ExpressionConfig) {
+	constructor (modelConfig: ModelConfig, expressionConfig:ExpressionConfig) {
 		this.modelConfig = modelConfig
-		this.metadata = metadata
 		this.expressionConfig = expressionConfig
 	}
 
@@ -133,17 +131,17 @@ export class OperandManager {
 		if (operand instanceof ArrowFunction) {
 			const childData = current.newData()
 			operand.data = childData
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 			current = childData
 		} else if (operand instanceof ChildFunction) {
 			const childData = current.newData()
 			operand.data = childData
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 			current = childData
 		} else if (operand instanceof FunctionRef) {
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Operator) {
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Variable) {
 			operand.data = current
 		}
@@ -157,8 +155,8 @@ export class OperandManager {
 		if (operand instanceof Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand instanceof FunctionRef) {
-			const funcMetadata = this.metadata.getFunctionMetadata(operand.name)
-			if (funcMetadata && funcMetadata.metadata && funcMetadata.metadata.deterministic) {
+			const funcMetadata = this.expressionConfig.getFunction(operand.name)
+			if (funcMetadata && funcMetadata.deterministic) {
 				return this.reduceOperand(operand)
 			}
 		}

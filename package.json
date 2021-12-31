@@ -22,11 +22,11 @@
 		"unit-test": "grunt unit-test",
 		"integration-test": "grunt integration-test",
 		"dist": "grunt dist",
-		"doc": "typedoc"
+		"doc": "grunt doc"
 	},
 	"dependencies": {
 		"js-yaml": "^4.1.0",
-		"js-expressions": "0.0.4",
+		"js-expressions": "0.0.5",
 		"luxon": "^2.0.2",
 		"sqlstring": "^2.3.2"
 	},

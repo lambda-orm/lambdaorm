@@ -18,7 +18,8 @@ module.exports = function (grunt) {
 			lint: { cmd: 'npx eslint src ' },
 			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
 			integration_test: { cmd: 'npx jest --config jest-integration-config.json ' },
-			tsc: { cmd: 'npx tsc ' }
+			tsc: { cmd: 'npx tsc ' },
+			typedoc: { cmd: 'npx typedoc ' }
 		},
 		clean: {
 			build: ['build'],
@@ -82,6 +83,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('doc', ['exec:typedoc'])
 
 	grunt.registerTask('default', [])
 }

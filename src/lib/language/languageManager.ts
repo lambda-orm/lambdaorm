@@ -19,7 +19,7 @@ export class LanguageManager {
 	constructor (schema: SchemaConfig, expressions:Expressions) {
 		this.schema = schema
 		this.expressions = expressions
-		this.operandManager = new OperandManager(schema.model, this.expressions.metadata, this.expressions.config)
+		this.operandManager = new OperandManager(schema.model, this.expressions.config)
 		this.languages = {}
 		this.dialects = {}
 	}
