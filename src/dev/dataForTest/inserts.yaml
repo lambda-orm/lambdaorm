@@ -51,6 +51,12 @@ test:
     sentences:
       - stage: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - stage: postgres
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id
+      - stage: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
     errors: 0
     expression: Categories.insert()
     completeExpression: Categories.insert({name:name,description:description})
@@ -71,11 +77,19 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result: 9
   - name: insert 2
     data: b
     sentences:
       - stage: mysql
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - stage: postgres
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id
+      - stage: mariadb
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
     errors: 0
     expression: Categories.insert(=>{name:name,description:description})
@@ -97,11 +111,19 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result: 10
   - name: insert 3
     data: c
     sentences:
       - stage: mysql
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+      - stage: postgres
+        sentence: >-
+          INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+          RETURNING CategoryID AS id
+      - stage: mariadb
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
     errors: 0
     expression: Categories.insert(entity)
@@ -123,11 +145,24 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result: 11
   - name: insert 4
     data: order
     sentences:
       - stage: mysql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+      - stage: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
+          AS id
+      - stage: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -219,11 +254,32 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result: 831
   - name: insert 5
     data: order
     sentences:
       - stage: mysql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+          VALUES(?,?,?,?,?)
+      - stage: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
+          AS id
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+          VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
+      - stage: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -325,11 +381,40 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result: 832
   - name: insert 6
     data: order
     sentences:
       - stage: mysql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+          VALUES(?,?,?,?,?)
+
+          INSERT INTO
+          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+          VALUES(?,?,?,?,?,?,?,?,?)
+      - stage: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
+          AS id
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+          VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
+
+          INSERT INTO
+          Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
+      - stage: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -445,5 +530,7 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result: 833
 errors: 0

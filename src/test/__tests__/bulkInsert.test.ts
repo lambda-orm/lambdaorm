@@ -46,6 +46,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES ?'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p=>p.details)'
@@ -53,5 +61,13 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES; INSERT INTO "Order Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?; INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 })

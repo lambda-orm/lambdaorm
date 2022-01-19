@@ -1,5 +1,3 @@
-# convert functions
-
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |toString|convert to string|

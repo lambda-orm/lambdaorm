@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:68](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L68)
+[src/lib/model/schema.ts:68](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L68)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L66)
+[src/lib/model/schema.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L66)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L67)
+[src/lib/model/schema.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L67)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L65)
+[src/lib/model/schema.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L65)

@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L15)
+[src/lib/model/schema.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L15)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L12)
+[src/lib/model/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L12)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L10)
+[src/lib/model/schema.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L10)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L13)
+[src/lib/model/schema.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L13)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L14)
+[src/lib/model/schema.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L14)
 
 ___
 
@@ -79,4 +79,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/schema.ts#L11)
+[src/lib/model/schema.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L11)

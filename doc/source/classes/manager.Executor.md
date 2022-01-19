@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/manager/executor.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/executor.ts#L14)
+[src/lib/manager/executor.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L14)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/manager/executor.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/executor.ts#L22)
+[src/lib/manager/executor.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L22)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/executor.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/executor.ts#L45)
+[src/lib/manager/executor.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L45)
 
 ___
 
@@ -104,4 +104,4 @@ Crea una transaccion
 
 #### Defined in
 
-[src/lib/manager/executor.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/executor.ts#L78)
+[src/lib/manager/executor.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L78)

@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/mongodb.ts#L14)
+[src/lib/connection/dialects/mongodb.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mongodb.ts#L14)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/mongodb.ts#L26)
+[src/lib/connection/dialects/mongodb.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mongodb.ts#L26)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/mongodb.ts#L50)
+[src/lib/connection/dialects/mongodb.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mongodb.ts#L50)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/mongodb.ts#L21)
+[src/lib/connection/dialects/mongodb.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mongodb.ts#L21)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/mongodb.ts#L46)
+[src/lib/connection/dialects/mongodb.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mongodb.ts#L46)

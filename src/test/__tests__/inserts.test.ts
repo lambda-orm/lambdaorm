@@ -110,6 +110,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert(=>{name:name,description:description})'
@@ -117,6 +125,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
@@ -124,6 +140,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES(?,?)'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('insert 4', async () => {
 		const expression = 'Orders.insert()'
@@ -131,6 +155,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert().include(p=>p.details)'
@@ -138,6 +170,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id; INSERT INTO "Order Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?); INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p=>[p.details,p.customer])'
@@ -145,5 +185,13 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id; INSERT INTO "Order Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id; INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id'
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?); INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?); INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)'
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 })

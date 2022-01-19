@@ -90,6 +90,10 @@ test:
     sentences:
       - stage: mysql
         sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
+      - stage: postgres
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES
+      - stage: mariadb
+        sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
     errors: 0
     expression: Categories.bulkInsert()
     completeExpression: Categories.bulkInsert({name:name,description:description})
@@ -108,6 +112,8 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result:
       - 12
       - 13
@@ -115,6 +121,22 @@ test:
     data: b
     sentences:
       - stage: mysql
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES ?
+
+          INSERT INTO `Order
+          Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
+      - stage: postgres
+        sentence: >-
+          INSERT INTO
+          Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+          VALUES
+
+          INSERT INTO "Order
+          Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+      - stage: mariadb
         sentence: >-
           INSERT INTO
           Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -202,6 +224,8 @@ test:
         type: string
     executions:
       - stage: mysql
+      - stage: postgres
+      - stage: mariadb
     result:
       - 834
       - 835

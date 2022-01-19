@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/manager/expressionCompleter.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/expressionCompleter.ts#L12)
+[src/lib/manager/expressionCompleter.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionCompleter.ts#L12)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/manager/expressionCompleter.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/expressionCompleter.ts#L16)
+[src/lib/manager/expressionCompleter.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionCompleter.ts#L16)

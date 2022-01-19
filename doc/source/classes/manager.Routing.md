@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[src/lib/manager/routing.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/routing.ts#L10)
+[src/lib/manager/routing.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/routing.ts#L10)
 
 ## Methods
 
@@ -51,4 +51,4 @@
 
 #### Defined in
 
-[src/lib/manager/routing.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/routing.ts#L15)
+[src/lib/manager/routing.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/routing.ts#L15)

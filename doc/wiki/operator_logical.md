@@ -1,5 +1,3 @@
-# logical operators
-
 |Operator    |Description                                   |
 |------------|----------------------------------------------|
 |!|not|

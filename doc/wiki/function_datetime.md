@@ -1,5 +1,3 @@
-# datetime functions
-
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |curtime|Get the current time|
@@ -30,21 +28,21 @@
 ### curtime
 
 - description: Get the current time
-- deterministic: undefined
+- deterministic: true
 - return: Date
 - params:
 
 ### today
 
 - description: Get the current date
-- deterministic: undefined
+- deterministic: true
 - return: Date
 - params:
 
 ### now
 
 - description: Get the current datetime
-- deterministic: undefined
+- deterministic: true
 - return: Date
 - params:
 

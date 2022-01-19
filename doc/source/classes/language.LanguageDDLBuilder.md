@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:377](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L377)
+[src/lib/manager/ddlBuilder.ts:377](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L377)
 
 ## Methods
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:391](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L391)
+[src/lib/manager/ddlBuilder.ts:391](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L391)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:396](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L396)
+[src/lib/manager/ddlBuilder.ts:396](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L396)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:394](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L394)
+[src/lib/manager/ddlBuilder.ts:394](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L394)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:395](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L395)
+[src/lib/manager/ddlBuilder.ts:395](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L395)
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:392](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L392)
+[src/lib/manager/ddlBuilder.ts:392](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L392)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:390](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L390)
+[src/lib/manager/ddlBuilder.ts:390](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L390)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:397](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L397)
+[src/lib/manager/ddlBuilder.ts:397](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L397)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:398](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L398)
+[src/lib/manager/ddlBuilder.ts:398](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L398)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:393](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L393)
+[src/lib/manager/ddlBuilder.ts:393](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L393)
 
 ___
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:387](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L387)
+[src/lib/manager/ddlBuilder.ts:387](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L387)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:385](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L385)
+[src/lib/manager/ddlBuilder.ts:385](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L385)
 
 ___
 
@@ -294,7 +294,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:386](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L386)
+[src/lib/manager/ddlBuilder.ts:386](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L386)
 
 ___
 
@@ -314,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:388](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L388)
+[src/lib/manager/ddlBuilder.ts:388](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L388)
 
 ___
 
@@ -334,7 +334,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:389](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L389)
+[src/lib/manager/ddlBuilder.ts:389](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L389)
 
 ___
 
@@ -354,4 +354,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:384](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/ddlBuilder.ts#L384)
+[src/lib/manager/ddlBuilder.ts:384](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L384)

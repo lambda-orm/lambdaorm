@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L13)
+[src/lib/connection/connectionManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L13)
 
 ## Methods
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L50)
+[src/lib/connection/connectionManager.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L50)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L18)
+[src/lib/connection/connectionManager.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L18)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L39)
+[src/lib/connection/connectionManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L39)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L46)
+[src/lib/connection/connectionManager.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L46)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L22)
+[src/lib/connection/connectionManager.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L22)
 
 ___
 
@@ -142,4 +142,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionManager.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionManager.ts#L57)
+[src/lib/connection/connectionManager.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionManager.ts#L57)

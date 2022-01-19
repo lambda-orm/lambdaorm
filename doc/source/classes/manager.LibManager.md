@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/lib/manager/lib.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/lib.ts#L7)
+[src/lib/manager/lib.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/lib.ts#L7)
 
 ___
 
@@ -59,4 +59,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/lib.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/lib.ts#L66)
+[src/lib/manager/lib.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/lib.ts#L66)

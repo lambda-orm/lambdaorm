@@ -1,5 +1,3 @@
-# condition functions
-
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |between|Specifies how to retrieve values from an expression within a specific range.|
@@ -10,7 +8,7 @@
 ### between
 
 - description: Specifies how to retrieve values from an expression within a specific range.
-- deterministic: undefined
+- deterministic: true
 - return: boolean
 - params:
 	- value: T
@@ -20,7 +18,7 @@
 ### includes
 
 - description: Is used to reduce the use of multiple OR conditions
-- deterministic: undefined
+- deterministic: true
 - return: boolean
 - params:
 	- value: T

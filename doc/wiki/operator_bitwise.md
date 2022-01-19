@@ -1,5 +1,3 @@
-# bitwise operators
-
 |Operator    |Description                                   |
 |------------|----------------------------------------------|
 |~|bitNot|

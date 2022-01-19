@@ -1,5 +1,3 @@
-# assignment operators
-
 |Operator    |Description                                   |
 |------------|----------------------------------------------|
 |=|assigment|

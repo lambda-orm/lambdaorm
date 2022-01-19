@@ -1,5 +1,3 @@
-# metadata functions
-
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |user|get username|
@@ -10,13 +8,13 @@
 ### user
 
 - description: get username
-- deterministic: undefined
+- deterministic: true
 - return: string
 - params:
 
 ### source
 
 - description: get source
-- deterministic: undefined
+- deterministic: true
 - return: string
 - params:

@@ -25,6 +25,15 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "build wiki",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
+		},
+		{
 			"name": "lab mssql",
 			"type": "node",
 			"request": "launch",

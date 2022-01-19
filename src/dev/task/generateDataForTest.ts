@@ -49,7 +49,8 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 					} else if (sentence !== undefined) {
 						expressionTest.sentences.push({ stage: stage, sentence: sentence })
 					} else {
-						console.error('error sentence ' + stage + ' ' + category.name + ':' + expressionTest.name)
+						expressionTest.sentences.push({ stage: stage, error: `error sentence ${stage} ${category.name}:${expressionTest.name}` })
+						expressionTest.errors++
 					}
 				}
 			}
@@ -73,7 +74,8 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 					} else if (result !== undefined) {
 						results.push({ stage: stage, result: result })
 					} else {
-						console.error('error execution ' + stage + ' ' + category.name + ':' + expressionTest.name)
+						expressionTest.executions.push({ stage: stage, error: `error execution ${stage} ${category.name}:${expressionTest.name}` })
+						expressionTest.errors++
 					}
 				}
 			}
@@ -1038,5 +1040,5 @@ export async function apply (stages: string[], callback: any) {
 	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-apply(['mysql'], function () { console.log('end') })
+apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
 // apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

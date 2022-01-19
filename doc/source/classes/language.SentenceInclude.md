@@ -53,7 +53,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/operand/operands.ts:132](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L132)
+[src/lib/operand/operands.ts:132](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L132)
 
 ## Properties
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:130](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L130)
+[src/lib/operand/operands.ts:130](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L130)
 
 ___
 
@@ -197,7 +197,7 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/operand/operands.ts:138](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L138)
+[src/lib/operand/operands.ts:138](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L138)
 
 ___
 

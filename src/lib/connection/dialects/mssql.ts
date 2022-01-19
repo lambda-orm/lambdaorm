@@ -18,17 +18,22 @@ export class MssqlConnectionPool extends ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
-		const cnx = await new Promise<Connection>((resolve, reject) => {
-			const connection = new MssqlConnectionPool.tedious.Connection(this.config.connection)
-			connection.connect()
-			connection.on('connect', (err:any) => {
-				if (err) {
-					reject(err)
-				}
-				resolve(connection)
+		try {
+			const cnx = await new Promise<Connection>((resolve, reject) => {
+				const connection = new MssqlConnectionPool.tedious.Connection(this.config.connection)
+				connection.connect()
+				connection.on('connect', (err: any) => {
+					if (err) {
+						reject(err)
+					}
+					resolve(connection)
+				})
 			})
-		})
-		return new MssqlConnection(cnx, this)
+			return new MssqlConnection(cnx, this)
+		} catch (error) {
+			console.error(error)
+			throw error
+		}
 	}
 
 	public async release (connection: Connection): Promise<void> {

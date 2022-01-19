@@ -8,6 +8,7 @@ import { SqlLanguage } from '../language/sql'
 // import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
 import { Helper } from './helper'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
+import modelConfig from './../parser/config.json'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -21,7 +22,7 @@ export class Orm implements IOrm {
 	private libManager: LibManager
 	private expressionManager: ExpressionManager
 	private routing: Routing
-	private expressions:Expressions
+	public expressions:Expressions
 
 	private executor:Executor
 	private static _instance: Orm
@@ -46,6 +47,7 @@ export class Orm implements IOrm {
 		this.connectionManager = new ConnectionManager()
 		this.libManager = new LibManager()
 		this.expressions = expressions
+		this.expressions.config.load(modelConfig)
 
 		this.languageManager = new LanguageManager(this.schemaConfig, this.expressions)
 		this.languageManager.addLanguage('sql', new SqlLanguage())

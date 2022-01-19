@@ -38,4 +38,4 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:301](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/schema.ts#L301)
+[src/lib/manager/schema.ts:301](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L301)

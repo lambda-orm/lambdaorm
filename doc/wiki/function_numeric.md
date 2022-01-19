@@ -1,5 +1,3 @@
-# numeric functions
-
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |abs|Get the absolute value|
@@ -14,6 +12,7 @@
 |floor|Get the largest preceding integer|
 |ln|Get natural logarithm of num|
 |log|Get logarithm, base num1, of num2|
+|log10|Return the base 10 logarithm of x|
 |remainder|Get remainder|
 |round|Get rounded value|
 |sign|Get sign of exp|
@@ -122,6 +121,14 @@
 - params:
 	- n1: number
 	- n2: number
+
+### log10
+
+- description: Return the base 10 logarithm of x
+- deterministic: true
+- return: number
+- params:
+	- value: number
 
 ### remainder
 

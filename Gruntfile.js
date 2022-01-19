@@ -68,6 +68,11 @@ module.exports = function (grunt) {
 		task.apply(this.async())
 	})
 
+	grunt.registerTask('build-wiki', 'build wiki', function () {
+		const task = require('./build/dev/task/buildWiki')
+		task.apply(this.async())
+	})
+
 	grunt.registerTask('generate-test', 'generate test', function () {
 		const task = require('./build/dev/task/generateTest')
 		const dataForTestPath = './src/dev/dataForTest'
@@ -83,7 +88,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
-	grunt.registerTask('doc', ['exec:typedoc'])
+	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])
 
 	grunt.registerTask('default', [])
 }

@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/sqljs.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/sqljs.ts#L12)
+[src/lib/connection/dialects/sqljs.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/sqljs.ts#L12)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/sqljs.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/sqljs.ts#L34)
+[src/lib/connection/dialects/sqljs.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/sqljs.ts#L34)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/sqljs.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/sqljs.ts#L43)
+[src/lib/connection/dialects/sqljs.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/sqljs.ts#L43)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/sqljs.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/sqljs.ts#L17)
+[src/lib/connection/dialects/sqljs.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/sqljs.ts#L17)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/sqljs.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/connection/dialects/sqljs.ts#L39)
+[src/lib/connection/dialects/sqljs.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/sqljs.ts#L39)

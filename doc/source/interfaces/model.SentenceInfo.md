@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/sentenceInfo.ts#L2)
+[src/lib/model/sentenceInfo.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/sentenceInfo.ts#L2)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/sentenceInfo.ts#L3)
+[src/lib/model/sentenceInfo.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/sentenceInfo.ts#L3)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/sentenceInfo.ts#L4)
+[src/lib/model/sentenceInfo.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/sentenceInfo.ts#L4)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/sentenceInfo.ts#L5)
+[src/lib/model/sentenceInfo.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/sentenceInfo.ts#L5)

@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/queryExecutor.ts#L17)
+[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L17)
 
 ## Properties
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/queryExecutor.ts#L10)
+[src/lib/manager/queryExecutor.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L10)
 
 ## Methods
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/queryExecutor.ts#L39)
+[src/lib/manager/queryExecutor.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L39)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/queryExecutor.ts#L79)
+[src/lib/manager/queryExecutor.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L79)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/queryExecutor.ts#L53)
+[src/lib/manager/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L53)
 
 ___
 
@@ -114,4 +114,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/manager/queryExecutor.ts#L46)
+[src/lib/manager/queryExecutor.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L46)

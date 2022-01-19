@@ -61,7 +61,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/operand/operands.ts:72](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L72)
+[src/lib/operand/operands.ts:72](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L72)
 
 ## Properties
 
@@ -71,7 +71,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/operand/operands.ts:71](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L71)
+[src/lib/operand/operands.ts:71](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L71)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L70)
+[src/lib/operand/operands.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L70)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L66)
+[src/lib/operand/operands.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L66)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:68](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L68)
+[src/lib/operand/operands.ts:68](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L68)
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L67)
+[src/lib/operand/operands.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L67)
 
 ___
 
@@ -245,7 +245,7 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/operand/operands.ts:125](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L125)
+[src/lib/operand/operands.ts:125](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L125)
 
 ___
 
@@ -259,7 +259,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:83](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/operand/operands.ts#L83)
+[src/lib/operand/operands.ts:83](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L83)
 
 ___
 

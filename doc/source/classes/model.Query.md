@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L15)
+[src/lib/model/query.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L15)
 
 ## Properties
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L7)
+[src/lib/model/query.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L7)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L13)
+[src/lib/model/query.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L13)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L10)
+[src/lib/model/query.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L10)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L9)
+[src/lib/model/query.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L9)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L11)
+[src/lib/model/query.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L11)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L5)
+[src/lib/model/query.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L5)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L14)
+[src/lib/model/query.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L14)
 
 ___
 
@@ -121,4 +121,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/8e54723/src/lib/model/query.ts#L8)
+[src/lib/model/query.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L8)

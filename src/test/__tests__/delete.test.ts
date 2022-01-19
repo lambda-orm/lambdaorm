@@ -126,6 +126,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM "Order Details" o WHERE o.OrderID = $1 '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
@@ -133,6 +141,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM Orders o WHERE o.OrderID = $1 ; DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
@@ -140,6 +156,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM Orders o WHERE o.OrderID = $1 ; DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
@@ -147,6 +171,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM Orders o WHERE o.OrderID = $1 ; DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
@@ -154,6 +186,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID = $2) '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND o.ProductID = ?) '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p=>p.details)'
@@ -161,6 +201,14 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM Orders o WHERE o.OrderID = $1 ; DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM Orders AS o WHERE o.OrderID = ? ; DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
@@ -168,5 +216,13 @@ describe('Sentences', () => {
 		let mysql =  await orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
+		const postgresExpected = 'DELETE FROM "Order Details" o '
+		let postgres =  await orm.sentence(expression,'postgres')
+		postgres=Helper.replace(postgres,'\n','; ')
+		expect(postgresExpected).toBe(postgres)
+		const mariadbExpected = 'DELETE o FROM `Order Details` AS o '
+		let mariadb =  await orm.sentence(expression,'mariadb')
+		mariadb=Helper.replace(mariadb,'\n','; ')
+		expect(mariadbExpected).toBe(mariadb)
 	})
 })

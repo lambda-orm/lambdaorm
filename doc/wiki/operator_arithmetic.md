@@ -1,5 +1,3 @@
-# arithmetic operators
-
 |Operator    |Description                                   |
 |------------|----------------------------------------------|
 |-|negative|

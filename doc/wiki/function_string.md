@@ -1,8 +1,7 @@
-# string functions
-
 |Function    |Description                                   |
 |------------|----------------------------------------------|
 |chr|Get character from ASCII code|
+|strCount|Count value in source|
 |initcap|Capitalize words|
 |lower|Lowercase string|
 |lpad|Pad the left-side of string|
@@ -14,6 +13,7 @@
 |trim|Remove characters|
 |upper|Uppercase string|
 |concat|String concatenation|
+|capitalize|Make the first character have upper case and the rest lower case|
 
 ## Definition
 
@@ -23,6 +23,15 @@
 - deterministic: true
 - return: string
 - params:
+	- ascii: number
+
+### strCount
+
+- description: Count value in source
+- deterministic: true
+- return: number
+- params:
+	- source: string
 	- value: string
 
 ### initcap
@@ -120,3 +129,11 @@
 - return: string
 - params:
 	- values: string
+
+### capitalize
+
+- description: Make the first character have upper case and the rest lower case
+- deterministic: true
+- return: string
+- params:
+	- value: string
