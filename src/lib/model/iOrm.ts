@@ -64,6 +64,6 @@ export interface IOrm
 		* @returns Result of execution
 		*/
 	execute(expression: Function, data?: any, context?: any, stage?: string):Promise<any>
-	execute(expression: string, data?: any, context?: any, dataSstageource?: string):Promise<any>
+	execute(expression: string, data?: any, context?: any, stage?: string):Promise<any>
 	transaction(context:any, stage:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }
