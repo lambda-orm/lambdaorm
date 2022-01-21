@@ -15,6 +15,25 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab config",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-config.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "build wiki",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
+		},
+		{
 			"name": "lab mssql",
 			"type": "node",
 			"request": "launch",
@@ -41,16 +60,6 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-sync.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "generate doc",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/task/generateDoc.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{

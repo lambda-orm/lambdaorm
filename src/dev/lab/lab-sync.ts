@@ -1,4 +1,4 @@
-import { Orm, Helper } from '../../orm'
+import { Orm, Helper } from '../../lib'
 import path from 'path'
 
 (async () => {
@@ -6,21 +6,19 @@ import path from 'path'
 	const orm = new Orm(workspace)
 	try {
 		let result:any
-		const config = await orm.lib.getConfig(workspace)
-		const ds = orm.lib.getDatastore(undefined, config)
-		await orm.init(config)
+		const schema = await orm.lib.getConfig(workspace)
+		await orm.init(schema)
+		await orm.stage.sync(orm.defaultStage.name).execute()
 
-		await orm.datastore.sync(ds.name).execute()
+		result = await orm.execute('Countries.deleteAll()')
+		result = await orm.execute('States.deleteAll()')
 
-		result = await orm.expression('Countries.deleteAll()').execute({}, ds.name)
-		result = await orm.expression('States.deleteAll()').execute({}, ds.name)
+		const strData = await Helper.readFile(path.join(process.cwd(), '/labs/countries/data.json' as string))
+		const data = JSON.parse(strData as string)
 
-		const data = await Helper.readFile(path.join(process.cwd(), '/labs/countries/data.json' as string))
-		const dataContext = JSON.parse(data as string)
+		result = await orm.execute('Countries.bulkInsert().include(p => p.states)', data)
 
-		result = await orm.expression('Countries.bulkInsert().include(p => p.states)').execute(dataContext, ds.name)
-
-		result = await orm.expression('Countries.map(p=>p).include(p => p.states)').execute(dataContext, ds.name)
+		result = await orm.execute('Countries.map(p=>p).include(p => p.states)', data)
 		console.log(JSON.stringify(result, null, 2))
 	} catch (error) {
 		console.error(`error: ${error}`)

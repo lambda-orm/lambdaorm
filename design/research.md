@@ -1,6 +1,48 @@
 # Research
 
-posibles names: lambda-orm
+## Concepts
+
+- [datasource](https://www.talend.com/resources/data-source/)
+
+### Domain Model
+
+- [domian model](https://es.wikipedia.org/wiki/Modelo_de_dominio)
+- [domain-model-pattern](https://udidahan.com/2007/04/21/domain-model-pattern/)
+
+### Command Query Separation (CQS)
+
+- [wikipedia](https://es.wikipedia.org/wiki/Command%E2%80%93query_separation)
+
+### Command Query Responsibility Segregation (CQRS)
+
+- [clarified-cqrs](https://udidahan.com/2009/12/09/clarified-cqrs/)
+
+### Event-driven architecture (EDA)
+
+- [wikipedia](https://en.wikipedia.org/wiki/Event-driven_architecture)
+
+### Design by contract
+
+- [wiki](https://en.wikipedia.org/wiki/Design_by_contract)
+
+### Data Mapper
+
+- [Data_mapper_pattern](https://en.wikipedia.org/wiki/Data_mapper_pattern)
+- [Data Mapper](https://designpatternsphp.readthedocs.io/en/latest/Structural/DataMapper/README.html)
+- [data-mapping](https://www.talend.com/resources/data-mapping/)
+
+### Mapping
+
+- [dto mapping](https://www.baeldung.com/java-dto-pattern)
+- [dto mapping](https://www.oscarblancarteblog.com/2018/11/30/data-transfer-object-dto-patron-diseno/)
+- [dto mappint with sequelize ORM](https://khalilstemmler.com/articles/typescript-domain-driven-design/repository-dto-mapper/)
+- [dtoMapper](https://github.com/igoricelic/dtomapper)
+- [repositories-dto](https://buildplease.com/pages/repositories-dto/)
+
+### Posibles referentes a quienes mostrar
+
+- [martin fowler](https://martinfowler.com/aboutMe.html)
+- [martin fowler wiki](https://en.wikipedia.org/wiki/Martin_Fowler_(software_engineer))
 
 ## Cache
 
@@ -41,6 +83,7 @@ posibles names: lambda-orm
 - [mikro-orm](https://github.com/mikro-orm/mikro-orm)
 - [fireorm](https://github.com/wovalle/fireorm)
 - [refineorm](https://www.npmjs.com/package/refineorm)
+- [js-data](https://www.js-data.io/docs/home)
 
 ## api builder to databases
 
@@ -209,19 +252,6 @@ npm install -g gulp-cli
 ### Online Examples
 
 [site](https://codesandbox.io/)
-
-## Data management architecture:
-
-### Patterns
-
-- [main](https://microservices.io/patterns/index.html)
-- [Database per service](https://microservices.io/patterns/data/database-per-service.html)
-- [Shared database](https://microservices.io/patterns/data/shared-database.html)
-- [Saga](https://microservices.io/patterns/data/saga.html)
-- [API Composition](https://microservices.io/patterns/data/api-composition.html)
-- [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html)
-- [Domain event](https://microservices.io/patterns/data/domain-event.html)
-- [Event sourcing](https://microservices.io/patterns/data/event-sourcing.html)
 
 ### Others
 

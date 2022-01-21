@@ -1,23 +1,23 @@
-import { Parameter } from './../../orm'
+import { Parameter } from '../../lib'
 
 export interface ExecutionTest {
-	datastore: string
+	stage: string
 	result?: any
 	error?: string
 }
 export interface ExecutionResult {
-	datastore: string
+	stage: string
 	result?: any
 }
 export interface SentenceTest {
-	datastore: string
+	stage: string
 	sentence?: any
 	error?: string
 }
 export interface ExpressionTest {
 	name: string
 	lambda: any
-	context?: any
+	data?: string
 	expression?: string
 	completeExpression?: string
 	model?: any
@@ -31,12 +31,12 @@ export interface ExpressionTest {
 }
 export interface CategoryTest {
 	name: string
-	datastore: string
-	dataContext: any
+	data: any
+	context: any
 	test: ExpressionTest[]
 	errors?: number
 }
 export interface Test {
-	datastore: string
+	stage: string
 	categories: CategoryTest[]
 }
