@@ -51,7 +51,7 @@ dataSources:
       database: test
 stages:
   - name: stage1
-    defaultDataSource: dataSource1
     dataSources:
       - name: dataSource2
         condition: entity == "States"
+      - name: dataSource1

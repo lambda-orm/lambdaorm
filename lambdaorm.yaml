@@ -2,7 +2,6 @@ app:
   src: src
   data: data
   model: model
-  defaultStage: default
 enums:
 entities:
   - name: Address
@@ -397,17 +396,22 @@ dataSources:
     connection: $ORM_CNN_MSSQL
 stages:
   - name: source
-    defaultDataSource: source
+    dataSources:
+      - name: source
     # dataSources:
     #   - name: source
     #     condition: actionType == "read"
     #   - name: mysql
     #     condition: actionType == "write"
   - name: mysql
-    defaultDataSource: mysql
+    dataSources:
+      - name: mysql
   - name: mariadb
-    defaultDataSource: mariadb
+    dataSources:
+      - name: mariadb
   - name: postgres
-    defaultDataSource: postgres
+    dataSources:
+      - name: postgres
   - name: mssql
-    defaultDataSource: mssql
+    dataSources:
+      - name: mssql

@@ -253,7 +253,6 @@ export class DataSourceConfig {
 
 export class StageConfig {
 	public stages: Stage[]
-	public default?:string
 
 	constructor () {
 		this.stages = []
@@ -271,17 +270,12 @@ export class StageConfig {
 	}
 
 	public get (name?: string): Stage {
-		const _name = name === undefined ? this.default : name
-		if (_name === undefined) {
-			if (this.stages.length === 1) {
-				return this.stages[0]
-			} else {
-				throw new Error('the name of the stage is required')
-			}
+		if (name === undefined) {
+			return this.stages[0]
 		}
-		const stage = this.stages.find(p => p.name === _name)
+		const stage = this.stages.find(p => p.name === name)
 		if (stage === undefined) {
-			throw new Error(`Stage: ${_name} not found`)
+			throw new Error(`Stage: ${name} not found`)
 		}
 		return stage
 	}
@@ -334,19 +328,12 @@ export class SchemaExtender {
 		}
 		// stages
 		if (schema.stages === undefined || schema.stages.length === 0) {
-			schema.stages = [{ name: 'default', defaultDataSource: schema.dataSources[0].name, dataSources: [] }]
+			schema.stages = [{ name: 'default', dataSources: [{ name: schema.dataSources[0].name }] }]
 		}
 		for (const k in schema.stages) {
 			const stage = schema.stages[k]
 			if (stage.dataSources === undefined) {
-				stage.dataSources = []
-			}
-			if (stage.defaultDataSource === undefined) {
-				if (stage.dataSources.length > 0) {
-					stage.defaultDataSource = stage.dataSources[0].name
-				} else {
-					stage.defaultDataSource = schema.dataSources[0].name
-				}
+				stage.dataSources = [{ name: schema.dataSources[0].name }]
 			}
 		}
 		return schema
@@ -363,18 +350,6 @@ export class SchemaExtender {
 		}
 		return target
 	}
-
-	// private static clearModel (source: Model): Model {
-	// const target: Model = { enums: [], entities: [] }
-	// if (source.entities !== undefined) {
-	// for (let i = 0; i < source.entities.length; i++) {
-	// const sourceEntity = source.entities[i]
-	// if (sourceEntity.abstract === true) continue
-	// target.entities.push(sourceEntity)
-	// }
-	// }
-	// return target
-	// }
 
 	private static completeEntities (entities:Entity[]):void {
 		if (entities !== undefined) {
@@ -556,7 +531,6 @@ export class SchemaConfig {
 				this.stage.load(stage)
 			}
 		}
-		this.stage.default = this.schema.app.defaultStage
 		return this.schema
 	}
 }

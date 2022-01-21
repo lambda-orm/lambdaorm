@@ -17,10 +17,12 @@ export class Routing {
 		const _stage = this.schema.stage.get(stage)
 		for (const i in _stage.dataSources) {
 			const dataSource = _stage.dataSources[i]
-			if (await this.expressions.eval(dataSource.condition, _context) === true) {
+			if (dataSource.condition === undefined) {
+				return dataSource.name
+			} else if (await this.expressions.eval(dataSource.condition, _context) === true) {
 				return dataSource.name
 			}
 		}
-		return _stage.defaultDataSource
+		throw new Error(`Undefined data source on stage ${_stage.name}`)
 	}
 }

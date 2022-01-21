@@ -73,6 +73,8 @@ dataSources:
       database: test
 stages:
   - name: stage1
-    defaultDataSource: dataSource1
+    dataSources:
+      - name: dataSource1
   - name: stage2
-    defaultDataSource: dataSource2
+    dataSources:
+      - name: dataSource2

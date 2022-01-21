@@ -66,12 +66,11 @@ export interface DataSource{
 export interface RuleDataSource
 {
 	name: string
-	condition: string
+	condition?: string
 }
 export interface Stage
 {
 	name: string
-	defaultDataSource: string
 	dataSources: RuleDataSource[]
 }
 export interface App
@@ -79,7 +78,6 @@ export interface App
 	src: string
 	data: string
 	model: string
-	defaultStage?: string
 }
 export interface Schema
 {
