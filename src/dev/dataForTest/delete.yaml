@@ -1,0 +1,346 @@
+name: delete
+context: {}
+data:
+  a:
+    id: 9
+  b:
+    id: 1
+    customerId: ALFKI
+    employeeId: 6
+    orderDate: '1997-08-24T22:00:00.000Z'
+    requiredDate: '1997-09-21T22:00:00.000Z'
+    shippedDate: '1997-09-01T22:00:00.000Z'
+    shipViaId: 1
+    freight: '29.4600'
+    name: Alfreds Futterkiste
+    address: Obere Str. 57
+    city: Berlin
+    region: null
+    postalCode: '12209'
+    country: Germany
+    details:
+      - orderId: 1
+        productId: 28
+        unitPrice: '45.6000'
+        quantity: '15.0000'
+        discount: '0.0000'
+      - orderId: 1
+        productId: 39
+        unitPrice: '18.0000'
+        quantity: '21.0000'
+        discount: '0.0000'
+      - orderId: 1
+        productId: 46
+        unitPrice: '12.0000'
+        quantity: '2.0000'
+        discount: '0.0000'
+  c:
+    id: 2
+    customerId: ALFKI
+    employeeId: 4
+    orderDate: '1997-10-02T22:00:00.000Z'
+    requiredDate: '1997-10-30T23:00:00.000Z'
+    shippedDate: '1997-10-12T22:00:00.000Z'
+    shipViaId: 2
+    freight: '61.0200'
+    name: Alfred-s Futterkiste
+    address: Obere Str. 57
+    city: Berlin
+    region: null
+    postalCode: '12209'
+    country: Germany
+    details:
+      - orderId: 2
+        productId: 63
+        unitPrice: '43.9000'
+        quantity: '20.0000'
+        discount: '0.0000'
+  d:
+    id: 4
+    customerId: ALFKI
+    employeeId: 1
+    orderDate: '1998-01-14T23:00:00.000Z'
+    requiredDate: '1998-02-11T23:00:00.000Z'
+    shippedDate: '1998-01-20T23:00:00.000Z'
+    shipViaId: 3
+    freight: '69.5300'
+    name: Alfred-s Futterkiste
+    address: Obere Str. 57
+    city: Berlin
+    region: null
+    postalCode: '12209'
+    country: Germany
+    details:
+      - orderId: 4
+        productId: 59
+        unitPrice: '55.0000'
+        quantity: '15.0000'
+        discount: '0.0000'
+      - orderId: 4
+        productId: 77
+        unitPrice: '13.0000'
+        quantity: '2.0000'
+        discount: '0.0000'
+  e:
+    entity:
+      orderId: 5
+      productId: 6
+      unitPrice: '25.0000'
+      quantity: '16.0000'
+      discount: '0.0000'
+  f:
+    entity:
+      id: 5
+      customerId: ALFKI
+      employeeId: 1
+      orderDate: '1998-03-15T23:00:00.000Z'
+      requiredDate: '1998-04-26T22:00:00.000Z'
+      shippedDate: '1998-03-23T23:00:00.000Z'
+      shipViaId: 1
+      freight: '40.4200'
+      name: Alfred-s Futterkiste
+      address: Obere Str. 57
+      city: Berlin
+      region: null
+      postalCode: '12209'
+      country: Germany
+      details:
+        - orderId: 5
+          productId: 6
+          unitPrice: '25.0000'
+          quantity: '16.0000'
+          discount: '0.0000'
+        - orderId: 5
+          productId: 28
+          unitPrice: '45.6000'
+          quantity: '2.0000'
+          discount: '0.0000'
+test:
+  - name: delete 1
+    data: a
+    sentences:
+      - stage: mysql
+        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
+      - stage: postgres
+        sentence: 'DELETE FROM "Order Details" o WHERE o.OrderID = $1 '
+      - stage: mariadb
+        sentence: 'DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? '
+    errors: 0
+    expression: OrderDetails.delete().filter(p=>(p.orderId===id))
+    completeExpression: OrderDetails.delete().filter(p=>(p.orderId===id))
+    model: {}
+    parameters:
+      - name: id
+        type: integer
+        value: 9
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 1
+  - name: delete 2
+    data: b
+    sentences:
+      - stage: mysql
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+      - stage: postgres
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = $1 
+
+          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
+          = $2) 
+      - stage: mariadb
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+    errors: 0
+    expression: Orders.delete().include(p=>p.details)
+    completeExpression: >-
+      Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+    model:
+      details:
+        - {}
+    parameters:
+      - name: id
+        type: integer
+        value: 4
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 1
+  - name: delete 3
+    data: c
+    sentences:
+      - stage: mysql
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+      - stage: postgres
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = $1 
+
+          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
+          = $2) 
+      - stage: mariadb
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+    errors: 0
+    expression: Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)
+    completeExpression: >-
+      Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+    model:
+      details:
+        - {}
+    parameters:
+      - name: id
+        type: integer
+        value: 2
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 1
+  - name: delete 4
+    data: d
+    sentences:
+      - stage: mysql
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+      - stage: postgres
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = $1 
+
+          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
+          = $2) 
+      - stage: mariadb
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+    errors: 0
+    expression: Orders.delete().include(p=>p.details)
+    completeExpression: >-
+      Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+    model:
+      details:
+        - {}
+    parameters:
+      - name: id
+        type: integer
+        value: 4
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 1
+  - name: delete 4
+    data: d
+    sentences:
+      - stage: mysql
+        sentence: >-
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
+      - stage: postgres
+        sentence: >-
+          DELETE FROM "Order Details" o WHERE (o.OrderID = $1 AND o.ProductID =
+          $2) 
+      - stage: mariadb
+        sentence: >-
+          DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND
+          o.ProductID = ?) 
+    errors: 0
+    expression: OrderDetails.delete(entity)
+    completeExpression: >-
+      OrderDetails.filter(p=>((p.orderId==entity.orderId)&&(p.productId==entity.productId))).delete(entity)
+    model: {}
+    parameters:
+      - name: entity.orderId
+        type: integer
+        value: null
+      - name: entity.productId
+        type: integer
+        value: null
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 0
+  - name: delete 5
+    data: e
+    sentences:
+      - stage: mysql
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+      - stage: postgres
+        sentence: >-
+          DELETE FROM Orders o WHERE o.OrderID = $1 
+
+          DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND o1.ProductID
+          = $2) 
+      - stage: mariadb
+        sentence: >-
+          DELETE o FROM Orders AS o WHERE o.OrderID = ? 
+
+          DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
+          o1.ProductID = ?) 
+    errors: 0
+    expression: Orders.delete(entity).include(p=>p.details)
+    completeExpression: >-
+      Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
+    model:
+      details:
+        - {}
+    parameters:
+      - name: entity.id
+        type: integer
+        value: null
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 0
+  - name: delete 6
+    sentences:
+      - stage: mysql
+        sentence: 'DELETE o FROM `Order Details` AS o '
+      - stage: postgres
+        sentence: 'DELETE FROM "Order Details" o '
+      - stage: mariadb
+        sentence: 'DELETE o FROM `Order Details` AS o '
+    errors: 0
+    expression: OrderDetails.deleteAll()
+    completeExpression: OrderDetails.delete()
+    model: {}
+    parameters: []
+    fields: []
+    executions:
+      - stage: mysql
+      - stage: postgres
+      - stage: mariadb
+    result: 2154
+errors: 0

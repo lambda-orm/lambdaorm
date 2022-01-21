@@ -1,0 +1,6 @@
+{
+	"dependencies": {},
+	"devDependencies": {
+		"mongodb": "^4.1.3"
+	}
+}

@@ -11,7 +11,7 @@ formats:
   datetime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss'  
-ddl:
+ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'
   incrementalColumDefine: '{name} {type} {nullable} AUTO_INCREMENT' 
@@ -46,15 +46,16 @@ dml:
   update: UPDATE {name} {alias} SET {assings} 
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
+  from: 'FROM {name} {alias} '
+  join: 'INNER JOIN {name} {alias} ON {relation}'
+  upsert:  
 others:
   delimiter: '"{name}"'
   sepatatorSql: ;
   notNullable: NOT NULL
   variable: ':{name}'
   field: '{entityAlias}.{name}'
-  column: '{name}'
-  from: 'FROM {name} {alias} '
-  join: 'INNER JOIN {name} {alias} ON {relation}'
+  column: '{name}'  
   false: 'FALSE'
   true: 'TRUE'
 operators:

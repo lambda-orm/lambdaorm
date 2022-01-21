@@ -1,37 +1,37 @@
-import fs from 'fs'
-import { orm } from '../../orm'
+import { orm, Helper } from '../../lib'
 
-async function schemaSync (target: string) {
-	await orm.database.sync(target).execute()
-}
-async function schemaDrop (target: string, TryAndContinue = false) {
-	if (orm.database.exists(target)) { await orm.database.clean(target).execute(TryAndContinue) }
-}
-async function schemaExport (source: string) {
+async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
-	const data = await orm.database.export(source)
-	fs.writeFileSync(exportFile, JSON.stringify(data, null, 2))
+	const data = await orm.stage.export(source).execute()
+	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
-async function schemaImport (source: string, target: string) {
+async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
-	const data = JSON.parse(fs.readFileSync(sourceFile, 'utf8'))
-	await orm.database.import(target, data)
+	const content = await Helper.readFile(sourceFile) as string
+	const data = JSON.parse(content)
+	await orm.stage.import(target).execute(data)
 }
 
-export async function apply (databases: string[], callback: any) {
-	await orm.init()
+export async function apply (stages: string[], callback: any) {
+	try {
+		await orm.init()
 
-	await schemaSync('source')
-	await schemaExport('source')
-
-	for (const p in databases) {
-		const database = databases[p]
-		await schemaDrop(database, true)
-		await schemaSync(database)
-		await schemaImport('source', database)
-		await schemaExport(database)
+		await orm.stage.sync('source').execute()
+		await stageExport('source')
+		for (const p in stages) {
+			const stage = stages[p]
+			await orm.stage.clean(stage).execute(true)
+			await orm.stage.sync(stage).execute()
+			await stageImport('source', stage)
+			await stageExport(stage)
+		}
+		await orm.end()
+	} catch (error) {
+		console.error(error)
+	} finally {
+		callback()
 	}
-	await orm.end()
-	callback()
 }
-// apply(['mysql', 'postgres'], function () { console.log('end')})
+apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
+// apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })
+// apply(['mysql'], function () { console.log('end') })

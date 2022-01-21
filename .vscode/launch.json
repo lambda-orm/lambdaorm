@@ -15,27 +15,51 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
-			"name": "cli init",
+			"name": "lab config",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/orm/cli.ts",
-			"args": [
-				"init",
-				"-n",
-				"test"
-			]
+			"program": "${workspaceFolder}/src/dev/lab/lab-config.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
-			"name": "generate doc",
+			"name": "build wiki",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/generateDoc.ts",
+			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
+		},
+		{
+			"name": "lab mssql",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-mssql.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab mongo",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/labs/mongo/lab.js"
+		},
+		{
+			"name": "lab sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-sync.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
@@ -46,26 +70,6 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
-		},
-		{
-			"name": "generate model",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/task/generateModel.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "generate data test files",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "drop dbs",
@@ -97,46 +101,46 @@
 			],
 			"stopOnEntry": false
 		},
-		{
-			"name": "populate databases",
-			"type": "node",
-			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"populate-databases"
-			],
-			"stopOnEntry": false
-		},
 		// {
 		// 	"name": "populate databases",
 		// 	"type": "node",
 		// 	"request": "launch",
-		// 	"skipFiles": [
-		// 		"<node_internals>/**"
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"populate-databases"
 		// 	],
-		// 	"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
-		// 	"envFile": "${workspaceFolder}/test.env"
+		// 	"stopOnEntry": false
 		// },
 		{
-			"name": "generate data for test",
+			"name": "populate databases",
 			"type": "node",
 			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"generate-data-for-test"
+			"skipFiles": [
+				"<node_internals>/**"
 			],
-			"stopOnEntry": false
+			"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		// {
 		// 	"name": "generate data for test",
 		// 	"type": "node",
 		// 	"request": "launch",
-		// 	"skipFiles": [
-		// 		"<node_internals>/**"
+		// 	"program": "/usr/bin/grunt",
+		// 	"args": [
+		// 		"generate-data-for-test"
 		// 	],
-		// 	"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
-		// 	"envFile": "${workspaceFolder}/test.env"
+		// 	"stopOnEntry": false
 		// },
+		{
+			"name": "generate data for test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
 		// {
 		// 	"name": "generate test",
 		// 	"type": "node",
