@@ -18,7 +18,7 @@ This configuration contains the main sections, paths, databases and schemas.
 - In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
 - In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
 
-Example:
+## Example:
 
 ```json
 {
@@ -68,6 +68,8 @@ Example:
 }
 ```
 
+## Set schema:
+
 There are the following options to define the settings.
 
 - Invoke the orm.init () method without the first argument and write this configuration in a file called lambdaorm.json or lambdaorm.yaml in the root of the project.
@@ -83,7 +85,7 @@ Example passing the path of the configuration file:
 ```ts
 import { orm } from 'lambdaorm'
 (async () => {
-	await orm.init('/home/my/db/book.yaml')
+	await orm.init('/home/my/app1/lambaorm.yaml')
 	try {
 		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
 		console.log(result)	
@@ -95,182 +97,20 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-## Define
-
-``` yaml
-name: string
-enums:
- - name: string
-   values:
-    - name: string
-      value: any
-entities:	
- - name: string
-   _extends: string[]
-   mapping: string
-   primaryKey: string[]
-   uniqueKey: string[]
-   properties:
-    - name: string		
-      mapping: string
-      type: string | integer | decimal | boolean | datetime | date | time
-      length: number 
-      nullable: boolean
-      autoincrement: boolean
-      default: any
-   indexes:
-    - name: string
-      fields: string[]
-      relations:    
-      - name: string
-        type: oneToMany | manyToOne | oneToOne  
-        from: string
-        entity: string
-        to: string
-        composite: boolean  		 
-```
-
-**Schema:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| app 	 				  |  app configuration            						|						|
-| enums 	 				|  definitions of enum  of model						|						|
-| entities 				|  definitions of entity of model						| yes				|
-| dataSources 		|  definitions of dataSource								| yes				|
-| mappins				  |  definitions of mappings									|      			|
-| stages 				  |  definitions of stages 										|      			|
-
-### Model
-
-**Enum:**
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				|  name of enum 														| yes				|
-| values 		 			|  values of enum														| yes				|
-
-**Entity:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of entity  													| yes				|
-| _extends 	 			| extension  																| 					|
-| primaryKey 			| primary key 															| 					|
-| uniqueKey 			| unique key 																| 					|
-| properties 			| entity properties 												| yes				|
-| indexes 				| indexes 																	| 					|
-| relations 			| relations 																| 					|
-
-**Property:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of property  												| yes				|
-| type 		 				| type of property													| yes				|
-| length 		 			| length of property type										| 					|
-| nullable 		 		| if the field is nullable									| 					|
-| autoincrement		| if the field is self-incrementing					| 					|
-| default 		 		| field default value												| 					|
-
-**Relation:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of property  												| yes				|
-| type 		 				| type of relationship  										| 					|
-| from 		 				| relationship field 												| 					|
-| entity 		 			| entity with which it relates  						| 					|
-| to 		 					| field of the entity to which it relates  	| 					|
-| composite 		 	| if the relationship is composite 					|						|
-
-### Data Sources
-
-**Data Source:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of datasource												| yes				|
-| mapping 				| name of reference to mapping 							| yes				|
-| dialect 				| dialect of data source				    				| yes				|
-| connection 			| string connection 				    				    | yes				|
-
-### Mappings
-
-**Mapping:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of mapping  													| yes				|
-| entities 				| list of entity mapping 				    				| yes				|
-
-**Entity Mapping:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of entity  													| yes				|
-| mapping 				| table name in the database 								| yes				|
-| properties			| list of property mapping  								|   				|
-
-**Property Mapping:**
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 				| name of property 													| yes				|
-| mapping 				| table name in the database 								| yes				|
-
-### Stages
-
-**Stage:**
-
-| Property 					|      Description					 								|	required	|
-|-------------------|-------------------------------------------|:---------:|
-| name 		 					| name of stage															| yes				|
-| dataSources   		| list of dataSources rules			    				| yes				|
-
-**DataSource Rule:**
-
-| Property 					|      Description					 								|	required	|
-|-------------------|-------------------------------------------|:---------:|
-| name 		 					| name of dataSource												| yes				|
-| condition     		| boolean expression to evaluate    				|   				|
-
-## Model generated from the schema
+## Example model generated
 
 ``` ts
-declare global {
-	interface Category {
-		id: number
-		name: string
-		description: string
-	}
-	interface Customer {
-		id: string
-		name: string
-		contact: string
-		phone: string
-		address: string
-		city: string
-		region: string
-		postalCode: string
-		country: string
-		orders: ManyToOne<Order>
-	}
-	interface Employee {
-		id: number
-		lastName: string
-		firstName: string
-		title: string
-		titleOfCourtesy: string
-		birthDate: Date
-		hireDate: Date
-		phone: string
-		reportsToId: number
-		address: string
-		city: string
-		region: string
-		postalCode: string
-		country: string
-		reportsTo: Employee & OneToMany<Employee>
-	}
- ...	
+export class Country {
+		id?: number
+		name?: string
+		alpha2?: string
+		alpha3?: string
+}
+export interface QryCountry {
+	id: number
+	name: number
+	alpha2: string
+	alpha3: string
+}
+export let Countries : Queryable<QryCountry>		
 ```
