@@ -1,8 +1,8 @@
-import { Model } from './schema'
+import { Entity } from './schema'
 
 export interface ModelState
 {
-	model: Model
+	entities: Entity[]
 	mappingData: any
 	pendingData:any[]
 }

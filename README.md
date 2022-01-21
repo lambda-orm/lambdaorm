@@ -3,27 +3,26 @@
 **IMPORTANT: the library is in an Alpha version!!!**
 
 LambdaORM is an intermediary between the business model and the persistence of the data.
-
 Completely decoupling the business model from the data layer.
-
 For this use:
 
-- Queries written in lambda expressions
-- Definition of schemas by decoupling the model from the database.
+- Query Language written in javascript lambda expressions.
+- Schema Configuration.
 
 ## Features
 
-- Expressions
-	- Simple expressions based on javascript lambda.
-	- String expressions
+- Query Language
+	- Simple query language based on javascript lambda expressions.
+	- Can write the expression as javascript code or as a string
+	- Crud clauses
 	- Implicit joins and group by
 	- Eager loading using the Include() method.
-	- Metadata
-- Schema
-	- Decoupling the business model from the data layer
+	- Metadata from query expression
+- Schema Configuration
+	- Decoupling the business model from phisical model
 	- Configuration in json or yml formats
-	- mapping
-	- Extends entities and schemas
+	- Definition of mappins to map the business model with the physical model
+	- Extends entities
 	- Environment variables
 	- define index, unique key, constraints
 - CLI
@@ -60,156 +59,6 @@ The engine also allows us to write the expressions in a string.
  - Easy to write and understand expressions.
  - Use of the intellisense offered by the IDE to write the expressions.
  - Avoid syntax errors.
-
-## Schema
-
-It is the nexus between the business model and the persistence of the data.
-
-The classes that represent the business model are completely clean, without any attributes that link them to persistence.
-
-All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
-
-This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
-
-### Examples:
-
-#### Simple
-
-The schema defines how the entities of the model are mapped with the database tables.
-
-![schema](images/schema.svg)
-
-[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab01)
-
-#### Extend entities
-
-In this scheme we can see how to extend entities.
-
-![schema](images/schema2.svg)
-
-To understand an entity we use the extends attribute in the definition of the entity
-
-```yaml
-  entities:
-    - name: Positions	
-      abstract: true
-      properties:
-        - name: latitude
-          length: 16
-        - name: longitude
-          length: 16
-    - name: Countries
-      extends: Positions
-```
-
-[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab02)
-
-#### Extend schemas
-
-In this scheme we can see how to extend the schema.
-
-![schema](images/schema3.svg)
-
-We use the extends attribute in the definition of the schema to extend it.
-
-```yaml
-schemas:
-  - name: countries    
-  - name: countries2
-    extends: countries
-```
-
-[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
-
-#### One schema related multiples databases
-
-This schema has two entities that are in different databases.
-
-![schema](images/schema4.svg)
-
-The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
-
-```yaml
-- name: States
-  database: mydb2
-```
-
-[example lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
-
-### Config
-
-When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
-
-This configuration contains the main sections, paths, databases and schemas.
-
-- In the app section, the general configuration of the application is set, such as the main paths, default database, etc.
-- In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
-- In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
-
-Example:
-
-```json
-{
-  "app:": { "src": "src", "data": "data" ,"models":"models","defaultDatabase": "mydb" },
-  "databases": [
-    {
-      "name": "mydb",
-      "dialect": "mysql",
-      "schema": "location",
-      "connection": "$CNN_MYSQL"
-    }
-  ],
-  "schemas": [
-    {
-      "name": "location",
-      "enums": [],
-      "entities": [
-        {
-          "name": "Country",
-          "mapping": "COUNTRY",
-          "primaryKey": [ "id"  ],
-          "uniqueKey": [ "name" ],
-          "properties": [
-            { "name": "id", "mapping": "ID", "type": "integer","nullable": false },
-            { "name": "name","mapping": "NAME", "nullable": false, "type": "string", "length": 127 },
-            { "name": "alpha2","mapping": "ALPHA_2", "nullable": false,"type": "string","length": 2 },
-            { "name": "alpha3", "mapping": "ALPHA_3", "nullable": false, "type": "string", "length": 3 }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
-There are the following options to define the settings.
-
-- Invoke the orm.init () method without the first argument and write this configuration in a file called lambdaorm.json or lambdaorm.yaml in the root of the project.
-according to the lambdaorm extension you will know how to read it.
-
-- Invoke the orm.init () method, pass as an argument the path where the configuration file is located.
-This path must include the extension .yaml or .json since this way we will know how to read it.
-
-- Invoke the orm.init () method passing the configuration as a json object as an argument
-
-Example passing the path of the configuration file:
-
-```ts
-import { orm } from 'lambdaorm'
-(async () => {
-	await orm.init('/home/my/db/book.yaml')
-	try {
-		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
-		console.log(result)	
-	} catch (error) {
-		console.log(error)
-	} finally {
-		await orm.end()
-	}
-})()
-```
-
-- [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Config)
 
 ## Expressions:
 

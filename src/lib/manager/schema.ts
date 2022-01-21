@@ -1,4 +1,4 @@
-import { Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Model, Mapping, RelationInfo, Stage } from '../model'
+import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage } from '../model'
 import { ConnectionConfig } from '../connection'
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
@@ -127,23 +127,13 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 }
 
 export class ModelConfig extends _ModelConfig<Entity, Property> {
-	private model:Model
+	public entities: Entity[]
+	public enums:Enum[]
 
-	constructor (model:Model) {
+	constructor (entities: Entity[] = [], enums:Enum[] = []) {
 		super()
-		this.model = model
-	}
-
-	public get ():Model {
-		return this.model
-	}
-
-	public set (value:Model) {
-		this.model = value
-	}
-
-	public get entities ():Entity[] {
-		return this.model.entities
+		this.entities = entities
+		this.enums = enums
 	}
 }
 
@@ -300,14 +290,14 @@ export class StageConfig {
 export class SchemaExtender {
 	public static extend (schema: Schema): Schema {
 		// model
-		if (schema.model.entities) {
-			const entities = schema.model.entities
+		if (schema.entities) {
+			const entities = schema.entities
 			for (const k in entities) {
 				SchemaExtender.extendEntiy(entities[k], entities)
 			}
 		}
-		schema.model = SchemaExtender.clearModel(schema.model)
-		SchemaExtender.completeModel(schema.model)
+		schema.entities = SchemaExtender.clearEntities(schema.entities)
+		SchemaExtender.completeEntities(schema.entities)
 		// mappings
 		if (schema.mappings.length > 0) {
 			// extend entities into mapping
@@ -328,7 +318,7 @@ export class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			SchemaExtender.extendObject(schema.mappings[k], schema.model)
+			SchemaExtender.extendObject(schema.mappings[k], { entities: schema.entities })
 			schema.mappings[k] = SchemaExtender.clearMapping(schema.mappings[k])
 			SchemaExtender.completeMapping(schema.mappings[k])
 		}
@@ -362,22 +352,34 @@ export class SchemaExtender {
 		return schema
 	}
 
-	private static clearModel (source: Model): Model {
-		const target: Model = { enums: [], entities: [] }
-		if (source.entities !== undefined) {
-			for (let i = 0; i < source.entities.length; i++) {
-				const sourceEntity = source.entities[i]
+	private static clearEntities (source: Entity[]): Entity[] {
+		const target: Entity[] = []
+		if (source !== undefined) {
+			for (let i = 0; i < source.length; i++) {
+				const sourceEntity = source[i]
 				if (sourceEntity.abstract === true) continue
-				target.entities.push(sourceEntity)
+				target.push(sourceEntity)
 			}
 		}
 		return target
 	}
 
-	private static completeModel (model:Model):void {
-		if (model.entities !== undefined) {
-			for (let i = 0; i < model.entities.length; i++) {
-				const entity = model.entities[i]
+	// private static clearModel (source: Model): Model {
+	// const target: Model = { enums: [], entities: [] }
+	// if (source.entities !== undefined) {
+	// for (let i = 0; i < source.entities.length; i++) {
+	// const sourceEntity = source.entities[i]
+	// if (sourceEntity.abstract === true) continue
+	// target.entities.push(sourceEntity)
+	// }
+	// }
+	// return target
+	// }
+
+	private static completeEntities (entities:Entity[]):void {
+		if (entities !== undefined) {
+			for (let i = 0; i < entities.length; i++) {
+				const entity = entities[i]
 				if (entity.properties !== undefined) {
 					for (let j = 0; j < entity.properties.length; j++) {
 						const property = entity.properties[j]
@@ -524,15 +526,16 @@ export class SchemaConfig {
 	constructor (workspace:string) {
 		this.workspace = workspace
 		this.dataSource = new DataSourceConfig()
-		this.model = new ModelConfig({ entities: [], enums: [] })
+		this.model = new ModelConfig()
 		this.mapping = new MappingsConfig()
 		this.stage = new StageConfig()
-		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, model: { enums: [], entities: [] }, mappings: [], dataSources: [], stages: [] }
+		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
 	}
 
 	public async load (schema: Schema): Promise<Schema> {
 		this.schema = SchemaExtender.extend(schema)
-		this.model.set(this.schema.model)
+		this.model.entities = this.schema.entities ? this.schema.entities : []
+		this.model.enums = this.schema.enums ? this.schema.enums : []
 		if (this.schema.mappings) {
 			for (const p in this.schema.mappings) {
 				const mapping = this.schema.mappings[p]

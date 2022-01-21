@@ -1,4 +1,4 @@
-import { Model, ModelState } from '../model'
+import { Entity, ModelState } from '../model'
 import { SchemaConfig } from '../manager'
 import { Helper } from '../manager/helper'
 const path = require('path')
@@ -18,13 +18,13 @@ export class StageState {
 				return JSON.parse(content)
 			}
 		}
-		return { model: { entities: [], enums: [] }, mappingData: {}, pendingData: [] }
+		return { entities: [], mappingData: {}, pendingData: [] }
 	}
 
-	public async updateModel (name:string, model:Model):Promise<void> {
+	public async updateModel (name:string, entities:Entity[]):Promise<void> {
 		const stateFile = this.getFile(name)
 		const state = await this.get(name)
-		state.model = model
+		state.entities = entities
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 

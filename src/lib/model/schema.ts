@@ -43,10 +43,6 @@ export interface RelationInfo {
 	entity: Entity,
 	relation: Relation
 }
-export interface Model{
-	entities: Entity[]
-	enums: Enum[]
-}
 export interface PropertyMapping extends Property {
 	mapping: string
 	key?: string
@@ -88,7 +84,8 @@ export interface App
 export interface Schema
 {
 	app: App
-	model: Model
+	entities: Entity[]
+	enums: Enum[]
 	mappings: Mapping[]
 	dataSources: DataSource[]
 	stages: Stage[]

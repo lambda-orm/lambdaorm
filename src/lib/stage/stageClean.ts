@@ -5,8 +5,8 @@ import { ModelConfig } from '../manager'
 export class StageClean extends StageActionDDL {
 	public async queries (): Promise<Query[]> {
 		const state = await this.state.get(this.stage)
-		if (state && state.model) {
-			const modelConfig = new ModelConfig(state.model)
+		if (state && state.entities) {
+			const modelConfig = new ModelConfig(state.entities)
 			return new DDLBuilder(this.schema, this.routing, this.languageManager, this.stage).drop(modelConfig.listEntities())
 		}
 		return []

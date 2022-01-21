@@ -3,227 +3,226 @@ app:
   data: data
   model: model
   defaultStage: default
-model:
-  enums:
-  entities:
-    - name: Address
-      abstract: true
-      indexes:
-        - name: postalCode
-          fields: ["postalCode"]
-        - name: region
-          fields: ["region", "country"]
-        - name: city
-          fields: ["city"]
-      properties:
-        - name: address
-        - name: city
-        - name: region
-        - name: postalCode
-          length: 20
-        - name: country
-    - name: Categories
-      primaryKey: ["id"]
-      uniqueKey: ["name"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-          autoincrement: true
-        - name: name
-          nullable: false
-        - name: description
-          length: 1000
-    - name: Customers
-      extends: Address
-      primaryKey: ["id"]
-      indexes:
-        - name: name
-          fields: ["name"]
-      properties:
-        - name: id
-          length: 5
-          nullable: false
-        - name: name
-          nullable: false
-        - name: contact
-        - name: phone
-      relations:
-        - name: orders
-          type: manyToOne
-          composite: true
-          from: id
-          entity: Orders
-          to: customerId
-    - name: Employees
-      extends: Address
-      primaryKey: ["id"]
-      uniqueKey: ["lastName", "firstName"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-          autoincrement: true
-        - name: lastName
-          nullable: false
-        - name: firstName
-          nullable: false
-        - name: title
-        - name: titleOfCourtesy
-        - name: birthDate
-          type: datetime
-        - name: hireDate
-          type: datetime
-        - name: phone
-        - name: reportsToId
-          type: integer
-      relations:
-        - name: reportsTo
-          from: reportsToId
-          entity: Employees
-          to: id
-    - name: Shippers
-      primaryKey: ["id"]
-      uniqueKey: ["name"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-          autoincrement: true
-        - name: name
-          nullable: false
-        - name: phone
-          length: 20
-    - name: Suppliers
-      extends: Address
-      primaryKey: ["id"]
-      uniqueKey: ["name"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-          autoincrement: true
-        - name: name
-          nullable: false
-        - name: contact
-        - name: phone
-          length: 20
-        - name: homepage
-          length: 200
-    - name: Products
-      primaryKey: ["id"]
-      uniqueKey: ["name", "supplierId"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-          autoincrement: true
-        - name: name
-          nullable: false
-        - name: supplierId
-          nullable: false
-          type: integer
-        - name: categoryId
-          type: integer
-        - name: quantity
-        - name: price
-          type: decimal
-          default: 0
-        - name: inStock
-          type: decimal
-          default: 0
-        - name: onOrder
-          type: decimal
-          default: 0
-        - name: reorderLevel
-          type: decimal
-          default: 0
-        - name: discontinued
-          type: boolean
-          default: false
-      relations:
-        - name: supplier
-          from: supplierId
-          entity: Suppliers
-          to: id
-        - name: category
-          from: categoryId
-          entity: Categories
-          to: id
-    - name: Orders
-      primaryKey: ["id"]
-      indexes:
-        - name: orderDate
-          fields: ["orderDate"]
-        - name: shippedDate
-          fields: ["shippedDate"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-          autoincrement: true
-        - name: customerId
-          nullable: false
-          length: 5
-        - name: employeeId
-          nullable: false
-          type: integer
-        - name: orderDate
-          type: datetime
-        - name: requiredDate
-          type: datetime
-        - name: shippedDate
-          type: datetime
-        - name: shipViaId
-          type: integer
-        - name: freight
-          type: decimal
-        - name: name
-        - name: address
-        - name: city
-        - name: region
-        - name: postalCode
-          length: 20
-        - name: country
-      relations:
-        - name: customer
-          from: customerId
-          entity: Customers
-          to: id
-        - name: employee
-          from: employeeId
-          entity: Employees
-          to: id
-        - name: details
-          type: manyToOne
-          composite: true
-          from: id
-          entity: OrderDetails
-          to: orderId
-    - name: OrderDetails
-      primaryKey: ["orderId", "productId"]
-      properties:
-        - name: orderId
-          nullable: false
-          type: integer
-        - name: productId
-          nullable: false
-          type: integer
-        - name: unitPrice
-          type: decimal
-        - name: quantity
-          type: decimal
-        - name: discount
-          type: decimal
-      relations:
-        - name: order
-          from: orderId
-          entity: Orders
-          to: id
-        - name: product
-          from: productId
-          entity: Products
-          to: id
+enums:
+entities:
+  - name: Address
+    abstract: true
+    indexes:
+      - name: postalCode
+        fields: ["postalCode"]
+      - name: region
+        fields: ["region", "country"]
+      - name: city
+        fields: ["city"]
+    properties:
+      - name: address
+      - name: city
+      - name: region
+      - name: postalCode
+        length: 20
+      - name: country
+  - name: Categories
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        nullable: false
+      - name: description
+        length: 1000
+  - name: Customers
+    extends: Address
+    primaryKey: ["id"]
+    indexes:
+      - name: name
+        fields: ["name"]
+    properties:
+      - name: id
+        length: 5
+        nullable: false
+      - name: name
+        nullable: false
+      - name: contact
+      - name: phone
+    relations:
+      - name: orders
+        type: manyToOne
+        composite: true
+        from: id
+        entity: Orders
+        to: customerId
+  - name: Employees
+    extends: Address
+    primaryKey: ["id"]
+    uniqueKey: ["lastName", "firstName"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: lastName
+        nullable: false
+      - name: firstName
+        nullable: false
+      - name: title
+      - name: titleOfCourtesy
+      - name: birthDate
+        type: datetime
+      - name: hireDate
+        type: datetime
+      - name: phone
+      - name: reportsToId
+        type: integer
+    relations:
+      - name: reportsTo
+        from: reportsToId
+        entity: Employees
+        to: id
+  - name: Shippers
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        nullable: false
+      - name: phone
+        length: 20
+  - name: Suppliers
+    extends: Address
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        nullable: false
+      - name: contact
+      - name: phone
+        length: 20
+      - name: homepage
+        length: 200
+  - name: Products
+    primaryKey: ["id"]
+    uniqueKey: ["name", "supplierId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        nullable: false
+      - name: supplierId
+        nullable: false
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+      - name: price
+        type: decimal
+        default: 0
+      - name: inStock
+        type: decimal
+        default: 0
+      - name: onOrder
+        type: decimal
+        default: 0
+      - name: reorderLevel
+        type: decimal
+        default: 0
+      - name: discontinued
+        type: boolean
+        default: false
+    relations:
+      - name: supplier
+        from: supplierId
+        entity: Suppliers
+        to: id
+      - name: category
+        from: categoryId
+        entity: Categories
+        to: id
+  - name: Orders
+    primaryKey: ["id"]
+    indexes:
+      - name: orderDate
+        fields: ["orderDate"]
+      - name: shippedDate
+        fields: ["shippedDate"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: customerId
+        nullable: false
+        length: 5
+      - name: employeeId
+        nullable: false
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+      - name: address
+      - name: city
+      - name: region
+      - name: postalCode
+        length: 20
+      - name: country
+    relations:
+      - name: customer
+        from: customerId
+        entity: Customers
+        to: id
+      - name: employee
+        from: employeeId
+        entity: Employees
+        to: id
+      - name: details
+        type: manyToOne
+        composite: true
+        from: id
+        entity: OrderDetails
+        to: orderId
+  - name: OrderDetails
+    primaryKey: ["orderId", "productId"]
+    properties:
+      - name: orderId
+        nullable: false
+        type: integer
+      - name: productId
+        nullable: false
+        type: integer
+      - name: unitPrice
+        type: decimal
+      - name: quantity
+        type: decimal
+      - name: discount
+        type: decimal
+    relations:
+      - name: order
+        from: orderId
+        entity: Orders
+        to: id
+      - name: product
+        from: productId
+        entity: Products
+        to: id
 mappings:
   - name: northwind
     entities:
