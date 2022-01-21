@@ -34,6 +34,94 @@ For this use:
 - Transactions
 - Using multiple database connections
 
+## Schema Configuration
+
+It is the nexus between the business model and the persistence of the data.
+
+The classes that represent the business model are completely clean, without any attributes that link them to persistence.
+
+All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
+
+This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+
+### Config
+
+When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
+
+This configuration contains the main sections, paths, databases and schemas.
+
+- In the app section, the general configuration of the application is set, such as the main paths, default database, etc.
+- In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
+- In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
+
+### Example:
+
+This schema has two entities that are in different databases.
+
+![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema4.svg)
+
+The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
+
+```yaml
+entities:
+  - name: Countries
+    primaryKey: ["iso3"]
+    uniqueKey: ["name"]
+    properties:
+      - name: name
+        nullable: false
+      - name: iso3
+        length: 3
+        nullable: false
+    relations:
+      - name: states
+        type: manyToOne
+        composite: true
+        from: iso3
+        entity: States
+        to: countryCode
+  - name: States
+    primaryKey: ["id"]
+    uniqueKey: ["countryCode", "name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: name
+        nullable: false
+      - name: countryCode
+        nullable: false
+        length: 3
+    relations:
+      - name: country
+        from: countryCode
+        entity: Countries
+        to: iso3
+dataSources:
+  - name: dataSource1
+    dialect: mysql
+    connection:
+      host: localhost
+      port: 3306
+      user: test
+      password: test
+      database: test
+  - name: dataSource2
+    dialect: postgres
+    connection:
+      host: localhost
+      port: 5432
+      user: test
+      password: test
+      database: test
+stages:
+  - name: stage1
+    dataSources:
+      - name: dataSource2
+        condition: entity == "States"
+      - name: dataSource1
+```
+
 ## Lambda expressions
 
 The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
@@ -59,70 +147,6 @@ The engine also allows us to write the expressions in a string.
  - Easy to write and understand expressions.
  - Use of the intellisense offered by the IDE to write the expressions.
  - Avoid syntax errors.
-
-## Expressions:
-
-To write the expressions we use methods, operators and functions.
-
-### Methods:
-
-Starting from the entity we have the following methods.
-
-|Method    		|Description                                   										| SQL Equivalent								|																																								|
-|:-----------|:-----------------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------:|
-|filter			 | To filter the records.																						| WHERE 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|having 		 | To filter on groupings.																					|	HAVING 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|map				 | To specify the fields to return. 																| SELECT 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|distinct		 | to specify the fields to return by sending duplicate records.		|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|first			 | returns the first record																					| SELECT + ORDER BY + LIMIT 		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|last 		 	 | returns the last record																					|	SELECT + ORDER BY DESC + LIMIT|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|take 		 	 | returns one record																								|	SELECT +  LIMIT 							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|sort				 | To specify the order in which the records are returned.					| ORDER BY 											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|page				 | To paginate.																											| LIMIT  (MySQL)								|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|include		 | To get records of related entities																|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)	|
-|insert			 | To insert records																								| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|update			 | To update records always including a filter											| UPDATE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|updateAll	 | to be able to update all the records of an entity								| UPDATE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|delete			 | To delete records always including a filter											| DELETE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
-|deleteAll	 | To be able to delete all records of an entity										| DELETE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
-|bulkinsert	 | to insert records in bulk																				| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)|
-
-There are no methods for the INNER JOIN clause since it is deduced when navigating through the relations of a property.
-
-There are no methods for the GROUP BY clause since this is deduced when grouping methods are used.
-
-### Operators
-
-The operators used are the same as those of javascript.
-
-below access to their documentation:
-
-|Category    	|Operators                				|																																												|
-|:------------|:-------------------------------:|:-------------------------------------------------------------------------------------:|
-|Arithmectic 	| -, +, *, /, **, //, % 					| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic) |
-|Bitwise 			| ~,&,^,<<,>> 										| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)			|
-|Comparison 	| ==, ===, !=, !==, >, <, >=, <= 	| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)	|
-|Logical 			| !, && 													| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
-|Array 				| [] 															| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array) 				|
-
-### Functions
-
-In the case of functions, some correspond to javascript functions and others are specific to sql
-
-below access to their documentation:
-
-|Category    	|functions                																						|																																												|
-|:------------|:--------------------------------------------------------------------|--------------------------------------------------------------------------------------:|
-|Numeric			|abs,ceil,cos,exp,ln,log,remainder,round,sign,sin,tan,trunc...				|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)			|
-|String				|chr,lower,lpad,ltrim,replace,rpad,rtrim,substr,trim,upper,concat...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)				|
-|Datetime			|curtime,today,now,time,date,datetime,year,month,day,weekday,hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)			|
-|Convert			|toString,toJson,toNumber																							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)			|
-|Nullable			|nvl,nvl2,isNull,isNotNull																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)			|
-|General			|as,distinct																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)			|
-|Sort					|asc,desc																															|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)					|
-|Conditionals	|between,includes																											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)	|
-|Group				|avg,count,first,last,max,min,sum																			|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)				|
-|Metadata			|user,source																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)			|
 
 ## Usage
 
