@@ -4,20 +4,9 @@
 
 LambdaORM is an intermediary between the business model and the persistence of the data.
 Completely decoupling the business model from the data layer.
-For this use:
-
-- Query Language written in javascript lambda expressions.
-- Schema Configuration.
 
 ## Features
 
-- Query Language
-	- Simple query language based on javascript lambda expressions.
-	- Can write the expression as javascript code or as a string
-	- Crud clauses
-	- Implicit joins and group by
-	- Eager loading using the Include() method.
-	- Metadata from query expression
 - Schema Configuration
 	- Decoupling the business model from phisical model
 	- Configuration in json or yml formats
@@ -25,6 +14,13 @@ For this use:
 	- Extends entities
 	- Environment variables
 	- define index, unique key, constraints
+- Query Language
+	- Simple query language based on javascript lambda expressions.
+	- Can write the expression as javascript code or as a string
+	- Crud clauses
+	- Implicit joins and group by
+	- Eager loading using the Include() method.
+	- Metadata from query expression
 - CLI
 	- Init and update commands
 	- Run expressions
@@ -36,23 +32,26 @@ For this use:
 
 ## Schema Configuration
 
-It is the nexus between the business model and the persistence of the data.
+Es el nexo entre el modelo de negocio y la persistencia de los datos.
 
-The classes that represent the business model are completely clean, without any attributes that link them to persistence.
+Las clases que representan el modelo de negocio están completamente limpias, sin ningún atributo que las vincule a la persistencia.
 
-All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
+Toda la configuración necesaria para resolver la relación entre el modelo de negocio y la persistencia se realiza en el esquema, que es configuración.
 
-This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+Esta configuración se puede hacer en un archivo yaml, json o pasar como parámetro al inicializar el ORM.
 
 ### Config
 
-When the orm.init () method is invoked, the initialization of the orm will be executed from the configuration.
+Cuando se invoca el método orm.init() se ejecutará la inicialización del orm desde la configuración.
 
-This configuration contains the main sections, paths, databases and schemas.
+Esta configuración contiene las siguientes secciones.
 
-- In the app section, the general configuration of the application is set, such as the main paths, default database, etc.
-- In the databases section the databases to which we are going to connect and which is the corresponding schema are defined
-- In the section of diagrams, the entities, their relationships and their mapping with the database are defined.
+- En el sección app se establece la configuración general de la aplicación, como las rutas src, data y model .
+- En la sección de enums se definen los enums que forman parte del modelo de negocio
+- En la sección de entities se definen las entidades que forman parte del modelo de negocio
+- En la sección de data sources se definen los diferentes data sources
+- En la sección de mapping se definen los mapeos entre el modelo de negocio con el modelo en los data sources
+- En la sección de stages se definen los stages donde se definen las reglas que relacionan el modelo de negocio con los diferentes data sources.
 
 ### Example:
 
@@ -100,20 +99,10 @@ entities:
 dataSources:
   - name: dataSource1
     dialect: mysql
-    connection:
-      host: localhost
-      port: 3306
-      user: test
-      password: test
-      database: test
+    connection: $CNX_DATA_SOURCE_1
   - name: dataSource2
     dialect: postgres
-    connection:
-      host: localhost
-      port: 5432
-      user: test
-      password: test
-      database: test
+    connection: $CNX_DATA_SOURCE_2
 stages:
   - name: stage1
     dataSources:
@@ -122,19 +111,24 @@ stages:
       - name: dataSource1
 ```
 
-## Lambda expressions
+## Query Language
 
-The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
+The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+These expressions can be written as javascript code by browsing the entities of the business model.
 
-The purpose is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+Expressions can also be sent as a string
+
+LambdaOrm translates the expression into the language corresponding to each database engine.
 
 Example:
+
+Javascript lambda expression:
 
 ```ts
 Countries.page(1,10).include(p => p.states.map(p=> [p.name,p.latitude,p.longitude] ))
 ```
 
-The engine also allows us to write the expressions in a string.
+Javascript lambda expression as string
 
 ```ts
 'Countries.page(1,10).include(p => p.states.map(p=> [p.name,p.latitude,p.longitude] ))'
