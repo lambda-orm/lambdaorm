@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Schema } from './index'
-import { Transaction, StageFacade } from '../manager'
+import { Transaction, StageFacade, SchemaConfig } from '../manager'
 import { Cache } from 'js-expressions'
 
 export interface IOrm
 {
 	get workspace(): string
 	dialect (dataSource:string): string
-	get stage (): StageFacade
+	get stage(): StageFacade
+	get schema (): SchemaConfig
 	setCache (value: Cache):void
 	init(configPath?: string, connect?: boolean): Promise<Schema>
 	end (): Promise<void>

@@ -121,10 +121,17 @@ export class Orm implements IOrm {
 	}
 
 	/**
-* Get reference to dataSource manager
+* Get reference to stage manager
 */
 	public get stage (): StageFacade {
 		return this.stageFacade
+	}
+
+	/**
+	 * Get reference to SchemaConfig
+	 */
+	public get schema (): SchemaConfig {
+		return this.schemaConfig
 	}
 
 	/**
