@@ -59,7 +59,7 @@ export class QueryExecutor {
 	}
 
 	private async getDataSource (query: Query, context: any): Promise<string> {
-		const sentenceInfo: SentenceInfo = { entity: query.entity, name: query.sentence }
+		const sentenceInfo: SentenceInfo = { entity: query.entity, name: query.name }
 		return await this.routing.getDataSource(sentenceInfo, context, this.stage)
 	}
 
@@ -114,7 +114,7 @@ export class QueryExecutor {
 				throw new Error(`query ${query.name} undefined`)
 			}
 		} catch (error: any) {
-			console.log(error)
+			throw new Error(`sentence ${query.sentence} error: ${error}`)
 		}
 		return result
 	}

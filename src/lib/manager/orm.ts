@@ -210,13 +210,14 @@ export class Orm implements IOrm {
 	 * @param expression
 	 * @param dataSource
 	 */
-	public async sentence(expression: Function, stage: string): Promise<string>;
-	public async sentence(expression: string, stage: string): Promise<string>;
-	public async sentence (expression: string|Function, stage: string): Promise<string> {
+	public async sentence(expression: Function, stage?: string): Promise<string>;
+	public async sentence(expression: string, stage?: string): Promise<string>;
+	public async sentence (expression: string|Function, stage: string|undefined): Promise<string> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		return this.expressionManager.sentence(expression, stage)
+		const _stage = this.schemaConfig.stage.get(stage)
+		return this.expressionManager.sentence(expression, _stage.name)
 	}
 
 	/**

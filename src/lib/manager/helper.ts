@@ -111,7 +111,9 @@ export class Helper {
 
 	public static async lstat (fullPath:string):Promise<fs.Stats> {
 		return new Promise<fs.Stats>((resolve, reject) => {
-			fs.lstat(fullPath, (err, stats) => err ? reject(err) : resolve(stats))
+			fs.lstat(fullPath, (err, stats) => err
+				? reject(err)
+				: resolve(stats))
 		})
 	}
 
