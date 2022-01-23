@@ -140,6 +140,13 @@ stages:
       - name: dataSource1
 ```
 
+Enrironmet Variables:
+
+```sh
+CNN_MYDB={"host":"0.0.0.0","port":3309,"user":"test","password":"test","database":"test","multipleStatements": true,"waitForConnections": true, "connectionLimit": 10, "queueLimit": 0 }
+CNN_MYDB2={"host":"0.0.0.0","port":5433,"user":"test","password":"test","database":"test"}
+```
+
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
 
 ## Query Language
