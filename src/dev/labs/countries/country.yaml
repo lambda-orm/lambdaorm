@@ -2,48 +2,47 @@ app:
   src: src
   data: data
   model: model
-model:
-  entities:
-    - name: Countries
-      primaryKey: ["iso3"]
-      uniqueKey: ["name"]
-      properties:
-        - name: name
-          nullable: false
-        - name: iso3
-          length: 3
-          nullable: false
-      relations:
-        - name: states
-          type: manyToOne
-          composite: true
-          from: iso3
-          entity: States
-          to: countryCode
-    - name: States
-      primaryKey: ["id"]
-      uniqueKey: ["countryCode", "name"]
-      properties:
-        - name: id
-          type: integer
-          nullable: false
-        - name: name
-          nullable: false
-        - name: countryCode
-          nullable: false
-          length: 3
-      relations:
-        - name: country
-          from: countryCode
-          entity: Countries
-          to: iso3
+entities:
+  - name: Countries
+    primaryKey: ["iso3"]
+    uniqueKey: ["name"]
+    properties:
+      - name: name
+        nullable: false
+      - name: iso3
+        length: 3
+        nullable: false
+    relations:
+      - name: states
+        type: manyToOne
+        composite: true
+        from: iso3
+        entity: States
+        to: countryCode
+  - name: States
+    primaryKey: ["id"]
+    uniqueKey: ["countryCode", "name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: name
+        nullable: false
+      - name: countryCode
+        nullable: false
+        length: 3
+    relations:
+      - name: country
+        from: countryCode
+        entity: Countries
+        to: iso3
 dataSources:
   - name: dataSource1
     dialect: mysql
     mapping: default
     connection:
       host: localhost
-      port: 3306
+      port: 3309
       user: test
       password: test
       database: test
@@ -52,7 +51,7 @@ dataSources:
     mapping: default
     connection:
       host: localhost
-      port: 5432
+      port: 5433
       user: test
       password: test
       database: test

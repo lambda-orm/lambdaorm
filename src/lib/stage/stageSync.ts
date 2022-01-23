@@ -13,7 +13,9 @@ export class StageSync extends StageActionDDL {
 
 	public async execute (tryAllCan = false): Promise<any[]> {
 		const queries = await this.queries()
-		const result = await this.executor.executeList(this.stage, queries, tryAllCan)
+		// TODO: solve context
+		const context = {}
+		const result = await this.executor.executeList(this.stage, queries, context, tryAllCan)
 		await this.state.updateModel(this.stage, this.schema.model.entities)
 		return result
 	}
