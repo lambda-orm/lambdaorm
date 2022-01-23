@@ -32,34 +32,33 @@ Completely decoupling the business model from the data layer.
 
 ## Schema Configuration
 
-Es el nexo entre el modelo de negocio y la persistencia de los datos.
+It is the link between the business model and data persistence.
 
-Las clases que representan el modelo de negocio están completamente limpias, sin ningún atributo que las vincule a la persistencia.
+The classes that represent the business model are completely clean, without any attribute that binds them to persistence.
 
-Toda la configuración necesaria para resolver la relación entre el modelo de negocio y la persistencia se realiza en el esquema, que es configuración.
+All the configuration required to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
 
-Esta configuración se puede hacer en un archivo yaml, json o pasar como parámetro al inicializar el ORM.
+This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
 
-### Config
+This configuration contains the following sections.
 
-Cuando se invoca el método orm.init() se ejecutará la inicialización del orm desde la configuración.
+- In the app section, the general configuration of the application is established, such as the src, data and model routes.
+- In the enums section, the enums that are part of the business model are defined
+- In the entities section, the entities that are part of the business model are defined
+- In the data sources section the different data sources are defined
+- In the mapping section, the mappings between the business model and the model in the data sources are defined.
+- In the stages section, the stages are defined where the rules that relate the business model to the different data sources are defined.
 
-Esta configuración contiene las siguientes secciones.
+### Schema Configuration Example:
 
-- En el sección app se establece la configuración general de la aplicación, como las rutas src, data y model .
-- En la sección de enums se definen los enums que forman parte del modelo de negocio
-- En la sección de entities se definen las entidades que forman parte del modelo de negocio
-- En la sección de data sources se definen los diferentes data sources
-- En la sección de mapping se definen los mapeos entre el modelo de negocio con el modelo en los data sources
-- En la sección de stages se definen los stages donde se definen las reglas que relacionan el modelo de negocio con los diferentes data sources.
+This example poses a stage where two dataSources are accessed.
+Data source 1 is mysql and contains the Countries table and dataSource 2 is postgres contains the States table.
 
-### Example:
+In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
 
-Este esquema tiene dos entidades que están en diferentes bases de datos.
+But in the case of the States entity, the name of the table and its fields differ, so the mapping defines the mapping.
 
 ![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
-
-El atributo de la base de datos se usa en la entidad para poder especificar que una entidad está en una base de datos diferente a la predeterminada del esquema.
 
 ```yaml
 entities:
@@ -141,16 +140,18 @@ stages:
       - name: dataSource1
 ```
 
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
+
 ## Query Language
 
-El lenguaje de consulta se basa en [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
-Estas expresiones se pueden escribir como código javascript navegando por las entidades del modelo de negocio.
+The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+These expressions can be written as javascript code by browsing the business model entities.
 
-Las expresiones también se pueden enviar como una cadena
+Expressions can also be sent as a string
 
-LambdaOrm traduce la expresión al idioma correspondiente a cada motor de base de datos.
+LambdaOrm translates the expression into the language corresponding to each database engine.
 
-Example:
+### Query Language Example:
 
 Javascript lambda expression:
 
@@ -179,27 +180,29 @@ WHERE SUBSTR(s.NAME,1,1) = 'F'
 
 ### Advantage:
 
-- Uso del mismo lenguaje de programación.
-- No es necesario aprender un nuevo idioma.
-- Expresiones fáciles de escribir y comprender.
-- Uso del intellisense que ofrece el IDE para escribir las expresiones.
-- Evitar errores de sintaxis.
+- Use of the same programming language.
+- No need to learn a new language.
+- Expressions easy to write and understand.
+- Use of the intellisense offered by the IDE to write the expressions.
+- Avoid syntax errors.
 
 ## Usage
 
-Para trabajar con el orm podemos hacerlo usando el objeto singleton llamado "orm" o usando repositorios.
+To work with the orm we can do it using the singleton object called "orm" or using repositories.
 
-### Objeto __orm__
+### Objet __orm__
 
-Este objeto orm actúa como fachada y desde este accedemos a todas las funcionalidades.
+This orm object acts as a facade and from this we access all the methods.
+
+When the orm.init() method is called, the orm initialization will be executed from the configuration.
 
 #### __execute method__:
 
-Este método recibe la expresión como una función lambda de javascript o un string.
+This method receives the expression as a javascript lambda function or a string.
 
 #### Use Javascript lambda expression:
 
-La ventaja de escribir la expression como una funcion lambda de javascript es que de esta forma contaremos con la ayuda de intellisense y nos aseguraremos de que la expresión no tenga errores de sintaxis.
+The advantage of writing the expression as a javascript lambda function is that this way we will have the help of intellisense and we will make sure that the expression has no syntax errors.
 
 ```ts
 import { orm } from 'lambdaorm'
@@ -219,7 +222,7 @@ import { orm } from 'lambdaorm'
 
 #### Use Javascript lambda expression as string:
 
-La ventaja de escribir la expression en un string es que podemos recibirla desde fuera, ejemplo UI, comando CLI, almacenadas , etc.
+The advantage of writing the expression in a string is that we can receive it from outside, example UI, CLI command, stored, etc.
 
 ```ts
 import { orm } from 'lambdaorm'
@@ -264,9 +267,7 @@ import { orm } from 'lambdaorm'
 
 ### Repositories
 
-Los repositorios están asociados a una entidad y tienen varios métodos para interactuar con ella.
-
-Example:
+Repositories are associated with an entity and have various methods to interact with it.
 
 ```ts
 import { orm } from 'lambdaorm'
@@ -290,15 +291,13 @@ import { CountryRespository } from './models/country'
 
 ### Includes:
 
-LambdaORM incluye el método de inclusión para cargar entidades relacionadas, tanto para relaciones OnetoMany, manyToOne y oneToOne.
+LambdaORM includes the include method to load related entities, both for OnetoMany, manyToOne, and oneToOne relationships.
 
-También podemos aplicar filtros o traernos algunos campos de las entidades relacionadas.
+We can also apply filters or bring us some fields from related entities.
 
-Para cada inclusión, se ejecuta una declaración que trae todos los registros necesarios, luego los objetos con relaciones se ensamblan en la memoria. De esta forma se evitan múltiples ejecuciones mejorando considerablemente el rendimiento.
+For each include, a statement is executed that fetches all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
 
-Las inclusiones se pueden usar en selecciones, insertar, actualizar, eliminar y bulckinsert.
-
-Example:
+Includes can be used in selects, inserts, updates, deletes, and bulckinserts.
 
 ``` ts
 import { orm } from 'lambdaorm'
@@ -350,15 +349,13 @@ The previous sentence will bring us the following result:
 
 ### Transactions
 
-Para trabajar con transacciones utilice el método orm.transaction.
+To work with transactions use the orm.transaction method.
 
-Este método recibe el nombre de la base de datos como primer argumento y como segundo es una función de devolución de llamada que no pasa un objeto Transacción, en el ejemplo lo llamamos tr.
+This method receives the name of the database as its first argument and as its second is a callback function that does not pass a Transaction object, in the example we call it tr.
 
-Usamos el método lambda o expresión para ejecutar la oración (tal como la encontramos escrita).
+We use the lambda or expression method to execute the sentence (as we find it written).
 
-Cuando lleguemos al final y devolvamos la devolución de llamada, el orm ejecutará internamente el COMMIT, si hay una excepción, internamente se ejecutará el ROLLBACK
-
-Example
+When we reach the end and return the callback, the orm will internally execute the COMMIT, if there is an exception, internally the ROLLBACK will be executed
 
 ``` ts
 import { orm } from 'lambdaorm'
