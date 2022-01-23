@@ -1,6 +1,4 @@
 export interface SentenceInfo {
 	entity: string
-	name: string // [select|insert|update|delete|ddl]
-	read?: boolean // select
-	write?: boolean // != select
+	name: string // [select|insert|update|delete|etc...]
 }

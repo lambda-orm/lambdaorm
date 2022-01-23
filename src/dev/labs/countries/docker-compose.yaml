@@ -10,9 +10,9 @@ services:
       - MYSQL_PASSWORD=test
       - MYSQL_ROOT_PASSWORD=root
     ports:
-      - 3306:3306
+      - 3309:3306
   postgres:
-    container_name: lambdaorm-postgres  
+    container_name: lambdaorm-postgres
     image: postgres:10
     restart: always
     environment:
@@ -20,4 +20,4 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
     ports:
-      - '5432:5432'
+      - '5433:5432'

@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab.ts",
+			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
@@ -21,17 +21,8 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-config.ts",
+			"program": "${workspaceFolder}/src/dev/labs/lab-config.ts",
 			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "build wiki",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
 		},
 		{
 			"name": "lab mssql",
@@ -40,7 +31,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-mssql.ts",
+			"program": "${workspaceFolder}/src/dev/labs/lab-mssql.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
@@ -59,8 +50,27 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-sync.ts",
+			"program": "${workspaceFolder}/src/dev/labs/lab-sync.ts",
 			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab countries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "build wiki",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
 		},
 		{
 			"name": "build config",

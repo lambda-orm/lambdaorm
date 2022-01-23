@@ -1,5 +1,13 @@
 entities:
+  - name: Positions
+    abstract: true
+    properties:
+      - name: latitude
+        length: 16
+      - name: longitude
+        length: 16
   - name: Countries
+    extends: Positions
     primaryKey: ["iso3"]
     uniqueKey: ["name"]
     properties:
@@ -8,6 +16,8 @@ entities:
       - name: iso3
         length: 3
         nullable: false
+      - name: region
+      - name: subregion
     relations:
       - name: states
         type: manyToOne
@@ -16,6 +26,7 @@ entities:
         entity: States
         to: countryCode
   - name: States
+    extends: Positions
     primaryKey: ["id"]
     uniqueKey: ["countryCode", "name"]
     properties:
@@ -35,20 +46,29 @@ entities:
 dataSources:
   - name: dataSource1
     dialect: mysql
-    connection:
-      host: localhost
-      port: 3306
-      user: test
-      password: test
-      database: test
+    mapping: mapping1
+    connection: $CNN_MYDB
   - name: dataSource2
     dialect: postgres
-    connection:
-      host: localhost
-      port: 5432
-      user: test
-      password: test
-      database: test
+    mapping: mapping2
+    connection: $CNN_MYDB2
+mappings:
+  - name: mapping1
+  - name: mapping2
+    entities:
+      - name: States
+        mapping: TBL_STATES
+        properties:
+          - name: id
+            mapping: ID
+          - name: name
+            mapping: NAME
+          - name: countryCode
+            mapping: COUNTRY_CODE
+          - name: latitude
+            mapping: LATITUDE
+          - name: longitude
+            mapping: LONGITUDE
 stages:
   - name: stage1
     dataSources:

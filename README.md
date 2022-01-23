@@ -4,20 +4,9 @@
 
 LambdaORM is an intermediary between the business model and the persistence of the data.
 Completely decoupling the business model from the data layer.
-For this use:
-
-- Query Language written in javascript lambda expressions.
-- Schema Configuration.
 
 ## Features
 
-- Query Language
-	- Simple query language based on javascript lambda expressions.
-	- Can write the expression as javascript code or as a string
-	- Crud clauses
-	- Implicit joins and group by
-	- Eager loading using the Include() method.
-	- Metadata from query expression
 - Schema Configuration
 	- Decoupling the business model from phisical model
 	- Configuration in json or yml formats
@@ -25,6 +14,13 @@ For this use:
 	- Extends entities
 	- Environment variables
 	- define index, unique key, constraints
+- Query Language
+	- Simple query language based on javascript lambda expressions.
+	- Can write the expression as javascript code or as a string
+	- Crud clauses
+	- Implicit joins and group by
+	- Eager loading using the Include() method.
+	- Metadata from query expression
 - CLI
 	- Init and update commands
 	- Run expressions
@@ -34,185 +30,258 @@ For this use:
 - Transactions
 - Using multiple database connections
 
-## Lambda expressions
+## Schema Configuration
 
-The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
+It is the link between the business model and data persistence.
 
-The purpose is to use javascript syntax to write query expressions. Which will be translated into the SQL statement corresponding to the database engine.
+The classes that represent the business model are completely clean, without any attribute that binds them to persistence.
 
-Example:
+All the configuration required to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
 
-```ts
-Countries.page(1,10).include(p => p.states.map(p=> [p.name,p.latitude,p.longitude] ))
+This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+
+This configuration contains the following sections.
+
+- In the app section, the general configuration of the application is established, such as the src, data and model routes.
+- In the enums section, the enums that are part of the business model are defined
+- In the entities section, the entities that are part of the business model are defined
+- In the data sources section the different data sources are defined
+- In the mapping section, the mappings between the business model and the model in the data sources are defined.
+- In the stages section, the stages are defined where the rules that relate the business model to the different data sources are defined.
+
+### Schema Configuration Example:
+
+This example poses a stage where two dataSources are accessed.
+Data source 1 is mysql and contains the Countries table and dataSource 2 is postgres contains the States table.
+
+In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
+
+But in the case of the States entity, the name of the table and its fields differ, so the mapping defines the mapping.
+
+![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
+
+```yaml
+entities:
+  - name: Positions
+    abstract: true
+    properties:
+      - name: latitude
+        length: 16
+      - name: longitude
+        length: 16
+  - name: Countries
+    extends: Positions
+    primaryKey: ["iso3"]
+    uniqueKey: ["name"]
+    properties:
+      - name: name
+        nullable: false
+      - name: iso3
+        length: 3
+        nullable: false
+      - name: region
+      - name: subregion
+    relations:
+      - name: states
+        type: manyToOne
+        composite: true
+        from: iso3
+        entity: States
+        to: countryCode
+  - name: States
+    extends: Positions
+    primaryKey: ["id"]
+    uniqueKey: ["countryCode", "name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: name
+        nullable: false
+      - name: countryCode
+        nullable: false
+        length: 3
+    relations:
+      - name: country
+        from: countryCode
+        entity: Countries
+        to: iso3
+dataSources:
+  - name: dataSource1
+    dialect: mysql
+    mapping: mapping1
+    connection: $CNN_MYDB
+  - name: dataSource2
+    dialect: postgres
+    mapping: mapping2
+    connection: $CNN_MYDB2
+mappings:
+  - name: mapping1
+  - name: mapping2
+    entities:
+      - name: States
+        mapping: TBL_STATES
+        properties:
+          - name: id
+            mapping: ID
+          - name: name
+            mapping: NAME
+          - name: countryCode
+            mapping: COUNTRY_CODE
+          - name: latitude
+            mapping: LATITUDE
+          - name: longitude
+            mapping: LONGITUDE
+stages:
+  - name: stage1
+    dataSources:
+      - name: dataSource2
+        condition: entity == "States"
+      - name: dataSource1
 ```
 
-The engine also allows us to write the expressions in a string.
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
+
+## Query Language
+
+The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+These expressions can be written as javascript code by browsing the business model entities.
+
+Expressions can also be sent as a string
+
+LambdaOrm translates the expression into the language corresponding to each database engine.
+
+### Query Language Example:
+
+Javascript lambda expression:
 
 ```ts
-'Countries.page(1,10).include(p => p.states.map(p=> [p.name,p.latitude,p.longitude] ))'
+Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))
 ```
 
-### Advantage:
-
- - Use of the same programming language.
- - It is not necessary to learn a new language.
- - Easy to write and understand expressions.
- - Use of the intellisense offered by the IDE to write the expressions.
- - Avoid syntax errors.
-
-## Expressions:
-
-To write the expressions we use methods, operators and functions.
-
-### Methods:
-
-Starting from the entity we have the following methods.
-
-|Method    		|Description                                   										| SQL Equivalent								|																																								|
-|:-----------|:-----------------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------:|
-|filter			 | To filter the records.																						| WHERE 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|having 		 | To filter on groupings.																					|	HAVING 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|map				 | To specify the fields to return. 																| SELECT 												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|distinct		 | to specify the fields to return by sending duplicate records.		|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|first			 | returns the first record																					| SELECT + ORDER BY + LIMIT 		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|last 		 	 | returns the last record																					|	SELECT + ORDER BY DESC + LIMIT|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|take 		 	 | returns one record																								|	SELECT +  LIMIT 							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|sort				 | To specify the order in which the records are returned.					| ORDER BY 											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|page				 | To paginate.																											| LIMIT  (MySQL)								|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Select)		|
-|include		 | To get records of related entities																|																|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)	|
-|insert			 | To insert records																								| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|update			 | To update records always including a filter											| UPDATE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|updateAll	 | to be able to update all the records of an entity								| UPDATE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Update)		|
-|delete			 | To delete records always including a filter											| DELETE with WHERE							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
-|deleteAll	 | To be able to delete all records of an entity										| DELETE without WHERE					|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Delete)		|
-|bulkinsert	 | to insert records in bulk																				| INSERT												|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-BulkInsert)|
-
-There are no methods for the INNER JOIN clause since it is deduced when navigating through the relations of a property.
-
-There are no methods for the GROUP BY clause since this is deduced when grouping methods are used.
-
-### Operators
-
-The operators used are the same as those of javascript.
-
-below access to their documentation:
-
-|Category    	|Operators                				|																																												|
-|:------------|:-------------------------------:|:-------------------------------------------------------------------------------------:|
-|Arithmectic 	| -, +, *, /, **, //, % 					| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Arithmectic) |
-|Bitwise 			| ~,&,^,<<,>> 										| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Bitwise)			|
-|Comparison 	| ==, ===, !=, !==, >, <, >=, <= 	| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Comparison)	|
-|Logical 			| !, && 													| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operators-Logical) 		|
-|Array 				| [] 															| [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Operatos-Array) 				|
-
-### Functions
-
-In the case of functions, some correspond to javascript functions and others are specific to sql
-
-below access to their documentation:
-
-|Category    	|functions                																						|																																												|
-|:------------|:--------------------------------------------------------------------|--------------------------------------------------------------------------------------:|
-|Numeric			|abs,ceil,cos,exp,ln,log,remainder,round,sign,sin,tan,trunc...				|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Numeric)			|
-|String				|chr,lower,lpad,ltrim,replace,rpad,rtrim,substr,trim,upper,concat...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-String)				|
-|Datetime			|curtime,today,now,time,date,datetime,year,month,day,weekday,hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Datetime)			|
-|Convert			|toString,toJson,toNumber																							|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Convert)			|
-|Nullable			|nvl,nvl2,isNull,isNotNull																						|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Nullable)			|
-|General			|as,distinct																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-General)			|
-|Sort					|asc,desc																															|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Function-Sort)					|
-|Conditionals	|between,includes																											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Conditionals)	|
-|Group				|avg,count,first,last,max,min,sum																			|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Group)				|
-|Metadata			|user,source																													|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Functions-Metadata)			|
-
-## Usage
-
-To work with the orm we can do it using the singleton object called "orm" or using repositories.
-
-### Objeto __orm__
-
-This orm object acts as a facade and from this we access all the functionalities.
-
-To execute a query we have two methods
-
-#### __Lambda method__:
-
-This method receives the expression as a javascript lambda function.
-
-If we are going to write the expression in the code, we must do it with the lambda function, since in this way we will have the help of intellisense and we will make sure that the expression does not have syntax errors.
+Javascript lambda expression as string
 
 ```ts
-import { orm } from 'lambdaorm'
-
-(async () => {
-	await orm.init()	
-	const exp = (country:string)=>
-				Products.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
-						.having(p => max(p.price) > 50)
-						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-						.sort(p => desc(p.largestPrice))
-
-	const result = await orm.lambda(exp).execute({ country: 'USA' },'mydb')
-	console.log(JSON.stringify(result, null, 2))
-	await orm.end()
-})()
+'Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))'
 ```
 
 where the SQL equivalent of the expression is:
 
 ```sql
-SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` 
-FROM Products p 
-INNER JOIN Suppliers s ON s.SupplierID = p.SupplierID 
-INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
-WHERE ((p.UnitPrice > 5 AND s.Country = ?) OR p.UnitsInStock < 3) 
-GROUP BY c.CategoryName 
-HAVING MAX(p.UnitPrice) > 50 
-ORDER BY `largestPrice` desc 
+SELECT c.name AS `name`, c.subregion AS `subregion`, c.latitude AS `latitude`, c.longitude AS `longitude`, c.iso3 AS `__iso3` 
+FROM Countries c  
+WHERE c.region = ? 
+LIMIT 0,3
+
+SELECT s.NAME AS "name", s.LATITUDE AS "latitude", s.LONGITUDE AS "longitude", s.COUNTRY_CODE AS "__parentId" 
+FROM TBL_STATES s  
+WHERE SUBSTR(s.NAME,1,1) = 'F'
 ```
 
-#### __Expression method__:
+### Advantage:
 
-This method receives the expression as a text string.
+- Use of the same programming language.
+- No need to learn a new language.
+- Expressions easy to write and understand.
+- Use of the intellisense offered by the IDE to write the expressions.
+- Avoid syntax errors.
 
-if the expression comes from somewhere else, UI, CLI command, persisted, etc, in this case we will use the expression in a string
+## Usage
+
+To work with the orm we can do it using the singleton object called "orm" or using repositories.
+
+### Objet __orm__
+
+This orm object acts as a facade and from this we access all the methods.
+
+When the orm.init() method is called, the orm initialization will be executed from the configuration.
+
+#### __execute method__:
+
+This method receives the expression as a javascript lambda function or a string.
+
+#### Use Javascript lambda expression:
+
+The advantage of writing the expression as a javascript lambda function is that this way we will have the help of intellisense and we will make sure that the expression has no syntax errors.
 
 ```ts
 import { orm } from 'lambdaorm'
-
 (async () => {
-	await orm.init()
-	const country = 'USA'
-	const exp = `Products.filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
-						.having(p => max(p.price) > 50)
-						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-						.sort(p => desc(p.largestPrice))`
-
-	const result = await orm.expression(exp).execute({ country: country },'mydb')
+	await orm.init()	
+	const query = (region:string) => Countries.filter(p=> p.region == region)
+																						.page(1,3)
+																						.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+																						.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+																																	.map(p=> [p.name,p.latitude,p.longitude])
+																								    )
+	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
 ```
 
-### Repositories
+#### Use Javascript lambda expression as string:
 
-Repositories are associated with an entity and have several methods to interact with it.
-
-Example:
+The advantage of writing the expression in a string is that we can receive it from outside, example UI, CLI command, stored, etc.
 
 ```ts
 import { orm } from 'lambdaorm'
-import { ProductRespository } from './models/northwind'
+(async () => {
+	await orm.init()	
+	const query = 'Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))'
+																								    )
+	const result = await orm.execute(query, { region: 'Asia' })
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+})()
+```
+
+#### Result:
+
+```json
+[
+  {
+    "name": "Afghanistan",
+    "subregion": "Southern Asia",
+    "latitude": "33.00000000",
+    "longitude": "65.00000000",
+    "states": [ { "name": "Farah", "latitude": "32.49532800", "longitude": "62.26266270" },
+      					{ "name": "Faryab", "latitude": "36.07956130","longitude": "64.90595500" }]
+  },
+  {
+    "name": "United Arab Emirates",
+    "subregion": "Western Asia",
+    "latitude": "24.00000000",
+    "longitude": "54.00000000",
+    "states": [ { "name": "Fujairah","latitude": "25.12880990","longitude": "56.32648490" }]
+  },
+  {
+    "name": "Armenia",
+    "subregion": "Western Asia",
+    "latitude": "40.00000000",
+    "longitude": "45.00000000",
+    "states": []
+  }
+]
+```
+
+### Repositories
+
+Repositories are associated with an entity and have various methods to interact with it.
+
+```ts
+import { orm } from 'lambdaorm'
+import { CountryRespository } from './models/country'
 
 (async () => {
 	await orm.init()
-	const productRepository = new ProductRespository('mydb')
-	const country = 'USA'
-	const result = awaitproductRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
-			.having(p => max(p.price) > 50)
-			.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-			.sort(p => desc(p.largestPrice))
-			.execute({ country: country })
-	
+	const countryRespository = new CountryRespository('mydb')
+	const result = await countryRespository.query().filter(p=> p.region == region)
+																				  .page(1,3)
+																					.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+																					.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+																					      .map(p=> [p.name,p.latitude,p.longitude])
+																					).execute({ region: 'Asia' })	
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
@@ -222,21 +291,19 @@ import { ProductRespository } from './models/northwind'
 
 ### Includes:
 
-LambdaORM includes the Include method to load related entities, both for OnetoMany, manyToOne and oneToOne relationships.
+LambdaORM includes the include method to load related entities, both for OnetoMany, manyToOne, and oneToOne relationships.
 
-We can also apply filters or bring us some fields from the related entities.
+We can also apply filters or bring us some fields from related entities.
 
-For each include, a statement is executed bringing all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
+For each include, a statement is executed that fetches all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
 
-Includes can be used in selects, insert, update, delete, and bulckinsert.
-
-Example:
+Includes can be used in selects, inserts, updates, deletes, and bulckinserts.
 
 ``` ts
 import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()
-	const expression = (id:number) => Orders
+	const query = (id:number) => Orders
 		.filter(p => p.id === id)
 		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
 			p.details.include(p => p.product
@@ -245,7 +312,7 @@ import { orm } from 'lambdaorm'
 				.map(p => [p.quantity, p.unitPrice])])
 		.map(p => p.orderDate)
 
-	const result = await orm.lambda(expression).execute('mydb')
+	const result = await orm.execute(query)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
@@ -284,13 +351,11 @@ The previous sentence will bring us the following result:
 
 To work with transactions use the orm.transaction method.
 
-This method receives the name of the database as the first argument and as the second it is a callback function that does not pass a Transaction object, in the example we name it tr.
+This method receives the name of the database as its first argument and as its second is a callback function that does not pass a Transaction object, in the example we call it tr.
 
-We use the lambda or expression method to execute the sentence (as we found it written).
+We use the lambda or expression method to execute the sentence (as we find it written).
 
 When we reach the end and return the callback, the orm will internally execute the COMMIT, if there is an exception, internally the ROLLBACK will be executed
-
-Example
 
 ``` ts
 import { orm } from 'lambdaorm'
@@ -300,27 +365,27 @@ import { orm } from 'lambdaorm'
 const order={customerId:"VINET",employeeId:5,orderDate:"1996-07-03T22:00:00.000Z",requiredDate:"1996-07-31T22:00:00.000Z",shippedDate:"1996-07-15T22:00:00.000Z",shipViaId:3,freight:32.38,name:"Vins et alcools Chevalier",address:"59 rue de l-Abbaye",city:"Reims",region:null,postalCode:"51100",country:"France",details:[{productId:11,unitPrice:14,quantity:12,discount:!1},{productId:42,unitPrice:9.8,quantity:10,discount:!1},{productId:72,unitPrice:34.8,quantity:5,discount:!1}]};
 
 try {
-orm.transaction('mydb', async (tr) => {
+orm.transaction({}, 'stage', async (tr) => {
 	// create order
-	const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
+	const orderId = await tr.execute(() => Orders.insert().include(p => p.details), order)
 	// get order
-	const result = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+	const result = await tr.execute((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 	const order2 = result[0]
 	// updated order
 	order2.address = 'changed 59 rue de l-Abbaye'
 	order2.details[0].discount = true
 	order2.details[1].unitPrice = 10
 	order2.details[2].quantity = 7
-	const updateCount = await tr.lambda(() => Orders.update().include(p => p.details), order2)
+	const updateCount = await tr.execute(() => Orders.update().include(p => p.details), order2)
 	console.log(updateCount)
 	// get order
-	const order3 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+	const order3 = await tr.execute((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 	console.log(JSON.stringify(order3))
 	// delete
-	const deleteCount = await tr.lambda(() => Orders.delete().include(p => p.details), order3[0])
+	const deleteCount = await tr.execute(() => Orders.delete().include(p => p.details), order3[0])
 	console.log(deleteCount)
 	// get order
-	const order4 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+	const order4 = await tr.execute((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 	console.log(JSON.stringify(order4))
 })
 } catch (error) {
@@ -337,12 +402,12 @@ Lambda ORM has the following methods to extract metadata information from expres
 
 To execute these methods it is not necessary to connect to the database.
 
-|method    		|Description          															|Path                         						  						|
-|:------------|:--------------------------------------------------|:------------------------------------------------------|
-|	parameters	| returns the list of parameters in the expression	| orm.lambda(query).parameters(schema) 									|
-|	model				| returns the model of the result in an execution		| orm.lambda(query).model(schema)												|
-|	metadata		| returns the metadata of the expression						| orm.lambda(query).metadata(schema)										|
-|	sentence		| returns the sentence in the specified dialect			| orm.lambda(query).sentence('mysql','northwind')				|
+|method    		|Description          															|Path                         				|
+|:------------|:--------------------------------------------------|:------------------------------------|
+|	parameters	| returns the list of parameters in the expression	| orm.parameters(query)								|
+|	model				| returns the model of the result in an execution		| orm.model(query)										|
+|	metadata		| returns the metadata of the expression						| orm.metadata(query)									|
+|	sentence		| returns the sentence in the specified dialect			| orm.sentence(query)									|
 
 - [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/metadata)
 

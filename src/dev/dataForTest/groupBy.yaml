@@ -153,22 +153,22 @@ test:
       - stage: postgres
         error: not equal mysql
         result:
-          - category: 3
-            largestPrice: 81
-          - category: 5
-            largestPrice: 38
-          - category: 4
-            largestPrice: 55
-          - category: 6
-            largestPrice: 123.79
-          - category: 2
-            largestPrice: 43.9
+          - category: 8
+            largestPrice: 62.5
           - category: 7
             largestPrice: 53
           - category: 1
             largestPrice: 263.5
-          - category: 8
-            largestPrice: 62.5
+          - category: 5
+            largestPrice: 38
+          - category: 4
+            largestPrice: 55
+          - category: 2
+            largestPrice: 43.9
+          - category: 6
+            largestPrice: 123.79
+          - category: 3
+            largestPrice: 81
       - stage: mariadb
     result:
       - category: 1
@@ -338,100 +338,4 @@ test:
         largestPrice: 263.5
       - category: Meat/Poultry
         largestPrice: 123.79
-  - name: groupBy 10
-    sentences:
-      - stage: mysql
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
-          ORDER BY largestPrice desc 
-      - stage: postgres
-        sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
-          ORDER BY largestPrice desc 
-      - stage: mariadb
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100
-          ORDER BY largestPrice desc 
-    errors: 1
-    expression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
-    completeExpression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
-    model:
-      category: string
-      largestPrice: any
-    parameters: []
-    fields:
-      - name: category
-        type: string
-      - name: largestPrice
-        type: any
-    executions:
-      - stage: postgres
-        error: error execution postgres groupBy:groupBy 10
-      - stage: mysql
-      - stage: mariadb
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
-  - name: groupBy 11
-    sentences:
-      - stage: mysql
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc 
-      - stage: postgres
-        sentence: >-
-          SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-          "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc 
-      - stage: mariadb
-        sentence: >-
-          SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-          `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID
-          = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING
-          MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc 
-    errors: 1
-    expression: >-
-      Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
-    completeExpression: >-
-      Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))
-    model:
-      category: string
-      largestPrice: any
-    parameters: []
-    fields:
-      - name: category
-        type: string
-      - name: largestPrice
-        type: any
-    executions:
-      - stage: postgres
-        error: error execution postgres groupBy:groupBy 11
-      - stage: mysql
-      - stage: mariadb
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Confections
-        largestPrice: 81
-      - category: Seafood
-        largestPrice: 62.5
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Produce
-        largestPrice: 53
-errors: 5
+errors: 3
