@@ -342,6 +342,10 @@ export class SchemaExtender {
 		return schema
 	}
 
+	public static complete (schema: Schema): void {
+		SchemaExtender.completeEntities(schema.entities)
+	}
+
 	private static clearEntities (source: Entity[]): Entity[] {
 		const target: Entity[] = []
 		if (source !== undefined) {
@@ -595,6 +599,10 @@ export class SchemaManager {
 		} else {
 			return undefined
 		}
+	}
+
+	public complete (schema: Schema): void {
+		SchemaExtender.complete(schema)
 	}
 
 	public extend (schema: Schema): Schema {
