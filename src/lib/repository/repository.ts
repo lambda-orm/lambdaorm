@@ -6,7 +6,7 @@ export class Respository<TEntity, TQuery> {
 	public name
 	public stage
 	private orm
-	constructor (name: string, stage:string, Orm?:IOrm) {
+	constructor (name: string, stage?:string, Orm?:IOrm) {
 		this.name = name
 		this.stage = stage
 		this.orm = Orm !== undefined ? Orm : orm
@@ -197,36 +197,6 @@ export class Respository<TEntity, TQuery> {
 			return null
 		}
 	}
-
-	// public async list (data: any,
-	// map?: (value: TEntity) => unknown,
-	// filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-	// include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-	// having?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-	// sort?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-	// page?: {page:number, records: number }
-	// ): Promise<TEntity[]> {
-	// let expression = `${this.name}.take()`
-	// if (map !== undefined) {
-	// expression = `${expression}.map(${map.toString()})`
-	// }
-	// if (filter !== undefined) {
-	// expression = `${expression}.filter(${filter.toString()})`
-	// }
-	// if (include !== undefined) {
-	// expression = `${expression}.include(${include.toString()})`
-	// }
-	// if (having !== undefined) {
-	// expression = `${expression}.having(${having.toString()})`
-	// }
-	// if (sort !== undefined) {
-	// expression = `${expression}.sort(${sort.toString()})`
-	// }
-	// if (page !== undefined) {
-	// expression = `${expression}.page(${page.toString()})`
-	// }
-	// return await this.orm.execute(expression, data, this.stage) as TEntity[]
-	// }
 
 	public query (): Queryable<TQuery> {
 		return new Queryable<TQuery>(new ExpressionActions(this.name, this.orm, this.stage), '')
