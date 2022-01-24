@@ -1,13 +1,13 @@
 
 import { SentenceInfo } from '../model'
-import { SchemaConfig } from './index'
+import { SchemaManager } from './index'
 import { Expressions } from 'js-expressions'
 
 export class Routing {
-	private schema: SchemaConfig
+	private schema: SchemaManager
 	private expressions: Expressions
 
-	constructor (schema: SchemaConfig, expressions: Expressions) {
+	constructor (schema: SchemaManager, expressions: Expressions) {
 		this.schema = schema
 		this.expressions = expressions
 	}

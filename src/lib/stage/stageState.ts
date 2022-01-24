@@ -1,11 +1,11 @@
 import { Entity, ModelState } from '../model'
-import { SchemaConfig } from '../manager'
+import { SchemaManager } from '../manager'
 import { Helper } from '../manager/helper'
 const path = require('path')
 
 export class StageState {
-	private schema: SchemaConfig
-	constructor (schema:SchemaConfig) {
+	private schema: SchemaManager
+	constructor (schema:SchemaManager) {
 		this.schema = schema
 	}
 

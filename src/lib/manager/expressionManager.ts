@@ -1,19 +1,19 @@
 import { Query, Data } from '../model'
 // import { ParserManager } from '../parser/index'
-import { SchemaConfig, ExpressionCompleter, Routing } from './index'
+import { SchemaManager, ExpressionCompleter, Routing } from './index'
 import { LanguageManager, Sentence, DMLBuilder } from '../language'
 import { Helper } from './helper'
 import { Expressions, Operand, Cache } from 'js-expressions'
 
 export class ExpressionManager {
 	private cache: Cache
-	private schema: SchemaConfig
+	private schema: SchemaManager
 	private languageManager: LanguageManager
 	private expressionCompleter: ExpressionCompleter
 	private routing: Routing
 	private expressions:Expressions
 
-	constructor (cache: Cache, schema:SchemaConfig, languageManager:LanguageManager, expressions:Expressions, routing:Routing) {
+	constructor (cache: Cache, schema:SchemaManager, languageManager:LanguageManager, expressions:Expressions, routing:Routing) {
 		this.cache = cache
 		this.schema = schema
 		this.languageManager = languageManager

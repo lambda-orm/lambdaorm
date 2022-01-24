@@ -1,5 +1,8 @@
 import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage } from '../model'
 import { ConnectionConfig } from '../connection'
+import path from 'path'
+import { Helper } from './helper'
+const yaml = require('js-yaml')
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
 	public abstract get entities(): TEntity[];
@@ -372,6 +375,18 @@ export class SchemaExtender {
 		}
 	}
 
+	private static clearMapping (source: Mapping): Mapping {
+		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
+		if (source.entities !== undefined) {
+			for (let i = 0; i < source.entities.length; i++) {
+				const sourceEntity = source.entities[i]
+				if (sourceEntity.abstract === true) continue
+				target.entities.push(sourceEntity)
+			}
+		}
+		return target
+	}
+
 	private static extendEntiy (entity: Entity, entities: Entity[]):void {
 		if (entity.extends !== undefined) {
 			const base = entities.find(p => p.name === entity.extends)
@@ -439,18 +454,6 @@ export class SchemaExtender {
 		}
 	}
 
-	private static clearMapping (source: Mapping): Mapping {
-		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
-		if (source.entities !== undefined) {
-			for (let i = 0; i < source.entities.length; i++) {
-				const sourceEntity = source.entities[i]
-				if (sourceEntity.abstract === true) continue
-				target.entities.push(sourceEntity)
-			}
-		}
-		return target
-	}
-
 	private static extendObject (obj:any, base:any) {
 		if (Array.isArray(base)) {
 			for (let i = 0; i < base.length; i++) {
@@ -490,7 +493,7 @@ export class SchemaExtender {
 	}
 }
 
-export class SchemaConfig {
+export class SchemaManager {
 	public dataSource: DataSourceConfig
 	public model: ModelConfig
 	public mapping: MappingsConfig
@@ -507,8 +510,99 @@ export class SchemaConfig {
 		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
 	}
 
-	public async load (schema: Schema): Promise<Schema> {
-		this.schema = SchemaExtender.extend(schema)
+	public async init (source?: string | Schema): Promise<Schema> {
+		let schema
+		if (source === undefined || typeof source === 'string') {
+			schema = await this.get(source)
+		} else {
+			const _schema = source as Schema
+			if (_schema === undefined) {
+				throw new Error(`Schema: ${source} not supported`)
+			}
+			schema = _schema
+		}
+		Helper.solveEnvironmentVariables(schema)
+		schema = this.load(schema)
+		return schema
+	}
+
+	public async get (source?: string): Promise<Schema> {
+		let workspace : string
+		let configFile: string|undefined
+		workspace = process.cwd()
+
+		if (source === undefined) {
+			configFile = await this.getConfigFileName(workspace)
+		} else if (typeof source === 'string') {
+			const lstat = await Helper.lstat(source)
+			if (lstat.isFile()) {
+				configFile = path.basename(source)
+				workspace = path.dirname(source)
+			} else {
+				workspace = source
+				configFile = await this.getConfigFileName(workspace)
+			}
+		} else {
+			throw new Error(`Schema: ${source} not supported`)
+		}
+
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [] }
+		if (configFile !== undefined) {
+			const configPath = path.join(workspace, configFile)
+			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
+				const content = await Helper.readFile(configPath)
+				if (content !== null) {
+					schema = yaml.load(content)
+				} else {
+					throw new Error(`Schema file: ${configPath} empty`)
+				}
+			} else if (path.extname(configFile) === '.json') {
+				const content = await Helper.readFile(configPath)
+				if (content !== null) {
+					schema = JSON.parse(content)
+				} else {
+					throw new Error(`Schema file: ${configPath} empty`)
+				}
+			} else {
+				throw new Error(`Schema file: ${configPath} not supported`)
+			}
+		}
+
+		if (schema.app === undefined) {
+			schema.app = { src: 'src', data: 'data', model: 'model' }
+		} else {
+			if (schema.app.src === undefined) {
+				schema.app.src = 'src'
+			}
+			if (schema.app.data === undefined) {
+				schema.app.data = 'data'
+			}
+			if (schema.app.model === undefined) {
+				schema.app.model = 'model'
+			}
+		}
+		if (schema.dataSources === undefined) schema.dataSources = []
+		return schema
+	}
+
+	public async getConfigFileName (workspace:string):Promise<string|undefined> {
+		if (await Helper.existsPath(path.join(workspace, 'lambdaorm.yaml'))) {
+			return 'lambdaorm.yaml'
+		} else if (await Helper.existsPath(path.join(workspace, 'lambdaorm.yml'))) {
+			return 'lambdaorm.yml'
+		} else if (await Helper.existsPath(path.join(workspace, 'lambdaorm.json'))) {
+			return 'lambdaorm.json'
+		} else {
+			return undefined
+		}
+	}
+
+	public extend (schema: Schema): Schema {
+		return SchemaExtender.extend(schema)
+	}
+
+	public load (schema: Schema): Schema {
+		this.schema = this.extend(schema)
 		this.model.entities = this.schema.entities ? this.schema.entities : []
 		this.model.enums = this.schema.enums ? this.schema.enums : []
 		if (this.schema.mappings) {

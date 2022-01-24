@@ -4,7 +4,7 @@ import { Connection, ConnectionManager } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { LanguageManager } from '../language'
 import { MappingConfig } from './schema'
-import { Routing, SchemaConfig } from '.'
+import { Routing, SchemaManager } from '.'
 
 export class QueryExecutor {
 	public stage: string
@@ -12,13 +12,13 @@ export class QueryExecutor {
 	private connectionManager: ConnectionManager
 	private connections: any
 	private transactionable: boolean
-	private schemaConfig: SchemaConfig
+	private schemaManager: SchemaManager
 	private routing:Routing
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, routing:Routing, schemaConfig:SchemaConfig, stage: string, transactionable = false) {
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, routing:Routing, schemaManager:SchemaManager, stage: string, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
 		this.stage = stage
-		this.schemaConfig = schemaConfig
+		this.schemaManager = schemaManager
 		this.transactionable = transactionable
 		this.routing = routing
 		this.connections = {}
@@ -85,8 +85,8 @@ export class QueryExecutor {
 		let result: any
 		try {
 			const dataSourceName = await this.getDataSource(query, context)
-			const dataSource = this.schemaConfig.dataSource.get(dataSourceName)
-			const mapping = this.schemaConfig.mapping.getInstance(dataSource.mapping)
+			const dataSource = this.schemaManager.dataSource.get(dataSourceName)
+			const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
 			const connection = await this.getConnection(dataSource.name)
 			const metadata = this.languageManager.dialectMetadata(query.dialect)
 			switch (query.name) {
