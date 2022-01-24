@@ -1,14 +1,14 @@
-import { SchemaConfig, ModelConfig, MappingConfig, Routing } from '.'
+import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
 import { Query, Delta, Index, DataSource, Relation, Entity, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
 
 export class DDLBuilder {
 	private languageManager: LanguageManager
-	private schema: SchemaConfig
+	private schema: SchemaManager
 	private model:ModelConfig
 	private routing:Routing
 	public stage: string
-	constructor (schema: SchemaConfig, routing:Routing, languageManager:LanguageManager, stage: string) {
+	constructor (schema: SchemaManager, routing:Routing, languageManager:LanguageManager, stage: string) {
 		this.schema = schema
 		this.model = schema.model
 		this.routing = routing

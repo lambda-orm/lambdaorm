@@ -6,7 +6,7 @@ import path from 'path'
 	const orm = new Orm(workspace)
 	try {
 		let result:any
-		const schema = await orm.lib.getConfig(workspace)
+		const schema = await orm.schema.get(workspace)
 		await orm.init(schema)
 		await orm.stage.sync(orm.defaultStage.name).execute()
 

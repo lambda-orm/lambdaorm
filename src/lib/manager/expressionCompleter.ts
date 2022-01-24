@@ -1,15 +1,15 @@
 
 import { Helper } from './helper'
 import { Entity } from '../model'
-import { SchemaConfig } from '.'
+import { SchemaManager } from '.'
 import { Node } from 'js-expressions'
 
 /**
  *  Expression completer
  */
 export class ExpressionCompleter {
-	private schema: SchemaConfig
-	constructor (schema: SchemaConfig) {
+	private schema: SchemaManager
+	constructor (schema: SchemaManager) {
 		this.schema = schema
 	}
 
