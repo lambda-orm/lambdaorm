@@ -6,8 +6,8 @@ import { StageActionDDL } from './stageActionDDL'
 export class StageSync extends StageActionDDL {
 	public async queries (): Promise<Query[]> {
 		const state = await this.state.get(this.stage)
-		const _oldEntities = state && state.entities ? state.entities : null
-		const delta = Helper.deltaWithSimpleArrays(this.schema.model.entities, _oldEntities)
+		const old = state && state.entities ? state.entities : null
+		const delta = Helper.deltaWithSimpleArrays(this.schema.model.entities, old)
 		return new DDLBuilder(this.schema, this.routing, this.languageManager, this.stage).sync(delta)
 	}
 

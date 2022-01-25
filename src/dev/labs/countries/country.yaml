@@ -73,5 +73,6 @@ stages:
   - name: stage1
     dataSources:
       - name: dataSource2
-        condition: entity == "States"
+        condition: entity == "States" || ddl== true
       - name: dataSource1
+        condition: entity == "Countries" || ddl== true
