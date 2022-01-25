@@ -4,8 +4,8 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('C:/personal/develop/lambdaorm/src/dev/labs/countries/country.yaml')
 
-		await orm.stage.clean('stage1').execute(true)
-		await orm.stage.sync('stage1').execute()
+		await orm.stage.clean().execute(true)
+		await orm.stage.sync().execute()
 
 		const content = await Helper.readFile('C:/personal/develop/lambdaorm/src/dev/labs/countries/data.json')
 		const data = JSON.parse(content as string)

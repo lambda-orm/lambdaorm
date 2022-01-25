@@ -26,7 +26,7 @@ export class StageFacade {
 		this.state = new StageState(schemaManager)
 	}
 
-	private getStage (name: string): Stage {
+	private getStage (name?: string): Stage {
 		const stage = this.schemaManager.stage.get(name)
 		if (stage === undefined) {
 			throw new Error(`not exists ${name} stage`)
@@ -39,27 +39,27 @@ export class StageFacade {
 		return await Helper.existsPath(file)
 	}
 
-	public sync (name:string):StageSync {
+	public sync (name?:string):StageSync {
 		const stage = this.getStage(name)
 		return new StageSync(this.state, this.schemaManager, this.routing, this.languageManager, this.executor, stage.name)
 	}
 
-	public clean (name:string):StageClean {
+	public clean (name?:string):StageClean {
 		const stage = this.getStage(name)
 		return new StageClean(this.state, this.schemaManager, this.routing, this.languageManager, this.executor, stage.name)
 	}
 
-	public truncate (name:string):StageClean {
+	public truncate (name?:string):StageClean {
 		const stage = this.getStage(name)
 		return new StageTruncate(this.state, this.schemaManager, this.routing, this.languageManager, this.executor, stage.name)
 	}
 
-	public export (name:string):StageExport {
+	public export (name?:string):StageExport {
 		const stage = this.getStage(name)
 		return new StageExport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name)
 	}
 
-	public import (name:string):StageImport {
+	public import (name?:string):StageImport {
 		const stage = this.getStage(name)
 		return new StageImport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name)
 	}

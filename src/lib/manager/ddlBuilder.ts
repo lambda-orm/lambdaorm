@@ -348,17 +348,6 @@ export class DDLBuilder {
 		return this.schema.dataSource.get(datasourceName)
 	}
 
-	// private async getDataSource (entity: string): Promise<DataSource> {
-	// const context = { entity: entity, action: 'ddl' }
-	// for (const i in this.dataSource.rules) {
-	// const rule = this.dataSource.rules[i]
-	// if (await this.evaluator.eval(rule.rule, context) === true) {
-	// return this.schema.dataSource.get(rule.dataSource)
-	// }
-	// }
-	// return this.dataSource
-	// }
-
 	private builder (dataSource: DataSource): LanguageDDLBuilder {
 		return this.languageManager.ddlBuilder(dataSource)
 	}
