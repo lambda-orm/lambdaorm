@@ -211,25 +211,24 @@ export class Orm implements IOrm {
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, context?: any, stage?: string):Promise<any>;
-	public async execute(expression: string, data?: any, context?: any, stage?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, context: any = {}, stage: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, stage?: string):Promise<any>;
+	public async execute(expression: string, data?: any, stage?: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, stage: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
 		const _stage = this.schemaManager.stage.get(stage)
 		const query = await this.expressionManager.toQuery(expression, _stage.name)
-		return await this.executor.execute(query, data, context, _stage.name)
+		return await this.executor.execute(query, data, _stage.name)
 	}
 
 	/**
  * Crea una transaccion
- * @param context Context
  * @param stage Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (context:any, stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _stage = this.schemaManager.stage.get(stage)
-		return await this.executor.transaction(_stage.name, context, callback)
+		return await this.executor.transaction(_stage.name, callback)
 	}
 }

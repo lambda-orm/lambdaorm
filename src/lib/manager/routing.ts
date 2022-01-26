@@ -24,8 +24,10 @@ export class Routing {
 			sentence: sentenceInfo.name,
 			read: sentenceInfo.name === 'select',
 			write: sentenceInfo.name !== 'select',
-			dml: ['select', 'insert', 'update', 'delete'].includes(sentenceInfo.name),
-			ddl: !['insert', 'update', 'delete'].includes(sentenceInfo.name),
+			dml: sentenceInfo.name !== 'ddl',
+			ddl: sentenceInfo.name === 'ddl',
+			// dml: ['select', 'insert', 'update', 'delete'].includes(sentenceInfo.name),
+			// ddl: !['insert', 'update', 'delete'].includes(sentenceInfo.name),
 			context: context
 		}
 		return _context

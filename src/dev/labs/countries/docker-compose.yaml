@@ -5,9 +5,9 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      - MYSQL_DATABASE=test
-      - MYSQL_USER=test
-      - MYSQL_PASSWORD=test
+      - MYSQL_DATABASE=countries
+      - MYSQL_USER=countries
+      - MYSQL_PASSWORD=countries
       - MYSQL_ROOT_PASSWORD=root
     ports:
       - 3309:3306
@@ -16,8 +16,8 @@ services:
     image: postgres:10
     restart: always
     environment:
-      - POSTGRES_DB=test
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=countries
+      - POSTGRES_USER=countries
+      - POSTGRES_PASSWORD=countries
     ports:
       - '5433:5432'

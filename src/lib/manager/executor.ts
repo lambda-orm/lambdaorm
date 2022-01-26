@@ -19,17 +19,17 @@ export class Executor {
 		this.expressionManager = expressionManager
 	}
 
-	public async execute (query: Query, data: any, context: any, stage:string): Promise<any> {
+	public async execute (query: Query, data: any, stage:string): Promise<any> {
 		let error: any
 		let result:any
 		if (query.children && query.children.length > 0) {
-			await this.transaction(stage, context, async function (tr: Transaction) {
+			await this.transaction(stage, async function (tr: Transaction) {
 				result = await tr.execute(query, data)
 			})
 		} else {
 			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.routing, this.schemaManager, stage, false)
 			try {
-				result = await queryExecutor.execute(query, data, context)
+				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
 				error = _error
 			} finally {
@@ -42,7 +42,7 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (stage: string, queries: Query[], context: any, tryAllCan = false):Promise<any> {
+	public async executeList (stage: string, queries: Query[], tryAllCan = false):Promise<any> {
 		const results: any[] = []
 		let query: Query
 		if (tryAllCan) {
@@ -50,7 +50,7 @@ export class Executor {
 				query = queries[i]
 				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.routing, this.schemaManager, stage, false)
 				try {
-					const result = await queryExecutor.execute(query, context, {})
+					const result = await queryExecutor.execute(query, {})
 					results.push(result)
 				} catch (error) {
 					console.error(`error: ${error} on sentence:${query.sentence}`)
@@ -59,7 +59,7 @@ export class Executor {
 				}
 			}
 		} else {
-			await this.transaction(stage, context, async function (tr: Transaction) {
+			await this.transaction(stage, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
 					const result = await tr.execute(query)
@@ -75,11 +75,11 @@ export class Executor {
  * @param dataSource Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (stage: string, context:any, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.routing, this.schemaManager, stage, true)
 		let error:any
 		try {
-			const transaction = new Transaction(context, this.expressionManager, queryExecutor)
+			const transaction = new Transaction(this.expressionManager, queryExecutor)
 			await callback(transaction)
 			await queryExecutor.commit()
 		} catch (_error) {

@@ -1,0 +1,107 @@
+{
+	"entities": [
+		{
+			"name": "Countries",
+			"primaryKey": [
+				"iso3"
+			],
+			"uniqueKey": [
+				"name"
+			],
+			"properties": [
+				{
+					"name": "name",
+					"nullable": false,
+					"type": "string",
+					"length": 80
+				},
+				{
+					"name": "iso3",
+					"length": 3,
+					"nullable": false,
+					"type": "string"
+				},
+				{
+					"name": "region",
+					"type": "string",
+					"length": 80
+				},
+				{
+					"name": "subregion",
+					"type": "string",
+					"length": 80
+				},
+				{
+					"name": "latitude",
+					"length": 16,
+					"type": "string"
+				},
+				{
+					"name": "longitude",
+					"length": 16,
+					"type": "string"
+				}
+			],
+			"relations": [
+				{
+					"name": "states",
+					"type": "manyToOne",
+					"composite": true,
+					"from": "iso3",
+					"entity": "States",
+					"to": "countryCode"
+				}
+			]
+		},
+		{
+			"name": "States",
+			"primaryKey": [
+				"id"
+			],
+			"uniqueKey": [
+				"countryCode",
+				"name"
+			],
+			"properties": [
+				{
+					"name": "id",
+					"type": "integer",
+					"nullable": false
+				},
+				{
+					"name": "name",
+					"nullable": false,
+					"type": "string",
+					"length": 80
+				},
+				{
+					"name": "countryCode",
+					"nullable": false,
+					"length": 3,
+					"type": "string"
+				},
+				{
+					"name": "latitude",
+					"length": 16,
+					"type": "string"
+				},
+				{
+					"name": "longitude",
+					"length": 16,
+					"type": "string"
+				}
+			],
+			"relations": [
+				{
+					"name": "country",
+					"from": "countryCode",
+					"entity": "Countries",
+					"to": "iso3",
+					"type": "oneToMany"
+				}
+			]
+		}
+	],
+	"mappingData": {},
+	"pendingData": []
+}

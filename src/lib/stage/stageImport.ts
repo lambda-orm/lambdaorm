@@ -9,7 +9,7 @@ export class StageImport extends StageActionDML {
 		const queries = this.sort(_queries)
 		const context = {}
 
-		await this.executor.transaction(this.stage, context, async (tr) => {
+		await this.executor.transaction(this.stage, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const entityData = data.entities.find(p => p.entity === query.entity)
