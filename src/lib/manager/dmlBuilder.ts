@@ -36,7 +36,7 @@ export class DMLBuilder {
 
 	private async getDataSource (sentence: Sentence): Promise<DataSource> {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
-		const datasourceName = await this.routing.getDataSource(sentenceInfo, {}, this.stage)
+		const datasourceName = await this.routing.getDataSource(sentenceInfo, this.stage)
 		return this.schema.dataSource.get(datasourceName)
 	}
 

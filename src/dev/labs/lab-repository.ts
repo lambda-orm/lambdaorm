@@ -12,7 +12,7 @@ import { CategoryRespository, Category, ProductRespository } from '../../model'
 			.having(p => max(p.price) > 50)
 			.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 			.sort(p => desc(p.largestPrice))
-			.execute({ country: country }, {})
+			.execute({ country: country })
 
 		console.log(JSON.stringify(result, null, 2))
 

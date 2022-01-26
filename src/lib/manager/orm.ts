@@ -207,7 +207,6 @@ export class Orm implements IOrm {
 	/**
 	 * Execute expression
 	 * @param data Data with variables
-	 * @param context Context
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */

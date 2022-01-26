@@ -59,7 +59,6 @@ export interface IOrm
 	/**
 		* Execute expression
 		* @param data Data with variables
-		* @param context Context
 		* @param stage Stage name
 		* @returns Result of execution
 		*/

@@ -5,5 +5,4 @@ export interface ContextInfo {
 	write: boolean
 	dml: boolean
 	ddl: boolean
-	context: any
 }

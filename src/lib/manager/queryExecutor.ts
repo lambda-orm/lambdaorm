@@ -58,24 +58,6 @@ export class QueryExecutor {
 		this.connections = {}
 	}
 
-	// private async getDataSource (query: Query, context: any): Promise<string> {
-	// const sentenceInfo: SentenceInfo = { entity: query.entity, name: query.name }
-	// return await this.routing.getDataSource(sentenceInfo, context, this.stage)
-	// }
-
-	// private async getDatastore (query: Query, context: any): Promise<string> {
-	// const actionType = query.sentence === 'select' ? 'read' : 'write'
-	// const queryInfo = { entity: query.entity, action: query.name, actionType: actionType, sentence: query.sentence }
-	// const _context = { query: queryInfo, context: context }
-	// for (const i in this.dataSource.rules) {
-	// const rule = this.dataSource.rules[i]
-	// if (await this.evaluator.eval(rule.rule, _context) === true) {
-	// return rule.dataSource
-	// }
-	// }
-	// return this.dataSource.name
-	// }
-
 	public async execute (query: Query, data: any): Promise<any> {
 		const _data = new Data(data)
 		return await this._execute(query, _data)
@@ -84,8 +66,6 @@ export class QueryExecutor {
 	protected async _execute (query:Query, data:Data):Promise<any> {
 		let result: any
 		try {
-			// const dataSourceName = await this.getDataSource(query, context)
-			// const dataSource = this.schemaManager.dataSource.get(dataSourceName)
 			const dataSource = this.schemaManager.dataSource.get(query.dataSource)
 			const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
 			const connection = await this.getConnection(dataSource.name)

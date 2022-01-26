@@ -378,7 +378,7 @@ export class DDLBuilder {
 
 	private evalDataSource (dataSource:RuleDataSource, entity: string):boolean {
 		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
-		return this.routing.eval(dataSource, sentenceInfo, {})
+		return this.routing.eval(dataSource, sentenceInfo)
 	}
 
 	private builder (dataSource: DataSource): LanguageDDLBuilder {

@@ -9,7 +9,7 @@ export class QueryAction {
 		this.expression = expression
 	}
 
-	public async execute (data: any, context:any): Promise<any> {
+	public async execute (data: any): Promise<any> {
 		return await this.actions.execute(this.expression, data)
 	}
 
