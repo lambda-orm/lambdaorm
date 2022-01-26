@@ -23,7 +23,7 @@ Facade through which you can access all the functionalities of the library.
 ### Accessors
 
 - [defaultStage](manager.Orm.md#defaultstage)
-- [lib](manager.Orm.md#lib)
+- [schema](manager.Orm.md#schema)
 - [stage](manager.Orm.md#stage)
 - [workspace](manager.Orm.md#workspace)
 - [instance](manager.Orm.md#instance)
@@ -58,7 +58,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/manager/orm.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L44)
+[src/lib/manager/orm.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L42)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/manager/orm.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L25)
+[src/lib/manager/orm.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L23)
 
 ## Accessors
 
@@ -82,23 +82,27 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/manager/orm.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L69)
+[src/lib/manager/orm.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L65)
 
 ___
 
-### lib
+### schema
 
-• `get` **lib**(): [`LibManager`](manager.LibManager.md)
+• `get` **schema**(): [`SchemaManager`](manager.SchemaManager.md)
 
-Get reference to schema manager
+Get reference to SchemaConfig
 
 #### Returns
 
-[`LibManager`](manager.LibManager.md)
+[`SchemaManager`](manager.SchemaManager.md)
+
+#### Implementation of
+
+IOrm.schema
 
 #### Defined in
 
-[src/lib/manager/orm.ts:119](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L119)
+[src/lib/manager/orm.ts:110](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L110)
 
 ___
 
@@ -106,7 +110,7 @@ ___
 
 • `get` **stage**(): [`StageFacade`](manager.StageFacade.md)
 
-Get reference to dataSource manager
+Get reference to stage manager
 
 #### Returns
 
@@ -118,7 +122,7 @@ IOrm.stage
 
 #### Defined in
 
-[src/lib/manager/orm.ts:126](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L126)
+[src/lib/manager/orm.ts:103](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L103)
 
 ___
 
@@ -136,7 +140,7 @@ IOrm.workspace
 
 #### Defined in
 
-[src/lib/manager/orm.ts:108](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L108)
+[src/lib/manager/orm.ts:92](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L92)
 
 ___
 
@@ -152,7 +156,7 @@ Singleton
 
 #### Defined in
 
-[src/lib/manager/orm.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L37)
+[src/lib/manager/orm.ts:35](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L35)
 
 ## Methods
 
@@ -180,7 +184,7 @@ Expression complete
 
 #### Defined in
 
-[src/lib/manager/orm.ts:150](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L150)
+[src/lib/manager/orm.ts:134](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L134)
 
 ▸ **complete**(`expression`): `string`
 
@@ -200,7 +204,7 @@ Expression complete
 
 #### Defined in
 
-[src/lib/manager/orm.ts:151](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L151)
+[src/lib/manager/orm.ts:135](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L135)
 
 ___
 
@@ -224,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/orm.ts:112](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L112)
+[src/lib/manager/orm.ts:96](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L96)
 
 ___
 
@@ -244,7 +248,7 @@ Frees the resources used, for example the connection pools
 
 #### Defined in
 
-[src/lib/manager/orm.ts:104](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L104)
+[src/lib/manager/orm.ts:88](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L88)
 
 ___
 
@@ -273,13 +277,13 @@ Result of the evaluale expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:204](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L204)
+[src/lib/manager/orm.ts:188](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L188)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `data?`, `context?`, `stage?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
 
 Execute expression
 
@@ -289,7 +293,6 @@ Execute expression
 | :------ | :------ | :------ |
 | `expression` | `Function` | - |
 | `data?` | `any` | Data with variables |
-| `context?` | `any` | Context |
 | `stage?` | `string` | - |
 
 #### Returns
@@ -304,9 +307,9 @@ Result of execution
 
 #### Defined in
 
-[src/lib/manager/orm.ts:229](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L229)
+[src/lib/manager/orm.ts:213](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L213)
 
-▸ **execute**(`expression`, `data?`, `context?`, `stage?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -314,7 +317,6 @@ Result of execution
 | :------ | :------ |
 | `expression` | `string` |
 | `data?` | `any` |
-| `context?` | `any` |
 | `stage?` | `string` |
 
 #### Returns
@@ -327,7 +329,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/manager/orm.ts:230](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L230)
+[src/lib/manager/orm.ts:214](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L214)
 
 ___
 
@@ -356,7 +358,7 @@ promise void
 
 #### Defined in
 
-[src/lib/manager/orm.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L78)
+[src/lib/manager/orm.ts:74](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L74)
 
 ___
 
@@ -384,7 +386,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:189](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L189)
+[src/lib/manager/orm.ts:173](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L173)
 
 ▸ **metadata**(`expression`): `Promise`<`any`\>
 
@@ -404,7 +406,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:190](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L190)
+[src/lib/manager/orm.ts:174](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L174)
 
 ___
 
@@ -432,7 +434,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:163](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L163)
+[src/lib/manager/orm.ts:147](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L147)
 
 ▸ **model**(`expression`): `Promise`<`any`\>
 
@@ -452,7 +454,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:164](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L164)
+[src/lib/manager/orm.ts:148](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L148)
 
 ___
 
@@ -480,7 +482,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:176](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L176)
+[src/lib/manager/orm.ts:160](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L160)
 
 ▸ **parameters**(`expression`): `Promise`<`any`\>
 
@@ -500,13 +502,13 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:177](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L177)
+[src/lib/manager/orm.ts:161](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L161)
 
 ___
 
 ### sentence
 
-▸ **sentence**(`expression`, `stage`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
 
 Get sentence of expression
 
@@ -515,7 +517,7 @@ Get sentence of expression
 | Name | Type |
 | :------ | :------ |
 | `expression` | `Function` |
-| `stage` | `string` |
+| `stage?` | `string` |
 
 #### Returns
 
@@ -527,16 +529,16 @@ Get sentence of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:213](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L213)
+[src/lib/manager/orm.ts:197](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L197)
 
-▸ **sentence**(`expression`, `stage`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `stage` | `string` |
+| `stage?` | `string` |
 
 #### Returns
 
@@ -548,7 +550,7 @@ Get sentence of expression
 
 #### Defined in
 
-[src/lib/manager/orm.ts:214](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L214)
+[src/lib/manager/orm.ts:198](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L198)
 
 ___
 
@@ -574,7 +576,7 @@ set to cache manager
 
 #### Defined in
 
-[src/lib/manager/orm.ts:133](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L133)
+[src/lib/manager/orm.ts:117](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L117)
 
 ___
 
@@ -598,13 +600,13 @@ Expression manager
 
 #### Defined in
 
-[src/lib/manager/orm.ts:142](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L142)
+[src/lib/manager/orm.ts:126](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L126)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`context`, `stage`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`stage`, `callback`): `Promise`<`void`\>
 
 Crea una transaccion
 
@@ -612,7 +614,6 @@ Crea una transaccion
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `context` | `any` | Context |
 | `stage` | `string` | Database name |
 | `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Codigo que se ejecutara en transaccion |
 
@@ -626,4 +627,4 @@ Crea una transaccion
 
 #### Defined in
 
-[src/lib/manager/orm.ts:246](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/orm.ts#L246)
+[src/lib/manager/orm.ts:229](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/orm.ts#L229)

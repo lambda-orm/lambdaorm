@@ -12,19 +12,50 @@
 
 ### Methods
 
+- [complete](manager.SchemaExtender.md#complete)
 - [extend](manager.SchemaExtender.md#extend)
 
 ## Constructors
 
 ### constructor
 
-• **new SchemaExtender**()
+• **new SchemaExtender**(`expressions`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expressions` | `Expressions` |
+
+#### Defined in
+
+[src/lib/manager/schema.ts:292](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L292)
 
 ## Methods
 
+### complete
+
+▸ **complete**(`schema`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`Schema`](../interfaces/model.Schema.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/manager/schema.ts:370](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L370)
+
+___
+
 ### extend
 
-▸ `Static` **extend**(`schema`): [`Schema`](../interfaces/model.Schema.md)
+▸ **extend**(`schema`): [`Schema`](../interfaces/model.Schema.md)
 
 #### Parameters
 
@@ -38,4 +69,4 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:301](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L301)
+[src/lib/manager/schema.ts:296](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L296)

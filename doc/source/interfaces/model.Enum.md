@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L6)
+[src/lib/model/schema.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L6)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L7)
+[src/lib/model/schema.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L7)

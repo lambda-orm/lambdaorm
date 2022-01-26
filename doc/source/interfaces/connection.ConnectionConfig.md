@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionConfig.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionConfig.ts#L4)
+[src/lib/connection/connectionConfig.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connectionConfig.ts#L4)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionConfig.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionConfig.ts#L3)
+[src/lib/connection/connectionConfig.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connectionConfig.ts#L3)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionConfig.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionConfig.ts#L2)
+[src/lib/connection/connectionConfig.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connectionConfig.ts#L2)

@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:377](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L377)
+[src/lib/manager/ddlBuilder.ts:436](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L436)
 
 ## Methods
 
@@ -56,7 +56,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `property` | [`PropertyMapping`](../interfaces/model.PropertyMapping.md) |
 
 #### Returns
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:391](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L391)
+[src/lib/manager/ddlBuilder.ts:450](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L450)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `relation` | [`Relation`](../interfaces/model.Relation.md) |
 
 #### Returns
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:396](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L396)
+[src/lib/manager/ddlBuilder.ts:455](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L455)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `primaryKey` | `string`[] |
 
 #### Returns
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:394](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L394)
+[src/lib/manager/ddlBuilder.ts:453](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L453)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `uniqueKey` | `string`[] |
 
 #### Returns
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:395](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L395)
+[src/lib/manager/ddlBuilder.ts:454](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L454)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `property` | [`PropertyMapping`](../interfaces/model.PropertyMapping.md) |
 
 #### Returns
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:392](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L392)
+[src/lib/manager/ddlBuilder.ts:451](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L451)
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 
 #### Returns
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:390](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L390)
+[src/lib/manager/ddlBuilder.ts:449](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L449)
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `relation` | [`Relation`](../interfaces/model.Relation.md) |
 
 #### Returns
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:397](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L397)
+[src/lib/manager/ddlBuilder.ts:456](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L456)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `index` | [`Index`](../interfaces/model.Index.md) |
 
 #### Returns
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:398](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L398)
+[src/lib/manager/ddlBuilder.ts:457](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L457)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `property` | [`PropertyMapping`](../interfaces/model.PropertyMapping.md) |
 
 #### Returns
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:393](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L393)
+[src/lib/manager/ddlBuilder.ts:452](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L452)
 
 ___
 
@@ -244,7 +244,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 
 #### Returns
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:387](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L387)
+[src/lib/manager/ddlBuilder.ts:446](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L446)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `relation` | [`Relation`](../interfaces/model.Relation.md) |
 
 #### Returns
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:385](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L385)
+[src/lib/manager/ddlBuilder.ts:444](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L444)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 | `index` | [`Index`](../interfaces/model.Index.md) |
 
 #### Returns
@@ -294,7 +294,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:386](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L386)
+[src/lib/manager/ddlBuilder.ts:445](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L445)
 
 ___
 
@@ -306,7 +306,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 
 #### Returns
 
@@ -314,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:388](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L388)
+[src/lib/manager/ddlBuilder.ts:447](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L447)
 
 ___
 
@@ -326,7 +326,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 
 #### Returns
 
@@ -334,7 +334,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:389](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L389)
+[src/lib/manager/ddlBuilder.ts:448](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L448)
 
 ___
 
@@ -346,7 +346,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `entity` | [`Entity`](../interfaces/model.Entity.md) |
+| `entity` | [`EntityMapping`](../interfaces/model.EntityMapping.md) |
 
 #### Returns
 
@@ -354,4 +354,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:384](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/ddlBuilder.ts#L384)
+[src/lib/manager/ddlBuilder.ts:443](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L443)

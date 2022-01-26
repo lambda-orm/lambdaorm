@@ -9,7 +9,6 @@
 ### Properties
 
 - [data](model.App.md#data)
-- [defaultStage](model.App.md#defaultstage)
 - [model](model.App.md#model)
 - [src](model.App.md#src)
 
@@ -21,17 +20,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:84](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L84)
-
-___
-
-### defaultStage
-
-• `Optional` **defaultStage**: `string`
-
-#### Defined in
-
-[src/lib/model/schema.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L86)
+[src/lib/model/schema.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L79)
 
 ___
 
@@ -41,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:85](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L85)
+[src/lib/model/schema.ts:80](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L80)
 
 ___
 
@@ -51,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:83](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L83)
+[src/lib/model/schema.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L78)

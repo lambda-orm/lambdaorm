@@ -55,7 +55,7 @@ ArrowFunction.constructor
 
 #### Defined in
 
-[src/lib/operand/operands.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L57)
+[src/lib/operand/operands.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/operand/operands.ts#L57)
 
 ## Properties
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/operands.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/operand/operands.ts#L56)
+[src/lib/operand/operands.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/operand/operands.ts#L56)
 
 ___
 

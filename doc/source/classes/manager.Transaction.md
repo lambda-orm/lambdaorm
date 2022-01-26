@@ -20,19 +20,18 @@
 
 ### constructor
 
-• **new Transaction**(`context`, `expressionManager`, `queryExecutor`)
+• **new Transaction**(`expressionManager`, `queryExecutor`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `context` | `any` |
 | `expressionManager` | [`ExpressionManager`](manager.ExpressionManager.md) |
 | `queryExecutor` | [`QueryExecutor`](manager.QueryExecutor.md) |
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/transaction.ts#L8)
+[src/lib/manager/transaction.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/transaction.ts#L7)
 
 ## Methods
 
@@ -53,7 +52,7 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/transaction.ts#L25)
+[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/transaction.ts#L23)
 
 ___
 
@@ -74,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/transaction.ts#L20)
+[src/lib/manager/transaction.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/transaction.ts#L18)
 
 ___
 
@@ -95,4 +94,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/transaction.ts#L15)
+[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/transaction.ts#L13)

@@ -10,8 +10,9 @@
 
 - [app](model.Schema.md#app)
 - [dataSources](model.Schema.md#datasources)
+- [entities](model.Schema.md#entities)
+- [enums](model.Schema.md#enums)
 - [mappings](model.Schema.md#mappings)
-- [model](model.Schema.md#model)
 - [stages](model.Schema.md#stages)
 
 ## Properties
@@ -22,7 +23,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L90)
+[src/lib/model/schema.ts:84](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L84)
 
 ___
 
@@ -32,7 +33,27 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:93](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L93)
+[src/lib/model/schema.ts:88](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L88)
+
+___
+
+### entities
+
+• **entities**: [`Entity`](model.Entity.md)[]
+
+#### Defined in
+
+[src/lib/model/schema.ts:85](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L85)
+
+___
+
+### enums
+
+• **enums**: [`Enum`](model.Enum.md)[]
+
+#### Defined in
+
+[src/lib/model/schema.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L86)
 
 ___
 
@@ -42,17 +63,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:92](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L92)
-
-___
-
-### model
-
-• **model**: [`Model`](model.Model.md)
-
-#### Defined in
-
-[src/lib/model/schema.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L91)
+[src/lib/model/schema.ts:87](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L87)
 
 ___
 
@@ -62,4 +73,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L94)
+[src/lib/model/schema.ts:89](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L89)

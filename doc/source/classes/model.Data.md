@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/lib/model/data.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L4)
+[src/lib/model/data.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L4)
 
 ## Properties
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/model/data.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L2)
+[src/lib/model/data.ts:2](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L2)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L3)
+[src/lib/model/data.ts:3](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L3)
 
 ## Methods
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L19)
+[src/lib/model/data.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L19)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L29)
+[src/lib/model/data.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L29)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L13)
+[src/lib/model/data.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L13)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L50)
+[src/lib/model/data.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L50)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L9)
+[src/lib/model/data.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L9)
 
 ___
 
@@ -175,4 +175,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/data.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/data.ts#L40)
+[src/lib/model/data.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/data.ts#L40)
