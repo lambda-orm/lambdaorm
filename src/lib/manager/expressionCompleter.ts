@@ -240,7 +240,7 @@ export class ExpressionCompleter {
 	private completeUpdateNode (entity:Entity, node:Node):void {
 		if (node.children.length === 1) {
 			// Example: Entity.update()
-			// In the case that the mapping is not defined, it assumes that the context will be the entity to update
+			// In the case that the mapping is not defined, it assumes that the data will be the entity to update
 			const fields = this.createNodeFields(entity, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {

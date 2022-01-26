@@ -58,18 +58,6 @@ describe('Complete Expression', () => {
 		const target = orm.complete(source)
 		expect(expected).toBe(target)
 	})
-	test('groupBy 10', () => {
-		const source = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const expected = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const target = orm.complete(source)
-		expect(expected).toBe(target)
-	})
-	test('groupBy 11', () => {
-		const source = 'Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const expected = 'Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const target = orm.complete(source)
-		expect(expected).toBe(target)
-	})
 })
 describe('Metadata', () => {
 	test('groupBy 1', async () => {
@@ -154,26 +142,6 @@ describe('Metadata', () => {
 	})
 	test('groupBy 9', async () => {
 		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
-		const modelExpected :any= {"category":"string","largestPrice":"any"}
-		const parametersExpected:any = []
-		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
-		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(metadata.f)
-	})
-	test('groupBy 10', async () => {
-		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const modelExpected :any= {"category":"string","largestPrice":"any"}
-		const parametersExpected:any = []
-		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
-		expect(modelExpected).toStrictEqual(model)
-		expect(fieldsExpected).toStrictEqual(metadata.f)
-	})
-	test('groupBy 11', async () => {
-		const expression = 'Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
 		const modelExpected :any= {"category":"string","largestPrice":"any"}
 		const parametersExpected:any = []
 		const fieldsExpected :any= [{"name":"category","type":"string"},{"name":"largestPrice","type":"any"}]
@@ -315,36 +283,6 @@ describe('Sentences', () => {
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
 		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-	})
-	test('groupBy 10', async () => {
-		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const mysqlExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc '
-		let mysql =  await orm.sentence(expression,'mysql')
-		mysql=Helper.replace(mysql,'\n','; ')
-		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
-	})
-	test('groupBy 11', async () => {
-		const expression = 'Products.filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).map(p=>{category:p.category.name,largestPrice:max(p.price)}).sort(p=>desc(p.largestPrice))'
-		const mysqlExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc '
-		let mysql =  await orm.sentence(expression,'mysql')
-		mysql=Helper.replace(mysql,'\n','; ')
-		expect(mysqlExpected).toBe(mysql)
-		const postgresExpected = 'SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS "largestPrice" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc '
-		let postgres =  await orm.sentence(expression,'postgres')
-		postgres=Helper.replace(postgres,'\n','; ')
-		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc '
 		let mariadb =  await orm.sentence(expression,'mariadb')
 		mariadb=Helper.replace(mariadb,'\n','; ')
 		expect(mariadbExpected).toBe(mariadb)

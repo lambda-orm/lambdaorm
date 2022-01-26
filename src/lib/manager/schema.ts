@@ -1,7 +1,9 @@
-import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage } from '../model'
+import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
+import { Expressions } from 'js-expressions'
+
 const yaml = require('js-yaml')
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
@@ -58,7 +60,8 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	}
 
 	public sortEntities (entities:string[] = []): string[] {
-		const sorted:string[] = []
+		if (entities.length < 2) return entities
+		const sorted: string[] = []
 		while (sorted.length < entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entityName = entities[i]
@@ -285,16 +288,22 @@ export class StageConfig {
 }
 
 export class SchemaExtender {
-	public static extend (schema: Schema): Schema {
+	private expressions:Expressions
+	constructor (expressions:Expressions) {
+		this.expressions = expressions
+	}
+
+	public extend (schema: Schema): Schema {
 		// model
 		if (schema.entities) {
 			const entities = schema.entities
 			for (const k in entities) {
-				SchemaExtender.extendEntiy(entities[k], entities)
+				this.extendEntiy(entities[k], entities)
 			}
 		}
-		schema.entities = SchemaExtender.clearEntities(schema.entities)
-		SchemaExtender.completeEntities(schema.entities)
+		schema.entities = this.clearEntities(schema.entities)
+		this.completeEntities(schema.entities)
+
 		// mappings
 		if (schema.mappings.length > 0) {
 			// extend entities into mapping
@@ -302,22 +311,34 @@ export class SchemaExtender {
 				const entities = schema.mappings[k].entities
 				if (entities) {
 					for (const k in entities) {
-						SchemaExtender.extendEntiyMapping(entities[k], entities)
+						this.extendEntiyMapping(entities[k], entities)
 					}
 				}
 			}
 			// etends mappings
 			for (const k in schema.mappings) {
-				SchemaExtender.extendMapping(schema.mappings[k], schema.mappings)
+				this.extendMapping(schema.mappings[k], schema.mappings)
 			}
 		} else {
 			schema.mappings = [{ name: 'default', entities: [] }]
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			SchemaExtender.extendObject(schema.mappings[k], { entities: schema.entities })
-			schema.mappings[k] = SchemaExtender.clearMapping(schema.mappings[k])
-			SchemaExtender.completeMapping(schema.mappings[k])
+			// const mapping = schema.mappings[k]
+			// if (mapping.entities === undefined) {
+			// mapping.entities = []
+			// }
+			// for (const l in schema.entities) {
+			// const entity = schema.entities[l]
+			// let mapEntity = mapping.entities.find(p => p.name === entity.name)
+			// if (mapEntity === undefined) {
+			// mapEntity = { name: entity.name, mapping: entity.name, properties: [] }
+			// }
+			// }
+
+			this.extendObject(schema.mappings[k], { entities: schema.entities })
+			schema.mappings[k] = this.clearMapping(schema.mappings[k])
+			this.completeMapping(schema.mappings[k])
 		}
 		// dataSources
 		if (schema.dataSources === undefined || schema.dataSources.length === 0) {
@@ -339,14 +360,18 @@ export class SchemaExtender {
 				stage.dataSources = [{ name: schema.dataSources[0].name }]
 			}
 		}
+		// exclude entities not used in mapping
+		for (const k in schema.mappings) {
+			schema.mappings[k] = this.clearMapping2(schema, schema.mappings[k])
+		}
 		return schema
 	}
 
-	public static complete (schema: Schema): void {
-		SchemaExtender.completeEntities(schema.entities)
+	public complete (schema: Schema): void {
+		this.completeEntities(schema.entities)
 	}
 
-	private static clearEntities (source: Entity[]): Entity[] {
+	private clearEntities (source: Entity[]): Entity[] {
 		const target: Entity[] = []
 		if (source !== undefined) {
 			for (let i = 0; i < source.length; i++) {
@@ -358,7 +383,7 @@ export class SchemaExtender {
 		return target
 	}
 
-	private static completeEntities (entities:Entity[]):void {
+	private completeEntities (entities:Entity[]):void {
 		if (entities !== undefined) {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
@@ -379,109 +404,97 @@ export class SchemaExtender {
 		}
 	}
 
-	private static clearMapping (source: Mapping): Mapping {
-		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
-		if (source.entities !== undefined) {
-			for (let i = 0; i < source.entities.length; i++) {
-				const sourceEntity = source.entities[i]
-				if (sourceEntity.abstract === true) continue
-				target.entities.push(sourceEntity)
-			}
-		}
-		return target
-	}
-
-	private static extendEntiy (entity: Entity, entities: Entity[]):void {
+	private extendEntiy (entity: Entity, entities: Entity[]):void {
 		if (entity.extends !== undefined) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new Error(`${entity.extends} not found`)
 			}
-			SchemaExtender.extendEntiy(base, entities)
+			this.extendEntiy(base, entities)
 			if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
 			// extend properties
 			if (base.properties !== undefined && base.properties.length > 0) {
 				if (entity.properties === undefined) {
 					entity.properties = []
 				}
-				SchemaExtender.extendObject(entity.properties, base.properties)
+				this.extendObject(entity.properties, base.properties)
 			}
 			// extend relations
 			if (base.relations !== undefined && base.relations.length > 0) {
 				if (entity.relations === undefined) {
 					entity.relations = []
 				}
-				SchemaExtender.extendObject(entity.relations, base.relations)
+				this.extendObject(entity.relations, base.relations)
 			}
 			// se setea dado que ya fue extendido
 			delete entity.extends
 		}
 	}
 
-	private static extendMapping (mapping: Mapping, mappings: Mapping[]): void {
+	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
 		if (mapping.extends !== undefined) {
 			const base = mappings.find(p => p.name === mapping.extends)
 			if (base === undefined) {
 				throw new Error(`${mapping.extends} not found`)
 			}
-			SchemaExtender.extendMapping(base, mappings)
-			SchemaExtender.extendObject(mapping, base)
+			this.extendMapping(base, mappings)
+			this.extendObject(mapping, base)
 			// se setea dado que ya fue extendido
 			delete mapping.extends
 		}
 	}
 
-	private static extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
+	private extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
 		if (entity.extends !== undefined) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new Error(`${entity.extends} not found`)
 			}
-			SchemaExtender.extendEntiyMapping(base, entities)
+			this.extendEntiyMapping(base, entities)
 			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) entity.uniqueKey = base.uniqueKey
 			// extend indexes
 			if (base.indexes !== undefined && base.indexes.length > 0) {
 				if (entity.indexes === undefined) {
 					entity.indexes = []
 				}
-				SchemaExtender.extendObject(entity.indexes, base.indexes)
+				this.extendObject(entity.indexes, base.indexes)
 			}
 			// extend properties
 			if (base.properties !== undefined && base.properties.length > 0) {
 				if (entity.properties === undefined) {
 					entity.properties = []
 				}
-				SchemaExtender.extendObject(entity.properties, base.properties)
+				this.extendObject(entity.properties, base.properties)
 			}
 			// se setea dado que ya fue extendido
 			delete entity.extends
 		}
 	}
 
-	private static extendObject (obj:any, base:any) {
+	private extendObject (obj:any, base:any) {
 		if (Array.isArray(base)) {
 			for (let i = 0; i < base.length; i++) {
 				const baseChild = base[i]
 				const objChild = obj.find((p: any) => p.name === baseChild.name)
 				if (objChild === undefined) {
-					obj.push(baseChild)
+					obj.push(Helper.clone(baseChild))
 				} else {
-					SchemaExtender.extendObject(objChild, baseChild)
+					this.extendObject(objChild, baseChild)
 				}
 			}
 		} else if (typeof base === 'object') {
 			for (const k in base) {
 				if (obj[k] === undefined) {
-					obj[k] = base[k]
+					obj[k] = Helper.clone(base[k])
 				} else if (typeof obj[k] === 'object') {
-					SchemaExtender.extendObject(obj[k], base[k])
+					this.extendObject(obj[k], base[k])
 				}
 			}
 		}
 		return obj
 	}
 
-	private static completeMapping (mapping:Mapping):void {
+	private completeMapping (mapping:Mapping):void {
 		if (mapping.entities !== undefined) {
 			for (let i = 0; i < mapping.entities.length; i++) {
 				const entity = mapping.entities[i]
@@ -495,6 +508,49 @@ export class SchemaExtender {
 			}
 		}
 	}
+
+	private clearMapping (source: Mapping): Mapping {
+		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
+		if (source.entities !== undefined) {
+			for (let i = 0; i < source.entities.length; i++) {
+				const sourceEntity = source.entities[i]
+				if (sourceEntity.abstract === true) continue
+				target.entities.push(sourceEntity)
+			}
+		}
+		return target
+	}
+
+	private clearMapping2 (schema:Schema, source: Mapping): Mapping {
+		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
+
+		if (source.entities !== undefined) {
+			for (let i = 0; i < source.entities.length; i++) {
+				const sourceEntity = source.entities[i]
+				if (!this.existsInMapping(schema, source.name, sourceEntity.name)) continue
+				target.entities.push(sourceEntity)
+			}
+		}
+		return target
+	}
+
+	private existsInMapping (schema:Schema, mapping:string, entity:string):boolean {
+		const context:ContextInfo = { entity: entity, sentence: 'ddl', read: false, write: true, dml: false, ddl: true }
+		const dataSourcesNames = schema.dataSources.filter(p => p.mapping === mapping).map(p => p.name)
+		for (const i in schema.stages) {
+			const stage = schema.stages[i]
+			const ruleDataSources = stage.dataSources.filter(p => dataSourcesNames.includes(p.name))
+			for (const j in ruleDataSources) {
+				const ruleDataSource = ruleDataSources[j]
+				if (ruleDataSource.condition === undefined) {
+					return true
+				} else if (this.expressions.eval(ruleDataSource.condition, context)) {
+					return true
+				}
+			}
+		}
+		return false
+	}
 }
 
 export class SchemaManager {
@@ -504,13 +560,17 @@ export class SchemaManager {
 	public stage: StageConfig
 	public schema: Schema
 	public workspace: string
+	private extender: SchemaExtender
+	private expressions:Expressions
 
-	constructor (workspace:string) {
+	constructor (workspace: string, expressions: Expressions) {
+		this.expressions = expressions
 		this.workspace = workspace
 		this.dataSource = new DataSourceConfig()
 		this.model = new ModelConfig()
 		this.mapping = new MappingsConfig()
 		this.stage = new StageConfig()
+		this.extender = new SchemaExtender(this.expressions)
 		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
 	}
 
@@ -602,11 +662,11 @@ export class SchemaManager {
 	}
 
 	public complete (schema: Schema): void {
-		SchemaExtender.complete(schema)
+		this.extender.complete(schema)
 	}
 
 	public extend (schema: Schema): Schema {
-		return SchemaExtender.extend(schema)
+		return this.extender.extend(schema)
 	}
 
 	public load (schema: Schema): Schema {

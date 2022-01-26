@@ -1,5 +1,4 @@
 name: numeric functions
-context: {}
 data:
   a:
     id: 1

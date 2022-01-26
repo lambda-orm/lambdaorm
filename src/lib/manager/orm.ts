@@ -39,12 +39,12 @@ export class Orm implements IOrm {
 		return this._instance
 	}
 
-	constructor (workspace:string = process.cwd()) {
-		this.schemaManager = new SchemaManager(workspace)
-		this._cache = new MemoryCache()
-		this.connectionManager = new ConnectionManager()
+	constructor (workspace: string = process.cwd()) {
 		this.expressions = expressions
 		this.expressions.config.load(modelConfig)
+		this.schemaManager = new SchemaManager(workspace, this.expressions)
+		this._cache = new MemoryCache()
+		this.connectionManager = new ConnectionManager()
 
 		this.languageManager = new LanguageManager(this.schemaManager, this.expressions)
 		this.languageManager.addLanguage('sql', new SqlLanguage())
@@ -58,7 +58,7 @@ export class Orm implements IOrm {
 
 		this.routing = new Routing(this.schemaManager, this.expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languageManager, this.expressions, this.routing)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.routing, this.schemaManager, this.expressionManager)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager)
 		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languageManager, this.executor)
 	}
 
@@ -207,29 +207,27 @@ export class Orm implements IOrm {
 	/**
 	 * Execute expression
 	 * @param data Data with variables
-	 * @param context Context
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, context?: any, stage?: string):Promise<any>;
-	public async execute(expression: string, data?: any, context?: any, stage?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, context: any = {}, stage: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, stage?: string):Promise<any>;
+	public async execute(expression: string, data?: any, stage?: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, stage: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
 		const _stage = this.schemaManager.stage.get(stage)
 		const query = await this.expressionManager.toQuery(expression, _stage.name)
-		return await this.executor.execute(query, data, context, _stage.name)
+		return await this.executor.execute(query, data, _stage.name)
 	}
 
 	/**
  * Crea una transaccion
- * @param context Context
  * @param stage Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (context:any, stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _stage = this.schemaManager.stage.get(stage)
-		return await this.executor.transaction(_stage.name, context, callback)
+		return await this.executor.transaction(_stage.name, callback)
 	}
 }
