@@ -1,6 +1,6 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
-import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, Entity, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
+import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
 import { Helper } from '../manager/helper'
 
 export class DDLBuilder {
