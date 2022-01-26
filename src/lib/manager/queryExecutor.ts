@@ -4,7 +4,7 @@ import { Connection, ConnectionManager } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { LanguageManager } from '../language'
 import { MappingConfig } from './schema'
-import { Routing, SchemaManager } from '.'
+import { SchemaManager } from '.'
 
 export class QueryExecutor {
 	public stage: string
@@ -13,14 +13,13 @@ export class QueryExecutor {
 	private connections: any
 	private transactionable: boolean
 	private schemaManager: SchemaManager
-	private routing:Routing
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, routing:Routing, schemaManager:SchemaManager, stage: string, transactionable = false) {
+
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, schemaManager:SchemaManager, stage: string, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
 		this.stage = stage
 		this.schemaManager = schemaManager
 		this.transactionable = transactionable
-		this.routing = routing
 		this.connections = {}
 	}
 
