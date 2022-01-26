@@ -26,8 +26,6 @@ export class Routing {
 			write: sentenceInfo.name !== 'select',
 			dml: sentenceInfo.name !== 'ddl',
 			ddl: sentenceInfo.name === 'ddl'
-			// dml: ['select', 'insert', 'update', 'delete'].includes(sentenceInfo.name),
-			// ddl: !['insert', 'update', 'delete'].includes(sentenceInfo.name)
 		}
 	}
 

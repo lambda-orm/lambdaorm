@@ -12,8 +12,6 @@
 - [model](model.ModelState.md#model)
 - [pendingData](model.ModelState.md#pendingdata)
 
-## Properties
-
 ### mappingData
 
 • **mappingData**: `any`
