@@ -39,12 +39,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schema` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `schema` | [`SchemaManager`](manager.SchemaManager.md) |
 | `expressions` | `Expressions` |
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L19)
+[src/lib/language/languageManager.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L19)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L13)
+[src/lib/language/languageManager.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L13)
 
 ## Methods
 
@@ -75,7 +75,7 @@
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L27)
+[src/lib/language/languageManager.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L27)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L39)
+[src/lib/language/languageManager.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L39)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L61)
+[src/lib/language/languageManager.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L61)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L81)
+[src/lib/language/languageManager.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L81)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L51)
+[src/lib/language/languageManager.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L51)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:55](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L55)
+[src/lib/language/languageManager.ts:55](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L55)
 
 ___
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:85](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L85)
+[src/lib/language/languageManager.ts:85](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L85)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L34)
+[src/lib/language/languageManager.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L34)
 
 ___
 
@@ -236,7 +236,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L43)
+[src/lib/language/languageManager.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L43)
 
 ___
 
@@ -256,7 +256,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L47)
+[src/lib/language/languageManager.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L47)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L67)
+[src/lib/language/languageManager.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L67)
 
 ___
 
@@ -296,4 +296,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/languageManager.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/language/languageManager.ts#L77)
+[src/lib/language/languageManager.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/languageManager.ts#L77)

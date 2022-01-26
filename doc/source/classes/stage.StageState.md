@@ -28,17 +28,17 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schema` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `schema` | [`SchemaManager`](manager.SchemaManager.md) |
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/stage/stageState.ts#L8)
+[src/lib/stage/stageState.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageState.ts#L8)
 
 ## Methods
 
 ### get
 
-▸ **get**(`name`): `Promise`<[`ModelState`](../interfaces/model.ModelState.md)\>
+▸ **get**(`name`): `Promise`<[`SchemaState`](../interfaces/model.SchemaState.md)\>
 
 #### Parameters
 
@@ -48,11 +48,11 @@
 
 #### Returns
 
-`Promise`<[`ModelState`](../interfaces/model.ModelState.md)\>
+`Promise`<[`SchemaState`](../interfaces/model.SchemaState.md)\>
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/stage/stageState.ts#L12)
+[src/lib/stage/stageState.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageState.ts#L12)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/stage/stageState.ts#L44)
+[src/lib/stage/stageState.ts:44](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageState.ts#L44)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/stage/stageState.ts#L39)
+[src/lib/stage/stageState.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageState.ts#L39)
 
 ___
 
@@ -114,20 +114,20 @@ ___
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/stage/stageState.ts#L31)
+[src/lib/stage/stageState.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageState.ts#L31)
 
 ___
 
 ### updateModel
 
-▸ **updateModel**(`name`, `model`): `Promise`<`void`\>
+▸ **updateModel**(`name`, `mappings`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `model` | [`Model`](../interfaces/model.Model.md) |
+| `mappings` | [`Mapping`](../interfaces/model.Mapping.md)[] |
 
 #### Returns
 
@@ -135,4 +135,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/stage/stageState.ts#L24)
+[src/lib/stage/stageState.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageState.ts#L24)

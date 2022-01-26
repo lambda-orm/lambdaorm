@@ -20,7 +20,7 @@
 
 ### constructor
 
-• **new Executor**(`connectionManager`, `languageManager`, `routing`, `schemaConfig`, `expressionManager`)
+• **new Executor**(`connectionManager`, `languageManager`, `schemaManager`, `expressionManager`)
 
 #### Parameters
 
@@ -28,19 +28,18 @@
 | :------ | :------ |
 | `connectionManager` | [`ConnectionManager`](connection.ConnectionManager.md) |
 | `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
-| `routing` | [`Routing`](manager.Routing.md) |
-| `schemaConfig` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) |
 | `expressionManager` | [`ExpressionManager`](manager.ExpressionManager.md) |
 
 #### Defined in
 
-[src/lib/manager/executor.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L14)
+[src/lib/manager/executor.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/executor.ts#L13)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`query`, `data`, `context`, `stage`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`, `stage`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -48,7 +47,6 @@
 | :------ | :------ |
 | `query` | [`Query`](model.Query.md) |
 | `data` | `any` |
-| `context` | `any` |
 | `stage` | `string` |
 
 #### Returns
@@ -57,13 +55,13 @@
 
 #### Defined in
 
-[src/lib/manager/executor.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L22)
+[src/lib/manager/executor.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/executor.ts#L20)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`stage`, `queries`, `context`, `tryAllCan?`): `Promise`<`any`\>
+▸ **executeList**(`stage`, `queries`, `tryAllCan?`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -71,7 +69,6 @@ ___
 | :------ | :------ | :------ |
 | `stage` | `string` | `undefined` |
 | `queries` | [`Query`](model.Query.md)[] | `undefined` |
-| `context` | `any` | `undefined` |
 | `tryAllCan` | `boolean` | `false` |
 
 #### Returns
@@ -80,13 +77,13 @@ ___
 
 #### Defined in
 
-[src/lib/manager/executor.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L45)
+[src/lib/manager/executor.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/executor.ts#L43)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`stage`, `context`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`stage`, `callback`): `Promise`<`void`\>
 
 Crea una transaccion
 
@@ -95,7 +92,6 @@ Crea una transaccion
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `stage` | `string` | - |
-| `context` | `any` | - |
 | `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Codigo que se ejecutara en transaccion |
 
 #### Returns
@@ -104,4 +100,4 @@ Crea una transaccion
 
 #### Defined in
 
-[src/lib/manager/executor.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L78)
+[src/lib/manager/executor.ts:76](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/executor.ts#L76)

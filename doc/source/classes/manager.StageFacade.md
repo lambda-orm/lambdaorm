@@ -23,13 +23,13 @@
 
 ### constructor
 
-• **new StageFacade**(`schemaConfig`, `routing`, `expressionManager`, `languageManager`, `executor`)
+• **new StageFacade**(`schemaManager`, `routing`, `expressionManager`, `languageManager`, `executor`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `schemaConfig` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) |
 | `routing` | [`Routing`](manager.Routing.md) |
 | `expressionManager` | [`ExpressionManager`](manager.ExpressionManager.md) |
 | `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
@@ -37,19 +37,19 @@
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L20)
+[src/lib/manager/stageFacade.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L20)
 
 ## Methods
 
 ### clean
 
-▸ **clean**(`name`): [`StageClean`](stage.StageClean.md)
+▸ **clean**(`name?`): [`StageClean`](stage.StageClean.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `name?` | `string` |
 
 #### Returns
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L47)
+[src/lib/manager/stageFacade.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L47)
 
 ___
 
@@ -77,19 +77,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L37)
+[src/lib/manager/stageFacade.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L37)
 
 ___
 
 ### export
 
-▸ **export**(`name`): [`StageExport`](stage.StageExport.md)
+▸ **export**(`name?`): [`StageExport`](stage.StageExport.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `name?` | `string` |
 
 #### Returns
 
@@ -97,19 +97,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L57)
+[src/lib/manager/stageFacade.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L57)
 
 ___
 
 ### import
 
-▸ **import**(`name`): [`StageImport`](stage.StageImport.md)
+▸ **import**(`name?`): [`StageImport`](stage.StageImport.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `name?` | `string` |
 
 #### Returns
 
@@ -117,19 +117,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L62)
+[src/lib/manager/stageFacade.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L62)
 
 ___
 
 ### sync
 
-▸ **sync**(`name`): [`StageSync`](stage.StageSync.md)
+▸ **sync**(`name?`): [`StageSync`](stage.StageSync.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `name?` | `string` |
 
 #### Returns
 
@@ -137,19 +137,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L42)
+[src/lib/manager/stageFacade.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L42)
 
 ___
 
 ### truncate
 
-▸ **truncate**(`name`): [`StageClean`](stage.StageClean.md)
+▸ **truncate**(`name?`): [`StageClean`](stage.StageClean.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `name?` | `string` |
 
 #### Returns
 
@@ -157,4 +157,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L52)
+[src/lib/manager/stageFacade.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L52)

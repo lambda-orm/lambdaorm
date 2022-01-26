@@ -28,14 +28,14 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schema` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `schema` | [`SchemaManager`](manager.SchemaManager.md) |
 | `routing` | [`Routing`](manager.Routing.md) |
 | `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
 | `stage` | `string` |
 
 #### Defined in
 
-[src/lib/manager/dmlBuilder.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/dmlBuilder.ts#L29)
+[src/lib/manager/dmlBuilder.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/dmlBuilder.ts#L29)
 
 ## Properties
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/manager/dmlBuilder.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/dmlBuilder.ts#L26)
+[src/lib/manager/dmlBuilder.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/dmlBuilder.ts#L26)
 
 ## Methods
 
@@ -65,4 +65,4 @@
 
 #### Defined in
 
-[src/lib/manager/dmlBuilder.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/dmlBuilder.ts#L43)
+[src/lib/manager/dmlBuilder.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/dmlBuilder.ts#L43)

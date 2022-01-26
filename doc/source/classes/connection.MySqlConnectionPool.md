@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mysql.ts#L40)
+[src/lib/connection/dialects/mysql.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/mysql.ts#L40)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:75](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mysql.ts#L75)
+[src/lib/connection/dialects/mysql.ts:75](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/mysql.ts#L75)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mysql.ts#L91)
+[src/lib/connection/dialects/mysql.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/mysql.ts#L91)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mysql.ts#L47)
+[src/lib/connection/dialects/mysql.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/mysql.ts#L47)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:84](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/connection/dialects/mysql.ts#L84)
+[src/lib/connection/dialects/mysql.ts:84](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/mysql.ts#L84)

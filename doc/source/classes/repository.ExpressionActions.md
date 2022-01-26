@@ -23,7 +23,7 @@
 
 ### constructor
 
-• **new ExpressionActions**(`name`, `orm`, `dataSource`)
+• **new ExpressionActions**(`name`, `orm`, `stage?`)
 
 #### Parameters
 
@@ -31,11 +31,11 @@
 | :------ | :------ |
 | `name` | `string` |
 | `orm` | [`IOrm`](../interfaces/model.IOrm.md) |
-| `dataSource` | `string` |
+| `stage?` | `string` |
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L7)
+[src/lib/repository/expressionActions.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L7)
 
 ## Methods
 
@@ -55,13 +55,13 @@
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L17)
+[src/lib/repository/expressionActions.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L17)
 
 ___
 
 ### execute
 
-▸ **execute**(`expresion`, `data`, `context`): `Promise`<`any`\>
+▸ **execute**(`expresion`, `data`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -69,7 +69,6 @@ ___
 | :------ | :------ |
 | `expresion` | `string` |
 | `data` | `any` |
-| `context` | `any` |
 
 #### Returns
 
@@ -77,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L13)
+[src/lib/repository/expressionActions.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L13)
 
 ___
 
@@ -97,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L29)
+[src/lib/repository/expressionActions.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L29)
 
 ___
 
@@ -117,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L21)
+[src/lib/repository/expressionActions.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L21)
 
 ___
 
@@ -137,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L25)
+[src/lib/repository/expressionActions.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L25)
 
 ___
 
@@ -157,4 +156,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/expressionActions.ts#L33)
+[src/lib/repository/expressionActions.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/expressionActions.ts#L33)

@@ -43,7 +43,7 @@
 
 ### constructor
 
-• **new Respository**<`TEntity`, `TQuery`\>(`name`, `stage`, `Orm?`)
+• **new Respository**<`TEntity`, `TQuery`\>(`name`, `stage?`, `Orm?`)
 
 #### Type parameters
 
@@ -57,12 +57,12 @@
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `stage` | `string` |
+| `stage?` | `string` |
 | `Orm?` | [`IOrm`](../interfaces/model.IOrm.md) |
 
 #### Defined in
 
-[src/lib/repository/repository.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L9)
+[src/lib/repository/repository.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L9)
 
 ## Properties
 
@@ -72,30 +72,29 @@
 
 #### Defined in
 
-[src/lib/repository/repository.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L6)
+[src/lib/repository/repository.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L6)
 
 ___
 
 ### stage
 
-• **stage**: `string`
+• **stage**: `undefined` \| `string`
 
 #### Defined in
 
-[src/lib/repository/repository.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L7)
+[src/lib/repository/repository.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L7)
 
 ## Methods
 
 ### bulkInsert
 
-▸ **bulkInsert**(`entity`, `context`): `Promise`<`number`[]\>
+▸ **bulkInsert**(`entity`): `Promise`<`number`[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `entity` | `TEntity` |
-| `context` | `any` |
 
 #### Returns
 
@@ -103,9 +102,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L28)
+[src/lib/repository/repository.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L28)
 
-▸ **bulkInsert**(`entity`, `include`, `context`): `Promise`<`number`[]\>
+▸ **bulkInsert**(`entity`, `include`): `Promise`<`number`[]\>
 
 #### Parameters
 
@@ -113,7 +112,6 @@ ___
 | :------ | :------ |
 | `entity` | `TEntity` |
 | `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -121,20 +119,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L30)
+[src/lib/repository/repository.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L30)
 
 ___
 
 ### delete
 
-▸ **delete**(`entity`, `context`): `Promise`<`void`\>
+▸ **delete**(`entity`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `entity` | `TEntity` |
-| `context` | `any` |
 
 #### Returns
 
@@ -142,9 +139,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:80](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L80)
+[src/lib/repository/repository.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L79)
 
-▸ **delete**(`entity`, `include`, `context`): `Promise`<`void`\>
+▸ **delete**(`entity`, `include`): `Promise`<`void`\>
 
 #### Parameters
 
@@ -152,7 +149,6 @@ ___
 | :------ | :------ |
 | `entity` | `TEntity` |
 | `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -160,13 +156,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:82](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L82)
+[src/lib/repository/repository.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L81)
 
 ___
 
 ### deleteAll
 
-▸ **deleteAll**(`data`, `map`, `filter?`, `include?`, `context?`): `Promise`<`number`\>
+▸ **deleteAll**(`data`, `map`, `filter?`, `include?`): `Promise`<`number`\>
 
 #### Parameters
 
@@ -176,7 +172,6 @@ ___
 | `map` | (`value`: `TEntity`) => `unknown` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -184,13 +179,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L91)
+[src/lib/repository/repository.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L90)
 
 ___
 
 ### distinct
 
-▸ **distinct**(`data`, `filter?`, `include?`, `context?`): `Promise`<`any`[]\>
+▸ **distinct**(`data`, `filter?`, `include?`): `Promise`<`any`[]\>
 
 #### Parameters
 
@@ -199,7 +194,6 @@ ___
 | `data` | `any` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -207,13 +201,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:126](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L126)
+[src/lib/repository/repository.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L123)
 
 ___
 
 ### execute
 
-▸ **execute**(`expresion`, `data?`, `context?`): `Promise`<`any`\>
+▸ **execute**(`expresion`, `data?`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -221,7 +215,6 @@ ___
 | :------ | :------ |
 | `expresion` | `string` |
 | `data?` | `any` |
-| `context` | `any` |
 
 #### Returns
 
@@ -229,13 +222,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:107](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L107)
+[src/lib/repository/repository.ts:105](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L105)
 
 ___
 
 ### first
 
-▸ **first**(`data`, `filter?`, `include?`, `context?`): `Promise`<``null`` \| `TEntity`\>
+▸ **first**(`data`, `filter?`, `include?`): `Promise`<``null`` \| `TEntity`\>
 
 #### Parameters
 
@@ -244,7 +237,6 @@ ___
 | `data` | `any` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -252,20 +244,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:141](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L141)
+[src/lib/repository/repository.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L137)
 
 ___
 
 ### insert
 
-▸ **insert**(`entity`, `context`): `Promise`<`number`\>
+▸ **insert**(`entity`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `entity` | `TEntity` |
-| `context` | `any` |
 
 #### Returns
 
@@ -273,9 +264,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L16)
+[src/lib/repository/repository.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L16)
 
-▸ **insert**(`entity`, `include`, `context`): `Promise`<`number`\>
+▸ **insert**(`entity`, `include`): `Promise`<`number`\>
 
 #### Parameters
 
@@ -283,7 +274,6 @@ ___
 | :------ | :------ |
 | `entity` | `TEntity` |
 | `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -291,13 +281,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L18)
+[src/lib/repository/repository.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L18)
 
 ___
 
 ### last
 
-▸ **last**(`data`, `filter?`, `include?`, `context?`): `Promise`<``null`` \| `TEntity`\>
+▸ **last**(`data`, `filter?`, `include?`): `Promise`<``null`` \| `TEntity`\>
 
 #### Parameters
 
@@ -306,7 +296,6 @@ ___
 | `data` | `any` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -314,13 +303,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:161](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L161)
+[src/lib/repository/repository.ts:156](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L156)
 
 ___
 
 ### list
 
-▸ **list**(`data`, `filter?`, `include?`, `context?`): `Promise`<`TEntity`[]\>
+▸ **list**(`data`, `filter?`, `include?`): `Promise`<`TEntity`[]\>
 
 #### Parameters
 
@@ -329,7 +318,6 @@ ___
 | `data` | `any` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -337,20 +325,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:111](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L111)
+[src/lib/repository/repository.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L109)
 
 ___
 
 ### merge
 
-▸ **merge**(`entity`, `context`): `Promise`<`void`\>
+▸ **merge**(`entity`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `entity` | `TEntity` |
-| `context` | `any` |
 
 #### Returns
 
@@ -358,9 +345,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:68](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L68)
+[src/lib/repository/repository.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L67)
 
-▸ **merge**(`entity`, `include`, `context`): `Promise`<`void`\>
+▸ **merge**(`entity`, `include`): `Promise`<`void`\>
 
 #### Parameters
 
@@ -368,7 +355,6 @@ ___
 | :------ | :------ |
 | `entity` | `TEntity` |
 | `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -376,7 +362,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:70](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L70)
+[src/lib/repository/repository.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L69)
 
 ___
 
@@ -390,13 +376,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:231](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L231)
+[src/lib/repository/repository.ts:194](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L194)
 
 ___
 
 ### take
 
-▸ **take**(`data`, `filter?`, `include?`, `context?`): `Promise`<``null`` \| `TEntity`\>
+▸ **take**(`data`, `filter?`, `include?`): `Promise`<``null`` \| `TEntity`\>
 
 #### Parameters
 
@@ -405,7 +391,6 @@ ___
 | `data` | `any` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -413,20 +398,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:181](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L181)
+[src/lib/repository/repository.ts:175](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L175)
 
 ___
 
 ### update
 
-▸ **update**(`entity`, `context`): `Promise`<`void`\>
+▸ **update**(`entity`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `entity` | `TEntity` |
-| `context` | `any` |
 
 #### Returns
 
@@ -434,9 +418,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L40)
+[src/lib/repository/repository.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L40)
 
-▸ **update**(`entity`, `include`, `context`): `Promise`<`void`\>
+▸ **update**(`entity`, `include`): `Promise`<`void`\>
 
 #### Parameters
 
@@ -444,7 +428,6 @@ ___
 | :------ | :------ |
 | `entity` | `TEntity` |
 | `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -452,13 +435,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L42)
+[src/lib/repository/repository.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L42)
 
 ___
 
 ### updateAll
 
-▸ **updateAll**(`data`, `map`, `filter?`, `include?`, `context?`): `Promise`<`number`\>
+▸ **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`<`number`\>
 
 #### Parameters
 
@@ -468,7 +451,6 @@ ___
 | `map` | (`value`: `TEntity`) => `unknown` |
 | `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
 | `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `context` | `any` |
 
 #### Returns
 
@@ -476,4 +458,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/repository.ts#L51)
+[src/lib/repository/repository.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L51)

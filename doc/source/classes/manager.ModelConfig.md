@@ -16,34 +16,34 @@
 
 - [constructor](manager.ModelConfig.md#constructor)
 
-### Accessors
+### Properties
 
 - [entities](manager.ModelConfig.md#entities)
+- [enums](manager.ModelConfig.md#enums)
 
 ### Methods
 
 - [existsProperty](manager.ModelConfig.md#existsproperty)
-- [get](manager.ModelConfig.md#get)
 - [getAutoincrement](manager.ModelConfig.md#getautoincrement)
 - [getEntity](manager.ModelConfig.md#getentity)
 - [getProperty](manager.ModelConfig.md#getproperty)
 - [getRelation](manager.ModelConfig.md#getrelation)
 - [isChild](manager.ModelConfig.md#ischild)
 - [listEntities](manager.ModelConfig.md#listentities)
-- [set](manager.ModelConfig.md#set)
 - [sortEntities](manager.ModelConfig.md#sortentities)
 
 ## Constructors
 
 ### constructor
 
-• **new ModelConfig**(`model`)
+• **new ModelConfig**(`entities?`, `enums?`)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `model` | [`Model`](../interfaces/model.Model.md) |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `entities` | [`Entity`](../interfaces/model.Entity.md)[] | `[]` |
+| `enums` | [`Enum`](../interfaces/model.Enum.md)[] | `[]` |
 
 #### Overrides
 
@@ -51,17 +51,13 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:132](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L132)
+[src/lib/manager/schema.ts:139](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L139)
 
-## Accessors
+## Properties
 
 ### entities
 
-• `get` **entities**(): [`Entity`](../interfaces/model.Entity.md)[]
-
-#### Returns
-
-[`Entity`](../interfaces/model.Entity.md)[]
+• **entities**: [`Entity`](../interfaces/model.Entity.md)[]
 
 #### Overrides
 
@@ -69,7 +65,17 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:145](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L145)
+[src/lib/manager/schema.ts:136](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L136)
+
+___
+
+### enums
+
+• **enums**: [`Enum`](../interfaces/model.Enum.md)[]
+
+#### Defined in
+
+[src/lib/manager/schema.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L137)
 
 ## Methods
 
@@ -94,21 +100,7 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L26)
-
-___
-
-### get
-
-▸ **get**(): [`Model`](../interfaces/model.Model.md)
-
-#### Returns
-
-[`Model`](../interfaces/model.Model.md)
-
-#### Defined in
-
-[src/lib/manager/schema.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L137)
+[src/lib/manager/schema.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L31)
 
 ___
 
@@ -132,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L45)
+[src/lib/manager/schema.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L50)
 
 ___
 
@@ -156,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L7)
+[src/lib/manager/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L12)
 
 ___
 
@@ -181,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L33)
+[src/lib/manager/schema.ts:38](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L38)
 
 ___
 
@@ -206,7 +198,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:103](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L103)
+[src/lib/manager/schema.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L109)
 
 ___
 
@@ -230,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L15)
+[src/lib/manager/schema.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L20)
 
 ___
 
@@ -248,27 +240,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:53](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L53)
-
-___
-
-### set
-
-▸ **set**(`value`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Model`](../interfaces/model.Model.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/lib/manager/schema.ts:141](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L141)
+[src/lib/manager/schema.ts:58](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L58)
 
 ___
 
@@ -292,4 +264,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L57)
+[src/lib/manager/schema.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L62)

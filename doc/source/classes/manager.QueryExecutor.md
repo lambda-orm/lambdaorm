@@ -25,7 +25,7 @@
 
 ### constructor
 
-• **new QueryExecutor**(`connectionManager`, `languageManager`, `routing`, `schemaConfig`, `stage`, `transactionable?`)
+• **new QueryExecutor**(`connectionManager`, `languageManager`, `schemaManager`, `stage`, `transactionable?`)
 
 #### Parameters
 
@@ -33,14 +33,13 @@
 | :------ | :------ | :------ |
 | `connectionManager` | [`ConnectionManager`](connection.ConnectionManager.md) | `undefined` |
 | `languageManager` | [`LanguageManager`](language.LanguageManager.md) | `undefined` |
-| `routing` | [`Routing`](manager.Routing.md) | `undefined` |
-| `schemaConfig` | [`SchemaConfig`](manager.SchemaConfig.md) | `undefined` |
+| `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) | `undefined` |
 | `stage` | `string` | `undefined` |
 | `transactionable` | `boolean` | `false` |
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L17)
+[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/queryExecutor.ts#L17)
 
 ## Properties
 
@@ -50,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L10)
+[src/lib/manager/queryExecutor.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/queryExecutor.ts#L10)
 
 ## Methods
 
@@ -64,13 +63,13 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L39)
+[src/lib/manager/queryExecutor.ts:38](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/queryExecutor.ts#L38)
 
 ___
 
 ### execute
 
-▸ **execute**(`query`, `data`, `context`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -78,7 +77,6 @@ ___
 | :------ | :------ |
 | `query` | [`Query`](model.Query.md) |
 | `data` | `any` |
-| `context` | `any` |
 
 #### Returns
 
@@ -86,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L79)
+[src/lib/manager/queryExecutor.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/queryExecutor.ts#L60)
 
 ___
 
@@ -100,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L53)
+[src/lib/manager/queryExecutor.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/queryExecutor.ts#L52)
 
 ___
 
@@ -114,4 +112,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L46)
+[src/lib/manager/queryExecutor.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/queryExecutor.ts#L45)
