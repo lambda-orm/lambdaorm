@@ -1,5 +1,4 @@
 name: include
-context: {}
 data:
   a:
     id: 1

@@ -1,5 +1,4 @@
 name: delete
-context: {}
 data:
   a:
     id: 9

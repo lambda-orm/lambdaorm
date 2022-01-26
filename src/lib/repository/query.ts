@@ -9,8 +9,8 @@ export class QueryAction {
 		this.expression = expression
 	}
 
-	public async execute (data: any, context:any): Promise<any> {
-		return await this.actions.execute(this.expression, data, context)
+	public async execute (data: any): Promise<any> {
+		return await this.actions.execute(this.expression, data)
 	}
 
 	public complete ():string {

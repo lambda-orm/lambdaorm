@@ -1,5 +1,4 @@
 name: bulkInsert
-context: {}
 data:
   a:
     - name: Beverages4

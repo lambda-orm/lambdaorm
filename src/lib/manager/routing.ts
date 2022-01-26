@@ -1,5 +1,5 @@
 
-import { SentenceInfo } from '../model'
+import { SentenceInfo, RuleDataSource, ContextInfo } from '../model'
 import { SchemaManager } from './index'
 import { Expressions } from 'js-expressions'
 
@@ -12,23 +12,32 @@ export class Routing {
 		this.expressions = expressions
 	}
 
-	public async getDataSource (sentenceInfo: SentenceInfo, context: any, stage?: string):Promise<string> {
-		const _context = {
+	public eval (dataSource:RuleDataSource, sentenceInfo: SentenceInfo):boolean {
+		const contextInfo = this.getContextInfo(sentenceInfo)
+		if (dataSource.condition === undefined) return true
+		return this.expressions.eval(dataSource.condition, contextInfo)
+	}
+
+	private getContextInfo (sentenceInfo: SentenceInfo):ContextInfo {
+		return {
 			entity: sentenceInfo.entity,
 			sentence: sentenceInfo.name,
 			read: sentenceInfo.name === 'select',
 			write: sentenceInfo.name !== 'select',
-			dml: ['select', 'insert', 'update', 'delete'].includes(sentenceInfo.name),
-			ddl: !['insert', 'update', 'delete'].includes(sentenceInfo.name),
-			context: context
+			dml: sentenceInfo.name !== 'ddl',
+			ddl: sentenceInfo.name === 'ddl'
 		}
+	}
+
+	public getDataSource (sentenceInfo: SentenceInfo, stage?: string):string {
+		const contextInfo = this.getContextInfo(sentenceInfo)
 		const _stage = this.schema.stage.get(stage)
 		for (const i in _stage.dataSources) {
 			const dataSource = _stage.dataSources[i]
 			if (dataSource.condition === undefined) {
 				return dataSource.name
 			} else {
-				const result = await this.expressions.eval(dataSource.condition, _context)
+				const result = this.expressions.eval(dataSource.condition, contextInfo)
 				if (result) {
 					return dataSource.name
 				}

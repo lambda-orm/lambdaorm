@@ -10,8 +10,8 @@ export class ExpressionActions {
 		this.orm = orm
 	}
 
-	public async execute (expresion: string, data:any, context:any): Promise<any> {
-		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage, context)
+	public async execute (expresion: string, data:any): Promise<any> {
+		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage)
 	}
 
 	public complete (expresion: string): string {

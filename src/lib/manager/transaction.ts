@@ -4,9 +4,7 @@ import { QueryExecutor, ExpressionManager } from '.'
 export class Transaction {
 	private expressionManager:ExpressionManager
 	private queryExecutor: QueryExecutor
-	private context:any
-	constructor (context: any, expressionManager: ExpressionManager, queryExecutor: QueryExecutor) {
-		this.context = context
+	constructor (expressionManager: ExpressionManager, queryExecutor: QueryExecutor) {
 		this.expressionManager = expressionManager
 		this.queryExecutor = queryExecutor
 	}
@@ -23,6 +21,6 @@ export class Transaction {
 	}
 
 	public async execute (query: Query, data: any = {}): Promise<any> {
-		return await this.queryExecutor.execute(query, data, this.context)
+		return await this.queryExecutor.execute(query, data)
 	}
 }

@@ -88,3 +88,9 @@ export interface Schema
 	dataSources: DataSource[]
 	stages: Stage[]
 }
+export interface SchemaState
+{
+	mappings: Mapping[]
+	mappingData: any
+	pendingData:any[]
+}

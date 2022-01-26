@@ -277,19 +277,6 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		} else {
 			return this.metadata.other('column').replace('{name}', this.metadata.delimiter(operand.name))
 		}
-
-		// const parts = operand.mapping.split('.')
-		// if (parts.length === 1) {
-		// const name = parts[0]
-		// return metadata.other('column').replace('{name}', metadata.delimiter(name, true))
-		// } else {
-		// const aliasEntity = parts[0]
-		// const name = parts[1]
-		// let text = metadata.other('field')
-		// text = text.replace('{entityAlias}', aliasEntity)
-		// text = text.replace('{name}', metadata.delimiter(name))
-		// return text
-		// }
 	}
 
 	private buildVariable (operand:Variable):string {
