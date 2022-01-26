@@ -135,11 +135,10 @@ mappings:
 stages:
   - name: stage1
     dataSources:
-			- name: dataSource1
-				condition: entity == "Countries"
+      - name: dataSource1
+        condition: entity == "Countries"
       - name: dataSource2
-        condition: entity == "States"
-      
+        condition: entity == "States"      
 ```
 
 Enrironmet Variables:
