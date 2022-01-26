@@ -25,8 +25,7 @@ export class DDLBuilder {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === dataSource.mapping)
 			if (mapping !== undefined) {
-				const entities = mapping.entities.map(p => p.name)
-				this._drop(dataSource, ruleDataSource, entities, queries)
+				this._drop(dataSource, ruleDataSource, mapping.entities, queries)
 			}
 		}
 		return queries
@@ -40,8 +39,7 @@ export class DDLBuilder {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === dataSource.mapping)
 			if (mapping !== undefined) {
-				const entities = mapping.entities.map(p => p.name)
-				this._truncate(dataSource, ruleDataSource, entities, queries)
+				this._truncate(dataSource, ruleDataSource, mapping.entities, queries)
 			}
 		}
 		return queries
@@ -63,14 +61,18 @@ export class DDLBuilder {
 		return queries
 	}
 
-	private _drop (dataSource:DataSource, ruleDataSource:RuleDataSource, entities: string[], queries:Query[]):void {
+	private _drop (dataSource:DataSource, ruleDataSource:RuleDataSource, entitiesMapping: EntityMapping[], queries:Query[]):void {
+		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortEntities(entities).reverse()
 		// drop all constraint
 		for (const p in sortedEntities) {
 			const entityName = sortedEntities[p]
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityName)) {
-				const entity = this.model.getEntity(entityName) as Entity
+				const entity = entitiesMapping.find(p => p.name === entityName)
+				if (entity === undefined) {
+					throw new Error(`entity ${entityName} not found in mapping for drop constraint action`)
+				}
 				if (entity.relations) {
 					for (const q in entity.relations) {
 						const relation = entity.relations[q] as Relation
@@ -90,7 +92,11 @@ export class DDLBuilder {
 			const entityName = sortedEntities[i]
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityName)) {
-				const entity = this.model.getEntity(entityName) as Entity
+				// const entity = this.model.getEntity(entityName) as Entity
+				const entity = entitiesMapping.find(p => p.name === entityName)
+				if (entity === undefined) {
+					throw new Error(`entity ${entityName} not found in mapping for drop indexes action`)
+				}
 				if (entity.indexes) {
 					for (const j in entity.indexes) {
 						const index = entity.indexes[j]
@@ -104,85 +110,23 @@ export class DDLBuilder {
 		}
 	}
 
-	// public drop (entities: string[]): Query[] {
-	// const queries:Query[] = []
-	// const sortedEntities = this.model.sortEntities(entities).reverse()
-	// const stage = this.schema.stage.get(this.stage)
-	// for (const k in stage.dataSources) {
-	// const ruleDataSource = stage.dataSources[k]
-	// const dataSource = this.schema.dataSource.get(ruleDataSource.name)
-	// // drop all constraint
-	// for (const p in sortedEntities) {
-	// const entityName = sortedEntities[p]
-	// // evaluate if entity apply in dataSource
-	// if (this.evalDataSource(ruleDataSource, entityName)) {
-	// const entity = this.model.getEntity(entityName) as Entity
-	// if (entity.relations) {
-	// for (const q in entity.relations) {
-	// const relation = entity.relations[q] as Relation
-	// // evaluate if entity relation apply in dataSource
-	// if (this.evalDataSource(ruleDataSource, relation.entity)) {
-	// if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-	// const query = this.builder(dataSource).dropFk(entity, relation)
-	// queries.push(query)
-	// }
-	// }
-	// }
-	// }
-	// }
-	// }
-	// // drop indexes and tables
-	// for (const i in sortedEntities) {
-	// const entityName = sortedEntities[i]
-	// // evaluate if entity apply in dataSource
-	// if (this.evalDataSource(ruleDataSource, entityName)) {
-	// const entity = this.model.getEntity(entityName) as Entity
-	// if (entity.indexes) {
-	// for (const j in entity.indexes) {
-	// const index = entity.indexes[j]
-	// const query = this.builder(dataSource).dropIndex(entity, index)
-	// queries.push(query)
-	// }
-	// }
-	// const query = this.builder(dataSource).dropEntity(entity)
-	// queries.push(query)
-	// }
-	// }
-	// }
-	// return queries
-	// }
-
-	private _truncate (dataSource: DataSource, ruleDataSource: RuleDataSource, entities: string[], queries: Query[]): void {
+	private _truncate (dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortEntities(entities).reverse()
 		for (const i in sortedEntities) {
 			const entityName = sortedEntities[i]
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityName)) {
-				const entity = this.model.getEntity(entityName) as Entity
+				// const entity = this.model.getEntity(entityName) as Entity
+				const entity = entitiesMapping.find(p => p.name === entityName)
+				if (entity === undefined) {
+					throw new Error(`entity ${entityName} not found in mapping for truncate action`)
+				}
 				const query = this.builder(dataSource).truncateEntity(entity)
 				queries.push(query)
 			}
 		}
 	}
-
-	// public truncateOld (entities: string[]):Query[] {
-	// const queries:Query[] = []
-	// const stage = this.schema.stage.get(this.stage)
-	// for (const k in stage.dataSources) {
-	// const ruleDataSource = stage.dataSources[k]
-	// const dataSource = this.schema.dataSource.get(ruleDataSource.name)
-	// for (const i in entities) {
-	// const entityName = entities[i]
-	// // evaluate if entity apply in dataSource
-	// if (this.evalDataSource(ruleDataSource, entityName)) {
-	// const entity = this.model.getEntity(entityName) as Entity
-	// const query = this.builder(dataSource).truncateEntity(entity)
-	// queries.push(query)
-	// }
-	// }
-	// }
-	// return queries
-	// }
 
 	public _sync (dataSource:DataSource, ruleDataSource:RuleDataSource, delta:Delta, queries:Query[]):void {
 		// remove constraints for changes in entities
@@ -496,19 +440,19 @@ export abstract class LanguageDDLBuilder {
 		this.dialect = metadata.name
 	}
 
-	abstract truncateEntity(entity: Entity): Query
-	abstract dropFk(entity: Entity, relation: Relation): Query
-	abstract dropIndex(entity: Entity, index: Index): Query
-	abstract dropEntity(entity: Entity): Query
-	abstract dropPk(entity: Entity): Query
-	abstract dropUk(entity: Entity): Query
-	abstract createEntity(entity: Entity): Query
-	abstract addColumn(entity: Entity, property: PropertyMapping): Query
-	abstract alterColumn(entity: Entity, property: PropertyMapping): Query
-	abstract dropColumn(entity: Entity, property: PropertyMapping): Query
-	abstract addPk(entity: Entity, primaryKey: string[]): Query
-	abstract addUk(entity: Entity, uniqueKey: string[]): Query
-	abstract addFk(entity: Entity, relation: Relation): Query
-	abstract createFk(entity: Entity, relation: Relation): Query
-	abstract createIndex (entity:Entity, index:Index):Query
+	abstract truncateEntity(entity: EntityMapping): Query
+	abstract dropFk(entity: EntityMapping, relation: Relation): Query
+	abstract dropIndex(entity: EntityMapping, index: Index): Query
+	abstract dropEntity(entity: EntityMapping): Query
+	abstract dropPk(entity: EntityMapping): Query
+	abstract dropUk(entity: EntityMapping): Query
+	abstract createEntity(entity: EntityMapping): Query
+	abstract addColumn(entity: EntityMapping, property: PropertyMapping): Query
+	abstract alterColumn(entity: EntityMapping, property: PropertyMapping): Query
+	abstract dropColumn(entity: EntityMapping, property: PropertyMapping): Query
+	abstract addPk(entity: EntityMapping, primaryKey: string[]): Query
+	abstract addUk(entity: EntityMapping, uniqueKey: string[]): Query
+	abstract addFk(entity: EntityMapping, relation: Relation): Query
+	abstract createFk(entity: EntityMapping, relation: Relation): Query
+	abstract createIndex (entity:EntityMapping, index:Index):Query
 }
