@@ -39,12 +39,12 @@ export class Orm implements IOrm {
 		return this._instance
 	}
 
-	constructor (workspace:string = process.cwd()) {
-		this.schemaManager = new SchemaManager(workspace)
-		this._cache = new MemoryCache()
-		this.connectionManager = new ConnectionManager()
+	constructor (workspace: string = process.cwd()) {
 		this.expressions = expressions
 		this.expressions.config.load(modelConfig)
+		this.schemaManager = new SchemaManager(workspace, this.expressions)
+		this._cache = new MemoryCache()
+		this.connectionManager = new ConnectionManager()
 
 		this.languageManager = new LanguageManager(this.schemaManager, this.expressions)
 		this.languageManager.addLanguage('sql', new SqlLanguage())
