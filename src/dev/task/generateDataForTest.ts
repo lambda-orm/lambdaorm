@@ -63,8 +63,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
-					const context = category.context !== undefined ? category.context : {}
-					result = await orm.execute(expressionTest.lambda, data, context, stage)
+					result = await orm.execute(expressionTest.lambda, data, stage)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -122,7 +121,6 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'query',
 		// stage: 'source',
-		context: {},
 		data: {
 			a: { id: 1 },
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
@@ -156,7 +154,6 @@ async function writeNumeriFunctionsTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'numeric functions',
 		// stage: 'source',
-		context: {},
 		data: { a: { id: 1 } },
 		test:
 			[
@@ -181,7 +178,6 @@ async function writeNumeriFunctionsTest (stages: string[]): Promise<number> {
 async function writeGroupByTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'groupBy',
-		context: {},
 		data: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
@@ -202,7 +198,6 @@ async function writeIncludeTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'include',
 		// stage: 'source',
-		context: {},
 		data: { a: { id: 1 } },
 		test:
 			[
@@ -221,7 +216,6 @@ async function writeInsertsTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'inserts',
 		// stage: 'source',
-		context: {},
 		data: {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
@@ -278,7 +272,6 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'update',
 		// stage: 'source',
-		context: {},
 		data: {
 			a: {
 				id: 7,
@@ -582,7 +575,6 @@ async function writeDeleteTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'delete',
 		// stage: 'source',
-		context: {},
 		data: {
 			a: { id: 9 },
 			b: {
@@ -741,7 +733,6 @@ async function writeBulkInsertTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'bulkInsert',
 		// stage: 'source',
-		context: {},
 		data: {
 			a: [{
 				name: 'Beverages4',
@@ -854,7 +845,7 @@ async function crud () {
 	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
-		orm.transaction({}, 'source', async (tr) => {
+		orm.transaction('source', async (tr) => {
 			// create order
 			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
@@ -893,7 +884,7 @@ async function bulkInsert () {
 			description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, categories, {}, 'source')))
+	const result = await exec(async () => (await orm.execute(expression, categories, 'source')))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -987,7 +978,7 @@ async function bulkInsert2 () {
 			]
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, orders, {}, 'source')))
+	const result = await exec(async () => (await orm.execute(expression, orders, 'source')))
 }
 
 async function stageExport (source: string) {

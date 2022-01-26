@@ -1,7 +1,7 @@
 
 import { Node, Operand, Expressions } from 'js-expressions'
 import { Data, Query, Include, DataSource } from '../model'
-import { SchemaConfig } from '../manager'
+import { SchemaManager } from '../manager'
 import { Language } from './language'
 import { OperandManager } from '../operand/operandManager'
 import { Sentence } from '../operand/operands'
@@ -11,12 +11,12 @@ import { LanguageDDLBuilder } from '../manager/ddlBuilder'
 
 export class LanguageManager {
 	public dialects: any
-	private schema: SchemaConfig
+	private schema: SchemaManager
 	private expressions:Expressions
 	private languages:any
 	private operandManager: OperandManager
 
-	constructor (schema: SchemaConfig, expressions:Expressions) {
+	constructor (schema: SchemaManager, expressions:Expressions) {
 		this.schema = schema
 		this.expressions = expressions
 		this.operandManager = new OperandManager(schema.model, this.expressions.config)

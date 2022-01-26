@@ -6,8 +6,7 @@ export class StageExport extends StageActionDML {
 		const queries = await this.build()
 		const data = {}
 		const schemaExport: SchemaData = { entities: [] }
-		const context = {}
-		await this.executor.transaction(this.stage, context, async (tr) => {
+		await this.executor.transaction(this.stage, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const rows = await tr.execute(query, data)

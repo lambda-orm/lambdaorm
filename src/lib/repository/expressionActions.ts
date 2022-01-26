@@ -4,14 +4,14 @@ export class ExpressionActions {
 	private orm
 	private name
 	private stage
-	constructor (name: string, orm:IOrm, stage:string) {
+	constructor (name: string, orm:IOrm, stage?:string) {
 		this.name = name
 		this.stage = stage
 		this.orm = orm
 	}
 
-	public async execute (expresion: string, data:any, context:any): Promise<any> {
-		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage, context)
+	public async execute (expresion: string, data:any): Promise<any> {
+		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage)
 	}
 
 	public complete (expresion: string): string {

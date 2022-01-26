@@ -1,16 +1,16 @@
 import { Query } from '../model'
 import { LanguageManager } from '../language'
-import { SchemaConfig, Routing, Executor } from '../manager'
+import { SchemaManager, Routing, Executor } from '../manager'
 import { StageState } from './stageState'
 
 export abstract class StageActionDDL {
 	protected state: StageState
-	protected schema: SchemaConfig
+	protected schema: SchemaManager
 	protected routing: Routing
 	protected languageManager: LanguageManager
 	protected executor: Executor
 	protected stage: string
-	constructor (state:StageState, schema: SchemaConfig, routing: Routing, languageManager: LanguageManager, executor: Executor, stage:string) {
+	constructor (state:StageState, schema: SchemaManager, routing: Routing, languageManager: LanguageManager, executor: Executor, stage:string) {
 		this.state = state
 		this.schema = schema
 		this.routing = routing

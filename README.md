@@ -140,6 +140,13 @@ stages:
       - name: dataSource1
 ```
 
+Enrironmet Variables:
+
+```sh
+CNN_MYDB={"host":"0.0.0.0","port":3309,"user":"test","password":"test","database":"test","multipleStatements": true,"waitForConnections": true, "connectionLimit": 10, "queueLimit": 0 }
+CNN_MYDB2={"host":"0.0.0.0","port":5433,"user":"test","password":"test","database":"test"}
+```
+
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
 
 ## Query Language
@@ -156,13 +163,25 @@ LambdaOrm translates the expression into the language corresponding to each data
 Javascript lambda expression:
 
 ```ts
-Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))
+Countries
+	.filter(p=> p.region == region)
+	.page(1,3)
+	.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+	.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+		  .map(p=> [p.name,p.latitude,p.longitude])
+	)
 ```
 
 Javascript lambda expression as string
 
 ```ts
-'Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))'
+`Countries
+	.filter(p=> p.region == region)
+  .page(1,3)
+	.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+	.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+	    .map(p=> [p.name,p.latitude,p.longitude])
+	)`
 ```
 
 where the SQL equivalent of the expression is:
@@ -208,12 +227,13 @@ The advantage of writing the expression as a javascript lambda function is that 
 import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()	
-	const query = (region:string) => Countries.filter(p=> p.region == region)
-																						.page(1,3)
-																						.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
-																						.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
-																																	.map(p=> [p.name,p.latitude,p.longitude])
-																								    )
+	const query = (region:string) => 
+		Countries.filter(p=> p.region == region)
+			.page(1,3)
+			.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+			.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+				.map(p=> [p.name,p.latitude,p.longitude])
+			)
 	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
@@ -228,8 +248,14 @@ The advantage of writing the expression in a string is that we can receive it fr
 import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()	
-	const query = 'Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))'
-																								    )
+	const query = `
+	Countries
+		.filter(p=> p.region == region)
+		.page(1,3)
+		.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+		.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+			.map(p=> [p.name,p.latitude,p.longitude])
+		)`																								    
 	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
@@ -276,12 +302,13 @@ import { CountryRespository } from './models/country'
 (async () => {
 	await orm.init()
 	const countryRespository = new CountryRespository('mydb')
-	const result = await countryRespository.query().filter(p=> p.region == region)
-																				  .page(1,3)
-																					.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
-																					.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
-																					      .map(p=> [p.name,p.latitude,p.longitude])
-																					).execute({ region: 'Asia' })	
+	const result = await countryRespository.query()
+		.filter(p=> p.region == region)
+		.page(1,3)
+		.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+		.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
+							.map(p=> [p.name,p.latitude,p.longitude])
+		).execute({ region: 'Asia' })	
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 })()
@@ -303,15 +330,14 @@ Includes can be used in selects, inserts, updates, deletes, and bulckinserts.
 import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()
-	const query = (id:number) => Orders
-		.filter(p => p.id === id)
+	const query = (id:number) => 
+	Orders.filter(p => p.id === id)
 		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
 			p.details.include(p => p.product
 				.include(p => p.category.map(p => p.name))
 				.map(p => p.name))
 				.map(p => [p.quantity, p.unitPrice])])
 		.map(p => p.orderDate)
-
 	const result = await orm.execute(query)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()

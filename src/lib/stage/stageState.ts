@@ -1,15 +1,15 @@
-import { Entity, ModelState } from '../model'
-import { SchemaConfig } from '../manager'
+import { Mapping, SchemaState } from '../model'
+import { SchemaManager } from '../manager'
 import { Helper } from '../manager/helper'
 const path = require('path')
 
 export class StageState {
-	private schema: SchemaConfig
-	constructor (schema:SchemaConfig) {
+	private schema: SchemaManager
+	constructor (schema:SchemaManager) {
 		this.schema = schema
 	}
 
-	public async get (name:string):Promise<ModelState> {
+	public async get (name:string):Promise<SchemaState> {
 		const file = this.getFile(name)
 		const exists = await Helper.existsPath(file)
 		if (exists) {
@@ -18,13 +18,13 @@ export class StageState {
 				return JSON.parse(content)
 			}
 		}
-		return { entities: [], mappingData: {}, pendingData: [] }
+		return { mappings: [], mappingData: {}, pendingData: [] }
 	}
 
-	public async updateModel (name:string, entities:Entity[]):Promise<void> {
+	public async updateModel (name:string, mappings:Mapping[]):Promise<void> {
 		const stateFile = this.getFile(name)
 		const state = await this.get(name)
-		state.entities = entities
+		state.mappings = mappings
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 

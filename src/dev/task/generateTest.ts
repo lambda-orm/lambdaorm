@@ -86,7 +86,6 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 
 	lines.push('describe(\'Execute\', () => {')
 	lines.push(`\tconst data = ${JSON.stringify(category.data)}`)
-	lines.push(`\tconst context = ${category.context !== undefined ? JSON.stringify(category.context) : '{}'}`)
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
 		if (expTest.expression && expTest.completeExpression) {
@@ -95,7 +94,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in stages) {
 				const stage = stages[p]
-				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,context,'${stage}')`)
+				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,'${stage}')`)
 				lines.push(`\t\texpect(expected).toEqual(${stage}Result)`)
 			}
 			lines.push('\t})')

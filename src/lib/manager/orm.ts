@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { IOrm, Schema, Stage } from '../model'
-import { ExpressionManager, Transaction, LibManager, StageFacade, Executor, SchemaConfig, Routing } from '.'
+import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing } from '.'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from '../connection'
 import { LanguageManager } from '../language'
 import { SqlLanguage } from '../language/sql'
-// import { NoSqlQueryBuilder, NoSqlSchemaBuilder } from './language/nosql'
-import { Helper } from './helper'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './../parser/config.json'
 
@@ -19,7 +17,7 @@ export class Orm implements IOrm {
 	private stageFacade: StageFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
-	private libManager: LibManager
+	// private libManager: LibManager
 	private expressionManager: ExpressionManager
 	private routing: Routing
 	public expressions:Expressions
@@ -29,7 +27,7 @@ export class Orm implements IOrm {
 	/**
 	 * Property that exposes the configuration
 	 */
-	private schemaConfig: SchemaConfig
+	private schemaManager: SchemaManager
 
 	/**
  * Singleton
@@ -41,18 +39,16 @@ export class Orm implements IOrm {
 		return this._instance
 	}
 
-	constructor (workspace:string = process.cwd()) {
-		this.schemaConfig = new SchemaConfig(workspace)
-		this._cache = new MemoryCache()
-		this.connectionManager = new ConnectionManager()
-		this.libManager = new LibManager()
+	constructor (workspace: string = process.cwd()) {
 		this.expressions = expressions
 		this.expressions.config.load(modelConfig)
+		this.schemaManager = new SchemaManager(workspace, this.expressions)
+		this._cache = new MemoryCache()
+		this.connectionManager = new ConnectionManager()
 
-		this.languageManager = new LanguageManager(this.schemaConfig, this.expressions)
+		this.languageManager = new LanguageManager(this.schemaManager, this.expressions)
 		this.languageManager.addLanguage('sql', new SqlLanguage())
 		// this.languageManager.addLanguage('noSql',new NoSqlLanguage())
-
 		this.connectionManager.addType('mysql', MySqlConnectionPool)
 		this.connectionManager.addType('mariadb', MariadbConnectionPool)
 		this.connectionManager.addType('postgres', PostgresConnectionPool)
@@ -60,14 +56,14 @@ export class Orm implements IOrm {
 		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
-		this.routing = new Routing(this.schemaConfig, this.expressions)
-		this.expressionManager = new ExpressionManager(this._cache, this.schemaConfig, this.languageManager, this.expressions, this.routing)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.routing, this.schemaConfig, this.expressionManager)
-		this.stageFacade = new StageFacade(this.schemaConfig, this.routing, this.expressionManager, this.languageManager, this.executor)
+		this.routing = new Routing(this.schemaManager, this.expressions)
+		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languageManager, this.expressions, this.routing)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager)
+		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languageManager, this.executor)
 	}
 
 	public get defaultStage ():Stage {
-		return this.schemaConfig.stage.get(undefined)
+		return this.schemaManager.stage.get(undefined)
 	}
 
 	/**
@@ -76,19 +72,7 @@ export class Orm implements IOrm {
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
-		let schema
-		if (source === undefined || typeof source === 'string') {
-			schema = await this.libManager.getConfig(source)
-		} else {
-			const _config = source as Schema
-			if (_config === undefined) {
-				throw new Error(`Schema: ${source} not supported`)
-			}
-			schema = _config
-		}
-		Helper.solveEnvironmentVariables(schema)
-		schema = await this.schemaConfig.load(schema)
-
+		const schema = await this.schemaManager.init(source)
 		if (connect && schema.dataSources) {
 			for (const p in schema.dataSources) {
 				const dataSource = schema.dataSources[p]
@@ -106,25 +90,25 @@ export class Orm implements IOrm {
 	}
 
 	public get workspace (): string {
-		return this.schemaConfig.workspace
+		return this.schemaManager.workspace
 	}
 
 	public dialect (dataSource:string): string {
-		return this.schemaConfig.dataSource.get(dataSource).dialect
+		return this.schemaManager.dataSource.get(dataSource).dialect
 	}
 
 	/**
-* Get reference to schema manager
-*/
-	public get lib (): LibManager {
-		return this.libManager
-	}
-
-	/**
-* Get reference to dataSource manager
+* Get reference to stage manager
 */
 	public get stage (): StageFacade {
 		return this.stageFacade
+	}
+
+	/**
+	 * Get reference to SchemaConfig
+	 */
+	public get schema (): SchemaManager {
+		return this.schemaManager
 	}
 
 	/**
@@ -216,36 +200,34 @@ export class Orm implements IOrm {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const _stage = this.schemaConfig.stage.get(stage)
+		const _stage = this.schemaManager.stage.get(stage)
 		return this.expressionManager.sentence(expression, _stage.name)
 	}
 
 	/**
 	 * Execute expression
 	 * @param data Data with variables
-	 * @param context Context
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, context?: any, stage?: string):Promise<any>;
-	public async execute(expression: string, data?: any, context?: any, stage?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, context: any = {}, stage: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, stage?: string):Promise<any>;
+	public async execute(expression: string, data?: any, stage?: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, stage: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const _stage = this.schemaConfig.stage.get(stage)
+		const _stage = this.schemaManager.stage.get(stage)
 		const query = await this.expressionManager.toQuery(expression, _stage.name)
-		return await this.executor.execute(query, data, context, _stage.name)
+		return await this.executor.execute(query, data, _stage.name)
 	}
 
 	/**
  * Crea una transaccion
- * @param context Context
  * @param stage Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (context:any, stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const _stage = this.schemaConfig.stage.get(stage)
-		return await this.executor.transaction(_stage.name, context, callback)
+	public async transaction (stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const _stage = this.schemaManager.stage.get(stage)
+		return await this.executor.transaction(_stage.name, callback)
 	}
 }

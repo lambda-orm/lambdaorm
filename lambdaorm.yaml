@@ -371,8 +371,6 @@ mappings:
             mapping: Quantity
           - name: discount
             mapping: Discount
-  - name: northwind2
-    extends: northwind
 dataSources:
   - name: source
     mapping: northwind

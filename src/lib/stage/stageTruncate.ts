@@ -4,7 +4,11 @@ import { DDLBuilder } from '../manager'
 
 export class StageTruncate extends StageActionDDL {
 	public async queries (): Promise<Query[]> {
-		return new DDLBuilder(this.schema, this.routing, this.languageManager, this.stage).truncate(this.schema.model.listEntities())
+		const state = await this.state.get(this.stage)
+		if (state && state.mappings) {
+			return new DDLBuilder(this.schema, this.routing, this.languageManager, this.stage).truncate(state.mappings)
+		}
+		return []
 	}
 
 	public async execute (tryAllCan = false): Promise<any[]> {

@@ -1,4 +1,4 @@
-import { SchemaConfig, MappingConfig, Routing } from '.'
+import { SchemaManager, MappingConfig, Routing } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { Query, DataSource, Include, SentenceInfo } from '../model'
@@ -20,13 +20,13 @@ export abstract class LanguageDMLBuilder {
 }
 
 export class DMLBuilder {
-	private schema: SchemaConfig
+	private schema: SchemaManager
 	private languageManager: LanguageManager
 	// private mapping: MappingConfig
 	public stage: string
 	protected routing: Routing
 
-	constructor (schema:SchemaConfig, routing:Routing, languageManager: LanguageManager, stage: string) {
+	constructor (schema:SchemaManager, routing:Routing, languageManager: LanguageManager, stage: string) {
 		this.schema = schema
 		this.routing = routing
 		// this.mapping = mapping
@@ -36,7 +36,7 @@ export class DMLBuilder {
 
 	private async getDataSource (sentence: Sentence): Promise<DataSource> {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
-		const datasourceName = await this.routing.getDataSource(sentenceInfo, {}, this.stage)
+		const datasourceName = await this.routing.getDataSource(sentenceInfo, this.stage)
 		return this.schema.dataSource.get(datasourceName)
 	}
 

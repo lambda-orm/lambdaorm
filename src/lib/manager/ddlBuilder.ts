@@ -1,14 +1,15 @@
-import { SchemaConfig, ModelConfig, MappingConfig, Routing } from '.'
+import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
-import { Query, Delta, Index, DataSource, Relation, Entity, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
+import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
+import { Helper } from '../manager/helper'
 
 export class DDLBuilder {
 	private languageManager: LanguageManager
-	private schema: SchemaConfig
+	private schema: SchemaManager
 	private model:ModelConfig
 	private routing:Routing
 	public stage: string
-	constructor (schema: SchemaConfig, routing:Routing, languageManager:LanguageManager, stage: string) {
+	constructor (schema: SchemaManager, routing:Routing, languageManager:LanguageManager, stage: string) {
 		this.schema = schema
 		this.model = schema.model
 		this.routing = routing
@@ -16,25 +17,72 @@ export class DDLBuilder {
 		this.stage = stage
 	}
 
-	public async drop (entities: string[]): Promise<Query[]> {
+	public drop (mappings: Mapping[]):Query[] {
 		const queries:Query[] = []
+		const stage = this.schema.stage.get(this.stage)
+		for (const k in stage.dataSources) {
+			const ruleDataSource = stage.dataSources[k]
+			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
+			const mapping = mappings.find(p => p.name === dataSource.mapping)
+			if (mapping !== undefined) {
+				this._drop(dataSource, ruleDataSource, mapping.entities, queries)
+			}
+		}
+		return queries
+	}
+
+	public truncate (mappings: Mapping[]):Query[] {
+		const queries:Query[] = []
+		const stage = this.schema.stage.get(this.stage)
+		for (const k in stage.dataSources) {
+			const ruleDataSource = stage.dataSources[k]
+			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
+			const mapping = mappings.find(p => p.name === dataSource.mapping)
+			if (mapping !== undefined) {
+				this._truncate(dataSource, ruleDataSource, mapping.entities, queries)
+			}
+		}
+		return queries
+	}
+
+	public sync (mappings: Mapping[]): Query[] {
+		const queries:Query[] = []
+		const stage = this.schema.stage.get(this.stage)
+		for (const k in stage.dataSources) {
+			const ruleDataSource = stage.dataSources[k]
+			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
+			const oldMapping = mappings.find(p => p.name === dataSource.mapping)
+			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
+			const currentMapping = this.schema.mapping.mappings.find(p => p.name === dataSource.mapping)
+			const currnetEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
+			const delta = Helper.deltaWithSimpleArrays(currnetEntities, oldEntities)
+			this._sync(dataSource, ruleDataSource, delta, queries)
+		}
+		return queries
+	}
+
+	private _drop (dataSource:DataSource, ruleDataSource:RuleDataSource, entitiesMapping: EntityMapping[], queries:Query[]):void {
+		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortEntities(entities).reverse()
 		// drop all constraint
 		for (const p in sortedEntities) {
 			const entityName = sortedEntities[p]
-			const entity = this.model.getEntity(entityName) as Entity
-			const dataSource = await this.getDataSource(entityName)
-
-			if (entity.relations) {
-				for (const q in entity.relations) {
-					const relation = entity.relations[q] as Relation
-
-					const relatedDatabase = await this.getDataSource(relation.entity)
-					if (relatedDatabase.name !== dataSource.name) continue
-
-					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-						const query = this.builder(dataSource).dropFk(entity, relation)
-						queries.push(query)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityName)) {
+				const entity = entitiesMapping.find(p => p.name === entityName)
+				if (entity === undefined) {
+					throw new Error(`entity ${entityName} not found in mapping for drop constraint action`)
+				}
+				if (entity.relations) {
+					for (const q in entity.relations) {
+						const relation = entity.relations[q] as Relation
+						// evaluate if entity relation apply in dataSource
+						if (this.evalDataSource(ruleDataSource, relation.entity)) {
+							if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
+								const query = this.builder(dataSource).dropFk(entity, relation)
+								queries.push(query)
+							}
+						}
 					}
 				}
 			}
@@ -42,66 +90,78 @@ export class DDLBuilder {
 		// drop indexes and tables
 		for (const i in sortedEntities) {
 			const entityName = sortedEntities[i]
-			const entity = this.model.getEntity(entityName) as Entity
-			const dataSource = await this.getDataSource(entityName)
-			if (entity.indexes) {
-				for (const j in entity.indexes) {
-					const index = entity.indexes[j]
-					const query = this.builder(dataSource).dropIndex(entity, index)
-					queries.push(query)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityName)) {
+				// const entity = this.model.getEntity(entityName) as Entity
+				const entity = entitiesMapping.find(p => p.name === entityName)
+				if (entity === undefined) {
+					throw new Error(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
+				if (entity.indexes) {
+					for (const j in entity.indexes) {
+						const index = entity.indexes[j]
+						const query = this.builder(dataSource).dropIndex(entity, index)
+						queries.push(query)
+					}
+				}
+				const query = this.builder(dataSource).dropEntity(entity)
+				queries.push(query)
 			}
-			const query = this.builder(dataSource).dropEntity(entity)
-			queries.push(query)
 		}
-		return queries
 	}
 
-	public async truncate (entities: string[]):Promise<Query[]> {
-		const queries:Query[] = []
-		for (const i in entities) {
-			const entityName = entities[i]
-			const entity = this.model.getEntity(entityName) as Entity
-			const dataSource = await this.getDataSource(entity.name)
-			const query = this.builder(dataSource).truncateEntity(entity)
-			queries.push(query)
+	private _truncate (dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+		const entities = entitiesMapping.map(p => p.name)
+		const sortedEntities = this.model.sortEntities(entities).reverse()
+		for (const i in sortedEntities) {
+			const entityName = sortedEntities[i]
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityName)) {
+				// const entity = this.model.getEntity(entityName) as Entity
+				const entity = entitiesMapping.find(p => p.name === entityName)
+				if (entity === undefined) {
+					throw new Error(`entity ${entityName} not found in mapping for truncate action`)
+				}
+				const query = this.builder(dataSource).truncateEntity(entity)
+				queries.push(query)
+			}
 		}
-		return queries
 	}
 
-	public async sync (delta:Delta):Promise<Query[]> {
-		const queries:Query[] = []
+	public _sync (dataSource:DataSource, ruleDataSource:RuleDataSource, delta:Delta, queries:Query[]):void {
 		// remove constraints for changes in entities
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDataSource(entityChanged.name)
-			for (const q in entityChanged.delta.changed) {
-				const changed = entityChanged.delta.changed[q]
-				if (changed.name === 'primaryKey') {
-					if (!changed.delta) continue
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					for (const n in changed.delta.remove) {
-						const query = this.builder(dataSource).dropPk(entityChanged.old)
-						queries.push(query)
-					}
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					for (const c in changed.delta.changed) {
-						const query = this.builder(dataSource).dropPk(entityChanged.old)
-						queries.push(query)
-					}
-				}
-				if (changed.name === 'uniqueKey') {
-					if (changed.delta) {
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
+				for (const q in entityChanged.delta.changed) {
+					const changed = entityChanged.delta.changed[q]
+					if (changed.name === 'primaryKey') {
+						if (!changed.delta) continue
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const n in changed.delta.remove) {
-							const query = this.builder(dataSource).dropUk(entityChanged.old)
+							const query = this.builder(dataSource).dropPk(entityChanged.old)
 							queries.push(query)
 						}
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const c in changed.delta.changed) {
-							const query = this.builder(dataSource).dropUk(entityChanged.old)
+							const query = this.builder(dataSource).dropPk(entityChanged.old)
 							queries.push(query)
+						}
+					}
+					if (changed.name === 'uniqueKey') {
+						if (changed.delta) {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							for (const n in changed.delta.remove) {
+								const query = this.builder(dataSource).dropUk(entityChanged.old)
+								queries.push(query)
+							}
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							for (const c in changed.delta.changed) {
+								const query = this.builder(dataSource).dropUk(entityChanged.old)
+								queries.push(query)
+							}
 						}
 					}
 				}
@@ -111,46 +171,48 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDataSource(entityChanged.name)
-			for (const q in entityChanged.delta.changed) {
-				const changed = entityChanged.delta.changed[q]
-				if (changed.name === 'index') {
-					if (!changed.delta) continue
-					for (const c in changed.delta.changed) {
-						const oldIndex = changed.delta.changed[c].old as Index
-						const query = this.builder(dataSource).dropIndex(entityChanged.new, oldIndex)
-						queries.push(query)
-					}
-					for (const r in changed.delta.remove) {
-						const removeIndex = changed.delta.remove[r].old as Index
-						const query = this.builder(dataSource).dropIndex(entityChanged.new, removeIndex)
-						queries.push(query)
-					}
-				}
-				if (changed.name === 'relation') {
-					if (!changed.delta) continue
-					for (const c in changed.delta.changed) {
-						const newRelation = changed.delta.changed[c].new as Relation
-						const oldRelation = changed.delta.changed[c].old as Relation
 
-						const relatedDatabase = await this.getDataSource(newRelation.entity)
-						if (relatedDatabase.name !== dataSource.name) continue
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
+				for (const q in entityChanged.delta.changed) {
+					const changed = entityChanged.delta.changed[q]
+					if (changed.name === 'index') {
+						if (!changed.delta) continue
+						for (const c in changed.delta.changed) {
+							const oldIndex = changed.delta.changed[c].old as Index
+							const query = this.builder(dataSource).dropIndex(entityChanged.new, oldIndex)
+							queries.push(query)
+						}
+						for (const r in changed.delta.remove) {
+							const removeIndex = changed.delta.remove[r].old as Index
+							const query = this.builder(dataSource).dropIndex(entityChanged.new, removeIndex)
+							queries.push(query)
+						}
+					}
+					if (changed.name === 'relation') {
+						if (!changed.delta) continue
+						for (const c in changed.delta.changed) {
+							const newRelation = changed.delta.changed[c].new as Relation
+							const oldRelation = changed.delta.changed[c].old as Relation
 
-						if (this.changeRelation(oldRelation, newRelation)) {
-							if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
-								const query = this.builder(dataSource).dropFk(entityChanged.new, oldRelation)
+							// evaluate if entity relation apply in dataSource
+							if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
+								if (this.changeRelation(oldRelation, newRelation)) {
+									if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
+										const query = this.builder(dataSource).dropFk(entityChanged.new, oldRelation)
+										queries.push(query)
+									}
+								}
+							}
+						}
+						for (const r in changed.delta.remove) {
+							const removeRelation = changed.delta.remove[r].old as Relation
+							// evaluate if entity relation apply in dataSource
+							if (this.evalDataSource(ruleDataSource, removeRelation.entity)) {
+								const query = this.builder(dataSource).dropFk(entityChanged.new, removeRelation)
 								queries.push(query)
 							}
 						}
-					}
-					for (const r in changed.delta.remove) {
-						const removeRelation = changed.delta.remove[r].old as Relation
-
-						const relatedDatabase = await this.getDataSource(removeRelation.entity)
-						if (relatedDatabase.name !== dataSource.name) continue
-
-						const query = this.builder(dataSource).dropFk(entityChanged.new, removeRelation)
-						queries.push(query)
 					}
 				}
 			}
@@ -158,51 +220,55 @@ export class DDLBuilder {
 		// remove indexes and tables for removed entities
 		for (const name in delta.remove) {
 			const removeEntity = delta.remove[name].old as EntityMapping
-			const dataSource = await this.getDataSource(removeEntity.name)
-
-			if (removeEntity.indexes) {
-				for (const i in removeEntity.indexes) {
-					const index = removeEntity.indexes[i]
-					const query = this.builder(dataSource).dropIndex(removeEntity, index)
-					queries.push(query)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, removeEntity.name)) {
+				if (removeEntity.indexes) {
+					for (const i in removeEntity.indexes) {
+						const index = removeEntity.indexes[i]
+						const query = this.builder(dataSource).dropIndex(removeEntity, index)
+						queries.push(query)
+					}
 				}
+				const query = this.builder(dataSource).dropEntity(removeEntity)
+				queries.push(query)
 			}
-			const query = this.builder(dataSource).dropEntity(removeEntity)
-			queries.push(query)
 		}
 		// create tables
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
-			const dataSource = await this.getDataSource(newEntity.name)
-			const query = this.builder(dataSource).createEntity(newEntity)
-			queries.push(query)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
+				const query = this.builder(dataSource).createEntity(newEntity)
+				queries.push(query)
+			}
 		}
 		// add columns for entities changes
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDataSource(entityChanged.name)
-			for (const q in entityChanged.delta.changed) {
-				const changed = entityChanged.delta.changed[q]
-				if (changed.name === 'property') {
-					if (!changed.delta) continue
-					for (const n in changed.delta.new) {
-						const newProperty = changed.delta.new[n].new as PropertyMapping
-						const query = this.builder(dataSource).addColumn(entityChanged.new, newProperty)
-						queries.push(query)
-					}
-					for (const n in changed.delta.changed) {
-						const newProperty = changed.delta.changed[n].new as PropertyMapping
-						const oldProperty = changed.delta.changed[n].old as PropertyMapping
-						if (newProperty.mapping === oldProperty.mapping) {
-							const query = this.builder(dataSource).alterColumn(entityChanged.new, newProperty)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
+				for (const q in entityChanged.delta.changed) {
+					const changed = entityChanged.delta.changed[q]
+					if (changed.name === 'property') {
+						if (!changed.delta) continue
+						for (const n in changed.delta.new) {
+							const newProperty = changed.delta.new[n].new as PropertyMapping
+							const query = this.builder(dataSource).addColumn(entityChanged.new, newProperty)
 							queries.push(query)
+						}
+						for (const n in changed.delta.changed) {
+							const newProperty = changed.delta.changed[n].new as PropertyMapping
+							const oldProperty = changed.delta.changed[n].old as PropertyMapping
+							if (newProperty.mapping === oldProperty.mapping) {
+								const query = this.builder(dataSource).alterColumn(entityChanged.new, newProperty)
+								queries.push(query)
+							}
 						}
 					}
 				}
 			}
 		}
-
 		// TODO:
 		// Solve rename column: se debe resolver en cascada los indexes, Fks, Uk and Pk que esten referenciando la columns
 		// Solve rename table: se debe resolver en cascada los indexes, Fks, Uk and Pk que esten referenciando la columns
@@ -212,15 +278,17 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDataSource(entityChanged.name)
-			for (const q in entityChanged.delta.changed) {
-				const changed = entityChanged.delta.changed[q]
-				if (changed.name === 'property') {
-					if (!changed.delta) continue
-					for (const n in changed.delta.remove) {
-						const oldProperty = changed.delta.remove[n].old as PropertyMapping
-						const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
-						queries.push(query)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
+				for (const q in entityChanged.delta.changed) {
+					const changed = entityChanged.delta.changed[q]
+					if (changed.name === 'property') {
+						if (!changed.delta) continue
+						for (const n in changed.delta.remove) {
+							const oldProperty = changed.delta.remove[n].old as PropertyMapping
+							const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
+							queries.push(query)
+						}
 					}
 				}
 			}
@@ -229,33 +297,35 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDataSource(entityChanged.name)
-			for (const q in entityChanged.delta.changed) {
-				const changed = entityChanged.delta.changed[q]
-				if (changed.name === 'primaryKey') {
-					if (!changed.delta) continue
-					for (const n in changed.delta.new) {
-						const newPrimaryKey = changed.delta.new[n].new as string[]
-						const query = this.builder(dataSource).addPk(entityChanged.new, newPrimaryKey)
-						queries.push(query)
-					}
-					for (const c in changed.delta.changed) {
-						const changePrimaryKey = changed.delta.changed[c].new as string[]
-						const query = this.builder(dataSource).addPk(entityChanged.new, changePrimaryKey)
-						queries.push(query)
-					}
-				}
-				if (changed.name === 'uniqueKey') {
-					if (changed.delta) {
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
+				for (const q in entityChanged.delta.changed) {
+					const changed = entityChanged.delta.changed[q]
+					if (changed.name === 'primaryKey') {
+						if (!changed.delta) continue
 						for (const n in changed.delta.new) {
-							const newUniqueKey = changed.delta.new[n].new as string[]
-							const query = this.builder(dataSource).addUk(entityChanged.new, newUniqueKey)
+							const newPrimaryKey = changed.delta.new[n].new as string[]
+							const query = this.builder(dataSource).addPk(entityChanged.new, newPrimaryKey)
 							queries.push(query)
 						}
 						for (const c in changed.delta.changed) {
-							const chanegUniqueKey = changed.delta.changed[c].new as string[]
-							const query = this.builder(dataSource).addUk(entityChanged.new, chanegUniqueKey)
+							const changePrimaryKey = changed.delta.changed[c].new as string[]
+							const query = this.builder(dataSource).addPk(entityChanged.new, changePrimaryKey)
 							queries.push(query)
+						}
+					}
+					if (changed.name === 'uniqueKey') {
+						if (changed.delta) {
+							for (const n in changed.delta.new) {
+								const newUniqueKey = changed.delta.new[n].new as string[]
+								const query = this.builder(dataSource).addUk(entityChanged.new, newUniqueKey)
+								queries.push(query)
+							}
+							for (const c in changed.delta.changed) {
+								const chanegUniqueKey = changed.delta.changed[c].new as string[]
+								const query = this.builder(dataSource).addUk(entityChanged.new, chanegUniqueKey)
+								queries.push(query)
+							}
 						}
 					}
 				}
@@ -265,49 +335,49 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-			const dataSource = await this.getDataSource(entityChanged.name)
-			for (const q in entityChanged.delta.changed) {
-				const changed = entityChanged.delta.changed[q]
-				if (changed.name === 'index') {
-					if (!changed.delta) continue
-					for (const n in changed.delta.new) {
-						const newIndex = changed.delta.new[n].new as Index
-						const query = this.builder(dataSource).createIndex(entityChanged.new, newIndex)
-						queries.push(query)
-					}
-					for (const c in changed.delta.changed) {
-						const changeIndex = changed.delta.changed[c].new as Index
-						const query = this.builder(dataSource).createIndex(entityChanged.new, changeIndex)
-						queries.push(query)
-					}
-					// for(const r in changed.delta.remove){
-					//     let removeIndex=changed.delta.remove[r]
-					// }
-				}
-				if (changed.name === 'relation') {
-					if (changed.delta) {
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
+				for (const q in entityChanged.delta.changed) {
+					const changed = entityChanged.delta.changed[q]
+					if (changed.name === 'index') {
+						if (!changed.delta) continue
 						for (const n in changed.delta.new) {
-							const newRelation = changed.delta.new[n].new as Relation
-
-							const relatedDatabase = await this.getDataSource(newRelation.entity)
-							if (relatedDatabase.name !== dataSource.name) continue
-
-							if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
-								const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
-								queries.push(query)
-							}
+							const newIndex = changed.delta.new[n].new as Index
+							const query = this.builder(dataSource).createIndex(entityChanged.new, newIndex)
+							queries.push(query)
 						}
 						for (const c in changed.delta.changed) {
-							const newRelation = changed.delta.changed[c].new as Relation
-							const oldRelation = changed.delta.changed[c].old as Relation
-
-							const relatedDatabase = await this.getDataSource(newRelation.entity)
-							if (relatedDatabase.name !== dataSource.name) continue
-
-							if (this.changeRelation(oldRelation, newRelation)) {
-								if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
-									const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
-									queries.push(query)
+							const changeIndex = changed.delta.changed[c].new as Index
+							const query = this.builder(dataSource).createIndex(entityChanged.new, changeIndex)
+							queries.push(query)
+						}
+						// for(const r in changed.delta.remove){
+						//     let removeIndex=changed.delta.remove[r]
+						// }
+					}
+					if (changed.name === 'relation') {
+						if (changed.delta) {
+							for (const n in changed.delta.new) {
+								const newRelation = changed.delta.new[n].new as Relation
+								// evaluate if entity relation apply in dataSource
+								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
+									if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
+										const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
+										queries.push(query)
+									}
+								}
+							}
+							for (const c in changed.delta.changed) {
+								const newRelation = changed.delta.changed[c].new as Relation
+								const oldRelation = changed.delta.changed[c].old as Relation
+								// evaluate if entity relation apply in dataSource
+								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
+									if (this.changeRelation(oldRelation, newRelation)) {
+										if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
+											const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
+											queries.push(query)
+										}
+									}
 								}
 							}
 						}
@@ -318,46 +388,35 @@ export class DDLBuilder {
 		// create indexes and Fks for new entities
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
-			const dataSource = await this.getDataSource(newEntity.name)
-			if (newEntity.indexes) {
-				for (const i in newEntity.indexes) {
-					const index = newEntity.indexes[i]
-					const query = this.builder(dataSource).createIndex(newEntity, index)
-					queries.push(query)
-				}
-			}
-			if (newEntity.relations) {
-				for (const p in newEntity.relations) {
-					const relation = newEntity.relations[p]
-					const relatedDatabase = await this.getDataSource(relation.entity)
-					if (relatedDatabase.name !== dataSource.name) continue
-
-					if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
-						const query = this.builder(dataSource).addFk(newEntity, relation)
+			// evaluate if entity apply in dataSource
+			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
+				if (newEntity.indexes) {
+					for (const i in newEntity.indexes) {
+						const index = newEntity.indexes[i]
+						const query = this.builder(dataSource).createIndex(newEntity, index)
 						queries.push(query)
+					}
+				}
+				if (newEntity.relations) {
+					for (const p in newEntity.relations) {
+						const relation = newEntity.relations[p]
+						// evaluate if entity relation apply in dataSource
+						if (this.evalDataSource(ruleDataSource, relation.entity)) {
+							if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
+								const query = this.builder(dataSource).addFk(newEntity, relation)
+								queries.push(query)
+							}
+						}
 					}
 				}
 			}
 		}
-		return queries
 	}
 
-	private async getDataSource (entity: string): Promise<DataSource> {
+	private evalDataSource (dataSource:RuleDataSource, entity: string):boolean {
 		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
-		const datasourceName = await this.routing.getDataSource(sentenceInfo, {}, this.stage)
-		return this.schema.dataSource.get(datasourceName)
+		return this.routing.eval(dataSource, sentenceInfo)
 	}
-
-	// private async getDataSource (entity: string): Promise<DataSource> {
-	// const context = { entity: entity, action: 'ddl' }
-	// for (const i in this.dataSource.rules) {
-	// const rule = this.dataSource.rules[i]
-	// if (await this.evaluator.eval(rule.rule, context) === true) {
-	// return this.schema.dataSource.get(rule.dataSource)
-	// }
-	// }
-	// return this.dataSource
-	// }
 
 	private builder (dataSource: DataSource): LanguageDDLBuilder {
 		return this.languageManager.ddlBuilder(dataSource)
@@ -381,19 +440,19 @@ export abstract class LanguageDDLBuilder {
 		this.dialect = metadata.name
 	}
 
-	abstract truncateEntity(entity: Entity): Query
-	abstract dropFk(entity: Entity, relation: Relation): Query
-	abstract dropIndex(entity: Entity, index: Index): Query
-	abstract dropEntity(entity: Entity): Query
-	abstract dropPk(entity: Entity): Query
-	abstract dropUk(entity: Entity): Query
-	abstract createEntity(entity: Entity): Query
-	abstract addColumn(entity: Entity, property: PropertyMapping): Query
-	abstract alterColumn(entity: Entity, property: PropertyMapping): Query
-	abstract dropColumn(entity: Entity, property: PropertyMapping): Query
-	abstract addPk(entity: Entity, primaryKey: string[]): Query
-	abstract addUk(entity: Entity, uniqueKey: string[]): Query
-	abstract addFk(entity: Entity, relation: Relation): Query
-	abstract createFk(entity: Entity, relation: Relation): Query
-	abstract createIndex (entity:Entity, index:Index):Query
+	abstract truncateEntity(entity: EntityMapping): Query
+	abstract dropFk(entity: EntityMapping, relation: Relation): Query
+	abstract dropIndex(entity: EntityMapping, index: Index): Query
+	abstract dropEntity(entity: EntityMapping): Query
+	abstract dropPk(entity: EntityMapping): Query
+	abstract dropUk(entity: EntityMapping): Query
+	abstract createEntity(entity: EntityMapping): Query
+	abstract addColumn(entity: EntityMapping, property: PropertyMapping): Query
+	abstract alterColumn(entity: EntityMapping, property: PropertyMapping): Query
+	abstract dropColumn(entity: EntityMapping, property: PropertyMapping): Query
+	abstract addPk(entity: EntityMapping, primaryKey: string[]): Query
+	abstract addUk(entity: EntityMapping, uniqueKey: string[]): Query
+	abstract addFk(entity: EntityMapping, relation: Relation): Query
+	abstract createFk(entity: EntityMapping, relation: Relation): Query
+	abstract createIndex (entity:EntityMapping, index:Index):Query
 }
