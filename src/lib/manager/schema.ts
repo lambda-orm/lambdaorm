@@ -305,7 +305,9 @@ export class SchemaExtender {
 		this.completeEntities(schema.entities)
 
 		// mappings
-		if (schema.mappings.length > 0) {
+		if (schema.mappings === undefined || schema.mappings.length === undefined || schema.mappings.length === 0) {
+			schema.mappings = [{ name: 'default', entities: [] }]
+		} else {
 			// extend entities into mapping
 			for (const k in schema.mappings) {
 				const entities = schema.mappings[k].entities
@@ -319,29 +321,15 @@ export class SchemaExtender {
 			for (const k in schema.mappings) {
 				this.extendMapping(schema.mappings[k], schema.mappings)
 			}
-		} else {
-			schema.mappings = [{ name: 'default', entities: [] }]
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			// const mapping = schema.mappings[k]
-			// if (mapping.entities === undefined) {
-			// mapping.entities = []
-			// }
-			// for (const l in schema.entities) {
-			// const entity = schema.entities[l]
-			// let mapEntity = mapping.entities.find(p => p.name === entity.name)
-			// if (mapEntity === undefined) {
-			// mapEntity = { name: entity.name, mapping: entity.name, properties: [] }
-			// }
-			// }
-
 			this.extendObject(schema.mappings[k], { entities: schema.entities })
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
 			this.completeMapping(schema.mappings[k])
 		}
 		// dataSources
-		if (schema.dataSources === undefined || schema.dataSources.length === 0) {
+		if (schema.dataSources === undefined || schema.dataSources.length === undefined || schema.dataSources.length === 0) {
 			throw new Error('Datasources not defined')
 		}
 		for (const k in schema.dataSources) {
@@ -351,7 +339,7 @@ export class SchemaExtender {
 			}
 		}
 		// stages
-		if (schema.stages === undefined || schema.stages.length === 0) {
+		if (schema.stages === undefined || schema.stages.length === undefined || schema.stages.length === 0) {
 			schema.stages = [{ name: 'default', dataSources: [{ name: schema.dataSources[0].name }] }]
 		}
 		for (const k in schema.stages) {
