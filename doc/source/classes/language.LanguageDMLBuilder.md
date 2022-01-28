@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/manager/dmlBuilder.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/dmlBuilder.ts#L12)
+[src/lib/manager/dmlBuilder.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/dmlBuilder.ts#L12)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/manager/dmlBuilder.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/dmlBuilder.ts#L19)
+[src/lib/manager/dmlBuilder.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/dmlBuilder.ts#L19)

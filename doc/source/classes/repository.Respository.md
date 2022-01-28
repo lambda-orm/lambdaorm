@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/repository/repository.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L9)
+[src/lib/repository/repository.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L9)
 
 ## Properties
 
@@ -72,7 +72,7 @@
 
 #### Defined in
 
-[src/lib/repository/repository.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L6)
+[src/lib/repository/repository.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L6)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L7)
+[src/lib/repository/repository.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L7)
 
 ## Methods
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L28)
+[src/lib/repository/repository.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L28)
 
 ▸ **bulkInsert**(`entity`, `include`): `Promise`<`number`[]\>
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L30)
+[src/lib/repository/repository.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L30)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L79)
+[src/lib/repository/repository.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L79)
 
 ▸ **delete**(`entity`, `include`): `Promise`<`void`\>
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L81)
+[src/lib/repository/repository.ts:81](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L81)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L90)
+[src/lib/repository/repository.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L90)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L123)
+[src/lib/repository/repository.ts:123](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L123)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:105](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L105)
+[src/lib/repository/repository.ts:105](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L105)
 
 ___
 
@@ -244,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L137)
+[src/lib/repository/repository.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L137)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L16)
+[src/lib/repository/repository.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L16)
 
 ▸ **insert**(`entity`, `include`): `Promise`<`number`\>
 
@@ -281,7 +281,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L18)
+[src/lib/repository/repository.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L18)
 
 ___
 
@@ -303,7 +303,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:156](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L156)
+[src/lib/repository/repository.ts:156](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L156)
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L109)
+[src/lib/repository/repository.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L109)
 
 ___
 
@@ -345,7 +345,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L67)
+[src/lib/repository/repository.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L67)
 
 ▸ **merge**(`entity`, `include`): `Promise`<`void`\>
 
@@ -362,7 +362,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L69)
+[src/lib/repository/repository.ts:69](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L69)
 
 ___
 
@@ -376,7 +376,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:194](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L194)
+[src/lib/repository/repository.ts:194](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L194)
 
 ___
 
@@ -398,7 +398,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:175](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L175)
+[src/lib/repository/repository.ts:175](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L175)
 
 ___
 
@@ -418,7 +418,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L40)
+[src/lib/repository/repository.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L40)
 
 ▸ **update**(`entity`, `include`): `Promise`<`void`\>
 
@@ -435,7 +435,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L42)
+[src/lib/repository/repository.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L42)
 
 ___
 
@@ -458,4 +458,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/repository.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/repository/repository.ts#L51)
+[src/lib/repository/repository.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/repository.ts#L51)

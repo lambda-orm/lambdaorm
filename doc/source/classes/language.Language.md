@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/language/language.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/language.ts#L6)
+[src/lib/language/language.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/language.ts#L6)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/language/language.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/language.ts#L5)
+[src/lib/language/language.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/language.ts#L5)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/language/language.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/language.ts#L20)
+[src/lib/language/language.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/language.ts#L20)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/language.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/language.ts#L16)
+[src/lib/language/language.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/language.ts#L16)
 
 ___
 
@@ -108,4 +108,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/language.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/language.ts#L22)
+[src/lib/language/language.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/language.ts#L22)

@@ -43,7 +43,7 @@ StageActionDML.constructor
 
 #### Defined in
 
-[src/lib/stage/stageActionDML.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageActionDML.ts#L12)
+[src/lib/stage/stageActionDML.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageActionDML.ts#L12)
 
 ## Methods
 
@@ -57,7 +57,7 @@ StageActionDML.constructor
 
 #### Defined in
 
-[src/lib/stage/stageExport.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageExport.ts#L5)
+[src/lib/stage/stageExport.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageExport.ts#L5)
 
 ___
 
@@ -75,4 +75,4 @@ StageActionDML.sentence
 
 #### Defined in
 
-[src/lib/stage/stageActionDML.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/stage/stageActionDML.ts#L20)
+[src/lib/stage/stageActionDML.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageActionDML.ts#L20)

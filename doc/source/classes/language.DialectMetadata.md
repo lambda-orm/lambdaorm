@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L12)
+[src/lib/language/dialectMetadata.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L12)
 
 ## Properties
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L4)
+[src/lib/language/dialectMetadata.ts:4](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L4)
 
 ## Methods
 
@@ -75,7 +75,7 @@
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:72](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L72)
+[src/lib/language/dialectMetadata.ts:72](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L72)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L39)
+[src/lib/language/dialectMetadata.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L39)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L51)
+[src/lib/language/dialectMetadata.ts:51](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L51)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L31)
+[src/lib/language/dialectMetadata.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L31)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L47)
+[src/lib/language/dialectMetadata.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L47)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L27)
+[src/lib/language/dialectMetadata.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L27)
 
 ___
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:121](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L121)
+[src/lib/language/dialectMetadata.ts:121](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L121)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L109)
+[src/lib/language/dialectMetadata.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L109)
 
 ___
 
@@ -238,7 +238,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L23)
+[src/lib/language/dialectMetadata.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L23)
 
 ___
 
@@ -258,7 +258,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:35](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L35)
+[src/lib/language/dialectMetadata.ts:35](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L35)
 
 ___
 
@@ -278,7 +278,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L62)
+[src/lib/language/dialectMetadata.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L62)
 
 ___
 
@@ -298,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L57)
+[src/lib/language/dialectMetadata.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L57)
 
 ___
 
@@ -318,7 +318,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L67)
+[src/lib/language/dialectMetadata.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L67)
 
 ___
 
@@ -338,4 +338,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/dialectMetadata.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/language/dialectMetadata.ts#L43)
+[src/lib/language/dialectMetadata.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/language/dialectMetadata.ts#L43)

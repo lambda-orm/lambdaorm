@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { IOrm, Schema, Stage } from '../model'
-import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing } from '.'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from '../connection'
-import { LanguageManager } from '../language'
-import { SqlLanguage } from '../language/sql'
+import { IOrm, Schema, Stage } from './model'
+import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing } from './manager'
+import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
+import { LanguageManager } from './language'
+import { SqlLanguage } from './language/sql'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
-import modelConfig from './../parser/config.json'
+import modelConfig from './parser/config.json'
 
 /**
  * Facade through which you can access all the functionalities of the library.

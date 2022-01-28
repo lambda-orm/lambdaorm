@@ -186,7 +186,7 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/operand/operands.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/operand/operands.ts#L39)
+[src/lib/operand/operands.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/operand/operands.ts#L39)
 
 ___
 

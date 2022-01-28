@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L12)
+[src/lib/manager/ddlBuilder.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/ddlBuilder.ts#L12)
 
 ## Properties
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L11)
+[src/lib/manager/ddlBuilder.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/ddlBuilder.ts#L11)
 
 ## Methods
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:131](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L131)
+[src/lib/manager/ddlBuilder.ts:131](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/ddlBuilder.ts#L131)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L20)
+[src/lib/manager/ddlBuilder.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/ddlBuilder.ts#L20)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L48)
+[src/lib/manager/ddlBuilder.ts:48](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/ddlBuilder.ts#L48)
 
 ___
 
@@ -131,4 +131,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/ddlBuilder.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/ddlBuilder.ts#L34)
+[src/lib/manager/ddlBuilder.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/ddlBuilder.ts#L34)
