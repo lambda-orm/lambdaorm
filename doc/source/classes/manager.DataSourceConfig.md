@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:228](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L228)
+[src/lib/manager/schema.ts:228](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L228)
 
 ## Properties
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:225](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L225)
+[src/lib/manager/schema.ts:225](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L225)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:226](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L226)
+[src/lib/manager/schema.ts:226](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L226)
 
 ## Methods
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:243](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L243)
+[src/lib/manager/schema.ts:243](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L243)
 
 ___
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:232](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/schema.ts#L232)
+[src/lib/manager/schema.ts:232](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L232)

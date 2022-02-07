@@ -6,7 +6,7 @@
 
 ## Implemented by
 
-- [`Orm`](../classes/manager.Orm.md)
+- [`Orm`](../classes/orm.Orm.md)
 
 ## Table of contents
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L11)
+[src/lib/model/iOrm.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L11)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L10)
+[src/lib/model/iOrm.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L10)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L8)
+[src/lib/model/iOrm.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L8)
 
 ## Methods
 
@@ -95,7 +95,7 @@ Expression complete
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L19)
+[src/lib/model/iOrm.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L19)
 
 ▸ **complete**(`expression`): `string`
 
@@ -111,7 +111,7 @@ Expression complete
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L20)
+[src/lib/model/iOrm.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L20)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L9)
+[src/lib/model/iOrm.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L9)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L14)
+[src/lib/model/iOrm.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L14)
 
 ___
 
@@ -170,7 +170,7 @@ Result of the evaluale expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L49)
+[src/lib/model/iOrm.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L49)
 
 ___
 
@@ -196,7 +196,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L65)
+[src/lib/model/iOrm.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L65)
 
 ▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
 
@@ -214,7 +214,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L66)
+[src/lib/model/iOrm.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L66)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L13)
+[src/lib/model/iOrm.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L13)
 
 ___
 
@@ -259,7 +259,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L40)
+[src/lib/model/iOrm.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L40)
 
 ▸ **metadata**(`expression`): `Promise`<`any`\>
 
@@ -275,7 +275,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:41](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L41)
+[src/lib/model/iOrm.ts:41](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L41)
 
 ___
 
@@ -299,7 +299,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L26)
+[src/lib/model/iOrm.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L26)
 
 ▸ **model**(`expression`): `Promise`<`any`\>
 
@@ -315,7 +315,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L27)
+[src/lib/model/iOrm.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L27)
 
 ___
 
@@ -339,7 +339,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L33)
+[src/lib/model/iOrm.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L33)
 
 ▸ **parameters**(`expression`): `Promise`<`any`\>
 
@@ -355,7 +355,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L34)
+[src/lib/model/iOrm.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L34)
 
 ___
 
@@ -376,7 +376,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L56)
+[src/lib/model/iOrm.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L56)
 
 ▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L57)
+[src/lib/model/iOrm.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L57)
 
 ___
 
@@ -413,7 +413,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L12)
+[src/lib/model/iOrm.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L12)
 
 ___
 
@@ -434,4 +434,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/iOrm.ts#L67)
+[src/lib/model/iOrm.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L67)

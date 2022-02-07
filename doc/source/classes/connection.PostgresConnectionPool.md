@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/postgres.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/postgres.ts#L11)
+[src/lib/connection/dialects/postgres.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/postgres.ts#L11)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/postgres.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/postgres.ts#L47)
+[src/lib/connection/dialects/postgres.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/postgres.ts#L47)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/postgres.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/postgres.ts#L60)
+[src/lib/connection/dialects/postgres.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/postgres.ts#L60)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/postgres.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/postgres.ts#L43)
+[src/lib/connection/dialects/postgres.ts:43](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/postgres.ts#L43)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/postgres.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/dialects/postgres.ts#L56)
+[src/lib/connection/dialects/postgres.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/postgres.ts#L56)

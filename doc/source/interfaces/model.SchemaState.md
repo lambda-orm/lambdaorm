@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L94)
+[src/lib/model/schema.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L94)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:93](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L93)
+[src/lib/model/schema.ts:93](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L93)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:95](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/model/schema.ts#L95)
+[src/lib/model/schema.ts:95](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L95)

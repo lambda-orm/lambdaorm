@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L10)
+[src/lib/connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L10)
 
 ## Properties
 
@@ -72,7 +72,7 @@
 
 #### Defined in
 
-[src/lib/connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L7)
+[src/lib/connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L7)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L9)
+[src/lib/connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L9)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L8)
+[src/lib/connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L16)
+[src/lib/connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L16)
 
 ## Methods
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L29)
+[src/lib/connection/connection.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L29)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L24)
+[src/lib/connection/connection.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L24)
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L30)
+[src/lib/connection/connection.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L30)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L23)
+[src/lib/connection/connection.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L23)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L25)
+[src/lib/connection/connection.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L25)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L27)
+[src/lib/connection/connection.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L27)
 
 ___
 
@@ -241,7 +241,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L21)
+[src/lib/connection/connection.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L21)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L31)
+[src/lib/connection/connection.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L31)
 
 ___
 
@@ -277,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L20)
+[src/lib/connection/connection.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L20)
 
 ___
 
@@ -299,4 +299,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/connection/connection.ts#L22)
+[src/lib/connection/connection.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L22)

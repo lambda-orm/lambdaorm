@@ -21,7 +21,6 @@
 - [MappingConfig](../classes/manager.MappingConfig.md)
 - [MappingsConfig](../classes/manager.MappingsConfig.md)
 - [ModelConfig](../classes/manager.ModelConfig.md)
-- [Orm](../classes/manager.Orm.md)
 - [QueryExecutor](../classes/manager.QueryExecutor.md)
 - [Routing](../classes/manager.Routing.md)
 - [SchemaExtender](../classes/manager.SchemaExtender.md)

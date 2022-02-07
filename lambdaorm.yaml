@@ -396,11 +396,6 @@ stages:
   - name: source
     dataSources:
       - name: source
-    # dataSources:
-    #   - name: source
-    #     condition: actionType == "read"
-    #   - name: mysql
-    #     condition: actionType == "write"
   - name: mysql
     dataSources:
       - name: mysql

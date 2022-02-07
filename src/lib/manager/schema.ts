@@ -330,7 +330,8 @@ export class SchemaExtender {
 		}
 		// dataSources
 		if (schema.dataSources === undefined || schema.dataSources.length === undefined || schema.dataSources.length === 0) {
-			throw new Error('Datasources not defined')
+			console.log('Datasources not defined')
+			schema.dataSources = [{ name: 'default', dialect: 'mysql', mapping: schema.mappings[0].name, connection: null }]
 		}
 		for (const k in schema.dataSources) {
 			const dataSource = schema.dataSources[k]
@@ -586,16 +587,21 @@ export class SchemaManager {
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
 		} else if (typeof source === 'string') {
-			const lstat = await Helper.lstat(source)
-			if (lstat.isFile()) {
-				configFile = path.basename(source)
-				workspace = path.dirname(source)
+			if (await Helper.existsPath(source)) {
+				const lstat = await Helper.lstat(source)
+				if (lstat.isFile()) {
+					configFile = path.basename(source)
+					workspace = path.dirname(source)
+				} else {
+					workspace = source
+					configFile = await this.getConfigFileName(workspace)
+				}
 			} else {
-				workspace = source
-				configFile = await this.getConfigFileName(workspace)
+				console.log(`Not exists path ${source}`)
 			}
 		} else {
-			throw new Error(`Schema: ${source} not supported`)
+			console.log('Schema: not supported:')
+			console.log(source)
 		}
 
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [] }

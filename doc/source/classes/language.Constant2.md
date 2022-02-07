@@ -184,7 +184,7 @@ Constant.eval
 
 #### Defined in
 
-[src/lib/operand/operands.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/operand/operands.ts#L7)
+[src/lib/operand/operands.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/operand/operands.ts#L7)
 
 ___
 

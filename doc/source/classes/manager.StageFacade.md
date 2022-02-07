@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L20)
+[src/lib/manager/stageFacade.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L20)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L47)
+[src/lib/manager/stageFacade.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L47)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L37)
+[src/lib/manager/stageFacade.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L37)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L57)
+[src/lib/manager/stageFacade.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L57)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L62)
+[src/lib/manager/stageFacade.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L62)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L42)
+[src/lib/manager/stageFacade.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L42)
 
 ___
 
@@ -157,4 +157,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/c5c7261/src/lib/manager/stageFacade.ts#L52)
+[src/lib/manager/stageFacade.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/stageFacade.ts#L52)
