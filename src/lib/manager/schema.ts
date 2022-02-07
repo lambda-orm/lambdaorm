@@ -287,13 +287,17 @@ export class StageConfig {
 	}
 }
 
-export class SchemaExtender {
+class SchemaExtender {
 	private expressions:Expressions
 	constructor (expressions:Expressions) {
 		this.expressions = expressions
 	}
 
-	public extend (schema: Schema): Schema {
+	public extend (source: Schema): Schema {
+		let schema:Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
+		if (source !== undefined) {
+			schema = Helper.clone(source)
+		}
 		// model
 		if (schema.entities) {
 			const entities = schema.entities
@@ -357,7 +361,9 @@ export class SchemaExtender {
 	}
 
 	public complete (schema: Schema): void {
-		this.completeEntities(schema.entities)
+		if (schema && schema.entities) {
+			this.completeEntities(schema.entities)
+		}
 	}
 
 	private clearEntities (source: Entity[]): Entity[] {
