@@ -302,7 +302,7 @@ class SchemaExtender {
 		this.completeEntities(schema.entities)
 
 		// mappings
-		if (schema.mappings === undefined || schema.mappings.length === undefined || schema.mappings.length === 0) {
+		if (!schema.mappings || !schema.mappings.length || schema.mappings.length === 0) {
 			schema.mappings = [{ name: 'default', entities: [] }]
 		} else {
 			// extend entities into mapping
@@ -326,7 +326,7 @@ class SchemaExtender {
 			this.completeMapping(schema.mappings[k])
 		}
 		// dataSources
-		if (schema.dataSources === undefined || schema.dataSources.length === undefined || schema.dataSources.length === 0) {
+		if (!schema.dataSources || !schema.dataSources.length || schema.dataSources.length === 0) {
 			console.log('Datasources not defined')
 			schema.dataSources = [{ name: 'default', dialect: 'mysql', mapping: schema.mappings[0].name, connection: null }]
 		}
@@ -337,7 +337,7 @@ class SchemaExtender {
 			}
 		}
 		// stages
-		if (schema.stages === undefined || schema.stages.length === undefined || schema.stages.length === 0) {
+		if (!schema.stages || !schema.stages.length || schema.stages.length === 0) {
 			schema.stages = [{ name: 'default', dataSources: [{ name: schema.dataSources[0].name }] }]
 		}
 		for (const k in schema.stages) {
