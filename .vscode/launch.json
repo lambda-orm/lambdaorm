@@ -25,6 +25,16 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab config 2",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-config02.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
 			"name": "lab mssql",
 			"type": "node",
 			"request": "launch",
