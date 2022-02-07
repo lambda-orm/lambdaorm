@@ -154,13 +154,6 @@ export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> 
 		return this.mapping.name
 	}
 
-	// public get mapping (): string {
-	// if (this.mapping.mapping === undefined) {
-	// throw new Error(`mapping ${this.mapping.name} Mapping undefined`)
-	// }
-	// return this.mapping.mapping
-	// }
-
 	public get ():Mapping {
 		return this.mapping
 	}
@@ -295,7 +288,7 @@ class SchemaExtender {
 
 	public extend (source: Schema): Schema {
 		let schema:Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
-		if (source !== undefined) {
+		if (source) {
 			schema = Helper.clone(source)
 		}
 		// model
@@ -368,7 +361,7 @@ class SchemaExtender {
 
 	private clearEntities (source: Entity[]): Entity[] {
 		const target: Entity[] = []
-		if (source !== undefined) {
+		if (source && source.length) {
 			for (let i = 0; i < source.length; i++) {
 				const sourceEntity = source[i]
 				if (sourceEntity.abstract === true) continue
@@ -379,7 +372,7 @@ class SchemaExtender {
 	}
 
 	private completeEntities (entities:Entity[]):void {
-		if (entities !== undefined) {
+		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
 				if (entity.properties !== undefined) {
@@ -400,7 +393,7 @@ class SchemaExtender {
 	}
 
 	private extendEntiy (entity: Entity, entities: Entity[]):void {
-		if (entity.extends !== undefined) {
+		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new Error(`${entity.extends} not found`)
@@ -427,7 +420,7 @@ class SchemaExtender {
 	}
 
 	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
-		if (mapping.extends !== undefined) {
+		if (mapping && mapping.extends) {
 			const base = mappings.find(p => p.name === mapping.extends)
 			if (base === undefined) {
 				throw new Error(`${mapping.extends} not found`)
@@ -440,7 +433,7 @@ class SchemaExtender {
 	}
 
 	private extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
-		if (entity.extends !== undefined) {
+		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new Error(`${entity.extends} not found`)
@@ -490,7 +483,7 @@ class SchemaExtender {
 	}
 
 	private completeMapping (mapping:Mapping):void {
-		if (mapping.entities !== undefined) {
+		if (mapping && mapping.entities) {
 			for (let i = 0; i < mapping.entities.length; i++) {
 				const entity = mapping.entities[i]
 				if (entity.mapping === undefined) entity.mapping = entity.name
@@ -506,7 +499,7 @@ class SchemaExtender {
 
 	private clearMapping (source: Mapping): Mapping {
 		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
-		if (source.entities !== undefined) {
+		if (source && source.entities) {
 			for (let i = 0; i < source.entities.length; i++) {
 				const sourceEntity = source.entities[i]
 				if (sourceEntity.abstract === true) continue
@@ -519,7 +512,7 @@ class SchemaExtender {
 	private clearMapping2 (schema:Schema, source: Mapping): Mapping {
 		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
 
-		if (source.entities !== undefined) {
+		if (source && source.entities) {
 			for (let i = 0; i < source.entities.length; i++) {
 				const sourceEntity = source.entities[i]
 				if (!this.existsInMapping(schema, source.name, sourceEntity.name)) continue
@@ -571,7 +564,7 @@ export class SchemaManager {
 
 	public async init (source?: string | Schema): Promise<Schema> {
 		let schema
-		if (source === undefined || typeof source === 'string') {
+		if (!source || typeof source === 'string') {
 			schema = await this.get(source)
 		} else {
 			const _schema = source as Schema
@@ -611,7 +604,7 @@ export class SchemaManager {
 		}
 
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [] }
-		if (configFile !== undefined) {
+		if (configFile) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
 				const content = await Helper.readFile(configPath)
