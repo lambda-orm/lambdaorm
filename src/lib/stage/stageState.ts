@@ -1,4 +1,4 @@
-import { Mapping, SchemaState } from '../model'
+import { Mapping, SchemaState, Query } from '../model'
 import { SchemaManager } from '../manager'
 import { Helper } from '../manager/helper'
 const path = require('path')
@@ -28,6 +28,25 @@ export class StageState {
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 
+	public async log (stage: string, action: string, queries: Query[]): Promise<void> {
+		const dataSources: any[] = []
+		for (const i in queries) {
+			const query = queries[i]
+			const dataSource = dataSources.find(p => p.name === query.dataSource)
+			if (dataSource === undefined) {
+				dataSources.push({ name: query.dataSource, queries: [query] })
+			} else {
+				dataSource.queries.push(query)
+			}
+		}
+		for (const i in dataSources) {
+			const dataSource = dataSources[i]
+			const logFile = this.logFile(stage, action, dataSource.name)
+			const data = dataSource.queries.map((p: Query) => p.sentence).join(';\n') + ';'
+			await Helper.writeFile(logFile, data)
+		}
+	}
+
 	public async updateData (name:string, mappingData:any, pendingData:any[]):Promise<void> {
 		const stateFile = this.getFile(name)
 		const state = await this.get(name)
@@ -43,5 +62,13 @@ export class StageState {
 
 	public getFile (name: string) {
 		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-state.json`)
+	}
+
+	private logFile (stage: string, action:string, dataSource:string) {
+		let date = new Date().toISOString()
+		date = Helper.replace(date, ':', '')
+		date = Helper.replace(date, '.', '')
+		date = Helper.replace(date, '-', '')
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-log-${date}-${action}-${dataSource}.txt`)
 	}
 }
