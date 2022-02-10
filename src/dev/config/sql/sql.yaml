@@ -58,6 +58,7 @@ others:
   column: '{name}'  
   false: 'FALSE'
   true: 'TRUE'
+  null: 'NULL'
 operators:
   unary:
     '-': '- {0}'

@@ -49,7 +49,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "false": "FALSE",
-        "true": "TRUE"
+        "true": "TRUE",
+        "null": "NULL"
       },
       "functions": {
         "numeric": {
@@ -272,7 +273,8 @@
         "true": 1,
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
-        "column": "{name}"
+        "column": "{name}",
+        "null": "NULL"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -476,7 +478,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "false": "FALSE",
-        "true": "TRUE"
+        "true": "TRUE",
+        "null": "NULL"
       },
       "functions": {
         "numeric": {
@@ -659,7 +662,8 @@
         "notNullable": "NOT NULL",
         "variable": ":{name}",
         "field": "{entityAlias}.{name}",
-        "column": "{name}"
+        "column": "{name}",
+        "null": "NULL"
       },
       "ddl": {
         "dropPk": "DROP CONSTRAINT {name}",
@@ -912,7 +916,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "false": "FALSE",
-        "true": "TRUE"
+        "true": "TRUE",
+        "null": "NULL"
       },
       "functions": {
         "numeric": {
@@ -1131,7 +1136,8 @@
       "field": "{entityAlias}.{name}",
       "column": "{name}",
       "false": "FALSE",
-      "true": "TRUE"
+      "true": "TRUE",
+      "null": "NULL"
     },
     "operators": {
       "unary": {

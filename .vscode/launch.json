@@ -64,6 +64,16 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab devicenet sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/devicenet-sync/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/devicenet-sync/.env"
+		},
+		{
 			"name": "lab countries",
 			"type": "node",
 			"request": "launch",

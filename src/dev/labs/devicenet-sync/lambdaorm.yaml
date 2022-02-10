@@ -1,0 +1,209 @@
+entities:
+  - name: Devices
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        length: 32
+        nullable: false
+      - name: name
+        nullable: false
+      - name: type
+        length: 32
+        nullable: false
+      - name: brand
+        length: 32
+        nullable: false
+      - name: model
+        length: 32
+        nullable: false
+      - name: so
+        nullable: false
+      - name: imei
+        length: 16
+      - name: imei2
+        length: 16
+      - name: mac
+        length: 24
+      - name: macBluetooth
+        length: 24
+      - name: ip
+        length: 24
+    relations:
+      - name: files
+        type: manyToOne
+        from: id
+        entity: Files
+        to: deviceId
+      - name: components
+        type: manyToOne
+        from: id
+        entity: Components
+        to: deviceId
+      - name: journeys
+        type: manyToOne
+        from: id
+        entity: Journeys
+        to: deviceId
+  #  son los componentes que componen un dispositivo, ejemplo: camara 1 , camara 2, microfono,gps , etc.
+  - name: Components
+    primaryKey: ["id"]
+    uniqueKey: ["deviceId", "name"]
+    properties:
+      # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
+      - name: id
+        length: 64
+        nullable: false
+      - name: name
+        length: 32
+        nullable: false
+      - name: type
+        length: 32
+        nullable: false
+      - name: brand
+        length: 32
+        nullable: false
+      - name: model
+        length: 32
+        nullable: false
+      - name: deviceId
+        length: 32
+        nullable: false
+    relations:
+      relations:
+        - name: device
+          from: deviceId
+          entity: Devices
+          to: id
+        - name: files
+          type: manyToOne
+          from: id
+          entity: Files
+          to: componentId
+  - name: Positions
+    primaryKey: ["id"]
+    indexes:
+      - name: time
+        fields: ["time"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: journeyId
+        type: integer
+      - name: latitude
+        type: decimal
+        nullable: false
+      - name: longitude
+        type: decimal
+        nullable: false
+      - name: altitude
+        type: decimal
+      - name: time
+        type: datetime
+        nullable: false
+    relations:
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+      - name: journey
+        from: journeyId
+        entity: Journeys
+        to: id
+  # representa un trayecto, ejemplo de casa al colegio
+  - name: Journeys
+    primaryKey: ["id"]
+    indexes:
+      - name: deviceId
+        fields: ["deviceId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: startPositionId
+        type: integer
+      - name: endPositionId
+        type: integer
+    relations:
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+      - name: startPosition
+        from: startPositionId
+        entity: Positions
+        to: id
+      - name: endPosition
+        from: endPositionId
+        entity: Positions
+        to: id
+      - name: positions
+        type: manyToOne
+        composite: true
+        from: id
+        entity: Positions
+        to: journeyId
+  - name: Files
+    #  use MinIO for save files, field file is path
+    primaryKey: ["id"]
+    properties:
+      #  el id es el fullpath del file, ejemplo: /deviceId/componentId/202202100922.mp3
+      - name: id
+        length: 255
+        nullable: false
+      # el tipo de file, ejemplo: audio|video
+      - name: type
+        length: 16
+        nullable: false
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: componentId
+        length: 32
+      - name: journeyId
+        type: integer
+      - name: startPositionId
+        type: integer
+      - name: endPositionId
+        type: integer
+    relations:
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+      - name: journey
+        from: journeyId
+        entity: Journeys
+        to: id
+      - name: component
+        from: componentId
+        entity: Components
+        to: id
+      - name: startPosition
+        from: startPositionId
+        entity: Positions
+        to: id
+      - name: endPosition
+        from: endPositionId
+        entity: Positions
+        to: id
+mappings:
+  - name: default
+dataSources:
+  - name: postgres
+    mapping: default
+    dialect: postgres
+    connection: $CNN_POSTGRES
+stages:
+  - name: default
+    dataSources:
+      - name: postgres

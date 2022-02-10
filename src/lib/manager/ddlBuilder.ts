@@ -63,7 +63,7 @@ export class DDLBuilder {
 
 	private _drop (dataSource:DataSource, ruleDataSource:RuleDataSource, entitiesMapping: EntityMapping[], queries:Query[]):void {
 		const entities = entitiesMapping.map(p => p.name)
-		const sortedEntities = this.model.sortEntities(entities).reverse()
+		const sortedEntities = this.model.sortByDependencies(entities)
 		// drop all constraint
 		for (const p in sortedEntities) {
 			const entityName = sortedEntities[p]
@@ -79,6 +79,16 @@ export class DDLBuilder {
 						// evaluate if entity relation apply in dataSource
 						if (this.evalDataSource(ruleDataSource, relation.entity)) {
 							if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
+								// busca la propiedad relacionada para saber si es nullable la relacion
+								const fromProperty = entity.properties.find(p => p.name === relation.from)
+								if (fromProperty === undefined) {
+									throw new Error(`property ${relation.from} not found in ${entity.name} `)
+								}
+								const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
+								if (isNullable) {
+									const query = this.builder(dataSource).setNull(entity, relation)
+									queries.push(query)
+								}
 								const query = this.builder(dataSource).dropFk(entity, relation)
 								queries.push(query)
 							}
@@ -112,7 +122,7 @@ export class DDLBuilder {
 
 	private _truncate (dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const entities = entitiesMapping.map(p => p.name)
-		const sortedEntities = this.model.sortEntities(entities).reverse()
+		const sortedEntities = this.model.sortByDependencies(entities)
 		for (const i in sortedEntities) {
 			const entityName = sortedEntities[i]
 			// evaluate if entity apply in dataSource
@@ -441,6 +451,7 @@ export abstract class LanguageDDLBuilder {
 	}
 
 	abstract truncateEntity(entity: EntityMapping): Query
+	abstract setNull(entity: EntityMapping, relation: Relation): Query
 	abstract dropFk(entity: EntityMapping, relation: Relation): Query
 	abstract dropIndex(entity: EntityMapping, index: Index): Query
 	abstract dropEntity(entity: EntityMapping): Query

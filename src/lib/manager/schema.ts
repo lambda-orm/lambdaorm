@@ -59,7 +59,12 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return this.entities.map(p => p.name)
 	}
 
-	public sortEntities (entities:string[] = []): string[] {
+	/**
+	 * Ordena una lista de entidades de acuerdo a sus dependencias
+	 * @param entities entidades a ordenar
+	 * @returns retorna las entidades ordenadas
+	 */
+	public sortByRelations (entities:string[] = []): string[] {
 		if (entities.length < 2) return entities
 		const sorted: string[] = []
 		while (sorted.length < entities.length) {
@@ -77,6 +82,31 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return sorted
 	}
 
+	public sortByDependencies (entities:string[] = []): string[] {
+		if (entities.length < 2) return entities
+		const sorted: string[] = []
+		while (sorted.length < entities.length) {
+			for (let i = 0; i < entities.length; i++) {
+				const entityName = entities[i]
+				if (sorted.includes(entityName)) {
+					continue
+				}
+				if (!this.hadDependencies(entityName, sorted)) {
+					sorted.push(entityName)
+					break
+				}
+			}
+		}
+		return sorted
+	}
+
+	/**
+	 * determina si una entidad puede ser incluida en la lista de entidades segun sus relaciones
+	 * @param entityName name of entity
+	 * @param sorted current list of entities sorted by dependencies
+	 * @param parent entity parent , used in manyToOne relations
+	 * @returns
+	 */
 	protected solveSortEntity (entityName:string, sorted:string[], parent?:string):boolean {
 		const entity = this.getEntity(entityName)
 		if (entity === undefined) {
@@ -103,6 +133,51 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 				}
 			}
 			return !unsolved
+		}
+	}
+
+	/**
+	 * determina si una entidad puede ser incluida en la lista de entidades segun sus dependencias
+	 * @param entityName name of entity
+	 * @param sorted current list of entities sorted by dependencies
+	 * @param parent entity parent , used in manyToOne relations
+	 * @returns
+	 */
+	protected hadDependencies (entityName:string, sorted:string[], parent?:string):boolean {
+		const entity = this.getEntity(entityName)
+		if (entity === undefined) {
+			throw new Error('Not exists entity:' + entityName)
+		}
+		if (entity.dependents === undefined || entity.dependents.length === 0) {
+			return true
+		} else {
+			let hadDependents = false
+			for (const i in entity.dependents) {
+				const dependent = entity.dependents[i]
+				if (dependent.entity !== entityName) {
+					if (dependent.relation.type === 'oneToOne' || dependent.relation.type === 'oneToMany') {
+						// busca la propiedad relacionada para saber si es nullable la dependencia
+						const dependentEntity = this.getEntity(dependent.entity)
+						if (dependentEntity === undefined) {
+							throw new Error('Not exists entity:' + dependent.entity)
+						}
+						const dependentProperty = dependentEntity.properties.find(p => p.name === dependent.relation.from)
+						if (dependentProperty === undefined) {
+							throw new Error(`property ${dependent.relation.from} not found in ${entity.name} `)
+						}
+						const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
+						// si la relacion es nullable
+						// y la entidad relacionada no esta incluida en las entidades ordenadas por dependencia
+						// y la entidad padre es nula o es la mimsa de la relacion
+						// en este caso no se puede determinar que esta entidad pueda incluirse aun en la lista de entidades ordenadas por dependencia.
+						if (!isNullable && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
+							hadDependents = true
+							break
+						}
+					}
+				}
+			}
+			return hadDependents
 		}
 	}
 
@@ -299,7 +374,7 @@ class SchemaExtender {
 			}
 		}
 		schema.entities = this.clearEntities(schema.entities)
-		this.completeEntities(schema.entities)
+		this.complete(schema)
 
 		// mappings
 		if (!schema.mappings || !schema.mappings.length || schema.mappings.length === 0) {
@@ -356,6 +431,7 @@ class SchemaExtender {
 	public complete (schema: Schema): void {
 		if (schema && schema.entities) {
 			this.completeEntities(schema.entities)
+			this.completeDependents(schema.entities)
 		}
 	}
 
@@ -386,6 +462,27 @@ class SchemaExtender {
 					for (let j = 0; j < entity.relations.length; j++) {
 						const relation = entity.relations[j]
 						if (relation.type === undefined) relation.type = 'oneToMany'
+					}
+				}
+			}
+		}
+	}
+
+	private completeDependents (entities: Entity[]): void {
+		if (entities && entities.length) {
+			for (let i = 0; i < entities.length; i++) {
+				const entity = entities[i]
+				entity.dependents = []
+				for (let i = 0; i < entities.length; i++) {
+					const related = entities[i]
+					if (related.relations !== undefined) {
+						for (let j = 0; j < related.relations.length; j++) {
+							const relation = related.relations[j]
+							if (relation.entity === entity.name) {
+								const dependent = { entity: related.name, relation: relation }
+								entity.dependents.push(dependent)
+							}
+						}
 					}
 				}
 			}

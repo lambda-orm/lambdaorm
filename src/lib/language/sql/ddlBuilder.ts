@@ -193,6 +193,22 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('dropUk', this.dialect, this.dataSource, alterEntity + ' ' + text, entity.name)
 	}
 
+	public setNull (entity: EntityMapping, relation: Relation): Query {
+		const alias = 'a'
+		const templateColumn = this.metadata.other('column')
+		const column = templateColumn.replace('{name}', relation.from)
+		const templateAssing = this.metadata.operator('=', 2)
+		let assing = templateAssing.replace('{0}', column)
+		const _null = this.metadata.other('null')
+		assing = assing.replace('{1}', _null)
+		let text = this.metadata.dml('update')
+		text = text.replace('{name}', this.metadata.delimiter(entity.mapping))
+		text = text.replace('{name}', this.metadata.delimiter(entity.mapping))
+		text = text.replace('{alias}', alias)
+		text = text.replace('{assings}', assing)
+		return new Query('update', this.dialect, this.dataSource, text, entity.name)
+	}
+
 	public dropFk (entity: EntityMapping, relation: Relation): Query {
 		const alterEntity = this.metadata.ddl('alterTable').replace('{name}', this.metadata.delimiter(entity.mapping))
 		let text = this.metadata.ddl('dropFk')
