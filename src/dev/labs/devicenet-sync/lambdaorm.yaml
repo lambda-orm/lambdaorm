@@ -80,7 +80,7 @@ entities:
           from: id
           entity: Files
           to: componentId
-  - name: Positions
+  - name: DeviceStatuses
     primaryKey: ["id"]
     indexes:
       - name: time
@@ -95,17 +95,24 @@ entities:
         nullable: false
       - name: journeyId
         type: integer
-      - name: latitude
-        type: decimal
         nullable: false
-      - name: longitude
-        type: decimal
-        nullable: false
-      - name: altitude
-        type: decimal
       - name: time
         type: datetime
         nullable: false
+      - name: latitude
+        type: decimal
+      - name: longitude
+        type: decimal
+      - name: altitude
+        type: decimal
+      - name: cpu
+        type: decimal
+      - name: cpuTemperature
+        type: decimal
+      - name: batery
+        type: decimal
+      - name: wifiSignal
+        type: decimal
     relations:
       - name: device
         from: deviceId
@@ -129,28 +136,28 @@ entities:
       - name: deviceId
         length: 32
         nullable: false
-      - name: startPositionId
+      - name: startId
         type: integer
-      - name: endPositionId
+      - name: endId
         type: integer
     relations:
       - name: device
         from: deviceId
         entity: Devices
         to: id
-      - name: startPosition
-        from: startPositionId
-        entity: Positions
+      - name: start
+        from: startId
+        entity: DeviceStatuses
         to: id
-      - name: endPosition
-        from: endPositionId
-        entity: Positions
+      - name: end
+        from: endId
+        entity: DeviceStatuses
         to: id
-      - name: positions
+      - name: statuses
         type: manyToOne
         composite: true
         from: id
-        entity: Positions
+        entity: DeviceStatuses
         to: journeyId
   - name: Files
     #  use MinIO for save files, field file is path
@@ -168,13 +175,15 @@ entities:
         length: 32
         nullable: false
       - name: componentId
+        nullable: false
         length: 32
       - name: journeyId
         type: integer
-      - name: startPositionId
-        type: integer
-      - name: endPositionId
-        type: integer
+        nullable: false
+      - name: start
+        type: datetime
+      - name: endId
+        type: datetime
     relations:
       - name: device
         from: deviceId
@@ -187,14 +196,6 @@ entities:
       - name: component
         from: componentId
         entity: Components
-        to: id
-      - name: startPosition
-        from: startPositionId
-        entity: Positions
-        to: id
-      - name: endPosition
-        from: endPositionId
-        entity: Positions
         to: id
 mappings:
   - name: default

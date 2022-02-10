@@ -8,7 +8,7 @@ import path from 'path'
 		const schema = await orm.schema.get(workspace)
 		await orm.init(schema)
 		await orm.stage.sync(orm.defaultStage.name).execute()
-		await orm.stage.clean(orm.defaultStage.name).execute()
+		// await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error) {
 		console.error(`error: ${error}`)
 	} finally {
