@@ -60,9 +60,9 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	}
 
 	/**
-	 * Ordena una lista de entidades de acuerdo a sus dependencias
-	 * @param entities entidades a ordenar
-	 * @returns retorna las entidades ordenadas
+	 * Sort a list of entities according to their relationships
+	 * @param entities entities to order
+	 * @returns returns the sorted entities
 	 */
 	public sortByRelations (entities:string[] = []): string[] {
 		if (entities.length < 2) return entities
@@ -82,6 +82,11 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return sorted
 	}
 
+	/**
+	 * Sort a list of entities according to their dependencies
+	 * @param entities entities to order
+	 * @returns returns the sorted entities
+	 */
 	public sortByDependencies (entities:string[] = []): string[] {
 		if (entities.length < 2) return entities
 		const sorted: string[] = []
@@ -101,7 +106,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	}
 
 	/**
-	 * determina si una entidad puede ser incluida en la lista de entidades segun sus relaciones
+	 * Determines whether an entity can be included in the entity list based on its relationships
 	 * @param entityName name of entity
 	 * @param sorted current list of entities sorted by dependencies
 	 * @param parent entity parent , used in manyToOne relations
@@ -137,7 +142,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	}
 
 	/**
-	 * determina si una entidad puede ser incluida en la lista de entidades segun sus dependencias
+	 * Determines whether an entity can be included in the entity list based on its dependencies
 	 * @param entityName name of entity
 	 * @param sorted current list of entities sorted by dependencies
 	 * @param parent entity parent , used in manyToOne relations
@@ -156,7 +161,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 				const dependent = entity.dependents[i]
 				if (dependent.entity !== entityName) {
 					if (dependent.relation.type === 'oneToOne' || dependent.relation.type === 'oneToMany') {
-						// busca la propiedad relacionada para saber si es nullable la dependencia
+						// look for the related property to see if the dependency is nullable
 						const dependentEntity = this.getEntity(dependent.entity)
 						if (dependentEntity === undefined) {
 							throw new Error('Not exists entity:' + dependent.entity)
@@ -166,10 +171,10 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 							throw new Error(`property ${dependent.relation.from} not found in ${entity.name} `)
 						}
 						const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
-						// si la relacion es nullable
-						// y la entidad relacionada no esta incluida en las entidades ordenadas por dependencia
-						// y la entidad padre es nula o es la mimsa de la relacion
-						// en este caso no se puede determinar que esta entidad pueda incluirse aun en la lista de entidades ordenadas por dependencia.
+						// if the relation is nullable
+						// and the related entity is not included in the entities sorted by dependency
+						// and the parent entity is null or is the same as the relation
+						// in this case it cannot be determined that this entity can still be included in the list of entities ordered by dependency.
 						if (!isNullable && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
 							hadDependents = true
 							break
