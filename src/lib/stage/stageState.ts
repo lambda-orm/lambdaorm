@@ -28,7 +28,7 @@ export class StageState {
 		await Helper.writeFile(stateFile, JSON.stringify(state))
 	}
 
-	public async log (stage: string, action: string, queries: Query[]): Promise<void> {
+	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
 		const dataSources: any[] = []
 		for (const i in queries) {
 			const query = queries[i]
@@ -41,7 +41,7 @@ export class StageState {
 		}
 		for (const i in dataSources) {
 			const dataSource = dataSources[i]
-			const logFile = this.logFile(stage, action, dataSource.name)
+			const logFile = this.ddlFile(stage, action, dataSource.name)
 			const data = dataSource.queries.map((p: Query) => p.sentence).join(';\n') + ';'
 			await Helper.writeFile(logFile, data)
 		}
@@ -64,11 +64,11 @@ export class StageState {
 		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-state.json`)
 	}
 
-	private logFile (stage: string, action:string, dataSource:string) {
+	private ddlFile (stage: string, action:string, dataSource:string) {
 		let date = new Date().toISOString()
 		date = Helper.replace(date, ':', '')
 		date = Helper.replace(date, '.', '')
 		date = Helper.replace(date, '-', '')
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-log-${date}-${action}-${dataSource}.txt`)
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${dataSource}.txt`)
 	}
 }

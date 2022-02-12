@@ -14,7 +14,7 @@ export class StageClean extends StageActionDDL {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(this.stage, queries, tryAllCan)
 		await this.state.remove(this.stage)
-		await this.state.log(this.stage, 'clean', queries)
+		await this.state.ddl(this.stage, 'clean', queries)
 		return result
 	}
 }

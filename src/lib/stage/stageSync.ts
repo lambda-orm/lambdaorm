@@ -12,7 +12,7 @@ export class StageSync extends StageActionDDL {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(this.stage, queries, tryAllCan)
 		await this.state.updateModel(this.stage, this.schema.mapping.mappings)
-		await this.state.log(this.stage, 'sync', queries)
+		await this.state.ddl(this.stage, 'sync', queries)
 		return result
 	}
 }

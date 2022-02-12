@@ -30,25 +30,25 @@ entities:
       - name: ip
         length: 24
     relations:
-      - name: files
-        type: manyToOne
-        from: id
-        entity: Files
-        to: deviceId
       - name: components
         type: manyToOne
         from: id
         entity: Components
         to: deviceId
+        composite: true
       - name: journeys
         type: manyToOne
         from: id
         entity: Journeys
         to: deviceId
+      - name: files
+        type: manyToOne
+        from: id
+        entity: Files
+        to: deviceId
   #  son los componentes que componen un dispositivo, ejemplo: camara 1 , camara 2, microfono,gps , etc.
   - name: Components
     primaryKey: ["id"]
-    uniqueKey: ["deviceId", "name"]
     properties:
       # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
       - name: id
@@ -177,9 +177,6 @@ entities:
       - name: componentId
         nullable: false
         length: 32
-      - name: journeyId
-        type: integer
-        nullable: false
       - name: start
         type: datetime
       - name: endId
@@ -188,10 +185,6 @@ entities:
       - name: device
         from: deviceId
         entity: Devices
-        to: id
-      - name: journey
-        from: journeyId
-        entity: Journeys
         to: id
       - name: component
         from: componentId
