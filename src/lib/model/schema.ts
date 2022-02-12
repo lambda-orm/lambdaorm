@@ -22,6 +22,10 @@ export interface Relation {
 	entity: string
 	to: string
 }
+export interface Dependent {
+	entity: string,
+	relation: Relation
+}
 export interface Index {
 	name: string
 	fields: string[]
@@ -35,7 +39,8 @@ export interface Entity {
 	indexes: Index[]
 	primaryKey:string[]
 	properties:Property[]
-	relations:Relation[]
+	relations: Relation[]
+	dependents: Dependent[]
 }
 export interface RelationInfo {
 	previousRelation:string
