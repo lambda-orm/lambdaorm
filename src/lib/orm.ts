@@ -58,7 +58,7 @@ export class Orm implements IOrm {
 
 		this.routing = new Routing(this.schemaManager, this.expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languageManager, this.expressions, this.routing)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager, this.expressions)
 		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languageManager, this.executor)
 	}
 

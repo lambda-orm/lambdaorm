@@ -70,16 +70,15 @@ entities:
         length: 32
         nullable: false
     relations:
-      relations:
-        - name: device
-          from: deviceId
-          entity: Devices
-          to: id
-        - name: files
-          type: manyToOne
-          from: id
-          entity: Files
-          to: componentId
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+      - name: files
+        type: manyToOne
+        from: id
+        entity: Files
+        to: componentId
   - name: DeviceStatuses
     primaryKey: ["id"]
     indexes:
@@ -95,7 +94,6 @@ entities:
         nullable: false
       - name: journeyId
         type: integer
-        nullable: false
       - name: time
         type: datetime
         nullable: false
@@ -190,6 +188,48 @@ entities:
         from: componentId
         entity: Components
         to: id
+  - name: Groups
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        length: 32
+        default: lower(substring(replace(name," ","-"),0,32))
+        nullable: false
+      - name: name
+        length: 32
+        nullable: false
+    relations:
+      - name: members
+        type: manyToOne
+        from: id
+        entity: GroupDevices
+        to: deviceId
+        composite: true
+  - name: GroupDevices
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "deviceId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+    relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+
 mappings:
   - name: default
 dataSources:

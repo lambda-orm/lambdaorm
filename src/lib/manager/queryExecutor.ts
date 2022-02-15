@@ -4,7 +4,8 @@ import { Connection, ConnectionManager } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { LanguageManager } from '../language'
 import { MappingConfig } from './schema'
-import { SchemaManager } from '.'
+import { SchemaManager, Helper } from '.'
+import { Expressions } from 'js-expressions'
 
 export class QueryExecutor {
 	public stage: string
@@ -13,13 +14,15 @@ export class QueryExecutor {
 	private connections: any
 	private transactionable: boolean
 	private schemaManager: SchemaManager
+	private expressions: Expressions
 
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, schemaManager:SchemaManager, stage: string, transactionable = false) {
+	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, schemaManager:SchemaManager, expressions: Expressions, stage: string, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languageManager = languageManager
 		this.stage = stage
 		this.schemaManager = schemaManager
 		this.transactionable = transactionable
+		this.expressions = expressions
 		this.connections = {}
 	}
 
@@ -62,7 +65,7 @@ export class QueryExecutor {
 		return await this._execute(query, _data)
 	}
 
-	protected async _execute (query:Query, data:Data):Promise<any> {
+	private async _execute (query:Query, data:Data):Promise<any> {
 		let result: any
 		try {
 			const dataSource = this.schemaManager.dataSource.get(query.dataSource)
@@ -99,9 +102,14 @@ export class QueryExecutor {
 		return result
 	}
 
-	protected async select (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+	private async select (query: Query, data: Data, mapping: MappingConfig, metadata: DialectMetadata, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, query, this.params(query.parameters, metadata, data))
+
 		if (mainResult.length > 0) {
+			for (let i = 0; i < mainResult.length; i++) {
+				const row = mainResult[i]
+				this.untransform(mapping, query.entity, row)
+			}
 			for (const p in query.children) {
 				const include = query.children[p]
 				const ids:any[] = []
@@ -138,7 +146,7 @@ export class QueryExecutor {
 		return mainResult
 	}
 
-	protected async insert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number> {
+	private async insert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		for (const p in query.children) {
@@ -152,6 +160,11 @@ export class QueryExecutor {
 				}
 			}
 		}
+		// solve default properties
+		this.solveDefault(mapping, query.entity, data.data)
+		// transform
+		this.transform(mapping, query.entity, data.data)
+
 		// insert main entity
 		const insertId = await connection.insert(mapping, query, this.params(query.parameters, metadata, data))
 		if (autoincrement) {
@@ -177,7 +190,7 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	protected async bulkInsert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number[]> {
+	private async bulkInsert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number[]> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		for (const p in query.children) {
@@ -197,8 +210,17 @@ export class QueryExecutor {
 				}
 			}
 		}
+		// solve default value and transform
+		const rows = this.rows(query, metadata, data.data)
+		for (const i in rows) {
+			const row = rows[i]
+			// solve default properties
+			this.solveDefault(mapping, query.entity, row)
+			// transform
+			this.transform(mapping, query.entity, row)
+		}
 		// insert main entity
-		const ids = await connection.bulkInsert(mapping, query, this.rows(query, metadata, data.data), query.parameters)
+		const ids = await connection.bulkInsert(mapping, query, rows, query.parameters)
 		if (autoincrement) {
 			for (let i = 0; i < data.data.length; i++) {
 				data.data[i][autoincrement.name] = ids[i]
@@ -229,7 +251,10 @@ export class QueryExecutor {
 		return ids
 	}
 
-	protected async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+		// transform
+		this.transform(mapping, query.entity, data)
+		// update
 		const changeCount = await connection.update(mapping, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
 			const include = query.children[p]
@@ -250,7 +275,7 @@ export class QueryExecutor {
 		return changeCount
 	}
 
-	protected async delete (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+	private async delete (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
 	// before remove relations entities
 		for (const p in query.children) {
 			const include = query.children[p]
@@ -273,7 +298,7 @@ export class QueryExecutor {
 		return changeCount
 	}
 
-	protected params (parameters:Parameter[], metadata:DialectMetadata, data:Data):Parameter[] {
+	private params (parameters:Parameter[], metadata:DialectMetadata, data:Data):Parameter[] {
 		for (const p in parameters) {
 			const parameter = parameters[p]
 			let value = data.get(parameter.name)
@@ -296,7 +321,7 @@ export class QueryExecutor {
 		return parameters
 	}
 
-	protected rows (query:Query, metadata:DialectMetadata, array:any[]) {
+	private rows (query:Query, metadata:DialectMetadata, array:any[]) {
 		const rows:any[] = []
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
@@ -322,5 +347,74 @@ export class QueryExecutor {
 			rows.push(row)
 		}
 		return rows
+	}
+
+	/**
+	 * solve default properties
+	 * @param mapping
+	 * @param entityName
+	 * @param data
+	 */
+	private solveDefault (mapping:MappingConfig, entityName:string, data:any):void {
+		const entity = mapping.getEntity(entityName)
+		if (entity && entity.properties) {
+			for (const i in entity.properties) {
+				const property = entity.properties[i]
+				if (property.default) {
+					const value = data[property.name]
+					if (value === undefined) {
+						data[property.name] = this.expressions.eval(property.default, data)
+					}
+				}
+			}
+		}
+	}
+
+	private transform (mapping:MappingConfig, entityName:string, data:any):void {
+		const entity = mapping.getEntity(entityName)
+		if (entity && entity.properties && data) {
+			for (const i in entity.properties) {
+				const property = entity.properties[i]
+				if (property.base64 || property.encrypt || property.serialize) {
+					let value = data[property.name]
+					if (value) {
+						if (property.serialize) {
+							value = JSON.stringify(value)
+						}
+						if (property.base64) {
+							value = Helper.textTobase64(value)
+						}
+						if (property.encrypt) {
+							value = Helper.encrypt(value, property.encrypt)
+						}
+						data[property.name] = value
+					}
+				}
+			}
+		}
+	}
+
+	private untransform (mapping:MappingConfig, entityName:string, result:any):void {
+		const entity = mapping.getEntity(entityName)
+		if (entity && entity.properties && result) {
+			for (const i in entity.properties) {
+				const property = entity.properties[i]
+				if (property.base64 || property.encrypt || property.serialize) {
+					let value = result[property.name]
+					if (value) {
+						if (property.encrypt) {
+							value = Helper.decrypt(value, property.encrypt)
+						}
+						if (property.base64) {
+							value = Helper.base64ToText(value)
+						}
+						if (property.serialize) {
+							value = JSON.parse(value)
+						}
+						result[property.name] = value
+					}
+				}
+			}
+		}
 	}
 }

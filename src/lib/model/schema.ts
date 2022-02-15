@@ -13,6 +13,10 @@ export interface Property {
 	nullable?: boolean
 	primaryKey?: boolean
 	autoincrement?: boolean
+	default?: string
+	encrypt?: string
+	base64?: boolean
+	serialize?:boolean
 }
 export interface Relation {
 	name: string

@@ -25,8 +25,9 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
+		"crypto-js": "^4.1.1",
+		"js-expressions": "0.0.8",
 		"js-yaml": "^4.1.0",
-		"js-expressions": "0.0.7",
 		"luxon": "^2.0.2",
 		"sqlstring": "^2.3.2"
 	},
@@ -56,7 +57,7 @@
 		"mongodb": "^4.1.3",
 		"mysql2": "^2.2.5",
 		"pg": "^8.7.1",
-		"tedious": "^14.2.0",
+		"tedious": "^14.3.0",
 		"sql.js": "^1.6.2",
 		"ts-jest": "^27.0.5",
 		"ts-node": "^10.0.0",
