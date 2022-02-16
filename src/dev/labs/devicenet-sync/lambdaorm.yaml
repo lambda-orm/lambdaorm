@@ -8,6 +8,9 @@ entities:
         nullable: false
       - name: name
         nullable: false
+      - name: password
+        nullable: false
+        encrypt: $DEVICES_SECRET_KEY
       - name: type
         length: 32
         nullable: false
@@ -70,16 +73,15 @@ entities:
         length: 32
         nullable: false
     relations:
-      relations:
-        - name: device
-          from: deviceId
-          entity: Devices
-          to: id
-        - name: files
-          type: manyToOne
-          from: id
-          entity: Files
-          to: componentId
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+      - name: files
+        type: manyToOne
+        from: id
+        entity: Files
+        to: componentId
   - name: DeviceStatuses
     primaryKey: ["id"]
     indexes:
@@ -95,7 +97,6 @@ entities:
         nullable: false
       - name: journeyId
         type: integer
-        nullable: false
       - name: time
         type: datetime
         nullable: false
@@ -189,6 +190,100 @@ entities:
       - name: component
         from: componentId
         entity: Components
+        to: id
+  - name: Users
+    primaryKey: ["id"]
+    uniqueKey: ["email"]
+    properties:
+      # id is username
+      - name: id
+        nullable: false
+      - name: firstname
+        nullable: false
+      - name: lastname
+        nullable: false
+      - name: email
+        nullable: false
+        length: 512
+        encrypt: $USERS_SECRET_KEY
+    relations:
+      - name: members
+        type: manyToOne
+        from: id
+        entity: GroupUsers
+        to: userId
+  - name: Groups
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        length: 32
+        default: lower(substring(replace(name," ","-"),0,32))
+        nullable: false
+      - name: name
+        length: 32
+        nullable: false
+    relations:
+      - name: members
+        type: manyToOne
+        from: id
+        entity: GroupUsers
+        to: groupId
+        composite: true
+      - name: devices
+        type: manyToOne
+        from: id
+        entity: GroupDevices
+        to: groupId
+        composite: true
+  - name: GroupUsers
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "userId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: userId
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+      # roles [owner|admin|guest]
+      - name: rol
+        length: 32
+        nullable: false
+    relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
+      - name: user
+        from: userId
+        entity: Users
+        to: id
+  - name: GroupDevices
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "deviceId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+    relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
+      - name: device
+        from: deviceId
+        entity: Devices
         to: id
 mappings:
   - name: default

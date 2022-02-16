@@ -2,8 +2,10 @@ import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { Delta } from '../index'
+
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
+const CryptoJS = require('crypto-js')
 
 export class Helper {
 	public static replace (string:string, search:string, replace:string) {
@@ -26,6 +28,23 @@ export class Helper {
 			}
 		}
 		return new obj.constructor(obj.name, children)
+	}
+
+	public static encrypt (value:string, key:string):string {
+		return CryptoJS.AES.encrypt(value, key).toString()
+	}
+
+	public static decrypt (value:string, key:string):string {
+		const bytes = CryptoJS.AES.decrypt(value, key)
+		return bytes.toString(CryptoJS.enc.Utf8)
+	}
+
+	public static textTobase64 (value:string):string {
+		return CryptoJS.enc.Base64.parse(value)
+	}
+
+	public static base64ToText (value:string):string {
+		return CryptoJS.enc.Base64.stringify(value)
 	}
 
 	public static isObject (obj:any):boolean {
