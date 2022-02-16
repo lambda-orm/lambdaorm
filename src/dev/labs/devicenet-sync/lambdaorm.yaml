@@ -8,6 +8,9 @@ entities:
         nullable: false
       - name: name
         nullable: false
+      - name: password
+        nullable: false
+        encrypt: $DEVICES_SECRET_KEY
       - name: type
         length: 32
         nullable: false
@@ -188,6 +191,27 @@ entities:
         from: componentId
         entity: Components
         to: id
+  - name: Users
+    primaryKey: ["id"]
+    uniqueKey: ["email"]
+    properties:
+      # id is username
+      - name: id
+        nullable: false
+      - name: firstname
+        nullable: false
+      - name: lastname
+        nullable: false
+      - name: email
+        nullable: false
+        length: 512
+        encrypt: $USERS_SECRET_KEY
+    relations:
+      - name: members
+        type: manyToOne
+        from: id
+        entity: GroupUsers
+        to: userId
   - name: Groups
     primaryKey: ["id"]
     uniqueKey: ["name"]
@@ -203,9 +227,41 @@ entities:
       - name: members
         type: manyToOne
         from: id
-        entity: GroupDevices
-        to: deviceId
+        entity: GroupUsers
+        to: groupId
         composite: true
+      - name: devices
+        type: manyToOne
+        from: id
+        entity: GroupDevices
+        to: groupId
+        composite: true
+  - name: GroupUsers
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "userId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: userId
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+      # roles [owner|admin|guest]
+      - name: rol
+        length: 32
+        nullable: false
+    relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
+      - name: user
+        from: userId
+        entity: Users
+        to: id
   - name: GroupDevices
     primaryKey: ["id"]
     uniqueKey: ["groupId", "deviceId"]
@@ -229,7 +285,6 @@ entities:
         from: deviceId
         entity: Devices
         to: id
-
 mappings:
   - name: default
 dataSources:

@@ -211,14 +211,23 @@ export class QueryExecutor {
 			}
 		}
 		// solve default value and transform
-		const rows = this.rows(query, metadata, data.data)
-		for (const i in rows) {
-			const row = rows[i]
+		const array:any[] = data.data
+		for (let i = 0; i < array.length; i++) {
+			const item = array[i]
 			// solve default properties
-			this.solveDefault(mapping, query.entity, row)
+			this.solveDefault(mapping, query.entity, item)
 			// transform
-			this.transform(mapping, query.entity, row)
+			this.transform(mapping, query.entity, item)
 		}
+		// get rows
+		const rows = this.rows(query, metadata, array)
+		// for (const i in rows) {
+		// const row = rows[i]
+		// // solve default properties
+		// this.solveDefault(mapping, query.entity, row)
+		// // transform
+		// this.transform(mapping, query.entity, row)
+		// }
 		// insert main entity
 		const ids = await connection.bulkInsert(mapping, query, rows, query.parameters)
 		if (autoincrement) {
