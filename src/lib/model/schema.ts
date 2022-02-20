@@ -6,6 +6,10 @@ export interface Enum {
 	name: string
 	values: EnumValue[]
 }
+export interface Constraint {
+	message: string
+	condition: string
+}
 export interface Property {
 	name: string
 	type: string
@@ -14,9 +18,12 @@ export interface Property {
 	primaryKey?: boolean
 	autoincrement?: boolean
 	default?: string
+	value?: string
 	encrypt?: string
 	base64?: boolean
-	serialize?:boolean
+	serialize?: boolean
+	readonly?: boolean
+	constraints?: Constraint[]
 }
 export interface Relation {
 	name: string

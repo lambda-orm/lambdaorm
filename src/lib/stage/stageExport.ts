@@ -16,7 +16,7 @@ export class StageExport extends StageActionDML {
 		return schemaExport
 	}
 
-	protected async createQuery (entity:Entity):Promise<Query> {
+	protected createQuery (entity:Entity):Query {
 		let expression = `${entity.name}.map(p=>{`
 		let first = true
 		for (const i in entity.properties) {
@@ -25,6 +25,6 @@ export class StageExport extends StageActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(entity)
-		return await this.expressionManager.toQuery(expression, this.stage)
+		return this.expressionManager.toQuery(expression, this.stage)
 	}
 }

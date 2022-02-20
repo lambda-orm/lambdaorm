@@ -144,9 +144,9 @@ export class Orm implements IOrm {
 	 * Get model of expression
 	 * @returns Model of expression
 	 */
-	public async model(expression:Function): Promise<any>
-	public async model(expression:string): Promise<any>
-	public async model (expression: string|Function): Promise<any> {
+	public model(expression:Function): any
+	public model(expression:string): any
+	public model (expression: string|Function): any {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -157,9 +157,9 @@ export class Orm implements IOrm {
 	 * Get parameters of expression
 	 * @returns Parameters of expression
 	 */
-	public async parameters(expression:Function): Promise<any>;
-	public async parameters(expression:string): Promise<any>;
-	public async parameters (expression: string|Function): Promise<any> {
+	public parameters(expression:Function): any;
+	public parameters(expression:string): any;
+	public parameters (expression: string|Function): any {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -170,9 +170,9 @@ export class Orm implements IOrm {
 	 * Get metadata of expression
 	 * @returns metadata of expression
 	 */
-	public async metadata(expression: Function): Promise<any>
-	public async metadata (expression:string):Promise<any>
-	public async metadata (expression: string|Function): Promise<any> {
+	public metadata(expression: Function): any
+	public metadata (expression:string):any
+	public metadata (expression: string|Function): any {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -180,23 +180,13 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Evaluate and solve expression
-	 * @param expression  string expression
-	 * @param data Data with variables
-	 * @returns Result of the evaluale expression
-	*/
-	public async eval (expression: string, data: any): Promise<any> {
-		return await this.expressionManager.eval(expression, data)
-	}
-
-	/**
 	 * Get sentence of expression
 	 * @param expression
 	 * @param dataSource
 	 */
-	public async sentence(expression: Function, stage?: string): Promise<string>;
-	public async sentence(expression: string, stage?: string): Promise<string>;
-	public async sentence (expression: string|Function, stage: string|undefined): Promise<string> {
+	public sentence(expression: Function, stage?: string): string;
+	public sentence(expression: string, stage?: string): string;
+	public sentence (expression: string|Function, stage: string|undefined): string {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}

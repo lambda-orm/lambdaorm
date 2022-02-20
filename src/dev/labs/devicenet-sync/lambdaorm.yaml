@@ -1,27 +1,83 @@
+enums:
+  - name: DeviceType
+    values:
+      - name: phone
+        value: phone
+      - name: computer
+        value: computer
+      - name: robot
+        value: robot
+  - name: ComponentType
+    values:
+      - name: camera
+        value: camera
+      - name: microphone
+        value: microphone
+      - name: speaker
+        value: speaker
+      - name: gps
+        value: gps
+  - name: FileType
+    values:
+      - name: video
+        value: video
+      - name: audio
+        value: audio
+  - name: Role
+    values:
+      - name: owner
+        value: owner
+      - name: admin
+        value: admin
+      - name: guest
+        value: guest
 entities:
+  - name: Basics
+    abstract: true
+    properties:
+      - name: created
+        type: datetime
+        default: now()
+  - name: Positions
+    abstract: true
+    properties:
+      - name: latitude
+        type: decimal
+      - name: longitude
+        type: decimal
+      - name: altitude
+        type: decimal
+  - name: Products
+    extends: Basics
+    abstract: true
+    properties:
+      - name: brand
+        length: 32
+      - name: model
+        length: 32
+      - name: serialNumber
+        length: 32
   - name: Devices
+    extends: Products
     primaryKey: ["id"]
     uniqueKey: ["name"]
     properties:
+      # tipo + identificador (el identificador es de acuerdo al tipo , en un telefono es el imei, en una pc la mac)
       - name: id
         length: 32
         nullable: false
-      - name: name
-        nullable: false
-      - name: password
-        nullable: false
-        encrypt: $DEVICES_SECRET_KEY
       - name: type
+        length: 16
+        nullable: false
+      - name: name
         length: 32
         nullable: false
-      - name: brand
+      - name: groupId
         length: 32
-        nullable: false
-      - name: model
-        length: 32
-        nullable: false
+      - name: password
+        encrypt: $DEVICES_SECRET_KEY
       - name: so
-        nullable: false
+        length: 32
       - name: imei
         length: 16
       - name: imei2
@@ -33,6 +89,10 @@ entities:
       - name: ip
         length: 24
     relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
       - name: components
         type: manyToOne
         from: id
@@ -49,28 +109,24 @@ entities:
         from: id
         entity: Files
         to: deviceId
-  #  son los componentes que componen un dispositivo, ejemplo: camara 1 , camara 2, microfono,gps , etc.
   - name: Components
+    extends: Products
     primaryKey: ["id"]
+    uniqueKey: ["deviceId", "name"]
     properties:
       # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
       - name: id
-        length: 64
+        length: 50
         nullable: false
-      - name: name
-        length: 32
-        nullable: false
-      - name: type
-        length: 32
-        nullable: false
-      - name: brand
-        length: 32
-        nullable: false
-      - name: model
-        length: 32
-        nullable: false
+        default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
       - name: deviceId
         length: 32
+        nullable: false
+      - name: name
+        length: 16
+        nullable: false
+      - name: type
+        length: 16
         nullable: false
     relations:
       - name: device
@@ -83,6 +139,7 @@ entities:
         entity: Files
         to: componentId
   - name: DeviceStatuses
+    extends: Positions
     primaryKey: ["id"]
     indexes:
       - name: time
@@ -97,15 +154,6 @@ entities:
         nullable: false
       - name: journeyId
         type: integer
-      - name: time
-        type: datetime
-        nullable: false
-      - name: latitude
-        type: decimal
-      - name: longitude
-        type: decimal
-      - name: altitude
-        type: decimal
       - name: cpu
         type: decimal
       - name: cpuTemperature
@@ -114,6 +162,12 @@ entities:
         type: decimal
       - name: wifiSignal
         type: decimal
+      - name: time
+        type: datetime
+        nullable: false
+      - name: registred
+        type: datetime
+        default: now()
     relations:
       - name: device
         from: deviceId
@@ -125,6 +179,7 @@ entities:
         to: id
   # representa un trayecto, ejemplo de casa al colegio
   - name: Journeys
+    extends: Basics
     primaryKey: ["id"]
     indexes:
       - name: deviceId
@@ -162,6 +217,7 @@ entities:
         to: journeyId
   - name: Files
     #  use MinIO for save files, field file is path
+    extends: Basics
     primaryKey: ["id"]
     properties:
       #  el id es el fullpath del file, ejemplo: /deviceId/componentId/202202100922.mp3
@@ -176,12 +232,13 @@ entities:
         length: 32
         nullable: false
       - name: componentId
+        length: 50
+      - name: startDate
+        type: datetime
         nullable: false
-        length: 32
-      - name: start
+      - name: endDate
         type: datetime
-      - name: endId
-        type: datetime
+        nullable: false
     relations:
       - name: device
         from: deviceId
@@ -191,28 +248,40 @@ entities:
         from: componentId
         entity: Components
         to: id
+    constraints:
+      - message: start cannot be less than end
+        condition: start<=end
   - name: Users
-    primaryKey: ["id"]
+    extends: Basics
+    primaryKey: ["username"]
     uniqueKey: ["email"]
     properties:
-      # id is username
-      - name: id
+      - name: username
+        length: 32
         nullable: false
       - name: firstname
         nullable: false
       - name: lastname
         nullable: false
+      - name: fullname
+        value: concat(firstname," ",lastname)
+        readonly: true
       - name: email
         nullable: false
         length: 512
+        value: lower(email)
         encrypt: $USERS_SECRET_KEY
+        constraints:
+          - message: invalid email
+            condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
     relations:
       - name: members
         type: manyToOne
-        from: id
+        from: username
         entity: GroupUsers
-        to: userId
+        to: username
   - name: Groups
+    extends: Basics
     primaryKey: ["id"]
     uniqueKey: ["name"]
     properties:
@@ -233,23 +302,23 @@ entities:
       - name: devices
         type: manyToOne
         from: id
-        entity: GroupDevices
+        entity: Devices
         to: groupId
         composite: true
   - name: GroupUsers
     primaryKey: ["id"]
-    uniqueKey: ["groupId", "userId"]
+    uniqueKey: ["groupId", "username"]
     properties:
       - name: id
         type: integer
         nullable: false
         autoincrement: true
-      - name: userId
+      - name: username
+        length: 32
         nullable: false
       - name: groupId
         length: 32
         nullable: false
-      # roles [owner|admin|guest]
       - name: rol
         length: 32
         nullable: false
@@ -259,40 +328,17 @@ entities:
         entity: Groups
         to: id
       - name: user
-        from: userId
+        from: username
         entity: Users
-        to: id
-  - name: GroupDevices
-    primaryKey: ["id"]
-    uniqueKey: ["groupId", "deviceId"]
-    properties:
-      - name: id
-        type: integer
-        nullable: false
-        autoincrement: true
-      - name: deviceId
-        length: 32
-        nullable: false
-      - name: groupId
-        length: 32
-        nullable: false
-    relations:
-      - name: group
-        from: groupId
-        entity: Groups
-        to: id
-      - name: device
-        from: deviceId
-        entity: Devices
-        to: id
+        to: username
 mappings:
   - name: default
 dataSources:
-  - name: postgres
+  - name: main
     mapping: default
     dialect: postgres
     connection: $CNN_POSTGRES
 stages:
   - name: default
     dataSources:
-      - name: postgres
+      - name: main

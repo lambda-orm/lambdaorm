@@ -27,19 +27,19 @@ export abstract class StageActionDML {
 		return sentences
 	}
 
-	protected async build (): Promise<Query[]> {
+	protected build (): Query[] {
 		const queries:Query[] = []
 		for (const i in this.model.entities) {
 			const entity = this.model.entities[i]
 			if (!this.model.isChild(entity.name)) {
-				const query = await this.createQuery(entity)
+				const query = this.createQuery(entity)
 				queries.push(query)
 			}
 		}
 		return queries
 	}
 
-	protected abstract createQuery(entity:Entity):Promise<Query>
+	protected abstract createQuery(entity:Entity):Query
 
 	protected createInclude (entity:Entity, level = 0):string {
 		const arrowVariable = this.arrowVariables[level]

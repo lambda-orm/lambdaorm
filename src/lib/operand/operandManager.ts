@@ -684,14 +684,17 @@ export class OperandManager {
 
 	private loadParameters (operand:Operand, parameters:Parameter[]) {
 		if (operand instanceof Variable) {
-			let type:string
-			if (operand.type === '')type = 'any'
-			else if (operand.type === 'T[]')type = 'array'
-			else type = operand.type
-
-			parameters.push({ name: operand.name, type: type })
+			if (parameters.find(p => p.name === operand.name) === undefined) {
+				let type:string
+				if (operand.type === '')type = 'any'
+				else if (operand.type === 'T[]')type = 'array'
+				else type = operand.type
+				parameters.push({ name: operand.name, type: type })
+			}
 		}
-		for (let i = 0; i < operand.children.length; i++) { this.loadParameters(operand.children[i], parameters) }
+		for (let i = 0; i < operand.children.length; i++) {
+			this.loadParameters(operand.children[i], parameters)
+		}
 	}
 
 	// TODO: determinar el tipo de la variable de acuerdo a la expression.

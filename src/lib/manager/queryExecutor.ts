@@ -108,7 +108,8 @@ export class QueryExecutor {
 		if (mainResult.length > 0) {
 			for (let i = 0; i < mainResult.length; i++) {
 				const row = mainResult[i]
-				this.untransform(mapping, query.entity, row)
+				this.untransform(query, mapping, row)
+				this.solveReadValue(query, mapping, row)
 			}
 			for (const p in query.children) {
 				const include = query.children[p]
@@ -161,9 +162,13 @@ export class QueryExecutor {
 			}
 		}
 		// solve default properties
-		this.solveDefault(mapping, query.entity, data.data)
+		this.solveDefaultValue(query, mapping, data.data)
+		// solve default properties
+		this.solveWriteValue(query, mapping, data.data)
+		// evaluate constraints
+		this.constraints(query, mapping, data.data)
 		// transform
-		this.transform(mapping, query.entity, data.data)
+		this.transform(query, mapping, data.data)
 
 		// insert main entity
 		const insertId = await connection.insert(mapping, query, this.params(query.parameters, metadata, data))
@@ -215,20 +220,16 @@ export class QueryExecutor {
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
 			// solve default properties
-			this.solveDefault(mapping, query.entity, item)
+			this.solveDefaultValue(query, mapping, item)
+			// solve write properties
+			this.solveWriteValue(query, mapping, item)
+			// evaluate constraints
+			this.constraints(query, mapping, item)
 			// transform
-			this.transform(mapping, query.entity, item)
+			this.transform(query, mapping, item)
 		}
 		// get rows
 		const rows = this.rows(query, metadata, array)
-		// for (const i in rows) {
-		// const row = rows[i]
-		// // solve default properties
-		// this.solveDefault(mapping, query.entity, row)
-		// // transform
-		// this.transform(mapping, query.entity, row)
-		// }
-		// insert main entity
 		const ids = await connection.bulkInsert(mapping, query, rows, query.parameters)
 		if (autoincrement) {
 			for (let i = 0; i < data.data.length; i++) {
@@ -261,8 +262,12 @@ export class QueryExecutor {
 	}
 
 	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+		// solve default properties
+		this.solveWriteValue(query, mapping, data)
+		// evaluate constraints
+		this.constraints(query, mapping, data)
 		// transform
-		this.transform(mapping, query.entity, data)
+		this.transform(query, mapping, data)
 		// update
 		const changeCount = await connection.update(mapping, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
@@ -364,8 +369,8 @@ export class QueryExecutor {
 	 * @param entityName
 	 * @param data
 	 */
-	private solveDefault (mapping:MappingConfig, entityName:string, data:any):void {
-		const entity = mapping.getEntity(entityName)
+	private solveDefaultValue (query:Query, mapping:MappingConfig, data:any):void {
+		const entity = mapping.getEntity(query.entity)
 		if (entity && entity.properties) {
 			for (const i in entity.properties) {
 				const property = entity.properties[i]
@@ -379,8 +384,71 @@ export class QueryExecutor {
 		}
 	}
 
-	private transform (mapping:MappingConfig, entityName:string, data:any):void {
-		const entity = mapping.getEntity(entityName)
+	private solveWriteValue (query: Query, mapping: MappingConfig, data: any): void {
+		const entity = mapping.getEntity(query.entity)
+		if (entity && entity.properties) {
+			for (let j = 0; j < query.parameters.length; j++) {
+				const parameter = query.parameters[j]
+				const property = entity.properties.find(p => p.name === parameter.name)
+				if (property && property.value) {
+					data[property.name] = this.expressions.eval(property.value, data)
+				}
+			}
+		}
+		// const entity = mapping.getEntity(query.entity)
+		// if (entity && entity.properties) {
+		// for (const i in entity.properties) {
+		// const property = entity.properties[i]
+		// if (property.readonly) {
+		// delete data[property.name]
+		// } else {
+		// if (property.default) {
+		// const value = data[property.name]
+		// if (value === undefined) {
+		// data[property.name] = this.expressions.eval(property.default, data)
+		// }
+		// }
+		// if (property.value) {
+		// data[property.name] = this.expressions.eval(property.value, data)
+		// }
+		// }
+		// }
+		// }
+	}
+
+	private solveReadValue (query:Query, mapping:MappingConfig, data:any):void {
+		const entity = mapping.getEntity(query.entity)
+		if (entity && entity.properties) {
+			for (const i in query.columns) {
+				const column = query.columns[i]
+				const property = entity.properties.find(p => p.name === column.name)
+				if (property && property.readonly && property.value) {
+					data[property.name] = this.expressions.eval(property.value, data)
+				}
+			}
+		}
+	}
+
+	private constraints (query:Query, mapping:MappingConfig, data:any):void {
+		const entity = mapping.getEntity(query.entity)
+		if (entity && entity.properties) {
+			for (let j = 0; j < query.parameters.length; j++) {
+				const parameter = query.parameters[j]
+				const property = entity.properties.find(p => p.name === parameter.name)
+				if (property && property.constraints) {
+					for (const i in property.constraints) {
+						const constraints = property.constraints[i]
+						if (!this.expressions.eval(constraints.condition, data)) {
+							throw new Error(`${query.entity} error: ${constraints.message}`)
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private transform (query:Query, mapping:MappingConfig, data:any):void {
+		const entity = mapping.getEntity(query.entity)
 		if (entity && entity.properties && data) {
 			for (const i in entity.properties) {
 				const property = entity.properties[i]
@@ -403,8 +471,8 @@ export class QueryExecutor {
 		}
 	}
 
-	private untransform (mapping:MappingConfig, entityName:string, result:any):void {
-		const entity = mapping.getEntity(entityName)
+	private untransform (query:Query, mapping:MappingConfig, result:any):void {
+		const entity = mapping.getEntity(query.entity)
 		if (entity && entity.properties && result) {
 			for (const i in entity.properties) {
 				const property = entity.properties[i]

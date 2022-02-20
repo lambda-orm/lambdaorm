@@ -23,38 +23,30 @@ export interface IOrm
 		* Get model of expression
 		* @returns Model of expression
 		*/
-	model(expression:Function): Promise<any>
-	model(expression:string): Promise<any>
+	model(expression:Function): any
+	model(expression:string): any
 
 	/**
 		* Get parameters of expression
 		* @returns Parameters of expression
 		*/
-	parameters(expression:Function): Promise<any>
-	parameters(expression:string): Promise<any>
+	parameters(expression:Function): any
+	parameters(expression:string): any
 
 	/**
 		* Get metadata of expression
 		* @returns metadata of expression
 		*/
-	metadata(expression: Function): Promise<any>
-	metadata (expression:string):Promise<any>
-
-	/**
-		* Evaluate and solve expression
-		* @param expression  string expression
-		* @param data Data with variables
-		* @returns Result of the evaluale expression
-	 */
-	eval (expression: string, data: any): Promise<any>
+	metadata(expression: Function): any
+	metadata (expression:string):any
 
 	/**
 	 *
 	 * @param expression
 	 * @param stage
 	 */
-	sentence(expression: Function, stage?: string): Promise<string>
-	sentence(expression: string, stage?: string): Promise<string>
+	sentence(expression: Function, stage?: string): string
+	sentence(expression: string, stage?: string): string
 
 	/**
 		* Execute expression
