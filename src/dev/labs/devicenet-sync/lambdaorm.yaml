@@ -271,15 +271,15 @@ entities:
         length: 512
         value: lower(email)
         encrypt: $USERS_SECRET_KEY
-        constraints:
-          - message: invalid email
-            condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
     relations:
       - name: members
         type: manyToOne
         from: username
         entity: GroupUsers
         to: username
+    constraints:
+      - message: invalid email
+        condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
   - name: Groups
     extends: Basics
     primaryKey: ["id"]

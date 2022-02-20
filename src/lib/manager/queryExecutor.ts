@@ -109,7 +109,7 @@ export class QueryExecutor {
 			for (let i = 0; i < mainResult.length; i++) {
 				const row = mainResult[i]
 				this.untransform(query, mapping, row)
-				this.solveReadValue(query, mapping, row)
+				this.solveValues(query, row)
 			}
 			for (const p in query.children) {
 				const include = query.children[p]
@@ -162,11 +162,11 @@ export class QueryExecutor {
 			}
 		}
 		// solve default properties
-		this.solveDefaultValue(query, mapping, data.data)
+		this.solveDefaults(query, data.data)
 		// solve default properties
-		this.solveWriteValue(query, mapping, data.data)
+		this.solveValues(query, data.data)
 		// evaluate constraints
-		this.constraints(query, mapping, data.data)
+		this.constraints(query, data.data)
 		// transform
 		this.transform(query, mapping, data.data)
 
@@ -220,11 +220,11 @@ export class QueryExecutor {
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
 			// solve default properties
-			this.solveDefaultValue(query, mapping, item)
+			this.solveDefaults(query, item)
 			// solve write properties
-			this.solveWriteValue(query, mapping, item)
+			this.solveValues(query, item)
 			// evaluate constraints
-			this.constraints(query, mapping, item)
+			this.constraints(query, item)
 			// transform
 			this.transform(query, mapping, item)
 		}
@@ -263,9 +263,9 @@ export class QueryExecutor {
 
 	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
 		// solve default properties
-		this.solveWriteValue(query, mapping, data)
+		this.solveValues(query, data)
 		// evaluate constraints
-		this.constraints(query, mapping, data)
+		this.constraints(query, data)
 		// transform
 		this.transform(query, mapping, data)
 		// update
@@ -369,32 +369,35 @@ export class QueryExecutor {
 	 * @param entityName
 	 * @param data
 	 */
-	private solveDefaultValue (query:Query, mapping:MappingConfig, data:any):void {
-		const entity = mapping.getEntity(query.entity)
-		if (entity && entity.properties) {
-			for (const i in entity.properties) {
-				const property = entity.properties[i]
-				if (property.default) {
-					const value = data[property.name]
-					if (value === undefined) {
-						data[property.name] = this.expressions.eval(property.default, data)
-					}
-				}
+	private solveDefaults (query:Query, data:any):void {
+		for (const i in query.defaults) {
+			const defaultBehavior = query.defaults[i]
+			const value = data[defaultBehavior.name]
+			if (value === undefined) {
+				data[defaultBehavior.name] = this.expressions.eval(defaultBehavior.expression, data)
 			}
 		}
 	}
 
-	private solveWriteValue (query: Query, mapping: MappingConfig, data: any): void {
-		const entity = mapping.getEntity(query.entity)
-		if (entity && entity.properties) {
-			for (let j = 0; j < query.parameters.length; j++) {
-				const parameter = query.parameters[j]
-				const property = entity.properties.find(p => p.name === parameter.name)
-				if (property && property.value) {
-					data[property.name] = this.expressions.eval(property.value, data)
-				}
+	private solveValues (query: Query, data: any): void {
+		for (const i in query.values) {
+			const valueBehavior = query.values[i]
+			const value = data[valueBehavior.name]
+			if (value === undefined) {
+				data[valueBehavior.name] = this.expressions.eval(valueBehavior.expression, data)
 			}
 		}
+
+		// const entity = mapping.getEntity(query.entity)
+		// if (entity && entity.properties) {
+		// for (let j = 0; j < query.parameters.length; j++) {
+		// const parameter = query.parameters[j]
+		// const property = entity.properties.find(p => p.name === parameter.name)
+		// if (property && property.value) {
+		// data[property.name] = this.expressions.eval(property.value, data)
+		// }
+		// }
+		// }
 		// const entity = mapping.getEntity(query.entity)
 		// if (entity && entity.properties) {
 		// for (const i in entity.properties) {
@@ -416,35 +419,42 @@ export class QueryExecutor {
 		// }
 	}
 
-	private solveReadValue (query:Query, mapping:MappingConfig, data:any):void {
-		const entity = mapping.getEntity(query.entity)
-		if (entity && entity.properties) {
-			for (const i in query.columns) {
-				const column = query.columns[i]
-				const property = entity.properties.find(p => p.name === column.name)
-				if (property && property.readonly && property.value) {
-					data[property.name] = this.expressions.eval(property.value, data)
-				}
-			}
-		}
-	}
+	// private solveReadValue (query:Query, mapping:MappingConfig, data:any):void {
+	// const entity = mapping.getEntity(query.entity)
+	// if (entity && entity.properties) {
+	// for (const i in query.columns) {
+	// const column = query.columns[i]
+	// const property = entity.properties.find(p => p.name === column.name)
+	// if (property && property.readonly && property.value) {
+	// data[property.name] = this.expressions.eval(property.value, data)
+	// }
+	// }
+	// }
+	// }
 
-	private constraints (query:Query, mapping:MappingConfig, data:any):void {
-		const entity = mapping.getEntity(query.entity)
-		if (entity && entity.properties) {
-			for (let j = 0; j < query.parameters.length; j++) {
-				const parameter = query.parameters[j]
-				const property = entity.properties.find(p => p.name === parameter.name)
-				if (property && property.constraints) {
-					for (const i in property.constraints) {
-						const constraints = property.constraints[i]
-						if (!this.expressions.eval(constraints.condition, data)) {
-							throw new Error(`${query.entity} error: ${constraints.message}`)
-						}
-					}
-				}
+	private constraints (query: Query, data: any): void {
+		for (const i in query.constraints) {
+			const constraint = query.constraints[i]
+			if (!this.expressions.eval(constraint.condition, data)) {
+				throw new Error(`${query.entity} error: ${constraint.message}`)
 			}
 		}
+
+		// const entity = mapping.getEntity(query.entity)
+		// if (entity && entity.properties) {
+		// for (let j = 0; j < query.parameters.length; j++) {
+		// const parameter = query.parameters[j]
+		// const property = entity.properties.find(p => p.name === parameter.name)
+		// if (property && property.constraints) {
+		// for (const i in property.constraints) {
+		// const constraints = property.constraints[i]
+		// if (!this.expressions.eval(constraints.condition, data)) {
+		// throw new Error(`${query.entity} error: ${constraints.message}`)
+		// }
+		// }
+		// }
+		// }
+		// }
 	}
 
 	private transform (query:Query, mapping:MappingConfig, data:any):void {

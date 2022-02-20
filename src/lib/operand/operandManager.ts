@@ -1,7 +1,7 @@
 
-import { Property, Parameter, Data } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint } from '../model'
 import { ModelConfig } from '../manager'
-import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node } from 'js-expressions'
+import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from './operands'
 
 class EntityContext {
@@ -36,10 +36,13 @@ class ExpressionContext {
 }
 export class OperandManager {
 	private modelConfig: ModelConfig
-	private expressionConfig:ExpressionConfig
-	constructor (modelConfig: ModelConfig, expressionConfig:ExpressionConfig) {
+	private expressionConfig: ExpressionConfig
+	private expressions: Expressions
+
+	constructor (modelConfig: ModelConfig, expressionConfig:ExpressionConfig, expressions: Expressions) {
 		this.modelConfig = modelConfig
 		this.expressionConfig = expressionConfig
+		this.expressions = expressions
 	}
 
 	public build (node:Node):Sentence {
@@ -431,9 +434,87 @@ export class OperandManager {
 		}
 		for (let i = 0; i < children.length; i++) this.solveTypes(children[i], expressionContext)
 		const parameters = this.parametersInSentence(children)
-		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters)
+
+		let constraints:Constraint[] = []
+		let values: Behavior[] = []
+		let defaults: Behavior[] = []
+		if (name === 'select') {
+			values = this.getBehaviorReadValues(expressionContext.current.fields)
+		} else if (name === 'insert' || name === 'bulkInsert') {
+			defaults = this.getBehaviorDefaults(expressionContext.current.entityName)
+			values = this.getBehaviorWriteValues(expressionContext.current.fields)
+			constraints = this.getConstraints(expressionContext.current.entityName, parameters)
+		} else if (name === 'update') {
+			values = this.getBehaviorWriteValues(expressionContext.current.fields)
+			constraints = this.getConstraints(expressionContext.current.entityName, parameters)
+		}
+
+		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters, constraints, values, defaults)
 		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent as EntityContext : new EntityContext()
 		return sentence
+	}
+
+	private getBehaviorDefaults (entityName:string):Behavior[] {
+		const behaviors:Behavior[] = []
+		const entity = this.modelConfig.getEntity(entityName)
+		if (entity && entity.properties) {
+			for (const i in entity.properties) {
+				const property = entity.properties[i]
+				if (property.default) {
+					behaviors.push({ name: property.name, expression: property.default })
+				}
+			}
+		}
+		return behaviors
+	}
+
+	private getBehaviorWriteValues (properties:Property[]): Behavior[] {
+		const behaviors:Behavior[] = []
+		if (properties) {
+			for (let i = 0; i < properties.length; i++) {
+				const property = properties[i]
+				if (property.value) {
+					behaviors.push({ name: property.name, expression: property.value })
+				}
+			}
+		}
+		return behaviors
+	}
+
+	private getBehaviorReadValues (properties:Property[]):Behavior[] {
+		const behaviors: Behavior[] = []
+		if (properties) {
+			for (let i = 0; i < properties.length; i++) {
+				const property = properties[i]
+				if (property.readonly && property.value) {
+					behaviors.push({ name: property.name, expression: property.value })
+				}
+			}
+		}
+		return behaviors
+	}
+
+	private getConstraints (entityName:string, parameters:Parameter[]):Constraint[] {
+		const constraints: Constraint[] = []
+		const entity = this.modelConfig.getEntity(entityName)
+		if (entity && entity.constraints) {
+			for (const i in entity.constraints) {
+				const constraint = entity.constraints[i]
+				const contitionParameters = this.expressions.parameters(constraint.condition)
+				let existsParameters = true
+				for (const j in contitionParameters) {
+					const contitionParameter = contitionParameters[j]
+					if (!parameters.find(p => p.name === contitionParameter.name)) {
+						existsParameters = false
+						break
+					}
+				}
+				if (existsParameters) {
+					constraints.push(constraint)
+				}
+			}
+		}
+		return constraints
 	}
 
 	private createClause (clause:Node, expressionContext:ExpressionContext):Operand {

@@ -23,7 +23,6 @@ export interface Property {
 	base64?: boolean
 	serialize?: boolean
 	readonly?: boolean
-	constraints?: Constraint[]
 }
 export interface Relation {
 	name: string
@@ -52,6 +51,7 @@ export interface Entity {
 	properties:Property[]
 	relations: Relation[]
 	dependents: Dependent[]
+	constraints?: Constraint[]
 }
 export interface RelationInfo {
 	previousRelation:string
@@ -109,4 +109,10 @@ export interface SchemaState
 	mappings: Mapping[]
 	mappingData: any
 	pendingData:any[]
+}
+
+export interface Behavior
+{
+	name: string
+	expression: string
 }

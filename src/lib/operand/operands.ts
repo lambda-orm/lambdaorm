@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Relation } from '../model/index'
+import { Property, Parameter, Relation, Behavior, Constraint } from '../model'
 import { Operand, Constant, ArrowFunction, ChildFunction, Variable } from 'js-expressions'
 const SqlString = require('sqlstring')
 
@@ -66,17 +66,22 @@ export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]
 	public entity: string
-	// public autoincrement?: Property
 	public alias: string
 	public action: string
-	constructor (name: string, children: Operand[] = [], entity: string, alias: string, columns: Property[] = [], parameters: Parameter[] = []) {
+	public constraints:Constraint[]
+	public values: Behavior[]
+	public defaults: Behavior[]
+
+	constructor (name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints:Constraint[], values: Behavior[], defaults: Behavior[]) {
 		super(name, children)
 		this.entity = entity
-		// this.autoincrement = autoincrement
 		this.alias = alias
 		this.columns = columns
 		this.parameters = parameters
 		this.action = ''
+		this.constraints = constraints
+		this.values = values
+		this.defaults = defaults
 		this.initialize()
 	}
 

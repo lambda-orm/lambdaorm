@@ -1,4 +1,4 @@
-import { Property, Parameter, Relation } from './index'
+import { Property, Parameter, Relation, Behavior, Constraint } from './index'
 
 // export class Query extends Operand {
 export class Query {
@@ -12,7 +12,10 @@ export class Query {
 	// public autoincrement?: Property
 	public columns: Property[]
 	public parameters: Parameter[]
-	constructor (name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = []) {
+	public constraints:Constraint[]
+	public values: Behavior[]
+	public defaults: Behavior[]
+	constructor (name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints:Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
 		this.name = name
 		this.dialect = dialect
 		this.sentence = sentence
@@ -21,6 +24,9 @@ export class Query {
 		this.columns = columns
 		this.parameters = parameters
 		this.dataSource = dataSource
+		this.constraints = constraints
+		this.values = values
+		this.defaults = defaults
 		this.children = []
 	}
 }
