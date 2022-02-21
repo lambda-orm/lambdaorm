@@ -12,10 +12,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p=>p.details)'
@@ -24,9 +20,5 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 })

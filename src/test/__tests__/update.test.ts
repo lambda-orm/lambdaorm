@@ -65,8 +65,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"customerId":"string","employeeId":"integer","orderDate":"datetime","requiredDate":"datetime","shippedDate":"datetime","shipViaId":"integer","freight":"decimal","name":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string"}
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"ANATR"},{"name":"employeeId","type":"integer","value":7},{"name":"orderDate","type":"datetime","value":"1996-09-18 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-10-16 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-09-24 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":"1.6100"},{"name":"name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"address","type":"string","value":"Avda. de la Constitucin 2222"},{"name":"city","type":"string","value":"Mxico D.F."},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"5021"},{"name":"country","type":"string","value":"Mexico"},{"name":"obj.id","type":"integer","value":null}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -75,8 +75,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"customerId":"string","employeeId":"integer","orderDate":"datetime","requiredDate":"datetime","shippedDate":"datetime","shipViaId":"integer","freight":"decimal","name":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string"}
 		const parametersExpected:any = [{"name":"entity.customerId","type":"string","value":"ANATR"},{"name":"entity.employeeId","type":"integer","value":3},{"name":"entity.orderDate","type":"datetime","value":"1997-08-08 00:00:00"},{"name":"entity.requiredDate","type":"datetime","value":"1997-09-05 00:00:00"},{"name":"entity.shippedDate","type":"datetime","value":"1997-08-14 00:00:00"},{"name":"entity.shipViaId","type":"integer","value":1},{"name":"entity.freight","type":"decimal","value":"43.9000"},{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.address","type":"string","value":"Avda. de la Constitucin 2222"},{"name":"entity.city","type":"string","value":"Mxico D.F."},{"name":"entity.region","type":"string","value":null},{"name":"entity.postalCode","type":"string","value":"5021"},{"name":"entity.country","type":"string","value":"Mexico"},{"name":"obj.id","type":"integer","value":null}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -85,8 +85,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"postalCode":"string"}
 		const parametersExpected:any = [{"name":"postalCode","type":"string","value":"xxx"}]
 		const fieldsExpected :any= [{"name":"postalCode","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -95,8 +95,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"name":"string"}
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -105,8 +105,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"name":"string","details":[{"orderId":"integer","productId":"integer","unitPrice":"decimal","quantity":"decimal","discount":"decimal"}]}
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -115,8 +115,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"name":"string","details":[{"unitPrice":"decimal","quantity":"decimal","discount":"decimal"}]}
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -125,8 +125,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"name":"string","details":[{"unitPrice":"decimal","productId":"integer"}]}
 		const parametersExpected:any = [{"name":"entity.name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"entity.id","type":"integer","value":8}]
 		const fieldsExpected :any= [{"name":"name","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -135,8 +135,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"customerId":"string","employeeId":"integer","orderDate":"datetime","requiredDate":"datetime","shippedDate":"datetime","shipViaId":"integer","freight":"decimal","name":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string","details":[{"orderId":"integer","productId":"integer","unitPrice":"decimal","quantity":"decimal","discount":"decimal"}]}
 		const parametersExpected:any = [{"name":"customerId","type":"string","value":"ANATR"},{"name":"employeeId","type":"integer","value":7},{"name":"orderDate","type":"datetime","value":"1996-09-18 00:00:00"},{"name":"requiredDate","type":"datetime","value":"1996-10-16 00:00:00"},{"name":"shippedDate","type":"datetime","value":"1996-09-24 00:00:00"},{"name":"shipViaId","type":"integer","value":3},{"name":"freight","type":"decimal","value":"1.6100"},{"name":"name","type":"string","value":"Ana Trujillo Emparedados y helados"},{"name":"address","type":"string","value":"Avda. de la Constitucin 2222"},{"name":"city","type":"string","value":"Mxico D.F."},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"5021"},{"name":"country","type":"string","value":"Mexico"},{"name":"obj.id","type":"integer","value":null}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -145,8 +145,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"id":"string","name":"string","contact":"string","phone":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string","orders":[{"customerId":"string","employeeId":"integer","orderDate":"datetime","requiredDate":"datetime","shippedDate":"datetime","shipViaId":"integer","freight":"decimal","name":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string","details":[{"orderId":"integer","productId":"integer","unitPrice":"decimal","quantity":"decimal","discount":"decimal"}]}]}
 		const parametersExpected:any = [{"name":"id","type":"string","value":null},{"name":"name","type":"string","value":null},{"name":"contact","type":"string","value":null},{"name":"phone","type":"string","value":null},{"name":"address","type":"string","value":null},{"name":"city","type":"string","value":null},{"name":"region","type":"string","value":null},{"name":"postalCode","type":"string","value":"xxx"},{"name":"country","type":"string","value":null},{"name":"obj.id","type":"string","value":null}]
 		const fieldsExpected :any= [{"name":"id","type":"string"},{"name":"name","type":"string"},{"name":"contact","type":"string"},{"name":"phone","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -155,136 +155,100 @@ describe('Sentences', () => {
 	test('update 1', async () => {
 		const expression = 'Orders.update()'
 		const mysqlExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 2', async () => {
 		const expression = 'Orders.update(entity)'
 		const mysqlExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 3', async () => {
 		const expression = 'Orders.updateAll(=>{postalCode:postalCode})'
 		const mysqlExpected = 'UPDATE Orders o SET ShipPostalCode = ? '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET ShipPostalCode = $1 '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipPostalCode = ? '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 4', async () => {
 		const expression = 'Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 5', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ; UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID = $7) '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 6', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ; UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND o1.ProductID = $2) '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 7', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ; UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 8', async () => {
 		const expression = 'Orders.update().include(p=>p.details)'
 		const mysqlExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ; UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID = $7) '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('update 9', async () => {
 		const expression = 'Customers.update().include(p=>p.orders.include(p=>p.details))'
 		const mysqlExpected = 'UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ; UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode = $8,Country = $9 WHERE c.CustomerID = $10 ; UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ; UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID = $7) '
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ; UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ; UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) '
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 })

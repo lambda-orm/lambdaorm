@@ -154,7 +154,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			throw new Error('Not exists entity:' + entityName)
 		}
 		if (entity.dependents === undefined || entity.dependents.length === 0) {
-			return true
+			return false
 		} else {
 			let hadDependents = false
 			for (const i in entity.dependents) {

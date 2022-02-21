@@ -30,8 +30,8 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 			expressionTest.expression = orm.toExpression(expressionTest.lambda)
 			// expressionTest.lambda = expressionTest.lambda.toString()
 			expressionTest.completeExpression = orm.complete(expressionTest.expression as string)
-			expressionTest.model = await orm.model(expressionTest.expression as string)
-			const metadata: any = await orm.metadata(expressionTest.expression as string)
+			expressionTest.model = orm.model(expressionTest.expression as string)
+			const metadata: any = orm.metadata(expressionTest.expression as string)
 			expressionTest.parameters = metadata.p
 			expressionTest.fields = metadata.f
 			for (const r in stages) {
@@ -39,7 +39,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				let sentence
 				let error
 				try {
-					sentence = await orm.sentence(expressionTest.expression as string, stage)
+					sentence = orm.sentence(expressionTest.expression as string, stage)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {

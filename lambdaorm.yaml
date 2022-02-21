@@ -375,23 +375,23 @@ dataSources:
   - name: source
     mapping: northwind
     dialect: mysql
-    connection: $ORM_CNN_SOURCE
+    connection: $$ORM_CNN_SOURCE
   - name: mysql
     mapping: northwind
     dialect: mysql
-    connection: $ORM_CNN_MYSQL
+    connection: $$ORM_CNN_MYSQL
   - name: mariadb
     mapping: northwind
     dialect: mariadb
-    connection: $ORM_CNN_MARIADB
+    connection: $$ORM_CNN_MARIADB
   - name: postgres
     mapping: northwind
     dialect: postgres
-    connection: $ORM_CNN_POSTGRES
+    connection: $$ORM_CNN_POSTGRES
   - name: mssql
     mapping: northwind
     dialect: mssql
-    connection: $ORM_CNN_MSSQL
+    connection: $$ORM_CNN_MSSQL
 stages:
   - name: source
     dataSources:
