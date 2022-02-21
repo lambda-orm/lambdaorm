@@ -23,8 +23,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"name":"string","description":"string"}
 		const parametersExpected:any = [{"name":"name","type":"string"},{"name":"description","type":"string"}]
 		const fieldsExpected :any= [{"name":"name","type":"string"},{"name":"description","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -33,8 +33,8 @@ describe('Metadata', () => {
 		const modelExpected :any= {"customerId":"string","employeeId":"integer","orderDate":"datetime","requiredDate":"datetime","shippedDate":"datetime","shipViaId":"integer","freight":"decimal","name":"string","address":"string","city":"string","region":"string","postalCode":"string","country":"string","details":[{"orderId":"integer","productId":"integer","unitPrice":"decimal","quantity":"decimal","discount":"decimal"}]}
 		const parametersExpected:any = [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
 		const fieldsExpected :any= [{"name":"customerId","type":"string"},{"name":"employeeId","type":"integer"},{"name":"orderDate","type":"datetime"},{"name":"requiredDate","type":"datetime"},{"name":"shippedDate","type":"datetime"},{"name":"shipViaId","type":"integer"},{"name":"freight","type":"decimal"},{"name":"name","type":"string"},{"name":"address","type":"string"},{"name":"city","type":"string"},{"name":"region","type":"string"},{"name":"postalCode","type":"string"},{"name":"country","type":"string"}]
-		const model = await orm.model(expression)
-		const metadata = await orm.metadata(expression)
+		const model = orm.model(expression)
+		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
 		expect(fieldsExpected).toStrictEqual(metadata.f)
 	})
@@ -43,31 +43,23 @@ describe('Sentences', () => {
 	test('bulkInsert 1', async () => {
 		const expression = 'Categories.bulkInsert()'
 		const mysqlExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES ?'
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES'
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'INSERT INTO Categories(CategoryName,Description) VALUES ?'
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p=>p.details)'
 		const mysqlExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?; INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?'
-		let mysql =  await orm.sentence(expression,'mysql')
+		let mysql =  orm.sentence(expression,'mysql')
 		mysql=Helper.replace(mysql,'\n','; ')
 		expect(mysqlExpected).toBe(mysql)
 		const postgresExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES; INSERT INTO "Order Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES'
-		let postgres =  await orm.sentence(expression,'postgres')
+		let postgres =  orm.sentence(expression,'postgres')
 		postgres=Helper.replace(postgres,'\n','; ')
 		expect(postgresExpected).toBe(postgres)
-		const mariadbExpected = 'INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?; INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?'
-		let mariadb =  await orm.sentence(expression,'mariadb')
-		mariadb=Helper.replace(mariadb,'\n','; ')
-		expect(mariadbExpected).toBe(mariadb)
 	})
 })

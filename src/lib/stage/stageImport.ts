@@ -196,8 +196,8 @@ export class StageImport extends StageActionDML {
 		return result
 	}
 
-	protected async createQuery (entity:Entity):Promise<Query> {
+	protected createQuery (entity:Entity):Query {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return await this.expressionManager.toQuery(expression, this.stage)
+		return this.expressionManager.toQuery(expression, this.stage)
 	}
 }

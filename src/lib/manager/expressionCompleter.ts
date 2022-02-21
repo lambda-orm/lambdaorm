@@ -190,7 +190,7 @@ export class ExpressionCompleter {
 			const fields = node.children[2]
 			if (fields.children.length === 0 && fields.name === arrowVar) {
 				// Example: Entity.map(p=> p) to  Entity.map(p=> {field1:p.field1,field2:p.field2,field3:p.field3,...})
-				node.children[2] = this.createNodeFields(entity, arrowVar)
+				node.children[2] = this.createReadNodeFields(entity, arrowVar)
 			} else if (fields.type === 'var') {
 				// Example: Entity.map(p=> p.name) to  Entity.map(p=> {name:p.name})
 				const keyVal = this.fieldToKeyVal(arrowVar, fields)
@@ -207,7 +207,7 @@ export class ExpressionCompleter {
 			}
 		} else {
 			const varArrow = new Node('p', 'var', [])
-			const fields = this.createNodeFields(entity, 'p')
+			const fields = this.createReadNodeFields(entity, 'p')
 			node.children.push(varArrow)
 			node.children.push(fields)
 		}
@@ -229,11 +229,11 @@ export class ExpressionCompleter {
 	private completeInsertNode (entity:Entity, node:Node):void {
 		if (node.children.length === 1) {
 			// example: Entity.insert()
-			const fields = this.createNodeFields(entity, undefined, false, true)
+			const fields = this.createWriteNodeFields(entity, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
 			// example: Entity.insert(entity)
-			node.children[1] = this.createNodeFields(entity, node.children[1].name, false, true)
+			node.children[1] = this.createWriteNodeFields(entity, node.children[1].name, false, true)
 		}
 	}
 
@@ -241,19 +241,30 @@ export class ExpressionCompleter {
 		if (node.children.length === 1) {
 			// Example: Entity.update()
 			// In the case that the mapping is not defined, it assumes that the data will be the entity to update
-			const fields = this.createNodeFields(entity, undefined, false, true)
+			const fields = this.createWriteNodeFields(entity, undefined, false, true)
 			node.children.push(fields)
 		} else if (node.children.length === 2 && node.children[1].type === 'var') {
 			// Example: Entity.update(entity)
 			// In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
-			node.children[1] = this.createNodeFields(entity, node.children[1].name, true)
+			node.children[1] = this.createWriteNodeFields(entity, node.children[1].name, true)
 		} else if (node.children.length === 3 && node.type === 'arrow' && node.children[1].name === node.children[2].name) {
 			// Example: Entity.update({ name: entity.name }).include(p => p.details.update(p => p))
-			node.children[2] = this.createNodeFields(entity, node.children[1].name, true)
+			node.children[2] = this.createWriteNodeFields(entity, node.children[1].name, true)
 		}
 	}
 
-	private createNodeFields (entity:Entity, parent?:string, excludePrimaryKey = false, excludeAutoincrement = false):any {
+	private createReadNodeFields (entity:Entity, parent?:string):any {
+		const obj = new Node('obj', 'obj', [])
+		for (const i in entity.properties) {
+			const property = entity.properties[i]
+			const field = new Node(parent ? parent + '.' + property.name : property.name, 'var', [])
+			const keyVal = new Node(property.name, 'keyVal', [field])
+			obj.children.push(keyVal)
+		}
+		return obj
+	}
+
+	private createWriteNodeFields (entity:Entity, parent?:string, excludePrimaryKey = false, excludeAutoincrement = false):any {
 		const obj = new Node('obj', 'obj', [])
 		for (const i in entity.properties) {
 			const property = entity.properties[i]

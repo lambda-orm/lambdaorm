@@ -35,8 +35,8 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
 		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
-		lines.push('\t\tconst model = await orm.model(expression)')
-		lines.push('\t\tconst metadata = await orm.metadata(expression)')
+		lines.push('\t\tconst model = orm.model(expression)')
+		lines.push('\t\tconst metadata = orm.metadata(expression)')
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
 		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
 		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
@@ -57,7 +57,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 					if (sentence !== undefined && sentence.sentence !== undefined) {
 						const _sentence = Helper.replace(sentence.sentence, '\n', '; ')
 						lines.push(`\t\tconst ${stage}Expected = '${_sentence}'`)
-						lines.push(`\t\tlet ${stage} =  await orm.sentence(expression,'${stage}')`)
+						lines.push(`\t\tlet ${stage} =  orm.sentence(expression,'${stage}')`)
 						lines.push(`\t\t${stage}=Helper.replace(${stage},'\\n','; ')`)
 						lines.push(`\t\texpect(${stage}Expected).toBe(${stage})`)
 					}

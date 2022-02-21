@@ -34,20 +34,20 @@ export class DMLBuilder {
 		this.stage = stage
 	}
 
-	private async getDataSource (sentence: Sentence): Promise<DataSource> {
+	private getDataSource (sentence: Sentence): DataSource {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
-		const datasourceName = await this.routing.getDataSource(sentenceInfo, this.stage)
+		const datasourceName = this.routing.getDataSource(sentenceInfo, this.stage)
 		return this.schema.dataSource.get(datasourceName)
 	}
 
-	public async build (sentence:Sentence):Promise<Query> {
+	public build (sentence:Sentence):Query {
 		const children = []
 		const includes = sentence.getIncludes()
-		const dataSource = await this.getDataSource(sentence)
+		const dataSource = this.getDataSource(sentence)
 
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
-			const query = await this.build(sentenceInclude.children[0] as Sentence)
+			const query = this.build(sentenceInclude.children[0] as Sentence)
 			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
 			children.push(include)
 		}

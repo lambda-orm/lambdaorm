@@ -108,7 +108,7 @@ export class QueryExecutor {
 		if (mainResult.length > 0) {
 			for (let i = 0; i < mainResult.length; i++) {
 				const row = mainResult[i]
-				this.untransform(mapping, query.entity, row)
+				this.solveReadValues(query, row)
 			}
 			for (const p in query.children) {
 				const include = query.children[p]
@@ -161,10 +161,11 @@ export class QueryExecutor {
 			}
 		}
 		// solve default properties
-		this.solveDefault(mapping, query.entity, data.data)
-		// transform
-		this.transform(mapping, query.entity, data.data)
-
+		this.solveDefaults(query, data.data)
+		// evaluate constraints
+		this.constraints(query, data.data)
+		// solve default properties
+		this.solveWriteValues(query, data.data)
 		// insert main entity
 		const insertId = await connection.insert(mapping, query, this.params(query.parameters, metadata, data))
 		if (autoincrement) {
@@ -215,20 +216,14 @@ export class QueryExecutor {
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
 			// solve default properties
-			this.solveDefault(mapping, query.entity, item)
-			// transform
-			this.transform(mapping, query.entity, item)
+			this.solveDefaults(query, item)
+			// evaluate constraints
+			this.constraints(query, item)
+			// solve write properties
+			this.solveWriteValues(query, item)
 		}
 		// get rows
 		const rows = this.rows(query, metadata, array)
-		// for (const i in rows) {
-		// const row = rows[i]
-		// // solve default properties
-		// this.solveDefault(mapping, query.entity, row)
-		// // transform
-		// this.transform(mapping, query.entity, row)
-		// }
-		// insert main entity
 		const ids = await connection.bulkInsert(mapping, query, rows, query.parameters)
 		if (autoincrement) {
 			for (let i = 0; i < data.data.length; i++) {
@@ -261,8 +256,10 @@ export class QueryExecutor {
 	}
 
 	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
-		// transform
-		this.transform(mapping, query.entity, data)
+		// evaluate constraints
+		this.constraints(query, data)
+		// solve default properties
+		this.solveWriteValues(query, data)
 		// update
 		const changeCount = await connection.update(mapping, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
@@ -364,66 +361,123 @@ export class QueryExecutor {
 	 * @param entityName
 	 * @param data
 	 */
-	private solveDefault (mapping:MappingConfig, entityName:string, data:any):void {
-		const entity = mapping.getEntity(entityName)
-		if (entity && entity.properties) {
-			for (const i in entity.properties) {
-				const property = entity.properties[i]
-				if (property.default) {
-					const value = data[property.name]
-					if (value === undefined) {
-						data[property.name] = this.expressions.eval(property.default, data)
-					}
-				}
+	private solveDefaults (query:Query, data:any):void {
+		for (const i in query.defaults) {
+			const defaultBehavior = query.defaults[i]
+			const value = data[defaultBehavior.property]
+			if (value === undefined) {
+				data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
 			}
 		}
 	}
 
-	private transform (mapping:MappingConfig, entityName:string, data:any):void {
-		const entity = mapping.getEntity(entityName)
-		if (entity && entity.properties && data) {
-			for (const i in entity.properties) {
-				const property = entity.properties[i]
-				if (property.base64 || property.encrypt || property.serialize) {
-					let value = data[property.name]
-					if (value) {
-						if (property.serialize) {
-							value = JSON.stringify(value)
-						}
-						if (property.base64) {
-							value = Helper.textTobase64(value)
-						}
-						if (property.encrypt) {
-							value = Helper.encrypt(value, property.encrypt)
-						}
-						data[property.name] = value
-					}
-				}
+	private solveWriteValues (query: Query, data: any): void {
+		for (const i in query.values) {
+			const valueBehavior = query.values[i]
+			data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
+		}
+	}
+
+	private solveReadValues (query: Query, data: any): void {
+		for (const i in query.values) {
+			const valueBehavior = query.values[i]
+			if (valueBehavior.alias === valueBehavior.property) {
+				// Example Users.map(p=> [p.email]) or Users.map(p=> {email:p.email})
+				data[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, data)
+			} else if (valueBehavior.alias) {
+				// Example Users.map(p=> {mail:p.email})
+				// since the expression contains the name of the property and not the alias
+				// the property must be added with the alias value.
+				const context = Helper.clone(data)
+				context[valueBehavior.property] = data[valueBehavior.alias]
+				data[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
 			}
 		}
 	}
 
-	private untransform (mapping:MappingConfig, entityName:string, result:any):void {
-		const entity = mapping.getEntity(entityName)
-		if (entity && entity.properties && result) {
-			for (const i in entity.properties) {
-				const property = entity.properties[i]
-				if (property.base64 || property.encrypt || property.serialize) {
-					let value = result[property.name]
-					if (value) {
-						if (property.encrypt) {
-							value = Helper.decrypt(value, property.encrypt)
-						}
-						if (property.base64) {
-							value = Helper.base64ToText(value)
-						}
-						if (property.serialize) {
-							value = JSON.parse(value)
-						}
-						result[property.name] = value
-					}
-				}
+	// private solveReadValue (query:Query, mapping:MappingConfig, data:any):void {
+	// const entity = mapping.getEntity(query.entity)
+	// if (entity && entity.properties) {
+	// for (const i in query.columns) {
+	// const column = query.columns[i]
+	// const property = entity.properties.find(p => p.name === column.name)
+	// if (property && property.readonly && property.value) {
+	// data[property.name] = this.expressions.eval(property.value, data)
+	// }
+	// }
+	// }
+	// }
+
+	private constraints (query: Query, data: any): void {
+		for (const i in query.constraints) {
+			const constraint = query.constraints[i]
+			if (!this.expressions.eval(constraint.condition, data)) {
+				throw new Error(`${query.entity} error: ${constraint.message}`)
 			}
 		}
+
+		// const entity = mapping.getEntity(query.entity)
+		// if (entity && entity.properties) {
+		// for (let j = 0; j < query.parameters.length; j++) {
+		// const parameter = query.parameters[j]
+		// const property = entity.properties.find(p => p.name === parameter.name)
+		// if (property && property.constraints) {
+		// for (const i in property.constraints) {
+		// const constraints = property.constraints[i]
+		// if (!this.expressions.eval(constraints.condition, data)) {
+		// throw new Error(`${query.entity} error: ${constraints.message}`)
+		// }
+		// }
+		// }
+		// }
+		// }
 	}
+
+	// private transform (query:Query, mapping:MappingConfig, data:any):void {
+	// const entity = mapping.getEntity(query.entity)
+	// if (entity && entity.properties && data) {
+	// for (const i in entity.properties) {
+	// const property = entity.properties[i]
+	// if (property.base64 || property.encrypt || property.serialize) {
+	// let value = data[property.name]
+	// if (value) {
+	// if (property.serialize) {
+	// value = JSON.stringify(value)
+	// }
+	// if (property.base64) {
+	// value = Helper.textTobase64(value)
+	// }
+	// if (property.encrypt) {
+	// value = Helper.encrypt(value, property.encrypt)
+	// }
+	// data[property.name] = value
+	// }
+	// }
+	// }
+	// }
+	// }
+
+// private untransform (query:Query, mapping:MappingConfig, result:any):void {
+// const entity = mapping.getEntity(query.entity)
+// if (entity && entity.properties && result) {
+// for (const i in entity.properties) {
+// const property = entity.properties[i]
+// if (property.base64 || property.encrypt || property.serialize) {
+// let value = result[property.name]
+// if (value) {
+// if (property.encrypt) {
+// value = Helper.decrypt(value, property.encrypt)
+// }
+// if (property.base64) {
+// value = Helper.base64ToText(value)
+// }
+// if (property.serialize) {
+// value = JSON.parse(value)
+// }
+// result[property.name] = value
+// }
+// }
+// }
+// }
+// }
 }

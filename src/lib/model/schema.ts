@@ -6,6 +6,10 @@ export interface Enum {
 	name: string
 	values: EnumValue[]
 }
+export interface Constraint {
+	message: string
+	condition: string
+}
 export interface Property {
 	name: string
 	type: string
@@ -14,9 +18,9 @@ export interface Property {
 	primaryKey?: boolean
 	autoincrement?: boolean
 	default?: string
-	encrypt?: string
-	base64?: boolean
-	serialize?:boolean
+	readValue?: string
+	writeValue?: string
+	// expression?: string
 }
 export interface Relation {
 	name: string
@@ -45,6 +49,7 @@ export interface Entity {
 	properties:Property[]
 	relations: Relation[]
 	dependents: Dependent[]
+	constraints?: Constraint[]
 }
 export interface RelationInfo {
 	previousRelation:string
@@ -102,4 +107,11 @@ export interface SchemaState
 	mappings: Mapping[]
 	mappingData: any
 	pendingData:any[]
+}
+
+export interface Behavior
+{
+	alias?: string
+	property: string
+	expression: string
 }

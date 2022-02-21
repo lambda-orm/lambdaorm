@@ -12,10 +12,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert(=>{name:name,description:description})'
@@ -24,10 +20,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
@@ -36,10 +28,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 4', async () => {
 		const expression = 'Orders.insert()'
@@ -48,10 +36,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert().include(p=>p.details)'
@@ -60,10 +44,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p=>[p.details,p.customer])'
@@ -72,9 +52,5 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 })

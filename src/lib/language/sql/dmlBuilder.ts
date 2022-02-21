@@ -9,7 +9,7 @@ const SqlString = require('sqlstring')
 export class SqlDMLBuilder extends LanguageDMLBuilder {
 	public build (sentence: Sentence): Query {
 		const sqlSentence = this.buildSentence(sentence)
-		return new Query(sentence.name, this.dialect, this.dataSource, sqlSentence, sentence.entity, sentence.columns, sentence.parameters)
+		return new Query(sentence.name, this.dialect, this.dataSource, sqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
 	}
 
 	private buildOperand (operand: Operand): string {
@@ -118,14 +118,21 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 			for (const p in obj.children) {
 				const keyVal = obj.children[p] as KeyValue
 
-				let field = ''
+				let name:string
 				if (keyVal.property !== undefined) {
-					field = this.mapping.getProperty(entity, keyVal.property).mapping
+					const property = this.mapping.getProperty(entity, keyVal.property)
+					name = property.mapping
 				} else {
-					field = keyVal.name
+					name = keyVal.name
 				}
+				// let field = ''
+				// if (keyVal.property !== undefined) {
+				// field = this.mapping.getProperty(entity, keyVal.property).mapping
+				// } else {
+				// field = keyVal.name
+				// }
 
-				fields.push(templateColumn.replace('{name}', this.metadata.delimiter(field)))
+				fields.push(templateColumn.replace('{name}', this.metadata.delimiter(name)))
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
@@ -153,7 +160,14 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
 				const keyVal = obj.children[p] as KeyValue
-				const name = keyVal.property ? this.mapping.getProperty(entity, keyVal.property).mapping : keyVal.name
+				let name:string
+				if (keyVal.property !== undefined) {
+					const property = this.mapping.getProperty(entity, keyVal.property)
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				// const name = keyVal.property ? this.mapping.getProperty(entity, keyVal.property).mapping : keyVal.name
 
 				const column = templateColumn.replace('{name}', this.metadata.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])

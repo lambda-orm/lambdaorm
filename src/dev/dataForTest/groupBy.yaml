@@ -15,11 +15,11 @@ test:
     expression: Products.map(p=>{maxPrice:max(p.price)})
     completeExpression: Products.map(p=>{maxPrice:max(p.price)})
     model:
-      maxPrice: any
+      maxPrice: decimal
     parameters: []
     fields:
       - name: maxPrice
-        type: any
+        type: decimal
     executions:
       - stage: mysql
       - stage: postgres
@@ -38,11 +38,11 @@ test:
     expression: Products.map(p=>{minPrice:min(p.price)})
     completeExpression: Products.map(p=>{minPrice:min(p.price)})
     model:
-      minPrice: any
+      minPrice: decimal
     parameters: []
     fields:
       - name: minPrice
-        type: any
+        type: decimal
     executions:
       - stage: mysql
       - stage: postgres
@@ -140,13 +140,13 @@ test:
     completeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
       category: integer
-      largestPrice: any
+      largestPrice: decimal
     parameters: []
     fields:
       - name: category
         type: integer
       - name: largestPrice
-        type: any
+        type: decimal
     executions:
       - stage: mysql
       - stage: postgres
@@ -208,13 +208,13 @@ test:
     completeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       category: string
-      largestPrice: any
+      largestPrice: decimal
     parameters: []
     fields:
       - name: category
         type: string
       - name: largestPrice
-        type: any
+        type: decimal
     executions:
       - stage: mysql
       - stage: postgres
@@ -321,13 +321,13 @@ test:
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       category: string
-      largestPrice: any
+      largestPrice: decimal
     parameters: []
     fields:
       - name: category
         type: string
       - name: largestPrice
-        type: any
+        type: decimal
     executions:
       - stage: mysql
       - stage: postgres

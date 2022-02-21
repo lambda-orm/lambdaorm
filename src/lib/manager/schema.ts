@@ -154,7 +154,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			throw new Error('Not exists entity:' + entityName)
 		}
 		if (entity.dependents === undefined || entity.dependents.length === 0) {
-			return true
+			return false
 		} else {
 			let hadDependents = false
 			for (const i in entity.dependents) {
@@ -777,6 +777,10 @@ export class SchemaManager {
 		if (this.schema.dataSources) {
 			for (const p in this.schema.dataSources) {
 				const dataSource = this.schema.dataSources[p]
+				const objValue = Helper.tryParse(dataSource.connection)
+				if (objValue) {
+					dataSource.connection = objValue
+				}
 				const connectionConfig: ConnectionConfig = { name: dataSource.name, dialect: dataSource.dialect, connection: {} }
 				connectionConfig.connection = dataSource.connection
 				this.dataSource.load(dataSource)

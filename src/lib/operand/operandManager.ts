@@ -1,7 +1,7 @@
 
-import { Property, Parameter, Data } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint } from '../model'
 import { ModelConfig } from '../manager'
-import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node } from 'js-expressions'
+import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from './operands'
 
 class EntityContext {
@@ -9,7 +9,7 @@ class EntityContext {
 	public entityName:string
 	public alias:string
 	public children:EntityContext[]
-	public joins:any
+	public joins: any
 	public fields:Property[]
 	public groupByFields:Field[]
 	public arrowVar:string
@@ -36,10 +36,13 @@ class ExpressionContext {
 }
 export class OperandManager {
 	private modelConfig: ModelConfig
-	private expressionConfig:ExpressionConfig
-	constructor (modelConfig: ModelConfig, expressionConfig:ExpressionConfig) {
+	private expressionConfig: ExpressionConfig
+	private expressions: Expressions
+
+	constructor (modelConfig: ModelConfig, expressionConfig:ExpressionConfig, expressions: Expressions) {
 		this.modelConfig = modelConfig
 		this.expressionConfig = expressionConfig
+		this.expressions = expressions
 	}
 
 	public build (node:Node):Sentence {
@@ -313,6 +316,7 @@ export class OperandManager {
 		let name = ''
 		const children:Operand[] = []
 		let operand = null
+		let selectOperand = null
 
 		if (clauses.filter) {
 			// TODO: Si la sentencia es Select, Update o Delete y la entidad tienen una o mas propiedades con key.
@@ -358,10 +362,10 @@ export class OperandManager {
 			name = 'select'
 			createInclude = this.createSelectInclude
 			const clause = clauses.map
-			operand = this.createMapClause(clause, expressionContext)
-			expressionContext.current.fields = this.fieldsInSelect(operand)
-			expressionContext.current.groupByFields = this.groupByFields(operand)
-			children.push(operand)
+			selectOperand = this.createMapClause(clause, expressionContext)
+			expressionContext.current.fields = this.fieldsInSelect(selectOperand, expressionContext)
+			expressionContext.current.groupByFields = this.groupByFields(selectOperand)
+			children.push(selectOperand)
 
 			if (expressionContext.current.groupByFields.length > 0) {
 				const fields = []
@@ -429,11 +433,151 @@ export class OperandManager {
 			operand = new Join(relationEntity + '.' + relationAlias, [equal])
 			children.push(operand)
 		}
-		for (let i = 0; i < children.length; i++) this.solveTypes(children[i], expressionContext)
+		for (let i = 0; i < children.length; i++) {
+			this.solveTypes(children[i], expressionContext)
+		}
 		const parameters = this.parametersInSentence(children)
-		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters)
+
+		let constraints:Constraint[] = []
+		let values: Behavior[] = []
+		let defaults: Behavior[] = []
+
+		if (name === 'select' && selectOperand) {
+			values = this.getBehaviorReadValues(expressionContext.current.entityName, selectOperand)
+		} else if (name === 'insert' || name === 'bulkInsert') {
+			defaults = this.getBehaviorDefaults(expressionContext.current.entityName)
+			values = this.getBehaviorWriteValues(expressionContext.current.entityName, parameters)
+			constraints = this.getConstraints(expressionContext.current.entityName, parameters)
+		} else if (name === 'update') {
+			values = this.getBehaviorWriteValues(expressionContext.current.entityName, parameters)
+			constraints = this.getConstraints(expressionContext.current.entityName, parameters)
+		}
+
+		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters, constraints, values, defaults)
 		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent as EntityContext : new EntityContext()
 		return sentence
+	}
+
+	private getBehaviorDefaults (entityName:string):Behavior[] {
+		const behaviors:Behavior[] = []
+		const entity = this.modelConfig.getEntity(entityName)
+		if (entity && entity.properties) {
+			for (const i in entity.properties) {
+				const property = entity.properties[i]
+				if (property.default) {
+					behaviors.push({ property: property.name, expression: property.default })
+				}
+			}
+		}
+		return behaviors
+	}
+
+	private getBehaviorReadValues (entityName: string, operand:Operand): Behavior[] {
+		const behaviors: Behavior[] = []
+		const entity = this.modelConfig.getEntity(entityName)
+		if (entity && operand.children.length === 1) {
+			let child:Operand
+			if (operand.children[0] instanceof FunctionRef && operand.children[0].name === 'distinct') {
+				child = operand.children[0].children[0]
+			} else {
+				child = operand.children[0]
+			}
+
+			if (child instanceof Obj) {
+				const obj = child
+				for (const p in obj.children) {
+					const keyVal = obj.children[p]
+					if (keyVal.children[0] instanceof Field) {
+						const field = keyVal.children[0] as Field
+						const property = entity.properties.find(p => p.name === field.name)
+						if (property && property.readValue) {
+							const behavior = { alias: keyVal.name, property: property.name, expression: property.readValue }
+							behaviors.push(behavior)
+						}
+					}
+				}
+			}
+			// Expression completer pasa todos los select a Obj
+			// else if (child instanceof List) {
+			// const array = child
+			// for (let i = 0; i < array.children.length; i++) {
+			// const element = array.children[i]
+			// if (element instanceof Field) {
+			// // TODO: resolver el problema de las relaciones
+			// // const parts = element.name.split('.')
+			// const field = element as Field
+			// const property = entity.properties.find(p => p.name === field.name)
+			// if (property && property.readValue) {
+			// const behavior = { alias: field.name, property: property.name, expression: property.readValue }
+			// behaviors.push(behavior)
+			// }
+			// }
+			// }
+			// } else if (child instanceof Field) {
+			// // TODO: resolver el problema de las relaciones
+			// // const parts = child.name.split('.')
+			// const field = child as Field
+			// const property = entity.properties.find(p => p.name === field.name)
+			// if (property && property.readValue) {
+			// const behavior = { alias: field.name, property: property.name, expression: property.readValue }
+			// behaviors.push(behavior)
+			// }
+			// }
+		}
+		return behaviors
+	}
+
+	private getBehaviorWriteValues (entityName: string, parameters: Parameter[]): Behavior[] {
+		const behaviors:Behavior[] = []
+		const properties = this.getPropertiesFromParameters(entityName, parameters)
+		if (properties) {
+			for (let i = 0; i < properties.length; i++) {
+				const property = properties[i]
+				if (property.writeValue) {
+					behaviors.push({ property: property.name, expression: property.writeValue })
+				}
+			}
+		}
+		return behaviors
+	}
+
+	private getPropertiesFromParameters (entityName: string, parameters: Parameter[]):Property[] {
+		const entity = this.modelConfig.getEntity(entityName)
+		const properties: Property[] = []
+		if (entity && entity.properties && parameters) {
+			for (const i in parameters) {
+				const parameter = parameters[i]
+				const property = entity.properties.find(p => p.name === parameter.name)
+				if (property) {
+					properties.push(property)
+				}
+			}
+		}
+		return properties
+	}
+
+	private getConstraints (entityName: string, parameters: Parameter[]):Constraint[] {
+		const constraints: Constraint[] = []
+		const queryProperties = this.getPropertiesFromParameters(entityName, parameters)
+		const entity = this.modelConfig.getEntity(entityName)
+		if (entity && entity.constraints) {
+			for (const i in entity.constraints) {
+				const constraint = entity.constraints[i]
+				const contitionProperties = this.expressions.parameters(constraint.condition)
+				let containtAll = true
+				for (const j in contitionProperties) {
+					const contitionParameter = contitionProperties[j]
+					if (!queryProperties.find(p => p.name === contitionParameter.name)) {
+						containtAll = false
+						break
+					}
+				}
+				if (containtAll) {
+					constraints.push(constraint)
+				}
+			}
+		}
+		return constraints
 	}
 
 	private createClause (clause:Node, expressionContext:ExpressionContext):Operand {
@@ -587,7 +731,7 @@ export class OperandManager {
 		return alias
 	}
 
-	private fieldsInSelect (operand:Operand):Property[] {
+	private fieldsInSelect (operand:Operand, expressionContext:ExpressionContext):Property[] {
 		const fields: Property[] = []
 		if (operand.children.length === 1) {
 			let child:Operand
@@ -606,33 +750,35 @@ export class OperandManager {
 						const field = { name: keyVal.name, type: _field.type }
 						fields.push(field)
 					} else {
-						const field = { name: keyVal.name, type: 'any' }
+						const field = { name: keyVal.name, type: this.solveTypes(keyVal.children[0], expressionContext) }
 						fields.push(field)
 					}
 				}
-			} else if (child instanceof List) {
-				const array = child
-				for (let i = 0; i < array.children.length; i++) {
-					const element = array.children[i]
-					if (element instanceof Field) {
-						const parts = element.name.split('.')
-						const _field = element as Field
-						const field = { name: parts[parts.length - 1], type: _field.type }
-						fields.push(field)
-					} else {
-						const field = { name: 'field' + i, type: 'any' }
-						fields.push(field)
-					}
-				}
-			} else if (child instanceof Field) {
-				const parts = child.name.split('.')
-				const _field = child as Field
-				const field = { name: parts[parts.length - 1], type: _field.type }
-				fields.push(field)
-			} else {
-				const field = { name: 'field0', type: 'any' }
-				fields.push(field)
 			}
+			// Expression completer ya resuelve pasar List y field unico a Obj
+			// else if (child instanceof List) {
+			// const array = child
+			// for (let i = 0; i < array.children.length; i++) {
+			// const element = array.children[i]
+			// if (element instanceof Field) {
+			// const parts = element.name.split('.')
+			// const _field = element as Field
+			// const field = { name: parts[parts.length - 1], type: _field.type }
+			// fields.push(field)
+			// } else {
+			// const field = { name: 'field' + i, type: this.solveTypes(element, expressionContext) }
+			// fields.push(field)
+			// }
+			// }
+			// } else if (child instanceof Field) {
+			// const parts = child.name.split('.')
+			// const _field = child as Field
+			// const field = { name: parts[parts.length - 1], type: _field.type }
+			// fields.push(field)
+			// } else {
+			// const field = { name: 'field0', type: this.solveTypes(child, expressionContext) }
+			// fields.push(field)
+			// }
 		}
 		return fields
 	}
@@ -684,14 +830,17 @@ export class OperandManager {
 
 	private loadParameters (operand:Operand, parameters:Parameter[]) {
 		if (operand instanceof Variable) {
-			let type:string
-			if (operand.type === '')type = 'any'
-			else if (operand.type === 'T[]')type = 'array'
-			else type = operand.type
-
-			parameters.push({ name: operand.name, type: type })
+			if (parameters.find(p => p.name === operand.name) === undefined) {
+				let type:string
+				if (operand.type === '')type = 'any'
+				else if (operand.type === 'T[]')type = 'array'
+				else type = operand.type
+				parameters.push({ name: operand.name, type: type })
+			}
 		}
-		for (let i = 0; i < operand.children.length; i++) { this.loadParameters(operand.children[i], parameters) }
+		for (let i = 0; i < operand.children.length; i++) {
+			this.loadParameters(operand.children[i], parameters)
+		}
 	}
 
 	// TODO: determinar el tipo de la variable de acuerdo a la expression.

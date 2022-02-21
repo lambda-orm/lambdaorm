@@ -12,10 +12,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 2', async () => {
 		const expression = 'Products.map(p=>{minPrice:min(p.price)})'
@@ -24,10 +20,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 3', async () => {
 		const expression = 'Products.map(p=>{total:sum(p.price)})'
@@ -36,10 +28,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 4', async () => {
 		const expression = 'Products.map(p=>{average:avg(p.price)})'
@@ -48,10 +36,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 5', async () => {
 		const expression = 'Products.map(p=>{count:count(1)})'
@@ -60,10 +44,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 6', async () => {
 		const expression = 'Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
@@ -72,10 +52,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 7', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
@@ -84,10 +60,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 8', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
@@ -96,10 +68,6 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 	test('groupBy 9', async () => {
 		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
@@ -108,9 +76,5 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'postgres')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'mariadb')
-		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'mssql')
-		expect(expected).toEqual(mssqlResult)
 	})
 })
