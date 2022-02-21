@@ -75,7 +75,8 @@ entities:
       - name: groupId
         length: 32
       - name: password
-        encrypt: $DEVICES_SECRET_KEY
+        writeValue: encrypt(password,"$$DEVICES_SECRET_KEY")
+        readValue: decrypt(password,"$$DEVICES_SECRET_KEY")
       - name: so
         length: 32
       - name: imei
@@ -263,14 +264,11 @@ entities:
         nullable: false
       - name: lastname
         nullable: false
-      - name: fullname
-        value: concat(firstname," ",lastname)
-        readonly: true
       - name: email
         nullable: false
         length: 512
-        value: lower(email)
-        encrypt: $USERS_SECRET_KEY
+        writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
+        readValue: decrypt(email,"$$USERS_SECRET_KEY")
     relations:
       - name: members
         type: manyToOne
@@ -337,7 +335,7 @@ dataSources:
   - name: main
     mapping: default
     dialect: postgres
-    connection: $CNN_POSTGRES
+    connection: $$CNN_POSTGRES
 stages:
   - name: default
     dataSources:

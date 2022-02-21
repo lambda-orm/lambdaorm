@@ -143,22 +143,47 @@ export class Helper {
 		return str.substring(index, str.length).trim()
 	}
 
+	public static getEnvironmentVariable (text:string):string|undefined {
+		const environmentName = []
+		const index = text.indexOf('$$')
+		if (index < 0) {
+			return undefined
+		}
+		const alphanumeric = /[a-zA-Z0-9_]+$/
+		const buffer = text.substring(index + 2).split('')
+		for (let i = 0; i < buffer.length; i++) {
+			const char = buffer[i]
+			if (alphanumeric.test(char)) {
+				environmentName.push(char)
+			} else {
+				break
+			}
+		}
+		return environmentName.join('')
+	}
+
 	public static solveEnvironmentVariables (source:any): void {
 		if (typeof source === 'object') {
 			for (const name in source) {
-				const child = source[name]
-				if (typeof child === 'string' && child.startsWith('$')) {
-					const envrironmentVariable = child.substring(1)
-					const environmentVariableValue = process.env[envrironmentVariable]
-					if (environmentVariableValue === undefined || environmentVariableValue === null) {
-						source[name] = null
-					} else {
-						const objValue = Helper.tryParse(environmentVariableValue)
-						if (objValue) {
-							source[name] = objValue
-						} else {
-							source[name] = environmentVariableValue
+				let child = source[name]
+				if (typeof child === 'string' && child.indexOf('$$') >= 0) {
+					// there can be more than one environment variable in text
+					while (child.indexOf('$$') >= 0) {
+						const envrironmentVariable = Helper.getEnvironmentVariable(child)
+						if (envrironmentVariable) {
+							const environmentVariableValue = process.env[envrironmentVariable]
+							if (environmentVariableValue === undefined || environmentVariableValue === null) {
+								child = Helper.replace(child, '$$' + envrironmentVariable, '')
+							} else {
+								const objValue = Helper.tryParse(environmentVariableValue)
+								if (objValue) {
+									child = Helper.replace(child, '$$' + envrironmentVariable, JSON.stringify(objValue))
+								} else {
+									child = Helper.replace(child, '$$' + envrironmentVariable, environmentVariableValue)
+								}
+							}
 						}
+						source[name] = child
 					}
 				} else if (typeof child === 'object') {
 					Helper.solveEnvironmentVariables(child)

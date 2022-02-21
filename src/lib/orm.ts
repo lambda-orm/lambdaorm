@@ -6,28 +6,24 @@ import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlCon
 import { LanguageManager } from './language'
 import { SqlLanguage } from './language/sql'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
-import modelConfig from './parser/config.json'
+import modelConfig from './expression/model.json'
+import { OrmExtesionLib } from './expression/extension'
 
 /**
  * Facade through which you can access all the functionalities of the library.
  */
 export class Orm implements IOrm {
 	private _cache: Cache
-	// private expressionConfig: ExpressionConfig
 	private stageFacade: StageFacade
 	private connectionManager: ConnectionManager
 	private languageManager: LanguageManager
 	// private libManager: LibManager
 	private expressionManager: ExpressionManager
 	private routing: Routing
-	public expressions:Expressions
-
 	private executor:Executor
 	private static _instance: Orm
-	/**
-	 * Property that exposes the configuration
-	 */
 	private schemaManager: SchemaManager
+	private _expressions: Expressions
 
 	/**
  * Singleton
@@ -40,13 +36,15 @@ export class Orm implements IOrm {
 	}
 
 	constructor (workspace: string = process.cwd()) {
-		this.expressions = expressions
-		this.expressions.config.load(modelConfig)
-		this.schemaManager = new SchemaManager(workspace, this.expressions)
+		this._expressions = expressions
+		this._expressions.config.load(modelConfig)
+		this._expressions.config.addLibrary(new OrmExtesionLib())
+
+		this.schemaManager = new SchemaManager(workspace, this._expressions)
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 
-		this.languageManager = new LanguageManager(this.schemaManager, this.expressions)
+		this.languageManager = new LanguageManager(this.schemaManager, this._expressions)
 		this.languageManager.addLanguage('sql', new SqlLanguage())
 		// this.languageManager.addLanguage('noSql',new NoSqlLanguage())
 		this.connectionManager.addType('mysql', MySqlConnectionPool)
@@ -56,9 +54,9 @@ export class Orm implements IOrm {
 		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
-		this.routing = new Routing(this.schemaManager, this.expressions)
-		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languageManager, this.expressions, this.routing)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager, this.expressions)
+		this.routing = new Routing(this.schemaManager, this._expressions)
+		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languageManager, this._expressions, this.routing)
+		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager, this._expressions)
 		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languageManager, this.executor)
 	}
 
@@ -83,8 +81,8 @@ export class Orm implements IOrm {
 	}
 
 	/**
- * Frees the resources used, for example the connection pools
- */
+  * Frees the resources used, for example the connection pools
+  */
 	public async end (): Promise<void> {
 		await this.connectionManager.end()
 	}
@@ -98,8 +96,8 @@ export class Orm implements IOrm {
 	}
 
 	/**
-* Get reference to stage manager
-*/
+	* Get reference to stage manager
+	*/
 	public get stage (): StageFacade {
 		return this.stageFacade
 	}
@@ -112,8 +110,15 @@ export class Orm implements IOrm {
 	}
 
 	/**
-* set to cache manager
-*/
+	 * Get reference to SchemaConfig
+	 */
+	public get expressions (): Expressions {
+		return this._expressions
+	}
+
+	/**
+	* set to cache manager
+	*/
 	public setCache (value: Cache):void {
 		this._cache = value
 	}

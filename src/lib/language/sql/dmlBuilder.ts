@@ -121,10 +121,6 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 				let name:string
 				if (keyVal.property !== undefined) {
 					const property = this.mapping.getProperty(entity, keyVal.property)
-					if (property.readonly) {
-						// if property is readonly canot inserted
-						continue
-					}
 					name = property.mapping
 				} else {
 					name = keyVal.name
@@ -167,10 +163,6 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 				let name:string
 				if (keyVal.property !== undefined) {
 					const property = this.mapping.getProperty(entity, keyVal.property)
-					if (property.readonly) {
-						// if property is readonly canot updated
-						continue
-					}
 					name = property.mapping
 				} else {
 					name = keyVal.name

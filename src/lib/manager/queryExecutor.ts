@@ -108,8 +108,7 @@ export class QueryExecutor {
 		if (mainResult.length > 0) {
 			for (let i = 0; i < mainResult.length; i++) {
 				const row = mainResult[i]
-				this.untransform(query, mapping, row)
-				this.solveValues(query, row)
+				this.solveReadValues(query, row)
 			}
 			for (const p in query.children) {
 				const include = query.children[p]
@@ -163,13 +162,10 @@ export class QueryExecutor {
 		}
 		// solve default properties
 		this.solveDefaults(query, data.data)
-		// solve default properties
-		this.solveValues(query, data.data)
 		// evaluate constraints
 		this.constraints(query, data.data)
-		// transform
-		this.transform(query, mapping, data.data)
-
+		// solve default properties
+		this.solveWriteValues(query, data.data)
 		// insert main entity
 		const insertId = await connection.insert(mapping, query, this.params(query.parameters, metadata, data))
 		if (autoincrement) {
@@ -221,12 +217,10 @@ export class QueryExecutor {
 			const item = array[i]
 			// solve default properties
 			this.solveDefaults(query, item)
-			// solve write properties
-			this.solveValues(query, item)
 			// evaluate constraints
 			this.constraints(query, item)
-			// transform
-			this.transform(query, mapping, item)
+			// solve write properties
+			this.solveWriteValues(query, item)
 		}
 		// get rows
 		const rows = this.rows(query, metadata, array)
@@ -262,12 +256,10 @@ export class QueryExecutor {
 	}
 
 	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
-		// solve default properties
-		this.solveValues(query, data)
 		// evaluate constraints
 		this.constraints(query, data)
-		// transform
-		this.transform(query, mapping, data)
+		// solve default properties
+		this.solveWriteValues(query, data)
 		// update
 		const changeCount = await connection.update(mapping, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
@@ -372,51 +364,35 @@ export class QueryExecutor {
 	private solveDefaults (query:Query, data:any):void {
 		for (const i in query.defaults) {
 			const defaultBehavior = query.defaults[i]
-			const value = data[defaultBehavior.name]
+			const value = data[defaultBehavior.property]
 			if (value === undefined) {
-				data[defaultBehavior.name] = this.expressions.eval(defaultBehavior.expression, data)
+				data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
 			}
 		}
 	}
 
-	private solveValues (query: Query, data: any): void {
+	private solveWriteValues (query: Query, data: any): void {
 		for (const i in query.values) {
 			const valueBehavior = query.values[i]
-			const value = data[valueBehavior.name]
-			if (value === undefined) {
-				data[valueBehavior.name] = this.expressions.eval(valueBehavior.expression, data)
+			data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
+		}
+	}
+
+	private solveReadValues (query: Query, data: any): void {
+		for (const i in query.values) {
+			const valueBehavior = query.values[i]
+			if (valueBehavior.alias === valueBehavior.property) {
+				// Example Users.map(p=> [p.email]) or Users.map(p=> {email:p.email})
+				data[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, data)
+			} else if (valueBehavior.alias) {
+				// Example Users.map(p=> {mail:p.email})
+				// since the expression contains the name of the property and not the alias
+				// the property must be added with the alias value.
+				const context = Helper.clone(data)
+				context[valueBehavior.property] = data[valueBehavior.alias]
+				data[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
 			}
 		}
-
-		// const entity = mapping.getEntity(query.entity)
-		// if (entity && entity.properties) {
-		// for (let j = 0; j < query.parameters.length; j++) {
-		// const parameter = query.parameters[j]
-		// const property = entity.properties.find(p => p.name === parameter.name)
-		// if (property && property.value) {
-		// data[property.name] = this.expressions.eval(property.value, data)
-		// }
-		// }
-		// }
-		// const entity = mapping.getEntity(query.entity)
-		// if (entity && entity.properties) {
-		// for (const i in entity.properties) {
-		// const property = entity.properties[i]
-		// if (property.readonly) {
-		// delete data[property.name]
-		// } else {
-		// if (property.default) {
-		// const value = data[property.name]
-		// if (value === undefined) {
-		// data[property.name] = this.expressions.eval(property.default, data)
-		// }
-		// }
-		// if (property.value) {
-		// data[property.name] = this.expressions.eval(property.value, data)
-		// }
-		// }
-		// }
-		// }
 	}
 
 	// private solveReadValue (query:Query, mapping:MappingConfig, data:any):void {
@@ -457,51 +433,51 @@ export class QueryExecutor {
 		// }
 	}
 
-	private transform (query:Query, mapping:MappingConfig, data:any):void {
-		const entity = mapping.getEntity(query.entity)
-		if (entity && entity.properties && data) {
-			for (const i in entity.properties) {
-				const property = entity.properties[i]
-				if (property.base64 || property.encrypt || property.serialize) {
-					let value = data[property.name]
-					if (value) {
-						if (property.serialize) {
-							value = JSON.stringify(value)
-						}
-						if (property.base64) {
-							value = Helper.textTobase64(value)
-						}
-						if (property.encrypt) {
-							value = Helper.encrypt(value, property.encrypt)
-						}
-						data[property.name] = value
-					}
-				}
-			}
-		}
-	}
+	// private transform (query:Query, mapping:MappingConfig, data:any):void {
+	// const entity = mapping.getEntity(query.entity)
+	// if (entity && entity.properties && data) {
+	// for (const i in entity.properties) {
+	// const property = entity.properties[i]
+	// if (property.base64 || property.encrypt || property.serialize) {
+	// let value = data[property.name]
+	// if (value) {
+	// if (property.serialize) {
+	// value = JSON.stringify(value)
+	// }
+	// if (property.base64) {
+	// value = Helper.textTobase64(value)
+	// }
+	// if (property.encrypt) {
+	// value = Helper.encrypt(value, property.encrypt)
+	// }
+	// data[property.name] = value
+	// }
+	// }
+	// }
+	// }
+	// }
 
-	private untransform (query:Query, mapping:MappingConfig, result:any):void {
-		const entity = mapping.getEntity(query.entity)
-		if (entity && entity.properties && result) {
-			for (const i in entity.properties) {
-				const property = entity.properties[i]
-				if (property.base64 || property.encrypt || property.serialize) {
-					let value = result[property.name]
-					if (value) {
-						if (property.encrypt) {
-							value = Helper.decrypt(value, property.encrypt)
-						}
-						if (property.base64) {
-							value = Helper.base64ToText(value)
-						}
-						if (property.serialize) {
-							value = JSON.parse(value)
-						}
-						result[property.name] = value
-					}
-				}
-			}
-		}
-	}
+// private untransform (query:Query, mapping:MappingConfig, result:any):void {
+// const entity = mapping.getEntity(query.entity)
+// if (entity && entity.properties && result) {
+// for (const i in entity.properties) {
+// const property = entity.properties[i]
+// if (property.base64 || property.encrypt || property.serialize) {
+// let value = result[property.name]
+// if (value) {
+// if (property.encrypt) {
+// value = Helper.decrypt(value, property.encrypt)
+// }
+// if (property.base64) {
+// value = Helper.base64ToText(value)
+// }
+// if (property.serialize) {
+// value = JSON.parse(value)
+// }
+// result[property.name] = value
+// }
+// }
+// }
+// }
+// }
 }

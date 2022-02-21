@@ -268,7 +268,7 @@ export class ExpressionCompleter {
 		const obj = new Node('obj', 'obj', [])
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
-			if (!property.readonly && (!property.autoincrement || !excludeAutoincrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
+			if ((!property.autoincrement || !excludeAutoincrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
 				const field = new Node(parent ? parent + '.' + property.name : property.name, 'var', [])
 				const keyVal = new Node(property.name, 'keyVal', [field])
 				obj.children.push(keyVal)

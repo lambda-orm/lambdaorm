@@ -18,11 +18,9 @@ export interface Property {
 	primaryKey?: boolean
 	autoincrement?: boolean
 	default?: string
-	value?: string
-	encrypt?: string
-	base64?: boolean
-	serialize?: boolean
-	readonly?: boolean
+	readValue?: string
+	writeValue?: string
+	// expression?: string
 }
 export interface Relation {
 	name: string
@@ -113,6 +111,7 @@ export interface SchemaState
 
 export interface Behavior
 {
-	name: string
+	alias?: string
+	property: string
 	expression: string
 }
