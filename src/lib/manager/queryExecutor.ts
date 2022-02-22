@@ -106,6 +106,7 @@ export class QueryExecutor {
 		const mainResult = await connection.select(mapping, query, this.params(query.parameters, metadata, data))
 
 		if (mainResult.length > 0) {
+			// get rows for include relations
 			for (let i = 0; i < mainResult.length; i++) {
 				const row = mainResult[i]
 				this.solveReadValues(query, row)
@@ -126,7 +127,10 @@ export class QueryExecutor {
 						? includeResult.filter((p:any) => p.__parentId === relationId)
 						: includeResult.find((p: any) => p.__parentId === relationId)
 				}
-				// clear temporal fields used for include relations
+			}
+			// clear temporal fields used for include relations
+			for (const p in query.children) {
+				const include = query.children[p]
 				for (let i = 0; i < mainResult.length; i++) {
 					const element = mainResult[i]
 					delete element['__' + include.relation.from]

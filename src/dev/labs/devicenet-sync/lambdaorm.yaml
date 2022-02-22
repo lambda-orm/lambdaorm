@@ -29,9 +29,12 @@ enums:
         value: owner
       - name: admin
         value: admin
+      - name: user
+        value: user
       - name: guest
         value: guest
 entities:
+  # abtracts
   - name: Basics
     abstract: true
     properties:
@@ -57,6 +60,7 @@ entities:
         length: 32
       - name: serialNumber
         length: 32
+  # model
   - name: Devices
     extends: Products
     primaryKey: ["id"]
@@ -66,6 +70,7 @@ entities:
       - name: id
         length: 32
         nullable: false
+        default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
       - name: type
         length: 16
         nullable: false
@@ -74,9 +79,6 @@ entities:
         nullable: false
       - name: groupId
         length: 32
-      - name: password
-        writeValue: encrypt(password,"$$DEVICES_SECRET_KEY")
-        readValue: decrypt(password,"$$DEVICES_SECRET_KEY")
       - name: so
         length: 32
       - name: imei
@@ -115,10 +117,10 @@ entities:
     primaryKey: ["id"]
     uniqueKey: ["deviceId", "name"]
     properties:
-      # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
       - name: id
         length: 50
         nullable: false
+        # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
         default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
       - name: deviceId
         length: 32
@@ -178,8 +180,8 @@ entities:
         from: journeyId
         entity: Journeys
         to: id
-  # representa un trayecto, ejemplo de casa al colegio
   - name: Journeys
+    # representa un trayecto, ejemplo de casa al colegio
     extends: Basics
     primaryKey: ["id"]
     indexes:
@@ -308,9 +310,9 @@ entities:
     uniqueKey: ["groupId", "username"]
     properties:
       - name: id
-        type: integer
+        default: "`${groupId}-${username}`"
+        length: 64
         nullable: false
-        autoincrement: true
       - name: username
         length: 32
         nullable: false
