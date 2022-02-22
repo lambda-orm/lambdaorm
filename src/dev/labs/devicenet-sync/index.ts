@@ -1,6 +1,68 @@
 import { Orm } from '../../../lib'
 import path from 'path'
 
+function getUsers () {
+	return [
+		{ username: 'flaviolrita', firstname: 'Flavio Lionel', lastname: 'Rita', email: 'flaviolrita@hotmail.com' },
+		{ username: 'griss512', firstname: 'Gricelda Rocio', lastname: 'Puchuri Corilla', email: 'griss512@hotmail.com' },
+		{ username: 'micaela', firstname: 'Micaela Valentina', lastname: 'Rita Puchuri', email: 'flaviolrita@hotmail.com' },
+		{ username: 'joaquin', firstname: 'Joaquin Ignacio', lastname: 'Rita Puchuri', email: 'flaviolrita@hotmail.com' }
+	]
+}
+
+function getGroups () {
+	return [
+		{
+			name: 'Rita Puchuri',
+			members: [
+				{ username: 'flaviolrita', rol: 'admin' },
+				{ username: 'griss512', rol: 'admin' },
+				{ username: 'micaela', rol: 'user' },
+				{ username: 'joaquin', rol: 'user' }
+			]
+		}
+	]
+}
+
+function getDevices () {
+	return [
+		{
+			name: 'Huawei P30 lite Flavio',
+			type: 'phone',
+			serialNumber: 'L2NDU19A18006154',
+			groupId: 'rita-puchuri',
+			brand: 'Huawei',
+			model: 'MAR-LX1A',
+			so: 'android 10',
+			imei: '863451049927149',
+			imei2: '863451049959159',
+			mac: 'FC:94:35:90:E2:86',
+			macBluetooth: 'FC:94:35:90:EF:07',
+			ip: '192.168.1.138',
+			components: [
+				{
+					name: 'frontal camera',
+					type: 'camera',
+					brand: 'Huawei',
+					model: '24Mpx front'
+				},
+				{
+					name: 'Rear camera',
+					type: 'camera',
+					brand: 'Huawei',
+					model: 'Rear camera 48, 8 and 2Mpx'
+				},
+				{
+					name: 'microphone',
+					type: 'microphone',
+					brand: 'Huawei',
+					model: 'Microphone SMD Soldering Soldar'
+				}
+			]
+		}
+	]
+}
+
 (async () => {
 	const workspace = path.join(process.cwd(), '/src/dev/labs/devicenet-sync')
 	const orm = new Orm(workspace)
@@ -9,14 +71,24 @@ import path from 'path'
 		await orm.init(schema)
 		await orm.stage.clean(orm.defaultStage.name).execute()
 		await orm.stage.sync(orm.defaultStage.name).execute()
-		const users = [{ username: 'flaviolrita', email: 'FLAVIOLIONELRITA@HOTMAIL.COM', firstname: 'Flavio Lionel', lastname: 'Rita' }]
-		await orm.execute('Users.bulkInsert()', users)
-		const result = await orm.execute('Users.map(p=> {name: concat(p.firstname," ",p.lastname),mail:p.email,createdDate:p.created})')
+
+		await orm.execute('Users.bulkInsert()', getUsers())
+		await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())
+		await orm.execute('Devices.bulkInsert().include(p=> p.components)', getDevices())
+
+		// const result = await orm.execute('Users.map(p=> {name: concat(p.firstname," ",p.lastname),mail:p.email,createdDate:p.created})')
+		// console.log(JSON.stringify(result))
+		// const result2 = await orm.execute('Users.map(p=> p.email)')
+		// console.log(JSON.stringify(result2))
+		// const result3 = await orm.execute('Users.map(p=> [p.firstname,p.lastname,p.email,p.created])')
+		// console.log(JSON.stringify(result3))
+
+		// const sentence = await orm.sentence('Groups.include(p=> [p.members,p.devices])')
+		// console.log(sentence)
+
+		const result = await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components)])')
 		console.log(JSON.stringify(result))
-		const result2 = await orm.execute('Users.map(p=> p.email)')
-		console.log(JSON.stringify(result2))
-		const result3 = await orm.execute('Users.map(p=> [p.firstname,p.lastname,p.email,p.created])')
-		console.log(JSON.stringify(result3))
+
 		// await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
 		console.error(`error: ${error}`)

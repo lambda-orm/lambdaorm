@@ -8,8 +8,6 @@ export class OrmExtesionLib extends Library {
 	}
 
 	private initFunctions (): any {
-		this.addFunction('stringify', (value: any):string => JSON.stringify(value))
-		this.addFunction('parse', (value: string): any => JSON.parse(value))
 		this.addFunction('textTobase64', (value: string):string => Helper.textTobase64(value))
 		this.addFunction('base64ToText', (value: string): string => Helper.base64ToText(value))
 		this.addFunction('encrypt', (value: string, key:string):string => Helper.encrypt(value, key))

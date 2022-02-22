@@ -47,11 +47,11 @@ dataSources:
   - name: dataSource1
     dialect: mysql
     mapping: mapping1
-    connection: $CNN_MYDB
+    connection: $$CNN_MYDB
   - name: dataSource2
     dialect: postgres
     mapping: mapping2
-    connection: $CNN_MYDB2
+    connection: $$CNN_MYDB2
 mappings:
   - name: mapping1
   - name: mapping2

@@ -71,12 +71,27 @@ export class Orm implements IOrm {
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
 		const schema = await this.schemaManager.init(source)
+		// set connections
 		if (connect && schema.dataSources) {
 			for (const p in schema.dataSources) {
 				const dataSource = schema.dataSources[p]
 				this.connectionManager.load(dataSource)
 			}
 		}
+		// add enums
+		if (schema.enums) {
+			const enums: any = {}
+			for (const i in schema.enums) {
+				const _enum = schema.enums[i]
+				const values:any = {}
+				for (const j in _enum.values) {
+					values[_enum.values[j].name] = _enum.values[j].value
+				}
+				enums[_enum.name] = values
+			}
+			expressions.config.load({ enums: enums })
+		}
+
 		return schema
 	}
 
