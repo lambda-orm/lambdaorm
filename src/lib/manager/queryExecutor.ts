@@ -399,89 +399,12 @@ export class QueryExecutor {
 		}
 	}
 
-	// private solveReadValue (query:Query, mapping:MappingConfig, data:any):void {
-	// const entity = mapping.getEntity(query.entity)
-	// if (entity && entity.properties) {
-	// for (const i in query.columns) {
-	// const column = query.columns[i]
-	// const property = entity.properties.find(p => p.name === column.name)
-	// if (property && property.readonly && property.value) {
-	// data[property.name] = this.expressions.eval(property.value, data)
-	// }
-	// }
-	// }
-	// }
-
 	private constraints (query: Query, data: any): void {
 		for (const i in query.constraints) {
 			const constraint = query.constraints[i]
 			if (!this.expressions.eval(constraint.condition, data)) {
-				throw new Error(`${query.entity} error: ${constraint.message}`)
+				throw new Error(`${query.entity} error: ${constraint.message} data: ${JSON.stringify(data)} `)
 			}
 		}
-
-		// const entity = mapping.getEntity(query.entity)
-		// if (entity && entity.properties) {
-		// for (let j = 0; j < query.parameters.length; j++) {
-		// const parameter = query.parameters[j]
-		// const property = entity.properties.find(p => p.name === parameter.name)
-		// if (property && property.constraints) {
-		// for (const i in property.constraints) {
-		// const constraints = property.constraints[i]
-		// if (!this.expressions.eval(constraints.condition, data)) {
-		// throw new Error(`${query.entity} error: ${constraints.message}`)
-		// }
-		// }
-		// }
-		// }
-		// }
 	}
-
-	// private transform (query:Query, mapping:MappingConfig, data:any):void {
-	// const entity = mapping.getEntity(query.entity)
-	// if (entity && entity.properties && data) {
-	// for (const i in entity.properties) {
-	// const property = entity.properties[i]
-	// if (property.base64 || property.encrypt || property.serialize) {
-	// let value = data[property.name]
-	// if (value) {
-	// if (property.serialize) {
-	// value = JSON.stringify(value)
-	// }
-	// if (property.base64) {
-	// value = Helper.textTobase64(value)
-	// }
-	// if (property.encrypt) {
-	// value = Helper.encrypt(value, property.encrypt)
-	// }
-	// data[property.name] = value
-	// }
-	// }
-	// }
-	// }
-	// }
-
-// private untransform (query:Query, mapping:MappingConfig, result:any):void {
-// const entity = mapping.getEntity(query.entity)
-// if (entity && entity.properties && result) {
-// for (const i in entity.properties) {
-// const property = entity.properties[i]
-// if (property.base64 || property.encrypt || property.serialize) {
-// let value = result[property.name]
-// if (value) {
-// if (property.encrypt) {
-// value = Helper.decrypt(value, property.encrypt)
-// }
-// if (property.base64) {
-// value = Helper.base64ToText(value)
-// }
-// if (property.serialize) {
-// value = JSON.parse(value)
-// }
-// result[property.name] = value
-// }
-// }
-// }
-// }
-// }
 }

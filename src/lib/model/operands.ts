@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Relation, Behavior, Constraint } from '../model'
+import { Property, Parameter, Relation, Behavior, Constraint } from '.'
 import { Operand, Constant, ArrowFunction, ChildFunction, Variable } from 'js-expressions'
 const SqlString = require('sqlstring')
 

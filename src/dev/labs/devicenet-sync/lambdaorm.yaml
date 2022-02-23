@@ -25,12 +25,10 @@ enums:
         value: audio
   - name: Role
     values:
-      - name: owner
-        value: owner
       - name: admin
         value: admin
-      - name: user
-        value: user
+      - name: member
+        value: member
       - name: guest
         value: guest
 entities:
@@ -74,6 +72,7 @@ entities:
       - name: type
         length: 16
         nullable: false
+        enum: DeviceType
       - name: name
         length: 32
         nullable: false
@@ -131,6 +130,7 @@ entities:
       - name: type
         length: 16
         nullable: false
+        enum: ComponentType
     relations:
       - name: device
         from: deviceId
@@ -231,6 +231,7 @@ entities:
       - name: type
         length: 16
         nullable: false
+        enum: FileType
       - name: deviceId
         length: 32
         nullable: false
@@ -319,9 +320,10 @@ entities:
       - name: groupId
         length: 32
         nullable: false
-      - name: rol
+      - name: role
         length: 32
         nullable: false
+        enum: Role
     relations:
       - name: group
         from: groupId

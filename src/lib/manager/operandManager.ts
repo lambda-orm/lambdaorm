@@ -1,8 +1,8 @@
 
 import { Property, Parameter, Data, Behavior, Constraint } from '../model'
-import { ModelConfig } from '../manager'
+import { ModelConfig } from '.'
 import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
-import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from './operands'
+import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
 
 class EntityContext {
 	public parent?:EntityContext
@@ -91,6 +91,20 @@ export class OperandManager {
 				const childParameter = childsParameter[q]
 				result[childParameter.name] = childParameter.type
 			}
+		}
+		return result
+	}
+
+	public constraints (sentence:Sentence):any {
+		const result: any = { entity: sentence.entity, constraints: sentence.constraints }
+		const includes = sentence.getIncludes()
+		for (const p in includes) {
+			const include = includes[p]
+			const child = this.constraints(include.children[0] as Sentence)
+			if (!result.childs) {
+				result.childs = []
+			}
+			result.childs.push(child)
 		}
 		return result
 	}
@@ -560,23 +574,49 @@ export class OperandManager {
 		const constraints: Constraint[] = []
 		const queryProperties = this.getPropertiesFromParameters(entityName, parameters)
 		const entity = this.modelConfig.getEntity(entityName)
-		if (entity && entity.constraints) {
-			for (const i in entity.constraints) {
-				const constraint = entity.constraints[i]
-				const contitionProperties = this.expressions.parameters(constraint.condition)
-				let containtAll = true
-				for (const j in contitionProperties) {
-					const contitionParameter = contitionProperties[j]
-					if (!queryProperties.find(p => p.name === contitionParameter.name)) {
-						containtAll = false
-						break
+		if (entity) {
+			if (entity.constraints) {
+				for (const i in entity.constraints) {
+					const constraint = entity.constraints[i]
+					const contitionProperties = this.expressions.parameters(constraint.condition)
+					let containtAll = true
+					for (const j in contitionProperties) {
+						const contitionParameter = contitionProperties[j]
+						if (!queryProperties.find(p => p.name === contitionParameter.name)) {
+							containtAll = false
+							break
+						}
+					}
+					if (containtAll) {
+						constraints.push(constraint)
 					}
 				}
-				if (containtAll) {
-					constraints.push(constraint)
+			}
+			if (queryProperties) {
+				for (const i in queryProperties) {
+					const property = queryProperties[i]
+					if (property.nullable === false && property.default === undefined) {
+						const constraint: Constraint = {
+							message: `Cannot be null property ${property.name} in entity ${entityName}`,
+							condition: `isNotNull(${property.name})`
+						}
+						constraints.push(constraint)
+					}
+					if (property.enum) {
+						const _enum = this.modelConfig.getEnum(property.enum)
+						if (_enum && _enum.values) {
+							const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
+							const constraint: Constraint = {
+								message: `invalid value for property ${property.name} in entity ${entityName}`,
+								condition: `includes(${property.name},[${values}])`
+							}
+							constraints.push(constraint)
+						}
+					}
 				}
 			}
 		}
+
 		return constraints
 	}
 

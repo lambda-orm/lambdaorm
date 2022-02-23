@@ -8,6 +8,7 @@ const yaml = require('js-yaml')
 
 abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> {
 	public abstract get entities(): TEntity[];
+	public abstract get enums(): Enum[];
 
 	public getEntity (name: string): TEntity|undefined {
 		if (name.includes('.')) {
@@ -15,6 +16,10 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			return this.entities.find(p => p.name === entityName)
 		}
 		return this.entities.find(p => p.name === name)
+	}
+
+	public getEnum (name: string): Enum|undefined {
+		return this.enums.find(p => p.name === name)
 	}
 
 	public isChild (entityName:string):boolean {
@@ -225,9 +230,11 @@ export class ModelConfig extends _ModelConfig<Entity, Property> {
 
 export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> {
 	private mapping: Mapping
-	constructor (mapping: Mapping) {
+	public enums:Enum[]
+	constructor (mapping: Mapping, enums:Enum[] = []) {
 		super()
 		this.mapping = mapping
+		this.enums = enums
 	}
 
 	public get name ():string {
