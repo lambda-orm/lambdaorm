@@ -15,10 +15,10 @@ function getGroups () {
 		{
 			name: 'Rita Puchuri',
 			members: [
-				{ username: 'flaviolrita', rol: 'admin' },
-				{ username: 'griss512', rol: 'admin' },
-				{ username: 'micaela', rol: 'user' },
-				{ username: 'joaquin', rol: 'user' }
+				{ username: 'flaviolrita', role: 'admin' },
+				{ username: 'griss512', role: 'admin' },
+				{ username: 'micaela', role: 'member' },
+				{ username: 'joaquin', role: 'member' }
 			]
 		}
 	]
@@ -76,20 +76,13 @@ function getDevices () {
 		await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())
 		await orm.execute('Devices.bulkInsert().include(p=> p.components)', getDevices())
 
-		// const result = await orm.execute('Users.map(p=> {name: concat(p.firstname," ",p.lastname),mail:p.email,createdDate:p.created})')
-		// console.log(JSON.stringify(result))
-		// const result2 = await orm.execute('Users.map(p=> p.email)')
-		// console.log(JSON.stringify(result2))
-		// const result3 = await orm.execute('Users.map(p=> [p.firstname,p.lastname,p.email,p.created])')
-		// console.log(JSON.stringify(result3))
-
-		// const sentence = await orm.sentence('Groups.include(p=> [p.members,p.devices])')
-		// console.log(sentence)
-
-		const result = await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components)])')
+		const result = await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))])')
 		console.log(JSON.stringify(result))
 
-		// await orm.stage.clean(orm.defaultStage.name).execute()
+		const result2 = orm.constraints('Devices.bulkInsert().include(p=> p.components)')
+		console.log(JSON.stringify(result2))
+
+		await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
 		console.error(`error: ${error}`)
 		console.error(`error: ${error.stack}`)

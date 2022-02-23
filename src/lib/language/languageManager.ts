@@ -3,8 +3,8 @@ import { Node, Operand, Expressions } from 'js-expressions'
 import { Data, Query, Include, DataSource } from '../model'
 import { SchemaManager } from '../manager'
 import { Language } from './language'
-import { OperandManager } from '../operand/operandManager'
-import { Sentence } from '../operand/operands'
+import { OperandManager } from '../manager/operandManager'
+import { Sentence } from '../model/operands'
 import { DialectMetadata } from './dialectMetadata'
 import { LanguageDMLBuilder } from '../manager/dmlBuilder'
 import { LanguageDDLBuilder } from '../manager/ddlBuilder'
@@ -46,6 +46,10 @@ export class LanguageManager {
 
 	public parameters (sentence:Sentence):any {
 		return this.operandManager.parameters(sentence)
+	}
+
+	public constraints (sentence:Sentence):any {
+		return this.operandManager.constraints(sentence)
 	}
 
 	public dialectMetadata (dialect: string): DialectMetadata {

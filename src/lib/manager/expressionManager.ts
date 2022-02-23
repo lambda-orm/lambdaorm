@@ -113,6 +113,16 @@ export class ExpressionManager {
 	}
 
 	/**
+	 * Get constraints of expression
+	 * @param expression expression
+	 * @returns constraints
+	 */
+	public constraints (expression: string):any {
+		const operand = this.toOperand(expression)
+		return this.languageManager.constraints(operand as Sentence)
+	}
+
+	/**
 	 * Get parameters of expression
 	 * @param expression  expression
 	 * @returns Parameters of expression

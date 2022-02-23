@@ -187,6 +187,19 @@ export class Orm implements IOrm {
 	}
 
 	/**
+	 * Get constraints of expression
+	 * @returns Constraints of expression
+	 */
+	public constraints(expression:Function): any;
+	public constraints(expression:string): any;
+	public constraints (expression: string|Function): any {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
+		return this.expressionManager.constraints(expression)
+	}
+
+	/**
 	 * Get metadata of expression
 	 * @returns metadata of expression
 	 */

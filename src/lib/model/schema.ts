@@ -20,6 +20,7 @@ export interface Property {
 	default?: string
 	readValue?: string
 	writeValue?: string
+	enum?: string
 	// expression?: string
 }
 export interface Relation {
