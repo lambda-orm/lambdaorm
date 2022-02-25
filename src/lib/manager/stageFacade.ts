@@ -7,7 +7,7 @@ import { StageExport } from '../stage/stageExport'
 import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
 import { Helper } from './helper'
-import { SchemaError, Stage } from 'lib'
+import { SchemaError, Stage } from './../model'
 
 export class StageFacade {
 	private state: StageState

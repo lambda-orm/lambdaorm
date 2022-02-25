@@ -1,5 +1,5 @@
 
-import { Data, ExecutionError, Parameter, Query, SintaxisError, ValidationError } from '../model'
+import { Data, ExecutionError, Parameter, Query, ValidationError } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { LanguageManager } from '../language'
@@ -67,37 +67,33 @@ export class QueryExecutor {
 
 	private async _execute (query:Query, data:Data):Promise<any> {
 		let result: any
-		try {
-			const dataSource = this.schemaManager.dataSource.get(query.dataSource)
-			const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
-			const connection = await this.getConnection(dataSource.name)
-			const metadata = this.languageManager.dialectMetadata(query.dialect)
-			switch (query.name) {
-			case 'select': result = await this.select(query, data, mapping, metadata, connection); break
-			case 'insert': result = await this.insert(query, data, mapping, metadata, connection); break
-			case 'update': result = await this.update(query, data, mapping, metadata, connection); break
-			case 'delete': result = await this.delete(query, data, mapping, metadata, connection); break
-			case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, metadata, connection); break
-			case 'truncateTable': result = await connection.execute(query); break
-			case 'createTable': result = await connection.execute(query); break
-			case 'createFk': result = await connection.execute(query); break
-			case 'createIndex': result = await connection.execute(query); break
-			case 'alterColumn': result = await connection.execute(query); break
-			case 'addColumn': result = await connection.execute(query); break
-			case 'addPk': result = await connection.execute(query); break
-			case 'addUk': result = await connection.execute(query); break
-			case 'addFk': result = await connection.execute(query); break
-			case 'dropTable': result = await connection.execute(query); break
-			case 'dropColumn': result = await connection.execute(query); break
-			case 'dropPk': result = await connection.execute(query); break
-			case 'dropUk': result = await connection.execute(query); break
-			case 'dropFK': result = await connection.execute(query); break
-			case 'dropIndex': result = await connection.execute(query); break
-			default:
-				throw new ExecutionError(query.dataSource, query.entity, query.sentence, `query ${query.name} undefined`, data.data)
-			}
-		} catch (error: any) {
-			throw new ExecutionError(query.dataSource, query.entity, query.sentence, error.message, data.data)
+		const dataSource = this.schemaManager.dataSource.get(query.dataSource)
+		const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
+		const connection = await this.getConnection(dataSource.name)
+		const metadata = this.languageManager.dialectMetadata(query.dialect)
+		switch (query.name) {
+		case 'select': result = await this.select(query, data, mapping, metadata, connection); break
+		case 'insert': result = await this.insert(query, data, mapping, metadata, connection); break
+		case 'update': result = await this.update(query, data, mapping, metadata, connection); break
+		case 'delete': result = await this.delete(query, data, mapping, metadata, connection); break
+		case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, metadata, connection); break
+		case 'truncateTable': result = await connection.execute(query); break
+		case 'createTable': result = await connection.execute(query); break
+		case 'createFk': result = await connection.execute(query); break
+		case 'createIndex': result = await connection.execute(query); break
+		case 'alterColumn': result = await connection.execute(query); break
+		case 'addColumn': result = await connection.execute(query); break
+		case 'addPk': result = await connection.execute(query); break
+		case 'addUk': result = await connection.execute(query); break
+		case 'addFk': result = await connection.execute(query); break
+		case 'dropTable': result = await connection.execute(query); break
+		case 'dropColumn': result = await connection.execute(query); break
+		case 'dropPk': result = await connection.execute(query); break
+		case 'dropUk': result = await connection.execute(query); break
+		case 'dropFK': result = await connection.execute(query); break
+		case 'dropIndex': result = await connection.execute(query); break
+		default:
+			throw new ExecutionError(query.dataSource, query.entity, query.sentence, `query ${query.name} undefined`)
 		}
 		return result
 	}

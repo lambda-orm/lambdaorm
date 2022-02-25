@@ -83,8 +83,7 @@ function getDevices () {
 
 		await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
-		console.error(`error: ${error}`)
-		console.error(`error: ${error.stack}`)
+		console.error(error.message)
 	} finally {
 		orm.end()
 	}

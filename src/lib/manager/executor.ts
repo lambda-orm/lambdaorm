@@ -38,7 +38,7 @@ export class Executor {
 				await queryExecutor.release()
 			}
 			if (error) {
-				throw new ExecutionError(query.dataSource, query.entity, query.sentence, error.message, data)
+				throw error
 			}
 		}
 		return result
@@ -55,7 +55,7 @@ export class Executor {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
 				} catch (error:any) {
-					results.push({ error: new ExecutionError(query.dataSource, query.entity, query.sentence, error.message) })
+					results.push({ error: error })
 				} finally {
 					await queryExecutor.release()
 				}
@@ -63,13 +63,9 @@ export class Executor {
 		} else {
 			await this.transaction(stage, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
-					try {
-						query = queries[i]
-						const result = await tr.execute(query)
-						results.push({ result: result })
-					} catch (error:any) {
-						throw new ExecutionError(query.dataSource, query.entity, query.sentence, error.message)
-					}
+					query = queries[i]
+					const result = await tr.execute(query)
+					results.push({ result: result })
 				}
 			})
 		}

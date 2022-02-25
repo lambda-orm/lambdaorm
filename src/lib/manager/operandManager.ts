@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, SchemaError, NotImplemented } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, NotImplemented } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
@@ -46,14 +46,9 @@ export class OperandManager {
 	}
 
 	public build (node:Node):Sentence {
-		try {
-			const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
-			const reduced = this.reduce(sentece)
-			return this.setParent(reduced) as Sentence
-		} catch (error) {
-			console.error(error)
-			throw error
-		}
+		const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
+		const reduced = this.reduce(sentece)
+		return this.setParent(reduced) as Sentence
 	}
 
 	public model (sentence:Sentence):any {
@@ -608,7 +603,7 @@ export class OperandManager {
 							const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
 							const constraint: Constraint = {
 								message: `invalid value for property ${property.name} in entity ${entityName}`,
-								condition: `in(${property.name},[${values}])`
+								condition: `includes(${property.name},[${values}])`
 							}
 							constraints.push(constraint)
 						}
