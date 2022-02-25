@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Data, Behavior, Constraint } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, NotImplemented } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
@@ -46,14 +46,9 @@ export class OperandManager {
 	}
 
 	public build (node:Node):Sentence {
-		try {
-			const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
-			const reduced = this.reduce(sentece)
-			return this.setParent(reduced) as Sentence
-		} catch (error) {
-			console.error(error)
-			throw error
-		}
+		const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
+		const reduced = this.reduce(sentece)
+		return this.setParent(reduced) as Sentence
 	}
 
 	public model (sentence:Sentence):any {
@@ -135,7 +130,7 @@ export class OperandManager {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public deserialize (serialized:any):Operand {
-		throw new Error('NotImplemented')
+		throw new NotImplemented('OperandManager', 'deserialize')
 	}
 
 	public eval (operand:Operand, data:Data):any {
@@ -223,7 +218,7 @@ export class OperandManager {
 			}
 			return operand
 		} catch (error:any) {
-			throw new Error('set parent: ' + operand.name + ' error: ' + error.toString())
+			throw new SintaxisError('set parent: ' + operand.name + ' error: ' + error.toString())
 		}
 	}
 
@@ -277,7 +272,7 @@ export class OperandManager {
 								// TODO, aqui se deberia retornar el array de fields
 								return new Field(relation, '*', 'any', relationAlias + '.*')
 							} else {
-								throw new Error('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
+								throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
 							}
 						}
 					}
@@ -297,7 +292,7 @@ export class OperandManager {
 							// TODO, aqui se deberia retornar el array de fields
 							return new Field(relation2, '*', 'any', relationAlias2 + '.*')
 						} else {
-							throw new Error('Property ' + propertyName + ' not fount in ' + relation)
+							throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
 						}
 					}
 				}
@@ -316,7 +311,7 @@ export class OperandManager {
 		case 'block':
 			return new Block(node.name, children)
 		default:
-			throw new Error('node name: ' + node.name + ' type: ' + node.type + ' not supported')
+			throw new SintaxisError('node name: ' + node.name + ' type: ' + node.type + ' not supported')
 		}
 	}
 
@@ -414,7 +409,7 @@ export class OperandManager {
 		}
 		if (clauses.include) {
 			if (!createInclude) {
-				throw new Error('Include not implemented!!!')
+				throw new SintaxisError('Include not implemented!!!')
 			}
 
 			const clause = clauses.include
@@ -627,7 +622,7 @@ export class OperandManager {
 		case 'filter': return new Filter(clause.name, [child])
 		case 'having': return new Having(clause.name, [child])
 		case 'sort': return new Sort(clause.name, [child])
-		default: throw new Error('clause : ' + clause.name + ' not supported')
+		default: throw new SintaxisError('clause : ' + clause.name + ' not supported')
 		}
 	}
 
@@ -637,7 +632,7 @@ export class OperandManager {
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
 			return new Map(clause.name, [child])
 		}
-		throw new Error('Sentence Map incorrect!!!')
+		throw new SintaxisError('Sentence Map incorrect!!!')
 	}
 
 	private createInsertClause (clause:Node, expressionContext:ExpressionContext):Operand {
@@ -646,15 +641,15 @@ export class OperandManager {
 			if (clause.children[1].type === 'obj') {
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
 				return new Insert(expressionContext.current.entityName, [child], clause.name)
-			} else { throw new Error('Args incorrect in Sentence Insert') }
+			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
 		} else if (clause.children.length === 3) {
 			// Example: Categories.insert(() => ({ name: name, description: description }))
 			if (clause.children[2].type === 'obj') {
 				const child = this.nodeToOperand(clause.children[2], expressionContext)
 				return new Insert(expressionContext.current.entityName, [child], clause.name)
-			} else { throw new Error('Args incorrect in Sentence Insert') }
+			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
 		}
-		throw new Error('Sentence Insert incorrect!!!')
+		throw new SintaxisError('Sentence Insert incorrect!!!')
 	}
 
 	private createUpdateClause (clause:Node, expressionContext:ExpressionContext):Operand {
@@ -664,7 +659,7 @@ export class OperandManager {
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
 				return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
 			} else {
-				throw new Error('Args incorrect in Sentence Update')
+				throw new SintaxisError('Args incorrect in Sentence Update')
 			}
 		} else if (clause.children.length === 3) {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
@@ -672,7 +667,7 @@ export class OperandManager {
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
 			return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
 		}
-		throw new Error('Sentence Update incorrect!!!')
+		throw new SintaxisError('Sentence Update incorrect!!!')
 	}
 
 	private createSelectInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
@@ -693,7 +688,7 @@ export class OperandManager {
 				break
 			}
 		}
-		throw new Error('Error to create SentenceInclude')
+		throw new SintaxisError('Error to create SentenceInclude')
 		// return new SentenceInclude(relation.name, [child], relation, '__parentId')
 		// return new SentenceInclude(relation.relation.name, [child], relation.relation)
 	}
@@ -714,7 +709,7 @@ export class OperandManager {
 				current = current.children[0]
 			} else { break }
 		}
-		throw new Error('Error to create SentenceInclude')
+		throw new SintaxisError('Error to create SentenceInclude')
 		// return new SentenceInclude(relationName, [child], relation, relation.to)
 	}
 

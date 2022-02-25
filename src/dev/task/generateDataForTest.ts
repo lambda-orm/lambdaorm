@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { exit } from 'process'
 import { orm, Helper } from '../../lib'
 import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from '../../model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
@@ -567,7 +568,7 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 				{ name: 'update 6', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
 				{ name: 'update 7', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
 				{ name: 'update 8', data: 'a', lambda: () => Orders.update().include(p => p.details) },
-				{ name: 'update 9', data: 'c', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
+				{ name: 'update 9', data: 'd', lambda: () => Customers.update().include(p => p.orders.include(p => p.details)) }
 			]
 	})
 }
@@ -994,42 +995,47 @@ async function stageImport (source: string, target: string) {
 }
 
 export async function apply (stages: string[], callback: any) {
-	await orm.init()
-	let errors = 0
+	try {
+		await orm.init()
+		let errors = 0
+		await orm.stage.sync('source').execute()
+		await stageExport('source')
+		for (const p in stages) {
+			const stage = stages[p]
+			await orm.stage.clean(stage).execute(true)
+			await orm.stage.sync(stage).execute()
+			await stageImport('source', stage)
+			await stageExport(stage)
+		}
 
-	await orm.stage.sync('source').execute()
-	await stageExport('source')
-	for (const p in stages) {
-		const stage = stages[p]
-		await orm.stage.clean(stage).execute(true)
-		await orm.stage.sync(stage).execute()
-		await stageImport('source', stage)
-		await stageExport(stage)
+		errors = +await writeQueryTest(stages)
+		errors = +await writeNumeriFunctionsTest(stages)
+		errors = +await writeGroupByTest(stages)
+		errors = +await writeIncludeTest(stages)
+		errors = +await writeInsertsTest(stages)
+		errors = +await writeUpdateTest(stages)
+		errors = +await writeDeleteTest(stages)
+		errors = +await writeBulkInsertTest(stages)
+
+		// //operators comparation , matematica
+		// //string functions
+		// //datetime functions
+		// //nullables functions
+		// OLDS
+		// await modify(orm)
+		// await crud(orm)
+		// await scriptsByDialect('northwind')
+		// await applySchema(schemas)
+		// await bulkInsert2(orm)
+
+		await orm.end()
+		console.log(`INFO: ${errors} errors`)
+	} catch (error:any) {
+		console.error(error)
 	}
-
-	errors = +await writeQueryTest(stages)
-	errors = +await writeNumeriFunctionsTest(stages)
-	errors = +await writeGroupByTest(stages)
-	errors = +await writeIncludeTest(stages)
-	errors = +await writeInsertsTest(stages)
-	errors = +await writeUpdateTest(stages)
-	errors = +await writeDeleteTest(stages)
-	errors = +await writeBulkInsertTest(stages)
-
-	// //operators comparation , matematica
-	// //string functions
-	// //datetime functions
-	// //nullables functions
-	// OLDS
-	// await modify(orm)
-	// await crud(orm)
-	// await scriptsByDialect('northwind')
-	// await applySchema(schemas)
-	// await bulkInsert2(orm)
-
-	await orm.end()
-	console.log(`INFO: ${errors} errors`)
 	callback()
 }
-apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
+apply(['mysql', 'postgres', 'mariadb'], function () {
+	console.log('end')
+})
 // apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })

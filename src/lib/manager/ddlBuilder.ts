@@ -1,6 +1,6 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
 import { LanguageManager, DialectMetadata } from '../language'
-import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo } from '../model'
+import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
 import { Helper } from '../manager/helper'
 
 export class DDLBuilder {
@@ -71,7 +71,7 @@ export class DDLBuilder {
 			if (this.evalDataSource(ruleDataSource, entityName)) {
 				const entity = entitiesMapping.find(p => p.name === entityName)
 				if (entity === undefined) {
-					throw new Error(`entity ${entityName} not found in mapping for drop constraint action`)
+					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
 				if (entity.relations) {
 					for (const q in entity.relations) {
@@ -82,7 +82,7 @@ export class DDLBuilder {
 								// busca la propiedad relacionada para saber si es nullable la relacion
 								const fromProperty = entity.properties.find(p => p.name === relation.from)
 								if (fromProperty === undefined) {
-									throw new Error(`property ${relation.from} not found in ${entity.name} `)
+									throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 								}
 								const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
 								if (isNullable) {
@@ -105,7 +105,7 @@ export class DDLBuilder {
 				// const entity = this.model.getEntity(entityName) as Entity
 				const entity = entitiesMapping.find(p => p.name === entityName)
 				if (entity === undefined) {
-					throw new Error(`entity ${entityName} not found in mapping for drop indexes action`)
+					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
 				if (entity.indexes) {
 					for (const j in entity.indexes) {
@@ -130,7 +130,7 @@ export class DDLBuilder {
 				// const entity = this.model.getEntity(entityName) as Entity
 				const entity = entitiesMapping.find(p => p.name === entityName)
 				if (entity === undefined) {
-					throw new Error(`entity ${entityName} not found in mapping for truncate action`)
+					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)
 				}
 				const query = this.builder(dataSource).truncateEntity(entity)
 				queries.push(query)

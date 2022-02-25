@@ -1,4 +1,4 @@
-import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo } from '../model'
+import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -35,7 +35,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 
 	public existsProperty (entityName:string, name:string):boolean {
 		const entity = this.getEntity(entityName)
-		if (!entity) { throw new Error('Not exists entity:' + entityName) }
+		if (!entity) { throw new SchemaError('Not exists entity:' + entityName) }
 		const property = entity.properties.find(p => p.name === name)
 		return property !== undefined
 	}
@@ -43,11 +43,11 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	public getProperty (entityName:string, name:string):TProperty {
 		const entity = this.getEntity(entityName)
 		if (!entity) {
-			throw new Error('Not exists entity:' + entityName)
+			throw new SchemaError('Not exists entity:' + entityName)
 		}
 		const property = entity.properties.find(p => p.name === name)
 		if (!property) {
-			throw new Error('Not exists property: ' + name + ' in entity: ' + entityName)
+			throw new SchemaError('Not exists property: ' + name + ' in entity: ' + entityName)
 		}
 		return property as TProperty
 	}
@@ -55,7 +55,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	public getAutoincrement (entityName:string): TProperty | undefined {
 		const entity = this.getEntity(entityName)
 		if (!entity) {
-			throw new Error('Not exists entity:' + entityName)
+			throw new SchemaError('Not exists entity:' + entityName)
 		}
 		return entity.properties.find(p => p.autoincrement === true) as TProperty
 	}
@@ -120,7 +120,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	protected solveSortEntity (entityName:string, sorted:string[], parent?:string):boolean {
 		const entity = this.getEntity(entityName)
 		if (entity === undefined) {
-			throw new Error('Not exists entity:' + entityName)
+			throw new SchemaError('Not exists entity:' + entityName)
 		}
 		if (entity.relations === undefined || entity.relations.length === 0) {
 			return true
@@ -156,7 +156,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	protected hadDependencies (entityName:string, sorted:string[], parent?:string):boolean {
 		const entity = this.getEntity(entityName)
 		if (entity === undefined) {
-			throw new Error('Not exists entity:' + entityName)
+			throw new SchemaError('Not exists entity:' + entityName)
 		}
 		if (entity.dependents === undefined || entity.dependents.length === 0) {
 			return false
@@ -169,11 +169,11 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 						// look for the related property to see if the dependency is nullable
 						const dependentEntity = this.getEntity(dependent.entity)
 						if (dependentEntity === undefined) {
-							throw new Error('Not exists entity:' + dependent.entity)
+							throw new SchemaError('Not exists entity:' + dependent.entity)
 						}
 						const dependentProperty = dependentEntity.properties.find(p => p.name === dependent.relation.from)
 						if (dependentProperty === undefined) {
-							throw new Error(`property ${dependent.relation.from} not found in ${entity.name} `)
+							throw new SchemaError(`property ${dependent.relation.from} not found in ${entity.name} `)
 						}
 						const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
 						// if the relation is nullable
@@ -204,7 +204,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 				previousEntity = relationEntity as Entity
 			}
 			relationData = previousEntity.relations.find(p => p.name === part)
-			if (!relationData) { throw new Error('relation ' + part + ' not found in ' + previousEntity.name) }
+			if (!relationData) { throw new SchemaError('relation ' + part + ' not found in ' + previousEntity.name) }
 			_relationEntity = relationData.entity
 			relationEntity = this.getEntity(_relationEntity)
 		}
@@ -287,7 +287,7 @@ export class MappingsConfig {
 	public get (name:string):Mapping {
 		const mapping = this.mappings.find(p => p.name === name)
 		if (!mapping) {
-			throw new Error(`mapping ${name} not found`)
+			throw new SchemaError(`mapping ${name} not found`)
 		}
 		return mapping
 	}
@@ -295,7 +295,7 @@ export class MappingsConfig {
 	public getInstance (name:string):MappingConfig {
 		const mapping = this.get(name)
 		if (!mapping) {
-			throw new Error(`mapping ${name} not found`)
+			throw new SchemaError(`mapping ${name} not found`)
 		}
 		return new MappingConfig(mapping)
 	}
@@ -326,12 +326,12 @@ export class DataSourceConfig {
 			if (this.dataSources.length === 1) {
 				return this.dataSources[0]
 			} else {
-				throw new Error('the name of the dataSource is required')
+				throw new SchemaError('the name of the dataSource is required')
 			}
 		}
 		const db = this.dataSources.find(p => p.name === _name)
 		if (db === undefined) {
-			throw new Error(`default dataSource: ${_name} not found`)
+			throw new SchemaError(`default dataSource: ${_name} not found`)
 		}
 		return db
 	}
@@ -361,7 +361,7 @@ export class StageConfig {
 		}
 		const stage = this.stages.find(p => p.name === name)
 		if (stage === undefined) {
-			throw new Error(`Stage: ${name} not found`)
+			throw new SchemaError(`Stage: ${name} not found`)
 		}
 		return stage
 	}
@@ -505,7 +505,7 @@ class SchemaExtender {
 		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
-				throw new Error(`${entity.extends} not found`)
+				throw new SchemaError(`${entity.extends} not found`)
 			}
 			this.extendEntiy(base, entities)
 			if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
@@ -532,7 +532,7 @@ class SchemaExtender {
 		if (mapping && mapping.extends) {
 			const base = mappings.find(p => p.name === mapping.extends)
 			if (base === undefined) {
-				throw new Error(`${mapping.extends} not found`)
+				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
 			this.extendObject(mapping, base)
@@ -545,7 +545,7 @@ class SchemaExtender {
 		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
-				throw new Error(`${entity.extends} not found`)
+				throw new SchemaError(`${entity.extends} not found`)
 			}
 			this.extendEntiyMapping(base, entities)
 			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) entity.uniqueKey = base.uniqueKey
@@ -678,7 +678,7 @@ export class SchemaManager {
 		} else {
 			const _schema = source as Schema
 			if (_schema === undefined) {
-				throw new Error(`Schema: ${source} not supported`)
+				throw new SchemaError(`Schema: ${source} not supported`)
 			}
 			schema = _schema
 		}
@@ -720,17 +720,17 @@ export class SchemaManager {
 				if (content !== null) {
 					schema = yaml.load(content)
 				} else {
-					throw new Error(`Schema file: ${configPath} empty`)
+					throw new SchemaError(`Schema file: ${configPath} empty`)
 				}
 			} else if (path.extname(configFile) === '.json') {
 				const content = await Helper.readFile(configPath)
 				if (content !== null) {
 					schema = JSON.parse(content)
 				} else {
-					throw new Error(`Schema file: ${configPath} empty`)
+					throw new SchemaError(`Schema file: ${configPath} empty`)
 				}
 			} else {
-				throw new Error(`Schema file: ${configPath} not supported`)
+				throw new SchemaError(`Schema file: ${configPath} not supported`)
 			}
 		}
 

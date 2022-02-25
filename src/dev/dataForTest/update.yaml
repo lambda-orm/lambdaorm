@@ -786,7 +786,7 @@ test:
       - stage: mariadb
     result: 0
   - name: update 9
-    data: c
+    data: d
     sentences:
       - stage: mysql
         sentence: >-
@@ -867,31 +867,31 @@ test:
     parameters:
       - name: id
         type: string
-        value: null
+        value: ALFKI
       - name: name
         type: string
-        value: null
+        value: Alfreds Futterkiste
       - name: contact
         type: string
-        value: null
+        value: Maria Anders
       - name: phone
         type: string
-        value: null
+        value: Sales Representative
       - name: address
         type: string
-        value: null
+        value: Obere Str. 57
       - name: city
         type: string
-        value: null
+        value: Berlin
       - name: region
         type: string
         value: null
       - name: postalCode
         type: string
-        value: xxx
+        value: '12209'
       - name: country
         type: string
-        value: null
+        value: Germany
       - name: obj.id
         type: string
         value: null

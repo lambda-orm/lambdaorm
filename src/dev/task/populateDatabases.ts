@@ -15,12 +15,11 @@ async function stageImport (source: string, target: string) {
 export async function apply (stages: string[], callback: any) {
 	try {
 		await orm.init()
-
 		await orm.stage.sync('source').execute()
 		await stageExport('source')
 		for (const p in stages) {
 			const stage = stages[p]
-			await orm.stage.clean(stage).execute(true)
+			await orm.stage.clean(stage).execute()
 			await orm.stage.sync(stage).execute()
 			await stageImport('source', stage)
 			await stageExport(stage)

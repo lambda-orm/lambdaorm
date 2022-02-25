@@ -71,7 +71,6 @@ function getDevices () {
 		await orm.init(schema)
 		await orm.stage.clean(orm.defaultStage.name).execute()
 		await orm.stage.sync(orm.defaultStage.name).execute()
-
 		await orm.execute('Users.bulkInsert()', getUsers())
 		await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())
 		await orm.execute('Devices.bulkInsert().include(p=> p.components)', getDevices())
@@ -84,8 +83,7 @@ function getDevices () {
 
 		await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
-		console.error(`error: ${error}`)
-		console.error(`error: ${error.stack}`)
+		console.error(error.message)
 	} finally {
 		orm.end()
 	}

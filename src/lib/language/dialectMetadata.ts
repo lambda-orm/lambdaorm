@@ -1,4 +1,5 @@
 import { Helper } from '../manager/helper'
+import { SintaxisError } from './../model'
 
 export class DialectMetadata {
 	public name:string
@@ -114,7 +115,7 @@ export class DialectMetadata {
 			}
 			return null
 		} catch (error) {
-			throw new Error('error with operator: ' + name)
+			throw new SintaxisError('error with operator: ' + name)
 		}
 	}
 
@@ -123,7 +124,7 @@ export class DialectMetadata {
 			if (this._functions[name]) { return this._functions[name] }
 			return null
 		} catch (error) {
-			throw new Error('error with function: ' + name)
+			throw new SintaxisError('error with function: ' + name)
 		}
 	}
 }

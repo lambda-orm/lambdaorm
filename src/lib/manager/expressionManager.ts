@@ -1,4 +1,4 @@
-import { Query } from '../model'
+import { Query, SintaxisError } from '../model'
 // import { ParserManager } from '../parser/index'
 import { SchemaManager, ExpressionCompleter, Routing } from './index'
 import { LanguageManager, Sentence, DMLBuilder } from '../language'
@@ -35,7 +35,7 @@ export class ExpressionManager {
 			return this.expressions.parser.toExpression(completeNode)
 		} catch (error: any) {
 			console.log(error)
-			throw new Error('complete expression: ' + expression + ' error: ' + error.toString())
+			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
@@ -58,7 +58,7 @@ export class ExpressionManager {
 			return operand as Operand
 		} catch (error: any) {
 			console.log(error)
-			throw new Error('build expression: ' + expression + ' error: ' + error.toString())
+			throw new SintaxisError('build expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
@@ -73,7 +73,7 @@ export class ExpressionManager {
 			}
 			return query as Query
 		} catch (error: any) {
-			throw new Error('query expression: ' + expression + ' error: ' + error.toString())
+			throw new SintaxisError('query expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
@@ -85,7 +85,7 @@ export class ExpressionManager {
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public toExpression (func: Function): string {
 		if (!func) {
-			throw new Error('empty lambda function}')
+			throw new SintaxisError('empty lambda function}')
 		}
 		const expression = Helper.clearLambda(func)
 		const node = this.expressions.parser.parse(expression)

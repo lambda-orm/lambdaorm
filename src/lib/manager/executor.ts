@@ -1,5 +1,5 @@
 
-import { Query } from '../model/index'
+import { Query, ExecuteResult } from '../model'
 import { ConnectionManager } from '../connection'
 import { LanguageManager } from '../language'
 import { ExpressionManager, QueryExecutor, Transaction } from '.'
@@ -44,8 +44,8 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (stage: string, queries: Query[], tryAllCan = false):Promise<any> {
-		const results: any[] = []
+	public async executeList (stage: string, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+		const results: ExecuteResult[] = []
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
@@ -54,8 +54,8 @@ export class Executor {
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
-				} catch (error) {
-					console.error(`error: ${error} on sentence:${query.sentence}`)
+				} catch (error:any) {
+					results.push({ error: error })
 				} finally {
 					await queryExecutor.release()
 				}
@@ -65,11 +65,11 @@ export class Executor {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
 					const result = await tr.execute(query)
-					results.push(result)
+					results.push({ result: result })
 				}
 			})
 		}
-		return { results: results }
+		return results
 	}
 
 	/**

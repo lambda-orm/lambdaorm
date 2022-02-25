@@ -43,3 +43,8 @@ export class Include {
 			// this.variable = variable
 		}
 }
+
+export interface ExecuteResult {
+	result?: any
+	error?:Error
+}

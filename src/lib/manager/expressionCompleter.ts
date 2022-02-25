@@ -1,6 +1,6 @@
 
 import { Helper } from './helper'
-import { Entity } from '../model'
+import { Entity, SchemaError, SintaxisError } from '../model'
 import { SchemaManager } from '.'
 import { Node } from 'js-expressions'
 
@@ -51,7 +51,7 @@ export class ExpressionCompleter {
 		const clauses:any = this.getClauses(mainNode)
 		const entity = this.schema.model.getEntity(entityName || clauses.from.name)
 		if (entity === undefined) {
-			throw new Error(`entity ${entityName} not found`)
+			throw new SchemaError(`entity ${entityName} not found`)
 		}
 		if (clauses.insert) {
 			compleInclude = this.completeInsertInclude
@@ -155,7 +155,7 @@ export class ExpressionCompleter {
 			}
 		}
 		if (clauses.include) {
-			if (!compleInclude) { throw new Error('Include not implemented!!!') }
+			if (!compleInclude) { throw new SchemaError('Include not implemented!!!') }
 
 			const clauseInclude = clauses.include
 			const arrowVar = clauseInclude.children[1].name
@@ -319,7 +319,7 @@ export class ExpressionCompleter {
 		if (condition) {
 			return condition
 		}
-		throw new Error('Create Filter incorrect!!!')
+		throw new SchemaError('Create Filter incorrect!!!')
 	}
 
 	private completeMapInclude (entity:Entity, arrowVar:string, node:Node):Node {
@@ -354,7 +354,7 @@ export class ExpressionCompleter {
 			map = new Node(clause, 'arrow', [node, varArrowNode, varAll])
 			this.completeSentence(map, relation.entity)
 		} else {
-			throw new Error('Error to add include node ' + node.type + ':' + node.name)
+			throw new SintaxisError('Error to add include node ' + node.type + ':' + node.name)
 		}
 		// add filter with parent
 		const clauses:any = this.getClauses(map)
@@ -427,7 +427,7 @@ export class ExpressionCompleter {
 			const relationName = parts[1]
 			return entity.relations.find(p => p.name === relationName)
 		} else {
-			throw new Error('not found relation in include node ' + node.type + ':' + node.name)
+			throw new SchemaError('not found relation in include node ' + node.type + ':' + node.name)
 		}
 	}
 
@@ -447,7 +447,7 @@ export class ExpressionCompleter {
 			this.completeSentence(clauseNode, relation.entity)
 			return clauseNode
 		} else {
-			throw new Error('Error to add include node ' + node.type + ':' + node.name)
+			throw new SchemaError('Error to add include node ' + node.type + ':' + node.name)
 		}
 	}
 }
