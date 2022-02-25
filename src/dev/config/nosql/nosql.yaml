@@ -78,7 +78,7 @@ functions:
     desc: "{0}:-1"
     asc: "{0}:1"
     between: "{0}:{$gte:{1},$lt:{2}}"
-    includes: " {0}:{$in:[{1}]}"
+    in: " {0}:{$in:[{1}]}"
     # distinct: "DISTINCT {0} "
   numeric:
     abs: "$abs:{0}"

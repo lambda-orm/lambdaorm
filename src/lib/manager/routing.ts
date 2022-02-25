@@ -1,5 +1,5 @@
 
-import { SentenceInfo, RuleDataSource, ContextInfo } from '../model'
+import { SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../model'
 import { SchemaManager } from './index'
 import { Expressions } from 'js-expressions'
 
@@ -43,6 +43,6 @@ export class Routing {
 				}
 			}
 		}
-		throw new Error(`Undefined data source on stage ${_stage.name}`)
+		throw new SchemaError(`Undefined data source on stage ${_stage.name}`)
 	}
 }

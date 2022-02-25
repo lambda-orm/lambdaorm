@@ -4,9 +4,8 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('./src/dev/labs/countries/country.yaml')
 
-		await orm.stage.clean().execute(true)
+		await orm.stage.clean().execute()
 		await orm.stage.sync().execute()
-
 		const content = await Helper.readFile('./src/dev/labs/countries/data.json')
 		const data = JSON.parse(content as string)
 		await orm.execute('Countries.bulkInsert().include(p => p.states)', data)

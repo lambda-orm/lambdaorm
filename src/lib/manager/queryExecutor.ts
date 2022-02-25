@@ -1,5 +1,5 @@
 
-import { Data, Parameter, Query } from '../model'
+import { Data, ExecutionError, Parameter, Query, SintaxisError, ValidationError } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { LanguageManager } from '../language'
@@ -94,10 +94,10 @@ export class QueryExecutor {
 			case 'dropFK': result = await connection.execute(query); break
 			case 'dropIndex': result = await connection.execute(query); break
 			default:
-				throw new Error(`query ${query.name} undefined`)
+				throw new ExecutionError(query.dataSource, query.entity, query.sentence, `query ${query.name} undefined`, data.data)
 			}
 		} catch (error: any) {
-			throw new Error(`sentence ${query.sentence} error: ${error}`)
+			throw new ExecutionError(query.dataSource, query.entity, query.sentence, error.message, data.data)
 		}
 		return result
 	}
@@ -261,9 +261,9 @@ export class QueryExecutor {
 
 	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
 		// evaluate constraints
-		this.constraints(query, data)
+		this.constraints(query, data.data)
 		// solve default properties
-		this.solveWriteValues(query, data)
+		this.solveWriteValues(query, data.data)
 		// update
 		const changeCount = await connection.update(mapping, query, this.params(query.parameters, metadata, data))
 		for (const p in query.children) {
@@ -403,7 +403,7 @@ export class QueryExecutor {
 		for (const i in query.constraints) {
 			const constraint = query.constraints[i]
 			if (!this.expressions.eval(constraint.condition, data)) {
-				throw new Error(`${query.entity} error: ${constraint.message} data: ${JSON.stringify(data)} `)
+				throw new ValidationError(query.dataSource, query.entity, query.sentence, constraint.message, data)
 			}
 		}
 	}

@@ -7,7 +7,7 @@ import { StageExport } from '../stage/stageExport'
 import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
 import { Helper } from './helper'
-import { Stage } from 'lib'
+import { SchemaError, Stage } from 'lib'
 
 export class StageFacade {
 	private state: StageState
@@ -29,7 +29,7 @@ export class StageFacade {
 	private getStage (name?: string): Stage {
 		const stage = this.schemaManager.stage.get(name)
 		if (stage === undefined) {
-			throw new Error(`not exists ${name} stage`)
+			throw new SchemaError(`not exists ${name} stage`)
 		}
 		return stage
 	}

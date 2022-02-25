@@ -1,4 +1,4 @@
-import { Query } from '../model/index'
+import { Query, ExecuteResult } from '../model'
 import { StageActionDDL } from './stageActionDDL'
 import { DDLBuilder } from '../manager/ddlBuilder'
 export class StageClean extends StageActionDDL {
@@ -10,7 +10,7 @@ export class StageClean extends StageActionDDL {
 		return []
 	}
 
-	public async execute (tryAllCan = false): Promise<any[]> {
+	public async execute (tryAllCan = false): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(this.stage, queries, tryAllCan)
 		await this.state.remove(this.stage)

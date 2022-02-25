@@ -1,5 +1,5 @@
 
-import { Query } from '../model/index'
+import { Query, ExecuteResult, ExecutionError } from '../model'
 import { ConnectionManager } from '../connection'
 import { LanguageManager } from '../language'
 import { ExpressionManager, QueryExecutor, Transaction } from '.'
@@ -38,14 +38,14 @@ export class Executor {
 				await queryExecutor.release()
 			}
 			if (error) {
-				throw error
+				throw new ExecutionError(query.dataSource, query.entity, query.sentence, error.message, data)
 			}
 		}
 		return result
 	}
 
-	public async executeList (stage: string, queries: Query[], tryAllCan = false):Promise<any> {
-		const results: any[] = []
+	public async executeList (stage: string, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+		const results: ExecuteResult[] = []
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
@@ -54,8 +54,8 @@ export class Executor {
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
-				} catch (error) {
-					console.error(`error: ${error} on sentence:${query.sentence}`)
+				} catch (error:any) {
+					results.push({ error: new ExecutionError(query.dataSource, query.entity, query.sentence, error.message) })
 				} finally {
 					await queryExecutor.release()
 				}
@@ -63,13 +63,17 @@ export class Executor {
 		} else {
 			await this.transaction(stage, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
-					query = queries[i]
-					const result = await tr.execute(query)
-					results.push(result)
+					try {
+						query = queries[i]
+						const result = await tr.execute(query)
+						results.push({ result: result })
+					} catch (error:any) {
+						throw new ExecutionError(query.dataSource, query.entity, query.sentence, error.message)
+					}
 				}
 			})
 		}
-		return { results: results }
+		return results
 	}
 
 	/**

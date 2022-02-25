@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Relation, Behavior, Constraint } from '.'
+import { Property, Parameter, Relation, Behavior, Constraint, NotImplemented } from '.'
 import { Operand, Constant, ArrowFunction, ChildFunction, Variable } from 'js-expressions'
 const SqlString = require('sqlstring')
 
@@ -32,17 +32,17 @@ export class Field extends Operand {
 
 	public eval (): any {
 	// TODO:implement
-		throw new Error('NotImplemented')
+		throw new NotImplemented('Field', 'eval')
 	}
 }
 export class From extends Operand {
 	public eval (): any {
-		throw new Error('NotImplemented')
+		throw new NotImplemented('From', 'eval')
 	}
 }
 export class Join extends Operand {
 	public eval (): any {
-		throw new Error('NotImplemented')
+		throw new NotImplemented('Join', 'eval')
 	}
 }
 export class Map extends ArrowFunction { }
@@ -128,7 +128,7 @@ export class Sentence extends Operand {
 	}
 
 	public eval (): any {
-		throw new Error('NotImplemented')
+		throw new NotImplemented('Sentence', 'eval')
 	}
 }
 export class SentenceInclude extends Operand {
@@ -141,6 +141,6 @@ export class SentenceInclude extends Operand {
 	}
 
 	public eval (): any {
-		throw new Error('NotImplemented')
+		throw new NotImplemented('SentenceInclude', 'eval')
 	}
 }

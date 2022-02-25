@@ -1,6 +1,6 @@
 
 import { StageActionDML } from './stageActionDML'
-import { Query, SchemaData, Entity } from '../model'
+import { Query, SchemaData, Entity, SchemaError } from '../model'
 
 export class StageImport extends StageActionDML {
 	public async execute (data: SchemaData): Promise<void> {
@@ -24,11 +24,11 @@ export class StageImport extends StageActionDML {
 				const pending = state.pendingData[i]
 				const entity = this.model.getEntity(pending.entity)
 				if (entity === undefined) {
-					throw new Error(`Entity ${pending.entity} not found`)
+					throw new SchemaError(`Entity ${pending.entity} not found`)
 				}
 				const relation = entity.relations.find(p => p.name === pending.relation)
 				if (relation === undefined) {
-					throw new Error(`Relation ${pending.relation} not found`)
+					throw new SchemaError(`Relation ${pending.relation} not found`)
 				}
 				if (!entity.uniqueKey || entity.uniqueKey.length === 0) {
 					// TODO: reemplazar por un archivo de salida de inconsistencias
@@ -61,14 +61,14 @@ export class StageImport extends StageActionDML {
 	protected solveInternalsIds (entityName:string, rows:any[], mappingData:any, pendings:any[], parentEntity?:string):void {
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
-			throw new Error(`Entity ${entityName} not found`)
+			throw new SchemaError(`Entity ${entityName} not found`)
 		}
 		for (const p in entity.relations) {
 			const relation = entity.relations[p]
 			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
 				const relationEntity = this.model.getEntity(relation.entity)
 				if (relationEntity === undefined) {
-					throw new Error(`Relation Entity ${relation.entity} not found`)
+					throw new SchemaError(`Relation Entity ${relation.entity} not found`)
 				}
 				const reslationProperty = relationEntity.properties.find(p => p.name === relation.to)
 				if (reslationProperty !== undefined && reslationProperty.autoincrement) {
@@ -120,7 +120,7 @@ export class StageImport extends StageActionDML {
 		}
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
-			throw new Error(`Entity ${entityName} not found`)
+			throw new SchemaError(`Entity ${entityName} not found`)
 		}
 		for (const p in entity.properties) {
 			const property = entity.properties[p]
@@ -154,7 +154,7 @@ export class StageImport extends StageActionDML {
 		}
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
-			throw new Error(`Entity ${entityName} not found`)
+			throw new SchemaError(`Entity ${entityName} not found`)
 		}
 		for (const p in entity.properties) {
 			const property = entity.properties[p]

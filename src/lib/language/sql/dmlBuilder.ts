@@ -3,7 +3,7 @@ import { Helper } from '../../manager/helper'
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block } from 'js-expressions'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete } from '../../model/operands'
 import { LanguageDMLBuilder } from '../../manager/dmlBuilder'
-import { Query } from '../../model'
+import { Query, SintaxisError, SchemaError } from '../../model'
 const SqlString = require('sqlstring')
 
 export class SqlDMLBuilder extends LanguageDMLBuilder {
@@ -38,7 +38,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		} else if (operand instanceof Constant) {
 			return this.buildConstant(operand)
 		} else {
-			throw new Error(`Operand ${operand.type} ${operand.name} not supported`)
+			throw new SintaxisError(`Operand ${operand.type} ${operand.name} not supported`)
 		}
 	}
 
@@ -80,7 +80,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 			const parts = join.name.split('.')
 			const entityMapping = this.mapping.entityMapping(parts[0])
 			if (entityMapping === undefined) {
-				throw new Error(`not found mapping for ${parts[0]}`)
+				throw new SchemaError(`not found mapping for ${parts[0]}`)
 			}
 			let joinText = template.replace('{name}', this.metadata.delimiter(entityMapping))
 			joinText = joinText.replace('{alias}', parts[1])
@@ -95,7 +95,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		const parts = from.name.split('.')
 		const entityMapping = this.mapping.entityMapping(parts[0])
 		if (entityMapping === undefined) {
-			throw new Error(`not found mapping for ${parts[0]}`)
+			throw new SchemaError(`not found mapping for ${parts[0]}`)
 		}
 		template = template.replace('{name}', this.metadata.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', parts[1])
@@ -110,7 +110,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		const autoincrement = this.mapping.getAutoincrement(entity)
 		const entityMapping = this.mapping.entityMapping(entity)
 		if (entityMapping === undefined) {
-			throw new Error(`mapping undefined on ${entity} entity`)
+			throw new SchemaError(`mapping undefined on ${entity} entity`)
 		}
 
 		if (operand.children[0] instanceof Object) {
@@ -153,7 +153,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		const alias = parts[1]
 		const entityMapping = this.mapping.entityMapping(entity)
 		if (entityMapping === undefined) {
-			throw new Error(`mapping undefined on ${entity} entity`)
+			throw new SchemaError(`mapping undefined on ${entity} entity`)
 		}
 
 		if (operand.children[0] instanceof Object) {
@@ -189,7 +189,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		const alias = parts[1]
 		const entityMapping = this.mapping.entityMapping(entity)
 		if (entityMapping === undefined) {
-			throw new Error(`mapping undefined on ${entity} entity`)
+			throw new SchemaError(`mapping undefined on ${entity} entity`)
 		}
 		template = Helper.replace(template, '{name}', this.metadata.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', alias)
@@ -218,7 +218,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 
 	private buildFunctionRef (operand:FunctionRef):string {
 		const funcData = this.metadata.function(operand.name)
-		if (!funcData) throw new Error('Function ' + operand.name + ' not found')
+		if (!funcData) throw new SintaxisError('Function ' + operand.name + ' not found')
 		let text = ''
 		if (funcData.type === 'multiple') {
 			const template = funcData.template
