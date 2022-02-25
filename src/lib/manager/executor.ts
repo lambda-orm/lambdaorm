@@ -1,5 +1,5 @@
 
-import { Query, ExecuteResult, ExecutionError } from '../model'
+import { Query, ExecuteResult } from '../model'
 import { ConnectionManager } from '../connection'
 import { LanguageManager } from '../language'
 import { ExpressionManager, QueryExecutor, Transaction } from '.'
