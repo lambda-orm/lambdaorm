@@ -46,13 +46,6 @@ entities:
         nullable: false
       - name: contact
       - name: phone
-    relations:
-      - name: orders
-        type: manyToOne
-        composite: true
-        from: id
-        entity: Orders
-        to: customerId
   - name: Employees
     extends: Address
     primaryKey: ["id"]
@@ -144,10 +137,12 @@ entities:
         from: supplierId
         entity: Suppliers
         to: id
+        target: products
       - name: category
         from: categoryId
         entity: Categories
         to: id
+        target: products
   - name: Orders
     primaryKey: ["id"]
     indexes:
@@ -188,16 +183,13 @@ entities:
         from: customerId
         entity: Customers
         to: id
+        target: orders
+        targetComposite: true
       - name: employee
         from: employeeId
         entity: Employees
         to: id
-      - name: details
-        type: manyToOne
-        composite: true
-        from: id
-        entity: OrderDetails
-        to: orderId
+        target: orders
   - name: OrderDetails
     primaryKey: ["orderId", "productId"]
     properties:
@@ -218,10 +210,13 @@ entities:
         from: orderId
         entity: Orders
         to: id
+        target: details
+        targetComposite: true
       - name: product
         from: productId
         entity: Products
         to: id
+        target: orderDetails
 mappings:
   - name: northwind
     entities:
