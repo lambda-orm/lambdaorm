@@ -78,7 +78,7 @@ export class DDLBuilder {
 						const relation = entity.relations[q] as Relation
 						// evaluate if entity relation apply in dataSource
 						if (this.evalDataSource(ruleDataSource, relation.entity)) {
-							if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
+							if (!relation.weak) {
 								// busca la propiedad relacionada para saber si es nullable la relacion
 								const fromProperty = entity.properties.find(p => p.name === relation.from)
 								if (fromProperty === undefined) {
@@ -208,7 +208,7 @@ export class DDLBuilder {
 							// evaluate if entity relation apply in dataSource
 							if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
 								if (this.changeRelation(oldRelation, newRelation)) {
-									if (oldRelation.type === 'oneToMany' || oldRelation.type === 'oneToOne') {
+									if (!oldRelation.weak) {
 										const query = this.builder(dataSource).dropFk(entityChanged.new, oldRelation)
 										queries.push(query)
 									}
@@ -371,7 +371,7 @@ export class DDLBuilder {
 								const newRelation = changed.delta.new[n].new as Relation
 								// evaluate if entity relation apply in dataSource
 								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
-									if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
+									if (!newRelation.weak) {
 										const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
 										queries.push(query)
 									}
@@ -383,7 +383,7 @@ export class DDLBuilder {
 								// evaluate if entity relation apply in dataSource
 								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
 									if (this.changeRelation(oldRelation, newRelation)) {
-										if (newRelation.type === 'oneToMany' || newRelation.type === 'oneToOne') {
+										if (!newRelation.weak) {
 											const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
 											queries.push(query)
 										}
@@ -412,7 +412,7 @@ export class DDLBuilder {
 						const relation = newEntity.relations[p]
 						// evaluate if entity relation apply in dataSource
 						if (this.evalDataSource(ruleDataSource, relation.entity)) {
-							if (relation.type === 'oneToMany' || relation.type === 'oneToOne') {
+							if (!relation.weak) {
 								const query = this.builder(dataSource).addFk(newEntity, relation)
 								queries.push(query)
 							}

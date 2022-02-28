@@ -1,4 +1,4 @@
-import { Orm } from '../../../lib'
+import { Orm, Helper } from '../../../lib'
 import path from 'path'
 
 function getUsers () {
@@ -69,7 +69,7 @@ function getDevices () {
 	try {
 		const schema = await orm.schema.get(workspace)
 		await orm.init(schema)
-		await orm.stage.clean(orm.defaultStage.name).execute()
+		await orm.stage.clean(orm.defaultStage.name).execute(true)
 		await orm.stage.sync(orm.defaultStage.name).execute()
 		await orm.execute('Users.bulkInsert()', getUsers())
 		await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())
@@ -81,7 +81,9 @@ function getDevices () {
 		const result2 = orm.constraints('Devices.bulkInsert().include(p=> p.components)')
 		console.log(JSON.stringify(result2))
 
-		await orm.stage.clean(orm.defaultStage.name).execute()
+		Helper.writeFile(path.join(workspace, 'schema.json'), JSON.stringify(orm.schema.schema, null, 2))
+
+		// await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
 		console.error(error.message)
 	} finally {

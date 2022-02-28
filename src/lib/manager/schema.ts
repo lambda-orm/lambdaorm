@@ -1,4 +1,4 @@
-import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError } from '../model'
+import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -27,7 +27,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			const entity = this.entities[i]
 			for (const j in entity.relations) {
 				const relation = entity.relations[j]
-				if (relation.type === 'manyToOne' && relation.entity === entityName) return true
+				if (relation.type === RelationType.manyToOne && relation.composite && relation.entity === entityName) return true
 			}
 		}
 		return false
@@ -101,7 +101,11 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 				if (sorted.includes(entityName)) {
 					continue
 				}
-				if (!this.hadDependencies(entityName, sorted)) {
+				const entity = this.getEntity(entityName)
+				if (entity === undefined) {
+					throw new SchemaError('Not exists entity:' + entityName)
+				}
+				if (!this.hadDependencies(entity, sorted)) {
 					sorted.push(entityName)
 					break
 				}
@@ -129,13 +133,13 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			for (const i in entity.relations) {
 				const relation = entity.relations[i]
 				if (relation.entity !== entityName) {
-					if (relation.type === 'oneToOne' || relation.type === 'oneToMany') {
-						if (!sorted.includes(relation.entity) && (parent === null || parent !== relation.entity)) {
+					if (relation.type === RelationType.oneToOne || relation.type === RelationType.oneToMany) {
+						if (!relation.weak && !sorted.includes(relation.entity) && (parent === null || parent !== relation.entity)) {
 							unsolved = true
 							break
 						}
-					} else if (relation.type === 'manyToOne') {
-						if (!this.solveSortEntity(relation.entity, sorted, entityName)) {
+					} else if (relation.type === RelationType.manyToOne) {
+						if (relation.composite && !this.solveSortEntity(relation.entity, sorted, entityName)) {
 							unsolved = true
 							break
 						}
@@ -153,19 +157,16 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param parent entity parent , used in manyToOne relations
 	 * @returns
 	 */
-	protected hadDependencies (entityName:string, sorted:string[], parent?:string):boolean {
-		const entity = this.getEntity(entityName)
-		if (entity === undefined) {
-			throw new SchemaError('Not exists entity:' + entityName)
-		}
+	protected hadDependencies (entity:TEntity, sorted:string[], parent?:string):boolean {
 		if (entity.dependents === undefined || entity.dependents.length === 0) {
 			return false
 		} else {
 			let hadDependents = false
 			for (const i in entity.dependents) {
 				const dependent = entity.dependents[i]
-				if (dependent.entity !== entityName) {
-					if (dependent.relation.type === 'oneToOne' || dependent.relation.type === 'oneToMany') {
+				if (dependent.entity !== entity.name) {
+					// if the relationship is not weak
+					if (!dependent.relation.weak) {
 						// look for the related property to see if the dependency is nullable
 						const dependentEntity = this.getEntity(dependent.entity)
 						if (dependentEntity === undefined) {
@@ -443,6 +444,7 @@ class SchemaExtender {
 	public complete (schema: Schema): void {
 		if (schema && schema.entities) {
 			this.completeEntities(schema.entities)
+			this.completeRelations(schema.entities)
 			this.completeDependents(schema.entities)
 		}
 	}
@@ -473,7 +475,48 @@ class SchemaExtender {
 				if (entity.relations !== undefined) {
 					for (let j = 0; j < entity.relations.length; j++) {
 						const relation = entity.relations[j]
-						if (relation.type === undefined) relation.type = 'oneToMany'
+						if (relation.type === undefined) relation.type = RelationType.oneToMany
+						// All relations manyToOne are weak
+						if (relation.type === RelationType.manyToOne) relation.weak = true
+						if (relation.weak === undefined) relation.weak = false
+					}
+				}
+			}
+		}
+	}
+
+	private completeRelations (entities: Entity[]): void {
+		if (entities && entities.length) {
+			for (let i = 0; i < entities.length; i++) {
+				const source = entities[i]
+				if (source.relations !== undefined) {
+					for (let j = 0; j < source.relations.length; j++) {
+						const sourceRelation = source.relations[j]
+						if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
+							const targetEntity = entities.find(p => p.name === sourceRelation.entity)
+							if (targetEntity) {
+								let exists = false
+								if (targetEntity && targetEntity.relations) {
+									exists = targetEntity.relations.find(p => p.name === sourceRelation.target) !== undefined
+								}
+								if (!exists) {
+									if (targetEntity.relations === undefined) {
+										targetEntity.relations = []
+									}
+									targetEntity.relations.push({
+										name: sourceRelation.target,
+										type: sourceRelation.type === RelationType.oneToOne ? RelationType.oneToOne : RelationType.manyToOne,
+										composite: sourceRelation.targetComposite,
+										from: sourceRelation.to,
+										entity: source.name,
+										weak: true,
+										to: sourceRelation.from,
+										target: sourceRelation.name,
+										targetComposite: sourceRelation.composite
+									})
+								}
+							}
+						}
 					}
 				}
 			}
@@ -485,12 +528,12 @@ class SchemaExtender {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
 				entity.dependents = []
-				for (let i = 0; i < entities.length; i++) {
-					const related = entities[i]
+				for (let j = 0; j < entities.length; j++) {
+					const related = entities[j]
 					if (related.relations !== undefined) {
-						for (let j = 0; j < related.relations.length; j++) {
-							const relation = related.relations[j]
-							if (relation.entity === entity.name) {
+						for (let k = 0; k < related.relations.length; k++) {
+							const relation = related.relations[k]
+							if (relation.entity === entity.name && !relation.weak) {
 								const dependent = { entity: related.name, relation: relation }
 								entity.dependents.push(dependent)
 							}

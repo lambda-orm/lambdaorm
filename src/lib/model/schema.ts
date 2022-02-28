@@ -1,3 +1,9 @@
+export enum RelationType{
+	oneToMany = 'oneToMany',
+	manyToOne = 'manyToOne',
+	oneToOne = 'oneToOne'
+}
+
 export interface EnumValue {
 	name: string
 	value: any
@@ -25,11 +31,14 @@ export interface Property {
 }
 export interface Relation {
 	name: string
-	type: string
+	type: RelationType
 	composite?: boolean
 	from: string
 	entity: string
 	to: string
+	weak?: boolean
+	target?: string
+	targetComposite?: boolean
 }
 export interface Dependent {
 	entity: string,

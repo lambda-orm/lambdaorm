@@ -58,7 +58,69 @@ entities:
         length: 32
       - name: serialNumber
         length: 32
-  # model
+  # model strcuture define
+  - name: Users
+    extends: Basics
+    primaryKey: ["username"]
+    uniqueKey: ["email"]
+    properties:
+      - name: username
+        length: 32
+        nullable: false
+      - name: firstname
+        nullable: false
+      - name: lastname
+        nullable: false
+      - name: email
+        nullable: false
+        length: 512
+        writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
+        readValue: decrypt(email,"$$USERS_SECRET_KEY")
+    constraints:
+      - message: invalid email
+        condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+  - name: Groups
+    extends: Basics
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        length: 32
+        default: lower(substring(replace(name," ","-"),0,32))
+        nullable: false
+      - name: name
+        length: 32
+        nullable: false
+  - name: GroupUsers
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "username"]
+    properties:
+      - name: id
+        default: "`${groupId}-${username}`"
+        length: 64
+        nullable: false
+      - name: username
+        length: 32
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+      - name: role
+        length: 32
+        nullable: false
+        enum: Role
+    relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
+        target: members
+        targetComposite: true
+      - name: user
+        from: username
+        entity: Users
+        to: username
+        target: members
   - name: Devices
     extends: Products
     primaryKey: ["id"]
@@ -95,22 +157,7 @@ entities:
         from: groupId
         entity: Groups
         to: id
-      - name: components
-        type: manyToOne
-        from: id
-        entity: Components
-        to: deviceId
-        composite: true
-      - name: journeys
-        type: manyToOne
-        from: id
-        entity: Journeys
-        to: deviceId
-      - name: files
-        type: manyToOne
-        from: id
-        entity: Files
-        to: deviceId
+        target: devices
   - name: Components
     extends: Products
     primaryKey: ["id"]
@@ -136,13 +183,11 @@ entities:
         from: deviceId
         entity: Devices
         to: id
-      - name: files
-        type: manyToOne
-        from: id
-        entity: Files
-        to: componentId
+        target: components
+        targetComposite: true
+  # model status
   - name: DeviceStatuses
-    extends: Positions
+    extends: Basics
     primaryKey: ["id"]
     indexes:
       - name: time
@@ -155,69 +200,53 @@ entities:
       - name: deviceId
         length: 32
         nullable: false
-      - name: journeyId
-        type: integer
-      - name: cpu
-        type: decimal
-      - name: cpuTemperature
-        type: decimal
-      - name: batery
-        type: decimal
-      - name: wifiSignal
-        type: decimal
       - name: time
         type: datetime
-        nullable: false
-      - name: registred
-        type: datetime
-        default: now()
     relations:
       - name: device
         from: deviceId
         entity: Devices
         to: id
-      - name: journey
-        from: journeyId
-        entity: Journeys
-        to: id
-  - name: Journeys
-    # representa un trayecto, ejemplo de casa al colegio
-    extends: Basics
+        target: statuses
+  - name: DevicePositionStatuses
+    extends: Positions
     primaryKey: ["id"]
-    indexes:
-      - name: deviceId
-        fields: ["deviceId"]
     properties:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
-      - name: deviceId
-        length: 32
-        nullable: false
-      - name: startId
-        type: integer
-      - name: endId
-        type: integer
     relations:
-      - name: device
-        from: deviceId
-        entity: Devices
-        to: id
-      - name: start
-        from: startId
-        entity: DeviceStatuses
-        to: id
-      - name: end
-        from: endId
-        entity: DeviceStatuses
-        to: id
-      - name: statuses
-        type: manyToOne
-        composite: true
+      - name: status
+        type: oneToOne
         from: id
-        entity: DeviceStatuses
-        to: journeyId
+        entity: DevicePerformanceStatuses
+        to: id
+        target: performance
+  - name: DevicePerformanceStatuses
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: cpu
+        type: decimal
+      - name: gpu
+        type: decimal
+      - name: memory
+        type: decimal
+      - name: wifiSignal
+        type: decimal
+      - name: batery
+        type: decimal
+      - name: temperature
+        type: decimal
+    relations:
+      - name: status
+        type: oneToOne
+        from: id
+        entity: DevicePerformanceStatuses
+        to: id
+        target: position
   - name: Files
     #  use MinIO for save files, field file is path
     extends: Basics
@@ -227,7 +256,6 @@ entities:
       - name: id
         length: 255
         nullable: false
-      # el tipo de file, ejemplo: audio|video
       - name: type
         length: 16
         nullable: false
@@ -248,91 +276,17 @@ entities:
         from: deviceId
         entity: Devices
         to: id
+        target: files
       - name: component
         from: componentId
         entity: Components
         to: id
+        target: files
     constraints:
-      - message: start cannot be less than end
-        condition: start<=end
-  - name: Users
-    extends: Basics
-    primaryKey: ["username"]
-    uniqueKey: ["email"]
-    properties:
-      - name: username
-        length: 32
-        nullable: false
-      - name: firstname
-        nullable: false
-      - name: lastname
-        nullable: false
-      - name: email
-        nullable: false
-        length: 512
-        writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
-        readValue: decrypt(email,"$$USERS_SECRET_KEY")
-    relations:
-      - name: members
-        type: manyToOne
-        from: username
-        entity: GroupUsers
-        to: username
-    constraints:
-      - message: invalid email
-        condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
-  - name: Groups
-    extends: Basics
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-      - name: id
-        length: 32
-        default: lower(substring(replace(name," ","-"),0,32))
-        nullable: false
-      - name: name
-        length: 32
-        nullable: false
-    relations:
-      - name: members
-        type: manyToOne
-        from: id
-        entity: GroupUsers
-        to: groupId
-        composite: true
-      - name: devices
-        type: manyToOne
-        from: id
-        entity: Devices
-        to: groupId
-        composite: true
-  - name: GroupUsers
-    primaryKey: ["id"]
-    uniqueKey: ["groupId", "username"]
-    properties:
-      - name: id
-        default: "`${groupId}-${username}`"
-        length: 64
-        nullable: false
-      - name: username
-        length: 32
-        nullable: false
-      - name: groupId
-        length: 32
-        nullable: false
-      - name: role
-        length: 32
-        nullable: false
-        enum: Role
-    relations:
-      - name: group
-        from: groupId
-        entity: Groups
-        to: id
-      - name: user
-        from: username
-        entity: Users
-        to: username
+      - message: endDate cannot be less than startDate
+        condition: startDate<=endDate
+  # TODO: crear solo la realcion en la entidad source y agregar la info para crear luego la relacion en la entidad target
+  # TODO: Definir Task, Activity, ProgramedTask, etc
 mappings:
   - name: default
 dataSources:
