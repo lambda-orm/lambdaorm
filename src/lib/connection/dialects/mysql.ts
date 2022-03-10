@@ -100,13 +100,13 @@ export class MySqlConnection extends Connection {
 		return await this._execute(query, params)
 	}
 
-	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
 		const result = await this._execute(query, params)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping:MappingConfig, query:Query, array:any[], params:Parameter[]):Promise<number[]> {
+	public async bulkInsert (mapping:MappingConfig, query:Query, array:any[], params:Parameter[]):Promise<any[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []

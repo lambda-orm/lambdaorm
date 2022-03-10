@@ -67,7 +67,7 @@ export class PostgresConnection extends Connection {
 		return result.rows
 	}
 
-	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
+	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
 		try {
 			const result = await this._execute(query, params)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -77,9 +77,12 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<number[]> {
-		const autoincrement = mapping.getAutoincrement(query.entity)
-		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
+	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<any[]> {
+		// const autoincrement = mapping.getAutoincrement(query.entity)
+
+		const fieldIds = mapping.getFieldIds(query.entity)
+		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
+		// const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sql = query.sentence
 		try {
 			const rows:string[] = []
@@ -109,14 +112,13 @@ export class PostgresConnection extends Connection {
 				}
 				rows.push(`(${row.join(',')})`)
 			}
-			const returning = fieldId ? 'RETURNING ' + fieldId + ' AS "' + fieldId + '"' : ''
+			const returning = fieldId ? 'RETURNING ' + fieldId.mapping + ' AS "' + fieldId.name + '"' : ''
 			const query = `${sql} ${rows.join(',')} ${returning};`
 			const result = await this.cnx.query(query)
-			const ids:number[] = []
+			const ids:any[] = []
 			if (fieldId) {
-				// let fieldIdlower = fieldId.toLowerCase();
 				for (const p in result.rows) {
-					const id = result.rows[p][fieldId] as number
+					const id = result.rows[p][fieldId.name]
 					ids.push(id)
 				}
 			}
