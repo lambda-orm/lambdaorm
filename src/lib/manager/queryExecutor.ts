@@ -146,7 +146,7 @@ export class QueryExecutor {
 		return mainResult
 	}
 
-	private async insert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number> {
+	private async insert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		for (const p in query.children) {
@@ -191,7 +191,7 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	private async bulkInsert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number[]> {
+	private async bulkInsert (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any[]> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		for (const p in query.children) {
@@ -255,7 +255,7 @@ export class QueryExecutor {
 		return ids
 	}
 
-	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+	private async update (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number> {
 		// evaluate constraints
 		this.constraints(query, data.data)
 		// solve default properties
@@ -281,7 +281,7 @@ export class QueryExecutor {
 		return changeCount
 	}
 
-	private async delete (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<any> {
+	private async delete (query:Query, data:Data, mapping:MappingConfig, metadata:DialectMetadata, connection:Connection):Promise<number> {
 	// before remove relations entities
 		for (const p in query.children) {
 			const include = query.children[p]

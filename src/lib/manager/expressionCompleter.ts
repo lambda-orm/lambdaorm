@@ -55,31 +55,25 @@ export class ExpressionCompleter {
 		}
 		if (clauses.insert) {
 			compleInclude = this.completeInsertInclude
-			const node = clauses.insert
-			this.completeInsertNode(entity, node)
+			this.completeInsertNode(entity, clauses.insert)
 		} else if (clauses.bulkInsert) {
 			compleInclude = this.completeBulkInsertInclude
-			const node = clauses.bulkInsert
-			this.completeInsertNode(entity, node)
+			this.completeInsertNode(entity, clauses.bulkInsert)
 		} else if (clauses.update) {
 			compleInclude = this.completeUpdateInclude
-			const node = clauses.update
-			this.completeUpdateNode(entity, node)
-			if (!clauses.filter) { this.createClauseFilter(entity, node) }
+			this.completeUpdateNode(entity, clauses.update)
+			if (!clauses.filter) { this.createClauseFilter(entity, clauses.update) }
 		} else if (clauses.updateAll) {
 			compleInclude = this.completeUpdateInclude
-			const node = clauses.updateAll
-			node.name = 'update'
+			clauses.updateAll.name = 'update'
 			// TODO: validar que tenga un objeto definido
 			// Example: Entity.update({name:'test'})
 		} else if (clauses.delete) {
 			compleInclude = this.completeDeleteInclude
-			const node = clauses.delete
-			if (!clauses.filter) { this.createClauseFilter(entity, node) }
+			if (!clauses.filter) { this.createClauseFilter(entity, clauses.delete) }
 		} else if (clauses.deleteAll) {
 			compleInclude = this.completeDeleteInclude
-			const node = clauses.deleteAll
-			node.name = 'delete'
+			clauses.deleteAll.name = 'delete'
 		} else {
 			if (clauses.map) {
 				compleInclude = this.completeMapInclude

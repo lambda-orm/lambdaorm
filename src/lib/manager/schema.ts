@@ -60,6 +60,14 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return entity.properties.find(p => p.autoincrement === true) as TProperty
 	}
 
+	public getFieldIds (entityName:string): TProperty[] | undefined {
+		const entity = this.getEntity(entityName)
+		if (!entity) {
+			throw new SchemaError('Not exists entity:' + entityName)
+		}
+		return entity.properties.filter(p => entity.primaryKey.includes(p.name)) as TProperty[]
+	}
+
 	public listEntities (): string[] {
 		return this.entities.map(p => p.name)
 	}

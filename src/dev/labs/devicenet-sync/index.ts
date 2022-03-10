@@ -71,19 +71,21 @@ function getDevices () {
 		await orm.init(schema)
 		await orm.stage.clean(orm.defaultStage.name).execute(true)
 		await orm.stage.sync(orm.defaultStage.name).execute()
-		await orm.execute('Users.bulkInsert()', getUsers())
-		await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())
-		await orm.execute('Devices.bulkInsert().include(p=> p.components)', getDevices())
+		console.log(JSON.stringify(await orm.execute('Users.bulkInsert()', getUsers())))
+		console.log(JSON.stringify(await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())))
+		console.log(JSON.stringify(await orm.execute('Devices.bulkInsert().include(p=> p.components)', getDevices())))
 
-		const result = await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))])')
-		console.log(JSON.stringify(result))
+		console.log(JSON.stringify(await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))])')))
 
-		const result2 = orm.constraints('Devices.bulkInsert().include(p=> p.components)')
-		console.log(JSON.stringify(result2))
+		console.log(JSON.stringify(orm.constraints('Devices.bulkInsert().include(p=> p.components)')))
+
+		console.log(JSON.stringify(await orm.execute('Devices.updateAll({imei2:null})')))
+		console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))
+		console.log(JSON.stringify(await orm.execute('Devices.deleteAll()')))
 
 		Helper.writeFile(path.join(workspace, 'schema.json'), JSON.stringify(orm.schema.schema, null, 2))
 
-		// await orm.stage.clean(orm.defaultStage.name).execute()
+		await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
 		console.error(error.message)
 	} finally {

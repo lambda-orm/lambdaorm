@@ -54,7 +54,7 @@ export class MssqlConnection extends Connection {
 		return result
 	}
 
-	public async insert (mapping:MappingConfig, query: Query, params: Parameter[]): Promise<number> {
+	public async insert (mapping:MappingConfig, query: Query, params: Parameter[]): Promise<any> {
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sentence = fieldId
