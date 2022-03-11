@@ -34,12 +34,17 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 		lines.push(`\t\tconst expression = '${expTest.expression}'`)
 		lines.push(`\t\tconst modelExpected :any= ${JSON.stringify(expTest.model)}`)
 		lines.push(`\t\tconst parametersExpected:any = ${JSON.stringify(expTest.parameters)}`)
-		lines.push(`\t\tconst fieldsExpected :any= ${JSON.stringify(expTest.fields)}`)
+		lines.push(`\t\tconst metadataExpected :any= ${JSON.stringify(expTest.metadata)}`)
+		lines.push(`\t\tconst constraintsExpected :any= ${JSON.stringify(expTest.constraints)}`)
 		lines.push('\t\tconst model = orm.model(expression)')
+		lines.push('\t\tconst parameters = orm.parameters(expression)')
+		lines.push('\t\tconst constraints = orm.constraints(expression)')
 		lines.push('\t\tconst metadata = orm.metadata(expression)')
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
-		lines.push('\t\texpect(fieldsExpected).toStrictEqual(metadata.f)')
-		// lines.push(`\t\texpect(parametersExpected).toStrictEqual(metadata.p)`)
+		lines.push('\t\texpect(metadataExpected.fields).toStrictEqual(metadata.fields)')
+		// lines.push('\t\texpect(JSON.stringify(metadataExpected)).toStrictEqual(JSON.stringify(metadata))')
+		lines.push('\t\texpect(parametersExpected).toStrictEqual(parameters)')
+		lines.push('\t\texpect(constraintsExpected).toStrictEqual(constraints)')
 		lines.push('\t})')
 	}
 	lines.push('})')
@@ -55,11 +60,9 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 				if (expTest.sentences !== undefined) {
 					const sentence = expTest.sentences.find(p => p.stage === stage && p.error === undefined)
 					if (sentence !== undefined && sentence.sentence !== undefined) {
-						const _sentence = Helper.replace(sentence.sentence, '\n', '; ')
-						lines.push(`\t\tconst ${stage}Expected = '${_sentence}'`)
-						lines.push(`\t\tlet ${stage} =  orm.sentence(expression,'${stage}')`)
-						lines.push(`\t\t${stage}=Helper.replace(${stage},'\\n','; ')`)
-						lines.push(`\t\texpect(${stage}Expected).toBe(${stage})`)
+						lines.push(`\t\tconst ${stage}Expected = ${JSON.stringify(sentence.sentence)}`)
+						lines.push(`\t\tlet ${stage} = orm.sentence(expression,'${stage}')`)
+						lines.push(`\t\texpect(${stage}Expected).toStrictEqual(${stage})`)
 					}
 				}
 			}

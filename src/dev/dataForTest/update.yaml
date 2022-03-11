@@ -226,111 +226,308 @@ test:
     data: a
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          childs: []
     errors: 0
     expression: Orders.update()
     completeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
-      customerId: string
-      employeeId: integer
-      orderDate: datetime
-      requiredDate: datetime
-      shippedDate: datetime
-      shipViaId: integer
-      freight: decimal
-      name: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
     parameters:
       - name: customerId
         type: string
-        value: ANATR
       - name: employeeId
         type: integer
-        value: 7
       - name: orderDate
         type: datetime
-        value: '1996-09-18 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-10-16 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-09-24 00:00:00'
       - name: shipViaId
         type: integer
-        value: 3
       - name: freight
         type: decimal
-        value: '1.6100'
       - name: name
         type: string
-        value: Ana Trujillo Emparedados y helados
       - name: address
         type: string
-        value: Avda. de la Constitucin 2222
       - name: city
         type: string
-        value: Mxico D.F.
       - name: region
         type: string
-        value: null
       - name: postalCode
         type: string
-        value: '5021'
       - name: country
         type: string
-        value: Mexico
       - name: obj.id
         type: integer
-        value: null
-    fields:
-      - name: customerId
-        type: string
-      - name: employeeId
-        type: integer
-      - name: orderDate
-        type: datetime
-      - name: requiredDate
-        type: datetime
-      - name: shippedDate
-        type: datetime
-      - name: shipViaId
-        type: integer
-      - name: freight
-        type: decimal
-      - name: name
-        type: string
-      - name: address
-        type: string
-      - name: city
-        type: string
-      - name: region
-        type: string
-      - name: postalCode
-        type: string
-      - name: country
-        type: string
+    constraints:
+      entity: Orders
+      constraints:
+        - message: Cannot be null property customerId in entity Orders
+          condition: isNotNull(customerId)
+        - message: Cannot be null property employeeId in entity Orders
+          condition: isNotNull(employeeId)
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '=='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: obj.id
+                  type: Variable
+                  children: []
+                  number: 14
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: customerId
+                  type: KeyValue
+                  children:
+                    - name: customerId
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: customerId
+                - name: employeeId
+                  type: KeyValue
+                  children:
+                    - name: employeeId
+                      type: Variable
+                      children: []
+                      number: 2
+                  property: employeeId
+                - name: orderDate
+                  type: KeyValue
+                  children:
+                    - name: orderDate
+                      type: Variable
+                      children: []
+                      number: 3
+                  property: orderDate
+                - name: requiredDate
+                  type: KeyValue
+                  children:
+                    - name: requiredDate
+                      type: Variable
+                      children: []
+                      number: 4
+                  property: requiredDate
+                - name: shippedDate
+                  type: KeyValue
+                  children:
+                    - name: shippedDate
+                      type: Variable
+                      children: []
+                      number: 5
+                  property: shippedDate
+                - name: shipViaId
+                  type: KeyValue
+                  children:
+                    - name: shipViaId
+                      type: Variable
+                      children: []
+                      number: 6
+                  property: shipViaId
+                - name: freight
+                  type: KeyValue
+                  children:
+                    - name: freight
+                      type: Variable
+                      children: []
+                      number: 7
+                  property: freight
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: name
+                      type: Variable
+                      children: []
+                      number: 8
+                  property: name
+                - name: address
+                  type: KeyValue
+                  children:
+                    - name: address
+                      type: Variable
+                      children: []
+                      number: 9
+                  property: address
+                - name: city
+                  type: KeyValue
+                  children:
+                    - name: city
+                      type: Variable
+                      children: []
+                      number: 10
+                  property: city
+                - name: region
+                  type: KeyValue
+                  children:
+                    - name: region
+                      type: Variable
+                      children: []
+                      number: 11
+                  property: region
+                - name: postalCode
+                  type: KeyValue
+                  children:
+                    - name: postalCode
+                      type: Variable
+                      children: []
+                      number: 12
+                  property: postalCode
+                - name: country
+                  type: KeyValue
+                  children:
+                    - name: country
+                      type: Variable
+                      children: []
+                      number: 13
+                  property: country
+      fields:
+        - name: customerId
+          type: string
+        - name: employeeId
+          type: integer
+        - name: orderDate
+          type: datetime
+        - name: requiredDate
+          type: datetime
+        - name: shippedDate
+          type: datetime
+        - name: shipViaId
+          type: integer
+        - name: freight
+          type: decimal
+        - name: name
+          type: string
+        - name: address
+          type: string
+        - name: city
+          type: string
+        - name: region
+          type: string
+        - name: postalCode
+          type: string
+        - name: country
+          type: string
+      parameters:
+        - name: customerId
+          type: string
+          value: ANATR
+        - name: employeeId
+          type: integer
+          value: 7
+        - name: orderDate
+          type: datetime
+          value: '1996-09-18 00:00:00'
+        - name: requiredDate
+          type: datetime
+          value: '1996-10-16 00:00:00'
+        - name: shippedDate
+          type: datetime
+          value: '1996-09-24 00:00:00'
+        - name: shipViaId
+          type: integer
+          value: 3
+        - name: freight
+          type: decimal
+          value: '1.6100'
+        - name: name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: address
+          type: string
+          value: Avda. de la Constitucin 2222
+        - name: city
+          type: string
+          value: Mxico D.F.
+        - name: region
+          type: string
+          value: null
+        - name: postalCode
+          type: string
+          value: '5021'
+        - name: country
+          type: string
+          value: Mexico
+        - name: obj.id
+          type: integer
+          value: null
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -340,85 +537,43 @@ test:
     data: b
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          childs: []
     errors: 0
     expression: Orders.update(entity)
     completeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country})
     model:
-      customerId: string
-      employeeId: integer
-      orderDate: datetime
-      requiredDate: datetime
-      shippedDate: datetime
-      shipViaId: integer
-      freight: decimal
-      name: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
-    parameters:
-      - name: entity.customerId
-        type: string
-        value: ANATR
-      - name: entity.employeeId
-        type: integer
-        value: 3
-      - name: entity.orderDate
-        type: datetime
-        value: '1997-08-08 00:00:00'
-      - name: entity.requiredDate
-        type: datetime
-        value: '1997-09-05 00:00:00'
-      - name: entity.shippedDate
-        type: datetime
-        value: '1997-08-14 00:00:00'
-      - name: entity.shipViaId
-        type: integer
-        value: 1
-      - name: entity.freight
-        type: decimal
-        value: '43.9000'
-      - name: entity.name
-        type: string
-        value: Ana Trujillo Emparedados y helados
-      - name: entity.address
-        type: string
-        value: Avda. de la Constitucin 2222
-      - name: entity.city
-        type: string
-        value: Mxico D.F.
-      - name: entity.region
-        type: string
-        value: null
-      - name: entity.postalCode
-        type: string
-        value: '5021'
-      - name: entity.country
-        type: string
-        value: Mexico
-      - name: obj.id
-        type: integer
-        value: null
-    fields:
       - name: customerId
         type: string
       - name: employeeId
@@ -445,6 +600,241 @@ test:
         type: string
       - name: country
         type: string
+    parameters:
+      - name: entity.customerId
+        type: string
+      - name: entity.employeeId
+        type: integer
+      - name: entity.orderDate
+        type: datetime
+      - name: entity.requiredDate
+        type: datetime
+      - name: entity.shippedDate
+        type: datetime
+      - name: entity.shipViaId
+        type: integer
+      - name: entity.freight
+        type: decimal
+      - name: entity.name
+        type: string
+      - name: entity.address
+        type: string
+      - name: entity.city
+        type: string
+      - name: entity.region
+        type: string
+      - name: entity.postalCode
+        type: string
+      - name: entity.country
+        type: string
+      - name: obj.id
+        type: integer
+    constraints:
+      entity: Orders
+      constraints: []
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '=='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: obj.id
+                  type: Variable
+                  children: []
+                  number: 14
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: customerId
+                  type: KeyValue
+                  children:
+                    - name: entity.customerId
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: customerId
+                - name: employeeId
+                  type: KeyValue
+                  children:
+                    - name: entity.employeeId
+                      type: Variable
+                      children: []
+                      number: 2
+                  property: employeeId
+                - name: orderDate
+                  type: KeyValue
+                  children:
+                    - name: entity.orderDate
+                      type: Variable
+                      children: []
+                      number: 3
+                  property: orderDate
+                - name: requiredDate
+                  type: KeyValue
+                  children:
+                    - name: entity.requiredDate
+                      type: Variable
+                      children: []
+                      number: 4
+                  property: requiredDate
+                - name: shippedDate
+                  type: KeyValue
+                  children:
+                    - name: entity.shippedDate
+                      type: Variable
+                      children: []
+                      number: 5
+                  property: shippedDate
+                - name: shipViaId
+                  type: KeyValue
+                  children:
+                    - name: entity.shipViaId
+                      type: Variable
+                      children: []
+                      number: 6
+                  property: shipViaId
+                - name: freight
+                  type: KeyValue
+                  children:
+                    - name: entity.freight
+                      type: Variable
+                      children: []
+                      number: 7
+                  property: freight
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: entity.name
+                      type: Variable
+                      children: []
+                      number: 8
+                  property: name
+                - name: address
+                  type: KeyValue
+                  children:
+                    - name: entity.address
+                      type: Variable
+                      children: []
+                      number: 9
+                  property: address
+                - name: city
+                  type: KeyValue
+                  children:
+                    - name: entity.city
+                      type: Variable
+                      children: []
+                      number: 10
+                  property: city
+                - name: region
+                  type: KeyValue
+                  children:
+                    - name: entity.region
+                      type: Variable
+                      children: []
+                      number: 11
+                  property: region
+                - name: postalCode
+                  type: KeyValue
+                  children:
+                    - name: entity.postalCode
+                      type: Variable
+                      children: []
+                      number: 12
+                  property: postalCode
+                - name: country
+                  type: KeyValue
+                  children:
+                    - name: entity.country
+                      type: Variable
+                      children: []
+                      number: 13
+                  property: country
+      fields:
+        - name: customerId
+          type: string
+        - name: employeeId
+          type: integer
+        - name: orderDate
+          type: datetime
+        - name: requiredDate
+          type: datetime
+        - name: shippedDate
+          type: datetime
+        - name: shipViaId
+          type: integer
+        - name: freight
+          type: decimal
+        - name: name
+          type: string
+        - name: address
+          type: string
+        - name: city
+          type: string
+        - name: region
+          type: string
+        - name: postalCode
+          type: string
+        - name: country
+          type: string
+      parameters:
+        - name: entity.customerId
+          type: string
+          value: ANATR
+        - name: entity.employeeId
+          type: integer
+          value: 3
+        - name: entity.orderDate
+          type: datetime
+          value: '1997-08-08 00:00:00'
+        - name: entity.requiredDate
+          type: datetime
+          value: '1997-09-05 00:00:00'
+        - name: entity.shippedDate
+          type: datetime
+          value: '1997-08-14 00:00:00'
+        - name: entity.shipViaId
+          type: integer
+          value: 1
+        - name: entity.freight
+          type: decimal
+          value: '43.9000'
+        - name: entity.name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: entity.address
+          type: string
+          value: Avda. de la Constitucin 2222
+        - name: entity.city
+          type: string
+          value: Mxico D.F.
+        - name: entity.region
+          type: string
+          value: null
+        - name: entity.postalCode
+          type: string
+          value: '5021'
+        - name: entity.country
+          type: string
+          value: Mexico
+        - name: obj.id
+          type: integer
+          value: null
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -454,23 +844,67 @@ test:
     data: c
     sentences:
       - stage: mysql
-        sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+          childs: []
       - stage: postgres
-        sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
+          childs: []
       - stage: mariadb
-        sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+          childs: []
     errors: 0
     expression: Orders.updateAll(=>{postalCode:postalCode})
     completeExpression: Orders.update(=>{postalCode:postalCode})
     model:
-      postalCode: string
+      - name: postalCode
+        type: string
     parameters:
       - name: postalCode
         type: string
-        value: xxx
-    fields:
-      - name: postalCode
-        type: string
+    constraints:
+      entity: Orders
+      constraints: []
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: postalCode
+                  type: KeyValue
+                  children:
+                    - name: postalCode
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: postalCode
+      fields:
+        - name: postalCode
+          type: string
+      parameters:
+        - name: postalCode
+          type: string
+          value: xxx
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -480,26 +914,87 @@ test:
     data: b
     sentences:
       - stage: mysql
-        sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs: []
       - stage: postgres
-        sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          childs: []
       - stage: mariadb
-        sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs: []
     errors: 0
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     completeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     model:
-      name: string
+      - name: name
+        type: string
     parameters:
       - name: entity.name
         type: string
-        value: Ana Trujillo Emparedados y helados
       - name: entity.id
         type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
+    constraints:
+      entity: Orders
+      constraints: []
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '==='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: entity.id
+                  type: Variable
+                  children: []
+                  number: 2
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: entity.name
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: name
+      fields:
+        - name: name
+          type: string
+      parameters:
+        - name: entity.name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: entity.id
+          type: integer
+          value: 8
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -509,49 +1004,271 @@ test:
     data: b
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs:
+            - entity: OrderDetails
+              dialect: mysql
+              dataSource: mysql
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
-
-          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
-          = $7) 
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          childs:
+            - entity: OrderDetails
+              dialect: postgres
+              dataSource: postgres
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
+              childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs:
+            - entity: OrderDetails
+              dialect: mariadb
+              dataSource: mariadb
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              childs: []
     errors: 0
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
     completeExpression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id===entity.id))
     model:
-      name: string
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
+      - name: name
+        type: string
+      - name: details
+        type: OrderDetails[]
+        childs:
+          - name: orderId
+            type: integer
+          - name: productId
+            type: integer
+          - name: unitPrice
+            type: decimal
+          - name: quantity
+            type: decimal
+          - name: discount
+            type: decimal
     parameters:
       - name: entity.name
         type: string
-        value: Ana Trujillo Emparedados y helados
       - name: entity.id
         type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
+      - name: details
+        type: OrderDetails
+        childs:
+          - name: orderId
+            type: integer
+          - name: productId
+            type: integer
+          - name: unitPrice
+            type: decimal
+          - name: quantity
+            type: decimal
+          - name: discount
+            type: decimal
+          - name: obj.orderId
+            type: integer
+          - name: obj.productId
+            type: integer
+    constraints:
+      entity: Orders
+      constraints: []
+      childs:
+        - entity: OrderDetails
+          constraints:
+            - message: Cannot be null property orderId in entity OrderDetails
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity OrderDetails
+              condition: isNotNull(productId)
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '==='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: entity.id
+                  type: Variable
+                  children: []
+                  number: 2
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: entity.name
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: name
+        - name: details
+          type: SentenceInclude
+          children:
+            - name: update
+              type: Sentence
+              children:
+                - name: filter
+                  type: Filter
+                  children:
+                    - name: '&&'
+                      type: Operator
+                      children:
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: orderId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: obj.orderId
+                              type: Variable
+                              children: []
+                              number: 6
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: productId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: obj.productId
+                              type: Variable
+                              children: []
+                              number: 7
+                - name: OrderDetails.o1
+                  type: From
+                  children: []
+                - name: OrderDetails.o1
+                  type: Update
+                  children:
+                    - name: obj
+                      type: Obj
+                      children:
+                        - name: orderId
+                          type: KeyValue
+                          children:
+                            - name: orderId
+                              type: Variable
+                              children: []
+                              number: 1
+                          property: orderId
+                        - name: productId
+                          type: KeyValue
+                          children:
+                            - name: productId
+                              type: Variable
+                              children: []
+                              number: 2
+                          property: productId
+                        - name: unitPrice
+                          type: KeyValue
+                          children:
+                            - name: unitPrice
+                              type: Variable
+                              children: []
+                              number: 3
+                          property: unitPrice
+                        - name: quantity
+                          type: KeyValue
+                          children:
+                            - name: quantity
+                              type: Variable
+                              children: []
+                              number: 4
+                          property: quantity
+                        - name: discount
+                          type: KeyValue
+                          children:
+                            - name: discount
+                              type: Variable
+                              children: []
+                              number: 5
+                          property: discount
+              fields:
+                - name: orderId
+                  type: integer
+                - name: productId
+                  type: integer
+                - name: unitPrice
+                  type: decimal
+                - name: quantity
+                  type: decimal
+                - name: discount
+                  type: decimal
+              parameters:
+                - name: orderId
+                  type: integer
+                - name: productId
+                  type: integer
+                - name: unitPrice
+                  type: decimal
+                - name: quantity
+                  type: decimal
+                - name: discount
+                  type: decimal
+                - name: obj.orderId
+                  type: integer
+                - name: obj.productId
+                  type: integer
+              entity: OrderDetails
+          relation:
+            name: details
+            type: manyToOne
+            composite: true
+            from: id
+            entity: OrderDetails
+            weak: true
+            to: orderId
+            target: order
+      fields:
+        - name: name
+          type: string
+      parameters:
+        - name: entity.name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: entity.id
+          type: integer
+          value: 8
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -561,47 +1278,230 @@ test:
     data: b
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs:
+            - entity: OrderDetails
+              dialect: mysql
+              dataSource: mysql
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
+                o1.ProductID = ?) 
+              childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
-
-          UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
-          o1.ProductID = $2) 
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          childs:
+            - entity: OrderDetails
+              dialect: postgres
+              dataSource: postgres
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
+                o1.ProductID = $2) 
+              childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity =
-          o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-          o1.ProductID = ?) 
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs:
+            - entity: OrderDetails
+              dialect: mariadb
+              dataSource: mariadb
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
+                o1.ProductID = ?) 
+              childs: []
     errors: 0
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
     completeExpression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount})).filter(p=>(p.id===entity.id))
     model:
-      name: string
-      details:
-        - unitPrice: decimal
-          quantity: decimal
-          discount: decimal
+      - name: name
+        type: string
+      - name: details
+        type: OrderDetails[]
+        childs:
+          - name: unitPrice
+            type: decimal
+          - name: quantity
+            type: decimal
+          - name: discount
+            type: decimal
     parameters:
       - name: entity.name
         type: string
-        value: Ana Trujillo Emparedados y helados
       - name: entity.id
         type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
+      - name: details
+        type: OrderDetails
+        childs:
+          - name: orderId
+            type: integer
+          - name: productId
+            type: integer
+    constraints:
+      entity: Orders
+      constraints: []
+      childs:
+        - entity: OrderDetails
+          constraints:
+            - message: Cannot be null property orderId in entity OrderDetails
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity OrderDetails
+              condition: isNotNull(productId)
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '==='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: entity.id
+                  type: Variable
+                  children: []
+                  number: 2
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: entity.name
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: name
+        - name: details
+          type: SentenceInclude
+          children:
+            - name: update
+              type: Sentence
+              children:
+                - name: filter
+                  type: Filter
+                  children:
+                    - name: '&&'
+                      type: Operator
+                      children:
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: orderId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: orderId
+                              type: Variable
+                              children: []
+                              number: 1
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: productId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: productId
+                              type: Variable
+                              children: []
+                              number: 2
+                - name: OrderDetails.o1
+                  type: From
+                  children: []
+                - name: OrderDetails.o1
+                  type: Update
+                  children:
+                    - name: obj
+                      type: Obj
+                      children:
+                        - name: unitPrice
+                          type: KeyValue
+                          children:
+                            - name: unitPrice
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                          property: unitPrice
+                        - name: quantity
+                          type: KeyValue
+                          children:
+                            - name: quantity
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                          property: quantity
+                        - name: discount
+                          type: KeyValue
+                          children:
+                            - name: discount
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                          property: discount
+              fields:
+                - name: unitPrice
+                  type: decimal
+                - name: quantity
+                  type: decimal
+                - name: discount
+                  type: decimal
+              parameters:
+                - name: orderId
+                  type: integer
+                - name: productId
+                  type: integer
+              entity: OrderDetails
+          relation:
+            name: details
+            type: manyToOne
+            composite: true
+            from: id
+            entity: OrderDetails
+            weak: true
+            to: orderId
+            target: order
+      fields:
+        - name: name
+          type: string
+      parameters:
+        - name: entity.name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: entity.id
+          type: integer
+          value: 8
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -611,43 +1511,214 @@ test:
     data: b
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs:
+            - entity: OrderDetails
+              dialect: mysql
+              dataSource: mysql
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+              childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 
-
-          UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          childs:
+            - entity: OrderDetails
+              dialect: postgres
+              dataSource: postgres
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
+              childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID =
-          o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          childs:
+            - entity: OrderDetails
+              dialect: mariadb
+              dataSource: mariadb
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+              childs: []
     errors: 0
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
     completeExpression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
     model:
-      name: string
-      details:
-        - unitPrice: decimal
-          productId: integer
+      - name: name
+        type: string
+      - name: details
+        type: OrderDetails[]
+        childs:
+          - name: unitPrice
+            type: decimal
+          - name: productId
+            type: integer
     parameters:
       - name: entity.name
         type: string
-        value: Ana Trujillo Emparedados y helados
       - name: entity.id
         type: integer
-        value: 8
-    fields:
-      - name: name
-        type: string
+      - name: details
+        type: OrderDetails
+        childs:
+          - name: orderId
+            type: integer
+          - name: productId
+            type: integer
+    constraints:
+      entity: Orders
+      constraints: []
+      childs:
+        - entity: OrderDetails
+          constraints:
+            - message: Cannot be null property orderId in entity OrderDetails
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity OrderDetails
+              condition: isNotNull(productId)
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '==='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: entity.id
+                  type: Variable
+                  children: []
+                  number: 2
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: entity.name
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: name
+        - name: details
+          type: SentenceInclude
+          children:
+            - name: update
+              type: Sentence
+              children:
+                - name: filter
+                  type: Filter
+                  children:
+                    - name: '&&'
+                      type: Operator
+                      children:
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: orderId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: orderId
+                              type: Variable
+                              children: []
+                              number: 1
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: productId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: productId
+                              type: Variable
+                              children: []
+                              number: 2
+                - name: OrderDetails.o1
+                  type: From
+                  children: []
+                - name: OrderDetails.o1
+                  type: Update
+                  children:
+                    - name: obj
+                      type: Obj
+                      children:
+                        - name: unitPrice
+                          type: KeyValue
+                          children:
+                            - name: unitPrice
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                          property: unitPrice
+                        - name: productId
+                          type: KeyValue
+                          children:
+                            - name: productId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                          property: productId
+              fields:
+                - name: unitPrice
+                  type: decimal
+                - name: productId
+                  type: integer
+              parameters:
+                - name: orderId
+                  type: integer
+                - name: productId
+                  type: integer
+              entity: OrderDetails
+          relation:
+            name: details
+            type: manyToOne
+            composite: true
+            from: id
+            entity: OrderDetails
+            weak: true
+            to: orderId
+            target: order
+      fields:
+        - name: name
+          type: string
+      parameters:
+        - name: entity.name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: entity.id
+          type: integer
+          value: 8
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -657,129 +1728,497 @@ test:
     data: a
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          childs:
+            - entity: OrderDetails
+              dialect: mysql
+              dataSource: mysql
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-
-          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
-          = $7) 
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          childs:
+            - entity: OrderDetails
+              dialect: postgres
+              dataSource: postgres
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
+              childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          childs:
+            - entity: OrderDetails
+              dialect: mariadb
+              dataSource: mariadb
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              childs: []
     errors: 0
     expression: Orders.update().include(p=>p.details)
     completeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
-      customerId: string
-      employeeId: integer
-      orderDate: datetime
-      requiredDate: datetime
-      shippedDate: datetime
-      shipViaId: integer
-      freight: decimal
-      name: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
-      details:
-        - orderId: integer
-          productId: integer
-          unitPrice: decimal
-          quantity: decimal
-          discount: decimal
+      - name: customerId
+        type: string
+      - name: employeeId
+        type: integer
+      - name: orderDate
+        type: datetime
+      - name: requiredDate
+        type: datetime
+      - name: shippedDate
+        type: datetime
+      - name: shipViaId
+        type: integer
+      - name: freight
+        type: decimal
+      - name: name
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+      - name: details
+        type: OrderDetails[]
+        childs:
+          - name: orderId
+            type: integer
+          - name: productId
+            type: integer
+          - name: unitPrice
+            type: decimal
+          - name: quantity
+            type: decimal
+          - name: discount
+            type: decimal
     parameters:
       - name: customerId
         type: string
-        value: ANATR
       - name: employeeId
         type: integer
-        value: 7
       - name: orderDate
         type: datetime
-        value: '1996-09-18 00:00:00'
       - name: requiredDate
         type: datetime
-        value: '1996-10-16 00:00:00'
       - name: shippedDate
         type: datetime
-        value: '1996-09-24 00:00:00'
       - name: shipViaId
         type: integer
-        value: 3
       - name: freight
         type: decimal
-        value: '1.6100'
       - name: name
         type: string
-        value: Ana Trujillo Emparedados y helados
       - name: address
         type: string
-        value: Avda. de la Constitucin 2222
       - name: city
         type: string
-        value: Mxico D.F.
       - name: region
         type: string
-        value: null
       - name: postalCode
         type: string
-        value: '5021'
       - name: country
         type: string
-        value: Mexico
       - name: obj.id
         type: integer
-        value: null
-    fields:
-      - name: customerId
-        type: string
-      - name: employeeId
-        type: integer
-      - name: orderDate
-        type: datetime
-      - name: requiredDate
-        type: datetime
-      - name: shippedDate
-        type: datetime
-      - name: shipViaId
-        type: integer
-      - name: freight
-        type: decimal
-      - name: name
-        type: string
-      - name: address
-        type: string
-      - name: city
-        type: string
-      - name: region
-        type: string
-      - name: postalCode
-        type: string
-      - name: country
-        type: string
+      - name: details
+        type: OrderDetails
+        childs:
+          - name: orderId
+            type: integer
+          - name: productId
+            type: integer
+          - name: unitPrice
+            type: decimal
+          - name: quantity
+            type: decimal
+          - name: discount
+            type: decimal
+          - name: obj.orderId
+            type: integer
+          - name: obj.productId
+            type: integer
+    constraints:
+      entity: Orders
+      constraints:
+        - message: Cannot be null property customerId in entity Orders
+          condition: isNotNull(customerId)
+        - message: Cannot be null property employeeId in entity Orders
+          condition: isNotNull(employeeId)
+      childs:
+        - entity: OrderDetails
+          constraints:
+            - message: Cannot be null property orderId in entity OrderDetails
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity OrderDetails
+              condition: isNotNull(productId)
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '=='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Orders
+                  alias: o
+                - name: obj.id
+                  type: Variable
+                  children: []
+                  number: 14
+        - name: Orders.o
+          type: From
+          children: []
+        - name: Orders.o
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: customerId
+                  type: KeyValue
+                  children:
+                    - name: customerId
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: customerId
+                - name: employeeId
+                  type: KeyValue
+                  children:
+                    - name: employeeId
+                      type: Variable
+                      children: []
+                      number: 2
+                  property: employeeId
+                - name: orderDate
+                  type: KeyValue
+                  children:
+                    - name: orderDate
+                      type: Variable
+                      children: []
+                      number: 3
+                  property: orderDate
+                - name: requiredDate
+                  type: KeyValue
+                  children:
+                    - name: requiredDate
+                      type: Variable
+                      children: []
+                      number: 4
+                  property: requiredDate
+                - name: shippedDate
+                  type: KeyValue
+                  children:
+                    - name: shippedDate
+                      type: Variable
+                      children: []
+                      number: 5
+                  property: shippedDate
+                - name: shipViaId
+                  type: KeyValue
+                  children:
+                    - name: shipViaId
+                      type: Variable
+                      children: []
+                      number: 6
+                  property: shipViaId
+                - name: freight
+                  type: KeyValue
+                  children:
+                    - name: freight
+                      type: Variable
+                      children: []
+                      number: 7
+                  property: freight
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: name
+                      type: Variable
+                      children: []
+                      number: 8
+                  property: name
+                - name: address
+                  type: KeyValue
+                  children:
+                    - name: address
+                      type: Variable
+                      children: []
+                      number: 9
+                  property: address
+                - name: city
+                  type: KeyValue
+                  children:
+                    - name: city
+                      type: Variable
+                      children: []
+                      number: 10
+                  property: city
+                - name: region
+                  type: KeyValue
+                  children:
+                    - name: region
+                      type: Variable
+                      children: []
+                      number: 11
+                  property: region
+                - name: postalCode
+                  type: KeyValue
+                  children:
+                    - name: postalCode
+                      type: Variable
+                      children: []
+                      number: 12
+                  property: postalCode
+                - name: country
+                  type: KeyValue
+                  children:
+                    - name: country
+                      type: Variable
+                      children: []
+                      number: 13
+                  property: country
+        - name: details
+          type: SentenceInclude
+          children:
+            - name: update
+              type: Sentence
+              children:
+                - name: filter
+                  type: Filter
+                  children:
+                    - name: '&&'
+                      type: Operator
+                      children:
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: orderId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: obj.orderId
+                              type: Variable
+                              children: []
+                              number: 6
+                        - name: '=='
+                          type: Operator
+                          children:
+                            - name: productId
+                              type: Field
+                              children: []
+                              entity: OrderDetails
+                              alias: o1
+                            - name: obj.productId
+                              type: Variable
+                              children: []
+                              number: 7
+                - name: OrderDetails.o1
+                  type: From
+                  children: []
+                - name: OrderDetails.o1
+                  type: Update
+                  children:
+                    - name: obj
+                      type: Obj
+                      children:
+                        - name: orderId
+                          type: KeyValue
+                          children:
+                            - name: orderId
+                              type: Variable
+                              children: []
+                              number: 1
+                          property: orderId
+                        - name: productId
+                          type: KeyValue
+                          children:
+                            - name: productId
+                              type: Variable
+                              children: []
+                              number: 2
+                          property: productId
+                        - name: unitPrice
+                          type: KeyValue
+                          children:
+                            - name: unitPrice
+                              type: Variable
+                              children: []
+                              number: 3
+                          property: unitPrice
+                        - name: quantity
+                          type: KeyValue
+                          children:
+                            - name: quantity
+                              type: Variable
+                              children: []
+                              number: 4
+                          property: quantity
+                        - name: discount
+                          type: KeyValue
+                          children:
+                            - name: discount
+                              type: Variable
+                              children: []
+                              number: 5
+                          property: discount
+              fields:
+                - name: orderId
+                  type: integer
+                - name: productId
+                  type: integer
+                - name: unitPrice
+                  type: decimal
+                - name: quantity
+                  type: decimal
+                - name: discount
+                  type: decimal
+              parameters:
+                - name: orderId
+                  type: integer
+                  value: 7
+                - name: productId
+                  type: integer
+                  value: 70
+                - name: unitPrice
+                  type: decimal
+                  value: '12.0000'
+                - name: quantity
+                  type: decimal
+                  value: '5.0000'
+                - name: discount
+                  type: decimal
+                  value: '0.0000'
+                - name: obj.orderId
+                  type: integer
+                  value: null
+                - name: obj.productId
+                  type: integer
+                  value: null
+              entity: OrderDetails
+          relation:
+            name: details
+            type: manyToOne
+            composite: true
+            from: id
+            entity: OrderDetails
+            weak: true
+            to: orderId
+            target: order
+      fields:
+        - name: customerId
+          type: string
+        - name: employeeId
+          type: integer
+        - name: orderDate
+          type: datetime
+        - name: requiredDate
+          type: datetime
+        - name: shippedDate
+          type: datetime
+        - name: shipViaId
+          type: integer
+        - name: freight
+          type: decimal
+        - name: name
+          type: string
+        - name: address
+          type: string
+        - name: city
+          type: string
+        - name: region
+          type: string
+        - name: postalCode
+          type: string
+        - name: country
+          type: string
+      parameters:
+        - name: customerId
+          type: string
+          value: ANATR
+        - name: employeeId
+          type: integer
+          value: 7
+        - name: orderDate
+          type: datetime
+          value: '1996-09-18 00:00:00'
+        - name: requiredDate
+          type: datetime
+          value: '1996-10-16 00:00:00'
+        - name: shippedDate
+          type: datetime
+          value: '1996-09-24 00:00:00'
+        - name: shipViaId
+          type: integer
+          value: 3
+        - name: freight
+          type: decimal
+          value: '1.6100'
+        - name: name
+          type: string
+          value: Ana Trujillo Emparedados y helados
+        - name: address
+          type: string
+          value: Avda. de la Constitucin 2222
+        - name: city
+          type: string
+          value: Mxico D.F.
+        - name: region
+          type: string
+          value: null
+        - name: postalCode
+          type: string
+          value: '5021'
+        - name: country
+          type: string
+          value: Mexico
+        - name: obj.id
+          type: integer
+          value: null
+      entity: Orders
     executions:
       - stage: mysql
       - stage: postgres
@@ -789,131 +2228,735 @@ test:
     data: d
     sentences:
       - stage: mysql
-        sentence: >-
-          UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-          ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-          ?,Country = ? WHERE c.CustomerID = ? 
-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
+        sentence:
+          entity: Customers
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
+            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+            ?,Country = ? WHERE c.CustomerID = ? 
+          childs:
+            - entity: Orders
+              dialect: mysql
+              dataSource: mysql
+              sentence: >-
+                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
+              childs:
+                - entity: OrderDetails
+                  dialect: mysql
+                  dataSource: mysql
+                  sentence: >-
+                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
+                    = ? AND o1.ProductID = ?) 
+                  childs: []
       - stage: postgres
-        sentence: >-
-          UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName =
-          $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode =
-          $8,Country = $9 WHERE c.CustomerID = $10 
-
-          UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-          $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-          $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-          $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-
-          UPDATE "Order Details" o1 SET OrderID = $1,ProductID = $2,UnitPrice =
-          $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID
-          = $7) 
+        sentence:
+          entity: Customers
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName
+            = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode
+            = $8,Country = $9 WHERE c.CustomerID = $10 
+          childs:
+            - entity: Orders
+              dialect: postgres
+              dataSource: postgres
+              sentence: >-
+                UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+                $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+                $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+                $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID =
+                $14 
+              childs:
+                - entity: OrderDetails
+                  dialect: postgres
+                  dataSource: postgres
+                  sentence: >-
+                    UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                    $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE
+                    (o1.OrderID = $6 AND o1.ProductID = $7) 
+                  childs: []
       - stage: mariadb
-        sentence: >-
-          UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-          ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-          ?,Country = ? WHERE c.CustomerID = ? 
-
-          UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-          ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName =
-          ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-          ?,ShipCountry = ? WHERE o.OrderID = ? 
-
-          UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice =
-          ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID =
-          ?) 
+        sentence:
+          entity: Customers
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
+            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+            ?,Country = ? WHERE c.CustomerID = ? 
+          childs:
+            - entity: Orders
+              dialect: mariadb
+              dataSource: mariadb
+              sentence: >-
+                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
+              childs:
+                - entity: OrderDetails
+                  dialect: mariadb
+                  dataSource: mariadb
+                  sentence: >-
+                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
+                    = ? AND o1.ProductID = ?) 
+                  childs: []
     errors: 0
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
     completeExpression: >-
       Customers.filter(p=>(p.id==obj.id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
     model:
-      id: string
-      name: string
-      contact: string
-      phone: string
-      address: string
-      city: string
-      region: string
-      postalCode: string
-      country: string
-      orders:
-        - customerId: string
-          employeeId: integer
-          orderDate: datetime
-          requiredDate: datetime
-          shippedDate: datetime
-          shipViaId: integer
-          freight: decimal
-          name: string
-          address: string
-          city: string
-          region: string
-          postalCode: string
-          country: string
-          details:
-            - orderId: integer
-              productId: integer
-              unitPrice: decimal
-              quantity: decimal
-              discount: decimal
+      - name: id
+        type: string
+      - name: name
+        type: string
+      - name: contact
+        type: string
+      - name: phone
+        type: string
+      - name: address
+        type: string
+      - name: city
+        type: string
+      - name: region
+        type: string
+      - name: postalCode
+        type: string
+      - name: country
+        type: string
+      - name: orders
+        type: Orders[]
+        childs:
+          - name: customerId
+            type: string
+          - name: employeeId
+            type: integer
+          - name: orderDate
+            type: datetime
+          - name: requiredDate
+            type: datetime
+          - name: shippedDate
+            type: datetime
+          - name: shipViaId
+            type: integer
+          - name: freight
+            type: decimal
+          - name: name
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: details
+            type: OrderDetails[]
+            childs:
+              - name: orderId
+                type: integer
+              - name: productId
+                type: integer
+              - name: unitPrice
+                type: decimal
+              - name: quantity
+                type: decimal
+              - name: discount
+                type: decimal
     parameters:
       - name: id
         type: string
-        value: ALFKI
       - name: name
         type: string
-        value: Alfreds Futterkiste
       - name: contact
         type: string
-        value: Maria Anders
       - name: phone
         type: string
-        value: Sales Representative
       - name: address
         type: string
-        value: Obere Str. 57
       - name: city
         type: string
-        value: Berlin
       - name: region
         type: string
-        value: null
       - name: postalCode
         type: string
-        value: '12209'
       - name: country
         type: string
-        value: Germany
       - name: obj.id
         type: string
-        value: null
-    fields:
-      - name: id
-        type: string
-      - name: name
-        type: string
-      - name: contact
-        type: string
-      - name: phone
-        type: string
-      - name: address
-        type: string
-      - name: city
-        type: string
-      - name: region
-        type: string
-      - name: postalCode
-        type: string
-      - name: country
-        type: string
+      - name: orders
+        type: Orders
+        childs:
+          - name: customerId
+            type: string
+          - name: employeeId
+            type: integer
+          - name: orderDate
+            type: datetime
+          - name: requiredDate
+            type: datetime
+          - name: shippedDate
+            type: datetime
+          - name: shipViaId
+            type: integer
+          - name: freight
+            type: decimal
+          - name: name
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: obj.id
+            type: integer
+          - name: details
+            type: OrderDetails
+            childs:
+              - name: orderId
+                type: integer
+              - name: productId
+                type: integer
+              - name: unitPrice
+                type: decimal
+              - name: quantity
+                type: decimal
+              - name: discount
+                type: decimal
+              - name: obj.orderId
+                type: integer
+              - name: obj.productId
+                type: integer
+    constraints:
+      entity: Customers
+      constraints:
+        - message: Cannot be null property id in entity Customers
+          condition: isNotNull(id)
+        - message: Cannot be null property name in entity Customers
+          condition: isNotNull(name)
+      childs:
+        - entity: Orders
+          constraints:
+            - message: Cannot be null property customerId in entity Orders
+              condition: isNotNull(customerId)
+            - message: Cannot be null property employeeId in entity Orders
+              condition: isNotNull(employeeId)
+          childs:
+            - entity: OrderDetails
+              constraints:
+                - message: Cannot be null property orderId in entity OrderDetails
+                  condition: isNotNull(orderId)
+                - message: Cannot be null property productId in entity OrderDetails
+                  condition: isNotNull(productId)
+    metadata:
+      name: update
+      type: Sentence
+      children:
+        - name: filter
+          type: Filter
+          children:
+            - name: '=='
+              type: Operator
+              children:
+                - name: id
+                  type: Field
+                  children: []
+                  entity: Customers
+                  alias: c
+                - name: obj.id
+                  type: Variable
+                  children: []
+                  number: 10
+        - name: Customers.c
+          type: From
+          children: []
+        - name: Customers.c
+          type: Update
+          children:
+            - name: obj
+              type: Obj
+              children:
+                - name: id
+                  type: KeyValue
+                  children:
+                    - name: id
+                      type: Variable
+                      children: []
+                      number: 1
+                  property: id
+                - name: name
+                  type: KeyValue
+                  children:
+                    - name: name
+                      type: Variable
+                      children: []
+                      number: 2
+                  property: name
+                - name: contact
+                  type: KeyValue
+                  children:
+                    - name: contact
+                      type: Variable
+                      children: []
+                      number: 3
+                  property: contact
+                - name: phone
+                  type: KeyValue
+                  children:
+                    - name: phone
+                      type: Variable
+                      children: []
+                      number: 4
+                  property: phone
+                - name: address
+                  type: KeyValue
+                  children:
+                    - name: address
+                      type: Variable
+                      children: []
+                      number: 5
+                  property: address
+                - name: city
+                  type: KeyValue
+                  children:
+                    - name: city
+                      type: Variable
+                      children: []
+                      number: 6
+                  property: city
+                - name: region
+                  type: KeyValue
+                  children:
+                    - name: region
+                      type: Variable
+                      children: []
+                      number: 7
+                  property: region
+                - name: postalCode
+                  type: KeyValue
+                  children:
+                    - name: postalCode
+                      type: Variable
+                      children: []
+                      number: 8
+                  property: postalCode
+                - name: country
+                  type: KeyValue
+                  children:
+                    - name: country
+                      type: Variable
+                      children: []
+                      number: 9
+                  property: country
+        - name: orders
+          type: SentenceInclude
+          children:
+            - name: update
+              type: Sentence
+              children:
+                - name: filter
+                  type: Filter
+                  children:
+                    - name: '=='
+                      type: Operator
+                      children:
+                        - name: id
+                          type: Field
+                          children: []
+                          entity: Orders
+                          alias: o
+                        - name: obj.id
+                          type: Variable
+                          children: []
+                          number: 14
+                - name: Orders.o
+                  type: From
+                  children: []
+                - name: Orders.o
+                  type: Update
+                  children:
+                    - name: obj
+                      type: Obj
+                      children:
+                        - name: customerId
+                          type: KeyValue
+                          children:
+                            - name: customerId
+                              type: Variable
+                              children: []
+                              number: 1
+                          property: customerId
+                        - name: employeeId
+                          type: KeyValue
+                          children:
+                            - name: employeeId
+                              type: Variable
+                              children: []
+                              number: 2
+                          property: employeeId
+                        - name: orderDate
+                          type: KeyValue
+                          children:
+                            - name: orderDate
+                              type: Variable
+                              children: []
+                              number: 3
+                          property: orderDate
+                        - name: requiredDate
+                          type: KeyValue
+                          children:
+                            - name: requiredDate
+                              type: Variable
+                              children: []
+                              number: 4
+                          property: requiredDate
+                        - name: shippedDate
+                          type: KeyValue
+                          children:
+                            - name: shippedDate
+                              type: Variable
+                              children: []
+                              number: 5
+                          property: shippedDate
+                        - name: shipViaId
+                          type: KeyValue
+                          children:
+                            - name: shipViaId
+                              type: Variable
+                              children: []
+                              number: 6
+                          property: shipViaId
+                        - name: freight
+                          type: KeyValue
+                          children:
+                            - name: freight
+                              type: Variable
+                              children: []
+                              number: 7
+                          property: freight
+                        - name: name
+                          type: KeyValue
+                          children:
+                            - name: name
+                              type: Variable
+                              children: []
+                              number: 8
+                          property: name
+                        - name: address
+                          type: KeyValue
+                          children:
+                            - name: address
+                              type: Variable
+                              children: []
+                              number: 9
+                          property: address
+                        - name: city
+                          type: KeyValue
+                          children:
+                            - name: city
+                              type: Variable
+                              children: []
+                              number: 10
+                          property: city
+                        - name: region
+                          type: KeyValue
+                          children:
+                            - name: region
+                              type: Variable
+                              children: []
+                              number: 11
+                          property: region
+                        - name: postalCode
+                          type: KeyValue
+                          children:
+                            - name: postalCode
+                              type: Variable
+                              children: []
+                              number: 12
+                          property: postalCode
+                        - name: country
+                          type: KeyValue
+                          children:
+                            - name: country
+                              type: Variable
+                              children: []
+                              number: 13
+                          property: country
+                - name: details
+                  type: SentenceInclude
+                  children:
+                    - name: update
+                      type: Sentence
+                      children:
+                        - name: filter
+                          type: Filter
+                          children:
+                            - name: '&&'
+                              type: Operator
+                              children:
+                                - name: '=='
+                                  type: Operator
+                                  children:
+                                    - name: orderId
+                                      type: Field
+                                      children: []
+                                      entity: OrderDetails
+                                      alias: o1
+                                    - name: obj.orderId
+                                      type: Variable
+                                      children: []
+                                      number: 6
+                                - name: '=='
+                                  type: Operator
+                                  children:
+                                    - name: productId
+                                      type: Field
+                                      children: []
+                                      entity: OrderDetails
+                                      alias: o1
+                                    - name: obj.productId
+                                      type: Variable
+                                      children: []
+                                      number: 7
+                        - name: OrderDetails.o1
+                          type: From
+                          children: []
+                        - name: OrderDetails.o1
+                          type: Update
+                          children:
+                            - name: obj
+                              type: Obj
+                              children:
+                                - name: orderId
+                                  type: KeyValue
+                                  children:
+                                    - name: orderId
+                                      type: Variable
+                                      children: []
+                                      number: 1
+                                  property: orderId
+                                - name: productId
+                                  type: KeyValue
+                                  children:
+                                    - name: productId
+                                      type: Variable
+                                      children: []
+                                      number: 2
+                                  property: productId
+                                - name: unitPrice
+                                  type: KeyValue
+                                  children:
+                                    - name: unitPrice
+                                      type: Variable
+                                      children: []
+                                      number: 3
+                                  property: unitPrice
+                                - name: quantity
+                                  type: KeyValue
+                                  children:
+                                    - name: quantity
+                                      type: Variable
+                                      children: []
+                                      number: 4
+                                  property: quantity
+                                - name: discount
+                                  type: KeyValue
+                                  children:
+                                    - name: discount
+                                      type: Variable
+                                      children: []
+                                      number: 5
+                                  property: discount
+                      fields:
+                        - name: orderId
+                          type: integer
+                        - name: productId
+                          type: integer
+                        - name: unitPrice
+                          type: decimal
+                        - name: quantity
+                          type: decimal
+                        - name: discount
+                          type: decimal
+                      parameters:
+                        - name: orderId
+                          type: integer
+                          value: 6
+                        - name: productId
+                          type: integer
+                          value: 71
+                        - name: unitPrice
+                          type: decimal
+                          value: '21.5000'
+                        - name: quantity
+                          type: decimal
+                          value: '20.0000'
+                        - name: discount
+                          type: decimal
+                          value: '0.0000'
+                        - name: obj.orderId
+                          type: integer
+                          value: null
+                        - name: obj.productId
+                          type: integer
+                          value: null
+                      entity: OrderDetails
+                  relation:
+                    name: details
+                    type: manyToOne
+                    composite: true
+                    from: id
+                    entity: OrderDetails
+                    weak: true
+                    to: orderId
+                    target: order
+              fields:
+                - name: customerId
+                  type: string
+                - name: employeeId
+                  type: integer
+                - name: orderDate
+                  type: datetime
+                - name: requiredDate
+                  type: datetime
+                - name: shippedDate
+                  type: datetime
+                - name: shipViaId
+                  type: integer
+                - name: freight
+                  type: decimal
+                - name: name
+                  type: string
+                - name: address
+                  type: string
+                - name: city
+                  type: string
+                - name: region
+                  type: string
+                - name: postalCode
+                  type: string
+                - name: country
+                  type: string
+              parameters:
+                - name: customerId
+                  type: string
+                  value: ALFKI
+                - name: employeeId
+                  type: integer
+                  value: 3
+                - name: orderDate
+                  type: datetime
+                  value: '1998-04-09 00:00:00'
+                - name: requiredDate
+                  type: datetime
+                  value: '1998-05-07 00:00:00'
+                - name: shippedDate
+                  type: datetime
+                  value: '1998-04-13 00:00:00'
+                - name: shipViaId
+                  type: integer
+                  value: 1
+                - name: freight
+                  type: decimal
+                  value: '1.2100'
+                - name: name
+                  type: string
+                  value: Alfred-s Futterkiste
+                - name: address
+                  type: string
+                  value: Obere Str. 57
+                - name: city
+                  type: string
+                  value: Berlin
+                - name: region
+                  type: string
+                  value: null
+                - name: postalCode
+                  type: string
+                  value: '12209'
+                - name: country
+                  type: string
+                  value: Germany
+                - name: obj.id
+                  type: integer
+                  value: null
+              entity: Orders
+          relation:
+            name: orders
+            type: manyToOne
+            composite: true
+            from: id
+            entity: Orders
+            weak: true
+            to: customerId
+            target: customer
+      fields:
+        - name: id
+          type: string
+        - name: name
+          type: string
+        - name: contact
+          type: string
+        - name: phone
+          type: string
+        - name: address
+          type: string
+        - name: city
+          type: string
+        - name: region
+          type: string
+        - name: postalCode
+          type: string
+        - name: country
+          type: string
+      parameters:
+        - name: id
+          type: string
+          value: ALFKI
+        - name: name
+          type: string
+          value: Alfreds Futterkiste
+        - name: contact
+          type: string
+          value: Maria Anders
+        - name: phone
+          type: string
+          value: Sales Representative
+        - name: address
+          type: string
+          value: Obere Str. 57
+        - name: city
+          type: string
+          value: Berlin
+        - name: region
+          type: string
+          value: null
+        - name: postalCode
+          type: string
+          value: '12209'
+        - name: country
+          type: string
+          value: Germany
+        - name: obj.id
+          type: string
+          value: null
+      entity: Customers
     executions:
       - stage: mysql
       - stage: postgres

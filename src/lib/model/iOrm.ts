@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Schema } from './index'
+import { Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from './index'
 import { Transaction, StageFacade, SchemaManager } from '../manager'
 import { Cache, Expressions } from 'js-expressions'
 
@@ -25,30 +25,37 @@ export interface IOrm
 		* Get model of expression
 		* @returns Model of expression
 		*/
-	model(expression:Function): any
-	model(expression:string): any
+	model(expression:Function): MetadataModel[]
+	model(expression:string): MetadataModel[]
 
 	/**
 		* Get parameters of expression
 		* @returns Parameters of expression
 		*/
-	parameters(expression:Function): any
-	parameters(expression:string): any
+	parameters(expression:Function): MetadataParameter[]
+	parameters(expression: string): MetadataParameter[]
+
+	/**
+	 * Get constraints of expression
+	 * @returns Constraints of expression
+	 */
+	constraints(expression:Function): MetadataConstraint
+	constraints(expression:string): MetadataConstraint
 
 	/**
 		* Get metadata of expression
 		* @returns metadata of expression
 		*/
-	metadata(expression: Function): any
-	metadata (expression:string):any
+	metadata(expression: Function): Metadata
+	metadata (expression:string):Metadata
 
 	/**
 	 *
 	 * @param expression
 	 * @param stage
 	 */
-	sentence(expression: Function, stage?: string): string
-	sentence(expression: string, stage?: string): string
+	sentence(expression: Function, stage?: string): MetadataSentence
+	sentence(expression: string, stage?: string): MetadataSentence
 
 	/**
 		* Execute expression

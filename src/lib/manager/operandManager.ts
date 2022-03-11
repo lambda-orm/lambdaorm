@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, NotImplemented } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, NotImplemented, MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
@@ -51,47 +51,47 @@ export class OperandManager {
 		return this.setParent(reduced) as Sentence
 	}
 
-	public model (sentence:Sentence):any {
-		const result:any = {}
+	public model (sentence:Sentence):MetadataModel[] {
+		const result:MetadataModel[] = []
 		for (let i = 0; i < sentence.columns.length; i++) {
 			const column = sentence.columns[i]
 			if (!column.name.startsWith('__')) {
-				result[column.name] = column.type
+				result.push({ name: column.name, type: column.type })
 			}
 		}
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const child = this.model(include.children[0] as Sentence)
-			if (include.relation.type === 'manyToOne') {
-				result[include.name] = [child]
-			} else {
-				result[include.name] = child
-			}
+			const childType = include.relation.entity + (include.relation.type === 'manyToOne' ? '[]' : '')
+			const child:MetadataModel = { name: include.relation.name, type: childType, childs: [] }
+			child.childs = this.model(include.children[0] as Sentence)
+			result.push(child)
 		}
 		return result
 	}
 
-	public parameters (sentence:Sentence):any {
-		const result:any = {}
+	public parameters (sentence:Sentence):MetadataParameter[] {
+		const parameters:MetadataParameter[] = []
 		for (let i = 0; i < sentence.parameters.length; i++) {
 			const parameter = sentence.parameters[i]
-			result[parameter.name] = parameter.type
+			parameters.push({ name: parameter.name, type: parameter.type })
 		}
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const childsParameter = this.parameters(include.children[0] as Sentence)
-			for (const q in childsParameter) {
-				const childParameter = childsParameter[q]
-				result[childParameter.name] = childParameter.type
+			const relationParameter:MetadataParameter = { name: include.relation.name, type: include.relation.entity, childs: [] }
+			const childsParameters = this.parameters(include.children[0] as Sentence)
+			for (const q in childsParameters) {
+				const childParameter = childsParameters[q]
+				relationParameter.childs?.push(childParameter)
 			}
+			parameters.push(relationParameter)
 		}
-		return result
+		return parameters
 	}
 
-	public constraints (sentence:Sentence):any {
-		const result: any = { entity: sentence.entity, constraints: sentence.constraints }
+	public constraints (sentence:Sentence):MetadataConstraint {
+		const result: MetadataConstraint = { entity: sentence.entity, constraints: sentence.constraints }
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
@@ -104,27 +104,27 @@ export class OperandManager {
 		return result
 	}
 
-	public serialize (operand:Operand):any {
+	public serialize (operand:Operand):Metadata {
 		const children = []
 		for (const k in operand.children) {
 			children.push(this.serialize(operand.children[k]))
 		}
 		if (operand instanceof Sentence) {
-			return { n: operand.name, t: operand.constructor.name, c: children, f: operand.columns, p: operand.parameters, e: operand.entity }
+			return { name: operand.name, type: operand.constructor.name, children: children, fields: operand.columns, parameters: operand.parameters, entity: operand.entity }
 		} else if (operand instanceof SentenceInclude) {
 			// return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation, v: operand.variable }
-			return { n: operand.name, t: operand.constructor.name, c: children, r: operand.relation }
+			return { name: operand.name, type: operand.constructor.name, children: children, relation: operand.relation }
 		} else if (operand instanceof Insert) {
-			return { n: operand.name, t: operand.constructor.name, c: children, s: operand.clause }
+			return { name: operand.name, type: operand.constructor.name, children: children, sentence: operand.clause }
 		} else if (operand instanceof KeyValue) {
-			return { n: operand.name, t: operand.constructor.name, c: children, p: operand.property }
+			return { name: operand.name, type: operand.constructor.name, children: children, property: operand.property }
 			// return { n: operand.name, t: operand.constructor.name, c: children, m: operand.mapping }
 		} else if (operand instanceof Field) {
-			return { n: operand.name, t: operand.constructor.name, c: children, e: operand.entity, a: operand.alias }
+			return { name: operand.name, type: operand.constructor.name, children: children, entity: operand.entity, alias: operand.alias }
 		} else if (operand instanceof Variable) {
-			return { n: operand.name, t: operand.constructor.name, c: children, u: operand.number }
+			return { name: operand.name, type: operand.constructor.name, children: children, number: operand.number }
 		} else {
-			return { n: operand.name, t: operand.constructor.name, c: children }
+			return { name: operand.name, type: operand.constructor.name, children: children }
 		}
 	}
 

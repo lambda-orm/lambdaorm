@@ -21,7 +21,8 @@ export interface ExpressionTest {
 	expression?: string
 	completeExpression?: string
 	model?: any
-	fields?: any
+	metadata?: any
+	constraints?: any
 	parameters?: Parameter[]
 	sentences?: SentenceTest[]
 	executions?: ExecutionTest[]
