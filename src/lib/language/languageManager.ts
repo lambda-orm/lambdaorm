@@ -1,6 +1,6 @@
 
 import { Node, Operand, Expressions } from 'js-expressions'
-import { Data, Query, Include, DataSource } from '../model'
+import { Data, Query, Include, DataSource, MetadataSentence, MetadataModel, MetadataParameter, Metadata } from '../model'
 import { SchemaManager } from '../manager'
 import { Language } from './language'
 import { OperandManager } from '../manager/operandManager'
@@ -40,11 +40,11 @@ export class LanguageManager {
 		return this.operandManager.build(node)
 	}
 
-	public model (sentence:Sentence):any {
+	public model (sentence:Sentence):MetadataModel[] {
 		return this.operandManager.model(sentence)
 	}
 
-	public parameters (sentence:Sentence):any {
+	public parameters (sentence:Sentence):MetadataParameter[] {
 		return this.operandManager.parameters(sentence)
 	}
 
@@ -68,21 +68,21 @@ export class LanguageManager {
 		return this.get(dataSource.dialect).ddlBuilder(dataSource.name, dataSource.dialect, mapping)
 	}
 
-	public sentence (query:Query):any {
-		let mainSentence = query.sentence + ''
+	public sentence (query: Query): MetadataSentence {
+		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, childs: [] }
 		for (const p in query.children) {
 			const include = query.children[p] as Include
 			const includeSentence = this.sentence(include.children[0] as Query)
-			mainSentence = mainSentence + '\n' + includeSentence
+			mainSentence.childs?.push(includeSentence)
 		}
 		return mainSentence
 	}
 
-	public serialize (operand:Operand):any {
+	public serialize (operand:Operand):Metadata {
 		return this.operandManager.serialize(operand)
 	}
 
-	public deserialize (serialized:any) {
+	public deserialize (serialized:Metadata):Operand {
 		return this.operandManager.deserialize(serialized)
 	}
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { IOrm, Schema, Stage } from './model'
+import { IOrm, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
 import { LanguageManager } from './language'
@@ -164,9 +164,9 @@ export class Orm implements IOrm {
 	 * Get model of expression
 	 * @returns Model of expression
 	 */
-	public model(expression:Function): any
-	public model(expression:string): any
-	public model (expression: string|Function): any {
+	public model(expression:Function): MetadataModel[]
+	public model(expression:string): MetadataModel[]
+	public model (expression: string|Function): MetadataModel[] {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -177,9 +177,9 @@ export class Orm implements IOrm {
 	 * Get parameters of expression
 	 * @returns Parameters of expression
 	 */
-	public parameters(expression:Function): any;
-	public parameters(expression:string): any;
-	public parameters (expression: string|Function): any {
+	public parameters(expression:Function): MetadataParameter[];
+	public parameters(expression:string): MetadataParameter[];
+	public parameters (expression: string|Function): MetadataParameter[] {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -190,9 +190,9 @@ export class Orm implements IOrm {
 	 * Get constraints of expression
 	 * @returns Constraints of expression
 	 */
-	public constraints(expression:Function): any;
-	public constraints(expression:string): any;
-	public constraints (expression: string|Function): any {
+	public constraints(expression:Function): MetadataConstraint;
+	public constraints(expression:string): MetadataConstraint;
+	public constraints (expression: string|Function): MetadataConstraint {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -203,9 +203,9 @@ export class Orm implements IOrm {
 	 * Get metadata of expression
 	 * @returns metadata of expression
 	 */
-	public metadata(expression: Function): any
-	public metadata (expression:string):any
-	public metadata (expression: string|Function): any {
+	public metadata(expression: Function): Metadata
+	public metadata (expression:string):Metadata
+	public metadata (expression: string|Function): Metadata {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
@@ -217,9 +217,9 @@ export class Orm implements IOrm {
 	 * @param expression
 	 * @param dataSource
 	 */
-	public sentence(expression: Function, stage?: string): string;
-	public sentence(expression: string, stage?: string): string;
-	public sentence (expression: string|Function, stage: string|undefined): string {
+	public sentence(expression: Function, stage?: string): MetadataSentence;
+	public sentence(expression: string, stage?: string): MetadataSentence;
+	public sentence (expression: string|Function, stage: string|undefined): MetadataSentence {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}

@@ -33,18 +33,18 @@ export class Respository<TEntity, TQuery> {
 	}
 
 	/**  */
-	insert(entity: TEntity): Promise<number>
+	insert(entity: TEntity): Promise<any>
 	/**  */
-	insert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
-	public async insert (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number> {
+	insert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any>
+	public async insert (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any> {
 		return await this._execute(`${this.name}.insert()`, undefined, include, entity)
 	}
 
 	/**  */
-	bulkInsert(entities:TEntity[]): Promise<number[]>
+	bulkInsert(entities:TEntity[]): Promise<any[]>
 	/**  */
-	bulkInsert(entities:TEntity[], include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number[]>
-	public async bulkInsert (entities: TEntity[], include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number[]> {
+	bulkInsert(entities:TEntity[], include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]>
+	public async bulkInsert (entities: TEntity[], include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]> {
 		return await this._execute(`${this.name}.bulkInsert()`, undefined, include, entities)
 	}
 

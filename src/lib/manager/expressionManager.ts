@@ -1,4 +1,4 @@
-import { Query, SintaxisError } from '../model'
+import { Query, SintaxisError, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from '../model'
 // import { ParserManager } from '../parser/index'
 import { SchemaManager, ExpressionCompleter, Routing } from './index'
 import { LanguageManager, Sentence, DMLBuilder } from '../language'
@@ -107,7 +107,7 @@ export class ExpressionManager {
 	 * @param expression expression
 	 * @returns Model of expression
 	 */
-	public model (expression: string):any {
+	public model (expression: string):MetadataModel[] {
 		const operand = this.toOperand(expression)
 		return this.languageManager.model(operand as Sentence)
 	}
@@ -117,7 +117,7 @@ export class ExpressionManager {
 	 * @param expression expression
 	 * @returns constraints
 	 */
-	public constraints (expression: string):any {
+	public constraints (expression: string):MetadataConstraint {
 		const operand = this.toOperand(expression)
 		return this.languageManager.constraints(operand as Sentence)
 	}
@@ -127,12 +127,12 @@ export class ExpressionManager {
 	 * @param expression  expression
 	 * @returns Parameters of expression
 	 */
-	public parameters (expression: string):any {
+	public parameters (expression: string):MetadataParameter[] {
 		const operand = this.toOperand(expression)
 		return this.languageManager.parameters(operand as Sentence)
 	}
 
-	public sentence (expression: string, stage: string):string {
+	public sentence (expression: string, stage: string):MetadataSentence {
 		const query = this.toQuery(expression, stage)
 		return this.languageManager.sentence(query)
 	}
@@ -142,7 +142,7 @@ export class ExpressionManager {
 	 * @param expression expression
 	 * @returns metadata of expression
 	 */
-	public metadata (expression: string):any {
+	public metadata (expression: string):Metadata {
 		const operand = this.toOperand(expression)
 		return this.languageManager.serialize(operand)
 	}

@@ -75,17 +75,26 @@ function getDevices () {
 		console.log(JSON.stringify(await orm.execute('Groups.bulkInsert().include(p=> p.members)', getGroups())))
 		console.log(JSON.stringify(await orm.execute('Devices.bulkInsert().include(p=> p.components)', getDevices())))
 
-		console.log(JSON.stringify(await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))])')))
+		// console.log(JSON.stringify(await orm.execute('Groups.include(p=> [p.members.include(p=>p.user),p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))])')))
 
+		console.log('metadata:')
+		console.log(JSON.stringify(orm.metadata('Devices.bulkInsert().include(p=> p.components)')))
+		console.log('sentence:')
+		console.log(JSON.stringify(orm.sentence('Devices.bulkInsert().include(p=> p.components)')))
+		console.log('parameters:')
+		console.log(JSON.stringify(orm.parameters('Devices.bulkInsert().include(p=> p.components)')))
+		console.log('model:')
+		console.log(JSON.stringify(orm.model('Devices.bulkInsert().include(p=> p.components)')))
+		console.log('constraints:')
 		console.log(JSON.stringify(orm.constraints('Devices.bulkInsert().include(p=> p.components)')))
 
-		console.log(JSON.stringify(await orm.execute('Devices.updateAll({imei2:null})')))
-		console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))
-		console.log(JSON.stringify(await orm.execute('Devices.deleteAll()')))
+		// console.log(JSON.stringify(await orm.execute('Devices.updateAll({imei2:null})')))
+		// console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))
+		// console.log(JSON.stringify(await orm.execute('Devices.deleteAll()')))
 
 		Helper.writeFile(path.join(workspace, 'schema.json'), JSON.stringify(orm.schema.schema, null, 2))
 
-		await orm.stage.clean(orm.defaultStage.name).execute()
+		// await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {
 		console.error(error.message)
 	} finally {
