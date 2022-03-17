@@ -14,7 +14,9 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
-			define.push(this.createColumn(property))
+			if (!property.view) {
+				define.push(this.createColumn(property))
+			}
 		}
 		if (entity.primaryKey && entity.primaryKey.length > 0) {
 			define.push(this.createPk(entity, entity.primaryKey))

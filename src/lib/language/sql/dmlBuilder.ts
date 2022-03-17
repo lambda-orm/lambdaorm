@@ -249,13 +249,21 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	private solveReadField (operand:Operand): Operand {
 		if (operand instanceof Field) {
 			const field = operand as Field
+			const alias = field.alias
 			const entity = this.mapping.getEntity(field.entity)
 			const property = entity?.properties.find(p => p.name === field.name)
-			if (entity && property && property.readExp) {
-				const readOperand = this.expressions.parse(property.readExp)
-				this.replaceVar4Field(entity, field.alias as string, readOperand)
-				return readOperand
+			let _operand = operand as Operand
+			if (entity && property) {
+				if (property.readMappingExp) {
+					_operand = this.expressions.parse(property.readMappingExp)
+					this.replaceVar4Field(entity, alias as string, _operand)
+				}
+				if (property.readExp) {
+					_operand = this.expressions.parse(property.readExp)
+					this.replaceVar4Field(entity, field.alias as string, _operand)
+				}
 			}
+			return _operand
 		} else if (operand.children && operand.children.length > 0) {
 			for (const i in operand.children) {
 				operand.children[i] = this.solveReadField(operand.children[i])

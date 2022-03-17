@@ -153,8 +153,8 @@ functions:
     upper: 'UPPER({0})'
     length: 'LENGTH({0})'
   datetime:
-  # https://www.w3schools.com/jsref/jsref_obj_date.asp
-  # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
+    # https://www.w3schools.com/jsref/jsref_obj_date.asp
+    # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
     now: 'SYSTIMESTAMP'
     curtime: 'CAST(SYSTIMESTAMP AS TIME)'
     today: 'TRUNC(SYSDATE)'     

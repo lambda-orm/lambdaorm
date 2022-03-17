@@ -281,7 +281,7 @@ export class DDLBuilder {
 						for (const n in changed.delta.changed) {
 							const newProperty = changed.delta.changed[n].new as PropertyMapping
 							const oldProperty = changed.delta.changed[n].old as PropertyMapping
-							if (newProperty.mapping === oldProperty.mapping) {
+							if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
 								const query = this.builder(dataSource).alterColumn(entityChanged.new, newProperty)
 								queries.push(query)
 							}
@@ -309,8 +309,10 @@ export class DDLBuilder {
 						if (!changed.delta) continue
 						for (const n in changed.delta.remove) {
 							const oldProperty = changed.delta.remove[n].old as PropertyMapping
-							const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
-							queries.push(query)
+							if (!oldProperty.view) {
+								const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
+								queries.push(query)
+							}
 						}
 					}
 				}

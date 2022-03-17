@@ -23,6 +23,7 @@ export interface Property {
 	nullable?: boolean
 	primaryKey?: boolean
 	autoincrement?: boolean
+	view?: boolean
 	readExp?: string
 	writeExp?: string
 	default?: string
@@ -72,6 +73,7 @@ export interface RelationInfo {
 export interface PropertyMapping extends Property {
 	mapping: string
 	key?: string
+	readMappingExp?: string
 }
 export interface EntityMapping extends Entity {
 	mapping: string

@@ -73,6 +73,9 @@ entities:
         nullable: false
       - name: lastname
         nullable: false
+      - name: fullmane
+        view: true
+        readExp: concat(lastname,", ",firstname)
       - name: email
         nullable: false
         length: 255
@@ -140,8 +143,9 @@ entities:
       - name: name
         length: 32
         nullable: false
-      - name: groupId
+      - name: ownerId
         length: 32
+        nullable: false
       - name: so
         length: 32
       - name: imei
@@ -155,10 +159,10 @@ entities:
       - name: ip
         length: 24
     relations:
-      - name: group
-        from: groupId
-        entity: Groups
-        to: id
+      - name: owner
+        from: ownerId
+        entity: Users
+        to: username
         target: devices
   - name: Components
     extends: Products
@@ -308,7 +312,7 @@ mappings:
             mapping: email
           - name: created
             mapping: created_timestamp
-            readExp: millisecondToDate(created/1000)
+            readMappingExp: millisecondToDate(created/1000)
           - name: realmId
             length: 255
             mapping: realm_id

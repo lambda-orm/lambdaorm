@@ -102,6 +102,13 @@
           "length": 80
         },
         {
+          "name": "fullmane",
+          "view": true,
+          "readExp": "concat(lastname,\", \",firstname)",
+          "type": "string",
+          "length": 80
+        },
+        {
           "name": "email",
           "nullable": false,
           "length": 255,
@@ -128,6 +135,15 @@
           "weak": true,
           "to": "username",
           "target": "user"
+        },
+        {
+          "name": "devices",
+          "type": "manyToOne",
+          "from": "username",
+          "entity": "Devices",
+          "weak": true,
+          "to": "ownerId",
+          "target": "owner"
         }
       ],
       "dependents": [
@@ -139,6 +155,18 @@
             "entity": "Users",
             "to": "username",
             "target": "members",
+            "type": "oneToMany",
+            "weak": false
+          }
+        },
+        {
+          "entity": "Devices",
+          "relation": {
+            "name": "owner",
+            "from": "ownerId",
+            "entity": "Users",
+            "to": "username",
+            "target": "devices",
             "type": "oneToMany",
             "weak": false
           }
@@ -183,15 +211,6 @@
           "weak": true,
           "to": "groupId",
           "target": "group"
-        },
-        {
-          "name": "devices",
-          "type": "manyToOne",
-          "from": "id",
-          "entity": "Devices",
-          "weak": true,
-          "to": "groupId",
-          "target": "group"
         }
       ],
       "dependents": [
@@ -204,18 +223,6 @@
             "to": "id",
             "target": "members",
             "targetComposite": true,
-            "type": "oneToMany",
-            "weak": false
-          }
-        },
-        {
-          "entity": "Devices",
-          "relation": {
-            "name": "group",
-            "from": "groupId",
-            "entity": "Groups",
-            "to": "id",
-            "target": "devices",
             "type": "oneToMany",
             "weak": false
           }
@@ -312,8 +319,9 @@
           "type": "string"
         },
         {
-          "name": "groupId",
+          "name": "ownerId",
           "length": 32,
+          "nullable": false,
           "type": "string"
         },
         {
@@ -369,10 +377,10 @@
       ],
       "relations": [
         {
-          "name": "group",
-          "from": "groupId",
-          "entity": "Groups",
-          "to": "id",
+          "name": "owner",
+          "from": "ownerId",
+          "entity": "Users",
+          "to": "username",
           "target": "devices",
           "type": "oneToMany",
           "weak": false
@@ -837,15 +845,6 @@
               "weak": true,
               "to": "groupId",
               "target": "group"
-            },
-            {
-              "name": "devices",
-              "type": "manyToOne",
-              "from": "id",
-              "entity": "Devices",
-              "weak": true,
-              "to": "groupId",
-              "target": "group"
             }
           ],
           "dependents": [
@@ -858,18 +857,6 @@
                 "to": "id",
                 "target": "members",
                 "targetComposite": true,
-                "type": "oneToMany",
-                "weak": false
-              }
-            },
-            {
-              "entity": "Devices",
-              "relation": {
-                "name": "group",
-                "from": "groupId",
-                "entity": "Groups",
-                "to": "id",
-                "target": "devices",
                 "type": "oneToMany",
                 "weak": false
               }
@@ -975,10 +962,11 @@
               "mapping": "name"
             },
             {
-              "name": "groupId",
+              "name": "ownerId",
               "length": 32,
+              "nullable": false,
               "type": "string",
-              "mapping": "groupId"
+              "mapping": "ownerId"
             },
             {
               "name": "so",
@@ -1043,10 +1031,10 @@
           ],
           "relations": [
             {
-              "name": "group",
-              "from": "groupId",
-              "entity": "Groups",
-              "to": "id",
+              "name": "owner",
+              "from": "ownerId",
+              "entity": "Users",
+              "to": "username",
               "target": "devices",
               "type": "oneToMany",
               "weak": false
@@ -1543,7 +1531,7 @@
             {
               "name": "created",
               "mapping": "created_timestamp",
-              "readExp": "millisecondToDate(created/1000)",
+              "readMappingExp": "millisecondToDate(created/1000)",
               "type": "datetime",
               "default": "now()"
             },
@@ -1551,6 +1539,14 @@
               "name": "realmId",
               "length": 255,
               "mapping": "realm_id"
+            },
+            {
+              "name": "fullmane",
+              "view": true,
+              "readExp": "concat(lastname,\", \",firstname)",
+              "type": "string",
+              "length": 80,
+              "mapping": "fullmane"
             }
           ],
           "primaryKey": [
@@ -1574,6 +1570,15 @@
               "weak": true,
               "to": "username",
               "target": "user"
+            },
+            {
+              "name": "devices",
+              "type": "manyToOne",
+              "from": "username",
+              "entity": "Devices",
+              "weak": true,
+              "to": "ownerId",
+              "target": "owner"
             }
           ],
           "dependents": [
@@ -1585,6 +1590,18 @@
                 "entity": "Users",
                 "to": "username",
                 "target": "members",
+                "type": "oneToMany",
+                "weak": false
+              }
+            },
+            {
+              "entity": "Devices",
+              "relation": {
+                "name": "owner",
+                "from": "ownerId",
+                "entity": "Users",
+                "to": "username",
+                "target": "devices",
                 "type": "oneToMany",
                 "weak": false
               }
