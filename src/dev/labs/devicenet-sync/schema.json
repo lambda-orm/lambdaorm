@@ -59,8 +59,12 @@
           "value": "admin"
         },
         {
-          "name": "member",
-          "value": "member"
+          "name": "auditor",
+          "value": "auditor"
+        },
+        {
+          "name": "operator",
+          "value": "operator"
         },
         {
           "name": "guest",
@@ -100,9 +104,7 @@
         {
           "name": "email",
           "nullable": false,
-          "length": 512,
-          "writeValue": "encrypt(lower(email),\"rifk863hmKSJDJ87hd*nhJ98\")",
-          "readValue": "decrypt(email,\"rifk863hmKSJDJ87hd*nhJ98\")",
+          "length": 255,
           "type": "string"
         },
         {
@@ -794,85 +796,6 @@
     {
       "name": "default",
       "entities": [
-        {
-          "name": "Users",
-          "primaryKey": [
-            "username"
-          ],
-          "uniqueKey": [
-            "email"
-          ],
-          "properties": [
-            {
-              "name": "username",
-              "length": 32,
-              "nullable": false,
-              "type": "string",
-              "mapping": "username"
-            },
-            {
-              "name": "firstname",
-              "nullable": false,
-              "type": "string",
-              "length": 80,
-              "mapping": "firstname"
-            },
-            {
-              "name": "lastname",
-              "nullable": false,
-              "type": "string",
-              "length": 80,
-              "mapping": "lastname"
-            },
-            {
-              "name": "email",
-              "nullable": false,
-              "length": 512,
-              "writeValue": "encrypt(lower(email),\"rifk863hmKSJDJ87hd*nhJ98\")",
-              "readValue": "decrypt(email,\"rifk863hmKSJDJ87hd*nhJ98\")",
-              "type": "string",
-              "mapping": "email"
-            },
-            {
-              "name": "created",
-              "type": "datetime",
-              "default": "now()",
-              "mapping": "created"
-            }
-          ],
-          "constraints": [
-            {
-              "message": "invalid email",
-              "condition": "test(email,\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\")"
-            }
-          ],
-          "relations": [
-            {
-              "name": "members",
-              "type": "manyToOne",
-              "from": "username",
-              "entity": "GroupUsers",
-              "weak": true,
-              "to": "username",
-              "target": "user"
-            }
-          ],
-          "dependents": [
-            {
-              "entity": "GroupUsers",
-              "relation": {
-                "name": "user",
-                "from": "username",
-                "entity": "Users",
-                "to": "username",
-                "target": "members",
-                "type": "oneToMany",
-                "weak": false
-              }
-            }
-          ],
-          "mapping": "Users"
-        },
         {
           "name": "Groups",
           "primaryKey": [
@@ -1579,6 +1502,96 @@
           "mapping": "Files"
         }
       ]
+    },
+    {
+      "name": "keycloak",
+      "entities": [
+        {
+          "name": "Users",
+          "view": true,
+          "mapping": "user_entity",
+          "filter": "realmId == \"devicenet\"",
+          "properties": [
+            {
+              "name": "username",
+              "mapping": "username",
+              "length": 32,
+              "nullable": false,
+              "type": "string"
+            },
+            {
+              "name": "firstname",
+              "mapping": "first_name",
+              "nullable": false,
+              "type": "string",
+              "length": 80
+            },
+            {
+              "name": "lastname",
+              "mapping": "last_name",
+              "nullable": false,
+              "type": "string",
+              "length": 80
+            },
+            {
+              "name": "email",
+              "mapping": "email",
+              "nullable": false,
+              "length": 255,
+              "type": "string"
+            },
+            {
+              "name": "created",
+              "mapping": "created_timestamp",
+              "readExp": "millisecondToDate(created/1000)",
+              "type": "datetime",
+              "default": "now()"
+            },
+            {
+              "name": "realmId",
+              "length": 255,
+              "mapping": "realm_id"
+            }
+          ],
+          "primaryKey": [
+            "username"
+          ],
+          "uniqueKey": [
+            "email"
+          ],
+          "constraints": [
+            {
+              "message": "invalid email",
+              "condition": "test(email,\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\")"
+            }
+          ],
+          "relations": [
+            {
+              "name": "members",
+              "type": "manyToOne",
+              "from": "username",
+              "entity": "GroupUsers",
+              "weak": true,
+              "to": "username",
+              "target": "user"
+            }
+          ],
+          "dependents": [
+            {
+              "entity": "GroupUsers",
+              "relation": {
+                "name": "user",
+                "from": "username",
+                "entity": "Users",
+                "to": "username",
+                "target": "members",
+                "type": "oneToMany",
+                "weak": false
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "dataSources": [
@@ -1593,6 +1606,18 @@
         "password": "devicenet",
         "database": "devicenet"
       }
+    },
+    {
+      "name": "keycloak",
+      "mapping": "keycloak",
+      "dialect": "postgres",
+      "connection": {
+        "host": "0.0.0.0",
+        "port": 5432,
+        "user": "keycloak",
+        "password": "keycloak",
+        "database": "keycloak"
+      }
     }
   ],
   "stages": [
@@ -1600,7 +1625,12 @@
       "name": "default",
       "dataSources": [
         {
-          "name": "main"
+          "name": "main",
+          "condition": "entity != \"Users\""
+        },
+        {
+          "name": "keycloak",
+          "condition": "entity == \"Users\""
         }
       ]
     }

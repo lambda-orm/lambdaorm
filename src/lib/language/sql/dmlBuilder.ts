@@ -3,7 +3,8 @@ import { Helper } from '../../manager/helper'
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block } from 'js-expressions'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete } from '../../model/operands'
 import { LanguageDMLBuilder } from '../../manager/dmlBuilder'
-import { Query, SintaxisError, SchemaError } from '../../model'
+import { Query, SintaxisError, SchemaError, EntityMapping } from '../../model'
+
 const SqlString = require('sqlstring')
 
 export class SqlDMLBuilder extends LanguageDMLBuilder {
@@ -47,11 +48,12 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		const insert = sentence.children.find(p => p instanceof Insert) as Insert|undefined
 		const update = sentence.children.find(p => p instanceof Update) as Update|undefined
 		const _delete = sentence.children.find(p => p instanceof Delete) as Delete|undefined
-		const filter = sentence.children.find(p => p.name === 'filter') as Filter|undefined
+		let filter = sentence.children.find(p => p.name === 'filter') as Filter|undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy')as GroupBy|undefined
 		const having = sentence.children.find(p => p.name === 'having')as Having|undefined
 		const sort = sentence.children.find(p => p.name === 'sort')as Sort|undefined
 		const page = sentence.children.find(p => p.name === 'page')as Page|undefined
+		const entity = this.mapping.getEntity(sentence.entity) as EntityMapping
 
 		let text = ''
 		if (map) {
@@ -60,9 +62,18 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 			text = this.buildArrowFunction(map) + ' ' + this.solveFrom(from) + ' ' + this.solveJoins(joins)
 		} else if (insert) text = this.buildInsert(insert, sentence.entity)
 		else if (update)text = this.buildUpdate(update)
-		else if (_delete)text = this.buildDelete(_delete)
-
-		if (filter)text = text + this.buildArrowFunction(filter) + ' '
+		else if (_delete) text = this.buildDelete(_delete)
+		// filter
+		if (entity.filter) {
+			const _filter = this.expressions.parse(entity.filter)
+			this.replaceVar4Field(entity, sentence.alias, _filter)
+			if (filter) {
+				filter.children[0] = new Operator('&&', [filter.children[0], _filter])
+			} else {
+				filter = new ArrowFunction('filter', [_filter])
+			}
+		}
+		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		if (groupBy)text = text + this.buildArrowFunction(groupBy) + ' '
 		if (having)text = text + this.buildArrowFunction(having) + ' '
 		if (sort) {
@@ -78,11 +89,16 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			const parts = join.name.split('.')
-			const entityMapping = this.mapping.entityMapping(parts[0])
-			if (entityMapping === undefined) {
+			const entity = this.mapping.getEntity(parts[0])
+			if (entity === undefined) {
 				throw new SchemaError(`not found mapping for ${parts[0]}`)
 			}
-			let joinText = template.replace('{name}', this.metadata.delimiter(entityMapping))
+			if (entity.filter) {
+				const _filter = this.expressions.parse(entity.filter)
+				this.replaceVar4Field(entity, parts[1], _filter)
+				join.children[0] = new Operator('&&', [join.children[0], _filter])
+			}
+			let joinText = template.replace('{name}', this.metadata.delimiter(entity.mapping))
 			joinText = joinText.replace('{alias}', parts[1])
 			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0])).trim()
 			list.push(joinText)
@@ -100,6 +116,20 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		template = template.replace('{name}', this.metadata.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', parts[1])
 		return template.trim()
+	}
+
+	private replaceVar4Field (entity:EntityMapping, alias:string, operand:Operand) {
+		for (const i in operand.children) {
+			const child = operand.children[i]
+			if (child instanceof Variable) {
+				const property = entity.properties.find(p => p.name === child.name)
+				if (property) {
+					operand.children[i] = new Field(entity.name, child.name, property.type, alias)
+				}
+			} else if (child.children && child.children.length > 0) {
+				this.replaceVar4Field(entity, alias, child)
+			}
+		}
 	}
 
 	private buildInsert (operand:Insert, entity:string):string {
@@ -209,11 +239,29 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	private buildArrowFunction (operand:ArrowFunction):string {
 		let template = this.metadata.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
-			const text = this.buildOperand(operand.children[i])
+			const text = this.buildOperand(this.solveReadField(operand.children[i]))
 			// template = template.replace('{' + i + '}', text)
 			template = Helper.replace(template, '{' + i + '}', text) // template.replace('{' + i + '}', text)
 		}
 		return template.trim()
+	}
+
+	private solveReadField (operand:Operand): Operand {
+		if (operand instanceof Field) {
+			const field = operand as Field
+			const entity = this.mapping.getEntity(field.entity)
+			const property = entity?.properties.find(p => p.name === field.name)
+			if (entity && property && property.readExp) {
+				const readOperand = this.expressions.parse(property.readExp)
+				this.replaceVar4Field(entity, field.alias as string, readOperand)
+				return readOperand
+			}
+		} else if (operand.children && operand.children.length > 0) {
+			for (const i in operand.children) {
+				operand.children[i] = this.solveReadField(operand.children[i])
+			}
+		}
+		return operand
 	}
 
 	private buildFunctionRef (operand:FunctionRef):string {

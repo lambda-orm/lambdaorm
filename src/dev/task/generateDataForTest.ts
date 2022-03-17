@@ -30,7 +30,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 		try {
 			expressionTest.expression = orm.toExpression(expressionTest.lambda)
 			// expressionTest.lambda = expressionTest.lambda.toString()
-			expressionTest.completeExpression = orm.complete(expressionTest.expression as string)
+			expressionTest.normalizeExpression = orm.normalize(expressionTest.expression as string)
 			expressionTest.model = orm.model(expressionTest.expression as string)
 			expressionTest.parameters = orm.parameters(expressionTest.expression as string)
 			expressionTest.constraints = orm.constraints(expressionTest.expression as string)

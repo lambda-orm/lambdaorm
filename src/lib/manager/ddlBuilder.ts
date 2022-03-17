@@ -73,7 +73,7 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
-				if (entity.relations) {
+				if (entity.relations && !entity.view) {
 					for (const q in entity.relations) {
 						const relation = entity.relations[q] as Relation
 						// evaluate if entity relation apply in dataSource
@@ -107,15 +107,17 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
-				if (entity.indexes) {
-					for (const j in entity.indexes) {
-						const index = entity.indexes[j]
-						const query = this.builder(dataSource).dropIndex(entity, index)
-						queries.push(query)
+				if (!entity.view) {
+					if (entity.indexes) {
+						for (const j in entity.indexes) {
+							const index = entity.indexes[j]
+							const query = this.builder(dataSource).dropIndex(entity, index)
+							queries.push(query)
+						}
 					}
+					const query = this.builder(dataSource).dropEntity(entity)
+					queries.push(query)
 				}
-				const query = this.builder(dataSource).dropEntity(entity)
-				queries.push(query)
 			}
 		}
 	}
@@ -132,8 +134,10 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)
 				}
-				const query = this.builder(dataSource).truncateEntity(entity)
-				queries.push(query)
+				if (!entity.view) {
+					const query = this.builder(dataSource).truncateEntity(entity)
+					queries.push(query)
+				}
 			}
 		}
 	}
@@ -143,6 +147,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -181,7 +187,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-
+			// if entity is view is excluded
+			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -230,6 +237,8 @@ export class DDLBuilder {
 		// remove indexes and tables for removed entities
 		for (const name in delta.remove) {
 			const removeEntity = delta.remove[name].old as EntityMapping
+			// if entity is view is excluded
+			if (removeEntity.view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, removeEntity.name)) {
 				if (removeEntity.indexes) {
@@ -247,7 +256,7 @@ export class DDLBuilder {
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
 			// evaluate if entity apply in dataSource
-			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
+			if (!newEntity.view && this.evalDataSource(ruleDataSource, newEntity.name)) {
 				const query = this.builder(dataSource).createEntity(newEntity)
 				queries.push(query)
 			}
@@ -256,6 +265,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -288,6 +299,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -307,6 +320,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -345,6 +360,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -398,6 +415,8 @@ export class DDLBuilder {
 		// create indexes and Fks for new entities
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
+			// if entity is view is excluded
+			if (newEntity.view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
 				if (newEntity.indexes) {

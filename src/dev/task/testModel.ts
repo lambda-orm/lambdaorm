@@ -19,7 +19,7 @@ export interface ExpressionTest {
 	lambda: any
 	data?: string
 	expression?: string
-	completeExpression?: string
+	normalizeExpression?: string
 	model?: any
 	metadata?: any
 	constraints?: any

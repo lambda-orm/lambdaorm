@@ -2,16 +2,19 @@ import { SchemaManager, MappingConfig, Routing } from '.'
 import { Sentence, LanguageManager } from '../language'
 import { DialectMetadata } from '../language/dialectMetadata'
 import { Query, DataSource, Include, SentenceInfo } from '../model'
+import { Expressions } from 'js-expressions'
 
 export abstract class LanguageDMLBuilder {
 	protected dataSource: string
 	protected dialect:string
 	protected mapping:MappingConfig
 	protected metadata: DialectMetadata
+	protected expressions:Expressions
 
-	constructor (dataSource: string, mapping: MappingConfig, metadata: DialectMetadata) {
+	constructor (dataSource: string, mapping: MappingConfig, metadata: DialectMetadata, expressions:Expressions) {
 		this.dataSource = dataSource
 		this.mapping = mapping
+		this.expressions = expressions
 		this.metadata = metadata
 		this.dialect = metadata.name
 	}
@@ -22,6 +25,7 @@ export abstract class LanguageDMLBuilder {
 export class DMLBuilder {
 	private schema: SchemaManager
 	private languageManager: LanguageManager
+
 	// private mapping: MappingConfig
 	public stage: string
 	protected routing: Routing

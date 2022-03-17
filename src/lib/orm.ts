@@ -148,16 +148,16 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Complete expression
-	 * @returns Expression complete
+	 * Normalize expression
+	 * @returns Expression normalized
 	 */
-	public complete(expression:Function): string
-	public complete(expression:string): string
-	public complete (expression: string|Function): string {
+	public normalize(expression:Function): string
+	public normalize(expression:string): string
+	public normalize (expression: string|Function): string {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		return this.expressionManager.complete(expression)
+		return this.expressionManager.normalize(expression)
 	}
 
 	/**

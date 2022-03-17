@@ -27,8 +27,10 @@ enums:
     values:
       - name: admin
         value: admin
-      - name: member
-        value: member
+      - name: auditor
+        value: auditor
+      - name: operator
+        value: operator
       - name: guest
         value: guest
 entities:
@@ -73,9 +75,9 @@ entities:
         nullable: false
       - name: email
         nullable: false
-        length: 512
-        writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
-        readValue: decrypt(email,"$$USERS_SECRET_KEY")
+        length: 255
+        # writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
+        # readValue: decrypt(email,"$$USERS_SECRET_KEY")
     constraints:
       - message: invalid email
         condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
@@ -285,16 +287,44 @@ entities:
     constraints:
       - message: endDate cannot be less than startDate
         condition: startDate<=endDate
-  # TODO: crear solo la realcion en la entidad source y agregar la info para crear luego la relacion en la entidad target
+  # TODO: crear solo la relacion en la entidad source y agregar la info para crear luego la relacion en la entidad target
   # TODO: Definir Task, Activity, ProgramedTask, etc
 mappings:
   - name: default
+  - name: keycloak
+    entities:
+      - name: Users
+        view: true
+        mapping: user_entity
+        filter: realmId == "$$REALM_ID"
+        properties:
+          - name: username
+            mapping: username
+          - name: firstname
+            mapping: first_name
+          - name: lastname
+            mapping: last_name
+          - name: email
+            mapping: email
+          - name: created
+            mapping: created_timestamp
+            readExp: millisecondToDate(created/1000)
+          - name: realmId
+            length: 255
+            mapping: realm_id
 dataSources:
   - name: main
     mapping: default
     dialect: postgres
     connection: $$CNN_POSTGRES
+  - name: keycloak
+    mapping: keycloak
+    dialect: postgres
+    connection: $$CNN_KEYCLOAK
 stages:
   - name: default
     dataSources:
       - name: main
+        condition: entity != "Users"
+      - name: keycloak
+        condition: entity == "Users"

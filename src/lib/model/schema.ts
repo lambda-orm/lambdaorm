@@ -23,11 +23,12 @@ export interface Property {
 	nullable?: boolean
 	primaryKey?: boolean
 	autoincrement?: boolean
+	readExp?: string
+	writeExp?: string
 	default?: string
 	readValue?: string
 	writeValue?: string
 	enum?: string
-	// expression?: string
 }
 export interface Relation {
 	name: string
@@ -53,6 +54,7 @@ export interface Entity {
 	extends?: string
 	abstract?: boolean
 	singular?: string
+	view?: boolean
 	uniqueKey:string[]
 	indexes: Index[]
 	primaryKey:string[]
@@ -74,6 +76,8 @@ export interface PropertyMapping extends Property {
 export interface EntityMapping extends Entity {
 	mapping: string
 	properties: PropertyMapping[]
+	// TODO: aplicar el filtro de dmlBuilder
+	filter?: string
 }
 export interface Mapping {
 	extends?: string

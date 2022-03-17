@@ -15,11 +15,11 @@ export interface IOrm
 	init(configPath?: string, connect?: boolean): Promise<Schema>
 	end (): Promise<void>
 	/**
-	 * Complete expression
-	 * @returns Expression complete
+	 * Normalize expression
+	 * @returns Expression normalized
 	*/
-	complete(expression:Function): string
-	complete(expression:string): string
+	normalize(expression:Function): string
+	normalize(expression:string): string
 
 	/**
 		* Get model of expression

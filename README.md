@@ -1,8 +1,8 @@
-# Lambda ORM
+# λORM
 
 **IMPORTANT: the library is in an Alpha version!!!**
 
-LambdaORM is an intermediary between the business model and the persistence of the data.
+λORM is an intermediary between the business model and the persistence of the data.
 Completely decoupling the business model from the data layer.
 
 ## Features
@@ -157,7 +157,7 @@ These expressions can be written as javascript code by browsing the business mod
 
 Expressions can also be sent as a string
 
-LambdaOrm translates the expression into the language corresponding to each database engine.
+λOrm translates the expression into the language corresponding to each database engine.
 
 ### Query Language Example:
 
@@ -210,13 +210,13 @@ WHERE SUBSTR(s.NAME,1,1) = 'F'
 
 To work with the orm we can do it using the singleton object called "orm" or using repositories.
 
-### Objet __orm__
+### Objet **orm**
 
 This orm object acts as a facade and from this we access all the methods.
 
 When the orm.init() method is called, the orm initialization will be executed from the configuration.
 
-#### __execute method__:
+#### **execute method**:
 
 This method receives the expression as a javascript lambda function or a string.
 
@@ -319,7 +319,7 @@ import { CountryRespository } from './models/country'
 
 ### Includes:
 
-LambdaORM includes the include method to load related entities, both for OnetoMany, manyToOne, and oneToOne relationships.
+λORM includes the include method to load related entities, both for OnetoMany, manyToOne, and oneToOne relationships.
 
 We can also apply filters or bring us some fields from related entities.
 
@@ -425,7 +425,7 @@ orm.transaction({}, 'stage', async (tr) => {
 
 ### Metadata
 
-Lambda ORM has the following methods to extract metadata information from expressions.
+λORM has the following methods to extract metadata information from expressions.
 
 To execute these methods it is not necessary to connect to the database.
 

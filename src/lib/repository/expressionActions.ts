@@ -14,8 +14,8 @@ export class ExpressionActions {
 		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage)
 	}
 
-	public complete (expresion: string): string {
-		return this.orm.complete(`${this.name}${expresion}`)
+	public normalize (expresion: string): string {
+		return this.orm.normalize(`${this.name}${expresion}`)
 	}
 
 	public async model (expresion: string): Promise<MetadataModel[]> {

@@ -1,7 +1,7 @@
 
 import { Node, Operand, Expressions } from 'js-expressions'
 import { Data, Query, Include, DataSource, MetadataSentence, MetadataModel, MetadataParameter, Metadata } from '../model'
-import { SchemaManager } from '../manager'
+import { SchemaManager, ExpressionManager } from '../manager'
 import { Language } from './language'
 import { OperandManager } from '../manager/operandManager'
 import { Sentence } from '../model/operands'
@@ -59,7 +59,7 @@ export class LanguageManager {
 	public dmlBuilder (dataSource: DataSource): LanguageDMLBuilder {
 		// TODO: agregar un cache de DMLBuilder por dataSource
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
-		return this.get(dataSource.dialect).dmlBuilder(dataSource.name, dataSource.dialect, mapping)
+		return this.get(dataSource.dialect).dmlBuilder(dataSource.name, dataSource.dialect, mapping, this.expressions)
 	}
 
 	public ddlBuilder (dataSource: DataSource): LanguageDDLBuilder {

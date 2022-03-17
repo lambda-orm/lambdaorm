@@ -1,6 +1,6 @@
 import { Query, SintaxisError, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from '../model'
 // import { ParserManager } from '../parser/index'
-import { SchemaManager, ExpressionCompleter, Routing } from './index'
+import { SchemaManager, ExpressionNormalizer, Routing } from './index'
 import { LanguageManager, Sentence, DMLBuilder } from '../language'
 import { Helper } from './helper'
 import { Expressions, Operand, Cache } from 'js-expressions'
@@ -9,7 +9,7 @@ export class ExpressionManager {
 	private cache: Cache
 	private schema: SchemaManager
 	private languageManager: LanguageManager
-	private expressionCompleter: ExpressionCompleter
+	private expressionNormalizer: ExpressionNormalizer
 	private routing: Routing
 	private expressions:Expressions
 
@@ -18,23 +18,22 @@ export class ExpressionManager {
 		this.schema = schema
 		this.languageManager = languageManager
 		this.expressions = expressions
-		this.expressionCompleter = new ExpressionCompleter(schema)
+		this.expressionNormalizer = new ExpressionNormalizer(schema)
 		this.routing = routing
 	}
 
 	/**
-	 * complete the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a complete expression from a simplified expression.
+	 * normalize the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a normalized expression from a expression.
 	 * @param expression expression that can be simplified
 	 * @returns full expression
 	 */
-	public complete (expression: string): string {
+	public normalize (expression: string): string {
 		try {
 			const node = this.expressions.parser.parse(expression)
-			const completeNode = this.expressionCompleter.complete(node)
-			this.expressions.parser.setParent(completeNode)
-			return this.expressions.parser.toExpression(completeNode)
+			const normalizeNode = this.expressionNormalizer.normalize(node)
+			this.expressions.parser.setParent(normalizeNode)
+			return this.expressions.parser.toExpression(normalizeNode)
 		} catch (error: any) {
-			console.log(error)
 			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
@@ -50,14 +49,13 @@ export class ExpressionManager {
 			let operand = this.cache.get(key)
 			if (!operand) {
 				const node = this.expressions.parser.parse(expression)
-				const completeNode = this.expressionCompleter.complete(node)
+				const completeNode = this.expressionNormalizer.normalize(node)
 				this.expressions.parser.setParent(completeNode)
 				operand = this.languageManager.build(completeNode)
 				this.cache.set(key, operand)
 			}
 			return operand as Operand
 		} catch (error: any) {
-			console.log(error)
 			throw new SintaxisError('build expression: ' + expression + ' error: ' + error.toString())
 		}
 	}

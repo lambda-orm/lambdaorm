@@ -13,8 +13,8 @@ export class QueryAction {
 		return await this.actions.execute(this.expression, data)
 	}
 
-	public complete ():string {
-		return this.actions.complete(this.expression)
+	public normalize ():string {
+		return this.actions.normalize(this.expression)
 	}
 
 	public async model ():Promise<MetadataModel[]> {

@@ -1,5 +1,5 @@
 export * from './expressionManager'
-export * from './expressionCompleter'
+export * from './expressionNormalizer'
 export * from './transaction'
 export * from './queryExecutor'
 export * from './executor'

@@ -1,5 +1,6 @@
 import { LanguageDMLBuilder, LanguageDDLBuilder, MappingConfig } from '../manager'
 import { DialectMetadata } from './dialectMetadata'
+import { Expressions } from 'js-expressions'
 
 export abstract class Language {
 	public dialects:any
@@ -19,5 +20,5 @@ export abstract class Language {
 
 	public abstract ddlBuilder (dataSource: string, dialect: string, mapping: MappingConfig): LanguageDDLBuilder
 
-	public abstract dmlBuilder (dataSource: string, dialect: string, mapping: MappingConfig): LanguageDMLBuilder
+	public abstract dmlBuilder (dataSource: string, dialect: string, mapping: MappingConfig, expressions:Expressions): LanguageDMLBuilder
 }
