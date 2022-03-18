@@ -1,5 +1,4 @@
-import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
-import { Languages, Dialect } from '../language'
+import { SchemaManager, ModelConfig, MappingConfig, Routing, Languages, Dialect } from '.'
 import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
 import { Helper } from '../manager/helper'
 

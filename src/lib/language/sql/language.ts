@@ -1,6 +1,6 @@
 import { LanguageDMLBuilder, LanguageDDLBuilder, MappingConfig, ViewConfig } from '../../manager'
 import { DataSource } from '../../model'
-import { Language } from '../language'
+import { Language } from '../../manager/language'
 import { SqlDMLBuilder } from './dmlBuilder'
 import { SqlDDLBuilder } from './ddlBuilder'
 import sqlConfig from './config.json'

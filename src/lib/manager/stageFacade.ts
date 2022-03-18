@@ -1,5 +1,5 @@
 import { SchemaManager, Executor, Routing, ExpressionManager } from '.'
-import { Languages } from '../language'
+import { Languages } from '../manager'
 import { StageState } from '../stage/stageState'
 import { StageSync } from '../stage/stageSync'
 import { StageClean } from '../stage/stageClean'

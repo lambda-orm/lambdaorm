@@ -1,10 +1,8 @@
 
 import { Data, ExecutionError, Parameter, Query, ValidationError } from '../model'
 import { Connection, ConnectionManager } from '../connection'
-import { Dialect } from '../language/dialect'
-import { Languages } from '../language'
 import { MappingConfig } from './schema'
-import { SchemaManager, Helper } from '.'
+import { SchemaManager, Helper, Languages, Dialect } from '.'
 import { Expressions } from 'js-expressions'
 
 export class QueryExecutor {

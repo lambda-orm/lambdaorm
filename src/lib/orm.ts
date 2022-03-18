@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { IOrm, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
-import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing } from './manager'
+import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
-import { Languages } from './language'
 import { SqlLanguage } from './language/sql'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'

@@ -1,6 +1,5 @@
-import { Query, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from '../model'
-import { SchemaManager, ExpressionNormalizer, Routing, OperandManager } from '.'
-import { Languages, Sentence, DMLBuilder } from '../language'
+import { Query, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence } from '../model'
+import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, DMLBuilder } from '.'
 import { Helper } from './helper'
 import { Expressions, Operand, Cache } from 'js-expressions'
 

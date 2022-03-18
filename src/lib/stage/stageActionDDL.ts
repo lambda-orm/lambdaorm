@@ -1,6 +1,5 @@
 import { Query } from '../model'
-import { Languages } from '../language'
-import { SchemaManager, Routing, Executor } from '../manager'
+import { SchemaManager, Routing, Executor, Languages } from '../manager'
 import { StageState } from './stageState'
 
 export abstract class StageActionDDL {

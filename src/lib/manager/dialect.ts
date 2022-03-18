@@ -1,4 +1,4 @@
-import { Helper } from '../manager/helper'
+import { Helper } from './helper'
 import { SintaxisError } from '../model'
 
 export class Dialect {

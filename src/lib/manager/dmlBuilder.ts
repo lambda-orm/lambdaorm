@@ -1,7 +1,5 @@
-import { SchemaManager, MappingConfig, Routing, ViewConfig } from '.'
-import { Sentence, Languages } from '../language'
-import { Dialect } from '../language/dialect'
-import { Query, DataSource, Include, SentenceInfo } from '../model'
+import { SchemaManager, MappingConfig, Routing, ViewConfig, Languages, Dialect } from '.'
+import { Query, DataSource, Include, SentenceInfo, Sentence } from '../model'
 import { Expressions } from 'js-expressions'
 
 export abstract class LanguageDMLBuilder {

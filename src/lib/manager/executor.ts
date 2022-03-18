@@ -1,8 +1,7 @@
 
 import { Query, ExecuteResult } from '../model'
 import { ConnectionManager } from '../connection'
-import { Languages } from '../language'
-import { ExpressionManager, QueryExecutor, Transaction } from '.'
+import { ExpressionManager, QueryExecutor, Transaction, Languages } from '.'
 import { SchemaManager } from './schema'
 import { Expressions } from 'js-expressions'
 

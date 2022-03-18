@@ -1,4 +1,4 @@
-import { LanguageDMLBuilder, LanguageDDLBuilder, MappingConfig, ViewConfig } from '../manager'
+import { LanguageDMLBuilder, LanguageDDLBuilder, MappingConfig, ViewConfig } from '.'
 import { Dialect } from './dialect'
 import { Expressions } from 'js-expressions'
 import { NotImplemented, DataSource } from '../model'

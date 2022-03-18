@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PropertyMapping, Property, Relation, Index, Query, EntityMapping } from '../../model'
-import { LanguageDDLBuilder } from '..'
+import { LanguageDDLBuilder } from './../../manager'
 
 export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity:EntityMapping):Query {
