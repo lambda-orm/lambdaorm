@@ -76,6 +76,7 @@
   "entities": [
     {
       "name": "Users",
+      "view": true,
       "primaryKey": [
         "username"
       ],
@@ -112,6 +113,7 @@
           "name": "email",
           "nullable": false,
           "length": 255,
+          "readExp": "mask(email)",
           "type": "string"
         },
         {
@@ -352,6 +354,11 @@
         {
           "name": "ip",
           "length": 24,
+          "type": "string"
+        },
+        {
+          "name": "apiKey",
+          "length": 255,
           "type": "string"
         },
         {
@@ -800,6 +807,43 @@
       "dependents": []
     }
   ],
+  "views": [
+    {
+      "name": "default",
+      "entities": [
+        {
+          "name": "Devices",
+          "properties": [
+            {
+              "name": "apyKey",
+              "readExp": "***"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "collector",
+      "entities": [
+        {
+          "name": "Users",
+          "exclude": true
+        },
+        {
+          "name": "Groups",
+          "exclude": true
+        },
+        {
+          "name": "GroupUsers",
+          "exclude": true
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "entities": []
+    }
+  ],
   "mappings": [
     {
       "name": "default",
@@ -1003,6 +1047,12 @@
               "length": 24,
               "type": "string",
               "mapping": "ip"
+            },
+            {
+              "name": "apiKey",
+              "length": 255,
+              "type": "string",
+              "mapping": "apiKey"
             },
             {
               "name": "brand",
@@ -1496,7 +1546,6 @@
       "entities": [
         {
           "name": "Users",
-          "view": true,
           "mapping": "user_entity",
           "filter": "realmId == \"devicenet\"",
           "properties": [
@@ -1526,6 +1575,7 @@
               "mapping": "email",
               "nullable": false,
               "length": 255,
+              "readExp": "mask(email)",
               "type": "string"
             },
             {
@@ -1549,6 +1599,7 @@
               "mapping": "fullmane"
             }
           ],
+          "view": true,
           "primaryKey": [
             "username"
           ],

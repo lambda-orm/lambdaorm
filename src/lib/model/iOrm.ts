@@ -54,16 +54,23 @@ export interface IOrm
 	 * @param expression
 	 * @param stage
 	 */
-	sentence(expression: Function, stage?: string): MetadataSentence
-	sentence(expression: string, stage?: string): MetadataSentence
+	sentence(expression: Function, stage?: string, view?:string): MetadataSentence
+	sentence(expression: string, stage?: string, view?:string): MetadataSentence
 
 	/**
 		* Execute expression
 		* @param data Data with variables
 		* @param stage Stage name
+	  * @param view View name
 		* @returns Result of execution
 		*/
-	execute(expression: Function, data?: any, stage?: string):Promise<any>
-	execute(expression: string, data?: any, stage?: string):Promise<any>
-	transaction(stage:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
+	execute(expression: Function, data?: any, stage?: string, view?:string):Promise<any>
+	execute(expression: string, data?: any, stage?: string, view?: string): Promise<any>
+	/**
+	 * transaction
+	 * @param stage
+	 * @param view
+	 * @param callback
+	 */
+	transaction(stage:string, view:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

@@ -1,25 +1,26 @@
-import { Query, SintaxisError, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from '../model'
-// import { ParserManager } from '../parser/index'
-import { SchemaManager, ExpressionNormalizer, Routing } from './index'
-import { LanguageManager, Sentence, DMLBuilder } from '../language'
+import { Query, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from '../model'
+import { SchemaManager, ExpressionNormalizer, Routing, OperandManager } from '.'
+import { Languages, Sentence, DMLBuilder } from '../language'
 import { Helper } from './helper'
 import { Expressions, Operand, Cache } from 'js-expressions'
 
 export class ExpressionManager {
 	private cache: Cache
 	private schema: SchemaManager
-	private languageManager: LanguageManager
+	private languages: Languages
 	private expressionNormalizer: ExpressionNormalizer
 	private routing: Routing
-	private expressions:Expressions
+	private expressions: Expressions
+	private operandManager: OperandManager
 
-	constructor (cache: Cache, schema:SchemaManager, languageManager:LanguageManager, expressions:Expressions, routing:Routing) {
+	constructor (cache: Cache, schema:SchemaManager, languages:Languages, expressions:Expressions, routing:Routing) {
 		this.cache = cache
 		this.schema = schema
-		this.languageManager = languageManager
+		this.languages = languages
 		this.expressions = expressions
 		this.expressionNormalizer = new ExpressionNormalizer(schema)
 		this.routing = routing
+		this.operandManager = new OperandManager(schema.model, this.expressions.config, this.expressions)
 	}
 
 	/**
@@ -45,13 +46,13 @@ export class ExpressionManager {
 	 */
 	public toOperand (expression: string): Operand {
 		try {
-			const key = 'operand_' + expression
+			const key = `${expression}_operand`
 			let operand = this.cache.get(key)
 			if (!operand) {
 				const node = this.expressions.parser.parse(expression)
 				const completeNode = this.expressionNormalizer.normalize(node)
 				this.expressions.parser.setParent(completeNode)
-				operand = this.languageManager.build(completeNode)
+				operand = this.operandManager.build(completeNode)
 				this.cache.set(key, operand)
 			}
 			return operand as Operand
@@ -60,13 +61,14 @@ export class ExpressionManager {
 		}
 	}
 
-	public toQuery (expression: string, stage: string): Query {
+	public toQuery (expression: string, stage: string, view?:string): Query {
 		try {
-			const key = stage + '_query_' + expression
+			const _view = this.schema.view.get(view)
+			const key = `${expression}_${stage}_${view}`
 			let query = this.cache.get(key)
 			if (!query) {
 				const sentence = this.toOperand(expression) as Sentence
-				query = new DMLBuilder(this.schema, this.routing, this.languageManager, stage).build(sentence)
+				query = new DMLBuilder(this.schema, this.routing, this.languages, this.expressions, stage, _view.name).build(sentence)
 				this.cache.set(key, query)
 			}
 			return query as Query
@@ -107,7 +109,7 @@ export class ExpressionManager {
 	 */
 	public model (expression: string):MetadataModel[] {
 		const operand = this.toOperand(expression)
-		return this.languageManager.model(operand as Sentence)
+		return this.operandManager.model(operand as Sentence)
 	}
 
 	/**
@@ -117,7 +119,7 @@ export class ExpressionManager {
 	 */
 	public constraints (expression: string):MetadataConstraint {
 		const operand = this.toOperand(expression)
-		return this.languageManager.constraints(operand as Sentence)
+		return this.operandManager.constraints(operand as Sentence)
 	}
 
 	/**
@@ -127,12 +129,22 @@ export class ExpressionManager {
 	 */
 	public parameters (expression: string):MetadataParameter[] {
 		const operand = this.toOperand(expression)
-		return this.languageManager.parameters(operand as Sentence)
+		return this.operandManager.parameters(operand as Sentence)
 	}
 
-	public sentence (expression: string, stage: string):MetadataSentence {
-		const query = this.toQuery(expression, stage)
-		return this.languageManager.sentence(query)
+	public sentence (expression: string, stage: string, view:string):MetadataSentence {
+		const query = this.toQuery(expression, stage, view)
+		return this._sentence(query)
+	}
+
+	private _sentence (query: Query): MetadataSentence {
+		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, childs: [] }
+		for (const p in query.children) {
+			const include = query.children[p] as Include
+			const includeSentence = this._sentence(include.children[0] as Query)
+			mainSentence.childs?.push(includeSentence)
+		}
+		return mainSentence
 	}
 
 	/**
@@ -142,6 +154,6 @@ export class ExpressionManager {
 	 */
 	public metadata (expression: string):Metadata {
 		const operand = this.toOperand(expression)
-		return this.languageManager.serialize(operand)
+		return this.operandManager.serialize(operand)
 	}
 }

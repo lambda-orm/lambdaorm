@@ -1,5 +1,5 @@
 import { Query } from '../model'
-import { LanguageManager } from '../language'
+import { Languages } from '../language'
 import { SchemaManager, Routing, Executor } from '../manager'
 import { StageState } from './stageState'
 
@@ -7,14 +7,14 @@ export abstract class StageActionDDL {
 	protected state: StageState
 	protected schema: SchemaManager
 	protected routing: Routing
-	protected languageManager: LanguageManager
+	protected languages: Languages
 	protected executor: Executor
 	protected stage: string
-	constructor (state:StageState, schema: SchemaManager, routing: Routing, languageManager: LanguageManager, executor: Executor, stage:string) {
+	constructor (state:StageState, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, stage:string) {
 		this.state = state
 		this.schema = schema
 		this.routing = routing
-		this.languageManager = languageManager
+		this.languages = languages
 		this.executor = executor
 		this.stage = stage
 	}

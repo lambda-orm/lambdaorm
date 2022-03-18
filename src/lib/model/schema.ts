@@ -87,6 +87,22 @@ export interface Mapping {
 	name: string
 	entities: EntityMapping[]
 }
+
+export interface PropertyView {
+	name: string
+	readExp?: string
+	exclude?: boolean
+}
+export interface EntityView {
+	name: string
+	exclude?: boolean
+	properties: PropertyView[]
+}
+export interface View {
+	name: string
+	entities: EntityView[]
+}
+
 export interface DataSource{
 	name: string
 	dialect: string
@@ -114,6 +130,7 @@ export interface Schema
 	app: App
 	entities: Entity[]
 	enums: Enum[]
+	views: View[]
 	mappings: Mapping[]
 	dataSources: DataSource[]
 	stages: Stage[]

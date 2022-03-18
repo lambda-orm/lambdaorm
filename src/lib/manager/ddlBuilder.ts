@@ -1,19 +1,19 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
-import { LanguageManager, DialectMetadata } from '../language'
+import { Languages, Dialect } from '../language'
 import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
 import { Helper } from '../manager/helper'
 
 export class DDLBuilder {
-	private languageManager: LanguageManager
+	private languages: Languages
 	private schema: SchemaManager
 	private model:ModelConfig
 	private routing:Routing
 	public stage: string
-	constructor (schema: SchemaManager, routing:Routing, languageManager:LanguageManager, stage: string) {
+	constructor (schema: SchemaManager, routing:Routing, languages:Languages, stage: string) {
 		this.schema = schema
 		this.model = schema.model
 		this.routing = routing
-		this.languageManager = languageManager
+		this.languages = languages
 		this.stage = stage
 	}
 
@@ -450,7 +450,10 @@ export class DDLBuilder {
 	}
 
 	private builder (dataSource: DataSource): LanguageDDLBuilder {
-		return this.languageManager.ddlBuilder(dataSource)
+		// TODO agregar chache por datasource
+		const language = this.languages.getByDiatect(dataSource.dialect)
+		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		return language.ddlBuilder(dataSource, mapping)
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {
@@ -459,16 +462,14 @@ export class DDLBuilder {
 }
 
 export abstract class LanguageDDLBuilder {
-	protected dataSource: string
-	protected dialect:string
+	protected dataSource: DataSource
 	protected mapping:MappingConfig
-	protected metadata:DialectMetadata
+	protected dialect:Dialect
 
-	constructor (dataSource: string, mapping: MappingConfig, metadata: DialectMetadata) {
+	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect) {
 		this.dataSource = dataSource
 		this.mapping = mapping
-		this.metadata = metadata
-		this.dialect = metadata.name
+		this.dialect = dialect
 	}
 
 	abstract truncateEntity(entity: EntityMapping): Query

@@ -152,6 +152,7 @@ functions:
     trim: 'TRIM({0})'
     upper: 'UPPER({0})'
     length: 'LENGTH({0})'
+    mask: "Concat(LEFT({0},3),'***',RIGHT({0},3))"
   datetime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp
     # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8

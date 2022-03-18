@@ -93,7 +93,8 @@
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
           "trim": "TRIM({0})",
-          "upper": "UPPER({0})"
+          "upper": "UPPER({0})",
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "datetime": {
           "curtime": "CURTIME()",
@@ -401,7 +402,8 @@
           "substr": "SUBSTR({0},{1},{2})",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
-          "length": "LENGTH({0})"
+          "length": "LENGTH({0})",
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "datetime": {
           "now": "SYSTIMESTAMP",
@@ -558,7 +560,8 @@
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
           "trim": "TRIM({0})",
-          "upper": "UPPER({0})"
+          "upper": "UPPER({0})",
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "datetime": {
           "curtime": "CURTIME()",
@@ -866,7 +869,8 @@
           "substr": "SUBSTR({0},{1},{2})",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
-          "length": "LENGTH({0})"
+          "length": "LENGTH({0})",
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "datetime": {
           "now": "SYSTIMESTAMP",
@@ -1074,7 +1078,8 @@
           "substr": "SUBSTR({0},{1},{2})",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
-          "length": "LENGTH({0})"
+          "length": "LENGTH({0})",
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "convert": {
           "toString": "CAST({0} AS VARCHAR2)",
@@ -1323,7 +1328,8 @@
         "substr": "SUBSTR({0},{1},{2})",
         "trim": "TRIM({0})",
         "upper": "UPPER({0})",
-        "length": "LENGTH({0})"
+        "length": "LENGTH({0})",
+        "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
       },
       "datetime": {
         "now": "SYSTIMESTAMP",

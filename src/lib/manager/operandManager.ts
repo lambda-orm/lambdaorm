@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, NotImplemented, MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, MethodNotImplemented, MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
@@ -130,7 +130,7 @@ export class OperandManager {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public deserialize (serialized:any):Operand {
-		throw new NotImplemented('OperandManager', 'deserialize')
+		throw new MethodNotImplemented('OperandManager', 'deserialize')
 	}
 
 	public eval (operand:Operand, data:Data):any {

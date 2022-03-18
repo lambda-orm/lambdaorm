@@ -1,4 +1,3 @@
-export * from '../language/dialect'
 export * from './data'
 export * from './iOrm'
 export * from './delta'

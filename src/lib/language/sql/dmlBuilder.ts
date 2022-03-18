@@ -10,7 +10,7 @@ const SqlString = require('sqlstring')
 export class SqlDMLBuilder extends LanguageDMLBuilder {
 	public build (sentence: Sentence): Query {
 		const sqlSentence = this.buildSentence(sentence)
-		return new Query(sentence.name, this.dialect, this.dataSource, sqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
+		return new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
 	}
 
 	private buildOperand (operand: Operand): string {
@@ -85,7 +85,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 
 	private solveJoins (joins:Operand[]):string {
 		const list:string[] = []
-		const template = this.metadata.dml('join')
+		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			const parts = join.name.split('.')
@@ -98,7 +98,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 				this.replaceVar4Field(entity, parts[1], _filter)
 				join.children[0] = new Operator('&&', [join.children[0], _filter])
 			}
-			let joinText = template.replace('{name}', this.metadata.delimiter(entity.mapping))
+			let joinText = template.replace('{name}', this.dialect.delimiter(entity.mapping))
 			joinText = joinText.replace('{alias}', parts[1])
 			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0])).trim()
 			list.push(joinText)
@@ -107,13 +107,13 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	}
 
 	private solveFrom (from:Operand):string {
-		let template = this.metadata.dml('from')
+		let template = this.dialect.dml('from')
 		const parts = from.name.split('.')
 		const entityMapping = this.mapping.entityMapping(parts[0])
 		if (entityMapping === undefined) {
 			throw new SchemaError(`not found mapping for ${parts[0]}`)
 		}
-		template = template.replace('{name}', this.metadata.delimiter(entityMapping))
+		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', parts[1])
 		return template.trim()
 	}
@@ -133,8 +133,8 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	}
 
 	private buildInsert (operand:Insert, entity:string):string {
-		let template = this.metadata.dml(operand.clause)
-		const templateColumn = this.metadata.other('column')
+		let template = this.dialect.dml(operand.clause)
+		const templateColumn = this.dialect.other('column')
 		const fields:string[] = []
 		const values: any[] = []
 		const autoincrement = this.mapping.getAutoincrement(entity)
@@ -155,18 +155,11 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 				} else {
 					name = keyVal.name
 				}
-				// let field = ''
-				// if (keyVal.property !== undefined) {
-				// field = this.mapping.getProperty(entity, keyVal.property).mapping
-				// } else {
-				// field = keyVal.name
-				// }
-
-				fields.push(templateColumn.replace('{name}', this.metadata.delimiter(name)))
+				fields.push(templateColumn.replace('{name}', this.dialect.delimiter(name)))
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
-		template = template.replace('{name}', this.metadata.delimiter(entityMapping))
+		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
 		template = template.replace('{fields}', fields.join(','))
 		template = template.replace('{values}', values.join(','))
 		template = template.replace('{autoincrementField}', autoincrement && autoincrement.mapping ? autoincrement.mapping : '0')
@@ -174,9 +167,9 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	}
 
 	private buildUpdate (operand:Update):string {
-		let template = this.metadata.dml('update')
-		const templateColumn = this.metadata.other('column')
-		const templateAssing = this.metadata.operator('=', 2)
+		let template = this.dialect.dml('update')
+		const templateColumn = this.dialect.other('column')
+		const templateAssing = this.dialect.operator('=', 2)
 		const assings: string[] = []
 		const parts = operand.name.split('.')
 		const entity = parts[0]
@@ -199,21 +192,21 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 				}
 				// const name = keyVal.property ? this.mapping.getProperty(entity, keyVal.property).mapping : keyVal.name
 
-				const column = templateColumn.replace('{name}', this.metadata.delimiter(name))
+				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])
 				let assing = templateAssing.replace('{0}', column)
 				assing = assing.replace('{1}', value)
 				assings.push(assing)
 			}
 		}
-		template = Helper.replace(template, '{name}', this.metadata.delimiter(entityMapping))
+		template = Helper.replace(template, '{name}', this.dialect.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', alias)
 		template = template.replace('{assings}', assings.join(','))
 		return template.trim() + ' '
 	}
 
 	private buildDelete (operand:Delete):string {
-		let template = this.metadata.dml('delete')
+		let template = this.dialect.dml('delete')
 		const parts = operand.name.split('.')
 		const entity = parts[0]
 		const alias = parts[1]
@@ -221,13 +214,13 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		if (entityMapping === undefined) {
 			throw new SchemaError(`mapping undefined on ${entity} entity`)
 		}
-		template = Helper.replace(template, '{name}', this.metadata.delimiter(entityMapping))
+		template = Helper.replace(template, '{name}', this.dialect.delimiter(entityMapping))
 		template = Helper.replace(template, '{alias}', alias)
 		return template.trim() + ' '
 	}
 
 	private buildPage (operand:Page):string {
-		let template = this.metadata.dml('page')
+		let template = this.dialect.dml('page')
 		let page = parseInt(operand.children[1].name)
 		const records = parseInt(operand.children[2].name)
 		if (page < 1)page = 1
@@ -237,7 +230,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	}
 
 	private buildArrowFunction (operand:ArrowFunction):string {
-		let template = this.metadata.dml(operand.name)
+		let template = this.dialect.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(this.solveReadField(operand.children[i]))
 			// template = template.replace('{' + i + '}', text)
@@ -262,6 +255,11 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 					_operand = this.expressions.parse(property.readExp)
 					this.replaceVar4Field(entity, field.alias as string, _operand)
 				}
+				// const viewPorperty = this.view.getProperty(entity.name, property.name)
+				// if (viewPorperty && viewPorperty.readExp) {
+				// _operand = this.expressions.parse(viewPorperty.readExp)
+				// this.replaceVar4Field(entity, field.alias as string, _operand)
+				// }
 			}
 			return _operand
 		} else if (operand.children && operand.children.length > 0) {
@@ -273,7 +271,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	}
 
 	private buildFunctionRef (operand:FunctionRef):string {
-		const funcData = this.metadata.function(operand.name)
+		const funcData = this.dialect.function(operand.name)
 		if (!funcData) throw new SintaxisError('Function ' + operand.name + ' not found')
 		let text = ''
 		if (funcData.type === 'multiple') {
@@ -293,7 +291,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 	}
 
 	private buildOperator (operand:Operator):string {
-		let text = this.metadata.operator(operand.name, operand.children.length)
+		let text = this.dialect.operator(operand.name, operand.children.length)
 		for (let i = 0; i < operand.children.length; i++) {
 			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i]))
 		}
@@ -310,10 +308,10 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 
 	private buildObject (operand:Obj):string {
 		let text = ''
-		const template = this.metadata.function('as').template
+		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
 			const value = this.buildOperand(operand.children[i])
-			const alias = this.metadata.delimiter(operand.children[i].name, true)
+			const alias = this.dialect.delimiter(operand.children[i].name, true)
 			let fieldText = template.replace('{value}', value)
 			fieldText = fieldText.replace('{alias}', alias)
 			text += (i > 0 ? ', ' : '') + fieldText
@@ -337,21 +335,21 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
 			if (operand.alias === undefined) {
-				return this.metadata.other('column').replace('{name}', this.metadata.delimiter(property.mapping, true))
+				return this.dialect.other('column').replace('{name}', this.dialect.delimiter(property.mapping, true))
 			} else {
-				let text = this.metadata.other('field')
+				let text = this.dialect.other('field')
 				text = text.replace('{entityAlias}', operand.alias)
-				text = text.replace('{name}', this.metadata.delimiter(property.mapping))
+				text = text.replace('{name}', this.dialect.delimiter(property.mapping))
 				return text
 			}
 		} else {
-			return this.metadata.other('column').replace('{name}', this.metadata.delimiter(operand.name))
+			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name))
 		}
 	}
 
 	private buildVariable (operand:Variable):string {
 		const number = operand.number ? operand.number : 0
-		let text = this.metadata.other('variable')
+		let text = this.dialect.other('variable')
 		text = text.replace('{name}', operand.name)
 		text = text.replace('{number}', number.toString())
 		return text
@@ -362,7 +360,7 @@ export class SqlDMLBuilder extends LanguageDMLBuilder {
 		case 'string':
 			return SqlString.escape(operand.name)
 		case 'boolean':
-			return this.metadata.other(operand.name)
+			return this.dialect.other(operand.name)
 		case 'number':
 			return operand.name
 		default:
