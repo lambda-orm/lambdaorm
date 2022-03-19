@@ -1,6 +1,6 @@
 import { MappingConfig, ViewConfig } from '.'
 import { Sentence, EntityMapping, Field, Filter, Join, SchemaError } from '../model'
-import { Expressions, Variable, Operand, Operator, ArrowFunction } from 'js-expressions'
+import { Expressions, Variable, Operand, Operator } from 'js-expressions'
 
 export class SentenceCompleter {
 	protected expressions:Expressions
