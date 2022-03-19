@@ -1,14 +1,16 @@
 import { LanguageDMLBuilder, LanguageDDLBuilder, MappingConfig, ViewConfig } from '.'
 import { Dialect } from './dialect'
-import { Expressions } from 'js-expressions'
-import { NotImplemented, DataSource } from '../model'
+import { NotImplemented, DataSource, Sentence, Query } from '../model'
 
 export abstract class Language {
 	public dialects: Dialect[]
-	public name:string
+	public name: string
+	protected dmlBuilder:LanguageDMLBuilder
 
-	constructor (name: string, dialects: any) {
+	constructor (name: string, dialects: any, dmlBuilder:LanguageDMLBuilder) {
 		this.name = name
+		this.dmlBuilder = dmlBuilder
+
 		this.dialects = []
 		for (const name in dialects) {
 			const data = dialects[name]
@@ -28,5 +30,7 @@ export abstract class Language {
 
 	public abstract ddlBuilder (dataSource: DataSource, mapping: MappingConfig): LanguageDDLBuilder
 
-	public abstract dmlBuilder (dataSource: DataSource, mapping: MappingConfig, view: ViewConfig, expressions:Expressions): LanguageDMLBuilder
+	public dmlBuild (dataSource: DataSource, mapping: MappingConfig, view: ViewConfig, sentence:Sentence):Query {
+		return this.dmlBuilder.build(dataSource, mapping, view, this.getDialect(dataSource.dialect), sentence)
+	}
 }

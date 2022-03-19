@@ -44,7 +44,7 @@ export class Orm implements IOrm {
 		this.connectionManager = new ConnectionManager()
 
 		this.languages = new Languages()
-		this.languages.add(new SqlLanguage())
+		this.languages.add(new SqlLanguage(this._expressions))
 		// this.languages.addLanguage(new NoSqlLanguage())
 		this.connectionManager.addType('mysql', MySqlConnectionPool)
 		this.connectionManager.addType('mariadb', MariadbConnectionPool)

@@ -3,21 +3,21 @@ import { Query, DataSource, Include, SentenceInfo, Sentence } from '../model'
 import { Expressions } from 'js-expressions'
 
 export abstract class LanguageDMLBuilder {
-	protected dataSource: DataSource
-	protected mapping: MappingConfig
-	protected view:ViewConfig
-	protected dialect: Dialect
+	// protected dataSource: DataSource
+	// protected mapping: MappingConfig
+	// protected view:ViewConfig
+	// protected dialect: Dialect
 	protected expressions:Expressions
 
-	constructor (dataSource: DataSource, mapping: MappingConfig, view:ViewConfig, dialect: Dialect, expressions:Expressions) {
-		this.dataSource = dataSource
-		this.mapping = mapping
-		this.view = view
+	constructor (expressions:Expressions) {
+		// this.dataSource = dataSource
+		// this.mapping = mapping
+		// this.view = view
+		// this.dialect = dialect
 		this.expressions = expressions
-		this.dialect = dialect
 	}
 
-	abstract build (sentence:Sentence):Query
+	abstract build (dataSource: DataSource, mapping: MappingConfig, view:ViewConfig, dialect: Dialect, sentence:Sentence):Query
 }
 
 export class DMLBuilder {
@@ -56,8 +56,7 @@ export class DMLBuilder {
 		const dataSource = this.getDataSource(sentence)
 		const language = this.languages.getByDiatect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
-		const dmlBuilder = language.dmlBuilder(dataSource, mapping, this.view, this.expressions)
-		const query = dmlBuilder.build(sentence)
+		const query = language.dmlBuild(dataSource, mapping, this.view, sentence)
 		query.children = children
 		return query
 	}

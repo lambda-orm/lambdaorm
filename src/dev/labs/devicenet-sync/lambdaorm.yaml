@@ -74,9 +74,9 @@ entities:
         nullable: false
       - name: lastname
         nullable: false
-      - name: fullmane
-        view: true
-        readExp: concat(lastname,", ",firstname)
+      # - name: fullmane
+      #   view: true
+      #   readExp: concat(lastname,", ",firstname)
       - name: email
         nullable: false
         length: 255

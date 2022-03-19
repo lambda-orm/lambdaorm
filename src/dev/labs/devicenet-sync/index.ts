@@ -80,19 +80,19 @@ function getDevices () {
 		// const expression = 'Users.filter(p-> p.username == "flaviolrita")'
 		// const expression = 'Users'
 
-		console.log('sentence:')
-		console.log(JSON.stringify(orm.sentence(expression)))
-		console.log('parameters:')
-		console.log(JSON.stringify(orm.parameters(expression)))
-		console.log('model:')
-		console.log(JSON.stringify(orm.model(expression)))
-		console.log('constraints:')
-		console.log(JSON.stringify(orm.constraints(expression)))
-		console.log('metadata:')
-		console.log(JSON.stringify(orm.metadata(expression)))
+		// console.log('sentence:')
+		// console.log(JSON.stringify(orm.sentence(expression)))
+		// console.log('parameters:')
+		// console.log(JSON.stringify(orm.parameters(expression)))
+		// console.log('model:')
+		// console.log(JSON.stringify(orm.model(expression)))
+		// console.log('constraints:')
+		// console.log(JSON.stringify(orm.constraints(expression)))
+		// console.log('metadata:')
+		// console.log(JSON.stringify(orm.metadata(expression)))
 
+		console.log(JSON.stringify(await orm.execute(expression, {}, 'admin')))
 		console.log(JSON.stringify(await orm.execute(expression)))
-		// console.log(JSON.stringify(await orm.execute(expression, {}, 'admin')))
 
 		// // console.log(JSON.stringify(await orm.execute('Devices.updateAll({imei2:null})')))
 		// // console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))
