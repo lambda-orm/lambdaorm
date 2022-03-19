@@ -69,13 +69,14 @@ function getDevices () {
 	try {
 		const schema = await orm.schema.get(workspace)
 		await orm.init(schema)
-		await orm.stage.clean(orm.defaultStage.name).execute(true)
-		await orm.stage.sync(orm.defaultStage.name).execute()
-		// //console.log(JSON.stringify(await orm.execute('Users.bulkInsert()', getUsers())))
-		console.log(JSON.stringify(await orm.execute('Groups.bulkInsert().include(p-> p.members)', getGroups())))
-		console.log(JSON.stringify(await orm.execute('Devices.bulkInsert().include(p-> p.components)', getDevices())))
+		// await orm.stage.clean(orm.defaultStage.name).execute(true)
+		// await orm.stage.sync(orm.defaultStage.name).execute()
+		// // //console.log(JSON.stringify(await orm.execute('Users.bulkInsert()', getUsers())))
+		// console.log(JSON.stringify(await orm.execute('Groups.bulkInsert().include(p-> p.members)', getGroups())))
+		// console.log(JSON.stringify(await orm.execute('Devices.bulkInsert().include(p-> p.components)', getDevices())))
 
-		const expression = 'Groups.include(p=> [p.members.include(p=>p.user.include(p=> p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))))])'
+		// const expression = 'Groups.include(p=> [p.members.include(p=>p.user.include(p=> p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))))])'
+		const expression = 'Users'
 
 		// const expression = 'Users.filter(p-> p.username == "flaviolrita")'
 		// const expression = 'Users'

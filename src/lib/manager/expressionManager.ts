@@ -1,5 +1,5 @@
-import { Query, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence } from '../model'
-import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, DMLBuilder } from '.'
+import { Query, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, DataSource, SentenceInfo } from '../model'
+import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
 import { Helper } from './helper'
 import { Expressions, Operand, Cache } from 'js-expressions'
 
@@ -11,6 +11,7 @@ export class ExpressionManager {
 	private routing: Routing
 	private expressions: Expressions
 	private operandManager: OperandManager
+	private sentenceCompleter: SentenceCompleter
 
 	constructor (cache: Cache, schema:SchemaManager, languages:Languages, expressions:Expressions, routing:Routing) {
 		this.cache = cache
@@ -20,6 +21,7 @@ export class ExpressionManager {
 		this.expressionNormalizer = new ExpressionNormalizer(schema)
 		this.routing = routing
 		this.operandManager = new OperandManager(schema.model, this.expressions.config, this.expressions)
+		this.sentenceCompleter = new SentenceCompleter(expressions)
 	}
 
 	/**
@@ -67,13 +69,42 @@ export class ExpressionManager {
 			let query = this.cache.get(key)
 			if (!query) {
 				const sentence = this.toOperand(expression) as Sentence
-				query = new DMLBuilder(this.schema, this.routing, this.languages, this.expressions, stage, _view.name).build(sentence)
+				const view = this.schema.view.getInstance(_view.name)
+				query = this.dmlBuild(sentence, view, stage)
+				// query = new DMLBuilder(this.schema, this.routing, this.languages, stage, _view.name, this.expressions).build(sentence)
 				this.cache.set(key, query)
 			}
 			return query as Query
 		} catch (error: any) {
 			throw new SintaxisError('query expression: ' + expression + ' error: ' + error.toString())
 		}
+	}
+
+	private getDataSource (sentence: Sentence, stage:string): DataSource {
+		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
+		const datasourceName = this.routing.getDataSource(sentenceInfo, stage)
+		return this.schema.dataSource.get(datasourceName)
+	}
+
+	private dmlBuild (sentence:Sentence, view: ViewConfig, stage:string):Query {
+		const children = []
+		const includes = sentence.getIncludes()
+		for (const p in includes) {
+			const sentenceInclude = includes[p]
+			const query = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
+			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
+			children.push(include)
+		}
+
+		const dataSource = this.getDataSource(sentence, stage)
+		const language = this.languages.getByDiatect(dataSource.dialect)
+		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		const completeSentence = this.sentenceCompleter.complete(mapping, view, sentence)
+		const query = language.dmlBuild(dataSource, mapping, completeSentence)
+		// const query = dmlBuilder.build(completeSentence)
+
+		query.children = children
+		return query
 	}
 
 	/**
