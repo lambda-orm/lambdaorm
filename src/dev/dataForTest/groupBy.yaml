@@ -6,29 +6,14 @@ test:
   - name: groupBy 1
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{maxPrice:max(p.price)})
-    completeExpression: Products.map(p=>{maxPrice:max(p.price)})
+    normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
     model:
       - name: maxPrice
         type: decimal
@@ -67,36 +52,22 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - maxPrice: 263.5
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 2
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{minPrice:min(p.price)})
-    completeExpression: Products.map(p=>{minPrice:min(p.price)})
+    normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
     model:
       - name: minPrice
         type: decimal
@@ -135,36 +106,22 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - minPrice: 2.5
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 3
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{total:sum(p.price)})
-    completeExpression: Products.map(p=>{total:sum(p.price)})
+    normalizeExpression: Products.map(p=>{total:sum(p.price)})
     model:
       - name: total
         type: any
@@ -203,36 +160,22 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - total: 2222.71
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 4
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
-          childs: []
-    errors: 1
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{average:avg(p.price)})
-    completeExpression: Products.map(p=>{average:avg(p.price)})
+    normalizeExpression: Products.map(p=>{average:avg(p.price)})
     model:
       - name: average
         type: any
@@ -271,39 +214,22 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: not equal mysql
-        result:
-          - average: 28.866363636363637
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - average: 28.86636364
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 5
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{count:count(1)})
-    completeExpression: Products.map(p=>{count:count(1)})
+    normalizeExpression: Products.map(p=>{count:count(1)})
     model:
       - name: count
         type: any
@@ -340,42 +266,22 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - count: 77
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 6
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p  GROUP BY p.CategoryID 
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p  GROUP BY p.CategoryID 
-          childs: []
-    errors: 1
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
-    completeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
+    normalizeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
       - name: category
         type: integer
@@ -434,78 +340,22 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: not equal mysql
-        result:
-          - category: 3
-            largestPrice: 81
-          - category: 5
-            largestPrice: 38
-          - category: 4
-            largestPrice: 55
-          - category: 6
-            largestPrice: 123.79
-          - category: 2
-            largestPrice: 43.9
-          - category: 7
-            largestPrice: 53
-          - category: 1
-            largestPrice: 263.5
-          - category: 8
-            largestPrice: 62.5
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - category: 1
-        largestPrice: 263.5
-      - category: 2
-        largestPrice: 43.9
-      - category: 3
-        largestPrice: 81
-      - category: 4
-        largestPrice: 55
-      - category: 5
-        largestPrice: 38
-      - category: 6
-        largestPrice: 123.79
-      - category: 7
-        largestPrice: 53
-      - category: 8
-        largestPrice: 62.5
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 7
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
-          childs: []
-    errors: 1
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    completeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    normalizeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       - name: category
         type: string
@@ -580,78 +430,24 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: not equal mysql
-        result:
-          - category: Grains/Cereals
-            largestPrice: 38
-          - category: Beverages
-            largestPrice: 263.5
-          - category: Dairy Products
-            largestPrice: 55
-          - category: Seafood
-            largestPrice: 62.5
-          - category: Produce
-            largestPrice: 53
-          - category: Condiments
-            largestPrice: 43.9
-          - category: Meat/Poultry
-            largestPrice: 123.79
-          - category: Confections
-            largestPrice: 81
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Condiments
-        largestPrice: 43.9
-      - category: Confections
-        largestPrice: 81
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Grains/Cereals
-        largestPrice: 38
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Produce
-        largestPrice: 53
-      - category: Seafood
-        largestPrice: 62.5
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 8
     data: a
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-            ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
-            $1 
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-            ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
-    completeExpression: >-
+    normalizeExpression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
     model:
       - name: name
@@ -731,55 +527,26 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - name: Chai
-        source: 18
-        result: 18
+        error: 'SchemaError: View: mariadb not found'
   - name: groupBy 9
     sentences:
       - stage: mysql
-        sentence:
-          entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    completeExpression: >-
+    normalizeExpression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
       - name: category
@@ -872,11 +639,9 @@ test:
       entity: Products
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
-errors: 3
+        error: 'SchemaError: View: mariadb not found'
+errors: 54

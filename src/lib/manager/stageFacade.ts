@@ -64,13 +64,13 @@ export class StageFacade {
 
 	public export (name?:string, view?:string):StageExport {
 		const stage = this.getStage(name)
-		const _view = this.getStage(view)
+		const _view = this.getView(view)
 		return new StageExport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name, _view.name)
 	}
 
 	public import (name?:string, view?:string):StageImport {
 		const stage = this.getStage(name)
-		const _view = this.getStage(view)
+		const _view = this.getView(view)
 		return new StageImport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name, _view.name)
 	}
 }

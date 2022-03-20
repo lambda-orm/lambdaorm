@@ -846,7 +846,7 @@ async function crud () {
 	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
-		orm.transaction('source', undefined, async (tr) => {
+		orm.transaction('source', 'default', async (tr) => {
 			// create order
 			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
@@ -885,7 +885,7 @@ async function bulkInsert () {
 			description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, categories, 'source')))
+	const result = await exec(async () => (await orm.execute(expression, categories, 'default', 'source')))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -979,7 +979,7 @@ async function bulkInsert2 () {
 			]
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, orders, 'source')))
+	const result = await exec(async () => (await orm.execute(expression, orders, 'default', 'source')))
 }
 
 async function stageExport (source: string) {

@@ -359,6 +359,9 @@ export class ViewsConfig {
 
 	public load (value:View):void {
 		if (value && value.name) {
+			if (!value.entities) {
+				value.entities = []
+			}
 			const index = this.views.findIndex(p => p.name === value.name)
 			if (index === -1) {
 				this.views.push(value)
@@ -915,10 +918,11 @@ export class SchemaManager {
 				this.mapping.load(this.schema.mappings[p])
 			}
 		}
-		if (this.schema.views) {
-			for (const p in this.schema.views) {
-				this.view.load(this.schema.views[p])
-			}
+		if (!this.schema.views) {
+			this.schema.views = [{ name: 'defaul', entities: [] }]
+		}
+		for (const p in this.schema.views) {
+			this.view.load(this.schema.views[p])
 		}
 		if (this.schema.dataSources) {
 			for (const p in this.schema.dataSources) {
