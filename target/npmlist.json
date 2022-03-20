@@ -1,0 +1,1 @@
+{"name":"lambdaorm","version":"0.1.41-alpha","dependencies":{"crypto-js":{"version":"4.1.1"},"js-expressions":{"version":"0.1.23"},"js-yaml":{"version":"4.1.0","dependencies":{"argparse":{"version":"2.0.1"}}},"luxon":{"version":"2.3.0"},"sqlstring":{"version":"2.3.2"}}}

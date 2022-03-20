@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { IOrm, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
-import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing } from './manager'
+import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
 import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
-import { LanguageManager } from './language'
 import { SqlLanguage } from './language/sql'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'
@@ -16,7 +15,7 @@ export class Orm implements IOrm {
 	private _cache: Cache
 	private stageFacade: StageFacade
 	private connectionManager: ConnectionManager
-	private languageManager: LanguageManager
+	private languages: Languages
 	// private libManager: LibManager
 	private expressionManager: ExpressionManager
 	private routing: Routing
@@ -44,9 +43,9 @@ export class Orm implements IOrm {
 		this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 
-		this.languageManager = new LanguageManager(this.schemaManager, this._expressions)
-		this.languageManager.addLanguage('sql', new SqlLanguage())
-		// this.languageManager.addLanguage('noSql',new NoSqlLanguage())
+		this.languages = new Languages()
+		this.languages.add(new SqlLanguage(this._expressions))
+		// this.languages.addLanguage(new NoSqlLanguage())
 		this.connectionManager.addType('mysql', MySqlConnectionPool)
 		this.connectionManager.addType('mariadb', MariadbConnectionPool)
 		this.connectionManager.addType('postgres', PostgresConnectionPool)
@@ -55,9 +54,9 @@ export class Orm implements IOrm {
 		// this.connectionManager.addType('oracle',OracleConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
-		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languageManager, this._expressions, this.routing)
-		this.executor = new Executor(this.connectionManager, this.languageManager, this.schemaManager, this.expressionManager, this._expressions)
-		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languageManager, this.executor)
+		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)
+		this.executor = new Executor(this.connectionManager, this.languages, this.schemaManager, this.expressionManager, this._expressions)
+		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languages, this.executor)
 	}
 
 	public get defaultStage ():Stage {
@@ -148,16 +147,16 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Complete expression
-	 * @returns Expression complete
+	 * Normalize expression
+	 * @returns Expression normalized
 	 */
-	public complete(expression:Function): string
-	public complete(expression:string): string
-	public complete (expression: string|Function): string {
+	public normalize(expression:Function): string
+	public normalize(expression:string): string
+	public normalize (expression: string|Function): string {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		return this.expressionManager.complete(expression)
+		return this.expressionManager.normalize(expression)
 	}
 
 	/**
@@ -217,14 +216,15 @@ export class Orm implements IOrm {
 	 * @param expression
 	 * @param dataSource
 	 */
-	public sentence(expression: Function, stage?: string): MetadataSentence;
-	public sentence(expression: string, stage?: string): MetadataSentence;
-	public sentence (expression: string|Function, stage: string|undefined): MetadataSentence {
+	public sentence(expression: Function, view?:string, stage?: string): MetadataSentence;
+	public sentence(expression: string, view?:string, stage?: string): MetadataSentence;
+	public sentence (expression: string|Function, view: string|undefined, stage: string|undefined): MetadataSentence {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
 		const _stage = this.schemaManager.stage.get(stage)
-		return this.expressionManager.sentence(expression, _stage.name)
+		const _view = this.schemaManager.view.get(view)
+		return this.expressionManager.sentence(expression, _stage.name, _view.name)
 	}
 
 	/**
@@ -233,15 +233,16 @@ export class Orm implements IOrm {
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, stage?: string):Promise<any>;
-	public async execute(expression: string, data?: any, stage?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, stage: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, view?:string, stage?: string):Promise<any>;
+	public async execute(expression: string, data?: any, view?:string, stage?: string):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, view: string|undefined, stage: string|undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
 		const _stage = this.schemaManager.stage.get(stage)
-		const query = await this.expressionManager.toQuery(expression, _stage.name)
-		return await this.executor.execute(query, data, _stage.name)
+		const _view = this.schemaManager.view.get(view)
+		const query = this.expressionManager.toQuery(expression, _stage.name, _view.name)
+		return await this.executor.execute(query, data, _stage.name, _view.name)
 	}
 
 	/**
@@ -249,8 +250,9 @@ export class Orm implements IOrm {
  * @param stage Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (stage: string, view:string|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _stage = this.schemaManager.stage.get(stage)
-		return await this.executor.transaction(_stage.name, callback)
+		const _view = this.schemaManager.view.get(view)
+		return await this.executor.transaction(_stage.name, _view.name, callback)
 	}
 }

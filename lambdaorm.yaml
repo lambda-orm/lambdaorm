@@ -217,6 +217,8 @@ entities:
         entity: Products
         to: id
         target: orderDetails
+views:
+  -name: default
 mappings:
   - name: northwind
     entities:

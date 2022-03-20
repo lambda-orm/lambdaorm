@@ -59,8 +59,12 @@
           "value": "admin"
         },
         {
-          "name": "member",
-          "value": "member"
+          "name": "auditor",
+          "value": "auditor"
+        },
+        {
+          "name": "operator",
+          "value": "operator"
         },
         {
           "name": "guest",
@@ -72,6 +76,7 @@
   "entities": [
     {
       "name": "Users",
+      "view": true,
       "primaryKey": [
         "username"
       ],
@@ -100,9 +105,8 @@
         {
           "name": "email",
           "nullable": false,
-          "length": 512,
-          "writeValue": "encrypt(lower(email),\"rifk863hmKSJDJ87hd*nhJ98\")",
-          "readValue": "decrypt(email,\"rifk863hmKSJDJ87hd*nhJ98\")",
+          "length": 255,
+          "readExp": "mask(email)",
           "type": "string"
         },
         {
@@ -126,6 +130,15 @@
           "weak": true,
           "to": "username",
           "target": "user"
+        },
+        {
+          "name": "devices",
+          "type": "manyToOne",
+          "from": "username",
+          "entity": "Devices",
+          "weak": true,
+          "to": "ownerId",
+          "target": "owner"
         }
       ],
       "dependents": [
@@ -137,6 +150,18 @@
             "entity": "Users",
             "to": "username",
             "target": "members",
+            "type": "oneToMany",
+            "weak": false
+          }
+        },
+        {
+          "entity": "Devices",
+          "relation": {
+            "name": "owner",
+            "from": "ownerId",
+            "entity": "Users",
+            "to": "username",
+            "target": "devices",
             "type": "oneToMany",
             "weak": false
           }
@@ -181,15 +206,6 @@
           "weak": true,
           "to": "groupId",
           "target": "group"
-        },
-        {
-          "name": "devices",
-          "type": "manyToOne",
-          "from": "id",
-          "entity": "Devices",
-          "weak": true,
-          "to": "groupId",
-          "target": "group"
         }
       ],
       "dependents": [
@@ -202,18 +218,6 @@
             "to": "id",
             "target": "members",
             "targetComposite": true,
-            "type": "oneToMany",
-            "weak": false
-          }
-        },
-        {
-          "entity": "Devices",
-          "relation": {
-            "name": "group",
-            "from": "groupId",
-            "entity": "Groups",
-            "to": "id",
-            "target": "devices",
             "type": "oneToMany",
             "weak": false
           }
@@ -310,8 +314,9 @@
           "type": "string"
         },
         {
-          "name": "groupId",
+          "name": "ownerId",
           "length": 32,
+          "nullable": false,
           "type": "string"
         },
         {
@@ -345,6 +350,11 @@
           "type": "string"
         },
         {
+          "name": "apiKey",
+          "length": 255,
+          "type": "string"
+        },
+        {
           "name": "brand",
           "length": 32,
           "type": "string"
@@ -367,10 +377,10 @@
       ],
       "relations": [
         {
-          "name": "group",
-          "from": "groupId",
-          "entity": "Groups",
-          "to": "id",
+          "name": "owner",
+          "from": "ownerId",
+          "entity": "Users",
+          "to": "username",
           "target": "devices",
           "type": "oneToMany",
           "weak": false
@@ -790,89 +800,47 @@
       "dependents": []
     }
   ],
-  "mappings": [
+  "views": [
     {
       "name": "default",
       "entities": [
         {
-          "name": "Users",
-          "primaryKey": [
-            "username"
-          ],
-          "uniqueKey": [
-            "email"
-          ],
+          "name": "Devices",
           "properties": [
             {
-              "name": "username",
-              "length": 32,
-              "nullable": false,
-              "type": "string",
-              "mapping": "username"
-            },
-            {
-              "name": "firstname",
-              "nullable": false,
-              "type": "string",
-              "length": 80,
-              "mapping": "firstname"
-            },
-            {
-              "name": "lastname",
-              "nullable": false,
-              "type": "string",
-              "length": 80,
-              "mapping": "lastname"
-            },
-            {
-              "name": "email",
-              "nullable": false,
-              "length": 512,
-              "writeValue": "encrypt(lower(email),\"rifk863hmKSJDJ87hd*nhJ98\")",
-              "readValue": "decrypt(email,\"rifk863hmKSJDJ87hd*nhJ98\")",
-              "type": "string",
-              "mapping": "email"
-            },
-            {
-              "name": "created",
-              "type": "datetime",
-              "default": "now()",
-              "mapping": "created"
+              "name": "apyKey",
+              "readExp": "***"
             }
-          ],
-          "constraints": [
-            {
-              "message": "invalid email",
-              "condition": "test(email,\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\")"
-            }
-          ],
-          "relations": [
-            {
-              "name": "members",
-              "type": "manyToOne",
-              "from": "username",
-              "entity": "GroupUsers",
-              "weak": true,
-              "to": "username",
-              "target": "user"
-            }
-          ],
-          "dependents": [
-            {
-              "entity": "GroupUsers",
-              "relation": {
-                "name": "user",
-                "from": "username",
-                "entity": "Users",
-                "to": "username",
-                "target": "members",
-                "type": "oneToMany",
-                "weak": false
-              }
-            }
-          ],
-          "mapping": "Users"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "collector",
+      "entities": [
+        {
+          "name": "Users",
+          "exclude": true
         },
+        {
+          "name": "Groups",
+          "exclude": true
+        },
+        {
+          "name": "GroupUsers",
+          "exclude": true
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "entities": []
+    }
+  ],
+  "mappings": [
+    {
+      "name": "default",
+      "entities": [
         {
           "name": "Groups",
           "primaryKey": [
@@ -914,15 +882,6 @@
               "weak": true,
               "to": "groupId",
               "target": "group"
-            },
-            {
-              "name": "devices",
-              "type": "manyToOne",
-              "from": "id",
-              "entity": "Devices",
-              "weak": true,
-              "to": "groupId",
-              "target": "group"
             }
           ],
           "dependents": [
@@ -935,18 +894,6 @@
                 "to": "id",
                 "target": "members",
                 "targetComposite": true,
-                "type": "oneToMany",
-                "weak": false
-              }
-            },
-            {
-              "entity": "Devices",
-              "relation": {
-                "name": "group",
-                "from": "groupId",
-                "entity": "Groups",
-                "to": "id",
-                "target": "devices",
                 "type": "oneToMany",
                 "weak": false
               }
@@ -1052,10 +999,11 @@
               "mapping": "name"
             },
             {
-              "name": "groupId",
+              "name": "ownerId",
               "length": 32,
+              "nullable": false,
               "type": "string",
-              "mapping": "groupId"
+              "mapping": "ownerId"
             },
             {
               "name": "so",
@@ -1094,6 +1042,12 @@
               "mapping": "ip"
             },
             {
+              "name": "apiKey",
+              "length": 255,
+              "type": "string",
+              "mapping": "apiKey"
+            },
+            {
               "name": "brand",
               "length": 32,
               "type": "string",
@@ -1120,10 +1074,10 @@
           ],
           "relations": [
             {
-              "name": "group",
-              "from": "groupId",
-              "entity": "Groups",
-              "to": "id",
+              "name": "owner",
+              "from": "ownerId",
+              "entity": "Users",
+              "to": "username",
               "target": "devices",
               "type": "oneToMany",
               "weak": false
@@ -1579,6 +1533,118 @@
           "mapping": "Files"
         }
       ]
+    },
+    {
+      "name": "keycloak",
+      "entities": [
+        {
+          "name": "Users",
+          "mapping": "user_entity",
+          "filter": "realmId == \"devicenet\"",
+          "properties": [
+            {
+              "name": "username",
+              "mapping": "username",
+              "length": 32,
+              "nullable": false,
+              "type": "string"
+            },
+            {
+              "name": "firstname",
+              "mapping": "first_name",
+              "nullable": false,
+              "type": "string",
+              "length": 80
+            },
+            {
+              "name": "lastname",
+              "mapping": "last_name",
+              "nullable": false,
+              "type": "string",
+              "length": 80
+            },
+            {
+              "name": "email",
+              "mapping": "email",
+              "nullable": false,
+              "length": 255,
+              "readExp": "mask(email)",
+              "type": "string"
+            },
+            {
+              "name": "created",
+              "mapping": "created_timestamp",
+              "readMappingExp": "millisecondToDate(created/1000)",
+              "type": "datetime",
+              "default": "now()"
+            },
+            {
+              "name": "realmId",
+              "length": 255,
+              "mapping": "realm_id"
+            }
+          ],
+          "view": true,
+          "primaryKey": [
+            "username"
+          ],
+          "uniqueKey": [
+            "email"
+          ],
+          "constraints": [
+            {
+              "message": "invalid email",
+              "condition": "test(email,\"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$\")"
+            }
+          ],
+          "relations": [
+            {
+              "name": "members",
+              "type": "manyToOne",
+              "from": "username",
+              "entity": "GroupUsers",
+              "weak": true,
+              "to": "username",
+              "target": "user"
+            },
+            {
+              "name": "devices",
+              "type": "manyToOne",
+              "from": "username",
+              "entity": "Devices",
+              "weak": true,
+              "to": "ownerId",
+              "target": "owner"
+            }
+          ],
+          "dependents": [
+            {
+              "entity": "GroupUsers",
+              "relation": {
+                "name": "user",
+                "from": "username",
+                "entity": "Users",
+                "to": "username",
+                "target": "members",
+                "type": "oneToMany",
+                "weak": false
+              }
+            },
+            {
+              "entity": "Devices",
+              "relation": {
+                "name": "owner",
+                "from": "ownerId",
+                "entity": "Users",
+                "to": "username",
+                "target": "devices",
+                "type": "oneToMany",
+                "weak": false
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "dataSources": [
@@ -1593,6 +1659,18 @@
         "password": "devicenet",
         "database": "devicenet"
       }
+    },
+    {
+      "name": "keycloak",
+      "mapping": "keycloak",
+      "dialect": "postgres",
+      "connection": {
+        "host": "0.0.0.0",
+        "port": 5432,
+        "user": "keycloak",
+        "password": "keycloak",
+        "database": "keycloak"
+      }
     }
   ],
   "stages": [
@@ -1600,7 +1678,12 @@
       "name": "default",
       "dataSources": [
         {
-          "name": "main"
+          "name": "main",
+          "condition": "entity != \"Users\""
+        },
+        {
+          "name": "keycloak",
+          "condition": "entity == \"Users\""
         }
       ]
     }

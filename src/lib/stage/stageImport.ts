@@ -8,7 +8,7 @@ export class StageImport extends StageActionDML {
 		const _queries = await this.build()
 		const queries = this.sort(_queries)
 
-		await this.executor.transaction(this.stage, async (tr) => {
+		await this.executor.transaction(this.stage, this.view, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const entityData = data.entities.find(p => p.entity === query.entity)
@@ -198,6 +198,6 @@ export class StageImport extends StageActionDML {
 
 	protected createQuery (entity:Entity):Query {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return this.expressionManager.toQuery(expression, this.stage)
+		return this.expressionManager.toQuery(expression, this.stage, this.view)
 	}
 }

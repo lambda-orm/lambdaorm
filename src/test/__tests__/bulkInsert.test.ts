@@ -7,13 +7,13 @@ describe('Complete Expression', () => {
 	test('bulkInsert 1', () => {
 		const source = 'Categories.bulkInsert()'
 		const expected = 'Categories.bulkInsert({name:name,description:description})'
-		const target = orm.complete(source)
+		const target = orm.normalize(source)
 		expect(expected).toBe(target)
 	})
 	test('bulkInsert 2', () => {
 		const source = 'Orders.bulkInsert().include(p=>p.details)'
 		const expected = 'Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))'
-		const target = orm.complete(source)
+		const target = orm.normalize(source)
 		expect(expected).toBe(target)
 	})
 })
@@ -52,20 +52,8 @@ describe('Metadata', () => {
 describe('Sentences', () => {
 	test('bulkInsert 1', async () => {
 		const expression = 'Categories.bulkInsert()'
-		const mysqlExpected = {"entity":"Categories","dialect":"mysql","dataSource":"mysql","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES ?","childs":[]}
-		let mysql = orm.sentence(expression,'mysql')
-		expect(mysqlExpected).toStrictEqual(mysql)
-		const postgresExpected = {"entity":"Categories","dialect":"postgres","dataSource":"postgres","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES","childs":[]}
-		let postgres = orm.sentence(expression,'postgres')
-		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p=>p.details)'
-		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?","childs":[]}]}
-		let mysql = orm.sentence(expression,'mysql')
-		expect(mysqlExpected).toStrictEqual(mysql)
-		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES","childs":[]}]}
-		let postgres = orm.sentence(expression,'postgres')
-		expect(postgresExpected).toStrictEqual(postgres)
 	})
 })

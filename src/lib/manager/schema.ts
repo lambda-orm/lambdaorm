@@ -1,4 +1,4 @@
-import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType } from '../model'
+import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -310,6 +310,87 @@ export class MappingsConfig {
 	}
 }
 
+export class ViewConfig {
+	private view: View
+	constructor (view: View) {
+		this.view = view
+	}
+
+	public get name ():string {
+		return this.view.name
+	}
+
+	public get ():View {
+		return this.view
+	}
+
+	public set (value: View) {
+		this.view = value
+	}
+
+	public get entities ():EntityView[] {
+		return this.view.entities ? this.view.entities : []
+	}
+
+	public getEntity (name:string):EntityView|undefined {
+		return this.view.entities ? this.view.entities.find(p => p.name === name) : undefined
+	}
+
+	public getProperty (entityName:string, name:string):PropertyView|undefined {
+		const entity = this.getEntity(entityName)
+		if (!entity) {
+			return undefined
+		}
+		return entity.properties ? entity.properties.find(p => p.name === name) : undefined
+	}
+
+	public excludeEntity (name:string):boolean {
+		const entity = this.getEntity(name)
+		return entity ? !!entity.exclude : false
+	}
+}
+
+export class ViewsConfig {
+	public views: View[]
+
+	constructor () {
+		this.views = []
+	}
+
+	public load (value:View):void {
+		if (value && value.name) {
+			if (!value.entities) {
+				value.entities = []
+			}
+			const index = this.views.findIndex(p => p.name === value.name)
+			if (index === -1) {
+				this.views.push(value)
+			} else {
+				this.views[index] = value
+			}
+		}
+	}
+
+	public get (name?: string): View {
+		if (name === undefined) {
+			return this.views[0]
+		}
+		const view = this.views.find(p => p.name === name)
+		if (view === undefined) {
+			throw new SchemaError(`View: ${name} not found`)
+		}
+		return view
+	}
+
+	public getInstance (name?:string):ViewConfig {
+		const view = this.get(name)
+		if (!view) {
+			throw new SchemaError(`view ${name} not found`)
+		}
+		return new ViewConfig(view)
+	}
+}
+
 export class DataSourceConfig {
 	public dataSources: DataSource[]
 	public default?:string
@@ -383,7 +464,7 @@ class SchemaExtender {
 	}
 
 	public extend (source: Schema): Schema {
-		let schema:Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
+		let schema:Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
 		if (source) {
 			schema = Helper.clone(source)
 		}
@@ -441,6 +522,10 @@ class SchemaExtender {
 			if (stage.dataSources === undefined) {
 				stage.dataSources = [{ name: schema.dataSources[0].name }]
 			}
+		}
+		// views
+		if (!schema.views || !schema.views.length || schema.views.length === 0) {
+			schema.views = [{ name: 'default', entities: [] }]
 		}
 		// exclude entities not used in mapping
 		for (const k in schema.mappings) {
@@ -706,6 +791,7 @@ export class SchemaManager {
 	public model: ModelConfig
 	public mapping: MappingsConfig
 	public stage: StageConfig
+	public view: ViewsConfig
 	public schema: Schema
 	public workspace: string
 	private extender: SchemaExtender
@@ -718,8 +804,9 @@ export class SchemaManager {
 		this.model = new ModelConfig()
 		this.mapping = new MappingsConfig()
 		this.stage = new StageConfig()
+		this.view = new ViewsConfig()
 		this.extender = new SchemaExtender(this.expressions)
-		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [] }
+		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
@@ -763,7 +850,7 @@ export class SchemaManager {
 			console.log(source)
 		}
 
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [], views: [] }
 		if (configFile) {
 			const configPath = path.join(workspace, configFile)
 			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
@@ -828,9 +915,14 @@ export class SchemaManager {
 		this.model.enums = this.schema.enums ? this.schema.enums : []
 		if (this.schema.mappings) {
 			for (const p in this.schema.mappings) {
-				const mapping = this.schema.mappings[p]
-				this.mapping.load(mapping)
+				this.mapping.load(this.schema.mappings[p])
 			}
+		}
+		if (!this.schema.views) {
+			this.schema.views = [{ name: 'defaul', entities: [] }]
+		}
+		for (const p in this.schema.views) {
+			this.view.load(this.schema.views[p])
 		}
 		if (this.schema.dataSources) {
 			for (const p in this.schema.dataSources) {

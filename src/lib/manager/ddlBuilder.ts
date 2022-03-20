@@ -1,19 +1,18 @@
-import { SchemaManager, ModelConfig, MappingConfig, Routing } from '.'
-import { LanguageManager, DialectMetadata } from '../language'
+import { SchemaManager, ModelConfig, MappingConfig, Routing, Languages, Dialect } from '.'
 import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
 import { Helper } from '../manager/helper'
 
 export class DDLBuilder {
-	private languageManager: LanguageManager
+	private languages: Languages
 	private schema: SchemaManager
 	private model:ModelConfig
 	private routing:Routing
 	public stage: string
-	constructor (schema: SchemaManager, routing:Routing, languageManager:LanguageManager, stage: string) {
+	constructor (schema: SchemaManager, routing:Routing, languages:Languages, stage: string) {
 		this.schema = schema
 		this.model = schema.model
 		this.routing = routing
-		this.languageManager = languageManager
+		this.languages = languages
 		this.stage = stage
 	}
 
@@ -73,7 +72,7 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
-				if (entity.relations) {
+				if (entity.relations && !entity.view) {
 					for (const q in entity.relations) {
 						const relation = entity.relations[q] as Relation
 						// evaluate if entity relation apply in dataSource
@@ -107,15 +106,17 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
-				if (entity.indexes) {
-					for (const j in entity.indexes) {
-						const index = entity.indexes[j]
-						const query = this.builder(dataSource).dropIndex(entity, index)
-						queries.push(query)
+				if (!entity.view) {
+					if (entity.indexes) {
+						for (const j in entity.indexes) {
+							const index = entity.indexes[j]
+							const query = this.builder(dataSource).dropIndex(entity, index)
+							queries.push(query)
+						}
 					}
+					const query = this.builder(dataSource).dropEntity(entity)
+					queries.push(query)
 				}
-				const query = this.builder(dataSource).dropEntity(entity)
-				queries.push(query)
 			}
 		}
 	}
@@ -132,8 +133,10 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)
 				}
-				const query = this.builder(dataSource).truncateEntity(entity)
-				queries.push(query)
+				if (!entity.view) {
+					const query = this.builder(dataSource).truncateEntity(entity)
+					queries.push(query)
+				}
 			}
 		}
 	}
@@ -143,6 +146,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -181,7 +186,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
-
+			// if entity is view is excluded
+			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -230,6 +236,8 @@ export class DDLBuilder {
 		// remove indexes and tables for removed entities
 		for (const name in delta.remove) {
 			const removeEntity = delta.remove[name].old as EntityMapping
+			// if entity is view is excluded
+			if (removeEntity.view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, removeEntity.name)) {
 				if (removeEntity.indexes) {
@@ -247,7 +255,7 @@ export class DDLBuilder {
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
 			// evaluate if entity apply in dataSource
-			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
+			if (!newEntity.view && this.evalDataSource(ruleDataSource, newEntity.name)) {
 				const query = this.builder(dataSource).createEntity(newEntity)
 				queries.push(query)
 			}
@@ -256,6 +264,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -270,7 +280,7 @@ export class DDLBuilder {
 						for (const n in changed.delta.changed) {
 							const newProperty = changed.delta.changed[n].new as PropertyMapping
 							const oldProperty = changed.delta.changed[n].old as PropertyMapping
-							if (newProperty.mapping === oldProperty.mapping) {
+							if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
 								const query = this.builder(dataSource).alterColumn(entityChanged.new, newProperty)
 								queries.push(query)
 							}
@@ -288,6 +298,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -296,8 +308,10 @@ export class DDLBuilder {
 						if (!changed.delta) continue
 						for (const n in changed.delta.remove) {
 							const oldProperty = changed.delta.remove[n].old as PropertyMapping
-							const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
-							queries.push(query)
+							if (!oldProperty.view) {
+								const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
+								queries.push(query)
+							}
 						}
 					}
 				}
@@ -307,6 +321,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -345,6 +361,8 @@ export class DDLBuilder {
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
 			if (!entityChanged.delta) continue
+			// if entity is view is excluded
+			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
 				for (const q in entityChanged.delta.changed) {
@@ -398,6 +416,8 @@ export class DDLBuilder {
 		// create indexes and Fks for new entities
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
+			// if entity is view is excluded
+			if (newEntity.view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
 				if (newEntity.indexes) {
@@ -429,7 +449,10 @@ export class DDLBuilder {
 	}
 
 	private builder (dataSource: DataSource): LanguageDDLBuilder {
-		return this.languageManager.ddlBuilder(dataSource)
+		// TODO agregar chache por datasource
+		const language = this.languages.getByDiatect(dataSource.dialect)
+		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		return language.ddlBuilder(dataSource, mapping)
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {
@@ -438,16 +461,14 @@ export class DDLBuilder {
 }
 
 export abstract class LanguageDDLBuilder {
-	protected dataSource: string
-	protected dialect:string
+	protected dataSource: DataSource
 	protected mapping:MappingConfig
-	protected metadata:DialectMetadata
+	protected dialect:Dialect
 
-	constructor (dataSource: string, mapping: MappingConfig, metadata: DialectMetadata) {
+	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect) {
 		this.dataSource = dataSource
 		this.mapping = mapping
-		this.metadata = metadata
-		this.dialect = metadata.name
+		this.dialect = dialect
 	}
 
 	abstract truncateEntity(entity: EntityMapping): Query

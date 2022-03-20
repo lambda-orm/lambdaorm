@@ -36,14 +36,18 @@ ddl:
   truncateTable: 'TRUNCATE TABLE {name}'
 dml:
   map: SELECT {0}
+  select: SELECT {0}
   distinct: SELECT DISTINCT {0}
   filter: WHERE {0}
+  where: WHERE {0}
   groupBy: GROUP BY {0}
   having: HAVING {0}
   sort: ORDER BY {0}
+  order: ORDER BY {0}
   page: LIMIT {offset},{records} 
   insert: INSERT INTO {name}({fields}) VALUES({values})
   update: UPDATE {name} {alias} SET {assings} 
+  remove: DELETE FROM {name} {alias} 
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
   from: 'FROM {name} {alias} '
@@ -110,6 +114,7 @@ functions:
     asc: '{0} asc'
     between: '{0} BETWEEN {1} AND {2}'
     includes: ' {0} IN ({1})'
+    in: ' {0} IN ({1})'
     distinct: 'DISTINCT {0} '
   numeric:
     abs: 'ABS({0})'
@@ -147,34 +152,41 @@ functions:
     trim: 'TRIM({0})'
     upper: 'UPPER({0})'
     length: 'LENGTH({0})'
+    mask: "Concat(LEFT({0},3),'***',RIGHT({0},3))"
   datetime:
-  # https://www.w3schools.com/jsref/jsref_obj_date.asp
-  # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
-    curtime: 'SYSTIMESTAMP'
-    today: 'TRUNC(SYSDATE)' 
+    # https://www.w3schools.com/jsref/jsref_obj_date.asp
+    # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
     now: 'SYSTIMESTAMP'
-    # time: 'TIME({0})'
-    # date: 'DATE({0})'
-    # datetime: 'DATE({0})TIME({0})'
-    date: 'CAST({0} AS DATE)'
+    curtime: 'CAST(SYSTIMESTAMP AS TIME)'
+    today: 'TRUNC(SYSDATE)'     
     datetime: 'CAST({0} AS TIMESTAMP)'
+    date: 'CAST({0} AS DATE)'
     time: 'CAST({0} AS TIME)'
     year: 'EXTRACT(YEAR FROM {0})'
     month: 'EXTRACT(MONTH FROM {0})'
     day: 'DAY(DAY FROM {0})'
     weekday: "TO_NUMBER(TO_CHAR({0}, 'D'))"
-    hours: 'EXTRACT(HOUR FROM {0})'
-    minutes: 'EXTRACT(MINUTE FROM {0})'
-    seconds: 'EXTRACT(SECOND FROM {0})'
+    hour: 'EXTRACT(HOUR FROM {0})'
+    minute: 'EXTRACT(MINUTE FROM {0})'
+    second: 'EXTRACT(SECOND FROM {0})'
+    millisecond: 'EXTRACT(MILLISECOND FROM {0})'
     addYear: "{0} + interval '{1}' YEAR"
     addMonth: 'ADD_MONTHS({0},{1})'
     addDay: '{0} + {1}'
-    addHours: "{0} + interval '{1}' HOUR"
-    addMinutes: "{0} + interval '{1}' MINUTE"
-    addSeconds: "{0} + interval '{1}' SECOND"
+    addHour: "{0} + interval '{1}' HOUR"
+    addMinute: "{0} + interval '{1}' MINUTE"
+    addSecond: "{0} + interval '{1}' SECOND"
+    addMillisecond: "{0} + interval '{1}' MILLISECOND"
     addTime: 'ADDTIME({0},{1})'
-    dateDiff: 'DATEDIFF({0},{1})'
-    timeDiff: 'TIMEDIFF({0},{1})'
+    subtractTime: 'SUBTIME({0},{1})'
+    dayDiff: 'DATEDIFF({0},{1})'
+    hourDiff: 'TIMESTAMPDIFF(HOUR,({0},{1})'
+    secondDiff: 'TIMESTAMPDIFF(SECOND,({0},{1})'
+    millisecondDiff: 'TIMESTAMPDIFF(MICROSECOND,({0},{1})'
+    dayToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')"
+    hourToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')"
+    secondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')"
+    millisecondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
   convert:
     toString: 'CAST({0} AS VARCHAR2)'
     # toDate: 'CAST({0} AS DATE)'

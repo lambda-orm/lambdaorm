@@ -3,16 +3,13 @@ data:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 9
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 11
   order:
     customerId: VINET
     employeeId: 5
@@ -32,48 +29,27 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 833
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 833
-    id: 833
 test:
   - name: insert 1
     data: a
     sentences:
       - stage: mysql
-        sentence:
-          entity: Categories
-          dialect: mysql
-          dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Categories
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Categories.insert()
-    completeExpression: Categories.insert({name:name,description:description})
+    normalizeExpression: Categories.insert({name:name,description:description})
     model:
       - name: name
         type: string
@@ -127,45 +103,28 @@ test:
       parameters:
         - name: name
           type: string
-          value: Beverages20
         - name: description
           type: string
-          value: Soft drinks, coffees, teas, beers, and ales
       entity: Categories
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 9
+        error: 'SchemaError: View: mariadb not found'
   - name: insert 2
     data: b
     sentences:
       - stage: mysql
-        sentence:
-          entity: Categories
-          dialect: mysql
-          dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Categories
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Categories.insert(=>{name:name,description:description})
-    completeExpression: Categories.insert(=>{name:name,description:description})
+    normalizeExpression: Categories.insert(=>{name:name,description:description})
     model:
       - name: name
         type: string
@@ -219,45 +178,28 @@ test:
       parameters:
         - name: name
           type: string
-          value: Beverages21
         - name: description
           type: string
-          value: Soft drinks, coffees, teas, beers, and ales
       entity: Categories
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 10
+        error: 'SchemaError: View: mariadb not found'
   - name: insert 3
     data: c
     sentences:
       - stage: mysql
-        sentence:
-          entity: Categories
-          dialect: mysql
-          dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Categories
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Categories.insert(entity)
-    completeExpression: Categories.insert({name:entity.name,description:entity.description})
+    normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
       - name: name
         type: string
@@ -309,53 +251,28 @@ test:
       parameters:
         - name: entity.name
           type: string
-          value: Beverages22
         - name: entity.description
           type: string
-          value: Soft drinks, coffees, teas, beers, and ales
       entity: Categories
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 11
+        error: 'SchemaError: View: mariadb not found'
   - name: insert 4
     data: order
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.insert()
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
       - name: customerId
@@ -566,110 +483,50 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: VINET
         - name: employeeId
           type: integer
-          value: 5
         - name: orderDate
           type: datetime
-          value: '1996-07-04 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-08-01 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-07-16 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: 32.38
         - name: name
           type: string
-          value: Vins et alcools Chevalier
         - name: address
           type: string
-          value: 59 rue de l-Abbaye
         - name: city
           type: string
-          value: Reims
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '51100'
         - name: country
           type: string
-          value: France
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 831
+        error: 'SchemaError: View: mariadb not found'
   - name: insert 5
     data: order
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                INSERT INTO "Order
-                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-              childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.insert().include(p=>p.details)
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
       - name: customerId
@@ -953,19 +810,14 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 832
                 - name: productId
                   type: integer
-                  value: 72
                 - name: unitPrice
                   type: decimal
-                  value: 34.8
                 - name: quantity
                   type: decimal
-                  value: 5
                 - name: discount
                   type: decimal
-                  value: 10
               entity: OrderDetails
           relation:
             name: details
@@ -1006,134 +858,50 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: VINET
         - name: employeeId
           type: integer
-          value: 5
         - name: orderDate
           type: datetime
-          value: '1996-07-04 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-08-01 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-07-16 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: 32.38
         - name: name
           type: string
-          value: Vins et alcools Chevalier
         - name: address
           type: string
-          value: 59 rue de l-Abbaye
         - name: city
           type: string
-          value: Reims
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '51100'
         - name: country
           type: string
-          value: France
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 832
+        error: 'SchemaError: View: mariadb not found'
   - name: insert 6
     data: order
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
-            - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                INSERT INTO
-                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES(?,?,?,?,?,?,?,?,?)
-              childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                INSERT INTO "Order
-                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-              childs: []
-            - entity: Customers
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                INSERT INTO
-                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
-              childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
-            - entity: Customers
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                INSERT INTO
-                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES(?,?,?,?,?,?,?,?,?)
-              childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.insert().include(p=>[p.details,p.customer])
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
     model:
       - name: customerId
@@ -1465,19 +1233,14 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 833
                 - name: productId
                   type: integer
-                  value: 72
                 - name: unitPrice
                   type: decimal
-                  value: 34.8
                 - name: quantity
                   type: decimal
-                  value: 5
                 - name: discount
                   type: decimal
-                  value: 10
               entity: OrderDetails
           relation:
             name: details
@@ -1654,47 +1417,36 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: VINET
         - name: employeeId
           type: integer
-          value: 5
         - name: orderDate
           type: datetime
-          value: '1996-07-04 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-08-01 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-07-16 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: 32.38
         - name: name
           type: string
-          value: Vins et alcools Chevalier
         - name: address
           type: string
-          value: 59 rue de l-Abbaye
         - name: city
           type: string
-          value: Reims
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '51100'
         - name: country
           type: string
-          value: France
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 833
-errors: 0
+        error: 'SchemaError: View: mariadb not found'
+errors: 36

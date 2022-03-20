@@ -16,11 +16,11 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 	lines.push('describe(\'Complete Expression\', () => {')
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
-		if (expTest.expression && expTest.completeExpression) {
+		if (expTest.expression && expTest.normalizeExpression) {
 			lines.push(`\ttest('${expTest.name}', () => {`)
 			lines.push(`\t\tconst source = '${expTest.expression.trim()}'`)
-			lines.push(`\t\tconst expected = '${expTest.completeExpression.trim()}'`)
-			lines.push('\t\tconst target = orm.complete(source)')
+			lines.push(`\t\tconst expected = '${expTest.normalizeExpression.trim()}'`)
+			lines.push('\t\tconst target = orm.normalize(source)')
 			lines.push('\t\texpect(expected).toBe(target)')
 			lines.push('\t})')
 		}
@@ -52,7 +52,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 	lines.push('describe(\'Sentences\', () => {')
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
-		if (expTest.expression && expTest.completeExpression) {
+		if (expTest.expression && expTest.normalizeExpression) {
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
 			for (const r in stages) {
@@ -91,7 +91,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 	lines.push(`\tconst data = ${JSON.stringify(category.data)}`)
 	for (const p in category.test) {
 		const expTest = category.test[p] as ExpressionTest
-		if (expTest.expression && expTest.completeExpression) {
+		if (expTest.expression && expTest.normalizeExpression) {
 			lines.push(`\ttest('${expTest.name}', async () => {`)
 			lines.push(`\t\tconst expression = '${expTest.expression}'`)
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)

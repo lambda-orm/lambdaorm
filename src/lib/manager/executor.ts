@@ -1,35 +1,34 @@
 
 import { Query, ExecuteResult } from '../model'
 import { ConnectionManager } from '../connection'
-import { LanguageManager } from '../language'
-import { ExpressionManager, QueryExecutor, Transaction } from '.'
+import { ExpressionManager, QueryExecutor, Transaction, Languages } from '.'
 import { SchemaManager } from './schema'
 import { Expressions } from 'js-expressions'
 
 export class Executor {
-	private languageManager: LanguageManager
+	private languages: Languages
 	private connectionManager: ConnectionManager
 	private schemaManager: SchemaManager
 	private expressionManager: ExpressionManager
 	private expressions: Expressions
 
-	constructor (connectionManager: ConnectionManager, languageManager: LanguageManager, schemaManager: SchemaManager, expressionManager:ExpressionManager, expressions: Expressions) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressionManager:ExpressionManager, expressions: Expressions) {
 		this.connectionManager = connectionManager
-		this.languageManager = languageManager
+		this.languages = languages
 		this.schemaManager = schemaManager
 		this.expressionManager = expressionManager
 		this.expressions = expressions
 	}
 
-	public async execute (query: Query, data: any, stage:string): Promise<any> {
+	public async execute (query: Query, data: any, stage:string, view:string): Promise<any> {
 		let error: any
 		let result:any
 		if (query.children && query.children.length > 0) {
-			await this.transaction(stage, async function (tr: Transaction) {
+			await this.transaction(stage, view, async function (tr: Transaction) {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.schemaManager, this.expressions, stage, false)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, false)
 			try {
 				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
@@ -44,13 +43,13 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (stage: string, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+	public async executeList (stage: string, view: string|undefined, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.schemaManager, this.expressions, stage, false)
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
@@ -61,7 +60,7 @@ export class Executor {
 				}
 			}
 		} else {
-			await this.transaction(stage, async function (tr: Transaction) {
+			await this.transaction(stage, view, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
 					const result = await tr.execute(query)
@@ -77,8 +76,8 @@ export class Executor {
  * @param dataSource Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction (stage: string, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languageManager, this.schemaManager, this.expressions, stage, true)
+	public async transaction (stage: string, view:string|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, true)
 		let error:any
 		try {
 			const transaction = new Transaction(this.expressionManager, queryExecutor)

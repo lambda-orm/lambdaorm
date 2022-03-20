@@ -1,0 +1,101 @@
+[
+	{
+		"id": "rita-puchuri",
+		"name": "Rita Puchuri",
+		"created": "2022-03-16T19:12:30.000Z",
+		"members": [
+			{
+				"id": "rita-puchuri-flaviolrita",
+				"username": "flaviolrita",
+				"groupId": "rita-puchuri",
+				"role": "admin",
+				"user": {
+					"username": "flaviolrita",
+					"firstname": "Flavio Lionel",
+					"lastname": "Rita",
+					"email": "flaviolrita@hotmail.com",
+					"created": "2022-03-16T11:54:57.000Z"
+				}
+			},
+			{
+				"id": "rita-puchuri-griss512",
+				"username": "griss512",
+				"groupId": "rita-puchuri",
+				"role": "auditor",
+				"user": {
+					"username": "griss512",
+					"firstname": "Gricelda Rocio",
+					"lastname": "Puchuri Corilla'",
+					"email": "griss512@hotmail.com",
+					"created": "2022-03-16T11:55:49.000Z"
+				}
+			},
+			{
+				"id": "rita-puchuri-joaquinirita",
+				"username": "joaquinirita",
+				"groupId": "rita-puchuri",
+				"role": "operator",
+				"user": {
+					"username": "joaquinirita",
+					"firstname": "Joaquin Ignacio",
+					"lastname": "Rita Puchuri",
+					"email": "frita@beesion.com",
+					"created": "2022-03-16T11:58:22.000Z"
+				}
+			},
+			{
+				"id": "rita-puchuri-micaelavrita",
+				"username": "micaelavrita",
+				"groupId": "rita-puchuri",
+				"role": "operator",
+				"user": {
+					"username": "micaelavrita",
+					"firstname": "Micaela Valentina",
+					"lastname": "Rita Puchuri",
+					"email": "flaviolrita@gmail.com",
+					"created": "2022-03-16T11:57:29.000Z"
+				}
+			}
+		],
+		"devices": [
+			{
+				"id": "phone-863451049927149",
+				"type": "phone",
+				"name": "Huawei P30 lite Flavio",
+				"groupId": "rita-puchuri",
+				"so": "android 10",
+				"imei": "863451049927149",
+				"imei2": "863451049959159",
+				"mac": "FC:94:35:90:E2:86",
+				"macBluetooth": "FC:94:35:90:EF:07",
+				"ip": "192.168.1.138",
+				"brand": "Huawei",
+				"model": "MAR-LX1A",
+				"serialNumber": "L2NDU19A18006154",
+				"created": "2022-03-16T19:12:30.000Z",
+				"components": [
+					{
+						"id": "phone-863451049927149-frontal-camera",
+						"deviceId": "phone-863451049927149",
+						"name": "frontal camera",
+						"type": "camera",
+						"brand": "Huawei",
+						"model": "24Mpx front",
+						"serialNumber": null,
+						"created": "2022-03-16T19:12:30.000Z"
+					},
+					{
+						"id": "phone-863451049927149-rear-camera",
+						"deviceId": "phone-863451049927149",
+						"name": "Rear camera",
+						"type": "camera",
+						"brand": "Huawei",
+						"model": "Rear camera 48, 8 and 2Mpx",
+						"serialNumber": null,
+						"created": "2022-03-16T19:12:30.000Z"
+					}
+				]
+			}
+		]
+	}
+]

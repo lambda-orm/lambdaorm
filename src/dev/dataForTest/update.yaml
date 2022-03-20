@@ -226,41 +226,14 @@ test:
     data: a
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.update()
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
       - name: customerId
@@ -487,91 +460,52 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: ANATR
         - name: employeeId
           type: integer
-          value: 7
         - name: orderDate
           type: datetime
-          value: '1996-09-18 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-10-16 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-09-24 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: '1.6100'
         - name: name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: address
           type: string
-          value: Avda. de la Constitucin 2222
         - name: city
           type: string
-          value: Mxico D.F.
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '5021'
         - name: country
           type: string
-          value: Mexico
         - name: obj.id
           type: integer
-          value: null
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 0
+        error: 'SchemaError: View: mariadb not found'
   - name: update 2
     data: b
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.update(entity)
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country})
     model:
       - name: customerId
@@ -794,79 +728,52 @@ test:
       parameters:
         - name: entity.customerId
           type: string
-          value: ANATR
         - name: entity.employeeId
           type: integer
-          value: 3
         - name: entity.orderDate
           type: datetime
-          value: '1997-08-08 00:00:00'
         - name: entity.requiredDate
           type: datetime
-          value: '1997-09-05 00:00:00'
         - name: entity.shippedDate
           type: datetime
-          value: '1997-08-14 00:00:00'
         - name: entity.shipViaId
           type: integer
-          value: 1
         - name: entity.freight
           type: decimal
-          value: '43.9000'
         - name: entity.name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: entity.address
           type: string
-          value: Avda. de la Constitucin 2222
         - name: entity.city
           type: string
-          value: Mxico D.F.
         - name: entity.region
           type: string
-          value: null
         - name: entity.postalCode
           type: string
-          value: '5021'
         - name: entity.country
           type: string
-          value: Mexico
         - name: obj.id
           type: integer
-          value: null
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 0
+        error: 'SchemaError: View: mariadb not found'
   - name: update 3
     data: c
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.updateAll(=>{postalCode:postalCode})
-    completeExpression: Orders.update(=>{postalCode:postalCode})
+    normalizeExpression: Orders.update(=>{postalCode:postalCode})
     model:
       - name: postalCode
         type: string
@@ -903,40 +810,26 @@ test:
       parameters:
         - name: postalCode
           type: string
-          value: xxx
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 833
+        error: 'SchemaError: View: mariadb not found'
   - name: update 4
     data: b
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-          childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
-    completeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
+    normalizeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     model:
       - name: name
         type: string
@@ -990,68 +883,29 @@ test:
       parameters:
         - name: entity.name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: entity.id
           type: integer
-          value: 8
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 1
+        error: 'SchemaError: View: mariadb not found'
   - name: update 5
     data: b
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
-              childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
-                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
-                = $6 AND o1.ProductID = $7) 
-              childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
-              childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id===entity.id))
     model:
       - name: name
@@ -1264,68 +1118,29 @@ test:
       parameters:
         - name: entity.name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: entity.id
           type: integer
-          value: 8
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 1
+        error: 'SchemaError: View: mariadb not found'
   - name: update 6
     data: b
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
-                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-                o1.ProductID = ?) 
-              childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
-                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
-                o1.ProductID = $2) 
-              childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
-                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-                o1.ProductID = ?) 
-              childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount})).filter(p=>(p.id===entity.id))
     model:
       - name: name
@@ -1497,65 +1312,29 @@ test:
       parameters:
         - name: entity.name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: entity.id
           type: integer
-          value: 8
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 1
+        error: 'SchemaError: View: mariadb not found'
   - name: update 7
     data: b
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
-                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
-              childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
-                = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
-              childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
-                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
-              childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
     model:
       - name: name
@@ -1714,79 +1493,28 @@ test:
       parameters:
         - name: entity.name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: entity.id
           type: integer
-          value: 8
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 1
+        error: 'SchemaError: View: mariadb not found'
   - name: update 8
     data: a
     sentences:
       - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
-              childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
-                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
-                = $6 AND o1.ProductID = $7) 
-              childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
-              childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Orders.update().include(p=>p.details)
-    completeExpression: >-
+    normalizeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
       - name: customerId
@@ -2119,25 +1847,18 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 7
                 - name: productId
                   type: integer
-                  value: 70
                 - name: unitPrice
                   type: decimal
-                  value: '12.0000'
                 - name: quantity
                   type: decimal
-                  value: '5.0000'
                 - name: discount
                   type: decimal
-                  value: '0.0000'
                 - name: obj.orderId
                   type: integer
-                  value: null
                 - name: obj.productId
                   type: integer
-                  value: null
               entity: OrderDetails
           relation:
             name: details
@@ -2178,140 +1899,52 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: ANATR
         - name: employeeId
           type: integer
-          value: 7
         - name: orderDate
           type: datetime
-          value: '1996-09-18 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-10-16 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-09-24 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: '1.6100'
         - name: name
           type: string
-          value: Ana Trujillo Emparedados y helados
         - name: address
           type: string
-          value: Avda. de la Constitucin 2222
         - name: city
           type: string
-          value: Mxico D.F.
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '5021'
         - name: country
           type: string
-          value: Mexico
         - name: obj.id
           type: integer
-          value: null
       entity: Orders
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 0
+        error: 'SchemaError: View: mariadb not found'
   - name: update 9
     data: d
     sentences:
       - stage: mysql
-        sentence:
-          entity: Customers
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-            ?,Country = ? WHERE c.CustomerID = ? 
-          childs:
-            - entity: Orders
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
-                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
-                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
-              childs:
-                - entity: OrderDetails
-                  dialect: mysql
-                  dataSource: mysql
-                  sentence: >-
-                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
-                    = ? AND o1.ProductID = ?) 
-                  childs: []
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        sentence:
-          entity: Customers
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName
-            = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode
-            = $8,Country = $9 WHERE c.CustomerID = $10 
-          childs:
-            - entity: Orders
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
-                $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
-                $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
-                $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID =
-                $14 
-              childs:
-                - entity: OrderDetails
-                  dialect: postgres
-                  dataSource: postgres
-                  sentence: >-
-                    UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
-                    $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE
-                    (o1.OrderID = $6 AND o1.ProductID = $7) 
-                  childs: []
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        sentence:
-          entity: Customers
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-            ?,Country = ? WHERE c.CustomerID = ? 
-          childs:
-            - entity: Orders
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
-                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
-                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
-              childs:
-                - entity: OrderDetails
-                  dialect: mariadb
-                  dataSource: mariadb
-                  sentence: >-
-                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
-                    = ? AND o1.ProductID = ?) 
-                  childs: []
-    errors: 0
+        error: 'SchemaError: View: mariadb not found'
+    errors: 6
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
-    completeExpression: >-
+    normalizeExpression: >-
       Customers.filter(p=>(p.id==obj.id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
     model:
       - name: id
@@ -2797,25 +2430,18 @@ test:
                       parameters:
                         - name: orderId
                           type: integer
-                          value: 6
                         - name: productId
                           type: integer
-                          value: 71
                         - name: unitPrice
                           type: decimal
-                          value: '21.5000'
                         - name: quantity
                           type: decimal
-                          value: '20.0000'
                         - name: discount
                           type: decimal
-                          value: '0.0000'
                         - name: obj.orderId
                           type: integer
-                          value: null
                         - name: obj.productId
                           type: integer
-                          value: null
                       entity: OrderDetails
                   relation:
                     name: details
@@ -2856,46 +2482,32 @@ test:
               parameters:
                 - name: customerId
                   type: string
-                  value: ALFKI
                 - name: employeeId
                   type: integer
-                  value: 3
                 - name: orderDate
                   type: datetime
-                  value: '1998-04-09 00:00:00'
                 - name: requiredDate
                   type: datetime
-                  value: '1998-05-07 00:00:00'
                 - name: shippedDate
                   type: datetime
-                  value: '1998-04-13 00:00:00'
                 - name: shipViaId
                   type: integer
-                  value: 1
                 - name: freight
                   type: decimal
-                  value: '1.2100'
                 - name: name
                   type: string
-                  value: Alfred-s Futterkiste
                 - name: address
                   type: string
-                  value: Obere Str. 57
                 - name: city
                   type: string
-                  value: Berlin
                 - name: region
                   type: string
-                  value: null
                 - name: postalCode
                   type: string
-                  value: '12209'
                 - name: country
                   type: string
-                  value: Germany
                 - name: obj.id
                   type: integer
-                  value: null
               entity: Orders
           relation:
             name: orders
@@ -2928,38 +2540,30 @@ test:
       parameters:
         - name: id
           type: string
-          value: ALFKI
         - name: name
           type: string
-          value: Alfreds Futterkiste
         - name: contact
           type: string
-          value: Maria Anders
         - name: phone
           type: string
-          value: Sales Representative
         - name: address
           type: string
-          value: Obere Str. 57
         - name: city
           type: string
-          value: Berlin
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '12209'
         - name: country
           type: string
-          value: Germany
         - name: obj.id
           type: string
-          value: null
       entity: Customers
     executions:
       - stage: mysql
+        error: 'SchemaError: View: mysql not found'
       - stage: postgres
+        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-    result: 0
-errors: 0
+        error: 'SchemaError: View: mariadb not found'
+errors: 54

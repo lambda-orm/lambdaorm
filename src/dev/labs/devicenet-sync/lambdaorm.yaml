@@ -27,8 +27,10 @@ enums:
     values:
       - name: admin
         value: admin
-      - name: member
-        value: member
+      - name: auditor
+        value: auditor
+      - name: operator
+        value: operator
       - name: guest
         value: guest
 entities:
@@ -60,6 +62,7 @@ entities:
         length: 32
   # model strcuture define
   - name: Users
+    view: true
     extends: Basics
     primaryKey: ["username"]
     uniqueKey: ["email"]
@@ -71,11 +74,15 @@ entities:
         nullable: false
       - name: lastname
         nullable: false
+      - name: fullmane
+        view: true
+        readExp: concat(lastname,", ",firstname)
       - name: email
         nullable: false
-        length: 512
-        writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
-        readValue: decrypt(email,"$$USERS_SECRET_KEY")
+        length: 255
+        readExp: mask(email)
+        # writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
+        # readValue: decrypt(email,"$$USERS_SECRET_KEY")
     constraints:
       - message: invalid email
         condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
@@ -138,8 +145,9 @@ entities:
       - name: name
         length: 32
         nullable: false
-      - name: groupId
+      - name: ownerId
         length: 32
+        nullable: false
       - name: so
         length: 32
       - name: imei
@@ -152,11 +160,13 @@ entities:
         length: 24
       - name: ip
         length: 24
+      - name: apiKey
+        length: 255
     relations:
-      - name: group
-        from: groupId
-        entity: Groups
-        to: id
+      - name: owner
+        from: ownerId
+        entity: Users
+        to: username
         target: devices
   - name: Components
     extends: Products
@@ -285,16 +295,60 @@ entities:
     constraints:
       - message: endDate cannot be less than startDate
         condition: startDate<=endDate
-  # TODO: crear solo la realcion en la entidad source y agregar la info para crear luego la relacion en la entidad target
+  # TODO: crear solo la relacion en la entidad source y agregar la info para crear luego la relacion en la entidad target
   # TODO: Definir Task, Activity, ProgramedTask, etc
+views:
+  - name: default
+    entities:
+      - name: Devices
+        properties:
+          - name: apyKey
+            readExp: "***"
+  - name: collector
+    entities:
+      - name: Users
+        exclude: true
+      - name: Groups
+        exclude: true
+      - name: GroupUsers
+        exclude: true
+  - name: admin
+    entities: []
 mappings:
   - name: default
+  - name: keycloak
+    entities:
+      - name: Users
+        mapping: user_entity
+        filter: realmId == "$$REALM_ID"
+        properties:
+          - name: username
+            mapping: username
+          - name: firstname
+            mapping: first_name
+          - name: lastname
+            mapping: last_name
+          - name: email
+            mapping: email
+          - name: created
+            mapping: created_timestamp
+            readMappingExp: millisecondToDate(created/1000)
+          - name: realmId
+            length: 255
+            mapping: realm_id
 dataSources:
   - name: main
     mapping: default
     dialect: postgres
     connection: $$CNN_POSTGRES
+  - name: keycloak
+    mapping: keycloak
+    dialect: postgres
+    connection: $$CNN_KEYCLOAK
 stages:
   - name: default
     dataSources:
       - name: main
+        condition: entity != "Users"
+      - name: keycloak
+        condition: entity == "Users"
