@@ -15,6 +15,36 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab performance northwind",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/northwind.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab performance shapes",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/shape/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/shape/.env"
+		},
+		{
+			"name": "lab performance CCLP",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
+		},
+		{
 			"name": "lab config",
 			"type": "node",
 			"request": "launch",
