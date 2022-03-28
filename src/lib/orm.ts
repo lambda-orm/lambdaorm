@@ -2,7 +2,7 @@
 
 import { IOrm, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool } from './connection'
+import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, OracleConnectionPool } from './connection'
 import { SqlLanguage } from './language/sql'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'
@@ -45,13 +45,13 @@ export class Orm implements IOrm {
 
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
-		// this.languages.addLanguage(new NoSqlLanguage())
+		// this.languages.add(new NoSqlLanguage(this._expressions))
 		this.connectionManager.addType('mysql', MySqlConnectionPool)
 		this.connectionManager.addType('mariadb', MariadbConnectionPool)
 		this.connectionManager.addType('postgres', PostgresConnectionPool)
 		this.connectionManager.addType('mssql', MssqlConnectionPool)
 		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
-		// this.connectionManager.addType('oracle',OracleConnectionPool)
+		this.connectionManager.addType('oracle', OracleConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)
@@ -90,7 +90,6 @@ export class Orm implements IOrm {
 			}
 			expressions.config.load({ enums: enums })
 		}
-
 		return schema
 	}
 

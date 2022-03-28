@@ -86,7 +86,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 				if (sorted.includes(entityName)) {
 					continue
 				}
-				if (this.solveSortEntity(entityName, sorted)) {
+				if (this.solveSortEntity(entityName, entities, sorted)) {
 					sorted.push(entityName)
 					break
 				}
@@ -113,7 +113,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 				if (entity === undefined) {
 					throw new SchemaError('Not exists entity:' + entityName)
 				}
-				if (!this.hadDependencies(entity, sorted)) {
+				if (!this.hadDependencies(entity, entities, sorted)) {
 					sorted.push(entityName)
 					break
 				}
@@ -129,7 +129,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param parent entity parent , used in manyToOne relations
 	 * @returns
 	 */
-	protected solveSortEntity (entityName:string, sorted:string[], parent?:string):boolean {
+	protected solveSortEntity (entityName:string, entities:string[], sorted:string[], parent?:string):boolean {
 		const entity = this.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError('Not exists entity:' + entityName)
@@ -140,14 +140,14 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			let unsolved = false
 			for (const i in entity.relations) {
 				const relation = entity.relations[i]
-				if (relation.entity !== entityName) {
+				if (relation.entity !== entityName && entities.includes(relation.entity)) {
 					if (relation.type === RelationType.oneToOne || relation.type === RelationType.oneToMany) {
 						if (!relation.weak && !sorted.includes(relation.entity) && (parent === null || parent !== relation.entity)) {
 							unsolved = true
 							break
 						}
 					} else if (relation.type === RelationType.manyToOne) {
-						if (relation.composite && !this.solveSortEntity(relation.entity, sorted, entityName)) {
+						if (relation.composite && !this.solveSortEntity(relation.entity, entities, sorted, entityName)) {
 							unsolved = true
 							break
 						}
@@ -165,14 +165,14 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param parent entity parent , used in manyToOne relations
 	 * @returns
 	 */
-	protected hadDependencies (entity:TEntity, sorted:string[], parent?:string):boolean {
+	protected hadDependencies (entity:TEntity, entities:string[], sorted:string[], parent?:string):boolean {
 		if (entity.dependents === undefined || entity.dependents.length === 0) {
 			return false
 		} else {
 			let hadDependents = false
 			for (const i in entity.dependents) {
 				const dependent = entity.dependents[i]
-				if (dependent.entity !== entity.name) {
+				if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
 					// if the relationship is not weak
 					if (!dependent.relation.weak) {
 						// look for the related property to see if the dependency is nullable
@@ -563,6 +563,9 @@ class SchemaExtender {
 						const property = entity.properties[j]
 						if (property.type === undefined) property.type = 'string'
 						if (property.type === 'string' && property.length === undefined) property.length = 80
+						if (property.length !== undefined && isNaN(property.length)) {
+							throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
+						}
 					}
 				}
 				if (entity.relations !== undefined) {
@@ -684,7 +687,12 @@ class SchemaExtender {
 				throw new SchemaError(`${entity.extends} not found`)
 			}
 			this.extendEntiyMapping(base, entities)
-			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) entity.uniqueKey = base.uniqueKey
+			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) {
+				entity.uniqueKey = base.uniqueKey
+			}
+			if (entity.mapping === undefined && base.mapping !== undefined) {
+				entity.mapping = base.mapping
+			}
 			// extend indexes
 			if (base.indexes !== undefined && base.indexes.length > 0) {
 				if (entity.indexes === undefined) {
@@ -731,11 +739,21 @@ class SchemaExtender {
 		if (mapping && mapping.entities) {
 			for (let i = 0; i < mapping.entities.length; i++) {
 				const entity = mapping.entities[i]
-				if (entity.mapping === undefined) entity.mapping = entity.name
+				if (entity.mapping === undefined) {
+					entity.mapping = entity.name
+				}
+				if (entity.mapping === null || entity.mapping === '') {
+					throw new SchemaError(`Mapping undefined in ${entity.name}  `)
+				}
 				if (entity.properties !== undefined) {
 					for (let j = 0; j < entity.properties.length; j++) {
 						const property = entity.properties[j]
-						if (property.mapping === undefined) property.mapping = property.name
+						if (property.mapping === undefined) {
+							property.mapping = property.name
+						}
+						if (property.mapping === null || property.mapping === '') {
+							throw new SchemaError(`Mapping undefined in ${entity.name}.${property.name}`)
+						}
 					}
 				}
 			}

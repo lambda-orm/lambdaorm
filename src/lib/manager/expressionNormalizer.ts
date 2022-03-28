@@ -372,7 +372,7 @@ export class ExpressionNormalizer {
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const fieldRelation = new Node(arrowFilterVar + '.' + relation.to, 'var') // new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
 		// const varRelation = new Node('list_' + relation.to, 'var')
-		const varRelation = new Node('__parentId', 'var')
+		const varRelation = new Node('LamdaOrmParentId', 'var')
 		const filterInclude = new Node('includes', 'funcRef', [fieldRelation, varRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Node(arrowFilterVar, 'var', [])
@@ -383,7 +383,7 @@ export class ExpressionNormalizer {
 		// If the column for which the include is to be resolved is not in the select, it must be added
 		const arrowSelect = clauses.map.children[1].name
 		const field = new Node(arrowSelect + '.' + relation.to, 'var')
-		clauses.map.children[2].children.push(new Node('__parentId', 'keyVal', [field]))
+		clauses.map.children[2].children.push(new Node('LamdaOrmParentId', 'keyVal', [field]))
 		// clauses.map.children[2].children.push(new Node(fieldName, 'var'))
 		// switch (clauses.map.children[2].type) {
 		// case 'var':
@@ -453,6 +453,9 @@ export class ExpressionNormalizer {
 			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
 			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
 			const relation = this.getIncludeRelation(entity, node)
+			if (!relation) {
+				throw new SchemaError(`Relation ${node.name} not found in ${entity.name}`)
+			}
 			const clauseNode = new Node(clause, 'childFunc', [node])
 			this.completeSentence(clauseNode, relation.entity)
 			return clauseNode

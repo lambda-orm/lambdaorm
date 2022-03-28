@@ -41,7 +41,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 		lines.push('\t\tconst constraints = orm.constraints(expression)')
 		lines.push('\t\tconst metadata = orm.metadata(expression)')
 		lines.push('\t\texpect(modelExpected).toStrictEqual(model)')
-		lines.push('\t\texpect(metadataExpected.fields).toStrictEqual(metadata.fields)')
+		lines.push('\t\texpect(metadataExpected.columns).toStrictEqual(metadata.columns)')
 		// lines.push('\t\texpect(JSON.stringify(metadataExpected)).toStrictEqual(JSON.stringify(metadata))')
 		lines.push('\t\texpect(parametersExpected).toStrictEqual(parameters)')
 		lines.push('\t\texpect(constraintsExpected).toStrictEqual(constraints)')
@@ -61,7 +61,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 					const sentence = expTest.sentences.find(p => p.stage === stage && p.error === undefined)
 					if (sentence !== undefined && sentence.sentence !== undefined) {
 						lines.push(`\t\tconst ${stage}Expected = ${JSON.stringify(sentence.sentence)}`)
-						lines.push(`\t\tlet ${stage} = orm.sentence(expression,'${stage}')`)
+						lines.push(`\t\tlet ${stage} = orm.sentence(expression,'default','${stage}')`)
 						lines.push(`\t\texpect(${stage}Expected).toStrictEqual(${stage})`)
 					}
 				}
@@ -97,7 +97,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in stages) {
 				const stage = stages[p]
-				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,'${stage}')`)
+				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,'default','${stage}')`)
 				lines.push(`\t\texpect(expected).toEqual(${stage}Result)`)
 			}
 			lines.push('\t})')

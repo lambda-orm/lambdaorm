@@ -44,7 +44,7 @@ dml:
   having: HAVING {0}
   sort: ORDER BY {0}
   order: ORDER BY {0}
-  page: LIMIT {offset},{records} 
+  page: "{sentence} LIMIT {offset},{records}" 
   insert: INSERT INTO {name}({fields}) VALUES({values})
   update: UPDATE {name} {alias} SET {assings} 
   remove: DELETE FROM {name} {alias} 
@@ -189,9 +189,6 @@ functions:
     millisecondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
   convert:
     toString: 'CAST({0} AS VARCHAR2)'
-    # toDate: 'CAST({0} AS DATE)'
-    # toDatetime: 'CAST({0} AS TIMESTAMP)'
-    # toTime: 'CAST({0} AS TIME)'
     toJson: 'json_value({0})'
     toNumber: 'CAST({0} AS NUMBER)'
   metadata:

@@ -1,0 +1,176 @@
+{
+	"entity": "DbDebtors",
+	"dialect": "postgres",
+	"dataSource": "LocDebtors",
+	"sentence": "SELECT d.DEBTOR_ID AS \"id\", d.DEBTOR_NUMBER AS \"debtorNumber\", d.NAME AS \"name\", d.PARTY_ROLE_REF_ID AS \"partyRoleRefId\", d.DEBTOR_STATUS_ID AS \"debtorStatusId\", d.PARTY_REF_ID AS \"partyRefId\", d.MAIN_ACCOUNT_REF_ID AS \"mainAccountRefId\", d.STAGE_ID AS \"stageId\", d.DEBTOR_TYPE_ID AS \"debtorTypeId\", d.REFERENCE_NUMBER AS \"referenceNumber\", to_char(d.LAST_MODIFICATION_DATE::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"') AS \"lastModificationDate\", d.REGISTRATION_DATE AS \"registrationDate\", d.IDENTIFICATION_VALUE AS \"identificationValue\", d.IDENTIFICATION_TYPE AS \"identificationType\", d.ADDITIONAL_INFO_1 AS \"additionalInfo1\", d.ADDITIONAL_INFO_2 AS \"additionalInfo2\", d.ADDITIONAL_INFO_3 AS \"additionalInfo3\", d.PARTY_ROLE_REF_ID AS \"__partyRoleRefId\", d.DEBTOR_ID AS \"__id\", d.DEBTOR_ID AS \"__id\" FROM TBL_DB_DEBTOR d  ",
+	"childs": [
+		{
+			"entity": "DbPartyRoleReferences",
+			"dialect": "postgres",
+			"dataSource": "LocDebtors",
+			"sentence": "SELECT d1.REF_TYPE AS \"refType\", CAST(d1.REF_ID AS INTEGER) AS \"refId\", d1.REFERENCE_ID AS \"id\", d1.NAME AS \"name\", CAST(d1.REF_ID AS INTEGER) AS \"__refId\", d1.REFERENCE_ID AS \"LamdaOrmParentId\" FROM TBL_SRB_REFERENCE d1  WHERE ( d1.REFERENCE_ID IN ($1) AND d1.REF_TYPE = 'Party Role') ",
+			"childs": [
+				{
+					"entity": "PrPartyRoles",
+					"dialect": "postgres",
+					"dataSource": "locPartyRoles",
+					"sentence": "SELECT p.PARTY_ROLE_ID AS \"id\", p.STATUS_ID AS \"statusId\", p.NAME AS \"name\", p.PARTY_ID AS \"partyId\", p.VALID_FROM AS \"validFrom\", p.PARTY_ROLE_SPEC_ID AS \"partyRoleSpecId\", p.PARTY_ID AS \"__partyId\", p.PARTY_ID AS \"__partyId\", p.PARTY_ROLE_ID AS \"__id\", p.PARTY_ROLE_ID AS \"LamdaOrmParentId\" FROM TBL_PR_PARTY_ROLE p  WHERE  p.PARTY_ROLE_ID IN ($1) ",
+					"childs": [
+						{
+							"entity": "PrIndividualReferences",
+							"dialect": "postgres",
+							"dataSource": "locPartyRoles",
+							"sentence": "SELECT p1.REF_TYPE AS \"refType\", CAST(p1.REF_ID AS INTEGER) AS \"refId\", p1.REFERENCE_ID AS \"id\", p1.NAME AS \"name\", CAST(p1.REF_ID AS INTEGER) AS \"__refId\", p1.REFERENCE_ID AS \"LamdaOrmParentId\" FROM TBL_SRB_REFERENCE p1  WHERE ( p1.REFERENCE_ID IN ($1) AND p1.REF_TYPE = 'Individual') ",
+							"childs": [
+								{
+									"entity": "PmIndividuals",
+									"dialect": "postgres",
+									"dataSource": "locParties",
+									"sentence": "SELECT p12.INDIVIDUAL_ID AS \"id\", p12.PARTY_ID AS \"partyId\", p12.GENDER_ID AS \"genderId\", p12.BIRTH_DATE AS \"birthDate\", p12.DEATH_DATE AS \"deathDate\", p12.NATIONALITY_REF_ID AS \"nationalityRefId\", p12.CURRENT_NAME_ID AS \"currentNameId\", p12.PARTY_ID AS \"__partyId\", p12.INDIVIDUAL_ID AS \"__id\", p12.INDIVIDUAL_ID AS \"LamdaOrmParentId\" FROM TBL_PM_INDIVIDUAL p12  WHERE  p12.INDIVIDUAL_ID IN ($1) ",
+									"childs": [
+										{
+											"entity": "PmParties",
+											"dialect": "postgres",
+											"dataSource": "locParties",
+											"sentence": "SELECT p123.PARTY_ID AS \"id\", p123.INDIVIDUAL_ID AS \"individualId\", p123.ORGANIZATION_ID AS \"organizationId\", p123.STATUS_ID AS \"statusId\", p123.REGISTER_DATE AS \"registredDate\", p123.PARTY_ID AS \"__id\", p123.PARTY_ID AS \"LamdaOrmParentId\" FROM TBL_PM_PARTY p123  WHERE  p123.PARTY_ID IN ($1) ",
+											"childs": [
+												{
+													"entity": "PmIdentifications",
+													"dialect": "postgres",
+													"dataSource": "locParties",
+													"sentence": "SELECT p1234.IDENTIFICATION_ID AS \"id\", p1234.IDENTIFICATION_TYPE_ID AS \"identificationTypeId\", p1234.PARTY_ID AS \"partyId\", p1234.IDENTIFICATION_VALUE AS \"indentificationValue\", p1234.SOURCE AS \"source\", p1234.PARTY_ID AS \"LamdaOrmParentId\" FROM TBL_PM_IDENTIFICATION p1234  WHERE  p1234.PARTY_ID IN ($1) ",
+													"childs": []
+												}
+											]
+										},
+										{
+											"entity": "PmIndividualNames",
+											"dialect": "postgres",
+											"dataSource": "locParties",
+											"sentence": "SELECT p12345.INDIVIDUAL_NAME_ID AS \"id\", p12345.INDIVIDUAL_ID AS \"individualId\", p12345.GIVEN_NAMES AS \"givenNames\", p12345.MIDDLE_NAMES AS \"middleNames\", p12345.FAMILY_NAMES AS \"familyNames\", p12345.LEGAL_NAME AS \"legalName\", p12345.INDIVIDUAL_ID AS \"LamdaOrmParentId\" FROM TBL_PM_INDIVIDUAL_NAME p12345  WHERE  p12345.INDIVIDUAL_ID IN ($1) ",
+											"childs": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"entity": "PrOrganizationReferences",
+							"dialect": "postgres",
+							"dataSource": "locPartyRoles",
+							"sentence": "SELECT p123456.REF_TYPE AS \"refType\", CAST(p123456.REF_ID AS INTEGER) AS \"refId\", p123456.REFERENCE_ID AS \"id\", p123456.NAME AS \"name\", CAST(p123456.REF_ID AS INTEGER) AS \"__refId\", p123456.REFERENCE_ID AS \"LamdaOrmParentId\" FROM TBL_SRB_REFERENCE p123456  WHERE ( p123456.REFERENCE_ID IN ($1) AND p123456.REF_TYPE = 'Organization') ",
+							"childs": [
+								{
+									"entity": "PmOrganizations",
+									"dialect": "postgres",
+									"dataSource": "locParties",
+									"sentence": "SELECT p1234567.ORGANIZATION_ID AS \"id\", p1234567.PARTY_ID AS \"partyId\", p1234567.LEGAL_PERIOD_FROM AS \"legalPeriodFrom\", p1234567.CURRENT_NAME_ID AS \"currentNameId\", p1234567.INDUSTRY_TYPE_ID AS \"industyTypeId\", p1234567.COMMERCIAL_DESCRIPTION AS \"commercialDescription\", p1234567.PARTY_ID AS \"__partyId\", p1234567.ORGANIZATION_ID AS \"__id\", p1234567.ORGANIZATION_ID AS \"LamdaOrmParentId\" FROM TBL_PM_ORGANIZATION p1234567  WHERE  p1234567.ORGANIZATION_ID IN ($1) ",
+									"childs": [
+										{
+											"entity": "PmParties",
+											"dialect": "postgres",
+											"dataSource": "locParties",
+											"sentence": "SELECT p12345678.PARTY_ID AS \"id\", p12345678.INDIVIDUAL_ID AS \"individualId\", p12345678.ORGANIZATION_ID AS \"organizationId\", p12345678.STATUS_ID AS \"statusId\", p12345678.REGISTER_DATE AS \"registredDate\", p12345678.PARTY_ID AS \"__id\", p12345678.PARTY_ID AS \"LamdaOrmParentId\" FROM TBL_PM_PARTY p12345678  WHERE  p12345678.PARTY_ID IN ($1) ",
+											"childs": [
+												{
+													"entity": "PmIdentifications",
+													"dialect": "postgres",
+													"dataSource": "locParties",
+													"sentence": "SELECT p123456789.IDENTIFICATION_ID AS \"id\", p123456789.IDENTIFICATION_TYPE_ID AS \"identificationTypeId\", p123456789.PARTY_ID AS \"partyId\", p123456789.IDENTIFICATION_VALUE AS \"indentificationValue\", p123456789.SOURCE AS \"source\", p123456789.PARTY_ID AS \"LamdaOrmParentId\" FROM TBL_PM_IDENTIFICATION p123456789  WHERE  p123456789.PARTY_ID IN ($1) ",
+													"childs": []
+												}
+											]
+										},
+										{
+											"entity": "PmOrganizationNames",
+											"dialect": "postgres",
+											"dataSource": "locParties",
+											"sentence": "SELECT p12345678910.ORGANIZATION_NAME_ID AS \"id\", p12345678910.ORGANIZATION_ID AS \"organizationId\", p12345678910.TRADING_NAME AS \"tradingName\", p12345678910.ORGANIZATION_ID AS \"LamdaOrmParentId\" FROM TBL_PM_ORGANIZATION_NAME p12345678910  WHERE  p12345678910.ORGANIZATION_ID IN ($1) ",
+											"childs": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"entity": "PrPartyRolePlaces",
+							"dialect": "postgres",
+							"dataSource": "locPartyRoles",
+							"sentence": "SELECT p1234567891011.PARTY_ROLE_PLACE_ID AS \"id\", p1234567891011.PARTY_ROLE_ID AS \"partyRoleId\", p1234567891011.PLACE_REF_ID AS \"placeRefId\", p1234567891011.PLACE_REF_ID AS \"__placeRefId\", p1234567891011.PARTY_ROLE_ID AS \"LamdaOrmParentId\" FROM TBL_PR_PARTY_ROLE_PLACE p1234567891011  WHERE  p1234567891011.PARTY_ROLE_ID IN ($1) ",
+							"childs": [
+								{
+									"entity": "PrAddressReferences",
+									"dialect": "postgres",
+									"dataSource": "locPartyRoles",
+									"sentence": "SELECT p123456789101112.REF_TYPE AS \"refType\", CAST(p123456789101112.REF_ID AS INTEGER) AS \"refId\", p123456789101112.REFERENCE_ID AS \"id\", p123456789101112.NAME AS \"name\", CAST(p123456789101112.REF_ID AS INTEGER) AS \"__refId\", p123456789101112.REFERENCE_ID AS \"LamdaOrmParentId\" FROM TBL_SRB_REFERENCE p123456789101112  WHERE ( p123456789101112.REFERENCE_ID IN ($1) AND p123456789101112.REF_TYPE = 'Address') ",
+									"childs": [
+										{
+											"entity": "LocAddresses",
+											"dialect": "postgres",
+											"dataSource": "locLocations",
+											"sentence": "SELECT l.ADDRESS_ID AS \"id\", l.COUNTRY_ID AS \"countryId\", l.STREET_NAME AS \"streetName\", l.STREET_NR_FIRST AS \"streetNrFirst\", l.POSTAL_CODE AS \"postalCode\", l.ADDRESS_LINE_1 AS \"city\", l.ADDITIONAL_DATA_1 AS \"additionalData\", l.ADDRESS_ID AS \"__id\", l.ADDRESS_ID AS \"LamdaOrmParentId\" FROM TBL_LOC_ADDRESS l  WHERE  l.ADDRESS_ID IN ($1) ",
+											"childs": [
+												{
+													"entity": "LocAddressAreas",
+													"dialect": "postgres",
+													"dataSource": "locLocations",
+													"sentence": "SELECT l1.ADDRESS_AREA_ID AS \"id\", l1.ADDRESS_ID AS \"addressId\", l1.AREA_ID AS \"areaId\", l1.ADDRESS_ID AS \"LamdaOrmParentId\" FROM TBL_LOC_ADDRESS_AREA l1  WHERE  l1.ADDRESS_ID IN ($1) ",
+													"childs": []
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"entity": "DbDebtorAccounts",
+			"dialect": "postgres",
+			"dataSource": "LocDebtors",
+			"sentence": "SELECT d12.DEBTOR_ACCOUNT_ID AS \"id\", d12.ACCOUNT_NUMBER AS \"accountNumber\", d12.NAME AS \"name\", d12.DEBTOR_ID AS \"debtorId\", d12.ACTUAL_PAST_DUE AS \"actualPastDue\", d12.WRITE_OFF AS \"writeOff\", d12.SECURITIZED AS \"securized\", d12.UNBILLED AS \"unbilled\", d12.PROVIDER_ID AS \"providerId\", d12.ACCOUNT_LEDGER_REF_ID AS \"accountLedgerRefId\", d12.LAST_MODIFICATION_DATE AS \"lastModificationDate\", d12.REFERENCE_NUMBER AS \"referenceNumber\", d12.ACCOUNT_STATUS_ID AS \"accountStatusId\", d12.REGISTRATION_DATE AS \"registrationDate\", d12.CURRENCY_REF_ID AS \"currencyRefId\", d12.ARRANGED AS \"arranged\", d12.UNEXPIRED AS \"unexpired\", d12.ACTIVE_SEGMENT_ID AS \"activeSegmentId\", d12.ACCOUNT_LEDGER_REF_ID AS \"__accountLedgerRefId\", d12.DEBTOR_ACCOUNT_ID AS \"__id\", d12.DEBTOR_ID AS \"LamdaOrmParentId\" FROM TBL_DB_DEBTOR_ACCOUNT d12  WHERE  d12.DEBTOR_ID IN ($1) ",
+			"childs": [
+				{
+					"entity": "DbLedgerAccountReferences",
+					"dialect": "postgres",
+					"dataSource": "LocDebtors",
+					"sentence": "SELECT d123.REF_TYPE AS \"refType\", CAST(d123.REF_ID AS INTEGER) AS \"refId\", d123.REFERENCE_ID AS \"id\", d123.NAME AS \"name\", CAST(d123.REF_ID AS INTEGER) AS \"__refId\", d123.REFERENCE_ID AS \"LamdaOrmParentId\" FROM TBL_SRB_REFERENCE d123  WHERE ( d123.REFERENCE_ID IN ($1) AND d123.REF_TYPE = 'LedgerAccount') ",
+					"childs": [
+						{
+							"entity": "LamAccounts",
+							"dialect": "postgres",
+							"dataSource": "locLedgerAccounts",
+							"sentence": "SELECT l12.ACCOUNT_ID AS \"id\", l12.ACCOUNT_NUMBER AS \"accountNumber\", l12.NAME AS \"name\", l12.CURRENCY_REF_ID AS \"currencyRefId\", l12.ACCOUNT_TYPE_ID AS \"accountTypeId\", l12.ACCOUNT_STATUS_ID AS \"accountStatusId\", l12.ACCOUNT_HOLDER_REF_ID AS \"accountHolderRefId\", l12.BALANCE AS \"balance\", l12.STATEMENT_CYCLE_ID AS \"statementCycleId\", l12.REGISTRATION_DATE AS \"registrationDate\", l12.CREDITOR_ID AS \"creditorId\", l12.ACCOUNT_ID AS \"__id\", l12.ACCOUNT_ID AS \"LamdaOrmParentId\" FROM TBL_LAM_ACCOUNT l12  WHERE  l12.ACCOUNT_ID IN ($1) ",
+							"childs": [
+								{
+									"entity": "LamAccountStatusHistories",
+									"dialect": "postgres",
+									"dataSource": "locLedgerAccounts",
+									"sentence": "SELECT l123.ACCOUNT_STATUS_HISTORY_ID AS \"id\", l123.ACCOUNT_STATUS AS \"accountStatus\", l123.REGISTER_DATE AS \"registerDate\", l123.USER_REF_ID AS \"userRefId\", l123.REASON AS \"reason\", l123.REMARKS AS \"remarks\", l123.ACCOUNT_ID AS \"accountId\", l123.ACCOUNT_ID AS \"LamdaOrmParentId\" FROM TBL_LAM_ACCOUNT_STATUS_HISTORY l123  WHERE  l123.ACCOUNT_ID IN ($1) ",
+									"childs": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"entity": "DbAccountServices",
+					"dialect": "postgres",
+					"dataSource": "LocDebtors",
+					"sentence": "SELECT d1234.ACCOUNT_SERVICE_ID AS \"id\", d1234.NAME AS \"name\", d1234.REFERENCE_NUMBER AS \"referenceNumber\", d1234.ACCOUNT_ID AS \"accountId\", d1234.SERIAL_NUMBER AS \"serialNumber\", d1234.REGISTRATION_DATE AS \"registrationDate\", to_char(d1234.ACTIVATION_DATE::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"') AS \"activationDate\", to_char(d1234.DEACTIVATION_DATE::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"') AS \"deactivationDate\", d1234.CONTRACT_NUMBER AS \"contractNumber\", d1234.SERVICE_EXTERNAL_CODE AS \"serviceExternalCode\", d1234.PRODUCT_LINE AS \"productLine\", d1234.SUB_TYPE AS \"subType\", d1234.ACCOUNT_ID AS \"LamdaOrmParentId\" FROM TBL_DB_ACCOUNT_SERVICE d1234  WHERE  d1234.ACCOUNT_ID IN ($1) ",
+					"childs": []
+				}
+			]
+		},
+		{
+			"entity": "DbDebtorStatusHistories",
+			"dialect": "postgres",
+			"dataSource": "LocDebtors",
+			"sentence": "SELECT d12345.DEBTOR_STATUS_HISTORY_ID AS \"id\", d12345.DEBTOR_STATUS AS \"debtorStatus\", d12345.REGISTRATION_DATE AS \"registrationDate\", d12345.USER_REF_ID AS \"userRefId\", d12345.REASON AS \"reason\", d12345.REMARKS AS \"remarks\", d12345.DEBTOR_ID AS \"debtorId\", d12345.DEBTOR_ID AS \"LamdaOrmParentId\" FROM TBL_DB_DEBTOR_STATUS_HISTORY d12345  WHERE  d12345.DEBTOR_ID IN ($1) ",
+			"childs": []
+		}
+	]
+}

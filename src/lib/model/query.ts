@@ -9,7 +9,6 @@ export class Query {
 	public dialect: string
 	public dataSource: string
 	public entity: string
-	// public autoincrement?: Property
 	public columns: Property[]
 	public parameters: Parameter[]
 	public constraints:Constraint[]
@@ -20,7 +19,6 @@ export class Query {
 		this.dialect = dialect
 		this.sentence = sentence
 		this.entity = entity
-		// this.autoincrement = autoincrement
 		this.columns = columns
 		this.parameters = parameters
 		this.dataSource = dataSource
@@ -32,15 +30,12 @@ export class Query {
 }
 export class Include {
 		public name: string
-		public children: Query[]
+		public query: Query
 		public relation: Relation
-		// public variable: string
-		// constructor(name: string, children: Operand[] = [], relation: any, variable: string) {
-		constructor (name: string, children: Query[] = [], relation: Relation) {
+		constructor (name: string, query: Query, relation: Relation) {
 			this.name = name
-			this.children = children
+			this.query = query
 			this.relation = relation
-			// this.variable = variable
 		}
 }
 

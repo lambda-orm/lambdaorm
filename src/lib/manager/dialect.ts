@@ -41,7 +41,7 @@ export class Dialect {
 		return this._ddl[name]
 	}
 
-	public type (name:string):string {
+	public type (name: string): string {
 		return this._types[name]
 	}
 

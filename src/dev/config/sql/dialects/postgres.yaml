@@ -8,7 +8,7 @@ ddl:
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name}"
 dml:
-  page: OFFSET {offset} LIMIT {records}
+  page: "{sentence} OFFSET {offset} LIMIT {records}"
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id
   bulkInsert: INSERT INTO {name}({fields}) VALUES
 others:
@@ -51,63 +51,65 @@ functions:
     hourToDate: 'to_char(TO_TIMESTAMP({0}*3600*1000)::timestamp, ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
     secondToDate: 'to_char(TO_TIMESTAMP({0}*1000)::timestamp, ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
     millisecondToDate: 'to_char(TO_TIMESTAMP({0})::timestamp, ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
-# -- now
-# SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-# -- today
-# SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD')
-# --curtime
-# SELECT to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')
-# -- time  (from value)
-# SELECT to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')
-# -- date (from value)
-# SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD')
-# -- datetime (from value)
-# SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-# -- year
-# select date_part('year', timestamp '2022-03-17T11:28:37.138Z')
-# -- month
-# select date_part('month', timestamp '2022-03-17T11:28:37.138Z')
-# -- day
-# select date_part('day', timestamp '2022-03-17T11:28:37.138Z')
-# -- weekday
-# select extract(dow from timestamp '2022-03-17T11:28:37.138Z')
-# -- hour
-# select date_part('hour', timestamp '2022-03-17T11:28:37.138Z')
-# -- minute
-# select date_part('minute', timestamp '2022-03-17T11:28:37.138Z')
-# -- second
-# select round(extract('second' from timestamp '2022-03-17T11:28:37.138Z'))
-# -- millisecond
-# select mod(extract('millisecond ' from timestamp '2022-03-17T11:28:37.138Z')::decimal/1000,1)*1000
-# -- addYear
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 year'))
-# -- addMonth
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 month'))
-# -- addDay
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 day'))
-# -- addHour
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 hour'))
-# -- addMinute
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 minute'))
-# -- addSecond
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 second'))
-# -- addMillisecond
-# select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 millisecond'))
-# -- addTime
-# select (timestamp '2022-03-17T11:28:37.138Z' + time '03:10:12' )
-# -- dayDiff
-# select extract('epoch' from (timestamp '2022-03-18T11:28:39.000Z' - timestamp '2022-03-17T11:28:38.000Z' ))/ (24 * 3600)
-# -- hourDiff
-# select extract('epoch' from (timestamp '2022-03-17T11:28:37.000Z' - timestamp '2022-03-17T12:28:38.012Z' ))/3600
-# -- secondDiff
-# select extract('epoch' from (timestamp '2022-03-17T11:28:37.000Z' - timestamp '2022-03-17T11:28:38.012Z' ))
-# -- millisecondDiff
-# select extract('epoch' from (timestamp '2022-03-17T11:28:37.000Z' - timestamp '2022-03-17T11:28:38.012Z' ))*1000
-# -- dayToDate
-# select to_char(TO_TIMESTAMP(2*24*3600*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-# -- hourToDate
-# select to_char(TO_TIMESTAMP(2*3600*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-# -- secondToDate
-# select to_char(TO_TIMESTAMP(2*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-# -- millisecondToDate
-# select to_char(TO_TIMESTAMP(2)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+    # -- now
+    # SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+    # -- today
+    # SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD')
+    # --curtime
+    # SELECT to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')
+    # -- time  (from value)
+    # SELECT to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')
+    # -- date (from value)
+    # SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD')
+    # -- datetime (from value)
+    # SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+    # -- year
+    # select date_part('year', timestamp '2022-03-17T11:28:37.138Z')
+    # -- month
+    # select date_part('month', timestamp '2022-03-17T11:28:37.138Z')
+    # -- day
+    # select date_part('day', timestamp '2022-03-17T11:28:37.138Z')
+    # -- weekday
+    # select extract(dow from timestamp '2022-03-17T11:28:37.138Z')
+    # -- hour
+    # select date_part('hour', timestamp '2022-03-17T11:28:37.138Z')
+    # -- minute
+    # select date_part('minute', timestamp '2022-03-17T11:28:37.138Z')
+    # -- second
+    # select round(extract('second' from timestamp '2022-03-17T11:28:37.138Z'))
+    # -- millisecond
+    # select mod(extract('millisecond ' from timestamp '2022-03-17T11:28:37.138Z')::decimal/1000,1)*1000
+    # -- addYear
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 year'))
+    # -- addMonth
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 month'))
+    # -- addDay
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 day'))
+    # -- addHour
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 hour'))
+    # -- addMinute
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 minute'))
+    # -- addSecond
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 second'))
+    # -- addMillisecond
+    # select (timestamp '2022-03-17T11:28:37.138Z' + (2 * INTERVAL '1 millisecond'))
+    # -- addTime
+    # select (timestamp '2022-03-17T11:28:37.138Z' + time '03:10:12' )
+    # -- dayDiff
+    # select extract('epoch' from (timestamp '2022-03-18T11:28:39.000Z' - timestamp '2022-03-17T11:28:38.000Z' ))/ (24 * 3600)
+    # -- hourDiff
+    # select extract('epoch' from (timestamp '2022-03-17T11:28:37.000Z' - timestamp '2022-03-17T12:28:38.012Z' ))/3600
+    # -- secondDiff
+    # select extract('epoch' from (timestamp '2022-03-17T11:28:37.000Z' - timestamp '2022-03-17T11:28:38.012Z' ))
+    # -- millisecondDiff
+    # select extract('epoch' from (timestamp '2022-03-17T11:28:37.000Z' - timestamp '2022-03-17T11:28:38.012Z' ))*1000
+    # -- dayToDate
+    # select to_char(TO_TIMESTAMP(2*24*3600*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+    # -- hourToDate
+    # select to_char(TO_TIMESTAMP(2*3600*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+    # -- secondToDate
+    # select to_char(TO_TIMESTAMP(2*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+    # -- millisecondToDate
+    # select to_char(TO_TIMESTAMP(2)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
+  convert:
+    toNumber: "CAST({0} AS INTEGER)"

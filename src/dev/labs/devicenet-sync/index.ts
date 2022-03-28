@@ -76,13 +76,24 @@ function getDevices () {
 		// console.log(JSON.stringify(await orm.execute('Devices.bulkInsert().include(p-> p.components)', getDevices())))
 
 		// const expression = 'Groups.include(p=> [p.members.include(p=>p.user.include(p=> p.devices.include(p=>p.components.filter(p=> p.type == ComponentType.camera))))])'
-		const expression = 'Users'
-
-		// const expression = 'Users.filter(p-> p.username == "flaviolrita")'
 		// const expression = 'Users'
 
-		// console.log('sentence:')
-		// console.log(JSON.stringify(orm.sentence(expression)))
+		// https://www.postgresql.org/message-id/attachment/23520/sql-merge.html
+		// Groups.bulkMerge()
+		// .source(group.map(p -> { name: p.name, code: p.code }))
+		// .on(p => p.code == code)
+		// .matched({ name: name })
+		// .noMatchedTarget({ name: name, code: code, created: now() })
+		// .noMatchedSource({ name: name, code: code, created: now() })
+
+		// https://stackoverflow.com/questions/17267417/how-to-upsert-merge-insert-on-duplicate-update-in-postgresql
+		// const expression = 'Users.filter(p-> p.username == "flaviolrita")'
+		const expression = 'Users'
+
+		console.log('sentence:')
+		console.log(JSON.stringify(orm.sentence(expression, 'admin')))
+		console.log(JSON.stringify(orm.sentence(expression)))
+		// console.log(JSON.stringify(orm.sentence(expression, 'collector')))
 		// console.log('parameters:')
 		// console.log(JSON.stringify(orm.parameters(expression)))
 		// console.log('model:')
@@ -92,8 +103,8 @@ function getDevices () {
 		// console.log('metadata:')
 		// console.log(JSON.stringify(orm.metadata(expression)))
 
-		console.log(JSON.stringify(await orm.execute(expression, {}, 'admin')))
-		console.log(JSON.stringify(await orm.execute(expression)))
+		// console.log(JSON.stringify(await orm.execute(expression)))
+		// console.log(JSON.stringify(await orm.execute(expression, {}, 'admin')))
 
 		// // console.log(JSON.stringify(await orm.execute('Devices.updateAll({imei2:null})')))
 		// // console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))

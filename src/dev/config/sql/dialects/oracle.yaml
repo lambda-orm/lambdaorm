@@ -7,8 +7,13 @@ types:
 others:
   false: "N"
   true: "Y"
+dml:
+  page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
 ddl:
   dropPk: "DROP CONSTRAINT {name}"
   dropUk: "DROP CONSTRAINT {name}"
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name} ON {table}"
+functions:
+  datetime:
+    datetime: TO_CHAR({0},'YYYY-MM-DD"T"hh24:mi:ss')

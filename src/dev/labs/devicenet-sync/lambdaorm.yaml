@@ -302,8 +302,12 @@ views:
     entities:
       - name: Devices
         properties:
-          - name: apyKey
-            readExp: "***"
+          - name: apiKey
+            readExp: '"***"'
+      - name: Users
+        properties:
+          - name: created
+            readExp: date(created)
   - name: collector
     entities:
       - name: Users

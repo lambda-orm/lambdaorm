@@ -30,6 +30,7 @@ export interface Property {
 	readValue?: string
 	writeValue?: string
 	enum?: string
+	key?: string
 }
 export interface Relation {
 	name: string
@@ -72,7 +73,6 @@ export interface RelationInfo {
 }
 export interface PropertyMapping extends Property {
 	mapping: string
-	key?: string
 	readMappingExp?: string
 }
 export interface EntityMapping extends Entity {

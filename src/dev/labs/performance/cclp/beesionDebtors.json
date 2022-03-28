@@ -1,0 +1,2622 @@
+[
+	{
+		"id": 1311,
+		"debtorNumber": "000000001311",
+		"name": "CARLA DIAS DOMINGUEZ",
+		"partyRoleRefId": 5585,
+		"debtorStatusId": 2588,
+		"partyRefId": 5584,
+		"mainAccountRefId": 1586,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "BTCH_202203110107",
+		"lastModificationDate": null,
+		"registrationDate": "2022-03-11T15:10:09.000Z",
+		"identificationValue": "84255212",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1330,
+			"id": 5585,
+			"name": "CARLA DIAS DOMINGUEZ",
+			"partyRole": {
+				"id": 1330,
+				"statusId": 2,
+				"name": "CARLA DIAS DOMINGUEZ",
+				"partyId": 2663,
+				"validFrom": "2022-03-11T15:10:08.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1328,
+					"id": 2663,
+					"name": "CARLA DIAS DOMINGUEZ",
+					"individual": {
+						"id": 1328,
+						"partyId": 1340,
+						"genderId": 1,
+						"birthDate": "1937-02-14T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1566,
+						"party": {
+							"id": 1340,
+							"individualId": 1328,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T17:10:08",
+							"indentifications": [
+								{
+									"id": 1345,
+									"identificationTypeId": 13,
+									"partyId": 1340,
+									"indentificationValue": "84255212",
+									"source": "BSCSIX"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1566,
+								"individualId": 1328,
+								"givenNames": "CARLA",
+								"middleNames": "DOMINGUEZ",
+								"familyNames": "DIAS",
+								"legalName": "CARLA DIAS DOMINGUEZ"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1358,
+						"partyRoleId": 1330,
+						"placeRefId": 2664,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2732,
+							"id": 2664,
+							"name": "JR PABLO RISSO 391, L30,  JR PABLO RISSO 391  ,SAN LUIS ,LIMA ,LIMA ,PERU, PERU",
+							"address": {
+								"id": 2732,
+								"countryId": 175,
+								"streetName": "JR PABLO RISSO 391",
+								"streetNrFirst": null,
+								"postalCode": "L30",
+								"city": null,
+								"additionalData": " JR PABLO RISSO 391  ,SAN LUIS ,LIMA ,LIMA ,PERU",
+								"areas": [
+									{
+										"id": 8130,
+										"addressId": 2732,
+										"areaId": 158
+									},
+									{
+										"id": 8131,
+										"addressId": 2732,
+										"areaId": 17
+									},
+									{
+										"id": 8132,
+										"addressId": 2732,
+										"areaId": 1508
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1586,
+				"accountNumber": "000000001586",
+				"name": "BSCSIX-CUST0084951210",
+				"debtorId": 1311,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5586,
+				"lastModificationDate": "2022-03-11T17:10:10",
+				"referenceNumber": "CUST0084951210",
+				"accountStatusId": 3140,
+				"registrationDate": "2022-03-11T15:10:10.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1665,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1641,
+					"id": 5586,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1641,
+						"accountNumber": "000000001641",
+						"name": "BSCSIX-CUST0084951210",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3226,
+						"accountHolderRefId": 416,
+						"balance": 59.9,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T15:10:09.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3225,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T17:10:09",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1641
+							},
+							{
+								"id": 3226,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T17:10:09",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1641
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1616,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_00000132253771122-1-SP012128",
+						"accountId": 1586,
+						"serialNumber": "939317241",
+						"registrationDate": "2022-03-11T15:10:09.000Z",
+						"activationDate": "2021-08-15T00:00:00",
+						"deactivationDate": null,
+						"contractNumber": "132253771122",
+						"serviceExternalCode": "SP012128",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1696,
+						"debtorAccountId": 1586,
+						"paymentResponsibleId": 1311,
+						"locAddressRefId": 5587,
+						"isMain": "Y",
+						"paymentMethodRefId": 1722,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2733,
+							"id": 5587,
+							"name": "JR PABLO RISSO 391, L30,  JR PABLO RISSO 391  ,SAN LUIS ,LIMA ,LIMA ,PERU, PERU",
+							"address": {
+								"id": 2733,
+								"countryId": 175,
+								"streetName": "JR PABLO RISSO 391",
+								"streetNrFirst": null,
+								"postalCode": "L30",
+								"city": null,
+								"additionalData": " JR PABLO RISSO 391  ,SAN LUIS ,LIMA ,LIMA ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1311,
+							"name": "CARLA DIAS DOMINGUEZ CARLA DIAS DOMINGUEZ",
+							"referenceNumber": "BTCH_202203110107"
+						},
+						"paymentMethodRef": {
+							"id": 1722,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1311,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2587,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T17:10:09",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1311
+			},
+			{
+				"id": 2588,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T17:10:09",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1311
+			}
+		]
+	},
+	{
+		"id": 1346,
+		"debtorNumber": "000000001346",
+		"name": "GILMA ZARELA ELIAS DELGADO GILMA ZARELA TENORIO DELGADO",
+		"partyRoleRefId": 5727,
+		"debtorStatusId": 2658,
+		"partyRefId": 5726,
+		"mainAccountRefId": 1622,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "17160559",
+		"lastModificationDate": "2022-03-11T18:26:51",
+		"registrationDate": "2022-03-11T16:08:16.000Z",
+		"identificationValue": "10158798",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1365,
+			"id": 5727,
+			"name": "GILMA ZARELA TENORIO DELGADO",
+			"partyRole": {
+				"id": 1365,
+				"statusId": 2,
+				"name": "GILMA ZARELA TENORIO DELGADO",
+				"partyId": 2733,
+				"validFrom": "2022-03-11T16:08:16.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1361,
+					"id": 2733,
+					"name": "GILMA ZARELA TENORIO DELGADO",
+					"individual": {
+						"id": 1361,
+						"partyId": 1375,
+						"genderId": 3,
+						"birthDate": "1975-07-20T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1799,
+						"party": {
+							"id": 1375,
+							"individualId": 1361,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:16",
+							"indentifications": [
+								{
+									"id": 1380,
+									"identificationTypeId": 13,
+									"partyId": 1375,
+									"indentificationValue": "10158798",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1799,
+								"individualId": 1361,
+								"givenNames": "GILMA ZARELA",
+								"middleNames": "DELGADO",
+								"familyNames": "ELIAS",
+								"legalName": "GILMA ZARELA TENORIO DELGADO"
+							},
+							{
+								"id": 1600,
+								"individualId": 1361,
+								"givenNames": "GILMA ZARELA",
+								"middleNames": "DELGADO",
+								"familyNames": "ELIAS",
+								"legalName": "GILMA ZARELA TENORIO DELGADO"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1393,
+						"partyRoleId": 1365,
+						"placeRefId": 2734,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2803,
+							"id": 2734,
+							"name": "S/N MZ S LT 11, C01,  S/N MZ S LT 11  ,CALLAO ,CALLAO ,CALLAO ,PERU, PERU",
+							"address": {
+								"id": 2803,
+								"countryId": 175,
+								"streetName": "S/N MZ S LT 11",
+								"streetNrFirst": null,
+								"postalCode": "C01",
+								"city": null,
+								"additionalData": " S/N MZ S LT 11  ,CALLAO ,CALLAO ,CALLAO ,PERU",
+								"areas": [
+									{
+										"id": 8339,
+										"addressId": 2803,
+										"areaId": 97
+									},
+									{
+										"id": 8340,
+										"addressId": 2803,
+										"areaId": 9
+									},
+									{
+										"id": 8341,
+										"addressId": 2803,
+										"areaId": 903
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1622,
+				"accountNumber": "000000001622",
+				"name": "BSCSIX-BSCSIX-23031443",
+				"debtorId": 1346,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5728,
+				"lastModificationDate": "2022-03-11T18:26:51",
+				"referenceNumber": "BSCSIX-23031443",
+				"accountStatusId": 3212,
+				"registrationDate": "2022-03-11T16:08:17.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1933,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1677,
+					"id": 5728,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1677,
+						"accountNumber": "000000001677",
+						"name": "BSCSIX-BSCSIX-23031443",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3298,
+						"accountHolderRefId": 126,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:17.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3297,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:17",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1677
+							},
+							{
+								"id": 3298,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:17",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1677
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1663,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000016269016-1-SP01326",
+						"accountId": 1622,
+						"serialNumber": "940439878",
+						"registrationDate": "2022-03-11T16:08:17.000Z",
+						"activationDate": "2016-12-12T23:00:00",
+						"deactivationDate": "2021-07-13T00:00:00",
+						"contractNumber": "16269016",
+						"serviceExternalCode": "SP01326",
+						"productLine": "S",
+						"subType": "001"
+					},
+					{
+						"id": 1664,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000016269016-1-SP01359",
+						"accountId": 1622,
+						"serialNumber": "940439878",
+						"registrationDate": "2022-03-11T16:08:17.000Z",
+						"activationDate": "2016-12-12T23:00:00",
+						"deactivationDate": null,
+						"contractNumber": "16269016",
+						"serviceExternalCode": "SP01359",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1931,
+						"debtorAccountId": 1622,
+						"paymentResponsibleId": 1346,
+						"locAddressRefId": 5729,
+						"isMain": "Y",
+						"paymentMethodRefId": 1957,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2804,
+							"id": 5729,
+							"name": "S/N MZ S LT 11, C01,  S/N MZ S LT 11  ,CALLAO ,CALLAO ,CALLAO ,PERU, PERU",
+							"address": {
+								"id": 2804,
+								"countryId": 175,
+								"streetName": "S/N MZ S LT 11",
+								"streetNrFirst": null,
+								"postalCode": "C01",
+								"city": null,
+								"additionalData": " S/N MZ S LT 11  ,CALLAO ,CALLAO ,CALLAO ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1346,
+							"name": "GILMA ZARELA ELIAS DELGADO GILMA ZARELA TENORIO DELGADO",
+							"referenceNumber": "DEB-17160559"
+						},
+						"paymentMethodRef": {
+							"id": 1957,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1346,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2657,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:17",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1346
+			},
+			{
+				"id": 2658,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:17",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1346
+			}
+		]
+	},
+	{
+		"id": 1350,
+		"debtorNumber": "000000001350",
+		"name": "SANTOS HEBERT ELIAS FIESTA SANTOS HEBERT PALACIOS FIESTA",
+		"partyRoleRefId": 5743,
+		"debtorStatusId": 2666,
+		"partyRefId": 5742,
+		"mainAccountRefId": 1626,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "68364885",
+		"lastModificationDate": "2022-03-11T18:26:54",
+		"registrationDate": "2022-03-11T16:08:22.000Z",
+		"identificationValue": "33263696",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1369,
+			"id": 5743,
+			"name": "SANTOS HEBERT PALACIOS FIESTA",
+			"partyRole": {
+				"id": 1369,
+				"statusId": 2,
+				"name": "SANTOS HEBERT PALACIOS FIESTA",
+				"partyId": 2741,
+				"validFrom": "2022-03-11T16:08:22.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1365,
+					"id": 2741,
+					"name": "SANTOS HEBERT PALACIOS FIESTA",
+					"individual": {
+						"id": 1365,
+						"partyId": 1379,
+						"genderId": 3,
+						"birthDate": "1970-04-18T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1803,
+						"party": {
+							"id": 1379,
+							"individualId": 1365,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:22",
+							"indentifications": [
+								{
+									"id": 1384,
+									"identificationTypeId": 13,
+									"partyId": 1379,
+									"indentificationValue": "33263696",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1803,
+								"individualId": 1365,
+								"givenNames": "SANTOS HEBERT",
+								"middleNames": "FIESTA",
+								"familyNames": "ELIAS",
+								"legalName": "SANTOS HEBERT PALACIOS FIESTA"
+							},
+							{
+								"id": 1604,
+								"individualId": 1365,
+								"givenNames": "SANTOS HEBERT",
+								"middleNames": "FIESTA",
+								"familyNames": "ELIAS",
+								"legalName": "SANTOS HEBERT PALACIOS FIESTA"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1397,
+						"partyRoleId": 1369,
+						"placeRefId": 2742,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2811,
+							"id": 2742,
+							"name": "JR PIURA S/N MZ A LT 1, 01,  JR PIURA S/N MZ A LT 1  ,NUEVO CHIMBOTE ,SANTA ,ANCASH ,PERU, PERU",
+							"address": {
+								"id": 2811,
+								"countryId": 175,
+								"streetName": "JR PIURA S/N MZ A LT 1",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " JR PIURA S/N MZ A LT 1  ,NUEVO CHIMBOTE ,SANTA ,ANCASH ,PERU",
+								"areas": [
+									{
+										"id": 8363,
+										"addressId": 2811,
+										"areaId": 54
+									},
+									{
+										"id": 8364,
+										"addressId": 2811,
+										"areaId": 4
+									},
+									{
+										"id": 8365,
+										"addressId": 2811,
+										"areaId": 457
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1626,
+				"accountNumber": "000000001626",
+				"name": "BSCSIX-BSCSIX-23236402",
+				"debtorId": 1350,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5744,
+				"lastModificationDate": "2022-03-11T18:26:54",
+				"referenceNumber": "BSCSIX-23236402",
+				"accountStatusId": 3220,
+				"registrationDate": "2022-03-11T16:08:23.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1688,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1681,
+					"id": 5744,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1681,
+						"accountNumber": "000000001681",
+						"name": "BSCSIX-BSCSIX-23236402",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3306,
+						"accountHolderRefId": 130,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:23.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3305,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:23",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1681
+							},
+							{
+								"id": 3306,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:23",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1681
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1670,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000016360141-1-SP02784",
+						"accountId": 1626,
+						"serialNumber": "993413770",
+						"registrationDate": "2022-03-11T16:08:23.000Z",
+						"activationDate": "2016-12-21T23:00:00",
+						"deactivationDate": "2021-07-12T00:00:00",
+						"contractNumber": "16360141",
+						"serviceExternalCode": "SP02784",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1935,
+						"debtorAccountId": 1626,
+						"paymentResponsibleId": 1350,
+						"locAddressRefId": 5745,
+						"isMain": "Y",
+						"paymentMethodRefId": 1961,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2812,
+							"id": 5745,
+							"name": "JR PIURA S/N MZ A LT 1, 01,  JR PIURA S/N MZ A LT 1  ,NUEVO CHIMBOTE ,SANTA ,ANCASH ,PERU, PERU",
+							"address": {
+								"id": 2812,
+								"countryId": 175,
+								"streetName": "JR PIURA S/N MZ A LT 1",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " JR PIURA S/N MZ A LT 1  ,NUEVO CHIMBOTE ,SANTA ,ANCASH ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1350,
+							"name": "SANTOS HEBERT ELIAS FIESTA SANTOS HEBERT PALACIOS FIESTA",
+							"referenceNumber": "DEB-68364885"
+						},
+						"paymentMethodRef": {
+							"id": 1961,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1350,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2665,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:22",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1350
+			},
+			{
+				"id": 2666,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:23",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1350
+			}
+		]
+	},
+	{
+		"id": 1354,
+		"debtorNumber": "000000001354",
+		"name": "MARCO ANTONIO ELIAS FONSECA MARCO ANTONIO BARDALEZ FONSECA",
+		"partyRoleRefId": 5759,
+		"debtorStatusId": 2674,
+		"partyRefId": 5758,
+		"mainAccountRefId": 1630,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "28143927",
+		"lastModificationDate": "2022-03-11T18:26:56",
+		"registrationDate": "2022-03-11T16:08:28.000Z",
+		"identificationValue": "40912568",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1373,
+			"id": 5759,
+			"name": "MARCO ANTONIO BARDALEZ FONSECA",
+			"partyRole": {
+				"id": 1373,
+				"statusId": 2,
+				"name": "MARCO ANTONIO BARDALEZ FONSECA",
+				"partyId": 2749,
+				"validFrom": "2022-03-11T16:08:28.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1369,
+					"id": 2749,
+					"name": "MARCO ANTONIO BARDALEZ FONSECA",
+					"individual": {
+						"id": 1369,
+						"partyId": 1383,
+						"genderId": 3,
+						"birthDate": "1981-06-01T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1807,
+						"party": {
+							"id": 1383,
+							"individualId": 1369,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:28",
+							"indentifications": [
+								{
+									"id": 1388,
+									"identificationTypeId": 13,
+									"partyId": 1383,
+									"indentificationValue": "40912568",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1807,
+								"individualId": 1369,
+								"givenNames": "MARCO ANTONIO",
+								"middleNames": "FONSECA",
+								"familyNames": "ELIAS",
+								"legalName": "MARCO ANTONIO BARDALEZ FONSECA"
+							},
+							{
+								"id": 1608,
+								"individualId": 1369,
+								"givenNames": "MARCO ANTONIO",
+								"middleNames": "FONSECA",
+								"familyNames": "ELIAS",
+								"legalName": "MARCO ANTONIO BARDALEZ FONSECA"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1401,
+						"partyRoleId": 1373,
+						"placeRefId": 2750,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2819,
+							"id": 2750,
+							"name": "CA ALONSO DE ALVARADO 102, 01,  CA ALONSO DE ALVARADO 102  ,MOYOBAMBA ,MOYOBAMBA ,SAN MARTIN ,PERU, PERU",
+							"address": {
+								"id": 2819,
+								"countryId": 175,
+								"streetName": "CA ALONSO DE ALVARADO 102",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CA ALONSO DE ALVARADO 102  ,MOYOBAMBA ,MOYOBAMBA ,SAN MARTIN ,PERU",
+								"areas": [
+									{
+										"id": 8387,
+										"addressId": 2819,
+										"areaId": 205
+									},
+									{
+										"id": 8388,
+										"addressId": 2819,
+										"areaId": 24
+									},
+									{
+										"id": 8389,
+										"addressId": 2819,
+										"areaId": 1929
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1630,
+				"accountNumber": "000000001630",
+				"name": "BSCSIX-BSCSIX-25966768",
+				"debtorId": 1354,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5760,
+				"lastModificationDate": "2022-03-11T18:26:56",
+				"referenceNumber": "BSCSIX-25966768",
+				"accountStatusId": 3228,
+				"registrationDate": "2022-03-11T16:08:29.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 2004,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1685,
+					"id": 5760,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1685,
+						"accountNumber": "000000001685",
+						"name": "BSCSIX-BSCSIX-25966768",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3314,
+						"accountHolderRefId": 134,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:29.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3313,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:29",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1685
+							},
+							{
+								"id": 3314,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:29",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1685
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1674,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000018126745-1-SP04447",
+						"accountId": 1630,
+						"serialNumber": "945371773",
+						"registrationDate": "2022-03-11T16:08:28.000Z",
+						"activationDate": "2017-07-13T00:00:00",
+						"deactivationDate": null,
+						"contractNumber": "18126745",
+						"serviceExternalCode": "SP04447",
+						"productLine": "S",
+						"subType": "001"
+					},
+					{
+						"id": 1675,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000018126745-1-SP01359",
+						"accountId": 1630,
+						"serialNumber": "945371773",
+						"registrationDate": "2022-03-11T16:08:28.000Z",
+						"activationDate": "2017-07-13T00:00:00",
+						"deactivationDate": "2021-11-12T23:00:00",
+						"contractNumber": "18126745",
+						"serviceExternalCode": "SP01359",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1939,
+						"debtorAccountId": 1630,
+						"paymentResponsibleId": 1354,
+						"locAddressRefId": 5761,
+						"isMain": "Y",
+						"paymentMethodRefId": 1965,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2820,
+							"id": 5761,
+							"name": "CA ALONSO DE ALVARADO 102, 01,  CA ALONSO DE ALVARADO 102  ,MOYOBAMBA ,MOYOBAMBA ,SAN MARTIN ,PERU, PERU",
+							"address": {
+								"id": 2820,
+								"countryId": 175,
+								"streetName": "CA ALONSO DE ALVARADO 102",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CA ALONSO DE ALVARADO 102  ,MOYOBAMBA ,MOYOBAMBA ,SAN MARTIN ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1354,
+							"name": "MARCO ANTONIO ELIAS FONSECA MARCO ANTONIO BARDALEZ FONSECA",
+							"referenceNumber": "DEB-28143927"
+						},
+						"paymentMethodRef": {
+							"id": 1965,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1354,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2673,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:28",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1354
+			},
+			{
+				"id": 2674,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:28",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1354
+			}
+		]
+	},
+	{
+		"id": 1358,
+		"debtorNumber": "000000001358",
+		"name": "ALBERTO ELIAS VALVERDE ALBERTO RANILLA VALVERDE",
+		"partyRoleRefId": 5775,
+		"debtorStatusId": 2682,
+		"partyRefId": 5774,
+		"mainAccountRefId": 1634,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "13425438",
+		"lastModificationDate": "2022-03-11T18:26:59",
+		"registrationDate": "2022-03-11T16:08:34.000Z",
+		"identificationValue": "40083819",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1377,
+			"id": 5775,
+			"name": "ALBERTO RANILLA VALVERDE",
+			"partyRole": {
+				"id": 1377,
+				"statusId": 2,
+				"name": "ALBERTO RANILLA VALVERDE",
+				"partyId": 2757,
+				"validFrom": "2022-03-11T16:08:34.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1373,
+					"id": 2757,
+					"name": "ALBERTO RANILLA VALVERDE",
+					"individual": {
+						"id": 1373,
+						"partyId": 1387,
+						"genderId": 3,
+						"birthDate": "1977-08-07T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1811,
+						"party": {
+							"id": 1387,
+							"individualId": 1373,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:34",
+							"indentifications": [
+								{
+									"id": 1392,
+									"identificationTypeId": 13,
+									"partyId": 1387,
+									"indentificationValue": "40083819",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1612,
+								"individualId": 1373,
+								"givenNames": "ALBERTO",
+								"middleNames": "VALVERDE",
+								"familyNames": "ELIAS",
+								"legalName": "ALBERTO RANILLA VALVERDE"
+							},
+							{
+								"id": 1811,
+								"individualId": 1373,
+								"givenNames": "ALBERTO",
+								"middleNames": "VALVERDE",
+								"familyNames": "ELIAS",
+								"legalName": "ALBERTO RANILLA VALVERDE"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1405,
+						"partyRoleId": 1377,
+						"placeRefId": 2758,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2827,
+							"id": 2758,
+							"name": "CA CUBA 202, 01,  CA CUBA 202  ,ALTO SELVA ALEGRE ,AREQUIPA ,AREQUIPA ,PERU, PERU",
+							"address": {
+								"id": 2827,
+								"countryId": 175,
+								"streetName": "CA CUBA 202",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CA CUBA 202  ,ALTO SELVA ALEGRE ,AREQUIPA ,AREQUIPA ,PERU",
+								"areas": [
+									{
+										"id": 8411,
+										"addressId": 2827,
+										"areaId": 64
+									},
+									{
+										"id": 8412,
+										"addressId": 2827,
+										"areaId": 6
+									},
+									{
+										"id": 8413,
+										"addressId": 2827,
+										"areaId": 557
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1634,
+				"accountNumber": "000000001634",
+				"name": "BSCSIX-BSCSIX-24478832",
+				"debtorId": 1358,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5776,
+				"lastModificationDate": "2022-03-11T18:26:59",
+				"referenceNumber": "BSCSIX-24478832",
+				"accountStatusId": 3236,
+				"registrationDate": "2022-03-11T16:08:34.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1691,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1689,
+					"id": 5776,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1689,
+						"accountNumber": "000000001689",
+						"name": "BSCSIX-BSCSIX-24478832",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3322,
+						"accountHolderRefId": 138,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:34.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3321,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:34",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1689
+							},
+							{
+								"id": 3322,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:34",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1689
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1680,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000017247127-1-SP02784",
+						"accountId": 1634,
+						"serialNumber": "932118960",
+						"registrationDate": "2022-03-11T16:08:34.000Z",
+						"activationDate": "2017-03-19T23:00:00",
+						"deactivationDate": null,
+						"contractNumber": "17247127",
+						"serviceExternalCode": "SP02784",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1943,
+						"debtorAccountId": 1634,
+						"paymentResponsibleId": 1358,
+						"locAddressRefId": 5777,
+						"isMain": "Y",
+						"paymentMethodRefId": 1969,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2828,
+							"id": 5777,
+							"name": "CA CUBA 202, 01,  CA CUBA 202  ,ALTO SELVA ALEGRE ,AREQUIPA ,AREQUIPA ,PERU, PERU",
+							"address": {
+								"id": 2828,
+								"countryId": 175,
+								"streetName": "CA CUBA 202",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CA CUBA 202  ,ALTO SELVA ALEGRE ,AREQUIPA ,AREQUIPA ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1358,
+							"name": "ALBERTO ELIAS VALVERDE ALBERTO RANILLA VALVERDE",
+							"referenceNumber": "DEB-13425438"
+						},
+						"paymentMethodRef": {
+							"id": 1969,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1358,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2681,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:34",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1358
+			},
+			{
+				"id": 2682,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:34",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1358
+			}
+		]
+	},
+	{
+		"id": 1362,
+		"debtorNumber": "000000001362",
+		"name": "CLARA ROSALVA ELIAS HUAMAN CLARA ROSALVA FLORES HUAMAN",
+		"partyRoleRefId": 5791,
+		"debtorStatusId": 2690,
+		"partyRefId": 5790,
+		"mainAccountRefId": 1638,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "23288018",
+		"lastModificationDate": "2022-03-11T18:27:01",
+		"registrationDate": "2022-03-11T16:08:40.000Z",
+		"identificationValue": "04624445",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1381,
+			"id": 5791,
+			"name": "CLARA ROSALVA FLORES HUAMAN",
+			"partyRole": {
+				"id": 1381,
+				"statusId": 2,
+				"name": "CLARA ROSALVA FLORES HUAMAN",
+				"partyId": 2765,
+				"validFrom": "2022-03-11T16:08:39.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1377,
+					"id": 2765,
+					"name": "CLARA ROSALVA FLORES HUAMAN",
+					"individual": {
+						"id": 1377,
+						"partyId": 1391,
+						"genderId": 3,
+						"birthDate": "1965-08-12T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1815,
+						"party": {
+							"id": 1391,
+							"individualId": 1377,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:39",
+							"indentifications": [
+								{
+									"id": 1396,
+									"identificationTypeId": 13,
+									"partyId": 1391,
+									"indentificationValue": "04624445",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1616,
+								"individualId": 1377,
+								"givenNames": "CLARA ROSALVA",
+								"middleNames": "HUAMAN",
+								"familyNames": "ELIAS",
+								"legalName": "CLARA ROSALVA FLORES HUAMAN"
+							},
+							{
+								"id": 1815,
+								"individualId": 1377,
+								"givenNames": "CLARA ROSALVA",
+								"middleNames": "HUAMAN",
+								"familyNames": "ELIAS",
+								"legalName": "CLARA ROSALVA FLORES HUAMAN"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1409,
+						"partyRoleId": 1381,
+						"placeRefId": 2766,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2835,
+							"id": 2766,
+							"name": "CASN  S/N MZ 24 LT 24, 01,  CASN  S/N MZ 24 LT 24  ,ILO ,ILO ,MOQUEGUA ,PERU, PERU",
+							"address": {
+								"id": 2835,
+								"countryId": 175,
+								"streetName": "CASN  S/N MZ 24 LT 24",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CASN  S/N MZ 24 LT 24  ,ILO ,ILO ,MOQUEGUA ,PERU",
+								"areas": [
+									{
+										"id": 8435,
+										"addressId": 2835,
+										"areaId": 180
+									},
+									{
+										"id": 8436,
+										"addressId": 2835,
+										"areaId": 20
+									},
+									{
+										"id": 8437,
+										"addressId": 2835,
+										"areaId": 1725
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1638,
+				"accountNumber": "000000001638",
+				"name": "BSCSIX-BSCSIX-24758426",
+				"debtorId": 1362,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5792,
+				"lastModificationDate": "2022-03-11T18:27:02",
+				"referenceNumber": "BSCSIX-24758426",
+				"accountStatusId": 3244,
+				"registrationDate": "2022-03-11T16:08:40.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1877,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1693,
+					"id": 5792,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1693,
+						"accountNumber": "000000001693",
+						"name": "BSCSIX-BSCSIX-24758426",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3330,
+						"accountHolderRefId": 142,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:40.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3329,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:40",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1693
+							},
+							{
+								"id": 3330,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:40",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1693
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1687,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000017428395-1-SP02784",
+						"accountId": 1638,
+						"serialNumber": "930324434",
+						"registrationDate": "2022-03-11T16:08:40.000Z",
+						"activationDate": "2017-04-12T00:00:00",
+						"deactivationDate": null,
+						"contractNumber": "17428395",
+						"serviceExternalCode": "SP02784",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1947,
+						"debtorAccountId": 1638,
+						"paymentResponsibleId": 1362,
+						"locAddressRefId": 5793,
+						"isMain": "Y",
+						"paymentMethodRefId": 1973,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2836,
+							"id": 5793,
+							"name": "CASN  S/N MZ 24 LT 24, 01,  CASN  S/N MZ 24 LT 24  ,ILO ,ILO ,MOQUEGUA ,PERU, PERU",
+							"address": {
+								"id": 2836,
+								"countryId": 175,
+								"streetName": "CASN  S/N MZ 24 LT 24",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CASN  S/N MZ 24 LT 24  ,ILO ,ILO ,MOQUEGUA ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1362,
+							"name": "CLARA ROSALVA ELIAS HUAMAN CLARA ROSALVA FLORES HUAMAN",
+							"referenceNumber": "DEB-23288018"
+						},
+						"paymentMethodRef": {
+							"id": 1973,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1362,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2689,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:40",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1362
+			},
+			{
+				"id": 2690,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:40",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1362
+			}
+		]
+	},
+	{
+		"id": 1366,
+		"debtorNumber": "000000001366",
+		"name": "EDGAR ELIAS FLORES EDGAR QUISPE FLORES",
+		"partyRoleRefId": 5807,
+		"debtorStatusId": 2698,
+		"partyRefId": 5806,
+		"mainAccountRefId": 1642,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "10711642",
+		"lastModificationDate": "2022-03-11T18:27:04",
+		"registrationDate": "2022-03-11T16:08:46.000Z",
+		"identificationValue": "40564020",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1385,
+			"id": 5807,
+			"name": "EDGAR QUISPE FLORES",
+			"partyRole": {
+				"id": 1385,
+				"statusId": 2,
+				"name": "EDGAR QUISPE FLORES",
+				"partyId": 2773,
+				"validFrom": "2022-03-11T16:08:45.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1381,
+					"id": 2773,
+					"name": "EDGAR QUISPE FLORES",
+					"individual": {
+						"id": 1381,
+						"partyId": 1395,
+						"genderId": 3,
+						"birthDate": "1980-06-19T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1819,
+						"party": {
+							"id": 1395,
+							"individualId": 1381,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:45",
+							"indentifications": [
+								{
+									"id": 1400,
+									"identificationTypeId": 13,
+									"partyId": 1395,
+									"indentificationValue": "40564020",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1620,
+								"individualId": 1381,
+								"givenNames": "EDGAR",
+								"middleNames": "FLORES",
+								"familyNames": "ELIAS",
+								"legalName": "EDGAR QUISPE FLORES"
+							},
+							{
+								"id": 1819,
+								"individualId": 1381,
+								"givenNames": "EDGAR",
+								"middleNames": "FLORES",
+								"familyNames": "ELIAS",
+								"legalName": "EDGAR QUISPE FLORES"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1413,
+						"partyRoleId": 1385,
+						"placeRefId": 2774,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2843,
+							"id": 2774,
+							"name": "S/N MZ 0 LT 0, 01,  S/N MZ 0 LT 0  ,VISTA ALEGRE ,NAZCA ,ICA ,PERU, PERU",
+							"address": {
+								"id": 2843,
+								"countryId": 175,
+								"streetName": "S/N MZ 0 LT 0",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " S/N MZ 0 LT 0  ,VISTA ALEGRE ,NAZCA ,ICA ,PERU",
+								"areas": [
+									{
+										"id": 8459,
+										"addressId": 2843,
+										"areaId": 131
+									},
+									{
+										"id": 8460,
+										"addressId": 2843,
+										"areaId": 13
+									},
+									{
+										"id": 8461,
+										"addressId": 2843,
+										"areaId": 1217
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1642,
+				"accountNumber": "000000001642",
+				"name": "BSCSIX-BSCSIX-20581974",
+				"debtorId": 1366,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5808,
+				"lastModificationDate": "2022-03-11T18:27:04",
+				"referenceNumber": "BSCSIX-20581974",
+				"accountStatusId": 3252,
+				"registrationDate": "2022-03-11T16:08:46.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1875,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1697,
+					"id": 5808,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1697,
+						"accountNumber": "000000001697",
+						"name": "BSCSIX-BSCSIX-20581974",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3338,
+						"accountHolderRefId": 146,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:46.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3337,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:46",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1697
+							},
+							{
+								"id": 3338,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:46",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1697
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1691,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000015033511-1-SP01036",
+						"accountId": 1642,
+						"serialNumber": "987194687",
+						"registrationDate": "2022-03-11T16:08:46.000Z",
+						"activationDate": "2016-08-12T00:00:00",
+						"deactivationDate": null,
+						"contractNumber": "15033511",
+						"serviceExternalCode": "SP01036",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1951,
+						"debtorAccountId": 1642,
+						"paymentResponsibleId": 1366,
+						"locAddressRefId": 5809,
+						"isMain": "Y",
+						"paymentMethodRefId": 1977,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2844,
+							"id": 5809,
+							"name": "S/N MZ 0 LT 0, 01,  S/N MZ 0 LT 0  ,VISTA ALEGRE ,NAZCA ,ICA ,PERU, PERU",
+							"address": {
+								"id": 2844,
+								"countryId": 175,
+								"streetName": "S/N MZ 0 LT 0",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " S/N MZ 0 LT 0  ,VISTA ALEGRE ,NAZCA ,ICA ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1366,
+							"name": "EDGAR ELIAS FLORES EDGAR QUISPE FLORES",
+							"referenceNumber": "DEB-10711642"
+						},
+						"paymentMethodRef": {
+							"id": 1977,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1366,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2697,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:46",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1366
+			},
+			{
+				"id": 2698,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:46",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1366
+			}
+		]
+	},
+	{
+		"id": 1370,
+		"debtorNumber": "000000001370",
+		"name": "MARIA JUANA ELIAS GONZALES MARIA JUANA GONZALES GONZALES",
+		"partyRoleRefId": 5823,
+		"debtorStatusId": 2706,
+		"partyRefId": 5822,
+		"mainAccountRefId": 1646,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "17878746",
+		"lastModificationDate": "2022-03-11T18:27:06",
+		"registrationDate": "2022-03-11T16:08:51.000Z",
+		"identificationValue": "16787420",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1389,
+			"id": 5823,
+			"name": "MARIA JUANA GONZALES GONZALES",
+			"partyRole": {
+				"id": 1389,
+				"statusId": 2,
+				"name": "MARIA JUANA GONZALES GONZALES",
+				"partyId": 2781,
+				"validFrom": "2022-03-11T16:08:51.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1385,
+					"id": 2781,
+					"name": "MARIA JUANA GONZALES GONZALES",
+					"individual": {
+						"id": 1385,
+						"partyId": 1399,
+						"genderId": 3,
+						"birthDate": "1977-06-11T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1823,
+						"party": {
+							"id": 1399,
+							"individualId": 1385,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:51",
+							"indentifications": [
+								{
+									"id": 1404,
+									"identificationTypeId": 13,
+									"partyId": 1399,
+									"indentificationValue": "16787420",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1624,
+								"individualId": 1385,
+								"givenNames": "MARIA JUANA",
+								"middleNames": "GONZALES",
+								"familyNames": "ELIAS",
+								"legalName": "MARIA JUANA GONZALES GONZALES"
+							},
+							{
+								"id": 1823,
+								"individualId": 1385,
+								"givenNames": "MARIA JUANA",
+								"middleNames": "GONZALES",
+								"familyNames": "ELIAS",
+								"legalName": "MARIA JUANA GONZALES GONZALES"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1417,
+						"partyRoleId": 1389,
+						"placeRefId": 2782,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2851,
+							"id": 2782,
+							"name": "S/N MZ A LT 09, L36,  S/N MZ A LT 09  ,SAN JUAN DE LURIGANCHO ,LIMA ,LIMA ,PERU, PERU",
+							"address": {
+								"id": 2851,
+								"countryId": 175,
+								"streetName": "S/N MZ A LT 09",
+								"streetNrFirst": null,
+								"postalCode": "L36",
+								"city": null,
+								"additionalData": " S/N MZ A LT 09  ,SAN JUAN DE LURIGANCHO ,LIMA ,LIMA ,PERU",
+								"areas": [
+									{
+										"id": 8483,
+										"addressId": 2851,
+										"areaId": 158
+									},
+									{
+										"id": 8484,
+										"addressId": 2851,
+										"areaId": 17
+									},
+									{
+										"id": 8485,
+										"addressId": 2851,
+										"areaId": 1506
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1646,
+				"accountNumber": "000000001646",
+				"name": "BSCSIX-BSCSIX-23041329",
+				"debtorId": 1370,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5824,
+				"lastModificationDate": "2022-03-11T18:27:07",
+				"referenceNumber": "BSCSIX-23041329",
+				"accountStatusId": 3260,
+				"registrationDate": "2022-03-11T16:08:52.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 2071,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1701,
+					"id": 5824,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1701,
+						"accountNumber": "000000001701",
+						"name": "BSCSIX-BSCSIX-23041329",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3346,
+						"accountHolderRefId": 150,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:52.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3345,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:52",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1701
+							},
+							{
+								"id": 3346,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:52",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1701
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1695,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000016274503-1-SP02784",
+						"accountId": 1646,
+						"serialNumber": "990926925",
+						"registrationDate": "2022-03-11T16:08:52.000Z",
+						"activationDate": "2016-12-12T23:00:00",
+						"deactivationDate": null,
+						"contractNumber": "16274503",
+						"serviceExternalCode": "SP02784",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1955,
+						"debtorAccountId": 1646,
+						"paymentResponsibleId": 1370,
+						"locAddressRefId": 5825,
+						"isMain": "Y",
+						"paymentMethodRefId": 1981,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2852,
+							"id": 5825,
+							"name": "S/N MZ A LT 09, L36,  S/N MZ A LT 09  ,SAN JUAN DE LURIGANCHO ,LIMA ,LIMA ,PERU, PERU",
+							"address": {
+								"id": 2852,
+								"countryId": 175,
+								"streetName": "S/N MZ A LT 09",
+								"streetNrFirst": null,
+								"postalCode": "L36",
+								"city": null,
+								"additionalData": " S/N MZ A LT 09  ,SAN JUAN DE LURIGANCHO ,LIMA ,LIMA ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1370,
+							"name": "MARIA JUANA ELIAS GONZALES MARIA JUANA GONZALES GONZALES",
+							"referenceNumber": "DEB-17878746"
+						},
+						"paymentMethodRef": {
+							"id": 1981,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1370,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2705,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:51",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1370
+			},
+			{
+				"id": 2706,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:51",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1370
+			}
+		]
+	},
+	{
+		"id": 1373,
+		"debtorNumber": "000000001373",
+		"name": "FLORENCIA ELIAS DE ALFARO FLORENCIA UTANI DE ALFARO",
+		"partyRoleRefId": 5835,
+		"debtorStatusId": 2712,
+		"partyRefId": 5834,
+		"mainAccountRefId": 1649,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "12302933",
+		"lastModificationDate": "2022-03-11T18:27:08",
+		"registrationDate": "2022-03-11T16:08:56.000Z",
+		"identificationValue": "25302659",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1392,
+			"id": 5835,
+			"name": "FLORENCIA UTANI DE ALFARO",
+			"partyRole": {
+				"id": 1392,
+				"statusId": 2,
+				"name": "FLORENCIA UTANI DE ALFARO",
+				"partyId": 2787,
+				"validFrom": "2022-03-11T16:08:55.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1388,
+					"id": 2787,
+					"name": "FLORENCIA UTANI DE ALFARO",
+					"individual": {
+						"id": 1388,
+						"partyId": 1402,
+						"genderId": 3,
+						"birthDate": "1964-11-07T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1826,
+						"party": {
+							"id": 1402,
+							"individualId": 1388,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:08:55",
+							"indentifications": [
+								{
+									"id": 1407,
+									"identificationTypeId": 13,
+									"partyId": 1402,
+									"indentificationValue": "25302659",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1627,
+								"individualId": 1388,
+								"givenNames": "FLORENCIA",
+								"middleNames": "DE ALFARO",
+								"familyNames": "ELIAS",
+								"legalName": "FLORENCIA UTANI DE ALFARO"
+							},
+							{
+								"id": 1826,
+								"individualId": 1388,
+								"givenNames": "FLORENCIA",
+								"middleNames": "DE ALFARO",
+								"familyNames": "ELIAS",
+								"legalName": "FLORENCIA UTANI DE ALFARO"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1420,
+						"partyRoleId": 1392,
+						"placeRefId": 2788,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2857,
+							"id": 2788,
+							"name": "CASN CUSCO 01, 01,  CASN CUSCO 01  ,CUSCO ,CUSCO ,CUSCO ,PERU, PERU",
+							"address": {
+								"id": 2857,
+								"countryId": 175,
+								"streetName": "CASN CUSCO 01",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CASN CUSCO 01  ,CUSCO ,CUSCO ,CUSCO ,PERU",
+								"areas": [
+									{
+										"id": 8501,
+										"addressId": 2857,
+										"areaId": 98
+									},
+									{
+										"id": 8502,
+										"addressId": 2857,
+										"areaId": 10
+									},
+									{
+										"id": 8503,
+										"addressId": 2857,
+										"areaId": 909
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1649,
+				"accountNumber": "000000001649",
+				"name": "BSCSIX-BSCSIX-23536537",
+				"debtorId": 1373,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5836,
+				"lastModificationDate": "2022-03-11T18:27:08",
+				"referenceNumber": "BSCSIX-23536537",
+				"accountStatusId": 3266,
+				"registrationDate": "2022-03-11T16:08:56.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1700,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1704,
+					"id": 5836,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1704,
+						"accountNumber": "000000001704",
+						"name": "BSCSIX-BSCSIX-23536537",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3352,
+						"accountHolderRefId": 153,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:08:56.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3351,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:08:56",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1704
+							},
+							{
+								"id": 3352,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:08:56",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1704
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1698,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000016533519-1-SP04131",
+						"accountId": 1649,
+						"serialNumber": "984721471",
+						"registrationDate": "2022-03-11T16:08:56.000Z",
+						"activationDate": "2017-01-11T23:00:00",
+						"deactivationDate": null,
+						"contractNumber": "16533519",
+						"serviceExternalCode": "SP04131",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1958,
+						"debtorAccountId": 1649,
+						"paymentResponsibleId": 1373,
+						"locAddressRefId": 5837,
+						"isMain": "Y",
+						"paymentMethodRefId": 1984,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2858,
+							"id": 5837,
+							"name": "CASN CUSCO 01, 01,  CASN CUSCO 01  ,CUSCO ,CUSCO ,CUSCO ,PERU, PERU",
+							"address": {
+								"id": 2858,
+								"countryId": 175,
+								"streetName": "CASN CUSCO 01",
+								"streetNrFirst": null,
+								"postalCode": "01",
+								"city": null,
+								"additionalData": " CASN CUSCO 01  ,CUSCO ,CUSCO ,CUSCO ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1373,
+							"name": "FLORENCIA ELIAS DE ALFARO FLORENCIA UTANI DE ALFARO",
+							"referenceNumber": "DEB-12302933"
+						},
+						"paymentMethodRef": {
+							"id": 1984,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1373,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2711,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:08:56",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1373
+			},
+			{
+				"id": 2712,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:08:56",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1373
+			}
+		]
+	},
+	{
+		"id": 1399,
+		"debtorNumber": "000000001399",
+		"name": "NILO ADALBERTO ELIAS VENEGAS NILO ADALBERTO LEON VENEGAS",
+		"partyRoleRefId": 5939,
+		"debtorStatusId": 2764,
+		"partyRefId": 5938,
+		"mainAccountRefId": 1675,
+		"stageId": 5,
+		"debtorTypeId": 5,
+		"referenceNumber": "39943213",
+		"lastModificationDate": "2022-03-11T18:27:25",
+		"registrationDate": "2022-03-11T16:09:33.000Z",
+		"identificationValue": "06459233",
+		"identificationType": "1",
+		"additionalInfo1": null,
+		"additionalInfo2": null,
+		"additionalInfo3": null,
+		"partyRoleRef": {
+			"refType": "Party Role",
+			"refId": 1418,
+			"id": 5939,
+			"name": "NILO ADALBERTO LEON VENEGAS",
+			"partyRole": {
+				"id": 1418,
+				"statusId": 2,
+				"name": "NILO ADALBERTO LEON VENEGAS",
+				"partyId": 2839,
+				"validFrom": "2022-03-11T16:09:32.000Z",
+				"partyRoleSpecId": 1,
+				"individualReference": {
+					"refType": "Individual",
+					"refId": 1414,
+					"id": 2839,
+					"name": "NILO ADALBERTO LEON VENEGAS",
+					"individual": {
+						"id": 1414,
+						"partyId": 1428,
+						"genderId": 3,
+						"birthDate": "1955-06-24T00:00:00",
+						"deathDate": null,
+						"nationalityRefId": 1,
+						"currentNameId": 1852,
+						"party": {
+							"id": 1428,
+							"individualId": 1414,
+							"organizationId": null,
+							"statusId": 1,
+							"registredDate": "2022-03-11T18:09:32",
+							"indentifications": [
+								{
+									"id": 1433,
+									"identificationTypeId": 13,
+									"partyId": 1428,
+									"indentificationValue": "06459233",
+									"source": "360"
+								}
+							]
+						},
+						"names": [
+							{
+								"id": 1653,
+								"individualId": 1414,
+								"givenNames": "NILO ADALBERTO",
+								"middleNames": "VENEGAS",
+								"familyNames": "ELIAS",
+								"legalName": "NILO ADALBERTO LEON VENEGAS"
+							},
+							{
+								"id": 1852,
+								"individualId": 1414,
+								"givenNames": "NILO ADALBERTO",
+								"middleNames": "VENEGAS",
+								"familyNames": "ELIAS",
+								"legalName": "NILO ADALBERTO LEON VENEGAS"
+							}
+						]
+					}
+				},
+				"organizationReference": null,
+				"places": [
+					{
+						"id": 1446,
+						"partyRoleId": 1418,
+						"placeRefId": 2840,
+						"placeRef": {
+							"refType": "Address",
+							"refId": 2909,
+							"id": 2840,
+							"name": "S/N MZ D LT 3, L08,  S/N MZ D LT 3  ,CHACLACAYO ,LIMA ,LIMA ,PERU, PERU",
+							"address": {
+								"id": 2909,
+								"countryId": 175,
+								"streetName": "S/N MZ D LT 3",
+								"streetNrFirst": null,
+								"postalCode": "L08",
+								"city": null,
+								"additionalData": " S/N MZ D LT 3  ,CHACLACAYO ,LIMA ,LIMA ,PERU",
+								"areas": [
+									{
+										"id": 8657,
+										"addressId": 2909,
+										"areaId": 158
+									},
+									{
+										"id": 8658,
+										"addressId": 2909,
+										"areaId": 17
+									},
+									{
+										"id": 8659,
+										"addressId": 2909,
+										"areaId": 1481
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"accounts": [
+			{
+				"id": 1675,
+				"accountNumber": "000000001675",
+				"name": "BSCSIX-BSCSIX-23031389",
+				"debtorId": 1399,
+				"actualPastDue": 0,
+				"writeOff": 0,
+				"securized": 0,
+				"unbilled": 0,
+				"providerId": 11,
+				"accountLedgerRefId": 5940,
+				"lastModificationDate": "2022-03-11T18:27:25",
+				"referenceNumber": "BSCSIX-23031389",
+				"accountStatusId": 3318,
+				"registrationDate": "2022-03-11T16:09:33.000Z",
+				"currencyRefId": 5537,
+				"arranged": 0,
+				"unexpired": 0,
+				"activeSegmentId": 1886,
+				"accountLedgerRef": {
+					"refType": "LedgerAccount",
+					"refId": 1730,
+					"id": 5940,
+					"name": null,
+					"ledgerAccount": {
+						"id": 1730,
+						"accountNumber": "000000001730",
+						"name": "BSCSIX-BSCSIX-23031389",
+						"currencyRefId": 28,
+						"accountTypeId": 3,
+						"accountStatusId": 3404,
+						"accountHolderRefId": 179,
+						"balance": 0,
+						"statementCycleId": 6,
+						"registrationDate": "2022-03-11T16:09:33.000Z",
+						"creditorId": 13,
+						"statusHistories": [
+							{
+								"id": 3403,
+								"accountStatus": 0,
+								"registerDate": "2022-03-11T18:09:33",
+								"userRefId": 10,
+								"reason": "Creation",
+								"remarks": "New Account",
+								"accountId": 1730
+							},
+							{
+								"id": 3404,
+								"accountStatus": 1,
+								"registerDate": "2022-03-11T18:09:33",
+								"userRefId": 10,
+								"reason": "Activation",
+								"remarks": "New Account",
+								"accountId": 1730
+							}
+						]
+					}
+				},
+				"services": [
+					{
+						"id": 1731,
+						"name": "Mobile Subscription",
+						"referenceNumber": "CO_ID_000000016268985-1-SP01325",
+						"accountId": 1675,
+						"serialNumber": "963835890",
+						"registrationDate": "2022-03-11T16:09:33.000Z",
+						"activationDate": "2016-12-12T23:00:00",
+						"deactivationDate": null,
+						"contractNumber": "16268985",
+						"serviceExternalCode": "SP01325",
+						"productLine": "S",
+						"subType": "001"
+					}
+				],
+				"accountPaymentResps": [
+					{
+						"id": 1984,
+						"debtorAccountId": 1675,
+						"paymentResponsibleId": 1399,
+						"locAddressRefId": 5941,
+						"isMain": "Y",
+						"paymentMethodRefId": 2010,
+						"locAddressRef": {
+							"refType": "Address",
+							"refId": 2910,
+							"id": 5941,
+							"name": "S/N MZ D LT 3, L08,  S/N MZ D LT 3  ,CHACLACAYO ,LIMA ,LIMA ,PERU, PERU",
+							"address": {
+								"id": 2910,
+								"countryId": 175,
+								"streetName": "S/N MZ D LT 3",
+								"streetNrFirst": null,
+								"postalCode": "L08",
+								"city": null,
+								"additionalData": " S/N MZ D LT 3  ,CHACLACAYO ,LIMA ,LIMA ,PERU"
+							}
+						},
+						"paymentResponsible": {
+							"id": 1399,
+							"name": "NILO ADALBERTO ELIAS VENEGAS NILO ADALBERTO LEON VENEGAS",
+							"referenceNumber": "DEB-39943213"
+						},
+						"paymentMethodRef": {
+							"id": 2010,
+							"methodStatus": 0,
+							"paymentMethodTypeId": 106,
+							"paymentResponsibleId": 1399,
+							"bankId": null,
+							"cardNumber": null,
+							"cardName": null,
+							"cardExpirationYear": null,
+							"cardExpirationMonth": null
+						}
+					}
+				]
+			}
+		],
+		"statusHistories": [
+			{
+				"id": 2763,
+				"debtorStatus": 0,
+				"registrationDate": "2022-03-11T18:09:33",
+				"userRefId": 5535,
+				"reason": "Creation",
+				"remarks": "New Debtor",
+				"debtorId": 1399
+			},
+			{
+				"id": 2764,
+				"debtorStatus": 1,
+				"registrationDate": "2022-03-11T18:09:33",
+				"userRefId": 5535,
+				"reason": "Activation",
+				"remarks": "New Debtor",
+				"debtorId": 1399
+			}
+		]
+	}
+]

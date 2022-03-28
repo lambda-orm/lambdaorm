@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { exit } from 'process'
 import { orm, Helper, MetadataSentence } from '../../lib'
-import { Categories, Customers, Employees, Shippers, Products, Orders, OrderDetails } from '../../model'
+import { Categories, Customers, Products, Orders, OrderDetails } from '../../model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
@@ -40,7 +39,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				let sentence:MetadataSentence|undefined
 				let error
 				try {
-					sentence = orm.sentence(expressionTest.expression as string, stage)
+					sentence = orm.sentence(expressionTest.expression as string, 'default', stage)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -64,7 +63,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
-					result = await orm.execute(expressionTest.lambda, data, stage)
+					result = await orm.execute(expressionTest.lambda, data, 'default', stage)
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -1032,6 +1031,7 @@ export async function apply (stages: string[], callback: any) {
 		console.log(`INFO: ${errors} errors`)
 	} catch (error:any) {
 		console.error(error)
+		throw error
 	}
 	callback()
 }

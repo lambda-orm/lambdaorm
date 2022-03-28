@@ -7,12 +7,36 @@ test:
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, (p.UnitPrice * -1) AS `source`,
+            ROUND(ABS((p.UnitPrice * -1)),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", (p.UnitPrice * -1) AS "source",
+            ROUND(CAST(ABS((p.UnitPrice * -1)) AS DECIMAL),10) AS "result" FROM
+            Products p  WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, (p.UnitPrice * -1) AS `source`,
+            ROUND(ABS((p.UnitPrice * -1)),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:(p.price*-1),result:round(abs((p.price*-1)),10)})
     normalizeExpression: >-
@@ -32,78 +56,99 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: '*'
-                      type: Operator
+                      classtype: Operator
                       children:
                         - name: price
-                          type: Field
+                          classtype: Field
                           children: []
+                          type: decimal
                           entity: Products
                           alias: p
                         - name: -1
-                          type: Constant2
+                          classtype: Constant2
                           children: []
+                          type: number
+                      type: any
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: abs
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: '*'
-                              type: Operator
+                              classtype: Operator
                               children:
                                 - name: price
-                                  type: Field
+                                  classtype: Field
                                   children: []
+                                  type: decimal
                                   entity: Products
                                   alias: p
                                 - name: -1
-                                  type: Constant2
+                                  classtype: Constant2
                                   children: []
+                                  type: number
+                              type: any
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -113,24 +158,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: -18
+        result: 18
   - name: function acos
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.25 AS `source`,
+            ROUND(ACOS(0.25),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 0.25 AS "source",
+            ROUND(CAST(ACOS(0.25) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.25 AS `source`,
+            ROUND(ACOS(0.25),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(acos(0.25),10)})
     normalizeExpression: >-
@@ -150,62 +222,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 0.25
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: acos
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 0.25
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -215,24 +304,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 0.25
+        result: 1.3181160717
   - name: function asin
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.25 AS `source`,
+            ROUND(ASIN(0.25),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 0.25 AS "source",
+            ROUND(CAST(ASIN(0.25) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.25 AS `source`,
+            ROUND(ASIN(0.25),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(asin(0.25),10)})
     normalizeExpression: >-
@@ -252,62 +368,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 0.25
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: asin
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 0.25
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -317,24 +450,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 0.25
+        result: 0.2526802551
   - name: function atan
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.25 AS `source`,
+            ROUND(ATAN(0.25),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 0.25 AS "source",
+            ROUND(CAST(ATAN(0.25) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.25 AS `source`,
+            ROUND(ATAN(0.25),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(atan(0.25),10)})
     normalizeExpression: >-
@@ -354,62 +514,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 0.25
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: atan
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 0.25
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -419,24 +596,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 0.25
+        result: 0.2449786631
   - name: function atan2
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.5 AS `source`,
+            ROUND(ATAN(0.25,1),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 0.5 AS "source",
+            ROUND(CAST(ATAN2(0.25,1) AS DECIMAL),10) AS "result" FROM Products
+            p  WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 0.5 AS `source`,
+            ROUND(ATAN(0.25,1),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.5,result:round(atan2(0.25,1),10)})
     normalizeExpression: >-
@@ -456,65 +660,83 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 0.5
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: atan2
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 0.25
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
                             - name: 1
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -524,24 +746,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 0.5
+        result: 0.2449786631
   - name: function ceil
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 25.75 AS `source`,
+            ROUND(CEIL(25.75),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 25.75 AS "source",
+            ROUND(CAST(CEIL(25.75) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 25.75 AS `source`,
+            ROUND(CEIL(25.75),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(ceil(25.75),10)})
     normalizeExpression: >-
@@ -561,62 +810,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 25.75
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: ceil
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 25.75
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -626,24 +892,48 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 25.75
+        result: 26
   - name: function cos
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 2 AS `source`, ROUND(COS(2),10) AS
+            `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 2 AS "source", ROUND(CAST(COS(2) AS
+            DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 2 AS `source`, ROUND(COS(2),10) AS
+            `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(cos(2),10)})
     normalizeExpression: >-
@@ -663,62 +953,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 2
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: cos
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 2
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -728,24 +1035,48 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 2
+        result: -0.4161468365
   - name: function exp
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 1 AS `source`, ROUND(EXP(1),10) AS
+            `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 1 AS "source", ROUND(CAST(EXP(1) AS
+            DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 1 AS `source`, ROUND(EXP(1),10) AS
+            `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:1,result:round(exp(1),10)})
     normalizeExpression: >-
@@ -765,62 +1096,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 1
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: exp
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 1
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -830,24 +1178,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 1
+        result: 2.7182818285
   - name: function floor
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 25.75 AS `source`,
+            ROUND(FLOOR(25.75),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 25.75 AS "source",
+            ROUND(CAST(FLOOR(25.75) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 25.75 AS `source`,
+            ROUND(FLOOR(25.75),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(floor(25.75),10)})
     normalizeExpression: >-
@@ -867,62 +1242,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 25.75
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: floor
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 25.75
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -932,24 +1324,48 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 25.75
+        result: 25
   - name: function ln
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 2 AS `source`, ROUND(LN(2),10) AS
+            `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 2 AS "source", ROUND(CAST(LN(2) AS
+            DECIMAL),10) AS "result" FROM Products p  WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 2 AS `source`, ROUND(LN(2),10) AS
+            `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(ln(2),10)})
     normalizeExpression: >-
@@ -969,62 +1385,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 2
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: ln
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 2
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -1034,24 +1467,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 2
+        result: 0.6931471806
   - name: function log
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 10 AS `m`, 20 AS `n`,
+            ROUND(LOG(10,20),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 10 AS "m", 20 AS "n",
+            ROUND(CAST(LOG(10,20) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 10 AS `m`, 20 AS `n`,
+            ROUND(LOG(10,20),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,m:10,n:20,result:round(log(10,20),10)})
     normalizeExpression: >-
@@ -1073,71 +1533,91 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: m
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 10
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: 'n'
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 20
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: log
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 10
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
                             - name: 20
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: m
@@ -1149,24 +1629,50 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        m: 10
+        'n': 20
+        result: 1.3010299957
   - name: function round
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 135.375 AS `source`,
+            ROUND(135.375,2) AS `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 135.375 AS "source",
+            ROUND(CAST(135.375 AS DECIMAL),2) AS "result" FROM Products p  WHERE
+            p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 135.375 AS `source`,
+            ROUND(135.375,2) AS `result` FROM Products p  WHERE p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
     normalizeExpression: >-
@@ -1186,59 +1692,75 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 135.375
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: 135.375
-                          type: Constant2
+                          classtype: Constant2
                           children: []
+                          type: number
                         - name: 2
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -1248,24 +1770,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 135.375
+        result: 135.38
   - name: function sign
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 255.5 AS `source`,
+            ROUND(SIGN(255.5),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 255.5 AS "source",
+            ROUND(CAST(SIGN(255.5) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 255.5 AS `source`,
+            ROUND(SIGN(255.5),10) AS `result` FROM Products p  WHERE p.ProductID
+            = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:255.5,result:round(sign(255.5),10)})
     normalizeExpression: >-
@@ -1285,62 +1834,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 255.5
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: sign
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 255.5
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -1350,24 +1916,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 255.5
+        result: 1
   - name: function tan
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 1.75 AS `source`,
+            ROUND(TAN(1.75),10) AS `result` FROM Products p  WHERE p.ProductID =
+            ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 1.75 AS "source",
+            ROUND(CAST(TAN(1.75) AS DECIMAL),10) AS "result" FROM Products p 
+            WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 1.75 AS `source`,
+            ROUND(TAN(1.75),10) AS `result` FROM Products p  WHERE p.ProductID =
+            ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:1.75,result:round(tan(1.75),10)})
     normalizeExpression: >-
@@ -1387,62 +1980,79 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 1.75
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: tan
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 1.75
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -1452,24 +2062,51 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - name: Chai
+        source: 1.75
+        result: -5.5203799225
   - name: function trunc
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Products
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            SELECT p.ProductName AS `name`, 135.375 AS `source`,
+            ROUND(TRUNCATE(135.375,2),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Products
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            SELECT p.ProductName AS "name", 135.375 AS "source",
+            ROUND(CAST(TRUNC(135.375,2) AS DECIMAL),10) AS "result" FROM
+            Products p  WHERE p.ProductID = $1 
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Products
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            SELECT p.ProductName AS `name`, 135.375 AS `source`,
+            ROUND(TRUNCATE(135.375,2),10) AS `result` FROM Products p  WHERE
+            p.ProductID = ? 
+          childs: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(trunc(135.375,2),10)})
     normalizeExpression: >-
@@ -1489,65 +2126,83 @@ test:
       constraints: []
     metadata:
       name: select
-      type: Sentence
+      classtype: Sentence
       children:
         - name: filter
-          type: Filter
+          classtype: Filter
           children:
             - name: '==='
-              type: Operator
+              classtype: Operator
               children:
                 - name: id
-                  type: Field
+                  classtype: Field
                   children: []
+                  type: integer
                   entity: Products
                   alias: p
                 - name: id
-                  type: Variable
+                  classtype: Variable
                   children: []
+                  type: integer
                   number: 1
+              type: any
+          type: any
         - name: Products.p
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: map
-          type: Map
+          classtype: Map
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Field
+                      classtype: Field
                       children: []
+                      type: string
                       entity: Products
                       alias: p
+                  type: any
                 - name: source
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: 135.375
-                      type: Constant2
+                      classtype: Constant2
                       children: []
+                      type: number
+                  type: any
                 - name: result
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: round
-                      type: FunctionRef
+                      classtype: FunctionRef
                       children:
                         - name: trunc
-                          type: FunctionRef
+                          classtype: FunctionRef
                           children:
                             - name: 135.375
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
                             - name: 2
-                              type: Constant2
+                              classtype: Constant2
                               children: []
+                              type: number
+                          type: any
                         - name: 10
-                          type: Constant2
+                          classtype: Constant2
                           children: []
-      fields:
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
         - name: name
           type: string
         - name: source
@@ -1557,12 +2212,15 @@ test:
       parameters:
         - name: id
           type: integer
+          value: 1
       entity: Products
+      constraints: []
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-errors: 90
+    result:
+      - name: Chai
+        source: 135.375
+        result: 135.37
+errors: 0

@@ -1,31 +1,72 @@
 import { MappingConfig, ViewConfig } from '.'
-import { Sentence, EntityMapping, Field, Filter, Join, SchemaError } from '../model'
+import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude } from '../model'
 import { Expressions, Variable, Operand, Operator } from 'js-expressions'
 
 export class SentenceCompleter {
-	protected expressions:Expressions
+	protected expressions: Expressions
+
 	constructor (expressions:Expressions) {
 		this.expressions = expressions
 	}
 
-	public complete (mapping: MappingConfig, view:ViewConfig, sentence: Sentence): Sentence {
+	public complete (mapping: MappingConfig, view: ViewConfig, sentence: Sentence) {
 		const entity = mapping.getEntity(sentence.entity) as EntityMapping
-		this.solveFilter(sentence, entity)
-		this.solveJoin(sentence, mapping)
-		this.solveProperty(mapping, view, sentence)
-		return sentence
+		if (sentence.name !== 'insert' && sentence.name !== 'bulkInsert') {
+			this.solveFilter(sentence, entity)
+		}
+		if (sentence.name === 'select') {
+			this.solveJoin(sentence, mapping)
+		}
+		this.solveProperty(sentence, mapping, view)
 	}
 
-	private solveFilter (sentence: Sentence, entity:EntityMapping) {
+	private solveFilter (sentence: Sentence, entity: EntityMapping) {
+		let newFilter: Operand | undefined
+		// add filter for filter in entity
 		if (entity.filter) {
 			const expression = this.expressions.parse(entity.filter)
-			const child = this.replaceField(entity, sentence.alias, expression)
+			newFilter = this.replaceField(entity, sentence.alias, expression)
+		}
+		// add filter for keys in properties
+		const expressionKeys = this.filterbyKeys(sentence, entity)
+		if (expressionKeys) {
+			if (newFilter) {
+				newFilter = new Operator('&&', [newFilter, expressionKeys])
+			} else {
+				newFilter = expressionKeys
+			}
+		}
+		// if exists newFilter  add to current filter
+		if (newFilter) {
 			const filter = sentence.children.find(p => p.name === 'filter') as Filter|undefined
 			if (filter) {
-				filter.children[0] = new Operator('&&', [filter.children[0], child])
+				filter.children[0] = new Operator('&&', [filter.children[0], newFilter])
 			} else {
-				sentence.children.push(new Filter('filter', [child]))
+				sentence.children.push(new Filter('filter', [newFilter]))
 			}
+		}
+	}
+
+	private filterbyKeys (sentence: Sentence, entity: EntityMapping) : Operand|undefined {
+		let expression:string|undefined
+		for (const i in entity.properties) {
+			const property = entity.properties[i]
+			if (property.key) {
+				if (!expression) {
+					expression = ''
+				}
+				if (typeof property.key === 'string') {
+					expression = expression + `${property.name} == '${property.key}' `
+				} else {
+					expression = expression + `${property.name} == ${property.key} `
+				}
+			}
+		}
+		if (expression) {
+			const operand = this.expressions.parse(expression)
+			return this.replaceField(entity, sentence.alias, operand)
+		} else {
+			return undefined
 		}
 	}
 
@@ -38,15 +79,29 @@ export class SentenceCompleter {
 			if (entity === undefined) {
 				throw new SchemaError(`not found mapping for ${parts[0]}`)
 			}
+			let newFilter: Operand | undefined
+			// add filter for filter in entity
 			if (entity.filter) {
 				const expression = this.expressions.parse(entity.filter)
-				const newFilter = this.replaceField(entity, parts[1], expression)
+				newFilter = this.replaceField(entity, parts[1], expression)
+			}
+			// add filter for keys in properties
+			const expressionKeys = this.filterbyKeys(sentence, entity)
+			if (expressionKeys) {
+				if (newFilter) {
+					newFilter = new Operator('&&', [newFilter, expressionKeys])
+				} else {
+					newFilter = expressionKeys
+				}
+			}
+			// if exists newFilter  add to current filter
+			if (newFilter) {
 				join.children[0] = new Operator('&&', [join.children[0], newFilter])
 			}
 		}
 	}
 
-	private solveProperty (mapping: MappingConfig, view:ViewConfig, operand:Operand) {
+	private solveProperty (operand:Operand, mapping: MappingConfig, view:ViewConfig) {
 		for (const i in operand.children) {
 			const child = operand.children[i]
 			if (child instanceof Field) {
@@ -74,8 +129,8 @@ export class SentenceCompleter {
 						operand.children[i] = sourceOperand
 					}
 				}
-			} else {
-				this.solveProperty(mapping, view, child)
+			} else if (child instanceof SentenceInclude === false) {
+				this.solveProperty(child, mapping, view)
 			}
 		}
 	}

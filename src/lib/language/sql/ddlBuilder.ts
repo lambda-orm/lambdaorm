@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { PropertyMapping, Property, Relation, Index, Query, EntityMapping } from '../../model'
+import { PropertyMapping, Property, Relation, Index, Query, EntityMapping, SchemaError } from '../../model'
 import { LanguageDDLBuilder } from './../../manager'
 
 export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity:EntityMapping):Query {
 		let text = this.dialect.ddl('truncateTable')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
-		return new Query('truncate', this.dataSource.dialect, this.dataSource.name, text, entity.name)
+		return new Query('truncateTable', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 
 	public createEntity (entity:EntityMapping):Query {
@@ -15,7 +15,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
 			if (!property.view) {
-				define.push(this.createColumn(property))
+				define.push(this.createColumn(entity, property))
 			}
 		}
 		if (entity.primaryKey && entity.primaryKey.length > 0) {
@@ -31,8 +31,11 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createTable', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 
-	private createColumn (property:PropertyMapping):string {
+	private createColumn (entity:EntityMapping, property:PropertyMapping):string {
 		let type = this.dialect.type(property.type)
+		if (type === undefined) {
+			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
+		}
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
 		const nullable = property.nullable !== undefined && property.nullable === false ? this.dialect.other('notNullable') : ''
 
@@ -99,6 +102,9 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public alterColumn (entity: EntityMapping, property: Property): Query {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name) as PropertyMapping
 		let type = this.dialect.type(propertyMapping.type)
+		if (type === undefined) {
+			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
+		}
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
 		const nullable = property.nullable !== undefined && property.nullable === false ? this.dialect.other('notNullable') : ''
 
@@ -114,6 +120,9 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public addColumn (entity: EntityMapping, property: Property): Query {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name) as PropertyMapping
 		let type = this.dialect.type(property.type)
+		if (type === undefined) {
+			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
+		}
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
 		const nullable = property.nullable !== undefined && property.nullable === false ? this.dialect.other('notNullable') : ''
 
@@ -155,9 +164,18 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public addFk (entity:EntityMapping, relation:Relation):Query {
-		const column = entity.properties.find(p => p.name === relation.from) as PropertyMapping
-		const fEntity = this.mapping.getEntity(relation.entity) as EntityMapping
-		const fColumn = fEntity.properties.find(p => p.name === relation.to) as PropertyMapping
+		const column = entity.properties.find(p => p.name === relation.from)
+		if (!column) {
+			throw new SchemaError(`Property ${relation.from} not found in entity ${entity.name}`)
+		}
+		const fEntity = this.mapping.getEntity(relation.entity)
+		if (!fEntity) {
+			throw new SchemaError(`Entity ${relation.entity} not found`)
+		}
+		const fColumn = fEntity.properties.find(p => p.name === relation.to)
+		if (!fColumn) {
+			throw new SchemaError(`Property ${relation.to} not found in entity ${fEntity.name}`)
+		}
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
 		let text = this.dialect.ddl('addFk')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + relation.name + '_FK'))
