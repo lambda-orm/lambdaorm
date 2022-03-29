@@ -287,7 +287,6 @@ entities:
         entity: PmParties
         to: id
         target: contactMediums
-
   - name: PmIndividuals
     primaryKey: ["id"]
     properties:
@@ -470,7 +469,6 @@ entities:
         from: refId
         entity: LocAddresses
         to: id
-
   - name: PrPartyRoles
     primaryKey: ["id"]
     properties:
@@ -534,7 +532,6 @@ entities:
         from: placeRefId
         entity: PrAddressReferences
         to: id
-
   # LedgerAccount settings
   - name: LamAccountTypes
     primaryKey: ["id"]
@@ -597,7 +594,6 @@ entities:
     properties:
       - name: refType
         key: User
-
   - name: LamCreditors
     primaryKey: ["id"]
     uniqueKey: ["creditorCode"]
@@ -860,7 +856,6 @@ entities:
         from: refId
         entity: LocAddresses
         to: id
-
   - name: DbDebtors
     primaryKey: ["id"]
     # uniqueKey: ["debtorNumber"]
@@ -944,7 +939,6 @@ entities:
         entity: DbDebtors
         to: id
         target: statusHistories
-
   - name: DbAccountServices
     primaryKey: ["id"]
     properties:
@@ -1148,7 +1142,7 @@ entities:
         nullable: false
       - name: paymentResponsibleId
         type: integer
-        # nullable: false
+        nullable: false
       - name: bankId
         type: integer
       - name: cardNumber
@@ -1168,6 +1162,7 @@ entities:
         from: paymentResponsibleId
         entity: DbPaymentResponsibles
         to: id
+        target: paymentMethods
 views:
   -name: default
 mappings:
@@ -1545,7 +1540,6 @@ mappings:
         extends: SrbReferences
       - name: LamUserReferences
         extends: SrbReferences
-
       - name: LamAccountStatusHistories
         mapping: TBL_LAM_ACCOUNT_STATUS_HISTORY
         properties:
@@ -1806,6 +1800,97 @@ mappings:
             mapping: REMARKS
           - name: accountId
             mapping: ACCOUNT_ID
+  - name: localOracle
+    extends: local
+    entities:
+      # General
+      - name: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      # Location
+      - name: LocCountries
+        sequence: SQ_LOC_COUNTRY
+      - name: LocAreaTypes
+        sequence: SQ_LOC_AREA_TYPE
+      - name: LocAreas
+        sequence: SQ_LOC_AREA
+      - name: LocAddresses
+        sequence: SQ_LOC_ADDRESS
+      - name: LocAddressAreas
+        sequence: SQ_LOC_ADDRESS_AREA
+      #  Party
+      - name: PmPartyStatuses
+        sequence: SQ_PM_PARTY_STATUS
+      - name: PmMaritalStatuses
+        sequence: SQ_PM_MARITAL_STATUS
+      - name: PmIdentificationTypes
+        sequence: SQ_PM_IDENTIFICATION_TYPE
+      - name: PmIndustryTypes
+        sequence: SQ_PM_INDUSTRY_TYPE
+      - name: PmContactMediumTypes
+        sequence: SQ_PM_CONTACT_MEDIUM_TYPE
+      - name: PmParties
+        sequence: SQ_PM_PARTY
+      - name: PmIdentifications
+        sequence: SQ_PM_IDENTIFICATION
+      - name: PmPartyContactMediums
+        sequence: SQ_PM_PARTY_CONTACT_MEDIUM
+      - name: PmIndividuals
+        sequence: SQ_PM_INDIVIDUAL
+      - name: PmIndividualNames
+        sequence: SQ_PM_INDIVIDUAL_NAME
+      - name: PmOrganizations
+        sequence: SQ_PM_ORGANIZATION
+      - name: PmOrganizationNames
+        sequence: SQ_PM_ORGANIZATION_NAME
+      # PartyRole
+      - name: PrPartyRoleSpecs
+        sequence: SQ_PR_PARTY_ROLE_SPEC
+      - name: PrPartyRoleStatuses
+        sequence: SQ_PR_PARTY_ROLE_STATUS
+      - name: PrPartyRoles
+        sequence: SQ_PR_PARTY_ROLE
+      - name: PrPartyRolePlaces
+        sequence: SQ_PR_PARTY_ROLE_PLACE
+      # LedgerAccount
+      - name: LamAccountTypes
+        sequence: SQ_LAM_ACCOUNT_TYPE
+      - name: LamStatementCycles
+        sequence: SQ_LAM_STATEMENT_CYCLE
+      - name: LamCreditors
+        sequence: SQ_LAM_CREDITOR
+      - name: LamAccounts
+        sequence: SQ_LAM_ACCOUNT
+      - name: LamReferences
+        extends: SrbReferences
+      - name: LamCurrencyReferences
+        extends: SrbReferences
+      - name: LamUserReferences
+        extends: SrbReferences
+      - name: LamAccountStatusHistories
+        sequence: SQ_LAM_ACCOUNT_STATUS_HISTORY
+      # Debtor
+      - name: DbDebtorTypes
+        sequence: SQ_DB_DEBTOR_TYPE
+      - name: DbPaymentMethodTypes
+        sequence: SQ_DB_PAYMENT_METHOD_TYPE
+      - name: DbDebtorStages
+        sequence: SQ_DB_DEBTOR_STAGE
+      - name: DbDebtors
+        sequence: SQ_DB_DEBTOR
+      - name: DbDebtorStatusHistories
+        sequence: SQ_DB_DEBTOR_STATUS_HISTORY
+      - name: DbPaymentResponsibles
+        sequence: SQ_DB_PAYMENT_RESPONSIBLE
+      - name: DbPaymentResponsibleMethods
+        sequence: SQ_DB_PMT_RESP_PAYMENT_METHOD
+      - name: DbDebtorAccounts
+        sequence: SQ_DB_DEBTOR_ACCOUNT
+      - name: DbAccountPaymentResps
+        sequence: SQ_DB_ACCOUNT_PAYMENT_RESP
+      - name: DbAccountServices
+        sequence: SQ_DB_ACCOUNT_SERVICE
+      - name: DbAccountStatusHistories
+        sequence: SQ_DB_ACCOUNT_STATUS_HISTORY
   - name: beesion
     extends: local
     entities:
@@ -1899,6 +1984,27 @@ dataSources:
     mapping: local
     dialect: postgres
     connection: $$LOC_CCLP_DEBTORS
+    # Local Oracle datasources
+  - name: locOraLocations
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_LOCATIONS
+  - name: locOraParties
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_PARTIES
+  - name: locOraPartyRoles
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_PARTY_ROLES
+  - name: locOraLedgerAccounts
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_LEDGER_ACCOUNTS
+  - name: locOraDebtors
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_DEBTORS
 stages:
   - name: beesion
     dataSources:
@@ -1923,4 +2029,16 @@ stages:
       - name: locLedgerAccounts
         condition: substring(entity,0,3)=="Lam"
       - name: LocDebtors
+        condition: substring(entity,0,2)=="Db"
+  - name: localOracle
+    dataSources:
+      - name: locOraLocations
+        condition: substring(entity,0,3)=="Loc"
+      - name: locOraParties
+        condition: substring(entity,0,2)=="Pm"
+      - name: locOraPartyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: locOraLedgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: locOraDebtors
         condition: substring(entity,0,2)=="Db"

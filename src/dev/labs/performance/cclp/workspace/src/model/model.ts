@@ -139,9 +139,20 @@ export interface QryPmIndustryType {
 	code: string
 	name: string
 }
+export class PmContactMediumType {
+	id?: number
+	code?: string
+	name?: string
+}
+export interface QryPmContactMediumType {
+	id: number
+	code: string
+	name: string
+}
 export class PmParty {
 	constructor () {
 		this.indentifications = []
+		this.contactMediums = []
 	}
 
 	id?: number
@@ -151,6 +162,7 @@ export class PmParty {
 	registredDate?: Date
 	status?: PmPartyStatus
 	indentifications: PmIdentification[]
+	contactMediums: PmPartyContactMedium[]
 	organization?: PmOrganization
 }
 export interface QryPmParty {
@@ -161,6 +173,7 @@ export interface QryPmParty {
 	registredDate: Date
 	status: PmPartyStatus & OneToMany<PmPartyStatus> & PmPartyStatus
 	indentifications: ManyToOne<PmIdentification> & PmIdentification[]
+	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
 	organization: PmOrganization & OneToOne<PmOrganization> & PmOrganization
 }
 export class PmIdentification {
@@ -179,6 +192,34 @@ export interface QryPmIdentification {
 	indentificationValue: string
 	source: string
 	identificationType: PmIdentificationType & OneToMany<PmIdentificationType> & PmIdentificationType
+	party: PmParty & OneToMany<PmParty> & PmParty
+}
+export class PmPartyContactMedium {
+	id?: number
+	contactMediumTypeId?: number
+	partyId?: number
+	mediumValue?: string
+	validFrom?: Date
+	validTo?: Date
+	isMain?: boolean
+	isFavorite?: boolean
+	source?: string
+	createdBy?: string
+	contactMediumType?: PmContactMediumType
+	party?: PmParty
+}
+export interface QryPmPartyContactMedium {
+	id: number
+	contactMediumTypeId: number
+	partyId: number
+	mediumValue: string
+	validFrom: Date
+	validTo: Date
+	isMain: boolean
+	isFavorite: boolean
+	source: string
+	createdBy: string
+	contactMediumType: PmContactMediumType & OneToMany<PmContactMediumType> & PmContactMediumType
 	party: PmParty & OneToMany<PmParty> & PmParty
 }
 export class PmIndividual {
@@ -291,6 +332,8 @@ export interface QryPrPartyRoleStatus {
 }
 export class PrReference extends SrbReference {
 }
+export interface QryPrReference extends QrySrbReference {
+}
 export class PrIndividualReference extends SrbReference {
 	refType?: string
 	refId?: string
@@ -335,6 +378,7 @@ export class PrPartyRole {
 	status?: PrPartyRoleStatus
 	partyRoleSpec?: PrPartyRoleSpec
 	individualReference?: PrIndividualReference
+	organizationReference?: PrOrganizationReference
 	places: PrPartyRolePlace[]
 }
 export interface QryPrPartyRole {
@@ -347,6 +391,7 @@ export interface QryPrPartyRole {
 	status: PrPartyRoleStatus & OneToMany<PrPartyRoleStatus> & PrPartyRoleStatus
 	partyRoleSpec: PrPartyRoleSpec & OneToMany<PrPartyRoleSpec> & PrPartyRoleSpec
 	individualReference: PrIndividualReference & OneToOne<PrIndividualReference> & PrIndividualReference
+	organizationReference: PrOrganizationReference & OneToOne<PrOrganizationReference> & PrOrganizationReference
 	places: ManyToOne<PrPartyRolePlace> & PrPartyRolePlace[]
 }
 export class PrPartyRolePlace {
@@ -399,10 +444,20 @@ export interface QryLamStatementCycle {
 }
 export class LamReference extends SrbReference {
 }
-export type QryLamReference = QrySrbReference
-export class LamCurrencyReference extends SrbReference {
+export interface QryLamReference extends QrySrbReference {
 }
-export type QryLamCurrencyReference = QrySrbReference
+export class LamCurrencyReference extends SrbReference {
+	refType?: string
+}
+export interface QryLamCurrencyReference extends QrySrbReference {
+	refType: string
+}
+export class LamUserReference extends SrbReference {
+	refType?: string
+}
+export interface QryLamUserReference extends QrySrbReference {
+	refType: string
+}
 export class LamCreditor {
 	id?: number
 	creditorCode?: string
@@ -549,7 +604,8 @@ export interface QryDbDebtorStage {
 }
 export class DbReference extends SrbReference {
 }
-export type QryDbReference = QrySrbReference
+export interface QryDbReference extends QrySrbReference {
+}
 export class DbPartyRoleReference extends SrbReference {
 	refType?: string
 	refId?: string
@@ -569,6 +625,22 @@ export interface QryDbLedgerAccountReference extends QrySrbReference {
 	refType: string
 	refId: string
 	ledgerAccount: LamAccount & OneToOne<LamAccount> & LamAccount
+}
+export class DbUserReference extends SrbReference {
+	refType?: string
+}
+export interface QryDbUserReference extends QrySrbReference {
+	refType: string
+}
+export class DbAddressReference extends SrbReference {
+	refType?: string
+	refId?: string
+	address?: LocAddress
+}
+export interface QryDbAddressReference extends QrySrbReference {
+	refType: string
+	refId: string
+	address: LocAddress & OneToOne<LocAddress> & LocAddress
 }
 export class DbDebtor {
 	constructor () {
@@ -641,54 +713,6 @@ export interface QryDbDebtorStatusHistory {
 	userRef: DbReference & OneToMany<DbReference> & DbReference
 	debtor: DbDebtor & OneToMany<DbDebtor> & DbDebtor
 }
-export class DbPaymentResponsible {
-	id?: number
-	name?: string
-	referenceNumber?: string
-}
-export interface QryDbPaymentResponsible {
-	id: number
-	name: string
-	referenceNumber: string
-}
-export class DbPaymentResponsibleMethod {
-	id?: number
-	methodStatus?: number
-	paymentMethodTypeId?: number
-	paymentResponsibleId?: number
-	bankId?: number
-	cardNumber?: string
-	cardName?: string
-	cardExpirationYear?: number
-	cardExpirationMonth?: number
-}
-export interface QryDbPaymentResponsibleMethod {
-	id: number
-	methodStatus: number
-	paymentMethodTypeId: number
-	paymentResponsibleId: number
-	bankId: number
-	cardNumber: string
-	cardName: string
-	cardExpirationYear: number
-	cardExpirationMonth: number
-}
-export class DbAccountPaymentResp {
-	id?: number
-	debtorAccountId?: number
-	paymentResponsibleId?: number
-	LocAddressRefId?: number
-	isMain?: boolean
-	paymentMethodRefId?: number
-}
-export interface QryDbAccountPaymentResp {
-	id: number
-	debtorAccountId: number
-	paymentResponsibleId: number
-	LocAddressRefId: number
-	isMain: boolean
-	paymentMethodRefId: number
-}
 export class DbAccountService {
 	id?: number
 	name?: string
@@ -722,6 +746,7 @@ export interface QryDbAccountService {
 export class DbDebtorAccount {
 	constructor () {
 		this.services = []
+		this.accountPaymentResps = []
 	}
 
 	id?: number
@@ -745,6 +770,7 @@ export class DbDebtorAccount {
 	debtor?: DbDebtor
 	accountLedgerRef?: DbLedgerAccountReference
 	services: DbAccountService[]
+	accountPaymentResps: DbAccountPaymentResp[]
 }
 export interface QryDbDebtorAccount {
 	id: number
@@ -768,6 +794,7 @@ export interface QryDbDebtorAccount {
 	debtor: DbDebtor & OneToMany<DbDebtor> & DbDebtor
 	accountLedgerRef: DbLedgerAccountReference & OneToOne<DbLedgerAccountReference> & DbLedgerAccountReference
 	services: ManyToOne<DbAccountService> & DbAccountService[]
+	accountPaymentResps: ManyToOne<DbAccountPaymentResp> & DbAccountPaymentResp[]
 }
 export class DbAccountStatusHistory {
 	id?: number
@@ -793,6 +820,74 @@ export interface QryDbAccountStatusHistory {
 	userRef: LamReference & OneToMany<LamReference> & LamReference
 	account: LamAccount & OneToMany<LamAccount> & LamAccount
 }
+export class DbAccountPaymentResp {
+	id?: number
+	debtorAccountId?: number
+	paymentResponsibleId?: number
+	locAddressRefId?: number
+	isMain?: boolean
+	paymentMethodRefId?: number
+	debtorAccount?: DbDebtorAccount
+	paymentResponsible?: DbPaymentResponsible
+	locAddressRef?: DbAddressReference
+	paymentMethodRef?: DbPaymentResponsibleMethod
+}
+export interface QryDbAccountPaymentResp {
+	id: number
+	debtorAccountId: number
+	paymentResponsibleId: number
+	locAddressRefId: number
+	isMain: boolean
+	paymentMethodRefId: number
+	debtorAccount: DbDebtorAccount & OneToMany<DbDebtorAccount> & DbDebtorAccount
+	paymentResponsible: DbPaymentResponsible & OneToOne<DbPaymentResponsible> & DbPaymentResponsible
+	locAddressRef: DbAddressReference & OneToOne<DbAddressReference> & DbAddressReference
+	paymentMethodRef: DbPaymentResponsibleMethod & OneToOne<DbPaymentResponsibleMethod> & DbPaymentResponsibleMethod
+}
+export class DbPaymentResponsible {
+	constructor () {
+		this.paymentMethods = []
+	}
+
+	id?: number
+	name?: string
+	referenceNumber?: string
+	accountPaymentResps?: DbAccountPaymentResp
+	paymentMethods: DbPaymentResponsibleMethod[]
+}
+export interface QryDbPaymentResponsible {
+	id: number
+	name: string
+	referenceNumber: string
+	accountPaymentResps: DbAccountPaymentResp & OneToOne<DbAccountPaymentResp> & DbAccountPaymentResp
+	paymentMethods: ManyToOne<DbPaymentResponsibleMethod> & DbPaymentResponsibleMethod[]
+}
+export class DbPaymentResponsibleMethod {
+	id?: number
+	methodStatus?: number
+	paymentMethodTypeId?: number
+	paymentResponsibleId?: number
+	bankId?: number
+	cardNumber?: string
+	cardName?: string
+	cardExpirationYear?: number
+	cardExpirationMonth?: number
+	paymentMethodType?: DbPaymentMethodType
+	paymentResponsible?: DbPaymentResponsible
+}
+export interface QryDbPaymentResponsibleMethod {
+	id: number
+	methodStatus: number
+	paymentMethodTypeId: number
+	paymentResponsibleId: number
+	bankId: number
+	cardNumber: string
+	cardName: string
+	cardExpirationYear: number
+	cardExpirationMonth: number
+	paymentMethodType: DbPaymentMethodType & OneToMany<DbPaymentMethodType> & DbPaymentMethodType
+	paymentResponsible: DbPaymentResponsible & OneToMany<DbPaymentResponsible> & DbPaymentResponsible
+}
 export let LocCountries: Queryable<QryLocCountry>
 export let LocAreaTypes: Queryable<QryLocAreaType>
 export let LocAreas: Queryable<QryLocArea>
@@ -802,15 +897,17 @@ export let PmPartyStatuses: Queryable<QryPmPartyStatus>
 export let PmMaritalStatuses: Queryable<QryPmMaritalStatus>
 export let PmIdentificationTypes: Queryable<QryPmIdentificationType>
 export let PmIndustryTypes: Queryable<QryPmIndustryType>
+export let PmContactMediumTypes: Queryable<QryPmContactMediumType>
 export let PmParties: Queryable<QryPmParty>
 export let PmIdentifications: Queryable<QryPmIdentification>
+export let PmPartyContactMediums: Queryable<QryPmPartyContactMedium>
 export let PmIndividuals: Queryable<QryPmIndividual>
 export let PmIndividualNames: Queryable<QryPmIndividualName>
 export let PmOrganizations: Queryable<QryPmOrganization>
 export let PmOrganizationNames: Queryable<QryPmOrganizationName>
 export let PrPartyRoleSpecs: Queryable<QryPrPartyRoleSpec>
 export let PrPartyRoleStatuses: Queryable<QryPrPartyRoleStatus>
-// export let PrReferences: Queryable<QryPrReference>
+export let PrReferences: Queryable<QryPrReference>
 export let PrIndividualReferences: Queryable<QryPrIndividualReference>
 export let PrOrganizationReferences: Queryable<QryPrOrganizationReference>
 export let PrAddressReferences: Queryable<QryPrAddressReference>
@@ -820,6 +917,7 @@ export let LamAccountTypes: Queryable<QryLamAccountType>
 export let LamStatementCycles: Queryable<QryLamStatementCycle>
 export let LamReferences: Queryable<QryLamReference>
 export let LamCurrencyReferences: Queryable<QryLamCurrencyReference>
+export let LamUserReferences: Queryable<QryLamUserReference>
 export let LamCreditors: Queryable<QryLamCreditor>
 export let LamAccounts: Queryable<QryLamAccount>
 export let LamAccountStatusHistories: Queryable<QryLamAccountStatusHistory>
@@ -829,11 +927,13 @@ export let DbDebtorStages: Queryable<QryDbDebtorStage>
 export let DbReferences: Queryable<QryDbReference>
 export let DbPartyRoleReferences: Queryable<QryDbPartyRoleReference>
 export let DbLedgerAccountReferences: Queryable<QryDbLedgerAccountReference>
+export let DbUserReferences: Queryable<QryDbUserReference>
+export let DbAddressReferences: Queryable<QryDbAddressReference>
 export let DbDebtors: Queryable<QryDbDebtor>
 export let DbDebtorStatusHistories: Queryable<QryDbDebtorStatusHistory>
-export let DbPaymentResponsibles: Queryable<QryDbPaymentResponsible>
-export let DbPaymentResponsibleMethods: Queryable<QryDbPaymentResponsibleMethod>
-export let DbAccountPaymentResps: Queryable<QryDbAccountPaymentResp>
 export let DbAccountServices: Queryable<QryDbAccountService>
 export let DbDebtorAccounts: Queryable<QryDbDebtorAccount>
 export let DbAccountStatusHistories: Queryable<QryDbAccountStatusHistory>
+export let DbAccountPaymentResps: Queryable<QryDbAccountPaymentResp>
+export let DbPaymentResponsibles: Queryable<QryDbPaymentResponsible>
+export let DbPaymentResponsibleMethods: Queryable<QryDbPaymentResponsibleMethod>

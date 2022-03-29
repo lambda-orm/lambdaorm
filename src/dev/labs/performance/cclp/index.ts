@@ -1,7 +1,7 @@
 import { Helper, orm } from '../../../../lib'
 import {
 	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
-	LamAccountTypes, LamStatementCycles, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbPartyRoleReference, PrPartyRole, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount
+	LamAccountTypes, LamStatementCycles, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbPartyRoleReference, DbPaymentResponsible, PrPartyRole, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount, LocAddress, DbAccountPaymentResp, PrPartyRolePlace, PrAddressReference
 } from './workspace/src/model'
 
 const sourcePath = 'src/dev/labs/performance/cclp'
@@ -9,9 +9,9 @@ const beeStage = 'beesion'
 const locStage = 'local'
 const view = 'default'
 
+// .page(1,10)
 const expExport =
 		`DbDebtors
-		.page(1,10)
 		.include(p=> [p.partyRoleRef
 									.include(p=> p.partyRole
 																.include(p=> [p.individualReference
@@ -39,17 +39,16 @@ const expExport =
 																							.include(p=> p.statusHistories)),
 															 p.services,
 															 p.accountPaymentResps
-															  .include(p=> [p.locAddressRef.include(p=> p.address),
-																							p.paymentResponsible,
-																							p.paymentMethodRef 
+															  .include(p=> [p.locAddressRef.include(p=> p.address.include(p=> p.areas)),
+																							p.paymentResponsible.include(p=> p.paymentMethods),
+																							p.paymentMethodRef
 																				])
 												]),
 								p.statusHistories
 						])
 		`
-const expImport =
-		`DbDebtors
-		.bulkInsert()
+const expImportDebtors =
+		`DbDebtors.bulkInsert()
 		.include(p=> [p.partyRoleRef
 									.include(p=> p.partyRole
 																.include(p=> [p.individualReference
@@ -81,6 +80,16 @@ const expImport =
 								p.statusHistories
 						])
 		`
+const expPaymentRespsImport =
+	`DbPaymentResponsibles.bulkInsert()
+	.include(p=> p.paymentMethods)
+	`
+const expAccountPaymentRespsImport =
+	`DbAccountPaymentResps.bulkInsert()
+	.include(p=> [p.locAddressRef,
+								p.paymentResponsible.include(p=> p.paymentMethods)
+					])
+	`
 
 async function createLocal () {
 	// create DDL
@@ -244,7 +253,7 @@ async function loadLocalSettings () {
 
 async function _export () {
 	const start = new Date().getTime()
-	const debtors = await orm.execute(expExport, {}, view, beeStage)
+	const debtors:DbDebtor[] = await orm.execute(expExport, {}, view, beeStage)
 	const get = new Date().getTime()
 	console.log(`export: ${get - start}`)
 	await Helper.writeFile(sourcePath + '/beesionDebtors.json', JSON.stringify(debtors))
@@ -252,12 +261,25 @@ async function _export () {
 
 async function _import () {
 	const mapping = JSON.parse(await Helper.readFile(sourcePath + '/mapping.json') as string)
-	const debtors = JSON.parse(await Helper.readFile(sourcePath + '/beesionDebtors.json') as string)
-	clearAndMapIds(debtors, mapping)
-	const start = new Date().getTime()
-	await orm.execute(expImport, debtors, view, locStage)
-	const _bulkInsert = new Date().getTime()
-	console.log(`import: ${_bulkInsert - start}`)
+	const debtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/beesionDebtors.json') as string)
+	preImportDebtors(debtors, mapping)
+	let start = new Date().getTime()
+	await orm.execute(expImportDebtors, debtors, view, locStage)
+	let end = new Date().getTime()
+	console.log(`import debtors: ${end - start}`)
+
+	const paymentResponsibles = getPaymentResponsibles(debtors)
+	start = new Date().getTime()
+	await orm.execute(expPaymentRespsImport, paymentResponsibles, view, locStage)
+	end = new Date().getTime()
+	console.log(`import paymentResponsibles: ${end - start}`)
+
+	preImportAccountPaymentRest(debtors)
+	const accountPaymentResps = getAccountPaymentRest(debtors)
+	start = new Date().getTime()
+	await orm.execute(expAccountPaymentRespsImport, accountPaymentResps, view, locStage)
+	end = new Date().getTime()
+	console.log(`import accountPaymentResps: ${end - start}`)
 }
 
 async function exportLocal () {
@@ -363,79 +385,85 @@ async function validate () {
 // return true
 // }
 
-function clearAndMapIds (debtors:any, mapping:any) {
+function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 	for (const i in debtors) {
 		const debtor = debtors[i]
-		debtor.id = null
+		debtor.id = undefined
 		if (debtor.partyRoleRef) {
 			const partyRoleRef = debtor.partyRoleRef
-			partyRoleRef.id = null
-			partyRoleRef.refId = null
+			partyRoleRef.id = undefined
+			partyRoleRef.refId = undefined
 			if (partyRoleRef.partyRole) {
 				const partyRole = partyRoleRef.partyRole
-				partyRole.id = null
-				partyRole.partyId = null
+				partyRole.id = undefined
+				partyRole.partyId = undefined
 				if (partyRole.individualReference) {
 					const individualReference = partyRole.individualReference
-					individualReference.id = null
-					individualReference.refId = null
+					individualReference.id = undefined
+					individualReference.refId = undefined
 					if (individualReference.individual) {
 						const individual = individualReference.individual
-						individual.id = null
-						individual.partyId = null
-						individual.currentNameId = null // TODO pendiente update posterior
+						individual.id = undefined
+						individual.partyId = undefined
+						individual.currentNameId = undefined // TODO pendiente update posterior
 						if (individual.party) {
 							const party = individual.party
-							party.id = null
-							party.individualId = null
-							party.organizationId = null
+							party.id = undefined
+							party.individualId = undefined
+							party.organizationId = undefined
 							if (party.indentifications) {
 								for (const j in party.indentifications) {
 									const indentification = party.indentifications[j]
-									indentification.id = null
-									indentification.partyId = null
-									indentification.identificationTypeId = mapping.identificationTypes[indentification.identificationTypeId]
+									indentification.id = undefined
+									indentification.partyId = undefined
+									if (indentification.identificationTypeId) {
+										indentification.identificationTypeId = mapping.identificationTypes[indentification.identificationTypeId]
+									}
 								}
 							}
 						}
 						if (individual.names) {
 							for (const j in individual.names) {
 								const names = individual.names[j]
-								names.id = null
-								names.individualId = null
+								names.id = undefined
+								names.individualId = undefined
 							}
 						}
 					}
 				}
 				if (partyRole.organizationReference) {
 					const organizationReference = partyRole.organizationReference
-					organizationReference.id = null
-					organizationReference.refId = null
+					organizationReference.id = undefined
+					organizationReference.refId = undefined
 					if (organizationReference.organization) {
 						const organization = organizationReference.organization
-						organization.id = null
-						organization.partyId = null
-						organization.currentNameId = null // TODO pendiente update posterior
-						organization.industyTypeId = mapping.industryTypes[organization.industyTypeId]
+						organization.id = undefined
+						organization.partyId = undefined
+						organization.currentNameId = undefined // TODO pendiente update posterior
+						if (organization.industyTypeId) {
+							organization.industyTypeId = mapping.industryTypes[organization.industyTypeId]
+						}
 						if (organization.party) {
 							const party = organization.party
-							party.id = null
-							party.individualId = null
-							party.organizationId = null
+							party.id = undefined
+							party.individualId = undefined
+							party.organizationId = undefined
 							if (party.indentifications) {
 								for (const j in party.indentifications) {
 									const indentification = party.indentifications[j]
-									indentification.id = null
-									indentification.partyId = null
-									indentification.identificationTypeId = mapping.identificationTypes[indentification.identificationTypeId]
+									indentification.id = undefined
+									indentification.partyId = undefined
+									if (indentification.identificationTypeId) {
+										indentification.identificationTypeId = mapping.identificationTypes[indentification.identificationTypeId]
+									}
 								}
 							}
 						}
 						if (organization.names) {
 							for (const j in organization.names) {
 								const names = organization.names[j]
-								names.id = null
-								names.organizationId = null
+								names.id = undefined
+								names.organizationId = undefined
 							}
 						}
 					}
@@ -443,22 +471,26 @@ function clearAndMapIds (debtors:any, mapping:any) {
 				if (partyRole.places) {
 					for (const j in partyRole.places) {
 						const place = partyRole.places[j]
-						place.id = null
-						place.partyRoleId = null
+						place.id = undefined
+						place.partyRoleId = undefined
 						if (place.placeRef) {
 							const placeRef = place.placeRef
-							placeRef.id = null
-							placeRef.refId = null
+							placeRef.id = undefined
+							placeRef.refId = undefined
 							if (placeRef.address) {
 								const address = placeRef.address
-								address.id = null
-								address.countryId = mapping.countries[address.countryId]
+								address.id = undefined
+								if (address.countryId) {
+									address.countryId = mapping.countries[address.countryId]
+								}
 								if (address.areas) {
 									for (const k in address.areas) {
 										const adressArea = address.areas[k]
-										adressArea.id = null
-										adressArea.addressId = null
-										adressArea.areaId = mapping.areas[adressArea.areaId]
+										adressArea.id = undefined
+										adressArea.addressId = undefined
+										if (adressArea.areaId) {
+											adressArea.areaId = mapping.areas[adressArea.areaId]
+										}
 									}
 								}
 							}
@@ -468,31 +500,40 @@ function clearAndMapIds (debtors:any, mapping:any) {
 			}
 		}
 		if (debtor.accounts) {
+			const partyRole = debtor.partyRoleRef?.partyRole as PrPartyRole
 			for (const j in debtor.accounts) {
 				const dbAccount = debtor.accounts[j]
-				dbAccount.id = null
-				dbAccount.debtorId = null
-				dbAccount.accountStatusId = null // TODO pendiente agregar relacion en la importacion
-				dbAccount.currencyRefId = null // TODO pendiente agregar relacion en la importacion
+				dbAccount.id = undefined
+				dbAccount.debtorId = undefined
+				dbAccount.accountStatusId = undefined // TODO pendiente agregar relacion en la importacion
+				dbAccount.currencyRefId = undefined // TODO pendiente agregar relacion en la importacion
 				if (dbAccount.accountLedgerRef) {
 					const accountLedgerRef = dbAccount.accountLedgerRef
-					accountLedgerRef.id = null
-					accountLedgerRef.refId = null
+					accountLedgerRef.id = undefined
+					accountLedgerRef.refId = undefined
 					if (accountLedgerRef.ledgerAccount) {
 						const ledgerAccount = accountLedgerRef.ledgerAccount
-						ledgerAccount.id = null
-						ledgerAccount.accountStatusId = null // TODO agregar relacion y luego update
-						ledgerAccount.statementCycleId = mapping.statementCycles[ledgerAccount.statementCycleId]
-						ledgerAccount.currencyRefId = mapping.lamCurrencyReferences[ledgerAccount.currencyRefId]
-						ledgerAccount.accountHolderRefId = null // TODO pendiente agregar relacion en la importacion
-						ledgerAccount.creditorId = null // TODO pendiente agregar relacion en la importacion
-						ledgerAccount.accountTypeId = mapping.accountTypes[ledgerAccount.accountTypeId]
+						ledgerAccount.id = undefined
+						ledgerAccount.accountStatusId = undefined // TODO agregar relacion y luego update
+						if (ledgerAccount.statementCycleId) {
+							ledgerAccount.statementCycleId = mapping.statementCycles[ledgerAccount.statementCycleId]
+						}
+						if (ledgerAccount.currencyRefId) {
+							ledgerAccount.currencyRefId = mapping.lamCurrencyReferences[ledgerAccount.currencyRefId]
+						}
+						ledgerAccount.accountHolderRefId = undefined // TODO pendiente agregar relacion en la importacion
+						ledgerAccount.creditorId = undefined // TODO pendiente agregar relacion en la importacion
+						if (ledgerAccount.accountTypeId) {
+							ledgerAccount.accountTypeId = mapping.accountTypes[ledgerAccount.accountTypeId]
+						}
 						if (ledgerAccount.statusHistories) {
 							for (const k in ledgerAccount.statusHistories) {
 								const statusHistory = ledgerAccount.statusHistories[k]
-								statusHistory.id = null
-								statusHistory.accountId = null
-								statusHistory.userRefId = mapping.lamUserReferences[statusHistory.userRefId]
+								statusHistory.id = undefined
+								statusHistory.accountId = undefined
+								if (statusHistory.userRefId) {
+									statusHistory.userRefId = mapping.lamUserReferences[statusHistory.userRefId]
+								}
 							}
 						}
 					}
@@ -500,8 +541,62 @@ function clearAndMapIds (debtors:any, mapping:any) {
 				if (dbAccount.services) {
 					for (const k in dbAccount.services) {
 						const service = dbAccount.services[k]
-						service.id = null
-						service.accountId = null
+						service.id = undefined
+						service.accountId = undefined
+					}
+				}
+				if (dbAccount.accountPaymentResps) {
+					for (const k in dbAccount.accountPaymentResps) {
+						const accountPaymentResp = dbAccount.accountPaymentResps[k]
+						accountPaymentResp.id = undefined
+						accountPaymentResp.debtorAccountId = undefined
+						if (accountPaymentResp.paymentResponsible) {
+							const paymentResponsible = accountPaymentResp.paymentResponsible
+							paymentResponsible.id = undefined
+							if (paymentResponsible.paymentMethods) {
+								for (const l in paymentResponsible.paymentMethods) {
+									const paymentMethod = paymentResponsible.paymentMethods[l]
+									paymentMethod.id = undefined
+									paymentMethod.paymentResponsibleId = undefined
+									if (paymentMethod.paymentMethodTypeId) {
+										paymentMethod.paymentMethodTypeId = mapping.paymentMethodTypes[paymentMethod.paymentMethodTypeId]
+									}
+								}
+							}
+						}
+						if (accountPaymentResp.locAddressRef) {
+							const locAddressRef = accountPaymentResp.locAddressRef
+							locAddressRef.id = undefined
+							locAddressRef.refId = undefined
+							if (locAddressRef.address) {
+								const address = locAddressRef.address
+								address.id = undefined
+								if (address.countryId) {
+									address.countryId = mapping.countries[address.countryId]
+								}
+								if (address.areas) {
+									for (const k in address.areas) {
+										const adressArea = address.areas[k]
+										adressArea.id = undefined
+										adressArea.addressId = undefined
+										if (adressArea.areaId) {
+											adressArea.areaId = mapping.areas[adressArea.areaId]
+										}
+									}
+								}
+								// Busca la direccion en partyRole.places.placeRef.address , en el caso de no encontrarla la agrea
+								const partyRoleAddress = partyRole.places.find(p => p.placeRef ? equalAddress(p.placeRef?.address as LocAddress, address) : false)
+								if (!partyRoleAddress) {
+									const prAddressReference: PrAddressReference = { refType: 'Address', address: Helper.clone(address) as LocAddress }
+									const partyRolePlace: PrPartyRolePlace = { placeRef: prAddressReference }
+									partyRole.places.push(partyRolePlace)
+								}
+							} else {
+								// IMPORTANTE: En el caso que locAddressRef.address sea nulo, se asigna la primera direccion del party.
+								// en realidad este registro deberia ser excluido dado que no se podria importar.
+								locAddressRef.address = partyRole.places.filter(p => p.placeRef !== undefined).map(p => p.placeRef?.address)[0]
+							}
+						}
 					}
 				}
 			}
@@ -509,21 +604,98 @@ function clearAndMapIds (debtors:any, mapping:any) {
 		if (debtor.statusHistories) {
 			for (const k in debtor.statusHistories) {
 				const statusHistory = debtor.statusHistories[k]
-				statusHistory.id = null
-				statusHistory.debtorId = null
-				statusHistory.userRefId = mapping.dbUserReferences[statusHistory.userRefId]
+				statusHistory.id = undefined
+				statusHistory.debtorId = undefined
+				if (statusHistory.userRefId) {
+					statusHistory.userRefId = mapping.dbUserReferences[statusHistory.userRefId]
+				}
 			}
 		}
+	}
+}
+
+function getPaymentResponsibles (debtors: DbDebtor[]):DbPaymentResponsible[] {
+	const paymentResponsibles:DbPaymentResponsible[] = []
+	for (const i in debtors) {
+		const debtor = debtors[i]
+		for (const j in debtor.accounts) {
+			const debtorAccount = debtor.accounts[j]
+			for (const k in debtorAccount.accountPaymentResps) {
+				const accountPaymentResp = debtorAccount.accountPaymentResps[k]
+				if (accountPaymentResp.paymentResponsible) {
+					paymentResponsibles.push(accountPaymentResp.paymentResponsible)
+				}
+			}
+		}
+	}
+	return paymentResponsibles
+}
+
+function preImportAccountPaymentRest (debtors:DbDebtor[]) {
+	for (const i in debtors) {
+		const debtor = debtors[i]
+		const places = debtor.partyRoleRef?.partyRole?.places
+		const previousAddresses = places ? places.map(p => p.placeRef?.address) : []
+		if (!previousAddresses) {
+			console.log(places)
+		}
+		for (const j in debtor.accounts) {
+			const debtorAccount = debtor.accounts[j]
+			for (const k in debtorAccount.accountPaymentResps) {
+				const accountPaymentResp = debtorAccount.accountPaymentResps[k]
+				accountPaymentResp.debtorAccountId = debtorAccount.id
+				// como previamente fueron insertados los metodos de pago, asigna el primer metodo de pago del responsable de pago
+				accountPaymentResp.paymentMethodRefId = accountPaymentResp.paymentResponsible?.paymentMethods.map(p => p.id)[0]
+				if (accountPaymentResp.locAddressRef) {
+					const address = accountPaymentResp.locAddressRef.address
+					if (address && previousAddresses) {
+						const previousAddress = previousAddresses.find(p => equalAddress(p as LocAddress, address))
+						if (previousAddress) {
+							accountPaymentResp.locAddressRef.refId = previousAddress.id?.toString()
+							if (!accountPaymentResp.locAddressRef.refId) {
+								console.log(previousAddress)
+							}
+						} else {
+							console.log(address)
+						}
+					} else {
+						console.log(address)
+					}
+				}
+			}
+		}
+	}
+}
+function getAccountPaymentRest (debtors: DbDebtor[]):DbAccountPaymentResp[] {
+	const accountPaymentResps:DbAccountPaymentResp[] = []
+	for (const i in debtors) {
+		const debtor = debtors[i]
+		for (const j in debtor.accounts) {
+			const debtorAccount = debtor.accounts[j]
+			for (const k in debtorAccount.accountPaymentResps) {
+				const accountPaymentResp = debtorAccount.accountPaymentResps[k]
+				accountPaymentResps.push(accountPaymentResp)
+			}
+		}
+	}
+	return accountPaymentResps
+}
+
+function equalAddress (value1: LocAddress, value2: LocAddress): boolean {
+	if (value1.additionalData && value2.additionalData) {
+		return value1.additionalData === value2.additionalData
+	} else {
+		return value1.city === value2.city && value1.postalCode === value2.postalCode && value1.streetName === value2.streetName && value1.streetNrFirst === value2.streetNrFirst
 	}
 }
 
 async function execute () {
 	try {
 		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
-		// await createLocal()
-		// await loadLocalSettings()
-		await _export()
-		// await _import()
+		await createLocal()
+		await loadLocalSettings()
+		// await _export()
+		await _import()
 		// await exportLocal()
 		// await validate()
 		// await sentence()
@@ -535,3 +707,14 @@ async function execute () {
 }
 
 execute()
+
+// Tareas
+// Test:
+// importar todos los debtos en Postgress
+// Current:
+// completar el bulkinsert en oracle y comenzar a migrar a oracle.
+// Pending:
+// pasar a trabajar con el archivo real (y no con los datos que se traen desde beesion oracle)
+// modificar bulkinsert para que permita transacciones por lote o por item o poder deshabilitarlo.
+// modificar bulkinsert para que en le caso de transacciones por item o deshabilitadas , retorne los registros que no pudieron ser importados completamente
+// trabajar con lambdaOrm como servicio y no como libreria.

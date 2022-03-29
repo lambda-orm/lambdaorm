@@ -1,0 +1,7 @@
+ALTER TABLE Coordinates DROP CONSTRAINT Coordinates_geometry_FK;
+ALTER TABLE Geometries DROP CONSTRAINT Geometries_shape_FK;
+ALTER TABLE Properties DROP CONSTRAINT Properties_shape_FK;
+DROP TABLE IF EXISTS Coordinates;
+DROP TABLE IF EXISTS Geometries;
+DROP TABLE IF EXISTS Properties;
+DROP TABLE IF EXISTS Shapes;
