@@ -79,6 +79,7 @@ export class QueryExecutor {
 		case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, dialect, connection); break
 		case 'truncateTable': result = await connection.executeDDL(query); break
 		case 'createTable': result = await connection.executeDDL(query); break
+		case 'createSequence': result = await connection.executeDDL(query); break
 		case 'createFk': result = await connection.executeDDL(query); break
 		case 'createIndex': result = await connection.executeDDL(query); break
 		case 'alterColumn': result = await connection.executeDDL(query); break
@@ -86,6 +87,7 @@ export class QueryExecutor {
 		case 'addPk': result = await connection.executeDDL(query); break
 		case 'addUk': result = await connection.executeDDL(query); break
 		case 'addFk': result = await connection.executeDDL(query); break
+		case 'dropSequence': result = await connection.executeDDL(query); break
 		case 'dropTable': result = await connection.executeDDL(query); break
 		case 'dropColumn': result = await connection.executeDDL(query); break
 		case 'dropPk': result = await connection.executeDDL(query); break
@@ -100,7 +102,7 @@ export class QueryExecutor {
 
 	private async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, query, this.params(query.parameters, dialect, data))
-		const chunkSize = 7000
+		const chunkSize = 999 // 7000
 
 		if (mainResult.length > 0) {
 			// get rows for include relations
@@ -141,137 +143,6 @@ export class QueryExecutor {
 						}
 					}
 					await Promise.all(promises)
-				}
-			}
-			// clear temporal fields used for include relations
-			for (const p in query.children) {
-				const include = query.children[p]
-				const keyId = '__' + include.relation.from
-				for (let i = 0; i < mainResult.length; i++) {
-					const element = mainResult[i]
-					const item = element[include.name]
-					delete element[keyId]
-					if (include.relation.type === RelationType.manyToOne) {
-						for (let j = 0; j < item.length; j++) {
-							const child = item[j]
-							if (child.LamdaOrmParentId) {
-								delete child.LamdaOrmParentId
-							}
-						}
-					} else if (item && item.LamdaOrmParentId) {
-						delete item.LamdaOrmParentId
-					}
-				}
-			}
-		}
-		return mainResult
-	}
-
-	private async select2 (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
-		const mainResult = await connection.select(mapping, query, this.params(query.parameters, dialect, data))
-
-		if (mainResult.length > 0) {
-			// get rows for include relations
-			for (let i = 0; i < mainResult.length; i++) {
-				const row = mainResult[i]
-				this.solveReadValues(query, row)
-			}
-			const idsByKey: any = {}
-			let ids: any[] = []
-			for (const p in query.children) {
-				const include = query.children[p]
-				const keyId = '__' + include.relation.from
-				if (!idsByKey[keyId]) {
-					const chunkSize = 7000
-					if (mainResult.length > chunkSize) {
-						const promises: any[] = []
-						for (let i = 0; i < mainResult.length; i += chunkSize) {
-							const chunk = mainResult.slice(i, i + chunkSize)
-							promises.push(this.selectChunkIds(chunk, keyId))
-						}
-						const result = await Promise.all(promises)
-						for (let i = 0; i < result.length; i++) {
-							ids = ids.concat(result[i])
-						}
-					} else {
-						ids = this.selectChunkIds(mainResult, keyId)
-					}
-				} else {
-					ids = idsByKey[keyId]
-				}
-
-				// if (!idsByKey[keyId]) {
-				// for (let i = 0; i < mainResult.length; i++) {
-				// const id = mainResult[i][keyId]
-				// // if (!ids.includes(id)) { ids.push(id) }
-				// // Replace for performance
-				// let exists = false
-				// for (let j = 0; j < ids.length; j++) {
-				// if (ids[j] === id) {
-				// exists = true
-				// break
-				// }
-				// }
-				// if (!exists) {
-				// ids.push(id)
-				// }
-				// }
-				// idsByKey[keyId] = ids
-				// } else {
-				// ids = idsByKey[keyId]
-				// }
-
-				data.set('LamdaOrmParentId', ids)
-				const includeResult = await this._execute(include.query, data)
-				if (include.relation.type === RelationType.manyToOne) {
-					const chunkSize = 10000
-					if (includeResult.length > chunkSize) {
-						const promises: any[] = []
-						for (let i = 0; i < includeResult.length; i += chunkSize) {
-							const chunk = includeResult.slice(i, i + chunkSize)
-							promises.push(this.selectChildSetManyToOne(mainResult, chunk, include.name, keyId))
-						}
-						await Promise.all(promises)
-					} else {
-						this.selectChildSetManyToOne(mainResult, includeResult, include.name, keyId)
-					}
-					// for (let i = 0; i < mainResult.length; i++) {
-					// const element = mainResult[i]
-					// const relationId = element[keyId]
-					// // element[include.name] = includeResult.filter((p: any) => p.LamdaOrmParentId === relationId)
-					// // Replace for performance
-					// element[include.name] = []
-					// for (let j = 0; j < includeResult.length; j++) {
-					// if (includeResult[j].LamdaOrmParentId === relationId) {
-					// element[include.name].push(includeResult[j])
-					// }
-					// }
-					// }
-				} else {
-					const chunkSize = 10000
-					if (includeResult.length > chunkSize) {
-						const promises: any[] = []
-						for (let i = 0; i < includeResult.length; i += chunkSize) {
-							const chunk = includeResult.slice(i, i + chunkSize)
-							promises.push(this.selectChildSetOneToMany(mainResult, chunk, include.name, keyId))
-						}
-						await Promise.all(promises)
-					} else {
-						this.selectChildSetOneToMany(mainResult, includeResult, include.name, keyId)
-					}
-					// for (let i = 0; i < mainResult.length; i++) {
-					// const element = mainResult[i]
-					// const relationId = element[keyId]
-					// // element[include.name] = includeResult.find((p: any) => p.LamdaOrmParentId === relationId)
-					// // Replace for performance
-					// element[include.name] = null
-					// for (let j = 0; j < includeResult.length; j++) {
-					// if (includeResult[j].LamdaOrmParentId === relationId) {
-					// element[include.name] = includeResult[j]
-					// break
-					// }
-					// }
-					// }
 				}
 			}
 			// clear temporal fields used for include relations

@@ -1,0 +1,54 @@
+version: '3'
+
+networks:
+  default:
+    name: cclp
+
+services:
+  oracle:
+    container_name: cclp-oracle-19
+    image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
+    # image: oracle/database:19.3.0-ee
+    # https://hub.docker.com/r/oracledb19c/oracle.19.3.0-ee/tags
+    # docker pull oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PWD: SYSTEM
+      ORACLE_CHARACTERSET: WE8MSWIN1252
+    volumes:
+      - oradata:/opt/oracle/oradata # persistent oracle database data.
+    ports:
+      - 1521:1521
+      - 5500:5500
+      # - 8080:8080
+  postgres:
+    container_name: cclp-postgres-10
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_DB: cclp
+      POSTGRES_USER: cclp
+      POSTGRES_PASSWORD: cclp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "test" ]
+      interval: 3s
+      timeout: 1s
+      retries: 10
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: C:\volumes\cclp\postgres
+  oradata:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: C:\volumes\cclp\oradata
+  # docker volume create --name oradata --opt type=none --opt device=C:\volumes\oradata --opt o=bind

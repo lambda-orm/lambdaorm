@@ -5,6 +5,7 @@
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -19,6 +20,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP PRIMARY KEY {name}",
         "dropUk": "DROP UNIQUE {name}",
@@ -54,7 +56,8 @@
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -257,6 +260,7 @@
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
         "createFk": "CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
@@ -269,6 +273,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
@@ -301,7 +306,8 @@
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -472,6 +478,7 @@
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -486,6 +493,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP PRIMARY KEY {name}",
         "dropUk": "DROP UNIQUE {name}",
@@ -521,7 +529,8 @@
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -708,26 +717,54 @@
     "oracle": {
       "types": {
         "boolean": "CHAR(1)",
-        "integer": "LONG",
+        "integer": "NUMBER(10)",
+        "decimal": "NUMBER(19,4)",
         "string": "VARCHAR2({0})",
-        "datetime": "TIMESTAMP",
-        "decimal": "DECIMAL(10,4)",
+        "datetime": "DATE",
         "date": "DATE",
-        "time": "TIME"
+        "time": "DATE"
       },
       "others": {
         "false": "N",
         "true": "Y",
+        "variable": ":{name}",
         "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
-        "variable": ":{name}",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
+      },
+      "ddl": {
+        "createTable": "CREATE TABLE {name} ({define})",
+        "incrementalColumDefine": "{name} {type} {nullable}",
+        "dropTable": "DROP TABLE {name}",
+        "dropPk": "DROP CONSTRAINT {name}",
+        "dropUk": "DROP CONSTRAINT {name}",
+        "dropFk": "DROP CONSTRAINT {name}",
+        "dropIndex": "DROP INDEX {name} ON {table}",
+        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
+        "columnDefine": "{name} {type} {nullable} ",
+        "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
+        "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
+        "createFk": "CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
+        "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
+        "alterTable": "ALTER TABLE {name}",
+        "addColumn": "ADD {columnDefine}",
+        "addPk": "ADD CONSTRAINT {name} PRIMARY KEY ({columns})",
+        "addUk": "ADD CONSTRAINT {name} UNIQUE ({columns})",
+        "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
+        "alterColumn": "MODIFY {columnDefine}",
+        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
+        "dropColumn": "DROP COLUMN {name}",
+        "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "page": "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY",
+        "bulkInsert": "INSERT INTO {name}({fields}) VALUES({values})",
         "map": "SELECT {0}",
         "select": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
@@ -741,34 +778,9 @@
         "update": "UPDATE {name} {alias} SET {assings}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
-        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "upsert": null
-      },
-      "ddl": {
-        "dropPk": "DROP CONSTRAINT {name}",
-        "dropUk": "DROP CONSTRAINT {name}",
-        "dropFk": "DROP CONSTRAINT {name}",
-        "dropIndex": "DROP INDEX {name} ON {table}",
-        "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-        "createTable": "CREATE TABLE {name} ({define})",
-        "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
-        "columnDefine": "{name} {type} {nullable} ",
-        "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
-        "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
-        "createFk": "CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
-        "createIndex": "CREATE INDEX {name} ON {table} ({columns})",
-        "alterTable": "ALTER TABLE {name}",
-        "addColumn": "ADD {columnDefine}",
-        "addPk": "ADD CONSTRAINT {name} PRIMARY KEY ({columns})",
-        "addUk": "ADD CONSTRAINT {name} UNIQUE ({columns})",
-        "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
-        "alterColumn": "MODIFY {columnDefine}",
-        "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-        "dropTable": "DROP TABLE IF EXISTS {name}",
-        "dropColumn": "DROP COLUMN {name}",
-        "truncateTable": "TRUNCATE TABLE {name}"
       },
       "functions": {
         "datetime": {
@@ -952,6 +964,7 @@
         "dropIndex": "DROP INDEX {name}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
@@ -965,6 +978,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
@@ -997,7 +1011,8 @@
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -1181,6 +1196,7 @@
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
       "createTable": "CREATE TABLE {name} ({define})",
+      "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
       "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
       "columnDefine": "{name} {type} {nullable} ",
       "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -1195,6 +1211,7 @@
       "alterColumn": "MODIFY {columnDefine}",
       "dropDatabase": "DROP DATABASE IF EXISTS {name}",
       "dropTable": "DROP TABLE IF EXISTS {name}",
+      "dropSequence": "DROP SEQUENCE {name}",
       "dropColumn": "DROP COLUMN {name}",
       "dropPk": "DROP PRIMARY KEY {name}",
       "dropUk": "DROP UNIQUE {name}",
@@ -1231,7 +1248,8 @@
       "column": "{name}",
       "false": "FALSE",
       "true": "TRUE",
-      "null": "NULL"
+      "null": "NULL",
+      "sequenceNextval": "{name}.nextval"
     },
     "operators": {
       "unary": {

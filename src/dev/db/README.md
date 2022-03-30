@@ -12,7 +12,7 @@ docker volume create --name mariadb-log --opt type=none --opt device=~/volumes/m
 docker volume create --name postgres --opt type=none --opt device=~/volumes/postgres --opt o=bind
 docker volume create --name mssql --opt type=none --opt device=~/volumes/mssql --opt o=bind
 docker volume create --name mongodb --opt type=none --opt device=~/volumes/mongodb --opt o=bind
-docker volume create --name oracle --opt type=none --opt device=~/volumes/oracle --opt o=bind
+docker volume create --name oradata --opt type=none --opt device=~/volumes/oracle --opt o=bind
 ```
 
 windows:
@@ -25,7 +25,7 @@ docker volume create --name mariadb-log --opt type=none --opt device=C:\volumes\
 docker volume create --name postgres --opt type=none --opt device=C:\volumes\postgres --opt o=bind
 docker volume create --name mssql --opt type=none --opt device=C:\volumes\mssql --opt o=bind
 docker volume create --name mongodb --opt type=none --opt device=C:\volumes\mongodb --opt o=bind
-docker volume create --name oracle --opt type=none --opt device=C:\volumes\oracle --opt o=bind
+docker volume create --name oradata --opt type=none --opt device=C:\volumes\oradata --opt o=bind
 ```
 
 ## install database
@@ -71,7 +71,7 @@ docker volume rm mariadb-log
 docker volume rm postgres
 docker volume rm mssql
 docker volume rm mongodb
-docker volume rm oracle
+docker volume rm oradata
 ```
 
 ### connect mysql

@@ -85,6 +85,12 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('addFk', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
 	}
 
+	public createSequence (entity: EntityMapping): Query {
+		let text = this.dialect.ddl('createSequence')
+		text = text.replace('{name}', this.dialect.delimiter(entity.sequence))
+		return new Query('createSequence', this.dataSource.dialect, this.dataSource.name, text, entity.name)
+	}
+
 	public createIndex (entity:EntityMapping, index:Index):Query {
 		const columns: string[] = []
 		const columnTemplate = this.dialect.other('column')
@@ -216,13 +222,16 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public setNull (entity: EntityMapping, relation: Relation): Query {
 		const alias = 'a'
 		const templateColumn = this.dialect.other('column')
-		const column = templateColumn.replace('{name}', relation.from)
+		const propertyfrom = entity.properties.find(p => p.name === relation.from)
+		if (!propertyfrom) {
+			throw new SchemaError(`not found relation form ${entity.name}.${relation.name}.${relation.from} `)
+		}
+		const column = templateColumn.replace('{name}', propertyfrom.mapping)
 		const templateAssing = this.dialect.operator('=', 2)
 		let assing = templateAssing.replace('{0}', column)
 		const _null = this.dialect.other('null')
 		assing = assing.replace('{1}', _null)
 		let text = this.dialect.dml('update')
-		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{alias}', alias)
 		text = text.replace('{assings}', assing)
@@ -241,5 +250,11 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + index.name))
 		text = text.replace('{table}', this.dialect.delimiter(entity.mapping))
 		return new Query('dropIndex', this.dataSource.dialect, this.dataSource.name, text, entity.name)
+	}
+
+	public dropSequence (entity: EntityMapping): Query {
+		let text = this.dialect.ddl('dropSequence')
+		text = text.replace('{name}', this.dialect.delimiter(entity.sequence))
+		return new Query('dropSequence', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 }

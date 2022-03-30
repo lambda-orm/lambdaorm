@@ -114,12 +114,18 @@ export class SqlDMLBuilder {
 		const templateColumn = this.dialect.other('column')
 		const fields:string[] = []
 		const values: any[] = []
+
 		const autoincrement = this.mapping.getAutoincrement(entity)
-		const entityMapping = this.mapping.entityMapping(entity)
+		const entityMapping = this.mapping.getEntity(entity)
 		if (entityMapping === undefined) {
 			throw new SchemaError(`mapping undefined on ${entity} entity`)
 		}
 
+		if (autoincrement && entityMapping.sequence) {
+			const templateSequenceNextval = this.dialect.other('sequenceNextval')
+			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoincrement.mapping)))
+			values.push(templateSequenceNextval.replace('{name}', entityMapping.sequence))
+		}
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
@@ -136,7 +142,8 @@ export class SqlDMLBuilder {
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
-		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
+
+		template = template.replace('{name}', this.dialect.delimiter(entityMapping.mapping))
 		template = template.replace('{fields}', fields.join(','))
 		template = template.replace('{values}', values.join(','))
 		template = template.replace('{autoincrementField}', autoincrement && autoincrement.mapping ? autoincrement.mapping : '0')

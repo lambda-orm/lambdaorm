@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionPool } from '..'
-import { NotImplemented, Parameter, Query } from '../../model'
+import { SchemaError, Parameter, Query } from '../../model'
 import { Helper } from '../../manager/helper'
 import { MappingConfig } from '../../manager'
 
@@ -55,7 +55,6 @@ export class OracleConnectionPool extends ConnectionPool {
 export class OracleConnection extends Connection {
 	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
 		const result = await this._execute(query, params)
-
 		const list: any[] = []
 		for (const i in result.rows) {
 			const row = result.rows[i]
@@ -79,80 +78,130 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<any[]> {
-		// const autoincrement = mapping.getAutoincrement(query.entity)
+	private oracleType (type: string): number {
+		switch (type) {
+		case 'boolean':
+			return 2003
+			// oracledb.DB_TYPE_CHAR 2003
+		case 'string':
+			// eslint-disable-next-line no-case-declarations
+			return 2001
+			// oracledb.STRING 2001
+		case 'integer':
+		case 'decimal':
+			return 2010
+			// oracledb.NUMBER 2010
+		case 'datetime':
+		case 'date':
+		case 'time':
+			return 2014
+			// oracledb.DATE 2014
+		default:
+			throw new SchemaError(`type ${type} not implemented`)
+		}
+	}
 
+	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<any[]> {
+		const binds: any[] = []
+		const fieldIds = mapping.getFieldIds(query.entity)
+		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
+		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
+		let options = {}
+		let sql = ''
+		try {
+			const bindDefs: any = {}
+			if (fieldId && fieldIdKey) {
+				bindDefs[fieldIdKey] = { dir: 3003, type: this.oracleType(fieldId.type) }
+				// oracledb.BIND_OUT 3003
+			}
+			for (let i = 0; i < params.length; i++) {
+				const param = params[i]
+				const oracleType = this.oracleType(param.type)
+				switch (param.type) {
+				case 'boolean':
+					bindDefs[param.name] = { type: oracleType, maxSize: 1 }; break
+				case 'string':
+					// eslint-disable-next-line no-case-declarations
+					const property = mapping.getProperty(query.entity, param.name)
+					bindDefs[param.name] = { type: oracleType, maxSize: property.length }; break
+				case 'integer':
+				case 'decimal':
+					bindDefs[param.name] = { type: oracleType }; break
+				case 'datetime':
+				case 'date':
+				case 'time':
+					bindDefs[param.name] = { type: oracleType }; break
+				}
+			}
+			options = {
+				autoCommit: !this.inTransaction,
+				batchErrors: true,
+				bindDefs: bindDefs
+			}
+
+			for (const p in array) {
+				const values = array[p]
+				const row: any = {}
+				for (let i = 0; i < params.length; i++) {
+					const param = params[i]
+					switch (param.type) {
+					case 'boolean':
+						row[param.name] = values[i] ? 'Y' : 'N'; break
+					case 'string':
+						row[param.name] = typeof values[i] === 'string' || values[i] === null ? values[i] : values[i].toString(); break
+					case 'datetime':
+					case 'date':
+					case 'time':
+						row[param.name] = values[i] ? new Date(values[i]) : null; break
+					default:
+						row[param.name] = values[i]
+					}
+				}
+				binds.push(row)
+			}
+
+			const returning = fieldId && fieldIdKey ? `RETURNING ${fieldId.mapping} INTO :${fieldIdKey} ` : ''
+			sql = `${query.sentence} ${returning}`
+			const result = await this.cnx.executeMany(sql, binds, options)
+
+			if (fieldId && fieldIdKey) {
+				const ids: any[] = []
+				for (const i in result.outBinds) {
+					ids.push(result.outBinds[i][fieldIdKey][0])
+				}
+				return ids
+			} else {
+				return []
+			}
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
+
+		// Info
 		// https://stackoverflow.com/questions/46964852/node-oracledb-bulk-insert-using-associative-array
 		// https://blogs.oracle.com/opal/post/node-oracledb-22-with-batch-statement-execution-and-more-is-out-on-npm
-		throw new Error('Not Implemented')
-
-		// Postgres example
-		// const fieldIds = mapping.getFieldIds(query.entity)
-		// const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
-		// // const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
-		// const sql = query.sentence
-		// let _query = ''
-		// try {
-		// const rows:string[] = []
-		// for (const p in array) {
-		// const values = array[p]
-		// const row:any[] = []
-		// for (let i = 0; i < params.length; i++) {
-		// const parameter = params[i]
-		// let value = values[i]
-		// if (value == null || value === undefined) {
-		// value = 'null'
-		// } else {
-		// switch (parameter.type) {
-		// case 'boolean':
-		// value = value ? 'true' : 'false'; break
-		// case 'string':
-		// value = Helper.escape(value)
-		// value = Helper.replace(value, '\\\'', '\\\'\'')
-		// break
-		// case 'datetime':
-		// case 'date':
-		// case 'time':
-		// value = Helper.escape(value); break
-		// }
-		// }
-		// row.push(value)
-		// }
-		// rows.push(`(${row.join(',')})`)
-		// }
-		// const returning = fieldId ? 'RETURNING ' + fieldId.mapping + ' AS "' + fieldId.name + '"' : ''
-		// _query = `${sql} ${rows.join(',')} ${returning};`
-		// const result = await this.cnx.query(_query)
-		// const ids:any[] = []
-		// if (fieldId) {
-		// for (const p in result.rows) {
-		// const id = result.rows[p][fieldId.name]
-		// ids.push(id)
-		// }
-		// }
-		// return ids
-		// } catch (error) {
-		// console.log(_query)
-		// console.error(error)
-		// throw error
-		// }
+		// [binDef by name](https://stackoverflow.com/questions/61009450/node-js-oracledb-4-2-executemany-error-njs-011-encountered-bind-value-an)
+		// [binDef by name](https://github.com/oracle/node-oracledb/issues/1232)
+		// [use sequence](https://stackoverflow.com/questions/57201595/how-to-use-column-nextval-with-oracledb)
+		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
 
 	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
-		return result.rowCount
+		return result.rowsAffected
 	}
 
 	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
 		const result = await this._execute(query, params)
-		return result.rowCount
+		return result.rowsAffected
 	}
 
 	public async execute (query:Query):Promise<any> {
 		return await this._execute(query)
 	}
 
-	public async executeDDL (query:Query):Promise<any> {
+	public async executeDDL (query: Query): Promise<any> {
 		return await this.cnx.execute(query.sentence)
 	}
 
@@ -206,12 +255,7 @@ export class OracleConnection extends Connection {
 				}
 			}
 		}
-		try {
-			const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
-			return await this.cnx.execute(sql, values, options)
-		} catch (error) {
-			console.error(error)
-			throw error
-		}
+		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
+		return await this.cnx.execute(sql, values, options)
 	}
 }

@@ -1,16 +1,18 @@
 import { Helper, orm } from '../../../../lib'
 import {
 	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
-	LamAccountTypes, LamStatementCycles, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbPartyRoleReference, DbPaymentResponsible, PrPartyRole, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount, LocAddress, DbAccountPaymentResp, PrPartyRolePlace, PrAddressReference
+	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbPartyRoleReference,
+	DbPaymentResponsible, PrPartyRole, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount, LocAddress, DbAccountPaymentResp, PrPartyRolePlace,
+	PrAddressReference, LamUserReferences, DbUserReferences, PmContactMediumTypes
 } from './workspace/src/model'
 
 const sourcePath = 'src/dev/labs/performance/cclp'
 const beeStage = 'beesion'
-const locStage = 'local'
+const locStage = 'localOracle'// 'local'
 const view = 'default'
 
 // .page(1,10)
-const expExport =
+const expDebtorsExport =
 		`DbDebtors
 		.include(p=> [p.partyRoleRef
 									.include(p=> p.partyRole
@@ -36,18 +38,21 @@ const expExport =
 								p.accounts
 								 .include(p=> [p.accountLedgerRef
 															  .include(p=> p.ledgerAccount
-																							.include(p=> p.statusHistories)),
+																							.include(p=> p.statusHistories
+																														.include(p=> p.userRef)
+																											)),
 															 p.services,
 															 p.accountPaymentResps
 															  .include(p=> [p.locAddressRef.include(p=> p.address.include(p=> p.areas)),
 																							p.paymentResponsible.include(p=> p.paymentMethods),
 																							p.paymentMethodRef
-																				])
+																				]),
+															p.statusHistories.include(p=> p.userRef)
 												]),
-								p.statusHistories
+								p.statusHistories.include(p=> p.userRef)
 						])
 		`
-const expImportDebtors =
+const expDebtorsImport =
 		`DbDebtors.bulkInsert()
 		.include(p=> [p.partyRoleRef
 									.include(p=> p.partyRole
@@ -74,10 +79,12 @@ const expImportDebtors =
 								p.accounts
 								 .include(p=> [p.accountLedgerRef
 															.include(p=> p.ledgerAccount
-																            .include(p=> p.statusHistories)),
-															p.services
+																            .include(p=> p.statusHistories
+																													.include(p=> p.userRef))),
+															p.services,
+															p.statusHistories.include(p=> p.userRef)
 												]),
-								p.statusHistories
+								p.statusHistories.include(p=> p.userRef)
 						])
 		`
 const expPaymentRespsImport =
@@ -113,10 +120,10 @@ async function loadLocalSettings () {
 	const debtorTypes = await orm.execute(() => DbDebtorTypes, {}, view, beeStage)
 	const paymentMethodTypes = await orm.execute(() => DbPaymentMethodTypes, {}, view, beeStage)
 	const debtorStages = await orm.execute(() => DbDebtorStages, {}, view, beeStage)
-	const lamCurrencyReferences = await orm.execute('LamCurrencyReferences', {}, view, beeStage)
-	const lamUserReferences = await orm.execute('LamUserReferences', {}, view, beeStage)
-	const dbUserReferences = await orm.execute('DbUserReferences', {}, view, beeStage)
-	const contactMediumTypes = await orm.execute('PmContactMediumTypes', {}, view, beeStage)
+	const lamCurrencyReferences = await orm.execute(() => LamCurrencyReferences, {}, view, beeStage)
+	const lamUserReferences = await orm.execute(() => LamUserReferences, {}, view, beeStage)
+	const dbUserReferences = await orm.execute(() => DbUserReferences, {}, view, beeStage)
+	const contactMediumTypes = await orm.execute(() => PmContactMediumTypes, {}, view, beeStage)
 
 	const _countries = Helper.clone(countries)
 	const _areaTypes = Helper.clone(areaTypes)
@@ -248,23 +255,23 @@ async function loadLocalSettings () {
 		mapping.contactMediumTypes[source.id] = _contactMediumTypes.find((p: any) => p.code === source.code).id
 	}
 
-	await Helper.writeFile(sourcePath + '/mapping.json', JSON.stringify(mapping))
+	await Helper.writeFile(sourcePath + '/confidentional_data/mapping.json', JSON.stringify(mapping))
 }
 
 async function _export () {
 	const start = new Date().getTime()
-	const debtors:DbDebtor[] = await orm.execute(expExport, {}, view, beeStage)
+	const debtors:DbDebtor[] = await orm.execute(expDebtorsExport, {}, view, beeStage)
 	const get = new Date().getTime()
 	console.log(`export: ${get - start}`)
-	await Helper.writeFile(sourcePath + '/beesionDebtors.json', JSON.stringify(debtors))
+	await Helper.writeFile(sourcePath + '/confidentional_data/beesionDebtors.json', JSON.stringify(debtors))
 }
 
 async function _import () {
-	const mapping = JSON.parse(await Helper.readFile(sourcePath + '/mapping.json') as string)
-	const debtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/beesionDebtors.json') as string)
+	const mapping = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/mapping.json') as string)
+	const debtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
 	preImportDebtors(debtors, mapping)
 	let start = new Date().getTime()
-	await orm.execute(expImportDebtors, debtors, view, locStage)
+	await orm.execute(expDebtorsImport, debtors, view, locStage)
 	let end = new Date().getTime()
 	console.log(`import debtors: ${end - start}`)
 
@@ -284,20 +291,15 @@ async function _import () {
 
 async function exportLocal () {
 	const start = new Date().getTime()
-	const debtors = await orm.execute(expExport, {}, view, locStage)
+	const debtors = await orm.execute(expDebtorsExport, {}, view, locStage)
 	const get = new Date().getTime()
 	console.log(`export Local: ${get - start}`)
-	await Helper.writeFile(sourcePath + '/localDebtors.json', JSON.stringify(debtors))
-}
-
-async function sentence () {
-	const sentences = orm.sentence(expExport, view, locStage)
-	await Helper.writeFile(sourcePath + '/sentences.json', JSON.stringify(sentences))
+	await Helper.writeFile(sourcePath + '/confidentional_data/localDebtors.json', JSON.stringify(debtors))
 }
 
 async function validate () {
-	const bDebtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/beesionDebtors.json') as string)
-	const lDebtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/localDebtors.json') as string)
+	const bDebtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
+	const lDebtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/localDebtors.json') as string)
 
 	for (const i in bDebtors) {
 		const bDebtor = bDebtors[i]
@@ -533,6 +535,8 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 								statusHistory.accountId = undefined
 								if (statusHistory.userRefId) {
 									statusHistory.userRefId = mapping.lamUserReferences[statusHistory.userRefId]
+								} else {
+									console.log(statusHistory)
 								}
 							}
 						}
@@ -543,6 +547,18 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 						const service = dbAccount.services[k]
 						service.id = undefined
 						service.accountId = undefined
+					}
+				}
+				if (dbAccount.statusHistories) {
+					for (const k in dbAccount.statusHistories) {
+						const statusHistory = dbAccount.statusHistories[k]
+						statusHistory.id = undefined
+						statusHistory.accountId = undefined
+						if (statusHistory.userRefId) {
+							statusHistory.userRefId = mapping.lamUserReferences[statusHistory.userRefId]
+						} else {
+							console.log(statusHistory)
+						}
 					}
 				}
 				if (dbAccount.accountPaymentResps) {
@@ -608,6 +624,8 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 				statusHistory.debtorId = undefined
 				if (statusHistory.userRefId) {
 					statusHistory.userRefId = mapping.dbUserReferences[statusHistory.userRefId]
+				} else {
+					console.log(statusHistory)
 				}
 			}
 		}
@@ -689,15 +707,20 @@ function equalAddress (value1: LocAddress, value2: LocAddress): boolean {
 	}
 }
 
+async function sentence () {
+	const sentences = orm.sentence(expDebtorsImport, view, locStage)
+	await Helper.writeFile(sourcePath + '/sentences.json', JSON.stringify(sentences))
+}
+
 async function execute () {
 	try {
 		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
-		await createLocal()
-		await loadLocalSettings()
+		// await createLocal()
+		// await loadLocalSettings()
 		// await _export()
-		await _import()
+		// await _import()
 		// await exportLocal()
-		// await validate()
+		await validate()
 		// await sentence()
 	} catch (error: any) {
 		console.error(error)

@@ -1,19 +1,27 @@
 _extends: [sql]
 types:
   boolean: CHAR(1)
-  integer: LONG
+  integer: NUMBER(10)
+  decimal: NUMBER(19,4)
   string: VARCHAR2({0})
-  datetime: TIMESTAMP
+  datetime: DATE
+  date: DATE
+  time: DATE
 others:
   false: "N"
   true: "Y"
-dml:
-  page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
+  variable: ":{name}"
 ddl:
+  createTable: "CREATE TABLE {name} ({define})"
+  incrementalColumDefine: "{name} {type} {nullable}"
+  dropTable: "DROP TABLE {name}"
   dropPk: "DROP CONSTRAINT {name}"
   dropUk: "DROP CONSTRAINT {name}"
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name} ON {table}"
+dml:
+  page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
+  bulkInsert: INSERT INTO {name}({fields}) VALUES({values})
 functions:
   datetime:
     datetime: TO_CHAR({0},'YYYY-MM-DD"T"hh24:mi:ss')

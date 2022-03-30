@@ -14,6 +14,7 @@ formats:
 ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'
+  createSequence: 'CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1'
   incrementalColumDefine: '{name} {type} {nullable} AUTO_INCREMENT' 
   columnDefine: '{name} {type} {nullable} '
   createPk: 'CONSTRAINT {name} PRIMARY KEY ({columns})'
@@ -28,6 +29,7 @@ ddl:
   alterColumn: 'MODIFY {columnDefine}'
   dropDatabase: 'DROP DATABASE IF EXISTS {name}'
   dropTable: 'DROP TABLE IF EXISTS {name}'
+  dropSequence: 'DROP SEQUENCE {name}'
   dropColumn: 'DROP COLUMN {name}'
   dropPk: 'DROP PRIMARY KEY {name}'
   dropUk: 'DROP UNIQUE {name}'
@@ -63,6 +65,7 @@ others:
   false: 'FALSE'
   true: 'TRUE'
   null: 'NULL'
+  sequenceNextval : '{name}.nextval'
 operators:
   unary:
     '-': '- {0}'

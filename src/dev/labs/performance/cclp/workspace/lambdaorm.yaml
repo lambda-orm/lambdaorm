@@ -594,6 +594,12 @@ entities:
     properties:
       - name: refType
         key: User
+  - name: LamAccountHolderReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: "Account Holder"
   - name: LamCreditors
     primaryKey: ["id"]
     uniqueKey: ["creditorCode"]
@@ -686,7 +692,7 @@ entities:
         to: id
       - name: currencyRef
         from: currencyRefId
-        entity: LamReferences
+        entity: LamCurrencyReferences
         to: id
       - name: accountStatus
         from: accountStatusId
@@ -694,7 +700,7 @@ entities:
         to: id
       - name: accountHolderRef
         from: accountHolderRefId
-        entity: LamReferences
+        entity: LamAccountHolderReferences
         to: id
       - name: statementCycle
         from: statementCycleId
@@ -730,8 +736,9 @@ entities:
         nullable: false
     relations:
       - name: userRef
+        type: oneToOne
         from: userRefId
-        entity: LamReferences
+        entity: LamUserReferences
         to: id
       - name: account
         from: accountId
@@ -931,8 +938,9 @@ entities:
         nullable: false
     relations:
       - name: userRef
+        type: oneToOne
         from: userRefId
-        entity: DbReferences
+        entity: DbUserReferences
         to: id
       - name: debtor
         from: debtorId
@@ -1064,12 +1072,13 @@ entities:
         nullable: false
     relations:
       - name: userRef
+        type: oneToOne
         from: userRefId
-        entity: LamReferences
+        entity: DbUserReferences
         to: id
       - name: account
         from: accountId
-        entity: LamAccounts
+        entity: DbDebtorAccounts
         to: id
         target: statusHistories
   - name: DbAccountPaymentResps
@@ -1540,6 +1549,7 @@ mappings:
         extends: SrbReferences
       - name: LamUserReferences
         extends: SrbReferences
+
       - name: LamAccountStatusHistories
         mapping: TBL_LAM_ACCOUNT_STATUS_HISTORY
         properties:
@@ -1605,6 +1615,7 @@ mappings:
             mapping: STAGE_POSITION
           - name: disabled
             mapping: DISABLED
+
       - name: DbReferences
         extends: SrbReferences
       - name: DbPartyRoleReferences
@@ -1615,6 +1626,7 @@ mappings:
         extends: SrbReferences
       - name: DbAddressReferences
         extends: SrbReferences
+
       - name: DbDebtors
         mapping: TBL_DB_DEBTOR
         properties:
@@ -1843,6 +1855,19 @@ mappings:
       - name: PmOrganizationNames
         sequence: SQ_PM_ORGANIZATION_NAME
       # PartyRole
+      - name: PrReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PrIndividualReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PrOrganizationReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PrAddressReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+
       - name: PrPartyRoleSpecs
         sequence: SQ_PR_PARTY_ROLE_SPEC
       - name: PrPartyRoleStatuses
@@ -1862,13 +1887,31 @@ mappings:
         sequence: SQ_LAM_ACCOUNT
       - name: LamReferences
         extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
       - name: LamCurrencyReferences
         extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
       - name: LamUserReferences
         extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
       - name: LamAccountStatusHistories
         sequence: SQ_LAM_ACCOUNT_STATUS_HISTORY
       # Debtor
+      - name: DbReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbPartyRoleReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbLedgerAccountReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbUserReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbAddressReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
       - name: DbDebtorTypes
         sequence: SQ_DB_DEBTOR_TYPE
       - name: DbPaymentMethodTypes

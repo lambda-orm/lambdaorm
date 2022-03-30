@@ -77,8 +77,8 @@ export interface PropertyMapping extends Property {
 }
 export interface EntityMapping extends Entity {
 	mapping: string
+	sequence:string
 	properties: PropertyMapping[]
-	// TODO: aplicar el filtro de dmlBuilder
 	filter?: string
 }
 export interface Mapping {

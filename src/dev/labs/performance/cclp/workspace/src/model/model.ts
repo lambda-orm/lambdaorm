@@ -458,6 +458,12 @@ export class LamUserReference extends SrbReference {
 export interface QryLamUserReference extends QrySrbReference {
 	refType: string
 }
+export class LamAccountHolderReference extends SrbReference {
+	refType?: string
+}
+export interface QryLamAccountHolderReference extends QrySrbReference {
+	refType: string
+}
 export class LamCreditor {
 	id?: number
 	creditorCode?: string
@@ -505,9 +511,9 @@ export class LamAccount {
 	registrationDate?: Date
 	creditorId?: number
 	accountType?: LamAccountType
-	currencyRef?: LamReference
+	currencyRef?: LamCurrencyReference
 	accountStatus?: LamAccountStatusHistory
-	accountHolderRef?: LamReference
+	accountHolderRef?: LamAccountHolderReference
 	statementCycle?: LamStatementCycle
 	creditor?: LamCreditor
 	statusHistories: LamAccountStatusHistory[]
@@ -525,9 +531,9 @@ export interface QryLamAccount {
 	registrationDate: Date
 	creditorId: number
 	accountType: LamAccountType & OneToMany<LamAccountType> & LamAccountType
-	currencyRef: LamReference & OneToMany<LamReference> & LamReference
+	currencyRef: LamCurrencyReference & OneToMany<LamCurrencyReference> & LamCurrencyReference
 	accountStatus: LamAccountStatusHistory & OneToMany<LamAccountStatusHistory> & LamAccountStatusHistory
-	accountHolderRef: LamReference & OneToMany<LamReference> & LamReference
+	accountHolderRef: LamAccountHolderReference & OneToMany<LamAccountHolderReference> & LamAccountHolderReference
 	statementCycle: LamStatementCycle & OneToMany<LamStatementCycle> & LamStatementCycle
 	creditor: LamCreditor & OneToMany<LamCreditor> & LamCreditor
 	statusHistories: ManyToOne<LamAccountStatusHistory> & LamAccountStatusHistory[]
@@ -540,7 +546,7 @@ export class LamAccountStatusHistory {
 	reason?: string
 	remarks?: string
 	accountId?: number
-	userRef?: LamReference
+	userRef?: LamUserReference
 	account?: LamAccount
 }
 export interface QryLamAccountStatusHistory {
@@ -551,7 +557,7 @@ export interface QryLamAccountStatusHistory {
 	reason: string
 	remarks: string
 	accountId: number
-	userRef: LamReference & OneToMany<LamReference> & LamReference
+	userRef: LamUserReference & OneToOne<LamUserReference> & LamUserReference
 	account: LamAccount & OneToMany<LamAccount> & LamAccount
 }
 export class DbDebtorType {
@@ -699,7 +705,7 @@ export class DbDebtorStatusHistory {
 	reason?: string
 	remarks?: string
 	debtorId?: number
-	userRef?: DbReference
+	userRef?: DbUserReference
 	debtor?: DbDebtor
 }
 export interface QryDbDebtorStatusHistory {
@@ -710,7 +716,7 @@ export interface QryDbDebtorStatusHistory {
 	reason: string
 	remarks: string
 	debtorId: number
-	userRef: DbReference & OneToMany<DbReference> & DbReference
+	userRef: DbUserReference & OneToOne<DbUserReference> & DbUserReference
 	debtor: DbDebtor & OneToMany<DbDebtor> & DbDebtor
 }
 export class DbAccountService {
@@ -746,6 +752,7 @@ export interface QryDbAccountService {
 export class DbDebtorAccount {
 	constructor () {
 		this.services = []
+		this.statusHistories = []
 		this.accountPaymentResps = []
 	}
 
@@ -770,6 +777,7 @@ export class DbDebtorAccount {
 	debtor?: DbDebtor
 	accountLedgerRef?: DbLedgerAccountReference
 	services: DbAccountService[]
+	statusHistories: DbAccountStatusHistory[]
 	accountPaymentResps: DbAccountPaymentResp[]
 }
 export interface QryDbDebtorAccount {
@@ -794,6 +802,7 @@ export interface QryDbDebtorAccount {
 	debtor: DbDebtor & OneToMany<DbDebtor> & DbDebtor
 	accountLedgerRef: DbLedgerAccountReference & OneToOne<DbLedgerAccountReference> & DbLedgerAccountReference
 	services: ManyToOne<DbAccountService> & DbAccountService[]
+	statusHistories: ManyToOne<DbAccountStatusHistory> & DbAccountStatusHistory[]
 	accountPaymentResps: ManyToOne<DbAccountPaymentResp> & DbAccountPaymentResp[]
 }
 export class DbAccountStatusHistory {
@@ -805,8 +814,8 @@ export class DbAccountStatusHistory {
 	reason?: string
 	remarks?: string
 	accountId?: number
-	userRef?: LamReference
-	account?: LamAccount
+	userRef?: DbUserReference
+	account?: DbDebtorAccount
 }
 export interface QryDbAccountStatusHistory {
 	id: number
@@ -817,8 +826,8 @@ export interface QryDbAccountStatusHistory {
 	reason: string
 	remarks: string
 	accountId: number
-	userRef: LamReference & OneToMany<LamReference> & LamReference
-	account: LamAccount & OneToMany<LamAccount> & LamAccount
+	userRef: DbUserReference & OneToOne<DbUserReference> & DbUserReference
+	account: DbDebtorAccount & OneToMany<DbDebtorAccount> & DbDebtorAccount
 }
 export class DbAccountPaymentResp {
 	id?: number
@@ -918,6 +927,7 @@ export let LamStatementCycles: Queryable<QryLamStatementCycle>
 export let LamReferences: Queryable<QryLamReference>
 export let LamCurrencyReferences: Queryable<QryLamCurrencyReference>
 export let LamUserReferences: Queryable<QryLamUserReference>
+export let LamAccountHolderReferences: Queryable<QryLamAccountHolderReference>
 export let LamCreditors: Queryable<QryLamCreditor>
 export let LamAccounts: Queryable<QryLamAccount>
 export let LamAccountStatusHistories: Queryable<QryLamAccountStatusHistory>
