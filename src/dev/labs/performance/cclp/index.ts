@@ -731,13 +731,12 @@ async function execute () {
 
 execute()
 
-// Tareas
-// Test:
+// TEST:
 // importar todos los debtos en Postgress
-// Current:
 // completar el bulkinsert en oracle y comenzar a migrar a oracle.
-// Pending:
+// CURRENT:
 // pasar a trabajar con el archivo real (y no con los datos que se traen desde beesion oracle)
+// PENDING:
 // modificar bulkinsert para que permita transacciones por lote o por item o poder deshabilitarlo.
 // modificar bulkinsert para que en le caso de transacciones por item o deshabilitadas , retorne los registros que no pudieron ser importados completamente
 // trabajar con lambdaOrm como servicio y no como libreria.
