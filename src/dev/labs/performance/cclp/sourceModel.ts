@@ -104,3 +104,7 @@ export interface Debtor {
 	additionalInfo: AdditionalInfo,
 	accounts: Account[]
 }
+
+export interface Message {
+  businessData: Debtor
+}

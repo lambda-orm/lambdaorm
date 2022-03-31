@@ -1,104 +1,15 @@
 import { Helper, orm } from '../../../../lib'
 import {
-	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
-	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbPartyRoleReference,
-	DbPaymentResponsible, PrPartyRole, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount, LocAddress, DbAccountPaymentResp, PrPartyRolePlace,
-	PrAddressReference, LamUserReferences, DbUserReferences, PmContactMediumTypes, PmIndividualName, LamAccount, DbLedgerAccountReference,
-	DbPaymentResponsibleMethod, PmOrganizationName, PmNationalReferences, LamCreditors, PmGenders, DbBanks
+	LocCountries, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
+	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbDebtorAccount,
+	LocAddress, LamUserReferences, DbUserReferences, PmContactMediumTypes, LamAccount,
+	DbPaymentResponsibleMethod, PmNationalReferences, LamCreditors, PmGenders, DbBanks
 } from './workspace/src/model'
-
-import { Debtor, Address } from './sourceModel'
-
-const sourcePath = 'src/dev/labs/performance/cclp'
-const locStage = 'localOracle'// 'local'
-const view = 'default'
-
-// .page(1,10)
-const expDebtorsExport =
-		`DbDebtors
-		.include(p=> [p.partyRoleRef
-									.include(p=> p.partyRole
-																.include(p=> [p.individualReference
-																							.include(p=> p.individual
-																														.include(p=> [p.party
-																																					  .include(p=> p.indentifications),
-																																					p.names
-																																		 	])
-																											),
-																							p.organizationReference
-																							.include(p=> p.organization
-																														.include(p=> [p.party
-																																					  .include(p=> [p.indentifications,p.contactMediums]),
-																																					p.names
-																																		 	])
-																											),
-																							p.places
-																							.include(p=> p.placeRef
-																								            .include(p=> p.address.include(p=> p.areas)))
-																				])
-													),
-								p.accounts
-								 .include(p=> [p.accountLedgerRef
-															  .include(p=> p.ledgerAccount
-																							.include(p=> p.statusHistories
-																														.include(p=> p.userRef)
-																											)),
-															 p.services,
-															 p.accountPaymentResps
-															  .include(p=> [p.locAddressRef.include(p=> p.address.include(p=> p.areas)),
-																							p.paymentResponsible.include(p=> p.paymentMethods),
-																							p.paymentMethodRef
-																				]),
-															p.statusHistories.include(p=> p.userRef)
-												]),
-								p.statusHistories.include(p=> p.userRef)
-						])
-		`
-const expDebtorsImport =
-		`DbDebtors.bulkInsert()
-		.include(p=> [p.partyRoleRef
-									.include(p=> p.partyRole
-																.include(p=> [p.individualReference
-																							.include(p=> p.individual
-																														.include(p=> [p.party
-																																					.include(p=> p.indentifications),
-																																		      p.names
-																																		 ])
-																											),
-																							p.organizationReference
-																							.include(p=> p.organization
-																														.include(p=> [p.party
-																																					  .include(p=> [p.indentifications,p.contactMediums]),
-																																					p.names
-																																		 	])
-																											),
-																							p.places
-																							.include(p=> p.placeRef
-																								            .include(p=> p.address
-																																					.include(p=> p.areas))) 
-																					])
-													),
-								p.accounts
-								 .include(p=> [p.accountLedgerRef
-															.include(p=> p.ledgerAccount
-																            .include(p=> p.statusHistories
-																													.include(p=> p.userRef))),
-															p.services,
-															p.statusHistories.include(p=> p.userRef)
-												]),
-								p.statusHistories.include(p=> p.userRef)
-						])
-		`
-const expPaymentRespsImport =
-	`DbPaymentResponsibles.bulkInsert()
-	.include(p=> p.paymentMethods)
-	`
-const expAccountPaymentRespsImport =
-	`DbAccountPaymentResps.bulkInsert()
-	.include(p=> [p.locAddressRef,
-								p.paymentResponsible.include(p=> p.paymentMethods)
-					])
-	`
+import { Debtor, Address, Message } from './sourceModel'
+import {
+	sourcePath, locStage, view, expDebtorsImport, expPaymentRespsImport, expAccountPaymentRespsImport, createLocal,
+	getPaymentResponsibles, preImportAccountPaymentRest, getAccountPaymentRest, exportLocal
+} from './common'
 
 async function updateLocMapping () {
 	const countries = await orm.execute(() => LocCountries.map(p => [p.id, p.iso3]), {}, view, locStage)
@@ -244,14 +155,32 @@ async function _import () {
 	const lamMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/lamMapping.json') as string)
 	const dbMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/dbMapping.json') as string)
 
-	const source: Debtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors.json') as string)
-	const debtors = toDbDebtor(source, locMapping, pmMapping, prMapping, lamMapping, dbMapping)
+	const messages: Message[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors.json') as string)
+	const debtors = toDbDebtor(messages, locMapping, pmMapping, prMapping, lamMapping, dbMapping)
+
+	let start = new Date().getTime()
+	await orm.execute(expDebtorsImport, debtors, view, locStage)
+	let end = new Date().getTime()
+	console.log(`import debtors: ${end - start}`)
+
+	const paymentResponsibles = getPaymentResponsibles(debtors)
+	start = new Date().getTime()
+	await orm.execute(expPaymentRespsImport, paymentResponsibles, view, locStage)
+	end = new Date().getTime()
+	console.log(`import paymentResponsibles: ${end - start}`)
+
+	preImportAccountPaymentRest(debtors)
+	const accountPaymentResps = getAccountPaymentRest(debtors)
+	start = new Date().getTime()
+	await orm.execute(expAccountPaymentRespsImport, accountPaymentResps, view, locStage)
+	end = new Date().getTime()
+	console.log(`import accountPaymentResps: ${end - start}`)
 }
 
-function toDbDebtor (debtors: Debtor[], locMapping:any, pmMapping:any, prMapping: any, lamMapping: any, dbMapping: any): DbDebtor[] {
+function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMapping: any, lamMapping: any, dbMapping: any): DbDebtor[] {
 	const result: DbDebtor[] = []
-	for (let i = 0; i < debtors.length; i++) {
-		const sDebtor = debtors[i]
+	for (let i = 0; i < messages.length; i++) {
+		const sDebtor = messages[i].businessData
 		const name = getName(sDebtor)
 		const tDebtor: DbDebtor = {
 			partyRoleRef: {
@@ -484,12 +413,12 @@ function toDbDebtor (debtors: Debtor[], locMapping:any, pmMapping:any, prMapping
 					remarks: 'New Debtor'
 				})
 			}
+			result.push(tDebtor)
 		}
 	}
 
 	return result
 }
-
 function minAccountDate (accounts:DbDebtorAccount[], reason:string):Date|undefined {
 	let creationDate:Date|undefined
 	for (const k in accounts) {
@@ -545,11 +474,14 @@ function getName (debtor: Debtor): string {
 async function execute () {
 	try {
 		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
+		await createLocal()
 		await updateLocMapping()
 		await updatePmMapping()
 		await updatePrMapping()
 		await updateLamMapping()
 		await updateDbMapping()
+		await _import()
+		await exportLocal()
 	} catch (error: any) {
 		console.error(error)
 	} finally {
