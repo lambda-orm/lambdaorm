@@ -197,7 +197,30 @@ entities:
       - name: name
         length: 50
         nullable: false
+  - name: PmGenders
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 10
+        nullable: false
+      - name: name
+        length: 50
+        nullable: false
+
   # Party business
+  - name: PmReferences
+    extends: SrbReferences
+  - name: PmNationalReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: Nation
   - name: PmParties
     primaryKey: ["id"]
     properties:
@@ -318,6 +341,10 @@ entities:
         entity: PmIndividualNames
         to: id
         target: individual
+      - name: nationalityRef
+        from: nationalityRefId
+        entity: PmNationalReferences
+        to: id
   - name: PmIndividualNames
     primaryKey: ["id"]
     properties:
@@ -599,7 +626,7 @@ entities:
     view: true
     properties:
       - name: refType
-        key: "Account Holder"
+        key: "AccountHolder"
   - name: LamCreditors
     primaryKey: ["id"]
     uniqueKey: ["creditorCode"]
@@ -660,29 +687,24 @@ entities:
         nullable: false
       - name: currencyRefId
         type: integer
-        # TODO: Pendig solver
-        # nullable: false
+        nullable: false
       - name: accountTypeId
         type: integer
-        # TODO: Pendig solver
-        # nullable: false
+        nullable: false
       - name: accountStatusId
         type: integer
       - name: accountHolderRefId
         type: integer
-      # TODO: Pendig solver
-      #   nullable: false
+        nullable: false
       - name: balance
         type: decimal
         nullable: false
       - name: statementCycleId
         type: integer
-        # TODO: Pendig solver
-        # nullable: false
+        nullable: false
       - name: registrationDate
         type: datetime
         nullable: false
-      # TODO: Pendig solver
       - name: creditorId
         type: integer
     relations:
@@ -762,6 +784,23 @@ entities:
         nullable: false
       - name: description
         length: 150
+        nullable: false
+      - name: disabled
+        type: boolean
+        nullable: false
+  - name: DbBanks
+    primaryKey: ["id"]
+    uniqueKey: ["bic"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: bic
+        length: 20
+        nullable: false
+      - name: name
+        length: 100
         nullable: false
       - name: disabled
         type: boolean
@@ -1251,6 +1290,10 @@ mappings:
           - name: areaId
             mapping: AREA_ID
       #  Party
+      - name: PmReferences
+        extends: SrbReferences
+      - name: PmNationalReferences
+        extends: SrbReferences
       - name: PmPartyStatuses
         mapping: TBL_PM_PARTY_STATUS
         properties:
@@ -1294,6 +1337,15 @@ mappings:
         properties:
           - name: id
             mapping: CONTACT_MEDIUM_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmGenders
+        mapping: TBL_PM_GENDER
+        properties:
+          - name: id
+            mapping: GENDER_ID
           - name: code
             mapping: CODE
           - name: name
@@ -1549,7 +1601,8 @@ mappings:
         extends: SrbReferences
       - name: LamUserReferences
         extends: SrbReferences
-
+      - name: LamAccountHolderReferences
+        extends: SrbReferences
       - name: LamAccountStatusHistories
         mapping: TBL_LAM_ACCOUNT_STATUS_HISTORY
         properties:
@@ -1581,6 +1634,17 @@ mappings:
             mapping: NAME
           - name: description
             mapping: DESCRIPTION
+          - name: disabled
+            mapping: DISABLED
+      - name: DbBanks
+        mapping: TBL_DB_BANK
+        properties:
+          - name: id
+            mapping: DB_BANK_ID
+          - name: bic
+            mapping: BIC
+          - name: name
+            mapping: NAME
           - name: disabled
             mapping: DISABLED
       - name: DbPaymentMethodTypes
@@ -1830,6 +1894,12 @@ mappings:
       - name: LocAddressAreas
         sequence: SQ_LOC_ADDRESS_AREA
       #  Party
+      - name: PmReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PmNationalReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
       - name: PmPartyStatuses
         sequence: SQ_PM_PARTY_STATUS
       - name: PmMaritalStatuses
@@ -1840,6 +1910,8 @@ mappings:
         sequence: SQ_PM_INDUSTRY_TYPE
       - name: PmContactMediumTypes
         sequence: SQ_PM_CONTACT_MEDIUM_TYPE
+      - name: PmGenders
+        sequence: SQ_PM_GENDER
       - name: PmParties
         sequence: SQ_PM_PARTY
       - name: PmIdentifications
@@ -1894,6 +1966,9 @@ mappings:
       - name: LamUserReferences
         extends: SrbReferences
         sequence: SQ_SRB_REFERENCE
+      - name: LamAccountHolderReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
       - name: LamAccountStatusHistories
         sequence: SQ_LAM_ACCOUNT_STATUS_HISTORY
       # Debtor
@@ -1916,6 +1991,8 @@ mappings:
         sequence: SQ_DB_DEBTOR_TYPE
       - name: DbPaymentMethodTypes
         sequence: SQ_DB_PAYMENT_METHOD_TYPE
+      - name: DbBanks
+        sequence: SQ_DB_BANK
       - name: DbDebtorStages
         sequence: SQ_DB_DEBTOR_STAGE
       - name: DbDebtors

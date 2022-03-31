@@ -149,6 +149,26 @@ export interface QryPmContactMediumType {
 	code: string
 	name: string
 }
+export class PmGender {
+	id?: number
+	code?: string
+	name?: string
+}
+export interface QryPmGender {
+	id: number
+	code: string
+	name: string
+}
+export class PmReference extends SrbReference {
+}
+export interface QryPmReference extends QrySrbReference {
+}
+export class PmNationalReference extends SrbReference {
+	refType?: string
+}
+export interface QryPmNationalReference extends QrySrbReference {
+	refType: string
+}
 export class PmParty {
 	constructor () {
 		this.indentifications = []
@@ -236,6 +256,7 @@ export class PmIndividual {
 	currentNameId?: number
 	party?: PmParty
 	currentName?: PmIndividualName
+	nationalityRef?: PmNationalReference
 	names: PmIndividualName[]
 }
 export interface QryPmIndividual {
@@ -248,6 +269,7 @@ export interface QryPmIndividual {
 	currentNameId: number
 	party: PmParty & OneToOne<PmParty> & PmParty
 	currentName: PmIndividualName & OneToMany<PmIndividualName> & PmIndividualName
+	nationalityRef: PmNationalReference & OneToMany<PmNationalReference> & PmNationalReference
 	names: ManyToOne<PmIndividualName> & PmIndividualName[]
 }
 export class PmIndividualName {
@@ -572,6 +594,18 @@ export interface QryDbDebtorType {
 	code: string
 	name: string
 	description: string
+	disabled: boolean
+}
+export class DbBank {
+	id?: number
+	bic?: string
+	name?: string
+	disabled?: boolean
+}
+export interface QryDbBank {
+	id: number
+	bic: string
+	name: string
 	disabled: boolean
 }
 export class DbPaymentMethodType {
@@ -907,6 +941,9 @@ export let PmMaritalStatuses: Queryable<QryPmMaritalStatus>
 export let PmIdentificationTypes: Queryable<QryPmIdentificationType>
 export let PmIndustryTypes: Queryable<QryPmIndustryType>
 export let PmContactMediumTypes: Queryable<QryPmContactMediumType>
+export let PmGenders: Queryable<QryPmGender>
+export let PmReferences: Queryable<QryPmReference>
+export let PmNationalReferences: Queryable<QryPmNationalReference>
 export let PmParties: Queryable<QryPmParty>
 export let PmIdentifications: Queryable<QryPmIdentification>
 export let PmPartyContactMediums: Queryable<QryPmPartyContactMedium>
@@ -932,6 +969,7 @@ export let LamCreditors: Queryable<QryLamCreditor>
 export let LamAccounts: Queryable<QryLamAccount>
 export let LamAccountStatusHistories: Queryable<QryLamAccountStatusHistory>
 export let DbDebtorTypes: Queryable<QryDbDebtorType>
+export let DbBanks: Queryable<QryDbBank>
 export let DbPaymentMethodTypes: Queryable<QryDbPaymentMethodType>
 export let DbDebtorStages: Queryable<QryDbDebtorStage>
 export let DbReferences: Queryable<QryDbReference>

@@ -3,7 +3,7 @@ import {
 	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
 	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbPartyRoleReference,
 	DbPaymentResponsible, PrPartyRole, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount, LocAddress, DbAccountPaymentResp, PrPartyRolePlace,
-	PrAddressReference, LamUserReferences, DbUserReferences, PmContactMediumTypes
+	PrAddressReference, LamUserReferences, DbUserReferences, PmContactMediumTypes, LamCreditors, PmGenders, DbBanks
 } from './workspace/src/model'
 
 const sourcePath = 'src/dev/labs/performance/cclp'
@@ -38,18 +38,16 @@ const expDebtorsExport =
 								p.accounts
 								 .include(p=> [p.accountLedgerRef
 															  .include(p=> p.ledgerAccount
-																							.include(p=> p.statusHistories
-																														.include(p=> p.userRef)
-																											)),
+																							.include(p=> [p.statusHistories,p.accountHolderRef])),
 															 p.services,
 															 p.accountPaymentResps
 															  .include(p=> [p.locAddressRef.include(p=> p.address.include(p=> p.areas)),
 																							p.paymentResponsible.include(p=> p.paymentMethods),
 																							p.paymentMethodRef
 																				]),
-															p.statusHistories.include(p=> p.userRef)
+															p.statusHistories
 												]),
-								p.statusHistories.include(p=> p.userRef)
+								p.statusHistories
 						])
 		`
 const expDebtorsImport =
@@ -79,12 +77,11 @@ const expDebtorsImport =
 								p.accounts
 								 .include(p=> [p.accountLedgerRef
 															.include(p=> p.ledgerAccount
-																            .include(p=> p.statusHistories
-																													.include(p=> p.userRef))),
+																            .include(p=> [p.statusHistories,p.accountHolderRef] )),
 															p.services,
-															p.statusHistories.include(p=> p.userRef)
+															p.statusHistories
 												]),
-								p.statusHistories.include(p=> p.userRef)
+								p.statusHistories
 						])
 		`
 const expPaymentRespsImport =
@@ -113,17 +110,20 @@ async function loadLocalSettings () {
 	const partyStatuses = await orm.execute(() => PmPartyStatuses, {}, view, beeStage)
 	const maritalStatuses = await orm.execute(() => PmMaritalStatuses, {}, view, beeStage)
 	const identificationTypes = await orm.execute(() => PmIdentificationTypes, {}, view, beeStage)
+	const contactMediumTypes = await orm.execute(() => PmContactMediumTypes, {}, view, beeStage)
+	const genders = await orm.execute(() => PmGenders, {}, view, beeStage)
 	const partyRoleSpecs = await orm.execute(() => PrPartyRoleSpecs, {}, view, beeStage)
 	const partyRoleStatuses = await orm.execute(() => PrPartyRoleStatuses, {}, view, beeStage)
 	const accountTypes = await orm.execute(() => LamAccountTypes, {}, view, beeStage)
 	const statementCycles = await orm.execute(() => LamStatementCycles, {}, view, beeStage)
+	const lamCreditors = await orm.execute(() => LamCreditors, {}, view, beeStage)
+	const lamCurrencyReferences = await orm.execute(() => LamCurrencyReferences, {}, view, beeStage)
+	const lamUserReferences = await orm.execute(() => LamUserReferences, {}, view, beeStage)
 	const debtorTypes = await orm.execute(() => DbDebtorTypes, {}, view, beeStage)
 	const paymentMethodTypes = await orm.execute(() => DbPaymentMethodTypes, {}, view, beeStage)
 	const debtorStages = await orm.execute(() => DbDebtorStages, {}, view, beeStage)
-	const lamCurrencyReferences = await orm.execute(() => LamCurrencyReferences, {}, view, beeStage)
-	const lamUserReferences = await orm.execute(() => LamUserReferences, {}, view, beeStage)
 	const dbUserReferences = await orm.execute(() => DbUserReferences, {}, view, beeStage)
-	const contactMediumTypes = await orm.execute(() => PmContactMediumTypes, {}, view, beeStage)
+	const dbBanks = await orm.execute(() => DbBanks, {}, view, beeStage)
 
 	const _countries = Helper.clone(countries)
 	const _areaTypes = Helper.clone(areaTypes)
@@ -131,6 +131,8 @@ async function loadLocalSettings () {
 	const _partyStatuses = Helper.clone(partyStatuses)
 	const _maritalStatuses = Helper.clone(maritalStatuses)
 	const _identificationTypes = Helper.clone(identificationTypes)
+	const _contactMediumTypes = Helper.clone(contactMediumTypes)
+	const _genders = Helper.clone(genders)
 	const _partyRoleSpecs = Helper.clone(partyRoleSpecs)
 	const _partyRoleStatuses = Helper.clone(partyRoleStatuses)
 	const _accountTypes = Helper.clone(accountTypes)
@@ -138,10 +140,11 @@ async function loadLocalSettings () {
 	const _debtorTypes = Helper.clone(debtorTypes)
 	const _paymentMethodTypes = Helper.clone(paymentMethodTypes)
 	const _debtorStages = Helper.clone(debtorStages)
+	const _lamCreditors = Helper.clone(lamCreditors)
 	const _lamCurrencyReferences = Helper.clone(lamCurrencyReferences)
 	const _lamUserReferences = Helper.clone(lamUserReferences)
 	const _dbUserReferences = Helper.clone(dbUserReferences)
-	const _contactMediumTypes = Helper.clone(contactMediumTypes)
+	const _dbBanks = Helper.clone(dbBanks)
 
 	// Load settins
 	await orm.execute('LocCountries.bulkInsert()', _countries, view, locStage)
@@ -150,17 +153,20 @@ async function loadLocalSettings () {
 	await orm.execute('PmPartyStatuses.bulkInsert()', _partyStatuses, view, locStage)
 	await orm.execute('PmMaritalStatuses.bulkInsert()', _maritalStatuses, view, locStage)
 	await orm.execute('PmIdentificationTypes.bulkInsert()', _identificationTypes, view, locStage)
+	await orm.execute('PmContactMediumTypes.bulkInsert()', _contactMediumTypes, view, locStage)
+	await orm.execute('PmGenders.bulkInsert()', _genders, view, locStage)
 	await orm.execute('PrPartyRoleSpecs.bulkInsert()', _partyRoleSpecs, view, locStage)
 	await orm.execute('PrPartyRoleStatuses.bulkInsert()', _partyRoleStatuses, view, locStage)
 	await orm.execute('LamAccountTypes.bulkInsert()', _accountTypes, view, locStage)
 	await orm.execute('LamStatementCycles.bulkInsert()', _statementCycles, view, locStage)
+	await orm.execute('LamCurrencyReferences.bulkInsert()', _lamCurrencyReferences, view, locStage)
+	await orm.execute('LamUserReferences.bulkInsert()', _lamUserReferences, view, locStage)
+	await orm.execute('LamCreditors.bulkInsert()', _lamCreditors, view, locStage)
 	await orm.execute('DbDebtorTypes.bulkInsert()', _debtorTypes, view, locStage)
 	await orm.execute('DbPaymentMethodTypes.bulkInsert()', _paymentMethodTypes, view, locStage)
 	await orm.execute('DbDebtorStages.bulkInsert()', _debtorStages, view, locStage)
-	await orm.execute('LamCurrencyReferences.bulkInsert()', _lamCurrencyReferences, view, locStage)
-	await orm.execute('LamUserReferences.bulkInsert()', _lamUserReferences, view, locStage)
 	await orm.execute('DbUserReferences.bulkInsert()', _dbUserReferences, view, locStage)
-	await orm.execute('PmContactMediumTypes.bulkInsert()', _contactMediumTypes, view, locStage)
+	await orm.execute('DbBanks.bulkInsert()', _dbBanks, view, locStage)
 
 	const mapping:any = {}
 	mapping.countries = {}
@@ -198,6 +204,16 @@ async function loadLocalSettings () {
 	for (const i in identificationTypes) {
 		const source = identificationTypes[i]
 		mapping.identificationTypes[source.id] = _identificationTypes.find((p: any) => p.code === source.code).id
+	}
+	mapping.contactMediumTypes = {}
+	for (const i in contactMediumTypes) {
+		const source = contactMediumTypes[i]
+		mapping.contactMediumTypes[source.id] = _contactMediumTypes.find((p: any) => p.code === source.code).id
+	}
+	mapping.genders = {}
+	for (const i in genders) {
+		const source = genders[i]
+		mapping.genders[source.id] = _genders.find((p: any) => p.code === source.code).id
 	}
 	mapping.partyRoleSpecs = {}
 	for (const i in partyRoleSpecs) {
@@ -249,10 +265,15 @@ async function loadLocalSettings () {
 		const source = dbUserReferences[i]
 		mapping.dbUserReferences[source.id] = _dbUserReferences.find((p: any) => p.ref_id === source.ref_id).id
 	}
-	mapping.contactMediumTypes = {}
-	for (const i in contactMediumTypes) {
-		const source = contactMediumTypes[i]
-		mapping.contactMediumTypes[source.id] = _contactMediumTypes.find((p: any) => p.code === source.code).id
+	mapping.lamCreditors = {}
+	for (const i in lamCreditors) {
+		const source = lamCreditors[i]
+		mapping.lamCreditors[source.id] = _lamCreditors.find((p: any) => p.creditorCode === source.creditorCode).id
+	}
+	mapping.dbBanks = {}
+	for (const i in dbBanks) {
+		const source = dbBanks[i]
+		mapping.dbBanks[source.id] = _dbBanks.find((p: any) => p.bic === source.bic).id
 	}
 
 	await Helper.writeFile(sourcePath + '/confidentional_data/mapping.json', JSON.stringify(mapping))
@@ -408,6 +429,7 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 						individual.id = undefined
 						individual.partyId = undefined
 						individual.currentNameId = undefined // TODO pendiente update posterior
+						individual.genderId = individual.genderId ? mapping.genders[individual.genderId] : undefined
 						if (individual.party) {
 							const party = individual.party
 							party.id = undefined
@@ -554,10 +576,10 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 						const statusHistory = dbAccount.statusHistories[k]
 						statusHistory.id = undefined
 						statusHistory.accountId = undefined
-						if (statusHistory.userRefId) {
-							statusHistory.userRefId = mapping.lamUserReferences[statusHistory.userRefId]
-						} else {
-							console.log(statusHistory)
+						statusHistory.userRefId = statusHistory.userRefId ? mapping.lamUserReferences[statusHistory.userRefId] : undefined
+						if (!statusHistory.userRefId) {
+							// TODO: hay que ver por que vienen Ids de usuario que no corresponden con los usuarios de lamUserReferences
+							statusHistory.userRefId = mapping.lamUserReferences[Object.keys(mapping.lamUserReferences)[0]]
 						}
 					}
 				}
@@ -574,9 +596,8 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 									const paymentMethod = paymentResponsible.paymentMethods[l]
 									paymentMethod.id = undefined
 									paymentMethod.paymentResponsibleId = undefined
-									if (paymentMethod.paymentMethodTypeId) {
-										paymentMethod.paymentMethodTypeId = mapping.paymentMethodTypes[paymentMethod.paymentMethodTypeId]
-									}
+									paymentMethod.paymentMethodTypeId = paymentMethod.paymentMethodTypeId ? mapping.paymentMethodTypes[paymentMethod.paymentMethodTypeId] : undefined
+									paymentMethod.bankId = paymentMethod.bankId ? mapping.banks[paymentMethod.bankId] : undefined
 								}
 							}
 						}
@@ -622,9 +643,8 @@ function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 				const statusHistory = debtor.statusHistories[k]
 				statusHistory.id = undefined
 				statusHistory.debtorId = undefined
-				if (statusHistory.userRefId) {
-					statusHistory.userRefId = mapping.dbUserReferences[statusHistory.userRefId]
-				} else {
+				statusHistory.userRefId = statusHistory.userRefId ? mapping.dbUserReferences[statusHistory.userRefId] : undefined
+				if (!statusHistory.userRefId) {
 					console.log(statusHistory)
 				}
 			}
@@ -719,8 +739,8 @@ async function execute () {
 		// await loadLocalSettings()
 		// await _export()
 		// await _import()
-		// await exportLocal()
-		await validate()
+		await exportLocal()
+		// await validate()
 		// await sentence()
 	} catch (error: any) {
 		console.error(error)
