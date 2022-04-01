@@ -1,6 +1,10 @@
 _extends: [sql]
 types:
   boolean: BIT
+formats:
+  datetime: "yyyy-LL-dd HH:mm:ss"
+  date: "yyyy-LL-dd"
+  time: "HH:mm:ss"
 ddl:
   createPk: "PRIMARY KEY ({columns})"
   incrementalColumDefine: "{name} {type} {nullable} IDENTITY (1, 1)"

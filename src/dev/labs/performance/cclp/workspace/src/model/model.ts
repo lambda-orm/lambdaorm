@@ -161,8 +161,7 @@ export interface QryPmGender {
 }
 export class PmReference extends SrbReference {
 }
-export interface QryPmReference extends QrySrbReference {
-}
+export type QryPmReference = QrySrbReference
 export class PmNationalReference extends SrbReference {
 	refType?: string
 }
@@ -179,7 +178,7 @@ export class PmParty {
 	individualId?: number
 	organizationId?: number
 	statusId?: number
-	registredDate?: Date
+	registredDate?: string
 	status?: PmPartyStatus
 	indentifications: PmIdentification[]
 	contactMediums: PmPartyContactMedium[]
@@ -190,7 +189,7 @@ export interface QryPmParty {
 	individualId: number
 	organizationId: number
 	statusId: number
-	registredDate: Date
+	registredDate: string
 	status: PmPartyStatus & OneToMany<PmPartyStatus> & PmPartyStatus
 	indentifications: ManyToOne<PmIdentification> & PmIdentification[]
 	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
@@ -219,8 +218,8 @@ export class PmPartyContactMedium {
 	contactMediumTypeId?: number
 	partyId?: number
 	mediumValue?: string
-	validFrom?: Date
-	validTo?: Date
+	validFrom?: string
+	validTo?: string
 	isMain?: boolean
 	isFavorite?: boolean
 	source?: string
@@ -233,8 +232,8 @@ export interface QryPmPartyContactMedium {
 	contactMediumTypeId: number
 	partyId: number
 	mediumValue: string
-	validFrom: Date
-	validTo: Date
+	validFrom: string
+	validTo: string
 	isMain: boolean
 	isFavorite: boolean
 	source: string
@@ -250,8 +249,8 @@ export class PmIndividual {
 	id?: number
 	partyId?: number
 	genderId?: number
-	birthDate?: Date
-	deathDate?: Date
+	birthDate?: string
+	deathDate?: string
 	nationalityRefId?: number
 	currentNameId?: number
 	party?: PmParty
@@ -263,8 +262,8 @@ export interface QryPmIndividual {
 	id: number
 	partyId: number
 	genderId: number
-	birthDate: Date
-	deathDate: Date
+	birthDate: string
+	deathDate: string
 	nationalityRefId: number
 	currentNameId: number
 	party: PmParty & OneToOne<PmParty> & PmParty
@@ -297,7 +296,7 @@ export class PmOrganization {
 
 	id?: number
 	partyId?: number
-	legalPeriodFrom?: Date
+	legalPeriodFrom?: string
 	currentNameId?: number
 	industyTypeId?: number
 	commercialDescription?: string
@@ -309,7 +308,7 @@ export class PmOrganization {
 export interface QryPmOrganization {
 	id: number
 	partyId: number
-	legalPeriodFrom: Date
+	legalPeriodFrom: string
 	currentNameId: number
 	industyTypeId: number
 	commercialDescription: string
@@ -334,13 +333,13 @@ export class PrPartyRoleSpec {
 	id?: number
 	code?: string
 	name?: string
-	validFrom?: Date
+	validFrom?: string
 }
 export interface QryPrPartyRoleSpec {
 	id: number
 	code: string
 	name: string
-	validFrom: Date
+	validFrom: string
 }
 export class PrPartyRoleStatus {
 	id?: number
@@ -354,8 +353,7 @@ export interface QryPrPartyRoleStatus {
 }
 export class PrReference extends SrbReference {
 }
-export interface QryPrReference extends QrySrbReference {
-}
+export type QryPrReference = QrySrbReference
 export class PrIndividualReference extends SrbReference {
 	refType?: string
 	refId?: string
@@ -395,7 +393,7 @@ export class PrPartyRole {
 	statusId?: number
 	name?: string
 	partyId?: number
-	validFrom?: Date
+	validFrom?: string
 	partyRoleSpecId?: number
 	status?: PrPartyRoleStatus
 	partyRoleSpec?: PrPartyRoleSpec
@@ -408,7 +406,7 @@ export interface QryPrPartyRole {
 	statusId: number
 	name: string
 	partyId: number
-	validFrom: Date
+	validFrom: string
 	partyRoleSpecId: number
 	status: PrPartyRoleStatus & OneToMany<PrPartyRoleStatus> & PrPartyRoleStatus
 	partyRoleSpec: PrPartyRoleSpec & OneToMany<PrPartyRoleSpec> & PrPartyRoleSpec
@@ -466,8 +464,7 @@ export interface QryLamStatementCycle {
 }
 export class LamReference extends SrbReference {
 }
-export interface QryLamReference extends QrySrbReference {
-}
+export type QryLamReference = QrySrbReference
 export class LamCurrencyReference extends SrbReference {
 	refType?: string
 }
@@ -530,7 +527,7 @@ export class LamAccount {
 	accountHolderRefId?: number
 	balance?: number
 	statementCycleId?: number
-	registrationDate?: Date
+	registrationDate?: string
 	creditorId?: number
 	accountType?: LamAccountType
 	currencyRef?: LamCurrencyReference
@@ -550,7 +547,7 @@ export interface QryLamAccount {
 	accountHolderRefId: number
 	balance: number
 	statementCycleId: number
-	registrationDate: Date
+	registrationDate: string
 	creditorId: number
 	accountType: LamAccountType & OneToMany<LamAccountType> & LamAccountType
 	currencyRef: LamCurrencyReference & OneToMany<LamCurrencyReference> & LamCurrencyReference
@@ -563,7 +560,7 @@ export interface QryLamAccount {
 export class LamAccountStatusHistory {
 	id?: number
 	accountStatus?: number
-	registerDate?: Date
+	registerDate?: string
 	userRefId?: number
 	reason?: string
 	remarks?: string
@@ -574,7 +571,7 @@ export class LamAccountStatusHistory {
 export interface QryLamAccountStatusHistory {
 	id: number
 	accountStatus: number
-	registerDate: Date
+	registerDate: string
 	userRefId: number
 	reason: string
 	remarks: string
@@ -644,8 +641,7 @@ export interface QryDbDebtorStage {
 }
 export class DbReference extends SrbReference {
 }
-export interface QryDbReference extends QrySrbReference {
-}
+export type QryDbReference = QrySrbReference
 export class DbPartyRoleReference extends SrbReference {
 	refType?: string
 	refId?: string
@@ -698,8 +694,8 @@ export class DbDebtor {
 	stageId?: number
 	debtorTypeId?: number
 	referenceNumber?: string
-	lastModificationDate?: Date
-	registrationDate?: Date
+	lastModificationDate?: string
+	registrationDate?: string
 	identificationValue?: string
 	identificationType?: string
 	additionalInfo1?: string
@@ -720,8 +716,8 @@ export interface QryDbDebtor {
 	stageId: number
 	debtorTypeId: number
 	referenceNumber: string
-	lastModificationDate: Date
-	registrationDate: Date
+	lastModificationDate: string
+	registrationDate: string
 	identificationValue: string
 	identificationType: string
 	additionalInfo1: string
@@ -734,7 +730,7 @@ export interface QryDbDebtor {
 export class DbDebtorStatusHistory {
 	id?: number
 	debtorStatus?: number
-	registrationDate?: Date
+	registrationDate?: string
 	userRefId?: number
 	reason?: string
 	remarks?: string
@@ -745,7 +741,7 @@ export class DbDebtorStatusHistory {
 export interface QryDbDebtorStatusHistory {
 	id: number
 	debtorStatus: number
-	registrationDate: Date
+	registrationDate: string
 	userRefId: number
 	reason: string
 	remarks: string
@@ -759,9 +755,9 @@ export class DbAccountService {
 	referenceNumber?: string
 	accountId?: number
 	serialNumber?: string
-	registrationDate?: Date
-	activationDate?: Date
-	deactivationDate?: Date
+	registrationDate?: string
+	activationDate?: string
+	deactivationDate?: string
 	contractNumber?: string
 	serviceExternalCode?: string
 	productLine?: string
@@ -774,9 +770,9 @@ export interface QryDbAccountService {
 	referenceNumber: string
 	accountId: number
 	serialNumber: string
-	registrationDate: Date
-	activationDate: Date
-	deactivationDate: Date
+	registrationDate: string
+	activationDate: string
+	deactivationDate: string
 	contractNumber: string
 	serviceExternalCode: string
 	productLine: string
@@ -800,10 +796,10 @@ export class DbDebtorAccount {
 	unbilled?: number
 	providerId?: number
 	accountLedgerRefId?: number
-	lastModificationDate?: Date
+	lastModificationDate?: string
 	referenceNumber?: string
 	accountStatusId?: number
-	registrationDate?: Date
+	registrationDate?: string
 	currencyRefId?: number
 	arranged?: number
 	unexpired?: number
@@ -825,10 +821,10 @@ export interface QryDbDebtorAccount {
 	unbilled: number
 	providerId: number
 	accountLedgerRefId: number
-	lastModificationDate: Date
+	lastModificationDate: string
 	referenceNumber: string
 	accountStatusId: number
-	registrationDate: Date
+	registrationDate: string
 	currencyRefId: number
 	arranged: number
 	unexpired: number
@@ -842,7 +838,7 @@ export interface QryDbDebtorAccount {
 export class DbAccountStatusHistory {
 	id?: number
 	accountStatus?: number
-	registrationDate?: Date
+	registrationDate?: string
 	userRefId?: number
 	isActive?: boolean
 	reason?: string
@@ -854,7 +850,7 @@ export class DbAccountStatusHistory {
 export interface QryDbAccountStatusHistory {
 	id: number
 	accountStatus: number
-	registrationDate: Date
+	registrationDate: string
 	userRefId: number
 	isActive: boolean
 	reason: string

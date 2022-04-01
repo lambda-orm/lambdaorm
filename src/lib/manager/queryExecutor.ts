@@ -275,6 +275,7 @@ export class QueryExecutor {
 	private async insert (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
+		const entity = mapping.getEntity(query.entity) as EntityMapping
 		for (const p in query.children) {
 			const include = query.children[p]
 			const relation = data.get(include.relation.name)
@@ -288,10 +289,12 @@ export class QueryExecutor {
 		}
 		// solve default properties
 		this.solveDefaults(query, data.data)
-		// evaluate constraints
-		this.constraints(query, data.data)
 		// solve default properties
 		this.solveWriteValues(query, data.data)
+		// solve Keys
+		this.solveKeys(entity, data.data)
+		// evaluate constraints
+		this.constraints(query, data.data)
 		// insert main entity
 		const insertId = await connection.insert(mapping, query, this.params(query.parameters, dialect, data))
 		if (autoincrement) {
@@ -373,7 +376,7 @@ export class QueryExecutor {
 		let ids: any[] = []
 		for (let i = 0; i < data.data.length; i += chunkSize) {
 			const chunk = data.data.slice(i, i + chunkSize)
-			const result = await this._chunkInsert(query, chunk, mapping, dialect, connection)
+			const result = await this._chunkInsert(query, entity, chunk, mapping, dialect, connection)
 			ids = ids.concat(result)
 		}
 		const autoincrement = mapping.getAutoincrement(query.entity)
@@ -434,25 +437,30 @@ export class QueryExecutor {
 		return ids
 	}
 
-	private async _chunkInsert (query:Query, chunk:any[], mapping:MappingConfig, dialect:Dialect, connection:Connection): Promise<any[]> {
+	private async _chunkInsert (query:Query, entity:EntityMapping, chunk:any[], mapping:MappingConfig, dialect:Dialect, connection:Connection): Promise<any[]> {
 		for (let i = 0; i < chunk.length; i++) {
 			const item = chunk[i]
 			// solve default properties
 			this.solveDefaults(query, item)
-			// evaluate constraints
-			this.constraints(query, item)
 			// solve write properties
 			this.solveWriteValues(query, item)
+			// solve Keys
+			this.solveKeys(entity, item)
+			// evaluate constraints
+			this.constraints(query, item)
 		}
 		const rows = this.rows(query, dialect, chunk)
 		return await connection.bulkInsert(mapping, query, rows, query.parameters)
 	}
 
-	private async update (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<number> {
-		// evaluate constraints
-		this.constraints(query, data.data)
+	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
+		const entity = mapping.getEntity(query.entity) as EntityMapping
 		// solve default properties
 		this.solveWriteValues(query, data.data)
+		// solve Keys
+		this.solveKeys(entity, data.data)
+		// evaluate constraints
+		this.constraints(query, data.data)
 		// update
 		const changeCount = await connection.update(mapping, query, this.params(query.parameters, dialect, data))
 		for (const p in query.children) {
@@ -501,7 +509,7 @@ export class QueryExecutor {
 		for (const p in parameters) {
 			const parameter = parameters[p]
 			let value = data.get(parameter.name)
-			if (value !== null) {
+			if (value) {
 				switch (parameter.type) {
 				case 'datetime':
 					value = dialect.solveDateTime(value)
@@ -528,7 +536,7 @@ export class QueryExecutor {
 			for (let j = 0; j < query.parameters.length; j++) {
 				const parameter = query.parameters[j]
 				let value = item[parameter.name]
-				if (value !== null) {
+				if (value) {
 					switch (parameter.type) {
 					case 'datetime':
 						value = dialect.solveDateTime(value)
@@ -568,6 +576,15 @@ export class QueryExecutor {
 		for (const i in query.values) {
 			const valueBehavior = query.values[i]
 			data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
+		}
+	}
+
+	private solveKeys (entity: EntityMapping, data: any): void {
+		for (const p in entity.properties) {
+			const property = entity.properties[p]
+			if (property.key) {
+				data[property.name] = property.key
+			}
 		}
 	}
 

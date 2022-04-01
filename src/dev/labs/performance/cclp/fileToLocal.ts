@@ -7,7 +7,7 @@ import {
 } from './workspace/src/model'
 import { Debtor, Address, Message } from './sourceModel'
 import {
-	sourcePath, locStage, view, expDebtorsImport, expPaymentRespsImport, expAccountPaymentRespsImport, createLocal,
+	sourcePath, locStage, view, expDebtorsImport, expPaymentRespsImport, expAccountPaymentRespsImport,
 	getPaymentResponsibles, preImportAccountPaymentRest, getAccountPaymentRest, exportLocal
 } from './common'
 
@@ -155,8 +155,8 @@ async function _import () {
 	const lamMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/lamMapping.json') as string)
 	const dbMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/dbMapping.json') as string)
 
-	const messages: Message[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors.json') as string)
-	const debtors = toDbDebtor(messages, locMapping, pmMapping, prMapping, lamMapping, dbMapping)
+	const source:any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors.json') as string)
+	const debtors = toDbDebtor(source.messages as Message[], locMapping, pmMapping, prMapping, lamMapping, dbMapping)
 
 	let start = new Date().getTime()
 	await orm.execute(expDebtorsImport, debtors, view, locStage)
@@ -183,12 +183,16 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 		const sDebtor = messages[i].businessData
 		const name = getName(sDebtor)
 		const tDebtor: DbDebtor = {
+			debtorNumber: sDebtor.referenceCode,
+			referenceNumber: sDebtor.referenceCode,
+			name: name,
 			partyRoleRef: {
 				name: name,
 				partyRole: {
 					name: name,
 					places: [],
-					statusId: prMapping.partyRoleStatuses.ACTIVE
+					statusId: prMapping.partyRoleStatuses.ACTIVE,
+					partyRoleSpecId: prMapping.partyRoleSpecs.Customer
 				}
 			},
 			accounts: [],
@@ -207,7 +211,7 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 							familyNames: `${sDebtor.individual.firstFamilyName} , ${sDebtor.individual.secondFamilyName} `,
 							legalName: sDebtor.individual.legalName
 						}],
-						birthDate: new Date(sDebtor.individual.birthDate),
+						birthDate: sDebtor.individual.birthDate ? new Date(sDebtor.individual.birthDate).toISOString() : undefined,
 						genderId: sDebtor.individual.gender ? pmMapping.genders[sDebtor.individual.gender] : undefined,
 						// WARNING: actualmente el codigo PER no esta cargado en nationalReferences
 						nationalityRefId: sDebtor.individual.nationalityCode ? pmMapping.nationalReferences[sDebtor.individual.nationalityCode] : undefined
@@ -229,7 +233,7 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 					partyRole.organizationReference = { name: name }
 					const organizationReference = partyRole.organizationReference
 					organizationReference.organization = {
-						legalPeriodFrom: new Date(sDebtor.organization.legalPeriodFrom),
+						legalPeriodFrom: new Date(sDebtor.organization.legalPeriodFrom).toISOString(),
 						industyTypeId: pmMapping.industryTypes[sDebtor.organization.industyType],
 						commercialDescription: sDebtor.organization.commercialDescription,
 						names: [{ tradingName: name }]
@@ -270,22 +274,23 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 					currencyRefId: lamMapping.lamCurrencyReferences.S,
 					accountTypeId: lamMapping.accountTypes.BILLING,
 					accountStatusId: undefined,
+					// TODO: deberia calcularse posteriormente
+					balance: 0,
 					// TODO: hay que verificar que se debe ingresar como refId en accountHolder
 					accountHolderRef: { refId: account.referenceCode },
-					balance: undefined,
 					statementCycleId: lamMapping.statementCycles[account.billCycle],
-					registrationDate: new Date(account.creationDate),
+					registrationDate: account.creationDate ? new Date(account.creationDate).toISOString() : undefined,
 					creditorId: lamMapping.creditors[account.creditorCode],
 					statusHistories: [{
 						accountStatus: 0, // TODO: verificar si es un Enum
-						registerDate: new Date(account.creationDate),
+						registerDate: account.creationDate ? new Date(account.creationDate).toISOString() : undefined,
 						userRefId: lamMapping.lamUserReferences.DefaultUser,
 						reason: 'Creation',
 						remarks: 'New Account'
 					},
 					{
 						accountStatus: 1, // TODO:  verificar si es un Enum
-						registerDate: new Date(account.creationDate),
+						registerDate: account.creationDate ? new Date(account.creationDate).toISOString() : undefined,
 						userRefId: lamMapping.lamUserReferences.DefaultUser,
 						reason: 'Activation',
 						remarks: 'New Account'
@@ -295,7 +300,7 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 				if (account.endDate && account.endDate !== '') {
 					lamAccount.statusHistories.push({
 						accountStatus: 1, // TODO:  verificar si es un Enum
-						registerDate: new Date(account.endDate),
+						registerDate: new Date(account.endDate).toISOString(),
 						userRefId: lamMapping.lamUserReferences.DefaultUser,
 						reason: 'Deactivation', // TODO: revisar cual es la razon y el status para deactivation
 						remarks: ''
@@ -303,6 +308,8 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 				}
 
 				const dbDebtorAccount: DbDebtorAccount = {
+					// TODO : entiendo que se debria de generar
+					accountNumber: account.referenceCode,
 					accountLedgerRef: {
 						name: account.referenceCode,
 						ledgerAccount: lamAccount
@@ -312,7 +319,7 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 					statusHistories: [
 						{
 							accountStatus: 0, // TODO:  verificar si es un Enum
-							registrationDate: new Date(account.creationDate),
+							registrationDate: account.creationDate ? new Date(account.creationDate).toISOString() : undefined,
 							userRefId: lamMapping.lamUserReferences.DefaultUser,
 							isActive: false,
 							reason: 'Creation',
@@ -320,7 +327,7 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 						},
 						{
 							accountStatus: 1, // TODO:  verificar si es un Enum
-							registrationDate: new Date(account.creationDate),
+							registrationDate: account.creationDate ? new Date(account.creationDate).toISOString() : undefined,
 							userRefId: lamMapping.lamUserReferences.DefaultUser,
 							isActive: !(account.endDate && account.endDate !== ''),
 							reason: 'Activation',
@@ -331,7 +338,7 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 				if (account.endDate && account.endDate !== '') {
 					dbDebtorAccount.statusHistories.push({
 						accountStatus: 1, // TODO:  verificar si es un Enum
-						registrationDate: new Date(account.endDate),
+						registrationDate: account.endDate ? new Date(account.endDate).toISOString() : undefined,
 						userRefId: lamMapping.lamUserReferences.DefaultUser,
 						isActive: true,
 						reason: 'Deactivation', // TODO: revisar cual es la razon y el status para deactivation
@@ -345,9 +352,9 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 							name: subscription.name,
 							referenceNumber: subscription.contractNumber,
 							serialNumber: subscription.serialNumber,
-							registrationDate: new Date(subscription.activationDate),
-							activationDate: new Date(subscription.activationDate),
-							deactivationDate: new Date(subscription.deactivationDate),
+							registrationDate: subscription.activationDate ? new Date(subscription.activationDate).toISOString() : undefined,
+							activationDate: subscription.activationDate ? new Date(subscription.activationDate).toISOString() : undefined,
+							deactivationDate: subscription.deactivationDate ? new Date(subscription.deactivationDate).toISOString() : undefined,
 							contractNumber: subscription.contractNumber,
 							serviceExternalCode: subscription.productOfferingId,
 							productLine: subscription.type,
@@ -419,8 +426,8 @@ function toDbDebtor (messages: Message[], locMapping:any, pmMapping:any, prMappi
 
 	return result
 }
-function minAccountDate (accounts:DbDebtorAccount[], reason:string):Date|undefined {
-	let creationDate:Date|undefined
+function minAccountDate (accounts:DbDebtorAccount[], reason:string):string|undefined {
+	let creationDate:string|undefined
 	for (const k in accounts) {
 		for (const l in accounts[k].statusHistories) {
 			const statusHistory = accounts[k].statusHistories[l]
@@ -433,8 +440,8 @@ function minAccountDate (accounts:DbDebtorAccount[], reason:string):Date|undefin
 	}
 	return creationDate
 }
-function maxAccountDate (accounts:DbDebtorAccount[], reason:string):Date|undefined {
-	let creationDate:Date|undefined
+function maxAccountDate (accounts:DbDebtorAccount[], reason:string):string|undefined {
+	let creationDate:string|undefined
 	for (const k in accounts) {
 		for (const l in accounts[k].statusHistories) {
 			const statusHistory = accounts[k].statusHistories[l]
@@ -457,9 +464,18 @@ function getAddress (address:Address, locMapping:any):LocAddress {
 		additionalData: address.additionalData,
 		areas: []
 	}
-	locAddress.areas.push({ areaId: locMapping.areas[address.provinceCode] })
-	locAddress.areas.push({ areaId: locMapping.areas[address.departmentCode] })
-	locAddress.areas.push({ areaId: locMapping.areas[address.districtCode] })
+	const provinceId = locMapping.areas[address.provinceCode]
+	const departmentId = locMapping.areas[address.departmentCode]
+	const districtId = locMapping.areas[address.districtCode]
+	if (provinceId) {
+		locAddress.areas.push({ areaId: provinceId })
+	}
+	if (departmentId) {
+		locAddress.areas.push({ areaId: departmentId })
+	}
+	if (districtId) {
+		locAddress.areas.push({ areaId: districtId })
+	}
 	return locAddress
 }
 
@@ -474,14 +490,13 @@ function getName (debtor: Debtor): string {
 async function execute () {
 	try {
 		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
-		await createLocal()
-		await updateLocMapping()
-		await updatePmMapping()
-		await updatePrMapping()
-		await updateLamMapping()
-		await updateDbMapping()
+		// await updateLocMapping()
+		// await updatePmMapping()
+		// await updatePrMapping()
+		// await updateLamMapping()
+		// await updateDbMapping()
 		await _import()
-		await exportLocal()
+		// await exportLocal()
 	} catch (error: any) {
 		console.error(error)
 	} finally {
