@@ -1,10 +1,5 @@
 import { Helper, orm } from '../../../../lib'
-import {
-	LocCountries, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
-	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor, DbDebtorAccount,
-	LocAddress, LamUserReferences, DbUserReferences, PmContactMediumTypes, LamAccount,
-	DbPaymentResponsibleMethod, PmNationalReferences, LamCreditors, PmGenders, DbBanks
-} from './workspace/src/model'
+import { DbDebtor, DbDebtorAccount, LocAddress, LamAccount, DbPaymentResponsibleMethod, PmGenders } from './workspace/src/model'
 import { Debtor, Address, Message } from './sourceModel'
 import {
 	sourcePath, locStage, view, expDebtorsImport, expPaymentRespsImport, expAccountPaymentRespsImport,
@@ -12,7 +7,7 @@ import {
 } from './common'
 
 async function updateLocMapping () {
-	const countries = await orm.execute(() => LocCountries.map(p => [p.id, p.iso3]), {}, view, locStage)
+	const countries = await orm.execute('LocCountries.map(p => [p.id, p.iso3])', {}, view, locStage)
 	const areaTypes = await orm.execute('LocAreaTypes.map(p=> [p.id,p.code]).include(p => p.areas.map(p=> [p.id,p.code]))', {}, view, locStage)
 	const mapping: any = { countries: {}, areaTypes: {}, areas: {} }
 	for (const i in countries) {
@@ -31,12 +26,12 @@ async function updateLocMapping () {
 }
 
 async function updatePmMapping () {
-	const industryTypes = await orm.execute(() => PmIndustryTypes.map(p => [p.id, p.code]), {}, view, locStage)
-	const partyStatuses = await orm.execute(() => PmPartyStatuses.map(p => [p.id, p.code]), {}, view, locStage)
-	const maritalStatuses = await orm.execute(() => PmMaritalStatuses.map(p => [p.id, p.code]), {}, view, locStage)
-	const identificationTypes = await orm.execute(() => PmIdentificationTypes.map(p => [p.id, p.code]), {}, view, locStage)
-	const contactMediumTypes = await orm.execute(() => PmContactMediumTypes.map(p => [p.id, p.code]), {}, view, locStage)
-	const nationalReferences = await orm.execute(() => PmNationalReferences.map(p => [p.id, p.refId]), {}, view, locStage)
+	const industryTypes = await orm.execute('PmIndustryTypes.map(p => [p.id, p.code])', {}, view, locStage)
+	const partyStatuses = await orm.execute('PmPartyStatuses.map(p => [p.id, p.code])', {}, view, locStage)
+	const maritalStatuses = await orm.execute('PmMaritalStatuses.map(p => [p.id, p.code])', {}, view, locStage)
+	const identificationTypes = await orm.execute('PmIdentificationTypes.map(p => [p.id, p.code])', {}, view, locStage)
+	const contactMediumTypes = await orm.execute('PmContactMediumTypes.map(p => [p.id, p.code])', {}, view, locStage)
+	const nationalReferences = await orm.execute('PmNationalReferences.map(p => [p.id, p.refId])', {}, view, locStage)
 	const genders = await orm.execute(() => PmGenders.map(p => [p.id, p.code]), {}, view, locStage)
 
 	const mapping: any = { industryTypes: {}, partyStatuses: {}, maritalStatuses: {}, identificationTypes: {}, contactMediumTypes: {}, nationalReferences: {}, genders: {} }
@@ -72,8 +67,8 @@ async function updatePmMapping () {
 }
 
 async function updatePrMapping () {
-	const partyRoleSpecs = await orm.execute(() => PrPartyRoleSpecs.map(p => [p.id, p.code]), {}, view, locStage)
-	const partyRoleStatuses = await orm.execute(() => PrPartyRoleStatuses.map(p => [p.id, p.code]), {}, view, locStage)
+	const partyRoleSpecs = await orm.execute('PrPartyRoleSpecs.map(p => [p.id, p.code])', {}, view, locStage)
+	const partyRoleStatuses = await orm.execute('PrPartyRoleStatuses.map(p => [p.id, p.code])', {}, view, locStage)
 	const mapping: any = { partyRoleSpecs: {}, partyRoleStatuses: {} }
 	for (const i in partyRoleSpecs) {
 		const source = partyRoleSpecs[i]
@@ -87,11 +82,11 @@ async function updatePrMapping () {
 }
 
 async function updateLamMapping () {
-	const accountTypes = await orm.execute(() => LamAccountTypes.map(p => [p.id, p.code]), {}, view, locStage)
-	const statementCycles = await orm.execute(() => LamStatementCycles.map(p => [p.id, p.code]), {}, view, locStage)
-	const creditors = await orm.execute(() => LamCreditors.map(p => [p.id, p.creditorCode]), {}, view, locStage)
-	const lamCurrencyReferences = await orm.execute(() => LamCurrencyReferences.map(p => [p.id, p.refId]), {}, view, locStage)
-	const lamUserReferences = await orm.execute(() => LamUserReferences.map(p => [p.id, p.refId]), {}, view, locStage)
+	const accountTypes = await orm.execute('LamAccountTypes.map(p => [p.id, p.code])', {}, view, locStage)
+	const statementCycles = await orm.execute('LamStatementCycles.map(p => [p.id, p.code])', {}, view, locStage)
+	const creditors = await orm.execute('LamCreditors.map(p => [p.id, p.creditorCode])', {}, view, locStage)
+	const lamCurrencyReferences = await orm.execute('LamCurrencyReferences.map(p => [p.id, p.refId])', {}, view, locStage)
+	const lamUserReferences = await orm.execute('LamUserReferences.map(p => [p.id, p.refId])', {}, view, locStage)
 
 	const mapping: any = { accountTypes: {}, statementCycles: {}, lamCurrencyReferences: {}, lamUserReferences: {}, creditors: {} }
 	for (const i in accountTypes) {
@@ -118,11 +113,11 @@ async function updateLamMapping () {
 }
 
 async function updateDbMapping () {
-	const debtorTypes = await orm.execute(() => DbDebtorTypes.map(p => [p.id, p.code]), {}, view, locStage)
-	const paymentMethodTypes = await orm.execute(() => DbPaymentMethodTypes.map(p => [p.id, p.code]), {}, view, locStage)
-	const debtorStages = await orm.execute(() => DbDebtorStages.map(p => [p.id, p.code]), {}, view, locStage)
-	const dbUserReferences = await orm.execute(() => DbUserReferences.map(p => [p.id, p.refId]), {}, view, locStage)
-	const banks = await orm.execute(() => DbBanks.map(p => [p.id, p.bic]), {}, view, locStage)
+	const debtorTypes = await orm.execute('DbDebtorTypes.map(p => [p.id, p.code])', {}, view, locStage)
+	const paymentMethodTypes = await orm.execute('DbPaymentMethodTypes.map(p => [p.id, p.code])', {}, view, locStage)
+	const debtorStages = await orm.execute('DbDebtorStages.map(p => [p.id, p.code])', {}, view, locStage)
+	const dbUserReferences = await orm.execute('DbUserReferences.map(p => [p.id, p.refId])', {}, view, locStage)
+	const banks = await orm.execute('DbBanks.map(p => [p.id, p.bic])', {}, view, locStage)
 
 	const mapping: any = { debtorTypes: {}, paymentMethodTypes: {}, debtorStages: {}, dbUserReferences: {}, banks: {} }
 	for (const i in debtorTypes) {

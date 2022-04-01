@@ -13,7 +13,7 @@ async function loadLocalSettings () {
 	// Get beesion settings
 
 	const countries = await orm.execute(() => LocCountries, {}, view, beeStage)
-	const areaTypes = await orm.execute(() => LocAreaTypes.include(p => p.areas), {}, view, beeStage)
+	const areaTypes = await orm.execute('LocAreaTypes.include(p => p.areas)', {}, view, beeStage)
 	const industryTypes = await orm.execute(() => PmIndustryTypes, {}, view, beeStage)
 	const partyStatuses = await orm.execute(() => PmPartyStatuses, {}, view, beeStage)
 	const maritalStatuses = await orm.execute(() => PmMaritalStatuses, {}, view, beeStage)
