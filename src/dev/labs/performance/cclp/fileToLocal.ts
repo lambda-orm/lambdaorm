@@ -8,7 +8,7 @@ import {
 import { Debtor, Address, Message } from './sourceModel'
 import {
 	sourcePath, locStage, view, expDebtorsImport, expPaymentRespsImport, expAccountPaymentRespsImport,
-	getPaymentResponsibles, preImportAccountPaymentRest, getAccountPaymentRest, exportLocal
+	getPaymentResponsibles, preImportAccountPaymentRest, getAccountPaymentRest, exportLocal, sentence
 } from './common'
 
 async function updateLocMapping () {
@@ -497,6 +497,7 @@ async function execute () {
 		// await updateDbMapping()
 		await _import()
 		// await exportLocal()
+		// await sentence()
 	} catch (error: any) {
 		console.error(error)
 	} finally {

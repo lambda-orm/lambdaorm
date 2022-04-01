@@ -64,6 +64,12 @@ export interface Entity {
 	relations: Relation[]
 	dependents: Dependent[]
 	constraints?: Constraint[]
+	hadReadExps?: boolean
+	hadWriteExps?: boolean
+	hadReadValues?: boolean
+	hadWriteValues?: boolean
+	hadDefaults?: boolean
+	hadViewReadExp?: boolean
 }
 export interface RelationInfo {
 	previousRelation:string
@@ -80,6 +86,8 @@ export interface EntityMapping extends Entity {
 	sequence:string
 	properties: PropertyMapping[]
 	filter?: string
+	hadKeys?: boolean
+	hadReadMappingExp?:boolean
 }
 export interface Mapping {
 	extends?: string

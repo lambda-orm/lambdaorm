@@ -535,10 +535,12 @@ class SchemaExtender {
 	}
 
 	public complete (schema: Schema): void {
-		if (schema && schema.entities) {
-			this.completeEntities(schema.entities)
-			this.completeRelations(schema.entities)
-			this.completeDependents(schema.entities)
+		if (schema) {
+			if (schema.entities) {
+				this.completeEntities(schema.entities, schema.views)
+				this.completeRelations(schema.entities)
+				this.completeDependents(schema.entities)
+			}
 		}
 	}
 
@@ -554,7 +556,7 @@ class SchemaExtender {
 		return target
 	}
 
-	private completeEntities (entities:Entity[]):void {
+	private completeEntities (entities:Entity[], views:View[]):void {
 		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
@@ -576,6 +578,21 @@ class SchemaExtender {
 						if (relation.type === RelationType.manyToOne) relation.weak = true
 						if (relation.weak === undefined) relation.weak = false
 					}
+				}
+				if (entity.properties) {
+					entity.hadReadExps = entity.properties.some(p => p.readExp !== undefined)
+					entity.hadWriteExps = entity.properties.some(p => p.writeExp !== undefined)
+					entity.hadReadValues = entity.properties.some(p => p.readValue !== undefined)
+					entity.hadWriteValues = entity.properties.some(p => p.writeValue !== undefined)
+					entity.hadDefaults = entity.properties.some(p => p.default !== undefined)
+					entity.hadViewReadExp = views ? views.some(p => p.entities ? p.entities.some(p => p.name === entity.name && p.properties ? p.properties.some(p => p.readExp !== undefined) : false) : false) : false
+				} else {
+					entity.hadReadExps = false
+					entity.hadWriteExps = false
+					entity.hadReadValues = false
+					entity.hadWriteValues = false
+					entity.hadDefaults = false
+					entity.hadViewReadExp = false
 				}
 			}
 		}
@@ -756,6 +773,7 @@ class SchemaExtender {
 						}
 					}
 				}
+				entity.hadKeys = entity.properties ? entity.properties.some(p => p.key !== undefined) : false
 			}
 		}
 	}
@@ -931,16 +949,16 @@ export class SchemaManager {
 		this.schema = this.extend(schema)
 		this.model.entities = this.schema.entities ? this.schema.entities : []
 		this.model.enums = this.schema.enums ? this.schema.enums : []
-		if (this.schema.mappings) {
-			for (const p in this.schema.mappings) {
-				this.mapping.load(this.schema.mappings[p])
-			}
-		}
 		if (!this.schema.views) {
 			this.schema.views = [{ name: 'defaul', entities: [] }]
 		}
 		for (const p in this.schema.views) {
 			this.view.load(this.schema.views[p])
+		}
+		if (this.schema.mappings) {
+			for (const p in this.schema.mappings) {
+				this.mapping.load(this.schema.mappings[p])
+			}
 		}
 		if (this.schema.dataSources) {
 			for (const p in this.schema.dataSources) {

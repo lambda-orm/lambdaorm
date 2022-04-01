@@ -103,12 +103,12 @@ export class QueryExecutor {
 	private async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, query, this.params(query.parameters, dialect, data))
 		const chunkSize = 999 // 7000
+		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		if (mainResult.length > 0) {
 			// get rows for include relations
-			for (let i = 0; i < mainResult.length; i++) {
-				const row = mainResult[i]
-				this.solveReadValues(query, row)
+			if (entity.hadReadValues) {
+				this.solveReadValues(query, mainResult)
 			}
 			const chunksByKey: any = {}
 			let chunks: any[] = []
@@ -288,11 +288,17 @@ export class QueryExecutor {
 			}
 		}
 		// solve default properties
-		this.solveDefaults(query, data.data)
+		if (entity.hadDefaults) {
+			this.solveDefaults(query, data.data)
+		}
 		// solve default properties
-		this.solveWriteValues(query, data.data)
-		// solve Keys
-		this.solveKeys(entity, data.data)
+		if (entity.hadWriteValues) {
+			this.solveWriteValues(query, data.data)
+		}
+		// // solve Keys
+		// if (entity.hadKeys) {
+		// this.solveKeys(entity, data.data)
+		// }
 		// evaluate constraints
 		this.constraints(query, data.data)
 		// insert main entity
@@ -438,17 +444,20 @@ export class QueryExecutor {
 	}
 
 	private async _chunkInsert (query:Query, entity:EntityMapping, chunk:any[], mapping:MappingConfig, dialect:Dialect, connection:Connection): Promise<any[]> {
-		for (let i = 0; i < chunk.length; i++) {
-			const item = chunk[i]
-			// solve default properties
-			this.solveDefaults(query, item)
-			// solve write properties
-			this.solveWriteValues(query, item)
-			// solve Keys
-			this.solveKeys(entity, item)
-			// evaluate constraints
-			this.constraints(query, item)
+		// solve default properties
+		if (entity.hadDefaults) {
+			this.solveDefaults(query, chunk)
 		}
+		// solve write properties
+		if (entity.hadWriteValues) {
+			this.solveWriteValues(query, chunk)
+		}
+		// // solve Keys
+		// if (entity.hadKeys) {
+		// this.solveKeys(entity, chunk)
+		// }
+		// evaluate constraints
+		this.constraints(query, chunk)
 		const rows = this.rows(query, dialect, chunk)
 		return await connection.bulkInsert(mapping, query, rows, query.parameters)
 	}
@@ -456,9 +465,13 @@ export class QueryExecutor {
 	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 		// solve default properties
-		this.solveWriteValues(query, data.data)
-		// solve Keys
-		this.solveKeys(entity, data.data)
+		if (entity.hadWriteValues) {
+			this.solveWriteValues(query, data.data)
+		}
+		// // solve Keys
+		// if (entity.hadKeys) {
+		// this.solveKeys(entity, data.data)
+		// }
 		// evaluate constraints
 		this.constraints(query, data.data)
 		// update
@@ -562,54 +575,109 @@ export class QueryExecutor {
 	 * @param entityName
 	 * @param data
 	 */
-	private solveDefaults (query:Query, data:any):void {
-		for (const i in query.defaults) {
-			const defaultBehavior = query.defaults[i]
-			const value = data[defaultBehavior.property]
-			if (value === undefined) {
-				data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
+	private solveDefaults(query: Query, data: any[]): void
+	private solveDefaults (query:Query, data:any):void
+	private solveDefaults (query:Query, data:any|any[]):void {
+		if (Array.isArray(data)) {
+			for (const i in query.defaults) {
+				const defaultBehavior = query.defaults[i]
+				for (let i = 0; i < data.length; i++) {
+					const value = data[i][defaultBehavior.property]
+					if (value === undefined) {
+						data[i][defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data[i])
+					}
+				}
+			}
+		} else {
+			for (const i in query.defaults) {
+				const defaultBehavior = query.defaults[i]
+				const value = data[defaultBehavior.property]
+				if (value === undefined) {
+					data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
+				}
 			}
 		}
 	}
 
-	private solveWriteValues (query: Query, data: any): void {
-		for (const i in query.values) {
-			const valueBehavior = query.values[i]
-			data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
-		}
-	}
-
-	private solveKeys (entity: EntityMapping, data: any): void {
-		for (const p in entity.properties) {
-			const property = entity.properties[p]
-			if (property.key) {
-				data[property.name] = property.key
+	private solveWriteValues(query: Query, data: any[]): void
+	private solveWriteValues (query: Query, data: any): void
+	private solveWriteValues (query: Query, data: any | any[]): void {
+		if (Array.isArray(data)) {
+			for (const i in query.values) {
+				const valueBehavior = query.values[i]
+				for (let i = 0; i < data.length; i++) {
+					data[i][valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data[i])
+				}
+			}
+		} else {
+			for (const i in query.values) {
+				const valueBehavior = query.values[i]
+				data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
 			}
 		}
 	}
 
-	private solveReadValues (query: Query, data: any): void {
+	// private solveKeys (entity: EntityMapping, data: any[]): void
+	// private solveKeys (entity: EntityMapping, data: any): void
+	// private solveKeys (entity: EntityMapping, data: any | any[]): void {
+	// if (Array.isArray(data)) {
+	// for (const p in entity.properties) {
+	// const property = entity.properties[p]
+	// if (property.key) {
+	// for (let i = 0; i < data.length; i++) {
+	// data[i][property.name] = property.key
+	// }
+	// }
+	// }
+	// } else {
+	// for (const p in entity.properties) {
+	// const property = entity.properties[p]
+	// if (property.key) {
+	// data[property.name] = property.key
+	// }
+	// }
+	// }
+	// }
+
+	private constraints(query: Query, data: any[]): void
+	private constraints (query: Query, data: any): void
+	private constraints (query: Query, data: any | any[]): void {
+		if (Array.isArray(data)) {
+			for (const i in query.constraints) {
+				const constraint = query.constraints[i]
+				for (let i = 0; i < data.length; i++) {
+					if (!this.expressions.eval(constraint.condition, data[i])) {
+						throw new ValidationError(query.dataSource, query.entity, query.sentence, constraint.message, data[i])
+					}
+				}
+			}
+		} else {
+			for (const i in query.constraints) {
+				const constraint = query.constraints[i]
+				if (!this.expressions.eval(constraint.condition, data)) {
+					throw new ValidationError(query.dataSource, query.entity, query.sentence, constraint.message, data)
+				}
+			}
+		}
+	}
+
+	private solveReadValues (query: Query, data: any[]): void {
 		for (const i in query.values) {
 			const valueBehavior = query.values[i]
 			if (valueBehavior.alias === valueBehavior.property) {
 				// Example Users.map(p=> [p.email]) or Users.map(p=> {email:p.email})
-				data[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, data)
+				for (let i = 0; i < data.length; i++) {
+					data[i][valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, data[i])
+				}
 			} else if (valueBehavior.alias) {
 				// Example Users.map(p=> {mail:p.email})
 				// since the expression contains the name of the property and not the alias
 				// the property must be added with the alias value.
-				const context = Helper.clone(data)
-				context[valueBehavior.property] = data[valueBehavior.alias]
-				data[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
-			}
-		}
-	}
-
-	private constraints (query: Query, data: any): void {
-		for (const i in query.constraints) {
-			const constraint = query.constraints[i]
-			if (!this.expressions.eval(constraint.condition, data)) {
-				throw new ValidationError(query.dataSource, query.entity, query.sentence, constraint.message, data)
+				for (let i = 0; i < data.length; i++) {
+					const context = Helper.clone(data[i])
+					context[valueBehavior.property] = data[i][valueBehavior.alias]
+					data[i][valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
+				}
 			}
 		}
 	}

@@ -701,7 +701,7 @@ export class OperandManager {
 			if (queryProperties) {
 				for (const i in queryProperties) {
 					const property = queryProperties[i]
-					if (property.nullable === false && property.default === undefined) {
+					if (property.nullable === false && property.default === undefined && property.key === undefined) {
 						const constraint: Constraint = {
 							message: `Cannot be null property ${property.name} in entity ${entityName}`,
 							condition: `isNotNull(${property.name})`

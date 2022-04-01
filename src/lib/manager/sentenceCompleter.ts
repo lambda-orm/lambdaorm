@@ -1,6 +1,6 @@
 import { MappingConfig, ViewConfig } from '.'
-import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude } from '../model'
-import { Expressions, Variable, Operand, Operator } from 'js-expressions'
+import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping } from '../model'
+import { Expressions, Variable, Operand, Operator, KeyValue } from 'js-expressions'
 
 export class SentenceCompleter {
 	protected expressions: Expressions
@@ -11,13 +11,20 @@ export class SentenceCompleter {
 
 	public complete (mapping: MappingConfig, view: ViewConfig, sentence: Sentence) {
 		const entity = mapping.getEntity(sentence.entity) as EntityMapping
-		if (sentence.name !== 'insert' && sentence.name !== 'bulkInsert') {
-			this.solveFilter(sentence, entity)
+		if (entity.filter || entity.hadKeys) {
+			if (sentence.name !== 'insert' && sentence.name !== 'bulkInsert') {
+				this.solveFilter(sentence, entity)
+			}
+			if (entity.hadKeys && ['insert', 'bulkInsert', 'update'].includes(sentence.name)) {
+				this.solveKeys(sentence, entity)
+			}
+			if (sentence.name === 'select') {
+				this.solveJoin(sentence, mapping)
+			}
 		}
-		if (sentence.name === 'select') {
-			this.solveJoin(sentence, mapping)
+		if (sentence.name === 'select' && (entity.hadReadExps || entity.hadReadMappingExp || entity.hadViewReadExp)) {
+			this.solveProperty(sentence, mapping, view)
 		}
-		this.solveProperty(sentence, mapping, view)
 	}
 
 	private solveFilter (sentence: Sentence, entity: EntityMapping) {
@@ -28,12 +35,14 @@ export class SentenceCompleter {
 			newFilter = this.replaceField(entity, sentence.alias, expression)
 		}
 		// add filter for keys in properties
-		const expressionKeys = this.filterbyKeys(sentence, entity)
-		if (expressionKeys) {
-			if (newFilter) {
-				newFilter = new Operator('&&', [newFilter, expressionKeys])
-			} else {
-				newFilter = expressionKeys
+		if (entity.hadKeys) {
+			const expressionKeys = this.filterbyKeys(sentence, entity)
+			if (expressionKeys) {
+				if (newFilter) {
+					newFilter = new Operator('&&', [newFilter, expressionKeys])
+				} else {
+					newFilter = expressionKeys
+				}
 			}
 		}
 		// if exists newFilter  add to current filter
@@ -45,6 +54,41 @@ export class SentenceCompleter {
 				sentence.children.push(new Filter('filter', [newFilter]))
 			}
 		}
+	}
+
+	private solveKeys (sentence: Sentence, entity: EntityMapping) {
+		const insert = sentence.children.find(p => p instanceof Insert)
+		const update = sentence.children.find(p => p instanceof Update)
+		for (const p in entity.properties) {
+			const property = entity.properties[p]
+			if (property.key) {
+				if (insert) {
+					this.solveKey(property, insert)
+				} else if (update) {
+					this.solveKey(property, update)
+				}
+				// TODO: ver como resolver en los casos que el parametro no tiene el mismo nombre que el campo
+				const index = sentence.parameters.findIndex(p => p.name === property.name)
+				if (index >= 0) {
+					sentence.parameters.splice(index, 1)
+				}
+			}
+		}
+	}
+
+	private solveKey (property:PropertyMapping, operand:Operand):Operand {
+		for (const i in operand.children) {
+			const child = operand.children[i]
+			if (child instanceof KeyValue) {
+				const keyValue = child as KeyValue
+				if (keyValue.name === property.name) {
+					child.children[0] = new Constant2(property.key as string)
+				}
+			} else if (child.children && child.children.length > 0) {
+				operand.children[i] = this.solveKey(property, child)
+			}
+		}
+		return operand
 	}
 
 	private filterbyKeys (sentence: Sentence, entity: EntityMapping) : Operand|undefined {
@@ -121,7 +165,6 @@ export class SentenceCompleter {
 							const expression = this.expressions.parse(property.readExp)
 							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)
 						}
-
 						if (viewPorperty && viewPorperty.readExp) {
 							const expression = this.expressions.parse(viewPorperty.readExp)
 							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)

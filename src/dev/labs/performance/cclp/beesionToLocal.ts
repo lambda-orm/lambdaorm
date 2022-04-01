@@ -224,8 +224,8 @@ async function execute () {
 		await createLocal()
 		await loadLocalSettings()
 		await _export()
-		await _import()
-		await exportLocal()
+		// await _import()
+		// await exportLocal()
 		// await validate()
 		// await sentence()
 	} catch (error: any) {

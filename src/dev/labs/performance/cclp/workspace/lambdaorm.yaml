@@ -1212,7 +1212,7 @@ entities:
         to: id
         target: paymentMethods
 views:
-  -name: default
+  - name: default
 mappings:
   - name: local
     entities:
