@@ -164,6 +164,10 @@ export class OracleConnection extends Connection {
 			sql = `${query.sentence} ${returning}`
 			const result = await this.cnx.executeMany(sql, binds, options)
 
+			if (result.rowsAffected !== binds.length) {
+				throw Error(`${binds.length - result.rowsAffected} records not imported!`)
+			}
+
 			if (fieldId && fieldIdKey) {
 				const ids: any[] = []
 				for (const i in result.outBinds) {

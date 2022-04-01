@@ -155,7 +155,7 @@ async function _import () {
 	const lamMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/lamMapping.json') as string)
 	const dbMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/dbMapping.json') as string)
 
-	const source:any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors.json') as string)
+	const source:any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors-1000-records.json') as string)
 	const debtors = toDbDebtor(source.messages as Message[], locMapping, pmMapping, prMapping, lamMapping, dbMapping)
 
 	let start = new Date().getTime()
