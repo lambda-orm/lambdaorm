@@ -23,5 +23,12 @@
 	"exclude": [
 		"node_modules",
 		"**/__jest__/*"
-	]
+	],
+	"errorReporting": {
+		"excludeCodes": [
+			2307,
+			2307,
+			2551
+		]
+	}
 }
