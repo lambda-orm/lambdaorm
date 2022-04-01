@@ -4,7 +4,7 @@ beforeAll(async () => {
 	await orm.init()
 })
 describe('Execute', () => {
-	const data = {"a":{"id":1,"__parentId":[7,1,8]}}
+	const data = {"a":{"id":1}}
 	test('include 1', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>p.customer)'
 		const expected = [{"id":1,"customerId":"ALFKI","employeeId":6,"orderDate":"1997-08-24T22:00:00.000Z","requiredDate":"1997-09-21T22:00:00.000Z","shippedDate":"1997-09-01T22:00:00.000Z","shipViaId":1,"freight":29.46,"name":"Alfreds Futterkiste","address":"Obere Str. 57","city":"Berlin","region":null,"postalCode":"12209","country":"Germany","customer":{"id":"ALFKI","name":"Alfreds Futterkiste","contact":"Maria Anders","phone":"Sales Representative","address":"Obere Str. 57","city":"Berlin","region":null,"postalCode":"12209","country":"Germany"}}]
@@ -12,6 +12,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 2', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>p.details)'
@@ -20,6 +24,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 3', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])'
@@ -28,6 +36,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 4', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])'
@@ -36,6 +48,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 5', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])'
@@ -44,6 +60,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 6', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])'
@@ -52,6 +72,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 7', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])'
@@ -60,6 +84,10 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 	test('include 8', async () => {
 		const expression = 'Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])'
@@ -68,5 +96,9 @@ describe('Execute', () => {
 		expect(expected).toEqual(mysqlResult)
 		const postgresResult =  await orm.execute(expression, data,'default','postgres')
 		expect(expected).toEqual(postgresResult)
+		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		expect(expected).toEqual(mariadbResult)
+		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		expect(expected).toEqual(mssqlResult)
 	})
 })

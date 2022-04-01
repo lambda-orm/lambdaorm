@@ -60,4 +60,20 @@ export abstract class StageActionDML {
 			? ''
 			: `.include(${arrowVariable}=>[${includes.join(',')}])`
 	}
+
+	protected getAllEntities (queries:Query[]):string[] {
+		const entities:string[] = []
+		for (const p in queries) {
+			const query = queries[p]
+			entities.push(query.entity)
+			if (query.children && query.children.length > 0) {
+				const childrenQuery = query.children.map(p => p.query)
+				const childrenEntity = this.getAllEntities(childrenQuery)
+				for (const i in childrenEntity) {
+					entities.push(childrenEntity[i])
+				}
+			}
+		}
+		return entities
+	}
 }

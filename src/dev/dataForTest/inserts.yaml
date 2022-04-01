@@ -135,10 +135,8 @@ test:
       parameters:
         - name: name
           type: string
-          value: Beverages20
         - name: description
           type: string
-          value: Soft drinks, coffees, teas, beers, and ales
       entity: Categories
       constraints:
         - message: Cannot be null property name in entity Categories
@@ -238,10 +236,8 @@ test:
       parameters:
         - name: name
           type: string
-          value: Beverages21
         - name: description
           type: string
-          value: Soft drinks, coffees, teas, beers, and ales
       entity: Categories
       constraints:
         - message: Cannot be null property name in entity Categories
@@ -339,10 +335,8 @@ test:
       parameters:
         - name: entity.name
           type: string
-          value: Beverages22
         - name: entity.description
           type: string
-          value: Soft drinks, coffees, teas, beers, and ales
       entity: Categories
       constraints: []
     executions:
@@ -627,43 +621,30 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: VINET
         - name: employeeId
           type: integer
-          value: 5
         - name: orderDate
           type: datetime
-          value: '1996-07-04 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-08-01 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-07-16 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: 32.38
         - name: name
           type: string
-          value: Vins et alcools Chevalier
         - name: address
           type: string
-          value: 59 rue de l-Abbaye
         - name: city
           type: string
-          value: Reims
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '51100'
         - name: country
           type: string
-          value: France
       entity: Orders
       constraints:
         - message: Cannot be null property customerId in entity Orders
@@ -1062,19 +1043,14 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 832
                 - name: productId
                   type: integer
-                  value: 72
                 - name: unitPrice
                   type: decimal
-                  value: 34.8
                 - name: quantity
                   type: decimal
-                  value: 5
                 - name: discount
                   type: decimal
-                  value: 10
               entity: OrderDetails
               constraints:
                 - message: Cannot be null property orderId in entity OrderDetails
@@ -1122,43 +1098,30 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: VINET
         - name: employeeId
           type: integer
-          value: 5
         - name: orderDate
           type: datetime
-          value: '1996-07-04 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-08-01 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-07-16 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: 32.38
         - name: name
           type: string
-          value: Vins et alcools Chevalier
         - name: address
           type: string
-          value: 59 rue de l-Abbaye
         - name: city
           type: string
-          value: Reims
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '51100'
         - name: country
           type: string
-          value: France
       entity: Orders
       constraints:
         - message: Cannot be null property customerId in entity Orders
@@ -1629,19 +1592,14 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 833
                 - name: productId
                   type: integer
-                  value: 72
                 - name: unitPrice
                   type: decimal
-                  value: 34.8
                 - name: quantity
                   type: decimal
-                  value: 5
                 - name: discount
                   type: decimal
-                  value: 10
               entity: OrderDetails
               constraints:
                 - message: Cannot be null property orderId in entity OrderDetails
@@ -1853,43 +1811,30 @@ test:
       parameters:
         - name: customerId
           type: string
-          value: VINET
         - name: employeeId
           type: integer
-          value: 5
         - name: orderDate
           type: datetime
-          value: '1996-07-04 00:00:00'
         - name: requiredDate
           type: datetime
-          value: '1996-08-01 00:00:00'
         - name: shippedDate
           type: datetime
-          value: '1996-07-16 00:00:00'
         - name: shipViaId
           type: integer
-          value: 3
         - name: freight
           type: decimal
-          value: 32.38
         - name: name
           type: string
-          value: Vins et alcools Chevalier
         - name: address
           type: string
-          value: 59 rue de l-Abbaye
         - name: city
           type: string
-          value: Reims
         - name: region
           type: string
-          value: null
         - name: postalCode
           type: string
-          value: '51100'
         - name: country
           type: string
-          value: France
       entity: Orders
       constraints:
         - message: Cannot be null property customerId in entity Orders

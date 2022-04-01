@@ -185,7 +185,6 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 9
       entity: OrderDetails
       constraints: []
     executions:
@@ -350,10 +349,8 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 4
                 - name: productId
                   type: integer
-                  value: 77
               entity: OrderDetails
               constraints: []
           type: any
@@ -371,7 +368,6 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 4
       entity: Orders
       constraints: []
     executions:
@@ -536,10 +532,8 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 2
                 - name: productId
                   type: integer
-                  value: 63
               entity: OrderDetails
               constraints: []
           type: any
@@ -557,7 +551,6 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 2
       entity: Orders
       constraints: []
     executions:
@@ -722,10 +715,8 @@ test:
               parameters:
                 - name: orderId
                   type: integer
-                  value: 4
                 - name: productId
                   type: integer
-                  value: 77
               entity: OrderDetails
               constraints: []
           type: any
@@ -743,7 +734,6 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 4
       entity: Orders
       constraints: []
     executions:
@@ -849,10 +839,8 @@ test:
       parameters:
         - name: entity.orderId
           type: integer
-          value: null
         - name: entity.productId
           type: integer
-          value: null
       entity: OrderDetails
       constraints: []
     executions:
@@ -1036,7 +1024,6 @@ test:
       parameters:
         - name: entity.id
           type: integer
-          value: null
       entity: Orders
       constraints: []
     executions:

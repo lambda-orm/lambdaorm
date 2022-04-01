@@ -184,8 +184,10 @@ export class StageImport extends StageActionDML {
 	}
 
 	protected sort (queries:Query[]):Query[] {
-		let entities = queries.map(p => p.entity)
-		entities = this.model.sortByRelations(entities)
+		const mainEntities = queries.map(p => p.entity)
+		const allEntities = this.getAllEntities(queries)
+
+		const entities = this.model.sortByRelations(mainEntities, allEntities)
 		const result:Query[] = []
 		for (let i = 0; i < entities.length; i++) {
 			const query = queries.find(p => p.entity === entities[i])
