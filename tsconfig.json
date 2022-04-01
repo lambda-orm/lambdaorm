@@ -22,7 +22,9 @@
 	],
 	"exclude": [
 		"node_modules",
-		"**/__jest__/*"
+		"**/__jest__/*",
+		"model.ts",
+		"stageDelete.ts"
 	],
 	"errorReporting": {
 		"excludeCodes": [
