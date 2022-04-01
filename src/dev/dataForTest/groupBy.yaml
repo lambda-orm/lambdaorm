@@ -814,7 +814,6 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Products
       constraints: []
     executions:

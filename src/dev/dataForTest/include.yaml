@@ -2,10 +2,6 @@ name: include
 data:
   a:
     id: 1
-    __parentId:
-      - 7
-      - 1
-      - 8
 test:
   - name: include 1
     data: a
@@ -33,7 +29,7 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
       - stage: postgres
@@ -59,7 +55,7 @@ test:
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
                 AS "address", c.City AS "city", c.Region AS "region",
                 c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "__parentId" FROM Customers c  WHERE 
+                c.CustomerID AS "LamdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
               childs: []
       - stage: mariadb
@@ -85,13 +81,13 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id}))
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id}))
     model:
       - name: id
         type: integer
@@ -142,13 +138,15 @@ test:
             type: string
           - name: country
             type: string
+          - name: LamdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -359,7 +357,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -466,7 +464,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -498,13 +496,11 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -552,12 +548,37 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
       - stage: mariadb
     result:
       - id: 1
@@ -607,7 +628,7 @@ test:
               sentence: >-
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.OrderID AS `__parentId` FROM
+                o1.Discount AS `discount`, o1.OrderID AS `LamdaOrmParentId` FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs: []
       - stage: postgres
@@ -630,7 +651,7 @@ test:
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.OrderID AS "__parentId" FROM
+                o1.Discount AS "discount", o1.OrderID AS "LamdaOrmParentId" FROM
                 "Order Details" o1  WHERE  o1.OrderID IN ($1) 
               childs: []
       - stage: mariadb
@@ -653,13 +674,13 @@ test:
               sentence: >-
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.OrderID AS `__parentId` FROM
+                o1.Discount AS `discount`, o1.OrderID AS `LamdaOrmParentId` FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}))
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LamdaOrmParentId:p.orderId}))
     model:
       - name: id
         type: integer
@@ -702,13 +723,15 @@ test:
             type: decimal
           - name: discount
             type: decimal
+          - name: LamdaOrmParentId
+            type: integer
     parameters:
       - name: id
         type: integer
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -919,7 +942,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -986,7 +1009,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -1010,13 +1033,11 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -1064,12 +1085,43 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: 45.6
+                quantity: 15
+                discount: 0
+              - orderId: 1
+                productId: 39
+                unitPrice: 18
+                quantity: 21
+                discount: 0
+              - orderId: 1
+                productId: 46
+                unitPrice: 12
+                quantity: 2
+                discount: 0
       - stage: mariadb
     result:
       - id: 1
@@ -1126,7 +1178,7 @@ test:
               sentence: >-
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.OrderID AS `__parentId` FROM
+                o1.Discount AS `discount`, o1.OrderID AS `LamdaOrmParentId` FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs: []
             - entity: Customers
@@ -1137,7 +1189,7 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
       - stage: postgres
@@ -1161,7 +1213,7 @@ test:
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.OrderID AS "__parentId" FROM
+                o1.Discount AS "discount", o1.OrderID AS "LamdaOrmParentId" FROM
                 "Order Details" o1  WHERE  o1.OrderID IN ($1) 
               childs: []
             - entity: Customers
@@ -1172,7 +1224,7 @@ test:
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
                 AS "address", c.City AS "city", c.Region AS "region",
                 c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "__parentId" FROM Customers c  WHERE 
+                c.CustomerID AS "LamdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
               childs: []
       - stage: mariadb
@@ -1196,7 +1248,7 @@ test:
               sentence: >-
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.OrderID AS `__parentId` FROM
+                o1.Discount AS `discount`, o1.OrderID AS `LamdaOrmParentId` FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs: []
             - entity: Customers
@@ -1207,13 +1259,13 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -1256,6 +1308,8 @@ test:
             type: decimal
           - name: discount
             type: decimal
+          - name: LamdaOrmParentId
+            type: integer
       - name: customer
         type: Customers
         childs:
@@ -1277,18 +1331,20 @@ test:
             type: string
           - name: country
             type: string
+          - name: LamdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -1511,7 +1567,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -1578,7 +1634,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -1602,13 +1658,11 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -1639,7 +1693,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -1746,7 +1800,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -1778,13 +1832,11 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -1834,12 +1886,53 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: 45.6
+                quantity: 15
+                discount: 0
+              - orderId: 1
+                productId: 39
+                unitPrice: 18
+                quantity: 21
+                discount: 0
+              - orderId: 1
+                productId: 46
+                unitPrice: 12
+                quantity: 2
+                discount: 0
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
       - stage: mariadb
     result:
       - id: 1
@@ -1907,7 +2000,7 @@ test:
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
                 o1.Discount AS `discount`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
                 o1.OrderID IN (?) 
               childs:
                 - entity: Products
@@ -1919,8 +2012,8 @@ test:
                     p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
                     p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
                     p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.ProductID AS `__parentId` FROM Products p 
-                    WHERE  p.ProductID IN (?) 
+                    `discontinued`, p.ProductID AS `LamdaOrmParentId` FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   childs: []
             - entity: Customers
               dialect: mysql
@@ -1930,7 +2023,7 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
       - stage: postgres
@@ -1955,7 +2048,7 @@ test:
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.ProductID AS "__productId",
-                o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+                o1.OrderID AS "LamdaOrmParentId" FROM "Order Details" o1  WHERE 
                 o1.OrderID IN ($1) 
               childs:
                 - entity: Products
@@ -1967,8 +2060,8 @@ test:
                     p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
                     p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.ProductID AS "__parentId" FROM Products p 
-                    WHERE  p.ProductID IN ($1) 
+                    "discontinued", p.ProductID AS "LamdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN ($1) 
                   childs: []
             - entity: Customers
               dialect: postgres
@@ -1978,7 +2071,7 @@ test:
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
                 AS "address", c.City AS "city", c.Region AS "region",
                 c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "__parentId" FROM Customers c  WHERE 
+                c.CustomerID AS "LamdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
               childs: []
       - stage: mariadb
@@ -2003,7 +2096,7 @@ test:
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
                 o1.Discount AS `discount`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
                 o1.OrderID IN (?) 
               childs:
                 - entity: Products
@@ -2015,8 +2108,8 @@ test:
                     p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
                     p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
                     p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.ProductID AS `__parentId` FROM Products p 
-                    WHERE  p.ProductID IN (?) 
+                    `discontinued`, p.ProductID AS `LamdaOrmParentId` FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   childs: []
             - entity: Customers
               dialect: mariadb
@@ -2026,14 +2119,14 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,__parentId:p.orderId}).filter(p=>includes(p.orderId,__parentId)).include(q=>q.product.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__parentId:p.id})),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LamdaOrmParentId:p.orderId}).filter(p=>includes(p.orderId,LamdaOrmParentId)).include(q=>q.product.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LamdaOrmParentId:p.id})),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -2076,6 +2169,8 @@ test:
             type: decimal
           - name: discount
             type: decimal
+          - name: LamdaOrmParentId
+            type: integer
           - name: product
             type: Products
             childs:
@@ -2099,6 +2194,8 @@ test:
                 type: decimal
               - name: discontinued
                 type: boolean
+              - name: LamdaOrmParentId
+                type: integer
       - name: customer
         type: Customers
         childs:
@@ -2120,23 +2217,25 @@ test:
             type: string
           - name: country
             type: string
+          - name: LamdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: __parentId
+              - name: LamdaOrmParentId
                 type: array
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -2362,7 +2461,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -2439,7 +2538,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -2469,7 +2568,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -2586,7 +2685,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -2620,15 +2719,11 @@ test:
                           type: decimal
                         - name: discontinued
                           type: boolean
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: integer
                       parameters:
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: array
-                          value:
-                            - 28
-                            - 39
-                            - 46
                       entity: Products
                       constraints: []
                   type: any
@@ -2654,13 +2749,11 @@ test:
                   type: decimal
                 - name: __productId
                   type: integer
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -2691,7 +2784,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -2798,7 +2891,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -2830,13 +2923,11 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -2886,12 +2977,86 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: 45.6
+                quantity: 15
+                discount: 0
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: 45.6
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+              - orderId: 1
+                productId: 39
+                unitPrice: 18
+                quantity: 21
+                discount: 0
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: 18
+                  inStock: 69
+                  onOrder: 0
+                  reorderLevel: 5
+                  discontinued: false
+              - orderId: 1
+                productId: 46
+                unitPrice: 12
+                quantity: 2
+                discount: 0
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: 12
+                  inStock: 95
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: false
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
       - stage: mariadb
     result:
       - id: 1
@@ -2992,7 +3157,7 @@ test:
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
                 o1.Discount AS `discount`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
                 o1.OrderID IN (?) 
               childs:
                 - entity: Products
@@ -3005,7 +3170,8 @@ test:
                     p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
                     p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
                     `discontinued`, p.CategoryID AS `__categoryId`, p.ProductID
-                    AS `__parentId` FROM Products p  WHERE  p.ProductID IN (?) 
+                    AS `LamdaOrmParentId` FROM Products p  WHERE  p.ProductID IN
+                    (?) 
                   childs:
                     - entity: Categories
                       dialect: mysql
@@ -3013,8 +3179,8 @@ test:
                       sentence: >-
                         SELECT c.CategoryID AS `id`, c.CategoryName AS `name`,
                         c.Description AS `description`, c.CategoryID AS
-                        `__parentId` FROM Categories c  WHERE  c.CategoryID IN
-                        (?) 
+                        `LamdaOrmParentId` FROM Categories c  WHERE 
+                        c.CategoryID IN (?) 
                       childs: []
             - entity: Customers
               dialect: mysql
@@ -3024,8 +3190,8 @@ test:
                 c1.ContactName AS `contact`, c1.ContactTitle AS `phone`,
                 c1.Address AS `address`, c1.City AS `city`, c1.Region AS
                 `region`, c1.PostalCode AS `postalCode`, c1.Country AS
-                `country`, c1.CustomerID AS `__parentId` FROM Customers c1 
-                WHERE  c1.CustomerID IN (?) 
+                `country`, c1.CustomerID AS `LamdaOrmParentId` FROM Customers
+                c1  WHERE  c1.CustomerID IN (?) 
               childs: []
       - stage: postgres
         sentence:
@@ -3049,7 +3215,7 @@ test:
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.ProductID AS "__productId",
-                o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+                o1.OrderID AS "LamdaOrmParentId" FROM "Order Details" o1  WHERE 
                 o1.OrderID IN ($1) 
               childs:
                 - entity: Products
@@ -3062,7 +3228,8 @@ test:
                     p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.CategoryID AS "__categoryId", p.ProductID
-                    AS "__parentId" FROM Products p  WHERE  p.ProductID IN ($1) 
+                    AS "LamdaOrmParentId" FROM Products p  WHERE  p.ProductID IN
+                    ($1) 
                   childs:
                     - entity: Categories
                       dialect: postgres
@@ -3070,8 +3237,8 @@ test:
                       sentence: >-
                         SELECT c.CategoryID AS "id", c.CategoryName AS "name",
                         c.Description AS "description", c.CategoryID AS
-                        "__parentId" FROM Categories c  WHERE  c.CategoryID IN
-                        ($1) 
+                        "LamdaOrmParentId" FROM Categories c  WHERE 
+                        c.CategoryID IN ($1) 
                       childs: []
             - entity: Customers
               dialect: postgres
@@ -3081,8 +3248,8 @@ test:
                 c1.ContactName AS "contact", c1.ContactTitle AS "phone",
                 c1.Address AS "address", c1.City AS "city", c1.Region AS
                 "region", c1.PostalCode AS "postalCode", c1.Country AS
-                "country", c1.CustomerID AS "__parentId" FROM Customers c1 
-                WHERE  c1.CustomerID IN ($1) 
+                "country", c1.CustomerID AS "LamdaOrmParentId" FROM Customers
+                c1  WHERE  c1.CustomerID IN ($1) 
               childs: []
       - stage: mariadb
         sentence:
@@ -3106,7 +3273,7 @@ test:
                 SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
                 o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
                 o1.Discount AS `discount`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
                 o1.OrderID IN (?) 
               childs:
                 - entity: Products
@@ -3119,7 +3286,8 @@ test:
                     p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
                     p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
                     `discontinued`, p.CategoryID AS `__categoryId`, p.ProductID
-                    AS `__parentId` FROM Products p  WHERE  p.ProductID IN (?) 
+                    AS `LamdaOrmParentId` FROM Products p  WHERE  p.ProductID IN
+                    (?) 
                   childs:
                     - entity: Categories
                       dialect: mariadb
@@ -3127,8 +3295,8 @@ test:
                       sentence: >-
                         SELECT c.CategoryID AS `id`, c.CategoryName AS `name`,
                         c.Description AS `description`, c.CategoryID AS
-                        `__parentId` FROM Categories c  WHERE  c.CategoryID IN
-                        (?) 
+                        `LamdaOrmParentId` FROM Categories c  WHERE 
+                        c.CategoryID IN (?) 
                       childs: []
             - entity: Customers
               dialect: mariadb
@@ -3138,14 +3306,14 @@ test:
                 c1.ContactName AS `contact`, c1.ContactTitle AS `phone`,
                 c1.Address AS `address`, c1.City AS `city`, c1.Region AS
                 `region`, c1.PostalCode AS `postalCode`, c1.Country AS
-                `country`, c1.CustomerID AS `__parentId` FROM Customers c1 
-                WHERE  c1.CustomerID IN (?) 
+                `country`, c1.CustomerID AS `LamdaOrmParentId` FROM Customers
+                c1  WHERE  c1.CustomerID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,__parentId:p.orderId}).filter(p=>includes(p.orderId,__parentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,__parentId:p.id}).filter(p=>includes(p.id,__parentId)).include(p=>p.category.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,description:p.description,__parentId:p.id}))),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LamdaOrmParentId:p.orderId}).filter(p=>includes(p.orderId,LamdaOrmParentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LamdaOrmParentId:p.id}).filter(p=>includes(p.id,LamdaOrmParentId)).include(p=>p.category.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,description:p.description,LamdaOrmParentId:p.id}))),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -3188,6 +3356,8 @@ test:
             type: decimal
           - name: discount
             type: decimal
+          - name: LamdaOrmParentId
+            type: integer
           - name: product
             type: Products
             childs:
@@ -3211,6 +3381,8 @@ test:
                 type: decimal
               - name: discontinued
                 type: boolean
+              - name: LamdaOrmParentId
+                type: integer
               - name: category
                 type: Categories
                 childs:
@@ -3220,6 +3392,8 @@ test:
                     type: string
                   - name: description
                     type: string
+                  - name: LamdaOrmParentId
+                    type: integer
       - name: customer
         type: Customers
         childs:
@@ -3241,28 +3415,30 @@ test:
             type: string
           - name: country
             type: string
+          - name: LamdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: __parentId
+              - name: LamdaOrmParentId
                 type: array
               - name: category
                 type: Categories
                 childs:
-                  - name: __parentId
+                  - name: LamdaOrmParentId
                     type: array
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -3491,7 +3667,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -3568,7 +3744,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -3598,7 +3774,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -3725,7 +3901,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -3755,7 +3931,7 @@ test:
                                           type: integer
                                           entity: Categories
                                           alias: c
-                                        - name: __parentId
+                                        - name: LamdaOrmParentId
                                           classtype: Variable
                                           children: []
                                           type: T[]
@@ -3802,7 +3978,7 @@ test:
                                               entity: Categories
                                               alias: c
                                           type: any
-                                        - name: __parentId
+                                        - name: LamdaOrmParentId
                                           classtype: KeyValue
                                           children:
                                             - name: id
@@ -3822,15 +3998,11 @@ test:
                                   type: string
                                 - name: description
                                   type: string
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   type: integer
                               parameters:
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   type: array
-                                  value:
-                                    - 7
-                                    - 1
-                                    - 8
                               entity: Categories
                               constraints: []
                           type: any
@@ -3866,15 +4038,11 @@ test:
                           type: boolean
                         - name: __categoryId
                           type: integer
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: integer
                       parameters:
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: array
-                          value:
-                            - 28
-                            - 39
-                            - 46
                       entity: Products
                       constraints: []
                   type: any
@@ -3900,13 +4068,11 @@ test:
                   type: decimal
                 - name: __productId
                   type: integer
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -3937,7 +4103,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -4044,7 +4210,7 @@ test:
                               entity: Customers
                               alias: c1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -4076,13 +4242,11 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -4132,12 +4296,98 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: 45.6
+                quantity: 15
+                discount: 0
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: 45.6
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+                  category:
+                    id: 7
+                    name: Produce
+                    description: Dried fruit and bean curd
+              - orderId: 1
+                productId: 39
+                unitPrice: 18
+                quantity: 21
+                discount: 0
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: 18
+                  inStock: 69
+                  onOrder: 0
+                  reorderLevel: 5
+                  discontinued: false
+                  category:
+                    id: 1
+                    name: Beverages
+                    description: Soft drinks, coffees, teas, beers, and ales
+              - orderId: 1
+                productId: 46
+                unitPrice: 12
+                quantity: 2
+                discount: 0
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: 12
+                  inStock: 95
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: false
+                  category:
+                    id: 8
+                    name: Seafood
+                    description: Seaweed and fish
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
       - stage: mariadb
     result:
       - id: 1
@@ -4248,8 +4498,8 @@ test:
               dataSource: mysql
               sentence: >-
                 SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `productId`, o1.OrderID AS `__parentId` FROM
-                `Order Details` o1  WHERE  o1.OrderID IN (?) 
+                o1.ProductID AS `productId`, o1.OrderID AS `LamdaOrmParentId`
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs: []
             - entity: Customers
               dialect: mysql
@@ -4259,7 +4509,7 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
       - stage: postgres
@@ -4282,8 +4532,8 @@ test:
               dataSource: postgres
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "productId", o1.OrderID AS "__parentId" FROM
-                "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+                o1.ProductID AS "productId", o1.OrderID AS "LamdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
               childs: []
             - entity: Customers
               dialect: postgres
@@ -4293,7 +4543,7 @@ test:
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
                 AS "address", c.City AS "city", c.Region AS "region",
                 c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "__parentId" FROM Customers c  WHERE 
+                c.CustomerID AS "LamdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
               childs: []
       - stage: mariadb
@@ -4316,8 +4566,8 @@ test:
               dataSource: mariadb
               sentence: >-
                 SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `productId`, o1.OrderID AS `__parentId` FROM
-                `Order Details` o1  WHERE  o1.OrderID IN (?) 
+                o1.ProductID AS `productId`, o1.OrderID AS `LamdaOrmParentId`
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs: []
             - entity: Customers
               dialect: mariadb
@@ -4327,14 +4577,14 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -4373,6 +4623,8 @@ test:
             type: decimal
           - name: productId
             type: integer
+          - name: LamdaOrmParentId
+            type: integer
       - name: customer
         type: Customers
         childs:
@@ -4394,18 +4646,20 @@ test:
             type: string
           - name: country
             type: string
+          - name: LamdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -4628,7 +4882,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -4675,7 +4929,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -4695,13 +4949,11 @@ test:
                   type: decimal
                 - name: productId
                   type: integer
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -4732,7 +4984,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -4839,7 +5091,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -4871,13 +5123,11 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -4927,12 +5177,47 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - quantity: 15
+                unitPrice: 45.6
+                productId: 28
+              - quantity: 21
+                unitPrice: 18
+                productId: 39
+              - quantity: 2
+                unitPrice: 12
+                productId: 46
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
       - stage: mariadb
     result:
       - id: 1
@@ -4993,7 +5278,7 @@ test:
               sentence: >-
                 SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
                 o1.ProductID AS `productId`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
                 o1.OrderID IN (?) 
               childs:
                 - entity: Products
@@ -5005,8 +5290,8 @@ test:
                     p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
                     p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
                     p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.ProductID AS `__parentId` FROM Products p 
-                    WHERE  p.ProductID IN (?) 
+                    `discontinued`, p.ProductID AS `LamdaOrmParentId` FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   childs: []
             - entity: Customers
               dialect: mysql
@@ -5016,7 +5301,7 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
       - stage: postgres
@@ -5040,7 +5325,7 @@ test:
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.ProductID AS "__productId",
-                o1.OrderID AS "__parentId" FROM "Order Details" o1  WHERE 
+                o1.OrderID AS "LamdaOrmParentId" FROM "Order Details" o1  WHERE 
                 o1.OrderID IN ($1) 
               childs:
                 - entity: Products
@@ -5052,8 +5337,8 @@ test:
                     p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
                     p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.ProductID AS "__parentId" FROM Products p 
-                    WHERE  p.ProductID IN ($1) 
+                    "discontinued", p.ProductID AS "LamdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN ($1) 
                   childs: []
             - entity: Customers
               dialect: postgres
@@ -5063,7 +5348,7 @@ test:
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
                 AS "address", c.City AS "city", c.Region AS "region",
                 c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "__parentId" FROM Customers c  WHERE 
+                c.CustomerID AS "LamdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
               childs: []
       - stage: mariadb
@@ -5087,7 +5372,7 @@ test:
               sentence: >-
                 SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
                 o1.ProductID AS `productId`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `__parentId` FROM `Order Details` o1  WHERE 
+                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
                 o1.OrderID IN (?) 
               childs:
                 - entity: Products
@@ -5099,8 +5384,8 @@ test:
                     p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
                     p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
                     p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.ProductID AS `__parentId` FROM Products p 
-                    WHERE  p.ProductID IN (?) 
+                    `discontinued`, p.ProductID AS `LamdaOrmParentId` FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   childs: []
             - entity: Customers
               dialect: mariadb
@@ -5110,14 +5395,14 @@ test:
                 c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
                 AS `address`, c.City AS `city`, c.Region AS `region`,
                 c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `__parentId` FROM Customers c  WHERE 
+                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
                 c.CustomerID IN (?) 
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__parentId:p.id})).filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,__parentId:p.orderId}),p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__parentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LamdaOrmParentId:p.id})).filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -5156,6 +5441,8 @@ test:
             type: decimal
           - name: productId
             type: integer
+          - name: LamdaOrmParentId
+            type: integer
           - name: product
             type: Products
             childs:
@@ -5179,6 +5466,8 @@ test:
                 type: decimal
               - name: discontinued
                 type: boolean
+              - name: LamdaOrmParentId
+                type: integer
       - name: customer
         type: Customers
         childs:
@@ -5200,23 +5489,25 @@ test:
             type: string
           - name: country
             type: string
+          - name: LamdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: __parentId
+              - name: LamdaOrmParentId
                 type: array
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -5442,7 +5733,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -5499,7 +5790,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -5529,7 +5820,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -5646,7 +5937,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -5680,15 +5971,11 @@ test:
                           type: decimal
                         - name: discontinued
                           type: boolean
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: integer
                       parameters:
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: array
-                          value:
-                            - 28
-                            - 39
-                            - 46
                       entity: Products
                       constraints: []
                   type: any
@@ -5710,13 +5997,11 @@ test:
                   type: integer
                 - name: __productId
                   type: integer
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -5747,7 +6032,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -5854,7 +6139,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -5886,13 +6171,11 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -5942,12 +6225,80 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - quantity: 15
+                unitPrice: 45.6
+                productId: 28
+                product:
+                  id: 28
+                  name: Rssle Sauerkraut
+                  supplierId: 12
+                  categoryId: 7
+                  quantity: 25 - 825 g cans
+                  price: 45.6
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+              - quantity: 21
+                unitPrice: 18
+                productId: 39
+                product:
+                  id: 39
+                  name: Chartreuse verte
+                  supplierId: 18
+                  categoryId: 1
+                  quantity: 750 cc per bottle
+                  price: 18
+                  inStock: 69
+                  onOrder: 0
+                  reorderLevel: 5
+                  discontinued: false
+              - quantity: 2
+                unitPrice: 12
+                productId: 46
+                product:
+                  id: 46
+                  name: Spegesild
+                  supplierId: 21
+                  categoryId: 8
+                  quantity: 4 - 450 g glasses
+                  price: 12
+                  inStock: 95
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: false
+            customer:
+              id: ALFKI
+              name: Alfreds Futterkiste
+              contact: Maria Anders
+              phone: Sales Representative
+              address: Obere Str. 57
+              city: Berlin
+              region: null
+              postalCode: '12209'
+              country: Germany
       - stage: mariadb
     result:
       - id: 1
@@ -6039,32 +6390,32 @@ test:
               dialect: mysql
               dataSource: mysql
               sentence: >-
-                SELECT c.CompanyName AS `name`, c.CustomerID AS `__parentId`
-                FROM Customers c  WHERE  c.CustomerID IN (?) 
+                SELECT c.CompanyName AS `name`, c.CustomerID AS
+                `LamdaOrmParentId` FROM Customers c  WHERE  c.CustomerID IN (?) 
               childs: []
             - entity: OrderDetails
               dialect: mysql
               dataSource: mysql
               sentence: >-
                 SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `__productId`, o1.OrderID AS `__parentId` FROM
-                `Order Details` o1  WHERE  o1.OrderID IN (?) 
+                o1.ProductID AS `__productId`, o1.OrderID AS `LamdaOrmParentId`
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs:
                 - entity: Products
                   dialect: mysql
                   dataSource: mysql
                   sentence: >-
                     SELECT p.ProductName AS `name`, p.CategoryID AS
-                    `__categoryId`, p.ProductID AS `__parentId` FROM Products p 
-                    WHERE  p.ProductID IN (?) 
+                    `__categoryId`, p.ProductID AS `LamdaOrmParentId` FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   childs:
                     - entity: Categories
                       dialect: mysql
                       dataSource: mysql
                       sentence: >-
                         SELECT c1.CategoryName AS `name`, c1.CategoryID AS
-                        `__parentId` FROM Categories c1  WHERE  c1.CategoryID IN
-                        (?) 
+                        `LamdaOrmParentId` FROM Categories c1  WHERE 
+                        c1.CategoryID IN (?) 
                       childs: []
       - stage: postgres
         sentence:
@@ -6085,32 +6436,33 @@ test:
               dialect: postgres
               dataSource: postgres
               sentence: >-
-                SELECT c.CompanyName AS "name", c.CustomerID AS "__parentId"
-                FROM Customers c  WHERE  c.CustomerID IN ($1) 
+                SELECT c.CompanyName AS "name", c.CustomerID AS
+                "LamdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
+                ($1) 
               childs: []
             - entity: OrderDetails
               dialect: postgres
               dataSource: postgres
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "__productId", o1.OrderID AS "__parentId" FROM
-                "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+                o1.ProductID AS "__productId", o1.OrderID AS "LamdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
               childs:
                 - entity: Products
                   dialect: postgres
                   dataSource: postgres
                   sentence: >-
                     SELECT p.ProductName AS "name", p.CategoryID AS
-                    "__categoryId", p.ProductID AS "__parentId" FROM Products p 
-                    WHERE  p.ProductID IN ($1) 
+                    "__categoryId", p.ProductID AS "LamdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN ($1) 
                   childs:
                     - entity: Categories
                       dialect: postgres
                       dataSource: postgres
                       sentence: >-
                         SELECT c1.CategoryName AS "name", c1.CategoryID AS
-                        "__parentId" FROM Categories c1  WHERE  c1.CategoryID IN
-                        ($1) 
+                        "LamdaOrmParentId" FROM Categories c1  WHERE 
+                        c1.CategoryID IN ($1) 
                       childs: []
       - stage: mariadb
         sentence:
@@ -6131,38 +6483,38 @@ test:
               dialect: mariadb
               dataSource: mariadb
               sentence: >-
-                SELECT c.CompanyName AS `name`, c.CustomerID AS `__parentId`
-                FROM Customers c  WHERE  c.CustomerID IN (?) 
+                SELECT c.CompanyName AS `name`, c.CustomerID AS
+                `LamdaOrmParentId` FROM Customers c  WHERE  c.CustomerID IN (?) 
               childs: []
             - entity: OrderDetails
               dialect: mariadb
               dataSource: mariadb
               sentence: >-
                 SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `__productId`, o1.OrderID AS `__parentId` FROM
-                `Order Details` o1  WHERE  o1.OrderID IN (?) 
+                o1.ProductID AS `__productId`, o1.OrderID AS `LamdaOrmParentId`
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
               childs:
                 - entity: Products
                   dialect: mariadb
                   dataSource: mariadb
                   sentence: >-
                     SELECT p.ProductName AS `name`, p.CategoryID AS
-                    `__categoryId`, p.ProductID AS `__parentId` FROM Products p 
-                    WHERE  p.ProductID IN (?) 
+                    `__categoryId`, p.ProductID AS `LamdaOrmParentId` FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   childs:
                     - entity: Categories
                       dialect: mariadb
                       dataSource: mariadb
                       sentence: >-
                         SELECT c1.CategoryName AS `name`, c1.CategoryID AS
-                        `__parentId` FROM Categories c1  WHERE  c1.CategoryID IN
-                        (?) 
+                        `LamdaOrmParentId` FROM Categories c1  WHERE 
+                        c1.CategoryID IN (?) 
                       childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).include(p=>[p.customer.filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__parentId:p.id}),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__parentId:p.id})).filter(p=>includes(p.id,__parentId)).map(p=>{name:p.name,__categoryId:p.categoryId,__parentId:p.id})).filter(p=>includes(p.orderId,__parentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,__productId:p.productId,__parentId:p.orderId})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).include(p=>[p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{name:p.name,LamdaOrmParentId:p.id}),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{name:p.name,LamdaOrmParentId:p.id})).filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{name:p.name,__categoryId:p.categoryId,LamdaOrmParentId:p.id})).filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,__productId:p.productId,LamdaOrmParentId:p.orderId})])
     model:
       - name: id
         type: integer
@@ -6197,6 +6549,8 @@ test:
         childs:
           - name: name
             type: string
+          - name: LamdaOrmParentId
+            type: string
       - name: details
         type: OrderDetails[]
         childs:
@@ -6204,38 +6558,44 @@ test:
             type: decimal
           - name: unitPrice
             type: decimal
+          - name: LamdaOrmParentId
+            type: integer
           - name: product
             type: Products
             childs:
               - name: name
                 type: string
+              - name: LamdaOrmParentId
+                type: integer
               - name: category
                 type: Categories
                 childs:
                   - name: name
                     type: string
+                  - name: LamdaOrmParentId
+                    type: integer
     parameters:
       - name: id
         type: integer
       - name: customer
         type: Customers
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
       - name: details
         type: OrderDetails
         childs:
-          - name: __parentId
+          - name: LamdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: __parentId
+              - name: LamdaOrmParentId
                 type: array
               - name: category
                 type: Categories
                 childs:
-                  - name: __parentId
+                  - name: LamdaOrmParentId
                     type: array
     constraints:
       entity: Orders
@@ -6464,7 +6824,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -6491,7 +6851,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -6507,13 +6867,11 @@ test:
               columns:
                 - name: name
                   type: string
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: string
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - ALFKI
               entity: Customers
               constraints: []
           type: any
@@ -6544,7 +6902,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -6591,7 +6949,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -6621,7 +6979,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -6658,7 +7016,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -6688,7 +7046,7 @@ test:
                                           type: integer
                                           entity: Categories
                                           alias: c1
-                                        - name: __parentId
+                                        - name: LamdaOrmParentId
                                           classtype: Variable
                                           children: []
                                           type: T[]
@@ -6715,7 +7073,7 @@ test:
                                               entity: Categories
                                               alias: c1
                                           type: any
-                                        - name: __parentId
+                                        - name: LamdaOrmParentId
                                           classtype: KeyValue
                                           children:
                                             - name: id
@@ -6731,15 +7089,11 @@ test:
                               columns:
                                 - name: name
                                   type: string
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   type: integer
                               parameters:
-                                - name: __parentId
+                                - name: LamdaOrmParentId
                                   type: array
-                                  value:
-                                    - 7
-                                    - 1
-                                    - 8
                               entity: Categories
                               constraints: []
                           type: any
@@ -6757,15 +7111,11 @@ test:
                           type: string
                         - name: __categoryId
                           type: integer
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: integer
                       parameters:
-                        - name: __parentId
+                        - name: LamdaOrmParentId
                           type: array
-                          value:
-                            - 28
-                            - 39
-                            - 46
                       entity: Products
                       constraints: []
                   type: any
@@ -6785,13 +7135,11 @@ test:
                   type: decimal
                 - name: __productId
                   type: integer
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: integer
               parameters:
-                - name: __parentId
+                - name: LamdaOrmParentId
                   type: array
-                  value:
-                    - 1
               entity: OrderDetails
               constraints: []
           type: any
@@ -6841,12 +7189,48 @@ test:
       parameters:
         - name: id
           type: integer
-          value: 1
       entity: Orders
       constraints: []
     executions:
       - stage: mysql
       - stage: postgres
+        error: not equal mysql
+        result:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T20:00:00.000Z'
+            requiredDate: '1997-09-21T20:00:00.000Z'
+            shippedDate: '1997-09-01T20:00:00.000Z'
+            shipViaId: 1
+            freight: 29.46
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            customer:
+              name: Alfreds Futterkiste
+            details:
+              - quantity: 15
+                unitPrice: 45.6
+                product:
+                  name: Rssle Sauerkraut
+                  category:
+                    name: Produce
+              - quantity: 21
+                unitPrice: 18
+                product:
+                  name: Chartreuse verte
+                  category:
+                    name: Beverages
+              - quantity: 2
+                unitPrice: 12
+                product:
+                  name: Spegesild
+                  category:
+                    name: Seafood
       - stage: mariadb
     result:
       - id: 1
@@ -6884,4 +7268,4 @@ test:
               name: Spegesild
               category:
                 name: Seafood
-errors: 0
+errors: 8

@@ -5,16 +5,11 @@ export class StageDelete extends StageActionDML {
 	public async execute (): Promise<void> {
 		const queries = this.build()
 		await this.executor.executeList(this.stage, this.view, queries)
-		// await this.executor.transaction(this.stage, this.view, async (tr) => {
-		// for (let i = 0; i < queries.length; i++) {
-		// const query = queries[i]
-		// await tr.execute(query)
-		// }
-		// })
 	}
 
-	protected sort (entities:Entity[]):Entity[] {
-		const sortedEntities = this.model.sortByRelations(entities.map(p => p.name)).reverse()
+	protected sort (entities: Entity[]): Entity[] {
+		const _entities = entities.map(p => p.name)
+		const sortedEntities = this.model.sortByRelations(_entities, _entities).reverse()
 		const result:Entity[] = []
 		for (let i = 0; i < sortedEntities.length; i++) {
 			const entity = entities.find(p => p.name === sortedEntities[i])

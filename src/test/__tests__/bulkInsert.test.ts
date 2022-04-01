@@ -58,6 +58,9 @@ describe('Sentences', () => {
 		const postgresExpected = {"entity":"Categories","dialect":"postgres","dataSource":"postgres","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES","childs":[]}
 		let postgres = orm.sentence(expression,'default','postgres')
 		expect(postgresExpected).toStrictEqual(postgres)
+		const mariadbExpected = {"entity":"Categories","dialect":"mariadb","dataSource":"mariadb","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES ?","childs":[]}
+		let mariadb = orm.sentence(expression,'default','mariadb')
+		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('bulkInsert 2', async () => {
 		const expression = 'Orders.bulkInsert().include(p=>p.details)'
@@ -67,5 +70,8 @@ describe('Sentences', () => {
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES","childs":[]}]}
 		let postgres = orm.sentence(expression,'default','postgres')
 		expect(postgresExpected).toStrictEqual(postgres)
+		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?","childs":[]}]}
+		let mariadb = orm.sentence(expression,'default','mariadb')
+		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 })

@@ -77,16 +77,16 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param entities entities to order
 	 * @returns returns the sorted entities
 	 */
-	public sortByRelations (entities:string[] = []): string[] {
-		if (entities.length < 2) return entities
+	public sortByRelations (mainEntities:string[] = [], allEntities:string[]): string[] {
+		if (mainEntities.length < 2) return mainEntities
 		const sorted: string[] = []
-		while (sorted.length < entities.length) {
-			for (let i = 0; i < entities.length; i++) {
-				const entityName = entities[i]
+		while (sorted.length < mainEntities.length) {
+			for (let i = 0; i < mainEntities.length; i++) {
+				const entityName = mainEntities[i]
 				if (sorted.includes(entityName)) {
 					continue
 				}
-				if (this.solveSortEntity(entityName, entities, sorted)) {
+				if (this.solveSortEntity(entityName, mainEntities, allEntities, sorted)) {
 					sorted.push(entityName)
 					break
 				}
@@ -129,7 +129,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param parent entity parent , used in manyToOne relations
 	 * @returns
 	 */
-	protected solveSortEntity (entityName:string, entities:string[], sorted:string[], parent?:string):boolean {
+	protected solveSortEntity (entityName:string, mainEntities:string[], allEntities:string[], sorted:string[], parent?:string):boolean {
 		const entity = this.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError('Not exists entity:' + entityName)
@@ -140,14 +140,14 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 			let unsolved = false
 			for (const i in entity.relations) {
 				const relation = entity.relations[i]
-				if (relation.entity !== entityName && entities.includes(relation.entity)) {
+				if (relation.entity !== entityName && allEntities.includes(relation.entity)) {
 					if (relation.type === RelationType.oneToOne || relation.type === RelationType.oneToMany) {
 						if (!relation.weak && !sorted.includes(relation.entity) && (parent === null || parent !== relation.entity)) {
 							unsolved = true
 							break
 						}
 					} else if (relation.type === RelationType.manyToOne) {
-						if (relation.composite && !this.solveSortEntity(relation.entity, entities, sorted, entityName)) {
+						if (relation.composite && !this.solveSortEntity(relation.entity, mainEntities, allEntities, sorted, entityName)) {
 							unsolved = true
 							break
 						}

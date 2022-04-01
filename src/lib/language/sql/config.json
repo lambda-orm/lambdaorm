@@ -1,6 +1,11 @@
 {
   "dialects": {
     "mariadb": {
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -187,11 +192,6 @@
         "date": "DATE",
         "time": "TIME"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -251,6 +251,11 @@
         "date": "DATE",
         "time": "TIME"
       },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "ddl": {
         "createPk": "PRIMARY KEY ({columns})",
         "incrementalColumDefine": "{name} {type} {nullable} IDENTITY (1, 1)",
@@ -308,11 +313,6 @@
         "column": "{name}",
         "null": "NULL",
         "sequenceNextval": "{name}.nextval"
-      },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
       },
       "operators": {
         "unary": {
@@ -474,6 +474,11 @@
       }
     },
     "mysql": {
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -660,11 +665,6 @@
         "date": "DATE",
         "time": "TIME"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -723,6 +723,11 @@
         "datetime": "DATE",
         "date": "DATE",
         "time": "DATE"
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "others": {
         "false": "N",
@@ -892,11 +897,6 @@
           "sum": "SUM({0})"
         }
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -955,6 +955,10 @@
         "string": "VARCHAR({0})",
         "date": "DATE",
         "time": "TIME"
+      },
+      "formats": {
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "ddl": {
         "incrementalColumDefine": "{name} serial",
@@ -1123,11 +1127,6 @@
           "sum": "SUM({0})"
         }
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -1188,11 +1187,7 @@
       "date": "DATE",
       "time": "TIME"
     },
-    "formats": {
-      "datetime": "yyyy-LL-dd HH:mm:ss",
-      "date": "yyyy-LL-dd",
-      "time": "HH:mm:ss"
-    },
+    "formats": null,
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
       "createTable": "CREATE TABLE {name} ({define})",
