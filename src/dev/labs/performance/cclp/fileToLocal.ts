@@ -32,7 +32,7 @@ async function updatePmMapping () {
 	const identificationTypes = await orm.execute('PmIdentificationTypes.map(p => [p.id, p.code])', {}, view, locStage)
 	const contactMediumTypes = await orm.execute('PmContactMediumTypes.map(p => [p.id, p.code])', {}, view, locStage)
 	const nationalReferences = await orm.execute('PmNationalReferences.map(p => [p.id, p.refId])', {}, view, locStage)
-	const genders = await orm.execute(() => PmGenders.map(p => [p.id, p.code]), {}, view, locStage)
+	const genders = await orm.execute('PmGenders.map(p => [p.id, p.code])', {}, view, locStage)
 
 	const mapping: any = { industryTypes: {}, partyStatuses: {}, maritalStatuses: {}, identificationTypes: {}, contactMediumTypes: {}, nationalReferences: {}, genders: {} }
 	for (const i in industryTypes) {
