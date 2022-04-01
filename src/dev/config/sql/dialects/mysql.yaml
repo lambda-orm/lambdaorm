@@ -1,4 +1,8 @@
 _extends: [sql]
+formats:
+  datetime: "yyyy-LL-dd HH:mm:ss"
+  date: "yyyy-LL-dd"
+  time: "HH:mm:ss"
 ddl:
   dropIndex: "DROP INDEX {name} ON {table}"
 dml:

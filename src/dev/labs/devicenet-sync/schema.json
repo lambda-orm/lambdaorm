@@ -103,6 +103,13 @@
           "length": 80
         },
         {
+          "name": "fullmane",
+          "view": true,
+          "readExp": "concat(lastname,\", \",firstname)",
+          "type": "string",
+          "length": 80
+        },
+        {
           "name": "email",
           "nullable": false,
           "length": 255,
@@ -808,8 +815,17 @@
           "name": "Devices",
           "properties": [
             {
-              "name": "apyKey",
-              "readExp": "***"
+              "name": "apiKey",
+              "readExp": "\"***\""
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "properties": [
+            {
+              "name": "created",
+              "readExp": "date(created)"
             }
           ]
         }
@@ -1582,6 +1598,14 @@
               "name": "realmId",
               "length": 255,
               "mapping": "realm_id"
+            },
+            {
+              "name": "fullmane",
+              "view": true,
+              "readExp": "concat(lastname,\", \",firstname)",
+              "type": "string",
+              "length": 80,
+              "mapping": "fullmane"
             }
           ],
           "view": true,

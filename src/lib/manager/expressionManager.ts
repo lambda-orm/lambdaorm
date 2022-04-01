@@ -46,37 +46,34 @@ export class ExpressionManager {
 	 * @returns Operand
 	 */
 	public toOperand (expression: string): Operand {
-		try {
-			const key = `${expression}_operand`
-			let operand = this.cache.get(key)
-			if (!operand) {
-				const node = this.expressions.parser.parse(expression)
-				const completeNode = this.expressionNormalizer.normalize(node)
-				this.expressions.parser.setParent(completeNode)
-				operand = this.operandManager.build(completeNode)
-				this.cache.set(key, operand)
-			}
-			return operand as Operand
-		} catch (error: any) {
-			throw new SintaxisError('build expression: ' + expression + ' error: ' + error.toString())
+		const minfyExpression = this.expressions.parser.minify(expression)
+		const key = `${minfyExpression}_toOperand`
+		const value = this.cache.get(key)
+		if (!value) {
+			const node = this.expressions.parser.parse(minfyExpression)
+			const completeNode = this.expressionNormalizer.normalize(node)
+			this.expressions.parser.setParent(completeNode)
+			const operand = this.operandManager.build(completeNode)
+			this.cache.set(key, this.operandManager.serialize(operand))
+			return operand
+		} else {
+			return this.operandManager.deserialize(value)
 		}
 	}
 
 	public toQuery (expression: string, stage: string, view?:string): Query {
-		try {
-			const _view = this.schema.view.get(view)
-			const key = `${expression}_${stage}_${view}`
-			let query = this.cache.get(key)
-			if (!query) {
-				const sentence = this.toOperand(expression) as Sentence
-				const view = this.schema.view.getInstance(_view.name)
-				query = this.dmlBuild(sentence, view, stage)
-				// query = new DMLBuilder(this.schema, this.routing, this.languages, stage, _view.name, this.expressions).build(sentence)
-				this.cache.set(key, query)
-			}
-			return query as Query
-		} catch (error: any) {
-			throw new SintaxisError('query expression: ' + expression + ' error: ' + error.toString())
+		const minfyExpression = this.expressions.parser.minify(expression)
+		const _view = this.schema.view.get(view)
+		const key = `${minfyExpression}_${stage}_${view}`
+		const value = this.cache.get(key)
+		if (!value) {
+			const sentence = this.toOperand(minfyExpression) as Sentence
+			const view = this.schema.view.getInstance(_view.name)
+			const query = this.dmlBuild(sentence, view, stage)
+			this.cache.set(key, JSON.stringify(query))
+			return query
+		} else {
+			return JSON.parse(value) as Query
 		}
 	}
 
@@ -92,17 +89,15 @@ export class ExpressionManager {
 		for (const p in includes) {
 			const sentenceInclude = includes[p]
 			const query = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
-			const include = new Include(sentenceInclude.name, [query], sentenceInclude.relation)
+			const include = new Include(sentenceInclude.name, query, sentenceInclude.relation)
 			children.push(include)
 		}
 
 		const dataSource = this.getDataSource(sentence, stage)
 		const language = this.languages.getByDiatect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
-		const completeSentence = this.sentenceCompleter.complete(mapping, view, sentence)
-		const query = language.dmlBuild(dataSource, mapping, completeSentence)
-		// const query = dmlBuilder.build(completeSentence)
-
+		this.sentenceCompleter.complete(mapping, view, sentence)
+		const query = language.dmlBuild(dataSource, mapping, sentence)
 		query.children = children
 		return query
 	}
@@ -170,8 +165,8 @@ export class ExpressionManager {
 	private _sentence (query: Query): MetadataSentence {
 		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, childs: [] }
 		for (const p in query.children) {
-			const include = query.children[p] as Include
-			const includeSentence = this._sentence(include.children[0] as Query)
+			const include = query.children[p]
+			const includeSentence = this._sentence(include.query)
 			mainSentence.childs?.push(includeSentence)
 		}
 		return mainSentence
@@ -184,6 +179,6 @@ export class ExpressionManager {
 	 */
 	public metadata (expression: string):Metadata {
 		const operand = this.toOperand(expression)
-		return this.operandManager.serialize(operand)
+		return JSON.parse(this.operandManager.serialize(operand)) as Metadata
 	}
 }

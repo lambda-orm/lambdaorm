@@ -85,6 +85,10 @@ export class MongodbConnection extends Connection {
 		throw new Error('not implemented')
 	}
 
+	public async executeDDL (query:Query):Promise<any> {
+		throw new Error('not implemented')
+	}
+
 	public async beginTransaction ():Promise<void> {
 		// TODO:
 		this.inTransaction = true

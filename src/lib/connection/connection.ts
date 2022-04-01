@@ -22,10 +22,9 @@ export abstract class Connection {
 	public abstract update(mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number>
 	public abstract delete(mapping:MappingConfig, query: Query, params: Parameter[]): Promise<number>
 	public abstract bulkInsert(mapping:MappingConfig, query: Query, array: any[], parameters: Parameter[]): Promise<any[]>
-	public abstract execute(query:Query):Promise<any>
-
+	public abstract execute(query: Query): Promise<any>
+	public abstract executeDDL(query:Query):Promise<any>
 	public abstract executeSentence(sentence:any):Promise<any>
-
 	public abstract beginTransaction():Promise<void>
 	public abstract commit():Promise<void>
 	public abstract rollback():Promise<void>

@@ -84,6 +84,7 @@ export class PostgresConnection extends Connection {
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		// const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sql = query.sentence
+		let _query = ''
 		try {
 			const rows:string[] = []
 			for (const p in array) {
@@ -113,8 +114,8 @@ export class PostgresConnection extends Connection {
 				rows.push(`(${row.join(',')})`)
 			}
 			const returning = fieldId ? 'RETURNING ' + fieldId.mapping + ' AS "' + fieldId.name + '"' : ''
-			const query = `${sql} ${rows.join(',')} ${returning};`
-			const result = await this.cnx.query(query)
+			_query = `${sql} ${rows.join(',')} ${returning};`
+			const result = await this.cnx.query(_query)
 			const ids:any[] = []
 			if (fieldId) {
 				for (const p in result.rows) {
@@ -124,6 +125,7 @@ export class PostgresConnection extends Connection {
 			}
 			return ids
 		} catch (error) {
+			console.log(_query)
 			console.error(error)
 			throw error
 		}
@@ -141,6 +143,10 @@ export class PostgresConnection extends Connection {
 
 	public async execute (query:Query):Promise<any> {
 		return await this._execute(query)
+	}
+
+	public async executeDDL (query:Query):Promise<any> {
+		return await this.cnx.query(query.sentence)
 	}
 
 	public async executeSentence (sentence: any):Promise<any> {
@@ -165,45 +171,51 @@ export class PostgresConnection extends Connection {
 	protected async _execute (query:Query, params:Parameter[] = []):Promise<any> {
 		const values: any[] = []
 		let sql = query.sentence
-		for (let i = 0; i < params.length; i++) {
-			const param = params[i]
-			if (param.type === 'array') {
-				// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
-				// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
-				// https://www.postgresql.org/docs/9.2/functions-array.html
-				// https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
-				if (param.value.length > 0) {
-					const type = typeof param.value[0]
-					switch (type) {
-					case 'string':
-						if (param.value.length === 1) {
-							values.push(param.value[0])
-						} else {
-							sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+		if (params) {
+			for (let i = 0; i < params.length; i++) {
+				const param = params[i]
+				if (param.type === 'array') {
+					// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
+					// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
+					// https://www.postgresql.org/docs/9.2/functions-array.html
+					// https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
+					if (param.value.length > 0) {
+						const type = typeof param.value[0]
+						switch (type) {
+						case 'string':
+							if (param.value.length === 1) {
+								values.push(param.value[0])
+							} else {
+								sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+								values.push(param.value)
+							}
+							break
+						case 'bigint':
+						case 'number':
+							if (param.value.length === 1) {
+								values.push(param.value[0])
+							} else {
+								sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
+								values.push(param.value)
+							}
+							break
+						default:
 							values.push(param.value)
 						}
-						break
-					case 'bigint':
-					case 'number':
-						if (param.value.length === 1) {
-							values.push(param.value[0])
-						} else {
-							sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
-							values.push(param.value)
-						}
-						break
-					default:
-						values.push(param.value)
+					} else {
+						values.push([])
 					}
 				} else {
-					values.push([])
+					values.push(param.value)
 				}
-			} else {
-				values.push(param.value)
 			}
 		}
 		try {
-			return await this.cnx.query(sql, values)
+			if (values && values.length > 0) {
+				return await this.cnx.query(sql, values)
+			} else {
+				return await this.cnx.query(sql)
+			}
 		} catch (error) {
 			console.error(error)
 			throw error

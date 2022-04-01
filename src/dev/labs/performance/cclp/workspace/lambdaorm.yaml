@@ -1,0 +1,2164 @@
+entities:
+  # Abstracts
+  - name: SrbReferences
+    abstract: true
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: refType
+        length: 50
+        nullable: false
+      - name: refId
+        length: 100
+        nullable: false
+      - name: name
+        length: 200
+  # Location settings
+  - name: LocCountries
+    primaryKey: ["id"]
+    uniqueKey: ["iso3"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        length: 60
+        nullable: false
+      - name: iso
+        length: 2
+        nullable: false
+      - name: iso3
+        length: 3
+        nullable: false
+      - name: numericCode
+        length: 5
+        nullable: false
+  - name: LocAreaTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 30
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+  - name: LocAreas
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: typeId
+        type: integer
+        nullable: false
+      - name: code
+        length: 30
+        nullable: false
+      - name: name
+        length: 200
+        nullable: false
+    relations:
+      - name: type
+        from: typeId
+        entity: LocAreaTypes
+        to: id
+        target: areas
+  # Location business
+  - name: LocAddresses
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: countryId
+        type: integer
+        nullable: false
+      - name: streetName
+        length: 250
+      - name: streetNrFirst
+        length: 20
+      - name: postalCode
+        length: 30
+      - name: city
+        length: 100
+      - name: additionalData
+        length: 100
+    relations:
+      - name: country
+        from: countryId
+        entity: LocCountries
+        to: id
+  - name: LocAddressAreas
+    primaryKey: ["id"]
+    uniqueKey: ["addressId", "areaId"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: addressId
+        type: integer
+        nullable: false
+      - name: areaId
+        type: integer
+        nullable: false
+    relations:
+      - name: address
+        from: addressId
+        entity: LocAddresses
+        to: id
+        target: areas
+      - name: area
+        from: areaId
+        entity: LocAreas
+        to: id
+  # Party settings
+  - name: PmPartyStatuses
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 10
+        nullable: false
+      - name: name
+        length: 50
+        nullable: false
+      - name: exclusiveType
+        length: 30
+  - name: PmMaritalStatuses
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 10
+        nullable: false
+      - name: name
+        length: 50
+        nullable: false
+  - name: PmIdentificationTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 30
+        nullable: false
+      - name: name
+        length: 80
+        nullable: false
+  - name: PmIndustryTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 30
+        nullable: false
+      - name: name
+        length: 255
+        nullable: false
+  - name: PmContactMediumTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 20
+        nullable: false
+      - name: name
+        length: 50
+        nullable: false
+  - name: PmGenders
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 10
+        nullable: false
+      - name: name
+        length: 50
+        nullable: false
+
+  # Party business
+  - name: PmReferences
+    extends: SrbReferences
+  - name: PmNationalReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: Nation
+  - name: PmParties
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: individualId
+        type: integer
+      - name: organizationId
+        type: integer
+      - name: statusId
+        type: integer
+        nullable: false
+      - name: registredDate
+        type: datetime
+        nullable: false
+        default: now()
+    relations:
+      - name: status
+        from: statusId
+        entity: PmPartyStatuses
+        to: id
+  - name: PmIdentifications
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: identificationTypeId
+        type: integer
+        nullable: false
+      - name: partyId
+        type: integer
+        nullable: false
+      - name: indentificationValue
+        length: 100
+        nullable: false
+      - name: source
+        length: 30
+    relations:
+      - name: identificationType
+        from: identificationTypeId
+        entity: PmIdentificationTypes
+        to: id
+      - name: party
+        from: partyId
+        entity: PmParties
+        to: id
+        target: indentifications
+  - name: PmPartyContactMediums
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: contactMediumTypeId
+        type: integer
+        nullable: false
+      - name: partyId
+        type: integer
+        nullable: false
+      - name: mediumValue
+        length: 100
+        nullable: false
+      - name: validFrom
+        type: datetime
+      - name: validTo
+        type: datetime
+      - name: isMain
+        type: boolean
+      - name: isFavorite
+        type: boolean
+      - name: source
+        length: 30
+      - name: createdBy
+        length: 50
+    relations:
+      - name: contactMediumType
+        from: contactMediumTypeId
+        entity: PmContactMediumTypes
+        to: id
+      - name: party
+        from: partyId
+        entity: PmParties
+        to: id
+        target: contactMediums
+  - name: PmIndividuals
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: partyId
+        type: integer
+        nullable: false
+      - name: genderId
+        type: integer
+      - name: birthDate
+        type: datetime
+      - name: deathDate
+        type: datetime
+      - name: nationalityRefId
+        type: integer
+      - name: currentNameId
+        type: integer
+    relations:
+      - name: party
+        type: oneToOne
+        from: partyId
+        entity: PmParties
+        to: id
+      - name: currentName
+        from: currentNameId
+        entity: PmIndividualNames
+        to: id
+        target: individual
+      - name: nationalityRef
+        from: nationalityRefId
+        entity: PmNationalReferences
+        to: id
+  - name: PmIndividualNames
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: individualId
+        type: integer
+        nullable: false
+      - name: givenNames
+        length: 200
+      - name: middleNames
+        length: 100
+      - name: familyNames
+        length: 100
+      - name: legalName
+        length: 500
+    relations:
+      - name: individual
+        from: individualId
+        entity: PmIndividuals
+        to: id
+        target: names
+  - name: PmOrganizations
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: partyId
+        type: integer
+        nullable: false
+      - name: legalPeriodFrom
+        type: datetime
+      - name: currentNameId
+        type: integer
+      - name: industyTypeId
+        type: integer
+      - name: commercialDescription
+        length: 400
+    relations:
+      - name: party
+        type: oneToOne
+        from: partyId
+        entity: PmParties
+        to: id
+        target: organization
+      - name: currentName
+        from: currentNameId
+        entity: PmOrganizationNames
+        to: id
+      - name: industyType
+        from: industyTypeId
+        entity: PmIndustryTypes
+        to: id
+  - name: PmOrganizationNames
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: organizationId
+        type: integer
+        nullable: false
+      - name: tradingName
+        length: 100
+    relations:
+      - name: organization
+        from: organizationId
+        entity: PmOrganizations
+        to: id
+        target: names
+  # PartyRole settings
+  - name: PrPartyRoleSpecs
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 30
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: validFrom
+        type: datetime
+  - name: PrPartyRoleStatuses
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 20
+        nullable: false
+      - name: name
+        length: 50
+        nullable: false
+  # PartyRole business
+  - name: PrReferences
+    extends: SrbReferences
+  - name: PrIndividualReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: Individual
+      - name: refId
+        readExp: toNumber(refId)
+    relations:
+      - name: individual
+        type: oneToOne
+        from: refId
+        entity: PmIndividuals
+        to: id
+  - name: PrOrganizationReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: Organization
+      - name: refId
+        readExp: toNumber(refId)
+    relations:
+      - name: organization
+        type: oneToOne
+        from: refId
+        entity: PmOrganizations
+        to: id
+  - name: PrAddressReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: Address
+      - name: refId
+        readExp: toNumber(refId)
+    relations:
+      - name: address
+        type: oneToOne
+        from: refId
+        entity: LocAddresses
+        to: id
+  - name: PrPartyRoles
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: statusId
+        type: integer
+        nullable: false
+      - name: name
+        length: 100
+      - name: partyId
+        type: integer
+        nullable: false
+      - name: validFrom
+        type: datetime
+      - name: partyRoleSpecId
+        type: integer
+        nullable: false
+    relations:
+      - name: status
+        from: statusId
+        entity: PrPartyRoleStatuses
+        to: id
+      - name: partyRoleSpec
+        from: partyRoleSpecId
+        entity: PrPartyRoleSpecs
+        to: id
+      - name: individualReference
+        type: oneToOne
+        from: partyId
+        entity: PrIndividualReferences
+        to: id
+      - name: organizationReference
+        type: oneToOne
+        from: partyId
+        entity: PrOrganizationReferences
+        to: id
+  - name: PrPartyRolePlaces
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: partyRoleId
+        type: integer
+        nullable: false
+      - name: placeRefId
+        type: integer
+        nullable: false
+    relations:
+      - name: partyRole
+        from: partyRoleId
+        entity: PrPartyRoles
+        to: id
+        target: places
+      - name: placeRef
+        type: oneToOne
+        from: placeRefId
+        entity: PrAddressReferences
+        to: id
+  # LedgerAccount settings
+  - name: LamAccountTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 50
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: description
+        length: 150
+      - name: disabled
+        type: boolean
+        nullable: false
+      - name: balanceType
+        type: integer
+        nullable: false
+      - name: incresedBy
+        type: integer
+        nullable: false
+  - name: LamStatementCycles
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 50
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: cycleDay
+        type: integer
+        nullable: false
+      - name: description
+        length: 150
+      - name: disabled
+        type: boolean
+  # LedgerAccunt business
+  - name: LamReferences
+    extends: SrbReferences
+  - name: LamCurrencyReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: Currency
+  - name: LamUserReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: User
+  - name: LamAccountHolderReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: "AccountHolder"
+  - name: LamCreditors
+    primaryKey: ["id"]
+    uniqueKey: ["creditorCode"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: creditorCode
+        length: 50
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: partyRoleId
+        type: integer
+        nullable: false
+      - name: locAddressId
+        type: integer
+        nullable: false
+      - name: streetName
+        length: 70
+        nullable: false
+      - name: streetNumber
+        length: 10
+        nullable: false
+      - name: postalCode
+        length: 20
+        nullable: false
+      - name: cityName
+        length: 50
+        nullable: false
+      - name: country
+        length: 5
+        nullable: false
+      - name: contactName
+        length: 50
+        nullable: false
+      - name: contactEmail
+        length: 50
+        nullable: false
+      - name: contactPartyId
+        type: integer
+        nullable: false
+  - name: LamAccounts
+    primaryKey: ["id"]
+    uniqueKey: ["accountNumber"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: accountNumber
+        length: 50
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: currencyRefId
+        type: integer
+        nullable: false
+      - name: accountTypeId
+        type: integer
+        nullable: false
+      - name: accountStatusId
+        type: integer
+      - name: accountHolderRefId
+        type: integer
+        nullable: false
+      - name: balance
+        type: decimal
+        nullable: false
+      - name: statementCycleId
+        type: integer
+        nullable: false
+      - name: registrationDate
+        type: datetime
+        nullable: false
+      - name: creditorId
+        type: integer
+    relations:
+      - name: accountType
+        from: accountTypeId
+        entity: LamAccountTypes
+        to: id
+      - name: currencyRef
+        from: currencyRefId
+        entity: LamCurrencyReferences
+        to: id
+      - name: accountStatus
+        from: accountStatusId
+        entity: LamAccountStatusHistories
+        to: id
+      - name: accountHolderRef
+        from: accountHolderRefId
+        entity: LamAccountHolderReferences
+        to: id
+      - name: statementCycle
+        from: statementCycleId
+        entity: LamStatementCycles
+        to: id
+      - name: creditor
+        from: creditorId
+        entity: LamCreditors
+        to: id
+  - name: LamAccountStatusHistories
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: accountStatus
+        type: integer
+        nullable: false
+      - name: registerDate
+        type: datetime
+        nullable: false
+      - name: userRefId
+        type: integer
+        nullable: false
+      - name: reason
+        length: 50
+        nullable: false
+      - name: remarks
+        length: 250
+      - name: accountId
+        type: integer
+        nullable: false
+    relations:
+      - name: userRef
+        type: oneToOne
+        from: userRefId
+        entity: LamUserReferences
+        to: id
+      - name: account
+        from: accountId
+        entity: LamAccounts
+        to: id
+        target: statusHistories
+  # Debtor settings
+  - name: DbDebtorTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 30
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: description
+        length: 150
+        nullable: false
+      - name: disabled
+        type: boolean
+        nullable: false
+  - name: DbBanks
+    primaryKey: ["id"]
+    uniqueKey: ["bic"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: bic
+        length: 20
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: disabled
+        type: boolean
+        nullable: false
+  - name: DbPaymentMethodTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 50
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: description
+        length: 150
+      - name: disabled
+        type: boolean
+        nullable: false
+      - name: autoPay
+        type: boolean
+  - name: DbDebtorStages
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: code
+        length: 50
+        nullable: false
+      - name: name
+        length: 100
+        nullable: false
+      - name: description
+        length: 150
+        nullable: false
+      - name: color
+        length: 30
+        nullable: false
+      - name: stagePosition
+        type: integer
+      - name: disabled
+        type: boolean
+        nullable: false
+  # Debtor business
+  - name: DbReferences
+    extends: SrbReferences
+  - name: DbPartyRoleReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: "Party Role"
+      - name: refId
+        readExp: toNumber(refId)
+    relations:
+      - name: partyRole
+        type: oneToOne
+        from: refId
+        entity: PrPartyRoles
+        to: id
+  - name: DbLedgerAccountReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: "LedgerAccount"
+      - name: refId
+        readExp: toNumber(refId)
+    relations:
+      - name: ledgerAccount
+        type: oneToOne
+        from: refId
+        entity: LamAccounts
+        to: id
+  - name: DbUserReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: "User"
+  - name: DbAddressReferences
+    extends: SrbReferences
+    view: true
+    properties:
+      - name: refType
+        key: "Address"
+      - name: refId
+        readExp: toNumber(refId)
+    relations:
+      - name: address
+        type: oneToOne
+        from: refId
+        entity: LocAddresses
+        to: id
+  - name: DbDebtors
+    primaryKey: ["id"]
+    # uniqueKey: ["debtorNumber"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: debtorNumber
+        length: 50
+        nullable: false
+      - name: name
+        length: 200
+        nullable: false
+      - name: partyRoleRefId
+        type: integer
+      - name: debtorStatusId
+        type: integer
+      - name: partyRefId
+        type: integer
+      - name: mainAccountRefId
+        type: integer
+      - name: stageId
+        type: integer
+      - name: debtorTypeId
+        type: integer
+      - name: referenceNumber
+        length: 50
+        nullable: false
+      - name: lastModificationDate
+        type: datetime
+      - name: registrationDate
+        type: datetime
+      - name: identificationValue
+        length: 80
+      - name: identificationType
+        length: 30
+      - name: additionalInfo1
+        length: 150
+      - name: additionalInfo2
+        length: 150
+      - name: additionalInfo3
+        length: 150
+    relations:
+      - name: partyRoleRef
+        type: oneToOne
+        from: partyRoleRefId
+        entity: DbPartyRoleReferences
+        to: id
+  - name: DbDebtorStatusHistories
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: debtorStatus
+        type: integer
+        nullable: false
+      - name: registrationDate
+        type: datetime
+        nullable: false
+      - name: userRefId
+        type: integer
+        nullable: false
+      - name: reason
+        length: 50
+        nullable: false
+      - name: remarks
+        length: 250
+      - name: debtorId
+        type: integer
+        nullable: false
+    relations:
+      - name: userRef
+        type: oneToOne
+        from: userRefId
+        entity: DbUserReferences
+        to: id
+      - name: debtor
+        from: debtorId
+        entity: DbDebtors
+        to: id
+        target: statusHistories
+  - name: DbAccountServices
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        length: 150
+        nullable: false
+      - name: referenceNumber
+        length: 45
+        nullable: false
+      - name: accountId
+        type: integer
+        nullable: false
+      - name: serialNumber
+        length: 50
+      - name: registrationDate
+        type: datetime
+      - name: activationDate
+        type: datetime
+        readMappingExp: datetime(activationDate)
+      - name: deactivationDate
+        type: datetime
+        readMappingExp: datetime(deactivationDate)
+      - name: contractNumber
+        length: 50
+      - name: serviceExternalCode
+        length: 150
+      - name: productLine
+        length: 50
+      - name: subType
+        length: 50
+    relations:
+      - name: account
+        from: accountId
+        entity: DbDebtorAccounts
+        to: id
+        target: services
+  - name: DbDebtorAccounts
+    primaryKey: ["id"]
+    uniqueKey: ["accountNumber"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: accountNumber
+        length: 50
+        nullable: false
+      - name: name
+        length: 150
+      - name: debtorId
+        type: integer
+        nullable: false
+      - name: actualPastDue
+        type: integer
+      - name: writeOff
+        type: integer
+      - name: securized
+        type: integer
+      - name: unbilled
+        type: integer
+      - name: providerId
+        type: integer
+      - name: accountLedgerRefId
+        type: integer
+      - name: lastModificationDate
+        type: datetime
+      - name: referenceNumber
+        length: 50
+      - name: accountStatusId
+        type: integer
+      - name: registrationDate
+        type: datetime
+      # TODO: Pendig solver
+      - name: currencyRefId
+        type: integer
+      - name: arranged
+        type: decimal
+      - name: unexpired
+        type: decimal
+      - name: activeSegmentId
+        type: integer
+    relations:
+      - name: debtor
+        from: debtorId
+        entity: DbDebtors
+        to: id
+        target: accounts
+      - name: accountLedgerRef
+        type: oneToOne
+        from: accountLedgerRefId
+        entity: DbLedgerAccountReferences
+        to: id
+  - name: DbAccountStatusHistories
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: accountStatus
+        type: integer
+        nullable: false
+      - name: registrationDate
+        type: datetime
+        nullable: false
+        default: now()
+      - name: userRefId
+        type: integer
+        nullable: false
+      - name: isActive
+        type: boolean
+      - name: reason
+        length: 50
+      - name: remarks
+        length: 250
+        nullable: false
+      - name: accountId
+        type: integer
+        nullable: false
+    relations:
+      - name: userRef
+        type: oneToOne
+        from: userRefId
+        entity: DbUserReferences
+        to: id
+      - name: account
+        from: accountId
+        entity: DbDebtorAccounts
+        to: id
+        target: statusHistories
+  - name: DbAccountPaymentResps
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: debtorAccountId
+        type: integer
+        nullable: false
+      - name: paymentResponsibleId
+        type: integer
+        nullable: false
+      - name: locAddressRefId
+        type: integer
+        nullable: false
+      - name: isMain
+        type: boolean
+      - name: paymentMethodRefId
+        type: integer
+        nullable: false
+    relations:
+      - name: debtorAccount
+        from: debtorAccountId
+        entity: DbDebtorAccounts
+        to: id
+        target: accountPaymentResps
+      - name: paymentResponsible
+        type: oneToOne
+        from: paymentResponsibleId
+        entity: DbPaymentResponsibles
+        to: id
+        target: accountPaymentResps
+      - name: locAddressRef
+        type: oneToOne
+        from: locAddressRefId
+        entity: DbAddressReferences
+        to: id
+      - name: paymentMethodRef
+        type: oneToOne
+        from: paymentMethodRefId
+        entity: DbPaymentResponsibleMethods
+        to: id
+  - name: DbPaymentResponsibles
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: name
+        length: 150
+        nullable: false
+      - name: referenceNumber
+        length: 50
+  - name: DbPaymentResponsibleMethods
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoincrement: true
+      - name: methodStatus
+        type: integer
+        nullable: false
+      - name: paymentMethodTypeId
+        type: integer
+        nullable: false
+      - name: paymentResponsibleId
+        type: integer
+        nullable: false
+      - name: bankId
+        type: integer
+      - name: cardNumber
+        length: 20
+      - name: cardName
+        length: 100
+      - name: cardExpirationYear
+        type: integer
+      - name: cardExpirationMonth
+        type: integer
+    relations:
+      - name: paymentMethodType
+        from: paymentMethodTypeId
+        entity: DbPaymentMethodTypes
+        to: id
+      - name: paymentResponsible
+        from: paymentResponsibleId
+        entity: DbPaymentResponsibles
+        to: id
+        target: paymentMethods
+views:
+  - name: default
+mappings:
+  - name: local
+    entities:
+      # General
+      - name: SrbReferences
+        abstract: true
+        mapping: TBL_SRB_REFERENCE
+        properties:
+          - name: id
+            mapping: REFERENCE_ID
+          - name: refType
+            mapping: REF_TYPE
+          - name: refId
+            mapping: REF_ID
+          - name: name
+            mapping: NAME
+      # Location
+      - name: LocCountries
+        mapping: TBL_LOC_COUNTRY
+        properties:
+          - name: id
+            mapping: COUNTRY_ID
+          - name: name
+            mapping: NAME
+          - name: iso
+            mapping: ISO
+          - name: iso3
+            mapping: ISO3
+          - name: numericCode
+            mapping: NUMERIC_CODE
+      - name: LocAreaTypes
+        mapping: TBL_LOC_AREA_TYPE
+        properties:
+          - name: id
+            mapping: AREA_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: LocAreas
+        mapping: TBL_LOC_AREA
+        properties:
+          - name: id
+            mapping: AREA_ID
+          - name: typeId
+            mapping: AREA_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: LocAddresses
+        mapping: TBL_LOC_ADDRESS
+        properties:
+          - name: id
+            mapping: ADDRESS_ID
+          - name: countryId
+            mapping: COUNTRY_ID
+          - name: streetName
+            mapping: STREET_NAME
+          - name: streetNrFirst
+            mapping: STREET_NR_FIRST
+          - name: postalCode
+            mapping: POSTAL_CODE
+          - name: city
+            mapping: ADDRESS_LINE_1
+          - name: additionalData
+            mapping: ADDITIONAL_DATA_1
+      - name: LocAddressAreas
+        mapping: TBL_LOC_ADDRESS_AREA
+        properties:
+          - name: id
+            mapping: ADDRESS_AREA_ID
+          - name: addressId
+            mapping: ADDRESS_ID
+          - name: areaId
+            mapping: AREA_ID
+      #  Party
+      - name: PmReferences
+        extends: SrbReferences
+      - name: PmNationalReferences
+        extends: SrbReferences
+      - name: PmPartyStatuses
+        mapping: TBL_PM_PARTY_STATUS
+        properties:
+          - name: id
+            mapping: PARTY_STATUS_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: exclusiveType
+            mapping: EXCLUSIVE_TYPE
+      - name: PmMaritalStatuses
+        mapping: TBL_PM_MARITAL_STATUS
+        properties:
+          - name: id
+            mapping: MARITAL_STATUS_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmIdentificationTypes
+        mapping: TBL_PM_IDENTIFICATION_TYPE
+        properties:
+          - name: id
+            mapping: IDENTIFICATION_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmIndustryTypes
+        mapping: TBL_PM_INDUSTRY_TYPE
+        properties:
+          - name: id
+            mapping: INDUSTRY_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmContactMediumTypes
+        mapping: TBL_PM_CONTACT_MEDIUM_TYPE
+        properties:
+          - name: id
+            mapping: CONTACT_MEDIUM_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmGenders
+        mapping: TBL_PM_GENDER
+        properties:
+          - name: id
+            mapping: GENDER_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmParties
+        mapping: TBL_PM_PARTY
+        properties:
+          - name: id
+            mapping: PARTY_ID
+          - name: individualId
+            mapping: INDIVIDUAL_ID
+          - name: organizationId
+            mapping: ORGANIZATION_ID
+          - name: statusId
+            mapping: STATUS_ID
+          - name: registredDate
+            mapping: REGISTER_DATE
+      - name: PmIdentifications
+        mapping: TBL_PM_IDENTIFICATION
+        properties:
+          - name: id
+            mapping: IDENTIFICATION_ID
+          - name: identificationTypeId
+            mapping: IDENTIFICATION_TYPE_ID
+          - name: partyId
+            mapping: PARTY_ID
+          - name: indentificationValue
+            mapping: IDENTIFICATION_VALUE
+          - name: source
+            mapping: SOURCE
+      - name: PmPartyContactMediums
+        mapping: TBL_PM_PARTY_CONTACT_MEDIUM
+        properties:
+          - name: id
+            mapping: PARTY_CONTACT_MEDIUM_ID
+          - name: contactMediumTypeId
+            mapping: CONTACT_MEDIUM_TYPE_ID
+          - name: partyId
+            mapping: PARTY_ID
+          - name: mediumValue
+            mapping: MEDIUM_VALUE
+          - name: validFrom
+            mapping: VALID_FROM
+          - name: validTo
+            mapping: VALID_TO
+          - name: isMain
+            mapping: IS_MAIN
+          - name: isFavorite
+            mapping: IS_FAVORITE
+          - name: source
+            mapping: SOURCE
+          - name: createdBy
+            mapping: CREATED_BY
+      - name: PmIndividuals
+        mapping: TBL_PM_INDIVIDUAL
+        properties:
+          - name: id
+            mapping: INDIVIDUAL_ID
+          - name: partyId
+            mapping: PARTY_ID
+          - name: genderId
+            mapping: GENDER_ID
+          - name: birthDate
+            mapping: BIRTH_DATE
+          - name: deathDate
+            mapping: DEATH_DATE
+          - name: nationalityRefId
+            mapping: NATIONALITY_REF_ID
+          - name: currentNameId
+            mapping: CURRENT_NAME_ID
+      - name: PmIndividualNames
+        mapping: TBL_PM_INDIVIDUAL_NAME
+        properties:
+          - name: id
+            mapping: INDIVIDUAL_NAME_ID
+          - name: individualId
+            mapping: INDIVIDUAL_ID
+          - name: givenNames
+            mapping: GIVEN_NAMES
+          - name: middleNames
+            mapping: MIDDLE_NAMES
+          - name: familyNames
+            mapping: FAMILY_NAMES
+          - name: legalName
+            mapping: LEGAL_NAME
+      - name: PmOrganizations
+        mapping: TBL_PM_ORGANIZATION
+        properties:
+          - name: id
+            mapping: ORGANIZATION_ID
+          - name: partyId
+            mapping: PARTY_ID
+          - name: legalPeriodFrom
+            mapping: LEGAL_PERIOD_FROM
+          - name: currentNameId
+            mapping: CURRENT_NAME_ID
+          - name: industyTypeId
+            mapping: INDUSTRY_TYPE_ID
+          - name: commercialDescription
+            mapping: COMMERCIAL_DESCRIPTION
+      - name: PmOrganizationNames
+        mapping: TBL_PM_ORGANIZATION_NAME
+        properties:
+          - name: id
+            mapping: ORGANIZATION_NAME_ID
+          - name: organizationId
+            mapping: ORGANIZATION_ID
+          - name: tradingName
+            mapping: TRADING_NAME
+      # PartyRole
+      - name: PrPartyRoleSpecs
+        mapping: TBL_PR_PARTY_ROLE_SPEC
+        properties:
+          - name: id
+            mapping: PARTY_ROLE_SPEC_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: validFrom
+            mapping: VALID_FROM
+      - name: PrPartyRoleStatuses
+        mapping: TBL_PR_PARTY_ROLE_STATUS
+        properties:
+          - name: id
+            mapping: PARTY_ROLE_STATUS_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PrReferences
+        extends: SrbReferences
+      - name: PrIndividualReferences
+        extends: SrbReferences
+      - name: PrOrganizationReferences
+        extends: SrbReferences
+      - name: PrAddressReferences
+        extends: SrbReferences
+      - name: PrPartyRoles
+        mapping: TBL_PR_PARTY_ROLE
+        properties:
+          - name: id
+            mapping: PARTY_ROLE_ID
+          - name: statusId
+            mapping: STATUS_ID
+          - name: name
+            mapping: NAME
+          - name: partyId
+            mapping: PARTY_ID
+          - name: validFrom
+            mapping: VALID_FROM
+          - name: partyRoleSpecId
+            mapping: PARTY_ROLE_SPEC_ID
+      - name: PrPartyRolePlaces
+        mapping: TBL_PR_PARTY_ROLE_PLACE
+        properties:
+          - name: id
+            mapping: PARTY_ROLE_PLACE_ID
+          - name: partyRoleId
+            mapping: PARTY_ROLE_ID
+          - name: placeRefId
+            mapping: PLACE_REF_ID
+      # LedgerAccount
+      - name: LamAccountTypes
+        mapping: TBL_LAM_ACCOUNT_TYPE
+        properties:
+          - name: id
+            mapping: ACCOUNT_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: description
+            mapping: DESCRIPTION
+          - name: disabled
+            mapping: DISABLED
+          - name: balanceType
+            mapping: BALANCE_TYPE
+          - name: incresedBy
+            mapping: INCRESED_BY
+      - name: LamStatementCycles
+        mapping: TBL_LAM_STATEMENT_CYCLE
+        properties:
+          - name: id
+            mapping: STATEMENT_CYCLE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: cycleDay
+            mapping: CYCLE_DAY
+          - name: description
+            mapping: DESCRIPTION
+          - name: disabled
+            mapping: DISABLED
+      - name: LamCreditors
+        mapping: TBL_LAM_CREDITOR
+        properties:
+          - name: id
+            mapping: CREDITOR_ID
+          - name: creditorCode
+            mapping: CREDITOR_CODE
+          - name: name
+            mapping: NAME
+          - name: partyRoleId
+            mapping: PARTY_ROLE_ID
+          - name: locAddressId
+            mapping: LOC_ADDRESS_ID
+          - name: streetName
+            mapping: STREET_NAME
+          - name: streetNumber
+            mapping: STREET_NUMBER
+          - name: postalCode
+            mapping: POSTAL_CODE
+          - name: cityName
+            mapping: CITY_NAME
+          - name: country
+            mapping: COUNTRY
+          - name: contactName
+            mapping: CONTACT_NAME
+          - name: contactEmail
+            mapping: CONTACT_EMAIL
+          - name: contactPartyId
+            mapping: CONTACT_PARTY_ID
+      - name: LamAccounts
+        mapping: TBL_LAM_ACCOUNT
+        properties:
+          - name: id
+            mapping: ACCOUNT_ID
+          - name: accountNumber
+            mapping: ACCOUNT_NUMBER
+          - name: name
+            mapping: NAME
+          - name: currencyRefId
+            mapping: CURRENCY_REF_ID
+          - name: accountTypeId
+            mapping: ACCOUNT_TYPE_ID
+          - name: accountStatusId
+            mapping: ACCOUNT_STATUS_ID
+          - name: accountHolderRefId
+            mapping: ACCOUNT_HOLDER_REF_ID
+          - name: balance
+            mapping: BALANCE
+          - name: statementCycleId
+            mapping: STATEMENT_CYCLE_ID
+          - name: registrationDate
+            mapping: REGISTRATION_DATE
+          - name: creditorId
+            mapping: CREDITOR_ID
+      - name: LamReferences
+        extends: SrbReferences
+      - name: LamCurrencyReferences
+        extends: SrbReferences
+      - name: LamUserReferences
+        extends: SrbReferences
+      - name: LamAccountHolderReferences
+        extends: SrbReferences
+      - name: LamAccountStatusHistories
+        mapping: TBL_LAM_ACCOUNT_STATUS_HISTORY
+        properties:
+          - name: id
+            mapping: ACCOUNT_STATUS_HISTORY_ID
+          - name: accountStatus
+            mapping: ACCOUNT_STATUS
+          - name: registerDate
+            mapping: REGISTER_DATE
+          - name: userRefId
+            mapping: USER_REF_ID
+          - name: isActive
+            type: boolean
+          - name: reason
+            mapping: REASON
+          - name: remarks
+            mapping: REMARKS
+          - name: accountId
+            mapping: ACCOUNT_ID
+      # Debtor
+      - name: DbDebtorTypes
+        mapping: TBL_DB_DEBTOR_TYPE
+        properties:
+          - name: id
+            mapping: DEBTOR_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: description
+            mapping: DESCRIPTION
+          - name: disabled
+            mapping: DISABLED
+      - name: DbBanks
+        mapping: TBL_DB_BANK
+        properties:
+          - name: id
+            mapping: DB_BANK_ID
+          - name: bic
+            mapping: BIC
+          - name: name
+            mapping: NAME
+          - name: disabled
+            mapping: DISABLED
+      - name: DbPaymentMethodTypes
+        mapping: TBL_DB_PAYMENT_METHOD_TYPE
+        properties:
+          - name: id
+            mapping: PMT_RESP_PAYMENT_METHOD_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: description
+            mapping: DESCRIPTION
+          - name: disabled
+            mapping: DISABLED
+          - name: autoPay
+            mapping: AUTO_PAY
+      - name: DbDebtorStages
+        mapping: TBL_DB_DEBTOR_STAGE
+        properties:
+          - name: id
+            mapping: DEBTOR_STAGE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+          - name: description
+            mapping: DESCRIPTION
+          - name: color
+            mapping: COLOR
+          - name: stagePosition
+            mapping: STAGE_POSITION
+          - name: disabled
+            mapping: DISABLED
+
+      - name: DbReferences
+        extends: SrbReferences
+      - name: DbPartyRoleReferences
+        extends: SrbReferences
+      - name: DbLedgerAccountReferences
+        extends: SrbReferences
+      - name: DbUserReferences
+        extends: SrbReferences
+      - name: DbAddressReferences
+        extends: SrbReferences
+
+      - name: DbDebtors
+        mapping: TBL_DB_DEBTOR
+        properties:
+          - name: id
+            mapping: DEBTOR_ID
+          - name: debtorNumber
+            mapping: DEBTOR_NUMBER
+          - name: name
+            mapping: NAME
+          - name: partyRoleRefId
+            mapping: PARTY_ROLE_REF_ID
+          - name: debtorStatusId
+            mapping: DEBTOR_STATUS_ID
+          - name: partyRefId
+            mapping: PARTY_REF_ID
+          - name: mainAccountRefId
+            mapping: MAIN_ACCOUNT_REF_ID
+          - name: stageId
+            mapping: STAGE_ID
+          - name: debtorTypeId
+            mapping: DEBTOR_TYPE_ID
+          - name: referenceNumber
+            mapping: REFERENCE_NUMBER
+          - name: lastModificationDate
+            mapping: LAST_MODIFICATION_DATE
+            readMappingExp: datetime(lastModificationDate)
+          - name: registrationDate
+            mapping: REGISTRATION_DATE
+          - name: identificationValue
+            mapping: IDENTIFICATION_VALUE
+          - name: identificationType
+            mapping: IDENTIFICATION_TYPE
+          - name: additionalInfo1
+            mapping: ADDITIONAL_INFO_1
+          - name: additionalInfo2
+            mapping: ADDITIONAL_INFO_2
+          - name: additionalInfo3
+            mapping: ADDITIONAL_INFO_3
+      - name: DbDebtorStatusHistories
+        mapping: TBL_DB_DEBTOR_STATUS_HISTORY
+        properties:
+          - name: id
+            mapping: DEBTOR_STATUS_HISTORY_ID
+          - name: debtorStatus
+            mapping: DEBTOR_STATUS
+          - name: registrationDate
+            mapping: REGISTRATION_DATE
+          - name: userRefId
+            mapping: USER_REF_ID
+          - name: reason
+            mapping: REASON
+          - name: remarks
+            mapping: REMARKS
+          - name: debtorId
+            mapping: DEBTOR_ID
+      - name: DbPaymentResponsibles
+        mapping: TBL_DB_PAYMENT_RESPONSIBLE
+        properties:
+          - name: id
+            mapping: PAYMENT_RESPONSIBLE_ID
+          - name: name
+            mapping: NAME
+          - name: referenceNumber
+            mapping: REFERENCE_NUMBER
+      - name: DbPaymentResponsibleMethods
+        mapping: TBL_DB_PMT_RESP_PAYMENT_METHOD
+        properties:
+          - name: id
+            mapping: PMT_RESP_PAYMENT_METHOD_ID
+          - name: methodStatus
+            mapping: PMT_METHOD_STATUS
+          - name: paymentMethodTypeId
+            mapping: PAYMENT_METHOD_TYPE_ID
+          - name: paymentResponsibleId
+            mapping: PAYMENT_RESPONSIBLE_ID
+          - name: bankId
+            mapping: BANK_ID
+          - name: cardNumber
+            mapping: CARD_NUMBER
+          - name: cardName
+            mapping: CARD_NAME
+          - name: cardExpirationYear
+            mapping: CARD_EXP_YEAR
+          - name: cardExpirationMonth
+            mapping: CARD_EXP_MONTH
+      - name: DbDebtorAccounts
+        mapping: TBL_DB_DEBTOR_ACCOUNT
+        properties:
+          - name: id
+            mapping: DEBTOR_ACCOUNT_ID
+          - name: accountNumber
+            mapping: ACCOUNT_NUMBER
+          - name: name
+            mapping: NAME
+          - name: debtorId
+            mapping: DEBTOR_ID
+          - name: actualPastDue
+            mapping: ACTUAL_PAST_DUE
+          - name: writeOff
+            mapping: WRITE_OFF
+          - name: securized
+            mapping: SECURITIZED
+          - name: unbilled
+            mapping: UNBILLED
+          - name: providerId
+            mapping: PROVIDER_ID
+          - name: accountLedgerRefId
+            mapping: ACCOUNT_LEDGER_REF_ID
+          - name: lastModificationDate
+            mapping: LAST_MODIFICATION_DATE
+          - name: referenceNumber
+            mapping: REFERENCE_NUMBER
+          - name: accountStatusId
+            mapping: ACCOUNT_STATUS_ID
+          - name: registrationDate
+            mapping: REGISTRATION_DATE
+          - name: arranged
+            mapping: ARRANGED
+          - name: unexpired
+            mapping: UNEXPIRED
+          - name: currencyRefId
+            mapping: CURRENCY_REF_ID
+          - name: activeSegmentId
+            mapping: ACTIVE_SEGMENT_ID
+      - name: DbAccountPaymentResps
+        mapping: TBL_DB_ACCOUNT_PAYMENT_RESP
+        properties:
+          - name: id
+            mapping: ACCOUNT_PAYMENT_RESP_ID
+          - name: debtorAccountId
+            mapping: DEBTOR_ACCOUNT_ID
+          - name: paymentResponsibleId
+            mapping: PAYMENT_RESPONSIBLE_ID
+          - name: locAddressRefId
+            mapping: LOC_ADDRESS_REF_ID
+          - name: isMain
+            mapping: IS_MAIN
+          - name: paymentMethodRefId
+            mapping: PAYMENT_METHOD_REF_ID
+      - name: DbAccountServices
+        mapping: TBL_DB_ACCOUNT_SERVICE
+        properties:
+          - name: id
+            mapping: ACCOUNT_SERVICE_ID
+          - name: name
+            mapping: NAME
+          - name: referenceNumber
+            mapping: REFERENCE_NUMBER
+          - name: accountId
+            mapping: ACCOUNT_ID
+          - name: serialNumber
+            mapping: SERIAL_NUMBER
+          - name: registrationDate
+            mapping: REGISTRATION_DATE
+          - name: activationDate
+            mapping: ACTIVATION_DATE
+          - name: deactivationDate
+            mapping: DEACTIVATION_DATE
+          - name: contractNumber
+            mapping: CONTRACT_NUMBER
+          - name: serviceExternalCode
+            mapping: SERVICE_EXTERNAL_CODE
+          - name: productLine
+            mapping: PRODUCT_LINE
+          - name: subType
+            mapping: SUB_TYPE
+      - name: DbAccountStatusHistories
+        mapping: TBL_DB_ACCOUNT_STATUS_HISTORY
+        properties:
+          - name: id
+            mapping: ACCOUNT_STATUS_HISTORY_ID
+          - name: accountStatus
+            mapping: ACCOUNT_STATUS
+          - name: registrationDate
+            mapping: REGISTRATION_DATE
+          - name: userRefId
+            mapping: USER_REF_ID
+          - name: isActive
+            mapping: IS_ACTIVE
+          - name: reason
+            mapping: REASON
+          - name: remarks
+            mapping: REMARKS
+          - name: accountId
+            mapping: ACCOUNT_ID
+  - name: localOracle
+    extends: local
+    entities:
+      # General
+      - name: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      # Location
+      - name: LocCountries
+        sequence: SQ_LOC_COUNTRY
+      - name: LocAreaTypes
+        sequence: SQ_LOC_AREA_TYPE
+      - name: LocAreas
+        sequence: SQ_LOC_AREA
+      - name: LocAddresses
+        sequence: SQ_LOC_ADDRESS
+      - name: LocAddressAreas
+        sequence: SQ_LOC_ADDRESS_AREA
+      #  Party
+      - name: PmReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PmNationalReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PmPartyStatuses
+        sequence: SQ_PM_PARTY_STATUS
+      - name: PmMaritalStatuses
+        sequence: SQ_PM_MARITAL_STATUS
+      - name: PmIdentificationTypes
+        sequence: SQ_PM_IDENTIFICATION_TYPE
+      - name: PmIndustryTypes
+        sequence: SQ_PM_INDUSTRY_TYPE
+      - name: PmContactMediumTypes
+        sequence: SQ_PM_CONTACT_MEDIUM_TYPE
+      - name: PmGenders
+        sequence: SQ_PM_GENDER
+      - name: PmParties
+        sequence: SQ_PM_PARTY
+      - name: PmIdentifications
+        sequence: SQ_PM_IDENTIFICATION
+      - name: PmPartyContactMediums
+        sequence: SQ_PM_PARTY_CONTACT_MEDIUM
+      - name: PmIndividuals
+        sequence: SQ_PM_INDIVIDUAL
+      - name: PmIndividualNames
+        sequence: SQ_PM_INDIVIDUAL_NAME
+      - name: PmOrganizations
+        sequence: SQ_PM_ORGANIZATION
+      - name: PmOrganizationNames
+        sequence: SQ_PM_ORGANIZATION_NAME
+      # PartyRole
+      - name: PrReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PrIndividualReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PrOrganizationReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: PrAddressReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+
+      - name: PrPartyRoleSpecs
+        sequence: SQ_PR_PARTY_ROLE_SPEC
+      - name: PrPartyRoleStatuses
+        sequence: SQ_PR_PARTY_ROLE_STATUS
+      - name: PrPartyRoles
+        sequence: SQ_PR_PARTY_ROLE
+      - name: PrPartyRolePlaces
+        sequence: SQ_PR_PARTY_ROLE_PLACE
+      # LedgerAccount
+      - name: LamAccountTypes
+        sequence: SQ_LAM_ACCOUNT_TYPE
+      - name: LamStatementCycles
+        sequence: SQ_LAM_STATEMENT_CYCLE
+      - name: LamCreditors
+        sequence: SQ_LAM_CREDITOR
+      - name: LamAccounts
+        sequence: SQ_LAM_ACCOUNT
+      - name: LamReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: LamCurrencyReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: LamUserReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: LamAccountHolderReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: LamAccountStatusHistories
+        sequence: SQ_LAM_ACCOUNT_STATUS_HISTORY
+      # Debtor
+      - name: DbReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbPartyRoleReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbLedgerAccountReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbUserReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbAddressReferences
+        extends: SrbReferences
+        sequence: SQ_SRB_REFERENCE
+      - name: DbDebtorTypes
+        sequence: SQ_DB_DEBTOR_TYPE
+      - name: DbPaymentMethodTypes
+        sequence: SQ_DB_PAYMENT_METHOD_TYPE
+      - name: DbBanks
+        sequence: SQ_DB_BANK
+      - name: DbDebtorStages
+        sequence: SQ_DB_DEBTOR_STAGE
+      - name: DbDebtors
+        sequence: SQ_DB_DEBTOR
+      - name: DbDebtorStatusHistories
+        sequence: SQ_DB_DEBTOR_STATUS_HISTORY
+      - name: DbPaymentResponsibles
+        sequence: SQ_DB_PAYMENT_RESPONSIBLE
+      - name: DbPaymentResponsibleMethods
+        sequence: SQ_DB_PMT_RESP_PAYMENT_METHOD
+      - name: DbDebtorAccounts
+        sequence: SQ_DB_DEBTOR_ACCOUNT
+      - name: DbAccountPaymentResps
+        sequence: SQ_DB_ACCOUNT_PAYMENT_RESP
+      - name: DbAccountServices
+        sequence: SQ_DB_ACCOUNT_SERVICE
+      - name: DbAccountStatusHistories
+        sequence: SQ_DB_ACCOUNT_STATUS_HISTORY
+  - name: beesion
+    extends: local
+    entities:
+      - name: PmParties
+        properties:
+          - name: registredDate
+            readMappingExp: datetime(registredDate)
+      - name: PmPartyContactMediums
+        properties:
+          - name: validFrom
+            readMappingExp: datetime(validFrom)
+          - name: validTo
+            readMappingExp: datetime(validTo)
+      - name: PmIndividuals
+        properties:
+          - name: birthDate
+            readMappingExp: datetime(birthDate)
+          - name: deathDate
+            readMappingExp: datetime(deathDate)
+      - name: PmOrganizations
+        properties:
+          - name: legalPeriodFrom
+            readMappingExp: datetime(legalPeriodFrom)
+      - name: PrPartyRoleSpecs
+        properties:
+          - name: validFrom
+            readMappingExp: datetime(validFrom)
+      - name: LamAccountStatusHistories
+        properties:
+          - name: registerDate
+            readMappingExp: datetime(registerDate)
+      - name: DbDebtors
+        properties:
+          - name: lastModificationDate
+            readMappingExp: datetime(lastModificationDate)
+      - name: DbDebtorStatusHistories
+        mapping: TBL_DB_DEBTOR_STATUS_HISTORY
+        properties:
+          - name: registrationDate
+            readMappingExp: datetime(registrationDate)
+      - name: DbDebtorAccounts
+        mapping: TBL_DB_DEBTOR_ACCOUNT
+        properties:
+          - name: lastModificationDate
+            readMappingExp: datetime(lastModificationDate)
+      - name: DbAccountStatusHistories
+        mapping: TBL_DB_ACCOUNT_STATUS_HISTORY
+        properties:
+          - name: registrationDate
+            readMappingExp: datetime(registrationDate)
+dataSources:
+  # Beesion datasources
+  - name: beeLocations
+    mapping: beesion
+    dialect: oracle
+    connection: $$BEE_CCLP_LOCATIONS
+  - name: beeParties
+    mapping: beesion
+    dialect: oracle
+    connection: $$BEE_CCLP_PARTIES
+  - name: beePartyRoles
+    mapping: beesion
+    dialect: oracle
+    connection: $$BEE_CCLP_PARTY_ROLES
+  - name: beeLedgerAccounts
+    mapping: beesion
+    dialect: oracle
+    connection: $$BEE_CCLP_LEDGER_ACCOUNTS
+  - name: beeDebtors
+    mapping: beesion
+    dialect: oracle
+    connection: $$BEE_CCLP_DEBTORS
+  # Local datasources
+  - name: locLocations
+    mapping: local
+    dialect: postgres
+    connection: $$LOC_CCLP_LOCATIONS
+  - name: locParties
+    mapping: local
+    dialect: postgres
+    connection: $$LOC_CCLP_PARTIES
+  - name: locPartyRoles
+    mapping: local
+    dialect: postgres
+    connection: $$LOC_CCLP_PARTY_ROLES
+  - name: locLedgerAccounts
+    mapping: local
+    dialect: postgres
+    connection: $$LOC_CCLP_LEDGER_ACCOUNTS
+  - name: LocDebtors
+    mapping: local
+    dialect: postgres
+    connection: $$LOC_CCLP_DEBTORS
+    # Local Oracle datasources
+  - name: locOraLocations
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_LOCATIONS
+  - name: locOraParties
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_PARTIES
+  - name: locOraPartyRoles
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_PARTY_ROLES
+  - name: locOraLedgerAccounts
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_LEDGER_ACCOUNTS
+  - name: locOraDebtors
+    mapping: localOracle
+    dialect: oracle
+    connection: $$LOC_ORA_CCLP_DEBTORS
+stages:
+  - name: beesion
+    dataSources:
+      - name: beeLocations
+        condition: substring(entity,0,3)=="Loc"
+      - name: beeParties
+        condition: substring(entity,0,2)=="Pm"
+      - name: beePartyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: beeLedgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: beeDebtors
+        condition: substring(entity,0,2)=="Db"
+  - name: local
+    dataSources:
+      - name: locLocations
+        condition: substring(entity,0,3)=="Loc"
+      - name: locParties
+        condition: substring(entity,0,2)=="Pm"
+      - name: locPartyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: locLedgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: LocDebtors
+        condition: substring(entity,0,2)=="Db"
+  - name: localOracle
+    dataSources:
+      - name: locOraLocations
+        condition: substring(entity,0,3)=="Loc"
+      - name: locOraParties
+        condition: substring(entity,0,2)=="Pm"
+      - name: locOraPartyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: locOraLedgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: locOraDebtors
+        condition: substring(entity,0,2)=="Db"

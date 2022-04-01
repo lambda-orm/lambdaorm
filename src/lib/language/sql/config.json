@@ -5,6 +5,7 @@
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -19,6 +20,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP PRIMARY KEY {name}",
         "dropUk": "DROP UNIQUE {name}",
@@ -37,7 +39,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
-        "page": "LIMIT {offset},{records}",
+        "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "remove": "DELETE FROM {name} {alias}",
@@ -54,7 +56,8 @@
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -257,6 +260,7 @@
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
         "createFk": "CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
@@ -269,6 +273,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
@@ -286,7 +291,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
-        "page": "LIMIT {offset},{records}",
+        "page": "{sentence} LIMIT {offset},{records}",
         "remove": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -301,7 +306,8 @@
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "formats": {
         "datetime": "yyyy-LL-dd HH:mm:ss",
@@ -472,6 +478,7 @@
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -486,6 +493,7 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP PRIMARY KEY {name}",
         "dropUk": "DROP UNIQUE {name}",
@@ -504,7 +512,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
-        "page": "LIMIT {offset},{records}",
+        "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "remove": "DELETE FROM {name} {alias}",
@@ -521,7 +529,8 @@
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -708,32 +717,35 @@
     "oracle": {
       "types": {
         "boolean": "CHAR(1)",
-        "integer": "LONG",
+        "integer": "NUMBER(10)",
+        "decimal": "NUMBER(19,4)",
         "string": "VARCHAR2({0})",
-        "datetime": "TIMESTAMP",
-        "decimal": "DECIMAL(10,4)",
+        "datetime": "DATE",
         "date": "DATE",
-        "time": "TIME"
+        "time": "DATE"
       },
       "others": {
         "false": "N",
         "true": "Y",
+        "variable": ":{name}",
         "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "notNullable": "NOT NULL",
-        "variable": ":{name}",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "ddl": {
+        "createTable": "CREATE TABLE {name} ({define})",
+        "incrementalColumDefine": "{name} {type} {nullable}",
+        "dropTable": "DROP TABLE {name}",
         "dropPk": "DROP CONSTRAINT {name}",
         "dropUk": "DROP CONSTRAINT {name}",
         "dropFk": "DROP CONSTRAINT {name}",
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-        "createTable": "CREATE TABLE {name} ({define})",
-        "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
@@ -746,16 +758,13 @@
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-        "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "dml": {
+        "page": "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY",
+        "bulkInsert": "INSERT INTO {name}({fields}) VALUES({values})",
         "map": "SELECT {0}",
         "select": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
@@ -765,65 +774,48 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
-        "page": "LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
         "update": "UPDATE {name} {alias} SET {assings}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
-        "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "upsert": null
       },
-      "operators": {
-        "unary": {
-          "-": "- {0}",
-          "~": "~ {0}",
-          "!": "NOT {0}"
-        },
-        "binary": {
-          "+": "({0} + {1})",
-          "-": "({0} - {1})",
-          "*": "({0} * {1})",
-          "/": "({0} / {1})",
-          "**": "POWER({0},{1})",
-          "//": "POWER({0},(1/{1}))",
-          "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
-          "<<": "{0} << {1}",
-          ">>": "{0} >> {1}",
-          "==": "{0} = {1}",
-          "===": "{0} = {1}",
-          "!=": "{0} <> {1}",
-          "!==": "{0} <> {1}",
-          ">": "{0} > {1}",
-          "<": "{0} < {1}",
-          ">=": "{0} >= {1}",
-          "<=": "{0} <= {1}",
-          "&&": "({0} AND {1})",
-          "||": "({0} OR {1})",
-          "[]": "N/A",
-          "=": "{0} = {1}",
-          "+=": "{0} = ({0} + {1})",
-          "-=": "{0} = ({0} - {1})",
-          "*=": "{0} = ({0} * {1})",
-          "/=": "{0} = ({0} / {1})",
-          "**=": "{0} = POWER({0},{1})",
-          "//=": "{0} = POWER({0},(1/{1}))",
-          "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
-          "<<=": "{0} = {0} << {1}",
-          ">>=": "{0} = {0} >> {1}"
-        },
-        "ternary": {
-          "?": "IF {0} THEN {1} ELSE {2} END"
-        }
-      },
       "functions": {
+        "datetime": {
+          "datetime": "TO_CHAR({0},'YYYY-MM-DD\"T\"hh24:mi:ss')",
+          "now": "SYSTIMESTAMP",
+          "curtime": "CAST(SYSTIMESTAMP AS TIME)",
+          "today": "TRUNC(SYSDATE)",
+          "date": "CAST({0} AS DATE)",
+          "time": "CAST({0} AS TIME)",
+          "year": "EXTRACT(YEAR FROM {0})",
+          "month": "EXTRACT(MONTH FROM {0})",
+          "day": "DAY(DAY FROM {0})",
+          "weekday": "TO_NUMBER(TO_CHAR({0}, 'D'))",
+          "hour": "EXTRACT(HOUR FROM {0})",
+          "minute": "EXTRACT(MINUTE FROM {0})",
+          "second": "EXTRACT(SECOND FROM {0})",
+          "millisecond": "EXTRACT(MILLISECOND FROM {0})",
+          "addYear": "{0} + interval '{1}' YEAR",
+          "addMonth": "ADD_MONTHS({0},{1})",
+          "addDay": "{0} + {1}",
+          "addHour": "{0} + interval '{1}' HOUR",
+          "addMinute": "{0} + interval '{1}' MINUTE",
+          "addSecond": "{0} + interval '{1}' SECOND",
+          "addMillisecond": "{0} + interval '{1}' MILLISECOND",
+          "addTime": "ADDTIME({0},{1})",
+          "subtractTime": "SUBTIME({0},{1})",
+          "dayDiff": "DATEDIFF({0},{1})",
+          "hourDiff": "TIMESTAMPDIFF(HOUR,({0},{1})",
+          "secondDiff": "TIMESTAMPDIFF(SECOND,({0},{1})",
+          "millisecondDiff": "TIMESTAMPDIFF(MICROSECOND,({0},{1})",
+          "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
+          "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
+          "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
+          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
+        },
         "general": {
           "as": "{value} AS {alias}",
           "desc": "{0} desc",
@@ -872,39 +864,6 @@
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
-        "datetime": {
-          "now": "SYSTIMESTAMP",
-          "curtime": "CAST(SYSTIMESTAMP AS TIME)",
-          "today": "TRUNC(SYSDATE)",
-          "datetime": "CAST({0} AS TIMESTAMP)",
-          "date": "CAST({0} AS DATE)",
-          "time": "CAST({0} AS TIME)",
-          "year": "EXTRACT(YEAR FROM {0})",
-          "month": "EXTRACT(MONTH FROM {0})",
-          "day": "DAY(DAY FROM {0})",
-          "weekday": "TO_NUMBER(TO_CHAR({0}, 'D'))",
-          "hour": "EXTRACT(HOUR FROM {0})",
-          "minute": "EXTRACT(MINUTE FROM {0})",
-          "second": "EXTRACT(SECOND FROM {0})",
-          "millisecond": "EXTRACT(MILLISECOND FROM {0})",
-          "addYear": "{0} + interval '{1}' YEAR",
-          "addMonth": "ADD_MONTHS({0},{1})",
-          "addDay": "{0} + {1}",
-          "addHour": "{0} + interval '{1}' HOUR",
-          "addMinute": "{0} + interval '{1}' MINUTE",
-          "addSecond": "{0} + interval '{1}' SECOND",
-          "addMillisecond": "{0} + interval '{1}' MILLISECOND",
-          "addTime": "ADDTIME({0},{1})",
-          "subtractTime": "SUBTIME({0},{1})",
-          "dayDiff": "DATEDIFF({0},{1})",
-          "hourDiff": "TIMESTAMPDIFF(HOUR,({0},{1})",
-          "secondDiff": "TIMESTAMPDIFF(SECOND,({0},{1})",
-          "millisecondDiff": "TIMESTAMPDIFF(MICROSECOND,({0},{1})",
-          "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
-          "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
-          "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-        },
         "convert": {
           "toString": "CAST({0} AS VARCHAR2)",
           "toJson": "json_value({0})",
@@ -932,6 +891,59 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
+      },
+      "formats": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
+      "operators": {
+        "unary": {
+          "-": "- {0}",
+          "~": "~ {0}",
+          "!": "NOT {0}"
+        },
+        "binary": {
+          "+": "({0} + {1})",
+          "-": "({0} - {1})",
+          "*": "({0} * {1})",
+          "/": "({0} / {1})",
+          "**": "POWER({0},{1})",
+          "//": "POWER({0},(1/{1}))",
+          "%": "MOD({0},{1})",
+          "&": "BITAND({0},{1})",
+          "|": "BITOR({0},{1})",
+          "^": "BITXOR({0},{1})",
+          "<<": "{0} << {1}",
+          ">>": "{0} >> {1}",
+          "==": "{0} = {1}",
+          "===": "{0} = {1}",
+          "!=": "{0} <> {1}",
+          "!==": "{0} <> {1}",
+          ">": "{0} > {1}",
+          "<": "{0} < {1}",
+          ">=": "{0} >= {1}",
+          "<=": "{0} <= {1}",
+          "&&": "({0} AND {1})",
+          "||": "({0} OR {1})",
+          "[]": "N/A",
+          "=": "{0} = {1}",
+          "+=": "{0} = ({0} + {1})",
+          "-=": "{0} = ({0} - {1})",
+          "*=": "{0} = ({0} * {1})",
+          "/=": "{0} = ({0} / {1})",
+          "**=": "{0} = POWER({0},{1})",
+          "//=": "{0} = POWER({0},(1/{1}))",
+          "%=": "{0} = MOD({0},{1})",
+          "&=": "{0} = BITAND({0},{1})",
+          "|=": "{0} = BITOR({0},{1})",
+          "^=": "{0} = BITXOR({0},{1})",
+          "<<=": "{0} = {0} << {1}",
+          ">>=": "{0} = {0} >> {1}"
+        },
+        "ternary": {
+          "?": "IF {0} THEN {1} ELSE {2} END"
+        }
       }
     },
     "postgres": {
@@ -952,6 +964,7 @@
         "dropIndex": "DROP INDEX {name}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createTable": "CREATE TABLE {name} ({define})",
+        "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
@@ -965,11 +978,12 @@
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "truncateTable": "TRUNCATE TABLE {name}"
       },
       "dml": {
-        "page": "OFFSET {offset} LIMIT {records}",
+        "page": "{sentence} OFFSET {offset} LIMIT {records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES",
         "map": "SELECT {0}",
@@ -997,7 +1011,8 @@
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
-        "null": "NULL"
+        "null": "NULL",
+        "sequenceNextval": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -1055,6 +1070,10 @@
           "secondToDate": "to_char(TO_TIMESTAMP({0}*1000)::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
           "millisecondToDate": "to_char(TO_TIMESTAMP({0})::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')"
         },
+        "convert": {
+          "toNumber": "CAST({0} AS INTEGER)",
+          "toJson": "json_value({0})"
+        },
         "general": {
           "as": "{value} AS {alias}",
           "desc": "{0} desc",
@@ -1080,11 +1099,6 @@
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
-        },
-        "convert": {
-          "toString": "CAST({0} AS VARCHAR2)",
-          "toJson": "json_value({0})",
-          "toNumber": "CAST({0} AS NUMBER)"
         },
         "metadata": {
           "user": "USER",
@@ -1182,6 +1196,7 @@
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
       "createTable": "CREATE TABLE {name} ({define})",
+      "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
       "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
       "columnDefine": "{name} {type} {nullable} ",
       "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -1196,6 +1211,7 @@
       "alterColumn": "MODIFY {columnDefine}",
       "dropDatabase": "DROP DATABASE IF EXISTS {name}",
       "dropTable": "DROP TABLE IF EXISTS {name}",
+      "dropSequence": "DROP SEQUENCE {name}",
       "dropColumn": "DROP COLUMN {name}",
       "dropPk": "DROP PRIMARY KEY {name}",
       "dropUk": "DROP UNIQUE {name}",
@@ -1213,7 +1229,7 @@
       "having": "HAVING {0}",
       "sort": "ORDER BY {0}",
       "order": "ORDER BY {0}",
-      "page": "LIMIT {offset},{records}",
+      "page": "{sentence} LIMIT {offset},{records}",
       "insert": "INSERT INTO {name}({fields}) VALUES({values})",
       "update": "UPDATE {name} {alias} SET {assings}",
       "remove": "DELETE FROM {name} {alias}",
@@ -1232,7 +1248,8 @@
       "column": "{name}",
       "false": "FALSE",
       "true": "TRUE",
-      "null": "NULL"
+      "null": "NULL",
+      "sequenceNextval": "{name}.nextval"
     },
     "operators": {
       "unary": {

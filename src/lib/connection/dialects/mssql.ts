@@ -114,7 +114,11 @@ export class MssqlConnection extends Connection {
 	}
 
 	public async execute (query:Query):Promise<any> {
-		return await this.executeSentence(query.sentence)
+		return await this._execute(query.sentence, query.parameters)
+	}
+
+	public async executeDDL (query:Query):Promise<any> {
+		return await this.cnx.query(query.sentence)
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {

@@ -91,6 +91,10 @@ export class SqlJsConnection extends Connection {
 		return await this.cnx._query(query)
 	}
 
+	public async executeDDL (query: Query):Promise<any> {
+		return await this.cnx.db.run(query.sentence)
+	}
+
 	public async executeSentence (sentence: any):Promise<any> {
 		return await this.cnx.db.run(sentence)
 	}

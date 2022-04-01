@@ -10,6 +10,12 @@ export class Data {
 		return new Data({}, this)
 	}
 
+	clone (): Data {
+		const _data = JSON.parse(JSON.stringify(this.data))
+		const _parent = this.parent ? this.parent.clone() : null
+		return new Data(_data, _parent)
+	}
+
 	getData (variable:string):any {
 		if (this.data[variable] !== undefined || this.parent == null) return this.data
 		const _context = this.parent.getData(variable)

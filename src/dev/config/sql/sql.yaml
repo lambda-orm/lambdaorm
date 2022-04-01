@@ -8,12 +8,14 @@ types:
   date: DATE
   time: TIME
 formats:
-  datetime: 'yyyy-LL-dd HH:mm:ss'
-  date: 'yyyy-LL-dd'
-  time: 'HH:mm:ss'  
+  # https://moment.github.io/luxon/#/formatting
+  # datetime: 'yyyy-LL-dd HH:mm:ss'
+  # date: 'yyyy-LL-dd'
+  # time: 'HH:mm:ss'  
 ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'
+  createSequence: 'CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1'
   incrementalColumDefine: '{name} {type} {nullable} AUTO_INCREMENT' 
   columnDefine: '{name} {type} {nullable} '
   createPk: 'CONSTRAINT {name} PRIMARY KEY ({columns})'
@@ -28,6 +30,7 @@ ddl:
   alterColumn: 'MODIFY {columnDefine}'
   dropDatabase: 'DROP DATABASE IF EXISTS {name}'
   dropTable: 'DROP TABLE IF EXISTS {name}'
+  dropSequence: 'DROP SEQUENCE {name}'
   dropColumn: 'DROP COLUMN {name}'
   dropPk: 'DROP PRIMARY KEY {name}'
   dropUk: 'DROP UNIQUE {name}'
@@ -44,7 +47,7 @@ dml:
   having: HAVING {0}
   sort: ORDER BY {0}
   order: ORDER BY {0}
-  page: LIMIT {offset},{records} 
+  page: "{sentence} LIMIT {offset},{records}" 
   insert: INSERT INTO {name}({fields}) VALUES({values})
   update: UPDATE {name} {alias} SET {assings} 
   remove: DELETE FROM {name} {alias} 
@@ -63,6 +66,7 @@ others:
   false: 'FALSE'
   true: 'TRUE'
   null: 'NULL'
+  sequenceNextval : '{name}.nextval'
 operators:
   unary:
     '-': '- {0}'
@@ -189,9 +193,6 @@ functions:
     millisecondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
   convert:
     toString: 'CAST({0} AS VARCHAR2)'
-    # toDate: 'CAST({0} AS DATE)'
-    # toDatetime: 'CAST({0} AS TIMESTAMP)'
-    # toTime: 'CAST({0} AS TIME)'
     toJson: 'json_value({0})'
     toNumber: 'CAST({0} AS NUMBER)'
   metadata:

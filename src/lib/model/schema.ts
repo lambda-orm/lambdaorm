@@ -30,6 +30,7 @@ export interface Property {
 	readValue?: string
 	writeValue?: string
 	enum?: string
+	key?: string
 }
 export interface Relation {
 	name: string
@@ -63,6 +64,12 @@ export interface Entity {
 	relations: Relation[]
 	dependents: Dependent[]
 	constraints?: Constraint[]
+	hadReadExps?: boolean
+	hadWriteExps?: boolean
+	hadReadValues?: boolean
+	hadWriteValues?: boolean
+	hadDefaults?: boolean
+	hadViewReadExp?: boolean
 }
 export interface RelationInfo {
 	previousRelation:string
@@ -72,14 +79,15 @@ export interface RelationInfo {
 }
 export interface PropertyMapping extends Property {
 	mapping: string
-	key?: string
 	readMappingExp?: string
 }
 export interface EntityMapping extends Entity {
 	mapping: string
+	sequence:string
 	properties: PropertyMapping[]
-	// TODO: aplicar el filtro de dmlBuilder
 	filter?: string
+	hadKeys?: boolean
+	hadReadMappingExp?:boolean
 }
 export interface Mapping {
 	extends?: string

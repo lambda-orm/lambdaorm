@@ -52,14 +52,14 @@ describe('Metadata', () => {
 		const expression = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const modelExpected :any= []
 		const parametersExpected:any = [{"name":"id","type":"integer"}]
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"===","type":"Operator","children":[{"name":"orderId","type":"Field","children":[],"entity":"OrderDetails","alias":"o"},{"name":"id","type":"Variable","children":[],"number":1}]}]},{"name":"OrderDetails.o","type":"From","children":[]},{"name":"OrderDetails.o","type":"Delete","children":[]}],"fields":[],"parameters":[{"name":"id","type":"integer"}],"entity":"OrderDetails"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"===","classtype":"Operator","children":[{"name":"orderId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o"},{"name":"id","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"}],"type":"any"},{"name":"OrderDetails.o","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[{"name":"id","type":"integer","value":9}],"entity":"OrderDetails","constraints":[]}
 		const constraintsExpected :any= {"entity":"OrderDetails","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -67,14 +67,14 @@ describe('Metadata', () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
 		const modelExpected :any= [{"name":"details","type":"OrderDetails[]","childs":[]}]
 		const parametersExpected:any = [{"name":"id","type":"integer"},{"name":"details","type":"OrderDetails","childs":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}]}]
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"==","type":"Operator","children":[{"name":"id","type":"Field","children":[],"entity":"Orders","alias":"o"},{"name":"id","type":"Variable","children":[],"number":1}]}]},{"name":"Orders.o","type":"From","children":[]},{"name":"Orders.o","type":"Delete","children":[]},{"name":"details","type":"SentenceInclude","children":[{"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"&&","type":"Operator","children":[{"name":"==","type":"Operator","children":[{"name":"orderId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"orderId","type":"Variable","children":[],"number":1}]},{"name":"==","type":"Operator","children":[{"name":"productId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"productId","type":"Variable","children":[],"number":2}]}]}]},{"name":"OrderDetails.o1","type":"From","children":[]},{"name":"OrderDetails.o1","type":"Delete","children":[]}],"fields":[],"parameters":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}],"entity":"OrderDetails"}],"relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"fields":[],"parameters":[{"name":"id","type":"integer"}],"entity":"Orders"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Orders","alias":"o"},{"name":"id","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"}],"type":"any"},{"name":"Orders.o","classtype":"From","children":[],"type":"any"},{"name":"Orders.o","classtype":"Delete","children":[],"type":"any"},{"name":"details","classtype":"SentenceInclude","children":[{"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"&&","classtype":"Operator","children":[{"name":"==","classtype":"Operator","children":[{"name":"orderId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"orderId","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"},{"name":"==","classtype":"Operator","children":[{"name":"productId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"productId","classtype":"Variable","children":[],"type":"integer","number":2}],"type":"any"}],"type":"any"}],"type":"any"},{"name":"OrderDetails.o1","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o1","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[{"name":"orderId","type":"integer","value":4},{"name":"productId","type":"integer","value":77}],"entity":"OrderDetails","constraints":[]}],"type":"any","relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"type":"any","columns":[],"parameters":[{"name":"id","type":"integer","value":4}],"entity":"Orders","constraints":[]}
 		const constraintsExpected :any= {"entity":"Orders","constraints":[],"childs":[{"entity":"OrderDetails","constraints":[]}]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -82,14 +82,14 @@ describe('Metadata', () => {
 		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
 		const modelExpected :any= [{"name":"details","type":"OrderDetails[]","childs":[]}]
 		const parametersExpected:any = [{"name":"id","type":"integer"},{"name":"details","type":"OrderDetails","childs":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}]}]
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"===","type":"Operator","children":[{"name":"id","type":"Field","children":[],"entity":"Orders","alias":"o"},{"name":"id","type":"Variable","children":[],"number":1}]}]},{"name":"Orders.o","type":"From","children":[]},{"name":"Orders.o","type":"Delete","children":[]},{"name":"details","type":"SentenceInclude","children":[{"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"&&","type":"Operator","children":[{"name":"==","type":"Operator","children":[{"name":"orderId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"orderId","type":"Variable","children":[],"number":1}]},{"name":"==","type":"Operator","children":[{"name":"productId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"productId","type":"Variable","children":[],"number":2}]}]}]},{"name":"OrderDetails.o1","type":"From","children":[]},{"name":"OrderDetails.o1","type":"Delete","children":[]}],"fields":[],"parameters":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}],"entity":"OrderDetails"}],"relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"fields":[],"parameters":[{"name":"id","type":"integer"}],"entity":"Orders"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"===","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Orders","alias":"o"},{"name":"id","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"}],"type":"any"},{"name":"Orders.o","classtype":"From","children":[],"type":"any"},{"name":"Orders.o","classtype":"Delete","children":[],"type":"any"},{"name":"details","classtype":"SentenceInclude","children":[{"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"&&","classtype":"Operator","children":[{"name":"==","classtype":"Operator","children":[{"name":"orderId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"orderId","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"},{"name":"==","classtype":"Operator","children":[{"name":"productId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"productId","classtype":"Variable","children":[],"type":"integer","number":2}],"type":"any"}],"type":"any"}],"type":"any"},{"name":"OrderDetails.o1","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o1","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[{"name":"orderId","type":"integer","value":2},{"name":"productId","type":"integer","value":63}],"entity":"OrderDetails","constraints":[]}],"type":"any","relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"type":"any","columns":[],"parameters":[{"name":"id","type":"integer","value":2}],"entity":"Orders","constraints":[]}
 		const constraintsExpected :any= {"entity":"Orders","constraints":[],"childs":[{"entity":"OrderDetails","constraints":[]}]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -97,14 +97,14 @@ describe('Metadata', () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
 		const modelExpected :any= [{"name":"details","type":"OrderDetails[]","childs":[]}]
 		const parametersExpected:any = [{"name":"id","type":"integer"},{"name":"details","type":"OrderDetails","childs":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}]}]
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"==","type":"Operator","children":[{"name":"id","type":"Field","children":[],"entity":"Orders","alias":"o"},{"name":"id","type":"Variable","children":[],"number":1}]}]},{"name":"Orders.o","type":"From","children":[]},{"name":"Orders.o","type":"Delete","children":[]},{"name":"details","type":"SentenceInclude","children":[{"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"&&","type":"Operator","children":[{"name":"==","type":"Operator","children":[{"name":"orderId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"orderId","type":"Variable","children":[],"number":1}]},{"name":"==","type":"Operator","children":[{"name":"productId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"productId","type":"Variable","children":[],"number":2}]}]}]},{"name":"OrderDetails.o1","type":"From","children":[]},{"name":"OrderDetails.o1","type":"Delete","children":[]}],"fields":[],"parameters":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}],"entity":"OrderDetails"}],"relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"fields":[],"parameters":[{"name":"id","type":"integer"}],"entity":"Orders"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Orders","alias":"o"},{"name":"id","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"}],"type":"any"},{"name":"Orders.o","classtype":"From","children":[],"type":"any"},{"name":"Orders.o","classtype":"Delete","children":[],"type":"any"},{"name":"details","classtype":"SentenceInclude","children":[{"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"&&","classtype":"Operator","children":[{"name":"==","classtype":"Operator","children":[{"name":"orderId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"orderId","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"},{"name":"==","classtype":"Operator","children":[{"name":"productId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"productId","classtype":"Variable","children":[],"type":"integer","number":2}],"type":"any"}],"type":"any"}],"type":"any"},{"name":"OrderDetails.o1","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o1","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[{"name":"orderId","type":"integer","value":4},{"name":"productId","type":"integer","value":77}],"entity":"OrderDetails","constraints":[]}],"type":"any","relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"type":"any","columns":[],"parameters":[{"name":"id","type":"integer","value":4}],"entity":"Orders","constraints":[]}
 		const constraintsExpected :any= {"entity":"Orders","constraints":[],"childs":[{"entity":"OrderDetails","constraints":[]}]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -112,14 +112,14 @@ describe('Metadata', () => {
 		const expression = 'OrderDetails.delete(entity)'
 		const modelExpected :any= []
 		const parametersExpected:any = [{"name":"entity.orderId","type":"integer"},{"name":"entity.productId","type":"integer"}]
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"&&","type":"Operator","children":[{"name":"==","type":"Operator","children":[{"name":"orderId","type":"Field","children":[],"entity":"OrderDetails","alias":"o"},{"name":"entity.orderId","type":"Variable","children":[],"number":1}]},{"name":"==","type":"Operator","children":[{"name":"productId","type":"Field","children":[],"entity":"OrderDetails","alias":"o"},{"name":"entity.productId","type":"Variable","children":[],"number":2}]}]}]},{"name":"OrderDetails.o","type":"From","children":[]},{"name":"OrderDetails.o","type":"Delete","children":[]}],"fields":[],"parameters":[{"name":"entity.orderId","type":"integer"},{"name":"entity.productId","type":"integer"}],"entity":"OrderDetails"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"&&","classtype":"Operator","children":[{"name":"==","classtype":"Operator","children":[{"name":"orderId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o"},{"name":"entity.orderId","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"},{"name":"==","classtype":"Operator","children":[{"name":"productId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o"},{"name":"entity.productId","classtype":"Variable","children":[],"type":"integer","number":2}],"type":"any"}],"type":"any"}],"type":"any"},{"name":"OrderDetails.o","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[{"name":"entity.orderId","type":"integer","value":null},{"name":"entity.productId","type":"integer","value":null}],"entity":"OrderDetails","constraints":[]}
 		const constraintsExpected :any= {"entity":"OrderDetails","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -127,14 +127,14 @@ describe('Metadata', () => {
 		const expression = 'Orders.delete(entity).include(p=>p.details)'
 		const modelExpected :any= [{"name":"details","type":"OrderDetails[]","childs":[]}]
 		const parametersExpected:any = [{"name":"entity.id","type":"integer"},{"name":"details","type":"OrderDetails","childs":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}]}]
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"==","type":"Operator","children":[{"name":"id","type":"Field","children":[],"entity":"Orders","alias":"o"},{"name":"entity.id","type":"Variable","children":[],"number":1}]}]},{"name":"Orders.o","type":"From","children":[]},{"name":"Orders.o","type":"Delete","children":[]},{"name":"details","type":"SentenceInclude","children":[{"name":"delete","type":"Sentence","children":[{"name":"filter","type":"Filter","children":[{"name":"&&","type":"Operator","children":[{"name":"==","type":"Operator","children":[{"name":"orderId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"orderId","type":"Variable","children":[],"number":1}]},{"name":"==","type":"Operator","children":[{"name":"productId","type":"Field","children":[],"entity":"OrderDetails","alias":"o1"},{"name":"productId","type":"Variable","children":[],"number":2}]}]}]},{"name":"OrderDetails.o1","type":"From","children":[]},{"name":"OrderDetails.o1","type":"Delete","children":[]}],"fields":[],"parameters":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}],"entity":"OrderDetails"}],"relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"fields":[],"parameters":[{"name":"entity.id","type":"integer"}],"entity":"Orders"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Orders","alias":"o"},{"name":"entity.id","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"}],"type":"any"},{"name":"Orders.o","classtype":"From","children":[],"type":"any"},{"name":"Orders.o","classtype":"Delete","children":[],"type":"any"},{"name":"details","classtype":"SentenceInclude","children":[{"name":"delete","classtype":"Sentence","children":[{"name":"filter","classtype":"Filter","children":[{"name":"&&","classtype":"Operator","children":[{"name":"==","classtype":"Operator","children":[{"name":"orderId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"orderId","classtype":"Variable","children":[],"type":"integer","number":1}],"type":"any"},{"name":"==","classtype":"Operator","children":[{"name":"productId","classtype":"Field","children":[],"type":"integer","entity":"OrderDetails","alias":"o1"},{"name":"productId","classtype":"Variable","children":[],"type":"integer","number":2}],"type":"any"}],"type":"any"}],"type":"any"},{"name":"OrderDetails.o1","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o1","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[{"name":"orderId","type":"integer"},{"name":"productId","type":"integer"}],"entity":"OrderDetails","constraints":[]}],"type":"any","relation":{"name":"details","type":"manyToOne","composite":true,"from":"id","entity":"OrderDetails","weak":true,"to":"orderId","target":"order"}}],"type":"any","columns":[],"parameters":[{"name":"entity.id","type":"integer","value":null}],"entity":"Orders","constraints":[]}
 		const constraintsExpected :any= {"entity":"Orders","constraints":[],"childs":[{"entity":"OrderDetails","constraints":[]}]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -142,14 +142,14 @@ describe('Metadata', () => {
 		const expression = 'OrderDetails.deleteAll()'
 		const modelExpected :any= []
 		const parametersExpected:any = []
-		const metadataExpected :any= {"name":"delete","type":"Sentence","children":[{"name":"OrderDetails.o","type":"From","children":[]},{"name":"OrderDetails.o","type":"Delete","children":[]}],"fields":[],"parameters":[],"entity":"OrderDetails"}
+		const metadataExpected :any= {"name":"delete","classtype":"Sentence","children":[{"name":"OrderDetails.o","classtype":"From","children":[],"type":"any"},{"name":"OrderDetails.o","classtype":"Delete","children":[],"type":"any"}],"type":"any","columns":[],"parameters":[],"entity":"OrderDetails","constraints":[]}
 		const constraintsExpected :any= {"entity":"OrderDetails","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
 		const constraints = orm.constraints(expression)
 		const metadata = orm.metadata(expression)
 		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.fields).toStrictEqual(metadata.fields)
+		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
@@ -157,23 +157,65 @@ describe('Metadata', () => {
 describe('Sentences', () => {
 	test('delete 1', async () => {
 		const expression = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
+		const mysqlExpected = {"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? ","childs":[]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o WHERE o.OrderID = $1 ","childs":[]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
+		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
+		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
+		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
+		const mysqlExpected = {"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND o.ProductID = ?) ","childs":[]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o WHERE (o.OrderID = $1 AND o.ProductID = $2) ","childs":[]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p=>p.details)'
+		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
+		const mysqlExpected = {"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM `Order Details` AS o ","childs":[]}
+		let mysql = orm.sentence(expression,'default','mysql')
+		expect(mysqlExpected).toStrictEqual(mysql)
+		const postgresExpected = {"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o ","childs":[]}
+		let postgres = orm.sentence(expression,'default','postgres')
+		expect(postgresExpected).toStrictEqual(postgres)
 	})
 })

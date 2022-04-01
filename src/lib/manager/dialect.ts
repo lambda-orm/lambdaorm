@@ -41,7 +41,7 @@ export class Dialect {
 		return this._ddl[name]
 	}
 
-	public type (name:string):string {
+	public type (name: string): string {
 		return this._types[name]
 	}
 
@@ -57,17 +57,17 @@ export class Dialect {
 
 	public solveDateTime (value:any):string {
 		const format = this._formats.datetime
-		return Helper.dateFormat(value, format)
+		return format ? Helper.dateFormat(value, format) : value
 	}
 
 	public solveDate (value:any):string {
 		const format = this._formats.date
-		return Helper.dateFormat(value, format)
+		return format ? Helper.dateFormat(value, format) : value
 	}
 
 	public solveTime (value:any):string {
 		const format = this._formats.time
-		return Helper.dateFormat(value, format)
+		return format ? Helper.dateFormat(value, format) : value
 	}
 
 	public add (dialect:any):void {

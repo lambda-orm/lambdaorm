@@ -3,8 +3,10 @@ data:
   a:
     - name: Beverages4
       description: Soft drinks, coffees, teas, beers, and ales
+      id: 12
     - name: Condiments4
       description: Sweet and savory sauces, relishes, spreads, and seasonings
+      id: 13
   b:
     - customerId: ALFKI
       employeeId: 6
@@ -24,14 +26,18 @@ data:
           unitPrice: '45.6000'
           quantity: 15
           discount: 0
+          orderId: 834
         - productId: 39
           unitPrice: '18.0000'
           quantity: 21
           discount: 0
+          orderId: 834
         - productId: 46
           unitPrice: '12.0000'
           quantity: 2
           discount: 0
+          orderId: 834
+      id: 834
     - customerId: ALFKI
       employeeId: 4
       orderDate: '1997-10-02T22:00:00.000Z'
@@ -50,6 +56,8 @@ data:
           unitPrice: '43.9000'
           quantity: 20
           discount: 0
+          orderId: 835
+      id: 835
     - customerId: ALFKI
       employeeId: 4
       orderDate: '1997-10-12T22:00:00.000Z'
@@ -68,21 +76,39 @@ data:
           unitPrice: '10.0000'
           quantity: 6
           discount: 0
+          orderId: 836
         - productId: 76
           unitPrice: '18.0000'
           quantity: 15
           discount: 0
+          orderId: 836
+      id: 836
 test:
   - name: bulkInsert 1
     data: a
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Categories
+          dialect: mysql
+          dataSource: mysql
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
+          childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Categories
+          dialect: postgres
+          dataSource: postgres
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES
+          childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Categories
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES ?
+          childs: []
+    errors: 0
     expression: Categories.bulkInsert()
     normalizeExpression: Categories.bulkInsert({name:name,description:description})
     model:
@@ -102,35 +128,43 @@ test:
           condition: isNotNull(name)
     metadata:
       name: bulkInsert
-      type: Sentence
+      classtype: Sentence
       children:
         - name: Categories.c
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: Categories
-          type: Insert
+          classtype: Insert
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 1
+                  type: any
                   property: name
                 - name: description
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: description
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 2
+                  type: any
                   property: description
-          sentence: bulkInsert
-      fields:
+              type: object
+          type: any
+          clause: bulkInsert
+      type: any
+      columns:
         - name: name
           type: string
         - name: description
@@ -141,23 +175,71 @@ test:
         - name: description
           type: string
       entity: Categories
+      constraints:
+        - message: Cannot be null property name in entity Categories
+          condition: isNotNull(name)
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
+    result:
+      - 12
+      - 13
   - name: bulkInsert 2
     data: b
     sentences:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
+        sentence:
+          entity: Orders
+          dialect: mysql
+          dataSource: mysql
+          sentence: >-
+            INSERT INTO
+            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES ?
+          childs:
+            - entity: OrderDetails
+              dialect: mysql
+              dataSource: mysql
+              sentence: >-
+                INSERT INTO `Order
+                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
+              childs: []
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
+        sentence:
+          entity: Orders
+          dialect: postgres
+          dataSource: postgres
+          sentence: >-
+            INSERT INTO
+            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES
+          childs:
+            - entity: OrderDetails
+              dialect: postgres
+              dataSource: postgres
+              sentence: >-
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES
+              childs: []
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-    errors: 6
+        sentence:
+          entity: Orders
+          dialect: mariadb
+          dataSource: mariadb
+          sentence: >-
+            INSERT INTO
+            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES ?
+          childs:
+            - entity: OrderDetails
+              dialect: mariadb
+              dataSource: mariadb
+              sentence: >-
+                INSERT INTO `Order
+                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?
+              childs: []
+    errors: 0
     expression: Orders.bulkInsert().include(p=>p.details)
     normalizeExpression: >-
       Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
@@ -257,179 +339,222 @@ test:
               condition: isNotNull(productId)
     metadata:
       name: bulkInsert
-      type: Sentence
+      classtype: Sentence
       children:
         - name: Orders.o
-          type: From
+          classtype: From
           children: []
+          type: any
         - name: Orders
-          type: Insert
+          classtype: Insert
           children:
             - name: obj
-              type: Obj
+              classtype: Obj
               children:
                 - name: customerId
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: customerId
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 1
+                  type: any
                   property: customerId
                 - name: employeeId
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: employeeId
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: integer
                       number: 2
+                  type: any
                   property: employeeId
                 - name: orderDate
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: orderDate
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: datetime
                       number: 3
+                  type: any
                   property: orderDate
                 - name: requiredDate
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: requiredDate
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: datetime
                       number: 4
+                  type: any
                   property: requiredDate
                 - name: shippedDate
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: shippedDate
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: datetime
                       number: 5
+                  type: any
                   property: shippedDate
                 - name: shipViaId
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: shipViaId
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: integer
                       number: 6
+                  type: any
                   property: shipViaId
                 - name: freight
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: freight
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: decimal
                       number: 7
+                  type: any
                   property: freight
                 - name: name
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: name
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 8
+                  type: any
                   property: name
                 - name: address
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: address
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 9
+                  type: any
                   property: address
                 - name: city
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: city
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 10
+                  type: any
                   property: city
                 - name: region
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: region
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 11
+                  type: any
                   property: region
                 - name: postalCode
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: postalCode
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 12
+                  type: any
                   property: postalCode
                 - name: country
-                  type: KeyValue
+                  classtype: KeyValue
                   children:
                     - name: country
-                      type: Variable
+                      classtype: Variable
                       children: []
+                      type: string
                       number: 13
+                  type: any
                   property: country
-          sentence: bulkInsert
+              type: object
+          type: any
+          clause: bulkInsert
         - name: details
-          type: SentenceInclude
+          classtype: SentenceInclude
           children:
             - name: bulkInsert
-              type: Sentence
+              classtype: Sentence
               children:
                 - name: OrderDetails.o1
-                  type: From
+                  classtype: From
                   children: []
+                  type: any
                 - name: OrderDetails
-                  type: Insert
+                  classtype: Insert
                   children:
                     - name: obj
-                      type: Obj
+                      classtype: Obj
                       children:
                         - name: orderId
-                          type: KeyValue
+                          classtype: KeyValue
                           children:
                             - name: orderId
-                              type: Variable
+                              classtype: Variable
                               children: []
+                              type: integer
                               number: 1
+                          type: any
                           property: orderId
                         - name: productId
-                          type: KeyValue
+                          classtype: KeyValue
                           children:
                             - name: productId
-                              type: Variable
+                              classtype: Variable
                               children: []
+                              type: integer
                               number: 2
+                          type: any
                           property: productId
                         - name: unitPrice
-                          type: KeyValue
+                          classtype: KeyValue
                           children:
                             - name: unitPrice
-                              type: Variable
+                              classtype: Variable
                               children: []
+                              type: decimal
                               number: 3
+                          type: any
                           property: unitPrice
                         - name: quantity
-                          type: KeyValue
+                          classtype: KeyValue
                           children:
                             - name: quantity
-                              type: Variable
+                              classtype: Variable
                               children: []
+                              type: decimal
                               number: 4
+                          type: any
                           property: quantity
                         - name: discount
-                          type: KeyValue
+                          classtype: KeyValue
                           children:
                             - name: discount
-                              type: Variable
+                              classtype: Variable
                               children: []
+                              type: decimal
                               number: 5
+                          type: any
                           property: discount
-                  sentence: bulkInsert
-              fields:
+                      type: object
+                  type: any
+                  clause: bulkInsert
+              type: any
+              columns:
                 - name: orderId
                   type: integer
                 - name: productId
@@ -452,6 +577,12 @@ test:
                 - name: discount
                   type: decimal
               entity: OrderDetails
+              constraints:
+                - message: Cannot be null property orderId in entity OrderDetails
+                  condition: isNotNull(orderId)
+                - message: Cannot be null property productId in entity OrderDetails
+                  condition: isNotNull(productId)
+          type: any
           relation:
             name: details
             type: manyToOne
@@ -461,7 +592,8 @@ test:
             weak: true
             to: orderId
             target: order
-      fields:
+      type: any
+      columns:
         - name: customerId
           type: string
         - name: employeeId
@@ -516,11 +648,17 @@ test:
         - name: country
           type: string
       entity: Orders
+      constraints:
+        - message: Cannot be null property customerId in entity Orders
+          condition: isNotNull(customerId)
+        - message: Cannot be null property employeeId in entity Orders
+          condition: isNotNull(employeeId)
     executions:
       - stage: mysql
-        error: 'SchemaError: View: mysql not found'
       - stage: postgres
-        error: 'SchemaError: View: postgres not found'
       - stage: mariadb
-        error: 'SchemaError: View: mariadb not found'
-errors: 12
+    result:
+      - 834
+      - 835
+      - 836
+errors: 0

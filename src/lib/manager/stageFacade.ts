@@ -6,6 +6,7 @@ import { StageClean } from '../stage/stageClean'
 import { StageExport } from '../stage/stageExport'
 import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
+import { StageDelete } from '../stage/stageDelete'
 import { Helper } from './helper'
 import { SchemaError, Stage, View } from './../model'
 
@@ -60,6 +61,12 @@ export class StageFacade {
 	public truncate (name?:string):StageClean {
 		const stage = this.getStage(name)
 		return new StageTruncate(this.state, this.schemaManager, this.routing, this.languages, this.executor, stage.name)
+	}
+
+	public delete (name?:string, view?:string):StageDelete {
+		const stage = this.getStage(name)
+		const _view = this.getView(view)
+		return new StageDelete(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name, _view.name)
 	}
 
 	public export (name?:string, view?:string):StageExport {

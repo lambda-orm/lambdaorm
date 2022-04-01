@@ -1,4 +1,4 @@
-import { Constraint, Property, Relation } from './schema'
+import { Behavior, Constraint, Property, Relation } from './schema'
 import { Parameter } from './parameter'
 
 export interface MetadataParameter
@@ -33,15 +33,19 @@ export interface MetadataSentence
 
 export interface Metadata
 {
+	classtype: string,
 	name: string,
-	type: string,
-	entity?: string,
 	children?: Metadata[],
-	fields?: Property[],
+	type?: string,
+	entity?: string,
+	columns?: Property[],
 	property?:string
 	parameters?: Parameter[],
+	constraints?: Constraint[],
+	values?: Behavior[],
+	defaults?:Behavior[],
 	relation?: Relation,
-	sentence?: string,
+	clause?: string,
 	alias?: string,
 	number?:number
 }

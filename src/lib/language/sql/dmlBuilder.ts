@@ -27,8 +27,6 @@ export class SqlDMLBuilder {
 	private buildOperand (operand: Operand): string {
 		if (operand instanceof Sentence) {
 			return this.buildSentence(operand)
-		} else if (operand instanceof Page) {
-			return this.buildPage(operand)
 		} else if (operand instanceof ArrowFunction) {
 			return this.buildArrowFunction(operand)
 		} else if (operand instanceof FunctionRef) {
@@ -76,10 +74,8 @@ export class SqlDMLBuilder {
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		if (groupBy)text = text + this.buildArrowFunction(groupBy) + ' '
 		if (having)text = text + this.buildArrowFunction(having) + ' '
-		if (sort) {
-			text = text + this.buildArrowFunction(sort) + ' '
-		}
-		if (page)text = text + this.buildPage(page) + ' '
+		if (sort) text = text + this.buildArrowFunction(sort) + ' '
+		if (page)text = this.buildPage(text, page)
 		return text
 	}
 
@@ -118,12 +114,18 @@ export class SqlDMLBuilder {
 		const templateColumn = this.dialect.other('column')
 		const fields:string[] = []
 		const values: any[] = []
+
 		const autoincrement = this.mapping.getAutoincrement(entity)
-		const entityMapping = this.mapping.entityMapping(entity)
+		const entityMapping = this.mapping.getEntity(entity)
 		if (entityMapping === undefined) {
 			throw new SchemaError(`mapping undefined on ${entity} entity`)
 		}
 
+		if (autoincrement && entityMapping.sequence) {
+			const templateSequenceNextval = this.dialect.other('sequenceNextval')
+			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoincrement.mapping)))
+			values.push(templateSequenceNextval.replace('{name}', entityMapping.sequence))
+		}
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
@@ -140,7 +142,8 @@ export class SqlDMLBuilder {
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
-		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
+
+		template = template.replace('{name}', this.dialect.delimiter(entityMapping.mapping))
 		template = template.replace('{fields}', fields.join(','))
 		template = template.replace('{values}', values.join(','))
 		template = template.replace('{autoincrementField}', autoincrement && autoincrement.mapping ? autoincrement.mapping : '0')
@@ -200,11 +203,12 @@ export class SqlDMLBuilder {
 		return template.trim() + ' '
 	}
 
-	private buildPage (operand:Page):string {
+	private buildPage (sentence:string, operand:Page):string {
 		let template = this.dialect.dml('page')
 		let page = parseInt(operand.children[1].name)
 		const records = parseInt(operand.children[2].name)
-		if (page < 1)page = 1
+		if (page < 1) page = 1
+		template = template.replace('{sentence}', sentence)
 		template = template.replace('{offset}', ((page - 1) * records).toString())
 		template = Helper.replace(template, '{records}', records.toString())
 		return template.trim() + ' '
