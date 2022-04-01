@@ -26,6 +26,12 @@
 		"model.ts",
 		"stageDelete.ts"
 	],
+	"ignoreRules": {
+		"TS2307": true,
+		"TS2339": true,
+		"TS2551": true,
+		"TS2554": true
+	},
 	"errorReporting": {
 		"excludeCodes": [
 			2307,
