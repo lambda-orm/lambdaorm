@@ -1,13 +1,12 @@
 import { Query, Entity, Relation, SchemaError } from '../model'
 import { StageActionDML } from './StageActionDML'
-import { ExpressionManager, Executor, ModelConfig } from './../manager'
-import { StageState } from './stageState'
+// import { ExpressionManager, Executor, ModelConfig } from './../manager'
+// import { StageState } from './stageState'
 
 export class StageDelete extends StageActionDML {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage: string, view: string) {
-		super(state, model, expressionManager, executor, stage, view)
-	}
+// constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage: string, view: string) {
+// super(state, model, expressionManager, executor, stage, view)
+// }
 
 	public async execute (): Promise<void> {
 		const queries = this.build()
