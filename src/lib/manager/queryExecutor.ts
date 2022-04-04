@@ -62,7 +62,12 @@ export class QueryExecutor {
 
 	public async execute (query: Query, data: any): Promise<any> {
 		const _data = new Data(data)
-		return await this._execute(query, _data)
+		if (['insert', 'update', 'bulkInsert'].includes(query.name)) {
+			await this._execute(query, _data)
+			return _data
+		} else {
+			return await this._execute(query, _data)
+		}
 	}
 
 	private async _execute (query:Query, data:Data):Promise<any> {

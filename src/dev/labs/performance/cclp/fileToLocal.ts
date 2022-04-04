@@ -150,8 +150,8 @@ async function _import () {
 	const lamMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/lamMapping.json') as string)
 	const dbMapping: any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/dbMapping.json') as string)
 
-	const source:any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/Request-importDebtors-1000-records.json') as string)
-	const debtors = toDbDebtor(source.messages as Message[], locMapping, pmMapping, prMapping, lamMapping, dbMapping)
+	const messages:any = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/debtors-022-10000-records.json') as string)
+	const debtors = toDbDebtor(messages as Message[], locMapping, pmMapping, prMapping, lamMapping, dbMapping)
 
 	let start = new Date().getTime()
 	await orm.execute(expDebtorsImport, debtors, view, locStage)
@@ -482,6 +482,126 @@ function getName (debtor: Debtor): string {
 	}
 }
 
+async function  createFile(key:string,count: number) { 
+
+	const messages: Message[]=[] 
+	for (let i = 0; i < count; i++) {
+		messages.push(createDebtorExample(key+i))
+	}
+	await Helper.writeFile(sourcePath + `/confidentional_data/debtors-${key}-${count}-records.json`,JSON.stringify(messages))
+}
+
+function createDebtorExample(nro:string): any { 
+		return {
+        entity: "debtor",
+        identifier: "9999"+nro,
+        action: "save",
+        reference: "",
+        batchId: "6BTCH_20220402"+nro,
+        requester: "360",
+        priority: "normal","uniqueKey":"",
+        processContext:[{
+            key: "PROCESS_TYPE",
+            value: "daily"
+        }],
+        businessData: {
+            referenceCode: "9999"+nro,
+            provider: "360",
+            debtorType: "N",
+            debtorSubtype: "",
+            identifications: [{
+                identificationTypeCode: "1",
+                identificationValue: "9999"+nro
+            }],
+            individual: {
+                givenNames: "JULL GUILIANO "+nro,
+                firstFamilyName: "ELIAS "+nro,
+                secondFamilyName: "PARIONA "+nro,
+                legalName: "JULL GUILIANO CASTAÑEDA PARIONA "+nro,
+                birthDate: "1987-11-17",
+                gender: "",
+                civilStatus: "",
+                nationalityCode: "PER"
+            },
+            contactMediums: [],
+            addresses: [{
+                countryCode: "PER",
+                provinceCode: "51-11-3",
+                departmentCode: "51-11",
+                districtCode: "51-11-3-5",
+                city: "",
+                streetName: "CASN CALLE CHINCHA 457",
+                streetNrFirst: "",
+                postalCode: "01",
+                additionalData: " CASN CALLE CHINCHA 457  ,VISTA ALEGRE ,NAZCA ,ICA ,PERU"
+            }],
+            additionalInfo:{
+                dataInfo1: "",
+                dataInfo2: "",
+                dataInfo3: ""
+            },
+            accounts: [{
+                action: "save",
+                referenceCode: "6BSCSIX-9999"+nro,                
+                provider: "BSCSIX",
+                additionalData: "",
+                creationDate: "2016-08-12",
+                endDate: "",
+                billCycle: "14",
+                creditorCode: "AMX",
+                subscriptions: [{
+                    action: "save",
+                    referenceCode: "6CO_ID_9999"+nro,
+                    contractNumber: "15034014",
+                    name: "1-B-MAX 75.00-(claroMax_Internacional_75_CROne)",
+                    type: "S",
+                    subType:"001",
+                    serialNumber: "9999"+nro,
+                    activationDate: "2016-08-12",
+                    deactivationDate: "2021-10-29",
+                    productOfferingId: "SP02396",
+                    productBundleId: ""
+                }],
+                paymentResponsibles: [{
+                    action: "save",
+                    referenceCode: "6DEB-9999"+nro,                    
+                    givenNames: "JULL GUILIANO "+nro,
+                    firstFamilyName: "ELIAS "+nro,
+                    secondFamilyName:"PARIONA "+nro,
+                    legalName: "JULL GUILIANO CASTA�EDA PARIONA "+nro,
+                    order: "1",
+                    paymentMethod: {
+                        type: "00",
+                        account: "",
+                        bank: "",
+                        cardExpirationYear: "",
+                        cardExpirationMonth: "",
+                        cardName: "",
+                        cardNumber: ""
+                    },
+                    contactMediums: [],
+                    addresses: [{
+											countryCode: "PER",
+											provinceCode: "51-11-3",
+											departmentCode: "51-11",
+											districtCode: "51-11-3-5",
+											city: "",
+											streetName: "CASN CALLE CHINCHA 457",
+											streetNrFirst: "",
+											postalCode: "01",
+											additionalData: " CASN CALLE CHINCHA 457  ,VISTA ALEGRE ,NAZCA ,ICA ,PERU"
+									}]
+                }],
+                additionalInfo:{
+                    dataInfo1: "",
+                    dataInfo2: "",
+                    dataInfo3: ""
+                }
+            }]
+        }
+	}
+}
+
 async function execute () {
 	try {
 		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
@@ -493,6 +613,12 @@ async function execute () {
 		await _import()
 		// await exportLocal()
 		// await sentence()
+		// await createFile('020', 10000)
+		// await createFile('021', 10000)
+		// await createFile('022', 10000)
+		// await createFile('023',5000)
+		// await createFile('024',5000)
+		// await createFile('025',5000)
 	} catch (error: any) {
 		console.error(error)
 	} finally {
