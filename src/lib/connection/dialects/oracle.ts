@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Parameter, Query } from '../../model'
+import { SchemaError, Parameter, Query, ExecutionError } from '../../model'
 import { Helper } from '../../manager/helper'
 import { MappingConfig } from '../../manager'
 
@@ -165,7 +165,7 @@ export class OracleConnection extends Connection {
 			const result = await this.cnx.executeMany(sql, binds, options)
 
 			if (result.rowsAffected !== binds.length) {
-				throw Error(`${binds.length - result.rowsAffected} records not imported!`)
+				throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
 			}
 
 			if (fieldId && fieldIdKey) {
