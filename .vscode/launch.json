@@ -91,7 +91,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/labs/mongo/lab.js"
+			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
 		},
 		{
 			"name": "lab sync",

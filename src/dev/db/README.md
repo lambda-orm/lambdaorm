@@ -7,12 +7,12 @@ linux:
 ``` sh
 docker volume create --name source --opt type=none --opt device=~/volumes/source --opt o=bind
 docker volume create --name mysql --opt type=none --opt device=~/volumes/mysql --opt o=bind
-docker volume create --name mariadb-data --opt type=none --opt device=~/volumes/mariadb/data --opt o=bind
-docker volume create --name mariadb-log --opt type=none --opt device=~/volumes/mariadb/log --opt o=bind
-docker volume create --name postgres --opt type=none --opt device=~/volumes/postgres --opt o=bind
+docker volume create --name mariadb-data --opt type=none --opt device=~/volumes/mariadb-data --opt o=bind
+docker volume create --name mariadb-log --opt type=none --opt device=~/volumes/mariadb-log --opt o=bind
+docker volume create --name postgres-data --opt type=none --opt device=~/volumes/postgres-data --opt o=bind
 docker volume create --name mssql --opt type=none --opt device=~/volumes/mssql --opt o=bind
 docker volume create --name mongodb --opt type=none --opt device=~/volumes/mongodb --opt o=bind
-docker volume create --name oradata --opt type=none --opt device=~/volumes/oracle --opt o=bind
+docker volume create --name oradata --opt type=none --opt device=~/volumes/oradata --opt o=bind
 ```
 
 windows:
@@ -20,9 +20,9 @@ windows:
 ``` bat
 docker volume create --name source --opt type=none --opt device=C:\volumes\source --opt o=bind
 docker volume create --name mysql --opt type=none --opt device=C:\volumes\mysql --opt o=bind
-docker volume create --name mariadb-data --opt type=none --opt device=C:\volumes\mariadb\data --opt o=bind
-docker volume create --name mariadb-log --opt type=none --opt device=C:\volumes\mariadb\log --opt o=bind
-docker volume create --name postgres --opt type=none --opt device=C:\volumes\postgres --opt o=bind
+docker volume create --name mariadb-data --opt type=none --opt device=C:\volumes\mariadb-data --opt o=bind
+docker volume create --name mariadb-log --opt type=none --opt device=C:\volumes\mariadb-log --opt o=bind
+docker volume create --name postgres-data --opt type=none --opt device=C:\volumes\postgres-data --opt o=bind
 docker volume create --name mssql --opt type=none --opt device=C:\volumes\mssql --opt o=bind
 docker volume create --name mongodb --opt type=none --opt device=C:\volumes\mongodb --opt o=bind
 docker volume create --name oradata --opt type=none --opt device=C:\volumes\oradata --opt o=bind
@@ -52,7 +52,28 @@ docker exec lambdaorm-mysql-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot
 docker exec lambdaorm-mariadb-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
 docker exec lambdaorm-mariadb-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-docker exec lambdaorm-mssql-2019 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
+docker exec lambdaorm-mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
+```
+
+### Postgres
+
+```sql
+CREATE ROLE "northwind" SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'northwind';
+```
+
+### Oracle
+
+Conexion:
+
+- port: 1521
+- sid: ORCLCDB
+- user: system
+- password: SYSTEM
+
+```sql
+alter session set "_ORACLE_SCRIPT"=true;
+create user northwind identified by northwind;
+GRANT create session,create table,create view,create sequence TO northwind;
 ```
 
 ## uninstall
@@ -68,7 +89,7 @@ docker volume rm source
 docker volume rm mysql
 docker volume rm mariadb-data
 docker volume rm mariadb-log
-docker volume rm postgres
+docker volume rm postgres-data
 docker volume rm mssql
 docker volume rm mongodb
 docker volume rm oradata
@@ -133,6 +154,16 @@ container
 docker exec -it mariadb mysql -h localhost -u root -p 
 ```
 
+## Mongo
+
+```sh
+sudo apt-get update
+wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.1_amd64.deb
+sudo apt install ./mongodb-compass_1.28.1_amd64.deb
+```
+
+mongodb://test:test@0.0.0.0:27017/northwind
+
 ## connection string
 
 - source: mysql://root:root@0.0.0.0:3306/northwind
@@ -140,7 +171,7 @@ docker exec -it mariadb mysql -h localhost -u root -p
 - mariadb: mysql://root:admin@0.0.0.0:3308/northwind
 - postgres: postgresql://admin:admin@0.0.0.0:5432/northwind
 - mssql: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
-- mongodb:
+- mongodb: mongodb://test:test@0.0.0.0:27017/northwind
 - oracle:
 
 ## references
@@ -150,3 +181,5 @@ docker exec -it mariadb mysql -h localhost -u root -p
 - [mysql in nodejs](https://evertpot.com/executing-a-mysql-query-in-nodejs/)
 - [module to connect mysql](https://www.npmjs.com/package/mysq)
 - [mysql client on windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html#:~:text=To%20install%20MySQL%20Shell%20on,steps%20in%20the%20Setup%20Wizard.)
+- [mongodb with docker](https://citizix.com/how-to-run-mongodb-with-docker-and-docker-compose/)
+- [mongo shared](https://github.com/bitnami/bitnami-docker-mongodb/issues/208)

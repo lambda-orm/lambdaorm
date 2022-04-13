@@ -88,10 +88,10 @@ export class DDLBuilder {
 								const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
 								if (isNullable) {
 									const query = this.builder(dataSource).setNull(entity, relation)
-									queries.push(query)
+									if (query) queries.push(query)
 								}
 								const query = this.builder(dataSource).dropFk(entity, relation)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -113,15 +113,15 @@ export class DDLBuilder {
 						for (const j in entity.indexes) {
 							const index = entity.indexes[j]
 							const query = this.builder(dataSource).dropIndex(entity, index)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 					}
 					if (entity.sequence) {
 						const query = this.builder(dataSource).dropSequence(entity)
-						queries.push(query)
+						if (query) queries.push(query)
 					}
 					const query = this.builder(dataSource).dropEntity(entity)
-					queries.push(query)
+					if (query) queries.push(query)
 				}
 			}
 		}
@@ -141,7 +141,7 @@ export class DDLBuilder {
 				}
 				if (!entity.view) {
 					const query = this.builder(dataSource).truncateEntity(entity)
-					queries.push(query)
+					if (query) queries.push(query)
 				}
 			}
 		}
@@ -163,12 +163,12 @@ export class DDLBuilder {
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const n in changed.delta.remove) {
 							const query = this.builder(dataSource).dropPk(entityChanged.old)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						for (const c in changed.delta.changed) {
 							const query = this.builder(dataSource).dropPk(entityChanged.old)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 					}
 					if (changed.name === 'uniqueKey') {
@@ -176,12 +176,12 @@ export class DDLBuilder {
 							// eslint-disable-next-line @typescript-eslint/no-unused-vars
 							for (const n in changed.delta.remove) {
 								const query = this.builder(dataSource).dropUk(entityChanged.old)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 							// eslint-disable-next-line @typescript-eslint/no-unused-vars
 							for (const c in changed.delta.changed) {
 								const query = this.builder(dataSource).dropUk(entityChanged.old)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -203,12 +203,12 @@ export class DDLBuilder {
 						for (const c in changed.delta.changed) {
 							const oldIndex = changed.delta.changed[c].old as Index
 							const query = this.builder(dataSource).dropIndex(entityChanged.new, oldIndex)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 						for (const r in changed.delta.remove) {
 							const removeIndex = changed.delta.remove[r].old as Index
 							const query = this.builder(dataSource).dropIndex(entityChanged.new, removeIndex)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 					}
 					if (changed.name === 'relation') {
@@ -225,7 +225,7 @@ export class DDLBuilder {
 								if (this.changeRelation(oldRelation, newRelation)) {
 									if (!oldRelation.weak) {
 										const query = this.builder(dataSource).dropFk(entityChanged.new, oldRelation)
-										queries.push(query)
+										if (query) queries.push(query)
 									}
 								}
 							}
@@ -237,7 +237,7 @@ export class DDLBuilder {
 							// evaluate if entity relation apply in dataSource
 							if (this.evalDataSource(ruleDataSource, removeRelation.entity)) {
 								const query = this.builder(dataSource).dropFk(entityChanged.new, removeRelation)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -255,15 +255,15 @@ export class DDLBuilder {
 					for (const i in removeEntity.indexes) {
 						const index = removeEntity.indexes[i]
 						const query = this.builder(dataSource).dropIndex(removeEntity, index)
-						queries.push(query)
+						if (query) queries.push(query)
 					}
 				}
 				if (removeEntity.sequence) {
 					const query = this.builder(dataSource).createSequence(removeEntity)
-					queries.push(query)
+					if (query) queries.push(query)
 				}
 				const query = this.builder(dataSource).dropEntity(removeEntity)
-				queries.push(query)
+				if (query) queries.push(query)
 			}
 		}
 		// create tables
@@ -273,10 +273,10 @@ export class DDLBuilder {
 			if (!newEntity.view && this.evalDataSource(ruleDataSource, newEntity.name)) {
 				if (newEntity.sequence) {
 					const query = this.builder(dataSource).createSequence(newEntity)
-					queries.push(query)
+					if (query) queries.push(query)
 				}
 				const query = this.builder(dataSource).createEntity(newEntity)
-				queries.push(query)
+				if (query) queries.push(query)
 			}
 		}
 		// add columns for entities changes
@@ -294,14 +294,14 @@ export class DDLBuilder {
 						for (const n in changed.delta.new) {
 							const newProperty = changed.delta.new[n].new as PropertyMapping
 							const query = this.builder(dataSource).addColumn(entityChanged.new, newProperty)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 						for (const n in changed.delta.changed) {
 							const newProperty = changed.delta.changed[n].new as PropertyMapping
 							const oldProperty = changed.delta.changed[n].old as PropertyMapping
 							if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
 								const query = this.builder(dataSource).alterColumn(entityChanged.new, newProperty)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -329,7 +329,7 @@ export class DDLBuilder {
 							const oldProperty = changed.delta.remove[n].old as PropertyMapping
 							if (!oldProperty.view) {
 								const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -351,12 +351,12 @@ export class DDLBuilder {
 						for (const n in changed.delta.new) {
 							const newPrimaryKey = changed.delta.new[n].new as string[]
 							const query = this.builder(dataSource).addPk(entityChanged.new, newPrimaryKey)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 						for (const c in changed.delta.changed) {
 							const changePrimaryKey = changed.delta.changed[c].new as string[]
 							const query = this.builder(dataSource).addPk(entityChanged.new, changePrimaryKey)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 					}
 					if (changed.name === 'uniqueKey') {
@@ -364,12 +364,12 @@ export class DDLBuilder {
 							for (const n in changed.delta.new) {
 								const newUniqueKey = changed.delta.new[n].new as string[]
 								const query = this.builder(dataSource).addUk(entityChanged.new, newUniqueKey)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 							for (const c in changed.delta.changed) {
 								const chanegUniqueKey = changed.delta.changed[c].new as string[]
 								const query = this.builder(dataSource).addUk(entityChanged.new, chanegUniqueKey)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -391,12 +391,12 @@ export class DDLBuilder {
 						for (const n in changed.delta.new) {
 							const newIndex = changed.delta.new[n].new as Index
 							const query = this.builder(dataSource).createIndex(entityChanged.new, newIndex)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 						for (const c in changed.delta.changed) {
 							const changeIndex = changed.delta.changed[c].new as Index
 							const query = this.builder(dataSource).createIndex(entityChanged.new, changeIndex)
-							queries.push(query)
+							if (query) queries.push(query)
 						}
 						// for(const r in changed.delta.remove){
 						//     let removeIndex=changed.delta.remove[r]
@@ -405,7 +405,7 @@ export class DDLBuilder {
 						if (!changed.delta) continue
 						// TODO : revisar
 						const query = this.builder(dataSource).createSequence(entityChanged.new)
-						queries.push(query)
+						if (query) queries.push(query)
 					} else if (changed.name === 'relation') {
 						if (changed.delta) {
 							for (const n in changed.delta.new) {
@@ -414,7 +414,7 @@ export class DDLBuilder {
 								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
 									if (!newRelation.weak) {
 										const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
-										queries.push(query)
+										if (query) queries.push(query)
 									}
 								}
 							}
@@ -426,7 +426,7 @@ export class DDLBuilder {
 									if (this.changeRelation(oldRelation, newRelation)) {
 										if (!newRelation.weak) {
 											const query = this.builder(dataSource).addFk(entityChanged.new, newRelation)
-											queries.push(query)
+											if (query) queries.push(query)
 										}
 									}
 								}
@@ -447,7 +447,7 @@ export class DDLBuilder {
 					for (const i in newEntity.indexes) {
 						const index = newEntity.indexes[i]
 						const query = this.builder(dataSource).createIndex(newEntity, index)
-						queries.push(query)
+						if (query) queries.push(query)
 					}
 				}
 				if (newEntity.relations) {
@@ -459,7 +459,7 @@ export class DDLBuilder {
 						if (this.evalDataSource(ruleDataSource, relation.entity)) {
 							if (!relation.weak) {
 								const query = this.builder(dataSource).addFk(newEntity, relation)
-								queries.push(query)
+								if (query) queries.push(query)
 							}
 						}
 					}
@@ -496,22 +496,22 @@ export abstract class LanguageDDLBuilder {
 		this.dialect = dialect
 	}
 
-	abstract truncateEntity(entity: EntityMapping): Query
-	abstract setNull(entity: EntityMapping, relation: Relation): Query
-	abstract dropFk(entity: EntityMapping, relation: Relation): Query
-	abstract dropIndex(entity: EntityMapping, index: Index): Query
-	abstract dropSequence(entity: EntityMapping): Query
-	abstract dropEntity(entity: EntityMapping): Query
-	abstract dropPk(entity: EntityMapping): Query
-	abstract dropUk(entity: EntityMapping): Query
-	abstract createEntity(entity: EntityMapping): Query
-	abstract addColumn(entity: EntityMapping, property: PropertyMapping): Query
-	abstract alterColumn(entity: EntityMapping, property: PropertyMapping): Query
-	abstract dropColumn(entity: EntityMapping, property: PropertyMapping): Query
-	abstract addPk(entity: EntityMapping, primaryKey: string[]): Query
-	abstract addUk(entity: EntityMapping, uniqueKey: string[]): Query
-	abstract addFk(entity: EntityMapping, relation: Relation): Query
-	abstract createFk(entity: EntityMapping, relation: Relation): Query
-	abstract createIndex(entity: EntityMapping, index: Index): Query
-	abstract createSequence(entity: EntityMapping): Query
+	abstract truncateEntity(entity: EntityMapping): Query | undefined
+	abstract setNull(entity: EntityMapping, relation: Relation): Query | undefined
+	abstract dropFk(entity: EntityMapping, relation: Relation): Query | undefined
+	abstract dropIndex(entity: EntityMapping, index: Index): Query | undefined
+	abstract dropSequence(entity: EntityMapping): Query | undefined
+	abstract dropEntity(entity: EntityMapping): Query | undefined
+	abstract dropPk(entity: EntityMapping): Query | undefined
+	abstract dropUk(entity: EntityMapping): Query | undefined
+	abstract createEntity(entity: EntityMapping): Query | undefined
+	abstract addColumn(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract alterColumn(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract dropColumn(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract addPk(entity: EntityMapping, primaryKey: string[]): Query | undefined
+	abstract addUk(entity: EntityMapping, uniqueKey: string[]): Query | undefined
+	abstract addFk(entity: EntityMapping, relation: Relation): Query | undefined
+	abstract createFk(entity: EntityMapping, relation: Relation): Query | undefined
+	abstract createIndex(entity: EntityMapping, index: Index): Query | undefined
+	abstract createSequence(entity: EntityMapping): Query | undefined
 }

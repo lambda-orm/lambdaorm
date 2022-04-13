@@ -183,6 +183,11 @@
 
 - [tutorial](http://expertojava.ua.es/experto/restringido/2015-16/nosql/nosql02.html#_conjunto_de_valores)
 - [mongodb nodejs](https://docs.mongodb.com/drivers/node/current/quick-start/)
+- [examples](https://mongodb.github.io/node-mongodb-native/api-generated/db.html)
+- [w3schools](https://www.w3schools.com/nodejs/nodejs_mongodb_find.asp)
+- query form string
+	- [run-command-from-string](https://stackoverflow.com/questions/54597922/mongodb-run-command-from-string)
+	- [run command](https://www.mongodb.com/docs/manual/reference/method/db.runCommand/)
 
 ### Neo4J
 

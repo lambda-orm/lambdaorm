@@ -220,7 +220,7 @@ entities:
 views:
   - name: default
 mappings:
-  - name: northwind
+  - name: default
     entities:
       - name: Address
         abstract: true
@@ -368,27 +368,56 @@ mappings:
             mapping: Quantity
           - name: discount
             mapping: Discount
+  - name: oracle
+    extends: default
+    entities:
+      - name: Address
+        sequence: SQ_ADDRESS
+      - name: Categories
+        sequence: SQ_CATEGORIES
+      - name: Customers
+        sequence: SQ_CUSTOMERS
+      - name: Employees
+        sequence: SQ_EMPLOYEES
+      - name: Shippers
+        sequence: SQ_SHIPPERS
+      - name: Suppliers
+        sequence: SQ_SUPPLIERS
+      - name: Products
+        sequence: SQ_PRODUCTS
+      - name: Orders
+        sequence: SQ_ORDERS
+      - name: OrderDetails
+        sequence: SQ_ORDER_DETAILS
 dataSources:
   - name: source
-    mapping: northwind
+    mapping: default
     dialect: mysql
     connection: $$ORM_CNN_SOURCE
   - name: mysql
-    mapping: northwind
+    mapping: default
     dialect: mysql
     connection: $$ORM_CNN_MYSQL
   - name: mariadb
-    mapping: northwind
+    mapping: default
     dialect: mariadb
     connection: $$ORM_CNN_MARIADB
   - name: postgres
-    mapping: northwind
+    mapping: default
     dialect: postgres
     connection: $$ORM_CNN_POSTGRES
   - name: mssql
-    mapping: northwind
+    mapping: default
     dialect: mssql
     connection: $$ORM_CNN_MSSQL
+  - name: oracle
+    mapping: oracle
+    dialect: oracle
+    connection: $$ORM_CNN_ORACLE
+  - name: mongodb
+    mapping: default
+    dialect: mongodb
+    connection: $$ORM_CNN_MONGODB
 stages:
   - name: source
     dataSources:
@@ -405,3 +434,9 @@ stages:
   - name: mssql
     dataSources:
       - name: mssql
+  - name: oracle
+    dataSources:
+      - name: oracle
+  - name: mongodb
+    dataSources:
+      - name: mongodb

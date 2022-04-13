@@ -6,7 +6,7 @@ import { MappingConfig, Dialect } from '../../manager'
 
 const SqlString = require('sqlstring')
 
-export class SqlDMLBuilder {
+export class NoSqlDMLBuilder {
 	protected dataSource: DataSource
 	protected mapping: MappingConfig
 	protected dialect: Dialect
