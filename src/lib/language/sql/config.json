@@ -1,11 +1,6 @@
 {
   "dialects": {
     "mariadb": {
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -251,11 +246,6 @@
         "date": "DATE",
         "time": "TIME"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
         "createPk": "PRIMARY KEY ({columns})",
         "incrementalColumDefine": "{name} {type} {nullable} IDENTITY (1, 1)",
@@ -474,11 +464,6 @@
       }
     },
     "mysql": {
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -724,11 +709,6 @@
         "date": "DATE",
         "time": "DATE"
       },
-      "formats": {
-        "datetime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "others": {
         "false": "N",
         "true": "Y",
@@ -955,10 +935,6 @@
         "string": "VARCHAR({0})",
         "date": "DATE",
         "time": "TIME"
-      },
-      "formats": {
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
       },
       "ddl": {
         "incrementalColumDefine": "{name} serial",
@@ -1187,7 +1163,6 @@
       "date": "DATE",
       "time": "TIME"
     },
-    "formats": null,
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
       "createTable": "CREATE TABLE {name} ({define})",

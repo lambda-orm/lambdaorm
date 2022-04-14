@@ -21,7 +21,7 @@ export abstract class StageActionDML {
 
 	public async sentence ():Promise<any> {
 		const sentences:any[] = []
-		const queries = await this.build()
+		const queries = this.queries()
 		for (let i = 0; i < queries.length; i++) {
 			const query = queries[i]
 			sentences.push(query.sentence)
@@ -29,7 +29,7 @@ export abstract class StageActionDML {
 		return sentences
 	}
 
-	protected build (): Query[] {
+	public queries (): Query[] {
 		const queries:Query[] = []
 		for (const i in this.model.entities) {
 			const entity = this.model.entities[i]

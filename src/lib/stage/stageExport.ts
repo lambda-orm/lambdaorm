@@ -3,7 +3,7 @@ import { Query, SchemaData, Entity } from '../model'
 
 export class StageExport extends StageActionDML {
 	public async execute (): Promise<SchemaData> {
-		const queries = await this.build()
+		const queries = this.queries()
 		const data = {}
 		const schemaExport: SchemaData = { entities: [] }
 		await this.executor.transaction(this.stage, this.view, async (tr) => {

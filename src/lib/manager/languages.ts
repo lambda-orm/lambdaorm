@@ -14,7 +14,7 @@ export class Languages {
 
 	public add (language:Language) {
 		const index = this.languages.findIndex(p => p.name === language.name)
-		if (index) {
+		if (index !== -1) {
 			this.languages[index] = language
 		} else {
 			this.languages.push(language)

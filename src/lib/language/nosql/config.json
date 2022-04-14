@@ -7,8 +7,24 @@
         "createTable": "createCollection({name})",
         "createIndex": "createIndex({index})"
       },
-      "dml": null,
-      "others": null,
+      "dml": {
+        "map": "projection: { {0} }",
+        "filter": "{0}",
+        "groupBy": "{0}",
+        "having": "{0}",
+        "sort": "{0}",
+        "page": "{offset},{records}",
+        "insert": "{values}",
+        "update": "{values}"
+      },
+      "others": {
+        "sepatatorSql": ";",
+        "variable": "{{{name}}}",
+        "field": "{entityAlias}.{name}",
+        "column": "{name}",
+        "false": "false",
+        "true": "true"
+      },
       "operators": {
         "unary": {
           "-": "$multiply:[{0},-1]",
@@ -139,8 +155,24 @@
       "createTable": "createCollection({name})",
       "createIndex": "createIndex({index})"
     },
-    "dml": null,
-    "others": null,
+    "dml": {
+      "map": "projection: { {0} }",
+      "filter": "{0}",
+      "groupBy": "{0}",
+      "having": "{0}",
+      "sort": "{0}",
+      "page": "{offset},{records}",
+      "insert": "{values}",
+      "update": "{values}"
+    },
+    "others": {
+      "sepatatorSql": ";",
+      "variable": "{{{name}}}",
+      "field": "{entityAlias}.{name}",
+      "column": "{name}",
+      "false": "false",
+      "true": "true"
+    },
     "operators": {
       "unary": {
         "-": "$multiply:[{0},-1]",

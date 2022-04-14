@@ -145,7 +145,11 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 9
+    result:
+      data:
+        name: Beverages20
+        description: Soft drinks, coffees, teas, beers, and ales
+        id: 9
   - name: insert 2
     data: b
     sentences:
@@ -246,7 +250,11 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 10
+    result:
+      data:
+        name: Beverages21
+        description: Soft drinks, coffees, teas, beers, and ales
+        id: 10
   - name: insert 3
     data: c
     sentences:
@@ -343,7 +351,12 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 11
+    result:
+      data:
+        entity:
+          name: Beverages22
+          description: Soft drinks, coffees, teas, beers, and ales
+        id: 11
   - name: insert 4
     data: order
     sentences:
@@ -655,7 +668,38 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 831
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
   - name: insert 5
     data: order
     sentences:
@@ -1132,7 +1176,38 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 832
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
   - name: insert 6
     data: order
     sentences:
@@ -1845,5 +1920,36 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 833
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
 errors: 0

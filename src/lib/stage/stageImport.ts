@@ -5,7 +5,7 @@ import { Query, SchemaData, Entity, SchemaError } from '../model'
 export class StageImport extends StageActionDML {
 	public async execute (data: SchemaData): Promise<void> {
 		const state = await this.state.get(this.stage)
-		const _queries = await this.build()
+		const _queries = this.queries()
 		const queries = this.sort(_queries)
 
 		await this.executor.transaction(this.stage, this.view, async (tr) => {
