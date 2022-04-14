@@ -109,4 +109,72 @@ export abstract class Connection {
 	public abstract beginTransaction():Promise<void>
 	public abstract commit():Promise<void>
 	public abstract rollback():Promise<void>
+
+	public async truncateTable (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async createTable (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async createSequence (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async createFk (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async createIndex (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async alterColumn (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async addColumn (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async addPk (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async addUk (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async addFk (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropSequence (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropTable (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropColumn (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropPk (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropUk (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropFK (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
+
+	public async dropIndex (mapping:MappingConfig, query:Query):Promise<any> {
+		return await this.executeDDL(query)
+	}
 }

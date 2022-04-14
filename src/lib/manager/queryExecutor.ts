@@ -82,23 +82,23 @@ export class QueryExecutor {
 		case 'bulkInsert': result = await this.insertMany(query, data, mapping, dialect, connection); break
 		case 'update': result = await this.update(query, data, mapping, dialect, connection); break
 		case 'delete': result = await this.delete(query, data, mapping, dialect, connection); break
-		case 'truncateTable': result = await connection.executeDDL(query); break
-		case 'createTable': result = await connection.executeDDL(query); break
-		case 'createSequence': result = await connection.executeDDL(query); break
-		case 'createFk': result = await connection.executeDDL(query); break
-		case 'createIndex': result = await connection.executeDDL(query); break
-		case 'alterColumn': result = await connection.executeDDL(query); break
-		case 'addColumn': result = await connection.executeDDL(query); break
-		case 'addPk': result = await connection.executeDDL(query); break
-		case 'addUk': result = await connection.executeDDL(query); break
-		case 'addFk': result = await connection.executeDDL(query); break
-		case 'dropSequence': result = await connection.executeDDL(query); break
-		case 'dropTable': result = await connection.executeDDL(query); break
-		case 'dropColumn': result = await connection.executeDDL(query); break
-		case 'dropPk': result = await connection.executeDDL(query); break
-		case 'dropUk': result = await connection.executeDDL(query); break
-		case 'dropFK': result = await connection.executeDDL(query); break
-		case 'dropIndex': result = await connection.executeDDL(query); break
+		case 'truncateTable': result = await connection.truncateTable(mapping, query); break
+		case 'createTable': result = await connection.createTable(mapping, query); break
+		case 'createSequence': result = await connection.createSequence(mapping, query); break
+		case 'createFk': result = await connection.createFk(mapping, query); break
+		case 'createIndex': result = await connection.createIndex(mapping, query); break
+		case 'alterColumn': result = await connection.alterColumn(mapping, query); break
+		case 'addColumn': result = await connection.addColumn(mapping, query); break
+		case 'addPk': result = await connection.addPk(mapping, query); break
+		case 'addUk': result = await connection.addUk(mapping, query); break
+		case 'addFk': result = await connection.addFk(mapping, query); break
+		case 'dropSequence': result = await connection.dropSequence(mapping, query); break
+		case 'dropTable': result = await connection.dropTable(mapping, query); break
+		case 'dropColumn': result = await connection.dropColumn(mapping, query); break
+		case 'dropPk': result = await connection.dropPk(mapping, query); break
+		case 'dropUk': result = await connection.dropUk(mapping, query); break
+		case 'dropFK': result = await connection.dropFK(mapping, query); break
+		case 'dropIndex': result = await connection.dropIndex(mapping, query); break
 		default:
 			throw new ExecutionError(query.dataSource, query.entity, query.sentence, `query ${query.name} undefined`)
 		}
