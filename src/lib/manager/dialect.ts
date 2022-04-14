@@ -1,4 +1,3 @@
-import { Helper } from './helper'
 import { SintaxisError } from '../model'
 
 export class Dialect {
@@ -9,7 +8,6 @@ export class Dialect {
 	private _dml?:any={}
 	private _ddl?:any={}
 	private _types?:any={}
-	private _formats?:any={}
 	constructor (name:string) {
 		this.name = name
 		this._operators = {}
@@ -18,7 +16,6 @@ export class Dialect {
 		this._dml = {}
 		this._ddl = {}
 		this._types = {}
-		this._formats = {}
 	}
 
 	public operator (name:string, operands:number):string {
@@ -45,29 +42,10 @@ export class Dialect {
 		return this._types[name]
 	}
 
-	public format (name:string):string {
-		return this._formats[name]
-	}
-
 	public delimiter (name:string, force = false):string {
 		if (name.indexOf(' ') === -1 && !force) return name
 		const template = this._others.delimiter
 		return template.replace('{name}', name)
-	}
-
-	public solveDateTime (value:any):string {
-		const format = this._formats.datetime
-		return format ? Helper.dateFormat(value, format) : value
-	}
-
-	public solveDate (value:any):string {
-		const format = this._formats.date
-		return format ? Helper.dateFormat(value, format) : value
-	}
-
-	public solveTime (value:any):string {
-		const format = this._formats.time
-		return format ? Helper.dateFormat(value, format) : value
 	}
 
 	public add (dialect:any):void {
@@ -100,10 +78,6 @@ export class Dialect {
 		for (const name in dialect.types) {
 			const template = dialect.types[name]
 			this._types[name] = template
-		}
-		for (const name in dialect.formats) {
-			const template = dialect.formats[name]
-			this._formats[name] = template
 		}
 	}
 

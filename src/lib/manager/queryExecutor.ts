@@ -78,10 +78,10 @@ export class QueryExecutor {
 		const dialect = this.languages.getDialect(query.dialect)
 		switch (query.name) {
 		case 'select': result = await this.select(query, data, mapping, dialect, connection); break
-		case 'insert': result = await this.insert(query, data, mapping, dialect, connection); break
+		case 'insert': result = await this.insertOne(query, data, mapping, dialect, connection); break
+		case 'bulkInsert': result = await this.insertMany(query, data, mapping, dialect, connection); break
 		case 'update': result = await this.update(query, data, mapping, dialect, connection); break
 		case 'delete': result = await this.delete(query, data, mapping, dialect, connection); break
-		case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, dialect, connection); break
 		case 'truncateTable': result = await connection.executeDDL(query); break
 		case 'createTable': result = await connection.executeDDL(query); break
 		case 'createSequence': result = await connection.executeDDL(query); break
@@ -106,7 +106,7 @@ export class QueryExecutor {
 	}
 
 	private async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
-		const mainResult = await connection.select(mapping, query, this.params(query.parameters, dialect, data))
+		const mainResult = await connection.select(mapping, query, data)
 		const chunkSize = 999 // 7000
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
@@ -277,7 +277,7 @@ export class QueryExecutor {
 		}
 	}
 
-	private async insert (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any> {
+	private async insertOne (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
@@ -307,7 +307,7 @@ export class QueryExecutor {
 		// evaluate constraints
 		this.constraints(query, data.data)
 		// insert main entity
-		const insertId = await connection.insert(mapping, query, this.params(query.parameters, dialect, data))
+		const insertId = await connection.insertOne(mapping, query, data)
 		if (autoincrement) {
 			data.set(autoincrement.name, insertId)
 		}
@@ -331,7 +331,7 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	private async bulkInsert (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any[]> {
+	private async insertMany (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any[]> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation not nullable
@@ -463,8 +463,7 @@ export class QueryExecutor {
 		// }
 		// evaluate constraints
 		this.constraints(query, chunk)
-		const rows = this.rows(query, dialect, chunk)
-		return await connection.bulkInsert(mapping, query, rows, query.parameters)
+		return await connection.insertMany(mapping, query, chunk)
 	}
 
 	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
@@ -480,7 +479,7 @@ export class QueryExecutor {
 		// evaluate constraints
 		this.constraints(query, data.data)
 		// update
-		const changeCount = await connection.update(mapping, query, this.params(query.parameters, dialect, data))
+		const changeCount = await connection.update(mapping, query, data)
 		for (const p in query.children) {
 			const include = query.children[p]
 			const relation = data.get(include.relation.name)
@@ -519,60 +518,32 @@ export class QueryExecutor {
 			}
 		}
 		// remove main entity
-		const changeCount = await connection.delete(mapping, query, this.params(query.parameters, dialect, data))
+		const changeCount = await connection.delete(mapping, query, data)
 		return changeCount
 	}
 
-	private params (parameters:Parameter[], dialect:Dialect, data:Data):Parameter[] {
-		for (const p in parameters) {
-			const parameter = parameters[p]
-			let value = data.get(parameter.name)
-			if (value) {
-				switch (parameter.type) {
-				case 'datetime':
-					value = dialect.solveDateTime(value)
-					break
-				case 'date':
-					value = dialect.solveDate(value)
-					break
-				case 'time':
-					value = dialect.solveTime(value)
-					break
-				}
-				// if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
-			}
-			parameter.value = value === undefined ? null : value
-		}
-		return parameters
-	}
-
-	private rows (query:Query, dialect:Dialect, array:any[]) {
-		const rows:any[] = []
-		for (let i = 0; i < array.length; i++) {
-			const item = array[i]
-			const row:any[] = []
-			for (let j = 0; j < query.parameters.length; j++) {
-				const parameter = query.parameters[j]
-				let value = item[parameter.name]
-				if (value) {
-					switch (parameter.type) {
-					case 'datetime':
-						value = dialect.solveDateTime(value)
-						break
-					case 'date':
-						value = dialect.solveDate(value)
-						break
-					case 'time':
-						value = dialect.solveTime(value)
-						break
-					}
-				}
-				row.push(value === undefined ? null : value)
-			}
-			rows.push(row)
-		}
-		return rows
-	}
+	// private params (parameters:Parameter[], dialect:Dialect, data:Data):Parameter[] {
+	// for (const p in parameters) {
+	// const parameter = parameters[p]
+	// let value = data.get(parameter.name)
+	// if (value) {
+	// switch (parameter.type) {
+	// case 'datetime':
+	// value = dialect.solveDateTime(value)
+	// break
+	// case 'date':
+	// value = dialect.solveDate(value)
+	// break
+	// case 'time':
+	// value = dialect.solveTime(value)
+	// break
+	// }
+	// // if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
+	// }
+	// parameter.value = value === undefined ? null : value
+	// }
+	// return parameters
+	// }
 
 	/**
 	 * solve default properties

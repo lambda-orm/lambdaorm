@@ -7,11 +7,6 @@ types:
   datetime: DATETIME
   date: DATE
   time: TIME
-formats:
-  # https://moment.github.io/luxon/#/formatting
-  # datetime: 'yyyy-LL-dd HH:mm:ss'
-  # date: 'yyyy-LL-dd'
-  # time: 'HH:mm:ss'  
 ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createTable: 'CREATE TABLE {name} ({define})'

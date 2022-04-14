@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
 import { Helper } from '../../manager/helper'
 import { MappingConfig } from '../../manager'
 
@@ -47,24 +47,25 @@ export class SqlJsConnectionPool extends ConnectionPool {
 }
 
 export class SqlJsConnection extends Connection {
-	public async select (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<any> {
-		return await this._execute(query, params)
+	public async select (mapping:MappingConfig, query: Query, data:Data):Promise<any> {
+		return await this._execute(mapping, query, data)
 	}
 
-	public async insert (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async insertOne (mapping:MappingConfig, query: Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result as number
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping:MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<number[]> {
+	public async insertMany (mapping:MappingConfig, query: Query, array: any[]): Promise<number[]> {
 		const sql = query.sentence
 		try {
 			if (!array || array.length === 0) {
 				return []
 			}
 			// https://github.com/sidorares/node-mysql2/issues/830
-			const result = await this.cnx.query(sql, [array])
+			const rows = this.arrayToRows(query, mapping, array)
+			const result = await this.cnx.query(sql, [rows])
 
 			// TODO: verificar https://github.com/sidorares/node-mysql2/issues/435
 			const start = result[0].insertId
@@ -77,14 +78,32 @@ export class SqlJsConnection extends Connection {
 		}
 	}
 
-	public async update (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async update (mapping:MappingConfig, query: Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result
 	}
 
-	public async delete (mapping:MappingConfig, query: Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result
+	}
+
+	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('SqlJsConnection', 'updateMany')
+	}
+
+	public async delete (mapping:MappingConfig, query: Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result
+	}
+
+	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result
+	}
+
+	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('SqlJsConnection', 'deleteMany')
 	}
 
 	public async execute (query: Query):Promise<any> {
@@ -114,8 +133,9 @@ export class SqlJsConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (query: Query, params: Parameter[] = []): Promise<any> {
+	protected async _execute (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
 		const sql = query.sentence
+		const params = this.dataToParameters(query, mapping, data)
 		const values:any[] = []
 		for (let i = 0; i < params.length; i++) {
 			values.push(params[i].value)
@@ -123,8 +143,9 @@ export class SqlJsConnection extends Connection {
 		return this.cnx.db.run(sql, values)
 	}
 
-	protected async _query (query: Query, params: Parameter[] = []): Promise<any[]> {
+	protected async _query (mapping: MappingConfig, query: Query, data:Data): Promise<any[]> {
 		const sql = query.sentence
+		const params = this.dataToParameters(query, mapping, data)
 		const values:any[] = []
 		for (let i = 0; i < params.length; i++) {
 			values.push(params[i].value)

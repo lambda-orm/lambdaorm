@@ -89,11 +89,17 @@ export interface EntityMapping extends Entity {
 	hadKeys?: boolean
 	hadReadMappingExp?:boolean
 }
+export interface FormatMapping extends Entity {
+	datetime?: string
+	date?:string
+	time?: string
+}
 export interface Mapping {
 	extends?: string
 	mapping?: string
 	name: string
 	entities: EntityMapping[]
+	format?:FormatMapping
 }
 
 export interface PropertyView {

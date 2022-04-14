@@ -1,9 +1,6 @@
 _extends: [sql]
 types:
   datetime: TIMESTAMP
-formats:
-  date: "yyyy-LL-dd"
-  time: "HH:mm:ss"
 ddl:
   incrementalColumDefine: "{name} serial"
   dropPk: "DROP CONSTRAINT {name}"

@@ -18,28 +18,28 @@ ddl:
   # dropIndex: ""
   # truncateTable: ""
 dml:
-  # map: SELECT {0}
+  map: "projection: { {0} }"
   # distinct: distinct({0})
-  # filter: WHERE {0}
-  # groupBy: GROUP BY {0}
-  # having: HAVING {0}
-  # sort: ORDER BY {0}
-  # page: LIMIT {offset},{records}
-  # insert: insertOne({values})
-  # update: update({values})
+  filter: "{0}"
+  groupBy: "{0}"
+  having: "{0}"
+  sort: "{0}"
+  page: "{offset},{records}"
+  insert: "{values}"
+  update: "{values}"
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: "FROM {name} {alias} "
   # join: "INNER JOIN {name} {alias} ON {relation}"
 others:
   # delimiter: '"{name}"'
-  # sepatatorSql: ;
+  sepatatorSql: ;
   # notNullable: NOT NULL
-  # variable: ":{name}"
-  # field: "{entityAlias}.{name}"
-  # column: "{name}"
-  # false: "FALSE"
-  # true: "TRUE"
+  variable: "{{{name}}}"
+  field: "{entityAlias}.{name}"
+  column: "{name}"
+  false: "false"
+  true: "true"
 operators:
   unary:
     "-": "$multiply:[{0},-1]"

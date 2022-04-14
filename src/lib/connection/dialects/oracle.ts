@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Parameter, Query, ExecutionError } from '../../model'
+import { SchemaError, Parameter, Query, Data, ExecutionError, MethodNotImplemented } from '../../model'
 import { Helper } from '../../manager/helper'
 import { MappingConfig } from '../../manager'
 
@@ -53,8 +53,8 @@ export class OracleConnectionPool extends ConnectionPool {
 	}
 }
 export class OracleConnection extends Connection {
-	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
-		const result = await this._execute(query, params)
+	public async select (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+		const result = await this._execute(mapping, query, data)
 		const list: any[] = []
 		for (const i in result.rows) {
 			const row = result.rows[i]
@@ -68,9 +68,9 @@ export class OracleConnection extends Connection {
 		return list
 	}
 
-	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
+	public async insertOne (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
 		try {
-			const result = await this._execute(query, params)
+			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
 		} catch (error) {
 			console.error(error)
@@ -101,8 +101,7 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<any[]> {
-		const binds: any[] = []
+	public async insertMany (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
@@ -114,8 +113,8 @@ export class OracleConnection extends Connection {
 				bindDefs[fieldIdKey] = { dir: 3003, type: this.oracleType(fieldId.type) }
 				// oracledb.BIND_OUT 3003
 			}
-			for (let i = 0; i < params.length; i++) {
-				const param = params[i]
+			for (let i = 0; i < query.parameters.length; i++) {
+				const param = query.parameters[i]
 				const oracleType = this.oracleType(param.type)
 				switch (param.type) {
 				case 'boolean':
@@ -139,27 +138,27 @@ export class OracleConnection extends Connection {
 				bindDefs: bindDefs
 			}
 
-			for (const p in array) {
-				const values = array[p]
-				const row: any = {}
-				for (let i = 0; i < params.length; i++) {
-					const param = params[i]
-					switch (param.type) {
-					case 'boolean':
-						row[param.name] = values[i] ? 'Y' : 'N'; break
-					case 'string':
-						row[param.name] = typeof values[i] === 'string' || values[i] === null ? values[i] : values[i].toString(); break
-					case 'datetime':
-					case 'date':
-					case 'time':
-						row[param.name] = values[i] ? new Date(values[i]) : null; break
-					default:
-						row[param.name] = values[i]
-					}
-				}
-				binds.push(row)
-			}
-
+			// for (const p in array) {
+			// const values = array[p]
+			// const row: any = {}
+			// for (let i = 0; i < params.length; i++) {
+			// const param = params[i]
+			// switch (param.type) {
+			// case 'boolean':
+			// row[param.name] = values[i] ? 'Y' : 'N'; break
+			// case 'string':
+			// row[param.name] = typeof values[i] === 'string' || values[i] === null ? values[i] : values[i].toString(); break
+			// case 'datetime':
+			// case 'date':
+			// case 'time':
+			// row[param.name] = values[i] ? new Date(values[i]) : null; break
+			// default:
+			// row[param.name] = values[i]
+			// }
+			// }
+			// binds.push(row)
+			// }
+			const binds: any[] = this.arrayToRows(query, mapping, array)
 			const returning = fieldId && fieldIdKey ? `RETURNING ${fieldId.mapping} INTO :${fieldIdKey} ` : ''
 			sql = `${query.sentence} ${returning}`
 			const result = await this.cnx.executeMany(sql, binds, options)
@@ -191,18 +190,65 @@ export class OracleConnection extends Connection {
 		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
 
-	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	protected override arrayToRows (query:Query, mapping:MappingConfig, array:any[]):any[] {
+		const rows:any[] = []
+		for (let i = 0; i < array.length; i++) {
+			const item = array[i]
+			const row: any = {}
+			for (let j = 0; j < query.parameters.length; j++) {
+				const parameter = query.parameters[j]
+				const value = item[parameter.name]
+				switch (parameter.type) {
+				case 'boolean':
+					row[parameter.name] = value ? 'Y' : 'N'; break
+				case 'string':
+					row[parameter.name] = typeof value === 'string' || value === null ? value : value.toString(); break
+				case 'datetime':
+				case 'date':
+				case 'time':
+					row[parameter.name] = value ? new Date(value) : null; break
+				default:
+					row[parameter.name] = value
+				}
+				row.push(value)
+			}
+			rows.push(row)
+		}
+		return rows
+	}
+
+	public async update (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result.rowsAffected
 	}
 
-	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result.rowsAffected
+	}
+
+	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('OracleConnection', 'updateMany')
+	}
+
+	public async delete (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result.rowsAffected
+	}
+
+	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result.rowsAffected
+	}
+
+	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('OracleConnection', 'deleteMany')
 	}
 
 	public async execute (query:Query):Promise<any> {
-		return await this._execute(query)
+		const sql = query.sentence
+		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
+		return await this.cnx.execute(sql, {}, options)
 	}
 
 	public async executeDDL (query: Query): Promise<any> {
@@ -227,9 +273,10 @@ export class OracleConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (query:Query, params:Parameter[] = []):Promise<any> {
+	protected async _execute (mapping: MappingConfig, query:Query, data:Data):Promise<any> {
 		const values: any = {}
 		let sql = query.sentence
+		const params = this.dataToParameters(query, mapping, data)
 		if (params) {
 			for (let i = 0; i < params.length; i++) {
 				const param = params[i]

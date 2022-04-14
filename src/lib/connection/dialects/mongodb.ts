@@ -3,9 +3,8 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query } from '../../model'
-import { Helper } from '../../manager/helper'
-import { MappingConfig } from '../../manager'
+import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
+import { MappingConfig, Helper } from '../../manager'
 
 export class MongodbConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -38,58 +37,78 @@ export class MongodbConnectionPool extends ConnectionPool {
 }
 
 export class MongodbConnection extends Connection {
-	public async select (mapping: MappingConfig, query: Query, params: Parameter[]): Promise<any> {
-		throw new Error('not implemented')
+	public async select (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
+		const collection = mapping.entityMapping(query.entity)
+
+		const filter = query.sentence.filter || {}
+		const projection = query.sentence.projection || {}
+		let _query = this.cnx.db.collection(collection).find(filter, projection)
+		if (query.sentence.limit) {
+			_query = _query.limit(query.sentence.limit)
+		}
+		if (query.sentence.sort) {
+			_query = _query.limit(query.sentence.sort)
+		}
+		const result = await _query.toArray()
+		return result
 	}
 
-	public async insert (mapping: MappingConfig, query: Query, params: Parameter[]): Promise<any> {
-		const row: any = {}
-		for (let i = 0; i < params.length; i++) {
-			const param = params[i]
-			switch (param.type) {
-			case 'boolean':
-				row[param.name] = param.value ? 'Y' : 'N'; break
-			case 'string':
-				row[param.name] = typeof param.value === 'string' || param.value === null ? param.value : param.value.toString(); break
-			case 'datetime':
-			case 'date':
-			case 'time':
-				row[param.name] = param.value ? new Date(param.value) : null; break
-			default:
-				row[param.name] = param.value
-			}
-		}
-
+	public async insertOne (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
-		const result = await this.cnx.db.collection(collection).insertOne(row)
+		const obj = this.dataToObject(query, mapping, data)
+		const result = await this.cnx.db.collection(collection).insertOne(obj)
 		return result.insertedId
 	}
 
-	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<any[]> {
+	public async insertMany (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
 		const collection = mapping.entityMapping(query.entity)
-		const result = await this.cnx.db.collection(collection).insertMany(array)
+
+		const rows = this.arrayToRows(query, mapping, array)
+		const result = await this.cnx.db.collection(collection).insertMany(rows)
 		return result.insertedIds as string[]
 	}
 
-	public async update (mapping: MappingConfig, query: Query, params: Parameter[]): Promise<number> {
-		throw new Error('not implemented')
+	public async update (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		return await this.updateOne(mapping, query, data)
 	}
 
-	public async delete (mapping: MappingConfig, query: Query, params: Parameter[]): Promise<number> {
-		throw new Error('not implemented')
+	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const collection = mapping.entityMapping(query.entity)
+		const filter = query.sentence.filter || {}
+		const obj = this.dataToObject(query, mapping, data)
+		const result = await this.cnx.db.collection(collection).updateOne(filter, obj, { upsert: true })
+		return result.modifiedCount as number
+	}
+
+	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		const collection = mapping.entityMapping(query.entity)
+		const filter = query.sentence.filter || {}
+		const result = await this.cnx.db.collection(collection).updateMany(filter, array)
+		return result.modifiedCount as number
+	}
+
+	public async delete (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		throw new MethodNotImplemented('MongodbConnection', 'delete')
+	}
+
+	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		throw new MethodNotImplemented('MongodbConnection', 'deleteOne')
+	}
+
+	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('MongodbConnection', 'deleteMany')
 	}
 
 	public async execute (query: Query): Promise<any> {
-		// return await this.cnx._query(query.sentence)
-		throw new Error('not implemented')
+		throw new MethodNotImplemented('MongodbConnection', 'execute')
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
-		throw new Error('not implemented')
+		throw new MethodNotImplemented('MongodbConnection', 'executeSentence')
 	}
 
 	public async executeDDL (query: Query): Promise<any> {
-		throw new Error('not implemented')
+		throw new MethodNotImplemented('MongodbConnection', 'executeDDL')
 	}
 
 	public async beginTransaction (): Promise<void> {
@@ -105,5 +124,39 @@ export class MongodbConnection extends Connection {
 	public async rollback (): Promise<void> {
 		// TODO:
 		this.inTransaction = false
+	}
+
+	protected override arrayToRows (query:Query, mapping:MappingConfig, array:any[]):any[] {
+		throw new MethodNotImplemented('MongodbConnection', 'updateMany')
+	}
+
+	protected dataToObject (query:Query, mapping:MappingConfig, data:Data):any {
+		throw new MethodNotImplemented('MongodbConnection', 'dataToObject')
+	}
+
+	private replace (template:string, params: Parameter[]) {
+		let result:string|undefined
+		const row: any = {}
+		for (let i = 0; i < params.length; i++) {
+			const param = params[i]
+			let value = ''
+			if (param.value) {
+				switch (param.type) {
+				case 'boolean':
+					value = param.value ? 'true' : 'false'; break
+				case 'string':
+					value = typeof param.value === 'string' || param.value === null ? param.value : param.value.toString(); break
+				case 'datetime':
+				case 'date':
+				case 'time':
+					// TODO: agregar formato de fecha a nivel de mapping para convertir en ese formato
+					value = new Date(param.value).toISOString(); break
+				default:
+					value = param.value
+				}
+			}
+			result = Helper.replace(result || template, `{{${param.name}}}`, value)
+		}
+		return result ? JSON.parse(result) : {}
 	}
 }

@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
 import { MappingConfig } from '../../manager'
 
 const DECIMAL = 0
@@ -96,23 +96,24 @@ export class MySqlConnectionPool extends ConnectionPool {
 }
 
 export class MySqlConnection extends Connection {
-	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
-		return await this._execute(query, params)
+	public async select (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+		return await this._execute(mapping, query, data)
 	}
 
-	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
-		const result = await this._execute(query, params)
+	public async insertOne (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+		const result = await this._execute(mapping, query, data)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping:MappingConfig, query:Query, array:any[], params:Parameter[]):Promise<any[]> {
+	public async insertMany (mapping:MappingConfig, query:Query, array:any[]):Promise<any[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []
 			}
 			// https://github.com/sidorares/node-mysql2/issues/830
-			const result = await this.cnx.query(query.sentence, [array])
+			const rows: any[] = this.arrayToRows(query, mapping, array)
+			const result = await this.cnx.query(query.sentence, [rows])
 
 			// TODO: verificar https://github.com/sidorares/node-mysql2/issues/435
 			const start = result[0].insertId
@@ -125,14 +126,32 @@ export class MySqlConnection extends Connection {
 		}
 	}
 
-	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async update (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result.affectedRows
 	}
 
-	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result.affectedRows
+	}
+
+	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('MySqlConnection', 'updateMany')
+	}
+
+	public async delete (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result.affectedRows
+	}
+
+	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result.affectedRows
+	}
+
+	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('MySqlConnection', 'deleteMany')
 	}
 
 	public async execute (query:Query):Promise<any> {
@@ -162,7 +181,7 @@ export class MySqlConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (query:Query, params:Parameter[] = []) {
+	protected async _execute (mapping: MappingConfig, query:Query, data:Data) {
 		// Solve array parameters , example IN(?) where ? is array[]
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
@@ -171,6 +190,7 @@ export class MySqlConnection extends Connection {
 		// en el caso de haber un array con elementos string no se esta pudiendo resolver el IN(,,,) con execute
 		// por este motivo se esta usando query en este caso.
 		// TODO: ver como se puede resolver este caso para usar execute siempre.
+		const params = this.dataToParameters(query, mapping, data)
 		for (let i = 0; i < params.length; i++) {
 			if (params[i].type === 'array') { useExecute = false }
 		}

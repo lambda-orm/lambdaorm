@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
 import { Helper } from '../../manager/helper'
 import { MappingConfig } from '../../manager'
 
@@ -62,14 +62,14 @@ export class PostgresConnectionPool extends ConnectionPool {
 	}
 }
 export class PostgresConnection extends Connection {
-	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
-		const result = await this._execute(query, params)
+	public async select (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+		const result = await this._execute(mapping, query, data)
 		return result.rows
 	}
 
-	public async insert (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
+	public async insertOne (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
 		try {
-			const result = await this._execute(query, params)
+			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
 		} catch (error) {
 			console.error(error)
@@ -77,7 +77,7 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[], params: Parameter[]): Promise<any[]> {
+	public async insertMany (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
 		// const autoincrement = mapping.getAutoincrement(query.entity)
 
 		const fieldIds = mapping.getFieldIds(query.entity)
@@ -86,33 +86,34 @@ export class PostgresConnection extends Connection {
 		const sql = query.sentence
 		let _query = ''
 		try {
-			const rows:string[] = []
-			for (const p in array) {
-				const values = array[p]
-				const row:any[] = []
-				for (let i = 0; i < params.length; i++) {
-					const parameter = params[i]
-					let value = values[i]
-					if (value == null || value === undefined) {
-						value = 'null'
-					} else {
-						switch (parameter.type) {
-						case 'boolean':
-							value = value ? 'true' : 'false'; break
-						case 'string':
-							value = Helper.escape(value)
-							value = Helper.replace(value, '\\\'', '\\\'\'')
-							break
-						case 'datetime':
-						case 'date':
-						case 'time':
-							value = Helper.escape(value); break
-						}
-					}
-					row.push(value)
-				}
-				rows.push(`(${row.join(',')})`)
-			}
+			// const rows:string[] = []
+			// for (const p in array) {
+			// const values = array[p]
+			// const row:any[] = []
+			// for (let i = 0; i < params.length; i++) {
+			// const parameter = params[i]
+			// let value = values[i]
+			// if (value == null || value === undefined) {
+			// value = 'null'
+			// } else {
+			// switch (parameter.type) {
+			// case 'boolean':
+			// value = value ? 'true' : 'false'; break
+			// case 'string':
+			// value = Helper.escape(value)
+			// value = Helper.replace(value, '\\\'', '\\\'\'')
+			// break
+			// case 'datetime':
+			// case 'date':
+			// case 'time':
+			// value = Helper.escape(value); break
+			// }
+			// }
+			// row.push(value)
+			// }
+			// rows.push(`(${row.join(',')})`)
+			// }
+			const rows = this.arrayToRows(query, mapping, array)
 			const returning = fieldId ? 'RETURNING ' + fieldId.mapping + ' AS "' + fieldId.name + '"' : ''
 			_query = `${sql} ${rows.join(',')} ${returning};`
 			const result = await this.cnx.query(_query)
@@ -131,18 +132,72 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	protected override arrayToRows (query:Query, mapping:MappingConfig, array:any[]):any[] {
+		const rows:any[] = []
+		for (let i = 0; i < array.length; i++) {
+			const item = array[i]
+			const row:any[] = []
+			for (let j = 0; j < query.parameters.length; j++) {
+				const parameter = query.parameters[j]
+				let value = item[parameter.name]
+				if (value == null || value === undefined) {
+					value = 'null'
+				} else {
+					switch (parameter.type) {
+					case 'boolean':
+						value = value ? 'true' : 'false'; break
+					case 'string':
+						value = Helper.escape(value)
+						value = Helper.replace(value, '\\\'', '\\\'\'')
+						break
+					case 'datetime':
+						value = Helper.escape(this.writeDateTime(value, mapping))
+						break
+					case 'date':
+						value = Helper.escape(this.writeDate(value, mapping))
+						break
+					case 'time':
+						value = Helper.escape(this.writeTime(value, mapping))
+						break
+					}
+				}
+				row.push(value)
+			}
+			rows.push(`(${row.join(',')})`)
+		}
+		return rows
+	}
+
+	public async update (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result.rowCount
 	}
 
-	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		const result = await this._execute(query, params)
+	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
 		return result.rowCount
+	}
+
+	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('PostgresConnection', 'updateMany')
+	}
+
+	public async delete (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result.rowCount
+	}
+
+	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		const result = await this._execute(mapping, query, data)
+		return result.rowCount
+	}
+
+	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('PostgresConnection', 'deleteMany')
 	}
 
 	public async execute (query:Query):Promise<any> {
-		return await this._execute(query)
+		return await this.cnx.query(query.sentence)
 	}
 
 	public async executeDDL (query:Query):Promise<any> {
@@ -168,9 +223,10 @@ export class PostgresConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (query:Query, params:Parameter[] = []):Promise<any> {
+	protected async _execute (mapping: MappingConfig, query:Query, data:Data):Promise<any> {
 		const values: any[] = []
 		let sql = query.sentence
+		const params = this.dataToParameters(query, mapping, data)
 		if (params) {
 			for (let i = 0; i < params.length; i++) {
 				const param = params[i]

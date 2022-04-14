@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
 import { Helper } from '../../manager/helper'
 import { MappingConfig } from '../../manager'
 
@@ -49,18 +49,18 @@ export class MssqlConnectionPool extends ConnectionPool {
 }
 
 export class MssqlConnection extends Connection {
-	public async select (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<any> {
-		const result = await this._query(query.sentence, params)
+	public async select (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+		const result = await this._query(mapping, query, data)
 		return result
 	}
 
-	public async insert (mapping:MappingConfig, query: Query, params: Parameter[]): Promise<any> {
+	public async insertOne (mapping:MappingConfig, query: Query, data:Data): Promise<any> {
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sentence = fieldId
 			? query.sentence.replace('OUTPUT inserted.0', '')
 			: query.sentence
-		const result = await this._query(sentence, params)
+		const result = await this._query(mapping, query, data)
 		if (fieldId) {
 			return result[fieldId]
 		} else {
@@ -68,7 +68,7 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping:MappingConfig, query:Query, array: any[], params: Parameter[]): Promise<any[]> {
+	public async insertMany (mapping:MappingConfig, query:Query, array: any[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
@@ -85,12 +85,12 @@ export class MssqlConnection extends Connection {
 				}
 				const buffer = array.slice(start, end)
 
-				const rows = this.toRows(buffer, params)
+				const rows = this.arrayToRows(query, mapping, buffer)
 				_query = fieldId
 					? `${sql} OUTPUT inserted.${fieldId} VALUES ${rows.join(',')};`
 					: `${sql} VALUES ${rows.join(',')};`
 
-				const result = await this._query(_query)
+				const result = await this._executeSentence(_query)
 
 				if (fieldId) {
 					for (const p in result) {
@@ -105,24 +105,40 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async update (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		return await this._execute(query.sentence, params)
+	public async update (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		return await this._execute(mapping, query, data)
 	}
 
-	public async delete (mapping:MappingConfig, query:Query, params:Parameter[]):Promise<number> {
-		return await this._execute(query.sentence, params)
+	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		return await this._execute(mapping, query, data)
+	}
+
+	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('MssqlConnection', 'updateMany')
+	}
+
+	public async delete (mapping:MappingConfig, query:Query, data:Data):Promise<number> {
+		return await this._execute(mapping, query, data)
+	}
+
+	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
+		return await this._execute(mapping, query, data)
+	}
+
+	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+		throw new MethodNotImplemented('MssqlConnection', 'deleteMany')
 	}
 
 	public async execute (query:Query):Promise<any> {
-		return await this._execute(query.sentence, query.parameters)
+		return await this._executeSentence(query.sentence)
 	}
 
 	public async executeDDL (query:Query):Promise<any> {
-		return await this.cnx.query(query.sentence)
+		return await this._executeSentence(query.sentence)
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
-		return await this._query(sentence)
+		return await this._executeSentence(sentence)
 	}
 
 	public async beginTransaction (): Promise<void> {
@@ -168,12 +184,12 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	private async _query (sentence:string, params:Parameter[] = []):Promise<any> {
+	private async _query (mapping: MappingConfig, query:Query, data:Data):Promise<any> {
 		const me = this
 		return await new Promise<any[]>((resolve, reject) => {
 			try {
 				const rows: any[] = []
-				const request = new MssqlConnectionPool.tedious.Request(sentence, (error: any) => {
+				const request = new MssqlConnectionPool.tedious.Request(query.sentence, (error: any) => {
 					if (error) {
 						reject(new Error(`Mssql connection _query error: ${error}`))
 					}
@@ -187,17 +203,35 @@ export class MssqlConnection extends Connection {
 					}
 					rows.push(row)
 				})
+				const params = this.dataToParameters(query, mapping, data)
 				if (params.length > 0) {
 					me.addParameters(request, params)
 				}
-				me.cnx.execSql(request)
+				return me.cnx.execSql(request)
 			} catch (error) {
 				reject(new Error(`Mssql connection _query error: ${error}`))
 			}
 		})
 	}
 
-	private async _execute (sentence:string, params: Parameter[] = []) {
+	private async _execute (mapping: MappingConfig, query:Query, data:Data) {
+		const me = this
+		return await new Promise<any>((resolve, reject) => {
+			const request = new MssqlConnectionPool.tedious.Request(query.sentence, (err: any, rowCount: any) => {
+				if (err) {
+					reject(new Error(`Mssql connection _execute error: ${err}`))
+				}
+				resolve(rowCount)
+			})
+			const params = this.dataToParameters(query, mapping, data)
+			if (params.length > 0) {
+				me.addParameters(request, params)
+			}
+			return me.cnx.execSql(request)
+		})
+	}
+
+	private async _executeSentence (sentence:string) {
 		const me = this
 		return await new Promise<any>((resolve, reject) => {
 			const request = new MssqlConnectionPool.tedious.Request(sentence, (err: any, rowCount: any) => {
@@ -206,10 +240,7 @@ export class MssqlConnection extends Connection {
 				}
 				resolve(rowCount)
 			})
-			if (params.length > 0) {
-				me.addParameters(request, params)
-			}
-			me.cnx.execSql(request)
+			return me.cnx.execSql(request)
 		})
 	}
 
@@ -228,14 +259,14 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	private toRows (array: any[], params: Parameter[]):string[] {
-		const rows:string[] = []
-		for (const p in array) {
-			const values = array[p]
+	protected override arrayToRows (query:Query, mapping:MappingConfig, array:any[]):any[] {
+		const rows:any[] = []
+		for (let i = 0; i < array.length; i++) {
+			const item = array[i]
 			const row:any[] = []
-			for (let i = 0; i < params.length; i++) {
-				const parameter = params[i]
-				let value = values[i]
+			for (let j = 0; j < query.parameters.length; j++) {
+				const parameter = query.parameters[j]
+				let value = item[parameter.name]
 				if (value == null || value === undefined) {
 					value = 'null'
 				} else {
@@ -247,9 +278,14 @@ export class MssqlConnection extends Connection {
 						value = Helper.replace(value, '\\\'', '\\\'\'')
 						break
 					case 'datetime':
+						value = Helper.escape(this.writeDateTime(value, mapping))
+						break
 					case 'date':
+						value = Helper.escape(this.writeDate(value, mapping))
+						break
 					case 'time':
-						value = Helper.escape(value); break
+						value = Helper.escape(this.writeTime(value, mapping))
+						break
 					}
 				}
 				row.push(value)
@@ -258,4 +294,35 @@ export class MssqlConnection extends Connection {
 		}
 		return rows
 	}
+
+// private toRows (array: any[], params: Parameter[]):string[] {
+// const rows:string[] = []
+// for (const p in array) {
+// const values = array[p]
+// const row:any[] = []
+// for (let i = 0; i < params.length; i++) {
+// const parameter = params[i]
+// let value = values[i]
+// if (value == null || value === undefined) {
+// value = 'null'
+// } else {
+// switch (parameter.type) {
+// case 'boolean':
+// value = value ? 1 : 0; break
+// case 'string':
+// value = Helper.escape(value)
+// value = Helper.replace(value, '\\\'', '\\\'\'')
+// break
+// case 'datetime':
+// case 'date':
+// case 'time':
+// value = Helper.escape(value); break
+// }
+// }
+// row.push(value)
+// }
+// rows.push(`(${row.join(',')})`)
+// }
+// return rows
+// }
 }

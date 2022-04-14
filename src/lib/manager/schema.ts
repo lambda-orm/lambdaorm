@@ -1,4 +1,4 @@
-import { Enum, Entity, Property, Relation, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView } from '../model'
+import { Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -248,6 +248,10 @@ export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> 
 
 	public get name ():string {
 		return this.mapping.name
+	}
+
+	public get format ():FormatMapping|undefined {
+		return this.mapping.format
 	}
 
 	public get ():Mapping {
