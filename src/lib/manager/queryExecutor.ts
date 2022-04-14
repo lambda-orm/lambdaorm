@@ -1,5 +1,5 @@
 
-import { Data, ExecutionError, Parameter, Query, Include, RelationType, ValidationError, EntityMapping, PropertyMapping } from '../model'
+import { Data, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, PropertyMapping } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
 import { SchemaManager, Helper, Languages, Dialect } from '.'
