@@ -30,7 +30,7 @@ dml:
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: "FROM {name} {alias} "
-  # join: "INNER JOIN {name} {alias} ON {relation}"
+  join: "{$lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
 others:
   # delimiter: '"{name}"'
   sepatatorSql: ;
