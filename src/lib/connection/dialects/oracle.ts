@@ -68,7 +68,7 @@ export class OracleConnection extends Connection {
 		return list
 	}
 
-	public async insertOne (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+	public async insert (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
 		try {
 			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -101,7 +101,7 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	public async insertMany (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
@@ -222,12 +222,7 @@ export class OracleConnection extends Connection {
 		return result.rowsAffected
 	}
 
-	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.rowsAffected
-	}
-
-	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('OracleConnection', 'updateMany')
 	}
 
@@ -236,12 +231,7 @@ export class OracleConnection extends Connection {
 		return result.rowsAffected
 	}
 
-	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.rowsAffected
-	}
-
-	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('OracleConnection', 'deleteMany')
 	}
 

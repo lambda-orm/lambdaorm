@@ -100,13 +100,13 @@ export class MySqlConnection extends Connection {
 		return await this._execute(mapping, query, data)
 	}
 
-	public async insertOne (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+	public async insert (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
 		const result = await this._execute(mapping, query, data)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async insertMany (mapping:MappingConfig, query:Query, array:any[]):Promise<any[]> {
+	public async bulkInsert (mapping:MappingConfig, query:Query, array:any[]):Promise<any[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []
@@ -131,12 +131,7 @@ export class MySqlConnection extends Connection {
 		return result.affectedRows
 	}
 
-	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.affectedRows
-	}
-
-	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MySqlConnection', 'updateMany')
 	}
 
@@ -145,12 +140,7 @@ export class MySqlConnection extends Connection {
 		return result.affectedRows
 	}
 
-	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.affectedRows
-	}
-
-	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MySqlConnection', 'deleteMany')
 	}
 

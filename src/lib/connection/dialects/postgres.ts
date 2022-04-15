@@ -67,7 +67,7 @@ export class PostgresConnection extends Connection {
 		return result.rows
 	}
 
-	public async insertOne (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
+	public async insert (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
 		try {
 			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -77,7 +77,7 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async insertMany (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
 		// const autoincrement = mapping.getAutoincrement(query.entity)
 
 		const fieldIds = mapping.getFieldIds(query.entity)
@@ -173,12 +173,7 @@ export class PostgresConnection extends Connection {
 		return result.rowCount
 	}
 
-	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.rowCount
-	}
-
-	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('PostgresConnection', 'updateMany')
 	}
 
@@ -187,12 +182,7 @@ export class PostgresConnection extends Connection {
 		return result.rowCount
 	}
 
-	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.rowCount
-	}
-
-	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('PostgresConnection', 'deleteMany')
 	}
 

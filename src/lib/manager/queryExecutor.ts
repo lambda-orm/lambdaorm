@@ -78,8 +78,8 @@ export class QueryExecutor {
 		const dialect = this.languages.getDialect(query.dialect)
 		switch (query.name) {
 		case 'select': result = await this.select(query, data, mapping, dialect, connection); break
-		case 'insert': result = await this.insertOne(query, data, mapping, dialect, connection); break
-		case 'bulkInsert': result = await this.insertMany(query, data, mapping, dialect, connection); break
+		case 'insert': result = await this.insert(query, data, mapping, dialect, connection); break
+		case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, dialect, connection); break
 		case 'update': result = await this.update(query, data, mapping, dialect, connection); break
 		case 'delete': result = await this.delete(query, data, mapping, dialect, connection); break
 		case 'truncateTable': result = await connection.truncateTable(mapping, query); break
@@ -277,7 +277,7 @@ export class QueryExecutor {
 		}
 	}
 
-	private async insertOne (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any> {
+	private async insert (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any> {
 	// before insert the relationships of the type oneToOne and oneToMany
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
@@ -307,7 +307,7 @@ export class QueryExecutor {
 		// evaluate constraints
 		this.constraints(query, data.data)
 		// insert main entity
-		const insertId = await connection.insertOne(mapping, query, data)
+		const insertId = await connection.insert(mapping, query, data)
 		if (autoincrement) {
 			data.set(autoincrement.name, insertId)
 		}
@@ -331,7 +331,7 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	private async insertMany (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any[]> {
+	private async bulkInsert (query:Query, data:Data, mapping:MappingConfig, dialect:Dialect, connection:Connection):Promise<any[]> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation not nullable
@@ -463,7 +463,7 @@ export class QueryExecutor {
 		// }
 		// evaluate constraints
 		this.constraints(query, chunk)
-		return await connection.insertMany(mapping, query, chunk)
+		return await connection.bulkInsert(mapping, query, chunk)
 	}
 
 	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {

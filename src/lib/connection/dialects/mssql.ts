@@ -54,7 +54,7 @@ export class MssqlConnection extends Connection {
 		return result
 	}
 
-	public async insertOne (mapping:MappingConfig, query: Query, data:Data): Promise<any> {
+	public async insert (mapping:MappingConfig, query: Query, data:Data): Promise<any> {
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sentence = fieldId
@@ -68,7 +68,7 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async insertMany (mapping:MappingConfig, query:Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping:MappingConfig, query:Query, array: any[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
@@ -109,11 +109,7 @@ export class MssqlConnection extends Connection {
 		return await this._execute(mapping, query, data)
 	}
 
-	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		return await this._execute(mapping, query, data)
-	}
-
-	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MssqlConnection', 'updateMany')
 	}
 
@@ -121,11 +117,7 @@ export class MssqlConnection extends Connection {
 		return await this._execute(mapping, query, data)
 	}
 
-	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		return await this._execute(mapping, query, data)
-	}
-
-	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MssqlConnection', 'deleteMany')
 	}
 

@@ -95,14 +95,12 @@ export abstract class Connection {
 	}
 
 	public abstract select(mapping:MappingConfig, query:Query, data:Data):Promise<any>
-	public abstract insertOne(mapping:MappingConfig, query:Query, data:Data):Promise<any>
-	public abstract insertMany(mapping:MappingConfig, query: Query, array: any[]): Promise<any[]>
+	public abstract insert(mapping:MappingConfig, query:Query, data:Data):Promise<any>
+	public abstract bulkInsert(mapping:MappingConfig, query: Query, array: any[]): Promise<any[]>
 	public abstract update(mapping:MappingConfig, query:Query, data:Data):Promise<number>
-	public abstract updateOne(mapping:MappingConfig, query:Query, data:Data):Promise<number>
-	public abstract updateMany(mapping:MappingConfig, query:Query, array: any[]):Promise<number>
+	public abstract bulkUpdate(mapping:MappingConfig, query:Query, array: any[]):Promise<number>
 	public abstract delete(mapping:MappingConfig, query: Query, data:Data): Promise<number>
-	public abstract deleteOne(mapping:MappingConfig, query: Query, data:Data): Promise<number>
-	public abstract deleteMany(mapping:MappingConfig, query: Query, array: any[]): Promise<number>
+	public abstract bulkDelete(mapping:MappingConfig, query: Query, array: any[]): Promise<number>
 	public abstract execute(query: Query): Promise<any>
 	public abstract executeDDL(query:Query):Promise<any>
 	public abstract executeSentence(sentence:any):Promise<any>

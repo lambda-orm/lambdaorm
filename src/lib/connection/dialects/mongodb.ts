@@ -40,47 +40,47 @@ export class MongodbConnection extends Connection {
 	public async select (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
+		const params = this.dataToParameters(query, mapping, data)
 
-		const filter = sentence.filter || {}
-		const projection = sentence.map || {}
-		const pagination = sentence.page || {}
+		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
+		const projection = sentence.map ? this.templateToObject(sentence.map, params) : {}
+		const pagination = sentence.page ? JSON.parse(sentence.page) : {}
 		let _query = this.cnx.db.collection(collection).find(filter, projection, pagination)
 		if (sentence.sort) {
-			_query = _query.sort(sentence.sort)
+			_query = _query.sort(JSON.parse(sentence.sort))
 		}
 		const result = await _query.toArray()
 		return result
 	}
 
-	public async insertOne (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
+	public async insert (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
-		const obj = this.dataToObject(query, mapping, data)
+		const sentence = query.sentence as NoSqlSentence
+		const params = this.dataToParameters(query, mapping, data)
+		const obj = this.templateToObject(sentence.insert as string, params)
 		const result = await this.cnx.db.collection(collection).insertOne(obj)
 		return result.insertedId
 	}
 
-	public async insertMany (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
 		const collection = mapping.entityMapping(query.entity)
-
-		const rows = this.arrayToRows(query, mapping, array)
-		const result = await this.cnx.db.collection(collection).insertMany(rows)
+		const sentence = query.sentence as NoSqlSentence
+		const list = this.arrayToList(query, sentence.insert as string, mapping, array)
+		const result = await this.cnx.db.collection(collection).insertMany(list)
 		return result.insertedIds as string[]
 	}
 
 	public async update (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		return await this.updateOne(mapping, query, data)
-	}
-
-	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
-		const filter = sentence.filter || {}
-		const obj = this.dataToObject(query, mapping, data)
-		const result = await this.cnx.db.collection(collection).updateOne(filter, obj, { upsert: true })
+		const params = this.dataToParameters(query, mapping, data)
+		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
+		const obj = this.templateToObject(sentence.update as string, params)
+		const result = await this.cnx.db.collection(collection).updateMany(filter, obj, { upsert: true })
 		return result.modifiedCount as number
 	}
 
-	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
 		const filter = sentence.filter || {}
@@ -92,11 +92,7 @@ export class MongodbConnection extends Connection {
 		throw new MethodNotImplemented('MongodbConnection', 'delete')
 	}
 
-	public async deleteOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		throw new MethodNotImplemented('MongodbConnection', 'deleteOne')
-	}
-
-	public async deleteMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MongodbConnection', 'deleteMany')
 	}
 
@@ -127,15 +123,65 @@ export class MongodbConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected override arrayToRows (query:Query, mapping:MappingConfig, array:any[]):any[] {
-		throw new MethodNotImplemented('MongodbConnection', 'updateMany')
+	protected arrayToList (query:Query, template:string, mapping:MappingConfig, array:any[]):any[] {
+		const list:any[] = []
+		for (let i = 0; i < array.length; i++) {
+			const item = array[i]
+			let strObj:string|undefined
+			for (let j = 0; j < query.parameters.length; j++) {
+				const param = query.parameters[j]
+				let value = item[param.name]
+				if (value) {
+					switch (param.type) {
+					case 'boolean':
+						value = param.value ? 'true' : 'false'; break
+					case 'string':
+						value = typeof param.value === 'string' || param.value === null ? param.value : param.value.toString(); break
+					case 'datetime':
+						value = this.writeDateTime(value, mapping)
+						break
+					case 'date':
+						value = this.writeDate(value, mapping)
+						break
+					case 'time':
+						value = this.writeTime(value, mapping)
+						break
+					}
+				}
+				strObj = Helper.replace(strObj || template, `{{${param.name}}}`, value)
+			}
+			list.push(strObj ? JSON.parse(strObj) : {})
+		}
+		return list
 	}
 
-	protected dataToObject (query:Query, mapping:MappingConfig, data:Data):any {
-		throw new MethodNotImplemented('MongodbConnection', 'dataToObject')
-	}
+	// protected dataToObject (query:Query, mapping:MappingConfig, data:Data):any {
+	// const parameters:Parameter[] = []
+	// for (const p in query.parameters) {
+	// const parameter = query.parameters[p]
+	// let value = data.get(parameter.name)
+	// if (value) {
+	// switch (parameter.type) {
+	// case 'datetime':
+	// value = this.writeDateTime(value, mapping)
+	// break
+	// case 'date':
+	// value = this.writeDate(value, mapping)
+	// break
+	// case 'time':
+	// value = this.writeTime(value, mapping)
+	// break
+	// }
+	// // if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
+	// } else {
+	// value = null
+	// }
+	// parameters.push({ name: parameter.name, type: parameter.type, value: value })
+	// }
+	// return parameters
+	// }
 
-	private replace (template:string, params: Parameter[]) {
+	private templateToObject (template:string, params: Parameter[]): any {
 		let result:string|undefined
 		const row: any = {}
 		for (let i = 0; i < params.length; i++) {
