@@ -37,19 +37,31 @@ export class MongodbConnectionPool extends ConnectionPool {
 }
 
 export class MongodbConnection extends Connection {
+	private session?:any
+
 	public async select (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
+		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-mongodb-2910ff5e272b
+		// https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/
+
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
+		const aggregate:any[] = []
 
 		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
-		const projection = sentence.map ? this.templateToObject(sentence.map, params) : {}
-		const pagination = sentence.page ? JSON.parse(sentence.page) : {}
-		let _query = this.cnx.db.collection(collection).find(filter, projection, pagination)
-		if (sentence.sort) {
-			_query = _query.sort(JSON.parse(sentence.sort))
+		if (sentence.map) {
+			aggregate.push(this.templateToObject(sentence.map, params))
 		}
-		const result = await _query.toArray()
+		if (sentence.sort) {
+			aggregate.push(JSON.parse(sentence.sort))
+		}
+		if (sentence.page) {
+			aggregate.push(JSON.parse(sentence.page))
+		}
+
+		const result = this.session
+			? await this.cnx.db.collection(collection).find(filter, this.session).aggregate(aggregate).toArray()
+			: await this.cnx.db.collection(collection).find(filter).aggregate(aggregate).toArray()
 		return result
 	}
 
@@ -58,7 +70,11 @@ export class MongodbConnection extends Connection {
 		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
 		const obj = this.templateToObject(sentence.insert as string, params)
-		const result = await this.cnx.db.collection(collection).insertOne(obj)
+
+		const result = this.session
+			? await this.cnx.db.collection(collection).insertOne(obj, this.session)
+			: await this.cnx.db.collection(collection).insertOne(obj)
+
 		return result.insertedId
 	}
 
@@ -66,7 +82,9 @@ export class MongodbConnection extends Connection {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
 		const list = this.arrayToList(query, sentence.insert as string, mapping, array)
-		const result = await this.cnx.db.collection(collection).insertMany(list)
+		const result = this.session
+			? await this.cnx.db.collection(collection).insertMany(list, this.session)
+			: await this.cnx.db.collection(collection).insertMany(list)
 		return result.insertedIds as string[]
 	}
 
@@ -76,24 +94,29 @@ export class MongodbConnection extends Connection {
 		const params = this.dataToParameters(query, mapping, data)
 		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
 		const obj = this.templateToObject(sentence.update as string, params)
-		const result = await this.cnx.db.collection(collection).updateMany(filter, obj, { upsert: true })
+		const result = this.session
+			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
+			: await this.cnx.db.collection(collection).updateMany(filter, obj)
 		return result.modifiedCount as number
 	}
 
 	public async bulkUpdate (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
-		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		const filter = sentence.filter || {}
-		const result = await this.cnx.db.collection(collection).updateMany(filter, array)
-		return result.modifiedCount as number
+		throw new MethodNotImplemented('MongodbConnection', 'bulkUpdate')
 	}
 
 	public async delete (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
-		throw new MethodNotImplemented('MongodbConnection', 'delete')
+		const collection = mapping.entityMapping(query.entity)
+		const sentence = query.sentence as NoSqlSentence
+		const params = this.dataToParameters(query, mapping, data)
+		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
+		const result = this.session
+			? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
+			: await this.cnx.db.collection(collection).deleteMany(filter)
+		return result.modifiedCount as number
 	}
 
 	public async bulkDelete (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('MongodbConnection', 'deleteMany')
+		throw new MethodNotImplemented('MongodbConnection', 'bulkDelete')
 	}
 
 	public async execute (query: Query): Promise<any> {
@@ -109,18 +132,28 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async beginTransaction (): Promise<void> {
-		// TODO:
+		// https://www.mongodb.com/docs/drivers/node/current/fundamentals/transactions/
+		// https://hevodata.com/learn/mongodb-transactions-on-nodejs/
+		this.session = this.cnx.client.startSession()
+		const transactionOptions = {
+			readPreference: 'primary',
+			readConcern: { level: 'local' },
+			writeConcern: { w: 'majority' }
+		}
+		await this.session.startTransaction(transactionOptions)
 		this.inTransaction = true
 	}
 
 	public async commit (): Promise<void> {
-		// TODO:
+		await this.session.endSession()
 		this.inTransaction = false
+		this.session = null
 	}
 
 	public async rollback (): Promise<void> {
-		// TODO:
+		await this.session.abortTransaction()
 		this.inTransaction = false
+		this.session = null
 	}
 
 	protected arrayToList (query:Query, template:string, mapping:MappingConfig, array:any[]):any[] {
@@ -154,32 +187,6 @@ export class MongodbConnection extends Connection {
 		}
 		return list
 	}
-
-	// protected dataToObject (query:Query, mapping:MappingConfig, data:Data):any {
-	// const parameters:Parameter[] = []
-	// for (const p in query.parameters) {
-	// const parameter = query.parameters[p]
-	// let value = data.get(parameter.name)
-	// if (value) {
-	// switch (parameter.type) {
-	// case 'datetime':
-	// value = this.writeDateTime(value, mapping)
-	// break
-	// case 'date':
-	// value = this.writeDate(value, mapping)
-	// break
-	// case 'time':
-	// value = this.writeTime(value, mapping)
-	// break
-	// }
-	// // if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
-	// } else {
-	// value = null
-	// }
-	// parameters.push({ name: parameter.name, type: parameter.type, value: value })
-	// }
-	// return parameters
-	// }
 
 	private templateToObject (template:string, params: Parameter[]): any {
 		let result:string|undefined

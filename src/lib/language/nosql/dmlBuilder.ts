@@ -52,7 +52,7 @@ export class NoSqlDMLBuilder {
 		if (filter)nosqlSentence.filter = this.buildArrowFunction(filter)
 		if (groupBy)nosqlSentence.groupBy = this.buildArrowFunction(groupBy)
 		if (having)nosqlSentence.having = this.buildArrowFunction(having)
-		if (sort) nosqlSentence.sort = `{ ${this.buildArrowFunction(sort)} }`
+		if (sort) nosqlSentence.sort = this.buildArrowFunction(sort)
 		if (page)nosqlSentence.page = this.buildPage(page)
 		return nosqlSentence
 	}
