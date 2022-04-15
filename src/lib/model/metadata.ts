@@ -1,5 +1,6 @@
 import { Behavior, Constraint, Property, Relation } from './schema'
 import { Parameter } from './parameter'
+import { NoSqlSentence } from './query'
 
 export interface MetadataParameter
 {
@@ -27,7 +28,7 @@ export interface MetadataSentence
 	entity:string
 	dialect: string
 	dataSource : string
-	sentence: string
+	sentence: string | NoSqlSentence
 	childs?:MetadataSentence[]
 }
 

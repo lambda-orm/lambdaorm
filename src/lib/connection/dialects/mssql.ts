@@ -50,7 +50,7 @@ export class MssqlConnectionPool extends ConnectionPool {
 
 export class MssqlConnection extends Connection {
 	public async select (mapping:MappingConfig, query:Query, data:Data):Promise<any> {
-		const result = await this._query(mapping, query, data)
+		const result = await this._query(mapping, query, query.sentence as string, data)
 		return result
 	}
 
@@ -58,9 +58,9 @@ export class MssqlConnection extends Connection {
 		const autoincrement = mapping.getAutoincrement(query.entity)
 		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
 		const sentence = fieldId
-			? query.sentence.replace('OUTPUT inserted.0', '')
-			: query.sentence
-		const result = await this._query(mapping, query, data)
+			? (query.sentence as string).replace('OUTPUT inserted.0', '')
+			: query.sentence as string
+		const result = await this._query(mapping, query, sentence, data)
 		if (fieldId) {
 			return result[fieldId]
 		} else {
@@ -130,11 +130,11 @@ export class MssqlConnection extends Connection {
 	}
 
 	public async execute (query:Query):Promise<any> {
-		return await this._executeSentence(query.sentence)
+		return await this._executeSentence(query.sentence as string)
 	}
 
 	public async executeDDL (query:Query):Promise<any> {
-		return await this._executeSentence(query.sentence)
+		return await this._executeSentence(query.sentence as string)
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
@@ -184,12 +184,12 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	private async _query (mapping: MappingConfig, query:Query, data:Data):Promise<any> {
+	private async _query (mapping: MappingConfig, query:Query, sentence: string, data:Data):Promise<any> {
 		const me = this
 		return await new Promise<any[]>((resolve, reject) => {
 			try {
 				const rows: any[] = []
-				const request = new MssqlConnectionPool.tedious.Request(query.sentence, (error: any) => {
+				const request = new MssqlConnectionPool.tedious.Request(sentence, (error: any) => {
 					if (error) {
 						reject(new Error(`Mssql connection _query error: ${error}`))
 					}

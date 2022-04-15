@@ -1,24 +1,10 @@
 
 import { Helper } from '../../manager/helper'
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource, EntityMapping } from '../../model'
+import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SintaxisError, SchemaError, DataSource, EntityMapping, NoSqlSentence } from '../../model'
 import { MappingConfig, Dialect } from '../../manager'
 
 const SqlString = require('sqlstring')
-
-export interface NoSqlSentence {
-	map?: string
-	from?: string
-	joins?: string[]
-	filter?: string
-	groupBy?: string
-	having?: string
-	sort?:string
-	page?: string
-	insert?: string
-	update?:string
-	delete?:string
-}
 
 export class NoSqlDMLBuilder {
 	protected dataSource: DataSource

@@ -3,7 +3,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented, NoSqlSentence } from '../../model'
 import { MappingConfig, Helper } from '../../manager'
 
 export class MongodbConnectionPool extends ConnectionPool {
@@ -39,15 +39,14 @@ export class MongodbConnectionPool extends ConnectionPool {
 export class MongodbConnection extends Connection {
 	public async select (mapping: MappingConfig, query: Query, data:Data): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
+		const sentence = query.sentence as NoSqlSentence
 
-		const filter = query.sentence.filter || {}
-		const projection = query.sentence.projection || {}
-		let _query = this.cnx.db.collection(collection).find(filter, projection)
-		if (query.sentence.limit) {
-			_query = _query.limit(query.sentence.limit)
-		}
-		if (query.sentence.sort) {
-			_query = _query.limit(query.sentence.sort)
+		const filter = sentence.filter || {}
+		const projection = sentence.map || {}
+		const pagination = sentence.page || {}
+		let _query = this.cnx.db.collection(collection).find(filter, projection, pagination)
+		if (sentence.sort) {
+			_query = _query.sort(sentence.sort)
 		}
 		const result = await _query.toArray()
 		return result
@@ -74,7 +73,8 @@ export class MongodbConnection extends Connection {
 
 	public async updateOne (mapping: MappingConfig, query: Query, data:Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
-		const filter = query.sentence.filter || {}
+		const sentence = query.sentence as NoSqlSentence
+		const filter = sentence.filter || {}
 		const obj = this.dataToObject(query, mapping, data)
 		const result = await this.cnx.db.collection(collection).updateOne(filter, obj, { upsert: true })
 		return result.modifiedCount as number
@@ -82,7 +82,8 @@ export class MongodbConnection extends Connection {
 
 	public async updateMany (mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
-		const filter = query.sentence.filter || {}
+		const sentence = query.sentence as NoSqlSentence
+		const filter = sentence.filter || {}
 		const result = await this.cnx.db.collection(collection).updateMany(filter, array)
 		return result.modifiedCount as number
 	}

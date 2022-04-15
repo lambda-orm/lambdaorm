@@ -225,7 +225,7 @@ export class PostgresConnection extends Connection {
 
 	protected async _execute (mapping: MappingConfig, query:Query, data:Data):Promise<any> {
 		const values: any[] = []
-		let sql = query.sentence
+		let sql = query.sentence as string
 		const params = this.dataToParameters(query, mapping, data)
 		if (params) {
 			for (let i = 0; i < params.length; i++) {

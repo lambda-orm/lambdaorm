@@ -1,11 +1,25 @@
 import { Property, Parameter, Relation, Behavior, Constraint } from './index'
 
+export interface NoSqlSentence {
+	map?: string
+	from?: string
+	joins?: string[]
+	filter?: string
+	groupBy?: string
+	having?: string
+	sort?:string
+	page?: string
+	insert?: string
+	update?:string
+	delete?:string
+}
+
 // export class Query extends Operand {
 export class Query {
 	public name: string
 	// eslint-disable-next-line no-use-before-define
 	public children: Include[]
-	public sentence: any
+	public sentence: string | NoSqlSentence
 	public dialect: string
 	public dataSource: string
 	public entity: string
@@ -14,7 +28,7 @@ export class Query {
 	public constraints:Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
-	constructor (name: string, dialect: string, dataSource: string, sentence: any, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints:Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
+	constructor (name: string, dialect: string, dataSource: string, sentence: string | NoSqlSentence, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints:Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
 		this.name = name
 		this.dialect = dialect
 		this.sentence = sentence

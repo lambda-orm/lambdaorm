@@ -164,7 +164,7 @@ export class OracleConnection extends Connection {
 			const result = await this.cnx.executeMany(sql, binds, options)
 
 			if (result.rowsAffected !== binds.length) {
-				throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
+				throw new ExecutionError(query.dataSource, query.entity, query.sentence as string, `${binds.length - result.rowsAffected} records not imported!`, binds)
 			}
 
 			if (fieldId && fieldIdKey) {
@@ -275,7 +275,7 @@ export class OracleConnection extends Connection {
 
 	protected async _execute (mapping: MappingConfig, query:Query, data:Data):Promise<any> {
 		const values: any = {}
-		let sql = query.sentence
+		let sql = query.sentence as string
 		const params = this.dataToParameters(query, mapping, data)
 		if (params) {
 			for (let i = 0; i < params.length; i++) {

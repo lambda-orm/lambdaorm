@@ -100,7 +100,7 @@ export class QueryExecutor {
 		case 'dropFK': result = await connection.dropFK(mapping, query); break
 		case 'dropIndex': result = await connection.dropIndex(mapping, query); break
 		default:
-			throw new ExecutionError(query.dataSource, query.entity, query.sentence, `query ${query.name} undefined`)
+			throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `query ${query.name} undefined`)
 		}
 		return result
 	}
@@ -425,7 +425,7 @@ export class QueryExecutor {
 					const parentId = item[include.relation.from]
 					const child = item[include.relation.name]
 					if (!parentId) {
-						throw new ExecutionError(query.dataSource, query.entity, query.sentence, `parentId not found in ${include.relation.from}`, item)
+						throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `parentId not found in ${include.relation.from}`, item)
 					}
 					if (child) {
 						child[include.relation.to] = parentId
@@ -623,7 +623,7 @@ export class QueryExecutor {
 				const constraint = query.constraints[i]
 				for (let i = 0; i < data.length; i++) {
 					if (!this.expressions.eval(constraint.condition, data[i])) {
-						throw new ValidationError(query.dataSource, query.entity, query.sentence, constraint.message, data[i])
+						throw new ValidationError(query.dataSource, query.entity, JSON.stringify(query.sentence), constraint.message, data[i])
 					}
 				}
 			}
@@ -631,7 +631,7 @@ export class QueryExecutor {
 			for (const i in query.constraints) {
 				const constraint = query.constraints[i]
 				if (!this.expressions.eval(constraint.condition, data)) {
-					throw new ValidationError(query.dataSource, query.entity, query.sentence, constraint.message, data)
+					throw new ValidationError(query.dataSource, query.entity, JSON.stringify(query.sentence), constraint.message, data)
 				}
 			}
 		}
