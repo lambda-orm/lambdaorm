@@ -94,6 +94,16 @@
 			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
 		},
 		{
+			"name": "lab mongo queries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
 			"name": "lab sync",
 			"type": "node",
 			"request": "launch",

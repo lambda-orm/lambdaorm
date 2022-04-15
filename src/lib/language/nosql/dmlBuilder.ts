@@ -1,23 +1,23 @@
 
 import { Helper } from '../../manager/helper'
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource } from '../../model'
+import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource, EntityMapping } from '../../model'
 import { MappingConfig, Dialect } from '../../manager'
 
 const SqlString = require('sqlstring')
 
 export interface NoSqlSentence {
-	map?: any
-	from?: any
-	joins?: any[]
-	filter?: any
-	groupBy?: any
-	having?: any
-	sort?:any
-	page?: any
-	insert?: any
-	update?:any
-	delete?:any
+	map?: string
+	from?: string
+	joins?: string[]
+	filter?: string
+	groupBy?: string
+	having?: string
+	sort?:string
+	page?: string
+	insert?: string
+	update?:string
+	delete?:string
 }
 
 export class NoSqlDMLBuilder {
@@ -42,32 +42,61 @@ export class NoSqlDMLBuilder {
 		const map = sentence.children.find(p => p.name === 'map')as Map|undefined
 		const insert = sentence.children.find(p => p instanceof Insert) as Insert|undefined
 		const update = sentence.children.find(p => p instanceof Update) as Update|undefined
-		const _delete = sentence.children.find(p => p instanceof Delete) as Delete|undefined
+		// const _delete = sentence.children.find(p => p instanceof Delete) as Delete|undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter|undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy')as GroupBy|undefined
 		const having = sentence.children.find(p => p.name === 'having')as Having|undefined
 		const sort = sentence.children.find(p => p.name === 'sort')as Sort|undefined
 		const page = sentence.children.find(p => p.name === 'page') as Page | undefined
 
+		const entity = this.mapping.getEntity(sentence.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
 		const nosqlSentence:NoSqlSentence = {}
 		if (map) {
 			const from = sentence.children.find(p => p instanceof From) as Operand
 			const joins = sentence.children.filter(p => p instanceof Join)
-			nosqlSentence.map = this.buildArrowFunction(map)
-			nosqlSentence.from = this.solveFrom(from)
-			nosqlSentence.joins = this.solveJoins(joins)
-		} else if (insert) nosqlSentence.insert = this.buildInsert(insert, sentence.entity)
-		else if (update)nosqlSentence.update = this.buildUpdate(update)
-		else if (_delete) nosqlSentence.delete = this.buildDelete(_delete)
-		if (filter)nosqlSentence.filter = this.buildArrowFunction(filter) + ' '
-		if (groupBy)nosqlSentence.groupBy = this.buildArrowFunction(groupBy) + ' '
-		if (having)nosqlSentence.having = this.buildArrowFunction(having) + ' '
-		if (sort) nosqlSentence.sort = this.buildArrowFunction(sort) + ' '
+			nosqlSentence.map = this.buildMap(map, entity)
+			nosqlSentence.from = this.buildFrom(from)
+			nosqlSentence.joins = this.buildJoins(joins)
+		} else if (insert) nosqlSentence.insert = this.buildInsert(insert, entity)
+		else if (update)nosqlSentence.update = this.buildUpdate(update, entity)
+		// else if (_delete) nosqlSentence.delete = this.buildDelete(_delete)
+		if (filter)nosqlSentence.filter = this.buildArrowFunction(filter)
+		if (groupBy)nosqlSentence.groupBy = this.buildArrowFunction(groupBy)
+		if (having)nosqlSentence.having = this.buildArrowFunction(having)
+		if (sort) nosqlSentence.sort = `{ ${this.buildArrowFunction(sort)} }`
 		if (page)nosqlSentence.page = this.buildPage(page)
 		return nosqlSentence
 	}
 
-	private solveFrom (from:Operand):string {
+	private buildMap (operand:Map, entity:EntityMapping):string {
+		const template = this.dialect.dml('map')
+		const templateColumn = this.dialect.other('column')
+		const columns: string[] = []
+		if (operand.children[0] instanceof Object) {
+			const obj = operand.children[0]
+			for (const p in obj.children) {
+				const keyVal = obj.children[p] as KeyValue
+				let name:string
+				if (keyVal.property !== undefined) {
+					const property = entity.properties.find(p => p.name === keyVal.property)
+					if (property === undefined) {
+						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+					}
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
+				columns.push(column)
+			}
+		}
+		return template.replace('{0}', columns.join(','))
+	}
+
+	private buildFrom (from:Operand):string {
 		const parts = from.name.split('.')
 		const entityMapping = this.mapping.entityMapping(parts[0])
 		if (entityMapping === undefined) {
@@ -76,10 +105,10 @@ export class NoSqlDMLBuilder {
 		return this.dialect.delimiter(entityMapping)
 	}
 
-	private solveJoins (joins:Operand[]):any[] {
+	private buildJoins (joins:Operand[]):string[] {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
 		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-mongodb
-		const list:any[] = []
+		const list:string[] = []
 		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
@@ -94,84 +123,66 @@ export class NoSqlDMLBuilder {
 			joinTemplate = joinTemplate.replace('{fromProperty}', this.getFieldName(localField))
 			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldName(foreignField))
 			joinTemplate = joinTemplate.replace('{alias}', parts[1])
-			list.push(JSON.parse(joinTemplate))
+			list.push(joinTemplate)
 		}
 		return list
 	}
 
-	private buildInsert (operand:Insert, entity:string):string {
+	private buildInsert (operand:Insert, entity:EntityMapping):string {
 		const assings: string[] = []
-		const entityMapping = this.mapping.getEntity(entity)
-		if (entityMapping === undefined) {
-			throw new SchemaError(`mapping undefined on ${entity} entity`)
-		}
-		if (operand.children[0] instanceof Object) {
-			const obj = operand.children[0]
-			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
-				let name:string
-				if (keyVal.property !== undefined) {
-					const property = this.mapping.getProperty(entity, keyVal.property)
-					name = property.mapping
-				} else {
-					name = keyVal.name
-				}
-				const assing = `${this.dialect.delimiter(name)}:${this.buildOperand(keyVal.children[0])}`
-				assings.push(assing)
-			}
-		}
-		return `{${assings.join(',')}}`
-	}
-
-	private buildUpdate (operand:Update):string {
-		let template = this.dialect.dml('update')
-		const templateColumn = this.dialect.other('column')
+		const template = this.dialect.dml('insert')
 		const templateAssing = this.dialect.operator('=', 2)
-		const assings: string[] = []
-		const parts = operand.name.split('.')
-		const entity = parts[0]
-		const alias = parts[1]
-		const entityMapping = this.mapping.entityMapping(entity)
-		if (entityMapping === undefined) {
-			throw new SchemaError(`mapping undefined on ${entity} entity`)
-		}
-
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
 				const keyVal = obj.children[p] as KeyValue
 				let name:string
 				if (keyVal.property !== undefined) {
-					const property = this.mapping.getProperty(entity, keyVal.property)
+					const property = entity.properties.find(p => p.name === keyVal.property)
+					if (property === undefined) {
+						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+					}
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
-				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
+				const field = this.dialect.delimiter(name)
 				const value = this.buildOperand(keyVal.children[0])
-				let assing = templateAssing.replace('{0}', column)
+				let assing = templateAssing.replace('{0}', field)
 				assing = assing.replace('{1}', value)
 				assings.push(assing)
 			}
 		}
-		template = Helper.replace(template, '{name}', this.dialect.delimiter(entityMapping))
-		template = Helper.replace(template, '{alias}', alias)
-		template = template.replace('{assings}', assings.join(','))
-		return template.trim() + ' '
+		return template.replace('{assings}', assings.join(','))
 	}
 
-	private buildDelete (operand:Delete):string {
-		let template = this.dialect.dml('delete')
-		const parts = operand.name.split('.')
-		const entity = parts[0]
-		const alias = parts[1]
-		const entityMapping = this.mapping.entityMapping(entity)
-		if (entityMapping === undefined) {
-			throw new SchemaError(`mapping undefined on ${entity} entity`)
+	private buildUpdate (operand:Update, entity:EntityMapping):string {
+		const template = this.dialect.dml('update')
+		const templateAssing = this.dialect.operator('=', 2)
+		const assings: string[] = []
+
+		if (operand.children[0] instanceof Object) {
+			const obj = operand.children[0]
+			for (const p in obj.children) {
+				const keyVal = obj.children[p] as KeyValue
+				let name:string
+				if (keyVal.property !== undefined) {
+					const property = entity.properties.find(p => p.name === keyVal.property)
+					if (property === undefined) {
+						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+					}
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				const field = this.dialect.delimiter(name)
+				const value = this.buildOperand(keyVal.children[0])
+				let assing = templateAssing.replace('{0}', field)
+				assing = assing.replace('{1}', value)
+				assings.push(assing)
+			}
 		}
-		template = Helper.replace(template, '{name}', this.dialect.delimiter(entityMapping))
-		template = Helper.replace(template, '{alias}', alias)
-		return template.trim() + ' '
+		return template.replace('{assings}', assings.join(','))
 	}
 
 	private buildPage (operand:Page):string {
