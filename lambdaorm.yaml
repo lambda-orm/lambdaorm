@@ -371,7 +371,6 @@ mappings:
     extends: default
     entities:
       - name: Address
-        sequence: SQ_ADDRESS
       - name: Categories
         sequence: SQ_CATEGORIES
       - name: Customers
@@ -388,6 +387,45 @@ mappings:
         sequence: SQ_ORDERS
       - name: OrderDetails
         sequence: SQ_ORDER_DETAILS
+  - name: mongodb
+    extends: default
+    entities:
+      - name: Address
+      - name: Categories
+        properties:
+          - name: id
+            mapping: _id
+      - name: Customers
+        extends: Address
+        properties:
+          - name: id
+            mapping: CustomerID
+      - name: Employees
+        extends: Address
+        properties:
+          - name: id
+            mapping: EmployeeID
+      - name: Shippers
+        properties:
+          - name: id
+            mapping: _id
+      - name: Suppliers
+        extends: Address
+        properties:
+          - name: id
+            mapping: _id
+      - name: Products
+        properties:
+          - name: id
+            mapping: _id
+      - name: Orders
+        properties:
+          - name: id
+            mapping: _id
+      - name: OrderDetails
+        properties:
+          - name: orderId
+            mapping: OrderID
 dataSources:
   - name: source
     mapping: default
@@ -414,7 +452,7 @@ dataSources:
     dialect: oracle
     connection: $$ORM_CNN_ORACLE
   - name: mongodb
-    mapping: default
+    mapping: mongodb
     dialect: mongodb
     connection: $$ORM_CNN_MONGODB
 stages:
