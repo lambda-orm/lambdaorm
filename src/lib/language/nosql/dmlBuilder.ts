@@ -75,7 +75,7 @@ export class NoSqlDMLBuilder {
 				} else {
 					name = keyVal.name
 				}
-				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
+				const column = templateColumn.replace('{name}', name)
 				columns.push(column)
 			}
 		}
@@ -132,9 +132,8 @@ export class NoSqlDMLBuilder {
 				} else {
 					name = keyVal.name
 				}
-				const field = this.dialect.delimiter(name)
 				const value = this.buildOperand(keyVal.children[0])
-				let assing = templateAssing.replace('{0}', field)
+				let assing = templateAssing.replace('{0}', name)
 				assing = assing.replace('{1}', value)
 				assings.push(assing)
 			}

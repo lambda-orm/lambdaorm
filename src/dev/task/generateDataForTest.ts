@@ -994,9 +994,9 @@ async function stageImport (source: string, target: string) {
 }
 
 export async function apply (stages: string[], callback: any) {
+	let errors = 0
 	try {
 		await orm.init()
-		let errors = 0
 		await orm.stage.sync('source').execute()
 		await stageExport('source')
 		for (const p in stages) {
@@ -1026,10 +1026,10 @@ export async function apply (stages: string[], callback: any) {
 		// await scriptsByDialect('northwind')
 		// await applySchema(schemas)
 		// await bulkInsert2(orm)
-
 		await orm.end()
 		console.log(`INFO: ${errors} errors`)
 	} catch (error:any) {
+		await orm.end()
 		console.error(error)
 		throw error
 	}

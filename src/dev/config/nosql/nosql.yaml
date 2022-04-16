@@ -18,26 +18,26 @@ ddl:
   # dropIndex: ""
   # truncateTable: ""
 dml:
-  map: " projection: { {0} } "
+  map: "{ $project:{ {0} }} "
   # distinct: distinct({0})
   filter: "{0}"
-  groupBy: "{0}"
-  having: "{0}"
-  sort: " sort:{ {0} }"
-  page: "{ skip: {offset}, limit: {records} }"
+  groupBy: "{ $group:{ {0} }}"
+  having: "{ $match:{ {0} }}"
+  sort: "{ $sort:{ {0} } }"
+  page: "{ $skip: {offset}, $limit: {records} }"
   insert: "{ {assings} }"
-  update: "{ $set: {assings} }"
+  update: "{ $set:{ {assings} }}"
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: "FROM {name} {alias} "
-  join: "{$lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
+  join: "{ $lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
 others:
   delimiter: '"{name}"'
   sepatatorSql: ;
   # notNullable: NOT NULL
   variable: "{{{name}}}"
   field: "{entityAlias}.{name}"
-  column: "{name}: 1"
+  column: '"{name}": 1'
   false: "false"
   true: "true"
 operators:
@@ -70,7 +70,7 @@ operators:
     "<=": "$lte:[{0},{1}]"
     "&&": "$and:[{0},{1}]"
     "||": "$or:[{0},{1}]"
-    "=": "{0}:{1} "
+    "=": '"{0}":{1} '
   ternary:
     "?": "$cond:{{0},{1},{2}}"
 functions:

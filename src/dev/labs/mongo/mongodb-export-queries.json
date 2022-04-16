@@ -3,7 +3,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ projection: { id: 1,name: 1,description: 1 } }",
+      "map": "{ $project:{ id: 1,name: 1,description: 1 }} ",
       "from": "Categories",
       "joins": []
     },
@@ -33,7 +33,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ projection: { id: 1,name: 1,contact: 1,phone: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1,__id: 1 } }",
+      "map": "{ $project:{ id: 1,name: 1,contact: 1,phone: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1,__id: 1 }} ",
       "from": "Customers",
       "joins": []
     },
@@ -92,7 +92,7 @@
           "name": "select",
           "dialect": "mongodb",
           "sentence": {
-            "map": "{ projection: { id: 1,customerId: 1,employeeId: 1,orderDate: 1,requiredDate: 1,shippedDate: 1,shipViaId: 1,freight: 1,name: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1,__id: 1,LamdaOrmParentId: 1 } }",
+            "map": "{ $project:{ id: 1,customerId: 1,employeeId: 1,orderDate: 1,requiredDate: 1,shippedDate: 1,shipViaId: 1,freight: 1,name: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1,__id: 1,LamdaOrmParentId: 1 }} ",
             "from": "Orders",
             "joins": [],
             "filter": "o.CustomerID:{$in:[{{LamdaOrmParentId}}]}"
@@ -181,7 +181,7 @@
                 "name": "select",
                 "dialect": "mongodb",
                 "sentence": {
-                  "map": "{ projection: { orderId: 1,productId: 1,unitPrice: 1,quantity: 1,discount: 1,LamdaOrmParentId: 1 } }",
+                  "map": "{ $project:{ orderId: 1,productId: 1,unitPrice: 1,quantity: 1,discount: 1,LamdaOrmParentId: 1 }} ",
                   "from": "\"Order Details\"",
                   "joins": [],
                   "filter": "o1.OrderID:{$in:[{{LamdaOrmParentId}}]}"
@@ -255,7 +255,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ projection: { id: 1,lastName: 1,firstName: 1,title: 1,titleOfCourtesy: 1,birthDate: 1,hireDate: 1,phone: 1,reportsToId: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1 } }",
+      "map": "{ $project:{ id: 1,lastName: 1,firstName: 1,title: 1,titleOfCourtesy: 1,birthDate: 1,hireDate: 1,phone: 1,reportsToId: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1 }} ",
       "from": "Employees",
       "joins": []
     },
@@ -329,7 +329,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ projection: { id: 1,name: 1,phone: 1 } }",
+      "map": "{ $project:{ id: 1,name: 1,phone: 1 }} ",
       "from": "Shippers",
       "joins": []
     },
@@ -359,7 +359,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ projection: { id: 1,name: 1,contact: 1,phone: 1,homepage: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1 } }",
+      "map": "{ $project:{ id: 1,name: 1,contact: 1,phone: 1,homepage: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1 }} ",
       "from": "Suppliers",
       "joins": []
     },
@@ -417,7 +417,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ projection: { id: 1,name: 1,supplierId: 1,categoryId: 1,quantity: 1,price: 1,inStock: 1,onOrder: 1,reorderLevel: 1,discontinued: 1 } }",
+      "map": "{ $project:{ id: 1,name: 1,supplierId: 1,categoryId: 1,quantity: 1,price: 1,inStock: 1,onOrder: 1,reorderLevel: 1,discontinued: 1 }} ",
       "from": "Products",
       "joins": []
     },

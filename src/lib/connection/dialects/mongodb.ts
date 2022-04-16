@@ -52,6 +52,17 @@ export class MongodbConnection extends Connection {
 		if (sentence.map) {
 			aggregate.push(this.templateToObject(sentence.map, params))
 		}
+		if (sentence.joins) {
+			for (const i in sentence.joins) {
+				aggregate.push(JSON.parse(sentence.joins[i]))
+			}
+		}
+		if (sentence.groupBy) {
+			aggregate.push(JSON.parse(sentence.groupBy))
+		}
+		if (sentence.having) {
+			aggregate.push(JSON.parse(sentence.having))
+		}
 		if (sentence.sort) {
 			aggregate.push(JSON.parse(sentence.sort))
 		}
@@ -167,23 +178,34 @@ export class MongodbConnection extends Connection {
 				if (value) {
 					switch (param.type) {
 					case 'boolean':
-						value = param.value ? 'true' : 'false'; break
+						value = value ? 'true' : 'false'; break
 					case 'string':
-						value = typeof param.value === 'string' || param.value === null ? param.value : param.value.toString(); break
+						value = typeof value === 'string' ? value : value.toString()
+						value = Helper.replace(value, '\n', '\\n')
+						value = Helper.replace(value, '"', '\\"')
+						value = `"${value}"`
+						break
 					case 'datetime':
-						value = this.writeDateTime(value, mapping)
+						value = `"${this.writeDateTime(value, mapping)}"`
 						break
 					case 'date':
-						value = this.writeDate(value, mapping)
+						value = `"${this.writeDate(value, mapping)}"`
 						break
 					case 'time':
-						value = this.writeTime(value, mapping)
+						value = `"${this.writeTime(value, mapping)}"`
 						break
 					}
+				} else {
+					value = 'null'
 				}
 				strObj = Helper.replace(strObj || template, `{{${param.name}}}`, value)
 			}
-			list.push(strObj ? JSON.parse(strObj) : {})
+			try {
+				const obj = strObj ? JSON.parse(strObj) : {}
+				list.push(obj)
+			} catch (error) {
+				console.log(error)
+			}
 		}
 		return list
 	}
@@ -199,15 +221,21 @@ export class MongodbConnection extends Connection {
 				case 'boolean':
 					value = param.value ? 'true' : 'false'; break
 				case 'string':
-					value = typeof param.value === 'string' || param.value === null ? param.value : param.value.toString(); break
+					value = typeof param.value === 'string' ? param.value : param.value.toString()
+					value = Helper.replace(value, '\n', '\\n')
+					value = Helper.replace(value, '"', '\\"')
+					value = `"${value}"`
+					break
 				case 'datetime':
 				case 'date':
 				case 'time':
 					// TODO: agregar formato de fecha a nivel de mapping para convertir en ese formato
-					value = new Date(param.value).toISOString(); break
+					value = `"${new Date(param.value).toISOString()}"`; break
 				default:
 					value = param.value
 				}
+			} else {
+				value = 'null'
 			}
 			result = Helper.replace(result || template, `{{${param.name}}}`, value)
 		}

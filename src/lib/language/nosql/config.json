@@ -8,22 +8,22 @@
         "createIndex": "createIndex({index})"
       },
       "dml": {
-        "map": "{ projection: { {0} } }",
+        "map": "{ $project:{ {0} }} ",
         "filter": "{0}",
-        "groupBy": "{0}",
-        "having": "{0}",
-        "sort": "{0}",
-        "page": "{ skip: {offset}, limit: {records} }",
+        "groupBy": "{ $group:{ {0} }}",
+        "having": "{ $match:{ {0} }}",
+        "sort": "{ $sort:{ {0} } }",
+        "page": "{ $skip: {offset}, $limit: {records} }",
         "insert": "{ {assings} }",
-        "update": "{ $set: {assings} }",
-        "join": "{$lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
+        "update": "{ $set:{ {assings} }}",
+        "join": "{ $lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
       },
       "others": {
         "delimiter": "\"{name}\"",
         "sepatatorSql": ";",
         "variable": "{{{name}}}",
         "field": "{entityAlias}.{name}",
-        "column": "{name}: 1",
+        "column": "\"{name}\": 1",
         "false": "false",
         "true": "true"
       },
@@ -53,7 +53,7 @@
           "<=": "$lte:[{0},{1}]",
           "&&": "$and:[{0},{1}]",
           "||": "$or:[{0},{1}]",
-          "=": "{0}:{1} "
+          "=": "\"{0}\":{1} "
         },
         "ternary": {
           "?": "$cond:{{0},{1},{2}}"
@@ -159,22 +159,22 @@
       "createIndex": "createIndex({index})"
     },
     "dml": {
-      "map": "{ projection: { {0} } }",
+      "map": "{ $project:{ {0} }} ",
       "filter": "{0}",
-      "groupBy": "{0}",
-      "having": "{0}",
-      "sort": "{0}",
-      "page": "{ skip: {offset}, limit: {records} }",
+      "groupBy": "{ $group:{ {0} }}",
+      "having": "{ $match:{ {0} }}",
+      "sort": "{ $sort:{ {0} } }",
+      "page": "{ $skip: {offset}, $limit: {records} }",
       "insert": "{ {assings} }",
-      "update": "{ $set: {assings} }",
-      "join": "{$lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
+      "update": "{ $set:{ {assings} }}",
+      "join": "{ $lookup:{from: {name},localField: {fromProperty},foreignField:{toProperty},as: {alias} }}"
     },
     "others": {
       "delimiter": "\"{name}\"",
       "sepatatorSql": ";",
       "variable": "{{{name}}}",
       "field": "{entityAlias}.{name}",
-      "column": "{name}: 1",
+      "column": "\"{name}\": 1",
       "false": "false",
       "true": "true"
     },
@@ -204,7 +204,7 @@
         "<=": "$lte:[{0},{1}]",
         "&&": "$and:[{0},{1}]",
         "||": "$or:[{0},{1}]",
-        "=": "{0}:{1} "
+        "=": "\"{0}\":{1} "
       },
       "ternary": {
         "?": "$cond:{{0},{1},{2}}"

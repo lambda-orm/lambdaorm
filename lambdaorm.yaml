@@ -184,7 +184,6 @@ entities:
         entity: Customers
         to: id
         target: orders
-        targetComposite: true
       - name: employee
         from: employeeId
         entity: Employees
