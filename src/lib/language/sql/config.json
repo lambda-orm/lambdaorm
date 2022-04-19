@@ -4,7 +4,7 @@
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-        "createTable": "CREATE TABLE {name} ({define})",
+        "createEntity": "CREATE TABLE {name} ({define})",
         "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
@@ -19,13 +19,13 @@
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-        "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropEntity": "DROP TABLE IF EXISTS {name}",
         "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP PRIMARY KEY {name}",
         "dropUk": "DROP UNIQUE {name}",
         "dropFk": "DROP FOREIGN KEY {name}",
-        "truncateTable": "TRUNCATE TABLE {name}"
+        "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "delete": "DELETE {alias} FROM {name} AS {alias}",
@@ -254,7 +254,7 @@
         "dropFk": "DROP CONSTRAINT {name}",
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-        "createTable": "CREATE TABLE {name} ({define})",
+        "createEntity": "CREATE TABLE {name} ({define})",
         "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createUk": "CONSTRAINT {name} UNIQUE ({columns})",
@@ -267,10 +267,10 @@
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-        "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropEntity": "DROP TABLE IF EXISTS {name}",
         "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "truncateTable": "TRUNCATE TABLE {name}"
+        "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "insert": "INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoincrementField} VALUES({values})",
@@ -467,7 +467,7 @@
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-        "createTable": "CREATE TABLE {name} ({define})",
+        "createEntity": "CREATE TABLE {name} ({define})",
         "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
         "columnDefine": "{name} {type} {nullable} ",
@@ -482,13 +482,13 @@
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-        "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropEntity": "DROP TABLE IF EXISTS {name}",
         "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
         "dropPk": "DROP PRIMARY KEY {name}",
         "dropUk": "DROP UNIQUE {name}",
         "dropFk": "DROP FOREIGN KEY {name}",
-        "truncateTable": "TRUNCATE TABLE {name}"
+        "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "delete": "DELETE {alias} FROM {name} AS {alias}",
@@ -722,9 +722,9 @@
         "sequenceNextval": "{name}.nextval"
       },
       "ddl": {
-        "createTable": "CREATE TABLE {name} ({define})",
+        "createEntity": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} {nullable}",
-        "dropTable": "DROP TABLE {name}",
+        "dropEntity": "DROP TABLE {name}",
         "dropPk": "DROP CONSTRAINT {name}",
         "dropUk": "DROP CONSTRAINT {name}",
         "dropFk": "DROP CONSTRAINT {name}",
@@ -745,7 +745,7 @@
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
         "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "truncateTable": "TRUNCATE TABLE {name}"
+        "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "page": "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY",
@@ -943,7 +943,7 @@
         "dropFk": "DROP CONSTRAINT {name}",
         "dropIndex": "DROP INDEX {name}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-        "createTable": "CREATE TABLE {name} ({define})",
+        "createEntity": "CREATE TABLE {name} ({define})",
         "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
         "columnDefine": "{name} {type} {nullable} ",
         "createPk": "CONSTRAINT {name} PRIMARY KEY ({columns})",
@@ -957,10 +957,10 @@
         "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
         "alterColumn": "MODIFY {columnDefine}",
         "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-        "dropTable": "DROP TABLE IF EXISTS {name}",
+        "dropEntity": "DROP TABLE IF EXISTS {name}",
         "dropSequence": "DROP SEQUENCE {name}",
         "dropColumn": "DROP COLUMN {name}",
-        "truncateTable": "TRUNCATE TABLE {name}"
+        "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dml": {
         "page": "{sentence} OFFSET {offset} LIMIT {records}",
@@ -1165,7 +1165,7 @@
     },
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
-      "createTable": "CREATE TABLE {name} ({define})",
+      "createEntity": "CREATE TABLE {name} ({define})",
       "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
       "incrementalColumDefine": "{name} {type} {nullable} AUTO_INCREMENT",
       "columnDefine": "{name} {type} {nullable} ",
@@ -1180,14 +1180,14 @@
       "addFk": "ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})",
       "alterColumn": "MODIFY {columnDefine}",
       "dropDatabase": "DROP DATABASE IF EXISTS {name}",
-      "dropTable": "DROP TABLE IF EXISTS {name}",
+      "dropEntity": "DROP TABLE IF EXISTS {name}",
       "dropSequence": "DROP SEQUENCE {name}",
       "dropColumn": "DROP COLUMN {name}",
       "dropPk": "DROP PRIMARY KEY {name}",
       "dropUk": "DROP UNIQUE {name}",
       "dropFk": "DROP FOREIGN KEY {name}",
       "dropIndex": "DROP INDEX {name} ON {table}",
-      "truncateTable": "TRUNCATE TABLE {name}"
+      "truncateEntity": "TRUNCATE TABLE {name}"
     },
     "dml": {
       "map": "SELECT {0}",

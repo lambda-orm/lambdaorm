@@ -3,7 +3,7 @@
     "name": "bulkInsert",
     "dialect": "mongodb",
     "sentence": {
-      "insert": "{ CategoryName:{{name}} ,Description:{{description}}  }"
+      "insert": "{ \"CategoryName\":{{name}} ,\"Description\":{{description}}  }"
     },
     "entity": "Categories",
     "columns": [
@@ -41,7 +41,7 @@
     "name": "bulkInsert",
     "dialect": "mongodb",
     "sentence": {
-      "insert": "{ CustomerID:{{id}} ,CompanyName:{{name}} ,ContactName:{{contact}} ,ContactTitle:{{phone}} ,Address:{{address}} ,City:{{city}} ,Region:{{region}} ,PostalCode:{{postalCode}} ,Country:{{country}}  }"
+      "insert": "{ \"CustomerID\":{{id}} ,\"CompanyName\":{{name}} ,\"ContactName\":{{contact}} ,\"ContactTitle\":{{phone}} ,\"Address\":{{address}} ,\"City\":{{city}} ,\"Region\":{{region}} ,\"PostalCode\":{{postalCode}} ,\"Country\":{{country}}  }"
     },
     "entity": "Customers",
     "columns": [
@@ -133,237 +133,13 @@
     ],
     "values": [],
     "defaults": [],
-    "children": [
-      {
-        "name": "orders",
-        "query": {
-          "name": "bulkInsert",
-          "dialect": "mongodb",
-          "sentence": {
-            "insert": "{ CustomerID:{{customerId}} ,EmployeeID:{{employeeId}} ,OrderDate:{{orderDate}} ,RequiredDate:{{requiredDate}} ,ShippedDate:{{shippedDate}} ,ShipVia:{{shipViaId}} ,Freight:{{freight}} ,ShipName:{{name}} ,ShipAddress:{{address}} ,ShipCity:{{city}} ,ShipRegion:{{region}} ,ShipPostalCode:{{postalCode}} ,ShipCountry:{{country}}  }"
-          },
-          "entity": "Orders",
-          "columns": [
-            {
-              "name": "customerId",
-              "type": "string"
-            },
-            {
-              "name": "employeeId",
-              "type": "integer"
-            },
-            {
-              "name": "orderDate",
-              "type": "datetime"
-            },
-            {
-              "name": "requiredDate",
-              "type": "datetime"
-            },
-            {
-              "name": "shippedDate",
-              "type": "datetime"
-            },
-            {
-              "name": "shipViaId",
-              "type": "integer"
-            },
-            {
-              "name": "freight",
-              "type": "decimal"
-            },
-            {
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "name": "address",
-              "type": "string"
-            },
-            {
-              "name": "city",
-              "type": "string"
-            },
-            {
-              "name": "region",
-              "type": "string"
-            },
-            {
-              "name": "postalCode",
-              "type": "string"
-            },
-            {
-              "name": "country",
-              "type": "string"
-            }
-          ],
-          "parameters": [
-            {
-              "name": "customerId",
-              "type": "string"
-            },
-            {
-              "name": "employeeId",
-              "type": "integer"
-            },
-            {
-              "name": "orderDate",
-              "type": "datetime"
-            },
-            {
-              "name": "requiredDate",
-              "type": "datetime"
-            },
-            {
-              "name": "shippedDate",
-              "type": "datetime"
-            },
-            {
-              "name": "shipViaId",
-              "type": "integer"
-            },
-            {
-              "name": "freight",
-              "type": "decimal"
-            },
-            {
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "name": "address",
-              "type": "string"
-            },
-            {
-              "name": "city",
-              "type": "string"
-            },
-            {
-              "name": "region",
-              "type": "string"
-            },
-            {
-              "name": "postalCode",
-              "type": "string"
-            },
-            {
-              "name": "country",
-              "type": "string"
-            }
-          ],
-          "dataSource": "mongodb",
-          "constraints": [
-            {
-              "message": "Cannot be null property customerId in entity Orders",
-              "condition": "isNotNull(customerId)"
-            },
-            {
-              "message": "Cannot be null property employeeId in entity Orders",
-              "condition": "isNotNull(employeeId)"
-            }
-          ],
-          "values": [],
-          "defaults": [],
-          "children": [
-            {
-              "name": "details",
-              "query": {
-                "name": "bulkInsert",
-                "dialect": "mongodb",
-                "sentence": {
-                  "insert": "{ OrderID:{{orderId}} ,ProductID:{{productId}} ,UnitPrice:{{unitPrice}} ,Quantity:{{quantity}} ,Discount:{{discount}}  }"
-                },
-                "entity": "OrderDetails",
-                "columns": [
-                  {
-                    "name": "orderId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "unitPrice",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "quantity",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "discount",
-                    "type": "decimal"
-                  }
-                ],
-                "parameters": [
-                  {
-                    "name": "orderId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "unitPrice",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "quantity",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "discount",
-                    "type": "decimal"
-                  }
-                ],
-                "dataSource": "mongodb",
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity OrderDetails",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity OrderDetails",
-                    "condition": "isNotNull(productId)"
-                  }
-                ],
-                "values": [],
-                "defaults": [],
-                "children": []
-              },
-              "relation": {
-                "name": "details",
-                "type": "manyToOne",
-                "composite": true,
-                "from": "id",
-                "entity": "OrderDetails",
-                "weak": true,
-                "to": "orderId",
-                "target": "order"
-              }
-            }
-          ]
-        },
-        "relation": {
-          "name": "orders",
-          "type": "manyToOne",
-          "composite": true,
-          "from": "id",
-          "entity": "Orders",
-          "weak": true,
-          "to": "customerId",
-          "target": "customer"
-        }
-      }
-    ]
+    "children": []
   },
   {
     "name": "bulkInsert",
     "dialect": "mongodb",
     "sentence": {
-      "insert": "{ LastName:{{lastName}} ,FirstName:{{firstName}} ,Title:{{title}} ,TitleOfCourtesy:{{titleOfCourtesy}} ,BirthDate:{{birthDate}} ,HireDate:{{hireDate}} ,HomePhone:{{phone}} ,ReportsTo:{{reportsToId}} ,Address:{{address}} ,City:{{city}} ,Region:{{region}} ,PostalCode:{{postalCode}} ,Country:{{country}}  }"
+      "insert": "{ \"LastName\":{{lastName}} ,\"FirstName\":{{firstName}} ,\"Title\":{{title}} ,\"TitleOfCourtesy\":{{titleOfCourtesy}} ,\"BirthDate\":{{birthDate}} ,\"HireDate\":{{hireDate}} ,\"HomePhone\":{{phone}} ,\"ReportsTo\":{{reportsToId}} ,\"Address\":{{address}} ,\"City\":{{city}} ,\"Region\":{{region}} ,\"PostalCode\":{{postalCode}} ,\"Country\":{{country}}  }"
     },
     "entity": "Employees",
     "columns": [
@@ -493,7 +269,7 @@
     "name": "bulkInsert",
     "dialect": "mongodb",
     "sentence": {
-      "insert": "{ CompanyName:{{name}} ,Phone:{{phone}}  }"
+      "insert": "{ \"CompanyName\":{{name}} ,\"Phone\":{{phone}}  }"
     },
     "entity": "Shippers",
     "columns": [
@@ -531,7 +307,7 @@
     "name": "bulkInsert",
     "dialect": "mongodb",
     "sentence": {
-      "insert": "{ CompanyName:{{name}} ,ContactName:{{contact}} ,Phone:{{phone}} ,HomePage:{{homepage}} ,Address:{{address}} ,City:{{city}} ,Region:{{region}} ,PostalCode:{{postalCode}} ,Country:{{country}}  }"
+      "insert": "{ \"CompanyName\":{{name}} ,\"ContactName\":{{contact}} ,\"Phone\":{{phone}} ,\"HomePage\":{{homepage}} ,\"Address\":{{address}} ,\"City\":{{city}} ,\"Region\":{{region}} ,\"PostalCode\":{{postalCode}} ,\"Country\":{{country}}  }"
     },
     "entity": "Suppliers",
     "columns": [
@@ -625,7 +401,7 @@
     "name": "bulkInsert",
     "dialect": "mongodb",
     "sentence": {
-      "insert": "{ ProductName:{{name}} ,SupplierID:{{supplierId}} ,CategoryID:{{categoryId}} ,QuantityPerUnit:{{quantity}} ,UnitPrice:{{price}} ,UnitsInStock:{{inStock}} ,UnitsOnOrder:{{onOrder}} ,ReorderLevel:{{reorderLevel}} ,Discontinued:{{discontinued}}  }"
+      "insert": "{ \"ProductName\":{{name}} ,\"SupplierID\":{{supplierId}} ,\"CategoryID\":{{categoryId}} ,\"QuantityPerUnit\":{{quantity}} ,\"UnitPrice\":{{price}} ,\"UnitsInStock\":{{inStock}} ,\"UnitsOnOrder\":{{onOrder}} ,\"ReorderLevel\":{{reorderLevel}} ,\"Discontinued\":{{discontinued}}  }"
     },
     "entity": "Products",
     "columns": [
@@ -718,5 +494,215 @@
     "values": [],
     "defaults": [],
     "children": []
+  },
+  {
+    "name": "bulkInsert",
+    "dialect": "mongodb",
+    "sentence": {
+      "insert": "{ \"CustomerID\":{{customerId}} ,\"EmployeeID\":{{employeeId}} ,\"OrderDate\":{{orderDate}} ,\"RequiredDate\":{{requiredDate}} ,\"ShippedDate\":{{shippedDate}} ,\"ShipVia\":{{shipViaId}} ,\"Freight\":{{freight}} ,\"ShipName\":{{name}} ,\"ShipAddress\":{{address}} ,\"ShipCity\":{{city}} ,\"ShipRegion\":{{region}} ,\"ShipPostalCode\":{{postalCode}} ,\"ShipCountry\":{{country}}  }"
+    },
+    "entity": "Orders",
+    "columns": [
+      {
+        "name": "customerId",
+        "type": "string"
+      },
+      {
+        "name": "employeeId",
+        "type": "integer"
+      },
+      {
+        "name": "orderDate",
+        "type": "datetime"
+      },
+      {
+        "name": "requiredDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shippedDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shipViaId",
+        "type": "integer"
+      },
+      {
+        "name": "freight",
+        "type": "decimal"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      }
+    ],
+    "parameters": [
+      {
+        "name": "customerId",
+        "type": "string"
+      },
+      {
+        "name": "employeeId",
+        "type": "integer"
+      },
+      {
+        "name": "orderDate",
+        "type": "datetime"
+      },
+      {
+        "name": "requiredDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shippedDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shipViaId",
+        "type": "integer"
+      },
+      {
+        "name": "freight",
+        "type": "decimal"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      }
+    ],
+    "dataSource": "mongodb",
+    "constraints": [
+      {
+        "message": "Cannot be null property customerId in entity Orders",
+        "condition": "isNotNull(customerId)"
+      },
+      {
+        "message": "Cannot be null property employeeId in entity Orders",
+        "condition": "isNotNull(employeeId)"
+      }
+    ],
+    "values": [],
+    "defaults": [],
+    "children": [
+      {
+        "name": "details",
+        "query": {
+          "name": "bulkInsert",
+          "dialect": "mongodb",
+          "sentence": {
+            "insert": "{ \"OrderID\":{{orderId}} ,\"ProductID\":{{productId}} ,\"UnitPrice\":{{unitPrice}} ,\"Quantity\":{{quantity}} ,\"Discount\":{{discount}}  }"
+          },
+          "entity": "OrderDetails",
+          "columns": [
+            {
+              "name": "orderId",
+              "type": "integer"
+            },
+            {
+              "name": "productId",
+              "type": "integer"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "discount",
+              "type": "decimal"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "orderId",
+              "type": "integer"
+            },
+            {
+              "name": "productId",
+              "type": "integer"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "discount",
+              "type": "decimal"
+            }
+          ],
+          "dataSource": "mongodb",
+          "constraints": [
+            {
+              "message": "Cannot be null property orderId in entity OrderDetails",
+              "condition": "isNotNull(orderId)"
+            },
+            {
+              "message": "Cannot be null property productId in entity OrderDetails",
+              "condition": "isNotNull(productId)"
+            }
+          ],
+          "values": [],
+          "defaults": [],
+          "children": []
+        },
+        "relation": {
+          "name": "details",
+          "type": "manyToOne",
+          "composite": true,
+          "from": "id",
+          "entity": "OrderDetails",
+          "weak": true,
+          "to": "orderId",
+          "target": "order"
+        }
+      }
+    ]
   }
 ]

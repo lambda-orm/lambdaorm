@@ -3,7 +3,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ $project:{ id: 1,name: 1,description: 1 }} ",
+      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"description\": 1 }} ",
       "from": "Categories",
       "joins": []
     },
@@ -33,7 +33,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ $project:{ id: 1,name: 1,contact: 1,phone: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1,__id: 1 }} ",
+      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"contact\": 1,\"phone\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1 }} ",
       "from": "Customers",
       "joins": []
     },
@@ -74,10 +74,6 @@
       {
         "name": "country",
         "type": "string"
-      },
-      {
-        "name": "__id",
-        "type": "string"
       }
     ],
     "parameters": [],
@@ -85,177 +81,13 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": [
-      {
-        "name": "orders",
-        "query": {
-          "name": "select",
-          "dialect": "mongodb",
-          "sentence": {
-            "map": "{ $project:{ id: 1,customerId: 1,employeeId: 1,orderDate: 1,requiredDate: 1,shippedDate: 1,shipViaId: 1,freight: 1,name: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1,__id: 1,LamdaOrmParentId: 1 }} ",
-            "from": "Orders",
-            "joins": [],
-            "filter": "o.CustomerID:{$in:[{{LamdaOrmParentId}}]}"
-          },
-          "entity": "Orders",
-          "columns": [
-            {
-              "name": "id",
-              "type": "integer"
-            },
-            {
-              "name": "customerId",
-              "type": "string"
-            },
-            {
-              "name": "employeeId",
-              "type": "integer"
-            },
-            {
-              "name": "orderDate",
-              "type": "datetime"
-            },
-            {
-              "name": "requiredDate",
-              "type": "datetime"
-            },
-            {
-              "name": "shippedDate",
-              "type": "datetime"
-            },
-            {
-              "name": "shipViaId",
-              "type": "integer"
-            },
-            {
-              "name": "freight",
-              "type": "decimal"
-            },
-            {
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "name": "address",
-              "type": "string"
-            },
-            {
-              "name": "city",
-              "type": "string"
-            },
-            {
-              "name": "region",
-              "type": "string"
-            },
-            {
-              "name": "postalCode",
-              "type": "string"
-            },
-            {
-              "name": "country",
-              "type": "string"
-            },
-            {
-              "name": "__id",
-              "type": "integer"
-            },
-            {
-              "name": "LamdaOrmParentId",
-              "type": "string"
-            }
-          ],
-          "parameters": [
-            {
-              "name": "LamdaOrmParentId",
-              "type": "array"
-            }
-          ],
-          "dataSource": "mongodb",
-          "constraints": [],
-          "values": [],
-          "defaults": [],
-          "children": [
-            {
-              "name": "details",
-              "query": {
-                "name": "select",
-                "dialect": "mongodb",
-                "sentence": {
-                  "map": "{ $project:{ orderId: 1,productId: 1,unitPrice: 1,quantity: 1,discount: 1,LamdaOrmParentId: 1 }} ",
-                  "from": "\"Order Details\"",
-                  "joins": [],
-                  "filter": "o1.OrderID:{$in:[{{LamdaOrmParentId}}]}"
-                },
-                "entity": "OrderDetails",
-                "columns": [
-                  {
-                    "name": "orderId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "unitPrice",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "quantity",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "discount",
-                    "type": "decimal"
-                  },
-                  {
-                    "name": "LamdaOrmParentId",
-                    "type": "integer"
-                  }
-                ],
-                "parameters": [
-                  {
-                    "name": "LamdaOrmParentId",
-                    "type": "array"
-                  }
-                ],
-                "dataSource": "mongodb",
-                "constraints": [],
-                "values": [],
-                "defaults": [],
-                "children": []
-              },
-              "relation": {
-                "name": "details",
-                "type": "manyToOne",
-                "composite": true,
-                "from": "id",
-                "entity": "OrderDetails",
-                "weak": true,
-                "to": "orderId",
-                "target": "order"
-              }
-            }
-          ]
-        },
-        "relation": {
-          "name": "orders",
-          "type": "manyToOne",
-          "composite": true,
-          "from": "id",
-          "entity": "Orders",
-          "weak": true,
-          "to": "customerId",
-          "target": "customer"
-        }
-      }
-    ]
+    "children": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ $project:{ id: 1,lastName: 1,firstName: 1,title: 1,titleOfCourtesy: 1,birthDate: 1,hireDate: 1,phone: 1,reportsToId: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1 }} ",
+      "map": "{ $project:{ \"id\": 1,\"lastName\": 1,\"firstName\": 1,\"title\": 1,\"titleOfCourtesy\": 1,\"birthDate\": 1,\"hireDate\": 1,\"phone\": 1,\"reportsToId\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1 }} ",
       "from": "Employees",
       "joins": []
     },
@@ -329,7 +161,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ $project:{ id: 1,name: 1,phone: 1 }} ",
+      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"phone\": 1 }} ",
       "from": "Shippers",
       "joins": []
     },
@@ -359,7 +191,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ $project:{ id: 1,name: 1,contact: 1,phone: 1,homepage: 1,address: 1,city: 1,region: 1,postalCode: 1,country: 1 }} ",
+      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"contact\": 1,\"phone\": 1,\"homepage\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1 }} ",
       "from": "Suppliers",
       "joins": []
     },
@@ -417,7 +249,7 @@
     "name": "select",
     "dialect": "mongodb",
     "sentence": {
-      "map": "{ $project:{ id: 1,name: 1,supplierId: 1,categoryId: 1,quantity: 1,price: 1,inStock: 1,onOrder: 1,reorderLevel: 1,discontinued: 1 }} ",
+      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"supplierId\": 1,\"categoryId\": 1,\"quantity\": 1,\"price\": 1,\"inStock\": 1,\"onOrder\": 1,\"reorderLevel\": 1,\"discontinued\": 1 }} ",
       "from": "Products",
       "joins": []
     },
@@ -470,5 +302,145 @@
     "values": [],
     "defaults": [],
     "children": []
+  },
+  {
+    "name": "select",
+    "dialect": "mongodb",
+    "sentence": {
+      "map": "{ $project:{ \"id\": 1,\"customerId\": 1,\"employeeId\": 1,\"orderDate\": 1,\"requiredDate\": 1,\"shippedDate\": 1,\"shipViaId\": 1,\"freight\": 1,\"name\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1,\"__id\": 1 }} ",
+      "from": "Orders",
+      "joins": []
+    },
+    "entity": "Orders",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "customerId",
+        "type": "string"
+      },
+      {
+        "name": "employeeId",
+        "type": "integer"
+      },
+      {
+        "name": "orderDate",
+        "type": "datetime"
+      },
+      {
+        "name": "requiredDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shippedDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shipViaId",
+        "type": "integer"
+      },
+      {
+        "name": "freight",
+        "type": "decimal"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "name": "__id",
+        "type": "integer"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": [
+      {
+        "name": "details",
+        "query": {
+          "name": "select",
+          "dialect": "mongodb",
+          "sentence": {
+            "map": "{ $project:{ \"orderId\": 1,\"productId\": 1,\"unitPrice\": 1,\"quantity\": 1,\"discount\": 1,\"LamdaOrmParentId\": 1 }} ",
+            "from": "\"Order Details\"",
+            "joins": [],
+            "filter": "o1.OrderID:{$in:[{{LamdaOrmParentId}}]}"
+          },
+          "entity": "OrderDetails",
+          "columns": [
+            {
+              "name": "orderId",
+              "type": "integer"
+            },
+            {
+              "name": "productId",
+              "type": "integer"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "discount",
+              "type": "decimal"
+            },
+            {
+              "name": "LamdaOrmParentId",
+              "type": "integer"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "LamdaOrmParentId",
+              "type": "array"
+            }
+          ],
+          "dataSource": "mongodb",
+          "constraints": [],
+          "values": [],
+          "defaults": [],
+          "children": []
+        },
+        "relation": {
+          "name": "details",
+          "type": "manyToOne",
+          "composite": true,
+          "from": "id",
+          "entity": "OrderDetails",
+          "weak": true,
+          "to": "orderId",
+          "target": "order"
+        }
+      }
+    ]
   }
 ]

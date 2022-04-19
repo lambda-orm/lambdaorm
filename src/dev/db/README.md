@@ -68,7 +68,7 @@ Conexion:
 - port: 1521
 - sid: ORCLCDB
 - user: system
-- password: SYSTEM
+- password: 1qazxsw2
 
 ```sql
 alter session set "_ORACLE_SCRIPT"=true;
@@ -154,16 +154,6 @@ container
 docker exec -it mariadb mysql -h localhost -u root -p 
 ```
 
-## Mongo
-
-```sh
-sudo apt-get update
-wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.1_amd64.deb
-sudo apt install ./mongodb-compass_1.28.1_amd64.deb
-```
-
-mongodb://test:test@0.0.0.0:27017/northwind
-
 ## connection string
 
 - source: mysql://root:root@0.0.0.0:3306/northwind
@@ -183,3 +173,7 @@ mongodb://test:test@0.0.0.0:27017/northwind
 - [mysql client on windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html#:~:text=To%20install%20MySQL%20Shell%20on,steps%20in%20the%20Setup%20Wizard.)
 - [mongodb with docker](https://citizix.com/how-to-run-mongodb-with-docker-and-docker-compose/)
 - [mongo shared](https://github.com/bitnami/bitnami-docker-mongodb/issues/208)
+
+## MongoDb
+
+- [w3schools](https://www.w3schools.com/nodejs/nodejs_mongodb_createcollection.asp)

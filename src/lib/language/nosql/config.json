@@ -4,7 +4,7 @@
       "types": null,
       "formats": null,
       "ddl": {
-        "createTable": "createCollection({name})",
+        "createEntity": "createCollection({name})",
         "createIndex": "createIndex({index})"
       },
       "dml": {
@@ -155,7 +155,7 @@
     "types": null,
     "formats": null,
     "ddl": {
-      "createTable": "createCollection({name})",
+      "createEntity": "createCollection({name})",
       "createIndex": "createIndex({index})"
     },
     "dml": {

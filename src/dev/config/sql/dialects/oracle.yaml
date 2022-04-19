@@ -12,9 +12,9 @@ others:
   true: "Y"
   variable: ":{name}"
 ddl:
-  createTable: "CREATE TABLE {name} ({define})"
+  createEntity: "CREATE TABLE {name} ({define})"
   incrementalColumDefine: "{name} {type} {nullable}"
-  dropTable: "DROP TABLE {name}"
+  dropEntity: "DROP TABLE {name}"
   dropPk: "DROP CONSTRAINT {name}"
   dropUk: "DROP CONSTRAINT {name}"
   dropFk: "DROP CONSTRAINT {name}"

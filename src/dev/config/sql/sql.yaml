@@ -9,7 +9,7 @@ types:
   time: TIME
 ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
-  createTable: 'CREATE TABLE {name} ({define})'
+  createEntity: 'CREATE TABLE {name} ({define})'
   createSequence: 'CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1'
   incrementalColumDefine: '{name} {type} {nullable} AUTO_INCREMENT' 
   columnDefine: '{name} {type} {nullable} '
@@ -24,14 +24,14 @@ ddl:
   addFk: 'ADD CONSTRAINT {name} FOREIGN KEY ({column}) REFERENCES {fTable} ({fColumn})'
   alterColumn: 'MODIFY {columnDefine}'
   dropDatabase: 'DROP DATABASE IF EXISTS {name}'
-  dropTable: 'DROP TABLE IF EXISTS {name}'
+  dropEntity: 'DROP TABLE IF EXISTS {name}'
   dropSequence: 'DROP SEQUENCE {name}'
   dropColumn: 'DROP COLUMN {name}'
   dropPk: 'DROP PRIMARY KEY {name}'
   dropUk: 'DROP UNIQUE {name}'
   dropFk: 'DROP FOREIGN KEY {name}'
   dropIndex: 'DROP INDEX {name} ON {table}'
-  truncateTable: 'TRUNCATE TABLE {name}'
+  truncateEntity: 'TRUNCATE TABLE {name}'
 dml:
   map: SELECT {0}
   select: SELECT {0}
