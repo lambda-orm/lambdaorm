@@ -35,11 +35,11 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createIndex', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
-	public alterColumn(entity: EntityMapping, property: Property): Query | undefined {
+	public alterProperty(entity: EntityMapping, property: Property): Query | undefined {
 		return undefined
 	}
 
-	public addColumn(entity: EntityMapping, property: Property): Query | undefined {
+	public addProperty(entity: EntityMapping, property: Property): Query | undefined {
 		return undefined
 	}
 
@@ -82,7 +82,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('dropEntity', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
-	public dropColumn(entity: EntityMapping, property: Property): Query | undefined {
+	public dropProperty(entity: EntityMapping, property: Property): Query | undefined {
 		return undefined
 	}
 

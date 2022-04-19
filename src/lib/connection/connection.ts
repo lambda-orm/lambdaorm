@@ -128,11 +128,11 @@ export abstract class Connection {
 		return await this.executeDDL(query)
 	}
 
-	public async alterColumn(mapping: MappingConfig, query: Query): Promise<any> {
+	public async alterProperty(mapping: MappingConfig, query: Query): Promise<any> {
 		return await this.executeDDL(query)
 	}
 
-	public async addColumn(mapping: MappingConfig, query: Query): Promise<any> {
+	public async addProperty(mapping: MappingConfig, query: Query): Promise<any> {
 		return await this.executeDDL(query)
 	}
 
@@ -156,7 +156,7 @@ export abstract class Connection {
 		return await this.executeDDL(query)
 	}
 
-	public async dropColumn(mapping: MappingConfig, query: Query): Promise<any> {
+	public async dropProperty(mapping: MappingConfig, query: Query): Promise<any> {
 		return await this.executeDDL(query)
 	}
 

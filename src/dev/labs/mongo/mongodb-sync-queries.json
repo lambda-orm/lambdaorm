@@ -1,1 +1,179 @@
-[]
+[
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Categories"
+    },
+    "entity": "Categories",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Customers"
+    },
+    "entity": "Customers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Employees"
+    },
+    "entity": "Employees",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Shippers"
+    },
+    "entity": "Shippers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Suppliers"
+    },
+    "entity": "Suppliers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Products"
+    },
+    "entity": "Products",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Orders"
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "\"Order Details\""
+    },
+    "entity": "OrderDetails",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createIndex",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "Customers_name",
+      "collection": "Customers",
+      "columns": [
+        "CompanyName"
+      ]
+    },
+    "entity": "Customers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createIndex",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "Orders_orderDate",
+      "collection": "Orders",
+      "columns": [
+        "OrderDate"
+      ]
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  },
+  {
+    "name": "createIndex",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "Orders_shippedDate",
+      "collection": "Orders",
+      "columns": [
+        "ShippedDate"
+      ]
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "children": []
+  }
+]

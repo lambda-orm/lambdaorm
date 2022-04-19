@@ -18,12 +18,12 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 				define.push(this.createColumn(entity, property))
 			}
 		}
-		if (entity.primaryKey && entity.primaryKey.length > 0) {
-			define.push(this.createPk(entity, entity.primaryKey))
-		}
-		if (entity.uniqueKey && entity.uniqueKey.length > 0) {
-			define.push(this.createUk(entity, entity.uniqueKey))
-		}
+		// if (entity.primaryKey && entity.primaryKey.length > 0) {
+		// define.push(this.createPk(entity, entity.primaryKey))
+		// }
+		// if (entity.uniqueKey && entity.uniqueKey.length > 0) {
+		// define.push(this.createUk(entity, entity.uniqueKey))
+		// }
 		let text = this.dialect.ddl('createEntity')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{define}', define.join(','))
@@ -46,31 +46,30 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return text
 	}
 
-	private createPk(entity: EntityMapping, primaryKey: string[]): string {
-		const columns: string[] = []
-		const columnTemplate = this.dialect.other('column')
-		for (let i = 0; i < primaryKey.length; i++) {
-			const property = entity.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
-			columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
-		}
-		let text = this.dialect.ddl('createPk')
-		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_PK'))
-		text = text.replace('{columns}', columns.join(','))
-		return text
-	}
-
-	private createUk(entity: EntityMapping, uniqueKey: string[]): string {
-		const columns: string[] = []
-		const columnTemplate = this.dialect.other('column')
-		for (let i = 0; i < uniqueKey.length; i++) {
-			const property = entity.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
-			columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
-		}
-		let text = this.dialect.ddl('createUk')
-		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_UK'))
-		text = text.replace('{columns}', columns.join(','))
-		return text
-	}
+	// private createPk(entity: EntityMapping, primaryKey: string[]): string {
+	// const columns: string[] = []
+	// const columnTemplate = this.dialect.other('column')
+	// for (let i = 0; i < primaryKey.length; i++) {
+	// const property = entity.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
+	// columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
+	// }
+	// let text = this.dialect.ddl('createPk')
+	// text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_PK'))
+	// text = text.replace('{columns}', columns.join(','))
+	// return text
+	// }
+	// private createUk(entity: EntityMapping, uniqueKey: string[]): string {
+	// const columns: string[] = []
+	// const columnTemplate = this.dialect.other('column')
+	// for (let i = 0; i < uniqueKey.length; i++) {
+	// const property = entity.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
+	// columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
+	// }
+	// let text = this.dialect.ddl('createUk')
+	// text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_UK'))
+	// text = text.replace('{columns}', columns.join(','))
+	// return text
+	// }
 
 	public createFk(entity: EntityMapping, relation: Relation): Query | undefined {
 		const column = entity.properties.find(p => p.name === relation.from) as PropertyMapping
@@ -105,7 +104,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createIndex', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 
-	public alterColumn(entity: EntityMapping, property: Property): Query | undefined {
+	public alterProperty(entity: EntityMapping, property: Property): Query | undefined {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name) as PropertyMapping
 		let type = this.dialect.type(propertyMapping.type)
 		if (type === undefined) {
@@ -119,11 +118,11 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping as string))
 		text = text.replace('{type}', type)
 		text = text.replace('{nullable}', nullable)
-		text = this.dialect.ddl('alterColumn').replace('{columnDefine}', text)
-		return new Query('alterColumn', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
+		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
+		return new Query('alterProperty', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
 	}
 
-	public addColumn(entity: EntityMapping, property: Property): Query | undefined {
+	public addProperty(entity: EntityMapping, property: Property): Query | undefined {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name) as PropertyMapping
 		let type = this.dialect.type(property.type)
 		if (type === undefined) {
@@ -137,8 +136,8 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping as string))
 		text = text.replace('{type}', type)
 		text = text.replace('{nullable}', nullable)
-		text = this.dialect.ddl('addColumn').replace('{columnDefine}', text)
-		return new Query('addColumn', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
+		text = this.dialect.ddl('addProperty').replace('{columnDefine}', text)
+		return new Query('addProperty', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
 	}
 
 	public addPk(entity: EntityMapping, primaryKey: string[]): Query | undefined {
@@ -197,12 +196,12 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('dropEntity', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 
-	public dropColumn(entity: EntityMapping, property: Property): Query | undefined {
+	public dropProperty(entity: EntityMapping, property: Property): Query | undefined {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name) as PropertyMapping
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
-		let text = this.dialect.ddl('dropColumn')
+		let text = this.dialect.ddl('dropProperty')
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping as string))
-		return new Query('dropColumn', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
+		return new Query('dropProperty', this.dataSource.dialect, this.dataSource.name, alterEntity + ' ' + text, entity.name)
 	}
 
 	public dropPk(entity: EntityMapping): Query | undefined {

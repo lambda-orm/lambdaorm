@@ -5,10 +5,10 @@ import { Helper } from '../manager/helper'
 export class DDLBuilder {
 	private languages: Languages
 	private schema: SchemaManager
-	private model:ModelConfig
-	private routing:Routing
+	private model: ModelConfig
+	private routing: Routing
 	public stage: string
-	constructor (schema: SchemaManager, routing:Routing, languages:Languages, stage: string) {
+	constructor(schema: SchemaManager, routing: Routing, languages: Languages, stage: string) {
 		this.schema = schema
 		this.model = schema.model
 		this.routing = routing
@@ -16,8 +16,8 @@ export class DDLBuilder {
 		this.stage = stage
 	}
 
-	public drop (mappings: Mapping[]):Query[] {
-		const queries:Query[] = []
+	public drop(mappings: Mapping[]): Query[] {
+		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
 		for (const k in stage.dataSources) {
 			const ruleDataSource = stage.dataSources[k]
@@ -30,8 +30,8 @@ export class DDLBuilder {
 		return queries
 	}
 
-	public truncate (mappings: Mapping[]):Query[] {
-		const queries:Query[] = []
+	public truncate(mappings: Mapping[]): Query[] {
+		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
 		for (const k in stage.dataSources) {
 			const ruleDataSource = stage.dataSources[k]
@@ -44,8 +44,8 @@ export class DDLBuilder {
 		return queries
 	}
 
-	public sync (mappings: Mapping[]): Query[] {
-		const queries:Query[] = []
+	public sync(mappings: Mapping[]): Query[] {
+		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
 		for (const k in stage.dataSources) {
 			const ruleDataSource = stage.dataSources[k]
@@ -60,7 +60,7 @@ export class DDLBuilder {
 		return queries
 	}
 
-	private _drop (dataSource:DataSource, ruleDataSource:RuleDataSource, entitiesMapping: EntityMapping[], queries:Query[]):void {
+	private _drop(dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
 		// drop all constraint
@@ -127,7 +127,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _truncate (dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+	private _truncate(dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
 		for (const i in sortedEntities) {
@@ -147,7 +147,7 @@ export class DDLBuilder {
 		}
 	}
 
-	public _sync (dataSource:DataSource, ruleDataSource:RuleDataSource, delta:Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries:Query[]):void {
+	public _sync(dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
 		// remove constraints for changes in entities
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
@@ -276,7 +276,17 @@ export class DDLBuilder {
 					if (query) queries.push(query)
 				}
 				const query = this.builder(dataSource).createEntity(newEntity)
-				if (query) queries.push(query)
+				if (query) {
+					queries.push(query)
+					if (newEntity.primaryKey && newEntity.primaryKey.length > 0) {
+						const pk = this.builder(dataSource).addPk(newEntity, newEntity.primaryKey)
+						if (pk) queries.push(pk)
+					}
+					if (newEntity.uniqueKey && newEntity.uniqueKey.length > 0) {
+						const uk = this.builder(dataSource).addUk(newEntity, newEntity.uniqueKey)
+						if (uk) queries.push(uk)
+					}
+				}
 			}
 		}
 		// add columns for entities changes
@@ -293,14 +303,14 @@ export class DDLBuilder {
 						if (!changed.delta) continue
 						for (const n in changed.delta.new) {
 							const newProperty = changed.delta.new[n].new as PropertyMapping
-							const query = this.builder(dataSource).addColumn(entityChanged.new, newProperty)
+							const query = this.builder(dataSource).addProperty(entityChanged.new, newProperty)
 							if (query) queries.push(query)
 						}
 						for (const n in changed.delta.changed) {
 							const newProperty = changed.delta.changed[n].new as PropertyMapping
 							const oldProperty = changed.delta.changed[n].old as PropertyMapping
 							if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
-								const query = this.builder(dataSource).alterColumn(entityChanged.new, newProperty)
+								const query = this.builder(dataSource).alterProperty(entityChanged.new, newProperty)
 								if (query) queries.push(query)
 							}
 						}
@@ -328,7 +338,7 @@ export class DDLBuilder {
 						for (const n in changed.delta.remove) {
 							const oldProperty = changed.delta.remove[n].old as PropertyMapping
 							if (!oldProperty.view) {
-								const query = this.builder(dataSource).dropColumn(entityChanged.old, oldProperty)
+								const query = this.builder(dataSource).dropProperty(entityChanged.old, oldProperty)
 								if (query) queries.push(query)
 							}
 						}
@@ -468,29 +478,29 @@ export class DDLBuilder {
 		}
 	}
 
-	private evalDataSource (dataSource:RuleDataSource, entity: string):boolean {
+	private evalDataSource(dataSource: RuleDataSource, entity: string): boolean {
 		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
 		return this.routing.eval(dataSource, sentenceInfo)
 	}
 
-	private builder (dataSource: DataSource): LanguageDDLBuilder {
+	private builder(dataSource: DataSource): LanguageDDLBuilder {
 		// TODO agregar chache por datasource
 		const language = this.languages.getByDiatect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		return language.ddlBuilder(dataSource, mapping)
 	}
 
-	private changeRelation (a: Relation, b: Relation): boolean {
+	private changeRelation(a: Relation, b: Relation): boolean {
 		return a.entity !== b.entity || a.from !== b.from || a.name !== b.name || a.to !== b.to || a.type !== b.type
 	}
 }
 
 export abstract class LanguageDDLBuilder {
 	protected dataSource: DataSource
-	protected mapping:MappingConfig
-	protected dialect:Dialect
+	protected mapping: MappingConfig
+	protected dialect: Dialect
 
-	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect) {
+	constructor(dataSource: DataSource, mapping: MappingConfig, dialect: Dialect) {
 		this.dataSource = dataSource
 		this.mapping = mapping
 		this.dialect = dialect
@@ -505,9 +515,9 @@ export abstract class LanguageDDLBuilder {
 	abstract dropPk(entity: EntityMapping): Query | undefined
 	abstract dropUk(entity: EntityMapping): Query | undefined
 	abstract createEntity(entity: EntityMapping): Query | undefined
-	abstract addColumn(entity: EntityMapping, property: PropertyMapping): Query | undefined
-	abstract alterColumn(entity: EntityMapping, property: PropertyMapping): Query | undefined
-	abstract dropColumn(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract addProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract alterProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract dropProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
 	abstract addPk(entity: EntityMapping, primaryKey: string[]): Query | undefined
 	abstract addUk(entity: EntityMapping, uniqueKey: string[]): Query | undefined
 	abstract addFk(entity: EntityMapping, relation: Relation): Query | undefined

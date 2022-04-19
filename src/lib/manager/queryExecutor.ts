@@ -87,14 +87,14 @@ export class QueryExecutor {
 			case 'createSequence': result = await connection.createSequence(mapping, query); break
 			case 'createFk': result = await connection.createFk(mapping, query); break
 			case 'createIndex': result = await connection.createIndex(mapping, query); break
-			case 'alterColumn': result = await connection.alterColumn(mapping, query); break
-			case 'addColumn': result = await connection.addColumn(mapping, query); break
+			case 'alterProperty': result = await connection.alterProperty(mapping, query); break
+			case 'addProperty': result = await connection.addProperty(mapping, query); break
 			case 'addPk': result = await connection.addPk(mapping, query); break
 			case 'addUk': result = await connection.addUk(mapping, query); break
 			case 'addFk': result = await connection.addFk(mapping, query); break
 			case 'dropSequence': result = await connection.dropSequence(mapping, query); break
 			case 'dropEntity': result = await connection.dropEntity(mapping, query); break
-			case 'dropColumn': result = await connection.dropColumn(mapping, query); break
+			case 'dropProperty': result = await connection.dropProperty(mapping, query); break
 			case 'dropPk': result = await connection.dropPk(mapping, query); break
 			case 'dropUk': result = await connection.dropUk(mapping, query); break
 			case 'dropFK': result = await connection.dropFK(mapping, query); break
