@@ -3398,7 +3398,6 @@ test:
           relation:
             name: orders
             type: manyToOne
-            composite: true
             from: id
             entity: Orders
             weak: true

@@ -18,7 +18,8 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public createSequence(entity: EntityMapping): Query | undefined {
-		return undefined
+		const sentence: NoSqlSentence = { name: this.dialect.delimiter(entity.sequence), collection: this.dialect.delimiter(entity.mapping) }
+		return new Query('createSequence', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
 	public createIndex(entity: EntityMapping, index: Index): Query | undefined {
@@ -119,6 +120,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public dropSequence(entity: EntityMapping): Query | undefined {
-		return undefined
+		const sentence: NoSqlSentence = { name: this.dialect.delimiter(entity.sequence), collection: this.dialect.delimiter(entity.mapping) }
+		return new Query('dropSequence', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 }

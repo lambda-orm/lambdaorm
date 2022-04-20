@@ -1852,7 +1852,6 @@ test:
             entity: Customers
             to: id
             target: orders
-            targetComposite: true
             type: oneToMany
             weak: false
       type: any

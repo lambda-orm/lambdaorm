@@ -94,13 +94,13 @@
 			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
 		},
 		{
-			"name": "lab mongo queries",
+			"name": "lab mongo stage queries",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
+			"program": "${workspaceFolder}/src/dev/labs/mongo/stage.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{

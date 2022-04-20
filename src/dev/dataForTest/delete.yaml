@@ -191,7 +191,7 @@ test:
       - stage: mysql
       - stage: postgres
       - stage: mariadb
-    result: 1
+    result: 2
   - name: delete 2
     data: b
     sentences:
@@ -237,7 +237,7 @@ test:
                 DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
                 o1.ProductID = ?) 
               childs: []
-    errors: 0
+    errors: 3
     expression: Orders.delete().include(p=>p.details)
     normalizeExpression: >-
       Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -372,9 +372,21 @@ test:
       constraints: []
     executions:
       - stage: mysql
+        error: >-
+          Error: Cannot delete or update a parent row: a foreign key constraint
+          fails (`northwind`.`Order Details`, CONSTRAINT `Order
+          Details_order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Orders`
+          (`OrderID`))
       - stage: postgres
+        error: >-
+          error: update or delete on table "orders" violates foreign key
+          constraint "Order Details_order_FK" on table "Order Details"
       - stage: mariadb
-    result: 1
+        error: >-
+          Error: Cannot delete or update a parent row: a foreign key constraint
+          fails (`northwind`.`Order Details`, CONSTRAINT `Order
+          Details_order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Orders`
+          (`OrderID`))
   - name: delete 3
     data: c
     sentences:
@@ -420,7 +432,7 @@ test:
                 DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
                 o1.ProductID = ?) 
               childs: []
-    errors: 0
+    errors: 3
     expression: Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)
     normalizeExpression: >-
       Orders.delete().filter(p=>(p.id===id)).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -555,9 +567,21 @@ test:
       constraints: []
     executions:
       - stage: mysql
+        error: >-
+          Error: Cannot delete or update a parent row: a foreign key constraint
+          fails (`northwind`.`Order Details`, CONSTRAINT `Order
+          Details_order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Orders`
+          (`OrderID`))
       - stage: postgres
+        error: >-
+          error: update or delete on table "orders" violates foreign key
+          constraint "Order Details_order_FK" on table "Order Details"
       - stage: mariadb
-    result: 1
+        error: >-
+          Error: Cannot delete or update a parent row: a foreign key constraint
+          fails (`northwind`.`Order Details`, CONSTRAINT `Order
+          Details_order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Orders`
+          (`OrderID`))
   - name: delete 4
     data: d
     sentences:
@@ -603,7 +627,7 @@ test:
                 DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
                 o1.ProductID = ?) 
               childs: []
-    errors: 0
+    errors: 3
     expression: Orders.delete().include(p=>p.details)
     normalizeExpression: >-
       Orders.filter(p=>(p.id==id)).delete().include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
@@ -738,9 +762,21 @@ test:
       constraints: []
     executions:
       - stage: mysql
+        error: >-
+          Error: Cannot delete or update a parent row: a foreign key constraint
+          fails (`northwind`.`Order Details`, CONSTRAINT `Order
+          Details_order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Orders`
+          (`OrderID`))
       - stage: postgres
+        error: >-
+          error: update or delete on table "orders" violates foreign key
+          constraint "Order Details_order_FK" on table "Order Details"
       - stage: mariadb
-    result: 1
+        error: >-
+          Error: Cannot delete or update a parent row: a foreign key constraint
+          fails (`northwind`.`Order Details`, CONSTRAINT `Order
+          Details_order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Orders`
+          (`OrderID`))
   - name: delete 4
     data: d
     sentences:
@@ -848,240 +884,4 @@ test:
       - stage: postgres
       - stage: mariadb
     result: 0
-  - name: delete 5
-    data: e
-    sentences:
-      - stage: mysql
-        sentence:
-          entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'DELETE o FROM Orders AS o WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-                o1.ProductID = ?) 
-              childs: []
-      - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'DELETE FROM Orders o WHERE o.OrderID = $1 '
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                DELETE FROM "Order Details" o1 WHERE (o1.OrderID = $1 AND
-                o1.ProductID = $2) 
-              childs: []
-      - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'DELETE o FROM Orders AS o WHERE o.OrderID = ? '
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND
-                o1.ProductID = ?) 
-              childs: []
-    errors: 0
-    expression: Orders.delete(entity).include(p=>p.details)
-    normalizeExpression: >-
-      Orders.filter(p=>(p.id==entity.id)).delete(entity).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).delete())
-    model:
-      - name: details
-        type: OrderDetails[]
-        childs: []
-    parameters:
-      - name: entity.id
-        type: integer
-      - name: details
-        type: OrderDetails
-        childs:
-          - name: orderId
-            type: integer
-          - name: productId
-            type: integer
-    constraints:
-      entity: Orders
-      constraints: []
-      childs:
-        - entity: OrderDetails
-          constraints: []
-    metadata:
-      name: delete
-      classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                - name: entity.id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 1
-              type: any
-          type: any
-        - name: Orders.o
-          classtype: From
-          children: []
-          type: any
-        - name: Orders.o
-          classtype: Delete
-          children: []
-          type: any
-        - name: details
-          classtype: SentenceInclude
-          children:
-            - name: delete
-              classtype: Sentence
-              children:
-                - name: filter
-                  classtype: Filter
-                  children:
-                    - name: '&&'
-                      classtype: Operator
-                      children:
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: orderId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: OrderDetails
-                              alias: o1
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 1
-                          type: any
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: productId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: OrderDetails
-                              alias: o1
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 2
-                          type: any
-                      type: any
-                  type: any
-                - name: OrderDetails.o1
-                  classtype: From
-                  children: []
-                  type: any
-                - name: OrderDetails.o1
-                  classtype: Delete
-                  children: []
-                  type: any
-              type: any
-              columns: []
-              parameters:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-              entity: OrderDetails
-              constraints: []
-          type: any
-          relation:
-            name: details
-            type: manyToOne
-            composite: true
-            from: id
-            entity: OrderDetails
-            weak: true
-            to: orderId
-            target: order
-      type: any
-      columns: []
-      parameters:
-        - name: entity.id
-          type: integer
-      entity: Orders
-      constraints: []
-    executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 0
-  - name: delete 6
-    sentences:
-      - stage: mysql
-        sentence:
-          entity: OrderDetails
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'DELETE o FROM `Order Details` AS o '
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: OrderDetails
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'DELETE FROM "Order Details" o '
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: OrderDetails
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'DELETE o FROM `Order Details` AS o '
-          childs: []
-    errors: 0
-    expression: OrderDetails.deleteAll()
-    normalizeExpression: OrderDetails.delete()
-    model: []
-    parameters: []
-    constraints:
-      entity: OrderDetails
-      constraints: []
-    metadata:
-      name: delete
-      classtype: Sentence
-      children:
-        - name: OrderDetails.o
-          classtype: From
-          children: []
-          type: any
-        - name: OrderDetails.o
-          classtype: Delete
-          children: []
-          type: any
-      type: any
-      columns: []
-      parameters: []
-      entity: OrderDetails
-      constraints: []
-    executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 2154
-errors: 0
+errors: 9

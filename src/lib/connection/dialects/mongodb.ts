@@ -3,7 +3,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented, NoSqlSentence } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented, NoSqlSentence, SchemaError } from '../../model'
 import { MappingConfig, Helper } from '../../manager'
 
 export class MongodbConnectionPool extends ConnectionPool {
@@ -77,26 +77,58 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async insert(mapping: MappingConfig, query: Query, data: Data): Promise<any> {
-		const collection = mapping.entityMapping(query.entity)
+		const entity = mapping.getEntity(query.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`EntityMapping not found for entity ${query.entity}`)
+		}
 		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
 		const obj = this.templateToObject(sentence.insert as string, params)
 
-		const result = this.session
-			? await this.cnx.db.collection(collection).insertOne(obj, this.session)
-			: await this.cnx.db.collection(collection).insertOne(obj)
+		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
+			const propertyPk = entity.primaryKey[0]
+			const mappingPk = entity.properties.find(p => p.name === propertyPk)
+			if (mappingPk) {
+				obj[mappingPk.mapping] = await this.getNextSequenceValue(entity.sequence)
+			}
+		}
 
-		return result.insertedId
+		const result = this.session
+			? await this.cnx.db.collection(entity.mapping).insertOne(obj, this.session)
+			: await this.cnx.db.collection(entity.mapping).insertOne(obj)
+
+		return typeof result.insertedId === 'object' ? result.insertedId.toString() : result.insertedId
 	}
 
 	public async bulkInsert(mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
-		const collection = mapping.entityMapping(query.entity)
+		const entity = mapping.getEntity(query.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`EntityMapping not found for entity ${query.entity}`)
+		}
 		const sentence = query.sentence as NoSqlSentence
 		const list = this.arrayToList(query, sentence.insert as string, mapping, array)
+
+		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
+			const propertyPk = entity.primaryKey[0]
+			const mappingPk = entity.properties.find(p => p.name === propertyPk)
+			if (mappingPk) {
+				const first = await this.getNextSequenceValue(entity.sequence, list.length)
+				for (let i = 0; i < list.length; i++) {
+					list[i][mappingPk.mapping] = first + i
+				}
+			}
+		}
+
 		const result = this.session
-			? await this.cnx.db.collection(collection).insertMany(list, this.session)
-			: await this.cnx.db.collection(collection).insertMany(list)
-		return result.insertedIds as string[]
+			? await this.cnx.db.collection(entity.mapping).insertMany(list, this.session)
+			: await this.cnx.db.collection(entity.mapping).insertMany(list)
+
+		const ids: any[] = []
+		for (const p in result.insertedIds) {
+			const id = result.insertedIds[p]
+			ids.push(typeof id === 'object' ? id.toString() : id)
+		}
+		return ids
 	}
 
 	public async update(mapping: MappingConfig, query: Query, data: Data): Promise<number> {
@@ -194,6 +226,12 @@ export class MongodbConnection extends Connection {
 						case 'time':
 							value = `"${this.writeTime(value, mapping)}"`
 							break
+						default:
+							if (typeof value === 'string') {
+								value = Helper.replace(value, '\n', '\\n')
+								value = Helper.replace(value, '"', '\\"')
+								value = `"${value}"`
+							}
 					}
 				} else {
 					value = 'null'
@@ -232,7 +270,13 @@ export class MongodbConnection extends Connection {
 						// TODO: agregar formato de fecha a nivel de mapping para convertir en ese formato
 						value = `"${new Date(param.value).toISOString()}"`; break
 					default:
-						value = param.value
+						if (typeof param.value === 'string') {
+							value = Helper.replace(param.value, '\n', '\\n')
+							value = Helper.replace(value, '"', '\\"')
+							value = `"${value}"`
+						} else {
+							value = param.value
+						}
 				}
 			} else {
 				value = 'null'
@@ -240,6 +284,15 @@ export class MongodbConnection extends Connection {
 			result = Helper.replace(result || template, `{{${param.name}}}`, value)
 		}
 		return result ? JSON.parse(result) : {}
+	}
+	private async getNextSequenceValue(sequence: string, count: number = 1) {
+		// https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/#mongodb-method-db.collection.findOneAndUpdate
+		var sequenceDocument = await this.cnx.db.collection('__sequences').findOneAndUpdate(
+			{ _id: sequence },
+			{ $inc: { sequence_value: count } },
+			{ returnNewDocument: true }
+		);
+		return sequenceDocument.value.sequence_value;
 	}
 
 	public async truncateEntity(mapping: MappingConfig, query: Query): Promise<any> {
@@ -251,6 +304,12 @@ export class MongodbConnection extends Connection {
 	public async createEntity(mapping: MappingConfig, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.createCollection(collection)
+	}
+
+	public async createSequence(mapping: MappingConfig, query: Query): Promise<any> {
+		// https://www.tutorialspoint.com/mongodb/mongodb_autoincrement_sequence.htm		
+		const sentence = query.sentence as NoSqlSentence
+		await this.cnx.db.collection('__sequences').insertOne({ _id: sentence.name, sequence_value: 1 })
 	}
 
 	public async createIndex(mapping: MappingConfig, query: Query): Promise<any> {
@@ -272,9 +331,13 @@ export class MongodbConnection extends Connection {
 		if (sentence.columns) {
 			const properties: any = {}
 			for (const i in sentence.columns) {
-				properties[sentence.columns[i]] = 1
+				if (sentence.columns[i] !== '_id') {
+					properties[sentence.columns[i]] = 1
+				}
 			}
-			await this.cnx.db.collection(collection).createIndex(properties, { name: sentence.name, unique: true })
+			if (Object.keys(properties).length > 0) {
+				await this.cnx.db.collection(collection).createIndex(properties, { name: sentence.name, unique: true })
+			}
 		}
 	}
 
@@ -289,6 +352,11 @@ export class MongodbConnection extends Connection {
 			}
 			await this.cnx.db.collection(collection).createIndex(properties, { name: sentence.name, unique: true })
 		}
+	}
+
+	public async dropSequence(mapping: MappingConfig, query: Query): Promise<any> {
+		const sentence = query.sentence as NoSqlSentence
+		await this.cnx.db.collection('__sequences').remove({ _id: sentence.name })
 	}
 
 	public async dropEntity(mapping: MappingConfig, query: Query): Promise<any> {

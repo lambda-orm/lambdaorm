@@ -278,10 +278,6 @@ export class DDLBuilder {
 				const query = this.builder(dataSource).createEntity(newEntity)
 				if (query) {
 					queries.push(query)
-					if (newEntity.primaryKey && newEntity.primaryKey.length > 0) {
-						const pk = this.builder(dataSource).addPk(newEntity, newEntity.primaryKey)
-						if (pk) queries.push(pk)
-					}
 					if (newEntity.uniqueKey && newEntity.uniqueKey.length > 0) {
 						const uk = this.builder(dataSource).addUk(newEntity, newEntity.uniqueKey)
 						if (uk) queries.push(uk)

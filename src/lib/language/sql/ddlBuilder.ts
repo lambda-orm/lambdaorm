@@ -18,12 +18,9 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 				define.push(this.createColumn(entity, property))
 			}
 		}
-		// if (entity.primaryKey && entity.primaryKey.length > 0) {
-		// define.push(this.createPk(entity, entity.primaryKey))
-		// }
-		// if (entity.uniqueKey && entity.uniqueKey.length > 0) {
-		// define.push(this.createUk(entity, entity.uniqueKey))
-		// }
+		if (entity.primaryKey && entity.primaryKey.length > 0) {
+			define.push(this.createPk(entity, entity.primaryKey))
+		}
 		let text = this.dialect.ddl('createEntity')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{define}', define.join(','))
@@ -46,30 +43,18 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		return text
 	}
 
-	// private createPk(entity: EntityMapping, primaryKey: string[]): string {
-	// const columns: string[] = []
-	// const columnTemplate = this.dialect.other('column')
-	// for (let i = 0; i < primaryKey.length; i++) {
-	// const property = entity.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
-	// columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
-	// }
-	// let text = this.dialect.ddl('createPk')
-	// text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_PK'))
-	// text = text.replace('{columns}', columns.join(','))
-	// return text
-	// }
-	// private createUk(entity: EntityMapping, uniqueKey: string[]): string {
-	// const columns: string[] = []
-	// const columnTemplate = this.dialect.other('column')
-	// for (let i = 0; i < uniqueKey.length; i++) {
-	// const property = entity.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
-	// columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
-	// }
-	// let text = this.dialect.ddl('createUk')
-	// text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_UK'))
-	// text = text.replace('{columns}', columns.join(','))
-	// return text
-	// }
+	private createPk(entity: EntityMapping, primaryKey: string[]): string {
+		const columns: string[] = []
+		const columnTemplate = this.dialect.other('column')
+		for (let i = 0; i < primaryKey.length; i++) {
+			const property = entity.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
+			columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
+		}
+		let text = this.dialect.ddl('createPk')
+		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_PK'))
+		text = text.replace('{columns}', columns.join(','))
+		return text
+	}
 
 	public createFk(entity: EntityMapping, relation: Relation): Query | undefined {
 		const column = entity.properties.find(p => p.name === relation.from) as PropertyMapping

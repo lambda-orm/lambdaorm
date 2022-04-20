@@ -374,7 +374,6 @@ mappings:
       - name: Categories
         sequence: SQ_CATEGORIES
       - name: Customers
-        sequence: SQ_CUSTOMERS
       - name: Employees
         sequence: SQ_EMPLOYEES
       - name: Shippers
@@ -386,46 +385,47 @@ mappings:
       - name: Orders
         sequence: SQ_ORDERS
       - name: OrderDetails
-        sequence: SQ_ORDER_DETAILS
+        # sequence: SQ_ORDER_DETAILS
   - name: mongodb
     extends: default
     entities:
       - name: Address
       - name: Categories
+        sequence: SQ_CATEGORIES
         properties:
           - name: id
             mapping: _id
       - name: Customers
-        extends: Address
         properties:
           - name: id
-            mapping: CustomerID
+            mapping: _id
       - name: Employees
-        extends: Address
+        # extends: Address
+        sequence: SQ_EMPLOYEES
         properties:
           - name: id
-            mapping: EmployeeID
+            mapping: _id
       - name: Shippers
+        sequence: SQ_SHIPPERS
         properties:
           - name: id
             mapping: _id
       - name: Suppliers
-        extends: Address
+        # extends: Address
+        sequence: SQ_SUPPLIERS
         properties:
           - name: id
             mapping: _id
       - name: Products
+        sequence: SQ_PRODUCTS
         properties:
           - name: id
             mapping: _id
       - name: Orders
+        sequence: SQ_ORDERS
         properties:
           - name: id
             mapping: _id
-      - name: OrderDetails
-        properties:
-          - name: orderId
-            mapping: OrderID
 dataSources:
   - name: source
     mapping: default
