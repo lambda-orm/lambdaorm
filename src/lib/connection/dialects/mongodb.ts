@@ -48,9 +48,14 @@ export class MongodbConnection extends Connection {
 		const params = this.dataToParameters(query, mapping, data)
 		const aggregate: any[] = []
 
-		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
+		//const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
+		if (sentence.filter) {
+			const filter = this.templateToObject(sentence.filter, params, mapping)
+			aggregate.push({ $match: filter })
+		}
 		if (sentence.map) {
-			aggregate.push(this.templateToObject(sentence.map, params))
+			const map = this.templateToObject(sentence.map, params, mapping)
+			aggregate.push(map)
 		}
 		if (sentence.joins) {
 			for (const i in sentence.joins) {
@@ -70,9 +75,12 @@ export class MongodbConnection extends Connection {
 			aggregate.push(JSON.parse(sentence.page))
 		}
 
+		// const result = this.session
+		// 	? await this.cnx.db.collection(collection).find(filter, this.session).aggregate(aggregate).toArray()
+		// 	: await this.cnx.db.collection(collection).find(filter).aggregate(aggregate).toArray()
 		const result = this.session
-			? await this.cnx.db.collection(collection).find(filter, this.session).aggregate(aggregate).toArray()
-			: await this.cnx.db.collection(collection).find(filter).aggregate(aggregate).toArray()
+			? await this.cnx.db.collection(collection).aggregate(aggregate).toArray()
+			: await this.cnx.db.collection(collection).aggregate(aggregate).toArray()
 		return result
 	}
 
@@ -83,7 +91,7 @@ export class MongodbConnection extends Connection {
 		}
 		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
-		const obj = this.templateToObject(sentence.insert as string, params)
+		const obj = this.templateToObject(sentence.insert as string, params, mapping)
 
 		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
@@ -135,8 +143,8 @@ export class MongodbConnection extends Connection {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
-		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
-		const obj = this.templateToObject(sentence.update as string, params)
+		const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
+		const obj = this.templateToObject(sentence.update as string, params, mapping)
 		const result = this.session
 			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
 			: await this.cnx.db.collection(collection).updateMany(filter, obj)
@@ -151,7 +159,7 @@ export class MongodbConnection extends Connection {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
-		const filter = sentence.filter ? this.templateToObject(sentence.filter, params) : {}
+		const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
 		const result = this.session
 			? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
 			: await this.cnx.db.collection(collection).deleteMany(filter)
@@ -199,92 +207,77 @@ export class MongodbConnection extends Connection {
 		this.session = null
 	}
 
-	protected arrayToList(query: Query, template: string, mapping: MappingConfig, array: any[]): any[] {
+	private arrayToList(query: Query, template: string, mapping: MappingConfig, array: any[]): any[] {
 		const list: any[] = []
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
 			let strObj: string | undefined
-			for (let j = 0; j < query.parameters.length; j++) {
-				const param = query.parameters[j]
-				let value = item[param.name]
-				if (value) {
-					switch (param.type) {
-						case 'boolean':
-							value = value ? 'true' : 'false'; break
-						case 'string':
-							value = typeof value === 'string' ? value : value.toString()
-							value = Helper.replace(value, '\n', '\\n')
-							value = Helper.replace(value, '"', '\\"')
-							value = `"${value}"`
-							break
-						case 'datetime':
-							value = `"${this.writeDateTime(value, mapping)}"`
-							break
-						case 'date':
-							value = `"${this.writeDate(value, mapping)}"`
-							break
-						case 'time':
-							value = `"${this.writeTime(value, mapping)}"`
-							break
-						default:
-							if (typeof value === 'string') {
-								value = Helper.replace(value, '\n', '\\n')
-								value = Helper.replace(value, '"', '\\"')
-								value = `"${value}"`
-							}
-					}
-				} else {
-					value = 'null'
+			if (query.parameters && query.parameters.length > 0) {
+				for (let j = 0; j < query.parameters.length; j++) {
+					const param = query.parameters[j]
+					let value = this.getValue(item[param.name], param.type, mapping)
+					strObj = Helper.replace(strObj || template, `{{${param.name}}}`, value)
 				}
-				strObj = Helper.replace(strObj || template, `{{${param.name}}}`, value)
+			} else {
+				strObj = template
 			}
-			try {
-				const obj = strObj ? JSON.parse(strObj) : {}
-				list.push(obj)
-			} catch (error) {
-				console.log(error)
-			}
+			const obj = strObj ? JSON.parse(strObj) : {}
+			list.push(obj)
 		}
 		return list
 	}
 
-	private templateToObject(template: string, params: Parameter[]): any {
+	private templateToObject(template: string, params: Parameter[], mapping: MappingConfig): any {
 		let result: string | undefined
 		const row: any = {}
-		for (let i = 0; i < params.length; i++) {
-			const param = params[i]
-			let value = ''
-			if (param.value) {
-				switch (param.type) {
-					case 'boolean':
-						value = param.value ? 'true' : 'false'; break
-					case 'string':
-						value = typeof param.value === 'string' ? param.value : param.value.toString()
-						value = Helper.replace(value, '\n', '\\n')
-						value = Helper.replace(value, '"', '\\"')
-						value = `"${value}"`
-						break
-					case 'datetime':
-					case 'date':
-					case 'time':
-						// TODO: agregar formato de fecha a nivel de mapping para convertir en ese formato
-						value = `"${new Date(param.value).toISOString()}"`; break
-					default:
-						if (typeof param.value === 'string') {
-							value = Helper.replace(param.value, '\n', '\\n')
-							value = Helper.replace(value, '"', '\\"')
-							value = `"${value}"`
-						} else {
-							value = param.value
-						}
-				}
-			} else {
-				value = 'null'
+		if (params.length && params.length > 0) {
+			for (let i = 0; i < params.length; i++) {
+				const param = params[i]
+				let value = this.getValue(param.value, param.type, mapping)
+				result = Helper.replace(result || template, `{{${param.name}}}`, value)
 			}
-			result = Helper.replace(result || template, `{{${param.name}}}`, value)
+		} else {
+			result = template
 		}
 		return result ? JSON.parse(result) : {}
 	}
+
+	private getValue(source: any, type: string, mapping: MappingConfig) {
+		let value: any
+		if (source) {
+			switch (type) {
+				case 'boolean':
+					value = source ? 'true' : 'false'; break
+				case 'string':
+					value = typeof source === 'string' ? source : source.toString()
+					value = Helper.replace(value, '\n', '\\n')
+					value = Helper.replace(value, '"', '\\"')
+					value = `"${value}"`
+					break
+				case 'datetime':
+					value = `"${this.writeDateTime(source, mapping)}"`
+					break
+				case 'date':
+					value = `"${this.writeDate(source, mapping)}"`
+					break
+				case 'time':
+					value = `"${this.writeTime(source, mapping)}"`
+					break
+				default:
+					if (typeof source === 'string') {
+						value = Helper.replace(source, '\n', '\\n')
+						value = Helper.replace(value, '"', '\\"')
+						value = `"${value}"`
+					} else {
+						value = source
+					}
+			}
+		} else {
+			value = 'null'
+		}
+		return value
+	}
+
 	private async getNextSequenceValue(sequence: string, count: number = 1) {
 		// https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/#mongodb-method-db.collection.findOneAndUpdate
 		var sequenceDocument = await this.cnx.db.collection('__sequences').findOneAndUpdate(

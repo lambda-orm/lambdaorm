@@ -55,22 +55,6 @@ test:
           dataSource: mysql
           sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
           childs: []
-      - stage: postgres
-        sentence:
-          entity: Categories
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
     errors: 0
     expression: Categories.insert()
     normalizeExpression: Categories.insert({name:name,description:description})
@@ -143,8 +127,6 @@ test:
           condition: isNotNull(name)
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       data:
         name: Beverages20
@@ -158,22 +140,6 @@ test:
           entity: Categories
           dialect: mysql
           dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Categories
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
           sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
           childs: []
     errors: 0
@@ -248,8 +214,6 @@ test:
           condition: isNotNull(name)
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       data:
         name: Beverages21
@@ -263,22 +227,6 @@ test:
           entity: Categories
           dialect: mysql
           dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Categories
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
           sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
           childs: []
     errors: 0
@@ -349,8 +297,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       data:
         entity:
@@ -365,27 +311,6 @@ test:
           entity: Orders
           dialect: mysql
           dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
@@ -666,8 +591,6 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       data:
         customerId: VINET
@@ -716,43 +639,6 @@ test:
             - entity: OrderDetails
               dialect: mysql
               dataSource: mysql
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
-      - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                INSERT INTO "Order
-                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-              childs: []
-      - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
               sentence: >-
                 INSERT INTO `Order
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
@@ -1174,8 +1060,6 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       data:
         customerId: VINET
@@ -1232,59 +1116,6 @@ test:
             - entity: Customers
               dialect: mysql
               dataSource: mysql
-              sentence: >-
-                INSERT INTO
-                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES(?,?,?,?,?,?,?,?,?)
-              childs: []
-      - stage: postgres
-        sentence:
-          entity: Orders
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                INSERT INTO "Order
-                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-              childs: []
-            - entity: Customers
-              dialect: postgres
-              dataSource: postgres
-              sentence: >-
-                INSERT INTO
-                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
-              childs: []
-      - stage: mariadb
-        sentence:
-          entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
-            - entity: Customers
-              dialect: mariadb
-              dataSource: mariadb
               sentence: >-
                 INSERT INTO
                 Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
@@ -1917,8 +1748,6 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       data:
         customerId: VINET

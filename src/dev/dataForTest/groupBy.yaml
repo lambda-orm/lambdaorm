@@ -12,20 +12,6 @@ test:
           dataSource: mysql
           sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
           childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
-          childs: []
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
@@ -75,8 +61,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       - maxPrice: 263.5
   - name: groupBy 2
@@ -86,20 +70,6 @@ test:
           entity: Products
           dialect: mysql
           dataSource: mysql
-          sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
           sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
           childs: []
     errors: 0
@@ -151,8 +121,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       - minPrice: 2.5
   - name: groupBy 3
@@ -162,20 +130,6 @@ test:
           entity: Products
           dialect: mysql
           dataSource: mysql
-          sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
           sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
           childs: []
     errors: 0
@@ -227,8 +181,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       - total: 2222.71
   - name: groupBy 4
@@ -240,21 +192,7 @@ test:
           dataSource: mysql
           sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
           childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
-          childs: []
-    errors: 1
+    errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
     normalizeExpression: Products.map(p=>{average:avg(p.price)})
     model:
@@ -303,11 +241,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-        error: not equal mysql
-        result:
-          - average: 28.866363636363637
-      - stage: mariadb
     result:
       - average: 28.86636364
   - name: groupBy 5
@@ -317,20 +250,6 @@ test:
           entity: Products
           dialect: mysql
           dataSource: mysql
-          sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
           sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
           childs: []
     errors: 0
@@ -380,8 +299,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       - count: 77
   - name: groupBy 6
@@ -395,25 +312,7 @@ test:
             SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS
             `largestPrice` FROM Products p  GROUP BY p.CategoryID 
           childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p  GROUP BY p.CategoryID 
-          childs: []
-    errors: 1
+    errors: 0
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
@@ -486,26 +385,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-        error: not equal mysql
-        result:
-          - category: 3
-            largestPrice: 81
-          - category: 5
-            largestPrice: 38
-          - category: 4
-            largestPrice: 55
-          - category: 6
-            largestPrice: 123.79
-          - category: 2
-            largestPrice: 43.9
-          - category: 7
-            largestPrice: 53
-          - category: 1
-            largestPrice: 263.5
-          - category: 8
-            largestPrice: 62.5
-      - stage: mariadb
     result:
       - category: 1
         largestPrice: 263.5
@@ -535,27 +414,7 @@ test:
             `largestPrice` FROM Products p INNER JOIN Categories c ON
             c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
           childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
-          childs: []
-    errors: 1
+    errors: 0
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
@@ -648,26 +507,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-        error: not equal mysql
-        result:
-          - category: Grains/Cereals
-            largestPrice: 38
-          - category: Beverages
-            largestPrice: 263.5
-          - category: Dairy Products
-            largestPrice: 55
-          - category: Seafood
-            largestPrice: 62.5
-          - category: Produce
-            largestPrice: 53
-          - category: Condiments
-            largestPrice: 43.9
-          - category: Meat/Poultry
-            largestPrice: 123.79
-          - category: Confections
-            largestPrice: 81
-      - stage: mariadb
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -693,25 +532,6 @@ test:
           entity: Products
           dialect: mysql
           dataSource: mysql
-          sentence: >-
-            SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-            ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
-            $1 
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
           sentence: >-
             SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
             ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
@@ -818,8 +638,6 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       - name: Chai
         source: 18
@@ -831,28 +649,6 @@ test:
           entity: Products
           dialect: mysql
           dataSource: mysql
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
-          childs: []
-      - stage: postgres
-        sentence:
-          entity: Products
-          dialect: postgres
-          dataSource: postgres
-          sentence: >-
-            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
-          childs: []
-      - stage: mariadb
-        sentence:
-          entity: Products
-          dialect: mariadb
-          dataSource: mariadb
           sentence: >-
             SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
             `largestPrice` FROM Products p INNER JOIN Categories c ON
@@ -976,11 +772,9 @@ test:
       constraints: []
     executions:
       - stage: mysql
-      - stage: postgres
-      - stage: mariadb
     result:
       - category: Beverages
         largestPrice: 263.5
       - category: Meat/Poultry
         largestPrice: 123.79
-errors: 3
+errors: 0

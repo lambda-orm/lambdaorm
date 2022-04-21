@@ -4,44 +4,45 @@ import { Operand, Constant, ArrowFunction, ChildFunction, Variable } from 'js-ex
 const SqlString = require('sqlstring')
 
 export class Constant2 extends Constant {
-	public eval (): any {
+	public eval(): any {
 		switch (this.type) {
-		case 'string':
-			return SqlString.escape(this.name)
-		case 'boolean':
-			return this.name === 'true'
-		case 'number':
-			return parseFloat(this.name)
-		default:
-			return SqlString.escape(this.name)
+			case 'string':
+				return SqlString.escape(this.name)
+			case 'boolean':
+				return this.name === 'true'
+			case 'number':
+				return parseFloat(this.name)
+			default:
+				return SqlString.escape(this.name)
 		}
 	}
 }
 export class Field extends Operand {
 	public entity: string
 	public alias?: string
-	constructor (entity: string, name: string, type: string, alias?: string) {
+	public prefix?: string
+	constructor(entity: string, name: string, type: string, alias?: string) {
 		super(name, [], type)
 		this.entity = entity
 		this.alias = alias
 	}
 
-	public clone () {
+	public clone() {
 		return new Field(this.entity, this.name, this.type, this.alias)
 	}
 
-	public eval (): any {
-	// TODO:implement
+	public eval(): any {
+		// TODO:implement
 		throw new MethodNotImplemented('Field', 'eval')
 	}
 }
 export class From extends Operand {
-	public eval (): any {
+	public eval(): any {
 		throw new MethodNotImplemented('From', 'eval')
 	}
 }
 export class Join extends Operand {
-	public eval (): any {
+	public eval(): any {
 		throw new MethodNotImplemented('Join', 'eval')
 	}
 }
@@ -54,7 +55,7 @@ export class Page extends ChildFunction { }
 export class Insert extends ArrowFunction {
 	// public autoincrement?: string
 	public clause: string
-	constructor (name: string, children: Operand[] = [], clause: string) {
+	constructor(name: string, children: Operand[] = [], clause: string) {
 		super(name, children)
 		// this.autoincrement = autoincrement
 		this.clause = clause
@@ -68,11 +69,11 @@ export class Sentence extends Operand {
 	public entity: string
 	public alias: string
 	public action: string
-	public constraints:Constraint[]
+	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
 
-	constructor (name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints:Constraint[], values: Behavior[], defaults: Behavior[]) {
+	constructor(name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints: Constraint[], values: Behavior[], defaults: Behavior[]) {
 		super(name, children)
 		this.entity = entity
 		this.alias = alias
@@ -85,11 +86,11 @@ export class Sentence extends Operand {
 		this.initialize()
 	}
 
-	public getIncludes (): SentenceInclude[] {
+	public getIncludes(): SentenceInclude[] {
 		return this.children.filter(p => p instanceof SentenceInclude) as SentenceInclude[]
 	}
 
-	private initialize () {
+	private initialize() {
 		const map = this.children.find(p => p.name === 'map')
 		const filter = this.children.find(p => p.name === 'filter')
 		const groupBy = this.children.find(p => p.name === 'groupBy')
@@ -122,25 +123,25 @@ export class Sentence extends Operand {
 		}
 	}
 
-	private loadVariables (operand: Operand, variables: Variable[]) {
+	private loadVariables(operand: Operand, variables: Variable[]) {
 		if (operand instanceof Variable) { variables.push(operand) }
 		for (let i = 0; i < operand.children.length; i++) { this.loadVariables(operand.children[i], variables) }
 	}
 
-	public eval (): any {
+	public eval(): any {
 		throw new MethodNotImplemented('Sentence', 'eval')
 	}
 }
 export class SentenceInclude extends Operand {
 	public relation: Relation
 	// public variable: string
-	constructor (name: string, children: Operand[] = [], relation: Relation) {
+	constructor(name: string, children: Operand[] = [], relation: Relation) {
 		super(name, children)
 		this.relation = relation
 		// this.variable = variable
 	}
 
-	public eval (): any {
+	public eval(): any {
 		throw new MethodNotImplemented('SentenceInclude', 'eval')
 	}
 }
