@@ -26,7 +26,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			return query
 		}
 	}
-
 	protected override buildSentence(sentence: Sentence): string {
 		switch (sentence.action) {
 			case 'select':
@@ -86,6 +85,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			throw new SchemaError(`update operand not found`)
 		}
 		//TODO: tener en cuenta que cuando hay includes el set solo debe estar en el root.
+		//quizas el set debe estar en la connexion
 		let data: any = {
 			set: `{ "$set" :{ ${this.buildUpdate(update, entity)} }}`,
 			filter: filter ? this.buildArrowFunction(filter) : {}
@@ -361,6 +361,4 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			}
 		}
 	}
-
-
 }
