@@ -225,16 +225,17 @@ test:
   - name: update 1
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: >-
+              { "$set" :{
+              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+              }}
+            filter: '{ "_id":{{obj.id}} }'
           childs: []
     errors: 0
     expression: Orders.update()
@@ -532,7 +533,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         id: 7
@@ -563,16 +564,17 @@ test:
   - name: update 2
     data: b
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: >-
+              { "$set" :{
+              "CustomerID":{{entity.customerId}},"EmployeeID":{{entity.employeeId}},"OrderDate":{{entity.orderDate}},"RequiredDate":{{entity.requiredDate}},"ShippedDate":{{entity.shippedDate}},"ShipVia":{{entity.shipViaId}},"Freight":{{entity.freight}},"ShipName":{{entity.name}},"ShipAddress":{{entity.address}},"ShipCity":{{entity.city}},"ShipRegion":{{entity.region}},"ShipPostalCode":{{entity.postalCode}},"ShipCountry":{{entity.country}}
+              }}
+            filter: '{ "_id":{{obj.id}} }'
           childs: []
     errors: 0
     expression: Orders.update(entity)
@@ -862,7 +864,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         entity:
@@ -899,12 +901,13 @@ test:
   - name: update 3
     data: c
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: '{ "$set" :{ "ShipPostalCode":{{postalCode}} }}'
           childs: []
     errors: 0
     expression: Orders.updateAll(=>{postalCode:postalCode})
@@ -954,19 +957,21 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         postalCode: xxx
   - name: update 4
     data: b
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
+            filter: '{ "_id":{{entity.id}} }'
           childs: []
     errors: 0
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
@@ -1039,7 +1044,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         entity:
@@ -1076,20 +1081,26 @@ test:
   - name: update 5
     data: b
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
+            filter: '{ "_id":{{entity.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                update: >-
+                  { "$set" :{
+                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                  }}
+                filter: >-
+                  { "$and" :[{ "OrderID":{{obj.orderId}} },{
+                  "ProductID":{{obj.productId}} }] }
               childs: []
     errors: 0
     expression: >-
@@ -1350,7 +1361,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         entity:
@@ -1387,20 +1398,26 @@ test:
   - name: update 6
     data: b
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
+            filter: '{ "_id":{{entity.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
-                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-                o1.ProductID = ?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                update: >-
+                  { "$set" :{
+                  "UnitPrice":"UnitPrice","Quantity":"Quantity","Discount":"Discount"
+                  }}
+                filter: >-
+                  { "$and" :[{ "OrderID":{{orderId}} },{
+                  "ProductID":{{productId}} }] }
               childs: []
     errors: 0
     expression: >-
@@ -1616,7 +1633,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         entity:
@@ -1653,19 +1670,23 @@ test:
   - name: update 7
     data: b
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
+            filter: '{ "_id":{{entity.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
-                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                update: '{ "$set" :{ "UnitPrice":"UnitPrice","ProductID":"ProductID" }}'
+                filter: >-
+                  { "$and" :[{ "OrderID":{{orderId}} },{
+                  "ProductID":{{productId}} }] }
               childs: []
     errors: 0
     expression: >-
@@ -1866,7 +1887,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         entity:
@@ -1903,24 +1924,29 @@ test:
   - name: update 8
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: >-
+              { "$set" :{
+              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+              }}
+            filter: '{ "_id":{{obj.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                update: >-
+                  { "$set" :{
+                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                  }}
+                filter: >-
+                  { "$and" :[{ "OrderID":{{obj.orderId}} },{
+                  "ProductID":{{obj.productId}} }] }
               childs: []
     errors: 0
     expression: Orders.update().include(p=>p.details)
@@ -2404,7 +2430,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         id: 7
@@ -2435,32 +2461,39 @@ test:
   - name: update 9
     data: d
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Customers
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-            ?,Country = ? WHERE c.CustomerID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            update: >-
+              { "$set" :{
+              "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
+              }}
+            filter: '{ "_id":{{obj.id}} }'
           childs:
             - entity: Orders
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
-                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
-                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                update: >-
+                  { "$set" :{
+                  "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+                  }}
+                filter: '{ "_id":{{obj.id}} }'
               childs:
                 - entity: OrderDetails
-                  dialect: mysql
-                  dataSource: mysql
-                  sentence: >-
-                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
-                    = ? AND o1.ProductID = ?) 
+                  dialect: mongodb
+                  dataSource: mongodb
+                  sentence:
+                    update: >-
+                      { "$set" :{
+                      "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                      }}
+                    filter: >-
+                      { "$and" :[{ "OrderID":{{obj.orderId}} },{
+                      "ProductID":{{obj.productId}} }] }
                   childs: []
     errors: 0
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
@@ -3182,7 +3215,7 @@ test:
         - message: Cannot be null property name in entity Customers
           condition: isNotNull(name)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         id: ALFKI

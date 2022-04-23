@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented, NoSqlSentence, SchemaError } from '../../model'
-import { MappingConfig, Helper } from '../../manager'
+import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType } from '../../model'
+import { MappingConfig, Dialect, Helper } from '../../manager'
 
 export class MongodbConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -39,60 +38,63 @@ export class MongodbConnectionPool extends ConnectionPool {
 export class MongodbConnection extends Connection {
 	private session?: any
 
-	public async select(mapping: MappingConfig, query: Query, data: Data): Promise<any> {
+	public async select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-mongodb-2910ff5e272b
 		// https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/
 
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
 		const params = this.dataToParameters(query, mapping, data)
-		const aggregate: any[] = []
-
-		//const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
-		if (sentence.filter) {
-			const filter = this.templateToObject(sentence.filter, params, mapping)
-			aggregate.push({ $match: filter })
-		}
-		if (sentence.map) {
-			const map = this.templateToObject(sentence.map, params, mapping)
-			aggregate.push(map)
-		}
-		if (sentence.joins) {
-			for (const i in sentence.joins) {
-				aggregate.push(JSON.parse(sentence.joins[i]))
-			}
-		}
-		if (sentence.groupBy) {
-			aggregate.push(JSON.parse(sentence.groupBy))
-		}
-		if (sentence.having) {
-			aggregate.push(JSON.parse(sentence.having))
-		}
-		if (sentence.sort) {
-			aggregate.push(JSON.parse(sentence.sort))
-		}
-		if (sentence.page) {
-			aggregate.push(JSON.parse(sentence.page))
-		}
+		const aggregate = this.parseTemplate(query.sentence, params, mapping)
 
 		// const result = this.session
 		// 	? await this.cnx.db.collection(collection).find(filter, this.session).aggregate(aggregate).toArray()
 		// 	: await this.cnx.db.collection(collection).find(filter).aggregate(aggregate).toArray()
 		const result = this.session
-			? await this.cnx.db.collection(collection).aggregate(aggregate).toArray()
-			: await this.cnx.db.collection(collection).aggregate(aggregate).toArray()
+			? await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
+			: await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
 		return result
 	}
 
-	public async insert(mapping: MappingConfig, query: Query, data: Data): Promise<any> {
+	// private getMap(mapping: MappingConfig, dialect: Dialect, query: Query, params: Parameter[]): any {
+	// const sentence = query.sentence as NoSqlSentence
+	// const map = this.templateToObject(sentence.map as string, params, mapping)
+	// for (const p in query.includes) {
+	// const include = query.includes[p]
+	// if (include.relation.composite) {
+	// const relationEntity = mapping.getEntity(include.relation.entity)
+	// if (relationEntity === undefined) {
+	// throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+	// }
+	// const relationProperty = dialect.delimiter(relationEntity.mapping)
+	// if (include.relation.type === RelationType.manyToOne) {
+	// // Temporal Test
+	// const relationMap = this.getMap(mapping, dialect, include.query, params)
+	// for (const p in relationMap) {
+	// const column = relationMap[p]
+	// relationMap[p] = `${relationProperty}.${column}`
+	// //relationMap[p] = `$${relationProperty}.${column.replace('$', '')}`
+	// relationMap[p] = `$$CURRENT.${column.replace('$', '')}`
+	// //relationMap[p] = `$${column}`
+	// }
+	// map[include.relation.name] = relationMap
+	// } else {
+	// map[include.relation.name] = this.getMap(mapping, dialect, include.query, params)
+	// }
+	// }
+	// }
+	// return map
+	// }
+
+	public async insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const entity = mapping.getEntity(query.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`EntityMapping not found for entity ${query.entity}`)
 		}
-		const sentence = query.sentence as NoSqlSentence
-		const params = this.dataToParameters(query, mapping, data)
-		const obj = this.templateToObject(sentence.insert as string, params, mapping)
-
+		// const sentence = query.sentence as NoSqlSentence
+		// const params = this.dataToParameters(query, mapping, data)
+		// const obj = this.templateToObject(sentence.insert as string, params, mapping)
+		const list = this.getInsertList(mapping, dialect, query, [data.data])
+		const obj = list[0]
 		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
 			const mappingPk = entity.properties.find(p => p.name === propertyPk)
@@ -108,14 +110,12 @@ export class MongodbConnection extends Connection {
 		return typeof result.insertedId === 'object' ? result.insertedId.toString() : result.insertedId
 	}
 
-	public async bulkInsert(mapping: MappingConfig, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		const entity = mapping.getEntity(query.entity)
 		if (entity === undefined) {
-			throw new SchemaError(`EntityMapping not found for entity ${query.entity}`)
+			throw new SchemaError(`EntityMapping ${query.entity} not found`)
 		}
-		const sentence = query.sentence as NoSqlSentence
-		const list = this.arrayToList(query, sentence.insert as string, mapping, array)
-
+		const list = this.getInsertList(mapping, dialect, query, array)
 		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
 			const mappingPk = entity.properties.find(p => p.name === propertyPk)
@@ -126,7 +126,6 @@ export class MongodbConnection extends Connection {
 				}
 			}
 		}
-
 		const result = this.session
 			? await this.cnx.db.collection(entity.mapping).insertMany(list, this.session)
 			: await this.cnx.db.collection(entity.mapping).insertMany(list)
@@ -139,34 +138,65 @@ export class MongodbConnection extends Connection {
 		return ids
 	}
 
-	public async update(mapping: MappingConfig, query: Query, data: Data): Promise<number> {
-		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		const params = this.dataToParameters(query, mapping, data)
-		const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
-		const obj = this.templateToObject(sentence.update as string, params, mapping)
-		const result = this.session
-			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
-			: await this.cnx.db.collection(collection).updateMany(filter, obj)
-		return result.modifiedCount as number
+	private getInsertList(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): any[] {
+		const list = this.arrayToList(query, query.sentence, mapping, array)
+		for (const p in query.includes) {
+			const include = query.includes[p]
+			if (include.relation.composite) {
+				const relationEntity = mapping.getEntity(include.relation.entity)
+				if (relationEntity === undefined) {
+					throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+				}
+				const relationProperty = dialect.delimiter(relationEntity.mapping)
+				for (let i = 0; i < array.length; i++) {
+					const source = array[i]
+					const target = list[i]
+					const children = source[include.relation.name]
+					if (include.relation.type === RelationType.manyToOne) {
+						target[relationProperty] = this.getInsertList(mapping, dialect, include.query, children)
+					} else {
+						const result = this.getInsertList(mapping, dialect, include.query, [children])
+						if (result && result.length > 0) {
+							target[relationProperty] = result[0]
+						}
+					}
+				}
+			}
+		}
+		return list
 	}
 
-	public async bulkUpdate(mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		throw new Error('TODO')
+		// const collection = mapping.entityMapping(query.entity)
+		// const sentence = query.sentence as NoSqlSentence
+		// const params = this.dataToParameters(query, mapping, data)
+		// const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
+		// const expUpdate = `{ "$set" :{ ${sentence.update} }}`
+		// const obj = this.templateToObject(expUpdate, params, mapping)
+		// const result = this.session
+		// 	? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
+		// 	: await this.cnx.db.collection(collection).updateMany(filter, obj)
+		// return result.modifiedCount as number
+	}
+
+	public async bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MongodbConnection', 'bulkUpdate')
 	}
 
-	public async delete(mapping: MappingConfig, query: Query, data: Data): Promise<number> {
-		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		const params = this.dataToParameters(query, mapping, data)
-		const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
-		const result = this.session
-			? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
-			: await this.cnx.db.collection(collection).deleteMany(filter)
-		return result.modifiedCount as number
+	public async delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		throw new Error('TODO')
+		// const collection = mapping.entityMapping(query.entity)
+		// const sentence = query.sentence as NoSqlSentence
+		// const params = this.dataToParameters(query, mapping, data)
+		// const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
+		// const result = this.session
+		// 	? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
+		// 	: await this.cnx.db.collection(collection).deleteMany(filter)
+		// return result.modifiedCount as number
 	}
 
-	public async bulkDelete(mapping: MappingConfig, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MongodbConnection', 'bulkDelete')
 	}
 
@@ -227,7 +257,33 @@ export class MongodbConnection extends Connection {
 		return list
 	}
 
-	private templateToObject(template: string, params: Parameter[], mapping: MappingConfig): any {
+	// private objectToParameters(query: Query, mapping: MappingConfig, obj: any): Parameter[] {
+	// const parameters: Parameter[] = []
+	// for (const p in query.parameters) {
+	// const parameter = query.parameters[p]
+	// let value = obj[parameter.name]
+	// if (value) {
+	// switch (parameter.type) {
+	// case 'datetime':
+	// value = this.writeDateTime(value, mapping)
+	// break
+	// case 'date':
+	// value = this.writeDate(value, mapping)
+	// break
+	// case 'time':
+	// value = this.writeTime(value, mapping)
+	// break
+	// }
+	// // if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
+	// } else {
+	// value = null
+	// }
+	// parameters.push({ name: parameter.name, type: parameter.type, value: value })
+	// }
+	// return parameters
+	// }
+
+	private parseTemplate(template: string, params: Parameter[], mapping: MappingConfig): any | undefined {
 		let result: string | undefined
 		const row: any = {}
 		if (params.length && params.length > 0) {
@@ -239,7 +295,7 @@ export class MongodbConnection extends Connection {
 		} else {
 			result = template
 		}
-		return result ? JSON.parse(result) : {}
+		return result ? JSON.parse(result) : undefined
 	}
 
 	private getValue(source: any, type: string, mapping: MappingConfig) {
@@ -289,7 +345,6 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async truncateEntity(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.codegrepper.com/code-examples/c/truncate+collection+mongodb
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.collection(collection).delete_many({})
 	}
@@ -300,56 +355,30 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async createSequence(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.tutorialspoint.com/mongodb/mongodb_autoincrement_sequence.htm		
-		const sentence = query.sentence as NoSqlSentence
-		await this.cnx.db.collection('__sequences').insertOne({ _id: sentence.name, sequence_value: 1 })
+		await this.cnx.db.collection('__sequences').insertOne(JSON.parse(query.sentence))
 	}
 
 	public async createIndex(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndex/
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		if (sentence.columns) {
-			const properties: any = {}
-			for (const i in sentence.columns) {
-				properties[sentence.columns[i]] = 1
-			}
-			await this.cnx.db.collection(collection).createIndex(properties, { name: sentence.name })
-		}
+		const data = JSON.parse(query.sentence)
+		await this.cnx.db.collection(collection).createIndex(data.properties, data.options)
 	}
 
 	public async addPk(mapping: MappingConfig, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		if (sentence.columns) {
-			const properties: any = {}
-			for (const i in sentence.columns) {
-				if (sentence.columns[i] !== '_id') {
-					properties[sentence.columns[i]] = 1
-				}
-			}
-			if (Object.keys(properties).length > 0) {
-				await this.cnx.db.collection(collection).createIndex(properties, { name: sentence.name, unique: true })
-			}
-		}
+		const data = JSON.parse(query.sentence)
+		await this.cnx.db.collection(collection).createIndex(data.properties, data.options)
 	}
 
 	public async addUk(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.mongodb.com/docs/drivers/node/current/fundamentals/indexes/#:~:text=By%20default%2C%20MongoDB%20creates%20a,the%20unique%20option%20to%20true%20.
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		if (sentence.columns) {
-			const properties: any = {}
-			for (const i in sentence.columns) {
-				properties[sentence.columns[i]] = 1
-			}
-			await this.cnx.db.collection(collection).createIndex(properties, { name: sentence.name, unique: true })
-		}
+		const data = JSON.parse(query.sentence)
+		await this.cnx.db.collection(collection).createIndex(data.properties, data.options)
 	}
 
 	public async dropSequence(mapping: MappingConfig, query: Query): Promise<any> {
-		const sentence = query.sentence as NoSqlSentence
-		await this.cnx.db.collection('__sequences').remove({ _id: sentence.name })
+		const filter = JSON.parse(query.sentence)
+		await this.cnx.db.collection('__sequences').deleteOne(filter)
 	}
 
 	public async dropEntity(mapping: MappingConfig, query: Query): Promise<any> {
@@ -359,23 +388,17 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async dropPk(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.dropIndex/
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		await this.cnx.db.collection(collection).dropIndex(sentence.name)
+		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}
 
 	public async dropUk(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.dropIndex/
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		await this.cnx.db.collection(collection).dropIndex(sentence.name)
+		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}
 
 	public async dropIndex(mapping: MappingConfig, query: Query): Promise<any> {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.dropIndex/
 		const collection = mapping.entityMapping(query.entity)
-		const sentence = query.sentence as NoSqlSentence
-		await this.cnx.db.collection(collection).dropIndex(sentence.name)
+		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}
 }

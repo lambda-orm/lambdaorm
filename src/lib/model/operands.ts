@@ -89,6 +89,10 @@ export class Sentence extends Operand {
 	public getIncludes(): SentenceInclude[] {
 		return this.children.filter(p => p instanceof SentenceInclude) as SentenceInclude[]
 	}
+	public getCompositeIncludes(): SentenceInclude[] {
+		const includes = this.getIncludes()
+		return includes.filter(p => p.relation.composite)
+	}
 
 	private initialize() {
 		const map = this.children.find(p => p.name === 'map')

@@ -1,52 +1,46 @@
 import { Behavior, Constraint, Property, Relation } from './schema'
 import { Parameter } from './parameter'
-import { NoSqlSentence } from './query'
 
-export interface MetadataParameter
-{
-	name:string
+export interface MetadataParameter {
+	name: string
 	type: string
-	childs?:MetadataParameter[]
+	childs?: MetadataParameter[]
 }
 
-export interface MetadataModel
-{
-	name:string
+export interface MetadataModel {
+	name: string
 	type: string
-	childs?:MetadataModel[]
+	childs?: MetadataModel[]
 }
 
-export interface MetadataConstraint
-{
-	entity:string
+export interface MetadataConstraint {
+	entity: string
 	constraints: Constraint[]
-	childs?:MetadataConstraint[]
+	childs?: MetadataConstraint[]
 }
 
-export interface MetadataSentence
-{
-	entity:string
+export interface MetadataSentence {
+	entity: string
 	dialect: string
-	dataSource : string
-	sentence: string | NoSqlSentence
-	childs?:MetadataSentence[]
+	dataSource: string
+	sentence: string
+	childs?: MetadataSentence[]
 }
 
-export interface Metadata
-{
+export interface Metadata {
 	classtype: string,
 	name: string,
 	children?: Metadata[],
 	type?: string,
 	entity?: string,
 	columns?: Property[],
-	property?:string
+	property?: string
 	parameters?: Parameter[],
 	constraints?: Constraint[],
 	values?: Behavior[],
-	defaults?:Behavior[],
+	defaults?: Behavior[],
 	relation?: Relation,
 	clause?: string,
 	alias?: string,
-	number?:number
+	number?: number
 }

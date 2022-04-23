@@ -6,33 +6,40 @@ test:
   - name: include 1
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.CustomerID AS `__customerId` FROM Orders o  WHERE
-            o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__customerId":"$CustomerID" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c.CustomerID AS `id`, c.CompanyName AS `name`,
-                c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
-                AS `address`, c.City AS `city`, c.Region AS `region`,
-                c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
-                c.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                  "contact":"$ContactName", "phone":"$ContactTitle",
+                  "address":"$Address", "city":"$City", "region":"$Region",
+                  "postalCode":"$PostalCode", "country":"$Country",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
-    errors: 0
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id}))
@@ -498,57 +505,42 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
   - name: include 2
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__id":"$_id" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
-                o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.OrderID AS `LamdaOrmParentId` FROM
-                `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "orderId":"$OrderID",
+                  "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                  "quantity":"$Quantity", "discount":"$Discount",
+                  "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
     errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
@@ -961,14 +953,14 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04 00:00:00'
+        requiredDate: '1996-08-01 00:00:00'
+        shippedDate: '1996-07-16 00:00:00'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -982,56 +974,68 @@ test:
             productId: 11
             unitPrice: 14
             quantity: 12
-            discount: 0
+            discount: null
           - orderId: 1
             productId: 42
             unitPrice: 9.8
             quantity: 10
-            discount: 0
+            discount: null
           - orderId: 1
             productId: 72
             unitPrice: 34.8
             quantity: 5
-            discount: 0
+            discount: null
   - name: include 3
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
-            Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__id":"$_id",
+              "__customerId":"$CustomerID" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
-                o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.OrderID AS `LamdaOrmParentId` FROM
-                `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "orderId":"$OrderID",
+                  "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                  "quantity":"$Quantity", "discount":"$Discount",
+                  "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c.CustomerID AS `id`, c.CompanyName AS `name`,
-                c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
-                AS `address`, c.City AS `city`, c.Region AS `region`,
-                c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
-                c.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                  "contact":"$ContactName", "phone":"$ContactTitle",
+                  "address":"$Address", "city":"$City", "region":"$Region",
+                  "postalCode":"$PostalCode", "country":"$Country",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
-    errors: 0
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
@@ -1657,100 +1661,75 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.8
-            quantity: 5
-            discount: 0
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
   - name: include 4
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
-            Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__id":"$_id",
+              "__customerId":"$CustomerID" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
-                o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
-                o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "orderId":"$OrderID",
+                  "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                  "quantity":"$Quantity", "discount":"$Discount",
+                  "__productId":"$ProductID", "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mysql
-                  dataSource: mysql
-                  sentence: >-
-                    SELECT p.ProductID AS `id`, p.ProductName AS `name`,
-                    p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
-                    p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
-                    p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
-                    p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.ProductID AS `LamdaOrmParentId` FROM
-                    Products p  WHERE  p.ProductID IN (?) 
+                  dialect: mongodb
+                  dataSource: mongodb
+                  sentence:
+                    map: >-
+                      { "$project" :{ "_id": 0 , "id":"$_id",
+                      "name":"$ProductName", "supplierId":"$SupplierID",
+                      "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+                      "price":"$UnitPrice", "inStock":"$UnitsInStock",
+                      "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                      "discontinued":"$Discontinued", "LamdaOrmParentId":"$_id"
+                      }}
+                    from: Products
+                    joins: []
+                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
                   childs: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c.CustomerID AS `id`, c.CompanyName AS `name`,
-                c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
-                AS `address`, c.City AS `city`, c.Region AS `region`,
-                c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
-                c.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                  "contact":"$ContactName", "phone":"$ContactTitle",
+                  "address":"$Address", "city":"$City", "region":"$Region",
+                  "postalCode":"$PostalCode", "country":"$Country",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     normalizeExpression: >-
@@ -2607,143 +2586,87 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: false
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: true
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.8
-            quantity: 5
-            discount: 0
-            product:
-              id: 72
-              name: Mozzarella di Giovanni
-              supplierId: 14
-              categoryId: 4
-              quantity: 24 - 200 g pkgs.
-              price: 34.8
-              inStock: 14
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: false
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
   - name: include 5
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
-            Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__id":"$_id",
+              "__customerId":"$CustomerID" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.OrderID AS `orderId`, o1.ProductID AS `productId`,
-                o1.UnitPrice AS `unitPrice`, o1.Quantity AS `quantity`,
-                o1.Discount AS `discount`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
-                o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "orderId":"$OrderID",
+                  "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                  "quantity":"$Quantity", "discount":"$Discount",
+                  "__productId":"$ProductID", "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mysql
-                  dataSource: mysql
-                  sentence: >-
-                    SELECT p.ProductID AS `id`, p.ProductName AS `name`,
-                    p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
-                    p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
-                    p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
-                    p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.CategoryID AS `__categoryId`, p.ProductID
-                    AS `LamdaOrmParentId` FROM Products p  WHERE  p.ProductID IN
-                    (?) 
+                  dialect: mongodb
+                  dataSource: mongodb
+                  sentence:
+                    map: >-
+                      { "$project" :{ "_id": 0 , "id":"$_id",
+                      "name":"$ProductName", "supplierId":"$SupplierID",
+                      "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+                      "price":"$UnitPrice", "inStock":"$UnitsInStock",
+                      "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                      "discontinued":"$Discontinued",
+                      "__categoryId":"$CategoryID", "LamdaOrmParentId":"$_id" }}
+                    from: Products
+                    joins: []
+                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
                   childs:
                     - entity: Categories
-                      dialect: mysql
-                      dataSource: mysql
-                      sentence: >-
-                        SELECT c.CategoryID AS `id`, c.CategoryName AS `name`,
-                        c.Description AS `description`, c.CategoryID AS
-                        `LamdaOrmParentId` FROM Categories c  WHERE 
-                        c.CategoryID IN (?) 
+                      dialect: mongodb
+                      dataSource: mongodb
+                      sentence:
+                        map: >-
+                          { "$project" :{ "_id": 0 , "id":"$_id",
+                          "name":"$CategoryName", "description":"$Description",
+                          "LamdaOrmParentId":"$_id" }}
+                        from: Categories
+                        joins: []
+                        filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
                       childs: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c1.CustomerID AS `id`, c1.CompanyName AS `name`,
-                c1.ContactName AS `contact`, c1.ContactTitle AS `phone`,
-                c1.Address AS `address`, c1.City AS `city`, c1.Region AS
-                `region`, c1.PostalCode AS `postalCode`, c1.Country AS
-                `country`, c1.CustomerID AS `LamdaOrmParentId` FROM Customers
-                c1  WHERE  c1.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                  "contact":"$ContactName", "phone":"$ContactTitle",
+                  "address":"$Address", "city":"$City", "region":"$Region",
+                  "postalCode":"$PostalCode", "country":"$Country",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     normalizeExpression: >-
@@ -3732,131 +3655,58 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: false
-              category:
-                id: 4
-                name: Dairy Products
-                description: Cheeses
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: true
-              category:
-                id: 5
-                name: Grains/Cereals
-                description: Breads, crackers, pasta, and cereal
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.8
-            quantity: 5
-            discount: 0
-            product:
-              id: 72
-              name: Mozzarella di Giovanni
-              supplierId: 14
-              categoryId: 4
-              quantity: 24 - 200 g pkgs.
-              price: 34.8
-              inStock: 14
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: false
-              category:
-                id: 4
-                name: Dairy Products
-                description: Cheeses
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
   - name: include 6
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
-            Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__id":"$_id",
+              "__customerId":"$CustomerID" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `productId`, o1.OrderID AS `LamdaOrmParentId`
-                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "quantity":"$Quantity",
+                  "unitPrice":"$UnitPrice", "productId":"$ProductID",
+                  "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c.CustomerID AS `id`, c.CompanyName AS `name`,
-                c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
-                AS `address`, c.City AS `city`, c.Region AS `region`,
-                c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
-                c.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                  "contact":"$ContactName", "phone":"$ContactTitle",
+                  "address":"$Address", "city":"$City", "region":"$Region",
+                  "postalCode":"$PostalCode", "country":"$Country",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -4455,93 +4305,74 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - quantity: 12
-            unitPrice: 14
-            productId: 11
-          - quantity: 10
-            unitPrice: 9.8
-            productId: 42
-          - quantity: 5
-            unitPrice: 34.8
-            productId: 72
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
   - name: include 7
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM
-            Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__id":"$_id",
+              "__customerId":"$CustomerID" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `productId`, o1.ProductID AS `__productId`,
-                o1.OrderID AS `LamdaOrmParentId` FROM `Order Details` o1  WHERE 
-                o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "quantity":"$Quantity",
+                  "unitPrice":"$UnitPrice", "productId":"$ProductID",
+                  "__productId":"$ProductID", "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mysql
-                  dataSource: mysql
-                  sentence: >-
-                    SELECT p.ProductID AS `id`, p.ProductName AS `name`,
-                    p.SupplierID AS `supplierId`, p.CategoryID AS `categoryId`,
-                    p.QuantityPerUnit AS `quantity`, p.UnitPrice AS `price`,
-                    p.UnitsInStock AS `inStock`, p.UnitsOnOrder AS `onOrder`,
-                    p.ReorderLevel AS `reorderLevel`, p.Discontinued AS
-                    `discontinued`, p.ProductID AS `LamdaOrmParentId` FROM
-                    Products p  WHERE  p.ProductID IN (?) 
+                  dialect: mongodb
+                  dataSource: mongodb
+                  sentence:
+                    map: >-
+                      { "$project" :{ "_id": 0 , "id":"$_id",
+                      "name":"$ProductName", "supplierId":"$SupplierID",
+                      "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+                      "price":"$UnitPrice", "inStock":"$UnitsInStock",
+                      "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                      "discontinued":"$Discontinued", "LamdaOrmParentId":"$_id"
+                      }}
+                    from: Products
+                    joins: []
+                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
                   childs: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c.CustomerID AS `id`, c.CompanyName AS `name`,
-                c.ContactName AS `contact`, c.ContactTitle AS `phone`, c.Address
-                AS `address`, c.City AS `city`, c.Region AS `region`,
-                c.PostalCode AS `postalCode`, c.Country AS `country`,
-                c.CustomerID AS `LamdaOrmParentId` FROM Customers c  WHERE 
-                c.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                  "contact":"$ContactName", "phone":"$ContactTitle",
+                  "address":"$Address", "city":"$City", "region":"$Region",
+                  "postalCode":"$PostalCode", "country":"$Country",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -5370,125 +5201,77 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - quantity: 12
-            unitPrice: 14
-            productId: 11
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: false
-          - quantity: 10
-            unitPrice: 9.8
-            productId: 42
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: true
-          - quantity: 5
-            unitPrice: 34.8
-            productId: 72
-            product:
-              id: 72
-              name: Mozzarella di Giovanni
-              supplierId: 14
-              categoryId: 4
-              quantity: 24 - 200 g pkgs.
-              price: 34.8
-              inStock: 14
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: false
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
   - name: include 8
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT o.OrderID AS `id`, o.CustomerID AS `customerId`, o.EmployeeID
-            AS `employeeId`, o.OrderDate AS `orderDate`, o.RequiredDate AS
-            `requiredDate`, o.ShippedDate AS `shippedDate`, o.ShipVia AS
-            `shipViaId`, o.Freight AS `freight`, o.ShipName AS `name`,
-            o.ShipAddress AS `address`, o.ShipCity AS `city`, o.ShipRegion AS
-            `region`, o.ShipPostalCode AS `postalCode`, o.ShipCountry AS
-            `country`, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM
-            Orders o  WHERE o.OrderID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "id":"$_id",
+              "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+              "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+              "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+              "freight":"$Freight", "name":"$ShipName",
+              "address":"$ShipAddress", "city":"$ShipCity",
+              "region":"$ShipRegion", "postalCode":"$ShipPostalCode",
+              "country":"$ShipCountry", "__customerId":"$CustomerID",
+              "__id":"$_id" }}
+            from: Orders
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs:
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT c.CompanyName AS `name`, c.CustomerID AS
-                `LamdaOrmParentId` FROM Customers c  WHERE  c.CustomerID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "name":"$CompanyName",
+                  "LamdaOrmParentId":"$_id" }}
+                from: Customers
+                joins: []
+                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs: []
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                SELECT o1.Quantity AS `quantity`, o1.UnitPrice AS `unitPrice`,
-                o1.ProductID AS `__productId`, o1.OrderID AS `LamdaOrmParentId`
-                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                map: >-
+                  { "$project" :{ "_id": 0 , "quantity":"$Quantity",
+                  "unitPrice":"$UnitPrice", "__productId":"$ProductID",
+                  "LamdaOrmParentId":"$OrderID" }}
+                from: '"Order Details"'
+                joins: []
+                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mysql
-                  dataSource: mysql
-                  sentence: >-
-                    SELECT p.ProductName AS `name`, p.CategoryID AS
-                    `__categoryId`, p.ProductID AS `LamdaOrmParentId` FROM
-                    Products p  WHERE  p.ProductID IN (?) 
+                  dialect: mongodb
+                  dataSource: mongodb
+                  sentence:
+                    map: >-
+                      { "$project" :{ "_id": 0 , "name":"$ProductName",
+                      "__categoryId":"$CategoryID", "LamdaOrmParentId":"$_id" }}
+                    from: Products
+                    joins: []
+                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
                   childs:
                     - entity: Categories
-                      dialect: mysql
-                      dataSource: mysql
-                      sentence: >-
-                        SELECT c1.CategoryName AS `name`, c1.CategoryID AS
-                        `LamdaOrmParentId` FROM Categories c1  WHERE 
-                        c1.CategoryID IN (?) 
+                      dialect: mongodb
+                      dataSource: mongodb
+                      sentence:
+                        map: >-
+                          { "$project" :{ "_id": 0 , "name":"$CategoryName",
+                          "LamdaOrmParentId":"$_id" }}
+                        from: Categories
+                        joins: []
+                        filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
                       childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     normalizeExpression: >-
@@ -6169,41 +5952,6 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        customer:
-          name: Vins et alcools Chevalier
-        details:
-          - quantity: 12
-            unitPrice: 14
-            product:
-              name: Queso Cabrales
-              category:
-                name: Dairy Products
-          - quantity: 10
-            unitPrice: 9.8
-            product:
-              name: Singaporean Hokkien Fried Mee
-              category:
-                name: Grains/Cereals
-          - quantity: 5
-            unitPrice: 34.8
-            product:
-              name: Mozzarella di Giovanni
-              category:
-                name: Dairy Products
-errors: 0
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+errors: 7

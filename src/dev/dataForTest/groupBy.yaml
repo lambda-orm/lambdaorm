@@ -5,12 +5,15 @@ data:
 test:
   - name: groupBy 1
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: '{ "$project" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }}'
+            from: Products
+            joins: []
           childs: []
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
@@ -60,17 +63,96 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
+      - maxPrice: 18
+      - maxPrice: 19
+      - maxPrice: 10
+      - maxPrice: 22
+      - maxPrice: 21.35
+      - maxPrice: 25
+      - maxPrice: 30
+      - maxPrice: 40
+      - maxPrice: 97
+      - maxPrice: 31
+      - maxPrice: 21
+      - maxPrice: 38
+      - maxPrice: 6
+      - maxPrice: 23.25
+      - maxPrice: 15.5
+      - maxPrice: 17.45
+      - maxPrice: 39
+      - maxPrice: 62.5
+      - maxPrice: 9.2
+      - maxPrice: 81
+      - maxPrice: 10
+      - maxPrice: 21
+      - maxPrice: 9
+      - maxPrice: 4.5
+      - maxPrice: 14
+      - maxPrice: 31.23
+      - maxPrice: 43.9
+      - maxPrice: 45.6
+      - maxPrice: 123.79
+      - maxPrice: 25.89
+      - maxPrice: 12.5
+      - maxPrice: 32
+      - maxPrice: 2.5
+      - maxPrice: 14
+      - maxPrice: 18
+      - maxPrice: 19
+      - maxPrice: 26
       - maxPrice: 263.5
+      - maxPrice: 18
+      - maxPrice: 18.4
+      - maxPrice: 9.65
+      - maxPrice: 14
+      - maxPrice: 46
+      - maxPrice: 19.45
+      - maxPrice: 9.5
+      - maxPrice: 12
+      - maxPrice: 9.5
+      - maxPrice: 12.75
+      - maxPrice: 20
+      - maxPrice: 16.25
+      - maxPrice: 53
+      - maxPrice: 7
+      - maxPrice: 32.8
+      - maxPrice: 7.45
+      - maxPrice: 24
+      - maxPrice: 38
+      - maxPrice: 19.5
+      - maxPrice: 13.25
+      - maxPrice: 55
+      - maxPrice: 34
+      - maxPrice: 28.5
+      - maxPrice: 49.3
+      - maxPrice: 43.9
+      - maxPrice: 33.25
+      - maxPrice: 21.05
+      - maxPrice: 17
+      - maxPrice: 14
+      - maxPrice: 12.5
+      - maxPrice: 36
+      - maxPrice: 15
+      - maxPrice: 21.5
+      - maxPrice: 34.8
+      - maxPrice: 15
+      - maxPrice: 10
+      - maxPrice: 7.75
+      - maxPrice: 18
+      - maxPrice: 13
   - name: groupBy 2
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: '{ "$project" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }}'
+            from: Products
+            joins: []
           childs: []
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
@@ -120,17 +202,96 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
+      - minPrice: 18
+      - minPrice: 19
+      - minPrice: 10
+      - minPrice: 22
+      - minPrice: 21.35
+      - minPrice: 25
+      - minPrice: 30
+      - minPrice: 40
+      - minPrice: 97
+      - minPrice: 31
+      - minPrice: 21
+      - minPrice: 38
+      - minPrice: 6
+      - minPrice: 23.25
+      - minPrice: 15.5
+      - minPrice: 17.45
+      - minPrice: 39
+      - minPrice: 62.5
+      - minPrice: 9.2
+      - minPrice: 81
+      - minPrice: 10
+      - minPrice: 21
+      - minPrice: 9
+      - minPrice: 4.5
+      - minPrice: 14
+      - minPrice: 31.23
+      - minPrice: 43.9
+      - minPrice: 45.6
+      - minPrice: 123.79
+      - minPrice: 25.89
+      - minPrice: 12.5
+      - minPrice: 32
       - minPrice: 2.5
+      - minPrice: 14
+      - minPrice: 18
+      - minPrice: 19
+      - minPrice: 26
+      - minPrice: 263.5
+      - minPrice: 18
+      - minPrice: 18.4
+      - minPrice: 9.65
+      - minPrice: 14
+      - minPrice: 46
+      - minPrice: 19.45
+      - minPrice: 9.5
+      - minPrice: 12
+      - minPrice: 9.5
+      - minPrice: 12.75
+      - minPrice: 20
+      - minPrice: 16.25
+      - minPrice: 53
+      - minPrice: 7
+      - minPrice: 32.8
+      - minPrice: 7.45
+      - minPrice: 24
+      - minPrice: 38
+      - minPrice: 19.5
+      - minPrice: 13.25
+      - minPrice: 55
+      - minPrice: 34
+      - minPrice: 28.5
+      - minPrice: 49.3
+      - minPrice: 43.9
+      - minPrice: 33.25
+      - minPrice: 21.05
+      - minPrice: 17
+      - minPrice: 14
+      - minPrice: 12.5
+      - minPrice: 36
+      - minPrice: 15
+      - minPrice: 21.5
+      - minPrice: 34.8
+      - minPrice: 15
+      - minPrice: 10
+      - minPrice: 7.75
+      - minPrice: 18
+      - minPrice: 13
   - name: groupBy 3
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: '{ "$project" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }}'
+            from: Products
+            joins: []
           childs: []
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
@@ -180,17 +341,96 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
-      - total: 2222.71
+      - total: 18
+      - total: 19
+      - total: 10
+      - total: 22
+      - total: 21.35
+      - total: 25
+      - total: 30
+      - total: 40
+      - total: 97
+      - total: 31
+      - total: 21
+      - total: 38
+      - total: 6
+      - total: 23.25
+      - total: 15.5
+      - total: 17.45
+      - total: 39
+      - total: 62.5
+      - total: 9.2
+      - total: 81
+      - total: 10
+      - total: 21
+      - total: 9
+      - total: 4.5
+      - total: 14
+      - total: 31.23
+      - total: 43.9
+      - total: 45.6
+      - total: 123.79
+      - total: 25.89
+      - total: 12.5
+      - total: 32
+      - total: 2.5
+      - total: 14
+      - total: 18
+      - total: 19
+      - total: 26
+      - total: 263.5
+      - total: 18
+      - total: 18.4
+      - total: 9.65
+      - total: 14
+      - total: 46
+      - total: 19.45
+      - total: 9.5
+      - total: 12
+      - total: 9.5
+      - total: 12.75
+      - total: 20
+      - total: 16.25
+      - total: 53
+      - total: 7
+      - total: 32.8
+      - total: 7.45
+      - total: 24
+      - total: 38
+      - total: 19.5
+      - total: 13.25
+      - total: 55
+      - total: 34
+      - total: 28.5
+      - total: 49.3
+      - total: 43.9
+      - total: 33.25
+      - total: 21.05
+      - total: 17
+      - total: 14
+      - total: 12.5
+      - total: 36
+      - total: 15
+      - total: 21.5
+      - total: 34.8
+      - total: 15
+      - total: 10
+      - total: 7.75
+      - total: 18
+      - total: 13
   - name: groupBy 4
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: '{ "$project" :{ "_id": 0 , "average":{ "$avg" :"$UnitPrice" } }}'
+            from: Products
+            joins: []
           childs: []
     errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
@@ -240,19 +480,98 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
-      - average: 28.86636364
+      - average: 18
+      - average: 19
+      - average: 10
+      - average: 22
+      - average: 21.35
+      - average: 25
+      - average: 30
+      - average: 40
+      - average: 97
+      - average: 31
+      - average: 21
+      - average: 38
+      - average: 6
+      - average: 23.25
+      - average: 15.5
+      - average: 17.45
+      - average: 39
+      - average: 62.5
+      - average: 9.2
+      - average: 81
+      - average: 10
+      - average: 21
+      - average: 9
+      - average: 4.5
+      - average: 14
+      - average: 31.23
+      - average: 43.9
+      - average: 45.6
+      - average: 123.79
+      - average: 25.89
+      - average: 12.5
+      - average: 32
+      - average: 2.5
+      - average: 14
+      - average: 18
+      - average: 19
+      - average: 26
+      - average: 263.5
+      - average: 18
+      - average: 18.4
+      - average: 9.65
+      - average: 14
+      - average: 46
+      - average: 19.45
+      - average: 9.5
+      - average: 12
+      - average: 9.5
+      - average: 12.75
+      - average: 20
+      - average: 16.25
+      - average: 53
+      - average: 7
+      - average: 32.8
+      - average: 7.45
+      - average: 24
+      - average: 38
+      - average: 19.5
+      - average: 13.25
+      - average: 55
+      - average: 34
+      - average: 28.5
+      - average: 49.3
+      - average: 43.9
+      - average: 33.25
+      - average: 21.05
+      - average: 17
+      - average: 14
+      - average: 12.5
+      - average: 36
+      - average: 15
+      - average: 21.5
+      - average: 34.8
+      - average: 15
+      - average: 10
+      - average: 7.75
+      - average: 18
+      - average: 13
   - name: groupBy 5
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: '{ "$project" :{ "_id": 0 , "count":{ "$count" :1 } }}'
+            from: Products
+            joins: []
           childs: []
-    errors: 0
+    errors: 1
     expression: Products.map(p=>{count:count(1)})
     normalizeExpression: Products.map(p=>{count:count(1)})
     model:
@@ -298,21 +617,26 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - count: 77
+      - stage: mongodb
+        error: >-
+          MongoServerError: Invalid $project :: caused by :: Unknown expression
+          $count
   - name: groupBy 6
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p  GROUP BY p.CategoryID 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "category":"$CategoryID",
+              "largestPrice":{ "$max" :"$UnitPrice" } }}
+            from: Products
+            joins: []
+            groupBy: '{ "$group" :{ "CategoryID" }}'
           childs: []
-    errors: 0
+    errors: 1
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     model:
@@ -384,37 +708,27 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - category: 1
-        largestPrice: 263.5
-      - category: 2
-        largestPrice: 43.9
-      - category: 3
-        largestPrice: 81
-      - category: 4
-        largestPrice: 55
-      - category: 5
-        largestPrice: 38
-      - category: 6
-        largestPrice: 123.79
-      - category: 7
-        largestPrice: 53
-      - category: 8
-        largestPrice: 62.5
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token } in JSON at position 27'
   - name: groupBy 7
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "category":"$CategoryName",
+              "largestPrice":{ "$max" :"$UnitPrice" } }}
+            from: Products
+            joins:
+              - >-
+                { "$lookup" :{ from: Categories, localField: c._id,
+                foreignField:p.CategoryID, as: c }}
+            groupBy: '{ "$group" :{ "CategoryName" }}'
           childs: []
-    errors: 0
+    errors: 1
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     model:
@@ -506,35 +820,23 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Condiments
-        largestPrice: 43.9
-      - category: Confections
-        largestPrice: 81
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Grains/Cereals
-        largestPrice: 38
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Produce
-        largestPrice: 53
-      - category: Seafood
-        largestPrice: 62.5
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token f in JSON at position 15'
   - name: groupBy 8
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-            ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "name":"$ProductName",
+              "source":"$UnitPrice", "result":{ "$abs" :"$UnitPrice" } }}
+            from: Products
+            joins: []
+            filter: '{ "_id":{{id}} }'
           childs: []
     errors: 0
     expression: >-
@@ -637,25 +939,31 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       - name: Chai
         source: 18
         result: 18
   - name: groupBy 9
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Products
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            map: >-
+              { "$project" :{ "_id": 0 , "category":"$CategoryName",
+              "largestPrice":{ "$max" :"$UnitPrice" } }}
+            from: Products
+            joins:
+              - >-
+                { "$lookup" :{ from: Categories, localField: c._id,
+                foreignField:p.CategoryID, as: c }}
+            groupBy: '{ "$group" :{ "CategoryName" }}'
+            having: '{ "$match" :{ { "$gt" :[{ "$max" :"UnitPrice" },100] } }}'
           childs: []
-    errors: 0
+    errors: 1
     expression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     normalizeExpression: >-
@@ -771,10 +1079,6 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mysql
-    result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
-errors: 0
+      - stage: mongodb
+        error: 'SyntaxError: Unexpected token f in JSON at position 15'
+errors: 4

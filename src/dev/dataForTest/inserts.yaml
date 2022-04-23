@@ -48,12 +48,13 @@ test:
   - name: insert 1
     data: a
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Categories
-          dialect: mysql
-          dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            insert: '{ "CategoryName":{{name}},"Description":{{description}} }'
           childs: []
     errors: 0
     expression: Categories.insert()
@@ -126,7 +127,7 @@ test:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         name: Beverages20
@@ -135,12 +136,13 @@ test:
   - name: insert 2
     data: b
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Categories
-          dialect: mysql
-          dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            insert: '{ "CategoryName":{{name}},"Description":{{description}} }'
           childs: []
     errors: 0
     expression: Categories.insert(=>{name:name,description:description})
@@ -213,7 +215,7 @@ test:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         name: Beverages21
@@ -222,12 +224,16 @@ test:
   - name: insert 3
     data: c
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Categories
-          dialect: mysql
-          dataSource: mysql
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            insert: >-
+              {
+              "CategoryName":{{entity.name}},"Description":{{entity.description}}
+              }
           childs: []
     errors: 0
     expression: Categories.insert(entity)
@@ -296,7 +302,7 @@ test:
       entity: Categories
       constraints: []
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         entity:
@@ -306,15 +312,16 @@ test:
   - name: insert 4
     data: order
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            insert: >-
+              {
+              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+              }
           childs: []
     errors: 0
     expression: Orders.insert()
@@ -590,7 +597,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         customerId: VINET
@@ -626,23 +633,25 @@ test:
   - name: insert 5
     data: order
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            insert: >-
+              {
+              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+              }
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                insert: >-
+                  {
+                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                  }
               childs: []
     errors: 0
     expression: Orders.insert().include(p=>p.details)
@@ -1059,7 +1068,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         customerId: VINET
@@ -1095,31 +1104,34 @@ test:
   - name: insert 6
     data: order
     sentences:
-      - stage: mysql
+      - stage: mongodb
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
-          sentence: >-
-            INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+          dialect: mongodb
+          dataSource: mongodb
+          sentence:
+            insert: >-
+              {
+              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+              }
           childs:
             - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                insert: >-
+                  {
+                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                  }
               childs: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
-              sentence: >-
-                INSERT INTO
-                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES(?,?,?,?,?,?,?,?,?)
+              dialect: mongodb
+              dataSource: mongodb
+              sentence:
+                insert: >-
+                  {
+                  "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
+                  }
               childs: []
     errors: 0
     expression: Orders.insert().include(p=>[p.details,p.customer])
@@ -1747,7 +1759,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
+      - stage: mongodb
     result:
       data:
         customerId: VINET

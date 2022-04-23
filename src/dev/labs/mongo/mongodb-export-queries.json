@@ -2,11 +2,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"description\": 1 }} ",
-      "from": "Categories",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CategoryName\", \"description\":\"$Description\" } }]",
     "entity": "Categories",
     "columns": [
       {
@@ -27,16 +23,12 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": []
+    "includes": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"contact\": 1,\"phone\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1 }} ",
-      "from": "Customers",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" } }]",
     "entity": "Customers",
     "columns": [
       {
@@ -81,16 +73,12 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": []
+    "includes": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"lastName\": 1,\"firstName\": 1,\"title\": 1,\"titleOfCourtesy\": 1,\"birthDate\": 1,\"hireDate\": 1,\"phone\": 1,\"reportsToId\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1 }} ",
-      "from": "Employees",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"lastName\":\"$LastName\", \"firstName\":\"$FirstName\", \"title\":\"$Title\", \"titleOfCourtesy\":\"$TitleOfCourtesy\", \"birthDate\":\"$BirthDate\", \"hireDate\":\"$HireDate\", \"phone\":\"$HomePhone\", \"reportsToId\":\"$ReportsTo\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" } }]",
     "entity": "Employees",
     "columns": [
       {
@@ -155,16 +143,12 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": []
+    "includes": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"phone\": 1 }} ",
-      "from": "Shippers",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"phone\":\"$Phone\" } }]",
     "entity": "Shippers",
     "columns": [
       {
@@ -185,16 +169,12 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": []
+    "includes": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"contact\": 1,\"phone\": 1,\"homepage\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1 }} ",
-      "from": "Suppliers",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$Phone\", \"homepage\":\"$HomePage\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" } }]",
     "entity": "Suppliers",
     "columns": [
       {
@@ -243,16 +223,12 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": []
+    "includes": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"name\": 1,\"supplierId\": 1,\"categoryId\": 1,\"quantity\": 1,\"price\": 1,\"inStock\": 1,\"onOrder\": 1,\"reorderLevel\": 1,\"discontinued\": 1 }} ",
-      "from": "Products",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" } }]",
     "entity": "Products",
     "columns": [
       {
@@ -301,16 +277,12 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": []
+    "includes": []
   },
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": {
-      "map": "{ $project:{ \"id\": 1,\"customerId\": 1,\"employeeId\": 1,\"orderDate\": 1,\"requiredDate\": 1,\"shippedDate\": 1,\"shipViaId\": 1,\"freight\": 1,\"name\": 1,\"address\": 1,\"city\": 1,\"region\": 1,\"postalCode\": 1,\"country\": 1,\"__id\": 1 }} ",
-      "from": "Orders",
-      "joins": []
-    },
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\", \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\", \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\", \"freight\":\"$Freight\", \"name\":\"$ShipName\", \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\", \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\", \"country\":\"$ShipCountry\", \"__id\":\"$_id\" ,details: { $map:{ input:'$\"Order Details\"', in:{\"orderId\":\"$$this.OrderID\", \"productId\":\"$$this.ProductID\", \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\", \"discount\":\"$$this.Discount\", \"LamdaOrmParentId\":\"$$this.OrderID\"}}} } }]",
     "entity": "Orders",
     "columns": [
       {
@@ -379,68 +351,6 @@
     "constraints": [],
     "values": [],
     "defaults": [],
-    "children": [
-      {
-        "name": "details",
-        "query": {
-          "name": "select",
-          "dialect": "mongodb",
-          "sentence": {
-            "map": "{ $project:{ \"orderId\": 1,\"productId\": 1,\"unitPrice\": 1,\"quantity\": 1,\"discount\": 1,\"LamdaOrmParentId\": 1 }} ",
-            "from": "\"Order Details\"",
-            "joins": [],
-            "filter": "o1.OrderID:{$in:[{{LamdaOrmParentId}}]}"
-          },
-          "entity": "OrderDetails",
-          "columns": [
-            {
-              "name": "orderId",
-              "type": "integer"
-            },
-            {
-              "name": "productId",
-              "type": "integer"
-            },
-            {
-              "name": "unitPrice",
-              "type": "decimal"
-            },
-            {
-              "name": "quantity",
-              "type": "decimal"
-            },
-            {
-              "name": "discount",
-              "type": "decimal"
-            },
-            {
-              "name": "LamdaOrmParentId",
-              "type": "integer"
-            }
-          ],
-          "parameters": [
-            {
-              "name": "LamdaOrmParentId",
-              "type": "array"
-            }
-          ],
-          "dataSource": "mongodb",
-          "constraints": [],
-          "values": [],
-          "defaults": [],
-          "children": []
-        },
-        "relation": {
-          "name": "details",
-          "type": "manyToOne",
-          "composite": true,
-          "from": "id",
-          "entity": "OrderDetails",
-          "weak": true,
-          "to": "orderId",
-          "target": "order"
-        }
-      }
-    ]
+    "includes": []
   }
 ]

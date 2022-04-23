@@ -1007,14 +1007,15 @@ export async function apply(stages: string[], callback: any) {
 			await stageExport(stage)
 		}
 
-		errors = +await writeQueryTest(stages)
-		errors = +await writeNumeriFunctionsTest(stages)
-		errors = +await writeGroupByTest(stages)
-		errors = +await writeIncludeTest(stages)
-		errors = +await writeInsertsTest(stages)
-		errors = +await writeUpdateTest(stages)
-		// errors = +await writeDeleteTest(stages)
-		// errors = +await writeBulkInsertTest(stages)
+		// errors = errors + await writeQueryTest(stages)
+		// errors = errors + await writeNumeriFunctionsTest(stages)
+		// errors = errors + await writeGroupByTest(stages)
+		// errors = errors + await writeIncludeTest(stages)
+		// errors = errors + await writeInsertsTest(stages)
+		// errors = errors + await writeUpdateTest(stages)
+
+		// errors = errors + await writeDeleteTest(stages)
+		// errors = errors + await writeBulkInsertTest(stages)
 
 		// //operators comparation , matematica
 		// //string functions

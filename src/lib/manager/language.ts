@@ -6,9 +6,10 @@ import { NotImplemented, DataSource, Query, Sentence } from '../model'
 export abstract class Language {
 	public dialects: Dialect[]
 	public name: string
-	protected expressions:Expressions
+	public solveComposite?: boolean
+	protected expressions: Expressions
 
-	constructor (name: string, dialects: any, expressions:Expressions) {
+	constructor(name: string, dialects: any, expressions: Expressions) {
 		this.name = name
 		this.expressions = expressions
 
@@ -21,7 +22,7 @@ export abstract class Language {
 		}
 	}
 
-	public getDialect (name: string): Dialect {
+	public getDialect(name: string): Dialect {
 		const dialect = this.dialects.find(p => p.name === name)
 		if (!dialect) {
 			throw new NotImplemented(`Dialect ${name} not implemented`)
@@ -29,7 +30,7 @@ export abstract class Language {
 		return dialect
 	}
 
-	public abstract ddlBuilder (dataSource: DataSource, mapping: MappingConfig): LanguageDDLBuilder
+	public abstract ddlBuilder(dataSource: DataSource, mapping: MappingConfig): LanguageDDLBuilder
 
-	public abstract dmlBuild (dataSource: DataSource, mapping: MappingConfig, sentence:Sentence): Query
+	public abstract dmlBuild(dataSource: DataSource, mapping: MappingConfig, sentence: Sentence): Query
 }

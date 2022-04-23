@@ -1,7 +1,7 @@
 
 import { Parameter, Query, Data } from '../model'
 import { ConnectionConfig } from './connectionConfig'
-import { MappingConfig, Helper } from '../manager'
+import { MappingConfig, Dialect, Helper } from '../manager'
 
 export abstract class Connection {
 	public cnx: any
@@ -94,13 +94,13 @@ export abstract class Connection {
 		return format ? Helper.dateFormat(value, format) : value
 	}
 
-	public abstract select(mapping: MappingConfig, query: Query, data: Data): Promise<any>
-	public abstract insert(mapping: MappingConfig, query: Query, data: Data): Promise<any>
-	public abstract bulkInsert(mapping: MappingConfig, query: Query, array: any[]): Promise<any[]>
-	public abstract update(mapping: MappingConfig, query: Query, data: Data): Promise<number>
-	public abstract bulkUpdate(mapping: MappingConfig, query: Query, array: any[]): Promise<number>
-	public abstract delete(mapping: MappingConfig, query: Query, data: Data): Promise<number>
-	public abstract bulkDelete(mapping: MappingConfig, query: Query, array: any[]): Promise<number>
+	public abstract select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any>
+	public abstract insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any>
+	public abstract bulkInsert(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]>
+	public abstract update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number>
+	public abstract bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number>
+	public abstract delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number>
+	public abstract bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number>
 	public abstract execute(query: Query): Promise<any>
 	public abstract executeDDL(query: Query): Promise<any>
 	public abstract executeSentence(sentence: any): Promise<any>

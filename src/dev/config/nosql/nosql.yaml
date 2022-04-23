@@ -14,7 +14,8 @@ ddl:
   # dropIndex: ''
   # truncateEntity: ''
 dml:
-  map: '{ "$project" :{ "_id": 0 , {0} }} '
+  # map: '{ "$project" :{ "_id": 0 , {0} }} '
+  map: "{0}"
   # distinct: distinct({0})
   filter: "{0}"
   groupBy: '{ "$group" :{ {0} }}'
@@ -22,7 +23,8 @@ dml:
   sort: '{ "$sort" :{ {0} } }'
   page: '{ "$skip" : {offset}, "$limit" : {records} }'
   insert: "{ {assings} }"
-  update: '{ "$set" :{ {assings} }}'
+  # update: '{ "$set" :{ {assings} }}'
+  update: "{assings}"
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: 'FROM {name} {alias} '

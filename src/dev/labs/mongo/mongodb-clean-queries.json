@@ -1,1 +1,266 @@
-[]
+[
+  {
+    "name": "dropSequence",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "SQ_CATEGORIES",
+      "collection": "Categories"
+    },
+    "entity": "Categories",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Categories"
+    },
+    "entity": "Categories",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropSequence",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "SQ_SHIPPERS",
+      "collection": "Shippers"
+    },
+    "entity": "Shippers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Shippers"
+    },
+    "entity": "Shippers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "\"Order Details\""
+    },
+    "entity": "OrderDetails",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropSequence",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "SQ_PRODUCTS",
+      "collection": "Products"
+    },
+    "entity": "Products",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Products"
+    },
+    "entity": "Products",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropSequence",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "SQ_SUPPLIERS",
+      "collection": "Suppliers"
+    },
+    "entity": "Suppliers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Suppliers"
+    },
+    "entity": "Suppliers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropIndex",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "Orders_orderDate",
+      "collection": "Orders"
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropIndex",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "Orders_shippedDate",
+      "collection": "Orders"
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropSequence",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "SQ_ORDERS",
+      "collection": "Orders"
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Orders"
+    },
+    "entity": "Orders",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropIndex",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "Customers_name",
+      "collection": "Customers"
+    },
+    "entity": "Customers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Customers"
+    },
+    "entity": "Customers",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropSequence",
+    "dialect": "mongodb",
+    "sentence": {
+      "name": "SQ_EMPLOYEES",
+      "collection": "Employees"
+    },
+    "entity": "Employees",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "dropEntity",
+    "dialect": "mongodb",
+    "sentence": {
+      "collection": "Employees"
+    },
+    "entity": "Employees",
+    "columns": [],
+    "parameters": [],
+    "dataSource": "mongodb",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  }
+]

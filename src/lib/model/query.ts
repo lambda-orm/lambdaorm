@@ -1,28 +1,11 @@
 import { Property, Parameter, Relation, Behavior, Constraint } from './index'
 
-export interface NoSqlSentence {
-	map?: string
-	from?: string
-	joins?: string[]
-	filter?: string
-	groupBy?: string
-	having?: string
-	sort?: string
-	page?: string
-	insert?: string
-	update?: string
-	delete?: string
-	name?: string
-	collection?: string
-	columns?: string[]
-}
-
 // export class Query extends Operand {
 export class Query {
 	public name: string
 	// eslint-disable-next-line no-use-before-define
-	public children: Include[]
-	public sentence: string | NoSqlSentence
+	public includes: Include[]
+	public sentence: string
 	public dialect: string
 	public dataSource: string
 	public entity: string
@@ -31,7 +14,7 @@ export class Query {
 	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
-	constructor(name: string, dialect: string, dataSource: string, sentence: string | NoSqlSentence, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints: Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
+	constructor(name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints: Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
 		this.name = name
 		this.dialect = dialect
 		this.sentence = sentence
@@ -42,8 +25,11 @@ export class Query {
 		this.constraints = constraints
 		this.values = values
 		this.defaults = defaults
-		this.children = []
+		this.includes = []
 	}
+	// public getCompositeIncludes(): Include[] {
+	// 	return this.includes.filter(p => p.relation.composite)
+	// }
 }
 export class Include {
 	public name: string

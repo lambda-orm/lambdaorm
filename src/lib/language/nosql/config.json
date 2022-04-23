@@ -4,14 +4,14 @@
       "types": null,
       "ddl": null,
       "dml": {
-        "map": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
+        "map": "{0}",
         "filter": "{0}",
         "groupBy": "{ \"$group\" :{ {0} }}",
         "having": "{ \"$match\" :{ {0} }}",
         "sort": "{ \"$sort\" :{ {0} } }",
         "page": "{ \"$skip\" : {offset}, \"$limit\" : {records} }",
         "insert": "{ {assings} }",
-        "update": "{ \"$set\" :{ {assings} }}",
+        "update": "{assings}",
         "join": "{ \"$lookup\" :{ from: {name}, localField: {fromProperty}, foreignField:{toProperty}, as: {alias} }}"
       },
       "others": {
@@ -150,14 +150,14 @@
     "types": null,
     "ddl": null,
     "dml": {
-      "map": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
+      "map": "{0}",
       "filter": "{0}",
       "groupBy": "{ \"$group\" :{ {0} }}",
       "having": "{ \"$match\" :{ {0} }}",
       "sort": "{ \"$sort\" :{ {0} } }",
       "page": "{ \"$skip\" : {offset}, \"$limit\" : {records} }",
       "insert": "{ {assings} }",
-      "update": "{ \"$set\" :{ {assings} }}",
+      "update": "{assings}",
       "join": "{ \"$lookup\" :{ from: {name}, localField: {fromProperty}, foreignField:{toProperty}, as: {alias} }}"
     },
     "others": {

@@ -7,50 +7,49 @@ const MongoClient = require('mongodb').MongoClient;
 	const db = client.db(dbName)
 	//await db.collection('inventory').deleteMany({})
 
-	const id = await db.collection('inventory').insertOne({
-		item: 'journal',
-		qty: 25,
-		tags: ['blank', 'red'],
-		dim_cm: [14, 21]
-	})
-	console.log(JSON.stringify(id, null, 2))
-
-	const ids = await db.collection('inventory').insertMany([
+	const result = await db.collection('Orders').aggregate([
+		// {
+		// 	"$unwind": '$"Order Details"'
+		// },
 		{
-			item: 'journal',
-			qty: 25,
-			tags: ['blank', 'red'],
-			dim_cm: [14, 21]
-		},
-		{
-			item: 'notebook',
-			qty: 50,
-			tags: ['red', 'blank'],
-			dim_cm: [14, 21]
-		},
-		{
-			item: 'paper',
-			qty: 100,
-			tags: ['red', 'blank', 'plain'],
-			dim_cm: [14, 21]
-		},
-		{
-			item: 'planner',
-			qty: 75,
-			tags: ['blank', 'red'],
-			dim_cm: [22.85, 30]
-		},
-		{
-			item: 'postcard',
-			qty: 45,
-			tags: ['blue'],
-			dim_cm: [10, 15.25]
+			$project: {
+				_id: 0,
+				id: '$CustomerID',
+				details: {
+					$map: {
+						input: '$"Order Details"',
+						in: {
+							price: "$$this.UnitPrice",
+							qty: "$$this.Quantity"
+						}
+					}
+				}
+			}
 		}
-	])
-	console.log(JSON.stringify(ids, null, 2))
-
-	const result = await db.collection('inventory').find().limit(2).toArray()
+	]).toArray()
 	console.log(JSON.stringify(result, null, 2))
-
 	client.close()
 })()
+
+
+// {
+// 	$project: {
+// 		_id: 0,
+// 		id: '$CustomerID',
+// 		details: [{
+// 			price: '$"Order Details".UnitPrice',
+// 			qty: '$"Order Details".Quantity'
+// 		}
+// 		]
+// 	}
+// }
+
+// '{"$and":[{"$or":[{"qty":{"$lt":10}},{"qty":{"$gt":50}}]},{"$or":[{"sale":true},{"price":{"$lt":5}}]}]}'
+
+// JSON.parse('{"$and" :[{"$eq" :["LastName","Davolio"]},{"$eq" :["FirstName","Nancy"]}]}')
+
+// ```json
+// { "id": '$CustomerID', "details": '$"Order Details"' }
+// // 
+// { "id": '$CustomerID', "details": { "price": '$"Order Details".UnitPrice'} }
+// ```
