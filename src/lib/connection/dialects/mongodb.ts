@@ -167,17 +167,15 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
-		throw new Error('TODO')
-		// const collection = mapping.entityMapping(query.entity)
-		// const sentence = query.sentence as NoSqlSentence
-		// const params = this.dataToParameters(query, mapping, data)
-		// const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
-		// const expUpdate = `{ "$set" :{ ${sentence.update} }}`
-		// const obj = this.templateToObject(expUpdate, params, mapping)
-		// const result = this.session
-		// 	? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
-		// 	: await this.cnx.db.collection(collection).updateMany(filter, obj)
-		// return result.modifiedCount as number
+		const collection = mapping.entityMapping(query.entity)
+		const sentence = JSON.parse(query.sentence)
+		const params = this.dataToParameters(query, mapping, data)
+		const obj = this.parseTemplate(sentence.set, params, mapping)
+		const filter = this.parseTemplate(sentence.filter, params, mapping)
+		const result = this.session
+			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
+			: await this.cnx.db.collection(collection).updateMany(filter, obj)
+		return result.modifiedCount as number
 	}
 
 	public async bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
@@ -185,15 +183,14 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
-		throw new Error('TODO')
-		// const collection = mapping.entityMapping(query.entity)
-		// const sentence = query.sentence as NoSqlSentence
-		// const params = this.dataToParameters(query, mapping, data)
-		// const filter = sentence.filter ? this.templateToObject(sentence.filter, params, mapping) : {}
-		// const result = this.session
-		// 	? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
-		// 	: await this.cnx.db.collection(collection).deleteMany(filter)
-		// return result.modifiedCount as number
+		const collection = mapping.entityMapping(query.entity)
+		const sentence = JSON.parse(query.sentence)
+		const params = this.dataToParameters(query, mapping, data)
+		const filter = this.parseTemplate(sentence.filter, params, mapping)
+		const result = this.session
+			? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
+			: await this.cnx.db.collection(collection).deleteMany(filter)
+		return result.modifiedCount as number
 	}
 
 	public async bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {

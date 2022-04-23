@@ -85,9 +85,12 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (update === undefined) {
 			throw new SchemaError(`update operand not found`)
 		}
-		let text = this.buildUpdate(update, entity)
-		if (filter) text = `${text}, ${this.buildArrowFunction(filter)}`
-		return `[${text}]`
+		//TODO: tener en cuenta que cuando hay includes el set solo debe estar en el root.
+		let data: any = {
+			set: `{ "$set" :{ ${this.buildUpdate(update, entity)} }}`,
+			filter: filter ? this.buildArrowFunction(filter) : {}
+		}
+		return JSON.stringify(data)
 	}
 	protected buildDeleteSentence(sentence: Sentence): string {
 		const entity = this.mapping.getEntity(sentence.entity)
@@ -99,9 +102,11 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (update === undefined) {
 			throw new SchemaError(`update operand not found`)
 		}
-		let text = ''
-		if (filter) text = this.buildArrowFunction(filter)
-		return `[${text}]`
+		//TODO: tener en cuenta que cuando hay includes
+		let data: any = {
+			filter: filter ? this.buildArrowFunction(filter) : {}
+		}
+		return JSON.stringify(data)
 	}
 	// private buildSentence(sentence: Sentence): NoSqlSentence {
 	// const map = sentence.children.find(p => p.name === 'map') as Map | undefined
