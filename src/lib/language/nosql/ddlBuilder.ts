@@ -18,7 +18,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 
 	public createSequence(entity: EntityMapping): Query | undefined {
 		// https://www.tutorialspoint.com/mongodb/mongodb_autoincrement_sequence.htm
-		const sentence = `{ _id: "${this.dialect.delimiter(entity.sequence)}" sequence_value: 1 }`
+		const sentence = `{ "_id" : "${this.dialect.delimiter(entity.sequence)}", "sequence_value": 1 }`
 		return new Query('createSequence', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 

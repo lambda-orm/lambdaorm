@@ -55,44 +55,11 @@ export class MongodbConnection extends Connection {
 		return result
 	}
 
-	// private getMap(mapping: MappingConfig, dialect: Dialect, query: Query, params: Parameter[]): any {
-	// const sentence = query.sentence as NoSqlSentence
-	// const map = this.templateToObject(sentence.map as string, params, mapping)
-	// for (const p in query.includes) {
-	// const include = query.includes[p]
-	// if (include.relation.composite) {
-	// const relationEntity = mapping.getEntity(include.relation.entity)
-	// if (relationEntity === undefined) {
-	// throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
-	// }
-	// const relationProperty = dialect.delimiter(relationEntity.mapping)
-	// if (include.relation.type === RelationType.manyToOne) {
-	// // Temporal Test
-	// const relationMap = this.getMap(mapping, dialect, include.query, params)
-	// for (const p in relationMap) {
-	// const column = relationMap[p]
-	// relationMap[p] = `${relationProperty}.${column}`
-	// //relationMap[p] = `$${relationProperty}.${column.replace('$', '')}`
-	// relationMap[p] = `$$CURRENT.${column.replace('$', '')}`
-	// //relationMap[p] = `$${column}`
-	// }
-	// map[include.relation.name] = relationMap
-	// } else {
-	// map[include.relation.name] = this.getMap(mapping, dialect, include.query, params)
-	// }
-	// }
-	// }
-	// return map
-	// }
-
 	public async insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const entity = mapping.getEntity(query.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`EntityMapping not found for entity ${query.entity}`)
 		}
-		// const sentence = query.sentence as NoSqlSentence
-		// const params = this.dataToParameters(query, mapping, data)
-		// const obj = this.templateToObject(sentence.insert as string, params, mapping)
 		const list = this.getInsertList(mapping, dialect, query, [data.data])
 		const obj = list[0]
 		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
@@ -170,7 +137,7 @@ export class MongodbConnection extends Connection {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = JSON.parse(query.sentence)
 		const params = this.dataToParameters(query, mapping, data)
-		const obj = this.parseTemplate(sentence.set, params, mapping)
+		const obj = this.getObject(mapping, dialect, query, data)
 		const filter = this.parseTemplate(sentence.filter, params, mapping)
 		const result = this.session
 			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
@@ -180,6 +147,40 @@ export class MongodbConnection extends Connection {
 
 	public async bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MongodbConnection', 'bulkUpdate')
+	}
+
+	private getObject(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): any {
+		const sentence = JSON.parse(query.sentence)
+		const params = this.dataToParameters(query, mapping, data)
+		let obj = this.parseTemplate(sentence.set, params, mapping)
+		for (const p in query.includes) {
+			const include = query.includes[p]
+			if (include.relation.composite) {
+				const relationEntity = mapping.getEntity(include.relation.entity)
+				const children = data.get(include.relation.name)
+				if (children) {
+					if (relationEntity === undefined) {
+						throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+					}
+					const relationProperty = dialect.delimiter(relationEntity.mapping)
+					if (include.relation.type === RelationType.manyToOne) {
+						const childList: any[] = []
+						for (let i = 0; i < children.length; i++) {
+							const child = children[i]
+							const childData = new Data(child, data)
+							const childObj = this.getObject(mapping, dialect, include.query, childData)
+							childList.push(childObj)
+						}
+						obj[relationProperty] = childList
+					} else {
+						const childData = new Data(children, data)
+						const childObj = this.getObject(mapping, dialect, include.query, childData)
+						obj[relationProperty] = childObj
+					}
+				}
+			}
+		}
+		return obj
 	}
 
 	public async delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {

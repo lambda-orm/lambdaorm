@@ -1,14 +1,14 @@
 import { SintaxisError } from '../model'
 
 export class Dialect {
-	public name:string
-	private _operators?:any={}
-	private _functions?:any={}
-	private _others?:any={}
-	private _dml?:any={}
-	private _ddl?:any={}
-	private _types?:any={}
-	constructor (name:string) {
+	public name: string
+	private _operators?: any = {}
+	private _functions?: any = {}
+	private _others?: any = {}
+	private _dml?: any = {}
+	private _ddl?: any = {}
+	private _types?: any = {}
+	constructor(name: string) {
 		this.name = name
 		this._operators = {}
 		this._functions = {}
@@ -18,37 +18,41 @@ export class Dialect {
 		this._types = {}
 	}
 
-	public operator (name:string, operands:number):string {
+	public get solveComposite(): boolean {
+		return this._others['solveComposite'] || false
+	}
+
+	public operator(name: string, operands: number): string {
 		return this._operators[name][operands]
 	}
 
-	public function (name:string):any {
+	public function(name: string): any {
 		return this._functions[name]
 	}
 
-	public dml (name:string):string {
+	public dml(name: string): string {
 		return this._dml[name]
 	}
 
-	public other (name:string):string {
+	public other(name: string): string {
 		return this._others[name]
 	}
 
-	public ddl (name:string):string {
+	public ddl(name: string): string {
 		return this._ddl[name]
 	}
 
-	public type (name: string): string {
+	public type(name: string): string {
 		return this._types[name]
 	}
 
-	public delimiter (name:string, force = false):string {
+	public delimiter(name: string, force = false): string {
 		if (name.indexOf(' ') === -1 && !force) return name
 		const template = this._others.delimiter
 		return template.replace('{name}', name)
 	}
 
-	public add (dialect:any):void {
+	public add(dialect: any): void {
 		for (const type in dialect.operators) {
 			const operands = type === 'ternary' ? 3 : type === 'binary' ? 2 : 1
 			for (const name in dialect.operators[type]) {
@@ -81,7 +85,7 @@ export class Dialect {
 		}
 	}
 
-	public getOperatorMetadata (name:string, operands:number):string|null {
+	public getOperatorMetadata(name: string, operands: number): string | null {
 		try {
 			if (this._operators[name]) {
 				const operator = this._operators[name]
@@ -93,7 +97,7 @@ export class Dialect {
 		}
 	}
 
-	public getFunctionMetadata (name:string):string|null {
+	public getFunctionMetadata(name: string): string | null {
 		try {
 			if (this._functions[name]) { return this._functions[name] }
 			return null

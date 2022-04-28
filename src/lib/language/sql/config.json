@@ -57,7 +57,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval"
+        "sequenceNextval": "{name}.nextval",
+        "solveComposite": false
       },
       "functions": {
         "numeric": {
@@ -302,7 +303,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval"
+        "sequenceNextval": "{name}.nextval",
+        "solveComposite": false
       },
       "operators": {
         "unary": {
@@ -520,7 +522,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval"
+        "sequenceNextval": "{name}.nextval",
+        "solveComposite": false
       },
       "functions": {
         "numeric": {
@@ -719,7 +722,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval"
+        "sequenceNextval": "{name}.nextval",
+        "solveComposite": false
       },
       "ddl": {
         "createEntity": "CREATE TABLE {name} ({define})",
@@ -992,7 +996,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval"
+        "sequenceNextval": "{name}.nextval",
+        "solveComposite": false
       },
       "functions": {
         "numeric": {
@@ -1219,7 +1224,8 @@
       "false": "FALSE",
       "true": "TRUE",
       "null": "NULL",
-      "sequenceNextval": "{name}.nextval"
+      "sequenceNextval": "{name}.nextval",
+      "solveComposite": false
     },
     "operators": {
       "unary": {

@@ -1007,7 +1007,7 @@ export async function apply(stages: string[], callback: any) {
 			await stageExport(stage)
 		}
 
-		// errors = errors + await writeQueryTest(stages)
+		errors = errors + await writeQueryTest(stages)
 		// errors = errors + await writeNumeriFunctionsTest(stages)
 		// errors = errors + await writeGroupByTest(stages)
 		// errors = errors + await writeIncludeTest(stages)
@@ -1036,7 +1036,7 @@ export async function apply(stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['mongodb'], function () {
+apply(['mongodb', 'mysql', 'postgres', 'mariadb'], function () {
 	console.log('end')
 })
 // apply(['mysql', 'postgres', 'mariadb', 'mssql','oracle','mongodb'], function () { console.log('end') })

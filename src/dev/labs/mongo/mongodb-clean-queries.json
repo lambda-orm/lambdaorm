@@ -2,10 +2,7 @@
   {
     "name": "dropSequence",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "SQ_CATEGORIES",
-      "collection": "Categories"
-    },
+    "sentence": "{\"_id\":\"SQ_CATEGORIES\"}",
     "entity": "Categories",
     "columns": [],
     "parameters": [],
@@ -18,9 +15,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Categories"
-    },
+    "sentence": "",
     "entity": "Categories",
     "columns": [],
     "parameters": [],
@@ -33,10 +28,7 @@
   {
     "name": "dropSequence",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "SQ_SHIPPERS",
-      "collection": "Shippers"
-    },
+    "sentence": "{\"_id\":\"SQ_SHIPPERS\"}",
     "entity": "Shippers",
     "columns": [],
     "parameters": [],
@@ -49,9 +41,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Shippers"
-    },
+    "sentence": "",
     "entity": "Shippers",
     "columns": [],
     "parameters": [],
@@ -64,9 +54,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "\"Order Details\""
-    },
+    "sentence": "",
     "entity": "OrderDetails",
     "columns": [],
     "parameters": [],
@@ -79,10 +67,7 @@
   {
     "name": "dropSequence",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "SQ_PRODUCTS",
-      "collection": "Products"
-    },
+    "sentence": "{\"_id\":\"SQ_PRODUCTS\"}",
     "entity": "Products",
     "columns": [],
     "parameters": [],
@@ -95,9 +80,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Products"
-    },
+    "sentence": "",
     "entity": "Products",
     "columns": [],
     "parameters": [],
@@ -110,10 +93,7 @@
   {
     "name": "dropSequence",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "SQ_SUPPLIERS",
-      "collection": "Suppliers"
-    },
+    "sentence": "{\"_id\":\"SQ_SUPPLIERS\"}",
     "entity": "Suppliers",
     "columns": [],
     "parameters": [],
@@ -126,9 +106,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Suppliers"
-    },
+    "sentence": "",
     "entity": "Suppliers",
     "columns": [],
     "parameters": [],
@@ -141,10 +119,7 @@
   {
     "name": "dropIndex",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "Orders_orderDate",
-      "collection": "Orders"
-    },
+    "sentence": "Orders_orderDate",
     "entity": "Orders",
     "columns": [],
     "parameters": [],
@@ -157,10 +132,7 @@
   {
     "name": "dropIndex",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "Orders_shippedDate",
-      "collection": "Orders"
-    },
+    "sentence": "Orders_shippedDate",
     "entity": "Orders",
     "columns": [],
     "parameters": [],
@@ -173,10 +145,7 @@
   {
     "name": "dropSequence",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "SQ_ORDERS",
-      "collection": "Orders"
-    },
+    "sentence": "{\"_id\":\"SQ_ORDERS\"}",
     "entity": "Orders",
     "columns": [],
     "parameters": [],
@@ -189,9 +158,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Orders"
-    },
+    "sentence": "",
     "entity": "Orders",
     "columns": [],
     "parameters": [],
@@ -204,10 +171,7 @@
   {
     "name": "dropIndex",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "Customers_name",
-      "collection": "Customers"
-    },
+    "sentence": "Customers_name",
     "entity": "Customers",
     "columns": [],
     "parameters": [],
@@ -220,9 +184,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Customers"
-    },
+    "sentence": "",
     "entity": "Customers",
     "columns": [],
     "parameters": [],
@@ -235,10 +197,7 @@
   {
     "name": "dropSequence",
     "dialect": "mongodb",
-    "sentence": {
-      "name": "SQ_EMPLOYEES",
-      "collection": "Employees"
-    },
+    "sentence": "{\"_id\":\"SQ_EMPLOYEES\"}",
     "entity": "Employees",
     "columns": [],
     "parameters": [],
@@ -251,9 +210,7 @@
   {
     "name": "dropEntity",
     "dialect": "mongodb",
-    "sentence": {
-      "collection": "Employees"
-    },
+    "sentence": "",
     "entity": "Employees",
     "columns": [],
     "parameters": [],

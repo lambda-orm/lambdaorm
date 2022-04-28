@@ -17,10 +17,10 @@ const MongoClient = require('mongodb').MongoClient;
 				id: '$CustomerID',
 				details: {
 					$map: {
-						input: '$"Order Details"',
+						input: "$\"Order Details\"",
 						in: {
-							price: "$$this.UnitPrice",
-							qty: "$$this.Quantity"
+							price: '$$this.UnitPrice',
+							qty: '$$this.Quantity'
 						}
 					}
 				}

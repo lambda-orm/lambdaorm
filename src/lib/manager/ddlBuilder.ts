@@ -61,6 +61,7 @@ export class DDLBuilder {
 	}
 
 	private _drop(dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+		const dialect = this.languages.getDialect(dataSource.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
 		// drop all constraint
@@ -72,13 +73,13 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
-				if (entity.relations && !entity.view) {
+				if (entity.relations && !entity.view && (!entity.onlyComposite || !dialect.solveComposite)) {
 					for (const q in entity.relations) {
 						const relation = entity.relations[q] as Relation
 						const relationEntity = entitiesMapping.find(p => p.name === relation.entity)
 
 						// evaluate if entity relation isnot view and apply in dataSource
-						if (relationEntity && !relationEntity.view && this.evalDataSource(ruleDataSource, relation.entity)) {
+						if (relationEntity && !relationEntity.view && (!relationEntity.onlyComposite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, relation.entity)) {
 							if (!relation.weak) {
 								// busca la propiedad relacionada para saber si es nullable la relacion
 								const fromProperty = entity.properties.find(p => p.name === relation.from)
@@ -108,7 +109,7 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
-				if (!entity.view) {
+				if (!entity.view && (!entity.onlyComposite || !dialect.solveComposite)) {
 					if (entity.indexes) {
 						for (const j in entity.indexes) {
 							const index = entity.indexes[j]
@@ -128,6 +129,7 @@ export class DDLBuilder {
 	}
 
 	private _truncate(dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+		const dialect = this.languages.getDialect(dataSource.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
 		for (const i in sortedEntities) {
@@ -139,7 +141,7 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)
 				}
-				if (!entity.view) {
+				if (!entity.view && (!entity.onlyComposite || !dialect.solveComposite)) {
 					const query = this.builder(dataSource).truncateEntity(entity)
 					if (query) queries.push(query)
 				}
@@ -148,6 +150,7 @@ export class DDLBuilder {
 	}
 
 	public _sync(dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
+		const dialect = this.languages.getDialect(dataSource.dialect)
 		// remove constraints for changes in entities
 		for (const p in delta.changed) {
 			const entityChanged = delta.changed[p]
@@ -270,7 +273,7 @@ export class DDLBuilder {
 		for (const name in delta.new) {
 			const newEntity = delta.new[name].new as EntityMapping
 			// evaluate if entity apply in dataSource
-			if (!newEntity.view && this.evalDataSource(ruleDataSource, newEntity.name)) {
+			if (!newEntity.view && (!newEntity.onlyComposite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, newEntity.name)) {
 				if (newEntity.sequence) {
 					const query = this.builder(dataSource).createSequence(newEntity)
 					if (query) queries.push(query)

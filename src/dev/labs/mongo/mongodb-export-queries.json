@@ -2,7 +2,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CategoryName\", \"description\":\"$Description\" } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CategoryName\", \"description\":\"$Description\" }} ]",
     "entity": "Categories",
     "columns": [
       {
@@ -28,7 +28,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" }} ]",
     "entity": "Customers",
     "columns": [
       {
@@ -78,7 +78,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"lastName\":\"$LastName\", \"firstName\":\"$FirstName\", \"title\":\"$Title\", \"titleOfCourtesy\":\"$TitleOfCourtesy\", \"birthDate\":\"$BirthDate\", \"hireDate\":\"$HireDate\", \"phone\":\"$HomePhone\", \"reportsToId\":\"$ReportsTo\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"lastName\":\"$LastName\", \"firstName\":\"$FirstName\", \"title\":\"$Title\", \"titleOfCourtesy\":\"$TitleOfCourtesy\", \"birthDate\":\"$BirthDate\", \"hireDate\":\"$HireDate\", \"phone\":\"$HomePhone\", \"reportsToId\":\"$ReportsTo\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" }} ]",
     "entity": "Employees",
     "columns": [
       {
@@ -148,7 +148,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"phone\":\"$Phone\" } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"phone\":\"$Phone\" }} ]",
     "entity": "Shippers",
     "columns": [
       {
@@ -174,7 +174,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$Phone\", \"homepage\":\"$HomePage\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$Phone\", \"homepage\":\"$HomePage\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" }} ]",
     "entity": "Suppliers",
     "columns": [
       {
@@ -228,7 +228,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} ]",
     "entity": "Products",
     "columns": [
       {
@@ -282,7 +282,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\", \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\", \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\", \"freight\":\"$Freight\", \"name\":\"$ShipName\", \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\", \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\", \"country\":\"$ShipCountry\", \"__id\":\"$_id\" ,details: { $map:{ input:'$\"Order Details\"', in:{\"orderId\":\"$$this.OrderID\", \"productId\":\"$$this.ProductID\", \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\", \"discount\":\"$$this.Discount\", \"LamdaOrmParentId\":\"$$this.OrderID\"}}} } }]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\", \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\", \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\", \"freight\":\"$Freight\", \"name\":\"$ShipName\", \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\", \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\", \"country\":\"$ShipCountry\", \"__id\":\"$_id\" ,details: { \"$map\":{ \"input\": \"Order Details\", \"in\": \"orderId\":\"$this.OrderID\", \"productId\":\"$this.ProductID\", \"unitPrice\":\"$this.UnitPrice\", \"quantity\":\"$this.Quantity\", \"discount\":\"$this.Discount\", \"LamdaOrmParentId\":\"$this.OrderID\" }} }} ]",
     "entity": "Orders",
     "columns": [
       {

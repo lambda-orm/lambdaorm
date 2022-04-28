@@ -190,6 +190,7 @@ entities:
         to: id
         target: orders
   - name: OrderDetails
+    onlyComposite: true
     primaryKey: ["orderId", "productId"]
     properties:
       - name: orderId

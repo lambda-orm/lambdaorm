@@ -3,8 +3,6 @@ import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef
 import { EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource } from '../model'
 import { MappingConfig, Dialect, Helper } from '../manager'
 
-const SqlString = require('sqlstring')
-
 export abstract class DmlBuilder {
 	protected dataSource: DataSource
 	protected mapping: MappingConfig
@@ -24,10 +22,22 @@ export abstract class DmlBuilder {
 	}
 
 	protected buildSentence(sentence: Sentence): string {
+		switch (sentence.action) {
+			case 'select':
+				return this.buildMapSentence(sentence)
+			case 'insert':
+				return this.buildInsertSentence(sentence)
+			case 'update':
+				return this.buildUpdateSentence(sentence)
+			case 'delete':
+				return this.buildDeleteSentence(sentence)
+			default:
+				throw new SintaxisError(`sentence action ${sentence.action} not found`)
+		}
+	}
+
+	protected buildMapSentence(sentence: Sentence): string {
 		const map = sentence.children.find(p => p.name === 'map') as Map | undefined
-		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
-		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
-		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
 		const having = sentence.children.find(p => p.name === 'having') as Having | undefined
@@ -37,19 +47,59 @@ export abstract class DmlBuilder {
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
-		let text = ''
-		if (map) {
-			const from = sentence.children.find(p => p instanceof From) as Operand
-			const joins = sentence.children.filter(p => p instanceof Join)
-			text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(joins)
-		} else if (insert) text = this.buildInsert(insert, entity)
-		else if (update) text = this.buildUpdate(update, entity)
-		else if (_delete) text = this.buildDelete(_delete, entity)
+		if (map === undefined) {
+			throw new SchemaError(`map operand not found`)
+		}
+		const from = sentence.children.find(p => p instanceof From) as Operand
+		const joins = sentence.children.filter(p => p instanceof Join)
+		let text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(joins)
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		if (groupBy) text = text + this.buildArrowFunction(groupBy) + ' '
 		if (having) text = text + this.buildArrowFunction(having) + ' '
 		if (sort) text = text + this.buildArrowFunction(sort) + ' '
 		if (page) text = this.buildPage(text, page)
+		return text
+	}
+
+	protected buildInsertSentence(sentence: Sentence): string {
+		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const entity = this.mapping.getEntity(sentence.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (insert === undefined) {
+			throw new SchemaError(`insert operand not found`)
+		}
+		return this.buildInsert(insert, entity)
+	}
+
+	protected buildUpdateSentence(sentence: Sentence): string {
+		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
+		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
+		const entity = this.mapping.getEntity(sentence.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (update === undefined) {
+			throw new SchemaError(`update operand not found`)
+		}
+		let text = this.buildUpdate(update, entity)
+		if (filter) text = text + this.buildArrowFunction(filter) + ' '
+		return text
+	}
+
+	protected buildDeleteSentence(sentence: Sentence): string {
+		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
+		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
+		const entity = this.mapping.getEntity(sentence.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (_delete === undefined) {
+			throw new SchemaError(`delete operand not found`)
+		}
+		let text = this.buildDelete(_delete, entity)
+		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		return text
 	}
 
@@ -315,15 +365,6 @@ export abstract class DmlBuilder {
 	}
 
 	protected buildConstant(operand: Constant): string {
-		switch (operand.type) {
-			case 'string':
-				return SqlString.escape(operand.name)
-			case 'boolean':
-				return this.dialect.other(operand.name)
-			case 'number':
-				return operand.name
-			default:
-				return SqlString.escape(operand.name)
-		}
+		return operand.name
 	}
 }

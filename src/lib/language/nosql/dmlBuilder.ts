@@ -1,6 +1,6 @@
 
 import { Operand, KeyValue } from 'js-expressions'
-import { Include, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SintaxisError, SchemaError, EntityMapping } from '../../model'
+import { Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SintaxisError, SchemaError, EntityMapping } from '../../model'
 import { DmlBuilder } from '../dmlBuilder'
 import { Helper } from '../../manager'
 
@@ -26,24 +26,10 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			return query
 		}
 	}
-	protected override buildSentence(sentence: Sentence): string {
-		switch (sentence.action) {
-			case 'select':
-				return this.buildMapSentence(sentence)
-			case 'insert':
-				return this.buildInsertSentence(sentence)
-			case 'update':
-				return this.buildUpdateSentence(sentence)
-			case 'delete':
-				return this.buildDeleteSentence(sentence)
-			default:
-				throw new SintaxisError(`sentence action ${sentence.action} not found`)
-		}
-	}
-	protected buildMapSentence(sentence: Sentence): string {
+	protected override buildMapSentence(sentence: Sentence): string {
 
 		// const map = sentence.children.find(p => p.name === 'map') as Map | undefined
-		const from = sentence.children.find(p => p instanceof From) as Operand
+		// const from = sentence.children.find(p => p instanceof From) as Operand
 		const joins = sentence.children.filter(p => p instanceof Join)
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
@@ -63,18 +49,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (page) text = `${text}, ${this.buildArrowFunction(page)}`
 		return `[${text}]`
 	}
-	protected buildInsertSentence(sentence: Sentence): string {
-		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
-		const entity = this.mapping.getEntity(sentence.entity)
-		if (entity === undefined) {
-			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		if (insert === undefined) {
-			throw new SchemaError(`insert operand not found`)
-		}
-		return this.buildInsert(insert, entity)
-	}
-	protected buildUpdateSentence(sentence: Sentence): string {
+	protected override buildUpdateSentence(sentence: Sentence): string {
 		const entity = this.mapping.getEntity(sentence.entity)
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
@@ -92,15 +67,11 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return JSON.stringify(data)
 	}
-	protected buildDeleteSentence(sentence: Sentence): string {
+	protected override buildDeleteSentence(sentence: Sentence): string {
 		const entity = this.mapping.getEntity(sentence.entity)
-		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		if (update === undefined) {
-			throw new SchemaError(`update operand not found`)
 		}
 		//TODO: tener en cuenta que cuando hay includes
 		let data: any = {
@@ -108,40 +79,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return JSON.stringify(data)
 	}
-	// private buildSentence(sentence: Sentence): NoSqlSentence {
-	// const map = sentence.children.find(p => p.name === 'map') as Map | undefined
-	// const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
-	// const update = sentence.children.find(p => p instanceof Update) as Update | undefined
-	// // const _delete = sentence.children.find(p => p instanceof Delete) as Delete|undefined
-	// const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
-	// const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
-	// const having = sentence.children.find(p => p.name === 'having') as Having | undefined
-	// const sort = sentence.children.find(p => p.name === 'sort') as Sort | undefined
-	// const page = sentence.children.find(p => p.name === 'page') as Page | undefined
-	// const entity = this.mapping.getEntity(sentence.entity)
-	// if (entity === undefined) {
-	// throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-	// }
-	// const nosqlSentence: NoSqlSentence = {}
-	// if (map) {
-	// const from = sentence.children.find(p => p instanceof From) as Operand
-	// const joins = sentence.children.filter(p => p instanceof Join)
-	// this.setPrefixToField(map)
-	// nosqlSentence.map = this.buildArrowFunction(map) //this.buildMap(map, entity)
-	// nosqlSentence.from = this.buildFrom(from)
-	// nosqlSentence.joins = this.buildJoins(joins)
-	// } else if (insert) nosqlSentence.insert = this.buildInsert(insert, entity)
-	// else if (update) nosqlSentence.update = this.buildUpdate(update, entity)
-	// // else if (_delete) nosqlSentence.delete = this.buildDelete(_delete)
-	// if (filter) nosqlSentence.filter = this.buildArrowFunction(filter)
-	// if (groupBy) nosqlSentence.groupBy = this.buildArrowFunction(groupBy)
-	// if (having) nosqlSentence.having = this.buildArrowFunction(having)
-	// if (sort) nosqlSentence.sort = this.buildArrowFunction(sort)
-	// if (page) nosqlSentence.page = this.buildPage(page)
-	// return nosqlSentence
-	// }
-
-
 	private getMap(sentence: Sentence): any {
 		const mapOperator = sentence.children.find(p => p.name === 'map') as Map | undefined
 		if (mapOperator === undefined) {
@@ -149,45 +86,71 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		this.setPrefixToField(mapOperator, '$')
 		let map = this.buildArrowFunction(mapOperator)
-
-		const includes = sentence.getCompositeIncludes()
-		for (const p in includes) {
-			const include = includes[p]
-			const relationEntity = this.mapping.getEntity(include.relation.entity)
-			if (relationEntity === undefined) {
-				throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
-			}
-			const relationProperty = this.dialect.delimiter(relationEntity.mapping)
-			let relationMap = this.getIncludeMap(include.children[0] as Sentence)
-			// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-			relationMap = Helper.replace(relationMap, '"$this.', '"$$this.')
-			map = `${map} ,${include.relation.name}: { $map:{ input:'$${relationProperty}', in:{${relationMap}}}}`
+		let composite = this.getComposite(sentence)
+		if (composite) {
+			map = `${map} ,${composite}`
 		}
-		return `{ "$project" :{ "_id": 0 , ${map} } }`
+		// const includes = sentence.getCompositeIncludes()
+		// if (includes.length > 0) {
+		// const compositeTemplate = this.dialect.dml('composite')
+		// for (const p in includes) {
+		// const include = includes[p]
+		// const relationEntity = this.mapping.getEntity(include.relation.entity)
+		// if (relationEntity === undefined) {
+		// throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+		// }
+		// const relationProperty = this.dialect.delimiter(relationEntity.mapping)
+		// let relationMap = this.getChildrenMap(include.children[0] as Sentence)
+		// // In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
+		// relationMap = Helper.replace(relationMap, '"$this.', '"$$this.')
+		// let text = compositeTemplate.replace('{name}', include.relation.name)
+		// text = text.replace('{input}', relationProperty)
+		// text = text.replace('{in}', relationMap)
+		// map = `${map} ,${text}`
+		// }
+		// }
+		const rootMapTemplate = this.dialect.dml('rootMap')
+		const result = rootMapTemplate.replace('{0}', map)
+		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
+		return Helper.replace(result, '"$this.', '"$$this.')
 	}
-	private getIncludeMap(sentence: Sentence): any {
+	private getComposite(sentence: Sentence): string | undefined {
+		const includes = sentence.getCompositeIncludes()
+		if (includes.length > 0) {
+			let text: string = ''
+			const compositeTemplate = this.dialect.dml('composite')
+			for (const p in includes) {
+				const include = includes[p]
+				const relationEntity = this.mapping.getEntity(include.relation.entity)
+				if (relationEntity === undefined) {
+					throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+				}
+				//TODO: ver que pasa cuando la propiedad a relacionar es ya un hijo
+				// ver si debe ir $$This. en vez de $
+				//const relationProperty = `"$\\\"${relationEntity.mapping}\\\""`
+				const relationProperty = `"$\\"${relationEntity.mapping}\\""`
+				let relationMap = this.getChildrenMap(include.children[0] as Sentence)
+				let compositeText = compositeTemplate.replace('{name}', include.relation.name)
+				compositeText = compositeText.replace('{input}', relationProperty)
+				compositeText = compositeText.replace('{in}', relationMap)
+				text = text === '' ? compositeText : `${text} ,${compositeText}`
+			}
+			return text
+		} else {
+			return undefined
+		}
+	}
+	private getChildrenMap(sentence: Sentence): any {
 		//https://stackoverflow.com/questions/61173117/mongodb-get-index-of-current-element-in-array
 		const mapOperator = sentence.children.find(p => p.name === 'map') as Map | undefined
 		if (mapOperator === undefined) {
 			throw new SchemaError(`map operator not found`)
 		}
 		this.setPrefixToField(mapOperator, '$$this.')
-		let map = this.buildArrowFunction(mapOperator) //this.buildMap(map, entity)
-		const includes = sentence.getCompositeIncludes()
-		for (const p in includes) {
-			const include = includes[p]
-			const relationEntity = this.mapping.getEntity(include.relation.entity)
-			if (relationEntity === undefined) {
-				throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
-			}
-			const relationProperty = this.dialect.delimiter(relationEntity.mapping)
-			const relationMap = this.getIncludeMap(include.children[0] as Sentence)
-			map = `${map} ,${include.relation.name}: {
-							$map: {
-								input: '$${relationProperty}',
-								in: ${relationMap}
-							}
-						}`
+		let map = this.buildArrowFunction(mapOperator)
+		let composite = this.getComposite(sentence)
+		if (composite) {
+			map = `${map} ,${composite}`
 		}
 		return map
 	}
@@ -205,42 +168,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	// 			}
 	// 		}
 	// 	}
-	// }
-
-
-
-	// private buildMap(operand: Map, entity: EntityMapping): string {
-	// const template = this.dialect.dml('map')
-	// const templateColumn = this.dialect.other('column')
-	// const columns: string[] = []
-	// if (operand.children[0] instanceof Object) {
-	// const obj = operand.children[0]
-	// for (const p in obj.children) {
-	// const keyVal = obj.children[p] as KeyValue
-	// let name: string
-	// if (keyVal.property !== undefined) {
-	// const property = entity.properties.find(p => p.name === keyVal.property)
-	// if (property === undefined) {
-	// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-	// }
-	// name = property.mapping
-	// } else {
-	// name = keyVal.name
-	// }
-	// const column = templateColumn.replace('{name}', name)
-	// columns.push(column)
-	// }
-	// }
-	// return template.replace('{0}', columns.join(','))
-	// }
-
-	// private buildFrom(from: Operand): string {
-	// const parts = from.name.split('.')
-	// const entityMapping = this.mapping.entityMapping(parts[0])
-	// if (entityMapping === undefined) {
-	// throw new SchemaError(`not found mapping for ${parts[0]}`)
-	// }
-	// return this.dialect.delimiter(entityMapping)
 	// }
 
 	protected override buildJoins(joins: Operand[]): string {

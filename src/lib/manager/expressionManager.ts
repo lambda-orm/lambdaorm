@@ -98,37 +98,21 @@ export class ExpressionManager {
 		const includes = []
 		const dataSource = this.getDataSource(sentence, stage)
 		const language = this.languages.getByDiatect(dataSource.dialect)
+		const dialect = this.languages.getDialect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
-			if (!sentenceInclude.relation.composite || !language.solveComposite) {
+			if (!sentenceInclude.relation.composite || !dialect.solveComposite) {
 				const query = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
 				const include = new Include(sentenceInclude.name, query, sentenceInclude.relation)
 				includes.push(include)
 			}
 		}
 		const query = language.dmlBuild(dataSource, mapping, sentence)
-		query.includes = includes
+		query.includes = query.includes.concat(includes)
 		return query
-
-		// const includes = []
-		// const sentenceIncludes = sentence.getIncludes()
-		// for (const p in sentenceIncludes) {
-		// 	const sentenceInclude = sentenceIncludes[p]
-		// 	const query = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
-		// 	const include = new Include(sentenceInclude.name, query, sentenceInclude.relation)
-		// 	includes.push(include)
-		// }
-		// const dataSource = this.getDataSource(sentence, stage)
-		// const language = this.languages.getByDiatect(dataSource.dialect)
-		// const mapping = this.schema.mapping.getInstance(dataSource.mapping)
-		// const query = language.dmlBuild(dataSource, mapping, sentence)
-		// query.includes = includes
-		// return query
 	}
-
-
 
 	/**
 	 * Read lambda expression

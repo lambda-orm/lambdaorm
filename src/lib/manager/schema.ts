@@ -10,7 +10,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	public abstract get entities(): TEntity[];
 	public abstract get enums(): Enum[];
 
-	public getEntity (name: string): TEntity|undefined {
+	public getEntity(name: string): TEntity | undefined {
 		if (name.includes('.')) {
 			const entityName = name.split('.')[1]
 			return this.entities.find(p => p.name === entityName)
@@ -18,11 +18,11 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return this.entities.find(p => p.name === name)
 	}
 
-	public getEnum (name: string): Enum|undefined {
+	public getEnum(name: string): Enum | undefined {
 		return this.enums.find(p => p.name === name)
 	}
 
-	public isChild (entityName:string):boolean {
+	public isChild(entityName: string): boolean {
 		for (const i in this.entities) {
 			const entity = this.entities[i]
 			for (const j in entity.relations) {
@@ -33,14 +33,14 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return false
 	}
 
-	public existsProperty (entityName:string, name:string):boolean {
+	public existsProperty(entityName: string, name: string): boolean {
 		const entity = this.getEntity(entityName)
 		if (!entity) { throw new SchemaError('Not exists entity:' + entityName) }
 		const property = entity.properties.find(p => p.name === name)
 		return property !== undefined
 	}
 
-	public getProperty (entityName:string, name:string):TProperty {
+	public getProperty(entityName: string, name: string): TProperty {
 		const entity = this.getEntity(entityName)
 		if (!entity) {
 			throw new SchemaError('Not exists entity:' + entityName)
@@ -52,7 +52,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return property as TProperty
 	}
 
-	public getAutoincrement (entityName:string): TProperty | undefined {
+	public getAutoincrement(entityName: string): TProperty | undefined {
 		const entity = this.getEntity(entityName)
 		if (!entity) {
 			throw new SchemaError('Not exists entity:' + entityName)
@@ -60,7 +60,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return entity.properties.find(p => p.autoincrement === true) as TProperty
 	}
 
-	public getFieldIds (entityName:string): TProperty[] | undefined {
+	public getFieldIds(entityName: string): TProperty[] | undefined {
 		const entity = this.getEntity(entityName)
 		if (!entity) {
 			throw new SchemaError('Not exists entity:' + entityName)
@@ -68,7 +68,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		return entity.properties.filter(p => entity.primaryKey.includes(p.name)) as TProperty[]
 	}
 
-	public listEntities (): string[] {
+	public listEntities(): string[] {
 		return this.entities.map(p => p.name)
 	}
 
@@ -77,7 +77,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param entities entities to order
 	 * @returns returns the sorted entities
 	 */
-	public sortByRelations (mainEntities:string[] = [], allEntities:string[]): string[] {
+	public sortByRelations(mainEntities: string[] = [], allEntities: string[]): string[] {
 		if (mainEntities.length < 2) return mainEntities
 		const sorted: string[] = []
 		while (sorted.length < mainEntities.length) {
@@ -100,7 +100,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param entities entities to order
 	 * @returns returns the sorted entities
 	 */
-	public sortByDependencies (entities:string[] = []): string[] {
+	public sortByDependencies(entities: string[] = []): string[] {
 		if (entities.length < 2) return entities
 		const sorted: string[] = []
 		while (sorted.length < entities.length) {
@@ -129,7 +129,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param parent entity parent , used in manyToOne relations
 	 * @returns
 	 */
-	protected solveSortEntity (entityName:string, mainEntities:string[], allEntities:string[], sorted:string[], parent?:string):boolean {
+	protected solveSortEntity(entityName: string, mainEntities: string[], allEntities: string[], sorted: string[], parent?: string): boolean {
 		const entity = this.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError('Not exists entity:' + entityName)
@@ -165,7 +165,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	 * @param parent entity parent , used in manyToOne relations
 	 * @returns
 	 */
-	protected hadDependencies (entity:TEntity, entities:string[], sorted:string[], parent?:string):boolean {
+	protected hadDependencies(entity: TEntity, entities: string[], sorted: string[], parent?: string): boolean {
 		if (entity.dependents === undefined || entity.dependents.length === 0) {
 			return false
 		} else {
@@ -200,7 +200,7 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 		}
 	}
 
-	public getRelation (entity:string, relation:string):RelationInfo {
+	public getRelation(entity: string, relation: string): RelationInfo {
 		let _previousEntity, previousEntity, relationData, _relationEntity, relationEntity
 		const parts = relation.split('.')
 		for (let i = 0; i < parts.length; i++) {
@@ -228,9 +228,9 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 
 export class ModelConfig extends _ModelConfig<Entity, Property> {
 	public entities: Entity[]
-	public enums:Enum[]
+	public enums: Enum[]
 
-	constructor (entities: Entity[] = [], enums:Enum[] = []) {
+	constructor(entities: Entity[] = [], enums: Enum[] = []) {
 		super()
 		this.entities = entities
 		this.enums = enums
@@ -239,34 +239,34 @@ export class ModelConfig extends _ModelConfig<Entity, Property> {
 
 export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> {
 	private mapping: Mapping
-	public enums:Enum[]
-	constructor (mapping: Mapping, enums:Enum[] = []) {
+	public enums: Enum[]
+	constructor(mapping: Mapping, enums: Enum[] = []) {
 		super()
 		this.mapping = mapping
 		this.enums = enums
 	}
 
-	public get name ():string {
+	public get name(): string {
 		return this.mapping.name
 	}
 
-	public get format ():FormatMapping|undefined {
+	public get format(): FormatMapping | undefined {
 		return this.mapping.format
 	}
 
-	public get ():Mapping {
+	public get(): Mapping {
 		return this.mapping
 	}
 
-	public set (value: Mapping) {
+	public set(value: Mapping) {
 		this.mapping = value
 	}
 
-	public get entities ():EntityMapping[] {
+	public get entities(): EntityMapping[] {
 		return this.mapping.entities
 	}
 
-	public entityMapping (entityName:string):string|undefined {
+	public entityMapping(entityName: string): string | undefined {
 		const entity = this.getEntity(entityName)
 		return entity ? entity.mapping : undefined
 	}
@@ -275,11 +275,11 @@ export class MappingConfig extends _ModelConfig<EntityMapping, PropertyMapping> 
 export class MappingsConfig {
 	public mappings: Mapping[]
 
-	constructor () {
+	constructor() {
 		this.mappings = []
 	}
 
-	public load (value:Mapping):void {
+	public load(value: Mapping): void {
 		if (value && value.name) {
 			const index = this.mappings.findIndex(p => p.name === value.name)
 			if (index === -1) {
@@ -290,14 +290,14 @@ export class MappingsConfig {
 		}
 	}
 
-	public delete (name: string): void {
+	public delete(name: string): void {
 		const index = this.mappings.findIndex(p => p.name === name)
 		if (index !== -1) {
 			this.mappings.splice(index, 1)
 		}
 	}
 
-	public get (name:string):Mapping {
+	public get(name: string): Mapping {
 		const mapping = this.mappings.find(p => p.name === name)
 		if (!mapping) {
 			throw new SchemaError(`mapping ${name} not found`)
@@ -305,7 +305,7 @@ export class MappingsConfig {
 		return mapping
 	}
 
-	public getInstance (name:string):MappingConfig {
+	public getInstance(name: string): MappingConfig {
 		const mapping = this.get(name)
 		if (!mapping) {
 			throw new SchemaError(`mapping ${name} not found`)
@@ -316,31 +316,31 @@ export class MappingsConfig {
 
 export class ViewConfig {
 	private view: View
-	constructor (view: View) {
+	constructor(view: View) {
 		this.view = view
 	}
 
-	public get name ():string {
+	public get name(): string {
 		return this.view.name
 	}
 
-	public get ():View {
+	public get(): View {
 		return this.view
 	}
 
-	public set (value: View) {
+	public set(value: View) {
 		this.view = value
 	}
 
-	public get entities ():EntityView[] {
+	public get entities(): EntityView[] {
 		return this.view.entities ? this.view.entities : []
 	}
 
-	public getEntity (name:string):EntityView|undefined {
+	public getEntity(name: string): EntityView | undefined {
 		return this.view.entities ? this.view.entities.find(p => p.name === name) : undefined
 	}
 
-	public getProperty (entityName:string, name:string):PropertyView|undefined {
+	public getProperty(entityName: string, name: string): PropertyView | undefined {
 		const entity = this.getEntity(entityName)
 		if (!entity) {
 			return undefined
@@ -348,7 +348,7 @@ export class ViewConfig {
 		return entity.properties ? entity.properties.find(p => p.name === name) : undefined
 	}
 
-	public excludeEntity (name:string):boolean {
+	public excludeEntity(name: string): boolean {
 		const entity = this.getEntity(name)
 		return entity ? !!entity.exclude : false
 	}
@@ -357,11 +357,11 @@ export class ViewConfig {
 export class ViewsConfig {
 	public views: View[]
 
-	constructor () {
+	constructor() {
 		this.views = []
 	}
 
-	public load (value:View):void {
+	public load(value: View): void {
 		if (value && value.name) {
 			if (!value.entities) {
 				value.entities = []
@@ -375,7 +375,7 @@ export class ViewsConfig {
 		}
 	}
 
-	public get (name?: string): View {
+	public get(name?: string): View {
 		if (name === undefined) {
 			return this.views[0]
 		}
@@ -386,7 +386,7 @@ export class ViewsConfig {
 		return view
 	}
 
-	public getInstance (name?:string):ViewConfig {
+	public getInstance(name?: string): ViewConfig {
 		const view = this.get(name)
 		if (!view) {
 			throw new SchemaError(`view ${name} not found`)
@@ -397,13 +397,13 @@ export class ViewsConfig {
 
 export class DataSourceConfig {
 	public dataSources: DataSource[]
-	public default?:string
+	public default?: string
 
-	constructor () {
+	constructor() {
 		this.dataSources = []
 	}
 
-	public load (value: DataSource): void {
+	public load(value: DataSource): void {
 		if (value && value.name) {
 			const index = this.dataSources.findIndex(p => p.name === value.name)
 			if (index === -1) {
@@ -414,7 +414,7 @@ export class DataSourceConfig {
 		}
 	}
 
-	public get (name?: string): DataSource {
+	public get(name?: string): DataSource {
 		const _name = name === undefined ? this.default : name
 		if (_name === undefined) {
 			if (this.dataSources.length === 1) {
@@ -434,11 +434,11 @@ export class DataSourceConfig {
 export class StageConfig {
 	public stages: Stage[]
 
-	constructor () {
+	constructor() {
 		this.stages = []
 	}
 
-	public load (value:Stage):void {
+	public load(value: Stage): void {
 		if (value && value.name) {
 			const index = this.stages.findIndex(p => p.name === value.name)
 			if (index === -1) {
@@ -449,7 +449,7 @@ export class StageConfig {
 		}
 	}
 
-	public get (name?: string): Stage {
+	public get(name?: string): Stage {
 		if (name === undefined) {
 			return this.stages[0]
 		}
@@ -462,13 +462,13 @@ export class StageConfig {
 }
 
 class SchemaExtender {
-	private expressions:Expressions
-	constructor (expressions:Expressions) {
+	private expressions: Expressions
+	constructor(expressions: Expressions) {
 		this.expressions = expressions
 	}
 
-	public extend (source: Schema): Schema {
-		let schema:Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
+	public extend(source: Schema): Schema {
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
 		if (source) {
 			schema = Helper.clone(source)
 		}
@@ -538,17 +538,18 @@ class SchemaExtender {
 		return schema
 	}
 
-	public complete (schema: Schema): void {
+	public complete(schema: Schema): void {
 		if (schema) {
 			if (schema.entities) {
 				this.completeEntities(schema.entities, schema.views)
 				this.completeRelations(schema.entities)
 				this.completeDependents(schema.entities)
+				// this.setOnlyComposite(schema.entities)
 			}
 		}
 	}
 
-	private clearEntities (source: Entity[]): Entity[] {
+	private clearEntities(source: Entity[]): Entity[] {
 		const target: Entity[] = []
 		if (source && source.length) {
 			for (let i = 0; i < source.length; i++) {
@@ -560,7 +561,7 @@ class SchemaExtender {
 		return target
 	}
 
-	private completeEntities (entities:Entity[], views:View[]):void {
+	private completeEntities(entities: Entity[], views: View[]): void {
 		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
@@ -602,7 +603,7 @@ class SchemaExtender {
 		}
 	}
 
-	private completeRelations (entities: Entity[]): void {
+	private completeRelations(entities: Entity[]): void {
 		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const source = entities[i]
@@ -640,7 +641,34 @@ class SchemaExtender {
 		}
 	}
 
-	private completeDependents (entities: Entity[]): void {
+	// private setOnlyComposite(entities: Entity[]): void {
+	// if (entities && entities.length) {
+	// for (let i = 0; i < entities.length; i++) {
+	// const source = entities[i]
+	// source.onlyComposite = this.onlyComposite(source.name, entities)
+	// }
+	// }
+	// }
+
+	// private onlyComposite(entityName: string, entities: Entity[]): boolean {
+	// let isComposite = false
+	// for (const i in entities) {
+	// const entity = entities[i]
+	// for (const j in entity.relations) {
+	// const relation = entity.relations[j]
+	// if (relation.entity === entityName) {
+	// if (!relation.composite) {
+	// return false
+	// } else {
+	// isComposite = true
+	// }
+	// }
+	// }
+	// }
+	// return isComposite
+	// }
+
+	private completeDependents(entities: Entity[]): void {
 		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
@@ -661,7 +689,7 @@ class SchemaExtender {
 		}
 	}
 
-	private extendEntiy (entity: Entity, entities: Entity[]):void {
+	private extendEntiy(entity: Entity, entities: Entity[]): void {
 		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
@@ -688,7 +716,7 @@ class SchemaExtender {
 		}
 	}
 
-	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
+	private extendMapping(mapping: Mapping, mappings: Mapping[]): void {
 		if (mapping && mapping.extends) {
 			const base = mappings.find(p => p.name === mapping.extends)
 			if (base === undefined) {
@@ -701,7 +729,7 @@ class SchemaExtender {
 		}
 	}
 
-	private extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]):void {
+	private extendEntiyMapping(entity: EntityMapping, entities: EntityMapping[]): void {
 		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
@@ -733,7 +761,7 @@ class SchemaExtender {
 		}
 	}
 
-	private extendObject (obj:any, base:any) {
+	private extendObject(obj: any, base: any) {
 		if (Array.isArray(base)) {
 			for (let i = 0; i < base.length; i++) {
 				const baseChild = base[i]
@@ -756,7 +784,7 @@ class SchemaExtender {
 		return obj
 	}
 
-	private completeMapping (mapping:Mapping):void {
+	private completeMapping(mapping: Mapping): void {
 		if (mapping && mapping.entities) {
 			for (let i = 0; i < mapping.entities.length; i++) {
 				const entity = mapping.entities[i]
@@ -782,7 +810,7 @@ class SchemaExtender {
 		}
 	}
 
-	private clearMapping (source: Mapping): Mapping {
+	private clearMapping(source: Mapping): Mapping {
 		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
 		if (source && source.entities) {
 			for (let i = 0; i < source.entities.length; i++) {
@@ -794,7 +822,7 @@ class SchemaExtender {
 		return target
 	}
 
-	private clearMapping2 (schema:Schema, source: Mapping): Mapping {
+	private clearMapping2(schema: Schema, source: Mapping): Mapping {
 		const target: Mapping = { name: source.name, mapping: source.mapping, entities: [] }
 
 		if (source && source.entities) {
@@ -807,8 +835,8 @@ class SchemaExtender {
 		return target
 	}
 
-	private existsInMapping (schema:Schema, mapping:string, entity:string):boolean {
-		const context:ContextInfo = { entity: entity, sentence: 'ddl', read: false, write: true, dml: false, ddl: true }
+	private existsInMapping(schema: Schema, mapping: string, entity: string): boolean {
+		const context: ContextInfo = { entity: entity, sentence: 'ddl', read: false, write: true, dml: false, ddl: true }
 		const dataSourcesNames = schema.dataSources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const i in schema.stages) {
 			const stage = schema.stages[i]
@@ -835,9 +863,9 @@ export class SchemaManager {
 	public schema: Schema
 	public workspace: string
 	private extender: SchemaExtender
-	private expressions:Expressions
+	private expressions: Expressions
 
-	constructor (workspace: string, expressions: Expressions) {
+	constructor(workspace: string, expressions: Expressions) {
 		this.expressions = expressions
 		this.workspace = workspace
 		this.dataSource = new DataSourceConfig()
@@ -849,7 +877,7 @@ export class SchemaManager {
 		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
 	}
 
-	public async init (source?: string | Schema): Promise<Schema> {
+	public async init(source?: string | Schema): Promise<Schema> {
 		let schema
 		if (!source || typeof source === 'string') {
 			schema = await this.get(source)
@@ -865,9 +893,9 @@ export class SchemaManager {
 		return schema
 	}
 
-	public async get (source?: string): Promise<Schema> {
-		let workspace : string
-		let configFile: string|undefined
+	public async get(source?: string): Promise<Schema> {
+		let workspace: string
+		let configFile: string | undefined
 		workspace = process.cwd()
 
 		if (source === undefined) {
@@ -929,7 +957,7 @@ export class SchemaManager {
 		return schema
 	}
 
-	public async getConfigFileName (workspace:string):Promise<string|undefined> {
+	public async getConfigFileName(workspace: string): Promise<string | undefined> {
 		if (await Helper.existsPath(path.join(workspace, 'lambdaorm.yaml'))) {
 			return 'lambdaorm.yaml'
 		} else if (await Helper.existsPath(path.join(workspace, 'lambdaorm.yml'))) {
@@ -941,15 +969,15 @@ export class SchemaManager {
 		}
 	}
 
-	public complete (schema: Schema): void {
+	public complete(schema: Schema): void {
 		this.extender.complete(schema)
 	}
 
-	public extend (schema: Schema): Schema {
+	public extend(schema: Schema): Schema {
 		return this.extender.extend(schema)
 	}
 
-	public load (schema: Schema): Schema {
+	public load(schema: Schema): Schema {
 		this.schema = this.extend(schema)
 		this.model.entities = this.schema.entities ? this.schema.entities : []
 		this.model.enums = this.schema.enums ? this.schema.enums : []
