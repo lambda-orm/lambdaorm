@@ -4,5 +4,9 @@
 	"eslint.format.enable": true,
 	"eslint.run": "onSave",
 	"editor.tabSize": 2,
-	"editor.insertSpaces": false
+	"editor.insertSpaces": false,
+	"cSpell.words": [
+		"classtype",
+		"mongodb"
+	]
 }

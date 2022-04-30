@@ -29,7 +29,7 @@ dml:
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: 'FROM {name} {alias} '
-  join: '{ "$lookup" :{ from: {name}, localField: {fromProperty}, foreignField:{toProperty}, as: {alias} }}'
+  join: '{ "$lookup" :{ "from": {name}, "localField": {toProperty} , "foreignField": {fromProperty}, "as": {alias} }}'
   composite: '"{name}": { "$map":{ "input": {input}, "in": { {in} } }}'
 others:
   delimiter: '"{name}"'
@@ -37,7 +37,8 @@ others:
   # notNullable: NOT NULL
   variable: "{{{name}}}"
   # field: "{entityAlias}.{name}"
-  field: '"{name}"'
+  field: '"{prefix}{name}"'
+  joinField: '{ "$arrayElemAt": ["{prefix}{entityAlias}.{name}", 0] }'
   column: '"{name}": 1'
   false: "false"
   true: "true"

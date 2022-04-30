@@ -42,5 +42,6 @@ export interface Metadata {
 	relation?: Relation,
 	clause?: string,
 	alias?: string,
+	isRoot?: boolean
 	number?: number
 }

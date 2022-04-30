@@ -40,19 +40,20 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
-		let text = this.getMap(sentence)
+		let text = ''
 		if (joins.length > 0) {
-			text = `${text}, ${this.buildJoins(joins)}`
+			text = text !== '' ? `${text}, ${this.buildJoins(joins)}` : this.buildJoins(joins)
 		}
 		if (filter) {
-			text = `${text}, ${this.buildFilter(filter)}`
+			text = text !== '' ? `${text}, ${this.buildFilter(filter)}` : this.buildFilter(filter)
 		}
 		if (groupBy) {
-			text = `${text}, ${this.buildArrowFunction(groupBy)}`
+			text = text !== '' ? `${text}, ${this.buildArrowFunction(groupBy)}` : this.buildArrowFunction(groupBy)
 		}
 		if (having) {
-			text = `${text}, ${this.buildArrowFunction(having)}`
+			text = text !== '' ? `${text}, ${this.buildArrowFunction(having)}` : this.buildArrowFunction(having)
 		}
+		text = text !== '' ? `${text}, ${this.getMap(sentence)}` : this.getMap(sentence)
 		if (sort) {
 			text = `${text}, ${this.buildArrowFunction(sort)}`
 		}
@@ -188,13 +189,28 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			}
 			const localField = join.children[0].children[0] as Field
 			const foreignField = join.children[0].children[1] as Field
-			let joinTemplate = template.replace('{name}', this.dialect.delimiter(entity.mapping))
-			joinTemplate = joinTemplate.replace('{fromProperty}', this.getFieldName(localField))
-			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldName(foreignField))
-			joinTemplate = joinTemplate.replace('{alias}', parts[1])
-			text = text === '' ? `${text}, ${joinTemplate}` : joinTemplate
+			let joinTemplate = template.replace('{name}', this.dialect.delimiter(entity.mapping, true))
+			joinTemplate = joinTemplate.replace('{fromProperty}', this.getFieldMapping(localField))
+			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldMapping(foreignField))
+			joinTemplate = joinTemplate.replace('{alias}', this.dialect.delimiter(parts[1], true))
+			text = text !== '' ? `${text}, ${joinTemplate}` : joinTemplate
 		}
 		return text
+		// Example
+		// {
+		// 	$lookup: {
+		// 		from: "Categories",
+		// 		localField: "CategoryID",
+		// 		foreignField: "_id",
+		// 		as: "p"
+		// 	}
+		// },
+		// {
+		// 	$project: {
+		// 		"name": "$ProductName",
+		// 		"category": { $arrayElemAt: ["$p.CategoryName", 0] },
+		// 	}
+		// }
 	}
 	protected buildFilter(operand: Filter): string {
 		//TODO: falta resolver si los campos a filtrar corresponden a un include composite.
@@ -202,16 +218,12 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		const template = this.dialect.dml('rootFilter')
 		return template.replace('{0}', this.buildArrowFunction(operand))
 	}
-	protected getFieldName(operand: Field): string {
+	protected getFieldMapping(operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
-			if (operand.alias === undefined) {
-				return this.dialect.delimiter(property.mapping, true)
-			} else {
-				return `${operand.alias}.${this.dialect.delimiter(property.mapping)}`
-			}
+			return this.dialect.delimiter(property.mapping, true)
 		} else {
-			return this.dialect.delimiter(operand.name)
+			return this.dialect.delimiter(operand.name, true)
 		}
 	}
 	protected override buildInsert(operand: Insert, entity: EntityMapping): string {
@@ -271,17 +283,14 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	protected override buildField(operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
-			const mapping = operand.prefix ? operand.prefix + property.mapping : property.mapping
-			if (operand.alias === undefined) {
-				return this.dialect.other('column').replace('{name}', this.dialect.delimiter(mapping, true))
-			} else {
-				let text = this.dialect.other('field')
-				text = text.replace('{entityAlias}', operand.alias)
-				text = text.replace('{name}', this.dialect.delimiter(mapping))
-				return text
-			}
+			let templateKey = operand.alias === undefined ? 'column' : (operand.isRoot === false) ? 'joinField' : 'field'
+			let text = this.dialect.other(templateKey)
+			text = text.replace('{entityAlias}', operand.alias || '')
+			text = text.replace('{prefix}', operand.prefix || '')
+			text = text.replace('{name}', property.mapping)
+			return text
 		} else {
-			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name))
+			return this.dialect.other('column').replace('{name}', operand.name)
 		}
 	}
 	protected setPrefixToField(operand: Operand, prefix: string) {

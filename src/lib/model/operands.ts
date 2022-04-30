@@ -20,15 +20,17 @@ export class Constant2 extends Constant {
 export class Field extends Operand {
 	public entity: string
 	public alias?: string
+	public isRoot?: boolean
 	public prefix?: string
-	constructor(entity: string, name: string, type: string, alias?: string) {
+	constructor(entity: string, name: string, type: string, alias?: string, isRoot?: boolean) {
 		super(name, [], type)
 		this.entity = entity
 		this.alias = alias
+		this.isRoot = isRoot
 	}
 
 	public clone() {
-		return new Field(this.entity, this.name, this.type, this.alias)
+		return new Field(this.entity, this.name, this.type, this.alias, this.isRoot)
 	}
 
 	public eval(): any {

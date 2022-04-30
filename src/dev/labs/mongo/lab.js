@@ -7,16 +7,49 @@ const MongoClient = require('mongodb').MongoClient;
 	const db = client.db(dbName)
 	//await db.collection('inventory').deleteMany({})
 
-	const result = await db.collection('Products').aggregate([
-		{
-			$group: {
-				_id: null,
-				__distinct: { "$addToSet": { "a": "$CategoryID", "c": "$UnitPrice" } }
+
+	const result = await db.collection('Products').aggregate(
+		[{
+			"$lookup": {
+				"from": "Categories", "localField": "_id",
+				"foreignField": "CategoryID", "as": "c"
 			}
-		},
-
-
-	]).toArray()
+		}, {
+			"$project": {
+				//"_id": 0
+				"name": "$ProductName",
+				"name2": "$c.CategoryName",
+				"categoryName": { "$arrayElemAt": ["$c.CategoryName", 0] }
+			}
+		}]
+	).toArray()
+	// JOIN
+	// const result = await db.collection('Products').aggregate([
+	// 	{
+	// 		$lookup: {
+	// 			from: "Categories",
+	// 			localField: "CategoryID",
+	// 			foreignField: "_id",
+	// 			as: "p"
+	// 		}
+	// 	},
+	// 	{
+	// 		$project: {
+	// 			"name": "$ProductName",
+	// 			"category": { $arrayElemAt: ["$p.CategoryName", 0] },
+	// 		}
+	// 	}
+	// ]).toArray()
+	// DISTINCT
+	// const result = await db.collection('Products').aggregate([
+	// 	{
+	// 		$group: {
+	// 			_id: null,
+	// 			__distinct: { "$addToSet": { "a": "$CategoryID", "c": "$UnitPrice" } }
+	// 		}
+	// 	}
+	// ]).toArray()
+	// CHILD
 	// ]).toArray()
 	// const result = await db.collection('Orders').aggregate([
 	// 	{

@@ -73,6 +73,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -83,6 +84,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -93,6 +95,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -103,6 +106,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -113,6 +117,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -123,6 +128,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -133,6 +139,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -143,6 +150,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -153,6 +161,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -163,6 +172,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -1031,6 +1041,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -1041,6 +1052,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -1051,6 +1063,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -1061,6 +1074,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -1071,6 +1085,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -1081,6 +1096,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -1091,6 +1107,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -1101,6 +1118,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -1111,6 +1129,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -1121,6 +1140,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -1149,6 +1169,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: name
                           classtype: KeyValue
@@ -1159,6 +1180,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: supplierId
                           classtype: KeyValue
@@ -1169,6 +1191,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: categoryId
                           classtype: KeyValue
@@ -1179,6 +1202,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: quantity
                           classtype: KeyValue
@@ -1189,6 +1213,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: price
                           classtype: KeyValue
@@ -1199,6 +1224,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: inStock
                           classtype: KeyValue
@@ -1209,6 +1235,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: onOrder
                           classtype: KeyValue
@@ -1219,6 +1246,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: reorderLevel
                           classtype: KeyValue
@@ -1229,6 +1257,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: discontinued
                           classtype: KeyValue
@@ -1239,6 +1268,7 @@ test:
                               type: boolean
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                       type: object
                   type: any
@@ -1381,6 +1411,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -1391,6 +1422,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -1401,6 +1433,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -1411,6 +1444,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -1421,6 +1455,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -1431,6 +1466,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -1441,6 +1477,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -1451,6 +1488,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -1461,6 +1499,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -1471,6 +1510,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -1499,6 +1539,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: name
                           classtype: KeyValue
@@ -1509,6 +1550,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: supplierId
                           classtype: KeyValue
@@ -1519,6 +1561,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: categoryId
                           classtype: KeyValue
@@ -1529,6 +1572,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: quantity
                           classtype: KeyValue
@@ -1539,6 +1583,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: price
                           classtype: KeyValue
@@ -1549,6 +1594,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: inStock
                           classtype: KeyValue
@@ -1559,6 +1605,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: onOrder
                           classtype: KeyValue
@@ -1569,6 +1616,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: reorderLevel
                           classtype: KeyValue
@@ -1579,6 +1627,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: discontinued
                           classtype: KeyValue
@@ -1589,6 +1638,7 @@ test:
                               type: boolean
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                       type: object
                   type: any
@@ -1673,12 +1723,12 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
-            "supplierId":"$SupplierID", "categoryId":"$CategoryID",
-            "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
-            "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
-            "reorderLevel":"$ReorderLevel", "discontinued":"$Discontinued" }} ,
-            { "$match" : { "_id":{{id}} } }, { "$sort" :{ "_id":1 } }]
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "name":"$ProductName", "supplierId":"$SupplierID",
+            "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+            "price":"$UnitPrice", "inStock":"$UnitsInStock",
+            "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+            "discontinued":"$Discontinued" }} , { "$sort" :{ "_id":1 } }]
           childs: []
     errors: 0
     expression: Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)
@@ -1727,6 +1777,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1753,6 +1804,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -1763,6 +1815,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -1773,6 +1826,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -1783,6 +1837,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -1793,6 +1848,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -1803,6 +1859,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -1813,6 +1870,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -1823,6 +1881,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -1833,6 +1892,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -1843,6 +1903,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -1858,6 +1919,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
       type: any
@@ -1889,7 +1951,17 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-    result: []
+    result:
+      - id: 1
+        name: Chai
+        supplierId: 1
+        categoryId: 1
+        quantity: 10 boxes x 20 bags
+        price: 18
+        inStock: 39
+        onOrder: null
+        reorderLevel: 10
+        discontinued: null
   - name: query 5
     data: a
     sentences:
@@ -1899,12 +1971,12 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
-            "supplierId":"$SupplierID", "categoryId":"$CategoryID",
-            "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
-            "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
-            "reorderLevel":"$ReorderLevel", "discontinued":"$Discontinued" }} ,
-            { "$match" : { "_id":{{id}} } }, { "$sort" :{ "_id":1 } }]
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "name":"$ProductName", "supplierId":"$SupplierID",
+            "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+            "price":"$UnitPrice", "inStock":"$UnitsInStock",
+            "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+            "discontinued":"$Discontinued" }} , { "$sort" :{ "_id":1 } }]
           childs: []
     errors: 0
     expression: Products.filter(p=>(p.id===id)).sort(p=>p.id)
@@ -1953,6 +2025,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1979,6 +2052,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -1989,6 +2063,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -1999,6 +2074,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -2009,6 +2085,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -2019,6 +2096,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -2029,6 +2107,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -2039,6 +2118,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -2049,6 +2129,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -2059,6 +2140,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -2069,6 +2151,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -2084,6 +2167,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
       type: any
@@ -2115,7 +2199,17 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-    result: []
+    result:
+      - id: 1
+        name: Chai
+        supplierId: 1
+        categoryId: 1
+        quantity: 10 boxes x 20 bags
+        price: 18
+        inStock: 39
+        onOrder: null
+        reorderLevel: 10
+        discontinued: null
   - name: query 6
     data: a
     sentences:
@@ -2125,11 +2219,11 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "category_name":"$CategoryName" }} , , {
-            "$lookup" :{ from: Categories, localField: c._id,
-            foreignField:p.CategoryID, as: c }}]
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
+            "category_name":{ "$arrayElemAt": ["$c.CategoryName", 0] } }} ]
           childs: []
-    errors: 1
+    errors: 0
     expression: Products.map(p=>p.category.name)
     normalizeExpression: Products.map(p=>{category_name:p.category.name})
     model:
@@ -2162,6 +2256,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
               type: object
           type: any
@@ -2194,8 +2289,86 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 65'
+    result:
+      - category_name: Beverages
+      - category_name: Beverages
+      - category_name: Condiments
+      - category_name: Condiments
+      - category_name: Condiments
+      - category_name: Condiments
+      - category_name: Produce
+      - category_name: Condiments
+      - category_name: Meat/Poultry
+      - category_name: Seafood
+      - category_name: Dairy Products
+      - category_name: Dairy Products
+      - category_name: Seafood
+      - category_name: Produce
+      - category_name: Condiments
+      - category_name: Confections
+      - category_name: Meat/Poultry
+      - category_name: Seafood
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Grains/Cereals
+      - category_name: Grains/Cereals
+      - category_name: Beverages
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Produce
+      - category_name: Meat/Poultry
+      - category_name: Seafood
+      - category_name: Dairy Products
+      - category_name: Dairy Products
+      - category_name: Dairy Products
+      - category_name: Beverages
+      - category_name: Beverages
+      - category_name: Seafood
+      - category_name: Seafood
+      - category_name: Beverages
+      - category_name: Beverages
+      - category_name: Seafood
+      - category_name: Seafood
+      - category_name: Grains/Cereals
+      - category_name: Beverages
+      - category_name: Condiments
+      - category_name: Seafood
+      - category_name: Seafood
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Confections
+      - category_name: Produce
+      - category_name: Grains/Cereals
+      - category_name: Meat/Poultry
+      - category_name: Meat/Poultry
+      - category_name: Meat/Poultry
+      - category_name: Grains/Cereals
+      - category_name: Grains/Cereals
+      - category_name: Seafood
+      - category_name: Dairy Products
+      - category_name: Dairy Products
+      - category_name: Condiments
+      - category_name: Confections
+      - category_name: Condiments
+      - category_name: Grains/Cereals
+      - category_name: Condiments
+      - category_name: Condiments
+      - category_name: Beverages
+      - category_name: Confections
+      - category_name: Dairy Products
+      - category_name: Beverages
+      - category_name: Dairy Products
+      - category_name: Dairy Products
+      - category_name: Seafood
+      - category_name: Produce
+      - category_name: Beverages
+      - category_name: Beverages
+      - category_name: Condiments
   - name: query 7
+    data: a
     sentences:
       - stage: mongodb
         sentence:
@@ -2203,13 +2376,262 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "category":"$CategoryName",
-            "name":"$ProductName", "quantity":"$QuantityPerUnit",
-            "inStock":"$UnitsInStock" }} , , { "$lookup" :{ from: Categories,
-            localField: c._id, foreignField:p.CategoryID, as: c }}, { "$sort" :{
-            "ProductName":1 } }]
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "category_name":{ "$arrayElemAt":
+            ["$c.CategoryName", 0] } }} ]
           childs: []
-    errors: 1
+    errors: 0
+    expression: Products.map(p=>[p.name,p.category.name])
+    normalizeExpression: Products.map(p=>{name:p.name,category_name:p.category.name})
+    model:
+      - name: name
+        type: string
+      - name: category_name
+        type: string
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products.p
+          classtype: From
+          children: []
+          type: any
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: name
+                  classtype: KeyValue
+                  children:
+                    - name: name
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: category_name
+                  classtype: KeyValue
+                  children:
+                    - name: name
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Categories
+                      alias: c
+                      isRoot: false
+                  type: any
+              type: object
+          type: any
+        - name: Categories.c
+          classtype: Join
+          children:
+            - name: '=='
+              classtype: Operator
+              children:
+                - name: id
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Categories
+                  alias: c
+                - name: categoryId
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Products
+                  alias: p
+              type: any
+          type: any
+      type: any
+      columns:
+        - name: name
+          type: string
+        - name: category_name
+          type: string
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: mongodb
+    result:
+      - name: Chai
+        category_name: Beverages
+      - name: Chang
+        category_name: Beverages
+      - name: Aniseed Syrup
+        category_name: Condiments
+      - name: Chef Anton's Cajun Seasoning
+        category_name: Condiments
+      - name: Chef Anton's Gumbo Mix
+        category_name: Condiments
+      - name: Grandma's Boysenberry Spread
+        category_name: Condiments
+      - name: Uncle Bob's Organic Dried Pears
+        category_name: Produce
+      - name: Northwoods Cranberry Sauce
+        category_name: Condiments
+      - name: Mishi Kobe Niku
+        category_name: Meat/Poultry
+      - name: Ikura
+        category_name: Seafood
+      - name: Queso Cabrales
+        category_name: Dairy Products
+      - name: Queso Manchego La Pastora
+        category_name: Dairy Products
+      - name: Konbu
+        category_name: Seafood
+      - name: Tofu
+        category_name: Produce
+      - name: Genen Shouyu
+        category_name: Condiments
+      - name: Pavlova
+        category_name: Confections
+      - name: Alice Mutton
+        category_name: Meat/Poultry
+      - name: Carnarvon Tigers
+        category_name: Seafood
+      - name: Teatime Chocolate Biscuits
+        category_name: Confections
+      - name: Sir Rodney's Marmalade
+        category_name: Confections
+      - name: Sir Rodney's Scones
+        category_name: Confections
+      - name: Gustaf's Knckebrd
+        category_name: Grains/Cereals
+      - name: Tunnbrd
+        category_name: Grains/Cereals
+      - name: Guaran Fantstica
+        category_name: Beverages
+      - name: NuNuCa Nu-Nougat-Creme
+        category_name: Confections
+      - name: Gumbr Gummibrchen
+        category_name: Confections
+      - name: Schoggi Schokolade
+        category_name: Confections
+      - name: Rssle Sauerkraut
+        category_name: Produce
+      - name: Thringer Rostbratwurst
+        category_name: Meat/Poultry
+      - name: Nord-Ost Matjeshering
+        category_name: Seafood
+      - name: Gorgonzola Telino
+        category_name: Dairy Products
+      - name: Mascarpone Fabioli
+        category_name: Dairy Products
+      - name: Geitost
+        category_name: Dairy Products
+      - name: Sasquatch Ale
+        category_name: Beverages
+      - name: Steeleye Stout
+        category_name: Beverages
+      - name: Inlagd Sill
+        category_name: Seafood
+      - name: Gravad lax
+        category_name: Seafood
+      - name: Cte de Blaye
+        category_name: Beverages
+      - name: Chartreuse verte
+        category_name: Beverages
+      - name: Boston Crab Meat
+        category_name: Seafood
+      - name: Jack's New England Clam Chowder
+        category_name: Seafood
+      - name: Singaporean Hokkien Fried Mee
+        category_name: Grains/Cereals
+      - name: Ipoh Coffee
+        category_name: Beverages
+      - name: Gula Malacca
+        category_name: Condiments
+      - name: Rogede sild
+        category_name: Seafood
+      - name: Spegesild
+        category_name: Seafood
+      - name: Zaanse koeken
+        category_name: Confections
+      - name: Chocolade
+        category_name: Confections
+      - name: Maxilaku
+        category_name: Confections
+      - name: Valkoinen suklaa
+        category_name: Confections
+      - name: Manjimup Dried Apples
+        category_name: Produce
+      - name: Filo Mix
+        category_name: Grains/Cereals
+      - name: Perth Pasties
+        category_name: Meat/Poultry
+      - name: Tourtire
+        category_name: Meat/Poultry
+      - name: Pt chinois
+        category_name: Meat/Poultry
+      - name: Gnocchi di nonna Alice
+        category_name: Grains/Cereals
+      - name: Ravioli Angelo
+        category_name: Grains/Cereals
+      - name: Escargots de Bourgogne
+        category_name: Seafood
+      - name: Raclette Courdavault
+        category_name: Dairy Products
+      - name: Camembert Pierrot
+        category_name: Dairy Products
+      - name: Sirop d'rable
+        category_name: Condiments
+      - name: Tarte au sucre
+        category_name: Confections
+      - name: Vegie-spread
+        category_name: Condiments
+      - name: Wimmers gute Semmelkndel
+        category_name: Grains/Cereals
+      - name: Louisiana Fiery Hot Pepper Sauce
+        category_name: Condiments
+      - name: Louisiana Hot Spiced Okra
+        category_name: Condiments
+      - name: Laughing Lumberjack Lager
+        category_name: Beverages
+      - name: Scottish Longbreads
+        category_name: Confections
+      - name: Gudbrandsdalsost
+        category_name: Dairy Products
+      - name: Outback Lager
+        category_name: Beverages
+      - name: Flotemysost
+        category_name: Dairy Products
+      - name: Mozzarella di Giovanni
+        category_name: Dairy Products
+      - name: Rd Kaviar
+        category_name: Seafood
+      - name: Longlife Tofu
+        category_name: Produce
+      - name: Rhnbru Klosterbier
+        category_name: Beverages
+      - name: Lakkalikri
+        category_name: Beverages
+      - name: Original Frankfurter grne Soe
+        category_name: Condiments
+  - name: query 8
+    sentences:
+      - stage: mongodb
+        sentence:
+          entity: Products
+          dialect: mongodb
+          dataSource: mongodb
+          sentence: >-
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
+            "category":{ "$arrayElemAt": ["$c.CategoryName", 0] },
+            "name":"$ProductName", "quantity":"$QuantityPerUnit",
+            "inStock":"$UnitsInStock" }} , { "$sort" :{ "ProductName":1 } }]
+          childs: []
+    errors: 0
     expression: >-
       Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
     normalizeExpression: >-
@@ -2250,6 +2672,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -2260,6 +2683,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -2270,6 +2694,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -2280,6 +2705,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -2295,6 +2721,7 @@ test:
                   type: string
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
         - name: Categories.c
@@ -2332,8 +2759,316 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 141'
-  - name: query 8
+    result:
+      - category: Beverages
+        name: Chai
+        quantity: 10 boxes x 20 bags
+        inStock: 39
+      - category: Beverages
+        name: Chang
+        quantity: 24 - 12 oz bottles
+        inStock: 17
+      - category: Condiments
+        name: Aniseed Syrup
+        quantity: 12 - 550 ml bottles
+        inStock: 13
+      - category: Condiments
+        name: Chef Anton's Cajun Seasoning
+        quantity: 48 - 6 oz jars
+        inStock: 53
+      - category: Condiments
+        name: Chef Anton's Gumbo Mix
+        quantity: 36 boxes
+        inStock: null
+      - category: Condiments
+        name: Grandma's Boysenberry Spread
+        quantity: 12 - 8 oz jars
+        inStock: 120
+      - category: Produce
+        name: Uncle Bob's Organic Dried Pears
+        quantity: 12 - 1 lb pkgs.
+        inStock: 15
+      - category: Condiments
+        name: Northwoods Cranberry Sauce
+        quantity: 12 - 12 oz jars
+        inStock: 6
+      - category: Meat/Poultry
+        name: Mishi Kobe Niku
+        quantity: 18 - 500 g pkgs.
+        inStock: 29
+      - category: Seafood
+        name: Ikura
+        quantity: 12 - 200 ml jars
+        inStock: 31
+      - category: Dairy Products
+        name: Queso Cabrales
+        quantity: 1 kg pkg.
+        inStock: 22
+      - category: Dairy Products
+        name: Queso Manchego La Pastora
+        quantity: 10 - 500 g pkgs.
+        inStock: 86
+      - category: Seafood
+        name: Konbu
+        quantity: 2 kg box
+        inStock: 24
+      - category: Produce
+        name: Tofu
+        quantity: 40 - 100 g pkgs.
+        inStock: 35
+      - category: Condiments
+        name: Genen Shouyu
+        quantity: 24 - 250 ml bottles
+        inStock: 39
+      - category: Confections
+        name: Pavlova
+        quantity: 32 - 500 g boxes
+        inStock: 29
+      - category: Meat/Poultry
+        name: Alice Mutton
+        quantity: 20 - 1 kg tins
+        inStock: null
+      - category: Seafood
+        name: Carnarvon Tigers
+        quantity: 16 kg pkg.
+        inStock: 42
+      - category: Confections
+        name: Teatime Chocolate Biscuits
+        quantity: 10 boxes x 12 pieces
+        inStock: 25
+      - category: Confections
+        name: Sir Rodney's Marmalade
+        quantity: 30 gift boxes
+        inStock: 40
+      - category: Confections
+        name: Sir Rodney's Scones
+        quantity: 24 pkgs. x 4 pieces
+        inStock: 3
+      - category: Grains/Cereals
+        name: Gustaf's Knckebrd
+        quantity: 24 - 500 g pkgs.
+        inStock: 104
+      - category: Grains/Cereals
+        name: Tunnbrd
+        quantity: 12 - 250 g pkgs.
+        inStock: 61
+      - category: Beverages
+        name: Guaran Fantstica
+        quantity: 12 - 355 ml cans
+        inStock: 20
+      - category: Confections
+        name: NuNuCa Nu-Nougat-Creme
+        quantity: 20 - 450 g glasses
+        inStock: 76
+      - category: Confections
+        name: Gumbr Gummibrchen
+        quantity: 100 - 250 g bags
+        inStock: 15
+      - category: Confections
+        name: Schoggi Schokolade
+        quantity: 100 - 100 g pieces
+        inStock: 49
+      - category: Produce
+        name: Rssle Sauerkraut
+        quantity: 25 - 825 g cans
+        inStock: 26
+      - category: Meat/Poultry
+        name: Thringer Rostbratwurst
+        quantity: 50 bags x 30 sausgs.
+        inStock: null
+      - category: Seafood
+        name: Nord-Ost Matjeshering
+        quantity: 10 - 200 g glasses
+        inStock: 10
+      - category: Dairy Products
+        name: Gorgonzola Telino
+        quantity: 12 - 100 g pkgs
+        inStock: null
+      - category: Dairy Products
+        name: Mascarpone Fabioli
+        quantity: 24 - 200 g pkgs.
+        inStock: 9
+      - category: Dairy Products
+        name: Geitost
+        quantity: 500 g
+        inStock: 112
+      - category: Beverages
+        name: Sasquatch Ale
+        quantity: 24 - 12 oz bottles
+        inStock: 111
+      - category: Beverages
+        name: Steeleye Stout
+        quantity: 24 - 12 oz bottles
+        inStock: 20
+      - category: Seafood
+        name: Inlagd Sill
+        quantity: 24 - 250 g  jars
+        inStock: 112
+      - category: Seafood
+        name: Gravad lax
+        quantity: 12 - 500 g pkgs.
+        inStock: 11
+      - category: Beverages
+        name: Cte de Blaye
+        quantity: 12 - 75 cl bottles
+        inStock: 17
+      - category: Beverages
+        name: Chartreuse verte
+        quantity: 750 cc per bottle
+        inStock: 69
+      - category: Seafood
+        name: Boston Crab Meat
+        quantity: 24 - 4 oz tins
+        inStock: 123
+      - category: Seafood
+        name: Jack's New England Clam Chowder
+        quantity: 12 - 12 oz cans
+        inStock: 85
+      - category: Grains/Cereals
+        name: Singaporean Hokkien Fried Mee
+        quantity: 32 - 1 kg pkgs.
+        inStock: 26
+      - category: Beverages
+        name: Ipoh Coffee
+        quantity: 16 - 500 g tins
+        inStock: 17
+      - category: Condiments
+        name: Gula Malacca
+        quantity: 20 - 2 kg bags
+        inStock: 27
+      - category: Seafood
+        name: Rogede sild
+        quantity: 1k pkg.
+        inStock: 5
+      - category: Seafood
+        name: Spegesild
+        quantity: 4 - 450 g glasses
+        inStock: 95
+      - category: Confections
+        name: Zaanse koeken
+        quantity: 10 - 4 oz boxes
+        inStock: 36
+      - category: Confections
+        name: Chocolade
+        quantity: 10 pkgs.
+        inStock: 15
+      - category: Confections
+        name: Maxilaku
+        quantity: 24 - 50 g pkgs.
+        inStock: 10
+      - category: Confections
+        name: Valkoinen suklaa
+        quantity: 12 - 100 g bars
+        inStock: 65
+      - category: Produce
+        name: Manjimup Dried Apples
+        quantity: 50 - 300 g pkgs.
+        inStock: 20
+      - category: Grains/Cereals
+        name: Filo Mix
+        quantity: 16 - 2 kg boxes
+        inStock: 38
+      - category: Meat/Poultry
+        name: Perth Pasties
+        quantity: 48 pieces
+        inStock: null
+      - category: Meat/Poultry
+        name: Tourtire
+        quantity: 16 pies
+        inStock: 21
+      - category: Meat/Poultry
+        name: Pt chinois
+        quantity: 24 boxes x 2 pies
+        inStock: 115
+      - category: Grains/Cereals
+        name: Gnocchi di nonna Alice
+        quantity: 24 - 250 g pkgs.
+        inStock: 21
+      - category: Grains/Cereals
+        name: Ravioli Angelo
+        quantity: 24 - 250 g pkgs.
+        inStock: 36
+      - category: Seafood
+        name: Escargots de Bourgogne
+        quantity: 24 pieces
+        inStock: 62
+      - category: Dairy Products
+        name: Raclette Courdavault
+        quantity: 5 kg pkg.
+        inStock: 79
+      - category: Dairy Products
+        name: Camembert Pierrot
+        quantity: 15 - 300 g rounds
+        inStock: 19
+      - category: Condiments
+        name: Sirop d'rable
+        quantity: 24 - 500 ml bottles
+        inStock: 113
+      - category: Confections
+        name: Tarte au sucre
+        quantity: 48 pies
+        inStock: 17
+      - category: Condiments
+        name: Vegie-spread
+        quantity: 15 - 625 g jars
+        inStock: 24
+      - category: Grains/Cereals
+        name: Wimmers gute Semmelkndel
+        quantity: 20 bags x 4 pieces
+        inStock: 22
+      - category: Condiments
+        name: Louisiana Fiery Hot Pepper Sauce
+        quantity: 32 - 8 oz bottles
+        inStock: 76
+      - category: Condiments
+        name: Louisiana Hot Spiced Okra
+        quantity: 24 - 8 oz jars
+        inStock: 4
+      - category: Beverages
+        name: Laughing Lumberjack Lager
+        quantity: 24 - 12 oz bottles
+        inStock: 52
+      - category: Confections
+        name: Scottish Longbreads
+        quantity: 10 boxes x 8 pieces
+        inStock: 6
+      - category: Dairy Products
+        name: Gudbrandsdalsost
+        quantity: 10 kg pkg.
+        inStock: 26
+      - category: Beverages
+        name: Outback Lager
+        quantity: 24 - 355 ml bottles
+        inStock: 15
+      - category: Dairy Products
+        name: Flotemysost
+        quantity: 10 - 500 g pkgs.
+        inStock: 26
+      - category: Dairy Products
+        name: Mozzarella di Giovanni
+        quantity: 24 - 200 g pkgs.
+        inStock: 14
+      - category: Seafood
+        name: Rd Kaviar
+        quantity: 24 - 150 g jars
+        inStock: 101
+      - category: Produce
+        name: Longlife Tofu
+        quantity: 5 kg pkg.
+        inStock: 4
+      - category: Beverages
+        name: Rhnbru Klosterbier
+        quantity: 24 - 0.5 l bottles
+        inStock: 125
+      - category: Beverages
+        name: Lakkalikri
+        quantity: 500 ml
+        inStock: 57
+      - category: Condiments
+        name: Original Frankfurter grne Soe
+        quantity: 12 boxes
+        inStock: 32
+  - name: query 9
     sentences:
       - stage: mongodb
         sentence:
@@ -2341,12 +3076,12 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "category":"$CategoryName",
-            "name":"$ProductName", "quantity":"$QuantityPerUnit",
-            "inStock":"$UnitsInStock" }} , , { "$lookup" :{ from: Categories,
-            localField: c._id, foreignField:p.CategoryID, as: c }}, { "$match" :
-            { "Discontinued": { "$ne": false } } }, { "$sort" :{ "category":
-            1:1, "ProductName":-1 } }]
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$match" : { "Discontinued":
+            { "$ne": false } } }, { "$project" :{ "_id": 0 , "category":{
+            "$arrayElemAt": ["$c.CategoryName", 0] }, "name":"$ProductName",
+            "quantity":"$QuantityPerUnit", "inStock":"$UnitsInStock" }} , {
+            "$sort" :{ "category": 1:1, "ProductName":-1 } }]
           childs: []
     errors: 1
     expression: >-
@@ -2382,6 +3117,7 @@ test:
                   type: boolean
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: false
                   classtype: Constant2
                   children: []
@@ -2407,6 +3143,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -2417,6 +3154,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -2427,6 +3165,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -2437,6 +3176,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -2455,6 +3195,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: desc
                   classtype: FunctionRef
@@ -2465,6 +3206,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: array
           type: any
@@ -2503,8 +3245,8 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 141'
-  - name: query 9
+        error: 'SyntaxError: Unexpected token : in JSON at position 350'
+  - name: query 10
     data: b
     sentences:
       - stage: mongodb
@@ -2513,13 +3255,18 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "category":"$CategoryName",
-            "product":"$ProductName", "unitPrice":"$UnitPrice",
-            "quantity":"$Quantity" }} , { "$lookup" :{ from: Categories,
-            localField: c._id, foreignField:p.CategoryID, as: c }}, { "$match" :
-            { "$and" :[{ "ShippedDate":{ "$gte" :{{from}}, $lt:{{to}}} },{ "$gt"
-            :["$UnitPrice",{{minValue}}] }] } }, { "$sort" :{ "category": 1:1,
-            "product": 1:1 } }]
+            [{ "$lookup" :{ "from": "Orders", "localField": "OrderID" ,
+            "foreignField": "_id", "as": "o1" }}, { "$lookup" :{ "from":
+            "Products", "localField": "ProductID" , "foreignField": "_id", "as":
+            "p" }}, { "$lookup" :{ "from": "Categories", "localField":
+            "CategoryID" , "foreignField": "_id", "as": "c" }}, { "$match" : {
+            "$and" :[{ { "$arrayElemAt": ["o1.ShippedDate", 0] }:{ "$gte"
+            :{{from}}, $lt:{{to}}} },{ "$gt" :["$UnitPrice",{{minValue}}] }] }
+            }, { "$project" :{ "_id": 0 , "category":{ "$arrayElemAt":
+            ["$c.CategoryName", 0] }, "product":{ "$arrayElemAt":
+            ["$p.ProductName", 0] }, "unitPrice":"$UnitPrice",
+            "quantity":"$Quantity" }} , { "$sort" :{ "category": 1:1, "product":
+            1:1 } }]
           childs: []
     errors: 1
     expression: >-
@@ -2564,6 +3311,7 @@ test:
                       type: datetime
                       entity: Orders
                       alias: o1
+                      isRoot: false
                     - name: from
                       classtype: Variable
                       children: []
@@ -2584,6 +3332,7 @@ test:
                       type: decimal
                       entity: OrderDetails
                       alias: o
+                      isRoot: true
                     - name: minValue
                       classtype: Variable
                       children: []
@@ -2611,6 +3360,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
                 - name: product
                   classtype: KeyValue
@@ -2621,6 +3371,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: false
                   type: any
                 - name: unitPrice
                   classtype: KeyValue
@@ -2631,6 +3382,7 @@ test:
                       type: decimal
                       entity: OrderDetails
                       alias: o
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -2641,6 +3393,7 @@ test:
                       type: decimal
                       entity: OrderDetails
                       alias: o
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -2659,6 +3412,7 @@ test:
                       type: string
                       entity: OrderDetails
                       alias: o
+                      isRoot: true
                   type: any
                 - name: asc
                   classtype: FunctionRef
@@ -2669,6 +3423,7 @@ test:
                       type: string
                       entity: OrderDetails
                       alias: o
+                      isRoot: true
                   type: any
               type: array
           type: any
@@ -2753,8 +3508,8 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token f in JSON at position 151'
-  - name: query 10
+        error: 'SyntaxError: Unexpected token { in JSON at position 327'
+  - name: query 11
     sentences:
       - stage: mongodb
         sentence:
@@ -2762,10 +3517,10 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "orderId":"$OrderID", "subTotal":{
-            "$sum" :{ "$multiply" :[{ "$multiply" :[{ "$multiply"
-            :["UnitPrice","Quantity"] },{ "$subtract" :[1,{ "$divide"
-            :["Discount",100] }] }] },100] } } }} , { "$group" :{ "OrderID" }},
+            [{ "$group" :{ "OrderID" }}, { "$project" :{ "_id": 0 ,
+            "orderId":"$OrderID", "subTotal":{ "$sum" :{ "$multiply" :[{
+            "$multiply" :[{ "$multiply" :["UnitPrice","Quantity"] },{
+            "$subtract" :[1,{ "$divide" :["Discount",100] }] }] },100] } } }} ,
             { "$sort" :{ "OrderID":1 } }]
           childs: []
     errors: 1
@@ -2805,6 +3560,7 @@ test:
                       type: integer
                       entity: OrderDetails
                       alias: o
+                      isRoot: true
                   type: any
                 - name: subTotal
                   classtype: KeyValue
@@ -2827,12 +3583,14 @@ test:
                                       type: decimal
                                       entity: OrderDetails
                                       alias: o
+                                      isRoot: true
                                     - name: quantity
                                       classtype: Field
                                       children: []
                                       type: decimal
                                       entity: OrderDetails
                                       alias: o
+                                      isRoot: true
                                   type: any
                                 - name: '-'
                                   classtype: Operator
@@ -2850,6 +3608,7 @@ test:
                                           type: decimal
                                           entity: OrderDetails
                                           alias: o
+                                          isRoot: true
                                         - name: 100
                                           classtype: Constant2
                                           children: []
@@ -2875,6 +3634,7 @@ test:
               type: integer
               entity: OrderDetails
               alias: o
+              isRoot: true
           type: any
         - name: sort
           classtype: Sort
@@ -2888,6 +3648,7 @@ test:
                   type: integer
                   entity: OrderDetails
                   alias: o
+                  isRoot: true
               type: any
           type: any
       type: any
@@ -2901,8 +3662,8 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token } in JSON at position 239'
-  - name: query 11
+        error: 'SyntaxError: Unexpected token } in JSON at position 25'
+  - name: query 12
     sentences:
       - stage: mongodb
         sentence:
@@ -2969,6 +3730,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -2979,6 +3741,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -2989,6 +3752,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -2999,6 +3763,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -3009,6 +3774,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -3019,6 +3785,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -3029,6 +3796,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -3039,6 +3807,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -3049,6 +3818,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -3059,6 +3829,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -3087,6 +3858,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: name
                           classtype: KeyValue
@@ -3097,6 +3869,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: supplierId
                           classtype: KeyValue
@@ -3107,6 +3880,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: categoryId
                           classtype: KeyValue
@@ -3117,6 +3891,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: quantity
                           classtype: KeyValue
@@ -3127,6 +3902,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: price
                           classtype: KeyValue
@@ -3137,6 +3913,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: inStock
                           classtype: KeyValue
@@ -3147,6 +3924,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: onOrder
                           classtype: KeyValue
@@ -3157,6 +3935,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: reorderLevel
                           classtype: KeyValue
@@ -3167,6 +3946,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: discontinued
                           classtype: KeyValue
@@ -3177,6 +3957,7 @@ test:
                               type: boolean
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                       type: object
                   type: any
@@ -3252,7 +4033,7 @@ test:
         onOrder: null
         reorderLevel: 10
         discontinued: null
-  - name: query 12
+  - name: query 13
     sentences:
       - stage: mongodb
         sentence:
@@ -3319,6 +4100,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -3329,6 +4111,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -3339,6 +4122,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -3349,6 +4133,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -3359,6 +4144,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -3369,6 +4155,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -3379,6 +4166,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -3389,6 +4177,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -3399,6 +4188,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -3409,6 +4199,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -3424,242 +4215,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: ''
-              classtype: Sentence
-              children:
-                - name: Products.p1
-                  classtype: From
-                  children: []
-                  type: any
-              type: any
-              columns: []
-              parameters: []
-              entity: Products
-              constraints: []
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-          type: any
-      type: any
-      columns:
-        - name: id
-          type: integer
-        - name: name
-          type: string
-        - name: supplierId
-          type: integer
-        - name: categoryId
-          type: integer
-        - name: quantity
-          type: string
-        - name: price
-          type: decimal
-        - name: inStock
-          type: decimal
-        - name: onOrder
-          type: decimal
-        - name: reorderLevel
-          type: decimal
-        - name: discontinued
-          type: boolean
-      parameters: []
-      entity: Products
-      constraints: []
-    executions:
-      - stage: mongodb
-    result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: null
-        reorderLevel: 10
-        discontinued: null
-  - name: query 13
-    sentences:
-      - stage: mongodb
-        sentence:
-          entity: Products
-          dialect: mongodb
-          dataSource: mongodb
-          sentence: >-
-            [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
-            "supplierId":"$SupplierID", "categoryId":"$CategoryID",
-            "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
-            "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
-            "reorderLevel":"$ReorderLevel", "discontinued":"$Discontinued" }} ,
-            { "$sort" :{ "_id":-1 } } , { "$skip" : 0 }, { "$limit" : 1 } ]
-          childs: []
-    errors: 0
-    expression: Products.last(p=>p)
-    normalizeExpression: >-
-      Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
-    model:
-      - name: id
-        type: integer
-      - name: name
-        type: string
-      - name: supplierId
-        type: integer
-      - name: categoryId
-        type: integer
-      - name: quantity
-        type: string
-      - name: price
-        type: decimal
-      - name: inStock
-        type: decimal
-      - name: onOrder
-        type: decimal
-      - name: reorderLevel
-        type: decimal
-      - name: discontinued
-        type: boolean
-    parameters: []
-    constraints:
-      entity: Products
-      constraints: []
-    metadata:
-      name: select
-      classtype: Sentence
-      children:
-        - name: Products.p
-          classtype: From
-          children: []
-          type: any
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: desc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
+                  isRoot: true
               type: any
           type: any
         - name: page
@@ -3736,6 +4292,253 @@ test:
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
             "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
             "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
+            "reorderLevel":"$ReorderLevel", "discontinued":"$Discontinued" }} ,
+            { "$sort" :{ "_id":-1 } } , { "$skip" : 0 }, { "$limit" : 1 } ]
+          childs: []
+    errors: 0
+    expression: Products.last(p=>p)
+    normalizeExpression: >-
+      Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+    model:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products.p
+          classtype: From
+          children: []
+          type: any
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: id
+                  classtype: KeyValue
+                  children:
+                    - name: id
+                      classtype: Field
+                      children: []
+                      type: integer
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: name
+                  classtype: KeyValue
+                  children:
+                    - name: name
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: supplierId
+                  classtype: KeyValue
+                  children:
+                    - name: supplierId
+                      classtype: Field
+                      children: []
+                      type: integer
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: categoryId
+                  classtype: KeyValue
+                  children:
+                    - name: categoryId
+                      classtype: Field
+                      children: []
+                      type: integer
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: quantity
+                  classtype: KeyValue
+                  children:
+                    - name: quantity
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: price
+                  classtype: KeyValue
+                  children:
+                    - name: price
+                      classtype: Field
+                      children: []
+                      type: decimal
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: inStock
+                  classtype: KeyValue
+                  children:
+                    - name: inStock
+                      classtype: Field
+                      children: []
+                      type: decimal
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: onOrder
+                  classtype: KeyValue
+                  children:
+                    - name: onOrder
+                      classtype: Field
+                      children: []
+                      type: decimal
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: reorderLevel
+                  classtype: KeyValue
+                  children:
+                    - name: reorderLevel
+                      classtype: Field
+                      children: []
+                      type: decimal
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: discontinued
+                  classtype: KeyValue
+                  children:
+                    - name: discontinued
+                      classtype: Field
+                      children: []
+                      type: boolean
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+              type: object
+          type: any
+        - name: sort
+          classtype: Sort
+          children:
+            - name: desc
+              classtype: FunctionRef
+              children:
+                - name: id
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Products
+                  alias: p
+                  isRoot: true
+              type: any
+          type: any
+        - name: page
+          classtype: Page
+          children:
+            - name: ''
+              classtype: Sentence
+              children:
+                - name: Products.p1
+                  classtype: From
+                  children: []
+                  type: any
+              type: any
+              columns: []
+              parameters: []
+              entity: Products
+              constraints: []
+            - name: '1'
+              classtype: Constant2
+              children: []
+              type: string
+            - name: '1'
+              classtype: Constant2
+              children: []
+              type: string
+          type: any
+      type: any
+      columns:
+        - name: id
+          type: integer
+        - name: name
+          type: string
+        - name: supplierId
+          type: integer
+        - name: categoryId
+          type: integer
+        - name: quantity
+          type: string
+        - name: price
+          type: decimal
+        - name: inStock
+          type: decimal
+        - name: onOrder
+          type: decimal
+        - name: reorderLevel
+          type: decimal
+        - name: discontinued
+          type: boolean
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: mongodb
+    result:
+      - id: 1
+        name: Chai
+        supplierId: 1
+        categoryId: 1
+        quantity: 10 boxes x 20 bags
+        price: 18
+        inStock: 39
+        onOrder: null
+        reorderLevel: 10
+        discontinued: null
+  - name: query 15
+    sentences:
+      - stage: mongodb
+        sentence:
+          entity: Products
+          dialect: mongodb
+          dataSource: mongodb
+          sentence: >-
+            [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
+            "supplierId":"$SupplierID", "categoryId":"$CategoryID",
+            "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
+            "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
             "reorderLevel":"$ReorderLevel", "discontinued":"$Discontinued" }}  ,
             { "$skip" : 0 }, { "$limit" : 1 } ]
           childs: []
@@ -3791,6 +4594,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -3801,6 +4605,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -3811,6 +4616,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -3821,6 +4627,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -3831,6 +4638,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -3841,6 +4649,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -3851,6 +4660,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -3861,6 +4671,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -3871,6 +4682,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -3881,6 +4693,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -3938,7 +4751,7 @@ test:
         onOrder: null
         reorderLevel: 10
         discontinued: null
-  - name: query 15
+  - name: query 16
     sentences:
       - stage: mongodb
         sentence:
@@ -4005,6 +4818,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -4015,6 +4829,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -4025,6 +4840,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -4035,6 +4851,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -4045,6 +4862,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -4055,6 +4873,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -4065,6 +4884,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -4075,6 +4895,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -4085,6 +4906,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -4095,6 +4917,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -4123,6 +4946,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: name
                           classtype: KeyValue
@@ -4133,6 +4957,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: supplierId
                           classtype: KeyValue
@@ -4143,6 +4968,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: categoryId
                           classtype: KeyValue
@@ -4153,6 +4979,7 @@ test:
                               type: integer
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: quantity
                           classtype: KeyValue
@@ -4163,6 +4990,7 @@ test:
                               type: string
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: price
                           classtype: KeyValue
@@ -4173,6 +5001,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: inStock
                           classtype: KeyValue
@@ -4183,6 +5012,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: onOrder
                           classtype: KeyValue
@@ -4193,6 +5023,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: reorderLevel
                           classtype: KeyValue
@@ -4203,6 +5034,7 @@ test:
                               type: decimal
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                         - name: discontinued
                           classtype: KeyValue
@@ -4213,6 +5045,7 @@ test:
                               type: boolean
                               entity: Products
                               alias: p1
+                              isRoot: true
                           type: any
                       type: object
                   type: any
@@ -4288,7 +5121,7 @@ test:
         onOrder: null
         reorderLevel: 10
         discontinued: null
-  - name: query 16
+  - name: query 17
     sentences:
       - stage: mongodb
         sentence:
@@ -4296,13 +5129,14 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "category":"$CategoryName",
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
+            "category":{ "$arrayElemAt": ["$c.CategoryName", 0] },
             "name":"$ProductName", "quantity":"$QuantityPerUnit",
-            "inStock":"$UnitsInStock" }} , , { "$lookup" :{ from: Categories,
-            localField: c._id, foreignField:p.CategoryID, as: c }}, { "$sort" :{
-            "_id":1 } } , { "$skip" : 0 }, { "$limit" : 1 } ]
+            "inStock":"$UnitsInStock" }} , { "$sort" :{ "_id":1 } } , { "$skip"
+            : 0 }, { "$limit" : 1 } ]
           childs: []
-    errors: 1
+    errors: 0
     expression: >-
       Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
     normalizeExpression: >-
@@ -4343,6 +5177,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -4353,6 +5188,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -4363,6 +5199,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -4373,6 +5210,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -4388,6 +5226,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
         - name: page
@@ -4449,8 +5288,12 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 141'
-  - name: query 17
+    result:
+      - category: Beverages
+        name: Chai
+        quantity: 10 boxes x 20 bags
+        inStock: 39
+  - name: query 18
     sentences:
       - stage: mongodb
         sentence:
@@ -4458,13 +5301,13 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
+            [{ "$match" : { "Discontinued": { "$ne": false } } }, { "$project"
+            :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
             "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
             "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
             "reorderLevel":"$ReorderLevel", "discontinued":"$Discontinued" }} ,
-            { "$match" : { "Discontinued": { "$ne": false } } }, { "$sort" :{
-            "_id":-1 } } , { "$skip" : 0 }, { "$limit" : 1 } ]
+            { "$sort" :{ "_id":-1 } } , { "$skip" : 0 }, { "$limit" : 1 } ]
           childs: []
     errors: 0
     expression: Products.filter(p=>(p.discontinued!==false)).last(p=>p)
@@ -4511,6 +5354,7 @@ test:
                   type: boolean
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: false
                   classtype: Constant2
                   children: []
@@ -4536,6 +5380,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: name
                   classtype: KeyValue
@@ -4546,6 +5391,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: supplierId
                   classtype: KeyValue
@@ -4556,6 +5402,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: categoryId
                   classtype: KeyValue
@@ -4566,6 +5413,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: quantity
                   classtype: KeyValue
@@ -4576,6 +5424,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: price
                   classtype: KeyValue
@@ -4586,6 +5435,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: inStock
                   classtype: KeyValue
@@ -4596,6 +5446,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: onOrder
                   classtype: KeyValue
@@ -4606,6 +5457,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: reorderLevel
                   classtype: KeyValue
@@ -4616,6 +5468,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: discontinued
                   classtype: KeyValue
@@ -4626,6 +5479,7 @@ test:
                       type: boolean
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
               type: object
           type: any
@@ -4641,6 +5495,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
         - name: page
@@ -4661,6 +5516,7 @@ test:
                           type: boolean
                           entity: Products
                           alias: p1
+                          isRoot: true
                         - name: false
                           classtype: Constant2
                           children: []
@@ -4723,7 +5579,7 @@ test:
         onOrder: null
         reorderLevel: 10
         discontinued: null
-  - name: query 18
+  - name: query 19
     sentences:
       - stage: mongodb
         sentence:
@@ -4793,6 +5649,7 @@ test:
                           type: integer
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: name
                       classtype: KeyValue
@@ -4803,6 +5660,7 @@ test:
                           type: string
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: supplierId
                       classtype: KeyValue
@@ -4813,6 +5671,7 @@ test:
                           type: integer
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: categoryId
                       classtype: KeyValue
@@ -4823,6 +5682,7 @@ test:
                           type: integer
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: quantity
                       classtype: KeyValue
@@ -4833,6 +5693,7 @@ test:
                           type: string
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: price
                       classtype: KeyValue
@@ -4843,6 +5704,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: inStock
                       classtype: KeyValue
@@ -4853,6 +5715,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: onOrder
                       classtype: KeyValue
@@ -4863,6 +5726,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: reorderLevel
                       classtype: KeyValue
@@ -4873,6 +5737,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: discontinued
                       classtype: KeyValue
@@ -4883,6 +5748,7 @@ test:
                           type: boolean
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: object
               type: any
@@ -5395,16 +6261,6 @@ test:
           onOrder: null
           reorderLevel: null
           discontinued: true
-        - id: 38
-          name: Cte de Blaye
-          supplierId: 18
-          categoryId: 1
-          quantity: 12 - 75 cl bottles
-          price: 263.5
-          inStock: 17
-          onOrder: null
-          reorderLevel: 15
-          discontinued: null
         - id: 26
           name: Gumbr Gummibrchen
           supplierId: 11
@@ -5415,15 +6271,15 @@ test:
           onOrder: null
           reorderLevel: null
           discontinued: null
-        - id: 7
-          name: Uncle Bob's Organic Dried Pears
-          supplierId: 3
-          categoryId: 7
-          quantity: 12 - 1 lb pkgs.
-          price: 30
-          inStock: 15
+        - id: 38
+          name: Cte de Blaye
+          supplierId: 18
+          categoryId: 1
+          quantity: 12 - 75 cl bottles
+          price: 263.5
+          inStock: 17
           onOrder: null
-          reorderLevel: 10
+          reorderLevel: 15
           discontinued: null
         - id: 43
           name: Ipoh Coffee
@@ -5434,6 +6290,16 @@ test:
           inStock: 17
           onOrder: 10
           reorderLevel: 25
+          discontinued: null
+        - id: 7
+          name: Uncle Bob's Organic Dried Pears
+          supplierId: 3
+          categoryId: 7
+          quantity: 12 - 1 lb pkgs.
+          price: 30
+          inStock: 15
+          onOrder: null
+          reorderLevel: 10
           discontinued: null
         - id: 65
           name: Louisiana Fiery Hot Pepper Sauce
@@ -5685,7 +6551,7 @@ test:
           onOrder: 50
           reorderLevel: 25
           discontinued: null
-  - name: query 19
+  - name: query 20
     sentences:
       - stage: mongodb
         sentence:
@@ -5732,6 +6598,7 @@ test:
                           type: integer
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: object
               type: any
@@ -5746,15 +6613,15 @@ test:
     executions:
       - stage: mongodb
     result:
-      - - categoryId: 6
-        - categoryId: 4
-        - categoryId: 1
-        - categoryId: 3
-        - categoryId: 2
-        - categoryId: 5
+      - - categoryId: 5
         - categoryId: 7
         - categoryId: 8
-  - name: query 20
+        - categoryId: 6
+        - categoryId: 4
+        - categoryId: 1
+        - categoryId: 2
+        - categoryId: 3
+  - name: query 21
     data: a
     sentences:
       - stage: mongodb
@@ -5763,11 +6630,12 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$group" :{ "_id" : null , "__distinct":{ "$addToSet": {
-            "category_name":"$CategoryName" }}}}, , { "$lookup" :{ from:
-            Categories, localField: c._id, foreignField:p.CategoryID, as: c }}]
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$group" :{ "_id" : null ,
+            "__distinct":{ "$addToSet": { "category_name":{ "$arrayElemAt":
+            ["$c.CategoryName", 0] } }}}}]
           childs: []
-    errors: 1
+    errors: 0
     expression: Products.distinct(p=>p.category.name)
     normalizeExpression: Products.map(p=>distinct({category_name:p.category.name}))
     model:
@@ -5803,6 +6671,7 @@ test:
                           type: string
                           entity: Categories
                           alias: c
+                          isRoot: false
                       type: any
                   type: object
               type: any
@@ -5836,8 +6705,16 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 98'
-  - name: query 21
+    result:
+      - - category_name: Condiments
+        - category_name: Seafood
+        - category_name: Meat/Poultry
+        - category_name: Produce
+        - category_name: Grains/Cereals
+        - category_name: Dairy Products
+        - category_name: Beverages
+        - category_name: Confections
+  - name: query 22
     data: a
     sentences:
       - stage: mongodb
@@ -5846,11 +6723,11 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$group" :{ "_id" : null , "__distinct":{ "$addToSet": {
-            "quantity":"$QuantityPerUnit", "category":"$CategoryName" }}}}, , {
-            "$lookup" :{ from: Categories, localField: c._id,
-            foreignField:p.CategoryID, as: c }}, { "$sort" :{ "category": 1:1 }
-            }]
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$group" :{ "_id" : null ,
+            "__distinct":{ "$addToSet": { "quantity":"$QuantityPerUnit",
+            "category":{ "$arrayElemAt": ["$c.CategoryName", 0] } }}}}, {
+            "$sort" :{ "category": 1:1 } }]
           childs: []
     errors: 1
     expression: >-
@@ -5892,6 +6769,7 @@ test:
                           type: string
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                     - name: category
                       classtype: KeyValue
@@ -5902,6 +6780,7 @@ test:
                           type: string
                           entity: Categories
                           alias: c
+                          isRoot: false
                       type: any
                   type: object
               type: any
@@ -5918,6 +6797,7 @@ test:
                   type: string
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
         - name: Categories.c
@@ -5951,8 +6831,8 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 124'
-  - name: query 22
+        error: 'SyntaxError: Unexpected token : in JSON at position 280'
+  - name: query 23
     data: a
     sentences:
       - stage: mongodb
@@ -5961,10 +6841,10 @@ test:
           dialect: mongodb
           dataSource: mongodb
           sentence: >-
-            [{ "$group" :{ "_id" : null , "__distinct":{ "$addToSet": {
-            "category":"$CategoryName" }}}}, , { "$lookup" :{ from: Categories,
-            localField: c._id, foreignField:p.CategoryID, as: c }}, { "$sort" :{
-            "category": 1:1 } }]
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$group" :{ "_id" : null ,
+            "__distinct":{ "$addToSet": { "category":{ "$arrayElemAt":
+            ["$c.CategoryName", 0] } }}}}, { "$sort" :{ "category": 1:1 } }]
           childs: []
     errors: 1
     expression: Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)
@@ -6003,6 +6883,7 @@ test:
                           type: string
                           entity: Categories
                           alias: c
+                          isRoot: false
                       type: any
                   type: object
               type: any
@@ -6019,6 +6900,7 @@ test:
                   type: string
                   entity: Products
                   alias: p
+                  isRoot: true
               type: any
           type: any
         - name: Categories.c
@@ -6050,5 +6932,5 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token , in JSON at position 93'
-errors: 9
+        error: 'SyntaxError: Unexpected token : in JSON at position 249'
+errors: 5
