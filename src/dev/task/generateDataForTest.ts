@@ -144,9 +144,10 @@ async function writeQueryTest(stages: string[]): Promise<number> {
 			{ name: 'query 16', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
 			{ name: 'query 17', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p) },
 			{ name: 'query 18', lambda: () => Products.distinct(p => p) },
-			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 19', lambda: () => Products.distinct(p => p.categoryId) },
+			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
+			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 22', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
 		]
 	})
 }
@@ -997,15 +998,15 @@ export async function apply(stages: string[], callback: any) {
 	let errors = 0
 	try {
 		await orm.init()
-		await orm.stage.sync('source').execute()
-		await stageExport('source')
-		for (const p in stages) {
-			const stage = stages[p]
-			await orm.stage.clean(stage).execute(true)
-			await orm.stage.sync(stage).execute()
-			await stageImport('source', stage)
-			await stageExport(stage)
-		}
+		// await orm.stage.sync('source').execute()
+		// await stageExport('source')
+		// for (const p in stages) {
+		// 	const stage = stages[p]
+		// 	await orm.stage.clean(stage).execute(true)
+		// 	await orm.stage.sync(stage).execute()
+		// 	await stageImport('source', stage)
+		// 	await stageExport(stage)
+		// }
 
 		errors = errors + await writeQueryTest(stages)
 		// errors = errors + await writeNumeriFunctionsTest(stages)
@@ -1036,7 +1037,7 @@ export async function apply(stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['mongodb', 'mysql', 'postgres', 'mariadb'], function () {
+apply(['mongodb'], function () {
 	console.log('end')
 })
 // apply(['mysql', 'postgres', 'mariadb', 'mssql','oracle','mongodb'], function () { console.log('end') })

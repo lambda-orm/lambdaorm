@@ -6,11 +6,12 @@
       "dml": {
         "rootMap": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
         "map": "{0}",
+        "rootFilter": "{ \"$match\" : {0} }",
         "filter": "{0}",
         "groupBy": "{ \"$group\" :{ {0} }}",
         "having": "{ \"$match\" :{ {0} }}",
         "sort": "{ \"$sort\" :{ {0} } }",
-        "page": "{ \"$skip\" : {offset}, \"$limit\" : {records} }",
+        "page": " {sentence} , { \"$skip\" : {offset} }, { \"$limit\" : {records} }",
         "insert": "{ {assings} }",
         "update": "{assings}",
         "join": "{ \"$lookup\" :{ from: {name}, localField: {fromProperty}, foreignField:{toProperty}, as: {alias} }}",
@@ -44,8 +45,8 @@
           "^": "{ \"$bit\" :{{0}:{xor:{1}}} }",
           "==": "{ {0}:{1} }",
           "===": "{ {0}:{1} }",
-          "!=": "{ \"$ne\" :[{0},{1}] }",
-          "!==": "{ \"$ne\" :[{0},{1}] }",
+          "!=": "{ {0}: { \"$ne\": {1} } }",
+          "!==": "{ {0}: { \"$ne\": {1} } }",
           ">": "{ \"$gt\" :[{0},{1}] }",
           "<": "{ \"$lt\" :[{0},{1}] }",
           ">=": "{ \"$gte\" :[{0},{1}] }",
@@ -64,7 +65,8 @@
           "desc": "{0}:-1",
           "asc": "{0}:1",
           "between": "{ {0}:{ \"$gte\" :{1}, $lt:{2}} }",
-          "includes": "{ {0}:{ \"$in\" :[{1}]} }"
+          "includes": "{ {0}:{ \"$in\" :[{1}]} }",
+          "distinct": "{ \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { {0} }}}}"
         },
         "numeric": {
           "abs": "{ \"$abs\" :{0} }",
@@ -155,11 +157,12 @@
     "dml": {
       "rootMap": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
       "map": "{0}",
+      "rootFilter": "{ \"$match\" : {0} }",
       "filter": "{0}",
       "groupBy": "{ \"$group\" :{ {0} }}",
       "having": "{ \"$match\" :{ {0} }}",
       "sort": "{ \"$sort\" :{ {0} } }",
-      "page": "{ \"$skip\" : {offset}, \"$limit\" : {records} }",
+      "page": " {sentence} , { \"$skip\" : {offset} }, { \"$limit\" : {records} }",
       "insert": "{ {assings} }",
       "update": "{assings}",
       "join": "{ \"$lookup\" :{ from: {name}, localField: {fromProperty}, foreignField:{toProperty}, as: {alias} }}",
@@ -193,8 +196,8 @@
         "^": "{ \"$bit\" :{{0}:{xor:{1}}} }",
         "==": "{ {0}:{1} }",
         "===": "{ {0}:{1} }",
-        "!=": "{ \"$ne\" :[{0},{1}] }",
-        "!==": "{ \"$ne\" :[{0},{1}] }",
+        "!=": "{ {0}: { \"$ne\": {1} } }",
+        "!==": "{ {0}: { \"$ne\": {1} } }",
         ">": "{ \"$gt\" :[{0},{1}] }",
         "<": "{ \"$lt\" :[{0},{1}] }",
         ">=": "{ \"$gte\" :[{0},{1}] }",
@@ -213,7 +216,8 @@
         "desc": "{0}:-1",
         "asc": "{0}:1",
         "between": "{ {0}:{ \"$gte\" :{1}, $lt:{2}} }",
-        "includes": "{ {0}:{ \"$in\" :[{1}]} }"
+        "includes": "{ {0}:{ \"$in\" :[{1}]} }",
+        "distinct": "{ \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { {0} }}}}"
       },
       "numeric": {
         "abs": "{ \"$abs\" :{0} }",

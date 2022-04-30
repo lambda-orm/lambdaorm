@@ -1,5 +1,5 @@
 
-import { Operand, KeyValue } from 'js-expressions'
+import { Operand, KeyValue, Operator, FunctionRef } from 'js-expressions'
 import { Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SintaxisError, SchemaError, EntityMapping } from '../../model'
 import { DmlBuilder } from '../dmlBuilder'
 import { Helper } from '../../manager'
@@ -41,14 +41,27 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
 		let text = this.getMap(sentence)
-		if (joins.length > 0) text = `${text}, ${this.buildJoins(joins)}`
-		if (filter) text = `${text}, ${this.buildArrowFunction(filter)}`
-		if (groupBy) text = `${text}, ${this.buildArrowFunction(groupBy)}`
-		if (having) text = `${text}, ${this.buildArrowFunction(having)}`
-		if (sort) text = `${text}, ${this.buildArrowFunction(sort)}`
-		if (page) text = `${text}, ${this.buildArrowFunction(page)}`
+		if (joins.length > 0) {
+			text = `${text}, ${this.buildJoins(joins)}`
+		}
+		if (filter) {
+			text = `${text}, ${this.buildFilter(filter)}`
+		}
+		if (groupBy) {
+			text = `${text}, ${this.buildArrowFunction(groupBy)}`
+		}
+		if (having) {
+			text = `${text}, ${this.buildArrowFunction(having)}`
+		}
+		if (sort) {
+			text = `${text}, ${this.buildArrowFunction(sort)}`
+		}
+		if (page) {
+			text = this.buildPage(text, page)
+		}
 		return `[${text}]`
 	}
+
 	protected override buildUpdateSentence(sentence: Sentence): string {
 		const entity = this.mapping.getEntity(sentence.entity)
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
@@ -79,42 +92,46 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return JSON.stringify(data)
 	}
-	private getMap(sentence: Sentence): any {
+	protected getMap(sentence: Sentence): any {
+
 		const mapOperator = sentence.children.find(p => p.name === 'map') as Map | undefined
 		if (mapOperator === undefined) {
 			throw new SchemaError(`map operator not found`)
 		}
+
 		this.setPrefixToField(mapOperator, '$')
 		let map = this.buildArrowFunction(mapOperator)
 		let composite = this.getComposite(sentence)
 		if (composite) {
 			map = `${map} ,${composite}`
 		}
-		// const includes = sentence.getCompositeIncludes()
-		// if (includes.length > 0) {
-		// const compositeTemplate = this.dialect.dml('composite')
-		// for (const p in includes) {
-		// const include = includes[p]
-		// const relationEntity = this.mapping.getEntity(include.relation.entity)
-		// if (relationEntity === undefined) {
-		// throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
-		// }
-		// const relationProperty = this.dialect.delimiter(relationEntity.mapping)
-		// let relationMap = this.getChildrenMap(include.children[0] as Sentence)
-		// // In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-		// relationMap = Helper.replace(relationMap, '"$this.', '"$$this.')
-		// let text = compositeTemplate.replace('{name}', include.relation.name)
-		// text = text.replace('{input}', relationProperty)
-		// text = text.replace('{in}', relationMap)
-		// map = `${map} ,${text}`
-		// }
-		// }
-		const rootMapTemplate = this.dialect.dml('rootMap')
-		const result = rootMapTemplate.replace('{0}', map)
-		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-		return Helper.replace(result, '"$this.', '"$$this.')
+		if (mapOperator.children[0] instanceof FunctionRef && mapOperator.children[0].name === 'distinct') {
+			//https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/
+			return map
+		} else {
+			const template = this.dialect.dml('rootMap')
+			const result = template.replace('{0}', map)
+			// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
+			return Helper.replace(result, '"$this.', '"$$this.')
+			// Example:
+			// {
+			// 	$project: {
+			// 		_id: 0,
+			// 		id: '$CustomerID',
+			// 		details: {
+			// 			$map: {
+			// 				input: '$"Order Details"',
+			// 				in: {
+			// 					price: "$$this.UnitPrice",
+			// 					qty: "$$this.Quantity"
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// }
+		}
 	}
-	private getComposite(sentence: Sentence): string | undefined {
+	protected getComposite(sentence: Sentence): string | undefined {
 		const includes = sentence.getCompositeIncludes()
 		if (includes.length > 0) {
 			let text: string = ''
@@ -140,7 +157,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			return undefined
 		}
 	}
-	private getChildrenMap(sentence: Sentence): any {
+	protected getChildrenMap(sentence: Sentence): any {
 		//https://stackoverflow.com/questions/61173117/mongodb-get-index-of-current-element-in-array
 		const mapOperator = sentence.children.find(p => p.name === 'map') as Map | undefined
 		if (mapOperator === undefined) {
@@ -154,21 +171,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return map
 	}
-	// {
-	// 	$project: {
-	// 		_id: 0,
-	// 		id: '$CustomerID',
-	// 		details: {
-	// 			$map: {
-	// 				input: '$"Order Details"',
-	// 				in: {
-	// 					price: "$$this.UnitPrice",
-	// 					qty: "$$this.Quantity"
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
+
 
 	protected override buildJoins(joins: Operand[]): string {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
@@ -193,7 +196,13 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return text
 	}
-	private getFieldName(operand: Field): string {
+	protected buildFilter(operand: Filter): string {
+		//TODO: falta resolver si los campos a filtrar corresponden a un include composite.
+		this.setPrefixToField(operand, '$')
+		const template = this.dialect.dml('rootFilter')
+		return template.replace('{0}', this.buildArrowFunction(operand))
+	}
+	protected getFieldName(operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
 			if (operand.alias === undefined) {
@@ -205,7 +214,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			return this.dialect.delimiter(operand.name)
 		}
 	}
-
 	protected override buildInsert(operand: Insert, entity: EntityMapping): string {
 		const assings: string[] = []
 		const template = this.dialect.dml('insert')
@@ -232,7 +240,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return template.replace('{assings}', assings.join(','))
 	}
-
 	protected override buildUpdate(operand: Update, entity: EntityMapping): string {
 		const template = this.dialect.dml('update')
 		const templateAssing = this.dialect.operator('=', 2)
@@ -261,7 +268,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return template.replace('{assings}', assings.join(','))
 	}
-
 	protected override buildField(operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
@@ -278,13 +284,21 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name))
 		}
 	}
-	private setPrefixToField(operand: Operand, prefix: string) {
+	protected setPrefixToField(operand: Operand, prefix: string) {
 		if (operand instanceof Field) {
 			operand.prefix = prefix
 		}
 		if (operand.children) {
 			for (const p in operand.children) {
-				this.setPrefixToField(operand.children[p], prefix)
+				const child = operand.children[p]
+				if (child instanceof Operator && child.children.length === 2) {
+					// solo debe agregar $ si el field esta del lado del value   {key:value}
+					// pero en este caso { "$match" : { "$_id":{{id}} } }  no deberia agregarlo al key = _id"
+					const valueOperand = child.children[1]
+					this.setPrefixToField(valueOperand, prefix)
+				} else {
+					this.setPrefixToField(child, prefix)
+				}
 			}
 		}
 	}

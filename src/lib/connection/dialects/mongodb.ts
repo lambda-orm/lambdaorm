@@ -52,7 +52,12 @@ export class MongodbConnection extends Connection {
 		const result = this.session
 			? await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
 			: await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
-		return result
+
+		if (result && result.length > 0 && result[0]['__distinct']) {
+			return result.map((p: any) => p.__distinct)
+		} else {
+			return result
+		}
 	}
 
 	public async insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
