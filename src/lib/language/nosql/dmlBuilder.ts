@@ -182,6 +182,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
+			this.setPrefixToField(join, '$')
 			const parts = join.name.split('.')
 			const entity = this.mapping.getEntity(parts[0])
 			if (entity === undefined) {
@@ -290,7 +291,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			text = text.replace('{name}', property.mapping)
 			return text
 		} else {
-			return this.dialect.other('column').replace('{name}', operand.name)
+			return this.dialect.delimiter(operand.name, true)
+			//return this.dialect.other('column').replace('{name}', operand.name)
 		}
 	}
 	protected setPrefixToField(operand: Operand, prefix: string) {
@@ -300,9 +302,9 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (operand.children) {
 			for (const p in operand.children) {
 				const child = operand.children[p]
-				if (child instanceof Operator && child.children.length === 2) {
+				if (child instanceof Operator && (child.name === '=' || child.name === '==' || child.name === '===' || child.name === '!=' || child.name === '!==')) {
 					// solo debe agregar $ si el field esta del lado del value   {key:value}
-					// pero en este caso { "$match" : { "$_id":{{id}} } }  no deberia agregarlo al key = _id"
+					// pero en este caso { "$match" : { "$_id":{{id}} } }  no debería agregarlo al key = _id"
 					const valueOperand = child.children[1]
 					this.setPrefixToField(valueOperand, prefix)
 				} else {
