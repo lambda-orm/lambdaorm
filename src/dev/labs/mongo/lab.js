@@ -37,17 +37,17 @@ const MongoClient = require('mongodb').MongoClient;
 					"as": "c"
 				}
 			},
-			// {
-			// 	"$match": {
-			// 		// TODO: se debe corregir los operadores, no funciona "$gt": ["$UnitPrice", 10]
-			// 		"UnitPrice": { "$gt": 10 }
-			// 	}
-			// },
-			// {
-			// 	"$match": {
-			// 		"o1.EmployeeID": 5
-			// 	}
-			// },
+			{
+				"$match": {
+					// TODO: se debe corregir los operadores, no funciona "$gt": ["$UnitPrice", 10]
+					"UnitPrice": { "$gt": 10 }
+				}
+			},
+			{
+				"$match": {
+					"o1.EmployeeID": 5
+				}
+			},
 			// {
 			// 	"$match": {
 			// 		"$and": [{
@@ -82,12 +82,12 @@ const MongoClient = require('mongodb').MongoClient;
 					"quantity": "$Quantity"
 				}
 			}
-			// , {
-			// 	"$sort": {
-			// 		"category": 1,
-			// 		"product": 1
-			// 	}
-			// }
+			, {
+				"$sort": {
+					"category": 1,
+					"product": 1
+				}
+			}
 		]
 	).toArray()
 	// '[{"$lookup":{"from":"Orders","localField":"OrderID","foreignField":"_id","as":"o1"}},{"$lookup":{"from":"Products","localField":"ProductID","foreignField":"_id","as":"p"}},{"$lookup":{"from":"Categories","localField":"CategoryID","foreignField":"_id","as":"c"}},{"$match":{"$and":[{"$and":[{"$gte":[{"$arrayElemAt":["$o1.ShippedDate",0]},"1997-01-01 01:00:00"]},{"$lt":[{"$arrayElemAt":["$o1.ShippedDate",0]},"1997-12-31 01:00:00"]}]},{"$gt":["$UnitPrice",10]}]}},{"$project":{"_id":0,"category":{"$arrayElemAt":["$c.CategoryName",0]},"product":{"$arrayElemAt":["$p.ProductName",0]},"unitPrice":"$UnitPrice","quantity":"$Quantity"}},{"$sort":{"category":1,"product":1}}]'
