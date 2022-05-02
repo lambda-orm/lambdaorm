@@ -71,7 +71,7 @@ export class StageImport extends StageActionDML {
 					throw new SchemaError(`Relation Entity ${relation.entity} not found`)
 				}
 				const reslationProperty = relationEntity.properties.find(p => p.name === relation.to)
-				if (reslationProperty !== undefined && reslationProperty.autoincrement) {
+				if (reslationProperty !== undefined && reslationProperty.autoIncrement) {
 					const pendingsRows:any[] = []
 					for (let i = 0; i < rows.length; i++) {
 						const row = rows[i]
@@ -124,7 +124,7 @@ export class StageImport extends StageActionDML {
 		}
 		for (const p in entity.properties) {
 			const property = entity.properties[p]
-			if (property.autoincrement) {
+			if (property.autoIncrement) {
 				if (aux[entityName][property.name] === undefined) {
 					aux[entityName][property.name] = {}
 				}
@@ -158,7 +158,7 @@ export class StageImport extends StageActionDML {
 		}
 		for (const p in entity.properties) {
 			const property = entity.properties[p]
-			if (property.autoincrement) {
+			if (property.autoIncrement) {
 				if (mappingData[entityName][property.name] === undefined) {
 					mappingData[entityName][property.name] = {}
 				}

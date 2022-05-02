@@ -15,7 +15,7 @@ export class QueryExecutor {
 	private schemaManager: SchemaManager
 	private expressions: Expressions
 
-	constructor(connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, stage: string, view: string | undefined, transactionable = false) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, stage: string, view: string | undefined, transactionable = false) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.stage = stage
@@ -26,7 +26,7 @@ export class QueryExecutor {
 		this.connections = {}
 	}
 
-	private async getConnection(dataSource: string): Promise<Connection> {
+	private async getConnection (dataSource: string): Promise<Connection> {
 		let connection = this.connections[dataSource]
 		if (connection === undefined) {
 			connection = await this.connectionManager.acquire(dataSource)
@@ -38,21 +38,21 @@ export class QueryExecutor {
 		return connection
 	}
 
-	public async commit(): Promise<void> {
+	public async commit (): Promise<void> {
 		for (const p in this.connections) {
 			const connection = this.connections[p]
 			await connection.commit()
 		}
 	}
 
-	public async rollback(): Promise<void> {
+	public async rollback (): Promise<void> {
 		for (const p in this.connections) {
 			const connection = this.connections[p]
 			await connection.rollback()
 		}
 	}
 
-	public async release(): Promise<void> {
+	public async release (): Promise<void> {
 		for (const p in this.connections) {
 			const connection = this.connections[p]
 			await this.connectionManager.release(connection)
@@ -60,7 +60,7 @@ export class QueryExecutor {
 		this.connections = {}
 	}
 
-	public async execute(query: Query, data: any): Promise<any> {
+	public async execute (query: Query, data: any): Promise<any> {
 		const _data = new Data(data)
 		if (['insert', 'update', 'bulkInsert'].includes(query.name)) {
 			await this._execute(query, _data)
@@ -70,42 +70,42 @@ export class QueryExecutor {
 		}
 	}
 
-	private async _execute(query: Query, data: Data): Promise<any> {
+	private async _execute (query: Query, data: Data): Promise<any> {
 		let result: any
 		const dataSource = this.schemaManager.dataSource.get(query.dataSource)
 		const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
 		const connection = await this.getConnection(dataSource.name)
 		const dialect = this.languages.getDialect(query.dialect)
 		switch (query.name) {
-			case 'select': result = await this.select(query, data, mapping, dialect, connection); break
-			case 'insert': result = await this.insert(query, data, mapping, dialect, connection); break
-			case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, dialect, connection); break
-			case 'update': result = await this.update(query, data, mapping, dialect, connection); break
-			case 'delete': result = await this.delete(query, data, mapping, dialect, connection); break
-			case 'truncateEntity': result = await connection.truncateEntity(mapping, query); break
-			case 'createEntity': result = await connection.createEntity(mapping, query); break
-			case 'createSequence': result = await connection.createSequence(mapping, query); break
-			case 'createFk': result = await connection.createFk(mapping, query); break
-			case 'createIndex': result = await connection.createIndex(mapping, query); break
-			case 'alterProperty': result = await connection.alterProperty(mapping, query); break
-			case 'addProperty': result = await connection.addProperty(mapping, query); break
-			case 'addPk': result = await connection.addPk(mapping, query); break
-			case 'addUk': result = await connection.addUk(mapping, query); break
-			case 'addFk': result = await connection.addFk(mapping, query); break
-			case 'dropSequence': result = await connection.dropSequence(mapping, query); break
-			case 'dropEntity': result = await connection.dropEntity(mapping, query); break
-			case 'dropProperty': result = await connection.dropProperty(mapping, query); break
-			case 'dropPk': result = await connection.dropPk(mapping, query); break
-			case 'dropUk': result = await connection.dropUk(mapping, query); break
-			case 'dropFK': result = await connection.dropFK(mapping, query); break
-			case 'dropIndex': result = await connection.dropIndex(mapping, query); break
-			default:
-				throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `query ${query.name} undefined`)
+		case 'select': result = await this.select(query, data, mapping, dialect, connection); break
+		case 'insert': result = await this.insert(query, data, mapping, dialect, connection); break
+		case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, dialect, connection); break
+		case 'update': result = await this.update(query, data, mapping, dialect, connection); break
+		case 'delete': result = await this.delete(query, data, mapping, dialect, connection); break
+		case 'truncateEntity': result = await connection.truncateEntity(mapping, query); break
+		case 'createEntity': result = await connection.createEntity(mapping, query); break
+		case 'createSequence': result = await connection.createSequence(mapping, query); break
+		case 'createFk': result = await connection.createFk(mapping, query); break
+		case 'createIndex': result = await connection.createIndex(mapping, query); break
+		case 'alterProperty': result = await connection.alterProperty(mapping, query); break
+		case 'addProperty': result = await connection.addProperty(mapping, query); break
+		case 'addPk': result = await connection.addPk(mapping, query); break
+		case 'addUk': result = await connection.addUk(mapping, query); break
+		case 'addFk': result = await connection.addFk(mapping, query); break
+		case 'dropSequence': result = await connection.dropSequence(mapping, query); break
+		case 'dropEntity': result = await connection.dropEntity(mapping, query); break
+		case 'dropProperty': result = await connection.dropProperty(mapping, query); break
+		case 'dropPk': result = await connection.dropPk(mapping, query); break
+		case 'dropUk': result = await connection.dropUk(mapping, query); break
+		case 'dropFK': result = await connection.dropFK(mapping, query); break
+		case 'dropIndex': result = await connection.dropIndex(mapping, query); break
+		default:
+			throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `query ${query.name} undefined`)
 		}
 		return result
 	}
 
-	private async select(query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
+	private async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, dialect, query, data)
 		const chunkSize = 999 // 7000
 		const entity = mapping.getEntity(query.entity) as EntityMapping
@@ -178,7 +178,7 @@ export class QueryExecutor {
 		return mainResult
 	}
 
-	private selectChunkResult(result: any[], keyId: string): any {
+	private selectChunkResult (result: any[], keyId: string): any {
 		const ids: any[] = []
 		for (let i = 0; i < result.length; i++) {
 			const id = result[i][keyId]
@@ -197,7 +197,7 @@ export class QueryExecutor {
 		return { ids: ids, result: result }
 	}
 
-	private selectChunkIds(result: any[], keyId: string): any[] {
+	private selectChunkIds (result: any[], keyId: string): any[] {
 		const ids: any[] = []
 		for (let i = 0; i < result.length; i++) {
 			const id = result[i][keyId]
@@ -216,7 +216,7 @@ export class QueryExecutor {
 		return ids
 	}
 
-	private async selectChild(include: Include, _data: Data, ids: any[], mainResult: any): Promise<any> {
+	private async selectChild (include: Include, _data: Data, ids: any[], mainResult: any): Promise<any> {
 		const data = _data.clone()
 		data.set('LamdaOrmParentId', ids)
 		const keyId = '__' + include.relation.from
@@ -248,7 +248,7 @@ export class QueryExecutor {
 		}
 	}
 
-	private selectChildSetManyToOne(mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
+	private selectChildSetManyToOne (mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
 		for (let i = 0; i < mainResult.length; i++) {
 			const element = mainResult[i]
 			const relationId = element[keyId]
@@ -263,7 +263,7 @@ export class QueryExecutor {
 		}
 	}
 
-	private selectChildSetOneToMany(mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
+	private selectChildSetOneToMany (mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
 		for (let i = 0; i < mainResult.length; i++) {
 			const element = mainResult[i]
 			const relationId = element[keyId]
@@ -279,9 +279,9 @@ export class QueryExecutor {
 		}
 	}
 
-	private async insert(query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
+	private async insert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		// before insert the relationships of the type oneToOne and oneToMany
-		const autoincrement = mapping.getAutoincrement(query.entity)
+		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 		for (const p in query.includes) {
 			const include = query.includes[p]
@@ -308,8 +308,8 @@ export class QueryExecutor {
 		this.constraints(query, data.data)
 		// insert main entity
 		const insertId = await connection.insert(mapping, dialect, query, data)
-		if (autoincrement) {
-			data.set(autoincrement.name, insertId)
+		if (autoIncrement) {
+			data.set(autoIncrement.name, insertId)
 		}
 		// after insert the relationships of the type oneToOne and manyToOne
 		for (const p in query.includes) {
@@ -333,7 +333,7 @@ export class QueryExecutor {
 		return insertId
 	}
 
-	private async bulkInsert(query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
+	private async bulkInsert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation not nullable
@@ -394,10 +394,10 @@ export class QueryExecutor {
 			const result = await this._chunkInsert(query, entity, chunk, mapping, dialect, connection)
 			ids = ids.concat(result)
 		}
-		const autoincrement = mapping.getAutoincrement(query.entity)
-		if (autoincrement) {
+		const autoIncrement = mapping.getAutoIncrement(query.entity)
+		if (autoIncrement) {
 			for (let i = 0; i < data.data.length; i++) {
-				data.data[i][autoincrement.name] = ids[i]
+				data.data[i][autoIncrement.name] = ids[i]
 			}
 		}
 
@@ -411,10 +411,10 @@ export class QueryExecutor {
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const parentId = item[include.relation.from]
-						const childs = item[include.relation.name]
-						if (childs) {
-							for (let j = 0; j < childs.length; j++) {
-								const child = childs[j]
+						const children = item[include.relation.name]
+						if (children) {
+							for (let j = 0; j < children.length; j++) {
+								const child = children[j]
 								child[include.relation.to] = parentId
 								allChilds.push(child)
 							}
@@ -454,7 +454,7 @@ export class QueryExecutor {
 		return ids
 	}
 
-	private async _chunkInsert(query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
+	private async _chunkInsert (query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
 		// solve default properties
 		if (entity.hadDefaults) {
 			this.solveDefaults(query, chunk)
@@ -468,7 +468,7 @@ export class QueryExecutor {
 		return await connection.bulkInsert(mapping, dialect, query, chunk)
 	}
 
-	private async update(query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
+	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 		// solve default properties
 		if (entity.hadWriteValues) {
@@ -499,7 +499,7 @@ export class QueryExecutor {
 		return changeCount
 	}
 
-	private async delete(query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
+	private async delete (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
 		// before remove relations entities
 		for (const p in query.includes) {
 			const include = query.includes[p]
@@ -531,7 +531,7 @@ export class QueryExecutor {
 	 */
 	private solveDefaults(query: Query, data: any[]): void
 	private solveDefaults(query: Query, data: any): void
-	private solveDefaults(query: Query, data: any | any[]): void {
+	private solveDefaults (query: Query, data: any | any[]): void {
 		if (Array.isArray(data)) {
 			for (const i in query.defaults) {
 				const defaultBehavior = query.defaults[i]
@@ -555,7 +555,7 @@ export class QueryExecutor {
 
 	private solveWriteValues(query: Query, data: any[]): void
 	private solveWriteValues(query: Query, data: any): void
-	private solveWriteValues(query: Query, data: any | any[]): void {
+	private solveWriteValues (query: Query, data: any | any[]): void {
 		if (Array.isArray(data)) {
 			for (const i in query.values) {
 				const valueBehavior = query.values[i]
@@ -573,7 +573,7 @@ export class QueryExecutor {
 
 	private constraints(query: Query, data: any[]): void
 	private constraints(query: Query, data: any): void
-	private constraints(query: Query, data: any | any[]): void {
+	private constraints (query: Query, data: any | any[]): void {
 		if (Array.isArray(data)) {
 			for (const i in query.constraints) {
 				const constraint = query.constraints[i]
@@ -593,7 +593,7 @@ export class QueryExecutor {
 		}
 	}
 
-	private solveReadValues(query: Query, data: any[]): void {
+	private solveReadValues (query: Query, data: any[]): void {
 		for (const i in query.values) {
 			const valueBehavior = query.values[i]
 			if (valueBehavior.alias === valueBehavior.property) {

@@ -8,7 +8,7 @@ export class DDLBuilder {
 	private model: ModelConfig
 	private routing: Routing
 	public stage: string
-	constructor(schema: SchemaManager, routing: Routing, languages: Languages, stage: string) {
+	constructor (schema: SchemaManager, routing: Routing, languages: Languages, stage: string) {
 		this.schema = schema
 		this.model = schema.model
 		this.routing = routing
@@ -16,7 +16,7 @@ export class DDLBuilder {
 		this.stage = stage
 	}
 
-	public drop(mappings: Mapping[]): Query[] {
+	public drop (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
 		for (const k in stage.dataSources) {
@@ -30,7 +30,7 @@ export class DDLBuilder {
 		return queries
 	}
 
-	public truncate(mappings: Mapping[]): Query[] {
+	public truncate (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
 		for (const k in stage.dataSources) {
@@ -44,7 +44,7 @@ export class DDLBuilder {
 		return queries
 	}
 
-	public sync(mappings: Mapping[]): Query[] {
+	public sync (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
 		for (const k in stage.dataSources) {
@@ -60,7 +60,7 @@ export class DDLBuilder {
 		return queries
 	}
 
-	private _drop(dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+	private _drop (dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(dataSource.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
@@ -128,7 +128,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _truncate(dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+	private _truncate (dataSource: DataSource, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(dataSource.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
@@ -149,7 +149,7 @@ export class DDLBuilder {
 		}
 	}
 
-	public _sync(dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
+	public _sync (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(dataSource.dialect)
 		// remove constraints for changes in entities
 		for (const p in delta.changed) {
@@ -477,19 +477,19 @@ export class DDLBuilder {
 		}
 	}
 
-	private evalDataSource(dataSource: RuleDataSource, entity: string): boolean {
+	private evalDataSource (dataSource: RuleDataSource, entity: string): boolean {
 		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
 		return this.routing.eval(dataSource, sentenceInfo)
 	}
 
-	private builder(dataSource: DataSource): LanguageDDLBuilder {
-		// TODO agregar chache por datasource
-		const language = this.languages.getByDiatect(dataSource.dialect)
+	private builder (dataSource: DataSource): LanguageDDLBuilder {
+		// TODO agregar cache por dataSource
+		const language = this.languages.getByDialect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		return language.ddlBuilder(dataSource, mapping)
 	}
 
-	private changeRelation(a: Relation, b: Relation): boolean {
+	private changeRelation (a: Relation, b: Relation): boolean {
 		return a.entity !== b.entity || a.from !== b.from || a.name !== b.name || a.to !== b.to || a.type !== b.type
 	}
 }
@@ -499,7 +499,7 @@ export abstract class LanguageDDLBuilder {
 	protected mapping: MappingConfig
 	protected dialect: Dialect
 
-	constructor(dataSource: DataSource, mapping: MappingConfig, dialect: Dialect) {
+	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect) {
 		this.dataSource = dataSource
 		this.mapping = mapping
 		this.dialect = dialect

@@ -10,7 +10,7 @@ export abstract class StageActionDML {
 	protected stage: string
 	protected view: string
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor(state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage: string, view: string) {
+	constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage: string, view: string) {
 		this.state = state
 		this.model = model
 		this.expressionManager = expressionManager
@@ -19,7 +19,7 @@ export abstract class StageActionDML {
 		this.view = view
 	}
 
-	public async sentence(): Promise<any> {
+	public async sentence (): Promise<any> {
 		const sentences: any[] = []
 		const queries = this.queries()
 		for (let i = 0; i < queries.length; i++) {
@@ -29,7 +29,7 @@ export abstract class StageActionDML {
 		return sentences
 	}
 
-	public queries(): Query[] {
+	public queries (): Query[] {
 		const queries: Query[] = []
 		for (const i in this.model.entities) {
 			const entity = this.model.entities[i]
@@ -43,7 +43,7 @@ export abstract class StageActionDML {
 
 	protected abstract createQuery(entity: Entity): Query
 
-	protected createInclude(entity: Entity, level = 0): string {
+	protected createInclude (entity: Entity, level = 0): string {
 		const arrowVariable = this.arrowVariables[level]
 		const includes: string[] = []
 		for (const i in entity.relations) {
@@ -61,7 +61,7 @@ export abstract class StageActionDML {
 			: `.include(${arrowVariable}=>[${includes.join(',')}])`
 	}
 
-	protected getAllEntities(queries: Query[]): string[] {
+	protected getAllEntities (queries: Query[]): string[] {
 		const entities: string[] = []
 		for (const p in queries) {
 			const query = queries[p]

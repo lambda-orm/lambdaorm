@@ -27,7 +27,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         nullable: false
       - name: description
@@ -54,7 +54,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: lastName
         nullable: false
       - name: firstName
@@ -80,7 +80,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         nullable: false
       - name: phone
@@ -93,7 +93,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         nullable: false
       - name: contact
@@ -108,7 +108,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         nullable: false
       - name: supplierId
@@ -154,7 +154,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: customerId
         nullable: false
         length: 5

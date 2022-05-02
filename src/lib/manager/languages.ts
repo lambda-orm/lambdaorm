@@ -5,14 +5,14 @@ import { Dialect } from './dialect'
 
 export class Languages {
 	public dialects: any
-	private languages:Language[]
+	private languages: Language[]
 
 	constructor () {
 		this.languages = []
 		this.dialects = {}
 	}
 
-	public add (language:Language) {
+	public add (language: Language) {
 		const index = this.languages.findIndex(p => p.name === language.name)
 		if (index !== -1) {
 			this.languages[index] = language
@@ -21,7 +21,7 @@ export class Languages {
 		}
 	}
 
-	public get (name:string):Language {
+	public get (name: string): Language {
 		const language = this.languages.find(p => p.name === name)
 		if (!language) {
 			throw new NotImplemented(`language ${name} not implemented`)
@@ -29,7 +29,7 @@ export class Languages {
 		return language
 	}
 
-	public getByDiatect (dialect: string): Language {
+	public getByDialect (dialect: string): Language {
 		for (const i in this.languages) {
 			for (const j in this.languages[i].dialects) {
 				if (this.languages[i].dialects[j].name === dialect) {

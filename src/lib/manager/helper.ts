@@ -39,7 +39,7 @@ export class Helper {
 		return bytes.toString(CryptoJS.enc.Utf8)
 	}
 
-	public static textTobase64 (value:string):string {
+	public static textToBase64 (value:string):string {
 		return CryptoJS.enc.Base64.parse(value)
 	}
 
@@ -275,7 +275,8 @@ export class Helper {
 	}
 
 	public static dateFormat (value:any, format:string):string {
-		return DateTime.fromISO(value).toFormat(format)
+		const iso = new Date(value).toISOString()
+		return DateTime.fromISO(iso).toFormat(format)
 	}
 
 	public static escape (value:string):string {

@@ -7,7 +7,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: refType
         length: 50
         nullable: false
@@ -24,7 +24,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         length: 60
         nullable: false
@@ -44,7 +44,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 30
         nullable: false
@@ -58,7 +58,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: typeId
         type: integer
         nullable: false
@@ -81,7 +81,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: countryId
         type: integer
         nullable: false
@@ -107,7 +107,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: addressId
         type: integer
         nullable: false
@@ -132,7 +132,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 10
         nullable: false
@@ -148,7 +148,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 10
         nullable: false
@@ -162,7 +162,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 30
         nullable: false
@@ -176,7 +176,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 30
         nullable: false
@@ -190,7 +190,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 20
         nullable: false
@@ -204,7 +204,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 10
         nullable: false
@@ -227,7 +227,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: individualId
         type: integer
       - name: organizationId
@@ -250,7 +250,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: identificationTypeId
         type: integer
         nullable: false
@@ -278,7 +278,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: contactMediumTypeId
         type: integer
         nullable: false
@@ -316,7 +316,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: partyId
         type: integer
         nullable: false
@@ -351,7 +351,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: individualId
         type: integer
         nullable: false
@@ -375,7 +375,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: partyId
         type: integer
         nullable: false
@@ -408,7 +408,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: organizationId
         type: integer
         nullable: false
@@ -428,7 +428,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 30
         nullable: false
@@ -444,7 +444,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 20
         nullable: false
@@ -502,7 +502,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: statusId
         type: integer
         nullable: false
@@ -541,7 +541,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: partyRoleId
         type: integer
         nullable: false
@@ -567,7 +567,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 50
         nullable: false
@@ -592,7 +592,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 50
         nullable: false
@@ -634,7 +634,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: creditorCode
         length: 50
         nullable: false
@@ -678,7 +678,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: accountNumber
         length: 50
         nullable: false
@@ -738,7 +738,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: accountStatus
         type: integer
         nullable: false
@@ -775,7 +775,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 30
         nullable: false
@@ -795,7 +795,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: bic
         length: 20
         nullable: false
@@ -812,7 +812,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 50
         nullable: false
@@ -833,7 +833,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: code
         length: 50
         nullable: false
@@ -909,7 +909,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: debtorNumber
         length: 50
         nullable: false
@@ -957,7 +957,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: debtorStatus
         type: integer
         nullable: false
@@ -992,7 +992,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         length: 150
         nullable: false
@@ -1033,7 +1033,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: accountNumber
         length: 50
         nullable: false
@@ -1088,7 +1088,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: accountStatus
         type: integer
         nullable: false
@@ -1126,7 +1126,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: debtorAccountId
         type: integer
         nullable: false
@@ -1169,7 +1169,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: name
         length: 150
         nullable: false
@@ -1181,7 +1181,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: methodStatus
         type: integer
         nullable: false

@@ -5,18 +5,18 @@ import { MappingConfig, Dialect, Helper } from '../../manager'
 
 export class MssqlConnectionPool extends ConnectionPool {
 	public static tedious: any
-	constructor(config: ConnectionConfig) {
+	constructor (config: ConnectionConfig) {
 		super(config)
 		if (!MssqlConnectionPool.tedious) {
 			MssqlConnectionPool.tedious = require('tedious')
 		}
 	}
 
-	public async init(): Promise<void> {
+	public async init (): Promise<void> {
 		console.log('init')
 	}
 
-	public async acquire(): Promise<Connection> {
+	public async acquire (): Promise<Connection> {
 		try {
 			const cnx = await new Promise<Connection>((resolve, reject) => {
 				const connection = new MssqlConnectionPool.tedious.Connection(this.config.connection)
@@ -35,27 +35,27 @@ export class MssqlConnectionPool extends ConnectionPool {
 		}
 	}
 
-	public async release(connection: Connection): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		if (connection.cnx.closed) {
 			return
 		}
 		connection.cnx.close()
 	}
 
-	public async end(): Promise<void> {
+	public async end (): Promise<void> {
 		// console.log('end')
 	}
 }
 
 export class MssqlConnection extends Connection {
-	public async select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._query(mapping, query, query.sentence as string, data)
 		return result
 	}
 
-	public async insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
-		const autoincrement = mapping.getAutoincrement(query.entity)
-		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		const autoIncrement = mapping.getAutoIncrement(query.entity)
+		const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 		const sentence = fieldId
 			? (query.sentence as string).replace('OUTPUT inserted.0', '')
 			: query.sentence as string
@@ -67,10 +67,10 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
-		const autoincrement = mapping.getAutoincrement(query.entity)
-		const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
+		const autoIncrement = mapping.getAutoIncrement(query.entity)
+		const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 		const sql = query.sentence
 		let _query = ''
 		try {
@@ -104,35 +104,35 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		return await this._execute(mapping, query, data)
 	}
 
-	public async bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MssqlConnection', 'updateMany')
 	}
 
-	public async delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		return await this._execute(mapping, query, data)
 	}
 
-	public async bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MssqlConnection', 'deleteMany')
 	}
 
-	public async execute(query: Query): Promise<any> {
+	public async execute (query: Query): Promise<any> {
 		return await this._executeSentence(query.sentence as string)
 	}
 
-	public async executeDDL(query: Query): Promise<any> {
+	public async executeDDL (query: Query): Promise<any> {
 		return await this._executeSentence(query.sentence as string)
 	}
 
-	public async executeSentence(sentence: any): Promise<any> {
+	public async executeSentence (sentence: any): Promise<any> {
 		return await this._executeSentence(sentence)
 	}
 
-	public async beginTransaction(): Promise<void> {
+	public async beginTransaction (): Promise<void> {
 		const me = this
 		await new Promise<void>((resolve, reject) => {
 			me.cnx.beginTransaction((error: any) => {
@@ -145,7 +145,7 @@ export class MssqlConnection extends Connection {
 		})
 	}
 
-	public async commit(): Promise<void> {
+	public async commit (): Promise<void> {
 		if (this.cnx.inTransaction) {
 			const me = this
 			await new Promise<void>((resolve, reject) => {
@@ -160,7 +160,7 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	public async rollback(): Promise<void> {
+	public async rollback (): Promise<void> {
 		if (this.cnx.inTransaction) {
 			const me = this
 			await new Promise<void>((resolve, reject) => {
@@ -175,7 +175,7 @@ export class MssqlConnection extends Connection {
 		}
 	}
 
-	private async _query(mapping: MappingConfig, query: Query, sentence: string, data: Data): Promise<any> {
+	private async _query (mapping: MappingConfig, query: Query, sentence: string, data: Data): Promise<any> {
 		const me = this
 		return await new Promise<any[]>((resolve, reject) => {
 			try {
@@ -205,7 +205,7 @@ export class MssqlConnection extends Connection {
 		})
 	}
 
-	private async _execute(mapping: MappingConfig, query: Query, data: Data) {
+	private async _execute (mapping: MappingConfig, query: Query, data: Data) {
 		const me = this
 		return await new Promise<any>((resolve, reject) => {
 			const request = new MssqlConnectionPool.tedious.Request(query.sentence, (err: any, rowCount: any) => {
@@ -222,7 +222,7 @@ export class MssqlConnection extends Connection {
 		})
 	}
 
-	private async _executeSentence(sentence: string) {
+	private async _executeSentence (sentence: string) {
 		const me = this
 		return await new Promise<any>((resolve, reject) => {
 			const request = new MssqlConnectionPool.tedious.Request(sentence, (err: any, rowCount: any) => {
@@ -235,22 +235,22 @@ export class MssqlConnection extends Connection {
 		})
 	}
 
-	private addParameters(request: any, params: Parameter[] = []) {
+	private addParameters (request: any, params: Parameter[] = []) {
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
 			switch (param.type) {
-				case 'array': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar, param.value.join(',')); break
-				case 'string': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar, param.value); break
-				case 'number': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Numeric, param.value); break
-				case 'integer': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Int, param.value); break
-				case 'decimal': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Decimal, param.value); break
-				case 'boolean': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Bit, param.value); break
-				case 'datetime': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.DateTime, param.value); break
+			case 'array': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar, param.value.join(',')); break
+			case 'string': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar, param.value); break
+			case 'number': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Numeric, param.value); break
+			case 'integer': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Int, param.value); break
+			case 'decimal': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Decimal, param.value); break
+			case 'boolean': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Bit, param.value); break
+			case 'datetime': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.DateTime, param.value); break
 			}
 		}
 	}
 
-	protected override arrayToRows(query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected override arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
 		const rows: any[] = []
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
@@ -262,21 +262,21 @@ export class MssqlConnection extends Connection {
 					value = 'null'
 				} else {
 					switch (parameter.type) {
-						case 'boolean':
-							value = value ? 1 : 0; break
-						case 'string':
-							value = Helper.escape(value)
-							value = Helper.replace(value, '\\\'', '\\\'\'')
-							break
-						case 'datetime':
-							value = Helper.escape(this.writeDateTime(value, mapping))
-							break
-						case 'date':
-							value = Helper.escape(this.writeDate(value, mapping))
-							break
-						case 'time':
-							value = Helper.escape(this.writeTime(value, mapping))
-							break
+					case 'boolean':
+						value = value ? 1 : 0; break
+					case 'string':
+						value = Helper.escape(value)
+						value = Helper.replace(value, '\\\'', '\\\'\'')
+						break
+					case 'datetime':
+						value = Helper.escape(this.writeDateTime(value, mapping))
+						break
+					case 'date':
+						value = Helper.escape(this.writeDate(value, mapping))
+						break
+					case 'time':
+						value = Helper.escape(this.writeTime(value, mapping))
+						break
 					}
 				}
 				row.push(value)

@@ -1,13 +1,13 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
+import { Query, Data, MethodNotImplemented } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 // https://node-postgres.com/features/connecting
 
 export class PostgresConnectionPool extends ConnectionPool {
 	private static pg: any
-	constructor(config: ConnectionConfig) {
+	constructor (config: ConnectionConfig) {
 		super(config)
 		if (!PostgresConnectionPool.pg) {
 			const pg = require('pg')
@@ -39,11 +39,11 @@ export class PostgresConnectionPool extends ConnectionPool {
 		}
 	}
 
-	public async init(): Promise<void> {
+	public async init (): Promise<void> {
 		// console.info('postgres init pool not Implemented')
 	}
 
-	public async acquire(): Promise<Connection> {
+	public async acquire (): Promise<Connection> {
 		// if (this.pool === undefined) {
 		// await this.init()
 		// }
@@ -52,21 +52,21 @@ export class PostgresConnectionPool extends ConnectionPool {
 		return new PostgresConnection(cnx, this)
 	}
 
-	public async release(connection: Connection): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		await connection.cnx.end()
 	}
 
-	public async end(): Promise<void> {
+	public async end (): Promise<void> {
 		// console.info('postgres end pool not Implemented')
 	}
 }
 export class PostgresConnection extends Connection {
-	public async select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, query, data)
 		return result.rows
 	}
 
-	public async insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		try {
 			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -76,12 +76,12 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
-		// const autoincrement = mapping.getAutoincrement(query.entity)
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+		// const autoIncrement = mapping.getAutoincrement(query.entity)
 
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
-		// const fieldId: string | undefined = autoincrement && autoincrement.mapping ? autoincrement.mapping : undefined
+		// const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 		const sql = query.sentence
 		let _query = ''
 		try {
@@ -131,7 +131,7 @@ export class PostgresConnection extends Connection {
 		}
 	}
 
-	protected override arrayToRows(query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected override arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
 		const rows: any[] = []
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
@@ -143,21 +143,21 @@ export class PostgresConnection extends Connection {
 					value = 'null'
 				} else {
 					switch (parameter.type) {
-						case 'boolean':
-							value = value ? 'true' : 'false'; break
-						case 'string':
-							value = Helper.escape(value)
-							value = Helper.replace(value, '\\\'', '\\\'\'')
-							break
-						case 'datetime':
-							value = Helper.escape(this.writeDateTime(value, mapping))
-							break
-						case 'date':
-							value = Helper.escape(this.writeDate(value, mapping))
-							break
-						case 'time':
-							value = Helper.escape(this.writeTime(value, mapping))
-							break
+					case 'boolean':
+						value = value ? 'true' : 'false'; break
+					case 'string':
+						value = Helper.escape(value)
+						value = Helper.replace(value, '\\\'', '\\\'\'')
+						break
+					case 'datetime':
+						value = Helper.escape(this.writeDateTime(value, mapping))
+						break
+					case 'date':
+						value = Helper.escape(this.writeDate(value, mapping))
+						break
+					case 'time':
+						value = Helper.escape(this.writeTime(value, mapping))
+						break
 					}
 				}
 				row.push(value)
@@ -167,52 +167,52 @@ export class PostgresConnection extends Connection {
 		return rows
 	}
 
-	public async update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.rowCount
 	}
 
-	public async bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('PostgresConnection', 'updateMany')
 	}
 
-	public async delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.rowCount
 	}
 
-	public async bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('PostgresConnection', 'deleteMany')
 	}
 
-	public async execute(query: Query): Promise<any> {
+	public async execute (query: Query): Promise<any> {
 		return await this.cnx.query(query.sentence)
 	}
 
-	public async executeDDL(query: Query): Promise<any> {
+	public async executeDDL (query: Query): Promise<any> {
 		return await this.cnx.query(query.sentence)
 	}
 
-	public async executeSentence(sentence: any): Promise<any> {
+	public async executeSentence (sentence: any): Promise<any> {
 		return await this.cnx.query(sentence)
 	}
 
-	public async beginTransaction(): Promise<void> {
+	public async beginTransaction (): Promise<void> {
 		await this.cnx.query('BEGIN')
 		this.inTransaction = true
 	}
 
-	public async commit(): Promise<void> {
+	public async commit (): Promise<void> {
 		await this.cnx.query('COMMIT')
 		this.inTransaction = false
 	}
 
-	public async rollback(): Promise<void> {
+	public async rollback (): Promise<void> {
 		await this.cnx.query('ROLLBACK')
 		this.inTransaction = false
 	}
 
-	protected async _execute(mapping: MappingConfig, query: Query, data: Data): Promise<any> {
+	protected async _execute (mapping: MappingConfig, query: Query, data: Data): Promise<any> {
 		const values: any[] = []
 		let sql = query.sentence as string
 		const params = this.dataToParameters(query, mapping, data)
@@ -227,25 +227,25 @@ export class PostgresConnection extends Connection {
 					if (param.value.length > 0) {
 						const type = typeof param.value[0]
 						switch (type) {
-							case 'string':
-								if (param.value.length === 1) {
-									values.push(param.value[0])
-								} else {
-									sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
-									values.push(param.value)
-								}
-								break
-							case 'bigint':
-							case 'number':
-								if (param.value.length === 1) {
-									values.push(param.value[0])
-								} else {
-									sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
-									values.push(param.value)
-								}
-								break
-							default:
+						case 'string':
+							if (param.value.length === 1) {
+								values.push(param.value[0])
+							} else {
+								sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
 								values.push(param.value)
+							}
+							break
+						case 'bigint':
+						case 'number':
+							if (param.value.length === 1) {
+								values.push(param.value[0])
+							} else {
+								sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
+								values.push(param.value)
+							}
+							break
+						default:
+							values.push(param.value)
 						}
 					} else {
 						values.push([])

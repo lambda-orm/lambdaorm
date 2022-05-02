@@ -32,7 +32,7 @@ schemas:
             mapping: name field on database
             type: [string|boolean|integer|decimal|datetime|date|time]
             nullable: [true|false]
-            autoincrement: [true|false]
+            autoIncrement: [true|false]
         indexes:
           - name: nameOfIndex
             fields: []
@@ -83,7 +83,7 @@ schemas:
             mapping: READER_ID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: name
             mapping: NAME
             nullable: false
@@ -99,7 +99,7 @@ schemas:
             type: integer
             length: 14
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: title
             mapping: TITLE
             nullable: false

@@ -14,7 +14,7 @@
 
 ### Properties
 
-- [autoincrement](model.PropertyMapping.md#autoincrement)
+- [autoIncrement](model.PropertyMapping.md#autoIncrement)
 - [key](model.PropertyMapping.md#key)
 - [length](model.PropertyMapping.md#length)
 - [mapping](model.PropertyMapping.md#mapping)
@@ -25,13 +25,13 @@
 
 ## Properties
 
-### autoincrement
+### autoIncrement
 
-• `Optional` **autoincrement**: `boolean`
+• `Optional` **autoIncrement**: `boolean`
 
 #### Inherited from
 
-[Property](model.Property.md).[autoincrement](model.Property.md#autoincrement)
+[Property](model.Property.md).[autoIncrement](model.Property.md#autoIncrement)
 
 #### Defined in
 

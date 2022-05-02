@@ -14,7 +14,7 @@
 
 ### Properties
 
-- [autoincrement](model.Property.md#autoincrement)
+- [autoIncrement](model.Property.md#autoIncrement)
 - [length](model.Property.md#length)
 - [name](model.Property.md#name)
 - [nullable](model.Property.md#nullable)
@@ -23,9 +23,9 @@
 
 ## Properties
 
-### autoincrement
+### autoIncrement
 
-• `Optional` **autoincrement**: `boolean`
+• `Optional` **autoIncrement**: `boolean`
 
 #### Defined in
 

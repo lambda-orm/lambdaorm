@@ -9,34 +9,34 @@ export abstract class DmlBuilder {
 	protected dialect: Dialect
 	protected expressions: Expressions
 
-	constructor(dataSource: DataSource, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
+	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
 		this.dataSource = dataSource
 		this.mapping = mapping
 		this.expressions = expressions
 		this.dialect = dialect
 	}
 
-	public build(sentence: Sentence): Query {
+	public build (sentence: Sentence): Query {
 		const sqlSentence = this.buildSentence(sentence)
 		return new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, sqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
 	}
 
-	protected buildSentence(sentence: Sentence): string {
+	protected buildSentence (sentence: Sentence): string {
 		switch (sentence.action) {
-			case 'select':
-				return this.buildMapSentence(sentence)
-			case 'insert':
-				return this.buildInsertSentence(sentence)
-			case 'update':
-				return this.buildUpdateSentence(sentence)
-			case 'delete':
-				return this.buildDeleteSentence(sentence)
-			default:
-				throw new SintaxisError(`sentence action ${sentence.action} not found`)
+		case 'select':
+			return this.buildMapSentence(sentence)
+		case 'insert':
+			return this.buildInsertSentence(sentence)
+		case 'update':
+			return this.buildUpdateSentence(sentence)
+		case 'delete':
+			return this.buildDeleteSentence(sentence)
+		default:
+			throw new SintaxisError(`sentence action ${sentence.action} not found`)
 		}
 	}
 
-	protected buildMapSentence(sentence: Sentence): string {
+	protected buildMapSentence (sentence: Sentence): string {
 		const map = sentence.children.find(p => p.name === 'map') as Map | undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
@@ -48,7 +48,7 @@ export abstract class DmlBuilder {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
 		if (map === undefined) {
-			throw new SchemaError(`map operand not found`)
+			throw new SchemaError('map operand not found')
 		}
 		const from = sentence.children.find(p => p instanceof From) as Operand
 		const joins = sentence.children.filter(p => p instanceof Join)
@@ -61,19 +61,19 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildInsertSentence(sentence: Sentence): string {
+	protected buildInsertSentence (sentence: Sentence): string {
 		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
 		const entity = this.mapping.getEntity(sentence.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
 		if (insert === undefined) {
-			throw new SchemaError(`insert operand not found`)
+			throw new SchemaError('insert operand not found')
 		}
 		return this.buildInsert(insert, entity)
 	}
 
-	protected buildUpdateSentence(sentence: Sentence): string {
+	protected buildUpdateSentence (sentence: Sentence): string {
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const entity = this.mapping.getEntity(sentence.entity)
@@ -81,14 +81,14 @@ export abstract class DmlBuilder {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
 		if (update === undefined) {
-			throw new SchemaError(`update operand not found`)
+			throw new SchemaError('update operand not found')
 		}
 		let text = this.buildUpdate(update, entity)
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		return text
 	}
 
-	protected buildDeleteSentence(sentence: Sentence): string {
+	protected buildDeleteSentence (sentence: Sentence): string {
 		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const entity = this.mapping.getEntity(sentence.entity)
@@ -96,14 +96,14 @@ export abstract class DmlBuilder {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
 		if (_delete === undefined) {
-			throw new SchemaError(`delete operand not found`)
+			throw new SchemaError('delete operand not found')
 		}
 		let text = this.buildDelete(_delete, entity)
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		return text
 	}
 
-	protected buildJoins(joins: Operand[]): string {
+	protected buildJoins (joins: Operand[]): string {
 		const list: string[] = []
 		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {
@@ -121,7 +121,7 @@ export abstract class DmlBuilder {
 		return list.join(' ') + ' '
 	}
 
-	protected buildFrom(from: Operand): string {
+	protected buildFrom (from: Operand): string {
 		let template = this.dialect.dml('from')
 		const parts = from.name.split('.')
 		const entityMapping = this.mapping.entityMapping(parts[0])
@@ -133,22 +133,22 @@ export abstract class DmlBuilder {
 		return template.trim()
 	}
 
-	protected buildInsert(operand: Insert, entity: EntityMapping): string {
+	protected buildInsert (operand: Insert, entity: EntityMapping): string {
 		let template = this.dialect.dml(operand.clause)
 		const templateColumn = this.dialect.other('column')
 		const fields: string[] = []
 		const values: any[] = []
 
-		const autoincrement = this.mapping.getAutoincrement(entity.name)
+		const autoIncrement = this.mapping.getAutoIncrement(entity.name)
 		// const entityMapping = this.mapping.getEntity(entity)
 		// if (entityMapping === undefined) {
-		// 	throw new SchemaError(`mapping undefined on ${entity} entity`)
+		// throw new SchemaError(`mapping undefined on ${entity} entity`)
 		// }
 
-		if (autoincrement && entity.sequence) {
-			const templateSequenceNextval = this.dialect.other('sequenceNextval')
-			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoincrement.mapping)))
-			values.push(templateSequenceNextval.replace('{name}', entity.sequence))
+		if (autoIncrement && entity.sequence) {
+			const templateSequenceNextVal = this.dialect.other('sequenceNextval')
+			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoIncrement.mapping)))
+			values.push(templateSequenceNextVal.replace('{name}', entity.sequence))
 		}
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
@@ -173,21 +173,21 @@ export abstract class DmlBuilder {
 		template = template.replace('{name}', this.dialect.delimiter(entity.mapping))
 		template = template.replace('{fields}', fields.join(','))
 		template = template.replace('{values}', values.join(','))
-		template = template.replace('{autoincrementField}', autoincrement && autoincrement.mapping ? autoincrement.mapping : '0')
+		template = template.replace('{autoincrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
 		return template.trim()
 	}
 
-	protected buildUpdate(operand: Update, entity: EntityMapping): string {
+	protected buildUpdate (operand: Update, entity: EntityMapping): string {
 		let template = this.dialect.dml('update')
 		const templateColumn = this.dialect.other('column')
 		const templateAssing = this.dialect.operator('=', 2)
 		const assings: string[] = []
 		const parts = operand.name.split('.')
-		//const entity = parts[0]
+		// const entity = parts[0]
 		const alias = parts[1]
 		// const entityMapping = this.mapping.entityMapping(entity)
 		// if (entityMapping === undefined) {
-		// 	throw new SchemaError(`mapping undefined on ${entity} entity`)
+		// throw new SchemaError(`mapping undefined on ${entity} entity`)
 		// }
 
 		if (operand.children[0] instanceof Object) {
@@ -217,21 +217,21 @@ export abstract class DmlBuilder {
 		return template.trim() + ' '
 	}
 
-	protected buildDelete(operand: Delete, entity: EntityMapping): string {
+	protected buildDelete (operand: Delete, entity: EntityMapping): string {
 		let template = this.dialect.dml('delete')
 		const parts = operand.name.split('.')
-		//const entity = parts[0]
+		// const entity = parts[0]
 		const alias = parts[1]
 		// const entityMapping = this.mapping.entityMapping(entity)
 		// if (entityMapping === undefined) {
-		// 	throw new SchemaError(`mapping undefined on ${entity} entity`)
+		// throw new SchemaError(`mapping undefined on ${entity} entity`)
 		// }
 		template = Helper.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
 		template = Helper.replace(template, '{alias}', alias)
 		return template.trim() + ' '
 	}
 
-	protected buildPage(sentence: string, operand: Page): string {
+	protected buildPage (sentence: string, operand: Page): string {
 		let template = this.dialect.dml('page')
 		let page = parseInt(operand.children[1].name)
 		const records = parseInt(operand.children[2].name)
@@ -242,7 +242,7 @@ export abstract class DmlBuilder {
 		return template.trim() + ' '
 	}
 
-	protected buildOperand(operand: Operand): string {
+	protected buildOperand (operand: Operand): string {
 		if (operand instanceof Sentence) {
 			return this.buildSentence(operand)
 		} else if (operand instanceof ArrowFunction) {
@@ -270,7 +270,7 @@ export abstract class DmlBuilder {
 		}
 	}
 
-	protected buildArrowFunction(operand: ArrowFunction): string {
+	protected buildArrowFunction (operand: ArrowFunction): string {
 		let template = this.dialect.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(operand.children[i])
@@ -279,7 +279,7 @@ export abstract class DmlBuilder {
 		return template.trim()
 	}
 
-	protected buildFunctionRef(operand: FunctionRef): string {
+	protected buildFunctionRef (operand: FunctionRef): string {
 		const funcData = this.dialect.function(operand.name)
 		if (!funcData) throw new SintaxisError('Function ' + operand.name + ' not found')
 		let text = ''
@@ -299,7 +299,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildOperator(operand: Operator): string {
+	protected buildOperator (operand: Operator): string {
 		let text = this.dialect.operator(operand.name, operand.children.length)
 		for (let i = 0; i < operand.children.length; i++) {
 			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i]))
@@ -307,7 +307,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildBlock(operand: Block): string {
+	protected buildBlock (operand: Block): string {
 		let text = ''
 		for (let i = 0; i < operand.children.length; i++) {
 			text += (this.buildOperand(operand.children[i]) + '')
@@ -315,7 +315,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildObject(operand: Obj): string {
+	protected buildObject (operand: Obj): string {
 		let text = ''
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
@@ -328,7 +328,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildList(operand: List): string {
+	protected buildList (operand: List): string {
 		let text = ''
 		for (let i = 0; i < operand.children.length; i++) {
 			text += (i > 0 ? ', ' : '') + this.buildOperand(operand.children[i])
@@ -336,11 +336,11 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildKeyValue(operand: KeyValue): string {
+	protected buildKeyValue (operand: KeyValue): string {
 		return this.buildOperand(operand.children[0])
 	}
 
-	protected buildField(operand: Field): string {
+	protected buildField (operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
 			if (operand.alias === undefined) {
@@ -356,7 +356,7 @@ export abstract class DmlBuilder {
 		}
 	}
 
-	protected buildVariable(operand: Variable): string {
+	protected buildVariable (operand: Variable): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
 		text = text.replace('{name}', operand.name)
@@ -364,7 +364,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildConstant(operand: Constant): string {
+	protected buildConstant (operand: Constant): string {
 		return operand.name
 	}
 }

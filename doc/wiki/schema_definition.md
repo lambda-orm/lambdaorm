@@ -23,7 +23,7 @@ entities:
       type: string | integer | decimal | boolean | datetime | date | time
       length: number 
       nullable: boolean
-      autoincrement: boolean
+      autoIncrement: boolean
       default: any
   indexes:
   	- name: string
@@ -98,7 +98,7 @@ Property:
 | type 		 				| type of property													| yes				|	 string		|
 | length 		 			| length of property type										| 					|		80			|
 | nullable 		 		| if the field is nullable									| 					|		true		|
-| autoincrement		| if the field is self-incrementing					| 					|		false		|
+| autoIncrement		| if the field is self-incrementing					| 					|		false		|
 | default 		 		| field default value												| 					|						|
 
 Relation:

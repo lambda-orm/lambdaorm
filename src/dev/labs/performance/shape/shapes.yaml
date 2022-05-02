@@ -5,7 +5,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: geometryId
         type: integer
         nullable: false
@@ -27,7 +27,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: shapeId
         type: integer
         nullable: false
@@ -47,7 +47,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: shapeId
         type: integer
         nullable: false
@@ -74,7 +74,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: type
         nullable: false
 views:

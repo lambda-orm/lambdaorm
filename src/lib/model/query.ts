@@ -14,7 +14,7 @@ export class Query {
 	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
-	constructor(name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints: Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
+	constructor (name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = [], constraints: Constraint[] = [], values: Behavior[] = [], defaults: Behavior[] = []) {
 		this.name = name
 		this.dialect = dialect
 		this.sentence = sentence
@@ -28,14 +28,14 @@ export class Query {
 		this.includes = []
 	}
 	// public getCompositeIncludes(): Include[] {
-	// 	return this.includes.filter(p => p.relation.composite)
+	// return this.includes.filter(p => p.relation.composite)
 	// }
 }
 export class Include {
 	public name: string
 	public query: Query
 	public relation: Relation
-	constructor(name: string, query: Query, relation: Relation) {
+	constructor (name: string, query: Query, relation: Relation) {
 		this.name = name
 		this.query = query
 		this.relation = relation

@@ -6,7 +6,11 @@
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"cSpell.words": [
+		"builtins",
 		"classtype",
-		"mongodb"
+		"datetime",
+		"mongodb",
+		"northwind",
+		"postgres"
 	]
 }

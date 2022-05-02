@@ -13,7 +13,7 @@ export class ExpressionManager {
 	private operandManager: OperandManager
 	private sentenceCompleter: SentenceCompleter
 
-	constructor(cache: Cache, schema: SchemaManager, languages: Languages, expressions: Expressions, routing: Routing) {
+	constructor (cache: Cache, schema: SchemaManager, languages: Languages, expressions: Expressions, routing: Routing) {
 		this.cache = cache
 		this.schema = schema
 		this.languages = languages
@@ -29,7 +29,7 @@ export class ExpressionManager {
 	 * @param expression expression that can be simplified
 	 * @returns full expression
 	 */
-	public normalize(expression: string): string {
+	public normalize (expression: string): string {
 		try {
 			const node = this.expressions.parser.parse(expression)
 			const normalizeNode = this.expressionNormalizer.normalize(node)
@@ -45,12 +45,12 @@ export class ExpressionManager {
 	 * @param expression expression to build
 	 * @returns Operand
 	 */
-	public toOperand(expression: string): Operand {
-		const minfyExpression = this.expressions.parser.minify(expression)
-		const key = `${minfyExpression}_toOperand`
+	public toOperand (expression: string): Operand {
+		const minifyExpression = this.expressions.parser.minify(expression)
+		const key = `${minifyExpression}_toOperand`
 		const value = this.cache.get(key)
 		if (!value) {
-			const node = this.expressions.parser.parse(minfyExpression)
+			const node = this.expressions.parser.parse(minifyExpression)
 			const completeNode = this.expressionNormalizer.normalize(node)
 			this.expressions.parser.setParent(completeNode)
 			const operand = this.operandManager.build(completeNode)
@@ -61,13 +61,13 @@ export class ExpressionManager {
 		}
 	}
 
-	public toQuery(expression: string, stage: string, view?: string): Query {
-		const minfyExpression = this.expressions.parser.minify(expression)
+	public toQuery (expression: string, stage: string, view?: string): Query {
+		const minifyExpression = this.expressions.parser.minify(expression)
 		const _view = this.schema.view.get(view)
-		const key = `${minfyExpression}_${stage}_${view}`
+		const key = `${minifyExpression}_${stage}_${view}`
 		const value = this.cache.get(key)
 		if (!value) {
-			const sentence = this.toOperand(minfyExpression) as Sentence
+			const sentence = this.toOperand(minifyExpression) as Sentence
 			const view = this.schema.view.getInstance(_view.name)
 			this.complete(sentence, view, stage)
 			const query = this.dmlBuild(sentence, view, stage)
@@ -77,13 +77,14 @@ export class ExpressionManager {
 			return JSON.parse(value) as Query
 		}
 	}
-	private getDataSource(sentence: Sentence, stage: string): DataSource {
+
+	private getDataSource (sentence: Sentence, stage: string): DataSource {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
-		const datasourceName = this.routing.getDataSource(sentenceInfo, stage)
-		return this.schema.dataSource.get(datasourceName)
+		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
+		return this.schema.dataSource.get(dataSourceName)
 	}
 
-	private complete(sentence: Sentence, view: ViewConfig, stage: string) {
+	private complete (sentence: Sentence, view: ViewConfig, stage: string) {
 		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
@@ -94,10 +95,10 @@ export class ExpressionManager {
 		this.sentenceCompleter.complete(mapping, view, sentence)
 	}
 
-	private dmlBuild(sentence: Sentence, view: ViewConfig, stage: string): Query {
+	private dmlBuild (sentence: Sentence, view: ViewConfig, stage: string): Query {
 		const includes = []
 		const dataSource = this.getDataSource(sentence, stage)
-		const language = this.languages.getByDiatect(dataSource.dialect)
+		const language = this.languages.getByDialect(dataSource.dialect)
 		const dialect = this.languages.getDialect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		const sentenceIncludes = sentence.getIncludes()
@@ -120,7 +121,7 @@ export class ExpressionManager {
 	 * @returns String expression
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression(func: Function): string {
+	public toExpression (func: Function): string {
 		if (!func) {
 			throw new SintaxisError('empty lambda function}')
 		}
@@ -144,7 +145,7 @@ export class ExpressionManager {
 	 * @param expression expression
 	 * @returns Model of expression
 	 */
-	public model(expression: string): MetadataModel[] {
+	public model (expression: string): MetadataModel[] {
 		const operand = this.toOperand(expression)
 		return this.operandManager.model(operand as Sentence)
 	}
@@ -154,7 +155,7 @@ export class ExpressionManager {
 	 * @param expression expression
 	 * @returns constraints
 	 */
-	public constraints(expression: string): MetadataConstraint {
+	public constraints (expression: string): MetadataConstraint {
 		const operand = this.toOperand(expression)
 		return this.operandManager.constraints(operand as Sentence)
 	}
@@ -164,22 +165,22 @@ export class ExpressionManager {
 	 * @param expression  expression
 	 * @returns Parameters of expression
 	 */
-	public parameters(expression: string): MetadataParameter[] {
+	public parameters (expression: string): MetadataParameter[] {
 		const operand = this.toOperand(expression)
 		return this.operandManager.parameters(operand as Sentence)
 	}
 
-	public sentence(expression: string, stage: string, view: string): MetadataSentence {
+	public sentence (expression: string, stage: string, view: string): MetadataSentence {
 		const query = this.toQuery(expression, stage, view)
 		return this._sentence(query)
 	}
 
-	private _sentence(query: Query): MetadataSentence {
-		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, childs: [] }
+	private _sentence (query: Query): MetadataSentence {
+		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, children: [] }
 		for (const p in query.includes) {
 			const include = query.includes[p]
 			const includeSentence = this._sentence(include.query)
-			mainSentence.childs?.push(includeSentence)
+			mainSentence.children?.push(includeSentence)
 		}
 		return mainSentence
 	}
@@ -189,7 +190,7 @@ export class ExpressionManager {
 	 * @param expression expression
 	 * @returns metadata of expression
 	 */
-	public metadata(expression: string): Metadata {
+	public metadata (expression: string): Metadata {
 		const operand = this.toOperand(expression)
 		return JSON.parse(this.operandManager.serialize(operand)) as Metadata
 	}

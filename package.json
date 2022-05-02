@@ -26,13 +26,13 @@
 	},
 	"dependencies": {
 		"crypto-js": "^4.1.1",
-		"js-expressions": "^0.1.28",
+		"js-expressions": "^0.1.33",
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
 		"sqlstring": "^2.3.2"
 	},
 	"devDependencies": {
-		"config-extends": "^1.0.7",
+		"config-extends": "^1.0.8",
 		"@babel/eslint-parser": "^7.15.4",
 		"@types/jest": "^27.0.1",
 		"@types/mysql": "^2.15.18",
@@ -46,7 +46,7 @@
 		"eslint-plugin-import": "^2.25.4",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-promise": "^5.1.0",
-		"grunt": "^1.4.1",
+		"grunt": "1.5.2",
 		"grunt-contrib-clean": "^2.0.1",
 		"grunt-contrib-concat": "^1.0.1",
 		"grunt-contrib-copy": "^1.0.0",

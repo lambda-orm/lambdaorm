@@ -206,7 +206,7 @@ entities:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: deviceId
         length: 32
         nullable: false

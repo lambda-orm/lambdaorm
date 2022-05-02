@@ -15,7 +15,7 @@ class EntityContext {
 	public groupByFields: Field[]
 	public arrowVar: string
 
-	constructor(parent?: EntityContext) {
+	constructor (parent?: EntityContext) {
 		this.parent = parent
 		if (parent) parent.children.push(this)
 		this.entityName = ''
@@ -30,7 +30,7 @@ class EntityContext {
 class ExpressionContext {
 	public aliases: any
 	public current: EntityContext
-	constructor(current: EntityContext) {
+	constructor (current: EntityContext) {
 		this.current = current
 		this.aliases = {}
 	}
@@ -40,19 +40,19 @@ export class OperandManager {
 	private expressionConfig: ExpressionConfig
 	private expressions: Expressions
 
-	constructor(modelConfig: ModelConfig, expressionConfig: ExpressionConfig, expressions: Expressions) {
+	constructor (modelConfig: ModelConfig, expressionConfig: ExpressionConfig, expressions: Expressions) {
 		this.modelConfig = modelConfig
 		this.expressionConfig = expressionConfig
 		this.expressions = expressions
 	}
 
-	public build(node: Node): Sentence {
-		const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
-		const reduced = this.reduce(sentece)
+	public build (node: Node): Sentence {
+		const sentence = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
+		const reduced = this.reduce(sentence)
 		return this.setParent(reduced) as Sentence
 	}
 
-	public model(sentence: Sentence): MetadataModel[] {
+	public model (sentence: Sentence): MetadataModel[] {
 		const result: MetadataModel[] = []
 		for (let i = 0; i < sentence.columns.length; i++) {
 			const column = sentence.columns[i]
@@ -64,14 +64,14 @@ export class OperandManager {
 		for (const p in includes) {
 			const include = includes[p]
 			const childType = include.relation.entity + (include.relation.type === 'manyToOne' ? '[]' : '')
-			const child: MetadataModel = { name: include.relation.name, type: childType, childs: [] }
-			child.childs = this.model(include.children[0] as Sentence)
+			const child: MetadataModel = { name: include.relation.name, type: childType, children: [] }
+			child.children = this.model(include.children[0] as Sentence)
 			result.push(child)
 		}
 		return result
 	}
 
-	public parameters(sentence: Sentence): MetadataParameter[] {
+	public parameters (sentence: Sentence): MetadataParameter[] {
 		const parameters: MetadataParameter[] = []
 		for (let i = 0; i < sentence.parameters.length; i++) {
 			const parameter = sentence.parameters[i]
@@ -80,44 +80,44 @@ export class OperandManager {
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const relationParameter: MetadataParameter = { name: include.relation.name, type: include.relation.entity, childs: [] }
-			const childsParameters = this.parameters(include.children[0] as Sentence)
-			for (const q in childsParameters) {
-				const childParameter = childsParameters[q]
-				relationParameter.childs?.push(childParameter)
+			const relationParameter: MetadataParameter = { name: include.relation.name, type: include.relation.entity, children: [] }
+			const children = this.parameters(include.children[0] as Sentence)
+			for (const q in children) {
+				const child = children[q]
+				relationParameter.children?.push(child)
 			}
 			parameters.push(relationParameter)
 		}
 		return parameters
 	}
 
-	public constraints(sentence: Sentence): MetadataConstraint {
+	public constraints (sentence: Sentence): MetadataConstraint {
 		const result: MetadataConstraint = { entity: sentence.entity, constraints: sentence.constraints }
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
 			const child = this.constraints(include.children[0] as Sentence)
-			if (!result.childs) {
-				result.childs = []
+			if (!result.children) {
+				result.children = []
 			}
-			result.childs.push(child)
+			result.children.push(child)
 		}
 		return result
 	}
 
-	public clone(value: Operand): Operand {
+	public clone (value: Operand): Operand {
 		return this.deserialize(this.serialize(value))
 	}
 
-	public serialize(operand: Operand): string {
+	public serialize (operand: Operand): string {
 		return JSON.stringify(this._serialize(operand))
 	}
 
-	public deserialize(value: string): Operand {
+	public deserialize (value: string): Operand {
 		return (this._deserialize(JSON.parse(value))) as Operand
 	}
 
-	private _serialize(operand: Operand): Metadata {
+	private _serialize (operand: Operand): Metadata {
 		const children = []
 		for (const k in operand.children) {
 			children.push(this._serialize(operand.children[k]))
@@ -139,7 +139,7 @@ export class OperandManager {
 		}
 	}
 
-	private _deserialize(value: Metadata): Operand {
+	private _deserialize (value: Metadata): Operand {
 		const children = []
 		if (value.children) {
 			for (const k in value.children) {
@@ -147,109 +147,109 @@ export class OperandManager {
 			}
 		}
 		switch (value.classtype) {
-			case 'Sentence':
-				return new Sentence(value.name, children, value.entity as string, value.alias as string, value.columns || [], value.parameters || [], value.constraints || [], value.values || [], value.defaults || [])
-			case 'SentenceInclude':
-				return new SentenceInclude(value.name, children, value.relation as Relation)
-			case 'Delete':
-				return new Delete(value.name, children, value.type)
-			case 'Update':
-				return new Update(value.name, children, value.type)
-			case 'Insert':
-				return new Insert(value.name, children, value.clause as string)
-			case 'Page':
-				return new Page(value.name, children, value.alias)
-			case 'Sort':
-				return new Sort(value.name, children, value.alias)
-			case 'Having':
-				return new Having(value.name, children, value.alias)
-			case 'GroupBy':
-				return new GroupBy(value.name, children, value.alias)
-			case 'Filter':
-				return new Filter(value.name, children, value.alias)
-			case 'Map':
-				return new Map(value.name, children, value.alias)
-			case 'Join':
-				return new Join(value.name, children, value.alias)
-			case 'From':
-				return new From(value.name, children, value.alias)
-			case 'Field':
-				return new Field(value.entity as string, value.name, value.type as string, value.alias, value.isRoot)
-			case 'Constant2':
-				return new Constant2(value.name)
-			case 'ArrowFunction':
-				return new ArrowFunction(value.name, children)
-			case 'ChildFunction':
-				return new ChildFunction(value.name, children)
-			case 'FunctionRef':
-				return new FunctionRef(value.name, children)
-			case 'Operator':
-				return new Operator(value.name, children)
-			case 'List':
-				return new List(value.name, children)
-			case 'Obj':
-				return new Obj(value.name, children)
-			case 'KeyValue':
-				// eslint-disable-next-line no-case-declarations
-				const keyValue = new KeyValue(value.name, children, value.type)
-				keyValue.property = value.property
-				return keyValue
-			case 'Property':
-				return new exp.Property(value.name, children, value.type)
-			case 'Block':
-				return new exp.Block(value.name, children, value.type)
-			case 'If':
-				return new exp.If(value.name, children, value.type)
-			case 'ElseIf':
-				return new exp.ElseIf(value.name, children, value.type)
-			case 'Else':
-				return new exp.Else(value.name, children, value.type)
-			case 'While':
-				return new exp.While(value.name, children, value.type)
-			case 'For':
-				return new exp.For(value.name, children, value.type)
-			case 'ForIn':
-				return new exp.ForIn(value.name, children, value.type)
-			case 'Switch':
-				return new exp.Switch(value.name, children, value.type)
-			case 'Break':
-				return new exp.Break(value.name, children, value.type)
-			case 'Continue':
-				return new exp.Continue(value.name, children, value.type)
-			case 'Function':
-				return new exp.Function(value.name, children, value.type)
-			case 'Return':
-				return new exp.Return(value.name, children, value.type)
-			case 'Try':
-				return new exp.Try(value.name, children, value.type)
-			case 'Catch':
-				return new exp.Catch(value.name, children, value.type)
-			case 'Throw':
-				return new exp.Throw(value.name, children, value.type)
-			case 'Case':
-				return new exp.Case(value.name, children, value.type)
-			case 'Default':
-				return new exp.Default(value.name, children, value.type)
-			case 'Template':
-				return new exp.Template(value.name, value.type)
-			case 'Constant':
-				return new Constant(value.name)
-			case 'Variable':
-				// eslint-disable-next-line no-case-declarations
-				const variable = new Variable(value.name, value.type)
-				variable.number = value.number
-				return variable
-			default:
-				throw new SintaxisError(`Deserialize ${value.type} not implemented`)
+		case 'Sentence':
+			return new Sentence(value.name, children, value.entity as string, value.alias as string, value.columns || [], value.parameters || [], value.constraints || [], value.values || [], value.defaults || [])
+		case 'SentenceInclude':
+			return new SentenceInclude(value.name, children, value.relation as Relation)
+		case 'Delete':
+			return new Delete(value.name, children, value.type)
+		case 'Update':
+			return new Update(value.name, children, value.type)
+		case 'Insert':
+			return new Insert(value.name, children, value.clause as string)
+		case 'Page':
+			return new Page(value.name, children, value.alias)
+		case 'Sort':
+			return new Sort(value.name, children, value.alias)
+		case 'Having':
+			return new Having(value.name, children, value.alias)
+		case 'GroupBy':
+			return new GroupBy(value.name, children, value.alias)
+		case 'Filter':
+			return new Filter(value.name, children, value.alias)
+		case 'Map':
+			return new Map(value.name, children, value.alias)
+		case 'Join':
+			return new Join(value.name, children, value.alias)
+		case 'From':
+			return new From(value.name, children, value.alias)
+		case 'Field':
+			return new Field(value.entity as string, value.name, value.type as string, value.alias, value.isRoot)
+		case 'Constant2':
+			return new Constant2(value.name)
+		case 'ArrowFunction':
+			return new ArrowFunction(value.name, children)
+		case 'ChildFunction':
+			return new ChildFunction(value.name, children)
+		case 'FunctionRef':
+			return new FunctionRef(value.name, children)
+		case 'Operator':
+			return new Operator(value.name, children)
+		case 'List':
+			return new List(value.name, children)
+		case 'Obj':
+			return new Obj(value.name, children)
+		case 'KeyValue':
+			// eslint-disable-next-line no-case-declarations
+			const keyValue = new KeyValue(value.name, children, value.type)
+			keyValue.property = value.property
+			return keyValue
+		case 'Property':
+			return new exp.Property(value.name, children, value.type)
+		case 'Block':
+			return new exp.Block(value.name, children, value.type)
+		case 'If':
+			return new exp.If(value.name, children, value.type)
+		case 'ElseIf':
+			return new exp.ElseIf(value.name, children, value.type)
+		case 'Else':
+			return new exp.Else(value.name, children, value.type)
+		case 'While':
+			return new exp.While(value.name, children, value.type)
+		case 'For':
+			return new exp.For(value.name, children, value.type)
+		case 'ForIn':
+			return new exp.ForIn(value.name, children, value.type)
+		case 'Switch':
+			return new exp.Switch(value.name, children, value.type)
+		case 'Break':
+			return new exp.Break(value.name, children, value.type)
+		case 'Continue':
+			return new exp.Continue(value.name, children, value.type)
+		case 'Function':
+			return new exp.Function(value.name, children, value.type)
+		case 'Return':
+			return new exp.Return(value.name, children, value.type)
+		case 'Try':
+			return new exp.Try(value.name, children, value.type)
+		case 'Catch':
+			return new exp.Catch(value.name, children, value.type)
+		case 'Throw':
+			return new exp.Throw(value.name, children, value.type)
+		case 'Case':
+			return new exp.Case(value.name, children, value.type)
+		case 'Default':
+			return new exp.Default(value.name, children, value.type)
+		case 'Template':
+			return new exp.Template(value.name, value.type)
+		case 'Constant':
+			return new Constant(value.name)
+		case 'Variable':
+			// eslint-disable-next-line no-case-declarations
+			const variable = new Variable(value.name, value.type)
+			variable.number = value.number
+			return variable
+		default:
+			throw new SintaxisError(`Deserialize ${value.type} not implemented`)
 		}
 	}
 
-	public eval(operand: Operand, data: Data): any {
+	public eval (operand: Operand, data: Data): any {
 		this.initialize(operand, new Data(data))
 		return operand.eval()
 	}
 
-	private initialize(operand: Operand, data: Data) {
+	private initialize (operand: Operand, data: Data) {
 		let current = data
 		if (operand instanceof ArrowFunction) {
 			const childData = current.newData()
@@ -274,7 +274,7 @@ export class OperandManager {
 		}
 	}
 
-	private reduce(operand: Operand): Operand {
+	private reduce (operand: Operand): Operand {
 		if (operand instanceof Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand instanceof FunctionRef) {
@@ -286,7 +286,7 @@ export class OperandManager {
 		return operand
 	}
 
-	private reduceOperand(operand: Operand): Operand {
+	private reduceOperand (operand: Operand): Operand {
 		let allConstants = true
 		for (const k in operand.children) {
 			const p = operand.children[k]
@@ -310,7 +310,7 @@ export class OperandManager {
 		return operand
 	}
 
-	private setParent(operand: Operand, index = 0, parent?: Operand) {
+	private setParent (operand: Operand, index = 0, parent?: Operand) {
 		try {
 			if (parent) {
 				operand.id = parent.id + '.' + index
@@ -333,7 +333,7 @@ export class OperandManager {
 		}
 	}
 
-	private nodeToOperand(node: Node, expressionContext: ExpressionContext): Operand {
+	private nodeToOperand (node: Node, expressionContext: ExpressionContext): Operand {
 		let operand: Operand
 		if (node.type === 'arrow' || node.type === 'childFunc') {
 			operand = this.createSentence(node, expressionContext)
@@ -357,78 +357,78 @@ export class OperandManager {
 		return operand
 	}
 
-	private createOperand(node: Node, children: Operand[], expressionContext: ExpressionContext): Operand {
+	private createOperand (node: Node, children: Operand[], expressionContext: ExpressionContext): Operand {
 		switch (node.type) {
-			case 'const':
-				return new Constant2(node.name)
-			case 'var': {
-				const parts = node.name.split('.')
-				if (parts[0] === expressionContext.current.arrowVar) {
-					if (parts.length === 1) {
-						// TODO, aquí se debería retornar el array de fields
-						return new Field(expressionContext.current.entityName, '*', 'any', expressionContext.current.alias, true)
-					} else if (parts.length === 2) {
-						const _field = expressionContext.current.fields.find(p => p.name === parts[1])
-						if (_field) {
-							return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias, true)
-						} else {
-							if (this.modelConfig.existsProperty(expressionContext.current.entityName, parts[1])) {
-								const property = this.modelConfig.getProperty(expressionContext.current.entityName, parts[1])
-								return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias, true)
-							} else {
-								const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, parts[1])
-								if (relationInfo) {
-									const relation = this.addJoins(parts, parts.length, expressionContext)
-									const relationAlias = expressionContext.current.joins[relation]
-									// TODO, aquí se debería retornar el array de fields
-									return new Field(relation, '*', 'any', relationAlias + '.*', true)
-								} else {
-									throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
-								}
-							}
-						}
+		case 'const':
+			return new Constant2(node.name)
+		case 'var': {
+			const parts = node.name.split('.')
+			if (parts[0] === expressionContext.current.arrowVar) {
+				if (parts.length === 1) {
+					// TODO, aquí se debería retornar el array de fields
+					return new Field(expressionContext.current.entityName, '*', 'any', expressionContext.current.alias, true)
+				} else if (parts.length === 2) {
+					const _field = expressionContext.current.fields.find(p => p.name === parts[1])
+					if (_field) {
+						return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias, true)
 					} else {
-						const propertyName = parts[parts.length - 1]
-						const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-						const info = this.modelConfig.getRelation(expressionContext.current.entityName, relation)
-						const relationAlias = expressionContext.current.joins[relation]
-						const property = info.entity.properties.find(p => p.name === propertyName)
-						if (property) {
-							return new Field(info.entity.name, property.name, property.type, relationAlias, false)
+						if (this.modelConfig.existsProperty(expressionContext.current.entityName, parts[1])) {
+							const property = this.modelConfig.getProperty(expressionContext.current.entityName, parts[1])
+							return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias, true)
 						} else {
-							const childRelation = info.entity.relations.find(p => p.name === propertyName)
-							if (childRelation) {
-								const relation2 = this.addJoins(parts, parts.length, expressionContext)
-								const relationAlias2 = expressionContext.current.joins[relation2]
-								// TODO, aqui se deberia retornar el array de fields
-								return new Field(relation2, '*', 'any', relationAlias2 + '.*', false)
+							const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, parts[1])
+							if (relationInfo) {
+								const relation = this.addJoins(parts, parts.length, expressionContext)
+								const relationAlias = expressionContext.current.joins[relation]
+								// TODO, aquí se debería retornar el array de fields
+								return new Field(relation, '*', 'any', relationAlias + '.*', true)
 							} else {
-								throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
+								throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
 							}
 						}
 					}
 				} else {
-					return new Variable(node.name)
+					const propertyName = parts[parts.length - 1]
+					const relation = this.addJoins(parts, parts.length - 1, expressionContext)
+					const info = this.modelConfig.getRelation(expressionContext.current.entityName, relation)
+					const relationAlias = expressionContext.current.joins[relation]
+					const property = info.entity.properties.find(p => p.name === propertyName)
+					if (property) {
+						return new Field(info.entity.name, property.name, property.type, relationAlias, false)
+					} else {
+						const childRelation = info.entity.relations.find(p => p.name === propertyName)
+						if (childRelation) {
+							const relation2 = this.addJoins(parts, parts.length, expressionContext)
+							const relationAlias2 = expressionContext.current.joins[relation2]
+							// TODO, aquí se debería retornar el array de fields
+							return new Field(relation2, '*', 'any', relationAlias2 + '.*', false)
+						} else {
+							throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
+						}
+					}
 				}
+			} else {
+				return new Variable(node.name)
 			}
-			case 'keyVal':
-				return new KeyValue(node.name, children)
-			case 'array':
-				return new List(node.name, children)
-			case 'obj':
-				return new Obj(node.name, children)
-			case 'oper':
-				return new Operator(node.name, children)
-			case 'funcRef':
-				return new FunctionRef(node.name, children)
-			case 'block':
-				return new Block(node.name, children)
-			default:
-				throw new SintaxisError('node name: ' + node.name + ' type: ' + node.type + ' not supported')
+		}
+		case 'keyVal':
+			return new KeyValue(node.name, children)
+		case 'array':
+			return new List(node.name, children)
+		case 'obj':
+			return new Obj(node.name, children)
+		case 'operator':
+			return new Operator(node.name, children)
+		case 'funcRef':
+			return new FunctionRef(node.name, children)
+		case 'block':
+			return new Block(node.name, children)
+		default:
+			throw new SintaxisError('node name: ' + node.name + ' type: ' + node.type + ' not supported')
 		}
 	}
 
-	private createSentence(node: Node, expressionContext: ExpressionContext): Sentence {
+	private createSentence (node: Node, expressionContext: ExpressionContext): Sentence {
 		expressionContext.current = new EntityContext(expressionContext.current)
 		let createInclude: any
 		const clauses: any = this.getSentence(node)
@@ -453,7 +453,7 @@ export class OperandManager {
 		}
 		if (clauses.insert) {
 			// TODO: Si la entidad tienen una o mas propiedades con key.
-			// Se debe agregar el seteo de estas propieades usando el key
+			// Se debe agregar estas propiedades usando el key
 			name = 'insert'
 			createInclude = this.createInclude
 			const clause = clauses.insert as Node
@@ -515,8 +515,8 @@ export class OperandManager {
 			}
 			if (clauses.page) {
 				const clause = clauses.page
-				const childs = clause.children.map((p: Node) => this.nodeToOperand(p, expressionContext))
-				operand = new Page(clause.name, childs)
+				const children = clause.children.map((p: Node) => this.nodeToOperand(p, expressionContext))
+				operand = new Page(clause.name, children)
 				children.push(operand)
 			}
 		}
@@ -580,7 +580,7 @@ export class OperandManager {
 		return sentence
 	}
 
-	private getBehaviorDefaults(entityName: string): Behavior[] {
+	private getBehaviorDefaults (entityName: string): Behavior[] {
 		const behaviors: Behavior[] = []
 		const entity = this.modelConfig.getEntity(entityName)
 		if (entity && entity.properties) {
@@ -594,7 +594,7 @@ export class OperandManager {
 		return behaviors
 	}
 
-	private getBehaviorReadValues(entityName: string, operand: Operand): Behavior[] {
+	private getBehaviorReadValues (entityName: string, operand: Operand): Behavior[] {
 		const behaviors: Behavior[] = []
 		const entity = this.modelConfig.getEntity(entityName)
 		if (entity && operand.children.length === 1) {
@@ -649,7 +649,7 @@ export class OperandManager {
 		return behaviors
 	}
 
-	private getBehaviorWriteValues(entityName: string, parameters: Parameter[]): Behavior[] {
+	private getBehaviorWriteValues (entityName: string, parameters: Parameter[]): Behavior[] {
 		const behaviors: Behavior[] = []
 		const properties = this.getPropertiesFromParameters(entityName, parameters)
 		if (properties) {
@@ -663,7 +663,7 @@ export class OperandManager {
 		return behaviors
 	}
 
-	private getPropertiesFromParameters(entityName: string, parameters: Parameter[]): Property[] {
+	private getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
 		const entity = this.modelConfig.getEntity(entityName)
 		const properties: Property[] = []
 		if (entity && entity.properties && parameters) {
@@ -678,7 +678,7 @@ export class OperandManager {
 		return properties
 	}
 
-	private getConstraints(entityName: string, parameters: Parameter[]): Constraint[] {
+	private getConstraints (entityName: string, parameters: Parameter[]): Constraint[] {
 		const constraints: Constraint[] = []
 		const queryProperties = this.getPropertiesFromParameters(entityName, parameters)
 		const entity = this.modelConfig.getEntity(entityName)
@@ -686,16 +686,16 @@ export class OperandManager {
 			if (entity.constraints) {
 				for (const i in entity.constraints) {
 					const constraint = entity.constraints[i]
-					const contitionProperties = this.expressions.parameters(constraint.condition)
-					let containtAll = true
-					for (const j in contitionProperties) {
-						const contitionParameter = contitionProperties[j]
-						if (!queryProperties.find(p => p.name === contitionParameter.name)) {
-							containtAll = false
+					const conditionProperties = this.expressions.parameters(constraint.condition)
+					let all = true
+					for (const j in conditionProperties) {
+						const conditionParameter = conditionProperties[j]
+						if (!queryProperties.find(p => p.name === conditionParameter.name)) {
+							all = false
 							break
 						}
 					}
-					if (containtAll) {
+					if (all) {
 						constraints.push(constraint)
 					}
 				}
@@ -728,18 +728,18 @@ export class OperandManager {
 		return constraints
 	}
 
-	private createClause(clause: Node, expressionContext: ExpressionContext): Operand {
+	private createClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		expressionContext.current.arrowVar = clause.children[1].name
 		const child = this.nodeToOperand(clause.children[2], expressionContext)
 		switch (clause.name) {
-			case 'filter': return new Filter(clause.name, [child])
-			case 'having': return new Having(clause.name, [child])
-			case 'sort': return new Sort(clause.name, [child])
-			default: throw new SintaxisError('clause : ' + clause.name + ' not supported')
+		case 'filter': return new Filter(clause.name, [child])
+		case 'having': return new Having(clause.name, [child])
+		case 'sort': return new Sort(clause.name, [child])
+		default: throw new SintaxisError('clause : ' + clause.name + ' not supported')
 		}
 	}
 
-	private createMapClause(clause: Node, expressionContext: ExpressionContext): Operand {
+	private createMapClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
@@ -748,7 +748,7 @@ export class OperandManager {
 		throw new SintaxisError('Sentence Map incorrect!!!')
 	}
 
-	private createInsertClause(clause: Node, expressionContext: ExpressionContext): Operand {
+	private createInsertClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 2) {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === 'obj') {
@@ -765,7 +765,7 @@ export class OperandManager {
 		throw new SintaxisError('Sentence Insert incorrect!!!')
 	}
 
-	private createUpdateClause(clause: Node, expressionContext: ExpressionContext): Operand {
+	private createUpdateClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 2) {
 			if (clause.children[1].type === 'obj') {
 				// Example: Orders.update({name:'test'})
@@ -783,7 +783,7 @@ export class OperandManager {
 		throw new SintaxisError('Sentence Update incorrect!!!')
 	}
 
-	private createSelectInclude(node: Node, expressionContext: ExpressionContext): SentenceInclude {
+	private createSelectInclude (node: Node, expressionContext: ExpressionContext): SentenceInclude {
 		let current = node
 		while (current) {
 			if (current.type === 'var') {
@@ -806,7 +806,7 @@ export class OperandManager {
 		// return new SentenceInclude(relation.relation.name, [child], relation.relation)
 	}
 
-	private createInclude(node: Node, expressionContext: ExpressionContext): SentenceInclude {
+	private createInclude (node: Node, expressionContext: ExpressionContext): SentenceInclude {
 		let current = node
 		while (current) {
 			if (current.type === 'var') {
@@ -826,7 +826,7 @@ export class OperandManager {
 		// return new SentenceInclude(relationName, [child], relation, relation.to)
 	}
 
-	private getSentence(node: Node): any {
+	private getSentence (node: Node): any {
 		const sentence: any = {}
 		let current = node
 		while (current) {
@@ -841,7 +841,7 @@ export class OperandManager {
 		return sentence
 	}
 
-	private addJoins(parts: string[], to: number, expressionContext: ExpressionContext): string {
+	private addJoins (parts: string[], to: number, expressionContext: ExpressionContext): string {
 		let relation = ''
 		for (let i = 1; i < to; i++) {
 			relation = (i > 1 ? relation + '.' : '') + parts[i]
@@ -852,13 +852,13 @@ export class OperandManager {
 		return relation
 	}
 
-	private groupByFields(operand: Operand): Field[] {
+	private groupByFields (operand: Operand): Field[] {
 		const data = { fields: [], groupBy: false }
 		this._groupByFields(operand, data)
 		return data.groupBy ? data.fields : []
 	}
 
-	private _groupByFields(operand: Operand, data: any): void {
+	private _groupByFields (operand: Operand, data: any): void {
 		if (operand instanceof Field) {
 			data.fields.push(operand)
 		} else if (operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
@@ -871,7 +871,7 @@ export class OperandManager {
 		}
 	}
 
-	private createAlias(expressionContext: ExpressionContext, name: string, relation?: string): string {
+	private createAlias (expressionContext: ExpressionContext, name: string, relation?: string): string {
 		const c = name.charAt(0).toLowerCase()
 		let alias = c
 		for (let i = 1; expressionContext.aliases[alias]; i++)alias = alias + i
@@ -879,7 +879,7 @@ export class OperandManager {
 		return alias
 	}
 
-	private fieldsInSelect(operand: Operand, expressionContext: ExpressionContext): Property[] {
+	private fieldsInSelect (operand: Operand, expressionContext: ExpressionContext): Property[] {
 		const fields: Property[] = []
 		if (operand.children.length === 1) {
 			let child: Operand
@@ -903,7 +903,7 @@ export class OperandManager {
 					}
 				}
 			}
-			// Expression completer ya resuelve pasar List y field unico a Obj
+			// Expression completer ya resuelve pasar List y field único a Obj
 			// else if (child instanceof List) {
 			// const array = child
 			// for (let i = 0; i < array.children.length; i++) {
@@ -937,7 +937,7 @@ export class OperandManager {
 	* @param expressionContext current ExpressionContext
 	* @returns fields to execute query
 	*/
-	private fieldsInModify(operand: Operand, expressionContext: ExpressionContext): Property[] {
+	private fieldsInModify (operand: Operand, expressionContext: ExpressionContext): Property[] {
 		const fields: Property[] = []
 		if (operand.children.length === 1) {
 			if (operand.children[0] instanceof Object) {
@@ -954,7 +954,7 @@ export class OperandManager {
 		return fields
 	}
 
-	private parametersInSentence(children: Operand[]): Parameter[] {
+	private parametersInSentence (children: Operand[]): Parameter[] {
 		const map = children.find(p => p.name === 'map')
 		const filter = children.find(p => p.name === 'filter')
 		const groupBy = children.find(p => p.name === 'groupBy')
@@ -976,7 +976,7 @@ export class OperandManager {
 		return parameters
 	}
 
-	private loadParameters(operand: Operand, parameters: Parameter[]) {
+	private loadParameters (operand: Operand, parameters: Parameter[]) {
 		if (operand instanceof Variable) {
 			if (parameters.find(p => p.name === operand.name) === undefined) {
 				let type: string
@@ -993,9 +993,9 @@ export class OperandManager {
 
 	// TODO: determinar el tipo de la variable de acuerdo a la expression.
 	// si se usa en un operador con que se esta comparando.
-	// si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+	// si se usa en una función que tipo corresponde de acuerdo en la posición que esta ocupando.
 	// let type = this.solveType(operand,childNumber)
-	private solveTypes(operand: Operand, expressionContext: ExpressionContext): string {
+	private solveTypes (operand: Operand, expressionContext: ExpressionContext): string {
 		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) return operand.type
 		if (operand instanceof Update || operand instanceof Insert) {
 			if (operand.children.length === 1) {
@@ -1019,18 +1019,18 @@ export class OperandManager {
 				? this.expressionConfig.getOperator(operand.name, operand.children.length)
 				: this.expressionConfig.getFunction(operand.name)
 
-			// recorre todos los parametros
+			// recorre todos los parámetros
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
 				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
-					// en el caso que el pametro tenga un tipo defido y el hijo no, asigna al hijo el tipo del parametro
+					// en el caso que el parámetro tenga un tipo definido y el hijo no, asigna al hijo el tipo del parámetro
 					child.type = param.type
 				} else if (param.type === 'T' && child.type !== 'any') {
-					// en el caso que el pametro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
+					// en el caso que el parámetro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
 					tType = child.type
 				} else if (param.type === 'T' && child.type === 'any') {
-					// en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
+					// en el caso que el parámetro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
 					// en caso de lograrlo determina que T es el tipo de hijo
 					const childType = this.solveTypes(child, expressionContext)
 					if (childType !== 'any') {
@@ -1043,7 +1043,7 @@ export class OperandManager {
 			if (tType !== 'any') {
 				// en el caso que el operando sea T asigna el tipo correspondiente al operando
 				if (metadata.return === 'T' && operand.type === 'any') { operand.type = tType }
-				// busca los parametros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
+				// busca los parámetros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
 				for (let i = 0; i < metadata.params.length; i++) {
 					const param = metadata.params[i]
 					const child = operand.children[i]

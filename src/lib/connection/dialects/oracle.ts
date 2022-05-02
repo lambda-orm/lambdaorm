@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Parameter, Query, Data, ExecutionError, MethodNotImplemented } from '../../model'
+import { SchemaError, Query, Data, ExecutionError, MethodNotImplemented } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
@@ -10,7 +10,7 @@ export class OracleConnectionPool extends ConnectionPool {
 	private static oracledb: any
 	private pool: any = undefined
 
-	public async init(): Promise<void> {
+	public async init (): Promise<void> {
 		if (!OracleConnectionPool.oracledb) {
 			OracleConnectionPool.oracledb = require('oracledb')
 			// https://github.com/oracle/node-oracledb/blob/main/examples/connectionpool.js
@@ -28,14 +28,14 @@ export class OracleConnectionPool extends ConnectionPool {
 		}
 	}
 
-	private async createPool(): Promise<any> {
+	private async createPool (): Promise<any> {
 		if (!OracleConnectionPool.oracledb) {
 			await this.init()
 		}
 		return await OracleConnectionPool.oracledb.createPool(this.config.connection)
 	}
 
-	public async acquire(): Promise<Connection> {
+	public async acquire (): Promise<Connection> {
 		if (!this.pool) {
 			this.pool = await this.createPool()
 		}
@@ -43,16 +43,16 @@ export class OracleConnectionPool extends ConnectionPool {
 		return new OracleConnection(cnx, this)
 	}
 
-	public async release(connection: Connection): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		await connection.cnx.close()
 	}
 
-	public async end(): Promise<void> {
+	public async end (): Promise<void> {
 		// console.info('postgres end pool not Implemented')
 	}
 }
 export class OracleConnection extends Connection {
-	public async select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, query, data)
 		const list: any[] = []
 		for (const i in result.rows) {
@@ -67,7 +67,7 @@ export class OracleConnection extends Connection {
 		return list
 	}
 
-	public async insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		try {
 			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -77,30 +77,30 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	private oracleType(type: string): number {
+	private oracleType (type: string): number {
 		switch (type) {
-			case 'boolean':
-				return 2003
+		case 'boolean':
+			return 2003
 			// oracledb.DB_TYPE_CHAR 2003
-			case 'string':
-				// eslint-disable-next-line no-case-declarations
-				return 2001
+		case 'string':
+			// eslint-disable-next-line no-case-declarations
+			return 2001
 			// oracledb.STRING 2001
-			case 'integer':
-			case 'decimal':
-				return 2010
+		case 'integer':
+		case 'decimal':
+			return 2010
 			// oracledb.NUMBER 2010
-			case 'datetime':
-			case 'date':
-			case 'time':
-				return 2014
+		case 'datetime':
+		case 'date':
+		case 'time':
+			return 2014
 			// oracledb.DATE 2014
-			default:
-				throw new SchemaError(`type ${type} not implemented`)
+		default:
+			throw new SchemaError(`type ${type} not implemented`)
 		}
 	}
 
-	public async bulkInsert(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
@@ -116,19 +116,19 @@ export class OracleConnection extends Connection {
 				const param = query.parameters[i]
 				const oracleType = this.oracleType(param.type)
 				switch (param.type) {
-					case 'boolean':
-						bindDefs[param.name] = { type: oracleType, maxSize: 1 }; break
-					case 'string':
-						// eslint-disable-next-line no-case-declarations
-						const property = mapping.getProperty(query.entity, param.name)
-						bindDefs[param.name] = { type: oracleType, maxSize: property.length }; break
-					case 'integer':
-					case 'decimal':
-						bindDefs[param.name] = { type: oracleType }; break
-					case 'datetime':
-					case 'date':
-					case 'time':
-						bindDefs[param.name] = { type: oracleType }; break
+				case 'boolean':
+					bindDefs[param.name] = { type: oracleType, maxSize: 1 }; break
+				case 'string':
+					// eslint-disable-next-line no-case-declarations
+					const property = mapping.getProperty(query.entity, param.name)
+					bindDefs[param.name] = { type: oracleType, maxSize: property.length }; break
+				case 'integer':
+				case 'decimal':
+					bindDefs[param.name] = { type: oracleType }; break
+				case 'datetime':
+				case 'date':
+				case 'time':
+					bindDefs[param.name] = { type: oracleType }; break
 				}
 			}
 			options = {
@@ -189,7 +189,7 @@ export class OracleConnection extends Connection {
 		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
 
-	protected override arrayToRows(query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected override arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
 		const rows: any[] = []
 		for (let i = 0; i < array.length; i++) {
 			const item = array[i]
@@ -198,16 +198,16 @@ export class OracleConnection extends Connection {
 				const parameter = query.parameters[j]
 				const value = item[parameter.name]
 				switch (parameter.type) {
-					case 'boolean':
-						row[parameter.name] = value ? 'Y' : 'N'; break
-					case 'string':
-						row[parameter.name] = typeof value === 'string' || value === null ? value : value.toString(); break
-					case 'datetime':
-					case 'date':
-					case 'time':
-						row[parameter.name] = value ? new Date(value) : null; break
-					default:
-						row[parameter.name] = value
+				case 'boolean':
+					row[parameter.name] = value ? 'Y' : 'N'; break
+				case 'string':
+					row[parameter.name] = typeof value === 'string' || value === null ? value : value.toString(); break
+				case 'datetime':
+				case 'date':
+				case 'time':
+					row[parameter.name] = value ? new Date(value) : null; break
+				default:
+					row[parameter.name] = value
 				}
 				row.push(value)
 			}
@@ -216,53 +216,53 @@ export class OracleConnection extends Connection {
 		return rows
 	}
 
-	public async update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.rowsAffected
 	}
 
-	public async bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('OracleConnection', 'updateMany')
 	}
 
-	public async delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.rowsAffected
 	}
 
-	public async bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
 		throw new MethodNotImplemented('OracleConnection', 'deleteMany')
 	}
 
-	public async execute(query: Query): Promise<any> {
+	public async execute (query: Query): Promise<any> {
 		const sql = query.sentence
 		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
 		return await this.cnx.execute(sql, {}, options)
 	}
 
-	public async executeDDL(query: Query): Promise<any> {
+	public async executeDDL (query: Query): Promise<any> {
 		return await this.cnx.execute(query.sentence)
 	}
 
-	public async executeSentence(sentence: any): Promise<any> {
+	public async executeSentence (sentence: any): Promise<any> {
 		return await this.cnx.execute(sentence)
 	}
 
-	public async beginTransaction(): Promise<void> {
+	public async beginTransaction (): Promise<void> {
 		this.inTransaction = true
 	}
 
-	public async commit(): Promise<void> {
+	public async commit (): Promise<void> {
 		await this.cnx.commit()
 		this.inTransaction = false
 	}
 
-	public async rollback(): Promise<void> {
+	public async rollback (): Promise<void> {
 		await this.cnx.rollback()
 		this.inTransaction = false
 	}
 
-	protected async _execute(mapping: MappingConfig, query: Query, data: Data): Promise<any> {
+	protected async _execute (mapping: MappingConfig, query: Query, data: Data): Promise<any> {
 		const values: any = {}
 		let sql = query.sentence as string
 		const params = this.dataToParameters(query, mapping, data)
@@ -273,19 +273,19 @@ export class OracleConnection extends Connection {
 					if (param.value.length > 0) {
 						const type = typeof param.value[0]
 						switch (type) {
-							case 'string':
-								// eslint-disable-next-line no-case-declarations
-								const values: string[] = []
-								for (const j in param.value) {
-									let value = param.value[j]
-									value = Helper.escape(value)
-									value = Helper.replace(value, '\\\'', '\\\'\'')
-									values.push(`'${value}'`)
-								}
-								Helper.replace(sql, `:${param.name}`, param.value.join(','))
-								break
-							default:
-								sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
+						case 'string':
+							// eslint-disable-next-line no-case-declarations
+							const values: string[] = []
+							for (const j in param.value) {
+								let value = param.value[j]
+								value = Helper.escape(value)
+								value = Helper.replace(value, '\\\'', '\\\'\'')
+								values.push(`'${value}'`)
+							}
+							Helper.replace(sql, `:${param.name}`, param.value.join(','))
+							break
+						default:
+							sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
 						}
 					} else {
 						sql = Helper.replace(sql, `:${param.name}`, '')

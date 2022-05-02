@@ -20,7 +20,7 @@ schemas:
             mapping: name field on dataSource
             type: [string|boolean|integer|decimal|datetime|date|time]
             nullable: [true|false]
-            autoincrement: [true|false]
+            autoIncrement: [true|false]
         indexes:
           - name: nameOfIndex
             fields: []

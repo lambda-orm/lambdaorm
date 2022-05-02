@@ -7,7 +7,7 @@ const fs = require('fs')
 const path = require('path')
 const yaml = require('js-yaml')
 
-async function exec(fn: any) {
+async function exec (fn: any) {
 	const t1 = Date.now()
 	const result = await fn()
 	const t2 = Date.now()
@@ -19,7 +19,7 @@ async function exec(fn: any) {
 	return result
 }
 
-async function writeTest(stages: string[], category: CategoryTest): Promise<number> {
+async function writeTest (stages: string[], category: CategoryTest): Promise<number> {
 	category.errors = 0
 	for (const q in category.test) {
 		const expressionTest = category.test[q] as ExpressionTest
@@ -117,7 +117,7 @@ async function writeTest(stages: string[], category: CategoryTest): Promise<numb
 	}
 	return category.errors
 }
-async function writeQueryTest(stages: string[]): Promise<number> {
+async function writeQueryTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'query',
 		// stage: 'source',
@@ -135,7 +135,7 @@ async function writeQueryTest(stages: string[]): Promise<number> {
 			// { name: 'query 7', data: 'a', lambda: () => Products.map(p => [p.name, p.category.name]) },
 			// { name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			// { name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
+			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
 			// { name: 'query 12', lambda: () => Products.page(1, 1) },
 			// { name: 'query 13', lambda: () => Products.first(p => p) },
 			// { name: 'query 14', lambda: () => Products.last(p => p) },
@@ -151,7 +151,7 @@ async function writeQueryTest(stages: string[]): Promise<number> {
 		]
 	})
 }
-async function writeNumeriFunctionsTest(stages: string[]): Promise<number> {
+async function writeNumericFunctionsTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'numeric functions',
 		// stage: 'source',
@@ -176,27 +176,27 @@ async function writeNumeriFunctionsTest(stages: string[]): Promise<number> {
 			]
 	})
 }
-async function writeGroupByTest(stages: string[]): Promise<number> {
+async function writeGroupByTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'groupBy',
 		data: { a: { id: 1 } },
 		test:
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
-			{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
-			{ name: 'groupBy 3', lambda: () => Products.map(p => ({ total: sum(p.price) })) },
-			{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: avg(p.price) })) },
-			{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
-			{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
-			{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-			{ name: 'groupBy 8', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
-			{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-			{ name: 'query 10', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
+				{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
+				{ name: 'groupBy 3', lambda: () => Products.map(p => ({ total: sum(p.price) })) },
+				{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: avg(p.price) })) },
+				{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
+				{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
+				{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
+				{ name: 'groupBy 8', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
+				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
+				{ name: 'query 10', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
 				// { name: 'groupBy 11', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
 				// { name: 'groupBy 12', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
 			]
 	})
 }
-async function writeIncludeTest(stages: string[]): Promise<number> {
+async function writeIncludeTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'include',
 		// stage: 'source',
@@ -214,7 +214,7 @@ async function writeIncludeTest(stages: string[]): Promise<number> {
 			]
 	})
 }
-async function writeInsertsTest(stages: string[]): Promise<number> {
+async function writeInsertsTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'inserts',
 		// stage: 'source',
@@ -270,7 +270,7 @@ async function writeInsertsTest(stages: string[]): Promise<number> {
 			]
 	})
 }
-async function writeUpdateTest(stages: string[]): Promise<number> {
+async function writeUpdateTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'update',
 		// stage: 'source',
@@ -573,7 +573,7 @@ async function writeUpdateTest(stages: string[]): Promise<number> {
 			]
 	})
 }
-async function writeDeleteTest(stages: string[]): Promise<number> {
+async function writeDeleteTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'delete',
 		// stage: 'source',
@@ -721,17 +721,17 @@ async function writeDeleteTest(stages: string[]): Promise<number> {
 		},
 		test:
 			[{ name: 'delete 1', data: 'a', lambda: (id: number) => OrderDetails.delete().filter(p => p.orderId === id) },
-			{ name: 'delete 2', data: 'b', lambda: () => Orders.delete().include(p => p.details) },
-			{ name: 'delete 3', data: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
-			{ name: 'delete 4', data: 'd', lambda: () => Orders.delete().include(p => p.details) },
-			{ name: 'delete 4', data: 'd', lambda: (entity: any) => OrderDetails.delete(entity) },
-			{ name: 'delete 5', data: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
-			{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
+				{ name: 'delete 2', data: 'b', lambda: () => Orders.delete().include(p => p.details) },
+				{ name: 'delete 3', data: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
+				{ name: 'delete 4', data: 'd', lambda: () => Orders.delete().include(p => p.details) },
+				{ name: 'delete 4', data: 'd', lambda: (entity: any) => OrderDetails.delete(entity) },
+				{ name: 'delete 5', data: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
+				{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
 			]
 	})
 }
 // TODO: add delete on cascade , example Orders.delete().cascade(p=> p.details)
-async function writeBulkInsertTest(stages: string[]): Promise<number> {
+async function writeBulkInsertTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'bulkInsert',
 		// stage: 'source',
@@ -839,11 +839,11 @@ async function writeBulkInsertTest(stages: string[]): Promise<number> {
 		},
 		test:
 			[{ name: 'bulkInsert 1', data: 'a', lambda: () => Categories.bulkInsert() },
-			{ name: 'bulkInsert 2', data: 'b', lambda: () => Orders.bulkInsert().include(p => p.details) }
+				{ name: 'bulkInsert 2', data: 'b', lambda: () => Orders.bulkInsert().include(p => p.details) }
 			]
 	})
 }
-async function crud() {
+async function crud () {
 	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
@@ -874,7 +874,7 @@ async function crud() {
 		console.log(error)
 	}
 }
-async function bulkInsert() {
+async function bulkInsert () {
 	const expression = 'Categories.bulkInsert()'
 	const categories = [
 		{
@@ -888,7 +888,7 @@ async function bulkInsert() {
 	]
 	const result = await exec(async () => (await orm.execute(expression, categories, 'default', 'source')))
 }
-async function bulkInsert2() {
+async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
 	const orders = [
 		{
@@ -983,34 +983,34 @@ async function bulkInsert2() {
 	const result = await exec(async () => (await orm.execute(expression, orders, 'default', 'source')))
 }
 
-async function stageExport(source: string) {
+async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
 	const data = await orm.stage.export(source).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
-async function stageImport(source: string, target: string) {
+async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
 	await orm.stage.import(target).execute(data)
 }
 
-export async function apply(stages: string[], callback: any) {
-	let errors = 0
+export async function apply (stages: string[], callback: any) {
+	const errors = 0
 	try {
 		await orm.init()
-		// await orm.stage.sync('source').execute()
-		// await stageExport('source')
-		// for (const p in stages) {
-		// 	const stage = stages[p]
-		// 	await orm.stage.clean(stage).execute(true)
-		// 	await orm.stage.sync(stage).execute()
-		// 	await stageImport('source', stage)
-		// 	await stageExport(stage)
-		// }
+		await orm.stage.sync('source').execute()
+		await stageExport('source')
+		for (const p in stages) {
+			const stage = stages[p]
+			await orm.stage.clean(stage).execute(true)
+			await orm.stage.sync(stage).execute()
+			await stageImport('source', stage)
+			await stageExport(stage)
+		}
 
-		errors = errors + await writeQueryTest(stages)
-		// errors = errors + await writeNumeriFunctionsTest(stages)
+		// errors = errors + await writeQueryTest(stages)
+		// errors = errors + await writeNumericFunctionsTest(stages)
 		// errors = errors + await writeGroupByTest(stages)
 		// errors = errors + await writeIncludeTest(stages)
 		// errors = errors + await writeInsertsTest(stages)
@@ -1019,10 +1019,10 @@ export async function apply(stages: string[], callback: any) {
 		// errors = errors + await writeDeleteTest(stages)
 		// errors = errors + await writeBulkInsertTest(stages)
 
-		// //operators comparation , matematica
+		// //operators comparative , mathematics
 		// //string functions
 		// //datetime functions
-		// //nullables functions
+		// //null functions
 		// OLDS
 		// await modify(orm)
 		// await crud(orm)

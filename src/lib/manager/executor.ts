@@ -12,7 +12,7 @@ export class Executor {
 	private expressionManager: ExpressionManager
 	private expressions: Expressions
 
-	constructor(connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressionManager: ExpressionManager, expressions: Expressions) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressionManager: ExpressionManager, expressions: Expressions) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.schemaManager = schemaManager
@@ -20,7 +20,7 @@ export class Executor {
 		this.expressions = expressions
 	}
 
-	public async execute(query: Query, data: any, stage: string, view: string): Promise<any> {
+	public async execute (query: Query, data: any, stage: string, view: string): Promise<any> {
 		let error: any
 		let result: any
 		if (query.includes && query.includes.length > 0) {
@@ -43,7 +43,7 @@ export class Executor {
 		return result
 	}
 
-	public async executeList(stage: string, view: string | undefined, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+	public async executeList (stage: string, view: string | undefined, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
 		let query: Query
 		if (tryAllCan) {
@@ -76,7 +76,7 @@ export class Executor {
  * @param dataSource Database name
  * @param callback Codigo que se ejecutara en transaccion
  */
-	public async transaction(stage: string, view: string | undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (stage: string, view: string | undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, true)
 		let error: any
 		try {

@@ -22,7 +22,7 @@ export interface Property {
 	length?: number
 	nullable?: boolean
 	primaryKey?: boolean
-	autoincrement?: boolean
+	autoIncrement?: boolean
 	view?: boolean
 	readExp?: string
 	writeExp?: string

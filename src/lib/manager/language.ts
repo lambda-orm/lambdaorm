@@ -9,7 +9,7 @@ export abstract class Language {
 	public solveComposite?: boolean
 	protected expressions: Expressions
 
-	constructor(name: string, dialects: any, expressions: Expressions) {
+	constructor (name: string, dialects: any, expressions: Expressions) {
 		this.name = name
 		this.expressions = expressions
 
@@ -22,7 +22,7 @@ export abstract class Language {
 		}
 	}
 
-	public getDialect(name: string): Dialect {
+	public getDialect (name: string): Dialect {
 		const dialect = this.dialects.find(p => p.name === name)
 		if (!dialect) {
 			throw new NotImplemented(`Dialect ${name} not implemented`)

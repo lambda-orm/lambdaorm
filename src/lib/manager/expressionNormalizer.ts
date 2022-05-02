@@ -9,11 +9,11 @@ import { Node } from 'js-expressions'
  */
 export class ExpressionNormalizer {
 	private schema: SchemaManager
-	constructor(schema: SchemaManager) {
+	constructor (schema: SchemaManager) {
 		this.schema = schema
 	}
 
-	public normalize(node: Node): Node {
+	public normalize (node: Node): Node {
 		if (node.type === 'var' && node.children.length === 0) {
 			// Example: Products => Products.map(p=>p)
 			const arrowVariable = new Node('p', 'var')
@@ -27,7 +27,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private normalizeNode(node: Node): void {
+	private normalizeNode (node: Node): void {
 		if (node.type === 'arrow' || node.type === 'childFunc') {
 			// rename ambiguous functions
 			if (node.name === 'select') {
@@ -51,7 +51,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private getClauses(node: Node): any {
+	private getClauses (node: Node): any {
 		const clauses: any = {}
 		let current = node
 		while (current) {
@@ -62,7 +62,7 @@ export class ExpressionNormalizer {
 		return clauses
 	}
 
-	private completeSentence(mainNode: Node, entityName?: string): void {
+	private completeSentence (mainNode: Node, entityName?: string): void {
 		let compleInclude: any
 		const clauses: any = this.getClauses(mainNode)
 		const entity = this.schema.model.getEntity(entityName || clauses.from.name)
@@ -109,10 +109,10 @@ export class ExpressionNormalizer {
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
 				if (!clauses.sort) {
-					const autoincrement = this.schema.model.getAutoincrement(entity.name)
-					if (autoincrement !== undefined) {
+					const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
+					if (autoIncrement !== undefined) {
 						const varArrow = new Node('p', 'var', [])
-						const varSort = new Node('p.' + autoincrement.name, 'var', [])
+						const varSort = new Node('p.' + autoIncrement.name, 'var', [])
 						const funcAsc = new Node('asc', 'funcRef', [varSort])
 						mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcAsc])
 					}
@@ -130,10 +130,10 @@ export class ExpressionNormalizer {
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
 				if (!clauses.sort) {
-					const autoincrement = this.schema.model.getAutoincrement(entity.name)
-					if (autoincrement !== undefined) {
+					const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
+					if (autoIncrement !== undefined) {
 						const varArrow = new Node('p', 'var', [])
-						const varSort = new Node('p.' + autoincrement.name, 'var', [])
+						const varSort = new Node('p.' + autoIncrement.name, 'var', [])
 						const funcDesc = new Node('desc', 'funcRef', [varSort])
 						mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcDesc])
 					}
@@ -201,7 +201,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private addChildFieldField(map: Node, entity: Entity, include: Node): void {
+	private addChildFieldField (map: Node, entity: Entity, include: Node): void {
 		const relation = this.getIncludeRelation(entity, include)
 		const objArrowVar = map.children[1].name
 		const fieldToAdd = new Node(objArrowVar + '.' + relation.from, 'var')
@@ -209,7 +209,7 @@ export class ExpressionNormalizer {
 		map.children[2].children.push(keyVal)
 	}
 
-	private completeMapNode(entity: Entity, node: Node): void {
+	private completeMapNode (entity: Entity, node: Node): void {
 		if (node.children && node.children.length === 3) {
 			const arrowVar = node.children[1].name
 			const fields = node.children[2]
@@ -238,7 +238,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private fieldToKeyVal(arrowVar: string, field: Node): Node {
+	private fieldToKeyVal (arrowVar: string, field: Node): Node {
 		let key: string
 		if (field.name.startsWith(arrowVar + '.')) {
 			key = field.name.replace(arrowVar + '.', '')
@@ -251,7 +251,7 @@ export class ExpressionNormalizer {
 		return new Node(key, 'keyVal', [field])
 	}
 
-	private completeInsertNode(entity: Entity, node: Node): void {
+	private completeInsertNode (entity: Entity, node: Node): void {
 		if (node.children.length === 1) {
 			// example: Entity.insert()
 			const fields = this.createWriteNodeFields(entity, undefined, false, true)
@@ -262,7 +262,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private completeUpdateNode(entity: Entity, node: Node): void {
+	private completeUpdateNode (entity: Entity, node: Node): void {
 		if (node.children.length === 1) {
 			// Example: Entity.update()
 			// In the case that the mapping is not defined, it assumes that the data will be the entity to update
@@ -278,7 +278,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private createReadNodeFields(entity: Entity, parent?: string): any {
+	private createReadNodeFields (entity: Entity, parent?: string): any {
 		const obj = new Node('obj', 'obj', [])
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
@@ -289,11 +289,11 @@ export class ExpressionNormalizer {
 		return obj
 	}
 
-	private createWriteNodeFields(entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoincrement = false): any {
+	private createWriteNodeFields (entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoincrement = false): any {
 		const obj = new Node('obj', 'obj', [])
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
-			if ((!property.autoincrement || !excludeAutoincrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
+			if ((!property.autoIncrement || !excludeAutoincrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
 				const field = new Node(parent ? parent + '.' + property.name : property.name, 'var', [])
 				const keyVal = new Node(property.name, 'keyVal', [field])
 				obj.children.push(keyVal)
@@ -302,7 +302,7 @@ export class ExpressionNormalizer {
 		return obj
 	}
 
-	private createClauseFilter(entity: Entity, node: Node): void {
+	private createClauseFilter (entity: Entity, node: Node): void {
 		if (node.children.length === 1) {
 			// Example: Entity.delete()
 			const condition = this.createFilter(entity, 'p')
@@ -327,7 +327,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private createFilter(entity: Entity, parent?: string, parentVariable?: string): Node {
+	private createFilter (entity: Entity, parent?: string, parentVariable?: string): Node {
 		let condition
 		if (entity.primaryKey !== undefined) {
 			for (let i = 0; i < entity.primaryKey?.length; i++) {
@@ -336,8 +336,8 @@ export class ExpressionNormalizer {
 				if (field !== undefined) {
 					const fieldNode = new Node(parent ? parent + '.' + field.name : field.name, 'var')
 					const variableNode = new Node(parentVariable ? parentVariable + '.' + name : name, 'var')
-					const equal = new Node('==', 'oper', [fieldNode, variableNode])
-					condition = condition ? new Node('&&', 'oper', [condition, equal]) : equal
+					const equal = new Node('==', 'operator', [fieldNode, variableNode])
+					condition = condition ? new Node('&&', 'operator', [condition, equal]) : equal
 				}
 			}
 		}
@@ -347,11 +347,11 @@ export class ExpressionNormalizer {
 		throw new SchemaError('Create Filter incorrect!!!')
 	}
 
-	private completeMapInclude(entity: Entity, arrowVar: string, node: Node): Node {
+	private completeMapInclude (entity: Entity, arrowVar: string, node: Node): Node {
 		return this.completeSelectInclude(entity, arrowVar, node, 'map')
 	}
 
-	private completeSelectInclude(entity: Entity, arrowVar: string, node: Node, clause: string): Node {
+	private completeSelectInclude (entity: Entity, arrowVar: string, node: Node, clause: string): Node {
 		let map: Node, relation: any
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.map(p=>p))
@@ -393,7 +393,7 @@ export class ExpressionNormalizer {
 			const varFilterArrowNode = new Node(arrowFilterVar, 'var', [])
 			map.children[0] = new Node('filter', 'arrow', [map.children[0], varFilterArrowNode, filterInclude])
 		} else {
-			childFilter.children[0] = new Node('&&', 'oper', [childFilter.children[0], filterInclude])
+			childFilter.children[0] = new Node('&&', 'operator', [childFilter.children[0], filterInclude])
 		}
 		// If the column for which the include is to be resolved is not in the select, it must be added
 		const arrowSelect = clauses.map.children[1].name
@@ -415,23 +415,23 @@ export class ExpressionNormalizer {
 		return map
 	}
 
-	private completeBulkInsertInclude(entity: Entity, arrowVar: string, node: Node): Node {
+	private completeBulkInsertInclude (entity: Entity, arrowVar: string, node: Node): Node {
 		return this.completeInclude(entity, arrowVar, node, 'bulkInsert')
 	}
 
-	private completeInsertInclude(entity: Entity, arrowVar: string, node: Node): Node {
+	private completeInsertInclude (entity: Entity, arrowVar: string, node: Node): Node {
 		return this.completeInclude(entity, arrowVar, node, 'insert')
 	}
 
-	private completeUpdateInclude(entity: Entity, arrowVar: string, node: Node): Node {
+	private completeUpdateInclude (entity: Entity, arrowVar: string, node: Node): Node {
 		return this.completeInclude(entity, arrowVar, node, 'update')
 	}
 
-	private completeDeleteInclude(entity: Entity, arrowVar: string, node: Node): Node {
+	private completeDeleteInclude (entity: Entity, arrowVar: string, node: Node): Node {
 		return this.completeInclude(entity, arrowVar, node, 'delete')
 	}
 
-	private getIncludeRelation(entity: Entity, node: Node): any {
+	private getIncludeRelation (entity: Entity, node: Node): any {
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.insert())
 			let current = node
@@ -456,7 +456,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private completeInclude(entity: Entity, arrowVar: string, node: Node, clause: string): Node {
+	private completeInclude (entity: Entity, arrowVar: string, node: Node, clause: string): Node {
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.insert())
 			const relation = this.getIncludeRelation(entity, node)

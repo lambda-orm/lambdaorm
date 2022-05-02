@@ -4,19 +4,19 @@ import { Parameter } from './parameter'
 export interface MetadataParameter {
 	name: string
 	type: string
-	childs?: MetadataParameter[]
+	children?: MetadataParameter[]
 }
 
 export interface MetadataModel {
 	name: string
 	type: string
-	childs?: MetadataModel[]
+	children?: MetadataModel[]
 }
 
 export interface MetadataConstraint {
 	entity: string
 	constraints: Constraint[]
-	childs?: MetadataConstraint[]
+	children?: MetadataConstraint[]
 }
 
 export interface MetadataSentence {
@@ -24,7 +24,7 @@ export interface MetadataSentence {
 	dialect: string
 	dataSource: string
 	sentence: string
-	childs?: MetadataSentence[]
+	children?: MetadataSentence[]
 }
 
 export interface Metadata {

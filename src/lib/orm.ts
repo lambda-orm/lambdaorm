@@ -7,7 +7,7 @@ import { SqlLanguage } from './language/sql'
 import { NoSqlLanguage } from './language/nosql'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'
-import { OrmExtesionLib } from './expression/extension'
+import { OrmExtensionLib } from './expression/extension'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -38,7 +38,7 @@ export class Orm implements IOrm {
 	constructor (workspace: string = process.cwd()) {
 		this._expressions = expressions
 		this._expressions.config.load(modelConfig)
-		this._expressions.config.addLibrary(new OrmExtesionLib())
+		this._expressions.config.addLibrary(new OrmExtensionLib())
 
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
 		this._cache = new MemoryCache()
