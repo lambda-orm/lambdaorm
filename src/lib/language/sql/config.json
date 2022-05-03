@@ -41,7 +41,7 @@
         "order": "ORDER BY {0}",
         "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
+        "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -50,14 +50,14 @@
       "others": {
         "delimiter": "`{name}`",
         "variable": "?",
-        "sepatatorSql": ";",
+        "separatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval",
+        "sequenceNextVal": "{name}.nextval",
         "solveComposite": false
       },
       "functions": {
@@ -274,8 +274,8 @@
         "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dml": {
-        "insert": "INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoincrementField} VALUES({values})",
-        "update": "UPDATE {alias} SET {assings} FROM {name} {alias}",
+        "insert": "INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})",
+        "update": "UPDATE {alias} SET {assigns} FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields})",
         "map": "SELECT {0}",
@@ -295,7 +295,7 @@
       },
       "others": {
         "delimiter": "[{name}]",
-        "sepatatorSql": " \\nGO",
+        "separatorSql": " \\nGO",
         "variable": "@{name}",
         "false": 0,
         "true": 1,
@@ -303,7 +303,7 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval",
+        "sequenceNextVal": "{name}.nextval",
         "solveComposite": false
       },
       "operators": {
@@ -506,7 +506,7 @@
         "order": "ORDER BY {0}",
         "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
+        "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
         "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -515,14 +515,14 @@
       "others": {
         "delimiter": "`{name}`",
         "variable": "?",
-        "sepatatorSql": ";",
+        "separatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval",
+        "sequenceNextVal": "{name}.nextval",
         "solveComposite": false
       },
       "functions": {
@@ -717,12 +717,12 @@
         "true": "Y",
         "variable": ":{name}",
         "delimiter": "\"{name}\"",
-        "sepatatorSql": ";",
+        "separatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval",
+        "sequenceNextVal": "{name}.nextval",
         "solveComposite": false
       },
       "ddl": {
@@ -764,7 +764,7 @@
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-        "update": "UPDATE {name} {alias} SET {assings}",
+        "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
@@ -968,7 +968,7 @@
       },
       "dml": {
         "page": "{sentence} OFFSET {offset} LIMIT {records}",
-        "insert": "INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id",
+        "insert": "INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoIncrementField} AS id",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES",
         "map": "SELECT {0}",
         "select": "SELECT {0}",
@@ -979,7 +979,7 @@
         "having": "HAVING {0}",
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
-        "update": "UPDATE {name} {alias} SET {assings}",
+        "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
@@ -989,14 +989,14 @@
       "others": {
         "variable": "${number}",
         "delimiter": "\"{name}\"",
-        "sepatatorSql": ";",
+        "separatorSql": ";",
         "notNullable": "NOT NULL",
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextval": "{name}.nextval",
+        "sequenceNextVal": "{name}.nextval",
         "solveComposite": false
       },
       "functions": {
@@ -1206,7 +1206,7 @@
       "order": "ORDER BY {0}",
       "page": "{sentence} LIMIT {offset},{records}",
       "insert": "INSERT INTO {name}({fields}) VALUES({values})",
-      "update": "UPDATE {name} {alias} SET {assings}",
+      "update": "UPDATE {name} {alias} SET {assigns}",
       "remove": "DELETE FROM {name} {alias}",
       "delete": "DELETE FROM {name} {alias}",
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
@@ -1216,7 +1216,7 @@
     },
     "others": {
       "delimiter": "\"{name}\"",
-      "sepatatorSql": ";",
+      "separatorSql": ";",
       "notNullable": "NOT NULL",
       "variable": ":{name}",
       "field": "{entityAlias}.{name}",
@@ -1224,7 +1224,7 @@
       "false": "FALSE",
       "true": "TRUE",
       "null": "NULL",
-      "sequenceNextval": "{name}.nextval",
+      "sequenceNextVal": "{name}.nextval",
       "solveComposite": false
     },
     "operators": {

@@ -9,7 +9,7 @@ ddl:
   dropIndex: "DROP INDEX {name}"
 dml:
   page: "{sentence} OFFSET {offset} LIMIT {records}"
-  insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoincrementField} AS id
+  insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoIncrementField} AS id
   bulkInsert: INSERT INTO {name}({fields}) VALUES
 others:
   variable: "${number}"

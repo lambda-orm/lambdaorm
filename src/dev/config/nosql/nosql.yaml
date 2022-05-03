@@ -23,9 +23,9 @@ dml:
   having: '{ "$match" :{ {0} }}'
   sort: '{ "$sort" :{ {0} } }'
   page: ' {sentence} , { "$skip" : {offset} }, { "$limit" : {records} }'
-  insert: "{ {assings} }"
-  # update: '{ "$set" :{ {assings} }}'
-  update: "{assings}"
+  insert: "{ {assigns} }"
+  # update: '{ "$set" :{ {assigns} }}'
+  update: "{assigns}"
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: 'FROM {name} {alias} '

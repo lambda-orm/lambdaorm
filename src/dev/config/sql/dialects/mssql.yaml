@@ -9,13 +9,13 @@ ddl:
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name} ON {table}"
 dml:
-  insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoincrementField} VALUES({values})
-  update: UPDATE {alias} SET {assings} FROM {name} {alias}
+  insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})
+  update: UPDATE {alias} SET {assigns} FROM {name} {alias}
   delete: DELETE FROM {name} {alias}
   bulkInsert: INSERT INTO {name}({fields})
 others:
   delimiter: "[{name}]"
-  sepatatorSql: ' \nGO'
+  separatorSql: ' \nGO'
   variable: "@{name}"
   false: 0
   true: 1

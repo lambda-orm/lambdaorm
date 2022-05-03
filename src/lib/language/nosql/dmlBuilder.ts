@@ -233,7 +233,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	}
 
 	protected override buildInsert (operand: Insert, entity: EntityMapping): string {
-		const assings: string[] = []
+		const assigns: string[] = []
 		const template = this.dialect.dml('insert')
 		const templateAssing = this.dialect.operator('=', 2)
 		if (operand.children[0] instanceof Object) {
@@ -253,16 +253,16 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				const value = this.buildOperand(keyVal.children[0])
 				let assing = templateAssing.replace('{0}', name)
 				assing = assing.replace('{1}', value)
-				assings.push(assing)
+				assigns.push(assing)
 			}
 		}
-		return template.replace('{assings}', assings.join(','))
+		return template.replace('{assigns}', assigns.join(','))
 	}
 
 	protected override buildUpdate (operand: Update, entity: EntityMapping): string {
 		const template = this.dialect.dml('update')
 		const templateAssing = this.dialect.operator('=', 2)
-		const assings: string[] = []
+		const assigns: string[] = []
 
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
@@ -282,10 +282,10 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				const value = this.buildOperand(keyVal.children[0])
 				let assing = templateAssing.replace('{0}', field)
 				assing = assing.replace('{1}', value)
-				assings.push(assing)
+				assigns.push(assing)
 			}
 		}
-		return template.replace('{assings}', assings.join(','))
+		return template.replace('{assigns}', assigns.join(','))
 	}
 
 	protected override buildField (operand: Field): string {

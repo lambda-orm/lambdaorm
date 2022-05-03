@@ -148,7 +148,7 @@ export abstract class DmlBuilder {
 		// }
 
 		if (autoIncrement && entity.sequence) {
-			const templateSequenceNextVal = this.dialect.other('sequenceNextval')
+			const templateSequenceNextVal = this.dialect.other('sequenceNextVal')
 			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoIncrement.mapping)))
 			values.push(templateSequenceNextVal.replace('{name}', entity.sequence))
 		}
@@ -171,27 +171,18 @@ export abstract class DmlBuilder {
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
-
 		template = template.replace('{name}', this.dialect.delimiter(entity.mapping))
 		template = template.replace('{fields}', fields.join(','))
 		template = template.replace('{values}', values.join(','))
-		template = template.replace('{autoincrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
+		template = template.replace('{autoIncrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
 		return template.trim()
 	}
 
 	protected buildUpdate (operand: Update, entity: EntityMapping): string {
 		let template = this.dialect.dml('update')
 		const templateColumn = this.dialect.other('column')
-		const templateAssing = this.dialect.operator('=', 2)
-		const assings: string[] = []
-		const parts = operand.name.split('.')
-		// const entity = parts[0]
-		const alias = parts[1]
-		// const entityMapping = this.mapping.entityMapping(entity)
-		// if (entityMapping === undefined) {
-		// throw new SchemaError(`mapping undefined on ${entity} entity`)
-		// }
-
+		const templateAssign = this.dialect.operator('=', 2)
+		const assigns: string[] = []
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
@@ -208,28 +199,21 @@ export abstract class DmlBuilder {
 				}
 				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])
-				let assing = templateAssing.replace('{0}', column)
-				assing = assing.replace('{1}', value)
-				assings.push(assing)
+				let assign = templateAssign.replace('{0}', column)
+				assign = assign.replace('{1}', value)
+				assigns.push(assign)
 			}
 		}
 		template = Helper.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
-		template = Helper.replace(template, '{alias}', alias)
-		template = template.replace('{assings}', assings.join(','))
+		template = Helper.replace(template, '{alias}', operand.alias)
+		template = template.replace('{assigns}', assigns.join(','))
 		return template.trim() + ' '
 	}
 
 	protected buildDelete (operand: Delete, entity: EntityMapping): string {
 		let template = this.dialect.dml('delete')
-		const parts = operand.name.split('.')
-		// const entity = parts[0]
-		const alias = parts[1]
-		// const entityMapping = this.mapping.entityMapping(entity)
-		// if (entityMapping === undefined) {
-		// throw new SchemaError(`mapping undefined on ${entity} entity`)
-		// }
 		template = Helper.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
-		template = Helper.replace(template, '{alias}', alias)
+		template = Helper.replace(template, '{alias}', operand.alias)
 		return template.trim() + ' '
 	}
 

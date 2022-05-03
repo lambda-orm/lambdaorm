@@ -218,7 +218,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		let text = this.dialect.dml('update')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{alias}', alias)
-		text = text.replace('{assings}', assing)
+		text = text.replace('{assigns}', assing)
 		return new Query('update', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 

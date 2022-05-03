@@ -126,9 +126,9 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
 		},
 		test: [
-			{ name: 'query 1', lambda: () => Products },
-			{ name: 'query 2', lambda: () => Products.map(p => p).page(1, 1) },
-			{ name: 'query 3', lambda: () => Products.page(1, 1) },
+			{ name: 'query 1', lambda: () => Products.sort(p => p.name) },
+			{ name: 'query 2', lambda: () => Products.map(p => p).sort(p => p.id).page(1, 1) },
+			{ name: 'query 3', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 4', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
 			{ name: 'query 5', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
 			{ name: 'query 6', data: 'a', lambda: () => Products.map(p => p.category.name) },
@@ -140,10 +140,9 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 13', lambda: () => Products.first(p => p) },
 			{ name: 'query 14', lambda: () => Products.last(p => p) },
 			{ name: 'query 15', lambda: () => Products.take(p => p) },
-			{ name: 'query 16', lambda: () => Products.page(1, 1) },
 			{ name: 'query 17', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
-			{ name: 'query 18', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p) },
-			{ name: 'query 19', lambda: () => Products.distinct(p => p) },
+			{ name: 'query 18', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
+			{ name: 'query 19', lambda: () => Products.distinct(p => p).sort(p => p.id) },
 			{ name: 'query 20', lambda: () => Products.distinct(p => p.categoryId) },
 			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
 			{ name: 'query 22', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
@@ -1038,7 +1037,7 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['mongodb'], function () {
+apply(['mysql', 'postgres', 'mariadb'], function () {
 	console.log('end')
 })
 // apply(['mysql', 'postgres', 'mariadb', 'mssql','oracle','mongodb'], function () { console.log('end') })

@@ -491,7 +491,7 @@ class SchemaExtender {
 					}
 				}
 			}
-			// etends mappings
+			// extends mappings
 			for (const k in schema.mappings) {
 				this.extendMapping(schema.mappings[k], schema.mappings)
 			}
@@ -540,7 +540,6 @@ class SchemaExtender {
 				this.completeEntities(schema.entities, schema.views)
 				this.completeRelations(schema.entities)
 				this.completeDependents(schema.entities)
-				// this.setComposite(schema.entities)
 			}
 		}
 	}
@@ -644,33 +643,6 @@ class SchemaExtender {
 		}
 	}
 
-	// private setOnlyComposite(entities: Entity[]): void {
-	// if (entities && entities.length) {
-	// for (let i = 0; i < entities.length; i++) {
-	// const source = entities[i]
-	// source.composite = this.composite(source.name, entities)
-	// }
-	// }
-	// }
-
-	// private composite(entityName: string, entities: Entity[]): boolean {
-	// let isComposite = false
-	// for (const i in entities) {
-	// const entity = entities[i]
-	// for (const j in entity.relations) {
-	// const relation = entity.relations[j]
-	// if (relation.entity === entityName) {
-	// if (!relation.composite) {
-	// return false
-	// } else {
-	// isComposite = true
-	// }
-	// }
-	// }
-	// }
-	// return isComposite
-	// }
-
 	private completeDependents (entities: Entity[]): void {
 		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
@@ -714,7 +686,7 @@ class SchemaExtender {
 				}
 				this.extendObject(entity.relations, base.relations)
 			}
-			// se setea dado que ya fue extendido
+			// elimina dado que ya fue extendido
 			delete entity.extends
 		}
 	}
@@ -759,7 +731,7 @@ class SchemaExtender {
 				}
 				this.extendObject(entity.properties, base.properties)
 			}
-			// se setea dado que ya fue extendido
+			// elimina dado que ya fue extendido
 			delete entity.extends
 		}
 	}
@@ -961,12 +933,12 @@ export class SchemaManager {
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
-		if (await Helper.existsPath(path.join(workspace, 'lambdaorm.yaml'))) {
-			return 'lambdaorm.yaml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaorm.yml'))) {
-			return 'lambdaorm.yml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaorm.json'))) {
-			return 'lambdaorm.json'
+		if (await Helper.existsPath(path.join(workspace, 'lambdaOrm.yaml'))) {
+			return 'lambdaOrm.yaml'
+		} else if (await Helper.existsPath(path.join(workspace, 'lambdaOrm.yml'))) {
+			return 'lambdaOrm.yml'
+		} else if (await Helper.existsPath(path.join(workspace, 'lambdaOrm.json'))) {
+			return 'lambdaOrm.json'
 		} else {
 			return undefined
 		}
@@ -985,7 +957,7 @@ export class SchemaManager {
 		this.model.entities = this.schema.entities ? this.schema.entities : []
 		this.model.enums = this.schema.enums ? this.schema.enums : []
 		if (!this.schema.views) {
-			this.schema.views = [{ name: 'defaul', entities: [] }]
+			this.schema.views = [{ name: 'default', entities: [] }]
 		}
 		for (const p in this.schema.views) {
 			this.view.load(this.schema.views[p])

@@ -44,7 +44,7 @@ dml:
   order: ORDER BY {0}
   page: "{sentence} LIMIT {offset},{records}" 
   insert: INSERT INTO {name}({fields}) VALUES({values})
-  update: UPDATE {name} {alias} SET {assings} 
+  update: UPDATE {name} {alias} SET {assigns} 
   remove: DELETE FROM {name} {alias} 
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
@@ -53,7 +53,7 @@ dml:
   upsert:  
 others:
   delimiter: '"{name}"'
-  sepatatorSql: ;
+  separatorSql: ;
   notNullable: NOT NULL
   variable: ':{name}'
   field: '{entityAlias}.{name}'
@@ -61,7 +61,7 @@ others:
   false: 'FALSE'
   true: 'TRUE'
   null: 'NULL'
-  sequenceNextval : '{name}.nextval'
+  sequenceNextVal : '{name}.nextval'
   solveComposite: false
 operators:
   unary:
