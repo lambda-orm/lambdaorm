@@ -38,6 +38,8 @@ export abstract class DmlBuilder {
 
 	protected buildMapSentence (sentence: Sentence): string {
 		const map = sentence.children.find(p => p.name === 'map') as Map | undefined
+		const from = sentence.children.find(p => p instanceof From) as From | undefined
+		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
 		const having = sentence.children.find(p => p.name === 'having') as Having | undefined
@@ -50,8 +52,10 @@ export abstract class DmlBuilder {
 		if (map === undefined) {
 			throw new SchemaError('map operand not found')
 		}
-		const from = sentence.children.find(p => p instanceof From) as Operand
-		const joins = sentence.children.filter(p => p instanceof Join)
+		if (from === undefined) {
+			throw new SchemaError('from operand not found')
+		}
+
 		let text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(joins)
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		if (groupBy) text = text + this.buildArrowFunction(groupBy) + ' '
@@ -103,33 +107,31 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildJoins (joins: Operand[]): string {
+	protected buildJoins (joins: Join[]): string {
 		const list: string[] = []
 		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
-			const parts = join.name.split('.')
-			const entity = this.mapping.getEntity(parts[0])
+			const entity = this.mapping.getEntity(join.name)
 			if (entity === undefined) {
-				throw new SchemaError(`not found mapping for ${parts[0]}`)
+				throw new SchemaError(`not found mapping for ${join.name}`)
 			}
 			let joinText = template.replace('{name}', this.dialect.delimiter(entity.mapping))
-			joinText = joinText.replace('{alias}', parts[1])
+			joinText = joinText.replace('{alias}', join.alias)
 			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0])).trim()
 			list.push(joinText)
 		}
 		return list.join(' ') + ' '
 	}
 
-	protected buildFrom (from: Operand): string {
+	protected buildFrom (from: From): string {
 		let template = this.dialect.dml('from')
-		const parts = from.name.split('.')
-		const entityMapping = this.mapping.entityMapping(parts[0])
+		const entityMapping = this.mapping.entityMapping(from.name)
 		if (entityMapping === undefined) {
-			throw new SchemaError(`not found mapping for ${parts[0]}`)
+			throw new SchemaError(`not found mapping for ${from.name}`)
 		}
 		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
-		template = Helper.replace(template, '{alias}', parts[1])
+		template = Helper.replace(template, '{alias}', from.alias)
 		return template.trim()
 	}
 

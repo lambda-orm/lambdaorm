@@ -11,10 +11,6 @@ abstract class _ModelConfig<TEntity extends Entity, TProperty extends Property> 
 	public abstract get enums(): Enum[];
 
 	public getEntity (name: string): TEntity | undefined {
-		if (name.includes('.')) {
-			const entityName = name.split('.')[1]
-			return this.entities.find(p => p.name === entityName)
-		}
 		return this.entities.find(p => p.name === name)
 	}
 
@@ -476,7 +472,7 @@ class SchemaExtender {
 		if (schema.entities) {
 			const entities = schema.entities
 			for (const k in entities) {
-				this.extendEntiy(entities[k], entities)
+				this.extendEntity(entities[k], entities)
 			}
 		}
 		schema.entities = this.clearEntities(schema.entities)
@@ -491,7 +487,7 @@ class SchemaExtender {
 				const entities = schema.mappings[k].entities
 				if (entities) {
 					for (const k in entities) {
-						this.extendEntiyMapping(entities[k], entities)
+						this.extendEntityMapping(entities[k], entities)
 					}
 				}
 			}
@@ -508,7 +504,7 @@ class SchemaExtender {
 		}
 		// dataSources
 		if (!schema.dataSources || !schema.dataSources.length || schema.dataSources.length === 0) {
-			console.log('Datasources not defined')
+			console.log('DataSources not defined')
 			schema.dataSources = [{ name: 'default', dialect: 'mysql', mapping: schema.mappings[0].name, connection: null }]
 		}
 		for (const k in schema.dataSources) {
@@ -544,9 +540,15 @@ class SchemaExtender {
 				this.completeEntities(schema.entities, schema.views)
 				this.completeRelations(schema.entities)
 				this.completeDependents(schema.entities)
-				// this.setOnlyComposite(schema.entities)
+				// this.setComposite(schema.entities)
 			}
 		}
+	}
+
+	public isCompound (parent, child):boolean {
+		const parentRoot = parent.split('.')[0]
+		const childRoot = child.split('.')[0]
+		return parentRoot === childRoot
 	}
 
 	private clearEntities (source: Entity[]): Entity[] {
@@ -565,6 +567,7 @@ class SchemaExtender {
 		if (entities && entities.length) {
 			for (let i = 0; i < entities.length; i++) {
 				const entity = entities[i]
+				entity.composite = entity.name.includes('.')
 				if (entity.properties !== undefined) {
 					for (let j = 0; j < entity.properties.length; j++) {
 						const property = entity.properties[j]
@@ -621,16 +624,16 @@ class SchemaExtender {
 									if (targetEntity.relations === undefined) {
 										targetEntity.relations = []
 									}
+
 									targetEntity.relations.push({
 										name: sourceRelation.target,
 										type: sourceRelation.type === RelationType.oneToOne ? RelationType.oneToOne : RelationType.manyToOne,
-										composite: sourceRelation.targetComposite,
+										composite: this.isCompound(targetEntity.name, source.name),
 										from: sourceRelation.to,
 										entity: source.name,
 										weak: true,
 										to: sourceRelation.from,
-										target: sourceRelation.name,
-										targetComposite: sourceRelation.composite
+										target: sourceRelation.name
 									})
 								}
 							}
@@ -645,12 +648,12 @@ class SchemaExtender {
 	// if (entities && entities.length) {
 	// for (let i = 0; i < entities.length; i++) {
 	// const source = entities[i]
-	// source.onlyComposite = this.onlyComposite(source.name, entities)
+	// source.composite = this.composite(source.name, entities)
 	// }
 	// }
 	// }
 
-	// private onlyComposite(entityName: string, entities: Entity[]): boolean {
+	// private composite(entityName: string, entities: Entity[]): boolean {
 	// let isComposite = false
 	// for (const i in entities) {
 	// const entity = entities[i]
@@ -689,13 +692,13 @@ class SchemaExtender {
 		}
 	}
 
-	private extendEntiy (entity: Entity, entities: Entity[]): void {
+	private extendEntity (entity: Entity, entities: Entity[]): void {
 		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new SchemaError(`${entity.extends} not found`)
 			}
-			this.extendEntiy(base, entities)
+			this.extendEntity(base, entities)
 			if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
 			// extend properties
 			if (base.properties !== undefined && base.properties.length > 0) {
@@ -729,13 +732,13 @@ class SchemaExtender {
 		}
 	}
 
-	private extendEntiyMapping (entity: EntityMapping, entities: EntityMapping[]): void {
+	private extendEntityMapping (entity: EntityMapping, entities: EntityMapping[]): void {
 		if (entity && entity.extends) {
 			const base = entities.find(p => p.name === entity.extends)
 			if (base === undefined) {
 				throw new SchemaError(`${entity.extends} not found`)
 			}
-			this.extendEntiyMapping(base, entities)
+			this.extendEntityMapping(base, entities)
 			if (entity.uniqueKey === undefined && base.uniqueKey !== undefined) {
 				entity.uniqueKey = base.uniqueKey
 			}

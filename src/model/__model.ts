@@ -109,5 +109,5 @@ export let Employees :QryEmployees
 export let Shippers : QryShippers
 export let Suppliers : QrySuppliers
 export let Products : QryProducts
-export let OrderDetails : QryOrderDetails
+// export let OrderDetails : QryOrderDetails
 export let Orders : QryOrders

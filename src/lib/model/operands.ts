@@ -39,11 +39,23 @@ export class Field extends Operand {
 	}
 }
 export class From extends Operand {
+	public alias: string
+	constructor (name: string, alias: string) {
+		super(name, [], 'any')
+		this.alias = alias
+	}
+
 	public eval (): any {
 		throw new MethodNotImplemented('From', 'eval')
 	}
 }
 export class Join extends Operand {
+	public alias: string
+	constructor (name: string, children:Operand[], alias: string) {
+		super(name, children, 'any')
+		this.alias = alias
+	}
+
 	public eval (): any {
 		throw new MethodNotImplemented('Join', 'eval')
 	}
@@ -55,16 +67,26 @@ export class Having extends ArrowFunction { }
 export class Sort extends ArrowFunction { }
 export class Page extends ChildFunction { }
 export class Insert extends ArrowFunction {
-	// public autoIncrement?: string
 	public clause: string
 	constructor (name: string, children: Operand[] = [], clause: string) {
 		super(name, children)
-		// this.autoIncrement = autoIncrement
 		this.clause = clause
 	}
 }
-export class Update extends ArrowFunction { }
-export class Delete extends ArrowFunction { }
+export class Update extends ArrowFunction {
+	public alias: string
+	constructor (name: string, children: Operand[] = [], alias: string) {
+		super(name, children)
+		this.alias = alias
+	}
+}
+export class Delete extends ArrowFunction {
+	public alias: string
+	constructor (name: string, children: Operand[] = [], alias: string) {
+		super(name, children)
+		this.alias = alias
+	}
+}
 export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]

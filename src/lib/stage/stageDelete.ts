@@ -8,7 +8,10 @@ export class StageDelete extends StageActionDML {
 	}
 
 	protected sort (entities: Entity[]): Entity[] {
-		const _entities = entities.map(p => p.name)
+		const onlyUnique = function (value:any, index:number, self:any) {
+			return self.indexOf(value) === index
+		}
+		const _entities = entities.map(p => p.name).filter(onlyUnique)
 		const sortedEntities = this.model.sortByRelations(_entities, _entities).reverse()
 		const result:Entity[] = []
 		for (let i = 0; i < sortedEntities.length; i++) {

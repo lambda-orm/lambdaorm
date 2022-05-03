@@ -30,7 +30,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	protected override buildMapSentence (sentence: Sentence): string {
 		// const map = sentence.children.find(p => p.name === 'map') as Map | undefined
 		// const from = sentence.children.find(p => p instanceof From) as Operand
-		const joins = sentence.children.filter(p => p instanceof Join)
+		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
 		const having = sentence.children.find(p => p.name === 'having') as Having | undefined
@@ -75,7 +75,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			throw new SchemaError('update operand not found')
 		}
 		// TODO: tener en cuenta que cuando hay includes el set solo debe estar en el root.
-		// quizas el set debe estar en la connexion
+		// quizás el set debe estar en la conexión
 		const data: any = {
 			set: `{ "$set" :{ ${this.buildUpdate(update, entity)} }}`,
 			filter: filter ? this.buildArrowFunction(filter) : {}
@@ -177,7 +177,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		return map
 	}
 
-	protected override buildJoins (joins: Operand[]): string {
+	protected override buildJoins (joins: Join[]): string {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
 		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-mongodb
 		// https://javascript.tutorialink.com/mongodb-get-sum-of-fields-in-last-stage-of-aggregate/
@@ -186,17 +186,16 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			this.setPrefixToField(join, '$')
-			const parts = join.name.split('.')
-			const entity = this.mapping.getEntity(parts[0])
+			const entity = this.mapping.getEntity(join.name)
 			if (entity === undefined) {
-				throw new SchemaError(`not found mapping for ${parts[0]}`)
+				throw new SchemaError(`not found mapping for ${join.name}`)
 			}
 			const localField = join.children[0].children[0] as Field
 			const foreignField = join.children[0].children[1] as Field
 			let joinTemplate = template.replace('{name}', this.dialect.delimiter(entity.mapping, true))
 			joinTemplate = joinTemplate.replace('{fromProperty}', this.getFieldMapping(localField))
 			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldMapping(foreignField))
-			joinTemplate = joinTemplate.replace('{alias}', this.dialect.delimiter(parts[1], true))
+			joinTemplate = joinTemplate.replace('{alias}', this.dialect.delimiter(join.alias, true))
 			text = text !== '' ? `${text}, ${joinTemplate}` : joinTemplate
 		}
 		return text

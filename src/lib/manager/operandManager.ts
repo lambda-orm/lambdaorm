@@ -128,10 +128,18 @@ export class OperandManager {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, relation: operand.relation }
 		} else if (operand instanceof Insert) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, clause: operand.clause }
+		} else if (operand instanceof Update) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+		} else if (operand instanceof Delete) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof KeyValue) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property }
 		} else if (operand instanceof Field) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
+		} else if (operand instanceof From) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+		} else if (operand instanceof Join) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof Variable) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number }
 		} else {
@@ -152,9 +160,9 @@ export class OperandManager {
 		case 'SentenceInclude':
 			return new SentenceInclude(value.name, children, value.relation as Relation)
 		case 'Delete':
-			return new Delete(value.name, children, value.type)
+			return new Delete(value.name, children, value.alias || '')
 		case 'Update':
-			return new Update(value.name, children, value.type)
+			return new Update(value.name, children, value.alias || '')
 		case 'Insert':
 			return new Insert(value.name, children, value.clause as string)
 		case 'Page':
@@ -170,9 +178,9 @@ export class OperandManager {
 		case 'Map':
 			return new Map(value.name, children, value.alias)
 		case 'Join':
-			return new Join(value.name, children, value.alias)
+			return new Join(value.name, children, value.alias || '')
 		case 'From':
-			return new From(value.name, children, value.alias)
+			return new From(value.name, value.alias || '')
 		case 'Field':
 			return new Field(value.entity as string, value.name, value.type as string, value.alias, value.isRoot)
 		case 'Constant2':
@@ -448,7 +456,7 @@ export class OperandManager {
 			children.push(operand)
 		}
 		if (clauses.from) {
-			operand = new From(expressionContext.current.entityName + '.' + expressionContext.current.alias)
+			operand = new From(expressionContext.current.entityName, expressionContext.current.alias)
 			children.push(operand)
 		}
 		if (clauses.insert) {
@@ -478,7 +486,7 @@ export class OperandManager {
 			name = 'delete'
 			createInclude = this.createInclude
 			// const clause = clauses.delete
-			operand = new Delete(expressionContext.current.entityName + '.' + expressionContext.current.alias)
+			operand = new Delete(expressionContext.current.entityName, [], expressionContext.current.alias)
 			children.push(operand)
 		} else if (clauses.map) {
 			name = 'select'
@@ -552,7 +560,7 @@ export class OperandManager {
 			const relatedField = new Field(relatedEntity, info.relation.from, relatedProperty.type, relatedAlias)
 			const relationField = new Field(relationEntity, info.relation.to, relationProperty.type, relationAlias)
 			const equal = new Operator('==', [relationField, relatedField])
-			operand = new Join(relationEntity + '.' + relationAlias, [equal])
+			operand = new Join(relationEntity, [equal], relationAlias)
 			children.push(operand)
 		}
 		for (let i = 0; i < children.length; i++) {
@@ -770,7 +778,7 @@ export class OperandManager {
 			if (clause.children[1].type === 'obj') {
 				// Example: Orders.update({name:'test'})
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
-				return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
+				return new Update(expressionContext.current.entityName, [child], expressionContext.current.alias)
 			} else {
 				throw new SintaxisError('Args incorrect in Sentence Update')
 			}
@@ -778,7 +786,7 @@ export class OperandManager {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
-			return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
+			return new Update(expressionContext.current.entityName, [child], expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Update incorrect!!!')
 	}
@@ -1003,7 +1011,7 @@ export class OperandManager {
 					const obj = operand.children[0]
 					for (const p in obj.children) {
 						const keyVal = obj.children[p] as KeyValue
-						const entityName = operand.name.includes('.') ? operand.name.split('.')[0] : operand.name
+						const entityName = operand.name
 						const property = this.modelConfig.getProperty(entityName, keyVal.name)
 						if (keyVal.children[0].type === 'any') {
 							keyVal.children[0].type = property.type

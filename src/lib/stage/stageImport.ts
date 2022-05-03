@@ -184,8 +184,11 @@ export class StageImport extends StageActionDML {
 	}
 
 	protected sort (queries:Query[]):Query[] {
-		const mainEntities = queries.map(p => p.entity)
-		const allEntities = this.getAllEntities(queries)
+		const onlyUnique = function (value:any, index:number, self:any) {
+			return self.indexOf(value) === index
+		}
+		const mainEntities = queries.map(p => p.entity).filter(onlyUnique)
+		const allEntities = this.getAllEntities(queries).filter(onlyUnique)
 
 		const entities = this.model.sortByRelations(mainEntities, allEntities)
 		const result:Query[] = []

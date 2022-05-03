@@ -11,6 +11,7 @@
 		"datetime",
 		"mongodb",
 		"northwind",
+		"nullable",
 		"postgres"
 	]
 }

@@ -41,7 +41,6 @@ export interface Relation {
 	to: string
 	weak?: boolean
 	target?: string
-	targetComposite?: boolean
 }
 export interface Dependent {
 	entity: string,
@@ -70,7 +69,7 @@ export interface Entity {
 	hadWriteValues?: boolean
 	hadDefaults?: boolean
 	hadViewReadExp?: boolean
-	onlyComposite?: boolean
+	composite?: boolean
 }
 export interface RelationInfo {
 	previousRelation: string
