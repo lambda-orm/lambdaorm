@@ -9,9 +9,7 @@
 		"builtins",
 		"classtype",
 		"datetime",
-		"mongodb",
 		"northwind",
-		"nullable",
-		"postgres"
+		"nullable"
 	]
 }

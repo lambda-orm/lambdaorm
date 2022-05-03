@@ -367,7 +367,7 @@ mappings:
             mapping: Quantity
           - name: discount
             mapping: Discount
-  - name: oracle
+  - name: Oracle
     extends: default
     entities:
       - name: Address
@@ -386,7 +386,7 @@ mappings:
         sequence: SQ_ORDERS
       - name: Orders.Details
         # sequence: SQ_ORDER_DETAILS
-  - name: mongodb
+  - name: MongoDB
     extends: default
     entities:
       - name: Address
@@ -429,51 +429,51 @@ mappings:
 dataSources:
   - name: source
     mapping: default
-    dialect: mysql
+    dialect: MySQL
     connection: $$ORM_CNN_SOURCE
-  - name: mysql
+  - name: MySQL
     mapping: default
-    dialect: mysql
+    dialect: MySQL
     connection: $$ORM_CNN_MYSQL
-  - name: mariadb
+  - name: MariaDB
     mapping: default
-    dialect: mariadb
+    dialect: MariaDB
     connection: $$ORM_CNN_MARIADB
-  - name: postgres
+  - name: PostgreSQL
     mapping: default
-    dialect: postgres
+    dialect: PostgreSQL
     connection: $$ORM_CNN_POSTGRES
-  - name: mssql
+  - name: SqlServer
     mapping: default
-    dialect: mssql
+    dialect: SqlServer
     connection: $$ORM_CNN_MSSQL
-  - name: oracle
-    mapping: oracle
-    dialect: oracle
+  - name: Oracle
+    mapping: Oracle
+    dialect: Oracle
     connection: $$ORM_CNN_ORACLE
-  - name: mongodb
-    mapping: mongodb
-    dialect: mongodb
+  - name: MongoDB
+    mapping: MongoDB
+    dialect: MongoDB
     connection: $$ORM_CNN_MONGODB
 stages:
   - name: source
     dataSources:
       - name: source
-  - name: mysql
+  - name: MySQL
     dataSources:
-      - name: mysql
-  - name: mariadb
+      - name: MySQL
+  - name: MariaDB
     dataSources:
-      - name: mariadb
-  - name: postgres
+      - name: MariaDB
+  - name: PostgreSQL
     dataSources:
-      - name: postgres
-  - name: mssql
+      - name: PostgreSQL
+  - name: SqlServer
     dataSources:
-      - name: mssql
-  - name: oracle
+      - name: SqlServer
+  - name: Oracle
     dataSources:
-      - name: oracle
-  - name: mongodb
+      - name: Oracle
+  - name: MongoDB
     dataSources:
-      - name: mongodb
+      - name: MongoDB

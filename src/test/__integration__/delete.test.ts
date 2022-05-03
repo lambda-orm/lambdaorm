@@ -8,85 +8,85 @@ describe('Execute', () => {
 	test('delete 1', async () => {
 		const expression = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const expected = 1
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
 		const expected = 1
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
 		const expected = 1
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
 		const expected = 1
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
 		const expected = 0
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p=>p.details)'
 		const expected = 0
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
 		const expected = 2154
-		const mysqlResult =  await orm.execute(expression, data,'default','mysql')
+		const mysqlResult =  await orm.execute(expression, data,'default','MySQL')
 		expect(expected).toEqual(mysqlResult)
-		const postgresResult =  await orm.execute(expression, data,'default','postgres')
+		const postgresResult =  await orm.execute(expression, data,'default','PostgreSQL')
 		expect(expected).toEqual(postgresResult)
-		const mariadbResult =  await orm.execute(expression, data,'default','mariadb')
+		const mariadbResult =  await orm.execute(expression, data,'default','MariaDB')
 		expect(expected).toEqual(mariadbResult)
-		const mssqlResult =  await orm.execute(expression, data,'default','mssql')
+		const mssqlResult =  await orm.execute(expression, data,'default','SqlServer')
 		expect(expected).toEqual(mssqlResult)
 	})
 })

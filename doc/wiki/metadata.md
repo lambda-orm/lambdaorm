@@ -9,7 +9,7 @@ To execute these methods it is not necessary to connect to the database.
 |	parameters	| returns the list of parameters in the expression	| orm.lambda(query).parameters(schema) 									|
 |	model				| returns the model of the result in an execution		| orm.lambda(query).model(schema)												|
 |	metadata		| returns the metadata of the expression						| orm.lambda(query).metadata(schema)										|
-|	sentence		| returns the sentence in the specified dialect			| orm.lambda(query).sentence('mysql','northwind')				|
+|	sentence		| returns the sentence in the specified dialect			| orm.lambda(query).sentence('MySQL','northwind')				|
 
 ## Example:
 
@@ -25,7 +25,7 @@ try {
 	const parameters = await orm.lambda(query).parameters('northwind')
 	const model = await orm.lambda(query).model('northwind')
 	const metadata = await orm.lambda(query).metadata('northwind')
-	const sql = await orm.lambda(query).sentence('mysql', 'northwind')
+	const sql = await orm.lambda(query).sentence('MySQL', 'northwind')
 
 	console.log(JSON.stringify(parameters, null, 2))
 	console.log(JSON.stringify(model, null, 2))

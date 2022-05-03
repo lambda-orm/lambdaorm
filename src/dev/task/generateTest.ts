@@ -121,4 +121,4 @@ export async function apply (dataForTestPath: string, stages: string[], callback
 	}
 	callback()
 }
-apply(path.join(process.cwd(), 'src/dev/dataForTest'), ['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })
+apply(path.join(process.cwd(), 'src/dev/dataForTest'), ['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer'], function () { console.log('end') })

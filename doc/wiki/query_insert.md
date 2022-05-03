@@ -96,7 +96,7 @@ async function example () {
 	}
 	const insert = () => Orders.insert().include(p => p.details)
 
-	const result = await orm.lambda(insert).execute('mysql',order)
+	const result = await orm.lambda(insert).execute('MySQL',order)
 	console.log(result)
 	await orm.end()
 }

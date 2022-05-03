@@ -1,7 +1,7 @@
 [
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"CategoryName\":{{name}},\"Description\":{{description}} }",
     "entity": "Categories",
     "columns": [
@@ -24,7 +24,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Categories",
@@ -37,7 +37,7 @@
   },
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"_id\":{{id}},\"CompanyName\":{{name}},\"ContactName\":{{contact}},\"ContactTitle\":{{phone}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}} }",
     "entity": "Customers",
     "columns": [
@@ -116,7 +116,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property id in entity Customers",
@@ -133,7 +133,7 @@
   },
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"LastName\":{{lastName}},\"FirstName\":{{firstName}},\"Title\":{{title}},\"TitleOfCourtesy\":{{titleOfCourtesy}},\"BirthDate\":{{birthDate}},\"HireDate\":{{hireDate}},\"HomePhone\":{{phone}},\"ReportsTo\":{{reportsToId}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}} }",
     "entity": "Employees",
     "columns": [
@@ -244,7 +244,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property lastName in entity Employees",
@@ -261,7 +261,7 @@
   },
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"CompanyName\":{{name}},\"Phone\":{{phone}} }",
     "entity": "Shippers",
     "columns": [
@@ -284,7 +284,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Shippers",
@@ -297,7 +297,7 @@
   },
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"CompanyName\":{{name}},\"ContactName\":{{contact}},\"Phone\":{{phone}},\"HomePage\":{{homepage}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}} }",
     "entity": "Suppliers",
     "columns": [
@@ -376,7 +376,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Suppliers",
@@ -389,7 +389,7 @@
   },
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"ProductName\":{{name}},\"SupplierID\":{{supplierId}},\"CategoryID\":{{categoryId}},\"QuantityPerUnit\":{{quantity}},\"UnitPrice\":{{price}},\"UnitsInStock\":{{inStock}},\"UnitsOnOrder\":{{onOrder}},\"ReorderLevel\":{{reorderLevel}},\"Discontinued\":{{discontinued}} }",
     "entity": "Products",
     "columns": [
@@ -468,7 +468,7 @@
         "type": "boolean"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Products",
@@ -485,7 +485,7 @@
   },
   {
     "name": "bulkInsert",
-    "dialect": "mongodb",
+    "dialect": "MongoDB",
     "sentence": "{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }",
     "entity": "Orders",
     "columns": [
@@ -596,7 +596,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property customerId in entity Orders",

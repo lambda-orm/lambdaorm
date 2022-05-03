@@ -6,11 +6,11 @@ test:
   - name: include 1
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -26,8 +26,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -505,16 +505,16 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 2
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -530,8 +530,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
@@ -953,7 +953,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -988,11 +988,11 @@ test:
   - name: include 3
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -1009,8 +1009,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
@@ -1022,8 +1022,8 @@ test:
                 filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -1661,16 +1661,16 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 4
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -1687,8 +1687,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
@@ -1700,8 +1700,8 @@ test:
                 filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mongodb
-                  dataSource: mongodb
+                  dialect: MongoDB
+                  dataSource: MongoDB
                   sentence:
                     map: >-
                       { "$project" :{ "_id": 0 , "id":"$_id",
@@ -1716,8 +1716,8 @@ test:
                     filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs: []
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -2586,16 +2586,16 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 5
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -2612,8 +2612,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
@@ -2625,8 +2625,8 @@ test:
                 filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mongodb
-                  dataSource: mongodb
+                  dialect: MongoDB
+                  dataSource: MongoDB
                   sentence:
                     map: >-
                       { "$project" :{ "_id": 0 , "id":"$_id",
@@ -2641,8 +2641,8 @@ test:
                     filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs:
                     - entity: Categories
-                      dialect: mongodb
-                      dataSource: mongodb
+                      dialect: MongoDB
+                      dataSource: MongoDB
                       sentence:
                         map: >-
                           { "$project" :{ "_id": 0 , "id":"$_id",
@@ -2653,8 +2653,8 @@ test:
                         filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                       childs: []
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -3655,16 +3655,16 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 6
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -3681,8 +3681,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "quantity":"$Quantity",
@@ -3693,8 +3693,8 @@ test:
                 filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -4305,16 +4305,16 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 7
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -4331,8 +4331,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "quantity":"$Quantity",
@@ -4343,8 +4343,8 @@ test:
                 filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mongodb
-                  dataSource: mongodb
+                  dialect: MongoDB
+                  dataSource: MongoDB
                   sentence:
                     map: >-
                       { "$project" :{ "_id": 0 , "id":"$_id",
@@ -4359,8 +4359,8 @@ test:
                     filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs: []
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -5201,16 +5201,16 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 8
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "id":"$_id",
@@ -5227,8 +5227,8 @@ test:
             filter: '{ "_id":{{id}} }'
           childs:
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "name":"$CompanyName",
@@ -5238,8 +5238,8 @@ test:
                 filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "quantity":"$Quantity",
@@ -5250,8 +5250,8 @@ test:
                 filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
-                  dialect: mongodb
-                  dataSource: mongodb
+                  dialect: MongoDB
+                  dataSource: MongoDB
                   sentence:
                     map: >-
                       { "$project" :{ "_id": 0 , "name":"$ProductName",
@@ -5261,8 +5261,8 @@ test:
                     filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs:
                     - entity: Categories
-                      dialect: mongodb
-                      dataSource: mongodb
+                      dialect: MongoDB
+                      dataSource: MongoDB
                       sentence:
                         map: >-
                           { "$project" :{ "_id": 0 , "name":"$CategoryName",
@@ -5952,6 +5952,6 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: "SyntaxError: Unexpected token V in JSON at position 18"
 errors: 7

@@ -225,11 +225,11 @@ test:
   - name: update 1
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: >-
               { "$set" :{
@@ -533,7 +533,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         id: 7
@@ -564,11 +564,11 @@ test:
   - name: update 2
     data: b
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: >-
               { "$set" :{
@@ -864,7 +864,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -901,11 +901,11 @@ test:
   - name: update 3
     data: c
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: '{ "$set" :{ "ShipPostalCode":{{postalCode}} }}'
           childs: []
@@ -957,18 +957,18 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         postalCode: xxx
   - name: update 4
     data: b
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
             filter: '{ "_id":{{entity.id}} }'
@@ -1044,7 +1044,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1081,18 +1081,18 @@ test:
   - name: update 5
     data: b
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
             filter: '{ "_id":{{entity.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 update: >-
                   { "$set" :{
@@ -1361,7 +1361,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1398,18 +1398,18 @@ test:
   - name: update 6
     data: b
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
             filter: '{ "_id":{{entity.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 update: >-
                   { "$set" :{
@@ -1633,7 +1633,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1670,18 +1670,18 @@ test:
   - name: update 7
     data: b
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
             filter: '{ "_id":{{entity.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 update: '{ "$set" :{ "UnitPrice":"UnitPrice","ProductID":"ProductID" }}'
                 filter: >-
@@ -1887,7 +1887,7 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1924,11 +1924,11 @@ test:
   - name: update 8
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: >-
               { "$set" :{
@@ -1937,8 +1937,8 @@ test:
             filter: '{ "_id":{{obj.id}} }'
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 update: >-
                   { "$set" :{
@@ -2430,7 +2430,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         id: 7
@@ -2461,11 +2461,11 @@ test:
   - name: update 9
     data: d
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Customers
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             update: >-
               { "$set" :{
@@ -2474,8 +2474,8 @@ test:
             filter: '{ "_id":{{obj.id}} }'
           childs:
             - entity: Orders
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 update: >-
                   { "$set" :{
@@ -2484,8 +2484,8 @@ test:
                 filter: '{ "_id":{{obj.id}} }'
               childs:
                 - entity: OrderDetails
-                  dialect: mongodb
-                  dataSource: mongodb
+                  dialect: MongoDB
+                  dataSource: MongoDB
                   sentence:
                     update: >-
                       { "$set" :{
@@ -3215,7 +3215,7 @@ test:
         - message: Cannot be null property name in entity Customers
           condition: isNotNull(name)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         id: ALFKI

@@ -200,109 +200,109 @@ describe('Sentences', () => {
 	test('update 1', async () => {
 		const expression = 'Orders.update()'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 2', async () => {
 		const expression = 'Orders.update(entity)'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 3', async () => {
 		const expression = 'Orders.updateAll(=>{postalCode:postalCode})'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET ShipPostalCode = ? ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET ShipPostalCode = $1 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET ShipPostalCode = ? ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 4', async () => {
 		const expression = 'Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 5', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE \"Order Details\" o1 SET OrderID = $1,ProductID = $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID = $7) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 6', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE \"Order Details\" o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 7', async () => {
 		const expression = 'Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE \"Order Details\" o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 8', async () => {
 		const expression = 'Orders.update().include(p=>p.details)'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE \"Order Details\" o1 SET OrderID = $1,ProductID = $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID = $7) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('update 9', async () => {
 		const expression = 'Customers.update().include(p=>p.orders.include(p=>p.details))'
 		const mysqlExpected = {"entity":"Customers","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ","childs":[{"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Customers","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode = $8,Country = $9 WHERE c.CustomerID = $10 ","childs":[{"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate = $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight = $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion = $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"UPDATE \"Order Details\" o1 SET OrderID = $1,ProductID = $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID = $6 AND o1.ProductID = $7) ","childs":[]}]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Customers","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ","childs":[{"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 })

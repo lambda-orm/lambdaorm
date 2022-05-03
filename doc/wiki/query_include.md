@@ -418,7 +418,7 @@ async function example () {
 				.map(p => [p.quantity, p.unitPrice])])
 		.map(p => p.orderDate)
 
-	const result = await orm.lambda(query).execute('mysql',{ id: 830 })
+	const result = await orm.lambda(query).execute('MySQL',{ id: 830 })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

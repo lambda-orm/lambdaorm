@@ -100,7 +100,7 @@ async function example () {
 	}
 
 	const _delete = () => Orders.delete().include(p => p.details)
-	const result = await orm.lambda(_delete).execute('mysql',order)
+	const result = await orm.lambda(_delete).execute('MySQL',order)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

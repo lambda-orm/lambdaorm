@@ -1,7 +1,7 @@
 const fs = require('fs')
 require('dotenv').config({ path: './test.env' })
 
-const dataSources = ['mysql', 'postgres']
+const dataSources = ['MySQL', 'PostgreSQL']
 
 module.exports = function (grunt) {
 	// Load the plugins

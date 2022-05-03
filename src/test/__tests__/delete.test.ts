@@ -158,85 +158,85 @@ describe('Sentences', () => {
 	test('delete 1', async () => {
 		const expression = 'OrderDetails.delete().filter(p=>(p.orderId===id))'
 		const mysqlExpected = {"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o WHERE o.OrderID = $1 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM `Order Details` AS o WHERE o.OrderID = ? ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('delete 2', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('delete 3', async () => {
 		const expression = 'Orders.delete().filter(p=>(p.id===id)).include(p=>p.details)'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('delete 4', async () => {
 		const expression = 'Orders.delete().include(p=>p.details)'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('delete 4', async () => {
 		const expression = 'OrderDetails.delete(entity)'
 		const mysqlExpected = {"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND o.ProductID = ?) ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o WHERE (o.OrderID = $1 AND o.ProductID = $2) ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM `Order Details` AS o WHERE (o.OrderID = ? AND o.ProductID = ?) ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('delete 5', async () => {
 		const expression = 'Orders.delete(entity).include(p=>p.details)'
 		const mysqlExpected = {"entity":"Orders","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Orders","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM Orders o WHERE o.OrderID = $1 ","childs":[{"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o1 WHERE (o1.OrderID = $1 AND o1.ProductID = $2) ","childs":[]}]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Orders","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM Orders AS o WHERE o.OrderID = ? ","childs":[{"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o1 FROM `Order Details` AS o1 WHERE (o1.OrderID = ? AND o1.ProductID = ?) ","childs":[]}]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('delete 6', async () => {
 		const expression = 'OrderDetails.deleteAll()'
 		const mysqlExpected = {"entity":"OrderDetails","dialect":"mysql","dataSource":"mysql","sentence":"DELETE o FROM `Order Details` AS o ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"OrderDetails","dialect":"postgres","dataSource":"postgres","sentence":"DELETE FROM \"Order Details\" o ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"OrderDetails","dialect":"mariadb","dataSource":"mariadb","sentence":"DELETE o FROM `Order Details` AS o ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 })

@@ -57,7 +57,7 @@ operators:
     "//": '{ "$sqrt" :[{0},{1}] }'
     "%": '{ "$mod" :[{0},{1}] }'
     # http://learnmongodbthehardway.com/article/bitflipping/
-    # https://jira.mongodb.org/browse/SERVER-3518
+    # https://jira.MongoDB.org/browse/SERVER-3518
     "&": '{ "$bit" :{{0}:{and:{1}}} }'
     "|": '{ "$bit" :{{0}:{or:{1}}} }'
     "^": '{ "$bit" :{{0}:{xor:{1}}} }'
@@ -67,7 +67,7 @@ operators:
     # "===": '{ "$eq" :[{0},{1}] }'
     "==": "{ {0}:{1} }"
     "===": "{ {0}:{1} }"
-    # https://www.mongodb.com/docs/manual/reference/operator/query/ne/#mongodb-query-op.-ne
+    # https://www.MongoDB.com/docs/manual/reference/operator/query/ne/#MongoDB-query-op.-ne
     # "!=": '{ "$ne" :[{0},{1}] }'
     "!=": '{ {0}: { "$ne": {1} } }'
     "!==": '{ {0}: { "$ne": {1} } }'

@@ -4,7 +4,7 @@ import { LanguageDDLBuilder } from './../../manager'
 
 export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
-		// https://www.codegrepper.com/code-examples/c/truncate+collection+mongodb
+		// https://www.codegrepper.com/code-examples/c/truncate+collection+MongoDB
 		return new Query('truncateEntity', this.dataSource.dialect, this.dataSource.name, '', entity.name)
 	}
 
@@ -17,7 +17,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public createSequence (entity: EntityMapping): Query | undefined {
-		// https://www.tutorialspoint.com/mongodb/mongodb_autoincrement_sequence.htm
+		// https://www.tutorialspoint.com/MongoDB/mongodb_autoincrement_sequence.htm
 		const sentence = `{ "_id" : "${this.dialect.delimiter(entity.sequence)}", "sequence_value": 1 }`
 		return new Query('createSequence', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
@@ -67,7 +67,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public addUk (entity: EntityMapping, uniqueKey: string[]): Query | undefined {
-		// https://www.mongodb.com/docs/drivers/node/current/fundamentals/indexes/#:~:text=By%20default%2C%20MongoDB%20creates%20a,the%20unique%20option%20to%20true%20.
+		// https://www.MongoDB.com/docs/drivers/node/current/fundamentals/indexes/#:~:text=By%20default%2C%20MongoDB%20creates%20a,the%20unique%20option%20to%20true%20.
 		const columns: string[] = []
 		for (let i = 0; i < uniqueKey.length; i++) {
 			const property = entity.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
@@ -97,13 +97,13 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public dropPk (entity: EntityMapping): Query | undefined {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.dropIndex/
+		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.dropIndex/
 		const sentence = this.dialect.delimiter(entity.mapping + '_PK')
 		return new Query('dropPk', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
 	public dropUk (entity: EntityMapping): Query | undefined {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.dropIndex/
+		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.dropIndex/
 		const sentence = this.dialect.delimiter(entity.mapping + '_UK')
 		return new Query('dropUk', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
@@ -117,7 +117,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	public dropIndex (entity: EntityMapping, index: Index): Query | undefined {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.dropIndex/
+		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.dropIndex/
 		const sentence = this.dialect.delimiter(entity.mapping + '_' + index.name)
 		return new Query('dropIndex', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}

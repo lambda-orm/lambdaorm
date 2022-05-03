@@ -1,6 +1,6 @@
 {
   "dialects": {
-    "mongodb": {
+    "MongoDB": {
       "types": null,
       "ddl": null,
       "dml": {

@@ -11,7 +11,7 @@ docker volume create --name mariadb-data --opt type=none --opt device=~/volumes/
 docker volume create --name mariadb-log --opt type=none --opt device=~/volumes/mariadb-log --opt o=bind
 docker volume create --name postgres-data --opt type=none --opt device=~/volumes/postgres-data --opt o=bind
 docker volume create --name mssql --opt type=none --opt device=~/volumes/mssql --opt o=bind
-docker volume create --name mongodb --opt type=none --opt device=~/volumes/mongodb --opt o=bind
+docker volume create --name MongoDB --opt type=none --opt device=~/volumes/MongoDB --opt o=bind
 docker volume create --name oradata --opt type=none --opt device=~/volumes/oradata --opt o=bind
 ```
 
@@ -24,7 +24,7 @@ docker volume create --name mariadb-data --opt type=none --opt device=C:\volumes
 docker volume create --name mariadb-log --opt type=none --opt device=C:\volumes\mariadb-log --opt o=bind
 docker volume create --name postgres-data --opt type=none --opt device=C:\volumes\postgres-data --opt o=bind
 docker volume create --name mssql --opt type=none --opt device=C:\volumes\mssql --opt o=bind
-docker volume create --name mongodb --opt type=none --opt device=C:\volumes\mongodb --opt o=bind
+docker volume create --name MongoDB --opt type=none --opt device=C:\volumes\MongoDB --opt o=bind
 docker volume create --name oradata --opt type=none --opt device=C:\volumes\oradata --opt o=bind
 ```
 
@@ -91,7 +91,7 @@ docker volume rm mariadb-data
 docker volume rm mariadb-log
 docker volume rm postgres-data
 docker volume rm mssql
-docker volume rm mongodb
+docker volume rm MongoDB
 docker volume rm oradata
 ```
 
@@ -161,7 +161,7 @@ docker exec -it mariadb mysql -h localhost -u root -p
 - mariadb: mysql://root:admin@0.0.0.0:3308/northwind
 - postgres: postgresql://admin:admin@0.0.0.0:5432/northwind
 - mssql: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
-- mongodb: mongodb://test:test@0.0.0.0:27017/northwind
+- MongoDB: MongoDB://test:test@0.0.0.0:27017/northwind
 - oracle:
 
 ## references
@@ -171,8 +171,8 @@ docker exec -it mariadb mysql -h localhost -u root -p
 - [mysql in nodejs](https://evertpot.com/executing-a-mysql-query-in-nodejs/)
 - [module to connect mysql](https://www.npmjs.com/package/mysq)
 - [mysql client on windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html#:~:text=To%20install%20MySQL%20Shell%20on,steps%20in%20the%20Setup%20Wizard.)
-- [mongodb with docker](https://citizix.com/how-to-run-mongodb-with-docker-and-docker-compose/)
-- [mongo shared](https://github.com/bitnami/bitnami-docker-mongodb/issues/208)
+- [MongoDB with docker](https://citizix.com/how-to-run-MongoDB-with-docker-and-docker-compose/)
+- [mongo shared](https://github.com/bitnami/bitnami-docker-MongoDB/issues/208)
 
 ## MongoDb
 

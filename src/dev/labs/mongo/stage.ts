@@ -2,7 +2,7 @@ import { orm, Helper} from '../../../lib'
 
 async function apply () {
 	try {
-		const stage = 'mongodb'
+		const stage = 'MongoDB'
 		await orm.init()
 		const cleanQueries  = await orm.stage.clean(stage).queries()
 		const syncQueries = await orm.stage.sync(stage).queries()

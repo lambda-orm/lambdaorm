@@ -103,7 +103,7 @@ services:
       # - 8080:8080
     networks:
       - lambdaorm
-  mongodb:
+  MongoDB:
     image: mongo:5.0
     container_name: lambdaorm-mongo
     ports:
@@ -116,7 +116,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=test
     restart: always
     volumes:
-      - mongodb:/data/db
+      - MongoDB:/data/db
   mariadb:
     container_name: lambdaorm-mariadb-103
     image: mariadb:10.3
@@ -140,7 +140,7 @@ volumes:
   mariadb-data: null
   mariadb-log: null
   mssql: null
-  mongodb: null
+  MongoDB: null
   oradata: null
     # volumes:
     #   source:
@@ -179,12 +179,12 @@ volumes:
     #       o: bind
     #       type: none
     #       device: ~/volume/mssql
-    #   mongodb:
+    #   MongoDB:
     #     driver: local
     #     driver_opts:
     #       o: bind
     #       type: none
-    #       device: ~/volume/mongodb
+    #       device: ~/volume/MongoDB
     #   oradata:
     #     driver: local
     #     driver_opts:

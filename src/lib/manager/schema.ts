@@ -505,7 +505,7 @@ class SchemaExtender {
 		// dataSources
 		if (!schema.dataSources || !schema.dataSources.length || schema.dataSources.length === 0) {
 			console.log('DataSources not defined')
-			schema.dataSources = [{ name: 'default', dialect: 'mysql', mapping: schema.mappings[0].name, connection: null }]
+			schema.dataSources = [{ name: 'default', dialect: 'MySQL', mapping: schema.mappings[0].name, connection: null }]
 		}
 		for (const k in schema.dataSources) {
 			const dataSource = schema.dataSources[k]

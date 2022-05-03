@@ -1,14 +1,14 @@
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('MongoDB').MongoClient;
 
 (async () => {
-	const url = 'mongodb://test:test@localhost:27017'
+	const url = 'MongoDB://test:test@localhost:27017'
 	const dbName = 'northwind'
 	const client = await MongoClient.connect(url)
 	const db = client.db(dbName)
 	//await db.collection('inventory').deleteMany({})
 	const result = await db.collection('Orders').aggregate(
 		[
-			//https://stackoverflow.com/questions/64515836/how-to-replace-root-with-an-array-field-during-mongodb-aggregation-pipeline
+			//https://stackoverflow.com/questions/64515836/how-to-replace-root-with-an-array-field-during-MongoDB-aggregation-pipeline
 			// unwind solo aplica si el child es un array
 			{ $unwind: "$\"Order Details\"" },
 			{ $replaceRoot: { newRoot: "$\"Order Details\"" } },

@@ -226,7 +226,7 @@ async function example () {
 						.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 						.sort(p => desc(p.largestPrice))
 
-	const result = await orm.lambda(query).execute('mysql')
+	const result = await orm.lambda(query).execute('MySQL')
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

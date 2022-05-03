@@ -10,12 +10,12 @@ export class MongodbConnectionPool extends ConnectionPool {
 	constructor (config: ConnectionConfig) {
 		super(config)
 		if (!MongodbConnectionPool.lib) {
-			MongodbConnectionPool.lib = require('mongodb')
+			MongodbConnectionPool.lib = require('MongoDB')
 		}
 	}
 
 	public async init (): Promise<void> {
-		console.log(`connection mongodb: ${this.config.name} initialized`)
+		console.log(`connection MongoDB: ${this.config.name} initialized`)
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -31,7 +31,7 @@ export class MongodbConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		console.log(`connection mongodb: ${this.config.name} finalized`)
+		console.log(`connection MongoDB: ${this.config.name} finalized`)
 	}
 }
 
@@ -39,8 +39,8 @@ export class MongodbConnection extends Connection {
 	private session?: any
 
 	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
-		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-mongodb-2910ff5e272b
-		// https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/
+		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-MongoDB-2910ff5e272b
+		// https://www.MongoDB.com/docs/manual/reference/operator/aggregation-pipeline/
 
 		const collection = mapping.entityMapping(query.entity)
 		const params = this.dataToParameters(query, mapping, data)
@@ -225,8 +225,8 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async beginTransaction (): Promise<void> {
-		// https://www.mongodb.com/docs/drivers/node/current/fundamentals/transactions/
-		// https://hevodata.com/learn/mongodb-transactions-on-nodejs/
+		// https://www.MongoDB.com/docs/drivers/node/current/fundamentals/transactions/
+		// https://hevodata.com/learn/MongoDB-transactions-on-nodejs/
 		this.session = this.cnx.client.startSession()
 		const transactionOptions = {
 			readPreference: 'primary',
@@ -347,7 +347,7 @@ export class MongodbConnection extends Connection {
 	}
 
 	private async getNextSequenceValue (sequence: string, count = 1) {
-		// https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/#mongodb-method-db.collection.findOneAndUpdate
+		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.findOneAndUpdate/#MongoDB-method-db.collection.findOneAndUpdate
 		const sequenceDocument = await this.cnx.db.collection('__sequences').findOneAndUpdate(
 			{ _id: sequence },
 			{ $inc: { sequence_value: count } },

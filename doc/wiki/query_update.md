@@ -180,7 +180,7 @@ async function example () {
 
 	const update = () => Customers.update().include(p => p.orders.include(p => p.details))
 
-	const result = await orm.lambda(update).execute('mysql',customer)
+	const result = await orm.lambda(update).execute('MySQL',customer)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

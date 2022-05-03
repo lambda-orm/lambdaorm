@@ -200,109 +200,109 @@ describe('Sentences', () => {
 	test('groupBy 1', async () => {
 		const expression = 'Products.map(p=>{maxPrice:max(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT MAX(p.UnitPrice) AS \"maxPrice\" FROM Products p  ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 2', async () => {
 		const expression = 'Products.map(p=>{minPrice:min(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT MIN(p.UnitPrice) AS \"minPrice\" FROM Products p  ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 3', async () => {
 		const expression = 'Products.map(p=>{total:sum(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT SUM(p.UnitPrice) AS `total` FROM Products p  ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT SUM(p.UnitPrice) AS \"total\" FROM Products p  ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT SUM(p.UnitPrice) AS `total` FROM Products p  ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 4', async () => {
 		const expression = 'Products.map(p=>{average:avg(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT AVG(p.UnitPrice) AS `average` FROM Products p  ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT AVG(p.UnitPrice) AS \"average\" FROM Products p  ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT AVG(p.UnitPrice) AS `average` FROM Products p  ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 5', async () => {
 		const expression = 'Products.map(p=>{count:count(1)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT COUNT(1) AS `count` FROM Products p  ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT COUNT(1) AS \"count\" FROM Products p  ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT COUNT(1) AS `count` FROM Products p  ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 6', async () => {
 		const expression = 'Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p  GROUP BY p.CategoryID ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT p.CategoryID AS \"category\", MAX(p.UnitPrice) AS \"largestPrice\" FROM Products p  GROUP BY p.CategoryID ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p  GROUP BY p.CategoryID ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 7', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT c.CategoryName AS \"category\", MAX(p.UnitPrice) AS \"largestPrice\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 8', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT p.ProductName AS `name`, p.UnitPrice AS `source`, ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT p.ProductName AS \"name\", p.UnitPrice AS \"source\", ABS(p.UnitPrice) AS \"result\" FROM Products p  WHERE p.ProductID = $1 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT p.ProductName AS `name`, p.UnitPrice AS `source`, ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 	test('groupBy 9', async () => {
 		const expression = 'Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})'
 		const mysqlExpected = {"entity":"Products","dialect":"mysql","dataSource":"mysql","sentence":"SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ","childs":[]}
-		let mysql = orm.sentence(expression,'default','mysql')
+		let mysql = orm.sentence(expression,'default','MySQL')
 		expect(mysqlExpected).toStrictEqual(mysql)
 		const postgresExpected = {"entity":"Products","dialect":"postgres","dataSource":"postgres","sentence":"SELECT c.CategoryName AS \"category\", MAX(p.UnitPrice) AS \"largestPrice\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ","childs":[]}
-		let postgres = orm.sentence(expression,'default','postgres')
+		let postgres = orm.sentence(expression,'default','PostgreSQL')
 		expect(postgresExpected).toStrictEqual(postgres)
 		const mariadbExpected = {"entity":"Products","dialect":"mariadb","dataSource":"mariadb","sentence":"SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS `largestPrice` FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ","childs":[]}
-		let mariadb = orm.sentence(expression,'default','mariadb')
+		let mariadb = orm.sentence(expression,'default','MariaDB')
 		expect(mariadbExpected).toStrictEqual(mariadb)
 	})
 })

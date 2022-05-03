@@ -31,6 +31,6 @@ export async function apply (stages: string[], callback: any) {
 		callback()
 	}
 }
-apply(['mysql', 'postgres', 'mariadb'], function () { console.log('end') })
-// apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })
-// apply(['mysql'], function () { console.log('end') })
+apply(['MySQL', 'PostgreSQL', 'MariaDB'], function () { console.log('end') })
+// apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer'], function () { console.log('end') })
+// apply(['MySQL'], function () { console.log('end') })

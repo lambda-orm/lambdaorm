@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mongodb.ts#L14)
+[src/lib/connection/dialects/MongoDB.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/MongoDB.ts#L14)
 
 ## Properties
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mongodb.ts#L26)
+[src/lib/connection/dialects/MongoDB.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/MongoDB.ts#L26)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mongodb.ts#L50)
+[src/lib/connection/dialects/MongoDB.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/MongoDB.ts#L50)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mongodb.ts#L21)
+[src/lib/connection/dialects/MongoDB.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/MongoDB.ts#L21)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mongodb.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mongodb.ts#L46)
+[src/lib/connection/dialects/MongoDB.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/MongoDB.ts#L46)

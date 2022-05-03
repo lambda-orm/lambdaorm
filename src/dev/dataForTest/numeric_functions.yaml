@@ -6,11 +6,11 @@ test:
   - name: function abs
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":{
@@ -145,7 +145,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         source: -18
@@ -153,11 +153,11 @@ test:
   - name: function acos
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.25,
@@ -271,18 +271,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 1.3181160717
   - name: function asin
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.25,
@@ -396,18 +396,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 0.2526802551
   - name: function atan
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.25,
@@ -521,18 +521,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 0.2449786631
   - name: function atan2
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.5,
@@ -650,18 +650,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: >-
           MongoServerError: Invalid $project :: caused by :: Expression $atan2
           takes exactly 2 arguments. 1 were passed in.
   - name: function ceil
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":25.75,
@@ -775,18 +775,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 26
   - name: function cos
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":2,
@@ -900,18 +900,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: -0.4161468365
   - name: function exp
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":1,
@@ -1025,18 +1025,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 2.7182818285
   - name: function floor
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":25.75,
@@ -1150,18 +1150,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 25
   - name: function ln
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":2,
@@ -1275,18 +1275,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 0.6931471806
   - name: function log
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "m":10, "n":20,
@@ -1416,18 +1416,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: >-
           MongoServerError: Invalid $project :: caused by :: Expression $log
           takes exactly 2 arguments. 1 were passed in.
   - name: function round
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName",
@@ -1537,14 +1537,14 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 135.38
   - name: function sign
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         error: 'SintaxisError: Function sign not found'
     errors: 2
     expression: >-
@@ -1651,16 +1651,16 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: 'SintaxisError: Function sign not found'
   - name: function tan
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName", "source":1.75,
@@ -1774,18 +1774,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: -5.5203799225
   - name: function trunc
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName",
@@ -1904,7 +1904,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         result: 135

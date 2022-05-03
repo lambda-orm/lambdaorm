@@ -5,7 +5,7 @@ import { CategoryRepository, Category, ProductRepository } from '../../model'
 	try {
 		await orm.init()
 
-		const productRepository = new ProductRepository('mysql')
+		const productRepository = new ProductRepository('MySQL')
 
 		const country = 'USA'
 		const result = await productRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
@@ -18,7 +18,7 @@ import { CategoryRepository, Category, ProductRepository } from '../../model'
 
 		let category
 
-		const categoryRepository = new CategoryRepository('mysql')
+		const categoryRepository = new CategoryRepository('MySQL')
 		category = new Category()
 		category.name = 'general21'
 		category.description = 'general products 2'
@@ -52,7 +52,7 @@ import { CategoryRepository, Category, ProductRepository } from '../../model'
 		// complete = customerRepository.update(p => [p.name, p.id]).include(p => p.orders).complete()
 		// console.log(complete)
 
-		// // const orderRepository = new OrderRepository('mysql')
+		// // const orderRepository = new OrderRepository('MySQL')
 		// // orderRepository.save(customer.orders, p => p.details)
 
 		// complete = customerRepository.query().filter(p => p.name !== 'XX').include(p => p.orders.map(p => p.orderDate)).complete()
@@ -68,7 +68,7 @@ import { CategoryRepository, Category, ProductRepository } from '../../model'
 		// console.log(JSON.stringify(result2, null, 2))
 
 		// const query2 = () => Customers
-		// const result = await orm.lambda(query2).execute({}, 'mysql')
+		// const result = await orm.lambda(query2).execute({}, 'MySQL')
 		// console.log(JSON.stringify(result, null, 2))
 	} catch (error) {
 		console.error(error)
@@ -82,7 +82,7 @@ import { CategoryRepository, Category, ProductRepository } from '../../model'
 // await orm.init()
 
 // const query = () => Products.filter(p => p.price > 10).map(p => ({ name: p.name, category: p.category.name })).sort(p => p.category).page(1, 10)
-// const sentence = await orm.expression(query).sentence('mysql', 'northwind')
+// const sentence = await orm.expression(query).sentence('MySQL', 'northwind')
 // console.log(sentence)
 // } catch (error) {
 // console.error(error)

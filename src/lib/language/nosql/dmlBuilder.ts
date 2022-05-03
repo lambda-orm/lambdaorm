@@ -109,7 +109,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			map = `${map} ,${composite}`
 		}
 		if (mapOperator.children[0] instanceof FunctionRef && mapOperator.children[0].name === 'distinct') {
-			// https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/
+			// https://www.MongoDB.com/docs/manual/reference/operator/aggregation/group/
 			return map
 		} else {
 			const template = this.dialect.dml('rootMap')
@@ -163,7 +163,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	}
 
 	protected getChildrenMap (sentence: Sentence): any {
-		// https://stackoverflow.com/questions/61173117/mongodb-get-index-of-current-element-in-array
+		// https://stackoverflow.com/questions/61173117/MongoDB-get-index-of-current-element-in-array
 		const mapOperator = sentence.children.find(p => p.name === 'map') as Map | undefined
 		if (mapOperator === undefined) {
 			throw new SchemaError('map operator not found')
@@ -179,8 +179,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 
 	protected override buildJoins (joins: Join[]): string {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
-		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-mongodb
-		// https://javascript.tutorialink.com/mongodb-get-sum-of-fields-in-last-stage-of-aggregate/
+		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-MongoDB
+		// https://javascript.tutorialink.com/MongoDB-get-sum-of-fields-in-last-stage-of-aggregate/
 		let text = ''
 		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {

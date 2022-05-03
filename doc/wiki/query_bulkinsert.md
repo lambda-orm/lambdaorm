@@ -53,7 +53,7 @@ async function example () {
 	]
 
 	const insert = () => Categories.bulkInsert()
-	const result = await orm.lambda(insert).execute('mysql',categories)
+	const result = await orm.lambda(insert).execute('MySQL',categories)
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
 }

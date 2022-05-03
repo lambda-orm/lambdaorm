@@ -48,11 +48,11 @@ test:
   - name: insert 1
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Categories
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             insert: '{ "CategoryName":{{name}},"Description":{{description}} }'
           childs: []
@@ -127,7 +127,7 @@ test:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         name: Beverages20
@@ -136,11 +136,11 @@ test:
   - name: insert 2
     data: b
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Categories
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             insert: '{ "CategoryName":{{name}},"Description":{{description}} }'
           childs: []
@@ -215,7 +215,7 @@ test:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         name: Beverages21
@@ -224,11 +224,11 @@ test:
   - name: insert 3
     data: c
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Categories
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             insert: >-
               {
@@ -302,7 +302,7 @@ test:
       entity: Categories
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -312,11 +312,11 @@ test:
   - name: insert 4
     data: order
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             insert: >-
               {
@@ -597,7 +597,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         customerId: VINET
@@ -633,11 +633,11 @@ test:
   - name: insert 5
     data: order
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             insert: >-
               {
@@ -645,8 +645,8 @@ test:
               }
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 insert: >-
                   {
@@ -1068,7 +1068,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         customerId: VINET
@@ -1104,11 +1104,11 @@ test:
   - name: insert 6
     data: order
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Orders
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             insert: >-
               {
@@ -1116,8 +1116,8 @@ test:
               }
           childs:
             - entity: OrderDetails
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 insert: >-
                   {
@@ -1125,8 +1125,8 @@ test:
                   }
               childs: []
             - entity: Customers
-              dialect: mongodb
-              dataSource: mongodb
+              dialect: MongoDB
+              dataSource: MongoDB
               sentence:
                 insert: >-
                   {
@@ -1759,7 +1759,7 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       data:
         customerId: VINET

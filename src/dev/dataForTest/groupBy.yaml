@@ -5,11 +5,11 @@ data:
 test:
   - name: groupBy 1
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: '{ "$project" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }}'
             from: Products
@@ -63,7 +63,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - maxPrice: 18
       - maxPrice: 19
@@ -144,11 +144,11 @@ test:
       - maxPrice: 13
   - name: groupBy 2
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: '{ "$project" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }}'
             from: Products
@@ -202,7 +202,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - minPrice: 18
       - minPrice: 19
@@ -283,11 +283,11 @@ test:
       - minPrice: 13
   - name: groupBy 3
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: '{ "$project" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }}'
             from: Products
@@ -341,7 +341,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - total: 18
       - total: 19
@@ -422,11 +422,11 @@ test:
       - total: 13
   - name: groupBy 4
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: '{ "$project" :{ "_id": 0 , "average":{ "$avg" :"$UnitPrice" } }}'
             from: Products
@@ -480,7 +480,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - average: 18
       - average: 19
@@ -561,11 +561,11 @@ test:
       - average: 13
   - name: groupBy 5
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: '{ "$project" :{ "_id": 0 , "count":{ "$count" :1 } }}'
             from: Products
@@ -617,17 +617,17 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: >-
           MongoServerError: Invalid $project :: caused by :: Unknown expression
           $count
   - name: groupBy 6
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "category":"$CategoryID",
@@ -708,15 +708,15 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: 'SyntaxError: Unexpected token } in JSON at position 27'
   - name: groupBy 7
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "category":"$CategoryName",
@@ -820,16 +820,16 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: 'SyntaxError: Unexpected token f in JSON at position 15'
   - name: groupBy 8
     data: a
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "name":"$ProductName",
@@ -939,18 +939,18 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
     result:
       - name: Chai
         source: 18
         result: 18
   - name: groupBy 9
     sentences:
-      - stage: mongodb
+      - stage: MongoDB
         sentence:
           entity: Products
-          dialect: mongodb
-          dataSource: mongodb
+          dialect: MongoDB
+          dataSource: MongoDB
           sentence:
             map: >-
               { "$project" :{ "_id": 0 , "category":"$CategoryName",
@@ -1079,6 +1079,6 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: mongodb
+      - stage: MongoDB
         error: 'SyntaxError: Unexpected token f in JSON at position 15'
 errors: 4
