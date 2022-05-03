@@ -200,7 +200,7 @@ functions:
     isNull: '({0} IS NULL)' 
     isNotNull: '({0} IS NOT NULL)' 
   multiple:
-    concat: '{acumulated} || {value}'
+    concat: '{accumulated} || {value}'
   group:    
     avg: AVG({0})
     count: COUNT({0})

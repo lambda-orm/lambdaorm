@@ -10,7 +10,11 @@
 		"classtype",
 		"datetime",
 		"Gruntfile",
+		"instantclient",
+		"luxon",
 		"northwind",
-		"nullable"
+		"nullable",
+		"oracledb",
+		"sqlstring"
 	]
 }

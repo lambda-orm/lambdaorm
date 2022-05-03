@@ -251,4 +251,4 @@ execute()
 // PENDING:
 // modificar bulkinsert para que permita transacciones por lote o por item o poder deshabilitarlo.
 // modificar bulkinsert para que en le caso de transacciones por item o deshabilitadas , retorne los registros que no pudieron ser importados completamente
-// trabajar con lambdaOrm como servicio y no como libreria.
+// trabajar con lambdaORM como servicio y no como libreria.

@@ -8,7 +8,7 @@ import { Expressions } from 'js-expressions'
 
 export class NoSqlLanguage extends Language {
 	constructor (expressions: Expressions) {
-		super('nosql', config.dialects, expressions)
+		super('NoSQL', config.dialects, expressions)
 		this.solveComposite = true
 	}
 

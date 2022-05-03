@@ -72,9 +72,9 @@ export class Executor {
 	}
 
 	/**
- * Crea una transaccion
+ * Create a transaction
  * @param dataSource Database name
- * @param callback Codigo que se ejecutara en transaccion
+ * @param callback Code to be executed in transaction
  */
 	public async transaction (stage: string, view: string | undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, true)

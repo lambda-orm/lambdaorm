@@ -8,7 +8,7 @@ import { Expressions } from 'js-expressions'
 
 export class SqlLanguage extends Language {
 	constructor (expressions: Expressions) {
-		super('sql', config.dialects, expressions)
+		super('SQL', config.dialects, expressions)
 		this.solveComposite = false
 	}
 

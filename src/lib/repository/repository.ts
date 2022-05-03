@@ -28,8 +28,8 @@ export class Repository<TEntity, TQuery> {
 		return await this.orm.execute(expression, data, this.stage)
 	}
 
-	public async execute (expresion: string, data?: any): Promise<any> {
-		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage)
+	public async execute (expression: string, data?: any): Promise<any> {
+		return await this.orm.execute(`${this.name}${expression}`, data, this.stage)
 	}
 
 	/**  */

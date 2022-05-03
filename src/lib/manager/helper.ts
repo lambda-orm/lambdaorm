@@ -10,7 +10,7 @@ const CryptoJS = require('crypto-js')
 export class Helper {
 	public static replace (string:string, search:string, replace:string) {
 		return string.split(search).join(replace)
-		// con la siguiente opcion falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
 
@@ -169,17 +169,17 @@ export class Helper {
 				if (typeof child === 'string' && child.indexOf('$$') >= 0) {
 					// there can be more than one environment variable in text
 					while (child.indexOf('$$') >= 0) {
-						const envrironmentVariable = Helper.getEnvironmentVariable(child)
-						if (envrironmentVariable) {
-							const environmentVariableValue = process.env[envrironmentVariable]
+						const environmentVariable = Helper.getEnvironmentVariable(child)
+						if (environmentVariable) {
+							const environmentVariableValue = process.env[environmentVariable]
 							if (environmentVariableValue === undefined || environmentVariableValue === null) {
-								child = Helper.replace(child, '$$' + envrironmentVariable, '')
+								child = Helper.replace(child, '$$' + environmentVariable, '')
 							} else {
 								const objValue = Helper.tryParse(environmentVariableValue)
 								if (objValue) {
-									child = Helper.replace(child, '$$' + envrironmentVariable, JSON.stringify(objValue))
+									child = Helper.replace(child, '$$' + environmentVariable, JSON.stringify(objValue))
 								} else {
-									child = Helper.replace(child, '$$' + envrironmentVariable, environmentVariableValue)
+									child = Helper.replace(child, '$$' + environmentVariable, environmentVariableValue)
 								}
 							}
 						}
@@ -216,7 +216,7 @@ export class Helper {
 					}
 					const arrayDelta = new Delta()
 					const news = currentValue.filter(p => oldValue.indexOf(p) === -1)
-					const unchangeds = currentValue.filter(p => oldValue.indexOf(p) !== -1)
+					const unchanged = currentValue.filter(p => oldValue.indexOf(p) !== -1)
 					const removes = oldValue.filter(p => currentValue.indexOf(p) === -1)
 					const change = news.length + removes.length > 0
 					for (const p in news) {
@@ -225,7 +225,7 @@ export class Helper {
 					for (const p in removes) {
 						arrayDelta.remove.push({ name: p, old: p })
 					}
-					for (const p in unchangeds) {
+					for (const p in unchanged) {
 						arrayDelta.unchanged.push({ name: p, value: p })
 					}
 					delta.children.push({ name: name, type: 'array', change: change, delta: arrayDelta })

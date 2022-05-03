@@ -8,8 +8,8 @@ import { Helper } from '../../manager'
 export class NoSqlDMLBuilder extends DmlBuilder {
 	public override build (sentence: Sentence): Query {
 		if (sentence.action === 'select') {
-			const nosqlSentence = this.buildSentence(sentence)
-			return new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, nosqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
+			const noSQLSentence = this.buildSentence(sentence)
+			return new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, noSQLSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
 		} else {
 			const includes:Include[] = []
 			const sentenceIncludes = sentence.getCompositeIncludes()
@@ -20,8 +20,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				const include = new Include(sentenceInclude.name, childQuery, sentenceInclude.relation)
 				includes.push(include)
 			}
-			const nosqlSentence = this.buildSentence(sentence)
-			const query = new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, nosqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
+			const noSQLSentence = this.buildSentence(sentence)
+			const query = new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, noSQLSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
 			query.includes = includes
 			return query
 		}
@@ -261,7 +261,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 
 	protected override buildUpdate (operand: Update, entity: EntityMapping): string {
 		const template = this.dialect.dml('update')
-		const templateAssing = this.dialect.operator('=', 2)
+		const templateAssign = this.dialect.operator('=', 2)
 		const assigns: string[] = []
 
 		if (operand.children[0] instanceof Object) {
@@ -280,9 +280,9 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				}
 				const field = this.dialect.delimiter(name)
 				const value = this.buildOperand(keyVal.children[0])
-				let assing = templateAssing.replace('{0}', field)
-				assing = assing.replace('{1}', value)
-				assigns.push(assing)
+				let assign = templateAssign.replace('{0}', field)
+				assign = assign.replace('{1}', value)
+				assigns.push(assign)
 			}
 		}
 		return template.replace('{assigns}', assigns.join(','))

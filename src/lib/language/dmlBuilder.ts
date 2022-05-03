@@ -273,7 +273,7 @@ export abstract class DmlBuilder {
 			const template = funcData.template
 			text = this.buildOperand(operand.children[0])
 			for (let i = 1; i < operand.children.length; i++) {
-				text = Helper.replace(template, '{acumulated}', text)
+				text = Helper.replace(template, '{accumulated}', text)
 				text = Helper.replace(text, '{value}', this.buildOperand(operand.children[i]))
 			}
 		} else {

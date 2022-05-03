@@ -206,19 +206,19 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public setNull (entity: EntityMapping, relation: Relation): Query | undefined {
 		const alias = 'a'
 		const templateColumn = this.dialect.other('column')
-		const propertyfrom = entity.properties.find(p => p.name === relation.from)
-		if (!propertyfrom) {
+		const propertyFrom = entity.properties.find(p => p.name === relation.from)
+		if (!propertyFrom) {
 			throw new SchemaError(`not found relation form ${entity.name}.${relation.name}.${relation.from} `)
 		}
-		const column = templateColumn.replace('{name}', propertyfrom.mapping)
-		const templateAssing = this.dialect.operator('=', 2)
-		let assing = templateAssing.replace('{0}', column)
+		const column = templateColumn.replace('{name}', propertyFrom.mapping)
+		const templateAssign = this.dialect.operator('=', 2)
+		let assign = templateAssign.replace('{0}', column)
 		const _null = this.dialect.other('null')
-		assing = assing.replace('{1}', _null)
+		assign = assign.replace('{1}', _null)
 		let text = this.dialect.dml('update')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{alias}', alias)
-		text = text.replace('{assigns}', assing)
+		text = text.replace('{assigns}', assign)
 		return new Query('update', this.dataSource.dialect, this.dataSource.name, text, entity.name)
 	}
 

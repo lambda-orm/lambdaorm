@@ -25,7 +25,7 @@ export class StageDelete extends StageActionDML {
 
 	protected build (): Query[] {
 		const entities = this.sort(this.model.entities)
-		const queries = this.createUpateQueries(entities)
+		const queries = this.createUpdateQueries(entities)
 		for (const i in entities) {
 			const query = this.createQuery(entities[i])
 			queries.push(query)
@@ -33,7 +33,7 @@ export class StageDelete extends StageActionDML {
 		return queries
 	}
 
-	protected createUpateQueries (entities: Entity[]): Query[] {
+	protected createUpdateQueries (entities: Entity[]): Query[] {
 		const queries:Query[] = []
 		for (const i in entities) {
 			const entity = entities[i]

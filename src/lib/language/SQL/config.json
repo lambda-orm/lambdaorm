@@ -214,7 +214,7 @@
         "isNotNull": "({0} IS NOT NULL)"
       },
       "multiple": {
-        "concat": "{acumulated} || {value}"
+        "concat": "{accumulated} || {value}"
       },
       "group": {
         "avg": "AVG({0})",
@@ -869,7 +869,7 @@
           "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
-          "concat": "{acumulated} || {value}"
+          "concat": "{accumulated} || {value}"
         },
         "group": {
           "avg": "AVG({0})",
@@ -1096,7 +1096,7 @@
           "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
-          "concat": "{acumulated} || {value}"
+          "concat": "{accumulated} || {value}"
         },
         "group": {
           "avg": "AVG({0})",
@@ -1372,7 +1372,7 @@
           "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
-          "concat": "{acumulated} || {value}"
+          "concat": "{accumulated} || {value}"
         },
         "group": {
           "avg": "AVG({0})",
@@ -1600,7 +1600,7 @@
           "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
-          "concat": "{acumulated} || {value}"
+          "concat": "{accumulated} || {value}"
         },
         "group": {
           "avg": "AVG({0})",

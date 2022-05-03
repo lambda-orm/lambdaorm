@@ -699,7 +699,7 @@ class SchemaExtender {
 			}
 			this.extendMapping(base, mappings)
 			this.extendObject(mapping, base)
-			// se setea dado que ya fue extendido
+			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
 	}
@@ -933,12 +933,12 @@ export class SchemaManager {
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
-		if (await Helper.existsPath(path.join(workspace, 'lambdaOrm.yaml'))) {
-			return 'lambdaOrm.yaml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaOrm.yml'))) {
-			return 'lambdaOrm.yml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaOrm.json'))) {
-			return 'lambdaOrm.json'
+		if (await Helper.existsPath(path.join(workspace, 'lambdaORM.yaml'))) {
+			return 'lambdaORM.yaml'
+		} else if (await Helper.existsPath(path.join(workspace, 'lambdaORM.yml'))) {
+			return 'lambdaORM.yml'
+		} else if (await Helper.existsPath(path.join(workspace, 'lambdaORM.json'))) {
+			return 'lambdaORM.json'
 		} else {
 			return undefined
 		}

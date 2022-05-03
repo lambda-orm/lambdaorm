@@ -66,8 +66,8 @@ export class Orm implements IOrm {
 	}
 
 	/**
- * metodo para incializar la libreria de orm
- * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
+ * initialize the orm library
+ * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaORM.yaml" in the root of the project
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
@@ -247,9 +247,9 @@ export class Orm implements IOrm {
 	}
 
 	/**
- * Crea una transaccion
+ * Create a transaction
  * @param stage Database name
- * @param callback Codigo que se ejecutara en transaccion
+ * @param callback Code to be executed in transaction
  */
 	public async transaction (stage: string, view:string|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _stage = this.schemaManager.stage.get(stage)

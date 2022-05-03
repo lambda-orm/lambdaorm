@@ -53,9 +53,9 @@ export class DDLBuilder {
 			const oldMapping = mappings.find(p => p.name === dataSource.mapping)
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
 			const currentMapping = this.schema.mapping.mappings.find(p => p.name === dataSource.mapping)
-			const currnetEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
-			const delta = Helper.deltaWithSimpleArrays(currnetEntities, oldEntities)
-			this._sync(dataSource, ruleDataSource, delta, currnetEntities || [], oldEntities || [], queries)
+			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
+			const delta = Helper.deltaWithSimpleArrays(currentEntities, oldEntities)
+			this._sync(dataSource, ruleDataSource, delta, currentEntities || [], oldEntities || [], queries)
 		}
 		return queries
 	}
@@ -78,10 +78,10 @@ export class DDLBuilder {
 						const relation = entity.relations[q] as Relation
 						const relationEntity = entitiesMapping.find(p => p.name === relation.entity)
 
-						// evaluate if entity relation isnot view and apply in dataSource
+						// evaluate if entity relation is not view and apply in dataSource
 						if (relationEntity && !relationEntity.view && (!relationEntity.composite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, relation.entity)) {
 							if (!relation.weak) {
-								// busca la propiedad relacionada para saber si es nullable la relacion
+								// busca la propiedad relacionada para saber si es nullable la relación
 								const fromProperty = entity.properties.find(p => p.name === relation.from)
 								if (fromProperty === undefined) {
 									throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
@@ -318,9 +318,9 @@ export class DDLBuilder {
 			}
 		}
 		// TODO:
-		// Solve rename column: se debe resolver en cascada los indexes, Fks, Uk and Pk que esten referenciando la columns
-		// Solve rename table: se debe resolver en cascada los indexes, Fks, Uk and Pk que esten referenciando la columns
-		// en ambos casos se debe resolver que se hara con los datos para que estos no se pierdan
+		// Solve rename column: se debe resolver en cascada los indexes, Fks, Uk and Pk que esta haciendo referencia la columns
+		// Solve rename table: se debe resolver en cascada los indexes, Fks, Uk and Pk que esta haciendo referencia la columns
+		// en ambos casos se debe resolver que se hará con los datos para que estos no se pierdan
 
 		// remove columns for entities changes
 		for (const p in delta.changed) {
@@ -376,8 +376,8 @@ export class DDLBuilder {
 								if (query) queries.push(query)
 							}
 							for (const c in changed.delta.changed) {
-								const chanegUniqueKey = changed.delta.changed[c].new as string[]
-								const query = this.builder(dataSource).addUk(entityChanged.new, chanegUniqueKey)
+								const changeUniqueKey = changed.delta.changed[c].new as string[]
+								const query = this.builder(dataSource).addUk(entityChanged.new, changeUniqueKey)
 								if (query) queries.push(query)
 							}
 						}

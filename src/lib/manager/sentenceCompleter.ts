@@ -36,7 +36,7 @@ export class SentenceCompleter {
 		}
 		// add filter for keys in properties
 		if (entity.hadKeys) {
-			const expressionKeys = this.filterbyKeys(sentence, entity)
+			const expressionKeys = this.filterByKeys(sentence, entity)
 			if (expressionKeys) {
 				if (newFilter) {
 					newFilter = new Operator('&&', [newFilter, expressionKeys])
@@ -67,7 +67,7 @@ export class SentenceCompleter {
 				} else if (update) {
 					this.solveKey(property, update)
 				}
-				// TODO: ver como resolver en los casos que el parametro no tiene el mismo nombre que el campo
+				// TODO: ver como resolver en los casos que el parámetro no tiene el mismo nombre que el campo
 				const index = sentence.parameters.findIndex(p => p.name === property.name)
 				if (index >= 0) {
 					sentence.parameters.splice(index, 1)
@@ -91,7 +91,7 @@ export class SentenceCompleter {
 		return operand
 	}
 
-	private filterbyKeys (sentence: Sentence, entity: EntityMapping) : Operand|undefined {
+	private filterByKeys (sentence: Sentence, entity: EntityMapping) : Operand|undefined {
 		let expression:string|undefined
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
@@ -130,7 +130,7 @@ export class SentenceCompleter {
 				newFilter = this.replaceField(entity, parts[1], expression)
 			}
 			// add filter for keys in properties
-			const expressionKeys = this.filterbyKeys(sentence, entity)
+			const expressionKeys = this.filterByKeys(sentence, entity)
 			if (expressionKeys) {
 				if (newFilter) {
 					newFilter = new Operator('&&', [newFilter, expressionKeys])
@@ -154,8 +154,8 @@ export class SentenceCompleter {
 				const entity = mapping.getEntity(field.entity)
 				const property = entity?.properties.find(p => p.name === field.name)
 				if (entity && property) {
-					const viewPorperty = view.getProperty(entity.name, property.name)
-					if (property.readMappingExp || property.readExp || (viewPorperty && viewPorperty.readExp)) {
+					const viewProperty = view.getProperty(entity.name, property.name)
+					if (property.readMappingExp || property.readExp || (viewProperty && viewProperty.readExp)) {
 						let sourceOperand = child as Operand
 						if (property.readMappingExp) {
 							const expression = this.expressions.parse(property.readMappingExp)
@@ -165,8 +165,8 @@ export class SentenceCompleter {
 							const expression = this.expressions.parse(property.readExp)
 							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)
 						}
-						if (viewPorperty && viewPorperty.readExp) {
-							const expression = this.expressions.parse(viewPorperty.readExp)
+						if (viewProperty && viewProperty.readExp) {
+							const expression = this.expressions.parse(viewProperty.readExp)
 							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)
 						}
 						operand.children[i] = sourceOperand

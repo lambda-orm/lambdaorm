@@ -40,7 +40,7 @@ export class PostgreSQLConnectionPool extends ConnectionPool {
 	}
 
 	public async init (): Promise<void> {
-		// console.info('postgres init pool not Implemented')
+		// console.info('PostgreSQL init pool not Implemented')
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -57,7 +57,7 @@ export class PostgreSQLConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		// console.info('postgres end pool not Implemented')
+		// console.info('PostgreSQL end pool not Implemented')
 	}
 }
 export class PostgreSQLConnection extends Connection {
@@ -77,8 +77,6 @@ export class PostgreSQLConnection extends Connection {
 	}
 
 	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
-		// const autoIncrement = mapping.getAutoincrement(query.entity)
-
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		// const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined

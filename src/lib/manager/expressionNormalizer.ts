@@ -156,7 +156,7 @@ export class ExpressionNormalizer {
 					mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
 				}
 			} else {
-				// Solve expresion without map example: Products.filter(p=> id==1)
+				// Solve expresión without map example: Products.filter(p=> id==1)
 				compeleInclude = this.completeMapInclude
 				const varArrow = new Node('p', 'var', [])
 				const varAll = new Node('p', 'var', [])

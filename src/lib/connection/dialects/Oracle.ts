@@ -48,7 +48,7 @@ export class OracleConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		// console.info('postgres end pool not Implemented')
+		// console.info('Oracle end pool not Implemented')
 	}
 }
 export class OracleConnection extends Connection {

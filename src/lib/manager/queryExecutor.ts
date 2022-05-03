@@ -11,17 +11,17 @@ export class QueryExecutor {
 	private languages: Languages
 	private connectionManager: ConnectionManager
 	private connections: any
-	private transactionable: boolean
+	private transactional: boolean
 	private schemaManager: SchemaManager
 	private expressions: Expressions
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, stage: string, view: string | undefined, transactionable = false) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, stage: string, view: string | undefined, transactional = false) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.stage = stage
 		this.view = view
 		this.schemaManager = schemaManager
-		this.transactionable = transactionable
+		this.transactional = transactional
 		this.expressions = expressions
 		this.connections = {}
 	}
@@ -30,7 +30,7 @@ export class QueryExecutor {
 		let connection = this.connections[dataSource]
 		if (connection === undefined) {
 			connection = await this.connectionManager.acquire(dataSource)
-			if (this.transactionable) {
+			if (this.transactional) {
 				await connection.beginTransaction()
 			}
 			this.connections[dataSource] = connection
@@ -343,42 +343,42 @@ export class QueryExecutor {
 				const relationProperty = entity.properties.find(p => p.name === include.relation.from) as PropertyMapping
 
 				if (include.relation.type === RelationType.oneToMany) {
-					const allChilds: any[] = []
+					const children: any[] = []
 					const items: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const child = item[include.relation.name]
 						if (child) {
-							allChilds.push(child)
+							children.push(child)
 							items.push(item)
 						}
 					}
-					const childData = new Data(allChilds, data)
-					const allChildsId = await this._execute(include.query, childData)
+					const childData = new Data(children, data)
+					const childrenId = await this._execute(include.query, childData)
 					for (let i = 0; i < items.length; i++) {
 						const item = items[i]
 						if (item[include.relation.name]) {
-							item[include.relation.from] = allChildsId[i]
+							item[include.relation.from] = childrenId[i]
 						}
 					}
 				} else if (include.relation.type === RelationType.oneToOne && !relationProperty.nullable) {
-					const allChilds: any[] = []
+					const children: any[] = []
 					const items: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const child = item[include.relation.name]
 						if (child) {
-							allChilds.push(child)
+							children.push(child)
 							items.push(item)
 						}
 					}
-					if (allChilds.length > 0) {
-						const childData = new Data(allChilds, data)
-						const allChildsId = await this._execute(include.query, childData)
+					if (children.length > 0) {
+						const childData = new Data(children, data)
+						const childrenId = await this._execute(include.query, childData)
 						for (let i = 0; i < items.length; i++) {
 							const item = items[i]
 							if (item[include.relation.name]) {
-								item[include.relation.from] = allChildsId[i]
+								item[include.relation.from] = childrenId[i]
 							}
 						}
 					}
@@ -407,7 +407,7 @@ export class QueryExecutor {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relationProperty = mapping.getProperty(query.entity, include.relation.from)
 				if (include.relation.type === RelationType.manyToOne) {
-					const allChilds: any[] = []
+					const children: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const parentId = item[include.relation.from]
@@ -416,14 +416,14 @@ export class QueryExecutor {
 							for (let j = 0; j < children.length; j++) {
 								const child = children[j]
 								child[include.relation.to] = parentId
-								allChilds.push(child)
+								children.push(child)
 							}
 						}
 					}
-					const childData = new Data(allChilds, data)
+					const childData = new Data(children, data)
 					await this._execute(include.query, childData)
 				} else if (include.relation.type === RelationType.oneToOne && !!relationProperty.nullable) {
-					const allChilds: any[] = []
+					const children: any[] = []
 					const items: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
@@ -434,17 +434,17 @@ export class QueryExecutor {
 						}
 						if (child) {
 							child[include.relation.to] = parentId
-							allChilds.push(child)
+							children.push(child)
 							items.push(item)
 						}
 					}
-					if (allChilds.length > 0) {
-						const childData = new Data(allChilds, data)
-						const allChildsId = await this._execute(include.query, childData)
+					if (children.length > 0) {
+						const childData = new Data(children, data)
+						const childrenId = await this._execute(include.query, childData)
 						for (let i = 0; i < items.length; i++) {
 							const item = items[i]
 							if (item[include.relation.name]) {
-								item[include.relation.from] = allChildsId[i]
+								item[include.relation.from] = childrenId[i]
 							}
 						}
 					}

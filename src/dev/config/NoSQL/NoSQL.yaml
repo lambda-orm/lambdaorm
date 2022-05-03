@@ -165,7 +165,7 @@ functions:
     isNull: '{ "$ifNull" :[{0}] }'
     isNotNull: '{ "$not" :["$ifNull" :[{0}]] }'
   multiple:
-    concat: '{ "$concat":[{acumulated},{value}] }'
+    concat: '{ "$concat":[{accumulated},{value}] }'
   group:
     avg: '{ "$avg" :{0} }'
     count: '{ "$count" :{0} }'
