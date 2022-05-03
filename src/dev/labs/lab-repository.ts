@@ -1,11 +1,11 @@
 import { orm } from '../../lib'
-import { CategoryRespository, Category, ProductRespository } from '../../model'
+import { CategoryRepository, Category, ProductRepository } from '../../model'
 
 (async () => {
 	try {
 		await orm.init()
 
-		const productRepository = new ProductRespository('mysql')
+		const productRepository = new ProductRepository('mysql')
 
 		const country = 'USA'
 		const result = await productRepository.query().filter(p => (p.price > 5 && p.supplier.country === country) || (p.inStock < 3))
@@ -18,7 +18,7 @@ import { CategoryRespository, Category, ProductRespository } from '../../model'
 
 		let category
 
-		const categoryRepository = new CategoryRespository('mysql')
+		const categoryRepository = new CategoryRepository('mysql')
 		category = new Category()
 		category.name = 'general21'
 		category.description = 'general products 2'
@@ -52,8 +52,8 @@ import { CategoryRespository, Category, ProductRespository } from '../../model'
 		// complete = customerRepository.update(p => [p.name, p.id]).include(p => p.orders).complete()
 		// console.log(complete)
 
-		// // const orderRespository = new OrderRepository('mysql')
-		// // orderRespository.save(customer.orders, p => p.details)
+		// // const orderRepository = new OrderRepository('mysql')
+		// // orderRepository.save(customer.orders, p => p.details)
 
 		// complete = customerRepository.query().filter(p => p.name !== 'XX').include(p => p.orders.map(p => p.orderDate)).complete()
 		// console.log(complete)

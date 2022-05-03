@@ -6,10 +6,10 @@ const MongoClient = require('mongodb').MongoClient;
 	const client = await MongoClient.connect(url)
 	const db = client.db(dbName)
 	//await db.collection('inventory').deleteMany({})
-
 	const result = await db.collection('Orders').aggregate(
 		[
 			//https://stackoverflow.com/questions/64515836/how-to-replace-root-with-an-array-field-during-mongodb-aggregation-pipeline
+			// unwind solo aplica si el child es un array
 			{ $unwind: "$\"Order Details\"" },
 			{ $replaceRoot: { newRoot: "$\"Order Details\"" } },
 			{
@@ -40,14 +40,14 @@ const MongoClient = require('mongodb').MongoClient;
 			{
 				"$match": {
 					// TODO: se debe corregir los operadores, no funciona "$gt": ["$UnitPrice", 10]
-					"UnitPrice": { "$gt": 10 }
+					"$and": [{ "UnitPrice": { "$gt": 10 } }, { "o1.ShippedDate": { $gte: "1997-01-01", $lt: "1997-12-31" } }]
 				}
 			},
-			{
-				"$match": {
-					"o1.EmployeeID": 5
-				}
-			},
+			// {
+			// 	"$match": {
+			// 		"o1.EmployeeID": 5
+			// 	}
+			// },
 			// {
 			// 	"$match": {
 			// 		"$and": [{
@@ -74,12 +74,15 @@ const MongoClient = require('mongodb').MongoClient;
 					"product": {
 						"$arrayElemAt": ["$p.ProductName", 0]
 					},
+					"unitPrice": "$UnitPrice",
+					"quantity": "$Quantity",
 					//TODO se agrega a modo de prueba
 					"employee": {
 						"$arrayElemAt": ["$o1.EmployeeID", 0]
 					},
-					"unitPrice": "$UnitPrice",
-					"quantity": "$Quantity"
+					"oDate": {
+						"$arrayElemAt": ["$o1.ShippedDate", 0]
+					}
 				}
 			}
 			, {

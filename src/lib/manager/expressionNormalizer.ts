@@ -63,40 +63,40 @@ export class ExpressionNormalizer {
 	}
 
 	private completeSentence (mainNode: Node, entityName?: string): void {
-		let compleInclude: any
+		let compeleInclude: any
 		const clauses: any = this.getClauses(mainNode)
 		const entity = this.schema.model.getEntity(entityName || clauses.from.name)
 		if (entity === undefined) {
 			throw new SchemaError(`entity ${entityName} not found`)
 		}
 		if (clauses.insert) {
-			compleInclude = this.completeInsertInclude
+			compeleInclude = this.completeInsertInclude
 			this.completeInsertNode(entity, clauses.insert)
 		} else if (clauses.bulkInsert) {
-			compleInclude = this.completeBulkInsertInclude
+			compeleInclude = this.completeBulkInsertInclude
 			this.completeInsertNode(entity, clauses.bulkInsert)
 		} else if (clauses.update) {
-			compleInclude = this.completeUpdateInclude
+			compeleInclude = this.completeUpdateInclude
 			this.completeUpdateNode(entity, clauses.update)
 			if (!clauses.filter) { this.createClauseFilter(entity, clauses.update) }
 		} else if (clauses.updateAll) {
-			compleInclude = this.completeUpdateInclude
+			compeleInclude = this.completeUpdateInclude
 			clauses.updateAll.name = 'update'
 			// TODO: validar que tenga un objeto definido
 			// Example: Entity.update({name:'test'})
 		} else if (clauses.delete) {
-			compleInclude = this.completeDeleteInclude
+			compeleInclude = this.completeDeleteInclude
 			if (!clauses.filter) { this.createClauseFilter(entity, clauses.delete) }
 		} else if (clauses.deleteAll) {
-			compleInclude = this.completeDeleteInclude
+			compeleInclude = this.completeDeleteInclude
 			clauses.deleteAll.name = 'delete'
 		} else {
 			if (clauses.map) {
-				compleInclude = this.completeMapInclude
+				compeleInclude = this.completeMapInclude
 				this.completeMapNode(entity, clauses.map)
 			} else if (clauses.distinct) {
 				// Replace distinct for map and add function distinct to child of map
-				compleInclude = this.completeMapInclude
+				compeleInclude = this.completeMapInclude
 				clauses.map = clauses.distinct
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
@@ -104,7 +104,7 @@ export class ExpressionNormalizer {
 			} else if (clauses.first) {
 				// Add orderby and limit , replace first for map
 				// example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1
-				compleInclude = this.completeMapInclude
+				compeleInclude = this.completeMapInclude
 				clauses.map = clauses.first
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
@@ -125,7 +125,7 @@ export class ExpressionNormalizer {
 			} else if (clauses.last) {
 				// Add orderby desc and limit, replace last for map
 				// example: SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 0,1
-				compleInclude = this.completeMapInclude
+				compeleInclude = this.completeMapInclude
 				clauses.map = clauses.last
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
@@ -146,7 +146,7 @@ export class ExpressionNormalizer {
 			} else if (clauses.take) {
 				// Add limit , replace take for map
 				// example: SELECT * FROM Orders  LIMIT 0,1
-				compleInclude = this.completeMapInclude
+				compeleInclude = this.completeMapInclude
 				clauses.map = clauses.take
 				clauses.map.name = 'map'
 				this.completeMapNode(entity, clauses.map)
@@ -157,7 +157,7 @@ export class ExpressionNormalizer {
 				}
 			} else {
 				// Solve expresion without map example: Products.filter(p=> id==1)
-				compleInclude = this.completeMapInclude
+				compeleInclude = this.completeMapInclude
 				const varArrow = new Node('p', 'var', [])
 				const varAll = new Node('p', 'var', [])
 				mainNode.children[0] = new Node('map', 'arrow', [mainNode.children[0], varArrow, varAll])
@@ -179,7 +179,7 @@ export class ExpressionNormalizer {
 			}
 		}
 		if (clauses.include) {
-			if (!compleInclude) {
+			if (!compeleInclude) {
 				throw new SchemaError('Include not implemented!!!')
 			}
 			const clauseInclude = clauses.include
@@ -187,13 +187,13 @@ export class ExpressionNormalizer {
 			const body = clauseInclude.children[2]
 			if (body.type === 'array') {
 				for (let i = 0; i < body.children.length; i++) {
-					body.children[i] = compleInclude.bind(this)(entity, arrowVar, body.children[i])
+					body.children[i] = compeleInclude.bind(this)(entity, arrowVar, body.children[i])
 					if (clauses.map) {
 						this.addChildFieldField(clauses.map, entity, body.children[i])
 					}
 				}
 			} else {
-				clauseInclude.children[2] = compleInclude.bind(this)(entity, arrowVar, body)
+				clauseInclude.children[2] = compeleInclude.bind(this)(entity, arrowVar, body)
 				if (clauses.map) {
 					this.addChildFieldField(clauses.map, entity, body)
 				}
@@ -289,11 +289,11 @@ export class ExpressionNormalizer {
 		return obj
 	}
 
-	private createWriteNodeFields (entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoincrement = false): any {
+	private createWriteNodeFields (entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoIncrement = false): any {
 		const obj = new Node('obj', 'obj', [])
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
-			if ((!property.autoIncrement || !excludeAutoincrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
+			if ((!property.autoIncrement || !excludeAutoIncrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
 				const field = new Node(parent ? parent + '.' + property.name : property.name, 'var', [])
 				const keyVal = new Node(property.name, 'keyVal', [field])
 				obj.children.push(keyVal)
@@ -369,8 +369,8 @@ export class ExpressionNormalizer {
 			map = node// new Node(clause,'childFunc',[node])
 			this.completeSentence(map, relation.entity)
 		} else if (node.type === 'var') {
-			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
-			// entones agregar map(p=>p) a la variable convirtiendolo en .include(p=> p.details.map(p=>p))
+			// resuelve el caso que solo esta la variable que representa la relación , ejemplo: .include(p=> p.details)
+			// entones agregar map(p=>p) a la variable convirtiéndolo en .include(p=> p.details.map(p=>p))
 			const varArrowNode = new Node('p', 'var', [])
 			const varAll = new Node('p', 'var', [])
 			const parts = node.name.split('.')
@@ -387,7 +387,7 @@ export class ExpressionNormalizer {
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const fieldRelation = new Node(arrowFilterVar + '.' + relation.to, 'var') // new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
 		// const varRelation = new Node('list_' + relation.to, 'var')
-		const varRelation = new Node('LamdaOrmParentId', 'var')
+		const varRelation = new Node('LambdaOrmParentId', 'var')
 		const filterInclude = new Node('includes', 'funcRef', [fieldRelation, varRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Node(arrowFilterVar, 'var', [])
@@ -398,7 +398,7 @@ export class ExpressionNormalizer {
 		// If the column for which the include is to be resolved is not in the select, it must be added
 		const arrowSelect = clauses.map.children[1].name
 		const field = new Node(arrowSelect + '.' + relation.to, 'var')
-		clauses.map.children[2].children.push(new Node('LamdaOrmParentId', 'keyVal', [field]))
+		clauses.map.children[2].children.push(new Node('LambdaOrmParentId', 'keyVal', [field]))
 		// clauses.map.children[2].children.push(new Node(fieldName, 'var'))
 		// switch (clauses.map.children[2].type) {
 		// case 'var':
@@ -446,8 +446,8 @@ export class ExpressionNormalizer {
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
 		} else if (node.type === 'var') {
-			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
-			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
+			// resuelve el caso que solo esta la variable que representa la relación , ejemplo: .include(p=> p.details)
+			// entones agregar map(p=>p) a la variable convirtiéndolo en Details.insert()
 			const parts = node.name.split('.')
 			const relationName = parts[1]
 			return entity.relations.find(p => p.name === relationName)
@@ -465,8 +465,8 @@ export class ExpressionNormalizer {
 			this.completeSentence(clauseNode, relation.entity)
 			return clauseNode
 		} else if (node.type === 'var') {
-			// resuelve el caso que solo esta la variable que representa la relacion , ejemplo: .include(p=> p.details)
-			// entones agregar map(p=>p) a la variable convirtiendolo en Details.insert()
+			// resuelve el caso que solo esta la variable que representa la relación , ejemplo: .include(p=> p.details)
+			// entones agregar map(p=>p) a la variable convirtiéndolo en Details.insert()
 			const relation = this.getIncludeRelation(entity, node)
 			if (!relation) {
 				throw new SchemaError(`Relation ${node.name} not found in ${entity.name}`)

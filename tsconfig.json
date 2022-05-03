@@ -6,6 +6,9 @@
 		"esModuleInterop": true,
 		"strict": true,
 		"declaration": true,
+		// para usar el modelo se debe ignorar este error  : error TS7006: Parameter 'p' implicitly has an 'any' type.
+		// https://stackoverflow.com/questions/43064221/typescript-ts7006-parameter-xxx-implicitly-has-an-any-type
+		"noImplicitAny": false,
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"target": "ES6",
@@ -30,6 +33,7 @@
 		"TS2307": true,
 		"TS2339": true,
 		"TS2551": true,
-		"TS2554": true
+		"TS2554": true,
+		"TS7006": true
 	}
 }

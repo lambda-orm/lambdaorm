@@ -141,7 +141,7 @@ export class SqlJsConnection extends Connection {
 		}
 		const result = this.cnx.db.run(sql, values)
 
-		const rows = []
+		const rows:any[] = []
 		const cols = result.columns
 		for (let i = 0; i < result.values.length; i++) {
 			const values = result.values[i]

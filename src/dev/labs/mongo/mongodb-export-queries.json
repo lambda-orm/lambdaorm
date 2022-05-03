@@ -282,7 +282,7 @@
   {
     "name": "select",
     "dialect": "mongodb",
-    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\", \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\", \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\", \"freight\":\"$Freight\", \"name\":\"$ShipName\", \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\", \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\", \"country\":\"$ShipCountry\", \"__id\":\"$_id\" ,details: { \"$map\":{ \"input\": \"Order Details\", \"in\": \"orderId\":\"$this.OrderID\", \"productId\":\"$this.ProductID\", \"unitPrice\":\"$this.UnitPrice\", \"quantity\":\"$this.Quantity\", \"discount\":\"$this.Discount\", \"LamdaOrmParentId\":\"$this.OrderID\" }} }} ]",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\", \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\", \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\", \"freight\":\"$Freight\", \"name\":\"$ShipName\", \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\", \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\", \"country\":\"$ShipCountry\", \"__id\":\"$_id\" ,details: { \"$map\":{ \"input\": \"Order Details\", \"in\": \"orderId\":\"$this.OrderID\", \"productId\":\"$this.ProductID\", \"unitPrice\":\"$this.UnitPrice\", \"quantity\":\"$this.Quantity\", \"discount\":\"$this.Discount\", \"LambdaOrmParentId\":\"$this.OrderID\" }} }} ]",
     "entity": "Orders",
     "columns": [
       {

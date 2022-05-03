@@ -118,7 +118,7 @@ export class OperandManager {
 	}
 
 	private _serialize (operand: Operand): Metadata {
-		const children = []
+		const children:Metadata[] = []
 		for (const k in operand.children) {
 			children.push(this._serialize(operand.children[k]))
 		}
@@ -140,7 +140,7 @@ export class OperandManager {
 	}
 
 	private _deserialize (value: Metadata): Operand {
-		const children = []
+		const children:Operand[] = []
 		if (value.children) {
 			for (const k in value.children) {
 				children.push(this._deserialize(value.children[k]))
@@ -437,8 +437,8 @@ export class OperandManager {
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
 		let name = ''
 		const children: Operand[] = []
-		let operand = null
-		let selectOperand = null
+		let operand:Operand| undefined
+		let selectOperand:Operand| undefined
 
 		if (clauses.filter) {
 			// TODO: Si la sentencia es Select, Update o Delete y la entidad tienen una o mas propiedades con key.
@@ -490,9 +490,9 @@ export class OperandManager {
 			children.push(selectOperand)
 
 			if (expressionContext.current.groupByFields.length > 0) {
-				const fields = []
+				const fields:Field[] = []
 				for (let i = 0; i < expressionContext.current.groupByFields.length; i++) {
-					const groupByField = expressionContext.current.groupByFields[i].clone()
+					const groupByField:Field = expressionContext.current.groupByFields[i].clone()
 					fields.push(groupByField)
 				}
 				if (fields.length === 1) {
@@ -802,7 +802,7 @@ export class OperandManager {
 			}
 		}
 		throw new SintaxisError('Error to create SentenceInclude')
-		// return new SentenceInclude(relation.name, [child], relation, 'LamdaOrmParentId')
+		// return new SentenceInclude(relation.name, [child], relation, 'LambdaOrmParentId')
 		// return new SentenceInclude(relation.relation.name, [child], relation.relation)
 	}
 

@@ -34,15 +34,15 @@ test:
                   "contact":"$ContactName", "phone":"$ContactTitle",
                   "address":"$Address", "city":"$City", "region":"$Region",
                   "postalCode":"$PostalCode", "country":"$Country",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id}))
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}))
     model:
       - name: id
         type: integer
@@ -93,7 +93,7 @@ test:
             type: string
           - name: country
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
     parameters:
       - name: id
@@ -101,7 +101,7 @@ test:
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -116,7 +116,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -312,7 +312,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -419,7 +419,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -451,10 +451,10 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -506,7 +506,7 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 2
     data: a
     sentences:
@@ -537,15 +537,15 @@ test:
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
                   "productId":"$ProductID", "unitPrice":"$UnitPrice",
                   "quantity":"$Quantity", "discount":"$Discount",
-                  "LamdaOrmParentId":"$OrderID" }}
+                  "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LamdaOrmParentId:p.orderId}))
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}))
     model:
       - name: id
         type: integer
@@ -588,7 +588,7 @@ test:
             type: decimal
           - name: discount
             type: decimal
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
     parameters:
       - name: id
@@ -596,7 +596,7 @@ test:
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -611,7 +611,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -807,7 +807,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -874,7 +874,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -898,10 +898,10 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -958,16 +958,16 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-04 00:00:00'
-        requiredDate: '1996-08-01 00:00:00'
-        shippedDate: '1996-07-16 00:00:00'
+        orderDate: "1996-07-04 00:00:00"
+        requiredDate: "1996-08-01 00:00:00"
+        shippedDate: "1996-07-16 00:00:00"
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
         address: 59 rue de l-Abbaye
         city: Reims
         region: null
-        postalCode: '51100'
+        postalCode: "51100"
         country: France
         details:
           - orderId: 1
@@ -1016,10 +1016,10 @@ test:
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
                   "productId":"$ProductID", "unitPrice":"$UnitPrice",
                   "quantity":"$Quantity", "discount":"$Discount",
-                  "LamdaOrmParentId":"$OrderID" }}
+                  "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
             - entity: Customers
               dialect: mongodb
@@ -1030,15 +1030,15 @@ test:
                   "contact":"$ContactName", "phone":"$ContactTitle",
                   "address":"$Address", "city":"$City", "region":"$Region",
                   "postalCode":"$PostalCode", "country":"$Country",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -1081,7 +1081,7 @@ test:
             type: decimal
           - name: discount
             type: decimal
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
       - name: customer
         type: Customers
@@ -1104,7 +1104,7 @@ test:
             type: string
           - name: country
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
     parameters:
       - name: id
@@ -1112,12 +1112,12 @@ test:
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -1134,7 +1134,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -1340,7 +1340,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -1407,7 +1407,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -1431,10 +1431,10 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -1466,7 +1466,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -1573,7 +1573,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -1605,10 +1605,10 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -1662,7 +1662,7 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 4
     data: a
     sentences:
@@ -1694,10 +1694,10 @@ test:
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
                   "productId":"$ProductID", "unitPrice":"$UnitPrice",
                   "quantity":"$Quantity", "discount":"$Discount",
-                  "__productId":"$ProductID", "LamdaOrmParentId":"$OrderID" }}
+                  "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
                   dialect: mongodb
@@ -1709,11 +1709,11 @@ test:
                       "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
                       "price":"$UnitPrice", "inStock":"$UnitsInStock",
                       "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
-                      "discontinued":"$Discontinued", "LamdaOrmParentId":"$_id"
+                      "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"
                       }}
                     from: Products
                     joins: []
-                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                    filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs: []
             - entity: Customers
               dialect: mongodb
@@ -1724,16 +1724,16 @@ test:
                   "contact":"$ContactName", "phone":"$ContactTitle",
                   "address":"$Address", "city":"$City", "region":"$Region",
                   "postalCode":"$PostalCode", "country":"$Country",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LamdaOrmParentId:p.orderId}).filter(p=>includes(p.orderId,LamdaOrmParentId)).include(q=>q.product.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LamdaOrmParentId:p.id})),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>includes(p.orderId,LambdaOrmParentId)).include(q=>q.product.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id})),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -1776,7 +1776,7 @@ test:
             type: decimal
           - name: discount
             type: decimal
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
           - name: product
             type: Products
@@ -1801,7 +1801,7 @@ test:
                 type: decimal
               - name: discontinued
                 type: boolean
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: integer
       - name: customer
         type: Customers
@@ -1824,7 +1824,7 @@ test:
             type: string
           - name: country
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
     parameters:
       - name: id
@@ -1832,17 +1832,17 @@ test:
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: array
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -1862,7 +1862,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -2068,7 +2068,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -2145,7 +2145,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -2175,7 +2175,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -2292,7 +2292,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -2326,10 +2326,10 @@ test:
                           type: decimal
                         - name: discontinued
                           type: boolean
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: integer
                       parameters:
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: array
                       entity: Products
                       constraints: []
@@ -2356,10 +2356,10 @@ test:
                   type: decimal
                 - name: __productId
                   type: integer
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -2391,7 +2391,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -2498,7 +2498,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -2530,10 +2530,10 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -2587,7 +2587,7 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 5
     data: a
     sentences:
@@ -2619,10 +2619,10 @@ test:
                   { "$project" :{ "_id": 0 , "orderId":"$OrderID",
                   "productId":"$ProductID", "unitPrice":"$UnitPrice",
                   "quantity":"$Quantity", "discount":"$Discount",
-                  "__productId":"$ProductID", "LamdaOrmParentId":"$OrderID" }}
+                  "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
                   dialect: mongodb
@@ -2635,10 +2635,10 @@ test:
                       "price":"$UnitPrice", "inStock":"$UnitsInStock",
                       "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
                       "discontinued":"$Discontinued",
-                      "__categoryId":"$CategoryID", "LamdaOrmParentId":"$_id" }}
+                      "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id" }}
                     from: Products
                     joins: []
-                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                    filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs:
                     - entity: Categories
                       dialect: mongodb
@@ -2647,10 +2647,10 @@ test:
                         map: >-
                           { "$project" :{ "_id": 0 , "id":"$_id",
                           "name":"$CategoryName", "description":"$Description",
-                          "LamdaOrmParentId":"$_id" }}
+                          "LambdaOrmParentId":"$_id" }}
                         from: Categories
                         joins: []
-                        filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                        filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                       childs: []
             - entity: Customers
               dialect: mongodb
@@ -2661,16 +2661,16 @@ test:
                   "contact":"$ContactName", "phone":"$ContactTitle",
                   "address":"$Address", "city":"$City", "region":"$Region",
                   "postalCode":"$PostalCode", "country":"$Country",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LamdaOrmParentId:p.orderId}).filter(p=>includes(p.orderId,LamdaOrmParentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LamdaOrmParentId:p.id}).filter(p=>includes(p.id,LamdaOrmParentId)).include(p=>p.category.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,description:p.description,LamdaOrmParentId:p.id}))),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>includes(p.orderId,LambdaOrmParentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LambdaOrmParentId:p.id}).filter(p=>includes(p.id,LambdaOrmParentId)).include(p=>p.category.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,description:p.description,LambdaOrmParentId:p.id}))),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -2713,7 +2713,7 @@ test:
             type: decimal
           - name: discount
             type: decimal
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
           - name: product
             type: Products
@@ -2738,7 +2738,7 @@ test:
                 type: decimal
               - name: discontinued
                 type: boolean
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: integer
               - name: category
                 type: Categories
@@ -2749,7 +2749,7 @@ test:
                     type: string
                   - name: description
                     type: string
-                  - name: LamdaOrmParentId
+                  - name: LambdaOrmParentId
                     type: integer
       - name: customer
         type: Customers
@@ -2772,7 +2772,7 @@ test:
             type: string
           - name: country
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
     parameters:
       - name: id
@@ -2780,22 +2780,22 @@ test:
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: array
               - name: category
                 type: Categories
                 childs:
-                  - name: LamdaOrmParentId
+                  - name: LambdaOrmParentId
                     type: array
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -2818,7 +2818,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -3024,7 +3024,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -3101,7 +3101,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -3131,7 +3131,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -3258,7 +3258,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -3288,7 +3288,7 @@ test:
                                           type: integer
                                           entity: Categories
                                           alias: c
-                                        - name: LamdaOrmParentId
+                                        - name: LambdaOrmParentId
                                           classtype: Variable
                                           children: []
                                           type: T[]
@@ -3335,7 +3335,7 @@ test:
                                               entity: Categories
                                               alias: c
                                           type: any
-                                        - name: LamdaOrmParentId
+                                        - name: LambdaOrmParentId
                                           classtype: KeyValue
                                           children:
                                             - name: id
@@ -3355,10 +3355,10 @@ test:
                                   type: string
                                 - name: description
                                   type: string
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   type: integer
                               parameters:
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   type: array
                               entity: Categories
                               constraints: []
@@ -3395,10 +3395,10 @@ test:
                           type: boolean
                         - name: __categoryId
                           type: integer
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: integer
                       parameters:
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: array
                       entity: Products
                       constraints: []
@@ -3425,10 +3425,10 @@ test:
                   type: decimal
                 - name: __productId
                   type: integer
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -3460,7 +3460,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -3567,7 +3567,7 @@ test:
                               entity: Customers
                               alias: c1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -3599,10 +3599,10 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -3656,7 +3656,7 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 6
     data: a
     sentences:
@@ -3687,10 +3687,10 @@ test:
                 map: >-
                   { "$project" :{ "_id": 0 , "quantity":"$Quantity",
                   "unitPrice":"$UnitPrice", "productId":"$ProductID",
-                  "LamdaOrmParentId":"$OrderID" }}
+                  "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
             - entity: Customers
               dialect: mongodb
@@ -3701,16 +3701,16 @@ test:
                   "contact":"$ContactName", "phone":"$ContactTitle",
                   "address":"$Address", "city":"$City", "region":"$Region",
                   "postalCode":"$PostalCode", "country":"$Country",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LambdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -3749,7 +3749,7 @@ test:
             type: decimal
           - name: productId
             type: integer
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
       - name: customer
         type: Customers
@@ -3772,7 +3772,7 @@ test:
             type: string
           - name: country
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
     parameters:
       - name: id
@@ -3780,12 +3780,12 @@ test:
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -3802,7 +3802,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -4008,7 +4008,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -4055,7 +4055,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -4075,10 +4075,10 @@ test:
                   type: decimal
                 - name: productId
                   type: integer
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -4110,7 +4110,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -4217,7 +4217,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -4249,10 +4249,10 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -4306,7 +4306,7 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 7
     data: a
     sentences:
@@ -4337,10 +4337,10 @@ test:
                 map: >-
                   { "$project" :{ "_id": 0 , "quantity":"$Quantity",
                   "unitPrice":"$UnitPrice", "productId":"$ProductID",
-                  "__productId":"$ProductID", "LamdaOrmParentId":"$OrderID" }}
+                  "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
                   dialect: mongodb
@@ -4352,11 +4352,11 @@ test:
                       "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
                       "price":"$UnitPrice", "inStock":"$UnitsInStock",
                       "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
-                      "discontinued":"$Discontinued", "LamdaOrmParentId":"$_id"
+                      "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"
                       }}
                     from: Products
                     joins: []
-                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                    filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs: []
             - entity: Customers
               dialect: mongodb
@@ -4367,16 +4367,16 @@ test:
                   "contact":"$ContactName", "phone":"$ContactTitle",
                   "address":"$Address", "city":"$City", "region":"$Region",
                   "postalCode":"$PostalCode", "country":"$Country",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LamdaOrmParentId:p.id})).filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LamdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LamdaOrmParentId:p.id})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.include(q=>q.product.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id})).filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LambdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
     model:
       - name: id
         type: integer
@@ -4415,7 +4415,7 @@ test:
             type: decimal
           - name: productId
             type: integer
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
           - name: product
             type: Products
@@ -4440,7 +4440,7 @@ test:
                 type: decimal
               - name: discontinued
                 type: boolean
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: integer
       - name: customer
         type: Customers
@@ -4463,7 +4463,7 @@ test:
             type: string
           - name: country
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
     parameters:
       - name: id
@@ -4471,17 +4471,17 @@ test:
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: array
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
     constraints:
       entity: Orders
@@ -4501,7 +4501,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -4707,7 +4707,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -4764,7 +4764,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -4794,7 +4794,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -4911,7 +4911,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -4945,10 +4945,10 @@ test:
                           type: decimal
                         - name: discontinued
                           type: boolean
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: integer
                       parameters:
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: array
                       entity: Products
                       constraints: []
@@ -4971,10 +4971,10 @@ test:
                   type: integer
                 - name: __productId
                   type: integer
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -5006,7 +5006,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -5113,7 +5113,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -5145,10 +5145,10 @@ test:
                   type: string
                 - name: country
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -5202,7 +5202,7 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
   - name: include 8
     data: a
     sentences:
@@ -5232,10 +5232,10 @@ test:
               sentence:
                 map: >-
                   { "$project" :{ "_id": 0 , "name":"$CompanyName",
-                  "LamdaOrmParentId":"$_id" }}
+                  "LambdaOrmParentId":"$_id" }}
                 from: Customers
                 joins: []
-                filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs: []
             - entity: OrderDetails
               dialect: mongodb
@@ -5244,10 +5244,10 @@ test:
                 map: >-
                   { "$project" :{ "_id": 0 , "quantity":"$Quantity",
                   "unitPrice":"$UnitPrice", "__productId":"$ProductID",
-                  "LamdaOrmParentId":"$OrderID" }}
+                  "LambdaOrmParentId":"$OrderID" }}
                 from: '"Order Details"'
                 joins: []
-                filter: '{ "OrderID":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                filter: '{ "OrderID":{ "$in" :[{{LambdaOrmParentId}}]} }'
               childs:
                 - entity: Products
                   dialect: mongodb
@@ -5255,10 +5255,10 @@ test:
                   sentence:
                     map: >-
                       { "$project" :{ "_id": 0 , "name":"$ProductName",
-                      "__categoryId":"$CategoryID", "LamdaOrmParentId":"$_id" }}
+                      "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id" }}
                     from: Products
                     joins: []
-                    filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                    filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                   childs:
                     - entity: Categories
                       dialect: mongodb
@@ -5266,16 +5266,16 @@ test:
                       sentence:
                         map: >-
                           { "$project" :{ "_id": 0 , "name":"$CategoryName",
-                          "LamdaOrmParentId":"$_id" }}
+                          "LambdaOrmParentId":"$_id" }}
                         from: Categories
                         joins: []
-                        filter: '{ "_id":{ "$in" :[{{LamdaOrmParentId}}]} }'
+                        filter: '{ "_id":{ "$in" :[{{LambdaOrmParentId}}]} }'
                       childs: []
     errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     normalizeExpression: >-
-      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).include(p=>[p.customer.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{name:p.name,LamdaOrmParentId:p.id}),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{name:p.name,LamdaOrmParentId:p.id})).filter(p=>includes(p.id,LamdaOrmParentId)).map(p=>{name:p.name,__categoryId:p.categoryId,LamdaOrmParentId:p.id})).filter(p=>includes(p.orderId,LamdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,__productId:p.productId,LamdaOrmParentId:p.orderId})])
+      Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).include(p=>[p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{name:p.name,LambdaOrmParentId:p.id}),p.details.include(p=>p.product.include(p=>p.category.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{name:p.name,LambdaOrmParentId:p.id})).filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{name:p.name,__categoryId:p.categoryId,LambdaOrmParentId:p.id})).filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,__productId:p.productId,LambdaOrmParentId:p.orderId})])
     model:
       - name: id
         type: integer
@@ -5310,7 +5310,7 @@ test:
         childs:
           - name: name
             type: string
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: string
       - name: details
         type: OrderDetails[]
@@ -5319,21 +5319,21 @@ test:
             type: decimal
           - name: unitPrice
             type: decimal
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: integer
           - name: product
             type: Products
             childs:
               - name: name
                 type: string
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: integer
               - name: category
                 type: Categories
                 childs:
                   - name: name
                     type: string
-                  - name: LamdaOrmParentId
+                  - name: LambdaOrmParentId
                     type: integer
     parameters:
       - name: id
@@ -5341,22 +5341,22 @@ test:
       - name: customer
         type: Customers
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
       - name: details
         type: OrderDetails
         childs:
-          - name: LamdaOrmParentId
+          - name: LambdaOrmParentId
             type: array
           - name: product
             type: Products
             childs:
-              - name: LamdaOrmParentId
+              - name: LambdaOrmParentId
                 type: array
               - name: category
                 type: Categories
                 childs:
-                  - name: LamdaOrmParentId
+                  - name: LambdaOrmParentId
                     type: array
     constraints:
       entity: Orders
@@ -5379,7 +5379,7 @@ test:
         - name: filter
           classtype: Filter
           children:
-            - name: '==='
+            - name: "==="
               classtype: Operator
               children:
                 - name: id
@@ -5585,7 +5585,7 @@ test:
                           type: string
                           entity: Customers
                           alias: c
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -5612,7 +5612,7 @@ test:
                               entity: Customers
                               alias: c
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: id
@@ -5628,10 +5628,10 @@ test:
               columns:
                 - name: name
                   type: string
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: string
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: Customers
               constraints: []
@@ -5662,7 +5662,7 @@ test:
                           type: integer
                           entity: OrderDetails
                           alias: o1
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: Variable
                           children: []
                           type: T[]
@@ -5709,7 +5709,7 @@ test:
                               entity: OrderDetails
                               alias: o1
                           type: any
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           classtype: KeyValue
                           children:
                             - name: orderId
@@ -5739,7 +5739,7 @@ test:
                                   type: integer
                                   entity: Products
                                   alias: p
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: Variable
                                   children: []
                                   type: T[]
@@ -5776,7 +5776,7 @@ test:
                                       entity: Products
                                       alias: p
                                   type: any
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   classtype: KeyValue
                                   children:
                                     - name: id
@@ -5806,7 +5806,7 @@ test:
                                           type: integer
                                           entity: Categories
                                           alias: c1
-                                        - name: LamdaOrmParentId
+                                        - name: LambdaOrmParentId
                                           classtype: Variable
                                           children: []
                                           type: T[]
@@ -5833,7 +5833,7 @@ test:
                                               entity: Categories
                                               alias: c1
                                           type: any
-                                        - name: LamdaOrmParentId
+                                        - name: LambdaOrmParentId
                                           classtype: KeyValue
                                           children:
                                             - name: id
@@ -5849,10 +5849,10 @@ test:
                               columns:
                                 - name: name
                                   type: string
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   type: integer
                               parameters:
-                                - name: LamdaOrmParentId
+                                - name: LambdaOrmParentId
                                   type: array
                               entity: Categories
                               constraints: []
@@ -5871,10 +5871,10 @@ test:
                           type: string
                         - name: __categoryId
                           type: integer
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: integer
                       parameters:
-                        - name: LamdaOrmParentId
+                        - name: LambdaOrmParentId
                           type: array
                       entity: Products
                       constraints: []
@@ -5895,10 +5895,10 @@ test:
                   type: decimal
                 - name: __productId
                   type: integer
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: integer
               parameters:
-                - name: LamdaOrmParentId
+                - name: LambdaOrmParentId
                   type: array
               entity: OrderDetails
               constraints: []
@@ -5953,5 +5953,5 @@ test:
       constraints: []
     executions:
       - stage: mongodb
-        error: 'SyntaxError: Unexpected token V in JSON at position 18'
+        error: "SyntaxError: Unexpected token V in JSON at position 18"
 errors: 7

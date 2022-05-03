@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { orm, Helper, MetadataSentence } from '../../lib'
-import { Categories, Customers, Products, Orders, OrderDetails } from '../../model'
+import { Categories, Customers, Products, Orders, OrderDetails } from '../../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
@@ -135,7 +135,7 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			// { name: 'query 7', data: 'a', lambda: () => Products.map(p => [p.name, p.category.name]) },
 			// { name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			// { name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
+			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
 			// { name: 'query 12', lambda: () => Products.page(1, 1) },
 			// { name: 'query 13', lambda: () => Products.first(p => p) },
 			// { name: 'query 14', lambda: () => Products.last(p => p) },
@@ -996,20 +996,20 @@ async function stageImport (source: string, target: string) {
 }
 
 export async function apply (stages: string[], callback: any) {
-	const errors = 0
+	let errors = 0
 	try {
 		await orm.init()
-		await orm.stage.sync('source').execute()
-		await stageExport('source')
-		for (const p in stages) {
-			const stage = stages[p]
-			await orm.stage.clean(stage).execute(true)
-			await orm.stage.sync(stage).execute()
-			await stageImport('source', stage)
-			await stageExport(stage)
-		}
+		// await orm.stage.sync('source').execute()
+		// await stageExport('source')
+		// for (const p in stages) {
+		// const stage = stages[p]
+		// await orm.stage.clean(stage).execute(true)
+		// await orm.stage.sync(stage).execute()
+		// await stageImport('source', stage)
+		// await stageExport(stage)
+		// }
 
-		// errors = errors + await writeQueryTest(stages)
+		errors = errors + await writeQueryTest(stages)
 		// errors = errors + await writeNumericFunctionsTest(stages)
 		// errors = errors + await writeGroupByTest(stages)
 		// errors = errors + await writeIncludeTest(stages)

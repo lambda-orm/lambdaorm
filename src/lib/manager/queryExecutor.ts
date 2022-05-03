@@ -164,12 +164,12 @@ export class QueryExecutor {
 					if (include.relation.type === RelationType.manyToOne) {
 						for (let j = 0; j < item.length; j++) {
 							const child = item[j]
-							if (child.LamdaOrmParentId) {
-								delete child.LamdaOrmParentId
+							if (child.LambdaOrmParentId) {
+								delete child.LambdaOrmParentId
 							}
 						}
-					} else if (item && item.LamdaOrmParentId) {
-						delete item.LamdaOrmParentId
+					} else if (item && item.LambdaOrmParentId) {
+						delete item.LambdaOrmParentId
 					}
 				}
 				// }
@@ -218,7 +218,7 @@ export class QueryExecutor {
 
 	private async selectChild (include: Include, _data: Data, ids: any[], mainResult: any): Promise<any> {
 		const data = _data.clone()
-		data.set('LamdaOrmParentId', ids)
+		data.set('LambdaOrmParentId', ids)
 		const keyId = '__' + include.relation.from
 		const includeResult = await this._execute(include.query, data)
 		if (include.relation.type === RelationType.manyToOne) {
@@ -256,7 +256,7 @@ export class QueryExecutor {
 				element[propertyName] = []
 			}
 			for (let j = 0; j < includeResult.length; j++) {
-				if (includeResult[j].LamdaOrmParentId === relationId) {
+				if (includeResult[j].LambdaOrmParentId === relationId) {
 					element[propertyName].push(includeResult[j])
 				}
 			}
@@ -271,7 +271,7 @@ export class QueryExecutor {
 				element[propertyName] = null
 			}
 			for (let j = 0; j < includeResult.length; j++) {
-				if (includeResult[j].LamdaOrmParentId === relationId) {
+				if (includeResult[j].LambdaOrmParentId === relationId) {
 					element[propertyName] = includeResult[j]
 					break
 				}

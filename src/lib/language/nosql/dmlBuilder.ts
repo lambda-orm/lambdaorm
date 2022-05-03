@@ -11,7 +11,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			const nosqlSentence = this.buildSentence(sentence)
 			return new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, nosqlSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
 		} else {
-			const includes = []
+			const includes:Include[] = []
 			const sentenceIncludes = sentence.getCompositeIncludes()
 			for (const p in sentenceIncludes) {
 				const sentenceInclude = sentenceIncludes[p]
@@ -40,6 +40,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
+
 		let text = ''
 		if (joins.length > 0) {
 			text = text !== '' ? `${text}, ${this.buildJoins(joins)}` : this.buildJoins(joins)

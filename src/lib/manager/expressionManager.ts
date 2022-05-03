@@ -96,7 +96,7 @@ export class ExpressionManager {
 	}
 
 	private dmlBuild (sentence: Sentence, view: ViewConfig, stage: string): Query {
-		const includes = []
+		const includes:Include[] = []
 		const dataSource = this.getDataSource(sentence, stage)
 		const language = this.languages.getByDialect(dataSource.dialect)
 		const dialect = this.languages.getDialect(dataSource.dialect)
@@ -134,8 +134,12 @@ export class ExpressionManager {
 			}
 		}
 		if (aux.name.includes('.')) {
-			// Example: model_1.Products.map(p=>p) =>  Products.map(p=>p)
-			aux.name = aux.name.split('.')[1]
+			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
+			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+			const names:string[] = aux.name.split('.')
+			if (names[0].startsWith('__')) {
+				aux.name = names.slice(1).join('.')
+			}
 		}
 		return this.expressions.parser.toExpression(node)
 	}

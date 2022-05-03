@@ -2,7 +2,7 @@ import { orm, IOrm } from '../index'
 import { Queryable } from './query'
 import { ExpressionActions } from './expressionActions'
 
-export class Respository<TEntity, TQuery> {
+export class Repository<TEntity, TQuery> {
 	public name
 	public stage
 	private orm

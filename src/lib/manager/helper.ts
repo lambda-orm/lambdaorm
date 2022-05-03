@@ -19,7 +19,7 @@ export class Helper {
 	}
 
 	public static cloneOperand (obj:any):any {
-		const children = []
+		const children:any[] = []
 		if (obj.children) {
 			for (const k in obj.children) {
 				const p = obj.children[k]
@@ -144,7 +144,7 @@ export class Helper {
 	}
 
 	public static getEnvironmentVariable (text:string):string|undefined {
-		const environmentName = []
+		const environmentName:string[] = []
 		const index = text.indexOf('$$')
 		if (index < 0) {
 			return undefined
