@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Property, Relation, Index, Query, EntityMapping, PropertyMapping } from '../../model'
-import { LanguageDDLBuilder } from './../../manager'
+import { LanguageDDLBuilder } from '../../manager'
 
 export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity: EntityMapping): Query | undefined {

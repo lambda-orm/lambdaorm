@@ -7,12 +7,12 @@ import { MappingConfig, Dialect, Helper } from '../../manager'
 // https://github.com/oracle/node-oracledb/tree/main/examples
 
 export class OracleConnectionPool extends ConnectionPool {
-	private static oracledb: any
+	private static lib: any
 	private pool: any = undefined
 
 	public async init (): Promise<void> {
-		if (!OracleConnectionPool.oracledb) {
-			OracleConnectionPool.oracledb = require('oracledb')
+		if (!OracleConnectionPool.lib) {
+			OracleConnectionPool.lib = require('oracledb')
 			// https://github.com/oracle/node-oracledb/blob/main/examples/connectionpool.js
 			let libPath = process.env.ORACLE_LIB_PATH
 			if (!libPath) {
@@ -23,16 +23,16 @@ export class OracleConnectionPool extends ConnectionPool {
 				}
 			}
 			if (libPath && await Helper.existsPath(libPath)) {
-				OracleConnectionPool.oracledb.initOracleClient({ libDir: libPath })
+				OracleConnectionPool.lib.initOracleClient({ libDir: libPath })
 			}
 		}
 	}
 
 	private async createPool (): Promise<any> {
-		if (!OracleConnectionPool.oracledb) {
+		if (!OracleConnectionPool.lib) {
 			await this.init()
 		}
-		return await OracleConnectionPool.oracledb.createPool(this.config.connection)
+		return await OracleConnectionPool.lib.createPool(this.config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {

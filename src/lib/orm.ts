@@ -2,9 +2,9 @@
 
 import { IOrm, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, OracleConnectionPool, MongodbConnectionPool } from './connection'
-import { SqlLanguage } from './language/sql'
-import { NoSqlLanguage } from './language/nosql'
+import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
+import { SqlLanguage } from './language/SQL'
+import { NoSqlLanguage } from './language/NoSQL'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'
 import { OrmExtensionLib } from './expression/extension'
@@ -47,13 +47,13 @@ export class Orm implements IOrm {
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
 		this.languages.add(new NoSqlLanguage(this._expressions))
-		this.connectionManager.addType('MySQL', MySqlConnectionPool)
-		this.connectionManager.addType('MariaDB', MariadbConnectionPool)
-		this.connectionManager.addType('PostgreSQL', PostgresConnectionPool)
-		this.connectionManager.addType('SqlServer', MssqlConnectionPool)
-		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
+		this.connectionManager.addType('MySQL', MySQLConnectionPool)
+		this.connectionManager.addType('MariaDB', MariaDBConnectionPool)
+		this.connectionManager.addType('PostgreSQL', PostgreSQLConnectionPool)
+		this.connectionManager.addType('SqlServer', SqlServerConnectionPool)
+		this.connectionManager.addType('SQLjs', SQLjsConnectionPool)
 		this.connectionManager.addType('Oracle', OracleConnectionPool)
-		this.connectionManager.addType('MongoDB', MongodbConnectionPool)
+		this.connectionManager.addType('MongoDB', MongoDBConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)

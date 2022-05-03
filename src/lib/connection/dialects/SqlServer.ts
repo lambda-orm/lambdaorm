@@ -3,12 +3,12 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data, MethodNotImplemented } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
-export class MssqlConnectionPool extends ConnectionPool {
-	public static tedious: any
+export class SqlServerConnectionPool extends ConnectionPool {
+	public static lib: any
 	constructor (config: ConnectionConfig) {
 		super(config)
-		if (!MssqlConnectionPool.tedious) {
-			MssqlConnectionPool.tedious = require('tedious')
+		if (!SqlServerConnectionPool.lib) {
+			SqlServerConnectionPool.lib = require('tedious')
 		}
 	}
 
@@ -19,7 +19,7 @@ export class MssqlConnectionPool extends ConnectionPool {
 	public async acquire (): Promise<Connection> {
 		try {
 			const cnx = await new Promise<Connection>((resolve, reject) => {
-				const connection = new MssqlConnectionPool.tedious.Connection(this.config.connection)
+				const connection = new SqlServerConnectionPool.lib.Connection(this.config.connection)
 				connection.connect()
 				connection.on('connect', (err: any) => {
 					if (err) {
@@ -28,7 +28,7 @@ export class MssqlConnectionPool extends ConnectionPool {
 					resolve(connection)
 				})
 			})
-			return new MssqlConnection(cnx, this)
+			return new SqlServerConnection(cnx, this)
 		} catch (error) {
 			console.error(error)
 			throw error
@@ -47,7 +47,7 @@ export class MssqlConnectionPool extends ConnectionPool {
 	}
 }
 
-export class MssqlConnection extends Connection {
+export class SqlServerConnection extends Connection {
 	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._query(mapping, query, query.sentence as string, data)
 		return result
@@ -180,7 +180,7 @@ export class MssqlConnection extends Connection {
 		return await new Promise<any[]>((resolve, reject) => {
 			try {
 				const rows: any[] = []
-				const request = new MssqlConnectionPool.tedious.Request(sentence, (error: any) => {
+				const request = new SqlServerConnectionPool.lib.Request(sentence, (error: any) => {
 					if (error) {
 						reject(new Error(`Mssql connection _query error: ${error}`))
 					}
@@ -208,7 +208,7 @@ export class MssqlConnection extends Connection {
 	private async _execute (mapping: MappingConfig, query: Query, data: Data) {
 		const me = this
 		return await new Promise<any>((resolve, reject) => {
-			const request = new MssqlConnectionPool.tedious.Request(query.sentence, (err: any, rowCount: any) => {
+			const request = new SqlServerConnectionPool.lib.Request(query.sentence, (err: any, rowCount: any) => {
 				if (err) {
 					reject(new Error(`Mssql connection _execute error: ${err}`))
 				}
@@ -225,7 +225,7 @@ export class MssqlConnection extends Connection {
 	private async _executeSentence (sentence: string) {
 		const me = this
 		return await new Promise<any>((resolve, reject) => {
-			const request = new MssqlConnectionPool.tedious.Request(sentence, (err: any, rowCount: any) => {
+			const request = new SqlServerConnectionPool.lib.Request(sentence, (err: any, rowCount: any) => {
 				if (err) {
 					reject(new Error(`Mssql connection _execute error: ${err}`))
 				}
@@ -239,13 +239,13 @@ export class MssqlConnection extends Connection {
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
 			switch (param.type) {
-			case 'array': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar, param.value.join(',')); break
-			case 'string': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.NVarChar, param.value); break
-			case 'number': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Numeric, param.value); break
-			case 'integer': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Int, param.value); break
-			case 'decimal': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Decimal, param.value); break
-			case 'boolean': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.Bit, param.value); break
-			case 'datetime': request.addParameter(param.name, MssqlConnectionPool.tedious.TYPES.DateTime, param.value); break
+			case 'array': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value.join(',')); break
+			case 'string': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value); break
+			case 'number': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Numeric, param.value); break
+			case 'integer': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Int, param.value); break
+			case 'decimal': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Decimal, param.value); break
+			case 'boolean': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Bit, param.value); break
+			case 'datetime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
 			}
 		}
 	}

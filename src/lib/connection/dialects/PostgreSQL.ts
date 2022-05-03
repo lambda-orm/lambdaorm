@@ -5,11 +5,11 @@ import { MappingConfig, Dialect, Helper } from '../../manager'
 
 // https://node-postgres.com/features/connecting
 
-export class PostgresConnectionPool extends ConnectionPool {
-	private static pg: any
+export class PostgreSQLConnectionPool extends ConnectionPool {
+	private static lib: any
 	constructor (config: ConnectionConfig) {
 		super(config)
-		if (!PostgresConnectionPool.pg) {
+		if (!PostgreSQLConnectionPool.lib) {
 			const pg = require('pg')
 			// Solve error number as string in queries
 			// https://stackoverflow.com/questions/39168501/pg-promise-returns-integers-as-strings
@@ -35,7 +35,7 @@ export class PostgresConnectionPool extends ConnectionPool {
 			pg.types.setTypeParser(pg.types.builtins.MONEY, (value: string) => {
 				return parseFloat(value)
 			})
-			PostgresConnectionPool.pg = pg
+			PostgreSQLConnectionPool.lib = pg
 		}
 	}
 
@@ -47,9 +47,9 @@ export class PostgresConnectionPool extends ConnectionPool {
 		// if (this.pool === undefined) {
 		// await this.init()
 		// }
-		const cnx = new PostgresConnectionPool.pg.Client(this.config.connection)
+		const cnx = new PostgreSQLConnectionPool.lib.Client(this.config.connection)
 		cnx.connect()
-		return new PostgresConnection(cnx, this)
+		return new PostgreSQLConnection(cnx, this)
 	}
 
 	public async release (connection: Connection): Promise<void> {
@@ -60,7 +60,7 @@ export class PostgresConnectionPool extends ConnectionPool {
 		// console.info('postgres end pool not Implemented')
 	}
 }
-export class PostgresConnection extends Connection {
+export class PostgreSQLConnection extends Connection {
 	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, query, data)
 		return result.rows

@@ -1,4 +1,4 @@
-_extends: [sql]
+_extends: [SQL]
 ddl:
   dropIndex: "DROP INDEX {name} ON {table}"
 dml:

@@ -1,14 +1,14 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { MySqlConnection } from './mysql'
+import { MySqlConnection } from './MySQL'
 
-export class MariadbConnectionPool extends ConnectionPool {
-	private static mariadb:any
+export class MariaDBConnectionPool extends ConnectionPool {
+	private static lib:any
 	private pool:any
 	constructor (config:ConnectionConfig) {
 		super(config)
-		if (!MariadbConnectionPool.mariadb) {
-			MariadbConnectionPool.mariadb = require('mysql2/promise')
+		if (!MariaDBConnectionPool.lib) {
+			MariaDBConnectionPool.lib = require('mysql2/promise')
 		}
 	}
 
@@ -22,7 +22,7 @@ export class MariadbConnectionPool extends ConnectionPool {
 				return next()
 			}
 		}
-		this.pool = MariadbConnectionPool.mariadb.createPool({ ...this.config.connection, ...casts })
+		this.pool = MariaDBConnectionPool.lib.createPool({ ...this.config.connection, ...casts })
 	}
 
 	public async acquire (): Promise<Connection> {

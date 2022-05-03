@@ -5,12 +5,12 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
-export class MongodbConnectionPool extends ConnectionPool {
+export class MongoDBConnectionPool extends ConnectionPool {
 	private static lib: any
 	constructor (config: ConnectionConfig) {
 		super(config)
-		if (!MongodbConnectionPool.lib) {
-			MongodbConnectionPool.lib = require('MongoDB')
+		if (!MongoDBConnectionPool.lib) {
+			MongoDBConnectionPool.lib = require('MongoDB')
 		}
 	}
 
@@ -19,7 +19,7 @@ export class MongodbConnectionPool extends ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
-		const client = await MongodbConnectionPool.lib.MongoClient.connect(this.config.connection.url)
+		const client = await MongoDBConnectionPool.lib.MongoClient.connect(this.config.connection.url)
 		const db = client.db(this.config.connection.database)
 		const cnx = { client: client, db: db }
 		return new MongodbConnection(cnx, this)

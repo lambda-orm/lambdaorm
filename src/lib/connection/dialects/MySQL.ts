@@ -34,13 +34,13 @@ const NEWDECIMAL = 246
 // const STRING = 254
 // const GEOMETRY = 255
 
-export class MySqlConnectionPool extends ConnectionPool {
-	private static mysql: any
+export class MySQLConnectionPool extends ConnectionPool {
+	private static lib: any
 	private pool: any
 	constructor (config: ConnectionConfig) {
 		super(config)
-		if (!MySqlConnectionPool.mysql) {
-			MySqlConnectionPool.mysql = require('mysql2/promise')
+		if (!MySQLConnectionPool.lib) {
+			MySQLConnectionPool.lib = require('mysql2/promise')
 		}
 	}
 
@@ -56,7 +56,7 @@ export class MySqlConnectionPool extends ConnectionPool {
 				return next()
 			}
 		}
-		this.pool = MySqlConnectionPool.mysql.createPool({ ...this.config.connection, ...casts })
+		this.pool = MySQLConnectionPool.lib.createPool({ ...this.config.connection, ...casts })
 	}
 
 	// private async getConnection (): Promise<void> {

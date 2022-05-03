@@ -1,4 +1,4 @@
-_extends: [sql]
+_extends: [SQL]
 types:
   boolean: BIT
 ddl:

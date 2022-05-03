@@ -5,12 +5,12 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data, MethodNotImplemented } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
-export class SqlJsConnectionPool extends ConnectionPool {
+export class SQLjsConnectionPool extends ConnectionPool {
 	private static lib: any
 	private db: any
 	constructor (config: ConnectionConfig) {
 		super(config)
-		if (!SqlJsConnectionPool.lib) { SqlJsConnectionPool.lib = require('sql.js') }
+		if (!SQLjsConnectionPool.lib) { SQLjsConnectionPool.lib = require('sql.js') }
 	}
 
 	public async init (): Promise<void> {
@@ -18,7 +18,7 @@ export class SqlJsConnectionPool extends ConnectionPool {
 		const me = this
 		const fileBuffer = await Helper.readFile(me.config.connection)
 		this.db = await new Promise<void>((resolve, reject) => {
-			SqlJsConnectionPool.lib.then(function (SQL: any) {
+			SQLjsConnectionPool.lib.then(function (SQL: any) {
 				// Load the db
 				try {
 					const db = new SQL.Database(fileBuffer)
@@ -31,12 +31,12 @@ export class SqlJsConnectionPool extends ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
-		return new SqlJsConnection(this.db, this)
+		return new SQLjsConnection(this.db, this)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async release (connection: Connection): Promise<void> {
-		console.info('sqljs release pool not Implemented')
+		console.info('SQLjs release pool not Implemented')
 	}
 
 	public async end (): Promise<void> {
@@ -45,7 +45,7 @@ export class SqlJsConnectionPool extends ConnectionPool {
 	}
 }
 
-export class SqlJsConnection extends Connection {
+export class SQLjsConnection extends Connection {
 	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		return await this._execute(mapping, query, data)
 	}
