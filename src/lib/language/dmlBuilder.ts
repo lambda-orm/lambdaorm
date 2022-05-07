@@ -56,7 +56,7 @@ export abstract class DmlBuilder {
 			throw new SchemaError('from operand not found')
 		}
 
-		let text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(joins)
+		let text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(entity, joins)
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		if (groupBy) text = text + this.buildArrowFunction(groupBy) + ' '
 		if (having) text = text + this.buildArrowFunction(having) + ' '
@@ -107,7 +107,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildJoins (joins: Join[]): string {
+	protected buildJoins (entity: EntityMapping, joins: Join[]): string {
 		const list: string[] = []
 		const template = this.dialect.dml('join')
 		for (let i = 0; i < joins.length; i++) {

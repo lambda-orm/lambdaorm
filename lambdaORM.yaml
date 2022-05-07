@@ -189,7 +189,7 @@ entities:
         entity: Employees
         to: id
         target: orders
-  - name: Orders.Details
+  - name: Orders.details
     primaryKey: ["orderId", "productId"]
     properties:
       - name: orderId
@@ -210,7 +210,7 @@ entities:
         entity: Orders
         to: id
         target: details
-        targetComposite: true
+        # targetComposite: true
       - name: product
         from: productId
         entity: Products
@@ -354,7 +354,7 @@ mappings:
             mapping: ShipPostalCode
           - name: country
             mapping: ShipCountry
-      - name: Orders.Details
+      - name: Orders.details
         mapping: Order Details
         properties:
           - name: orderId
@@ -384,7 +384,7 @@ mappings:
         sequence: SQ_PRODUCTS
       - name: Orders
         sequence: SQ_ORDERS
-      - name: Orders.Details
+      - name: Orders.details
         # sequence: SQ_ORDER_DETAILS
   - name: MongoDB
     extends: default

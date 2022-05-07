@@ -102,5 +102,5 @@ type QrySuppliers = Queryable<QrySupplier>
 type QryProducts = Queryable<QryProduct>
 type QryOrderDetails = Queryable<QryOrderDetail>
 interface QryOrders extends Queryable<QryOrder>{
-	Details: QryOrderDetails
+	details: QryOrderDetails
 }

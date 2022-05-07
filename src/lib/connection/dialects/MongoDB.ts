@@ -10,7 +10,7 @@ export class MongoDBConnectionPool extends ConnectionPool {
 	constructor (config: ConnectionConfig) {
 		super(config)
 		if (!MongoDBConnectionPool.lib) {
-			MongoDBConnectionPool.lib = require('MongoDB')
+			MongoDBConnectionPool.lib = require('mongodb')
 		}
 	}
 
@@ -31,7 +31,7 @@ export class MongoDBConnectionPool extends ConnectionPool {
 	}
 
 	public async end (): Promise<void> {
-		console.log(`connection MongoDB: ${this.config.name} finalized`)
+		// console.log(`connection MongoDB: ${this.config.name} finalized`)
 	}
 }
 

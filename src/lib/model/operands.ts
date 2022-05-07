@@ -51,9 +51,11 @@ export class From extends Operand {
 }
 export class Join extends Operand {
 	public alias: string
-	constructor (name: string, children:Operand[], alias: string) {
+	public entity:string
+	constructor (name: string, children:Operand[], entity:string, alias: string) {
 		super(name, children, 'any')
 		this.alias = alias
+		this.entity = entity
 	}
 
 	public eval (): any {

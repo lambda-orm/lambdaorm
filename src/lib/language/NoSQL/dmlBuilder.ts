@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 
 import { Operand, KeyValue, Operator, FunctionRef } from 'js-expressions'
-import { Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping } from '../../model'
+import { Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../model'
 import { DmlBuilder } from '../dmlBuilder'
 import { Helper } from '../../manager'
 
@@ -42,8 +42,11 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 
 		let text = ''
+		if (entity.composite) {
+			text = text !== '' ? `${text}, ${this.buildReplaceRoot(entity)}` : this.buildReplaceRoot(entity)
+		}
 		if (joins.length > 0) {
-			text = text !== '' ? `${text}, ${this.buildJoins(joins)}` : this.buildJoins(joins)
+			text = text !== '' ? `${text}, ${this.buildJoins(entity, joins)}` : this.buildJoins(entity, joins)
 		}
 		if (filter) {
 			text = text !== '' ? `${text}, ${this.buildFilter(filter)}` : this.buildFilter(filter)
@@ -62,6 +65,37 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			text = this.buildPage(text, page)
 		}
 		return `[${text}]`
+	}
+
+	protected buildReplaceRoot (entity:EntityMapping) {
+		const parts = entity.name.split('.')
+		const mappings:string[] = []
+		for (let i = 1; i < parts.length; i++) {
+			const childEntityName = parts.slice(0, i + 1).join('.')
+			const childEntity = this.mapping.getEntity(childEntityName)
+			if (childEntity === undefined) {
+				throw new SchemaError(`child entity  ${childEntityName} not found in ${entity.name}`)
+			}
+			mappings.push(this.dialect.delimiter(childEntity.mapping))
+		}
+		const parentEntityName = parts.slice(0, parts.length - 1).join('.')
+		const parentEntity = this.mapping.getEntity(parentEntityName)
+		if (parentEntity === undefined) {
+			throw new SchemaError(`parent entity  ${parentEntityName} not found in ${entity.name}`)
+		}
+		const relationName = parts[parts.length - 1]
+		const relation = parentEntity.relations.find(p => p.name === relationName)
+		if (relation === undefined) {
+			throw new SchemaError(`relation ${relationName} not found in ${parentEntityName}`)
+		}
+		const newRoot = `$${mappings.join('.')}`
+		let text = ''
+		if (relation.type === RelationType.manyToOne) {
+			text = this.dialect.dml('unwind').replace('{0}', newRoot)
+		}
+		const replaceRootTemplate = this.dialect.dml('replaceRoot')
+		text = text !== '' ? `${text}, ${replaceRootTemplate.replace('{0}', newRoot)}` : replaceRootTemplate.replace('{0}', newRoot)
+		return text
 	}
 
 	protected override buildUpdateSentence (sentence: Sentence): string {
@@ -177,7 +211,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		return map
 	}
 
-	protected override buildJoins (joins: Join[]): string {
+	protected override buildJoins (entity: EntityMapping, joins: Join[]): string {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
 		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-MongoDB
 		// https://javascript.tutorialink.com/MongoDB-get-sum-of-fields-in-last-stage-of-aggregate/
@@ -186,15 +220,17 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		for (let i = 0; i < joins.length; i++) {
 			const join = joins[i]
 			this.setPrefixToField(join, '$')
-			const entity = this.mapping.getEntity(join.name)
-			if (entity === undefined) {
+			const joinEntity = this.mapping.getEntity(join.name)
+			if (joinEntity === undefined) {
 				throw new SchemaError(`not found mapping for ${join.name}`)
 			}
-			const localField = join.children[0].children[0] as Field
-			const foreignField = join.children[0].children[1] as Field
-			let joinTemplate = template.replace('{name}', this.dialect.delimiter(entity.mapping, true))
+			const foreignField = join.children[0].children[0] as Field
+			const localField = join.children[0].children[1] as Field
+
+			const alias = entity.name !== join.entity ? localField.alias : undefined
+			let joinTemplate = template.replace('{name}', this.dialect.delimiter(joinEntity.mapping, true))
 			joinTemplate = joinTemplate.replace('{fromProperty}', this.getFieldMapping(localField))
-			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldMapping(foreignField))
+			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldMapping(foreignField, alias))
 			joinTemplate = joinTemplate.replace('{alias}', this.dialect.delimiter(join.alias, true))
 			text = text !== '' ? `${text}, ${joinTemplate}` : joinTemplate
 		}
@@ -218,17 +254,24 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 
 	protected buildFilter (operand: Filter): string {
 		// TODO: falta resolver si los campos a filtrar corresponden a un include composite.
-		this.setPrefixToField(operand, '$')
+		// this.setPrefixToField(operand, '$')
 		const template = this.dialect.dml('rootFilter')
 		return template.replace('{0}', this.buildArrowFunction(operand))
 	}
 
-	protected getFieldMapping (operand: Field): string {
+	protected getFieldMapping (operand: Field, alias?:string): string {
+		let name = ''
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
-			return this.dialect.delimiter(property.mapping, true)
+			name = property.mapping
 		} else {
-			return this.dialect.delimiter(operand.name, true)
+			name = operand.name
+		}
+
+		if (alias) {
+			return this.dialect.delimiter(alias + '.' + name, true)
+		} else {
+			return this.dialect.delimiter(name, true)
 		}
 	}
 
@@ -291,7 +334,11 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	protected override buildField (operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
-			const templateKey = operand.alias === undefined ? 'column' : (operand.isRoot === false) ? 'joinField' : 'field'
+			const templateKey = operand.alias === undefined
+				? 'column'
+				: operand.isRoot
+					? 'field'
+					: operand.prefix ? 'projectJoinField' : 'joinField'
 			let text = this.dialect.other(templateKey)
 			text = text.replace('{entityAlias}', operand.alias || '')
 			text = text.replace('{prefix}', operand.prefix || '')

@@ -343,42 +343,42 @@ export class QueryExecutor {
 				const relationProperty = entity.properties.find(p => p.name === include.relation.from) as PropertyMapping
 
 				if (include.relation.type === RelationType.oneToMany) {
-					const children: any[] = []
+					const allChildren: any[] = []
 					const items: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const child = item[include.relation.name]
 						if (child) {
-							children.push(child)
+							allChildren.push(child)
 							items.push(item)
 						}
 					}
-					const childData = new Data(children, data)
-					const childrenId = await this._execute(include.query, childData)
+					const childData = new Data(allChildren, data)
+					const allChildrenId = await this._execute(include.query, childData)
 					for (let i = 0; i < items.length; i++) {
 						const item = items[i]
 						if (item[include.relation.name]) {
-							item[include.relation.from] = childrenId[i]
+							item[include.relation.from] = allChildrenId[i]
 						}
 					}
 				} else if (include.relation.type === RelationType.oneToOne && !relationProperty.nullable) {
-					const children: any[] = []
+					const allChildren: any[] = []
 					const items: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const child = item[include.relation.name]
 						if (child) {
-							children.push(child)
+							allChildren.push(child)
 							items.push(item)
 						}
 					}
-					if (children.length > 0) {
-						const childData = new Data(children, data)
-						const childrenId = await this._execute(include.query, childData)
+					if (allChildren.length > 0) {
+						const childData = new Data(allChildren, data)
+						const allChildrenId = await this._execute(include.query, childData)
 						for (let i = 0; i < items.length; i++) {
 							const item = items[i]
 							if (item[include.relation.name]) {
-								item[include.relation.from] = childrenId[i]
+								item[include.relation.from] = allChildrenId[i]
 							}
 						}
 					}
@@ -407,7 +407,7 @@ export class QueryExecutor {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relationProperty = mapping.getProperty(query.entity, include.relation.from)
 				if (include.relation.type === RelationType.manyToOne) {
-					const children: any[] = []
+					const allChildren: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
 						const parentId = item[include.relation.from]
@@ -416,14 +416,14 @@ export class QueryExecutor {
 							for (let j = 0; j < children.length; j++) {
 								const child = children[j]
 								child[include.relation.to] = parentId
-								children.push(child)
+								allChildren.push(child)
 							}
 						}
 					}
-					const childData = new Data(children, data)
+					const childData = new Data(allChildren, data)
 					await this._execute(include.query, childData)
 				} else if (include.relation.type === RelationType.oneToOne && !!relationProperty.nullable) {
-					const children: any[] = []
+					const allChildren: any[] = []
 					const items: any[] = []
 					for (let i = 0; i < data.data.length; i++) {
 						const item = data.data[i]
@@ -434,17 +434,17 @@ export class QueryExecutor {
 						}
 						if (child) {
 							child[include.relation.to] = parentId
-							children.push(child)
+							allChildren.push(child)
 							items.push(item)
 						}
 					}
-					if (children.length > 0) {
-						const childData = new Data(children, data)
-						const childrenId = await this._execute(include.query, childData)
+					if (allChildren.length > 0) {
+						const childData = new Data(allChildren, data)
+						const allChildrenId = await this._execute(include.query, childData)
 						for (let i = 0; i < items.length; i++) {
 							const item = items[i]
 							if (item[include.relation.name]) {
-								item[include.relation.from] = childrenId[i]
+								item[include.relation.from] = allChildrenId[i]
 							}
 						}
 					}

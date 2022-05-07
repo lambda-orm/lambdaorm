@@ -13,15 +13,18 @@
       "page": " {sentence} , { \"$skip\" : {offset} }, { \"$limit\" : {records} }",
       "insert": "{ {assigns} }",
       "update": "{assigns}",
-      "join": "{ \"$lookup\" :{ \"from\": {name}, \"localField\": {toProperty} , \"foreignField\": {fromProperty}, \"as\": {alias} }}",
-      "composite": "\"{name}\": { \"$map\":{ \"input\": {input}, \"in\": { {in} } }}"
+      "join": "{ \"$lookup\" :{ \"from\": {name}, \"localField\": {fromProperty} , \"foreignField\": {toProperty}, \"as\": {alias} }}",
+      "composite": "\"{name}\": { \"$map\":{ \"input\": {input}, \"in\": { {in} } }}",
+      "unwind": "{ \"$unwind\" : \"{0}\" }",
+      "replaceRoot": "{ \"$replaceRoot\": { \"newRoot\": \"{0}\" } }"
     },
     "others": {
       "delimiter": "\"{name}\"",
       "separatorSql": ";",
       "variable": "{{{name}}}",
       "field": "\"{prefix}{name}\"",
-      "joinField": "{ \"$arrayElemAt\": [\"{prefix}{entityAlias}.{name}\", 0] }",
+      "joinField": "\"{entityAlias}.{name}\"",
+      "projectJoinField": "{ \"$arrayElemAt\": [\"{prefix}{entityAlias}.{name}\", 0] }",
       "column": "\"{name}\": 1",
       "false": "false",
       "true": "true",
@@ -165,15 +168,18 @@
         "page": " {sentence} , { \"$skip\" : {offset} }, { \"$limit\" : {records} }",
         "insert": "{ {assigns} }",
         "update": "{assigns}",
-        "join": "{ \"$lookup\" :{ \"from\": {name}, \"localField\": {toProperty} , \"foreignField\": {fromProperty}, \"as\": {alias} }}",
-        "composite": "\"{name}\": { \"$map\":{ \"input\": {input}, \"in\": { {in} } }}"
+        "join": "{ \"$lookup\" :{ \"from\": {name}, \"localField\": {fromProperty} , \"foreignField\": {toProperty}, \"as\": {alias} }}",
+        "composite": "\"{name}\": { \"$map\":{ \"input\": {input}, \"in\": { {in} } }}",
+        "unwind": "{ \"$unwind\" : \"{0}\" }",
+        "replaceRoot": "{ \"$replaceRoot\": { \"newRoot\": \"{0}\" } }"
       },
       "others": {
         "delimiter": "\"{name}\"",
         "separatorSql": ";",
         "variable": "{{{name}}}",
         "field": "\"{prefix}{name}\"",
-        "joinField": "{ \"$arrayElemAt\": [\"{prefix}{entityAlias}.{name}\", 0] }",
+        "joinField": "\"{entityAlias}.{name}\"",
+        "projectJoinField": "{ \"$arrayElemAt\": [\"{prefix}{entityAlias}.{name}\", 0] }",
         "column": "\"{name}\": 1",
         "false": "false",
         "true": "true",

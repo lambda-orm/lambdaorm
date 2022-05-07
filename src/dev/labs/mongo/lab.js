@@ -1,7 +1,7 @@
-const MongoClient = require('MongoDB').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
 (async () => {
-	const url = 'MongoDB://test:test@localhost:27017'
+	const url = 'mongodb://test:test@localhost:27017'
 	const dbName = 'northwind'
 	const client = await MongoClient.connect(url)
 	const db = client.db(dbName)
@@ -43,28 +43,6 @@ const MongoClient = require('MongoDB').MongoClient;
 					"$and": [{ "UnitPrice": { "$gt": 10 } }, { "o1.ShippedDate": { $gte: "1997-01-01", $lt: "1997-12-31" } }]
 				}
 			},
-			// {
-			// 	"$match": {
-			// 		"o1.EmployeeID": 5
-			// 	}
-			// },
-			// {
-			// 	"$match": {
-			// 		"$and": [{
-			// 			"$and": [{
-			// 				"$gte": [{
-			// 					"$arrayElemAt": ["$o1.ShippedDate", 0]
-			// 				}, "1997-01-01 01:00:00"]
-			// 			}, {
-			// 				"$lt": [{
-			// 					"$arrayElemAt": ["$o1.ShippedDate", 0]
-			// 				}, "1997-12-31 01:00:00"]
-			// 			}]
-			// 		}, {
-			// 			"$gt": ["$UnitPrice", 10]
-			// 		}]
-			// 	}
-			// },
 			{
 				"$project": {
 					"_id": 0,
@@ -75,14 +53,7 @@ const MongoClient = require('MongoDB').MongoClient;
 						"$arrayElemAt": ["$p.ProductName", 0]
 					},
 					"unitPrice": "$UnitPrice",
-					"quantity": "$Quantity",
-					//TODO se agrega a modo de prueba
-					"employee": {
-						"$arrayElemAt": ["$o1.EmployeeID", 0]
-					},
-					"oDate": {
-						"$arrayElemAt": ["$o1.ShippedDate", 0]
-					}
+					"quantity": "$Quantity"
 				}
 			}
 			, {

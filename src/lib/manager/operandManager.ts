@@ -139,7 +139,7 @@ export class OperandManager {
 		} else if (operand instanceof From) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof Join) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, entity: operand.entity, alias: operand.alias }
 		} else if (operand instanceof Variable) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number }
 		} else {
@@ -178,7 +178,7 @@ export class OperandManager {
 		case 'Map':
 			return new Map(value.name, children, value.alias)
 		case 'Join':
-			return new Join(value.name, children, value.alias || '')
+			return new Join(value.name, children, value.entity || '', value.alias || '')
 		case 'From':
 			return new From(value.name, value.alias || '')
 		case 'Field':
@@ -560,7 +560,7 @@ export class OperandManager {
 			const relatedField = new Field(relatedEntity, info.relation.from, relatedProperty.type, relatedAlias)
 			const relationField = new Field(relationEntity, info.relation.to, relationProperty.type, relationAlias)
 			const equal = new Operator('==', [relationField, relatedField])
-			operand = new Join(relationEntity, [equal], relationAlias)
+			operand = new Join(relationEntity, [equal], relatedEntity, relationAlias)
 			children.push(operand)
 		}
 		for (let i = 0; i < children.length; i++) {

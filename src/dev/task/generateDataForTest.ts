@@ -135,7 +135,7 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => [p.name, p.category.name]) },
 			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			// { name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.Details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
+			// { name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
 			{ name: 'query 12', lambda: () => Products.page(1, 1) },
 			{ name: 'query 13', lambda: () => Products.first(p => p) },
 			{ name: 'query 14', lambda: () => Products.last(p => p) },
@@ -189,7 +189,7 @@ async function writeGroupByTest (stages: string[]): Promise<number> {
 				{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 8', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
 				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-				{ name: 'query 10', lambda: () => Orders.Details.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
+				{ name: 'query 10', lambda: () => Orders.details.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
 				// { name: 'groupBy 11', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
 				// { name: 'groupBy 12', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
 			]
@@ -719,13 +719,13 @@ async function writeDeleteTest (stages: string[]): Promise<number> {
 			}
 		},
 		test:
-			[{ name: 'delete 1', data: 'a', lambda: (id: number) => Orders.Details.delete().filter(p => p.orderId === id) },
+			[{ name: 'delete 1', data: 'a', lambda: (id: number) => Orders.details.delete().filter(p => p.orderId === id) },
 				{ name: 'delete 2', data: 'b', lambda: () => Orders.delete().include(p => p.details) },
 				{ name: 'delete 3', data: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
 				{ name: 'delete 4', data: 'd', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 4', data: 'd', lambda: (entity: any) => Orders.Details.delete(entity) },
+				{ name: 'delete 4', data: 'd', lambda: (entity: any) => Orders.details.delete(entity) },
 				{ name: 'delete 5', data: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
-				{ name: 'delete 6', lambda: () => Orders.Details.deleteAll() }
+				{ name: 'delete 6', lambda: () => Orders.details.deleteAll() }
 			]
 	})
 }
@@ -998,15 +998,15 @@ export async function apply (stages: string[], callback: any) {
 	let errors = 0
 	try {
 		await orm.init()
-		await orm.stage.sync('source').execute()
-		await stageExport('source')
-		for (const p in stages) {
-			const stage = stages[p]
-			await orm.stage.clean(stage).execute(true)
-			await orm.stage.sync(stage).execute()
-			await stageImport('source', stage)
-			await stageExport(stage)
-		}
+		// await orm.stage.sync('source').execute()
+		// await stageExport('source')
+		// for (const p in stages) {
+		// const stage = stages[p]
+		// await orm.stage.clean(stage).execute(true)
+		// await orm.stage.sync(stage).execute()
+		// await stageImport('source', stage)
+		// await stageExport(stage)
+		// }
 
 		errors = errors + await writeQueryTest(stages)
 		// errors = errors + await writeNumericFunctionsTest(stages)
@@ -1037,7 +1037,7 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL', 'PostgreSQL', 'MariaDB'], function () {
+apply(['MySQL', 'PostgreSQL', 'MariaDB', 'MongoDB'], function () {
 	console.log('end')
 })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer','Oracle','MongoDB'], function () { console.log('end') })
