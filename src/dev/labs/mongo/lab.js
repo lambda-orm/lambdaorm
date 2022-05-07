@@ -32,14 +32,12 @@ const MongoClient = require('mongodb').MongoClient;
 				"$lookup": {
 					"from": "Categories",
 					"localField": "CategoryID",
-					//TODO" se agrego el alias, dado que es una relación de otra relación
 					"foreignField": "p._id",
 					"as": "c"
 				}
 			},
 			{
 				"$match": {
-					// TODO: se debe corregir los operadores, no funciona "$gt": ["$UnitPrice", 10]
 					"$and": [{ "UnitPrice": { "$gt": 10 } }, { "o1.ShippedDate": { $gte: "1997-01-01", $lt: "1997-12-31" } }]
 				}
 			},

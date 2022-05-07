@@ -28,8 +28,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	}
 
 	protected override buildMapSentence (sentence: Sentence): string {
-		// const map = sentence.children.find(p => p.name === 'map') as Map | undefined
-		// const from = sentence.children.find(p => p instanceof From) as Operand
 		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
@@ -250,6 +248,62 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		// 		"category": { $arrayElemAt: ["$p.CategoryName", 0] },
 		// 	}
 		// }
+
+		// Example multiple joins
+		// [
+		// 	//https://stackoverflow.com/questions/64515836/how-to-replace-root-with-an-array-field-during-MongoDB-aggregation-pipeline
+		// 	// unwind solo aplica si el child es un array
+		// 	{ $unwind: "$\"Order Details\"" },
+		// 	{ $replaceRoot: { newRoot: "$\"Order Details\"" } },
+		// 	{
+		// 		"$lookup": {
+		// 			"from": "Orders",
+		// 			"localField": "OrderID",
+		// 			"foreignField": "_id",
+		// 			"as": "o1"
+		// 		}
+		// 	},
+		// 	{
+		// 		"$lookup": {
+		// 			"from": "Products",
+		// 			"localField": "ProductID",
+		// 			"foreignField": "_id",
+		// 			"as": "p"
+		// 		}
+		// 	},
+		// 	{
+		// 		"$lookup": {
+		// 			"from": "Categories",
+		// 			"localField": "CategoryID",
+		// 			"foreignField": "p._id",
+		// 			"as": "c"
+		// 		}
+		// 	},
+		// 	{
+		// 		"$match": {
+		// 			"$and": [{ "UnitPrice": { "$gt": 10 } }, { "o1.ShippedDate": { $gte: "1997-01-01", $lt: "1997-12-31" } }]
+		// 		}
+		// 	},
+		// 	{
+		// 		"$project": {
+		// 			"_id": 0,
+		// 			"category": {
+		// 				"$arrayElemAt": ["$c.CategoryName", 0]
+		// 			},
+		// 			"product": {
+		// 				"$arrayElemAt": ["$p.ProductName", 0]
+		// 			},
+		// 			"unitPrice": "$UnitPrice",
+		// 			"quantity": "$Quantity"
+		// 		}
+		// 	}
+		// 	, {
+		// 		"$sort": {
+		// 			"category": 1,
+		// 			"product": 1
+		// 		}
+		// 	}
+		// ]
 	}
 
 	protected buildFilter (operand: Filter): string {
