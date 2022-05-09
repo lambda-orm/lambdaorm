@@ -135,18 +135,18 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => [p.name, p.category.name]) },
 			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			// { name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) }
-			{ name: 'query 12', lambda: () => Products.page(1, 1) },
-			{ name: 'query 13', lambda: () => Products.first(p => p) },
-			{ name: 'query 14', lambda: () => Products.last(p => p) },
-			{ name: 'query 15', lambda: () => Products.take(p => p) },
-			{ name: 'query 17', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
-			{ name: 'query 18', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
-			{ name: 'query 19', lambda: () => Products.distinct(p => p).sort(p => p.id) },
-			{ name: 'query 20', lambda: () => Products.distinct(p => p.categoryId) },
-			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 22', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 23', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
+			{ name: 'query 11', lambda: () => Products.page(1, 1) },
+			{ name: 'query 12', lambda: () => Products.first(p => p) },
+			{ name: 'query 13', lambda: () => Products.last(p => p) },
+			{ name: 'query 14', lambda: () => Products.take(p => p) },
+			{ name: 'query 15', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
+			{ name: 'query 16', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
+			{ name: 'query 17', lambda: () => Products.distinct(p => p).sort(p => p.id) },
+			{ name: 'query 18', lambda: () => Products.distinct(p => p.categoryId) },
+			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
+			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
 		]
 	})
 }
@@ -998,15 +998,15 @@ export async function apply (stages: string[], callback: any) {
 	let errors = 0
 	try {
 		await orm.init()
-		// await orm.stage.sync('source').execute()
-		// await stageExport('source')
-		// for (const p in stages) {
-		// const stage = stages[p]
-		// await orm.stage.clean(stage).execute(true)
-		// await orm.stage.sync(stage).execute()
-		// await stageImport('source', stage)
-		// await stageExport(stage)
-		// }
+		await orm.stage.sync('source').execute()
+		await stageExport('source')
+		for (const p in stages) {
+			const stage = stages[p]
+			await orm.stage.clean(stage).execute(true)
+			await orm.stage.sync(stage).execute()
+			await stageImport('source', stage)
+			await stageExport(stage)
+		}
 
 		errors = errors + await writeQueryTest(stages)
 		// errors = errors + await writeNumericFunctionsTest(stages)

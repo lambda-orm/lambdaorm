@@ -12,6 +12,9 @@ async function apply () {
 		const result =orm.sentence(lambdaExpression,undefined,stage)
 		console.log(result.sentence)
 
+		const data = await orm.execute(lambdaExpression,context,undefined,stage)
+		console.log(JSON.stringify(data, null,2))
+
 	} catch (error:any) {
 		console.error(error)
 	}finally{

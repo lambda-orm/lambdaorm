@@ -86,7 +86,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (relation === undefined) {
 			throw new SchemaError(`relation ${relationName} not found in ${parentEntityName}`)
 		}
-		const newRoot = `$${mappings.join('.')}`
+		let newRoot = `$${mappings.join('.')}`
+		newRoot = Helper.replace(newRoot, '"', '\\"')
 		let text = ''
 		if (relation.type === RelationType.manyToOne) {
 			text = this.dialect.dml('unwind').replace('{0}', newRoot)

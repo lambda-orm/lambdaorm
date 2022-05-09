@@ -572,7 +572,7 @@
 							"type": "manyToOne",
 							"composite": false,
 							"from": "id",
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"weak": true,
 							"to": "productId",
 							"target": "product"
@@ -587,7 +587,7 @@
 					"hadViewReadExp": false,
 					"dependents": [
 						{
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"relation": {
 								"name": "product",
 								"from": "productId",
@@ -728,7 +728,7 @@
 							"type": "manyToOne",
 							"composite": true,
 							"from": "id",
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"weak": true,
 							"to": "orderId",
 							"target": "order"
@@ -743,7 +743,7 @@
 					"hadViewReadExp": false,
 					"dependents": [
 						{
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"relation": {
 								"name": "order",
 								"from": "orderId",
@@ -759,7 +759,7 @@
 					"hadKeys": false
 				},
 				{
-					"name": "Orders.Details",
+					"name": "Orders.details",
 					"mapping": "Order Details",
 					"properties": [
 						{
@@ -1404,7 +1404,7 @@
 							"type": "manyToOne",
 							"composite": false,
 							"from": "id",
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"weak": true,
 							"to": "productId",
 							"target": "product"
@@ -1419,7 +1419,7 @@
 					"hadViewReadExp": false,
 					"dependents": [
 						{
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"relation": {
 								"name": "product",
 								"from": "productId",
@@ -1561,7 +1561,7 @@
 							"type": "manyToOne",
 							"composite": true,
 							"from": "id",
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"weak": true,
 							"to": "orderId",
 							"target": "order"
@@ -1576,7 +1576,7 @@
 					"hadViewReadExp": false,
 					"dependents": [
 						{
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"relation": {
 								"name": "order",
 								"from": "orderId",
@@ -1592,7 +1592,7 @@
 					"hadKeys": false
 				},
 				{
-					"name": "Orders.Details",
+					"name": "Orders.details",
 					"mapping": "Order Details",
 					"properties": [
 						{
@@ -2237,7 +2237,7 @@
 							"type": "manyToOne",
 							"composite": false,
 							"from": "id",
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"weak": true,
 							"to": "productId",
 							"target": "product"
@@ -2252,7 +2252,7 @@
 					"hadViewReadExp": false,
 					"dependents": [
 						{
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"relation": {
 								"name": "product",
 								"from": "productId",
@@ -2394,7 +2394,7 @@
 							"type": "manyToOne",
 							"composite": true,
 							"from": "id",
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"weak": true,
 							"to": "orderId",
 							"target": "order"
@@ -2409,7 +2409,7 @@
 					"hadViewReadExp": false,
 					"dependents": [
 						{
-							"entity": "Orders.Details",
+							"entity": "Orders.details",
 							"relation": {
 								"name": "order",
 								"from": "orderId",
@@ -2425,7 +2425,7 @@
 					"hadKeys": false
 				},
 				{
-					"name": "Orders.Details",
+					"name": "Orders.details",
 					"mapping": "Order Details",
 					"properties": [
 						{
@@ -3476,7 +3476,7 @@
 				"29": 29
 			}
 		},
-		"Orders.Details": {}
+		"Orders.details": {}
 	},
 	"pendingData": [
 		{

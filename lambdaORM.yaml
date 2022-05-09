@@ -164,9 +164,9 @@ entities:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight

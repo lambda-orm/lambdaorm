@@ -38,6 +38,11 @@ export class MongoDBConnectionPool extends ConnectionPool {
 export class MongodbConnection extends Connection {
 	private session?: any
 
+	constructor (cnx: any, pool: any) {
+		super(cnx, pool)
+		this.formatDateTime = 'ISO'
+	}
+
 	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-MongoDB-2910ff5e272b
 		// https://www.MongoDB.com/docs/manual/reference/operator/aggregation-pipeline/

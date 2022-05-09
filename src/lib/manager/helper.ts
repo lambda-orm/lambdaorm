@@ -276,7 +276,11 @@ export class Helper {
 
 	public static dateFormat (value:any, format:string):string {
 		const iso = new Date(value).toISOString()
-		return DateTime.fromISO(iso).toFormat(format)
+		if (format === 'ISO') {
+			return DateTime.fromISO(iso).toISO()
+		} else {
+			return DateTime.fromISO(iso).toFormat(format)
+		}
 	}
 
 	public static escape (value:string):string {
