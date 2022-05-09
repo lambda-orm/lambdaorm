@@ -47,7 +47,8 @@ export class MongodbConnection extends Connection {
 		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-MongoDB-2910ff5e272b
 		// https://www.MongoDB.com/docs/manual/reference/operator/aggregation-pipeline/
 
-		const collection = mapping.entityMapping(query.entity)
+		const collectionName = query.entity.includes('.') ? query.entity.split('.')[0] : query.entity
+		const collection = mapping.entityMapping(collectionName)
 		const params = this.dataToParameters(query, mapping, data)
 		const aggregate = this.parseTemplate(query.sentence, params, mapping)
 
