@@ -275,32 +275,6 @@ export class MongodbConnection extends Connection {
 		return list
 	}
 
-	// private objectToParameters(query: Query, mapping: MappingConfig, obj: any): Parameter[] {
-	// const parameters: Parameter[] = []
-	// for (const p in query.parameters) {
-	// const parameter = query.parameters[p]
-	// let value = obj[parameter.name]
-	// if (value) {
-	// switch (parameter.type) {
-	// case 'datetime':
-	// value = this.writeDateTime(value, mapping)
-	// break
-	// case 'date':
-	// value = this.writeDate(value, mapping)
-	// break
-	// case 'time':
-	// value = this.writeTime(value, mapping)
-	// break
-	// }
-	// // if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
-	// } else {
-	// value = null
-	// }
-	// parameters.push({ name: parameter.name, type: parameter.type, value: value })
-	// }
-	// return parameters
-	// }
-
 	private parseTemplate (template: string, params: Parameter[], mapping: MappingConfig): any | undefined {
 		let result: string | undefined
 		const row: any = {}
