@@ -230,13 +230,11 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: >-
-              { "$set" :{
-              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-              }}
-            filter: '{ "_id":{{obj.id}} }'
-          childs: []
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
+            }}","filter":"{ \"_id\":{{obj.id}} }"}
+          children: []
     errors: 0
     expression: Orders.update()
     normalizeExpression: >-
@@ -249,9 +247,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -276,9 +274,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -320,6 +318,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: obj.id
                   classtype: Variable
                   children: []
@@ -327,11 +326,12 @@ test:
                   number: 14
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -373,7 +373,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -383,7 +383,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -469,6 +469,7 @@ test:
                   property: country
               type: object
           type: any
+          alias: o
       type: any
       columns:
         - name: customerId
@@ -478,9 +479,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -505,9 +506,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -569,13 +570,11 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: >-
-              { "$set" :{
-              "CustomerID":{{entity.customerId}},"EmployeeID":{{entity.employeeId}},"OrderDate":{{entity.orderDate}},"RequiredDate":{{entity.requiredDate}},"ShippedDate":{{entity.shippedDate}},"ShipVia":{{entity.shipViaId}},"Freight":{{entity.freight}},"ShipName":{{entity.name}},"ShipAddress":{{entity.address}},"ShipCity":{{entity.city}},"ShipRegion":{{entity.region}},"ShipPostalCode":{{entity.postalCode}},"ShipCountry":{{entity.country}}
-              }}
-            filter: '{ "_id":{{obj.id}} }'
-          childs: []
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"CustomerID\":{{entity.customerId}},\"EmployeeID\":{{entity.employeeId}},\"OrderDate\":{{entity.orderDate}},\"RequiredDate\":{{entity.requiredDate}},\"ShippedDate\":{{entity.shippedDate}},\"ShipVia\":{{entity.shipViaId}},\"Freight\":{{entity.freight}},\"ShipName\":{{entity.name}},\"ShipAddress\":{{entity.address}},\"ShipCity\":{{entity.city}},\"ShipRegion\":{{entity.region}},\"ShipPostalCode\":{{entity.postalCode}},\"ShipCountry\":{{entity.country}}
+            }}","filter":"{ \"_id\":{{obj.id}} }"}
+          children: []
     errors: 0
     expression: Orders.update(entity)
     normalizeExpression: >-
@@ -588,9 +587,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -615,9 +614,9 @@ test:
       - name: entity.orderDate
         type: datetime
       - name: entity.requiredDate
-        type: datetime
+        type: date
       - name: entity.shippedDate
-        type: datetime
+        type: date
       - name: entity.shipViaId
         type: integer
       - name: entity.freight
@@ -655,6 +654,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: obj.id
                   classtype: Variable
                   children: []
@@ -662,11 +662,12 @@ test:
                   number: 14
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -708,7 +709,7 @@ test:
                     - name: entity.requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -718,7 +719,7 @@ test:
                     - name: entity.shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -804,6 +805,7 @@ test:
                   property: country
               type: object
           type: any
+          alias: o
       type: any
       columns:
         - name: customerId
@@ -813,9 +815,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -840,9 +842,9 @@ test:
         - name: entity.orderDate
           type: datetime
         - name: entity.requiredDate
-          type: datetime
+          type: date
         - name: entity.shippedDate
-          type: datetime
+          type: date
         - name: entity.shipViaId
           type: integer
         - name: entity.freight
@@ -906,10 +908,11 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: '{ "$set" :{ "ShipPostalCode":{{postalCode}} }}'
-          childs: []
-    errors: 0
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipPostalCode\":{{postalCode}}
+            }}","filter":{}}
+          children: []
+    errors: 1
     expression: Orders.updateAll(=>{postalCode:postalCode})
     normalizeExpression: Orders.update(=>{postalCode:postalCode})
     model:
@@ -925,11 +928,12 @@ test:
       name: update
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -947,6 +951,7 @@ test:
                   property: postalCode
               type: object
           type: any
+          alias: o
       type: any
       columns:
         - name: postalCode
@@ -958,9 +963,7 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-    result:
-      data:
-        postalCode: xxx
+        error: 'TypeError: string.split is not a function'
   - name: update 4
     data: b
     sentences:
@@ -969,10 +972,10 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
-            filter: '{ "_id":{{entity.id}} }'
-          childs: []
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity.name}} }}","filter":"{
+            \"_id\":{{entity.id}} }"}
+          children: []
     errors: 0
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
     normalizeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
@@ -1003,6 +1006,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: entity.id
                   classtype: Variable
                   children: []
@@ -1010,11 +1014,12 @@ test:
                   number: 2
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -1032,6 +1037,7 @@ test:
                   property: name
               type: object
           type: any
+          alias: o
       type: any
       columns:
         - name: name
@@ -1086,22 +1092,19 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
-            filter: '{ "_id":{{entity.id}} }'
-          childs:
-            - entity: OrderDetails
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity.name}} }}","filter":"{
+            \"_id\":{{entity.id}} }"}
+          children:
+            - entity: Orders.details
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                update: >-
-                  { "$set" :{
-                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                  }}
-                filter: >-
-                  { "$and" :[{ "OrderID":{{obj.orderId}} },{
-                  "ProductID":{{obj.productId}} }] }
-              childs: []
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{obj.orderId}} },{
+                \"ProductID\":{{obj.productId}} }] }"}
+              children: []
     errors: 0
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
@@ -1111,8 +1114,8 @@ test:
       - name: name
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1129,8 +1132,8 @@ test:
       - name: entity.id
         type: integer
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1148,12 +1151,12 @@ test:
     constraints:
       entity: Orders
       constraints: []
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
       name: update
@@ -1171,6 +1174,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: entity.id
                   classtype: Variable
                   children: []
@@ -1178,11 +1182,12 @@ test:
                   number: 2
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -1200,6 +1205,7 @@ test:
                   property: name
               type: object
           type: any
+          alias: o
         - name: details
           classtype: SentenceInclude
           children:
@@ -1219,8 +1225,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: obj.orderId
                               classtype: Variable
                               children: []
@@ -1234,8 +1241,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: obj.productId
                               classtype: Variable
                               children: []
@@ -1244,11 +1252,12 @@ test:
                           type: any
                       type: any
                   type: any
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails.o1
+                  alias: o1
+                - name: Orders.details
                   classtype: Update
                   children:
                     - name: obj
@@ -1306,6 +1315,7 @@ test:
                           property: discount
                       type: object
                   type: any
+                  alias: o1
               type: any
               columns:
                 - name: orderId
@@ -1333,11 +1343,11 @@ test:
                   type: integer
                 - name: obj.productId
                   type: integer
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1345,7 +1355,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1403,22 +1413,19 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
-            filter: '{ "_id":{{entity.id}} }'
-          childs:
-            - entity: OrderDetails
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity.name}} }}","filter":"{
+            \"_id\":{{entity.id}} }"}
+          children:
+            - entity: Orders.details
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                update: >-
-                  { "$set" :{
-                  "UnitPrice":"UnitPrice","Quantity":"Quantity","Discount":"Discount"
-                  }}
-                filter: >-
-                  { "$and" :[{ "OrderID":{{orderId}} },{
-                  "ProductID":{{productId}} }] }
-              childs: []
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"UnitPrice\":\"UnitPrice\",\"Quantity\":\"Quantity\",\"Discount\":\"Discount\"
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                \"ProductID\":{{productId}} }] }"}
+              children: []
     errors: 0
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
@@ -1428,8 +1435,8 @@ test:
       - name: name
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: unitPrice
             type: decimal
           - name: quantity
@@ -1442,8 +1449,8 @@ test:
       - name: entity.id
         type: integer
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1451,12 +1458,12 @@ test:
     constraints:
       entity: Orders
       constraints: []
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
       name: update
@@ -1474,6 +1481,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: entity.id
                   classtype: Variable
                   children: []
@@ -1481,11 +1489,12 @@ test:
                   number: 2
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -1503,6 +1512,7 @@ test:
                   property: name
               type: object
           type: any
+          alias: o
         - name: details
           classtype: SentenceInclude
           children:
@@ -1522,8 +1532,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: orderId
                               classtype: Variable
                               children: []
@@ -1537,8 +1548,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: productId
                               classtype: Variable
                               children: []
@@ -1547,11 +1559,12 @@ test:
                           type: any
                       type: any
                   type: any
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails.o1
+                  alias: o1
+                - name: Orders.details
                   classtype: Update
                   children:
                     - name: obj
@@ -1564,8 +1577,9 @@ test:
                               classtype: Field
                               children: []
                               type: decimal
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                           type: any
                           property: unitPrice
                         - name: quantity
@@ -1575,8 +1589,9 @@ test:
                               classtype: Field
                               children: []
                               type: decimal
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                           type: any
                           property: quantity
                         - name: discount
@@ -1586,12 +1601,14 @@ test:
                               classtype: Field
                               children: []
                               type: decimal
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                           type: any
                           property: discount
                       type: object
                   type: any
+                  alias: o1
               type: any
               columns:
                 - name: unitPrice
@@ -1605,11 +1622,11 @@ test:
                   type: integer
                 - name: productId
                   type: integer
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1617,7 +1634,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1675,19 +1692,19 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: '{ "$set" :{ "ShipName":{{entity.name}} }}'
-            filter: '{ "_id":{{entity.id}} }'
-          childs:
-            - entity: OrderDetails
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity.name}} }}","filter":"{
+            \"_id\":{{entity.id}} }"}
+          children:
+            - entity: Orders.details
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                update: '{ "$set" :{ "UnitPrice":"UnitPrice","ProductID":"ProductID" }}'
-                filter: >-
-                  { "$and" :[{ "OrderID":{{orderId}} },{
-                  "ProductID":{{productId}} }] }
-              childs: []
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                \"ProductID\":{{productId}} }] }"}
+              children: []
     errors: 0
     expression: >-
       Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
@@ -1697,8 +1714,8 @@ test:
       - name: name
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: unitPrice
             type: decimal
           - name: productId
@@ -1709,8 +1726,8 @@ test:
       - name: entity.id
         type: integer
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1718,12 +1735,12 @@ test:
     constraints:
       entity: Orders
       constraints: []
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
       name: update
@@ -1741,6 +1758,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: entity.id
                   classtype: Variable
                   children: []
@@ -1748,11 +1766,12 @@ test:
                   number: 2
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -1770,6 +1789,7 @@ test:
                   property: name
               type: object
           type: any
+          alias: o
         - name: details
           classtype: SentenceInclude
           children:
@@ -1789,8 +1809,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: orderId
                               classtype: Variable
                               children: []
@@ -1804,8 +1825,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: productId
                               classtype: Variable
                               children: []
@@ -1814,11 +1836,12 @@ test:
                           type: any
                       type: any
                   type: any
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails.o1
+                  alias: o1
+                - name: Orders.details
                   classtype: Update
                   children:
                     - name: obj
@@ -1831,8 +1854,9 @@ test:
                               classtype: Field
                               children: []
                               type: decimal
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                           type: any
                           property: unitPrice
                         - name: productId
@@ -1842,12 +1866,14 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                           type: any
                           property: productId
                       type: object
                   type: any
+                  alias: o1
               type: any
               columns:
                 - name: unitPrice
@@ -1859,11 +1885,11 @@ test:
                   type: integer
                 - name: productId
                   type: integer
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1871,7 +1897,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1929,26 +1955,21 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: >-
-              { "$set" :{
-              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-              }}
-            filter: '{ "_id":{{obj.id}} }'
-          childs:
-            - entity: OrderDetails
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
+            }}","filter":"{ \"_id\":{{obj.id}} }"}
+          children:
+            - entity: Orders.details
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                update: >-
-                  { "$set" :{
-                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                  }}
-                filter: >-
-                  { "$and" :[{ "OrderID":{{obj.orderId}} },{
-                  "ProductID":{{obj.productId}} }] }
-              childs: []
-    errors: 0
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{obj.orderId}} },{
+                \"ProductID\":{{obj.productId}} }] }"}
+              children: []
+    errors: 1
     expression: Orders.update().include(p=>p.details)
     normalizeExpression: >-
       Orders.filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
@@ -1960,9 +1981,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -1980,8 +2001,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -2000,9 +2021,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -2022,8 +2043,8 @@ test:
       - name: obj.id
         type: integer
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -2045,12 +2066,12 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
       name: update
@@ -2068,6 +2089,7 @@ test:
                   type: integer
                   entity: Orders
                   alias: o
+                  isRoot: true
                 - name: obj.id
                   classtype: Variable
                   children: []
@@ -2075,11 +2097,12 @@ test:
                   number: 14
               type: any
           type: any
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
-        - name: Orders.o
+          alias: o
+        - name: Orders
           classtype: Update
           children:
             - name: obj
@@ -2121,7 +2144,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -2131,7 +2154,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -2217,6 +2240,7 @@ test:
                   property: country
               type: object
           type: any
+          alias: o
         - name: details
           classtype: SentenceInclude
           children:
@@ -2236,8 +2260,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: obj.orderId
                               classtype: Variable
                               children: []
@@ -2251,8 +2276,9 @@ test:
                               classtype: Field
                               children: []
                               type: integer
-                              entity: OrderDetails
+                              entity: Orders.details
                               alias: o1
+                              isRoot: true
                             - name: obj.productId
                               classtype: Variable
                               children: []
@@ -2261,11 +2287,12 @@ test:
                           type: any
                       type: any
                   type: any
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails.o1
+                  alias: o1
+                - name: Orders.details
                   classtype: Update
                   children:
                     - name: obj
@@ -2323,6 +2350,7 @@ test:
                           property: discount
                       type: object
                   type: any
+                  alias: o1
               type: any
               columns:
                 - name: orderId
@@ -2350,11 +2378,11 @@ test:
                   type: integer
                 - name: obj.productId
                   type: integer
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -2362,7 +2390,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -2375,9 +2403,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -2402,9 +2430,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -2431,33 +2459,9 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: MongoDB
-    result:
-      data:
-        id: 7
-        customerId: ANATR
-        employeeId: 7
-        orderDate: '1996-09-17T22:00:00.000Z'
-        requiredDate: '1996-10-15T22:00:00.000Z'
-        shippedDate: '1996-09-23T22:00:00.000Z'
-        shipViaId: 3
-        freight: '1.6100'
-        name: Ana Trujillo Emparedados y helados
-        address: Avda. de la Constitucin 2222
-        city: Mxico D.F.
-        region: null
-        postalCode: '5021'
-        country: Mexico
-        details:
-          - orderId: 7
-            productId: 69
-            unitPrice: '28.8000'
-            quantity: '1.0000'
-            discount: '0.0000'
-          - orderId: 7
-            productId: 70
-            unitPrice: '12.0000'
-            quantity: '5.0000'
-            discount: '0.0000'
+        error: >-
+          MongoServerError: Unknown modifier: "Order Details". Expected a valid
+          update modifier or pipeline-style update specified as an array
   - name: update 9
     data: d
     sentences:
@@ -2466,36 +2470,29 @@ test:
           entity: Customers
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            update: >-
-              { "$set" :{
-              "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
-              }}
-            filter: '{ "_id":{{obj.id}} }'
-          childs:
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"_id\":{{id}},\"CompanyName\":{{name}},\"ContactName\":{{contact}},\"ContactTitle\":{{phone}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}}
+            }}","filter":"{ \"_id\":{{obj.id}} }"}
+          children:
             - entity: Orders
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                update: >-
-                  { "$set" :{
-                  "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-                  }}
-                filter: '{ "_id":{{obj.id}} }'
-              childs:
-                - entity: OrderDetails
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
+                }}","filter":"{ \"_id\":{{obj.id}} }"}
+              children:
+                - entity: Orders.details
                   dialect: MongoDB
                   dataSource: MongoDB
-                  sentence:
-                    update: >-
-                      { "$set" :{
-                      "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                      }}
-                    filter: >-
-                      { "$and" :[{ "OrderID":{{obj.orderId}} },{
-                      "ProductID":{{obj.productId}} }] }
-                  childs: []
-    errors: 0
+                  sentence: >-
+                    {"set":"{ \"$set\" :{
+                    \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
+                    }}","filter":"{ \"$and\" :[{ \"OrderID\":{{obj.orderId}} },{
+                    \"ProductID\":{{obj.productId}} }] }"}
+                  children: []
+    errors: 1
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
     normalizeExpression: >-
       Customers.filter(p=>(p.id==obj.id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==obj.orderId)&&(p.productId==obj.productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==obj.id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
@@ -2520,7 +2517,7 @@ test:
         type: string
       - name: orders
         type: Orders[]
-        childs:
+        children:
           - name: customerId
             type: string
           - name: employeeId
@@ -2528,9 +2525,9 @@ test:
           - name: orderDate
             type: datetime
           - name: requiredDate
-            type: datetime
+            type: date
           - name: shippedDate
-            type: datetime
+            type: date
           - name: shipViaId
             type: integer
           - name: freight
@@ -2548,8 +2545,8 @@ test:
           - name: country
             type: string
           - name: details
-            type: OrderDetails[]
-            childs:
+            type: Orders.details[]
+            children:
               - name: orderId
                 type: integer
               - name: productId
@@ -2583,7 +2580,7 @@ test:
         type: string
       - name: orders
         type: Orders
-        childs:
+        children:
           - name: customerId
             type: string
           - name: employeeId
@@ -2591,9 +2588,9 @@ test:
           - name: orderDate
             type: datetime
           - name: requiredDate
-            type: datetime
+            type: date
           - name: shippedDate
-            type: datetime
+            type: date
           - name: shipViaId
             type: integer
           - name: freight
@@ -2613,8 +2610,8 @@ test:
           - name: obj.id
             type: integer
           - name: details
-            type: OrderDetails
-            childs:
+            type: Orders.details
+            children:
               - name: orderId
                 type: integer
               - name: productId
@@ -2636,19 +2633,19 @@ test:
           condition: isNotNull(id)
         - message: Cannot be null property name in entity Customers
           condition: isNotNull(name)
-      childs:
+      children:
         - entity: Orders
           constraints:
             - message: Cannot be null property customerId in entity Orders
               condition: isNotNull(customerId)
             - message: Cannot be null property employeeId in entity Orders
               condition: isNotNull(employeeId)
-          childs:
-            - entity: OrderDetails
+          children:
+            - entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
     metadata:
       name: update
@@ -2666,6 +2663,7 @@ test:
                   type: string
                   entity: Customers
                   alias: c
+                  isRoot: true
                 - name: obj.id
                   classtype: Variable
                   children: []
@@ -2673,11 +2671,12 @@ test:
                   number: 10
               type: any
           type: any
-        - name: Customers.c
+        - name: Customers
           classtype: From
           children: []
           type: any
-        - name: Customers.c
+          alias: c
+        - name: Customers
           classtype: Update
           children:
             - name: obj
@@ -2775,6 +2774,7 @@ test:
                   property: country
               type: object
           type: any
+          alias: c
         - name: orders
           classtype: SentenceInclude
           children:
@@ -2793,6 +2793,7 @@ test:
                           type: integer
                           entity: Orders
                           alias: o
+                          isRoot: true
                         - name: obj.id
                           classtype: Variable
                           children: []
@@ -2800,11 +2801,12 @@ test:
                           number: 14
                       type: any
                   type: any
-                - name: Orders.o
+                - name: Orders
                   classtype: From
                   children: []
                   type: any
-                - name: Orders.o
+                  alias: o
+                - name: Orders
                   classtype: Update
                   children:
                     - name: obj
@@ -2846,7 +2848,7 @@ test:
                             - name: requiredDate
                               classtype: Variable
                               children: []
-                              type: datetime
+                              type: date
                               number: 4
                           type: any
                           property: requiredDate
@@ -2856,7 +2858,7 @@ test:
                             - name: shippedDate
                               classtype: Variable
                               children: []
-                              type: datetime
+                              type: date
                               number: 5
                           type: any
                           property: shippedDate
@@ -2942,6 +2944,7 @@ test:
                           property: country
                       type: object
                   type: any
+                  alias: o
                 - name: details
                   classtype: SentenceInclude
                   children:
@@ -2961,8 +2964,9 @@ test:
                                       classtype: Field
                                       children: []
                                       type: integer
-                                      entity: OrderDetails
+                                      entity: Orders.details
                                       alias: o1
+                                      isRoot: true
                                     - name: obj.orderId
                                       classtype: Variable
                                       children: []
@@ -2976,8 +2980,9 @@ test:
                                       classtype: Field
                                       children: []
                                       type: integer
-                                      entity: OrderDetails
+                                      entity: Orders.details
                                       alias: o1
+                                      isRoot: true
                                     - name: obj.productId
                                       classtype: Variable
                                       children: []
@@ -2986,11 +2991,12 @@ test:
                                   type: any
                               type: any
                           type: any
-                        - name: OrderDetails.o1
+                        - name: Orders.details
                           classtype: From
                           children: []
                           type: any
-                        - name: OrderDetails.o1
+                          alias: o1
+                        - name: Orders.details
                           classtype: Update
                           children:
                             - name: obj
@@ -3048,6 +3054,7 @@ test:
                                   property: discount
                               type: object
                           type: any
+                          alias: o1
                       type: any
                       columns:
                         - name: orderId
@@ -3075,15 +3082,15 @@ test:
                           type: integer
                         - name: obj.productId
                           type: integer
-                      entity: OrderDetails
+                      entity: Orders.details
                       constraints:
                         - message: >-
                             Cannot be null property orderId in entity
-                            OrderDetails
+                            Orders.details
                           condition: isNotNull(orderId)
                         - message: >-
                             Cannot be null property productId in entity
-                            OrderDetails
+                            Orders.details
                           condition: isNotNull(productId)
                   type: any
                   relation:
@@ -3091,7 +3098,7 @@ test:
                     type: manyToOne
                     composite: true
                     from: id
-                    entity: OrderDetails
+                    entity: Orders.details
                     weak: true
                     to: orderId
                     target: order
@@ -3104,9 +3111,9 @@ test:
                 - name: orderDate
                   type: datetime
                 - name: requiredDate
-                  type: datetime
+                  type: date
                 - name: shippedDate
-                  type: datetime
+                  type: date
                 - name: shipViaId
                   type: integer
                 - name: freight
@@ -3131,9 +3138,9 @@ test:
                 - name: orderDate
                   type: datetime
                 - name: requiredDate
-                  type: datetime
+                  type: date
                 - name: shippedDate
-                  type: datetime
+                  type: date
                 - name: shipViaId
                   type: integer
                 - name: freight
@@ -3162,6 +3169,7 @@ test:
           relation:
             name: orders
             type: manyToOne
+            composite: false
             from: id
             entity: Orders
             weak: true
@@ -3216,166 +3224,7 @@ test:
           condition: isNotNull(name)
     executions:
       - stage: MongoDB
-    result:
-      data:
-        id: ALFKI
-        name: Alfreds Futterkiste
-        contact: Maria Anders
-        phone: Sales Representative
-        address: Obere Str. 57
-        city: Berlin
-        region: null
-        postalCode: '12209'
-        country: Germany
-        orders:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: '1997-08-24T22:00:00.000Z'
-            requiredDate: '1997-09-21T22:00:00.000Z'
-            shippedDate: '1997-09-01T22:00:00.000Z'
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-          - id: 2
-            customerId: ALFKI
-            employeeId: 4
-            orderDate: '1997-10-02T22:00:00.000Z'
-            requiredDate: '1997-10-30T23:00:00.000Z'
-            shippedDate: '1997-10-12T22:00:00.000Z'
-            shipViaId: 2
-            freight: '61.0200'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 2
-                productId: 63
-                unitPrice: '43.9000'
-                quantity: '20.0000'
-                discount: '0.0000'
-          - id: 3
-            customerId: ALFKI
-            employeeId: 4
-            orderDate: '1997-10-12T22:00:00.000Z'
-            requiredDate: '1997-11-23T23:00:00.000Z'
-            shippedDate: '1997-10-20T22:00:00.000Z'
-            shipViaId: 1
-            freight: '23.9400'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 3
-                productId: 3
-                unitPrice: '10.0000'
-                quantity: '6.0000'
-                discount: '0.0000'
-              - orderId: 3
-                productId: 76
-                unitPrice: '18.0000'
-                quantity: '15.0000'
-                discount: '0.0000'
-          - id: 4
-            customerId: ALFKI
-            employeeId: 1
-            orderDate: '1998-01-14T23:00:00.000Z'
-            requiredDate: '1998-02-11T23:00:00.000Z'
-            shippedDate: '1998-01-20T23:00:00.000Z'
-            shipViaId: 3
-            freight: '69.5300'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 4
-                productId: 59
-                unitPrice: '55.0000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 4
-                productId: 77
-                unitPrice: '13.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-          - id: 5
-            customerId: ALFKI
-            employeeId: 1
-            orderDate: '1998-03-15T23:00:00.000Z'
-            requiredDate: '1998-04-26T22:00:00.000Z'
-            shippedDate: '1998-03-23T23:00:00.000Z'
-            shipViaId: 1
-            freight: '40.4200'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 5
-                productId: 6
-                unitPrice: '25.0000'
-                quantity: '16.0000'
-                discount: '0.0000'
-              - orderId: 5
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '2.0000'
-                discount: '0.0000'
-          - id: 6
-            customerId: ALFKI
-            employeeId: 3
-            orderDate: '1998-04-08T22:00:00.000Z'
-            requiredDate: '1998-05-06T22:00:00.000Z'
-            shippedDate: '1998-04-12T22:00:00.000Z'
-            shipViaId: 1
-            freight: '1.2100'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 6
-                productId: 58
-                unitPrice: '13.2500'
-                quantity: '40.0000'
-                discount: '0.0000'
-              - orderId: 6
-                productId: 71
-                unitPrice: '21.5000'
-                quantity: '20.0000'
-                discount: '0.0000'
-errors: 0
+        error: >-
+          MongoServerError: Unknown modifier: "Order Details". Expected a valid
+          update modifier or pipeline-style update specified as an array
+errors: 3

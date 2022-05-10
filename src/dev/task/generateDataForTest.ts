@@ -1007,13 +1007,12 @@ export async function apply (stages: string[], callback: any) {
 			await stageImport('source', stage)
 			await stageExport(stage)
 		}
-
 		errors = errors + await writeQueryTest(stages)
 		errors = errors + await writeNumericFunctionsTest(stages)
 		errors = errors + await writeGroupByTest(stages)
-		// errors = errors + await writeIncludeTest(stages)
-		// errors = errors + await writeInsertsTest(stages)
-		// errors = errors + await writeUpdateTest(stages)
+		errors = errors + await writeIncludeTest(stages)
+		errors = errors + await writeInsertsTest(stages)
+		errors = errors + await writeUpdateTest(stages)
 
 		// errors = errors + await writeDeleteTest(stages)
 		// errors = errors + await writeBulkInsertTest(stages)

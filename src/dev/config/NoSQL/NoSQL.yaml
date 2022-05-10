@@ -20,9 +20,9 @@ dml:
   # distinct: distinct({0})
   rootFilter: '{ "$match" : {0} }'
   filter: "{0}"
-  rootGroupBy: '{ "$group" :{ "_id": {0} , {1} }}'
+  rootGroupBy: '{ "$group" :{ "_id":{ {0} } , {1} }}'
   groupBy: "{0}"
-  having: '{ "$match" :{ {0} }}'
+  having: '{ "$match" : {0} }'
   sort: '{ "$sort" :{ {0} } }'
   page: ' {sentence} , { "$skip" : {offset} }, { "$limit" : {records} }'
   insert: "{ {assigns} }"
@@ -175,7 +175,9 @@ functions:
     concat: '{ "$concat":[{accumulated},{value}] }'
   group:
     avg: '{ "$avg" :{0} }'
-    count: '{ "$count" :{0} }'
+    # count: '{ "$count" :{0} }'
+    # https://www.mongodb.com/docs/manual/reference/operator/aggregation/count/
+    count: '{ "$sum" : 1 }'
     first: '{ "$first" :{0} }'
     last: '{ "$last" :{0} }'
     max: '{ "$max" :{0} }'

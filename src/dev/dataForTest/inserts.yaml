@@ -3,16 +3,16 @@ data:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 9
+    id: 10
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
+    id: 12
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 11
+    id: 14
   order:
     customerId: VINET
     employeeId: 5
@@ -32,18 +32,18 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
+        orderId: 835
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 833
+        orderId: 835
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 833
-    id: 833
+        orderId: 835
+    id: 836
 test:
   - name: insert 1
     data: a
@@ -53,9 +53,8 @@ test:
           entity: Categories
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            insert: '{ "CategoryName":{{name}},"Description":{{description}} }'
-          childs: []
+          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
+          children: []
     errors: 0
     expression: Categories.insert()
     normalizeExpression: Categories.insert({name:name,description:description})
@@ -78,10 +77,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Categories.c
+        - name: Categories
           classtype: From
           children: []
           type: any
+          alias: c
         - name: Categories
           classtype: Insert
           children:
@@ -132,7 +132,7 @@ test:
       data:
         name: Beverages20
         description: Soft drinks, coffees, teas, beers, and ales
-        id: 9
+        id: 10
   - name: insert 2
     data: b
     sentences:
@@ -141,9 +141,8 @@ test:
           entity: Categories
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            insert: '{ "CategoryName":{{name}},"Description":{{description}} }'
-          childs: []
+          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
+          children: []
     errors: 0
     expression: Categories.insert(=>{name:name,description:description})
     normalizeExpression: Categories.insert(=>{name:name,description:description})
@@ -166,10 +165,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Categories.c
+        - name: Categories
           classtype: From
           children: []
           type: any
+          alias: c
         - name: Categories
           classtype: Insert
           children:
@@ -220,7 +220,7 @@ test:
       data:
         name: Beverages21
         description: Soft drinks, coffees, teas, beers, and ales
-        id: 10
+        id: 12
   - name: insert 3
     data: c
     sentences:
@@ -229,12 +229,11 @@ test:
           entity: Categories
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            insert: >-
-              {
-              "CategoryName":{{entity.name}},"Description":{{entity.description}}
-              }
-          childs: []
+          sentence: >-
+            {
+            "CategoryName":{{entity.name}},"Description":{{entity.description}}
+            }
+          children: []
     errors: 0
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
@@ -255,10 +254,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Categories.c
+        - name: Categories
           classtype: From
           children: []
           type: any
+          alias: c
         - name: Categories
           classtype: Insert
           children:
@@ -308,7 +308,7 @@ test:
         entity:
           name: Beverages22
           description: Soft drinks, coffees, teas, beers, and ales
-        id: 11
+        id: 14
   - name: insert 4
     data: order
     sentences:
@@ -317,12 +317,11 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            insert: >-
-              {
-              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-              }
-          childs: []
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children: []
     errors: 0
     expression: Orders.insert()
     normalizeExpression: >-
@@ -335,9 +334,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -362,9 +361,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -392,10 +391,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
+          alias: o
         - name: Orders
           classtype: Insert
           children:
@@ -438,7 +438,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -448,7 +448,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -544,9 +544,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -571,9 +571,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -618,18 +618,18 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
-            orderId: 833
-        id: 833
+            orderId: 835
+        id: 836
   - name: insert 5
     data: order
     sentences:
@@ -638,21 +638,19 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            insert: >-
-              {
-              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-              }
-          childs:
-            - entity: OrderDetails
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children:
+            - entity: Orders.details
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                insert: >-
-                  {
-                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                  }
-              childs: []
+              sentence: >-
+                {
+                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                }
+              children: []
     errors: 0
     expression: Orders.insert().include(p=>p.details)
     normalizeExpression: >-
@@ -665,9 +663,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -685,8 +683,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -705,9 +703,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -725,8 +723,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -744,21 +742,22 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
       name: insert
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
+          alias: o
         - name: Orders
           classtype: Insert
           children:
@@ -801,7 +800,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -811,7 +810,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -904,11 +903,12 @@ test:
             - name: insert
               classtype: Sentence
               children:
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails
+                  alias: o1
+                - name: Orders.details
                   classtype: Insert
                   children:
                     - name: obj
@@ -990,11 +990,11 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1002,7 +1002,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1015,9 +1015,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1042,9 +1042,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1089,18 +1089,18 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
-            orderId: 833
-        id: 833
+            orderId: 835
+        id: 836
   - name: insert 6
     data: order
     sentences:
@@ -1109,30 +1109,27 @@ test:
           entity: Orders
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            insert: >-
-              {
-              "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-              }
-          childs:
-            - entity: OrderDetails
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children:
+            - entity: Orders.details
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                insert: >-
-                  {
-                  "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                  }
-              childs: []
+              sentence: >-
+                {
+                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                }
+              children: []
             - entity: Customers
               dialect: MongoDB
               dataSource: MongoDB
-              sentence:
-                insert: >-
-                  {
-                  "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
-                  }
-              childs: []
+              sentence: >-
+                {
+                "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
+                }
+              children: []
     errors: 0
     expression: Orders.insert().include(p=>[p.details,p.customer])
     normalizeExpression: >-
@@ -1145,9 +1142,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -1165,8 +1162,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1179,7 +1176,7 @@ test:
             type: decimal
       - name: customer
         type: Customers
-        childs:
+        children:
           - name: id
             type: string
           - name: name
@@ -1206,9 +1203,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -1226,8 +1223,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1240,7 +1237,7 @@ test:
             type: decimal
       - name: customer
         type: Customers
-        childs:
+        children:
           - name: id
             type: string
           - name: name
@@ -1266,12 +1263,12 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
         - entity: Customers
           constraints:
@@ -1283,10 +1280,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
+          alias: o
         - name: Orders
           classtype: Insert
           children:
@@ -1329,7 +1327,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -1339,7 +1337,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -1432,11 +1430,12 @@ test:
             - name: insert
               classtype: Sentence
               children:
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails
+                  alias: o1
+                - name: Orders.details
                   classtype: Insert
                   children:
                     - name: obj
@@ -1518,11 +1517,11 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1530,7 +1529,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1540,10 +1539,11 @@ test:
             - name: insert
               classtype: Sentence
               children:
-                - name: Customers.c
+                - name: Customers
                   classtype: From
                   children: []
                   type: any
+                  alias: c
                 - name: Customers
                   classtype: Insert
                   children:
@@ -1706,9 +1706,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1733,9 +1733,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1780,16 +1780,16 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
-            orderId: 833
-        id: 833
+            orderId: 835
+        id: 836
 errors: 0

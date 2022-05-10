@@ -294,6 +294,17 @@ export class MongodbConnection extends Connection {
 		let value: any
 		if (source) {
 			switch (type) {
+			case 'array':
+				if (source.length > 0) {
+					if (typeof source[0] === 'string') {
+						value = source.map((p:string) => `"${p}"`).join(',')
+					} else {
+						value = source.join(',')
+					}
+				} else {
+					value = ''
+				}
+				break
 			case 'boolean':
 				value = source ? 'true' : 'false'; break
 			case 'string':

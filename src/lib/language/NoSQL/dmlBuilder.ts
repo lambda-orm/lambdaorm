@@ -1,6 +1,6 @@
 /* eslint-disable no-tabs */
 
-import { Operand, KeyValue, Operator, FunctionRef } from 'js-expressions'
+import { Operand, KeyValue, Operator, FunctionRef, Obj } from 'js-expressions'
 import { Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../model'
 import { DmlBuilder } from '../dmlBuilder'
 import { Helper } from '../../manager'
@@ -59,7 +59,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			text = text !== '' ? `${text}, ${this.getMap(map, sentence)}` : this.getMap(map, sentence)
 		}
 		if (having) {
-			text = text !== '' ? `${text}, ${this.buildArrowFunction(having)}` : this.buildArrowFunction(having)
+			const havingText = this.buildArrowFunction(having)
+			text = text !== '' ? `${text}, ${havingText}` : havingText
 		}
 		if (sort) {
 			text = `${text}, ${this.buildArrowFunction(sort)}`
@@ -136,15 +137,34 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 
 	protected getGroupBy (map:Map, groupBy:GroupBy, sentence: Sentence): any {
 		this.setPrefixToField(map, '$')
-		let mapText = this.buildArrowFunction(map)
-		const groupByText = this.buildArrowFunction(groupBy)
+
+		let projectColumns = ''
+		const columns:KeyValue[] = []
+		const groupColumns:KeyValue[] = []
+		if (map.children[0] instanceof Obj) {
+			const obj =	map.children[0]
+			for (const p in obj.children) {
+				const keyValue = obj.children[p]
+				if (this.hadGroupFunction(keyValue.children[0])) {
+					groupColumns.push(keyValue)
+					projectColumns = `${projectColumns} ${projectColumns !== '' ? ',' : ''} "${keyValue.name}":"$${keyValue.name}"`
+				} else {
+					columns.push(keyValue)
+					projectColumns = `${projectColumns} ${projectColumns !== '' ? ',' : ''} "${keyValue.name}":"$_id.${keyValue.name}"`
+				}
+			}
+		}
+		let columnsText = this.buildOperand(new Obj('obj', columns))
+		const groupColumnsText = this.buildOperand(new Obj('obj', groupColumns))
 		const composite = this.getComposite(sentence)
 		if (composite) {
-			mapText = `${mapText} ,${composite}`
+			columnsText = `${columnsText} ,${composite}`
 		}
-		const template = this.dialect.dml('rootGroupBy')
-		let text = template.replace('{0}', groupByText)
-		text = text.replace('{1}', mapText)
+		const templateGroup = this.dialect.dml('rootGroupBy')
+		const templateProject = this.dialect.dml('rootMap')
+		let text = templateGroup.replace('{0}', columnsText)
+		text = text.replace('{1}', groupColumnsText)
+		text = text + ', ' + templateProject.replace('{0}', projectColumns)
 		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
 		return Helper.replace(text, '"$this.', '"$$this.')
 	}
@@ -438,6 +458,20 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			}
 		}
 	}
+
+	// protected getColumns (map: Map, isGroup:boolean):Obj {
+	// const result:KeyValue[] = []
+	// if (map.children[0] instanceof Obj) {
+	// const obj =	map.children[0]
+	// for (const p in obj.children) {
+	// const keyValue = obj.children[p]
+	// if (isGroup ? this.hadGroupFunction(keyValue.children[0]) : !this.hadGroupFunction(keyValue.children[0])) {
+	// result.push(keyValue)
+	// }
+	// }
+	// }
+	// return new Obj('obj', result)
+	// }
 
 	protected hadGroupFunction (operand: Operand):boolean {
 		if (operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].includes(operand.name)) {

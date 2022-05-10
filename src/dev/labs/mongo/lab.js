@@ -9,10 +9,31 @@ const MongoClient = require('mongodb').MongoClient;
 
 
 	const result = await db.collection('Products').aggregate(
-		// [{ "$project": { "_id": 0, "maxPrice": { "$max": "$UnitPrice" } } }]
-		//[{ "$group": { "_id": "$CategoryID", "maxPrice": { "$max": "$UnitPrice" } } }]
-		[{ "$group": { "_id": { "a": "$CategoryID", "b": "$SupplierID" }, "maxPrice": { "$max": "$UnitPrice" } } }]
+		[{ "$group": { "_id": 0, "count": { "$sum": 1 } } }]
 	).toArray()
+	//GROUP BY
+	// const result = await db.collection('Products').aggregate(
+	// 	[{
+	// 		"$group": {
+	// 			"_id": {
+	// 				"category": "$CategoryID",
+	// 				"supplier": "$SupplierID"
+	// 			},
+	// 			"maxPrice": {
+	// 				"$max": "$UnitPrice"
+	// 			}
+	// 		}
+	// 	},
+	// 	{
+	// 		"$project": {
+	// 			"_id": 0,
+	// 			"category": "$_id.category",
+	// 			"supplier": "$_id.supplier",
+	// 			"maxPrice": "$maxPrice"
+	// 		}
+	// 	}
+	// 	]
+	// ).toArray()
 	//JOINS
 	// const result = await db.collection('Orders').aggregate(
 	// 	[
@@ -70,7 +91,6 @@ const MongoClient = require('mongodb').MongoClient;
 	// 		}
 	// 	]
 	// ).toArray()
-	// '[{"$lookup":{"from":"Orders","localField":"OrderID","foreignField":"_id","as":"o1"}},{"$lookup":{"from":"Products","localField":"ProductID","foreignField":"_id","as":"p"}},{"$lookup":{"from":"Categories","localField":"CategoryID","foreignField":"_id","as":"c"}},{"$match":{"$and":[{"$and":[{"$gte":[{"$arrayElemAt":["$o1.ShippedDate",0]},"1997-01-01 01:00:00"]},{"$lt":[{"$arrayElemAt":["$o1.ShippedDate",0]},"1997-12-31 01:00:00"]}]},{"$gt":["$UnitPrice",10]}]}},{"$project":{"_id":0,"category":{"$arrayElemAt":["$c.CategoryName",0]},"product":{"$arrayElemAt":["$p.ProductName",0]},"unitPrice":"$UnitPrice","quantity":"$Quantity"}},{"$sort":{"category":1,"product":1}}]'
 	//JOIN
 	// const result = await db.collection('Products').aggregate(
 	// 	[{
