@@ -8,13 +8,22 @@
 	"cSpell.words": [
 		"builtins",
 		"classtype",
+		"CREATEDB",
+		"CREATEROLE",
 		"datetime",
 		"Gruntfile",
 		"instantclient",
 		"luxon",
+		"mysqladmin",
 		"northwind",
 		"nullable",
 		"oracledb",
-		"sqlstring"
+		"ORCLCDB",
+		"padmin",
+		"proot",
+		"sqlcmd",
+		"sqlstring",
+		"uadmin",
+		"uroot"
 	]
 }

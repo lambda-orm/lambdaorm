@@ -5,27 +5,27 @@
 linux:
 
 ``` sh
-docker volume create --name source --opt type=none --opt device=~/volumes/source --opt o=bind
-docker volume create --name mysql --opt type=none --opt device=~/volumes/mysql --opt o=bind
-docker volume create --name mariadb-data --opt type=none --opt device=~/volumes/mariadb-data --opt o=bind
-docker volume create --name mariadb-log --opt type=none --opt device=~/volumes/mariadb-log --opt o=bind
-docker volume create --name postgres-data --opt type=none --opt device=~/volumes/postgres-data --opt o=bind
-docker volume create --name mssql --opt type=none --opt device=~/volumes/mssql --opt o=bind
+docker volume create --name Source --opt type=none --opt device=~/volumes/Source --opt o=bind
+docker volume create --name MySQL --opt type=none --opt device=~/volumes/MySQL --opt o=bind
+docker volume create --name MariaDB-data --opt type=none --opt device=~/volumes/MariaDB-data --opt o=bind
+docker volume create --name MariaDB-log --opt type=none --opt device=~/volumes/MariaDB-log --opt o=bind
+docker volume create --name Postgres-data --opt type=none --opt device=~/volumes/Postgres-data --opt o=bind
+docker volume create --name SqlServer --opt type=none --opt device=~/volumes/SqlServer --opt o=bind
 docker volume create --name MongoDB --opt type=none --opt device=~/volumes/MongoDB --opt o=bind
-docker volume create --name oradata --opt type=none --opt device=~/volumes/oradata --opt o=bind
+docker volume create --name OraData --opt type=none --opt device=~/volumes/OraData --opt o=bind
 ```
 
 windows:
 
 ``` bat
-docker volume create --name source --opt type=none --opt device=C:\volumes\source --opt o=bind
-docker volume create --name mysql --opt type=none --opt device=C:\volumes\mysql --opt o=bind
-docker volume create --name mariadb-data --opt type=none --opt device=C:\volumes\mariadb-data --opt o=bind
-docker volume create --name mariadb-log --opt type=none --opt device=C:\volumes\mariadb-log --opt o=bind
-docker volume create --name postgres-data --opt type=none --opt device=C:\volumes\postgres-data --opt o=bind
-docker volume create --name mssql --opt type=none --opt device=C:\volumes\mssql --opt o=bind
+docker volume create --name Source --opt type=none --opt device=C:\volumes\Source --opt o=bind
+docker volume create --name MySQL --opt type=none --opt device=C:\volumes\MySQL --opt o=bind
+docker volume create --name MariaDB-data --opt type=none --opt device=C:\volumes\MariaDB-data --opt o=bind
+docker volume create --name MariaDB-log --opt type=none --opt device=C:\volumes\MariaDB-log --opt o=bind
+docker volume create --name Postgres-data --opt type=none --opt device=C:\volumes\Postgres-data --opt o=bind
+docker volume create --name SqlServer --opt type=none --opt device=C:\volumes\SqlServer --opt o=bind
 docker volume create --name MongoDB --opt type=none --opt device=C:\volumes\MongoDB --opt o=bind
-docker volume create --name oradata --opt type=none --opt device=C:\volumes\oradata --opt o=bind
+docker volume create --name OraData --opt type=none --opt device=C:\volumes\OraData --opt o=bind
 ```
 
 ## install database
@@ -43,16 +43,16 @@ CREATE DATABASE IF NOT EXISTS northwind
 ## create users
 
 ``` sh
-docker exec lambdaorm-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
-docker exec lambdaorm-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambdaORM-Source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
+docker exec lambdaORM-Source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-docker exec lambdaorm-mysql-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
-docker exec lambdaorm-mysql-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambdaORM-MySQL-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
+docker exec lambdaORM-MySQL-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-docker exec lambdaorm-mariadb-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
-docker exec lambdaorm-mariadb-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambdaORM-MariaDB-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
+docker exec lambdaORM-MariaDB-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-docker exec lambdaorm-mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
+docker exec lambdaORM-SqlServer /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
 ```
 
 ### Postgres
@@ -63,12 +63,12 @@ CREATE ROLE "northwind" SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'no
 
 ### Oracle
 
-Conexion:
+Conexión:
 
 - port: 1521
 - sid: ORCLCDB
 - user: system
-- password: 1qazxsw2
+- password: password
 
 ```sql
 alter session set "_ORACLE_SCRIPT"=true;
@@ -85,14 +85,14 @@ docker-compose down --remove-orphans
 ### remove volumes
 
 ``` sh
-docker volume rm source
-docker volume rm mysql
-docker volume rm mariadb-data
-docker volume rm mariadb-log
-docker volume rm postgres-data
-docker volume rm mssql
+docker volume rm Source
+docker volume rm MySQL
+docker volume rm MariaDB-data
+docker volume rm MariaDB-log
+docker volume rm Postgres-data
+docker volume rm SqlServer
 docker volume rm MongoDB
-docker volume rm oradata
+docker volume rm OraData
 ```
 
 ### connect mysql
@@ -100,12 +100,12 @@ docker volume rm oradata
 grant user test
 
 ``` sh
-docker exec lambdaorm-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lambdaORM-Source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
 ```
 
 ``` sh
-docker exec -ti lambdaorm-source  bash
+docker exec -ti lambdaORM-Source  bash
 mysql --host 127.0.0.1 --port 3306 -uroot -proot
 ```
 
@@ -119,18 +119,18 @@ GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;
 
 ```
 
-./wait-until-healthy.sh lambdaorm-source
+./wait-until-healthy.sh lambdaORM-Source
 
 ## install client
 
-mysql
+MySQL
 
 ``` sh
 sudo apt-get update
 sudo apt-get install mysql-client
 ```
 
-mariadb
+MariaDB
 
 ``` sh
 sudo apt-get update
@@ -151,23 +151,23 @@ mysql --host=0.0.0.0 --port=3307 --user=root --password=root northwind
 container
 
 ``` sh
-docker exec -it mariadb mysql -h localhost -u root -p 
+docker exec -it MariaDB mysql -h localhost -u root -p 
 ```
 
 ## connection string
 
-- source: mysql://root:root@0.0.0.0:3306/northwind
-- mysql: mysql://root:root@0.0.0.0:3307/northwind
-- mariadb: mysql://root:admin@0.0.0.0:3308/northwind
-- postgres: postgresql://admin:admin@0.0.0.0:5432/northwind
-- mssql: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
+- Source: mysql://root:root@0.0.0.0:3306/northwind
+- MySQL: mysql://root:root@0.0.0.0:3307/northwind
+- MariaDB: mysql://root:admin@0.0.0.0:3308/northwind
+- Postgres: postgresql://admin:admin@0.0.0.0:5432/northwind
+- SqlServer: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
 - MongoDB: MongoDB://test:test@0.0.0.0:27017/northwind
-- oracle:
+- Oracle:
 
 ## references
 
-- [mariadb docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
-- [mariadb-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)
+- [MariaDB docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
+- [MariaDB-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)
 - [mysql in nodejs](https://evertpot.com/executing-a-mysql-query-in-nodejs/)
 - [module to connect mysql](https://www.npmjs.com/package/mysq)
 - [mysql client on windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html#:~:text=To%20install%20MySQL%20Shell%20on,steps%20in%20the%20Setup%20Wizard.)

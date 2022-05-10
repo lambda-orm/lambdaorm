@@ -284,8 +284,8 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 				shipViaId: 3,
 				freight: '1.6100',
 				name: 'Ana Trujillo Emparedados y helados',
-				address: 'Avda. de la Constitucin 2222',
-				city: 'Mxico D.F.',
+				address: 'Avda. de la Constitución 2222',
+				city: 'Mexico D.F.',
 				region: null,
 				postalCode: '5021',
 				country: 'Mexico',
@@ -317,8 +317,8 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 					shipViaId: 1,
 					freight: '43.9000',
 					name: 'Ana Trujillo Emparedados y helados',
-					address: 'Avda. de la Constitucin 2222',
-					city: 'Mxico D.F.',
+					address: 'Avda. de la Constitución 2222',
+					city: 'Mexico D.F.',
 					region: null,
 					postalCode: '5021',
 					country: 'Mexico',
@@ -1036,7 +1036,7 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MongoDB'], function () {
+apply(['MySQL', 'PostgreSQL', 'MongoDB'], function () {
 	console.log('end')
 })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer','Oracle','MongoDB'], function () { console.log('end') })
