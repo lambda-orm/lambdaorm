@@ -16,10 +16,12 @@ ddl:
 dml:
   rootMap: '{ "$project" :{ "_id": 0 , {0} }} '
   map: "{0}"
+  mapGroup: '{ "$group" :{ "_id": 0 , {0} }} '
   # distinct: distinct({0})
   rootFilter: '{ "$match" : {0} }'
   filter: "{0}"
-  groupBy: '{ "$group" :{ {0} }}'
+  rootGroupBy: '{ "$group" :{ "_id": {0} , {1} }}'
+  groupBy: "{0}"
   having: '{ "$match" :{ {0} }}'
   sort: '{ "$sort" :{ {0} } }'
   page: ' {sentence} , { "$skip" : {offset} }, { "$limit" : {records} }'
@@ -97,18 +99,19 @@ functions:
     acos: '{ "$acos" :{0} }'
     asin: '{ "$asin" :{0} }'
     atan: '{ "$atan" :{0} }'
-    atan2: '{ "$atan2" :{0} }'
+    atan2: '{ "$atan2":[{0},{1}] }'
     ceil: '{ "$ceil" :{0} }'
     cos: '{ "$cos" :{0} }'
     cosh: '{ "$cosh" :{0} }'
     exp: '{ "$exp" :{0} }'
     floor: '{ "$floor" :{0} }'
     ln: '{ "$ln" :{0} }'
-    log: '{ "$log" :{0} }'
+    log: '{ "$log":[{0},{1}] }'
     log10: '{ "$log10" :{0} }'
     # remainder: ':[{0},{1}]'
     round: '{ "$round" :[{0},{1}] }'
-    # sign: ':{0}'
+    # sign function not supported
+    sign: '{ "$sign":{0}}'
     sin: '{ "$sin" :{0} }'
     sinh: '{ "$sinh" :{0} }'
     tan: '{ "$tan" :{0} }'

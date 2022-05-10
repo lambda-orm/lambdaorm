@@ -11,15 +11,12 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":{
-              "$multiply" :["$UnitPrice",-1] }, "result":{ "$round" :[{ "$abs"
-              :{ "$multiply" :["$UnitPrice",-1] } },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":{ "$multiply" :["$UnitPrice",-1] },
+            "result":{ "$round" :[{ "$abs" :{ "$multiply" :["$UnitPrice",-1] }
+            },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:(p.price*-1),result:round(abs((p.price*-1)),10)})
@@ -54,6 +51,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -61,10 +59,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -80,6 +79,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -93,6 +93,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                         - name: -1
                           classtype: Constant2
                           children: []
@@ -117,6 +118,7 @@ test:
                                   type: decimal
                                   entity: Products
                                   alias: p
+                                  isRoot: true
                                 - name: -1
                                   classtype: Constant2
                                   children: []
@@ -158,14 +160,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.25,
-              "result":{ "$round" :[{ "$acos" :0.25 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":0.25, "result":{ "$round" :[{
+            "$acos" :0.25 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(acos(0.25),10)})
@@ -200,6 +199,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -207,10 +207,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -226,6 +227,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -283,14 +285,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.25,
-              "result":{ "$round" :[{ "$asin" :0.25 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":0.25, "result":{ "$round" :[{
+            "$asin" :0.25 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(asin(0.25),10)})
@@ -325,6 +324,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -332,10 +332,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -351,6 +352,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -408,14 +410,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.25,
-              "result":{ "$round" :[{ "$atan" :0.25 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":0.25, "result":{ "$round" :[{
+            "$atan" :0.25 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.25,result:round(atan(0.25),10)})
@@ -450,6 +449,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -457,10 +457,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -476,6 +477,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -533,15 +535,12 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":0.5,
-              "result":{ "$round" :[{ "$atan2" :0.25 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
-    errors: 1
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":0.5, "result":{ "$round" :[{
+            "$atan2":[0.25,1] },10] } }} ]
+          children: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.5,result:round(atan2(0.25,1),10)})
     normalizeExpression: >-
@@ -575,6 +574,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -582,10 +582,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -601,6 +602,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -651,9 +653,9 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-        error: >-
-          MongoServerError: Invalid $project :: caused by :: Expression $atan2
-          takes exactly 2 arguments. 1 were passed in.
+    result:
+      - name: Chai
+        result: 0.2449786631
   - name: function ceil
     data: a
     sentences:
@@ -662,14 +664,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":25.75,
-              "result":{ "$round" :[{ "$ceil" :25.75 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":25.75, "result":{ "$round" :[{
+            "$ceil" :25.75 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(ceil(25.75),10)})
@@ -704,6 +703,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -711,10 +711,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -730,6 +731,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -787,14 +789,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":2,
-              "result":{ "$round" :[{ "$cos" :2 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":2, "result":{ "$round" :[{ "$cos" :2
+            },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(cos(2),10)})
@@ -829,6 +828,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -836,10 +836,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -855,6 +856,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -912,14 +914,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":1,
-              "result":{ "$round" :[{ "$exp" :1 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":1, "result":{ "$round" :[{ "$exp" :1
+            },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:1,result:round(exp(1),10)})
@@ -954,6 +953,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -961,10 +961,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -980,6 +981,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1037,14 +1039,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":25.75,
-              "result":{ "$round" :[{ "$floor" :25.75 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":25.75, "result":{ "$round" :[{
+            "$floor" :25.75 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(floor(25.75),10)})
@@ -1079,6 +1078,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1086,10 +1086,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1105,6 +1106,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1162,14 +1164,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":2,
-              "result":{ "$round" :[{ "$ln" :2 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":2, "result":{ "$round" :[{ "$ln" :2
+            },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(ln(2),10)})
@@ -1204,6 +1203,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1211,10 +1211,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1230,6 +1231,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1287,15 +1289,12 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "m":10, "n":20,
-              "result":{ "$round" :[{ "$log" :10 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
-    errors: 1
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "m":10, "n":20, "result":{ "$round" :[{
+            "$log":[10,20] },10] } }} ]
+          children: []
+    errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,m:10,n:20,result:round(log(10,20),10)})
     normalizeExpression: >-
@@ -1331,6 +1330,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1338,10 +1338,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1357,6 +1358,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: m
                   classtype: KeyValue
@@ -1417,9 +1419,9 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-        error: >-
-          MongoServerError: Invalid $project :: caused by :: Expression $log
-          takes exactly 2 arguments. 1 were passed in.
+    result:
+      - name: Chai
+        result: 0.7686217868
   - name: function round
     data: a
     sentences:
@@ -1428,14 +1430,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName",
-              "source":135.375, "result":{ "$round" :[135.375,2] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":135.375, "result":{ "$round"
+            :[135.375,2] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(135.375,2)})
@@ -1470,6 +1469,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1477,10 +1477,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1496,6 +1497,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1545,8 +1547,16 @@ test:
     data: a
     sentences:
       - stage: MongoDB
-        error: 'SintaxisError: Function sign not found'
-    errors: 2
+        sentence:
+          entity: Products
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":255.5, "result":{ "$round" :[{
+            "$sign":255.5},10] } }} ]
+          children: []
+    errors: 1
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:255.5,result:round(sign(255.5),10)})
     normalizeExpression: >-
@@ -1580,6 +1590,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1587,10 +1598,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1606,6 +1618,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1652,7 +1665,9 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-        error: 'SintaxisError: Function sign not found'
+        error: >-
+          MongoServerError: Invalid $project :: caused by :: Unrecognized
+          expression '$sign'
   - name: function tan
     data: a
     sentences:
@@ -1661,14 +1676,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName", "source":1.75,
-              "result":{ "$round" :[{ "$tan" :1.75 },10] } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":1.75, "result":{ "$round" :[{ "$tan"
+            :1.75 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:1.75,result:round(tan(1.75),10)})
@@ -1703,6 +1715,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1710,10 +1723,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1729,6 +1743,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1786,15 +1801,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName",
-              "source":135.375, "result":{ "$round" :[{ "$trunc" :135.375 },10]
-              } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":135.375, "result":{ "$round" :[{
+            "$trunc" :135.375 },10] } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(trunc(135.375,2),10)})
@@ -1829,6 +1840,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -1836,10 +1848,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1855,6 +1868,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -1908,4 +1922,4 @@ test:
     result:
       - name: Chai
         result: 135
-errors: 4
+errors: 1

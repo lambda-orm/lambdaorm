@@ -10,11 +10,8 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: '{ "$project" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }}'
-            from: Products
-            joins: []
-          childs: []
+          sentence: '[{ "$project" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }} ]'
+          children: []
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
@@ -29,10 +26,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -51,6 +49,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -149,11 +148,8 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: '{ "$project" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }}'
-            from: Products
-            joins: []
-          childs: []
+          sentence: '[{ "$project" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }} ]'
+          children: []
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
     normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
@@ -168,10 +164,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -190,6 +187,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -288,11 +286,8 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: '{ "$project" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }}'
-            from: Products
-            joins: []
-          childs: []
+          sentence: '[{ "$project" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }} ]'
+          children: []
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
     normalizeExpression: Products.map(p=>{total:sum(p.price)})
@@ -307,10 +302,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -329,6 +325,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -427,11 +424,8 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: '{ "$project" :{ "_id": 0 , "average":{ "$avg" :"$UnitPrice" } }}'
-            from: Products
-            joins: []
-          childs: []
+          sentence: '[{ "$project" :{ "_id": 0 , "average":{ "$avg" :"$UnitPrice" } }} ]'
+          children: []
     errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
     normalizeExpression: Products.map(p=>{average:avg(p.price)})
@@ -446,10 +440,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -468,6 +463,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -566,11 +562,8 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: '{ "$project" :{ "_id": 0 , "count":{ "$count" :1 } }}'
-            from: Products
-            joins: []
-          childs: []
+          sentence: '[{ "$project" :{ "_id": 0 , "count":{ "$count" :1 } }} ]'
+          children: []
     errors: 1
     expression: Products.map(p=>{count:count(1)})
     normalizeExpression: Products.map(p=>{count:count(1)})
@@ -585,10 +578,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -628,14 +622,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "category":"$CategoryID",
-              "largestPrice":{ "$max" :"$UnitPrice" } }}
-            from: Products
-            joins: []
-            groupBy: '{ "$group" :{ "CategoryID" }}'
-          childs: []
+          sentence: >-
+            [{ "$group" :{ "CategoryID" }}, { "$project" :{ "_id": 0 ,
+            "category":"$CategoryID", "largestPrice":{ "$max" :"$UnitPrice" } }}
+            ]
+          children: []
     errors: 1
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
@@ -652,10 +643,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -671,6 +663,7 @@ test:
                       type: integer
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: largestPrice
                   classtype: KeyValue
@@ -684,6 +677,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -697,6 +691,7 @@ test:
               type: integer
               entity: Products
               alias: p
+              isRoot: true
           type: any
       type: any
       columns:
@@ -709,7 +704,7 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-        error: 'SyntaxError: Unexpected token } in JSON at position 27'
+        error: 'SyntaxError: Unexpected token } in JSON at position 28'
   - name: groupBy 7
     sentences:
       - stage: MongoDB
@@ -717,17 +712,13 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "category":"$CategoryName",
-              "largestPrice":{ "$max" :"$UnitPrice" } }}
-            from: Products
-            joins:
-              - >-
-                { "$lookup" :{ from: Categories, localField: c._id,
-                foreignField:p.CategoryID, as: c }}
-            groupBy: '{ "$group" :{ "CategoryName" }}'
-          childs: []
+          sentence: >-
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$group" :{ "c.CategoryName"
+            }}, { "$project" :{ "_id": 0 , "category":{ "$arrayElemAt":
+            ["$c.CategoryName", 0] }, "largestPrice":{ "$max" :"$UnitPrice" } }}
+            ]
+          children: []
     errors: 1
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
     normalizeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
@@ -744,10 +735,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -763,6 +755,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
                 - name: largestPrice
                   classtype: KeyValue
@@ -776,6 +769,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -789,8 +783,9 @@ test:
               type: string
               entity: Categories
               alias: c
+              isRoot: false
           type: any
-        - name: Categories.c
+        - name: Categories
           classtype: Join
           children:
             - name: '=='
@@ -810,6 +805,8 @@ test:
                   alias: p
               type: any
           type: any
+          entity: Products
+          alias: c
       type: any
       columns:
         - name: category
@@ -821,7 +818,7 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-        error: 'SyntaxError: Unexpected token f in JSON at position 15'
+        error: 'SyntaxError: Unexpected token } in JSON at position 135'
   - name: groupBy 8
     data: a
     sentences:
@@ -830,14 +827,11 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "name":"$ProductName",
-              "source":"$UnitPrice", "result":{ "$abs" :"$UnitPrice" } }}
-            from: Products
-            joins: []
-            filter: '{ "_id":{{id}} }'
-          childs: []
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "name":"$ProductName", "source":"$UnitPrice", "result":{ "$abs"
+            :"$UnitPrice" } }} ]
+          children: []
     errors: 0
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
@@ -872,6 +866,7 @@ test:
                   type: integer
                   entity: Products
                   alias: p
+                  isRoot: true
                 - name: id
                   classtype: Variable
                   children: []
@@ -879,10 +874,11 @@ test:
                   number: 1
               type: any
           type: any
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -898,6 +894,7 @@ test:
                       type: string
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: source
                   classtype: KeyValue
@@ -908,6 +905,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: result
                   classtype: KeyValue
@@ -921,6 +919,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -951,18 +950,14 @@ test:
           entity: Products
           dialect: MongoDB
           dataSource: MongoDB
-          sentence:
-            map: >-
-              { "$project" :{ "_id": 0 , "category":"$CategoryName",
-              "largestPrice":{ "$max" :"$UnitPrice" } }}
-            from: Products
-            joins:
-              - >-
-                { "$lookup" :{ from: Categories, localField: c._id,
-                foreignField:p.CategoryID, as: c }}
-            groupBy: '{ "$group" :{ "CategoryName" }}'
-            having: '{ "$match" :{ { "$gt" :[{ "$max" :"UnitPrice" },100] } }}'
-          childs: []
+          sentence: >-
+            [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
+            "foreignField": "_id", "as": "c" }}, { "$group" :{ "c.CategoryName"
+            }}, { "$match" :{ { { "$max" :"UnitPrice" }: { "$gt": 100 } } }}, {
+            "$project" :{ "_id": 0 , "category":{ "$arrayElemAt":
+            ["$c.CategoryName", 0] }, "largestPrice":{ "$max" :"$UnitPrice" } }}
+            ]
+          children: []
     errors: 1
     expression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
@@ -981,10 +976,11 @@ test:
       name: select
       classtype: Sentence
       children:
-        - name: Products.p
+        - name: Products
           classtype: From
           children: []
           type: any
+          alias: p
         - name: map
           classtype: Map
           children:
@@ -1000,6 +996,7 @@ test:
                       type: string
                       entity: Categories
                       alias: c
+                      isRoot: false
                   type: any
                 - name: largestPrice
                   classtype: KeyValue
@@ -1013,6 +1010,7 @@ test:
                           type: decimal
                           entity: Products
                           alias: p
+                          isRoot: true
                       type: any
                   type: any
               type: object
@@ -1026,6 +1024,7 @@ test:
               type: string
               entity: Categories
               alias: c
+              isRoot: false
           type: any
         - name: having
           classtype: Having
@@ -1042,6 +1041,7 @@ test:
                       type: decimal
                       entity: Products
                       alias: p
+                      isRoot: true
                   type: any
                 - name: 100
                   classtype: Constant2
@@ -1049,7 +1049,7 @@ test:
                   type: number
               type: any
           type: any
-        - name: Categories.c
+        - name: Categories
           classtype: Join
           children:
             - name: '=='
@@ -1069,6 +1069,8 @@ test:
                   alias: p
               type: any
           type: any
+          entity: Products
+          alias: c
       type: any
       columns:
         - name: category
@@ -1080,5 +1082,162 @@ test:
       constraints: []
     executions:
       - stage: MongoDB
-        error: 'SyntaxError: Unexpected token f in JSON at position 15'
-errors: 4
+        error: 'SyntaxError: Unexpected token } in JSON at position 135'
+  - name: query 10
+    sentences:
+      - stage: MongoDB
+        sentence:
+          entity: Orders.details
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: >-
+            [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+            "newRoot": "$\"Order Details\"" } }, { "$group" :{ "OrderID" }}, {
+            "$project" :{ "_id": 0 , "orderId":"$OrderID", "subTotal":{ "$sum"
+            :{ "$multiply" :[{ "$multiply" :[{ "$multiply"
+            :["$UnitPrice","$Quantity"] },{ "$subtract" :[1,{ "$divide"
+            :["$Discount",100] }] }] },100] } } }} , { "$sort" :{ "OrderID":1 }
+            }]
+          children: []
+    errors: 1
+    expression: >-
+      Orders.details.map(p=>{orderId:p.orderId,subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.orderId)
+    normalizeExpression: >-
+      Orders.details.map(p=>{orderId:p.orderId,subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.orderId))
+    model:
+      - name: orderId
+        type: integer
+      - name: subTotal
+        type: any
+    parameters: []
+    constraints:
+      entity: Orders.details
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Orders.details
+          classtype: From
+          children: []
+          type: any
+          alias: o
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: orderId
+                  classtype: KeyValue
+                  children:
+                    - name: orderId
+                      classtype: Field
+                      children: []
+                      type: integer
+                      entity: Orders.details
+                      alias: o
+                      isRoot: true
+                  type: any
+                - name: subTotal
+                  classtype: KeyValue
+                  children:
+                    - name: sum
+                      classtype: FunctionRef
+                      children:
+                        - name: '*'
+                          classtype: Operator
+                          children:
+                            - name: '*'
+                              classtype: Operator
+                              children:
+                                - name: '*'
+                                  classtype: Operator
+                                  children:
+                                    - name: unitPrice
+                                      classtype: Field
+                                      children: []
+                                      type: decimal
+                                      entity: Orders.details
+                                      alias: o
+                                      isRoot: true
+                                    - name: quantity
+                                      classtype: Field
+                                      children: []
+                                      type: decimal
+                                      entity: Orders.details
+                                      alias: o
+                                      isRoot: true
+                                  type: any
+                                - name: '-'
+                                  classtype: Operator
+                                  children:
+                                    - name: 1
+                                      classtype: Constant2
+                                      children: []
+                                      type: number
+                                    - name: /
+                                      classtype: Operator
+                                      children:
+                                        - name: discount
+                                          classtype: Field
+                                          children: []
+                                          type: decimal
+                                          entity: Orders.details
+                                          alias: o
+                                          isRoot: true
+                                        - name: 100
+                                          classtype: Constant2
+                                          children: []
+                                          type: number
+                                      type: any
+                                  type: any
+                              type: any
+                            - name: 100
+                              classtype: Constant2
+                              children: []
+                              type: number
+                          type: any
+                      type: any
+                  type: any
+              type: object
+          type: any
+        - name: groupBy
+          classtype: GroupBy
+          children:
+            - name: orderId
+              classtype: Field
+              children: []
+              type: integer
+              entity: Orders.details
+              alias: o
+              isRoot: true
+          type: any
+        - name: sort
+          classtype: Sort
+          children:
+            - name: asc
+              classtype: FunctionRef
+              children:
+                - name: orderId
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Orders.details
+                  alias: o
+                  isRoot: true
+              type: any
+          type: any
+      type: any
+      columns:
+        - name: orderId
+          type: integer
+        - name: subTotal
+          type: any
+      parameters: []
+      entity: Orders.details
+      constraints: []
+    executions:
+      - stage: MongoDB
+        error: 'SyntaxError: Unexpected token } in JSON at position 120'
+errors: 5

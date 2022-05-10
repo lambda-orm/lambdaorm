@@ -28,6 +28,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	}
 
 	protected override buildMapSentence (sentence: Sentence): string {
+		const map = sentence.children.find(p => p.name === 'map') as Map | undefined
 		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
 		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
@@ -37,6 +38,9 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		const entity = this.mapping.getEntity(sentence.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (map === undefined) {
+			throw new SchemaError('map operator not found')
 		}
 
 		let text = ''
@@ -50,12 +54,13 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			text = text !== '' ? `${text}, ${this.buildFilter(filter)}` : this.buildFilter(filter)
 		}
 		if (groupBy) {
-			text = text !== '' ? `${text}, ${this.buildArrowFunction(groupBy)}` : this.buildArrowFunction(groupBy)
+			text = text !== '' ? `${text}, ${this.getGroupBy(map, groupBy, sentence)}` : this.getGroupBy(map, groupBy, sentence)
+		} else {
+			text = text !== '' ? `${text}, ${this.getMap(map, sentence)}` : this.getMap(map, sentence)
 		}
 		if (having) {
 			text = text !== '' ? `${text}, ${this.buildArrowFunction(having)}` : this.buildArrowFunction(having)
 		}
-		text = text !== '' ? `${text}, ${this.getMap(sentence)}` : this.getMap(sentence)
 		if (sort) {
 			text = `${text}, ${this.buildArrowFunction(sort)}`
 		}
@@ -129,24 +134,34 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		return JSON.stringify(data)
 	}
 
-	protected getMap (sentence: Sentence): any {
-		const mapOperator = sentence.children.find(p => p.name === 'map') as Map | undefined
-		if (mapOperator === undefined) {
-			throw new SchemaError('map operator not found')
-		}
-
-		this.setPrefixToField(mapOperator, '$')
-		let map = this.buildArrowFunction(mapOperator)
+	protected getGroupBy (map:Map, groupBy:GroupBy, sentence: Sentence): any {
+		this.setPrefixToField(map, '$')
+		let mapText = this.buildArrowFunction(map)
+		const groupByText = this.buildArrowFunction(groupBy)
 		const composite = this.getComposite(sentence)
 		if (composite) {
-			map = `${map} ,${composite}`
+			mapText = `${mapText} ,${composite}`
 		}
-		if (mapOperator.children[0] instanceof FunctionRef && mapOperator.children[0].name === 'distinct') {
+		const template = this.dialect.dml('rootGroupBy')
+		let text = template.replace('{0}', groupByText)
+		text = text.replace('{1}', mapText)
+		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
+		return Helper.replace(text, '"$this.', '"$$this.')
+	}
+
+	protected getMap (map:Map, sentence: Sentence): any {
+		this.setPrefixToField(map, '$')
+		let mapText = this.buildArrowFunction(map)
+		const composite = this.getComposite(sentence)
+		if (composite) {
+			mapText = `${mapText} ,${composite}`
+		}
+		if (map.children[0] instanceof FunctionRef && map.children[0].name === 'distinct') {
 			// https://www.MongoDB.com/docs/manual/reference/operator/aggregation/group/
-			return map
+			return mapText
 		} else {
-			const template = this.dialect.dml('rootMap')
-			const result = template.replace('{0}', map)
+			const template = this.hadGroupFunction(map) ? this.dialect.dml('mapGroup') : this.dialect.dml('rootMap')
+			const result = template.replace('{0}', mapText)
 			// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
 			return Helper.replace(result, '"$this.', '"$$this.')
 			// Example:
@@ -422,5 +437,20 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				}
 			}
 		}
+	}
+
+	protected hadGroupFunction (operand: Operand):boolean {
+		if (operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].includes(operand.name)) {
+			return true
+		}
+		if (operand.children) {
+			for (const p in operand.children) {
+				const child = operand.children[p]
+				if (this.hadGroupFunction(child)) {
+					return true
+				}
+			}
+		}
+		return false
 	}
 }

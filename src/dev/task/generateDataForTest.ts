@@ -1009,8 +1009,8 @@ export async function apply (stages: string[], callback: any) {
 		}
 
 		errors = errors + await writeQueryTest(stages)
-		// errors = errors + await writeNumericFunctionsTest(stages)
-		// errors = errors + await writeGroupByTest(stages)
+		errors = errors + await writeNumericFunctionsTest(stages)
+		errors = errors + await writeGroupByTest(stages)
 		// errors = errors + await writeIncludeTest(stages)
 		// errors = errors + await writeInsertsTest(stages)
 		// errors = errors + await writeUpdateTest(stages)
@@ -1037,7 +1037,7 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL', 'PostgreSQL', 'MariaDB', 'MongoDB'], function () {
+apply(['MongoDB'], function () {
 	console.log('end')
 })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer','Oracle','MongoDB'], function () { console.log('end') })
