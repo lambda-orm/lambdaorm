@@ -1,18 +1,16 @@
 const fs = require('fs')
 require('dotenv').config({ path: './test.env' })
 
-const dataSources = ['MySQL', 'PostgreSQL']
+const dataSources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB']
 
 module.exports = function (grunt) {
 	// Load the plugins
-	// grunt.loadNpmTasks('grunt-contrib-uglify')
-	// grunt.loadNpmTasks('grunt-exec')
 	require('load-grunt-tasks')(grunt)
 	// Project configuration.
 	grunt.initConfig({
 		exec: {
-			create_dbs: { cmd: './create_dbs.sh', options: { cwd: './src/dev/db' } },
-			drop_dbs: { cmd: './drop_dbs.sh', options: { cwd: './src/dev/db' } },
+			db_up: { cmd: './db.sh up', options: { cwd: './src/dev/db' } },
+			db_down: { cmd: './db.sh down', options: { cwd: './src/dev/db' } },
 			clean_data: { cmd: './clean_data.sh ' + dataSources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
@@ -80,15 +78,15 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('clean-test', ['exec:clean_test'])
-	grunt.registerTask('databases-down', ['exec:drop_dbs', 'exec:clean_data'])
-	grunt.registerTask('databases-up', ['databases-down', 'exec:create_dbs', 'populate-source', 'populate-databases'])
-	grunt.registerTask('build-test', ['databases-up', 'exec:clean_test', 'generate-data-for-test', 'generate-test', 'databases-down'])
+	grunt.registerTask('clean-data', ['exec:clean_data'])
+	grunt.registerTask('db-down', ['exec:db_down', 'clean-data'])
+	grunt.registerTask('db-up', ['db-down', 'exec:db_up', 'populate-source', 'populate-databases'])
+	grunt.registerTask('build-test', ['db-up', 'exec:clean_test', 'generate-data-for-test', 'generate-test', 'databases-down'])
 	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('lint', ['exec:lint'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
-	grunt.registerTask('integration-test', ['databases-up', 'exec:integration_test', 'databases-down'])
+	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'databases-down'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])
-
 	grunt.registerTask('default', [])
 }

@@ -17,6 +17,10 @@
 	"scripts": {
 		"lint": "grunt lint",
 		"build": "grunt build",
+		"clean-data": "grunt clean-data",
+		"clean-test": "grunt clean-test",
+		"db-down": "grunt db-down",
+		"db-up": "grunt db-up",
 		"build-test": "grunt build-test",
 		"generate-test": "grunt generate-test",
 		"unit-test": "grunt unit-test",
