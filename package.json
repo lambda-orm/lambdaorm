@@ -72,14 +72,15 @@
 	},
 	"keywords": [
 		"orm",
-		"mysql",
-		"mariadb",
+		"MySQL",
+		"MariaDB",
 		"sqlite",
-		"postgresql",
-		"postgres",
+		"PostgreSQL",
+		"Postgres",
 		"pg",
-		"mssql",
-		"sqlserver",
+		"Oracle",
+		"SqlServer",
+		"MongoDB",
 		"sql",
 		"query",
 		"builder",
@@ -91,18 +92,19 @@
 		"object relational mapper",
 		"db",
 		"lambda",
-		"lambdaorm"
+		"lambdaORM"
 	],
 	"tags": [
 		"orm",
-		"mysql",
-		"mariadb",
+		"MySQL",
+		"MariaDB",
 		"sqlite",
-		"postgresql",
-		"postgres",
+		"PostgreSQL",
+		"Postgres",
 		"pg",
-		"mssql",
-		"sqlserver",
+		"Oracle",
+		"SqlServer",
+		"MongoDB",
 		"sql",
 		"query",
 		"builder",
@@ -114,6 +116,6 @@
 		"object relational mapper",
 		"db",
 		"lambda",
-		"lambdaorm"
+		"lambdaORM"
 	]
 }

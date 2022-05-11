@@ -23,6 +23,7 @@
 		"proot",
 		"sqlcmd",
 		"sqlstring",
+		"typedoc",
 		"uadmin",
 		"uroot"
 	]
