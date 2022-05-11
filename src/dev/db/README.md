@@ -1,33 +1,5 @@
 # Install
 
-## create volume
-
-linux:
-
-``` sh
-docker volume create --name Source --opt type=none --opt device=~/volumes/Source --opt o=bind
-docker volume create --name MySQL --opt type=none --opt device=~/volumes/MySQL --opt o=bind
-docker volume create --name MariaDB-data --opt type=none --opt device=~/volumes/MariaDB-data --opt o=bind
-docker volume create --name MariaDB-log --opt type=none --opt device=~/volumes/MariaDB-log --opt o=bind
-docker volume create --name Postgres-data --opt type=none --opt device=~/volumes/Postgres-data --opt o=bind
-docker volume create --name SqlServer --opt type=none --opt device=~/volumes/SqlServer --opt o=bind
-docker volume create --name MongoDB --opt type=none --opt device=~/volumes/MongoDB --opt o=bind
-docker volume create --name OraData --opt type=none --opt device=~/volumes/OraData --opt o=bind
-```
-
-windows:
-
-``` bat
-docker volume create --name Source --opt type=none --opt device=C:\volumes\Source --opt o=bind
-docker volume create --name MySQL --opt type=none --opt device=C:\volumes\MySQL --opt o=bind
-docker volume create --name MariaDB-data --opt type=none --opt device=C:\volumes\MariaDB-data --opt o=bind
-docker volume create --name MariaDB-log --opt type=none --opt device=C:\volumes\MariaDB-log --opt o=bind
-docker volume create --name Postgres-data --opt type=none --opt device=C:\volumes\Postgres-data --opt o=bind
-docker volume create --name SqlServer --opt type=none --opt device=C:\volumes\SqlServer --opt o=bind
-docker volume create --name MongoDB --opt type=none --opt device=C:\volumes\MongoDB --opt o=bind
-docker volume create --name OraData --opt type=none --opt device=C:\volumes\OraData --opt o=bind
-```
-
 ## install database
 
 ``` sh
@@ -80,19 +52,6 @@ GRANT create session,create table,create view,create sequence TO northwind;
 
 ``` sh
 docker-compose down --remove-orphans
-```
-
-### remove volumes
-
-``` sh
-docker volume rm Source
-docker volume rm MySQL
-docker volume rm MariaDB-data
-docker volume rm MariaDB-log
-docker volume rm Postgres-data
-docker volume rm SqlServer
-docker volume rm MongoDB
-docker volume rm OraData
 ```
 
 ### connect mysql

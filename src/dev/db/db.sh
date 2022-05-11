@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
 
-create_volumes(){
-	docker volume create --name Source --opt type=none --opt device=~/volumes/Source --opt o=bind
-	docker volume create --name MySQL --opt type=none --opt device=~/volumes/MySQL --opt o=bind
-	docker volume create --name MariaDB-data --opt type=none --opt device=~/volumes/MariaDB-data --opt o=bind
-	docker volume create --name MariaDB-log --opt type=none --opt device=~/volumes/MariaDB-log --opt o=bind
-	docker volume create --name Postgres-data --opt type=none --opt device=~/volumes/Postgres-data --opt o=bind
-	docker volume create --name SqlServer --opt type=none --opt device=~/volumes/SqlServer --opt o=bind
-	docker volume create --name MongoDB --opt type=none --opt device=~/volumes/MongoDB --opt o=bind
-	docker volume create --name OraData --opt type=none --opt device=~/volumes/OraData --opt o=bind
-}
-remove_volumes(){
-	docker volume rm Source
-	docker volume rm MySQL
-	docker volume rm MariaDB-data
-	docker volume rm MariaDB-log
-	docker volume rm Postgres-data
-	docker volume rm SqlServer
-	docker volume rm MongoDB
-	docker volume rm OraData
-}
+# create_volumes(){
+# 	docker volume create --name Source --opt type=none --opt device=~/volumes/Source --opt o=bind
+# 	docker volume create --name MySQL --opt type=none --opt device=~/volumes/MySQL --opt o=bind
+# 	docker volume create --name MariaDB-data --opt type=none --opt device=~/volumes/MariaDB-data --opt o=bind
+# 	docker volume create --name MariaDB-log --opt type=none --opt device=~/volumes/MariaDB-log --opt o=bind
+# 	docker volume create --name Postgres-data --opt type=none --opt device=~/volumes/Postgres-data --opt o=bind
+# 	docker volume create --name SqlServer --opt type=none --opt device=~/volumes/SqlServer --opt o=bind
+# 	docker volume create --name MongoDB --opt type=none --opt device=~/volumes/MongoDB --opt o=bind
+# 	docker volume create --name OraData --opt type=none --opt device=~/volumes/OraData --opt o=bind
+# }
+# remove_volumes(){
+# 	docker volume rm Source
+# 	docker volume rm MySQL
+# 	docker volume rm MariaDB-data
+# 	docker volume rm MariaDB-log
+# 	docker volume rm Postgres-data
+# 	docker volume rm SqlServer
+# 	docker volume rm MongoDB
+# 	docker volume rm OraData
+# }
 
 wait-until-healthy(){
 	./wait-until-healthy.sh lambdaORM-Source
@@ -47,7 +47,6 @@ create_db_users(){
 }
 
 up(){
-	create_volumes
 	docker-compose up -d
 	wait-until-healthy
 	create_db_users
@@ -55,9 +54,10 @@ up(){
 }
 
 
-down(){
-	remove_volumes
+down(){	
 	docker-compose down --remove-orphans
+	chmod 776 ./volume/*
+	rm -fR ./volume/*
 	echo "INFO: stopped Databases (if it was running)."
 }
 

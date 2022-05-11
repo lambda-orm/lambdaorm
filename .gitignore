@@ -9,6 +9,7 @@ yarn-error.log*
 
 build
 dist
+volume
 
 # Dependency directories
 node_modules/

@@ -15,13 +15,13 @@ async function stageImport (source: string, target: string) {
 export async function apply (stages: string[], callback: any) {
 	try {
 		await orm.init()
-		await orm.stage.sync('source').execute(true)
-		await stageExport('source')
+		await orm.stage.sync('Source').execute(true)
+		await stageExport('Source')
 		for (const p in stages) {
 			const stage = stages[p]
 			await orm.stage.clean(stage).execute(true)
 			await orm.stage.sync(stage).execute()
-			await stageImport('source', stage)
+			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
 		await orm.end()
@@ -31,6 +31,6 @@ export async function apply (stages: string[], callback: any) {
 		callback()
 	}
 }
-apply(['MySQL', 'PostgreSQL', 'MariaDB'], function () { console.log('end') })
+// apply(['MySQL', 'PostgreSQL', 'MariaDB'], function () { console.log('end') })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer'], function () { console.log('end') })
 // apply(['MySQL'], function () { console.log('end') })

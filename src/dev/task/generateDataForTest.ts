@@ -998,13 +998,13 @@ export async function apply (stages: string[], callback: any) {
 	let errors = 0
 	try {
 		await orm.init()
-		await orm.stage.sync('source').execute()
-		await stageExport('source')
+		await orm.stage.sync('Source').execute()
+		await stageExport('Source')
 		for (const p in stages) {
 			const stage = stages[p]
 			await orm.stage.clean(stage).execute(true)
 			await orm.stage.sync(stage).execute()
-			await stageImport('source', stage)
+			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
 		errors = errors + await writeQueryTest(stages)
@@ -1036,7 +1036,7 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL', 'PostgreSQL', 'MongoDB'], function () {
-	console.log('end')
-})
+// apply(['MySQL', 'PostgreSQL', 'MongoDB'], function () {
+// console.log('end')
+// })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer','Oracle','MongoDB'], function () { console.log('end') })
