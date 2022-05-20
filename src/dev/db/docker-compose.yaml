@@ -87,14 +87,17 @@ services:
     container_name: lambdaORM-Oracle-19
     image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
     # image: akaronte/oracle:19.3.0.0
-    # image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
     environment:
       ORACLE_SID: ORCLCDB
       ORACLE_PDB: ORCLCPDB
       ORACLE_PWD: password
       ORACLE_CHARACTERSET: WE8MSWIN1252
     volumes:
-      - ./volume/OraData:/opt/oracle/oradata # persistent oracle database data.
+      # - ./volume/oradata:/opt/oracle/oradata # persistent oracle database data
+      #  al usar el volume ./volume/oradata da error de permisos y no crea la instancia dentro del container
+      #  por este motivo se crea el volume oradata:
+      # info: https://github.com/oracle/docker-images/issues/439
+      - oradata:/opt/oracle/oradata # persistent oracle database data
     ports:
       - 1521:1521
       - 5500:5500
@@ -131,3 +134,5 @@ services:
       - 3308:3306
     networks:
       - lambdaORM
+volumes:
+  oradata: null

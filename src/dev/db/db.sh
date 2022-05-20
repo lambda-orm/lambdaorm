@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Example:
+#    ./db.sh up
+#    ./db.sh down
 
 
 # create_volumes(){
@@ -44,6 +47,22 @@ create_db_users(){
 
 	docker exec lambdaORM-SqlServer /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
 
+  docker exec lambdaORM-Oracle-19 sqlplus system:password@ORCLCDB "CREATE USER northwind IDENTIFIED BY northwind;"
+
+	docker exec -it lambdaORM-Oracle-19 sqlplus system/password@ORCLCDB "CREATE USER 'northwind' IDENTIFIED BY 'northwind';"
+
+	
+
+# https://community.bmc.com/s/article/Remedy-Server-Error-ORA-65096-invalid-common-user-or-role-name-installing-ARS-9-1-on-Oracle-12c#:~:text=The%20error%20ORA%2D65096%3A%20invalid,name%20is%20a%20Oracle%20error.&text=Cause%3A%20An%20attempt%20was%20made,for%20common%20users%20or%20roles.
+  docker exec -it lambdaORM-Oracle-19 sqlplus sysdba/password@ORCLCDB
+
+  docker exec -it lambdaORM-Oracle-19 sqlplus sysdba/password@ORCLCDB
+  conn sys/password as sysdba; 
+	alter session set "_ORACLE_SCRIPT"=true;
+	CREATE TABLESPACE northwind DATAFILE 'northwind.dat' SIZE 100M AUTOEXTEND ON;
+	CREATE USER northwind IDENTIFIED BY northwind DEFAULT TABLESPACE northwind QUOTA UNLIMITED ON northwind;
+  GRANT ALL PRIVILEGES TO northwind;
+	exit; 
 }
 
 up(){
@@ -56,8 +75,8 @@ up(){
 
 down(){	
 	docker-compose down --remove-orphans
-	chmod 776 ./volume/*
-	rm -fR ./volume/*
+	sudo chmod 755 ./volume/*
+	sudo rm -fR ./volume/*
 	echo "INFO: stopped Databases (if it was running)."
 }
 
