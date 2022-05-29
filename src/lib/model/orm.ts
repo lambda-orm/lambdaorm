@@ -3,6 +3,11 @@ import { Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataCon
 import { Transaction, StageFacade, SchemaManager } from '../manager'
 import { Cache, Expressions } from 'js-expressions'
 
+export interface OrmOptions {
+	view?: string
+	stage?: string
+}
+
 export interface IOrm
 {
 	get workspace(): string
@@ -54,8 +59,8 @@ export interface IOrm
 	 * @param expression
 	 * @param stage
 	 */
-	sentence(expression: Function, stage?: string, view?:string): MetadataSentence
-	sentence(expression: string, stage?: string, view?:string): MetadataSentence
+	sentence(expression: Function, options?: OrmOptions): MetadataSentence
+	sentence(expression: string, options?: OrmOptions): MetadataSentence
 
 	/**
 		* Execute expression
@@ -64,13 +69,13 @@ export interface IOrm
 	  * @param view View name
 		* @returns Result of execution
 		*/
-	execute(expression: Function, data?: any, stage?: string, view?:string):Promise<any>
-	execute(expression: string, data?: any, stage?: string, view?: string): Promise<any>
+	execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>
+	execute(expression: string, data?: any, options?: OrmOptions): Promise<any>
 	/**
 	 * transaction
 	 * @param stage
 	 * @param view
 	 * @param callback
 	 */
-	transaction(stage:string, view:string, callback:{(tr:Transaction): Promise<void>}):Promise<void>
+	transaction(options: OrmOptions|undefined, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

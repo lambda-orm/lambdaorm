@@ -39,7 +39,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				let sentence: MetadataSentence | undefined
 				let error
 				try {
-					sentence = orm.sentence(expressionTest.expression as string, 'default', stage)
+					sentence = orm.sentence(expressionTest.expression as string, { stage: stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -63,7 +63,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
-					result = await orm.execute(expressionTest.lambda, data, 'default', stage)
+					result = await orm.execute(expressionTest.lambda, data, { stage: stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -846,7 +846,7 @@ async function crud () {
 	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
-		orm.transaction('source', 'default', async (tr) => {
+		orm.transaction({ stage: 'source', view: 'default' }, async (tr) => {
 			// create order
 			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
@@ -885,7 +885,7 @@ async function bulkInsert () {
 			description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, categories, 'default', 'source')))
+	const result = await exec(async () => (await orm.execute(expression, categories, { stage: 'source', view: 'default' })))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -979,31 +979,31 @@ async function bulkInsert2 () {
 			]
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, orders, 'default', 'source')))
+	const result = await exec(async () => (await orm.execute(expression, orders, { stage: 'source', view: 'default' })))
 }
 
 async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
-	const data = await orm.stage.export(source).execute()
+	const data = await orm.stage.export({ stage: source }).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
 async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
-	await orm.stage.import(target).execute(data)
+	await orm.stage.import({ stage: target }).execute(data)
 }
 
 export async function apply (stages: string[], callback: any) {
 	let errors = 0
 	try {
 		await orm.init()
-		await orm.stage.sync('Source').execute()
+		await orm.stage.sync({ stage: 'Source' }).execute()
 		await stageExport('Source')
 		for (const p in stages) {
 			const stage = stages[p]
-			await orm.stage.clean(stage).execute(true)
-			await orm.stage.sync(stage).execute()
+			await orm.stage.clean({ stage: stage }).execute(true)
+			await orm.stage.sync({ stage: stage }).execute()
 			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
@@ -1036,7 +1036,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-// apply(['MySQL', 'PostgreSQL', 'MongoDB'], function () {
-// console.log('end')
-// })
+apply(['MySQL'], function () { console.log('end') })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer','Oracle','MongoDB'], function () { console.log('end') })

@@ -1,4 +1,4 @@
-import { Query, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, DataSource, SentenceInfo } from '../model'
+import { Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, DataSource, SentenceInfo } from '../model'
 import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
 import { Helper } from './helper'
 import { Expressions, Operand, Cache } from 'js-expressions'
@@ -61,16 +61,16 @@ export class ExpressionManager {
 		}
 	}
 
-	public toQuery (expression: string, stage: string, view?: string): Query {
+	public toQuery (expression: string, options: OrmOptions): Query {
 		const minifyExpression = this.expressions.parser.minify(expression)
-		const _view = this.schema.view.get(view)
-		const key = `${minifyExpression}_${stage}_${view}`
+		const _view = this.schema.view.get(options.view)
+		const key = `${minifyExpression}_${options.stage}_${options.view}`
 		const value = this.cache.get(key)
 		if (!value) {
 			const sentence = this.toOperand(minifyExpression) as Sentence
 			const view = this.schema.view.getInstance(_view.name)
-			this.complete(sentence, view, stage)
-			const query = this.dmlBuild(sentence, view, stage)
+			this.complete(sentence, view, options.stage as string)
+			const query = this.dmlBuild(sentence, view, options.stage as string)
 			this.cache.set(key, JSON.stringify(query))
 			return query
 		} else {
@@ -174,8 +174,8 @@ export class ExpressionManager {
 		return this.operandManager.parameters(operand as Sentence)
 	}
 
-	public sentence (expression: string, stage: string, view: string): MetadataSentence {
-		const query = this.toQuery(expression, stage, view)
+	public sentence (expression: string, options: OrmOptions): MetadataSentence {
+		const query = this.toQuery(expression, options)
 		return this._sentence(query)
 	}
 

@@ -209,7 +209,6 @@ export class OracleConnection extends Connection {
 				default:
 					row[parameter.name] = value
 				}
-				row.push(value)
 			}
 			rows.push(row)
 		}

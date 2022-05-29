@@ -8,7 +8,7 @@ import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
 import { StageDelete } from '../stage/stageDelete'
 import { Helper } from './helper'
-import { SchemaError, Stage, View } from './../model'
+import { SchemaError, Stage, View, OrmOptions } from './../model'
 
 export class StageFacade {
 	private state: StageState
@@ -48,36 +48,48 @@ export class StageFacade {
 		return await Helper.existsPath(file)
 	}
 
-	public sync (name?:string):StageSync {
-		const stage = this.getStage(name)
-		return new StageSync(this.state, this.schemaManager, this.routing, this.languages, this.executor, stage.name)
+	public sync (options?:OrmOptions):StageSync {
+		const _options = this.solveOptions(options)
+		return new StageSync(this.state, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public clean (name?:string):StageClean {
-		const stage = this.getStage(name)
-		return new StageClean(this.state, this.schemaManager, this.routing, this.languages, this.executor, stage.name)
+	public clean (options?:OrmOptions):StageClean {
+		const _options = this.solveOptions(options)
+		return new StageClean(this.state, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public truncate (name?:string):StageClean {
-		const stage = this.getStage(name)
-		return new StageTruncate(this.state, this.schemaManager, this.routing, this.languages, this.executor, stage.name)
+	public truncate (options?:OrmOptions):StageClean {
+		const _options = this.solveOptions(options)
+		return new StageTruncate(this.state, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public delete (name?:string, view?:string):StageDelete {
-		const stage = this.getStage(name)
-		const _view = this.getView(view)
-		return new StageDelete(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name, _view.name)
+	public delete (options?:OrmOptions):StageDelete {
+		const _options = this.solveOptions(options)
+		return new StageDelete(this.state, this.schemaManager.model, this.expressionManager, this.executor, _options)
 	}
 
-	public export (name?:string, view?:string):StageExport {
-		const stage = this.getStage(name)
-		const _view = this.getView(view)
-		return new StageExport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name, _view.name)
+	public export (options?:OrmOptions):StageExport {
+		const _options = this.solveOptions(options)
+		return new StageExport(this.state, this.schemaManager.model, this.expressionManager, this.executor, _options)
 	}
 
-	public import (name?:string, view?:string):StageImport {
-		const stage = this.getStage(name)
-		const _view = this.getView(view)
-		return new StageImport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name, _view.name)
+	public import (options?:OrmOptions):StageImport {
+		const _options = this.solveOptions(options)
+		return new StageImport(this.state, this.schemaManager.model, this.expressionManager, this.executor, _options)
+	}
+
+	private solveOptions (options?: OrmOptions):OrmOptions {
+		if (!options) {
+			options = {}
+		}
+		if (!options.stage) {
+			const _stage = this.schemaManager.stage.get()
+			options.stage = _stage.name
+		}
+		if (!options.view) {
+			const _view = this.schemaManager.view.get()
+			options.view = _view.name
+		}
+		return options
 	}
 }

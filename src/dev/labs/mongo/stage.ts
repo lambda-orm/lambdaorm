@@ -4,10 +4,10 @@ async function apply () {
 	try {
 		const stage = 'MongoDB'
 		await orm.init()
-		const cleanQueries  = await orm.stage.clean(stage).queries()
-		const syncQueries = await orm.stage.sync(stage).queries()
-		const importQueries  = orm.stage.import(stage).queries()
-		const exportQueries  = orm.stage.export(stage).queries()
+		const cleanQueries  = await orm.stage.clean({stage:stage}).queries()
+		const syncQueries = await orm.stage.sync({stage:stage}).queries()
+		const importQueries  = orm.stage.import({stage:stage}).queries()
+		const exportQueries  = orm.stage.export({stage:stage}).queries()
 
 		await Helper.writeFile(`src/dev/labs/mongo/${stage}-clean-queries.json`, JSON.stringify(cleanQueries,null,2))
 		await Helper.writeFile(`src/dev/labs/mongo/${stage}-sync-queries.json`, JSON.stringify(syncQueries,null,2))

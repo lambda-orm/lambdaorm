@@ -4,11 +4,11 @@ import { Query, SchemaData, Entity, SchemaError } from '../model'
 
 export class StageImport extends StageActionDML {
 	public async execute (data: SchemaData): Promise<void> {
-		const state = await this.state.get(this.stage)
+		const state = await this.state.get(this.options.stage as string)
 		const _queries = this.queries()
 		const queries = this.sort(_queries)
 
-		await this.executor.transaction(this.stage, this.view, async (tr) => {
+		await this.executor.transaction(this.options, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const entityData = data.entities.find(p => p.entity === query.entity)
@@ -55,7 +55,7 @@ export class StageImport extends StageActionDML {
 				pending.rows = stillPending
 			}
 		})
-		await this.state.updateData(this.stage, state.mappingData, state.pendingData)
+		await this.state.updateData(this.options.stage as string, state.mappingData, state.pendingData)
 	}
 
 	protected solveInternalsIds (entityName:string, rows:any[], mappingData:any, pending:any[], parentEntity?:string):void {
@@ -203,6 +203,6 @@ export class StageImport extends StageActionDML {
 
 	protected createQuery (entity:Entity):Query {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return this.expressionManager.toQuery(expression, this.stage, this.view)
+		return this.expressionManager.toQuery(expression, this.options)
 	}
 }

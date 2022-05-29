@@ -1,13 +1,12 @@
 
-import { Data, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, PropertyMapping } from '../model'
+import { Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, PropertyMapping } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
 import { SchemaManager, Helper, Languages, Dialect } from '.'
 import { Expressions } from 'js-expressions'
 
 export class QueryExecutor {
-	public stage: string
-	public view: string | undefined
+	public options: OrmOptions
 	private languages: Languages
 	private connectionManager: ConnectionManager
 	private connections: any
@@ -15,11 +14,10 @@ export class QueryExecutor {
 	private schemaManager: SchemaManager
 	private expressions: Expressions
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, stage: string, view: string | undefined, transactional = false) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, options: OrmOptions, transactional = false) {
 		this.connectionManager = connectionManager
 		this.languages = languages
-		this.stage = stage
-		this.view = view
+		this.options = options
 		this.schemaManager = schemaManager
 		this.transactional = transactional
 		this.expressions = expressions

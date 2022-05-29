@@ -6,10 +6,10 @@ async function execute () {
 		const stage = 'default'
 		await orm.init(`${sourcePath}/shapes.yaml`)
 		const start = new Date().getTime()
-		await orm.stage.clean(stage).execute(true)
+		await orm.stage.clean({stage:stage}).execute(true)
 		let clean = new Date().getTime()
 		console.log(`clean: ${clean - start}`)
-		await orm.stage.sync(stage).execute()
+		await orm.stage.sync({stage:stage}).execute()
 		let sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
 		const content = await Helper.readFile(`${sourcePath}/shapes.json`) as string
@@ -19,7 +19,7 @@ async function execute () {
 		await orm.execute('Shapes.bulkInsert().include(p-> [p.properties,p.geometry.include(p-> p.coordinates)])', data)
 		const bulkInsert = new Date().getTime()
 		console.log(`bulkInsert: ${bulkInsert - readFile}`)
-		const exportData = await orm.stage.export(stage).execute()
+		const exportData = await orm.stage.export({stage:stage}).execute()
 		const _export = new Date().getTime()
 		console.log(`export: ${_export - bulkInsert}`)
 		// TODO: se queda bloqueado por los constrains por mas que borre las tablas en orden
@@ -28,14 +28,14 @@ async function execute () {
 		// console.log(`delete: ${_delete - _export}`)
 
 		// TODO: temporalmente para borrar en Postgres
-		await orm.stage.clean(stage).execute(true)
+		await orm.stage.clean({stage:stage}).execute(true)
 		clean = new Date().getTime()
 		console.log(`clean: ${clean - _export}`)
-		await orm.stage.sync(stage).execute()
+		await orm.stage.sync({stage:stage}).execute()
 		sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
 
-		await orm.stage.import(stage).execute(exportData)
+		await orm.stage.import({stage:stage}).execute(exportData)
 		const _import = new Date().getTime()
 		console.log(`import: ${_import - sync}`)
 		await orm.end()

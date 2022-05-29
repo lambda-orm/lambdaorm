@@ -6,7 +6,7 @@ export class StageExport extends StageActionDML {
 		const queries = this.queries()
 		const data = {}
 		const schemaExport: SchemaData = { entities: [] }
-		await this.executor.transaction(this.stage, this.view, async (tr) => {
+		await this.executor.transaction(this.options, async (tr) => {
 			for (let i = 0; i < queries.length; i++) {
 				const query = queries[i]
 				const rows = await tr.execute(query, data)
@@ -25,6 +25,6 @@ export class StageExport extends StageActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(entity)
-		return this.expressionManager.toQuery(expression, this.stage, this.view)
+		return this.expressionManager.toQuery(expression, this.options)
 	}
 }

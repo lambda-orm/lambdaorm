@@ -1,18 +1,34 @@
 # Install
 
-## install database
+## Db
+
+Up
+
+```sh
+./db.sh up
+```
+
+Down
+
+```sh
+./db.sh down
+```
+
+## Manual
+
+### install database
 
 ``` sh
 docker-compose up -d
 ```
 
-## create database
+### create database
 
 ```sql
 CREATE DATABASE IF NOT EXISTS northwind
 ```
 
-## create users
+### create users
 
 ``` sh
 docker exec lambdaORM-Source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
@@ -48,7 +64,7 @@ create user northwind identified by northwind;
 GRANT create session,create table,create view,create sequence TO northwind;
 ```
 
-## uninstall
+### uninstall
 
 ``` sh
 docker-compose down --remove-orphans
@@ -80,7 +96,7 @@ GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;
 
 ./wait-until-healthy.sh lambdaORM-Source
 
-## install client
+### install client
 
 MySQL
 
@@ -117,11 +133,11 @@ docker exec -it MariaDB mysql -h localhost -u root -p
 
 - Source: mysql://root:root@0.0.0.0:3306/northwind
 - MySQL: mysql://root:root@0.0.0.0:3307/northwind
-- MariaDB: mysql://root:admin@0.0.0.0:3308/northwind
-- Postgres: postgresql://admin:admin@0.0.0.0:5432/northwind
-- SqlServer: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Adm1n_Adm1n'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
-- MongoDB: MongoDB://test:test@0.0.0.0:27017/northwind
-- Oracle:
+- MariaDB: mysql://root:root@0.0.0.0:3308/northwind
+- Postgres: postgresql://test:test@0.0.0.0:5432/northwind
+- SqlServer: {server:'0.0.0.0',authentication:{type:'default',options:{userName:'sa',password:'Lambda1234!'}},options:{port:1433,database:'Adm1n_Adm1n',trustServerCertificate:true}}
+- MongoDB: mongodb://test:test@0.0.0.0:27017/northwind
+- Oracle:{"connectString":"localhost:1521/ORCLCDB","user":"northwind","password":"northwind"}
 
 ## references
 

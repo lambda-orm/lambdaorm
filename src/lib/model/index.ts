@@ -1,5 +1,5 @@
 export * from './data'
-export * from './iOrm'
+export * from './orm'
 export * from './delta'
 export * from './parameter'
 export * from './schema'

@@ -1,4 +1,4 @@
-import { Query } from '../model'
+import { Query, OrmOptions } from '../model'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
 import { StageState } from './stageState'
 
@@ -8,14 +8,14 @@ export abstract class StageActionDDL {
 	protected routing: Routing
 	protected languages: Languages
 	protected executor: Executor
-	protected stage: string
-	constructor (state:StageState, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, stage:string) {
+	protected options: OrmOptions
+	constructor (state:StageState, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:OrmOptions) {
 		this.state = state
 		this.schema = schema
 		this.routing = routing
 		this.languages = languages
 		this.executor = executor
-		this.stage = stage
+		this.options = options
 	}
 
 	abstract queries(): Promise<Query[]>

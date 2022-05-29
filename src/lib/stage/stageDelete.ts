@@ -4,7 +4,7 @@ import { StageActionDML } from './stageActionDML'
 export class StageDelete extends StageActionDML {
 	public async execute (): Promise<void> {
 		const queries = this.build()
-		await this.executor.executeList(this.stage, this.view, queries)
+		await this.executor.executeList(this.options, queries)
 	}
 
 	protected sort (entities: Entity[]): Entity[] {
@@ -46,7 +46,7 @@ export class StageDelete extends StageActionDML {
 					}
 					const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
 					if (isNullable) {
-						const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.stage, this.view)
+						const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
 						queries.push(query)
 					}
 				}
@@ -56,6 +56,6 @@ export class StageDelete extends StageActionDML {
 	}
 
 	protected createQuery (entity:Entity):Query {
-		return this.expressionManager.toQuery(`${entity.name}.deleteAll()`, this.stage, this.view)
+		return this.expressionManager.toQuery(`${entity.name}.deleteAll()`, this.options)
 	}
 }

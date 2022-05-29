@@ -14,9 +14,9 @@ async function apply () {
 		const lambdaExpression =  () => Products.map(p => ({ category: p.categoryId,supplier: p.supplierId, largestPrice: max(p.price) })) 
 
 
-		const result =orm.sentence(lambdaExpression,undefined,stage)
+		const result =orm.sentence(lambdaExpression,{ stage: stage})
 		console.log(result.sentence)
-		const data = await orm.execute(lambdaExpression,context,undefined,stage)
+		const data = await orm.execute(lambdaExpression,context,{ stage: stage})
 		console.log(JSON.stringify(data, null,2))
 
 	} catch (error:any) {

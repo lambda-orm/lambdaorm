@@ -8,9 +8,9 @@ export async function apply (callback: any) {
 		// const query = () => Products.filter(p => p.price > 10).map(p => ({ name: p.name, category: p.category.name })).sort(p => p.category).page(1, 10)
 		const query = () => Categories
 
-		const sentence = await orm.sentence(query, 'source')
+		const sentence = await orm.sentence(query,{stage: 'source'})
 		console.log(sentence)
-		const result = await orm.execute(query, {}, 'source')
+		const result = await orm.execute(query, {}, {stage: 'source'})
 		console.log(JSON.stringify(result, null, 2))
 	} catch (error:any) {
 		console.error(error.stack)

@@ -1,5 +1,5 @@
 
-import { Query, ExecuteResult } from '../model'
+import { Query, ExecuteResult, OrmOptions } from '../model'
 import { ConnectionManager } from '../connection'
 import { ExpressionManager, QueryExecutor, Transaction, Languages } from '.'
 import { SchemaManager } from './schema'
@@ -20,15 +20,15 @@ export class Executor {
 		this.expressions = expressions
 	}
 
-	public async execute (query: Query, data: any, stage: string, view: string): Promise<any> {
+	public async execute (query: Query, data: any, options: OrmOptions): Promise<any> {
 		let error: any
 		let result: any
 		if (query.includes && query.includes.length > 0) {
-			await this.transaction(stage, view, async function (tr: Transaction) {
+			await this.transaction(options, async function (tr: Transaction) {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, false)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, false)
 			try {
 				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
@@ -43,13 +43,14 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (stage: string, view: string | undefined, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+	public async executeList (options: OrmOptions, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
+
 		let query: Query
 		if (tryAllCan) {
 			for (let i = 0; i < queries.length; i++) {
 				query = queries[i]
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, false)
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
@@ -60,7 +61,7 @@ export class Executor {
 				}
 			}
 		} else {
-			await this.transaction(stage, view, async function (tr: Transaction) {
+			await this.transaction(options, async function (tr: Transaction) {
 				for (let i = 0; i < queries.length; i++) {
 					query = queries[i]
 					const result = await tr.execute(query)
@@ -76,8 +77,8 @@ export class Executor {
  * @param dataSource Database name
  * @param callback Code to be executed in transaction
  */
-	public async transaction (stage: string, view: string | undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, true)
+	public async transaction (options: OrmOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, true)
 		let error: any
 		try {
 			const transaction = new Transaction(this.expressionManager, queryExecutor)

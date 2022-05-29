@@ -1,4 +1,4 @@
-import { Query, Entity } from '../model'
+import { Query, Entity, OrmOptions } from '../model'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
 import { StageState } from './stageState'
 
@@ -7,16 +7,14 @@ export abstract class StageActionDML {
 	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
-	protected stage: string
-	protected view: string
+	protected options: OrmOptions
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage: string, view: string) {
+	constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, options: OrmOptions) {
 		this.state = state
 		this.model = model
 		this.expressionManager = expressionManager
 		this.executor = executor
-		this.stage = stage
-		this.view = view
+		this.options = options
 	}
 
 	public async sentence (): Promise<any> {
