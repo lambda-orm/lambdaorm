@@ -10,7 +10,7 @@ export class QueryAction {
 	}
 
 	public async execute (data: any): Promise<any> {
-		return await this.actions.execute(this.expression, data)
+		return this.actions.execute(this.expression, data)
 	}
 
 	public normalize ():string {
@@ -18,23 +18,23 @@ export class QueryAction {
 	}
 
 	public async model ():Promise<MetadataModel[]> {
-		return await this.actions.model(this.expression)
+		return this.actions.model(this.expression)
 	}
 
 	public async constraints ():Promise<MetadataConstraint> {
-		return await this.actions.constraints(this.expression)
+		return this.actions.constraints(this.expression)
 	}
 
 	public async parameters ():Promise<MetadataParameter[]> {
-		return await this.actions.parameters(this.expression)
+		return this.actions.parameters(this.expression)
 	}
 
 	public async sentence ():Promise<MetadataSentence> {
-		return await this.actions.sentence(this.expression)
+		return this.actions.sentence(this.expression)
 	}
 
 	public async metadata ():Promise<Metadata> {
-		return await this.actions.metadata(this.expression)
+		return this.actions.metadata(this.expression)
 	}
 }
 
@@ -56,37 +56,6 @@ export class Map2Clauses<T> extends QueryAction {
 		return new PageClauses(this.actions, `${this.expression}.sort(${predicate.toString()})`)
 	}
 }
-// class ModifyFilterClauses<T> extends QueryAction {
-// /**  */
-// include (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
-// return new QueryAction(this.actions, `${this.expression}.include(${predicate.toString()})`)
-// }
-// }
-// class ModifyIncludeClauses<T> extends QueryAction {
-// /**  */
-// filter (predicate: (value: T, index: number, array: T[]) => unknown): ModifyFilterClauses<T> {
-// return new ModifyFilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
-// }
-// }
-// export class ModifyClauses<T> extends QueryAction {
-// /**  */
-// filter (predicate: (value: T, index: number, array: T[]) => unknown): ModifyFilterClauses<T> {
-// return new ModifyFilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
-// }
-
-// /**  */
-// include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
-// return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
-// }
-// }
-
-// export class ModifyAllClauses<T> extends QueryAction {
-// /**  */
-// include (predicate: (value: T, index: number, array: T[]) => unknown): ModifyIncludeClauses<T> {
-// return new ModifyIncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
-// }
-// }
-
 export class HavingClauses<T> extends MapClauses<T> {
 	/**  */
 	map<U> (predicate: (value: T, index: number, array: T[]) => U): MapClauses<U> {

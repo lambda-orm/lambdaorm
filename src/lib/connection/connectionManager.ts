@@ -48,7 +48,7 @@ export class ConnectionManager {
 		const pool = this.pools[name] as ConnectionPool
 		if (!pool) { throw new ConnectionError(`connection ${name} not found`) }
 
-		return await this.pool(name).acquire()
+		return this.pool(name).acquire()
 	}
 
 	public async release (connection:Connection):Promise<void> {

@@ -1,5 +1,5 @@
 
-import { Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, PropertyMapping } from '../model'
+import { Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
 import { SchemaManager, Helper, Languages, Dialect } from '.'
@@ -64,7 +64,7 @@ export class QueryExecutor {
 			await this._execute(query, _data)
 			return _data
 		} else {
-			return await this._execute(query, _data)
+			return this._execute(query, _data)
 		}
 	}
 
@@ -105,7 +105,8 @@ export class QueryExecutor {
 
 	private async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, dialect, query, data)
-		const chunkSize = 999 // 7000
+		const idsChunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeIdsOnSelect, this.options.chunkSize) : connection.maxChunkSizeIdsOnSelect
+		const chunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeOnSelect, this.options.chunkSize) : connection.maxChunkSizeOnSelect
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		if (mainResult.length > 0) {
@@ -121,10 +122,10 @@ export class QueryExecutor {
 					const keyId = '__' + include.relation.from
 
 					if (!chunksByKey[keyId]) {
-						if (mainResult.length > chunkSize) {
+						if (mainResult.length > idsChunkSize) {
 							const promises: any[] = []
-							for (let i = 0; i < mainResult.length; i += chunkSize) {
-								const chunk = mainResult.slice(i, i + chunkSize)
+							for (let i = 0; i < mainResult.length; i += idsChunkSize) {
+								const chunk = mainResult.slice(i, i + idsChunkSize)
 								promises.push(this.selectChunkResult(chunk, keyId))
 							}
 							chunks = await Promise.all(promises)
@@ -137,13 +138,13 @@ export class QueryExecutor {
 
 					if (chunks.length === 1) {
 						if (chunks[0].ids !== undefined && chunks[0].ids.length > 0) {
-							await this.selectChild(include, data, chunks[0].ids, chunks[0].result)
+							await this.selectChild(include, data, chunks[0].ids, chunks[0].result, chunkSize)
 						}
 					} else {
 						const promises: any[] = []
-						for (let i = 0; i < chunks.length; i++) {
-							if (chunks[i].ids !== undefined && chunks[i].ids.length > 0) {
-								promises.push(this.selectChild(include, data, chunks[i].ids, chunks[i].result))
+						for (const chunk of chunks) {
+							if (chunk.ids !== undefined && chunk.ids.length > 0) {
+								promises.push(this.selectChild(include, data, chunk.ids, chunk.result, chunkSize))
 							}
 						}
 						await Promise.all(promises)
@@ -153,15 +154,12 @@ export class QueryExecutor {
 			// clear temporal fields used for include relations
 			for (const p in query.includes) {
 				const include = query.includes[p]
-				// if (!include.relation.composite || !dialect.solveComposite) {
 				const keyId = '__' + include.relation.from
-				for (let i = 0; i < mainResult.length; i++) {
-					const element = mainResult[i]
+				for (const element of mainResult) {
 					const item = element[include.name]
 					delete element[keyId]
 					if (include.relation.type === RelationType.manyToOne) {
-						for (let j = 0; j < item.length; j++) {
-							const child = item[j]
+						for (const child of item) {
 							if (child.LambdaOrmParentId) {
 								delete child.LambdaOrmParentId
 							}
@@ -170,7 +168,6 @@ export class QueryExecutor {
 						delete item.LambdaOrmParentId
 					}
 				}
-				// }
 			}
 		}
 		return mainResult
@@ -178,12 +175,12 @@ export class QueryExecutor {
 
 	private selectChunkResult (result: any[], keyId: string): any {
 		const ids: any[] = []
-		for (let i = 0; i < result.length; i++) {
-			const id = result[i][keyId]
+		for (const item of result) {
+			const id = item[keyId]
 			// Replace for performance
 			let exists = false
-			for (let j = 0; j < ids.length; j++) {
-				if (ids[j] === id) {
+			for (const _id of ids) {
+				if (_id === id) {
 					exists = true
 					break
 				}
@@ -197,12 +194,12 @@ export class QueryExecutor {
 
 	private selectChunkIds (result: any[], keyId: string): any[] {
 		const ids: any[] = []
-		for (let i = 0; i < result.length; i++) {
-			const id = result[i][keyId]
+		for (const item of result) {
+			const id = item[keyId]
 			// Replace for performance
 			let exists = false
-			for (let j = 0; j < ids.length; j++) {
-				if (ids[j] === id) {
+			for (const _id of ids) {
+				if (_id === id) {
 					exists = true
 					break
 				}
@@ -214,13 +211,12 @@ export class QueryExecutor {
 		return ids
 	}
 
-	private async selectChild (include: Include, _data: Data, ids: any[], mainResult: any): Promise<any> {
+	private async selectChild (include: Include, _data: Data, ids: any[], mainResult: any, chunkSize:number): Promise<any> {
 		const data = _data.clone()
 		data.set('LambdaOrmParentId', ids)
 		const keyId = '__' + include.relation.from
 		const includeResult = await this._execute(include.query, data)
 		if (include.relation.type === RelationType.manyToOne) {
-			const chunkSize = 10000
 			if (includeResult.length > chunkSize) {
 				const promises: any[] = []
 				for (let i = 0; i < includeResult.length; i += chunkSize) {
@@ -232,7 +228,6 @@ export class QueryExecutor {
 				this.selectChildSetManyToOne(mainResult, includeResult, include.name, keyId)
 			}
 		} else {
-			const chunkSize = 10000
 			if (includeResult.length > chunkSize) {
 				const promises: any[] = []
 				for (let i = 0; i < includeResult.length; i += chunkSize) {
@@ -247,30 +242,28 @@ export class QueryExecutor {
 	}
 
 	private selectChildSetManyToOne (mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
-		for (let i = 0; i < mainResult.length; i++) {
-			const element = mainResult[i]
+		for (const element of mainResult) {
 			const relationId = element[keyId]
 			if (element[propertyName] === undefined) {
 				element[propertyName] = []
 			}
-			for (let j = 0; j < includeResult.length; j++) {
-				if (includeResult[j].LambdaOrmParentId === relationId) {
-					element[propertyName].push(includeResult[j])
+			for (const item of includeResult) {
+				if (item.LambdaOrmParentId === relationId) {
+					element[propertyName].push(item)
 				}
 			}
 		}
 	}
 
 	private selectChildSetOneToMany (mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
-		for (let i = 0; i < mainResult.length; i++) {
-			const element = mainResult[i]
+		for (const element of mainResult) {
 			const relationId = element[keyId]
 			if (element[propertyName] === undefined) {
 				element[propertyName] = null
 			}
-			for (let j = 0; j < includeResult.length; j++) {
-				if (includeResult[j].LambdaOrmParentId === relationId) {
-					element[propertyName] = includeResult[j]
+			for (const item of includeResult) {
+				if (item.LambdaOrmParentId === relationId) {
+					element[propertyName] = item
 					break
 				}
 			}
@@ -281,8 +274,7 @@ export class QueryExecutor {
 		// before insert the relationships of the type oneToOne and oneToMany
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
-		for (const p in query.includes) {
-			const include = query.includes[p]
+		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relation = data.get(include.relation.name)
 				if (relation) {
@@ -310,16 +302,14 @@ export class QueryExecutor {
 			data.set(autoIncrement.name, insertId)
 		}
 		// after insert the relationships of the type oneToOne and manyToOne
-		for (const p in query.includes) {
-			const include = query.includes[p]
+		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relation = data.get(include.relation.name)
 				if (relation) {
 					if (include.relation.type === 'manyToOne') {
 						const parentId = data.get(include.relation.from)
 						const childPropertyName = include.relation.to
-						for (let i = 0; i < relation.length; i++) {
-							const child = relation[i]
+						for (const child of relation) {
 							child[childPropertyName] = parentId
 							const childData = new Data(child, data)
 							await this._execute(include.query, childData)
@@ -335,16 +325,14 @@ export class QueryExecutor {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation not nullable
-		for (const p in query.includes) {
-			const include = query.includes[p]
+		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
-				const relationProperty = entity.properties.find(p => p.name === include.relation.from) as PropertyMapping
+				const relationProperty = entity.properties.find(q => q.name === include.relation.from)
 
 				if (include.relation.type === RelationType.oneToMany) {
 					const allChildren: any[] = []
 					const items: any[] = []
-					for (let i = 0; i < data.data.length; i++) {
-						const item = data.data[i]
+					for (const item of data.data) {
 						const child = item[include.relation.name]
 						if (child) {
 							allChildren.push(child)
@@ -359,11 +347,10 @@ export class QueryExecutor {
 							item[include.relation.from] = allChildrenId[i]
 						}
 					}
-				} else if (include.relation.type === RelationType.oneToOne && !relationProperty.nullable) {
+				} else if (include.relation.type === RelationType.oneToOne && relationProperty && !relationProperty.nullable) {
 					const allChildren: any[] = []
 					const items: any[] = []
-					for (let i = 0; i < data.data.length; i++) {
-						const item = data.data[i]
+					for (const item of data.data) {
 						const child = item[include.relation.name]
 						if (child) {
 							allChildren.push(child)
@@ -385,7 +372,7 @@ export class QueryExecutor {
 		}
 
 		// insert data
-		const chunkSize = 100000
+		const chunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeOnBulkInsert, this.options.chunkSize) : connection.maxChunkSizeOnBulkInsert
 		let ids: any[] = []
 		for (let i = 0; i < data.data.length; i += chunkSize) {
 			const chunk = data.data.slice(i, i + chunkSize)
@@ -406,13 +393,11 @@ export class QueryExecutor {
 				const relationProperty = mapping.getProperty(query.entity, include.relation.from)
 				if (include.relation.type === RelationType.manyToOne) {
 					const allChildren: any[] = []
-					for (let i = 0; i < data.data.length; i++) {
-						const item = data.data[i]
+					for (const item of data.data) {
 						const parentId = item[include.relation.from]
 						const children = item[include.relation.name]
 						if (children) {
-							for (let j = 0; j < children.length; j++) {
-								const child = children[j]
+							for (const child of children) {
 								child[include.relation.to] = parentId
 								allChildren.push(child)
 							}
@@ -423,8 +408,7 @@ export class QueryExecutor {
 				} else if (include.relation.type === RelationType.oneToOne && !!relationProperty.nullable) {
 					const allChildren: any[] = []
 					const items: any[] = []
-					for (let i = 0; i < data.data.length; i++) {
-						const item = data.data[i]
+					for (const item of data.data) {
 						const parentId = item[include.relation.from]
 						const child = item[include.relation.name]
 						if (!parentId) {
@@ -463,13 +447,13 @@ export class QueryExecutor {
 		}
 		// evaluate constraints
 		this.constraints(query, chunk)
-		return await connection.bulkInsert(mapping, dialect, query, chunk)
+		return connection.bulkInsert(mapping, dialect, query, chunk)
 	}
 
 	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
-		const entity = mapping.getEntity(query.entity) as EntityMapping
+		const entity = mapping.getEntity(query.entity)
 		// solve default properties
-		if (entity.hadWriteValues) {
+		if (entity && entity.hadWriteValues) {
 			this.solveWriteValues(query, data.data)
 		}
 		// evaluate constraints
@@ -482,8 +466,7 @@ export class QueryExecutor {
 				const children = data.get(include.relation.name)
 				if (children) {
 					if (include.relation.type === RelationType.manyToOne) {
-						for (let i = 0; i < children.length; i++) {
-							const child = children[i]
+						for (const child of children) {
 							const childData = new Data(child, data)
 							await this._execute(include.query, childData)
 						}
@@ -505,8 +488,7 @@ export class QueryExecutor {
 				const relation = data.get(include.relation.name)
 				if (relation) {
 					if (include.relation.type === 'manyToOne') {
-						for (let i = 0; i < relation.length; i++) {
-							const child = relation[i]
+						for (const child of relation) {
 							const childData = new Data(child, data)
 							await this._execute(include.query, childData)
 						}
@@ -518,8 +500,7 @@ export class QueryExecutor {
 			}
 		}
 		// remove main entity
-		const changeCount = await connection.delete(mapping, dialect, query, data)
-		return changeCount
+		return connection.delete(mapping, dialect, query, data)
 	}
 
 	/**
@@ -531,18 +512,18 @@ export class QueryExecutor {
 	private solveDefaults(query: Query, data: any): void
 	private solveDefaults (query: Query, data: any | any[]): void {
 		if (Array.isArray(data)) {
-			for (const i in query.defaults) {
-				const defaultBehavior = query.defaults[i]
-				for (let i = 0; i < data.length; i++) {
-					const value = data[i][defaultBehavior.property]
+			for (const p in query.defaults) {
+				const defaultBehavior = query.defaults[p]
+				for (const item of data) {
+					const value = item[defaultBehavior.property]
 					if (value === undefined) {
-						data[i][defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data[i])
+						item[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, item)
 					}
 				}
 			}
 		} else {
-			for (const i in query.defaults) {
-				const defaultBehavior = query.defaults[i]
+			for (const p in query.defaults) {
+				const defaultBehavior = query.defaults[p]
 				const value = data[defaultBehavior.property]
 				if (value === undefined) {
 					data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
@@ -555,15 +536,15 @@ export class QueryExecutor {
 	private solveWriteValues(query: Query, data: any): void
 	private solveWriteValues (query: Query, data: any | any[]): void {
 		if (Array.isArray(data)) {
-			for (const i in query.values) {
-				const valueBehavior = query.values[i]
-				for (let i = 0; i < data.length; i++) {
-					data[i][valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data[i])
+			for (const p in query.values) {
+				const valueBehavior = query.values[p]
+				for (const item of data) {
+					item[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, item)
 				}
 			}
 		} else {
-			for (const i in query.values) {
-				const valueBehavior = query.values[i]
+			for (const p in query.values) {
+				const valueBehavior = query.values[p]
 				data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
 			}
 		}
@@ -573,17 +554,16 @@ export class QueryExecutor {
 	private constraints(query: Query, data: any): void
 	private constraints (query: Query, data: any | any[]): void {
 		if (Array.isArray(data)) {
-			for (const i in query.constraints) {
-				const constraint = query.constraints[i]
-				for (let i = 0; i < data.length; i++) {
-					if (!this.expressions.eval(constraint.condition, data[i])) {
-						throw new ValidationError(query.dataSource, query.entity, JSON.stringify(query.sentence), constraint.message, data[i])
+			for (const p in query.constraints) {
+				const constraint = query.constraints[p]
+				for (const item of data) {
+					if (!this.expressions.eval(constraint.condition, item)) {
+						throw new ValidationError(query.dataSource, query.entity, JSON.stringify(query.sentence), constraint.message, item)
 					}
 				}
 			}
 		} else {
-			for (const i in query.constraints) {
-				const constraint = query.constraints[i]
+			for (const constraint of query.constraints) {
 				if (!this.expressions.eval(constraint.condition, data)) {
 					throw new ValidationError(query.dataSource, query.entity, JSON.stringify(query.sentence), constraint.message, data)
 				}
@@ -592,21 +572,21 @@ export class QueryExecutor {
 	}
 
 	private solveReadValues (query: Query, data: any[]): void {
-		for (const i in query.values) {
-			const valueBehavior = query.values[i]
+		for (const p in query.values) {
+			const valueBehavior = query.values[p]
 			if (valueBehavior.alias === valueBehavior.property) {
 				// Example Users.map(p=> [p.email]) or Users.map(p=> {email:p.email})
-				for (let i = 0; i < data.length; i++) {
-					data[i][valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, data[i])
+				for (const item of data) {
+					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, item)
 				}
 			} else if (valueBehavior.alias) {
 				// Example Users.map(p=> {mail:p.email})
 				// since the expression contains the name of the property and not the alias
 				// the property must be added with the alias value.
-				for (let i = 0; i < data.length; i++) {
-					const context = Helper.clone(data[i])
-					context[valueBehavior.property] = data[i][valueBehavior.alias]
-					data[i][valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
+				for (const item of data) {
+					const context = Helper.clone(item)
+					context[valueBehavior.property] = item[valueBehavior.alias]
+					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
 				}
 			}
 		}

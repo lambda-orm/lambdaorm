@@ -105,8 +105,8 @@ export class ExpressionManager {
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
 			if (!sentenceInclude.relation.composite || !dialect.solveComposite) {
-				const query = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
-				const include = new Include(sentenceInclude.name, query, sentenceInclude.relation)
+				const queryInclude = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
+				const include = new Include(sentenceInclude.name, queryInclude, sentenceInclude.relation)
 				includes.push(include)
 			}
 		}

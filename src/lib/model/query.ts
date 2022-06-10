@@ -1,6 +1,5 @@
 import { Property, Parameter, Relation, Behavior, Constraint } from './index'
 
-// export class Query extends Operand {
 export class Query {
 	public name: string
 	// eslint-disable-next-line no-use-before-define
@@ -27,9 +26,6 @@ export class Query {
 		this.defaults = defaults
 		this.includes = []
 	}
-	// public getCompositeIncludes(): Include[] {
-	// return this.includes.filter(p => p.relation.composite)
-	// }
 }
 export class Include {
 	public name: string

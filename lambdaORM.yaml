@@ -430,31 +430,31 @@ dataSources:
   - name: Source
     mapping: default
     dialect: MySQL
-    connection: $$ORM_CNN_SOURCE
+    connection: ${ORM_CNN_SOURCE}
   - name: MySQL
     mapping: default
     dialect: MySQL
-    connection: $$ORM_CNN_MYSQL
+    connection: ${ORM_CNN_MYSQL}
   - name: MariaDB
     mapping: default
     dialect: MariaDB
-    connection: $$ORM_CNN_MARIADB
+    connection: ${ORM_CNN_MARIADB}
   - name: PostgreSQL
     mapping: default
     dialect: PostgreSQL
-    connection: $$ORM_CNN_POSTGRES
+    connection: ${ORM_CNN_POSTGRES}
   - name: SqlServer
     mapping: default
     dialect: SqlServer
-    connection: $$ORM_CNN_MSSQL
+    connection: ${ORM_CNN_MSSQL}
   - name: Oracle
     mapping: Oracle
     dialect: Oracle
-    connection: $$ORM_CNN_ORACLE
+    connection: ${ORM_CNN_ORACLE}
   - name: MongoDB
     mapping: MongoDB
     dialect: MongoDB
-    connection: $$ORM_CNN_MONGODB
+    connection: ${ORM_CNN_MONGODB}
 stages:
   - name: Source
     dataSources:

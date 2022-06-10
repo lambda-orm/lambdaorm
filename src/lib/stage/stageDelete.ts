@@ -1,4 +1,4 @@
-import { Query, Entity, Relation, SchemaError } from '../model'
+import { Query, Entity, SchemaError } from '../model'
 import { StageActionDML } from './stageActionDML'
 
 export class StageDelete extends StageActionDML {
@@ -14,8 +14,8 @@ export class StageDelete extends StageActionDML {
 		const _entities = entities.map(p => p.name).filter(onlyUnique)
 		const sortedEntities = this.model.sortByRelations(_entities, _entities).reverse()
 		const result:Entity[] = []
-		for (let i = 0; i < sortedEntities.length; i++) {
-			const entity = entities.find(p => p.name === sortedEntities[i])
+		for (const sortedEntity of sortedEntities) {
+			const entity = entities.find(p => p.name === sortedEntity)
 			if (entity !== undefined) {
 				result.push(entity)
 			}
@@ -26,8 +26,8 @@ export class StageDelete extends StageActionDML {
 	protected build (): Query[] {
 		const entities = this.sort(this.model.entities)
 		const queries = this.createUpdateQueries(entities)
-		for (const i in entities) {
-			const query = this.createQuery(entities[i])
+		for (const entity of entities) {
+			const query = this.createQuery(entity)
 			queries.push(query)
 		}
 		return queries
@@ -35,11 +35,9 @@ export class StageDelete extends StageActionDML {
 
 	protected createUpdateQueries (entities: Entity[]): Query[] {
 		const queries:Query[] = []
-		for (const i in entities) {
-			const entity = entities[i]
+		for (const entity of entities) {
 			if (entity.relations && !entity.view) {
-				for (const q in entity.relations) {
-					const relation = entity.relations[q] as Relation
+				for (const relation of entity.relations) {
 					const fromProperty = entity.properties.find(p => p.name === relation.from)
 					if (fromProperty === undefined) {
 						throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)

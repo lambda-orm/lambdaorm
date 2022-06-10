@@ -5,12 +5,12 @@ data:
 test:
   - name: groupBy 1
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
-          sentence: 'SELECT MAX(p.UnitPrice) AS `maxPrice` FROM Products p  '
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
@@ -62,17 +62,17 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - maxPrice: 263.5
   - name: groupBy 2
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
-          sentence: 'SELECT MIN(p.UnitPrice) AS `minPrice` FROM Products p  '
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
@@ -124,17 +124,17 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - minPrice: 2.5
   - name: groupBy 3
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
-          sentence: 'SELECT SUM(p.UnitPrice) AS `total` FROM Products p  '
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
@@ -186,17 +186,17 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - total: 2222.71
   - name: groupBy 4
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
-          sentence: 'SELECT AVG(p.UnitPrice) AS `average` FROM Products p  '
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
@@ -248,17 +248,17 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
-      - average: 28.86636364
+      - average: 28.86636363636363
   - name: groupBy 5
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
-          sentence: 'SELECT COUNT(1) AS `count` FROM Products p  '
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{count:count(1)})
@@ -307,19 +307,19 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - count: 77
   - name: groupBy 6
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
+          dialect: Oracle
+          dataSource: Oracle
           sentence: >-
-            SELECT p.CategoryID AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p  GROUP BY p.CategoryID 
+            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
           children: []
     errors: 0
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
@@ -397,34 +397,34 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
+      - category: 6
+        largestPrice: 123.79
       - category: 1
         largestPrice: 263.5
+      - category: 7
+        largestPrice: 53
       - category: 2
         largestPrice: 43.9
-      - category: 3
-        largestPrice: 81
+      - category: 8
+        largestPrice: 62.5
       - category: 4
         largestPrice: 55
       - category: 5
         largestPrice: 38
-      - category: 6
-        largestPrice: 123.79
-      - category: 7
-        largestPrice: 53
-      - category: 8
-        largestPrice: 62.5
+      - category: 3
+        largestPrice: 81
   - name: groupBy 7
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
+          dialect: Oracle
+          dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
             c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
           children: []
     errors: 0
@@ -525,35 +525,36 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Condiments
-        largestPrice: 43.9
       - category: Confections
         largestPrice: 81
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Grains/Cereals
-        largestPrice: 38
-      - category: Meat/Poultry
-        largestPrice: 123.79
       - category: Produce
         largestPrice: 53
       - category: Seafood
         largestPrice: 62.5
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Grains/Cereals
+        largestPrice: 38
+      - category: Condiments
+        largestPrice: 43.9
+      - category: Meat/Poultry
+        largestPrice: 123.79
+      - category: Dairy Products
+        largestPrice: 55
   - name: groupBy 8
     data: a
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
+          dialect: Oracle
+          dataSource: Oracle
           sentence: >-
-            SELECT p.ProductName AS `name`, p.UnitPrice AS `source`,
-            ABS(p.UnitPrice) AS `result` FROM Products p  WHERE p.ProductID = ? 
+            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
+            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
+            :id 
           children: []
     errors: 0
     expression: >-
@@ -661,21 +662,21 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - name: Chai
         source: 18
         result: 18
   - name: groupBy 9
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Products
-          dialect: MySQL
-          dataSource: MySQL
+          dialect: Oracle
+          dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS `category`, MAX(p.UnitPrice) AS
-            `largestPrice` FROM Products p INNER JOIN Categories c ON
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
             c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
             MAX(p.UnitPrice) > 100 
           children: []
@@ -802,7 +803,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -810,14 +811,14 @@ test:
         largestPrice: 123.79
   - name: query 10
     sentences:
-      - stage: MySQL
+      - stage: Oracle
         sentence:
           entity: Orders.details
-          dialect: MySQL
-          dataSource: MySQL
+          dialect: Oracle
+          dataSource: Oracle
           sentence: >-
-            SELECT o.OrderID AS `orderId`, SUM((((o.UnitPrice * o.Quantity) * (1
-            - (o.Discount / 100))) * 100)) AS `subTotal` FROM `Order Details` o 
+            SELECT o.OrderID AS "orderId", SUM((((o.UnitPrice * o.Quantity) * (1
+            - (o.Discount / 100))) * 100)) AS "subTotal" FROM "Order Details" o 
             GROUP BY o.OrderID ORDER BY o.OrderID asc 
           children: []
     errors: 0
@@ -959,7 +960,7 @@ test:
       entity: Orders.details
       constraints: []
     executions:
-      - stage: MySQL
+      - stage: Oracle
     result:
       - orderId: 1
         subTotal: 44000

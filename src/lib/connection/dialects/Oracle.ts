@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Query, Data, ExecutionError, MethodNotImplemented } from '../../model'
+import { SchemaError, Query, Data, ExecutionError } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
@@ -32,7 +33,7 @@ export class OracleConnectionPool extends ConnectionPool {
 		if (!OracleConnectionPool.lib) {
 			await this.init()
 		}
-		return await OracleConnectionPool.lib.createPool(this.config.connection)
+		return OracleConnectionPool.lib.createPool(this.config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -52,7 +53,12 @@ export class OracleConnectionPool extends ConnectionPool {
 	}
 }
 export class OracleConnection extends Connection {
-	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	constructor (cnx: any, pool: any) {
+		super(cnx, pool)
+		this.maxChunkSizeIdsOnSelect = 999
+	}
+
+	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, query, data)
 		const list: any[] = []
 		for (const i in result.rows) {
@@ -67,7 +73,7 @@ export class OracleConnection extends Connection {
 		return list
 	}
 
-	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
 		try {
 			const result = await this._execute(mapping, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -100,7 +106,7 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
@@ -109,11 +115,16 @@ export class OracleConnection extends Connection {
 		try {
 			const bindDefs: any = {}
 			if (fieldId && fieldIdKey) {
-				bindDefs[fieldIdKey] = { dir: 3003, type: this.oracleType(fieldId.type) }
 				// oracledb.BIND_OUT 3003
+				const oracleType = this.oracleType(fieldId.type)
+				if (fieldId.type === 'string') {
+					const property = mapping.getProperty(query.entity, fieldId.name)
+					bindDefs[fieldIdKey] = { dir: 3003, type: oracleType, maxSize: property.length }
+				} else {
+					bindDefs[fieldIdKey] = { dir: 3003, type: oracleType }
+				}
 			}
-			for (let i = 0; i < query.parameters.length; i++) {
-				const param = query.parameters[i]
+			for (const param of query.parameters) {
 				const oracleType = this.oracleType(param.type)
 				switch (param.type) {
 				case 'boolean':
@@ -136,34 +147,13 @@ export class OracleConnection extends Connection {
 				batchErrors: true,
 				bindDefs: bindDefs
 			}
-
-			// for (const p in array) {
-			// const values = array[p]
-			// const row: any = {}
-			// for (let i = 0; i < params.length; i++) {
-			// const param = params[i]
-			// switch (param.type) {
-			// case 'boolean':
-			// row[param.name] = values[i] ? 'Y' : 'N'; break
-			// case 'string':
-			// row[param.name] = typeof values[i] === 'string' || values[i] === null ? values[i] : values[i].toString(); break
-			// case 'datetime':
-			// case 'date':
-			// case 'time':
-			// row[param.name] = values[i] ? new Date(values[i]) : null; break
-			// default:
-			// row[param.name] = values[i]
-			// }
-			// }
-			// binds.push(row)
-			// }
 			const binds: any[] = this.arrayToRows(query, mapping, array)
 			const returning = fieldId && fieldIdKey ? `RETURNING ${fieldId.mapping} INTO :${fieldIdKey} ` : ''
 			sql = `${query.sentence} ${returning}`
 			const result = await this.cnx.executeMany(sql, binds, options)
 
 			if (result.rowsAffected !== binds.length) {
-				throw new ExecutionError(query.dataSource, query.entity, query.sentence as string, `${binds.length - result.rowsAffected} records not imported!`, binds)
+				throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
 			}
 
 			if (fieldId && fieldIdKey) {
@@ -189,13 +179,11 @@ export class OracleConnection extends Connection {
 		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
 
-	protected override arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected override arrayToRows (query: Query, _mapping: MappingConfig, array: any[]): any[] {
 		const rows: any[] = []
-		for (let i = 0; i < array.length; i++) {
-			const item = array[i]
+		for (const item of array) {
 			const row: any = {}
-			for (let j = 0; j < query.parameters.length; j++) {
-				const parameter = query.parameters[j]
+			for (const parameter of query.parameters) {
 				const value = item[parameter.name]
 				switch (parameter.type) {
 				case 'boolean':
@@ -215,36 +203,28 @@ export class OracleConnection extends Connection {
 		return rows
 	}
 
-	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.rowsAffected
 	}
 
-	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('OracleConnection', 'updateMany')
-	}
-
-	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.rowsAffected
-	}
-
-	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('OracleConnection', 'deleteMany')
 	}
 
 	public async execute (query: Query): Promise<any> {
 		const sql = query.sentence
 		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
-		return await this.cnx.execute(sql, {}, options)
+		return this.cnx.execute(sql, {}, options)
 	}
 
 	public async executeDDL (query: Query): Promise<any> {
-		return await this.cnx.execute(query.sentence)
+		return this.cnx.execute(query.sentence)
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
-		return await this.cnx.execute(sentence)
+		return this.cnx.execute(sentence)
 	}
 
 	public async beginTransaction (): Promise<void> {
@@ -263,18 +243,14 @@ export class OracleConnection extends Connection {
 
 	protected async _execute (mapping: MappingConfig, query: Query, data: Data): Promise<any> {
 		const values: any = {}
-		let sql = query.sentence as string
+		let sql = query.sentence
 		const params = this.dataToParameters(query, mapping, data)
 		if (params) {
-			for (let i = 0; i < params.length; i++) {
-				const param = params[i]
+			for (const param of params) {
 				if (param.type === 'array') {
 					if (param.value.length > 0) {
 						const type = typeof param.value[0]
-						switch (type) {
-						case 'string':
-							// eslint-disable-next-line no-case-declarations
-							const values: string[] = []
+						if (type === 'string') {
 							for (const j in param.value) {
 								let value = param.value[j]
 								value = Helper.escape(value)
@@ -282,8 +258,7 @@ export class OracleConnection extends Connection {
 								values.push(`'${value}'`)
 							}
 							Helper.replace(sql, `:${param.name}`, param.value.join(','))
-							break
-						default:
+						} else {
 							sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
 						}
 					} else {
@@ -295,6 +270,6 @@ export class OracleConnection extends Connection {
 			}
 		}
 		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
-		return await this.cnx.execute(sql, values, options)
+		return this.cnx.execute(sql, values, options)
 	}
 }

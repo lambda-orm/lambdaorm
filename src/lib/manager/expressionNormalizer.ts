@@ -303,25 +303,18 @@ export class ExpressionNormalizer {
 	}
 
 	private createClauseFilter (entity: Entity, node: Node): void {
-		if (node.children.length === 1) {
-			// Example: Entity.delete()
-			const condition = this.createFilter(entity, 'p')
-			const arrowVar = new Node('p', 'var', [])
-			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
-		} else if (node.children.length === 2 && node.children[1].type === 'var') {
-			// Example Entity.update(entity) ,Entity.delete(entity)
-			const condition = this.createFilter(entity, 'p', node.children[1].name)
-			const arrowVar = new Node('p', 'var', [])
-			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
-		} else if (node.children.length === 2 && node.children[1].type === 'obj') {
-			// Example Entity.update({unitPrice:unitPrice,productId:productId)
-			const condition = this.createFilter(entity, 'p', node.children[1].name)
-			const arrowVar = new Node('p', 'var', [])
-			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
-		} else if (node.children.length === 3) {
-			// Example: Entity.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
+		if (node.children.length === 1 || node.children.length === 3) {
+			// Example node.children.length === 1: Entity.delete()
+			// Example node.children.length === 3:
+			// Entity.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			// Aplica al update del include, en el caso del ejemplo seria a: p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })
 			const condition = this.createFilter(entity, 'p')
+			const arrowVar = new Node('p', 'var', [])
+			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
+		} else if (node.children.length === 2 && (node.children[1].type === 'var' || node.children[1].type === 'obj')) {
+			// Example Entity.update(entity) ,Entity.delete(entity)
+			// Example Entity.update({unitPrice:unitPrice,productId:productId)
+			const condition = this.createFilter(entity, 'p', node.children[1].name)
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		}
@@ -351,7 +344,7 @@ export class ExpressionNormalizer {
 		return this.completeSelectInclude(entity, arrowVar, node, 'map')
 	}
 
-	private completeSelectInclude (entity: Entity, arrowVar: string, node: Node, clause: string): Node {
+	private completeSelectInclude (entity: Entity, _arrowVar: string, node: Node, clause: string): Node {
 		let map: Node, relation: any
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.map(p=>p))
@@ -386,7 +379,6 @@ export class ExpressionNormalizer {
 		const childFilter = clauses.filter
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const fieldRelation = new Node(arrowFilterVar + '.' + relation.to, 'var') // new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
-		// const varRelation = new Node('list_' + relation.to, 'var')
 		const varRelation = new Node('LambdaOrmParentId', 'var')
 		const filterInclude = new Node('includes', 'funcRef', [fieldRelation, varRelation])
 		if (!childFilter) {
@@ -399,19 +391,6 @@ export class ExpressionNormalizer {
 		const arrowSelect = clauses.map.children[1].name
 		const field = new Node(arrowSelect + '.' + relation.to, 'var')
 		clauses.map.children[2].children.push(new Node('LambdaOrmParentId', 'keyVal', [field]))
-		// clauses.map.children[2].children.push(new Node(fieldName, 'var'))
-		// switch (clauses.map.children[2].type) {
-		// case 'var':
-		// if (clauses.map.children[2].name !== fieldName) {
-		// const nodeToAdd = new Node(fieldName, 'var')
-		// clauses.map.children[2] = new Node('array', 'array', [clauses.map.children[2], nodeToAdd])
-		// }
-		// break
-		// case 'array':
-		// if (!clauses.map.children[2].children.some((p: Node) => p.name === fieldName)) {
-		// clauses.map.children[2].children.push(new Node(fieldName, 'var'))
-		// }
-		// }
 		return map
 	}
 
@@ -441,7 +420,6 @@ export class ExpressionNormalizer {
 					const parts = current.name.split('.')
 					const relationName = parts[1]
 					return entity.relations.find(p => p.name === relationName)
-					break
 				}
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
@@ -456,7 +434,7 @@ export class ExpressionNormalizer {
 		}
 	}
 
-	private completeInclude (entity: Entity, arrowVar: string, node: Node, clause: string): Node {
+	private completeInclude (entity: Entity, _arrowVar: string, node: Node, clause: string): Node {
 		if (node.type === 'arrow') {
 			// resuelve el siguiente caso  .includes(details.insert())
 			const relation = this.getIncludeRelation(entity, node)

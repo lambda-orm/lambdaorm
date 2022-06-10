@@ -6,6 +6,8 @@ import { Cache, Expressions } from 'js-expressions'
 export interface OrmOptions {
 	view?: string
 	stage?: string
+	chunkSize?:number
+	tryAllCan?:boolean
 }
 
 export interface IOrm

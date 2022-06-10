@@ -1,4 +1,3 @@
-import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { Delta } from '../index'
@@ -57,17 +56,6 @@ export class Helper {
 
 	public static nvl (value:any, _default:any):any {
 		return !this.isEmpty(value) ? value : _default
-	}
-
-	public static async exec (command: string, cwd:string = process.cwd()):Promise<any> {
-		return new Promise<string>((resolve, reject) => {
-			exec(command, { cwd: cwd }, (error: any, stdout: any, stderr: any) => {
-				if (stdout) return resolve(stdout)
-				if (stderr) return resolve(stderr)
-				if (error) return reject(error)
-				return resolve('')
-			})
-		})
 	}
 
 	public static async existsPath (fullPath:string):Promise<boolean> {
@@ -144,42 +132,35 @@ export class Helper {
 	}
 
 	public static getEnvironmentVariable (text:string):string|undefined {
-		const environmentName:string[] = []
-		const index = text.indexOf('$$')
-		if (index < 0) {
+		const startIndex = text.indexOf('${')
+		if (startIndex < 0) {
 			return undefined
 		}
-		const alphanumeric = /[a-zA-Z0-9_]+$/
-		const buffer = text.substring(index + 2).split('')
-		for (let i = 0; i < buffer.length; i++) {
-			const char = buffer[i]
-			if (alphanumeric.test(char)) {
-				environmentName.push(char)
-			} else {
-				break
-			}
+		const endIndex = text.indexOf('}', startIndex + 2)
+		if (endIndex < 0) {
+			throw new Error(`Environment variable not found end character "?" in ${text}`)
 		}
-		return environmentName.join('')
+		return text.substring(startIndex + 2, endIndex)
 	}
 
 	public static solveEnvironmentVariables (source:any): void {
 		if (typeof source === 'object') {
 			for (const name in source) {
 				let child = source[name]
-				if (typeof child === 'string' && child.indexOf('$$') >= 0) {
+				if (typeof child === 'string' && child.indexOf('${') >= 0) {
 					// there can be more than one environment variable in text
-					while (child.indexOf('$$') >= 0) {
+					while (child.indexOf('${') >= 0) {
 						const environmentVariable = Helper.getEnvironmentVariable(child)
 						if (environmentVariable) {
 							const environmentVariableValue = process.env[environmentVariable]
 							if (environmentVariableValue === undefined || environmentVariableValue === null) {
-								child = Helper.replace(child, '$$' + environmentVariable, '')
+								child = Helper.replace(child, '${' + environmentVariable + '}', '')
 							} else {
 								const objValue = Helper.tryParse(environmentVariableValue)
 								if (objValue) {
-									child = Helper.replace(child, '$$' + environmentVariable, JSON.stringify(objValue))
+									child = Helper.replace(child, '${' + environmentVariable + '}', JSON.stringify(objValue))
 								} else {
-									child = Helper.replace(child, '$$' + environmentVariable, environmentVariableValue)
+									child = Helper.replace(child, '${' + environmentVariable + '}', environmentVariableValue)
 								}
 							}
 						}
@@ -237,9 +218,6 @@ export class Helper {
 					} else {
 						delta.unchanged.push({ name: name, value: oldValue })
 					}
-					// const objectDelta = Helper.deltaWithSimpleArrays(currentValue,oldValue)
-					// const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0
-					// delta.children.push({name:name,type:'object',change:change,delta:objectDelta})
 				} else if (oldValue !== currentValue) {
 					delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: null })
 				} else {

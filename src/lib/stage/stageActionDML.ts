@@ -20,8 +20,7 @@ export abstract class StageActionDML {
 	public async sentence (): Promise<any> {
 		const sentences: any[] = []
 		const queries = this.queries()
-		for (let i = 0; i < queries.length; i++) {
-			const query = queries[i]
+		for (const query of queries) {
 			sentences.push(query.sentence)
 		}
 		return sentences
@@ -65,7 +64,7 @@ export abstract class StageActionDML {
 			const query = queries[p]
 			entities.push(query.entity)
 			if (query.includes && query.includes.length > 0) {
-				const include = query.includes.map(p => p.query)
+				const include = query.includes.map(q => q.query)
 				const childrenEntities = this.getAllEntities(include)
 				for (const i in childrenEntities) {
 					entities.push(childrenEntities[i])

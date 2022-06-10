@@ -45,51 +45,36 @@ export class StageFacade {
 
 	public async exists (name:string) {
 		const file = this.state.getFile(name)
-		return await Helper.existsPath(file)
+		return Helper.existsPath(file)
 	}
 
 	public sync (options?:OrmOptions):StageSync {
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return new StageSync(this.state, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
 	public clean (options?:OrmOptions):StageClean {
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return new StageClean(this.state, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
 	public truncate (options?:OrmOptions):StageClean {
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return new StageTruncate(this.state, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
 	public delete (options?:OrmOptions):StageDelete {
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return new StageDelete(this.state, this.schemaManager.model, this.expressionManager, this.executor, _options)
 	}
 
 	public export (options?:OrmOptions):StageExport {
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return new StageExport(this.state, this.schemaManager.model, this.expressionManager, this.executor, _options)
 	}
 
 	public import (options?:OrmOptions):StageImport {
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return new StageImport(this.state, this.schemaManager.model, this.expressionManager, this.executor, _options)
-	}
-
-	private solveOptions (options?: OrmOptions):OrmOptions {
-		if (!options) {
-			options = {}
-		}
-		if (!options.stage) {
-			const _stage = this.schemaManager.stage.get()
-			options.stage = _stage.name
-		}
-		if (!options.view) {
-			const _view = this.schemaManager.view.get()
-			options.view = _view.name
-		}
-		return options
 	}
 }

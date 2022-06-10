@@ -2,37 +2,23 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Query, Data, MethodNotImplemented } from '../../model'
+import { Query, Data } from '../../model'
 import { MappingConfig, Dialect } from '../../manager'
 
 const DECIMAL = 0
 const TINY = 1
-// const SHORT = 2
 const LONG = 3
 const FLOAT = 4
 const DOUBLE = 5
-// const NULL = 6
 const TIMESTAMP = 7
 const LONGLONG = 8
 const INT24 = 9
 const DATE = 10
 const TIME = 11
 const DATETIME = 12
-// const YEAR = 13
 const NEWDATE = 14
-// const VARCHAR = 15
 const BIT = 16
-// const JSON = 245
 const NEWDECIMAL = 246
-// const ENUM = 247
-// const SET = 248
-// const TINY_BLOB = 249
-// const MEDIUM_BLOB = 250
-// const LONG_BLOB = 251
-// const BLOB = 252
-// const VAR_STRING = 253
-// const STRING = 254
-// const GEOMETRY = 255
 
 export class MySQLConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -59,32 +45,15 @@ export class MySQLConnectionPool extends ConnectionPool {
 		this.pool = MySQLConnectionPool.lib.createPool({ ...this.config.connection, ...casts })
 	}
 
-	// private async getConnection (): Promise<void> {
-	// // eslint-disable-next-line @typescript-eslint/no-this-alias
-	// const me = this
-	// return new Promise<void>((resolve, reject) => {
-	// me.pool.getConnection(function (err:any, cnn:any) {
-	// if (err) {
-	// reject(err)
-	// }
-	// resolve(cnn)
-	// })
-	// })
-	// }
-
 	public async acquire (): Promise<Connection> {
 		if (this.pool === undefined) {
 			await this.init()
 		}
 		const cnx = await this.pool.getConnection()
-		// const cnx = await this.getConnection()
 		return new MySqlConnection(cnx, this)
 	}
 
 	public async release (connection: Connection): Promise<void> {
-		// if (this.pool !== undefined) {
-		// this.pool.releaseConnection(connection.cnx)
-		// }
 		await connection.cnx.release()
 	}
 
@@ -96,17 +65,17 @@ export class MySQLConnectionPool extends ConnectionPool {
 }
 
 export class MySqlConnection extends Connection {
-	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
-		return await this._execute(mapping, query, data)
+	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
+		return this._execute(mapping, query, data)
 	}
 
-	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, query, data)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []
@@ -126,34 +95,26 @@ export class MySqlConnection extends Connection {
 		}
 	}
 
-	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.affectedRows
 	}
 
-	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('MySqlConnection', 'updateMany')
-	}
-
-	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result.affectedRows
-	}
-
-	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('MySqlConnection', 'deleteMany')
 	}
 
 	public async execute (query: Query): Promise<any> {
-		return await this.cnx.query(query.sentence)
+		return this.cnx.query(query.sentence)
 	}
 
 	public async executeDDL (query: Query): Promise<any> {
-		return await this.cnx.query(query.sentence)
+		return this.cnx.query(query.sentence)
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
-		return await this.cnx.query(sentence)
+		return this.cnx.query(sentence)
 	}
 
 	public async beginTransaction (): Promise<void> {
@@ -181,10 +142,15 @@ export class MySqlConnection extends Connection {
 		// por este motivo se esta usando query en este caso.
 		// TODO: ver como se puede resolver este caso para usar execute siempre.
 		const params = this.dataToParameters(query, mapping, data)
-		for (let i = 0; i < params.length; i++) {
-			if (params[i].type === 'array') { useExecute = false }
+		for (const param of params) {
+			if (param.type === 'array') {
+				useExecute = false
+				break
+			}
 		}
-		for (let i = 0; i < params.length; i++) { values.push(params[i].value) }
+		for (const param of params) {
+			values.push(param.value)
+		}
 
 		if (useExecute) {
 			result = await this.cnx.execute(query.sentence, values)
@@ -194,10 +160,8 @@ export class MySqlConnection extends Connection {
 
 		const rows = result[0]
 		const cols = result[1]
-		for (let i = 0; i < rows.length; i++) {
-			const row = rows[i]
-			for (let j = 0; j < cols.length; j++) {
-				const col = cols[j]
+		for (const row of rows) {
+			for (const col of cols) {
 				const value = row[col.name]
 				if (value !== null) {
 					switch (col.columnType) {
@@ -230,46 +194,5 @@ export class MySqlConnection extends Connection {
 			}
 		}
 		return rows
-
-		// const TINY = 1
-		// const SHORT = 2
-		// const NULL = 6
-		// const YEAR = 13
-		// const VARCHAR = 15
-		// const JSON = 245
-		// const ENUM = 247
-		// const SET = 248
-		// const TINY_BLOB = 249
-		// const MEDIUM_BLOB = 250
-		// const LONG_BLOB = 251
-		// const BLOB = 252
-		// const VAR_STRING = 253
-		// const STRING = 254
-		// const GEOMETRY = 255
-
-		// for(let i=0;i<params.length;i++){
-		//     let param = params[i];
-		//     if(param.type=='array')
-		//         if(param.value.length>0)
-		//             if(typeof param.value[0] == 'string')
-		//                 useExecute=false;
-		// }
-		// for(let i=0;i<params.length;i++){
-		//     let param = params[i];
-		//     if(param.type=='array')
-		//         if(useExecute)
-		//             values.push(param.value.join(','));
-		//         else
-		//             values.push(param.value);
-		//     else
-		//       values.push(param.value);
-		// }
-		// if(useExecute){
-		//     let result = await this.cnx.execute(sql,values);
-		//     return result[0];
-		// }else{
-		//     let result = await this.cnx.query(sql,values);
-		//     return result[0];
-		// }
 	}
 }

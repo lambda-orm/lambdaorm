@@ -64,6 +64,12 @@ create user northwind identified by northwind;
 GRANT create session,create table,create view,create sequence TO northwind;
 ```
 
+Test
+
+```sh
+sqlplus "northwind/northwind@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=localhost)(Port=1521))(CONNECT_DATA=(SID=ORCLCDB)))"
+```
+
 ### uninstall
 
 ``` sh

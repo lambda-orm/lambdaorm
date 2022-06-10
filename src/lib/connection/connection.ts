@@ -1,5 +1,5 @@
 
-import { Parameter, Query, Data } from '../model'
+import { Parameter, Query, Data, MethodNotImplemented } from '../model'
 import { ConnectionConfig } from './connectionConfig'
 import { MappingConfig, Dialect, Helper } from '../manager'
 
@@ -7,6 +7,10 @@ export abstract class Connection {
 	public cnx: any
 	public pool: any
 	public inTransaction: boolean
+
+	public maxChunkSizeOnSelect: number
+	public maxChunkSizeIdsOnSelect: number
+	public maxChunkSizeOnBulkInsert: number
 
 	protected formatDateTime?: string
 	protected formatDate?: string
@@ -19,6 +23,9 @@ export abstract class Connection {
 		this.formatDateTime = 'yyyy-LL-dd HH:mm:ss'
 		this.formatDate = 'yyyy-LL-dd'
 		this.formatTime = 'HH:mm:ss'
+		this.maxChunkSizeOnSelect = 10000
+		this.maxChunkSizeIdsOnSelect = 7000
+		this.maxChunkSizeOnBulkInsert = 100000
 	}
 
 	public get config (): ConnectionConfig {
@@ -27,11 +34,9 @@ export abstract class Connection {
 
 	protected arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
 		const rows: any[] = []
-		for (let i = 0; i < array.length; i++) {
-			const item = array[i]
+		for (const item of array) {
 			const row: any[] = []
-			for (let j = 0; j < query.parameters.length; j++) {
-				const parameter = query.parameters[j]
+			for (const parameter of query.parameters) {
 				let value = item[parameter.name]
 				if (value) {
 					switch (parameter.type) {
@@ -55,8 +60,7 @@ export abstract class Connection {
 
 	protected dataToParameters (query: Query, mapping: MappingConfig, data: Data): Parameter[] {
 		const parameters: Parameter[] = []
-		for (const p in query.parameters) {
-			const parameter = query.parameters[p]
+		for (const parameter of query.parameters) {
 			let value = data.get(parameter.name)
 			if (value) {
 				switch (parameter.type) {
@@ -70,7 +74,6 @@ export abstract class Connection {
 					value = this.writeTime(value, mapping)
 					break
 				}
-				// if (parameter.type === 'datetime') { value = dialect.solveDateTime(value) } else if (parameter.type === 'date') { value = dialect.solveDate(value) } else if (parameter.type == 'time') { value = dialect.solveTime(value) }
 			} else {
 				value = null
 			}
@@ -98,9 +101,7 @@ export abstract class Connection {
 	public abstract insert(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any>
 	public abstract bulkInsert(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]>
 	public abstract update(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number>
-	public abstract bulkUpdate(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number>
 	public abstract delete(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number>
-	public abstract bulkDelete(mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number>
 	public abstract execute(query: Query): Promise<any>
 	public abstract executeDDL(query: Query): Promise<any>
 	public abstract executeSentence(sentence: any): Promise<any>
@@ -108,71 +109,79 @@ export abstract class Connection {
 	public abstract commit(): Promise<void>
 	public abstract rollback(): Promise<void>
 
-	public async truncateEntity (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async bulkDelete (_mapping: MappingConfig, _dialect: Dialect, _query: Query, _array: any[]): Promise<number> {
+		throw new MethodNotImplemented('Connection', 'deleteMany')
 	}
 
-	public async createEntity (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async bulkUpdate (_mapping: MappingConfig, _dialect: Dialect, _query: Query, _array: any[]): Promise<number> {
+		throw new MethodNotImplemented('Connection', 'updateMany')
 	}
 
-	public async createSequence (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async truncateEntity (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async createFk (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async createEntity (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async createIndex (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async createSequence (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async alterProperty (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async createFk (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async addProperty (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async createIndex (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async addPk (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async alterProperty (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async addUk (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async addProperty (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async addFk (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async addPk (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropSequence (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async addUk (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropEntity (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async addFk (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropProperty (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async dropSequence (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropPk (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async dropEntity (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropUk (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async dropProperty (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropFK (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async dropPk (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 
-	public async dropIndex (mapping: MappingConfig, query: Query): Promise<any> {
-		return await this.executeDDL(query)
+	public async dropUk (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async dropFK (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async dropIndex (_mapping: MappingConfig, query: Query): Promise<any> {
+		return this.executeDDL(query)
 	}
 }

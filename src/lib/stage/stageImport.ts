@@ -9,8 +9,7 @@ export class StageImport extends StageActionDML {
 		const queries = this.sort(_queries)
 
 		await this.executor.transaction(this.options, async (tr) => {
-			for (let i = 0; i < queries.length; i++) {
-				const query = queries[i]
+			for (const query of queries) {
 				const entityData = data.entities.find(p => p.entity === query.entity)
 				if (entityData) {
 					const aux:any = {}
@@ -20,8 +19,7 @@ export class StageImport extends StageActionDML {
 					this.completeMapping(entityData.entity, entityData.rows, aux, state.mappingData)
 				}
 			}
-			for (let i = 0; i < state.pendingData.length; i++) {
-				const pending = state.pendingData[i]
+			for (const pending of state.pendingData) {
 				const entity = this.model.getEntity(pending.entity)
 				if (entity === undefined) {
 					throw new SchemaError(`Entity ${pending.entity} not found`)
@@ -40,8 +38,7 @@ export class StageImport extends StageActionDML {
 				const expression = `${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`
 
 				const stillPending:any[] = []
-				for (let j = 0; j < pending.rows.length; j++) {
-					const row = pending.rows[j]
+				for (const row of pending.rows) {
 					if (state.mappingData[relation.entity] && state.mappingData[relation.entity][relation.to] && state.mappingData[relation.entity][relation.to][row.externalId]) {
 						const values:any = {}
 						const internalId = state.mappingData[relation.entity][relation.to][row.externalId]
@@ -63,35 +60,32 @@ export class StageImport extends StageActionDML {
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
-		for (const p in entity.relations) {
-			const relation = entity.relations[p]
+		for (const relation of entity.relations) {
 			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
 				const relationEntity = this.model.getEntity(relation.entity)
 				if (relationEntity === undefined) {
 					throw new SchemaError(`Relation Entity ${relation.entity} not found`)
 				}
-				const relationProperty = relationEntity.properties.find(p => p.name === relation.to)
+				const relationProperty = relationEntity.properties.find(q => q.name === relation.to)
 				if (relationProperty !== undefined && relationProperty.autoIncrement) {
 					const pendingRows:any[] = []
-					for (let i = 0; i < rows.length; i++) {
-						const row = rows[i]
+					for (const row of rows) {
 						const externalId = row[relation.from]
 						if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
 							row[relation.from] = mappingData[relation.entity][relation.to][externalId]
 						} else if (entity.uniqueKey !== undefined) {
 							const keys: any[] = []
-							for (let j = 0; j < entity.uniqueKey.length; j++) {
-								const ukProperty = entity.uniqueKey[j]
+							for (const ukProperty of entity.uniqueKey) {
 								const value = row[ukProperty]
 								if (value == null) {
 									// TODO: reemplazar por un archivo de salida de inconsistencias
-									console.error(`for entity ${entity.name} and row ${i.toString()} unique ${ukProperty} is null`)
+									console.error(`for entity ${entity.name} unique ${ukProperty} is null`)
 								}
 								keys.push(value)
 							}
 							if (keys.length === 0) {
 								// TODO: reemplazar por un archivo de salida de inconsistencias
-								console.error(`for entity ${entity.name} and row ${i.toString()} had not unique key`)
+								console.error(`for entity ${entity.name} had not unique key`)
 							}
 							pendingRows.push({ keys: keys, externalId: externalId })
 							row[relation.from] = null
@@ -102,8 +96,7 @@ export class StageImport extends StageActionDML {
 					}
 				}
 			} else if (relation.type === 'manyToOne') {
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
+				for (const row of rows) {
 					const children = row[relation.name]
 					if (children && children.length > 1) {
 						this.solveInternalsIds(relation.entity, children, mappingData, pending, entityName)
@@ -122,8 +115,7 @@ export class StageImport extends StageActionDML {
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
-		for (const p in entity.properties) {
-			const property = entity.properties[p]
+		for (const property of entity.properties) {
 			if (property.autoIncrement) {
 				if (aux[entityName][property.name] === undefined) {
 					aux[entityName][property.name] = {}
@@ -136,11 +128,9 @@ export class StageImport extends StageActionDML {
 				}
 			}
 		}
-		for (const p in entity.relations) {
-			const relation = entity.relations[p]
+		for (const relation of entity.relations) {
 			if (relation.type === 'manyToOne' && rows !== undefined) {
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
+				for (const row of rows) {
 					const children = row[relation.name]
 					this.loadExternalIds(relation.entity, children, aux)
 				}
@@ -156,8 +146,7 @@ export class StageImport extends StageActionDML {
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
-		for (const p in entity.properties) {
-			const property = entity.properties[p]
+		for (const property of entity.properties) {
 			if (property.autoIncrement) {
 				if (mappingData[entityName][property.name] === undefined) {
 					mappingData[entityName][property.name] = {}
@@ -171,11 +160,9 @@ export class StageImport extends StageActionDML {
 				}
 			}
 		}
-		for (const p in entity.relations) {
-			const relation = entity.relations[p]
+		for (const relation of entity.relations) {
 			if (relation.type === 'manyToOne' && rows !== undefined) {
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
+				for (const row of rows) {
 					const children = row[relation.name]
 					this.completeMapping(relation.entity, children, aux, mappingData)
 				}
@@ -192,8 +179,8 @@ export class StageImport extends StageActionDML {
 
 		const entities = this.model.sortByRelations(mainEntities, allEntities)
 		const result:Query[] = []
-		for (let i = 0; i < entities.length; i++) {
-			const query = queries.find(p => p.entity === entities[i])
+		for (const entity of entities) {
+			const query = queries.find(p => p.entity === entity)
 			if (query !== undefined) {
 				result.push(query)
 			}

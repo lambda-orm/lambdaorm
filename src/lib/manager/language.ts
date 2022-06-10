@@ -14,9 +14,9 @@ export abstract class Language {
 		this.expressions = expressions
 
 		this.dialects = []
-		for (const name in dialects) {
-			const data = dialects[name]
-			const dialect = new Dialect(name)
+		for (const p in dialects) {
+			const data = dialects[p]
+			const dialect = new Dialect(p)
 			dialect.add(data)
 			this.dialects.push(dialect)
 		}

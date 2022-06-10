@@ -95,7 +95,7 @@ export const expAccountPaymentRespsImport =
 
 export async function createLocal() {
 	// create DDL
-	await orm.stage.clean({stage:locStage}).execute(true)
+	await orm.stage.clean({stage:locStage, tryAllCan: true }).execute()
 	await orm.stage.sync({stage:locStage}).execute()
 }
 

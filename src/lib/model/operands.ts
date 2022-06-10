@@ -70,21 +70,21 @@ export class Sort extends ArrowFunction { }
 export class Page extends ChildFunction { }
 export class Insert extends ArrowFunction {
 	public clause: string
-	constructor (name: string, children: Operand[] = [], clause: string) {
+	constructor (name: string, children: Operand[], clause: string) {
 		super(name, children)
 		this.clause = clause
 	}
 }
 export class Update extends ArrowFunction {
 	public alias: string
-	constructor (name: string, children: Operand[] = [], alias: string) {
+	constructor (name: string, children: Operand[], alias: string) {
 		super(name, children)
 		this.alias = alias
 	}
 }
 export class Delete extends ArrowFunction {
 	public alias: string
-	constructor (name: string, children: Operand[] = [], alias: string) {
+	constructor (name: string, children: Operand[], alias: string) {
 		super(name, children)
 		this.alias = alias
 	}
@@ -155,8 +155,12 @@ export class Sentence extends Operand {
 	}
 
 	private loadVariables (operand: Operand, variables: Variable[]) {
-		if (operand instanceof Variable) { variables.push(operand) }
-		for (let i = 0; i < operand.children.length; i++) { this.loadVariables(operand.children[i], variables) }
+		if (operand instanceof Variable) {
+			variables.push(operand)
+		}
+		for (const child of operand.children) {
+			this.loadVariables(child, variables)
+		}
 	}
 
 	public eval (): any {
@@ -166,7 +170,7 @@ export class Sentence extends Operand {
 export class SentenceInclude extends Operand {
 	public relation: Relation
 	// public variable: string
-	constructor (name: string, children: Operand[] = [], relation: Relation) {
+	constructor (name: string, children: Operand[], relation: Relation) {
 		super(name, children)
 		this.relation = relation
 		// this.variable = variable

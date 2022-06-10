@@ -62,7 +62,7 @@ export class Orm implements IOrm {
 	}
 
 	public get defaultStage ():Stage {
-		return this.schemaManager.stage.get(undefined)
+		return this.schemaManager.stage.get()
 	}
 
 	/**
@@ -223,7 +223,7 @@ export class Orm implements IOrm {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 		return this.expressionManager.sentence(expression, _options)
 	}
 
@@ -235,14 +235,14 @@ export class Orm implements IOrm {
 	 */
 	public async execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>;
 	public async execute(expression: string, data?: any, options?: OrmOptions):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, options: OrmOptions|undefined): Promise<any> {
+	public async execute (expression: string|Function, data: any = {}, options: OrmOptions|undefined = undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const _options = this.solveOptions(options)
+		const _options = this.schemaManager.solveOptions(options)
 
 		const query = this.expressionManager.toQuery(expression, _options)
-		return await this.executor.execute(query, data, _options)
+		return this.executor.execute(query, data, _options)
 	}
 
 	/**
@@ -251,22 +251,7 @@ export class Orm implements IOrm {
  * @param callback Code to be executed in transaction
  */
 	public async transaction (options: OrmOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const _options = this.solveOptions(options)
-		return await this.executor.transaction(_options, callback)
-	}
-
-	private solveOptions (options?: OrmOptions):OrmOptions {
-		if (!options) {
-			options = {}
-		}
-		if (!options.stage) {
-			const _stage = this.schemaManager.stage.get()
-			options.stage = _stage.name
-		}
-		if (!options.view) {
-			const _view = this.schemaManager.view.get()
-			options.view = _view.name
-		}
-		return options
+		const _options = this.schemaManager.solveOptions(options)
+		return this.executor.transaction(_options, callback)
 	}
 }

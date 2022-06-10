@@ -25,11 +25,11 @@ export class Repository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return await this.orm.execute(expression, data, this.stage)
+		return this.orm.execute(expression, data, this.stage)
 	}
 
 	public async execute (expression: string, data?: any): Promise<any> {
-		return await this.orm.execute(`${this.name}${expression}`, data, this.stage)
+		return this.orm.execute(`${this.name}${expression}`, data, this.stage)
 	}
 
 	/**  */
@@ -37,7 +37,7 @@ export class Repository<TEntity, TQuery> {
 	/**  */
 	insert(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any>
 	public async insert (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any> {
-		return await this._execute(`${this.name}.insert()`, undefined, include, entity)
+		return this._execute(`${this.name}.insert()`, undefined, include, entity)
 	}
 
 	/**  */
@@ -45,7 +45,7 @@ export class Repository<TEntity, TQuery> {
 	/**  */
 	bulkInsert(entities:TEntity[], include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]>
 	public async bulkInsert (entities: TEntity[], include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]> {
-		return await this._execute(`${this.name}.bulkInsert()`, undefined, include, entities)
+		return this._execute(`${this.name}.bulkInsert()`, undefined, include, entities)
 	}
 
 	/**  */
@@ -53,7 +53,7 @@ export class Repository<TEntity, TQuery> {
 	/**  */
 	update(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
 	public async update (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number> {
-		return await this._execute(`${this.name}.update()`, undefined, include, entity)
+		return this._execute(`${this.name}.update()`, undefined, include, entity)
 	}
 
 	public async updateAll (data:any,
@@ -61,7 +61,7 @@ export class Repository<TEntity, TQuery> {
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
 	): Promise<number> {
-		return await this._execute(`${this.name}.updateAll(${map.toString()})`, filter, include, data)
+		return this._execute(`${this.name}.updateAll(${map.toString()})`, filter, include, data)
 	}
 
 	/**  */
@@ -69,7 +69,7 @@ export class Repository<TEntity, TQuery> {
 	/**  */
 	merge(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
 	public async merge (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number> {
-		return await this._execute(`${this.name}.merge()`, undefined, include, entity)
+		return this._execute(`${this.name}.merge()`, undefined, include, entity)
 	}
 
 	/**  */
@@ -77,28 +77,28 @@ export class Repository<TEntity, TQuery> {
 	/**  */
 	delete(entity:TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
 	public async delete (entity: TEntity, include?: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number> {
-		return await this._execute(`${this.name}.delete()`, undefined, include, entity)
+		return this._execute(`${this.name}.delete()`, undefined, include, entity)
 	}
 
 	public async deleteAll (data:any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
 	): Promise<number> {
-		return await this._execute(`${this.name}.deleteAll()`, filter, include, data)
+		return this._execute(`${this.name}.deleteAll()`, filter, include, data)
 	}
 
 	public async list (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
 	): Promise<TEntity[]> {
-		return await this._execute(`${this.name}`, filter, include, data) as TEntity[]
+		return this._execute(`${this.name}`, filter, include, data)
 	}
 
 	public async distinct (data: any,
 		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
 	): Promise<any[]> {
-		return await this._execute(`${this.name}.distinct()`, filter, include, data)
+		return this._execute(`${this.name}.distinct()`, filter, include, data)
 	}
 
 	public async first (data: any,

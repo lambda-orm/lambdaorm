@@ -54,8 +54,7 @@ export class OperandManager {
 
 	public model (sentence: Sentence): MetadataModel[] {
 		const result: MetadataModel[] = []
-		for (let i = 0; i < sentence.columns.length; i++) {
-			const column = sentence.columns[i]
+		for (const column of sentence.columns) {
 			if (!column.name.startsWith('__')) {
 				result.push({ name: column.name, type: column.type })
 			}
@@ -73,8 +72,7 @@ export class OperandManager {
 
 	public parameters (sentence: Sentence): MetadataParameter[] {
 		const parameters: MetadataParameter[] = []
-		for (let i = 0; i < sentence.parameters.length; i++) {
-			const parameter = sentence.parameters[i]
+		for (const parameter of sentence.parameters) {
 			parameters.push({ name: parameter.name, type: parameter.type })
 		}
 		const includes = sentence.getIncludes()
@@ -114,13 +112,13 @@ export class OperandManager {
 	}
 
 	public deserialize (value: string): Operand {
-		return (this._deserialize(JSON.parse(value))) as Operand
+		return (this._deserialize(JSON.parse(value)))
 	}
 
 	private _serialize (operand: Operand): Metadata {
 		const children:Metadata[] = []
-		for (const k in operand.children) {
-			children.push(this._serialize(operand.children[k]))
+		for (const child of operand.children) {
+			children.push(this._serialize(child))
 		}
 		if (operand instanceof Sentence) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, columns: operand.columns, parameters: operand.parameters, entity: operand.entity, constraints: operand.constraints }
@@ -259,19 +257,12 @@ export class OperandManager {
 
 	private initialize (operand: Operand, data: Data) {
 		let current = data
-		if (operand instanceof ArrowFunction) {
+		if (operand instanceof ArrowFunction || operand instanceof ChildFunction) {
 			const childData = current.newData()
 			operand.data = childData
 			operand.metadata = this.expressionConfig
 			current = childData
-		} else if (operand instanceof ChildFunction) {
-			const childData = current.newData()
-			operand.data = childData
-			operand.metadata = this.expressionConfig
-			current = childData
-		} else if (operand instanceof FunctionRef) {
-			operand.metadata = this.expressionConfig
-		} else if (operand instanceof Operator) {
+		} else if (operand instanceof FunctionRef || operand instanceof Operator) {
 			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Variable) {
 			operand.data = current
@@ -485,7 +476,6 @@ export class OperandManager {
 		} else if (clauses.delete) {
 			name = 'delete'
 			createInclude = this.createInclude
-			// const clause = clauses.delete
 			operand = new Delete(expressionContext.current.entityName, [], expressionContext.current.alias)
 			children.push(operand)
 		} else if (clauses.map) {
@@ -499,9 +489,8 @@ export class OperandManager {
 
 			if (expressionContext.current.groupByFields.length > 0) {
 				const fields:Field[] = []
-				for (let i = 0; i < expressionContext.current.groupByFields.length; i++) {
-					const groupByField:Field = expressionContext.current.groupByFields[i].clone()
-					fields.push(groupByField)
+				for (const groupByField of expressionContext.current.groupByFields) {
+					fields.push(groupByField.clone())
 				}
 				if (fields.length === 1) {
 					operand = new GroupBy('groupBy', fields)
@@ -512,19 +501,16 @@ export class OperandManager {
 				children.push(operand)
 			}
 			if (clauses.having) {
-				const clause = clauses.having
-				operand = this.createClause(clause, expressionContext)
+				operand = this.createClause(clauses.having, expressionContext)
 				children.push(operand)
 			}
 			if (clauses.sort) {
-				const clause = clauses.sort
-				operand = this.createClause(clause, expressionContext)
+				operand = this.createClause(clauses.sort, expressionContext)
 				children.push(operand)
 			}
 			if (clauses.page) {
-				const clause = clauses.page
-				const children = clause.children.map((p: Node) => this.nodeToOperand(p, expressionContext))
-				operand = new Page(clause.name, children)
+				const pageChildren = clauses.page.children.map((p: Node) => this.nodeToOperand(p, expressionContext))
+				operand = new Page(clauses.page.name, pageChildren)
 				children.push(operand)
 			}
 		}
@@ -532,13 +518,11 @@ export class OperandManager {
 			if (!createInclude) {
 				throw new SintaxisError('Include not implemented!!!')
 			}
-
-			const clause = clauses.include
-			expressionContext.current.arrowVar = clause.children[1].name
-			const body = clause.children[2]
+			expressionContext.current.arrowVar = clauses.include.children[1].name
+			const body = clauses.include.children[2]
 			if (body.type === 'array') {
-				for (let i = 0; i < body.children.length; i++) {
-					const include = createInclude.bind(this)(body.children[i], expressionContext)
+				for (const child of body.children) {
+					const include = createInclude.bind(this)(child, expressionContext)
 					children.push(include)
 				}
 			} else {
@@ -563,8 +547,8 @@ export class OperandManager {
 			operand = new Join(relationEntity, [equal], relatedEntity, relationAlias)
 			children.push(operand)
 		}
-		for (let i = 0; i < children.length; i++) {
-			this.solveTypes(children[i], expressionContext)
+		for (const child of children) {
+			this.solveTypes(child, expressionContext)
 		}
 		const parameters = this.parametersInSentence(children)
 
@@ -584,7 +568,7 @@ export class OperandManager {
 		}
 
 		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters, constraints, values, defaults)
-		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent as EntityContext : new EntityContext()
+		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent : new EntityContext()
 		return sentence
 	}
 
@@ -615,11 +599,10 @@ export class OperandManager {
 
 			if (child instanceof Obj) {
 				const obj = child
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
+				for (const keyVal of obj.children) {
 					if (keyVal.children[0] instanceof Field) {
-						const field = keyVal.children[0] as Field
-						const property = entity.properties.find(p => p.name === field.name)
+						const field = keyVal.children[0]
+						const property = entity.properties.find(q => q.name === field.name)
 						if (property && property.readValue) {
 							const behavior = { alias: keyVal.name, property: property.name, expression: property.readValue }
 							behaviors.push(behavior)
@@ -627,32 +610,6 @@ export class OperandManager {
 					}
 				}
 			}
-			// Expression completer pasa todos los select a Obj
-			// else if (child instanceof List) {
-			// const array = child
-			// for (let i = 0; i < array.children.length; i++) {
-			// const element = array.children[i]
-			// if (element instanceof Field) {
-			// // TODO: resolver el problema de las relaciones
-			// // const parts = element.name.split('.')
-			// const field = element as Field
-			// const property = entity.properties.find(p => p.name === field.name)
-			// if (property && property.readValue) {
-			// const behavior = { alias: field.name, property: property.name, expression: property.readValue }
-			// behaviors.push(behavior)
-			// }
-			// }
-			// }
-			// } else if (child instanceof Field) {
-			// // TODO: resolver el problema de las relaciones
-			// // const parts = child.name.split('.')
-			// const field = child as Field
-			// const property = entity.properties.find(p => p.name === field.name)
-			// if (property && property.readValue) {
-			// const behavior = { alias: field.name, property: property.name, expression: property.readValue }
-			// behaviors.push(behavior)
-			// }
-			// }
 		}
 		return behaviors
 	}
@@ -661,8 +618,7 @@ export class OperandManager {
 		const behaviors: Behavior[] = []
 		const properties = this.getPropertiesFromParameters(entityName, parameters)
 		if (properties) {
-			for (let i = 0; i < properties.length; i++) {
-				const property = properties[i]
+			for (const property of properties) {
 				if (property.writeValue) {
 					behaviors.push({ property: property.name, expression: property.writeValue })
 				}
@@ -675,8 +631,7 @@ export class OperandManager {
 		const entity = this.modelConfig.getEntity(entityName)
 		const properties: Property[] = []
 		if (entity && entity.properties && parameters) {
-			for (const i in parameters) {
-				const parameter = parameters[i]
+			for (const parameter of parameters) {
 				const property = entity.properties.find(p => p.name === parameter.name)
 				if (property) {
 					properties.push(property)
@@ -810,8 +765,6 @@ export class OperandManager {
 			}
 		}
 		throw new SintaxisError('Error to create SentenceInclude')
-		// return new SentenceInclude(relation.name, [child], relation, 'LambdaOrmParentId')
-		// return new SentenceInclude(relation.relation.name, [child], relation.relation)
 	}
 
 	private createInclude (node: Node, expressionContext: ExpressionContext): SentenceInclude {
@@ -831,7 +784,6 @@ export class OperandManager {
 			} else { break }
 		}
 		throw new SintaxisError('Error to create SentenceInclude')
-		// return new SentenceInclude(relationName, [child], relation, relation.to)
 	}
 
 	private getSentence (node: Node): any {
@@ -899,10 +851,9 @@ export class OperandManager {
 
 			if (child instanceof Obj) {
 				const obj = child
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
+				for (const keyVal of obj.children) {
 					if (keyVal.children[0] instanceof Field) {
-						const _field = keyVal.children[0] as Field
+						const _field = keyVal.children[0]
 						const field = { name: keyVal.name, type: _field.type }
 						fields.push(field)
 					} else {
@@ -911,30 +862,6 @@ export class OperandManager {
 					}
 				}
 			}
-			// Expression completer ya resuelve pasar List y field único a Obj
-			// else if (child instanceof List) {
-			// const array = child
-			// for (let i = 0; i < array.children.length; i++) {
-			// const element = array.children[i]
-			// if (element instanceof Field) {
-			// const parts = element.name.split('.')
-			// const _field = element as Field
-			// const field = { name: parts[parts.length - 1], type: _field.type }
-			// fields.push(field)
-			// } else {
-			// const field = { name: 'field' + i, type: this.solveTypes(element, expressionContext) }
-			// fields.push(field)
-			// }
-			// }
-			// } else if (child instanceof Field) {
-			// const parts = child.name.split('.')
-			// const _field = child as Field
-			// const field = { name: parts[parts.length - 1], type: _field.type }
-			// fields.push(field)
-			// } else {
-			// const field = { name: 'field0', type: this.solveTypes(child, expressionContext) }
-			// fields.push(field)
-			// }
 		}
 		return fields
 	}
@@ -994,8 +921,8 @@ export class OperandManager {
 				parameters.push({ name: operand.name, type: type })
 			}
 		}
-		for (let i = 0; i < operand.children.length; i++) {
-			this.loadParameters(operand.children[i], parameters)
+		for (const child of operand.children) {
+			this.loadParameters(child, parameters)
 		}
 	}
 
@@ -1062,8 +989,8 @@ export class OperandManager {
 			}
 		}
 		// recorre todos los hijos para resolver el tipo
-		for (let i = 0; i < operand.children.length; i++) {
-			this.solveTypes(operand.children[i], expressionContext)
+		for (const child of operand.children) {
+			this.solveTypes(child, expressionContext)
 		}
 
 		return operand.type

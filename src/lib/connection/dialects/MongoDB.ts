@@ -43,7 +43,7 @@ export class MongodbConnection extends Connection {
 		this.formatDateTime = 'ISO'
 	}
 
-	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
 		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-MongoDB-2910ff5e272b
 		// https://www.MongoDB.com/docs/manual/reference/operator/aggregation-pipeline/
 
@@ -52,12 +52,11 @@ export class MongodbConnection extends Connection {
 		const params = this.dataToParameters(query, mapping, data)
 		const aggregate = this.parseTemplate(query.sentence, params, mapping)
 
+		// TODO:solve transaction
 		// const result = this.session
 		// 	? await this.cnx.db.collection(collection).find(filter, this.session).aggregate(aggregate).toArray()
 		// 	: await this.cnx.db.collection(collection).find(filter).aggregate(aggregate).toArray()
-		const result = this.session
-			? await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
-			: await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
+		const result = await this.cnx.db.collection(collection).aggregate(aggregate || []).toArray()
 
 		if (result && result.length > 0 && result[0].__distinct) {
 			return result.map((p: any) => p.__distinct)
@@ -134,9 +133,9 @@ export class MongodbConnection extends Connection {
 					const fromProperty = mapping.getProperty(query.entity, include.relation.from)
 					if (include.relation.type === RelationType.manyToOne || (include.relation.type === RelationType.oneToOne && !!fromProperty.nullable)) {
 						// Assign parentID to child relation property
-						for (let j = 0; j < children.length; j++) {
+						for (const _children of children) {
 							const toProperty = mapping.getProperty(include.relation.entity, include.relation.to)
-							children[j][toProperty.name] = target[fromProperty.mapping]
+							_children[toProperty.name] = target[fromProperty.mapping]
 						}
 					}
 					if (include.relation.type === RelationType.manyToOne) {
@@ -165,7 +164,7 @@ export class MongodbConnection extends Connection {
 		return result.modifiedCount as number
 	}
 
-	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
+	public async bulkUpdate (_mapping: MappingConfig, _dialect: Dialect, _query: Query, _array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MongodbConnection', 'bulkUpdate')
 	}
 
@@ -173,8 +172,7 @@ export class MongodbConnection extends Connection {
 		const sentence = JSON.parse(query.sentence)
 		const params = this.dataToParameters(query, mapping, data)
 		const obj = this.parseTemplate(sentence.set, params, mapping)
-		for (const p in query.includes) {
-			const include = query.includes[p]
+		for (const include of query.includes) {
 			if (include.relation.composite) {
 				const relationEntity = mapping.getEntity(include.relation.entity)
 				const children = data.get(include.relation.name)
@@ -185,8 +183,7 @@ export class MongodbConnection extends Connection {
 					const relationProperty = dialect.delimiter(relationEntity.mapping)
 					if (include.relation.type === RelationType.manyToOne) {
 						const childList: any[] = []
-						for (let i = 0; i < children.length; i++) {
-							const child = children[i]
+						for (const child of children) {
 							const childData = new Data(child, data)
 							const childObj = this.getObject(mapping, dialect, include.query, childData)
 							childList.push(childObj)
@@ -203,7 +200,7 @@ export class MongodbConnection extends Connection {
 		return obj
 	}
 
-	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = JSON.parse(query.sentence)
 		const params = this.dataToParameters(query, mapping, data)
@@ -214,19 +211,15 @@ export class MongodbConnection extends Connection {
 		return result.modifiedCount as number
 	}
 
-	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('MongodbConnection', 'bulkDelete')
-	}
-
-	public async execute (query: Query): Promise<any> {
+	public async execute (_query: Query): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'execute')
 	}
 
-	public async executeSentence (sentence: any): Promise<any> {
+	public async executeSentence (_sentence: any): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'executeSentence')
 	}
 
-	public async executeDDL (query: Query): Promise<any> {
+	public async executeDDL (_query: Query): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'executeDDL')
 	}
 
@@ -257,12 +250,10 @@ export class MongodbConnection extends Connection {
 
 	private arrayToList (query: Query, template: string, mapping: MappingConfig, array: any[]): any[] {
 		const list: any[] = []
-		for (let i = 0; i < array.length; i++) {
-			const item = array[i]
+		for (const item of array) {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
-				for (let j = 0; j < query.parameters.length; j++) {
-					const param = query.parameters[j]
+				for (const param of query.parameters) {
 					const value = this.getValue(item[param.name], param.type, mapping)
 					strObj = Helper.replace(strObj || template, `{{${param.name}}}`, value)
 				}
@@ -279,8 +270,7 @@ export class MongodbConnection extends Connection {
 		let result: string | undefined
 		const row: any = {}
 		if (params.length && params.length > 0) {
-			for (let i = 0; i < params.length; i++) {
-				const param = params[i]
+			for (const param of params) {
 				const value = this.getValue(param.value, param.type, mapping)
 				result = Helper.replace(result || template, `{{${param.name}}}`, value)
 			}
@@ -357,7 +347,7 @@ export class MongodbConnection extends Connection {
 		await this.cnx.db.createCollection(collection)
 	}
 
-	public async createSequence (mapping: MappingConfig, query: Query): Promise<any> {
+	public async createSequence (_mapping: MappingConfig, query: Query): Promise<any> {
 		await this.cnx.db.collection('__sequences').insertOne(JSON.parse(query.sentence))
 	}
 
@@ -368,18 +358,14 @@ export class MongodbConnection extends Connection {
 	}
 
 	public async addPk (mapping: MappingConfig, query: Query): Promise<any> {
-		const collection = mapping.entityMapping(query.entity)
-		const data = JSON.parse(query.sentence)
-		await this.cnx.db.collection(collection).createIndex(data.properties, data.options)
+		await this.createIndex(mapping, query)
 	}
 
 	public async addUk (mapping: MappingConfig, query: Query): Promise<any> {
-		const collection = mapping.entityMapping(query.entity)
-		const data = JSON.parse(query.sentence)
-		await this.cnx.db.collection(collection).createIndex(data.properties, data.options)
+		await this.createIndex(mapping, query)
 	}
 
-	public async dropSequence (mapping: MappingConfig, query: Query): Promise<any> {
+	public async dropSequence (_mapping: MappingConfig, query: Query): Promise<any> {
 		const filter = JSON.parse(query.sentence)
 		await this.cnx.db.collection('__sequences').deleteOne(filter)
 	}

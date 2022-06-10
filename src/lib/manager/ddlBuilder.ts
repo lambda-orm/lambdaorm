@@ -19,8 +19,7 @@ export class DDLBuilder {
 	public drop (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
-		for (const k in stage.dataSources) {
-			const ruleDataSource = stage.dataSources[k]
+		for (const ruleDataSource of stage.dataSources) {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === dataSource.mapping)
 			if (mapping !== undefined) {
@@ -33,8 +32,7 @@ export class DDLBuilder {
 	public truncate (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
-		for (const k in stage.dataSources) {
-			const ruleDataSource = stage.dataSources[k]
+		for (const ruleDataSource of stage.dataSources) {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === dataSource.mapping)
 			if (mapping !== undefined) {
@@ -47,8 +45,7 @@ export class DDLBuilder {
 	public sync (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
-		for (const k in stage.dataSources) {
-			const ruleDataSource = stage.dataSources[k]
+		for (const ruleDataSource of stage.dataSources) {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const oldMapping = mappings.find(p => p.name === dataSource.mapping)
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
@@ -65,24 +62,22 @@ export class DDLBuilder {
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
 		// drop all constraint
-		for (const p in sortedEntities) {
-			const entityName = sortedEntities[p]
+		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityName)) {
-				const entity = entitiesMapping.find(p => p.name === entityName)
+				const entity = entitiesMapping.find(q => q.name === entityName)
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
 				if (entity.relations && !entity.view && (!entity.composite || !dialect.solveComposite)) {
-					for (const q in entity.relations) {
-						const relation = entity.relations[q] as Relation
-						const relationEntity = entitiesMapping.find(p => p.name === relation.entity)
+					for (const relation of entity.relations) {
+						const relationEntity = entitiesMapping.find(r => r.name === relation.entity)
 
 						// evaluate if entity relation is not view and apply in dataSource
 						if (relationEntity && !relationEntity.view && (!relationEntity.composite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, relation.entity)) {
 							if (!relation.weak) {
 								// busca la propiedad relacionada para saber si es nullable la relación
-								const fromProperty = entity.properties.find(p => p.name === relation.from)
+								const fromProperty = entity.properties.find(r => r.name === relation.from)
 								if (fromProperty === undefined) {
 									throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 								}
@@ -91,8 +86,8 @@ export class DDLBuilder {
 									const query = this.builder(dataSource).setNull(entity, relation)
 									if (query) queries.push(query)
 								}
-								const query = this.builder(dataSource).dropFk(entity, relation)
-								if (query) queries.push(query)
+								const queryDropFk = this.builder(dataSource).dropFk(entity, relation)
+								if (queryDropFk) queries.push(queryDropFk)
 							}
 						}
 					}
@@ -100,8 +95,7 @@ export class DDLBuilder {
 			}
 		}
 		// drop indexes and tables
-		for (const i in sortedEntities) {
-			const entityName = sortedEntities[i]
+		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityName)) {
 				// const entity = this.model.getEntity(entityName) as Entity
@@ -111,18 +105,17 @@ export class DDLBuilder {
 				}
 				if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
 					if (entity.indexes) {
-						for (const j in entity.indexes) {
-							const index = entity.indexes[j]
-							const query = this.builder(dataSource).dropIndex(entity, index)
-							if (query) queries.push(query)
+						for (const index of entity.indexes) {
+							const _query = this.builder(dataSource).dropIndex(entity, index)
+							if (_query) queries.push(_query)
 						}
 					}
 					if (entity.sequence) {
-						const query = this.builder(dataSource).dropSequence(entity)
-						if (query) queries.push(query)
+						const _query = this.builder(dataSource).dropSequence(entity)
+						if (_query) queries.push(_query)
 					}
-					const query = this.builder(dataSource).dropEntity(entity)
-					if (query) queries.push(query)
+					const queryDrop = this.builder(dataSource).dropEntity(entity)
+					if (queryDrop) queries.push(queryDrop)
 				}
 			}
 		}
@@ -132,8 +125,7 @@ export class DDLBuilder {
 		const dialect = this.languages.getDialect(dataSource.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
-		for (const i in sortedEntities) {
-			const entityName = sortedEntities[i]
+		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityName)) {
 				// const entity = this.model.getEntity(entityName) as Entity
@@ -152,37 +144,31 @@ export class DDLBuilder {
 	public _sync (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(dataSource.dialect)
 		// remove constraints for changes in entities
-		for (const p in delta.changed) {
-			const entityChanged = delta.changed[p]
+		for (const entityChanged of delta.changed) {
 			if (!entityChanged.delta) continue
 			// if entity is view is excluded
 			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const q in entityChanged.delta.changed) {
-					const changed = entityChanged.delta.changed[q]
+				for (const changed of entityChanged.delta.changed) {
 					if (changed.name === 'primaryKey') {
 						if (!changed.delta) continue
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						for (const n in changed.delta.remove) {
+						if (changed.delta.remove && changed.delta.remove.length > 0) {
 							const query = this.builder(dataSource).dropPk(entityChanged.old)
 							if (query) queries.push(query)
 						}
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						for (const c in changed.delta.changed) {
+						if (changed.delta.changed && changed.delta.changed.length > 0) {
 							const query = this.builder(dataSource).dropPk(entityChanged.old)
 							if (query) queries.push(query)
 						}
 					}
 					if (changed.name === 'uniqueKey') {
 						if (changed.delta) {
-							// eslint-disable-next-line @typescript-eslint/no-unused-vars
-							for (const n in changed.delta.remove) {
+							if (changed.delta.remove && changed.delta.remove.length > 0) {
 								const query = this.builder(dataSource).dropUk(entityChanged.old)
 								if (query) queries.push(query)
 							}
-							// eslint-disable-next-line @typescript-eslint/no-unused-vars
-							for (const c in changed.delta.changed) {
+							if (changed.delta.changed && changed.delta.changed.length > 0) {
 								const query = this.builder(dataSource).dropUk(entityChanged.old)
 								if (query) queries.push(query)
 							}
@@ -192,35 +178,31 @@ export class DDLBuilder {
 			}
 		}
 		// remove indexes and Fks for changes in entities
-		for (const p in delta.changed) {
-			const entityChanged = delta.changed[p]
+		for (const entityChanged of delta.changed) {
 			if (!entityChanged.delta) continue
 			// if entity is view is excluded
 			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const q in entityChanged.delta.changed) {
-					const changed = entityChanged.delta.changed[q]
+				for (const changed of entityChanged.delta.changed) {
 					if (changed.name === 'index') {
 						if (!changed.delta) continue
-						for (const c in changed.delta.changed) {
-							const oldIndex = changed.delta.changed[c].old as Index
-							const query = this.builder(dataSource).dropIndex(entityChanged.new, oldIndex)
+						for (const oldIndex of changed.delta.changed) {
+							const query = this.builder(dataSource).dropIndex(entityChanged.new, oldIndex.old as Index)
 							if (query) queries.push(query)
 						}
-						for (const r in changed.delta.remove) {
-							const removeIndex = changed.delta.remove[r].old as Index
-							const query = this.builder(dataSource).dropIndex(entityChanged.new, removeIndex)
+						for (const removeIndex of changed.delta.remove) {
+							const query = this.builder(dataSource).dropIndex(entityChanged.new, removeIndex.old as Index)
 							if (query) queries.push(query)
 						}
 					}
 					if (changed.name === 'relation') {
 						if (!changed.delta) continue
-						for (const c in changed.delta.changed) {
-							const newRelation = changed.delta.changed[c].new as Relation
-							const oldRelation = changed.delta.changed[c].old as Relation
+						for (const changedItem of changed.delta.changed) {
+							const newRelation = changedItem.new as Relation
+							const oldRelation = changedItem.old as Relation
 
-							const oldRelationEntity = oldMapping.find(p => p.name === oldRelation.entity)
+							const oldRelationEntity = oldMapping.find(r => r.name === oldRelation.entity)
 							if (oldRelationEntity && oldRelationEntity.view) continue
 
 							// evaluate if entity relation apply in dataSource
@@ -233,9 +215,9 @@ export class DDLBuilder {
 								}
 							}
 						}
-						for (const r in changed.delta.remove) {
-							const removeRelation = changed.delta.remove[r].old as Relation
-							const oldRelationEntity = oldMapping.find(p => p.name === removeRelation.entity)
+						for (const removeItem of changed.delta.remove) {
+							const removeRelation = removeItem.old as Relation
+							const oldRelationEntity = oldMapping.find(s => s.name === removeRelation.entity)
 							if (oldRelationEntity && oldRelationEntity.view) continue
 							// evaluate if entity relation apply in dataSource
 							if (this.evalDataSource(ruleDataSource, removeRelation.entity)) {
@@ -248,15 +230,14 @@ export class DDLBuilder {
 			}
 		}
 		// remove indexes and tables for removed entities
-		for (const name in delta.remove) {
-			const removeEntity = delta.remove[name].old as EntityMapping
+		for (const removeItem of delta.remove) {
+			const removeEntity = removeItem.old as EntityMapping
 			// if entity is view is excluded
 			if (removeEntity.view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, removeEntity.name)) {
 				if (removeEntity.indexes) {
-					for (const i in removeEntity.indexes) {
-						const index = removeEntity.indexes[i]
+					for (const index of removeEntity.indexes) {
 						const query = this.builder(dataSource).dropIndex(removeEntity, index)
 						if (query) queries.push(query)
 					}
@@ -265,22 +246,22 @@ export class DDLBuilder {
 					const query = this.builder(dataSource).createSequence(removeEntity)
 					if (query) queries.push(query)
 				}
-				const query = this.builder(dataSource).dropEntity(removeEntity)
-				if (query) queries.push(query)
+				const queryDropEntity = this.builder(dataSource).dropEntity(removeEntity)
+				if (queryDropEntity) queries.push(queryDropEntity)
 			}
 		}
 		// create tables
-		for (const name in delta.new) {
-			const newEntity = delta.new[name].new as EntityMapping
+		for (const newItem of delta.new) {
+			const newEntity = newItem.new as EntityMapping
 			// evaluate if entity apply in dataSource
 			if (!newEntity.view && (!newEntity.composite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, newEntity.name)) {
 				if (newEntity.sequence) {
-					const query = this.builder(dataSource).createSequence(newEntity)
-					if (query) queries.push(query)
+					const createSequence = this.builder(dataSource).createSequence(newEntity)
+					if (createSequence) queries.push(createSequence)
 				}
-				const query = this.builder(dataSource).createEntity(newEntity)
-				if (query) {
-					queries.push(query)
+				const createEntity = this.builder(dataSource).createEntity(newEntity)
+				if (createEntity) {
+					queries.push(createEntity)
 					if (newEntity.uniqueKey && newEntity.uniqueKey.length > 0) {
 						const uk = this.builder(dataSource).addUk(newEntity, newEntity.uniqueKey)
 						if (uk) queries.push(uk)
@@ -289,15 +270,13 @@ export class DDLBuilder {
 			}
 		}
 		// add columns for entities changes
-		for (const p in delta.changed) {
-			const entityChanged = delta.changed[p]
+		for (const entityChanged of delta.changed) {
 			if (!entityChanged.delta) continue
 			// if entity is view is excluded
 			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const q in entityChanged.delta.changed) {
-					const changed = entityChanged.delta.changed[q]
+				for (const changed of entityChanged.delta.changed) {
 					if (changed.name === 'property') {
 						if (!changed.delta) continue
 						for (const n in changed.delta.new) {
@@ -305,9 +284,9 @@ export class DDLBuilder {
 							const query = this.builder(dataSource).addProperty(entityChanged.new, newProperty)
 							if (query) queries.push(query)
 						}
-						for (const n in changed.delta.changed) {
-							const newProperty = changed.delta.changed[n].new as PropertyMapping
-							const oldProperty = changed.delta.changed[n].old as PropertyMapping
+						for (const changedItem of changed.delta.changed) {
+							const newProperty = changedItem.new as PropertyMapping
+							const oldProperty = changedItem.old as PropertyMapping
 							if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
 								const query = this.builder(dataSource).alterProperty(entityChanged.new, newProperty)
 								if (query) queries.push(query)
@@ -323,19 +302,17 @@ export class DDLBuilder {
 		// en ambos casos se debe resolver que se hará con los datos para que estos no se pierdan
 
 		// remove columns for entities changes
-		for (const p in delta.changed) {
-			const entityChanged = delta.changed[p]
+		for (const entityChanged of delta.changed) {
 			if (!entityChanged.delta) continue
 			// if entity is view is excluded
 			if ((entityChanged.old as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const q in entityChanged.delta.changed) {
-					const changed = entityChanged.delta.changed[q]
+				for (const changed of entityChanged.delta.changed) {
 					if (changed.name === 'property') {
 						if (!changed.delta) continue
-						for (const n in changed.delta.remove) {
-							const oldProperty = changed.delta.remove[n].old as PropertyMapping
+						for (const removeItem of changed.delta.remove) {
+							const oldProperty = removeItem.old as PropertyMapping
 							if (!oldProperty.view) {
 								const query = this.builder(dataSource).dropProperty(entityChanged.old, oldProperty)
 								if (query) queries.push(query)
@@ -346,37 +323,35 @@ export class DDLBuilder {
 			}
 		}
 		// create constraints for changes in entities
-		for (const p in delta.changed) {
-			const entityChanged = delta.changed[p]
+		for (const entityChanged of delta.changed) {
 			if (!entityChanged.delta) continue
 			// if entity is view is excluded
 			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const q in entityChanged.delta.changed) {
-					const changed = entityChanged.delta.changed[q]
+				for (const changed of entityChanged.delta.changed) {
 					if (changed.name === 'primaryKey') {
 						if (!changed.delta) continue
-						for (const n in changed.delta.new) {
-							const newPrimaryKey = changed.delta.new[n].new as string[]
+						for (const newItem of changed.delta.new) {
+							const newPrimaryKey = newItem.new as string[]
 							const query = this.builder(dataSource).addPk(entityChanged.new, newPrimaryKey)
 							if (query) queries.push(query)
 						}
-						for (const c in changed.delta.changed) {
-							const changePrimaryKey = changed.delta.changed[c].new as string[]
+						for (const changedItem of changed.delta.changed) {
+							const changePrimaryKey = changedItem.new as string[]
 							const query = this.builder(dataSource).addPk(entityChanged.new, changePrimaryKey)
 							if (query) queries.push(query)
 						}
 					}
 					if (changed.name === 'uniqueKey') {
 						if (changed.delta) {
-							for (const n in changed.delta.new) {
-								const newUniqueKey = changed.delta.new[n].new as string[]
+							for (const newItem of changed.delta.new) {
+								const newUniqueKey = newItem.new as string[]
 								const query = this.builder(dataSource).addUk(entityChanged.new, newUniqueKey)
 								if (query) queries.push(query)
 							}
-							for (const c in changed.delta.changed) {
-								const changeUniqueKey = changed.delta.changed[c].new as string[]
+							for (const changedItem of changed.delta.changed) {
+								const changeUniqueKey = changedItem.new as string[]
 								const query = this.builder(dataSource).addUk(entityChanged.new, changeUniqueKey)
 								if (query) queries.push(query)
 							}
@@ -386,30 +361,25 @@ export class DDLBuilder {
 			}
 		}
 		// create indexes and Fks for changes in entities
-		for (const p in delta.changed) {
-			const entityChanged = delta.changed[p]
+		for (const entityChanged of delta.changed) {
 			if (!entityChanged.delta) continue
 			// if entity is view is excluded
 			if ((entityChanged.new as EntityMapping).view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const q in entityChanged.delta.changed) {
-					const changed = entityChanged.delta.changed[q]
+				for (const changed of entityChanged.delta.changed) {
 					if (changed.name === 'index') {
 						if (!changed.delta) continue
-						for (const n in changed.delta.new) {
-							const newIndex = changed.delta.new[n].new as Index
+						for (const newItem of changed.delta.new) {
+							const newIndex = newItem.new as Index
 							const query = this.builder(dataSource).createIndex(entityChanged.new, newIndex)
 							if (query) queries.push(query)
 						}
-						for (const c in changed.delta.changed) {
-							const changeIndex = changed.delta.changed[c].new as Index
+						for (const changedItem of changed.delta.changed) {
+							const changeIndex = changedItem.new as Index
 							const query = this.builder(dataSource).createIndex(entityChanged.new, changeIndex)
 							if (query) queries.push(query)
 						}
-						// for(const r in changed.delta.remove){
-						//     let removeIndex=changed.delta.remove[r]
-						// }
 					} else if (changed.name === 'sequence') {
 						if (!changed.delta) continue
 						// TODO : revisar
@@ -417,8 +387,8 @@ export class DDLBuilder {
 						if (query) queries.push(query)
 					} else if (changed.name === 'relation') {
 						if (changed.delta) {
-							for (const n in changed.delta.new) {
-								const newRelation = changed.delta.new[n].new as Relation
+							for (const newItem of changed.delta.new) {
+								const newRelation = newItem.new as Relation
 								// evaluate if entity relation apply in dataSource
 								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
 									if (!newRelation.weak) {
@@ -427,9 +397,9 @@ export class DDLBuilder {
 									}
 								}
 							}
-							for (const c in changed.delta.changed) {
-								const newRelation = changed.delta.changed[c].new as Relation
-								const oldRelation = changed.delta.changed[c].old as Relation
+							for (const changedItem of changed.delta.changed) {
+								const newRelation = changedItem.new as Relation
+								const oldRelation = changedItem.old as Relation
 								// evaluate if entity relation apply in dataSource
 								if (this.evalDataSource(ruleDataSource, newRelation.entity)) {
 									if (this.changeRelation(oldRelation, newRelation)) {
@@ -446,23 +416,21 @@ export class DDLBuilder {
 			}
 		}
 		// create indexes and Fks for new entities
-		for (const name in delta.new) {
-			const newEntity = delta.new[name].new as EntityMapping
+		for (const newItem of delta.new) {
+			const newEntity = newItem.new as EntityMapping
 			// if entity is view is excluded
 			if (newEntity.view) continue
 			// evaluate if entity apply in dataSource
 			if (this.evalDataSource(ruleDataSource, newEntity.name)) {
 				if (newEntity.indexes) {
-					for (const i in newEntity.indexes) {
-						const index = newEntity.indexes[i]
+					for (const index of newEntity.indexes) {
 						const query = this.builder(dataSource).createIndex(newEntity, index)
 						if (query) queries.push(query)
 					}
 				}
 				if (newEntity.relations) {
-					for (const p in newEntity.relations) {
-						const relation = newEntity.relations[p]
-						const relationEntity = newMapping.find(p => p.name === relation.entity)
+					for (const relation of newEntity.relations) {
+						const relationEntity = newMapping.find(q => q.name === relation.entity)
 						if (relationEntity && relationEntity.view) continue
 						// evaluate if entity relation apply in dataSource
 						if (this.evalDataSource(ruleDataSource, relation.entity)) {

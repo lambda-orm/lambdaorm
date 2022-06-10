@@ -17,7 +17,7 @@ async function execute () {
 	try {
 		await orm.init()
 		const start = new Date().getTime()
-		await orm.stage.clean({stage:'PostgreSQL'}).execute(true)
+		await orm.stage.clean({stage:'PostgreSQL', tryAllCan: true }).execute()
 		let clean = new Date().getTime()
 		console.log(`clean: ${clean - start}`)
 		await orm.stage.sync({stage:'PostgreSQL'}).execute()
@@ -33,7 +33,7 @@ async function execute () {
 		let _delete = new Date().getTime()
 		console.log(`delete: ${_delete - _export}`)
 		// TODO: temporal hasta resolver el problema en el import
-		await orm.stage.clean({stage:'PostgreSQL'}).execute(true)
+		await orm.stage.clean({stage:'PostgreSQL', tryAllCan: true }).execute()
 		clean = new Date().getTime()
 		console.log(`clean: ${clean - _delete}`)
 		await orm.stage.sync({stage:'PostgreSQL'}).execute()

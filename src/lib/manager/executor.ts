@@ -43,13 +43,11 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (options: OrmOptions, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+	public async executeList (options: OrmOptions, queries: Query[]): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
 
-		let query: Query
-		if (tryAllCan) {
-			for (let i = 0; i < queries.length; i++) {
-				query = queries[i]
+		if (options.tryAllCan) {
+			for (const query of queries) {
 				const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
@@ -62,8 +60,7 @@ export class Executor {
 			}
 		} else {
 			await this.transaction(options, async function (tr: Transaction) {
-				for (let i = 0; i < queries.length; i++) {
-					query = queries[i]
+				for (const query of queries) {
 					const result = await tr.execute(query)
 					results.push({ result: result })
 				}

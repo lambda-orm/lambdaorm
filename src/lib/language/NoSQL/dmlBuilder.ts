@@ -135,7 +135,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		return JSON.stringify(data)
 	}
 
-	protected getGroupBy (map:Map, groupBy:GroupBy, sentence: Sentence): any {
+	protected getGroupBy (map:Map, _groupBy:GroupBy, sentence: Sentence): any {
 		this.setPrefixToField(map, '$')
 
 		let projectColumns = ''
@@ -251,8 +251,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		// https://javascript.tutorialink.com/MongoDB-get-sum-of-fields-in-last-stage-of-aggregate/
 		let text = ''
 		const template = this.dialect.dml('join')
-		for (let i = 0; i < joins.length; i++) {
-			const join = joins[i]
+		for (const join of joins) {
 			this.setPrefixToField(join, '$')
 			const joinEntity = this.mapping.getEntity(join.name)
 			if (joinEntity === undefined) {
@@ -375,7 +374,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				const keyVal = obj.children[p] as KeyValue
 				let name: string
 				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(p => p.name === keyVal.property)
+					const property = entity.properties.find(q => q.name === keyVal.property)
 					if (property === undefined) {
 						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
 					}
@@ -403,7 +402,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				const keyVal = obj.children[p] as KeyValue
 				let name: string
 				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(p => p.name === keyVal.property)
+					const property = entity.properties.find(q => q.name === keyVal.property)
 					if (property === undefined) {
 						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
 					}
@@ -436,7 +435,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			return text
 		} else {
 			return this.dialect.delimiter(operand.name, true)
-			// return this.dialect.other('column').replace('{name}', operand.name)
 		}
 	}
 
@@ -458,20 +456,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			}
 		}
 	}
-
-	// protected getColumns (map: Map, isGroup:boolean):Obj {
-	// const result:KeyValue[] = []
-	// if (map.children[0] instanceof Obj) {
-	// const obj =	map.children[0]
-	// for (const p in obj.children) {
-	// const keyValue = obj.children[p]
-	// if (isGroup ? this.hadGroupFunction(keyValue.children[0]) : !this.hadGroupFunction(keyValue.children[0])) {
-	// result.push(keyValue)
-	// }
-	// }
-	// }
-	// return new Obj('obj', result)
-	// }
 
 	protected hadGroupFunction (operand: Operand):boolean {
 		if (operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].includes(operand.name)) {

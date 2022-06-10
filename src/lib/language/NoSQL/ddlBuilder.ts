@@ -12,7 +12,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createEntity', this.dataSource.dialect, this.dataSource.name, '', entity.name)
 	}
 
-	public createFk (entity: EntityMapping, relation: Relation): Query | undefined {
+	public createFk (_entity: EntityMapping, _relation: Relation): Query | undefined {
 		return undefined
 	}
 
@@ -24,8 +24,8 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 
 	public createIndex (entity: EntityMapping, index: Index): Query | undefined {
 		const columns: string[] = []
-		for (let i = 0; i < index.fields.length; i++) {
-			const propertyMapping = entity.properties.find(p => p.name === index.fields[i]) as PropertyMapping
+		for (const field of index.fields) {
+			const propertyMapping = entity.properties.find(p => p.name === field) as PropertyMapping
 			columns.push(this.dialect.delimiter(propertyMapping.mapping))
 		}
 		const properties: any = {}
@@ -39,18 +39,18 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('createIndex', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
-	public alterProperty (entity: EntityMapping, property: Property): Query | undefined {
+	public alterProperty (_entity: EntityMapping, _property: Property): Query | undefined {
 		return undefined
 	}
 
-	public addProperty (entity: EntityMapping, property: Property): Query | undefined {
+	public addProperty (_entity: EntityMapping, _property: Property): Query | undefined {
 		return undefined
 	}
 
 	public addPk (entity: EntityMapping, primaryKey: string[]): Query | undefined {
 		const columns: string[] = []
-		for (let i = 0; i < primaryKey.length; i++) {
-			const property = entity.properties.find(p => p.name === primaryKey[i]) as PropertyMapping
+		for (const primaryKeyItem of primaryKey) {
+			const property = entity.properties.find(p => p.name === primaryKeyItem) as PropertyMapping
 			columns.push(this.dialect.delimiter(property.mapping))
 		}
 		const properties: any = {}
@@ -69,8 +69,8 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 	public addUk (entity: EntityMapping, uniqueKey: string[]): Query | undefined {
 		// https://www.MongoDB.com/docs/drivers/node/current/fundamentals/indexes/#:~:text=By%20default%2C%20MongoDB%20creates%20a,the%20unique%20option%20to%20true%20.
 		const columns: string[] = []
-		for (let i = 0; i < uniqueKey.length; i++) {
-			const property = entity.properties.find(p => p.name === uniqueKey[i]) as PropertyMapping
+		for (const uniqueKeyItem of uniqueKey) {
+			const property = entity.properties.find(p => p.name === uniqueKeyItem) as PropertyMapping
 			columns.push(this.dialect.delimiter(property.mapping))
 		}
 		const properties: any = {}
@@ -84,7 +84,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('addUk', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
-	public addFk (entity: EntityMapping, relation: Relation): Query | undefined {
+	public addFk (_entity: EntityMapping, _relation: Relation): Query | undefined {
 		return undefined
 	}
 
@@ -92,7 +92,7 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('dropEntity', this.dataSource.dialect, this.dataSource.name, '', entity.name)
 	}
 
-	public dropProperty (entity: EntityMapping, property: Property): Query | undefined {
+	public dropProperty (_entity: EntityMapping, _property: Property): Query | undefined {
 		return undefined
 	}
 
@@ -108,11 +108,11 @@ export class NoSqlDDLBuilder extends LanguageDDLBuilder {
 		return new Query('dropUk', this.dataSource.dialect, this.dataSource.name, sentence, entity.name)
 	}
 
-	public setNull (entity: EntityMapping, relation: Relation): Query | undefined {
+	public setNull (_entity: EntityMapping, _relation: Relation): Query | undefined {
 		return undefined
 	}
 
-	public dropFk (entity: EntityMapping, relation: Relation): Query | undefined {
+	public dropFk (_entity: EntityMapping, _relation: Relation): Query | undefined {
 		return undefined
 	}
 

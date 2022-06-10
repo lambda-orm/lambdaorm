@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Query, Data, MethodNotImplemented } from '../../model'
+import { Query, Data } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 export class SQLjsConnectionPool extends ConnectionPool {
@@ -35,7 +35,7 @@ export class SQLjsConnectionPool extends ConnectionPool {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async release (connection: Connection): Promise<void> {
+	public async release (_connection: Connection): Promise<void> {
 		console.info('SQLjs release pool not Implemented')
 	}
 
@@ -46,17 +46,17 @@ export class SQLjsConnectionPool extends ConnectionPool {
 }
 
 export class SQLjsConnection extends Connection {
-	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
-		return await this._execute(mapping, query, data)
+	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
+		return this._execute(mapping, query, data)
 	}
 
-	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, query, data)
 		return result as number
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number[]> {
+	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<number[]> {
 		const sql = query.sentence
 		try {
 			if (!array || array.length === 0) {
@@ -77,34 +77,24 @@ export class SQLjsConnection extends Connection {
 		}
 	}
 
-	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result
+	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
+		return this._execute(mapping, query, data)
 	}
 
-	public async bulkUpdate (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('SqlJsConnection', 'updateMany')
-	}
-
-	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result
-	}
-
-	public async bulkDelete (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number> {
-		throw new MethodNotImplemented('SqlJsConnection', 'deleteMany')
+	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
+		return this._execute(mapping, query, data)
 	}
 
 	public async execute (query: Query): Promise<any> {
-		return await this.cnx._query(query)
+		return this.cnx._query(query)
 	}
 
 	public async executeDDL (query: Query): Promise<any> {
-		return await this.cnx.db.run(query.sentence)
+		return this.cnx.db.run(query.sentence)
 	}
 
 	public async executeSentence (sentence: any): Promise<any> {
-		return await this.cnx.db.run(sentence)
+		return this.cnx.db.run(sentence)
 	}
 
 	public async beginTransaction (): Promise<void> {
@@ -126,8 +116,8 @@ export class SQLjsConnection extends Connection {
 		const sql = query.sentence
 		const params = this.dataToParameters(query, mapping, data)
 		const values: any[] = []
-		for (let i = 0; i < params.length; i++) {
-			values.push(params[i].value)
+		for (const param of params) {
+			values.push(param.value)
 		}
 		return this.cnx.db.run(sql, values)
 	}
@@ -136,19 +126,18 @@ export class SQLjsConnection extends Connection {
 		const sql = query.sentence
 		const params = this.dataToParameters(query, mapping, data)
 		const values: any[] = []
-		for (let i = 0; i < params.length; i++) {
-			values.push(params[i].value)
+		for (const param of params) {
+			values.push(param.value)
 		}
 		const result = this.cnx.db.run(sql, values)
 
 		const rows:any[] = []
 		const cols = result.columns
-		for (let i = 0; i < result.values.length; i++) {
-			const values = result.values[i]
+		for (const value of result.values) {
 			const row: any = {}
 			for (let j = 0; j < cols.length; j++) {
 				const col = cols[j] as string
-				row[col] = values[j]
+				row[col] = value[j]
 			}
 			rows.push(row)
 		}

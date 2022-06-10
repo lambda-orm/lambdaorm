@@ -6,7 +6,7 @@ async function execute () {
 		const stage = 'default'
 		await orm.init(`${sourcePath}/shapes.yaml`)
 		const start = new Date().getTime()
-		await orm.stage.clean({stage:stage}).execute(true)
+		await orm.stage.clean({stage:stage, tryAllCan: true }).execute()
 		let clean = new Date().getTime()
 		console.log(`clean: ${clean - start}`)
 		await orm.stage.sync({stage:stage}).execute()
@@ -28,7 +28,7 @@ async function execute () {
 		// console.log(`delete: ${_delete - _export}`)
 
 		// TODO: temporalmente para borrar en Postgres
-		await orm.stage.clean({stage:stage}).execute(true)
+		await orm.stage.clean({stage:stage, tryAllCan: true }).execute()
 		clean = new Date().getTime()
 		console.log(`clean: ${clean - _export}`)
 		await orm.stage.sync({stage:stage}).execute()

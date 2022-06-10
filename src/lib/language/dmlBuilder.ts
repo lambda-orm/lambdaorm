@@ -107,11 +107,10 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildJoins (entity: EntityMapping, joins: Join[]): string {
+	protected buildJoins (_entity: EntityMapping, joins: Join[]): string {
 		const list: string[] = []
 		const template = this.dialect.dml('join')
-		for (let i = 0; i < joins.length; i++) {
-			const join = joins[i]
+		for (const join of joins) {
 			const entity = this.mapping.getEntity(join.name)
 			if (entity === undefined) {
 				throw new SchemaError(`not found mapping for ${join.name}`)
@@ -142,10 +141,6 @@ export abstract class DmlBuilder {
 		const values: any[] = []
 
 		const autoIncrement = this.mapping.getAutoIncrement(entity.name)
-		// const entityMapping = this.mapping.getEntity(entity)
-		// if (entityMapping === undefined) {
-		// throw new SchemaError(`mapping undefined on ${entity} entity`)
-		// }
 
 		if (autoIncrement && entity.sequence) {
 			const templateSequenceNextVal = this.dialect.other('sequenceNextVal')
@@ -159,7 +154,7 @@ export abstract class DmlBuilder {
 
 				let name: string
 				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(p => p.name === keyVal.property)
+					const property = entity.properties.find(q => q.name === keyVal.property)
 					if (property === undefined) {
 						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
 					}
@@ -189,7 +184,7 @@ export abstract class DmlBuilder {
 				const keyVal = obj.children[p] as KeyValue
 				let name: string
 				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(p => p.name === keyVal.property)
+					const property = entity.properties.find(q => q.name === keyVal.property)
 					if (property === undefined) {
 						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
 					}
@@ -295,8 +290,8 @@ export abstract class DmlBuilder {
 
 	protected buildBlock (operand: Block): string {
 		let text = ''
-		for (let i = 0; i < operand.children.length; i++) {
-			text += (this.buildOperand(operand.children[i]) + '')
+		for (const child of operand.children) {
+			text += (this.buildOperand(child) + '')
 		}
 		return text
 	}
