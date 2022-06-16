@@ -145,12 +145,18 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			const obj =	map.children[0]
 			for (const p in obj.children) {
 				const keyValue = obj.children[p]
+				let column:string
 				if (this.hadGroupFunction(keyValue.children[0])) {
 					groupColumns.push(keyValue)
-					projectColumns = `${projectColumns} ${projectColumns !== '' ? ',' : ''} "${keyValue.name}":"$${keyValue.name}"`
+					column = `"${keyValue.name}":"$${keyValue.name}"`
 				} else {
 					columns.push(keyValue)
-					projectColumns = `${projectColumns} ${projectColumns !== '' ? ',' : ''} "${keyValue.name}":"$_id.${keyValue.name}"`
+					column = `"${keyValue.name}":"$_id.${keyValue.name}"`
+				}
+				if (projectColumns) {
+					projectColumns = `${projectColumns} , ${column}`
+				} else {
+					projectColumns = `${column}`
 				}
 			}
 		}

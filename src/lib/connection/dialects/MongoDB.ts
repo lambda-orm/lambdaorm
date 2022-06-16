@@ -107,7 +107,7 @@ export class MongodbConnection extends Connection {
 
 	private async getInsertList (mapping: MappingConfig, dialect: Dialect, query: Query, entity:EntityMapping, array: any[]): Promise<any[]> {
 		const list = this.arrayToList(query, query.sentence, mapping, array)
-		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
+		if (entity.sequence && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
 			const mappingPk = entity.properties.find(p => p.name === propertyPk)
 			if (mappingPk) {
@@ -118,8 +118,7 @@ export class MongodbConnection extends Connection {
 			}
 		}
 
-		for (const p in query.includes) {
-			const include = query.includes[p]
+		for (const include of query.includes) {
 			if (include.relation.composite) {
 				const relationEntity = mapping.getEntity(include.relation.entity)
 				if (relationEntity === undefined) {
@@ -174,9 +173,9 @@ export class MongodbConnection extends Connection {
 		const obj = this.parseTemplate(sentence.set, params, mapping)
 		for (const include of query.includes) {
 			if (include.relation.composite) {
-				const relationEntity = mapping.getEntity(include.relation.entity)
 				const children = data.get(include.relation.name)
 				if (children) {
+					const relationEntity = mapping.getEntity(include.relation.entity)
 					if (relationEntity === undefined) {
 						throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
 					}

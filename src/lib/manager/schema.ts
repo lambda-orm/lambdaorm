@@ -1,4 +1,4 @@
-import { Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions } from '../model'
+import { Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -132,24 +132,29 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 			return true
 		} else {
 			let unsolved = false
-			for (const i in entity.relations) {
-				const relation = entity.relations[i]
-				if (relation.entity !== entityName && allEntities.includes(relation.entity)) {
-					if (relation.type === RelationType.oneToOne || relation.type === RelationType.oneToMany) {
-						if (!relation.weak && !sorted.includes(relation.entity) && (parent === null || parent !== relation.entity)) {
-							unsolved = true
-							break
-						}
-					} else if (relation.type === RelationType.manyToOne) {
-						if (relation.composite && !this.solveSortEntity(relation.entity, mainEntities, allEntities, sorted, entityName)) {
-							unsolved = true
-							break
-						}
-					}
+			for (const relation of entity.relations) {
+				if (this.unsolvedRelation(entityName, mainEntities, allEntities, sorted, relation, parent)) {
+					unsolved = true
+					break
 				}
 			}
 			return !unsolved
 		}
+	}
+
+	private unsolvedRelation (entityName: string, mainEntities: string[], allEntities: string[], sorted: string[], relation:Relation, parent?: string): boolean {
+		if (relation.entity !== entityName && allEntities.includes(relation.entity)) {
+			if (relation.type === RelationType.oneToOne || relation.type === RelationType.oneToMany) {
+				if (!relation.weak && !sorted.includes(relation.entity) && (parent === null || parent !== relation.entity)) {
+					return true
+				}
+			} else if (relation.type === RelationType.manyToOne) {
+				if (relation.composite && !this.solveSortEntity(relation.entity, mainEntities, allEntities, sorted, entityName)) {
+					return true
+				}
+			}
+		}
+		return false
 	}
 
 	/**
@@ -164,34 +169,41 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 			return false
 		} else {
 			let hadDependents = false
-			for (const i in entity.dependents) {
-				const dependent = entity.dependents[i]
+			for (const dependent of entity.dependents) {
 				if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
-					// if the relationship is not weak
-					if (!dependent.relation.weak) {
-						// look for the related property to see if the dependency is nullable
-						const dependentEntity = this.getEntity(dependent.entity)
-						if (dependentEntity === undefined) {
-							throw new SchemaError('Not exists entity:' + dependent.entity)
-						}
-						const dependentProperty = dependentEntity.properties.find(p => p.name === dependent.relation.from)
-						if (dependentProperty === undefined) {
-							throw new SchemaError(`property ${dependent.relation.from} not found in ${entity.name} `)
-						}
-						const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
-						// if the relation is nullable
-						// and the related entity is not included in the entities sorted by dependency
-						// and the parent entity is null or is the same as the relation
-						// in this case it cannot be determined that this entity can still be included in the list of entities ordered by dependency.
-						if (!isNullable && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
-							hadDependents = true
-							break
-						}
+					if (this.hadDependents(entity, sorted, dependent, parent)) {
+						hadDependents = true
+						break
 					}
 				}
 			}
 			return hadDependents
 		}
+	}
+
+	private hadDependents (entity: TEntity, sorted: string[], dependent:Dependent, parent?: string): boolean {
+		// if the relationship is not weak
+		if (!dependent.relation.weak) {
+			// look for the related property to see if the dependency is nullable
+			const dependentEntity = this.getEntity(dependent.entity)
+			if (dependentEntity === undefined) {
+				throw new SchemaError('Not exists entity:' + dependent.entity)
+			}
+			const dependentProperty = dependentEntity.properties.find(p => p.name === dependent.relation.from)
+			if (dependentProperty === undefined) {
+				throw new SchemaError(`property ${dependent.relation.from} not found in ${entity.name} `)
+			}
+			const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
+			// if the relation is nullable
+			// and the related entity is not included in the entities sorted by dependency
+			// and the parent entity is null or is the same as the relation
+			// in this case it cannot be determined that this entity can still be included in the list of entities ordered by dependency.
+			if (!isNullable && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
+				return true
+			}
+		}
+
+		return false
 	}
 
 	public getRelation (entity: string, relation: string): RelationInfo {
@@ -466,17 +478,34 @@ class SchemaExtender {
 		if (source) {
 			schema = Helper.clone(source)
 		}
-		// model
+		this.extendEntities(schema)
+		this.extendMappings(schema)
+		this.extendDataSources(schema)
+		this.extendDataStages(schema)
+		// views
+		if (!schema.views || !schema.views.length || schema.views.length === 0) {
+			schema.views = [{ name: 'default', entities: [] }]
+		}
+		// exclude entities not used in mapping
+		for (const k in schema.mappings) {
+			schema.mappings[k] = this.clearMapping2(schema, schema.mappings[k])
+		}
+		return schema
+	}
+
+	private extendEntities (schema: Schema) {
 		if (schema.entities) {
-			const entities = schema.entities
-			for (const k in entities) {
-				this.extendEntity(entities[k], entities)
+			for (const entity of schema.entities) {
+				if (entity && entity.extends) {
+					this.extendEntity(entity, schema.entities)
+				}
 			}
 		}
 		schema.entities = this.clearEntities(schema.entities)
 		this.complete(schema)
+	}
 
-		// mappings
+	private extendMappings (schema: Schema) {
 		if (!schema.mappings || !schema.mappings.length || schema.mappings.length === 0) {
 			schema.mappings = [{ name: 'default', entities: [] }]
 		} else {
@@ -498,9 +527,14 @@ class SchemaExtender {
 		for (const k in schema.mappings) {
 			this.extendObject(schema.mappings[k], { entities: schema.entities })
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
-			this.completeMapping(schema.mappings[k])
+			const mapping = schema.mappings[k]
+			if (mapping && mapping.entities) {
+				this.completeMapping(schema.mappings[k])
+			}
 		}
-		// dataSources
+	}
+
+	private extendDataSources (schema: Schema) {
 		if (!schema.dataSources || !schema.dataSources.length || schema.dataSources.length === 0) {
 			console.log('DataSources not defined')
 			schema.dataSources = [{ name: 'default', dialect: 'MySQL', mapping: schema.mappings[0].name, connection: null }]
@@ -511,7 +545,9 @@ class SchemaExtender {
 				dataSource.mapping = schema.mappings[0].name
 			}
 		}
-		// stages
+	}
+
+	private extendDataStages (schema: Schema) {
 		if (!schema.stages || !schema.stages.length || schema.stages.length === 0) {
 			schema.stages = [{ name: 'default', dataSources: [{ name: schema.dataSources[0].name }] }]
 		}
@@ -521,23 +557,16 @@ class SchemaExtender {
 				stage.dataSources = [{ name: schema.dataSources[0].name }]
 			}
 		}
-		// views
-		if (!schema.views || !schema.views.length || schema.views.length === 0) {
-			schema.views = [{ name: 'default', entities: [] }]
-		}
-		// exclude entities not used in mapping
-		for (const k in schema.mappings) {
-			schema.mappings[k] = this.clearMapping2(schema, schema.mappings[k])
-		}
-		return schema
 	}
 
 	public complete (schema: Schema): void {
 		if (schema) {
 			if (schema.entities) {
 				this.completeEntities(schema.entities, schema.views)
-				this.completeRelations(schema.entities)
-				this.completeDependents(schema.entities)
+				if (schema.entities && schema.entities.length) {
+					this.completeRelations(schema.entities)
+					this.completeDependents(schema.entities)
+				}
 			}
 		}
 	}
@@ -562,90 +591,93 @@ class SchemaExtender {
 	private completeEntities (entities: Entity[], views: View[]): void {
 		if (entities && entities.length) {
 			for (const entity of entities) {
-				entity.composite = entity.name.includes('.')
-				if (entity.properties !== undefined) {
-					for (const property of entity.properties) {
-						if (property.type === undefined) property.type = 'string'
-						if (property.type === 'string' && property.length === undefined) property.length = 80
-						if (property.length !== undefined && isNaN(property.length)) {
-							throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
-						}
-					}
+				this.completeEntity(entity, views)
+			}
+		}
+	}
+
+	private completeEntity (entity: Entity, views: View[]) {
+		entity.composite = entity.name.includes('.')
+		if (entity.properties !== undefined) {
+			for (const property of entity.properties) {
+				if (property.type === undefined) property.type = 'string'
+				if (property.type === 'string' && property.length === undefined) property.length = 80
+				if (property.length !== undefined && isNaN(property.length)) {
+					throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
 				}
-				if (entity.relations !== undefined) {
-					for (const relation of entity.relations) {
-						if (relation.type === undefined) relation.type = RelationType.oneToMany
-						// All relations manyToOne are weak
-						if (relation.type === RelationType.manyToOne) relation.weak = true
-						if (relation.weak === undefined) relation.weak = false
+			}
+		}
+		if (entity.relations !== undefined) {
+			for (const relation of entity.relations) {
+				if (relation.type === undefined) relation.type = RelationType.oneToMany
+				// All relations manyToOne are weak
+				if (relation.type === RelationType.manyToOne) relation.weak = true
+				if (relation.weak === undefined) relation.weak = false
+			}
+		}
+		if (entity.properties) {
+			entity.hadReadExps = entity.properties.some(p => p.readExp !== undefined)
+			entity.hadWriteExps = entity.properties.some(p => p.writeExp !== undefined)
+			entity.hadReadValues = entity.properties.some(p => p.readValue !== undefined)
+			entity.hadWriteValues = entity.properties.some(p => p.writeValue !== undefined)
+			entity.hadDefaults = entity.properties.some(p => p.default !== undefined)
+			entity.hadViewReadExp = views ? views.some(p => p.entities ? p.entities.some(q => q.name === entity.name && q.properties ? q.properties.some(r => r.readExp !== undefined) : false) : false) : false
+		} else {
+			entity.hadReadExps = false
+			entity.hadWriteExps = false
+			entity.hadReadValues = false
+			entity.hadWriteValues = false
+			entity.hadDefaults = false
+			entity.hadViewReadExp = false
+		}
+	}
+
+	private completeRelations (entities: Entity[]): void {
+		for (const source of entities) {
+			if (source.relations !== undefined) {
+				for (const sourceRelation of source.relations) {
+					if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
+						this.completeRelation(sourceRelation, entities)
 					}
-				}
-				if (entity.properties) {
-					entity.hadReadExps = entity.properties.some(p => p.readExp !== undefined)
-					entity.hadWriteExps = entity.properties.some(p => p.writeExp !== undefined)
-					entity.hadReadValues = entity.properties.some(p => p.readValue !== undefined)
-					entity.hadWriteValues = entity.properties.some(p => p.writeValue !== undefined)
-					entity.hadDefaults = entity.properties.some(p => p.default !== undefined)
-					entity.hadViewReadExp = views ? views.some(p => p.entities ? p.entities.some(q => q.name === entity.name && q.properties ? q.properties.some(r => r.readExp !== undefined) : false) : false) : false
-				} else {
-					entity.hadReadExps = false
-					entity.hadWriteExps = false
-					entity.hadReadValues = false
-					entity.hadWriteValues = false
-					entity.hadDefaults = false
-					entity.hadViewReadExp = false
 				}
 			}
 		}
 	}
 
-	private completeRelations (entities: Entity[]): void {
-		if (entities && entities.length) {
-			for (const source of entities) {
-				if (source.relations !== undefined) {
-					for (const sourceRelation of source.relations) {
-						if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
-							const targetEntity = entities.find(p => p.name === sourceRelation.entity)
-							if (targetEntity) {
-								let exists = false
-								if (targetEntity && targetEntity.relations) {
-									exists = targetEntity.relations.find(p => p.name === sourceRelation.target) !== undefined
-								}
-								if (!exists) {
-									if (targetEntity.relations === undefined) {
-										targetEntity.relations = []
-									}
-
-									targetEntity.relations.push({
-										name: sourceRelation.target,
-										type: sourceRelation.type === RelationType.oneToOne ? RelationType.oneToOne : RelationType.manyToOne,
-										composite: this.isCompound(targetEntity.name, source.name),
-										from: sourceRelation.to,
-										entity: source.name,
-										weak: true,
-										to: sourceRelation.from,
-										target: sourceRelation.name
-									})
-								}
-							}
-						}
-					}
+	private completeRelation (sourceRelation: Relation, entities: Entity[]) {
+		const targetEntity = entities.find(p => p.name === sourceRelation.entity)
+		if (targetEntity) {
+			let exists = false
+			if (targetEntity.relations) {
+				exists = targetEntity.relations.find(p => p.name === sourceRelation.target) !== undefined
+			}
+			if (!exists) {
+				if (targetEntity.relations === undefined) {
+					targetEntity.relations = []
 				}
+				targetEntity.relations.push({
+					name: sourceRelation.target as string,
+					type: sourceRelation.type === RelationType.oneToOne ? RelationType.oneToOne : RelationType.manyToOne,
+					composite: this.isCompound(targetEntity.name, source.name),
+					from: sourceRelation.to,
+					entity: source.name,
+					weak: true,
+					to: sourceRelation.from,
+					target: sourceRelation.name
+				})
 			}
 		}
 	}
 
 	private completeDependents (entities: Entity[]): void {
-		if (entities && entities.length) {
-			for (const entity of entities) {
-				entity.dependents = []
-				for (const related of entities) {
-					if (related.relations !== undefined) {
-						for (const relation of related.relations) {
-							if (relation.entity === entity.name && !relation.weak) {
-								const dependent = { entity: related.name, relation: relation }
-								entity.dependents.push(dependent)
-							}
+		for (const entity of entities) {
+			entity.dependents = []
+			for (const related of entities) {
+				if (related.relations !== undefined) {
+					for (const relation of related.relations) {
+						if (relation.entity === entity.name && !relation.weak) {
+							const dependent = { entity: related.name, relation: relation }
+							entity.dependents.push(dependent)
 						}
 					}
 				}
@@ -654,30 +686,28 @@ class SchemaExtender {
 	}
 
 	private extendEntity (entity: Entity, entities: Entity[]): void {
-		if (entity && entity.extends) {
-			const base = entities.find(p => p.name === entity.extends)
-			if (base === undefined) {
-				throw new SchemaError(`${entity.extends} not found`)
-			}
-			this.extendEntity(base, entities)
-			if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
-			// extend properties
-			if (base.properties !== undefined && base.properties.length > 0) {
-				if (entity.properties === undefined) {
-					entity.properties = []
-				}
-				this.extendObject(entity.properties, base.properties)
-			}
-			// extend relations
-			if (base.relations !== undefined && base.relations.length > 0) {
-				if (entity.relations === undefined) {
-					entity.relations = []
-				}
-				this.extendObject(entity.relations, base.relations)
-			}
-			// elimina dado que ya fue extendido
-			delete entity.extends
+		const base = entities.find(p => p.name === entity.extends)
+		if (base === undefined) {
+			throw new SchemaError(`${entity.extends} not found`)
 		}
+		this.extendEntity(base, entities)
+		if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
+		// extend properties
+		if (base.properties !== undefined && base.properties.length > 0) {
+			if (entity.properties === undefined) {
+				entity.properties = []
+			}
+			this.extendObject(entity.properties, base.properties)
+		}
+		// extend relations
+		if (base.relations !== undefined && base.relations.length > 0) {
+			if (entity.relations === undefined) {
+				entity.relations = []
+			}
+			this.extendObject(entity.relations, base.relations)
+		}
+		// elimina dado que ya fue extendido
+		delete entity.extends
 	}
 
 	private extendMapping (mapping: Mapping, mappings: Mapping[]): void {
@@ -748,26 +778,24 @@ class SchemaExtender {
 	}
 
 	private completeMapping (mapping: Mapping): void {
-		if (mapping && mapping.entities) {
-			for (const entity of mapping.entities) {
-				if (entity.mapping === undefined) {
-					entity.mapping = entity.name
-				}
-				if (entity.mapping === null || entity.mapping === '') {
-					throw new SchemaError(`Mapping undefined in ${entity.name}  `)
-				}
-				if (entity.properties !== undefined) {
-					for (const property of entity.properties) {
-						if (property.mapping === undefined) {
-							property.mapping = property.name
-						}
-						if (property.mapping === null || property.mapping === '') {
-							throw new SchemaError(`Mapping undefined in ${entity.name}.${property.name}`)
-						}
+		for (const entity of mapping.entities) {
+			if (entity.mapping === undefined) {
+				entity.mapping = entity.name
+			}
+			if (entity.mapping === null || entity.mapping === '') {
+				throw new SchemaError(`Mapping undefined in ${entity.name}  `)
+			}
+			if (entity.properties !== undefined) {
+				for (const property of entity.properties) {
+					if (property.mapping === undefined) {
+						property.mapping = property.name
+					}
+					if (property.mapping === null || property.mapping === '') {
+						throw new SchemaError(`Mapping undefined in ${entity.name}.${property.name}`)
 					}
 				}
-				entity.hadKeys = entity.properties ? entity.properties.some(p => p.key !== undefined) : false
 			}
+			entity.hadKeys = entity.properties ? entity.properties.some(p => p.key !== undefined) : false
 		}
 	}
 
@@ -847,6 +875,32 @@ export class SchemaManager {
 	}
 
 	public async get (source?: string): Promise<Schema> {
+		const configPath = await this.getConfigPath(source)
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [], views: [] }
+		if (configPath) {
+			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
+				const content = await Helper.readFile(configPath)
+				if (content !== null) {
+					schema = yaml.load(content)
+				} else {
+					throw new SchemaError(`Schema file: ${configPath} empty`)
+				}
+			} else if (path.extname(configPath) === '.json') {
+				const content = await Helper.readFile(configPath)
+				if (content !== null) {
+					schema = JSON.parse(content)
+				} else {
+					throw new SchemaError(`Schema file: ${configPath} empty`)
+				}
+			} else {
+				throw new SchemaError(`Schema file: ${configPath} not supported`)
+			}
+		}
+		this.completeSchema(schema)
+		return schema
+	}
+
+	private async getConfigPath (source?: string):Promise<string|undefined> {
 		let workspace: string
 		let configFile: string | undefined
 		workspace = process.cwd()
@@ -870,29 +924,14 @@ export class SchemaManager {
 			console.log('Schema: not supported:')
 			console.log(source)
 		}
-
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [], views: [] }
 		if (configFile) {
-			const configPath = path.join(workspace, configFile)
-			if (path.extname(configFile) === '.yaml' || path.extname(configFile) === '.yml') {
-				const content = await Helper.readFile(configPath)
-				if (content !== null) {
-					schema = yaml.load(content)
-				} else {
-					throw new SchemaError(`Schema file: ${configPath} empty`)
-				}
-			} else if (path.extname(configFile) === '.json') {
-				const content = await Helper.readFile(configPath)
-				if (content !== null) {
-					schema = JSON.parse(content)
-				} else {
-					throw new SchemaError(`Schema file: ${configPath} empty`)
-				}
-			} else {
-				throw new SchemaError(`Schema file: ${configPath} not supported`)
-			}
+			return path.join(workspace, configFile)
+		} else {
+			return undefined
 		}
+	}
 
+	private completeSchema (schema: Schema) {
 		if (schema.app === undefined) {
 			schema.app = { src: 'src', data: 'data', model: 'model' }
 		} else {
@@ -907,7 +946,6 @@ export class SchemaManager {
 			}
 		}
 		if (schema.dataSources === undefined) schema.dataSources = []
-		return schema
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
@@ -932,34 +970,29 @@ export class SchemaManager {
 
 	public load (schema: Schema): Schema {
 		this.schema = this.extend(schema)
-		this.model.entities = this.schema.entities ? this.schema.entities : []
-		this.model.enums = this.schema.enums ? this.schema.enums : []
+		this.model.entities = this.schema.entities || []
+		this.model.enums = this.schema.enums || []
 		if (!this.schema.views) {
 			this.schema.views = [{ name: 'default', entities: [] }]
 		}
-		for (const p in this.schema.views) {
-			this.view.load(this.schema.views[p])
+		for (const view of this.schema.views) {
+			this.view.load(view)
 		}
 		if (this.schema.mappings) {
-			for (const p in this.schema.mappings) {
-				this.mapping.load(this.schema.mappings[p])
+			for (const mapping of this.schema.mappings) {
+				this.mapping.load(mapping)
 			}
 		}
 		if (this.schema.dataSources) {
-			for (const p in this.schema.dataSources) {
-				const dataSource = this.schema.dataSources[p]
-				const objValue = Helper.tryParse(dataSource.connection)
-				if (objValue) {
-					dataSource.connection = objValue
-				}
+			for (const dataSource of this.schema.dataSources) {
+				dataSource.connection = Helper.tryParse(dataSource.connection)
 				const connectionConfig: ConnectionConfig = { name: dataSource.name, dialect: dataSource.dialect, connection: {} }
 				connectionConfig.connection = dataSource.connection
 				this.dataSource.load(dataSource)
 			}
 		}
 		if (this.schema.stages) {
-			for (const p in this.schema.stages) {
-				const stage = this.schema.stages[p]
+			for (const stage of this.schema.stages) {
 				this.stage.load(stage)
 			}
 		}

@@ -1,6 +1,7 @@
 
 import { StageActionDML } from './stageActionDML'
-import { Query, SchemaData, Entity, SchemaError } from '../model'
+import { Query, SchemaData, Entity, SchemaError, SchemaState, Relation } from '../model'
+import { Transaction } from 'lib/manager'
 
 export class StageImport extends StageActionDML {
 	public async execute (data: SchemaData): Promise<void> {
@@ -33,26 +34,33 @@ export class StageImport extends StageActionDML {
 					console.error(`${entity.name} had not unique Key`)
 					continue
 				}
-				let filter = ''
-				for (const p in entity.uniqueKey) { filter = filter + (filter === '' ? '' : ' && ') + `p.${entity.uniqueKey[p]}==${entity.uniqueKey[p]}` }
-				const expression = `${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`
-
-				const stillPending:any[] = []
-				for (const row of pending.rows) {
-					if (state.mappingData[relation.entity] && state.mappingData[relation.entity][relation.to] && state.mappingData[relation.entity][relation.to][row.externalId]) {
-						const values:any = {}
-						const internalId = state.mappingData[relation.entity][relation.to][row.externalId]
-						values[relation.from] = internalId
-						for (const p in entity.uniqueKey) { values[entity.uniqueKey[p]] = row.keys[p] }
-						await tr.expression(expression, values)
-					} else {
-						stillPending.push(row)
-					}
-				}
-				pending.rows = stillPending
+				pending.rows = await this.executePendingRows(state, entity, relation, tr, pending.rows)
 			}
 		})
 		await this.state.updateData(this.options.stage as string, state.mappingData, state.pendingData)
+	}
+
+	private async executePendingRows (state:SchemaState, entity:Entity, relation:Relation, tr:Transaction, rows:any[]):Promise<any[]> {
+		const stillPending:any[] = []
+		let filter = ''
+		for (const p in entity.uniqueKey) {
+			filter = filter + (filter === '' ? '' : ' && ') + `p.${entity.uniqueKey[p]}==${entity.uniqueKey[p]}`
+		}
+		const expression = `${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`
+		for (const row of rows) {
+			if (state.mappingData[relation.entity] && state.mappingData[relation.entity][relation.to] && state.mappingData[relation.entity][relation.to][row.externalId]) {
+				const values:any = {}
+				const internalId = state.mappingData[relation.entity][relation.to][row.externalId]
+				values[relation.from] = internalId
+				for (const p in entity.uniqueKey) {
+					values[entity.uniqueKey[p]] = row.keys[p]
+				}
+				await tr.expression(expression, values)
+			} else {
+				stillPending.push(row)
+			}
+		}
+		return stillPending
 	}
 
 	protected solveInternalsIds (entityName:string, rows:any[], mappingData:any, pending:any[], parentEntity?:string):void {
@@ -68,32 +76,7 @@ export class StageImport extends StageActionDML {
 				}
 				const relationProperty = relationEntity.properties.find(q => q.name === relation.to)
 				if (relationProperty !== undefined && relationProperty.autoIncrement) {
-					const pendingRows:any[] = []
-					for (const row of rows) {
-						const externalId = row[relation.from]
-						if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
-							row[relation.from] = mappingData[relation.entity][relation.to][externalId]
-						} else if (entity.uniqueKey !== undefined) {
-							const keys: any[] = []
-							for (const ukProperty of entity.uniqueKey) {
-								const value = row[ukProperty]
-								if (value == null) {
-									// TODO: reemplazar por un archivo de salida de inconsistencias
-									console.error(`for entity ${entity.name} unique ${ukProperty} is null`)
-								}
-								keys.push(value)
-							}
-							if (keys.length === 0) {
-								// TODO: reemplazar por un archivo de salida de inconsistencias
-								console.error(`for entity ${entity.name} had not unique key`)
-							}
-							pendingRows.push({ keys: keys, externalId: externalId })
-							row[relation.from] = null
-						}
-					}
-					if (pendingRows.length > 0) {
-						pending.push({ entity: entityName, relation: relation.name, rows: pendingRows })
-					}
+					this.solveInternalsIdsRows(mappingData, entity, relation, pending, rows)
 				}
 			} else if (relation.type === 'manyToOne') {
 				for (const row of rows) {
@@ -106,11 +89,41 @@ export class StageImport extends StageActionDML {
 		}
 	}
 
+	private solveInternalsIdsRows (mappingData:any, entity:Entity, relation:Relation, pending:any[], rows:any[]) {
+		const pendingRows:any[] = []
+		for (const row of rows) {
+			const externalId = row[relation.from]
+			if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
+				row[relation.from] = mappingData[relation.entity][relation.to][externalId]
+			} else if (entity.uniqueKey !== undefined) {
+				const keys: any[] = []
+				for (const ukProperty of entity.uniqueKey) {
+					const value = row[ukProperty]
+					if (value == null) {
+						// TODO: reemplazar por un archivo de salida de inconsistencias
+						console.error(`for entity ${entity.name} unique ${ukProperty} is null`)
+					}
+					keys.push(value)
+				}
+				if (keys.length === 0) {
+					// TODO: reemplazar por un archivo de salida de inconsistencias
+					console.error(`for entity ${entity.name} had not unique key`)
+				}
+				pendingRows.push({ keys: keys, externalId: externalId })
+				row[relation.from] = null
+			}
+		}
+		if (pendingRows.length > 0) {
+			pending.push({ entity: entity.name, relation: relation.name, rows: pendingRows })
+		}
+	}
+
 	protected loadExternalIds (entityName:string, rows:any[], aux:any):void {
 		if (!aux)aux = {}
 		if (aux[entityName] === undefined) {
 			aux[entityName] = {}
 		}
+		if (!rows)rows = []
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
@@ -120,16 +133,14 @@ export class StageImport extends StageActionDML {
 				if (aux[entityName][property.name] === undefined) {
 					aux[entityName][property.name] = {}
 				}
-				if (rows !== undefined) {
-					for (let i = 0; i < rows.length; i++) {
-						const row = rows[i]
-						aux[entityName][property.name][i] = row[property.name]
-					}
+				for (let i = 0; i < rows.length; i++) {
+					const row = rows[i]
+					aux[entityName][property.name][i] = row[property.name]
 				}
 			}
 		}
 		for (const relation of entity.relations) {
-			if (relation.type === 'manyToOne' && rows !== undefined) {
+			if (relation.type === 'manyToOne') {
 				for (const row of rows) {
 					const children = row[relation.name]
 					this.loadExternalIds(relation.entity, children, aux)
@@ -142,6 +153,7 @@ export class StageImport extends StageActionDML {
 		if (mappingData[entityName] === undefined) {
 			mappingData[entityName] = {}
 		}
+		if (!rows)rows = []
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
@@ -151,17 +163,15 @@ export class StageImport extends StageActionDML {
 				if (mappingData[entityName][property.name] === undefined) {
 					mappingData[entityName][property.name] = {}
 				}
-				if (rows !== undefined) {
-					for (let i = 0; i < rows.length; i++) {
-						const row = rows[i]
-						const externalId = aux[entityName][property.name][i]
-						mappingData[entityName][property.name][externalId] = row[property.name]
-					}
+				for (let i = 0; i < rows.length; i++) {
+					const row = rows[i]
+					const externalId = aux[entityName][property.name][i]
+					mappingData[entityName][property.name][externalId] = row[property.name]
 				}
 			}
 		}
 		for (const relation of entity.relations) {
-			if (relation.type === 'manyToOne' && rows !== undefined) {
+			if (relation.type === 'manyToOne') {
 				for (const row of rows) {
 					const children = row[relation.name]
 					this.completeMapping(relation.entity, children, aux, mappingData)

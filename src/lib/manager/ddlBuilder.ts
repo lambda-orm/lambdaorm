@@ -69,29 +69,7 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
-				if (entity.relations && !entity.view && (!entity.composite || !dialect.solveComposite)) {
-					for (const relation of entity.relations) {
-						const relationEntity = entitiesMapping.find(r => r.name === relation.entity)
-
-						// evaluate if entity relation is not view and apply in dataSource
-						if (relationEntity && !relationEntity.view && (!relationEntity.composite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, relation.entity)) {
-							if (!relation.weak) {
-								// busca la propiedad relacionada para saber si es nullable la relación
-								const fromProperty = entity.properties.find(r => r.name === relation.from)
-								if (fromProperty === undefined) {
-									throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
-								}
-								const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
-								if (isNullable) {
-									const query = this.builder(dataSource).setNull(entity, relation)
-									if (query) queries.push(query)
-								}
-								const queryDropFk = this.builder(dataSource).dropFk(entity, relation)
-								if (queryDropFk) queries.push(queryDropFk)
-							}
-						}
-					}
-				}
+				this._dropRelations(dataSource, ruleDataSource, entity, entitiesMapping, dialect, queries)
 			}
 		}
 		// drop indexes and tables
@@ -103,20 +81,57 @@ export class DDLBuilder {
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
-				if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
-					if (entity.indexes) {
-						for (const index of entity.indexes) {
-							const _query = this.builder(dataSource).dropIndex(entity, index)
-							if (_query) queries.push(_query)
-						}
-					}
-					if (entity.sequence) {
-						const _query = this.builder(dataSource).dropSequence(entity)
-						if (_query) queries.push(_query)
-					}
-					const queryDrop = this.builder(dataSource).dropEntity(entity)
-					if (queryDrop) queries.push(queryDrop)
+				this._dropEntity(dataSource, entity, dialect, queries)
+			}
+		}
+	}
+
+	private _dropRelations (dataSource: DataSource, ruleDataSource: RuleDataSource, entity:EntityMapping, entitiesMapping: EntityMapping[], dialect:Dialect, queries: Query[]) {
+		if (entity.relations && !entity.view && (!entity.composite || !dialect.solveComposite)) {
+			for (const relation of entity.relations) {
+				const relationEntity = entitiesMapping.find(r => r.name === relation.entity)
+				// evaluate if entity relation is not view and apply in dataSource
+				if (relationEntity && !relationEntity.view && (!relationEntity.composite || !dialect.solveComposite) && this.evalDataSource(ruleDataSource, relation.entity)) {
+					this._dropRelation(dataSource, entity, relation, queries)
 				}
+			}
+		}
+	}
+
+	private _dropRelation (dataSource: DataSource, entity:EntityMapping, relation:Relation, queries: Query[]) {
+		if (!relation.weak) {
+			// busca la propiedad relacionada para saber si es nullable la relación
+			const fromProperty = entity.properties.find(r => r.name === relation.from)
+			if (fromProperty === undefined) {
+				throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
+			}
+			const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
+			if (isNullable) {
+				const query = this.builder(dataSource).setNull(entity, relation)
+				if (query) queries.push(query)
+			}
+			const queryDropFk = this.builder(dataSource).dropFk(entity, relation)
+			if (queryDropFk) queries.push(queryDropFk)
+		}
+	}
+
+	private _dropEntity (dataSource: DataSource, entity:EntityMapping, dialect:Dialect, queries: Query[]) {
+		if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
+			this._dropIndexes(dataSource, entity, queries)
+			if (entity.sequence) {
+				const _query = this.builder(dataSource).dropSequence(entity)
+				if (_query) queries.push(_query)
+			}
+			const queryDrop = this.builder(dataSource).dropEntity(entity)
+			if (queryDrop) queries.push(queryDrop)
+		}
+	}
+
+	private _dropIndexes (dataSource: DataSource, entity:EntityMapping, queries: Query[]) {
+		if (entity.indexes) {
+			for (const index of entity.indexes) {
+				const _query = this.builder(dataSource).dropIndex(entity, index)
+				if (_query) queries.push(_query)
 			}
 		}
 	}

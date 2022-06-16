@@ -136,7 +136,6 @@ export class MySqlConnection extends Connection {
 		// Solve array parameters , example IN(?) where ? is array[]
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
-		let result: any
 		const values: any[] = []
 		// en el caso de haber un array con elementos string no se esta pudiendo resolver el IN(,,,) con execute
 		// por este motivo se esta usando query en este caso.
@@ -152,11 +151,9 @@ export class MySqlConnection extends Connection {
 			values.push(param.value)
 		}
 
-		if (useExecute) {
-			result = await this.cnx.execute(query.sentence, values)
-		} else {
-			result = await this.cnx.query(query.sentence, values)
-		}
+		const result = (useExecute)
+			?	await this.cnx.execute(query.sentence, values)
+			: await this.cnx.query(query.sentence, values)
 
 		const rows = result[0]
 		const cols = result[1]

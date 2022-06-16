@@ -2,5 +2,5 @@ projectKey=lambdaorm
 serverUrl=http://localhost:9000
 serverVersion=9.4.0.54424
 dashboardUrl=http://localhost:9000/dashboard?id=lambdaorm
-ceTaskId=AYFM_4K-j3nhcvA45luu
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYFM_4K-j3nhcvA45luu
+ceTaskId=AYFr1sj-0cnfeILF7NcR
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYFr1sj-0cnfeILF7NcR

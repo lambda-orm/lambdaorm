@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Query, Data, ExecutionError } from '../../model'
+import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
@@ -83,6 +83,60 @@ export class OracleConnection extends Connection {
 		}
 	}
 
+	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+		const fieldIds = mapping.getFieldIds(query.entity)
+		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
+		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
+		let options = {}
+		let sql = ''
+		const bindDefs: any = {}
+		if (fieldId && fieldIdKey) {
+			// oracledb.BIND_OUT 3003
+			const oracleType = this.oracleType(fieldId.type)
+			if (fieldId.type === 'string') {
+				const property = mapping.getProperty(query.entity, fieldId.name)
+				bindDefs[fieldIdKey] = { dir: 3003, type: oracleType, maxSize: property.length }
+			} else {
+				bindDefs[fieldIdKey] = { dir: 3003, type: oracleType }
+			}
+		}
+		for (const param of query.parameters) {
+			const property = mapping.getProperty(query.entity, param.name)
+			bindDefs[param.name] = this.getOracleType(param.type, property)
+		}
+		options = {
+			autoCommit: !this.inTransaction,
+			batchErrors: true,
+			bindDefs: bindDefs
+		}
+		const binds: any[] = this.arrayToRows(query, mapping, array)
+		const returning = fieldId && fieldIdKey ? `RETURNING ${fieldId.mapping} INTO :${fieldIdKey} ` : ''
+		sql = `${query.sentence} ${returning}`
+		const result = await this.cnx.executeMany(sql, binds, options)
+
+		if (result.rowsAffected !== binds.length) {
+			throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
+		}
+
+		if (!fieldId || !fieldIdKey) {
+			return []
+		}
+
+		const ids: any[] = []
+		for (const i in result.outBinds) {
+			ids.push(result.outBinds[i][fieldIdKey][0])
+		}
+		return ids
+
+		// Info
+		// https://stackoverflow.com/questions/46964852/node-oracledb-bulk-insert-using-associative-array
+		// https://blogs.oracle.com/opal/post/node-oracledb-22-with-batch-statement-execution-and-more-is-out-on-npm
+		// [binDef by name](https://stackoverflow.com/questions/61009450/node-js-oracledb-4-2-executemany-error-njs-011-encountered-bind-value-an)
+		// [binDef by name](https://github.com/oracle/node-oracledb/issues/1232)
+		// [use sequence](https://stackoverflow.com/questions/57201595/how-to-use-column-nextval-with-oracledb)
+		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
+	}
+
 	private oracleType (type: string): number {
 		switch (type) {
 		case 'boolean':
@@ -106,77 +160,21 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
-		const fieldIds = mapping.getFieldIds(query.entity)
-		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
-		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
-		let options = {}
-		let sql = ''
-		try {
-			const bindDefs: any = {}
-			if (fieldId && fieldIdKey) {
-				// oracledb.BIND_OUT 3003
-				const oracleType = this.oracleType(fieldId.type)
-				if (fieldId.type === 'string') {
-					const property = mapping.getProperty(query.entity, fieldId.name)
-					bindDefs[fieldIdKey] = { dir: 3003, type: oracleType, maxSize: property.length }
-				} else {
-					bindDefs[fieldIdKey] = { dir: 3003, type: oracleType }
-				}
-			}
-			for (const param of query.parameters) {
-				const oracleType = this.oracleType(param.type)
-				switch (param.type) {
-				case 'boolean':
-					bindDefs[param.name] = { type: oracleType, maxSize: 1 }; break
-				case 'string':
-					// eslint-disable-next-line no-case-declarations
-					const property = mapping.getProperty(query.entity, param.name)
-					bindDefs[param.name] = { type: oracleType, maxSize: property.length }; break
-				case 'integer':
-				case 'decimal':
-					bindDefs[param.name] = { type: oracleType }; break
-				case 'datetime':
-				case 'date':
-				case 'time':
-					bindDefs[param.name] = { type: oracleType }; break
-				}
-			}
-			options = {
-				autoCommit: !this.inTransaction,
-				batchErrors: true,
-				bindDefs: bindDefs
-			}
-			const binds: any[] = this.arrayToRows(query, mapping, array)
-			const returning = fieldId && fieldIdKey ? `RETURNING ${fieldId.mapping} INTO :${fieldIdKey} ` : ''
-			sql = `${query.sentence} ${returning}`
-			const result = await this.cnx.executeMany(sql, binds, options)
-
-			if (result.rowsAffected !== binds.length) {
-				throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
-			}
-
-			if (fieldId && fieldIdKey) {
-				const ids: any[] = []
-				for (const i in result.outBinds) {
-					ids.push(result.outBinds[i][fieldIdKey][0])
-				}
-				return ids
-			} else {
-				return []
-			}
-		} catch (error) {
-			console.log(error)
-			throw error
+	private getOracleType (type:string, property:PropertyMapping):any {
+		const oracleType = this.oracleType(type)
+		switch (type) {
+		case 'boolean':
+			return { type: oracleType, maxSize: 1 }
+		case 'string':
+			return { type: oracleType, maxSize: property.length }
+		case 'integer':
+		case 'decimal':
+			return { type: oracleType }
+		case 'datetime':
+		case 'date':
+		case 'time':
+			return { type: oracleType }
 		}
-
-		// Info
-		// https://stackoverflow.com/questions/46964852/node-oracledb-bulk-insert-using-associative-array
-		// https://blogs.oracle.com/opal/post/node-oracledb-22-with-batch-statement-execution-and-more-is-out-on-npm
-		// [binDef by name](https://stackoverflow.com/questions/61009450/node-js-oracledb-4-2-executemany-error-njs-011-encountered-bind-value-an)
-		// [binDef by name](https://github.com/oracle/node-oracledb/issues/1232)
-		// [use sequence](https://stackoverflow.com/questions/57201595/how-to-use-column-nextval-with-oracledb)
-		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
 
 	protected override arrayToRows (query: Query, _mapping: MappingConfig, array: any[]): any[] {
@@ -185,22 +183,26 @@ export class OracleConnection extends Connection {
 			const row: any = {}
 			for (const parameter of query.parameters) {
 				const value = item[parameter.name]
-				switch (parameter.type) {
-				case 'boolean':
-					row[parameter.name] = value ? 'Y' : 'N'; break
-				case 'string':
-					row[parameter.name] = typeof value === 'string' || value === null ? value : value.toString(); break
-				case 'datetime':
-				case 'date':
-				case 'time':
-					row[parameter.name] = value ? new Date(value) : null; break
-				default:
-					row[parameter.name] = value
-				}
+				row[parameter.name] = this.getItemValue(parameter.type, value)
 			}
 			rows.push(row)
 		}
 		return rows
+	}
+
+	private getItemValue (type:string, value:any):any {
+		switch (type) {
+		case 'boolean':
+			return value ? 'Y' : 'N'
+		case 'string':
+			return typeof value === 'string' || value === null ? value : value.toString()
+		case 'datetime':
+		case 'date':
+		case 'time':
+			return value ? new Date(value) : null
+		default:
+			return value
+		}
 	}
 
 	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {

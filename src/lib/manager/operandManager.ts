@@ -834,7 +834,9 @@ export class OperandManager {
 	private createAlias (expressionContext: ExpressionContext, name: string, relation?: string): string {
 		const c = name.charAt(0).toLowerCase()
 		let alias = c
-		for (let i = 1; expressionContext.aliases[alias]; i++)alias = alias + i
+		for (let i = 1; expressionContext.aliases[alias]; i++) {
+			alias = alias + i
+		}
 		expressionContext.aliases[alias] = relation || name
 		return alias
 	}
