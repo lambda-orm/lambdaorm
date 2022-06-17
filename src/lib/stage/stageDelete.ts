@@ -36,17 +36,18 @@ export class StageDelete extends StageActionDML {
 	protected createUpdateQueries (entities: Entity[]): Query[] {
 		const queries:Query[] = []
 		for (const entity of entities) {
-			if (entity.relations && !entity.view) {
-				for (const relation of entity.relations) {
-					const fromProperty = entity.properties.find(p => p.name === relation.from)
-					if (fromProperty === undefined) {
-						throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
-					}
-					const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
-					if (isNullable) {
-						const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
-						queries.push(query)
-					}
+			if (entity.view) {
+				continue
+			}
+			for (const relation of entity.relations) {
+				const fromProperty = entity.properties.find(p => p.name === relation.from)
+				if (fromProperty === undefined) {
+					throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
+				}
+				const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
+				if (isNullable) {
+					const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
+					queries.push(query)
 				}
 			}
 		}

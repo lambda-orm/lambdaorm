@@ -247,31 +247,29 @@ export class OracleConnection extends Connection {
 		const values: any = {}
 		let sql = query.sentence
 		const params = this.dataToParameters(query, mapping, data)
-		if (params) {
-			for (const param of params) {
-				if (param.type === 'array') {
-					if (param.value.length > 0) {
-						const type = typeof param.value[0]
-						if (type === 'string') {
-							for (const j in param.value) {
-								let value = param.value[j]
-								value = Helper.escape(value)
-								value = Helper.replace(value, '\\\'', '\\\'\'')
-								values.push(`'${value}'`)
-							}
-							Helper.replace(sql, `:${param.name}`, param.value.join(','))
-						} else {
-							sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
-						}
-					} else {
-						sql = Helper.replace(sql, `:${param.name}`, '')
+		for (const param of params) {
+			if (param.type !== 'array') {
+				values[param.name] = param.value
+				continue
+			}
+			if (param.value.length > 0) {
+				const type = typeof param.value[0]
+				if (type === 'string') {
+					for (const _value of param.value) {
+						let value = _value
+						value = Helper.escape(value)
+						value = Helper.replace(value, '\\\'', '\\\'\'')
+						values.push(`'${value}'`)
 					}
+					Helper.replace(sql, `:${param.name}`, param.value.join(','))
 				} else {
-					values[param.name] = param.value
+					sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
 				}
+			} else {
+				sql = Helper.replace(sql, `:${param.name}`, '')
 			}
 		}
-		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
+		const options = { autoCommit: !this.inTransaction }
 		return this.cnx.execute(sql, values, options)
 	}
 }

@@ -779,23 +779,19 @@ class SchemaExtender {
 
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {
-			if (entity.mapping === undefined) {
+			if (Helper.isEmpty(entity.mapping)) {
 				entity.mapping = entity.name
 			}
-			if (entity.mapping === null || entity.mapping === '') {
-				throw new SchemaError(`Mapping undefined in ${entity.name}  `)
+			if (entity.properties === undefined || entity.properties.length === 0) {
+				entity.hadKeys = false
+				continue
 			}
-			if (entity.properties !== undefined) {
-				for (const property of entity.properties) {
-					if (property.mapping === undefined) {
-						property.mapping = property.name
-					}
-					if (property.mapping === null || property.mapping === '') {
-						throw new SchemaError(`Mapping undefined in ${entity.name}.${property.name}`)
-					}
+			for (const property of entity.properties) {
+				if (Helper.isEmpty(property.mapping)) {
+					property.mapping = property.name
 				}
 			}
-			entity.hadKeys = entity.properties ? entity.properties.some(p => p.key !== undefined) : false
+			entity.hadKeys = entity.properties.some(p => p.key !== undefined)
 		}
 	}
 

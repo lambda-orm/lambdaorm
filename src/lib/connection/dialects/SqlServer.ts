@@ -239,32 +239,37 @@ export class SqlServerConnection extends Connection {
 		for (const item of array) {
 			const row: any[] = []
 			for (const parameter of query.parameters) {
-				let value = item[parameter.name]
-				if (value == null || value === undefined) {
-					value = 'null'
-				} else {
-					switch (parameter.type) {
-					case 'boolean':
-						value = value ? 1 : 0; break
-					case 'string':
-						value = Helper.escape(value)
-						value = Helper.replace(value, '\\\'', '\\\'\'')
-						break
-					case 'datetime':
-						value = Helper.escape(this.writeDateTime(value, mapping))
-						break
-					case 'date':
-						value = Helper.escape(this.writeDate(value, mapping))
-						break
-					case 'time':
-						value = Helper.escape(this.writeTime(value, mapping))
-						break
-					}
-				}
+				const value = this.getItemValue(item, parameter, mapping)
 				row.push(value)
 			}
 			rows.push(`(${row.join(',')})`)
 		}
 		return rows
+	}
+
+	private getItemValue (item:any, parameter:Parameter, mapping: MappingConfig):any {
+		let value = item[parameter.name]
+		if (value == null || value === undefined) {
+			value = 'null'
+		} else {
+			switch (parameter.type) {
+			case 'boolean':
+				value = value ? 1 : 0; break
+			case 'string':
+				value = Helper.escape(value)
+				value = Helper.replace(value, '\\\'', '\\\'\'')
+				break
+			case 'datetime':
+				value = Helper.escape(this.writeDateTime(value, mapping))
+				break
+			case 'date':
+				value = Helper.escape(this.writeDate(value, mapping))
+				break
+			case 'time':
+				value = Helper.escape(this.writeTime(value, mapping))
+				break
+			}
+		}
+		return value
 	}
 }

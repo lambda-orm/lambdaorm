@@ -53,20 +53,9 @@ export class Dialect {
 	}
 
 	public add (dialect: any): void {
-		for (const type in dialect.operators) {
-			const operands = type === 'ternary' ? 3 : type === 'binary' ? 2 : 1
-			for (const name in dialect.operators[type]) {
-				const template = dialect.operators[type][name]
-				if (!this._operators[name]) this._operators[name] = {}
-				this._operators[name][operands] = template
-			}
-		}
-		for (const type in dialect.functions) {
-			const list = dialect.functions[type]
-			for (const name in list) {
-				this._functions[name] = { type: type, template: list[name] }
-			}
-		}
+		this.addOperators(dialect)
+		this.addFunctions(dialect)
+
 		for (const name in dialect.others) {
 			const template = dialect.others[name]
 			this._others[name] = template
@@ -82,6 +71,26 @@ export class Dialect {
 		for (const name in dialect.types) {
 			const template = dialect.types[name]
 			this._types[name] = template
+		}
+	}
+
+	private addOperators (dialect: any) {
+		for (const type in dialect.operators) {
+			const operands = type === 'ternary' ? 3 : type === 'binary' ? 2 : 1
+			for (const name in dialect.operators[type]) {
+				const template = dialect.operators[type][name]
+				if (!this._operators[name]) this._operators[name] = {}
+				this._operators[name][operands] = template
+			}
+		}
+	}
+
+	private addFunctions (dialect: any) {
+		for (const type in dialect.functions) {
+			const list = dialect.functions[type]
+			for (const name in list) {
+				this._functions[name] = { type: type, template: list[name] }
+			}
 		}
 	}
 

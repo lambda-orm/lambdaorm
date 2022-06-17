@@ -45,30 +45,33 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 
 		let text = ''
 		if (entity.composite) {
-			text = text !== '' ? `${text}, ${this.buildReplaceRoot(entity)}` : this.buildReplaceRoot(entity)
+			text = this.addAggregate(text, this.buildReplaceRoot(entity))
 		}
 		if (joins.length > 0) {
-			text = text !== '' ? `${text}, ${this.buildJoins(entity, joins)}` : this.buildJoins(entity, joins)
+			text = this.addAggregate(text, this.buildJoins(entity, joins))
 		}
 		if (filter) {
-			text = text !== '' ? `${text}, ${this.buildFilter(filter)}` : this.buildFilter(filter)
+			text = this.addAggregate(text, this.buildFilter(filter))
 		}
 		if (groupBy) {
-			text = text !== '' ? `${text}, ${this.getGroupBy(map, groupBy, sentence)}` : this.getGroupBy(map, groupBy, sentence)
+			text = this.addAggregate(text, this.getGroupBy(map, groupBy, sentence))
 		} else {
-			text = text !== '' ? `${text}, ${this.getMap(map, sentence)}` : this.getMap(map, sentence)
+			text = this.addAggregate(text, this.getMap(map, sentence))
 		}
 		if (having) {
-			const havingText = this.buildArrowFunction(having)
-			text = text !== '' ? `${text}, ${havingText}` : havingText
+			text = this.addAggregate(text, this.buildArrowFunction(having))
 		}
 		if (sort) {
-			text = `${text}, ${this.buildArrowFunction(sort)}`
+			text = this.addAggregate(text, this.buildArrowFunction(sort))
 		}
 		if (page) {
 			text = this.buildPage(text, page)
 		}
 		return `[${text}]`
+	}
+
+	private addAggregate (previous:string, toAdd:string) {
+		return previous !== '' ? `${previous}, ${toAdd}` : toAdd
 	}
 
 	protected buildReplaceRoot (entity:EntityMapping) {

@@ -321,23 +321,21 @@ export class ExpressionNormalizer {
 	}
 
 	private createFilter (entity: Entity, parent?: string, parentVariable?: string): Node {
+		if (entity.primaryKey === undefined || entity.primaryKey.length === 0) {
+			throw new SchemaError(`Entity ${entity.name} cannot be create filter because the primary key is empty`)
+		}
 		let condition
-		if (entity.primaryKey !== undefined) {
-			for (let i = 0; i < entity.primaryKey?.length; i++) {
-				const name = entity.primaryKey[i]
-				const field = entity.properties.find(p => p.name === name)
-				if (field !== undefined) {
-					const fieldNode = new Node(parent ? parent + '.' + field.name : field.name, 'var')
-					const variableNode = new Node(parentVariable ? parentVariable + '.' + name : name, 'var')
-					const equal = new Node('==', 'operator', [fieldNode, variableNode])
-					condition = condition ? new Node('&&', 'operator', [condition, equal]) : equal
-				}
+		for (const name of entity.primaryKey) {
+			const field = entity.properties.find(p => p.name === name)
+			if (field === undefined) {
+				throw new SchemaError(`Entity ${entity.name} not found property ${name} defined in primary key`)
 			}
+			const fieldNode = new Node(parent ? parent + '.' + field.name : field.name, 'var')
+			const variableNode = new Node(parentVariable ? parentVariable + '.' + name : name, 'var')
+			const equal = new Node('==', 'operator', [fieldNode, variableNode])
+			condition = condition ? new Node('&&', 'operator', [condition, equal]) : equal
 		}
-		if (condition) {
-			return condition
-		}
-		throw new SchemaError('Create Filter incorrect!!!')
+		return condition
 	}
 
 	private completeMapInclude (entity: Entity, arrowVar: string, node: Node): Node {

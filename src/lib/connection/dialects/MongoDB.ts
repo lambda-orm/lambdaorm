@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 export class MongoDBConnectionPool extends ConnectionPool {
@@ -118,37 +118,45 @@ export class MongodbConnection extends Connection {
 			}
 		}
 
+		await this.getInsertListIncludes(mapping, dialect, query, array, list)
+		return list
+	}
+
+	private async getInsertListIncludes (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[], list:any[]):Promise<void> {
 		for (const include of query.includes) {
 			if (include.relation.composite) {
 				const relationEntity = mapping.getEntity(include.relation.entity)
 				if (relationEntity === undefined) {
 					throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
 				}
-				const relationEntityMapping = dialect.delimiter(relationEntity.mapping)
-				for (let i = 0; i < array.length; i++) {
-					const source = array[i]
-					const target = list[i]
-					const children = source[include.relation.name]
-					const fromProperty = mapping.getProperty(query.entity, include.relation.from)
-					if (include.relation.type === RelationType.manyToOne || (include.relation.type === RelationType.oneToOne && !!fromProperty.nullable)) {
-						// Assign parentID to child relation property
-						for (const _children of children) {
-							const toProperty = mapping.getProperty(include.relation.entity, include.relation.to)
-							_children[toProperty.name] = target[fromProperty.mapping]
-						}
-					}
-					if (include.relation.type === RelationType.manyToOne) {
-						target[relationEntityMapping] = await this.getInsertList(mapping, dialect, include.query, relationEntity, children)
-					} else {
-						const result = await this.getInsertList(mapping, dialect, include.query, relationEntity, [children])
-						if (result && result.length > 0) {
-							target[relationEntityMapping] = result[0]
-						}
-					}
+				await this.getInsertListInclude(mapping, dialect, query, include, relationEntity, array, list)
+			}
+		}
+	}
+
+	private async getInsertListInclude (mapping: MappingConfig, dialect: Dialect, query: Query, include:Include, relationEntity:EntityMapping, array: any[], list:any[]):Promise<void> {
+		const relationEntityMapping = dialect.delimiter(relationEntity.mapping)
+		for (let i = 0; i < array.length; i++) {
+			const source = array[i]
+			const target = list[i]
+			const children = source[include.relation.name]
+			const fromProperty = mapping.getProperty(query.entity, include.relation.from)
+			if (include.relation.type === RelationType.manyToOne || (include.relation.type === RelationType.oneToOne && !!fromProperty.nullable)) {
+				// Assign parentID to child relation property
+				for (const _children of children) {
+					const toProperty = mapping.getProperty(include.relation.entity, include.relation.to)
+					_children[toProperty.name] = target[fromProperty.mapping]
+				}
+			}
+			if (include.relation.type === RelationType.manyToOne) {
+				target[relationEntityMapping] = await this.getInsertList(mapping, dialect, include.query, relationEntity, children)
+			} else {
+				const result = await this.getInsertList(mapping, dialect, include.query, relationEntity, [children])
+				if (result && result.length > 0) {
+					target[relationEntityMapping] = result[0]
 				}
 			}
 		}
-		return list
 	}
 
 	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
@@ -172,28 +180,27 @@ export class MongodbConnection extends Connection {
 		const params = this.dataToParameters(query, mapping, data)
 		const obj = this.parseTemplate(sentence.set, params, mapping)
 		for (const include of query.includes) {
-			if (include.relation.composite) {
-				const children = data.get(include.relation.name)
-				if (children) {
-					const relationEntity = mapping.getEntity(include.relation.entity)
-					if (relationEntity === undefined) {
-						throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
-					}
-					const relationProperty = dialect.delimiter(relationEntity.mapping)
-					if (include.relation.type === RelationType.manyToOne) {
-						const childList: any[] = []
-						for (const child of children) {
-							const childData = new Data(child, data)
-							const childObj = this.getObject(mapping, dialect, include.query, childData)
-							childList.push(childObj)
-						}
-						obj[relationProperty] = childList
-					} else {
-						const childData = new Data(children, data)
-						const childObj = this.getObject(mapping, dialect, include.query, childData)
-						obj[relationProperty] = childObj
-					}
+			const children = data.get(include.relation.name)
+			if (!children || !include.relation.composite) {
+				continue
+			}
+			const relationEntity = mapping.getEntity(include.relation.entity)
+			if (relationEntity === undefined) {
+				throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+			}
+			const relationProperty = dialect.delimiter(relationEntity.mapping)
+			if (include.relation.type === RelationType.manyToOne) {
+				const childList: any[] = []
+				for (const child of children) {
+					const childData = new Data(child, data)
+					const childObj = this.getObject(mapping, dialect, include.query, childData)
+					childList.push(childObj)
 				}
+				obj[relationProperty] = childList
+			} else {
+				const childData = new Data(children, data)
+				const childObj = this.getObject(mapping, dialect, include.query, childData)
+				obj[relationProperty] = childObj
 			}
 		}
 		return obj
@@ -281,49 +288,41 @@ export class MongodbConnection extends Connection {
 
 	private getValue (source: any, type: string, mapping: MappingConfig) {
 		let value: any
-		if (source) {
-			switch (type) {
-			case 'array':
-				if (source.length > 0) {
-					if (typeof source[0] === 'string') {
-						value = source.map((p:string) => `"${p}"`).join(',')
-					} else {
-						value = source.join(',')
-					}
-				} else {
-					value = ''
-				}
-				break
-			case 'boolean':
-				value = source ? 'true' : 'false'; break
-			case 'string':
-				value = typeof source === 'string' ? source : source.toString()
-				value = Helper.replace(value, '\n', '\\n')
-				value = Helper.replace(value, '"', '\\"')
-				value = `"${value}"`
-				break
-			case 'datetime':
-				value = `"${this.writeDateTime(source, mapping)}"`
-				break
-			case 'date':
-				value = `"${this.writeDate(source, mapping)}"`
-				break
-			case 'time':
-				value = `"${this.writeTime(source, mapping)}"`
-				break
-			default:
-				if (typeof source === 'string') {
-					value = Helper.replace(source, '\n', '\\n')
-					value = Helper.replace(value, '"', '\\"')
-					value = `"${value}"`
-				} else {
-					value = source
-				}
-			}
-		} else {
-			value = 'null'
+		if (source === undefined || source === null) {
+			return 'null'
 		}
-		return value
+		switch (type) {
+		case 'array':
+			if (source.length === 0) {
+				return ''
+			}
+			if (typeof source[0] === 'string') {
+				return source.map((p:string) => `"${p}"`).join(',')
+			} else {
+				return source.join(',')
+			}
+		case 'boolean':
+			return source ? 'true' : 'false'
+		case 'string':
+			value = typeof source === 'string' ? source : source.toString()
+			value = Helper.replace(value, '\n', '\\n')
+			value = Helper.replace(value, '"', '\\"')
+			return `"${value}"`
+		case 'datetime':
+			return `"${this.writeDateTime(source, mapping)}"`
+		case 'date':
+			return `"${this.writeDate(source, mapping)}"`
+		case 'time':
+			return `"${this.writeTime(source, mapping)}"`
+		default:
+			if (typeof source === 'string') {
+				value = Helper.replace(source, '\n', '\\n')
+				value = Helper.replace(value, '"', '\\"')
+				return `"${value}"`
+			} else {
+				return source
+			}
+		}
 	}
 
 	private async getNextSequenceValue (sequence: string, count = 1) {

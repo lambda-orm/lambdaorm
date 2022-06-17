@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Query, Data } from '../../model'
+import { Query, Data, Parameter } from '../../model'
 import { MappingConfig, Dialect, Helper } from '../../manager'
 
 // https://node-postgres.com/features/connecting
@@ -103,33 +103,38 @@ export class PostgreSQLConnection extends Connection {
 		for (const item of array) {
 			const row: any[] = []
 			for (const parameter of query.parameters) {
-				let value = item[parameter.name]
-				if (value == null || value === undefined) {
-					value = 'null'
-				} else {
-					switch (parameter.type) {
-					case 'boolean':
-						value = value ? 'true' : 'false'; break
-					case 'string':
-						value = Helper.escape(value)
-						value = Helper.replace(value, '\\\'', '\\\'\'')
-						break
-					case 'datetime':
-						value = Helper.escape(this.writeDateTime(value, mapping))
-						break
-					case 'date':
-						value = Helper.escape(this.writeDate(value, mapping))
-						break
-					case 'time':
-						value = Helper.escape(this.writeTime(value, mapping))
-						break
-					}
-				}
+				const value = this.getItemValue(item, parameter, mapping)
 				row.push(value)
 			}
 			rows.push(`(${row.join(',')})`)
 		}
 		return rows
+	}
+
+	private getItemValue (item:any, parameter:Parameter, mapping: MappingConfig):any {
+		let value = item[parameter.name]
+		if (value == null || value === undefined) {
+			value = 'null'
+		} else {
+			switch (parameter.type) {
+			case 'boolean':
+				value = value ? 'true' : 'false'; break
+			case 'string':
+				value = Helper.escape(value)
+				value = Helper.replace(value, '\\\'', '\\\'\'')
+				break
+			case 'datetime':
+				value = Helper.escape(this.writeDateTime(value, mapping))
+				break
+			case 'date':
+				value = Helper.escape(this.writeDate(value, mapping))
+				break
+			case 'time':
+				value = Helper.escape(this.writeTime(value, mapping))
+				break
+			}
+		}
+		return value
 	}
 
 	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
@@ -173,43 +178,38 @@ export class PostgreSQLConnection extends Connection {
 		const values: any[] = []
 		let sql = query.sentence
 		const params = this.dataToParameters(query, mapping, data)
-		if (params) {
-			for (let i = 0; i < params.length; i++) {
-				const param = params[i]
-				if (param.type === 'array') {
-					// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
-					// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
-					// https://www.postgresql.org/docs/9.2/functions-array.html
-					// https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
-					if (param.value.length > 0) {
-						const type = typeof param.value[0]
-						switch (type) {
-						case 'string':
-							if (param.value.length === 1) {
-								values.push(param.value[0])
-							} else {
-								sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
-								values.push(param.value)
-							}
-							break
-						case 'bigint':
-						case 'number':
-							if (param.value.length === 1) {
-								values.push(param.value[0])
-							} else {
-								sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
-								values.push(param.value)
-							}
-							break
-						default:
-							values.push(param.value)
-						}
-					} else {
-						values.push([])
-					}
-				} else {
-					values.push(param.value)
-				}
+
+		for (let i = 0; i < params.length; i++) {
+			const param = params[i]
+			if (param.type !== 'array') {
+				values.push(param.value)
+				continue
+			}
+			// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
+			// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
+			// https://www.postgresql.org/docs/9.2/functions-array.html
+			// https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
+			if (param.value.length === 0) {
+				values.push([])
+				continue
+			}
+			if (param.value.length === 1) {
+				values.push(param.value[0])
+				continue
+			}
+			const type = typeof param.value[0]
+			switch (type) {
+			case 'string':
+				sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+				values.push(param.value)
+				break
+			case 'bigint':
+			case 'number':
+				sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
+				values.push(param.value)
+				break
+			default:
+				values.push(param.value)
 			}
 		}
 		try {

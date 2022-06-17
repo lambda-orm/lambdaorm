@@ -14,10 +14,10 @@ export class StageImport extends StageActionDML {
 				const entityData = data.entities.find(p => p.entity === query.entity)
 				if (entityData) {
 					const aux:any = {}
-					this.loadExternalIds(entityData.entity, entityData.rows, aux)
+					this.loadExternalIds(entityData.entity, entityData.rows || [], aux)
 					this.solveInternalsIds(entityData.entity, entityData.rows, state.mappingData, state.pendingData)
 					await tr.execute(query, entityData.rows)
-					this.completeMapping(entityData.entity, entityData.rows, aux, state.mappingData)
+					this.completeMapping(entityData.entity, entityData.rows || [], aux, state.mappingData)
 				}
 			}
 			for (const pending of state.pendingData) {
@@ -119,31 +119,28 @@ export class StageImport extends StageActionDML {
 	}
 
 	protected loadExternalIds (entityName:string, rows:any[], aux:any):void {
-		if (!aux)aux = {}
 		if (aux[entityName] === undefined) {
 			aux[entityName] = {}
 		}
-		if (!rows)rows = []
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
-		for (const property of entity.properties) {
-			if (property.autoIncrement) {
-				if (aux[entityName][property.name] === undefined) {
-					aux[entityName][property.name] = {}
-				}
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
-					aux[entityName][property.name][i] = row[property.name]
-				}
+		const autoIncrement = entity.properties.find(p => p.autoIncrement)
+		if (autoIncrement) {
+			if (aux[entityName][autoIncrement.name] === undefined) {
+				aux[entityName][autoIncrement.name] = {}
+			}
+			for (let i = 0; i < rows.length; i++) {
+				const row = rows[i]
+				aux[entityName][autoIncrement.name][i] = row[autoIncrement.name]
 			}
 		}
 		for (const relation of entity.relations) {
 			if (relation.type === 'manyToOne') {
 				for (const row of rows) {
 					const children = row[relation.name]
-					this.loadExternalIds(relation.entity, children, aux)
+					this.loadExternalIds(relation.entity, children || [], aux || {})
 				}
 			}
 		}
@@ -153,29 +150,28 @@ export class StageImport extends StageActionDML {
 		if (mappingData[entityName] === undefined) {
 			mappingData[entityName] = {}
 		}
-		if (!rows)rows = []
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
-		for (const property of entity.properties) {
-			if (property.autoIncrement) {
-				if (mappingData[entityName][property.name] === undefined) {
-					mappingData[entityName][property.name] = {}
-				}
-				for (let i = 0; i < rows.length; i++) {
-					const row = rows[i]
-					const externalId = aux[entityName][property.name][i]
-					mappingData[entityName][property.name][externalId] = row[property.name]
-				}
+		const autoIncrement = entity.properties.find(p => p.autoIncrement)
+		if (autoIncrement) {
+			if (mappingData[entityName][autoIncrement.name] === undefined) {
+				mappingData[entityName][autoIncrement.name] = {}
+			}
+			for (let i = 0; i < rows.length; i++) {
+				const row = rows[i]
+				const externalId = aux[entityName][autoIncrement.name][i]
+				mappingData[entityName][autoIncrement.name][externalId] = row[autoIncrement.name]
 			}
 		}
 		for (const relation of entity.relations) {
-			if (relation.type === 'manyToOne') {
-				for (const row of rows) {
-					const children = row[relation.name]
-					this.completeMapping(relation.entity, children, aux, mappingData)
-				}
+			if (relation.type !== 'manyToOne') {
+				continue
+			}
+			for (const row of rows) {
+				const children = row[relation.name]
+				this.completeMapping(relation.entity, children || [], aux, mappingData)
 			}
 		}
 	}
