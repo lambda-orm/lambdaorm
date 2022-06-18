@@ -92,29 +92,33 @@ export class StageImport extends StageActionDML {
 	private solveInternalsIdsRows (mappingData:any, entity:Entity, relation:Relation, pending:any[], rows:any[]) {
 		const pendingRows:any[] = []
 		for (const row of rows) {
-			const externalId = row[relation.from]
-			if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
-				row[relation.from] = mappingData[relation.entity][relation.to][externalId]
-			} else if (entity.uniqueKey !== undefined) {
-				const keys: any[] = []
-				for (const ukProperty of entity.uniqueKey) {
-					const value = row[ukProperty]
-					if (value == null) {
-						// TODO: reemplazar por un archivo de salida de inconsistencias
-						console.error(`for entity ${entity.name} unique ${ukProperty} is null`)
-					}
-					keys.push(value)
-				}
-				if (keys.length === 0) {
-					// TODO: reemplazar por un archivo de salida de inconsistencias
-					console.error(`for entity ${entity.name} had not unique key`)
-				}
-				pendingRows.push({ keys: keys, externalId: externalId })
-				row[relation.from] = null
-			}
+			this.solveInternalsIdsRow(mappingData, entity, relation, pendingRows, row)
 		}
 		if (pendingRows.length > 0) {
 			pending.push({ entity: entity.name, relation: relation.name, rows: pendingRows })
+		}
+	}
+
+	private solveInternalsIdsRow (mappingData:any, entity:Entity, relation:Relation, pendingRows:any[], row:any) {
+		const externalId = row[relation.from]
+		if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
+			row[relation.from] = mappingData[relation.entity][relation.to][externalId]
+		} else if (entity.uniqueKey !== undefined) {
+			const keys: any[] = []
+			for (const ukProperty of entity.uniqueKey) {
+				const value = row[ukProperty]
+				if (value == null) {
+					// TODO: reemplazar por un archivo de salida de inconsistencias
+					console.error(`for entity ${entity.name} unique ${ukProperty} is null`)
+				}
+				keys.push(value)
+			}
+			if (keys.length === 0) {
+				// TODO: reemplazar por un archivo de salida de inconsistencias
+				console.error(`for entity ${entity.name} had not unique key`)
+			}
+			pendingRows.push({ keys: keys, externalId: externalId })
+			row[relation.from] = null
 		}
 	}
 

@@ -90,113 +90,136 @@ export class ExpressionNormalizer {
 		} else if (clauses.deleteAll) {
 			compeleInclude = this.completeDeleteInclude
 			clauses.deleteAll.name = 'delete'
+		} else if (clauses.map) {
+			compeleInclude = this.completeMapInclude
+			this.completeMapNode(entity, clauses.map)
+		} else if (clauses.distinct) {
+			compeleInclude = this.completeMapInclude
+			this.completeDistinctNode(clauses, entity)
+		} else if (clauses.first) {
+			compeleInclude = this.completeMapInclude
+			this.completeFirstNode(clauses, mainNode, entity)
+		} else if (clauses.last) {
+			compeleInclude = this.completeMapInclude
+			this.completeLastNode(clauses, mainNode, entity)
+		} else if (clauses.take) {
+			compeleInclude = this.completeMapInclude
+			this.completeTakeNode(clauses, mainNode, entity)
 		} else {
-			if (clauses.map) {
-				compeleInclude = this.completeMapInclude
-				this.completeMapNode(entity, clauses.map)
-			} else if (clauses.distinct) {
-				// Replace distinct for map and add function distinct to child of map
-				compeleInclude = this.completeMapInclude
-				clauses.map = clauses.distinct
-				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map)
-				clauses.map.children[2] = new Node('distinct', 'funcRef', [clauses.map.children[2]])
-			} else if (clauses.first) {
-				// Add orderby and limit , replace first for map
-				// example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1
-				compeleInclude = this.completeMapInclude
-				clauses.map = clauses.first
-				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map)
-				if (!clauses.sort) {
-					const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
-					if (autoIncrement !== undefined) {
-						const varArrow = new Node('p', 'var', [])
-						const varSort = new Node('p.' + autoIncrement.name, 'var', [])
-						const funcAsc = new Node('asc', 'funcRef', [varSort])
-						mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcAsc])
-					}
-				}
-				if (!clauses.page) {
-					const constPage = new Node('1', 'const', [])
-					const constRecords = new Node('1', 'const', [])
-					mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
-				}
-			} else if (clauses.last) {
-				// Add orderby desc and limit, replace last for map
-				// example: SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 0,1
-				compeleInclude = this.completeMapInclude
-				clauses.map = clauses.last
-				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map)
-				if (!clauses.sort) {
-					const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
-					if (autoIncrement !== undefined) {
-						const varArrow = new Node('p', 'var', [])
-						const varSort = new Node('p.' + autoIncrement.name, 'var', [])
-						const funcDesc = new Node('desc', 'funcRef', [varSort])
-						mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcDesc])
-					}
-				}
-				if (!clauses.page) {
-					const constPage = new Node('1', 'const', [])
-					const constRecords = new Node('1', 'const', [])
-					mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
-				}
-			} else if (clauses.take) {
-				// Add limit , replace take for map
-				// example: SELECT * FROM Orders  LIMIT 0,1
-				compeleInclude = this.completeMapInclude
-				clauses.map = clauses.take
-				clauses.map.name = 'map'
-				this.completeMapNode(entity, clauses.map)
-				if (!clauses.page) {
-					const constPage = new Node('1', 'const', [])
-					const constRecords = new Node('1', 'const', [])
-					mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
-				}
-			} else {
-				// Solve expresión without map example: Products.filter(p=> id==1)
-				compeleInclude = this.completeMapInclude
-				const varArrow = new Node('p', 'var', [])
-				const varAll = new Node('p', 'var', [])
-				mainNode.children[0] = new Node('map', 'arrow', [mainNode.children[0], varArrow, varAll])
-				clauses.map = mainNode.children[0]
-				this.completeMapNode(entity, clauses.map)
-			}
+			// Solve expresión without map example: Products.filter(p=> id==1)
+			compeleInclude = this.completeMapInclude
+			const varArrow = new Node('p', 'var', [])
+			const varAll = new Node('p', 'var', [])
+			mainNode.children[0] = new Node('map', 'arrow', [mainNode.children[0], varArrow, varAll])
+			clauses.map = mainNode.children[0]
+			this.completeMapNode(entity, clauses.map)
 		}
+
 		if (clauses.sort) {
-			// sets ascending order in the case that it has not already been specified
-			const body = clauses.sort.children[2]
-			if (body.type === 'array') {
-				for (let i = 0; i < body.children.length; i++) {
-					if (body.children[i].type === 'var') {
-						body.children[i] = new Node('asc', 'funcRef', [body.children[i]])
-					}
-				}
-			} else if (body.type === 'var') {
-				clauses.sort.children[2] = new Node('asc', 'funcRef', [body])
-			}
+			this.completeSortNode(clauses)
 		}
 		if (clauses.include) {
 			if (!compeleInclude) {
 				throw new SchemaError('Include not implemented!!!')
 			}
-			const clauseInclude = clauses.include
-			const arrowVar = clauseInclude.children[1].name
-			const body = clauseInclude.children[2]
-			if (body.type === 'array') {
-				for (let i = 0; i < body.children.length; i++) {
-					body.children[i] = compeleInclude.bind(this)(entity, arrowVar, body.children[i])
-					if (clauses.map) {
-						this.addChildFieldField(clauses.map, entity, body.children[i])
-					}
+			this.completeIncludeNode(clauses, compeleInclude, entity)
+		}
+	}
+
+	private completeDistinctNode (clauses: any, entity: Entity): void {
+		// Replace distinct for map and add function distinct to child of map
+		clauses.map = clauses.distinct
+		clauses.map.name = 'map'
+		this.completeMapNode(entity, clauses.map)
+		clauses.map.children[2] = new Node('distinct', 'funcRef', [clauses.map.children[2]])
+	}
+
+	private completeFirstNode (clauses: any, mainNode: Node, entity: Entity): void {
+		// Add orderby and limit , replace first for map
+		// example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1
+		clauses.map = clauses.first
+		clauses.map.name = 'map'
+		this.completeMapNode(entity, clauses.map)
+		if (!clauses.sort) {
+			const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
+			if (autoIncrement !== undefined) {
+				const varArrow = new Node('p', 'var', [])
+				const varSort = new Node('p.' + autoIncrement.name, 'var', [])
+				const funcAsc = new Node('asc', 'funcRef', [varSort])
+				mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcAsc])
+			}
+		}
+		if (!clauses.page) {
+			const constPage = new Node('1', 'const', [])
+			const constRecords = new Node('1', 'const', [])
+			mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
+		}
+	}
+
+	private completeLastNode (clauses: any, mainNode: Node, entity: Entity): void {
+		// Add orderby desc and limit, replace last for map
+		// example: SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 0,1
+		clauses.map = clauses.last
+		clauses.map.name = 'map'
+		this.completeMapNode(entity, clauses.map)
+		if (!clauses.sort) {
+			const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
+			if (autoIncrement !== undefined) {
+				const varArrow = new Node('p', 'var', [])
+				const varSort = new Node('p.' + autoIncrement.name, 'var', [])
+				const funcDesc = new Node('desc', 'funcRef', [varSort])
+				mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcDesc])
+			}
+		}
+		if (!clauses.page) {
+			const constPage = new Node('1', 'const', [])
+			const constRecords = new Node('1', 'const', [])
+			mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
+		}
+	}
+
+	private completeTakeNode (clauses: any, mainNode: Node, entity: Entity): void {
+		// Add limit , replace take for map
+		// example: SELECT * FROM Orders  LIMIT 0,1
+		clauses.map = clauses.take
+		clauses.map.name = 'map'
+		this.completeMapNode(entity, clauses.map)
+		if (!clauses.page) {
+			const constPage = new Node('1', 'const', [])
+			const constRecords = new Node('1', 'const', [])
+			mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
+		}
+	}
+
+	private completeSortNode (clauses: any): void {
+		// sets ascending order in the case that it has not already been specified
+		const body = clauses.sort.children[2]
+		if (body.type === 'array') {
+			for (let i = 0; i < body.children.length; i++) {
+				if (body.children[i].type === 'var') {
+					body.children[i] = new Node('asc', 'funcRef', [body.children[i]])
 				}
-			} else {
-				clauseInclude.children[2] = compeleInclude.bind(this)(entity, arrowVar, body)
+			}
+		} else if (body.type === 'var') {
+			clauses.sort.children[2] = new Node('asc', 'funcRef', [body])
+		}
+	}
+
+	private completeIncludeNode (clauses: any, compeleInclude:any, entity: Entity): void {
+		const clauseInclude = clauses.include
+		const arrowVar = clauseInclude.children[1].name
+		const body = clauseInclude.children[2]
+		if (body.type === 'array') {
+			for (let i = 0; i < body.children.length; i++) {
+				body.children[i] = compeleInclude.bind(this)(entity, arrowVar, body.children[i])
 				if (clauses.map) {
-					this.addChildFieldField(clauses.map, entity, body)
+					this.addChildFieldField(clauses.map, entity, body.children[i])
 				}
+			}
+		} else {
+			clauseInclude.children[2] = compeleInclude.bind(this)(entity, arrowVar, body)
+			if (clauses.map) {
+				this.addChildFieldField(clauses.map, entity, body)
 			}
 		}
 	}

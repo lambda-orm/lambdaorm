@@ -89,6 +89,11 @@ export class Delete extends ArrowFunction {
 		this.alias = alias
 	}
 }
+
+export interface SentenceArgs{
+	name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints: Constraint[], values: Behavior[], defaults: Behavior[]
+}
+
 export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]
@@ -99,16 +104,16 @@ export class Sentence extends Operand {
 	public values: Behavior[]
 	public defaults: Behavior[]
 
-	constructor (name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints: Constraint[], values: Behavior[], defaults: Behavior[]) {
-		super(name, children)
-		this.entity = entity
-		this.alias = alias
-		this.columns = columns
-		this.parameters = parameters
+	constructor (args:SentenceArgs) {
+		super(args.name, args.children)
+		this.entity = args.entity
+		this.alias = args.alias
+		this.columns = args.columns
+		this.parameters = args.parameters
 		this.action = ''
-		this.constraints = constraints
-		this.values = values
-		this.defaults = defaults
+		this.constraints = args.constraints
+		this.values = args.values
+		this.defaults = args.defaults
 		this.initialize()
 	}
 

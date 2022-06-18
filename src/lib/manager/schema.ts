@@ -511,16 +511,14 @@ class SchemaExtender {
 		} else {
 			// extend entities into mapping
 			for (const k in schema.mappings) {
-				const entities = schema.mappings[k].entities
-				if (entities) {
-					for (const r in entities) {
-						this.extendEntityMapping(entities[r], entities)
-					}
+				const entities = schema.mappings[k].entities || []
+				for (const entity of entities) {
+					this.extendEntityMapping(entity, entities)
 				}
 			}
 			// extends mappings
-			for (const k in schema.mappings) {
-				this.extendMapping(schema.mappings[k], schema.mappings)
+			for (const mapping of schema.mappings) {
+				this.extendMapping(mapping, schema.mappings)
 			}
 		}
 		// extend mapping for model
@@ -596,25 +594,10 @@ class SchemaExtender {
 		}
 	}
 
-	private completeEntity (entity: Entity, views: View[]) {
+	private completeEntity (entity: Entity, views: View[]):void {
 		entity.composite = entity.name.includes('.')
-		if (entity.properties !== undefined) {
-			for (const property of entity.properties) {
-				if (property.type === undefined) property.type = 'string'
-				if (property.type === 'string' && property.length === undefined) property.length = 80
-				if (property.length !== undefined && isNaN(property.length)) {
-					throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
-				}
-			}
-		}
-		if (entity.relations !== undefined) {
-			for (const relation of entity.relations) {
-				if (relation.type === undefined) relation.type = RelationType.oneToMany
-				// All relations manyToOne are weak
-				if (relation.type === RelationType.manyToOne) relation.weak = true
-				if (relation.weak === undefined) relation.weak = false
-			}
-		}
+		this.completeEntityProperties(entity)
+		this.completeEntityRelations(entity)
 		if (entity.properties) {
 			entity.hadReadExps = entity.properties.some(p => p.readExp !== undefined)
 			entity.hadWriteExps = entity.properties.some(p => p.writeExp !== undefined)
@@ -629,6 +612,29 @@ class SchemaExtender {
 			entity.hadWriteValues = false
 			entity.hadDefaults = false
 			entity.hadViewReadExp = false
+		}
+	}
+
+	private completeEntityProperties (entity: Entity):void {
+		if (entity.properties !== undefined) {
+			for (const property of entity.properties) {
+				if (property.type === undefined) property.type = 'string'
+				if (property.type === 'string' && property.length === undefined) property.length = 80
+				if (property.length !== undefined && isNaN(property.length)) {
+					throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
+				}
+			}
+		}
+	}
+
+	private completeEntityRelations (entity: Entity):void {
+		if (entity.relations !== undefined) {
+			for (const relation of entity.relations) {
+				if (relation.type === undefined) relation.type = RelationType.oneToMany
+				// All relations manyToOne are weak
+				if (relation.type === RelationType.manyToOne) relation.weak = true
+				if (relation.weak === undefined) relation.weak = false
+			}
 		}
 	}
 
@@ -673,12 +679,13 @@ class SchemaExtender {
 		for (const entity of entities) {
 			entity.dependents = []
 			for (const related of entities) {
-				if (related.relations !== undefined) {
-					for (const relation of related.relations) {
-						if (relation.entity === entity.name && !relation.weak) {
-							const dependent = { entity: related.name, relation: relation }
-							entity.dependents.push(dependent)
-						}
+				if (related.relations === undefined) {
+					continue
+				}
+				for (const relation of related.relations) {
+					if (relation.entity === entity.name && !relation.weak) {
+						const dependent = { entity: related.name, relation: relation }
+						entity.dependents.push(dependent)
 					}
 				}
 			}
@@ -736,22 +743,28 @@ class SchemaExtender {
 			if (entity.mapping === undefined && base.mapping !== undefined) {
 				entity.mapping = base.mapping
 			}
-			// extend indexes
-			if (base.indexes !== undefined && base.indexes.length > 0) {
-				if (entity.indexes === undefined) {
-					entity.indexes = []
-				}
-				this.extendObject(entity.indexes, base.indexes)
-			}
-			// extend properties
-			if (base.properties !== undefined && base.properties.length > 0) {
-				if (entity.properties === undefined) {
-					entity.properties = []
-				}
-				this.extendObject(entity.properties, base.properties)
-			}
-			// elimina dado que ya fue extendido
+			this.extendEntityMappingIndexes(entity, base)
+			this.extendEntityMappingProperties(entity, base)
+			// delete since it was already extended
 			delete entity.extends
+		}
+	}
+
+	private extendEntityMappingIndexes (entity: EntityMapping, base: EntityMapping): void {
+		if (base.indexes !== undefined && base.indexes.length > 0) {
+			if (entity.indexes === undefined) {
+				entity.indexes = []
+			}
+			this.extendObject(entity.indexes, base.indexes)
+		}
+	}
+
+	private extendEntityMappingProperties (entity: EntityMapping, base: EntityMapping): void {
+		if (base.properties !== undefined && base.properties.length > 0) {
+			if (entity.properties === undefined) {
+				entity.properties = []
+			}
+			this.extendObject(entity.properties, base.properties)
 		}
 	}
 

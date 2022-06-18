@@ -144,31 +144,33 @@ export class Helper {
 	}
 
 	public static solveEnvironmentVariables (source:any): void {
-		if (typeof source === 'object') {
-			for (const name in source) {
-				let child = source[name]
-				if (typeof child === 'string' && child.indexOf('${') >= 0) {
-					// there can be more than one environment variable in text
-					while (child.indexOf('${') >= 0) {
-						const environmentVariable = Helper.getEnvironmentVariable(child)
-						if (environmentVariable) {
-							const environmentVariableValue = process.env[environmentVariable]
-							if (environmentVariableValue === undefined || environmentVariableValue === null) {
-								child = Helper.replace(child, '${' + environmentVariable + '}', '')
-							} else {
-								const objValue = Helper.tryParse(environmentVariableValue)
-								if (objValue) {
-									child = Helper.replace(child, '${' + environmentVariable + '}', JSON.stringify(objValue))
-								} else {
-									child = Helper.replace(child, '${' + environmentVariable + '}', environmentVariableValue)
-								}
-							}
-						}
-						source[name] = child
-					}
-				} else if (typeof child === 'object') {
-					Helper.solveEnvironmentVariables(child)
-				}
+		if (typeof source !== 'object') {
+			return
+		}
+		for (const name in source) {
+			const child = source[name]
+			if (typeof child === 'string' && child.indexOf('${') >= 0) {
+				Helper.replaceEnvironmentVariable(child)
+			} else if (typeof child === 'object') {
+				Helper.solveEnvironmentVariables(child)
+			}
+		}
+	}
+
+	private static replaceEnvironmentVariable (text:any): void {
+		// there can be more than one environment variable in text
+		while (text.indexOf('${') >= 0) {
+			const environmentVariable = Helper.getEnvironmentVariable(text)
+			if (!environmentVariable) {
+				continue
+			}
+			const environmentVariableValue = process.env[environmentVariable]
+			if (environmentVariableValue === undefined || environmentVariableValue === null) {
+				text = Helper.replace(text, '${' + environmentVariable + '}', '')
+			} else {
+				const objValue = Helper.tryParse(environmentVariableValue)
+				const value = objValue ? JSON.stringify(objValue) : environmentVariableValue
+				text = Helper.replace(text, '${' + environmentVariable + '}', value)
 			}
 		}
 	}

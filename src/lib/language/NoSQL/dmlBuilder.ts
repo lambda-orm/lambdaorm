@@ -9,7 +9,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	public override build (sentence: Sentence): Query {
 		if (sentence.action === 'select') {
 			const noSQLSentence = this.buildSentence(sentence)
-			return new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, noSQLSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
+			return new Query({ name: sentence.name, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
 		} else {
 			const includes:Include[] = []
 			const sentenceIncludes = sentence.getCompositeIncludes()
@@ -21,7 +21,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				includes.push(include)
 			}
 			const noSQLSentence = this.buildSentence(sentence)
-			const query = new Query(sentence.name, this.dataSource.dialect, this.dataSource.name, noSQLSentence, sentence.entity, sentence.columns, sentence.parameters, sentence.constraints, sentence.values, sentence.defaults)
+			const query = new Query({ name: sentence.name, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
 			query.includes = includes
 			return query
 		}
