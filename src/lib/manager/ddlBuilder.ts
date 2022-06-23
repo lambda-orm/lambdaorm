@@ -107,11 +107,9 @@ export class DDLBuilder {
 			}
 			const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
 			if (isNullable) {
-				const query = this.builder(dataSource).setNull(entity, relation)
-				if (query) queries.push(query)
+				this.addQuery(queries, this.builder(dataSource).setNull(entity, relation))
 			}
-			const queryDropFk = this.builder(dataSource).dropFk(entity, relation)
-			if (queryDropFk) queries.push(queryDropFk)
+			this.addQuery(queries, this.builder(dataSource).dropFk(entity, relation))
 		}
 	}
 
@@ -119,19 +117,16 @@ export class DDLBuilder {
 		if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
 			this._dropIndexes(dataSource, entity, queries)
 			if (entity.sequence) {
-				const _query = this.builder(dataSource).dropSequence(entity)
-				if (_query) queries.push(_query)
+				this.addQuery(queries, this.builder(dataSource).dropSequence(entity))
 			}
-			const queryDrop = this.builder(dataSource).dropEntity(entity)
-			if (queryDrop) queries.push(queryDrop)
+			this.addQuery(queries, this.builder(dataSource).dropEntity(entity))
 		}
 	}
 
 	private _dropIndexes (dataSource: DataSource, entity:EntityMapping, queries: Query[]) {
 		if (entity.indexes) {
 			for (const index of entity.indexes) {
-				const _query = this.builder(dataSource).dropIndex(entity, index)
-				if (_query) queries.push(_query)
+				this.addQuery(queries, this.builder(dataSource).dropIndex(entity, index))
 			}
 		}
 	}
@@ -149,106 +144,79 @@ export class DDLBuilder {
 					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)
 				}
 				if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
-					const query = this.builder(dataSource).truncateEntity(entity)
-					if (query) queries.push(query)
+					this.addQuery(queries, this.builder(dataSource).truncateEntity(entity))
 				}
 			}
 		}
 	}
 
 	private _sync (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
-		// remove constraints for changes in entities
-		this._syncRemoveConstraints(dataSource, ruleDataSource, delta, queries)
-		// remove indexes and Fks for changes in entities
-		this._syncRemoveIndexesAndFksForChanges(dataSource, ruleDataSource, oldMapping, delta, queries)
-		// remove indexes and tables for removed entities
-		this._syncRemoveIndexesAndTablesForRemovedEntities(dataSource, ruleDataSource, delta, queries)
+		// remove for entities changes
+		this._syncRemoveForEntitiesChanges(dataSource, ruleDataSource, oldMapping, delta, queries)
+		// remove for entities removed
+		this._syncRemoveForRemovedEntities(dataSource, ruleDataSource, delta, queries)
 		// create entities
 		this._syncCreateEntities(dataSource, ruleDataSource, delta, queries)
-		// add properties for entities changes
-		this._syncAddPropertiesForEntitiesChanges(dataSource, ruleDataSource, delta, queries)
-		// TODO:
-		// Solve rename column: se debe resolver en cascada los indexes, Fks, Uk and Pk que esta haciendo referencia la columns
-		// Solve rename table: se debe resolver en cascada los indexes, Fks, Uk and Pk que esta haciendo referencia la columns
-		// en ambos casos se debe resolver que se hará con los datos para que estos no se pierdan
-
-		// remove properties for entities changes
-		this._syncRemovePropertiesForEntitiesChanges(dataSource, ruleDataSource, delta, queries)
-		// create constraints for changes in entities
-		this._syncCreateConstraintsForChangesInEntities(dataSource, ruleDataSource, delta, queries)
-		// create indexes and Fks for changes in entities
-		this._syncCreateIndexesAndFksForChangesInEntities(dataSource, ruleDataSource, delta, queries)
-		// create indexes and Fks for new entities
-		this._syncCreateIndexesAndFksForNewEntities(dataSource, ruleDataSource, delta, newMapping, queries)
+		// create for entities changes
+		this._syncCreateForEntitiesChanges(dataSource, ruleDataSource, delta, queries)
+		// create for new entities
+		this._syncCreateForNewEntities(dataSource, ruleDataSource, newMapping, delta, queries)
 	}
 
-	private _syncRemoveConstraints (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
-		for (const entityChanged of delta.changed) {
-			if (!entityChanged.delta) continue
-			// if entity is view is excluded
-			if ((entityChanged.old as EntityMapping).view) continue
-			// evaluate if entity apply in dataSource
-			if (this.evalDataSource(ruleDataSource, entityChanged.name)) {
-				for (const changed of entityChanged.delta.changed) {
-					this._syncRemoveConstraint(dataSource, entityChanged, changed, queries)
-				}
-			}
-		}
-	}
-
-	private addQuery (queries: Query[], query:Query|undefined) {
-		if (query) queries.push(query)
-	}
-
-	private _syncRemoveConstraint (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (!changed.delta) return
-		if (changed.name === 'primaryKey') {
-			if (changed.delta.remove && changed.delta.remove.length > 0) {
-				this.addQuery(queries, this.builder(dataSource).dropPk(entityChanged.old))
-			}
-			if (changed.delta.changed && changed.delta.changed.length > 0) {
-				this.addQuery(queries, this.builder(dataSource).dropPk(entityChanged.old))
-			}
-		}
-		if (changed.name === 'uniqueKey') {
-			if (changed.delta.remove && changed.delta.remove.length > 0) {
-				this.addQuery(queries, this.builder(dataSource).dropUk(entityChanged.old))
-			}
-			if (changed.delta.changed && changed.delta.changed.length > 0) {
-				this.addQuery(queries, this.builder(dataSource).dropUk(entityChanged.old))
-			}
-		}
-	}
-
-	private _syncRemoveIndexesAndFksForChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
+	private _syncRemoveForEntitiesChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
 		for (const entityChanged of delta.changed) {
 			// if entity is view is excluded
 			// evaluate if entity apply in dataSource
 			if (!entityChanged.delta || (entityChanged.old as EntityMapping).view || (!this.evalDataSource(ruleDataSource, entityChanged.name))) continue
 			for (const changed of entityChanged.delta.changed) {
-				if (changed.name === 'index') {
-					this._syncRemoveIndexForChanges(dataSource, entityChanged, changed, queries)
-				}
-				if (changed.name === 'relation') {
-					this._syncRemoveFkForChanges(dataSource, ruleDataSource, oldMapping, entityChanged, changed, queries)
+				if (!changed.delta) continue
+				switch (changed.name) {
+				case 'primaryKey':
+					this._syncRemovePrimaryKey(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'uniqueKey':
+					this._syncRemoveUniqueKey(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'index':
+					this._syncRemoveIndexForChanges(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'relation':
+					this._syncRemoveFkForChanges(dataSource, ruleDataSource, oldMapping, entityChanged, changed.delta, queries)
+					break
 				}
 			}
 		}
 	}
 
-	private _syncRemoveIndexForChanges (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (!changed.delta) return
-		for (const oldIndex of changed.delta.changed) {
+	private _syncRemovePrimaryKey (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		if (delta.remove && delta.remove.length > 0) {
+			this.addQuery(queries, this.builder(dataSource).dropPk(entityChanged.old))
+		}
+		if (delta.changed && delta.changed.length > 0) {
+			this.addQuery(queries, this.builder(dataSource).dropPk(entityChanged.old))
+		}
+	}
+
+	private _syncRemoveUniqueKey (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		if (delta.remove && delta.remove.length > 0) {
+			this.addQuery(queries, this.builder(dataSource).dropUk(entityChanged.old))
+		}
+		if (delta.changed && delta.changed.length > 0) {
+			this.addQuery(queries, this.builder(dataSource).dropUk(entityChanged.old))
+		}
+	}
+
+	private _syncRemoveIndexForChanges (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const oldIndex of delta.changed) {
 			this.addQuery(queries, this.builder(dataSource).dropIndex(entityChanged.new, oldIndex.old as Index))
 		}
-		for (const removeIndex of changed.delta.remove) {
+		for (const removeIndex of delta.remove) {
 			this.addQuery(queries, this.builder(dataSource).dropIndex(entityChanged.new, removeIndex.old as Index))
 		}
 	}
 
-	private _syncRemoveFkForChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (!changed.delta) return
-		for (const changedItem of changed.delta.changed) {
+	private _syncRemoveFkForChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const changedItem of delta.changed) {
 			const newRelation = changedItem.new as Relation
 			const oldRelation = changedItem.old as Relation
 			const oldRelationEntity = oldMapping.find(r => r.name === oldRelation.entity)
@@ -257,7 +225,7 @@ export class DDLBuilder {
 				this.addQuery(queries, this.builder(dataSource).dropFk(entityChanged.new, oldRelation))
 			}
 		}
-		for (const removeItem of changed.delta.remove) {
+		for (const removeItem of delta.remove) {
 			const removeRelation = removeItem.old as Relation
 			const oldRelationEntity = oldMapping.find(s => s.name === removeRelation.entity)
 			// evaluate if entity relation apply in dataSource
@@ -267,7 +235,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemoveIndexesAndTablesForRemovedEntities (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
+	private _syncRemoveForRemovedEntities (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
 		for (const removeItem of delta.remove) {
 			const removeEntity = removeItem.old as EntityMapping
 			// if entity is view is excluded
@@ -304,155 +272,128 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncAddPropertiesForEntitiesChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
+	private _syncCreateForEntitiesChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
 		for (const entityChanged of delta.changed) {
 			// if entity is view is excluded
 			// evaluate if entity apply in dataSource
 			if (!entityChanged.delta || (entityChanged.new as EntityMapping).view || (!this.evalDataSource(ruleDataSource, entityChanged.name))) continue
 			for (const changed of entityChanged.delta.changed) {
-				if (changed.name === 'property') {
-					this._syncAddPropertyForEntitiesChanges(dataSource, entityChanged, changed, queries)
+				if (!changed.delta) continue
+				switch (changed.name) {
+				case 'property':
+					this._syncAddPropertyForEntitiesChanges(dataSource, entityChanged, changed.delta, queries)
+					this._syncRemovePropertyForEntityChanges(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'primaryKey':
+					this._syncCreatePkForChangesInEntity(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'uniqueKey':
+					this._syncCreateUkForChangesInEntity(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'index':
+					this._syncCreateIndexesForChangesInEntity(dataSource, entityChanged, changed.delta, queries)
+					break
+				case 'relation':
+					this._syncCreateFksForChangesInEntity(dataSource, ruleDataSource, entityChanged, changed.delta, queries)
+					break
+				case 'sequence':
+					this._syncCreateSequencesForChangesInEntity(dataSource, entityChanged, changed.delta, queries)
+					break
 				}
 			}
 		}
+		// TODO:
+		// Solve rename column: se debe resolver en cascada los indexes, Fks, Uk and Pk que esta haciendo referencia la columns
+		// Solve rename table: se debe resolver en cascada los indexes, Fks, Uk and Pk que esta haciendo referencia la columns
+		// en ambos casos se debe resolver que se hará con los datos para que estos no se pierdan
 	}
 
-	private _syncAddPropertyForEntitiesChanges (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (changed.name === 'property' && changed.delta) {
-			for (const n in changed.delta.new) {
-				const newProperty = changed.delta.new[n].new as PropertyMapping
-				this.addQuery(queries, this.builder(dataSource).addProperty(entityChanged.new, newProperty))
-			}
-			for (const changedItem of changed.delta.changed) {
-				const newProperty = changedItem.new as PropertyMapping
-				const oldProperty = changedItem.old as PropertyMapping
-				if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
-					this.addQuery(queries, this.builder(dataSource).alterProperty(entityChanged.new, newProperty))
-				}
+	private _syncAddPropertyForEntitiesChanges (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const n in delta.new) {
+			const newProperty = delta.new[n].new as PropertyMapping
+			this.addQuery(queries, this.builder(dataSource).addProperty(entityChanged.new, newProperty))
+		}
+		for (const changedItem of delta.changed) {
+			const newProperty = changedItem.new as PropertyMapping
+			const oldProperty = changedItem.old as PropertyMapping
+			if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
+				this.addQuery(queries, this.builder(dataSource).alterProperty(entityChanged.new, newProperty))
 			}
 		}
 	}
 
-	private _syncRemovePropertiesForEntitiesChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
-		for (const entityChanged of delta.changed) {
-			// if entity is view is excluded
-			// evaluate if entity apply in dataSource
-			if ((!entityChanged.delta) || ((entityChanged.old as EntityMapping).view) || (!this.evalDataSource(ruleDataSource, entityChanged.name))) continue
-			for (const changed of entityChanged.delta.changed) {
-				this._syncRemovePropertiesForEntityChanges(dataSource, entityChanged, changed, queries)
+	private _syncRemovePropertyForEntityChanges (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const removeItem of delta.remove) {
+			const oldProperty = removeItem.old as PropertyMapping
+			if (!oldProperty.view) {
+				this.addQuery(queries, this.builder(dataSource).dropProperty(entityChanged.old, oldProperty))
 			}
 		}
 	}
 
-	private _syncRemovePropertiesForEntityChanges (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (changed.name === 'property' && changed.delta) {
-			for (const removeItem of changed.delta.remove) {
-				const oldProperty = removeItem.old as PropertyMapping
-				if (!oldProperty.view) {
-					this.addQuery(queries, this.builder(dataSource).dropProperty(entityChanged.old, oldProperty))
-				}
+	private _syncCreatePkForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const newItem of delta.new) {
+			const newPrimaryKey = newItem.new as string[]
+			this.addQuery(queries, this.builder(dataSource).addPk(entityChanged.new, newPrimaryKey))
+		}
+		for (const changedItem of delta.changed) {
+			const changePrimaryKey = changedItem.new as string[]
+			this.addQuery(queries, this.builder(dataSource).addPk(entityChanged.new, changePrimaryKey))
+		}
+	}
+
+	private _syncCreateUkForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const newItem of delta.new) {
+			const newUniqueKey = newItem.new as string[]
+			this.addQuery(queries, this.builder(dataSource).addUk(entityChanged.new, newUniqueKey))
+		}
+		for (const changedItem of delta.changed) {
+			const changeUniqueKey = changedItem.new as string[]
+			this.addQuery(queries, this.builder(dataSource).addUk(entityChanged.new, changeUniqueKey))
+		}
+	}
+
+	private _syncCreateIndexesForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const newItem of delta.new) {
+			const newIndex = newItem.new as Index
+			this.addQuery(queries, this.builder(dataSource).createIndex(entityChanged.new, newIndex))
+		}
+		for (const changedItem of delta.changed) {
+			const changeIndex = changedItem.new as Index
+			this.addQuery(queries, this.builder(dataSource).createIndex(entityChanged.new, changeIndex))
+		}
+	}
+
+	private _syncCreateFksForChangesInEntity (dataSource: DataSource, ruleDataSource: RuleDataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		for (const newItem of delta.new) {
+			const newRelation = newItem.new as Relation
+			// evaluate if entity relation apply in dataSource
+			if (this.evalDataSource(ruleDataSource, newRelation.entity) && !newRelation.weak) {
+				this.addQuery(queries, this.builder(dataSource).addFk(entityChanged.new, newRelation))
+			}
+		}
+		for (const changedItem of delta.changed) {
+			const newRelation = changedItem.new as Relation
+			const oldRelation = changedItem.old as Relation
+			// evaluate if entity relation apply in dataSource
+			if (this.evalDataSource(ruleDataSource, newRelation.entity) && this.changeRelation(oldRelation, newRelation) && (!newRelation.weak)) {
+				this.addQuery(queries, this.builder(dataSource).addFk(entityChanged.new, newRelation))
 			}
 		}
 	}
 
-	private _syncCreateConstraintsForChangesInEntities (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
-		for (const entityChanged of delta.changed) {
-			// if entity is view is excluded
-			// evaluate if entity apply in dataSource
-			if ((!entityChanged.delta) || (entityChanged.new as EntityMapping).view || (!this.evalDataSource(ruleDataSource, entityChanged.name))) continue
-			for (const changed of entityChanged.delta.changed) {
-				this._syncCreatePkForChangesInEntity(dataSource, entityChanged, changed, queries)
-				this._syncCreateUkForChangesInEntity(dataSource, entityChanged, changed, queries)
-			}
-		}
+	private _syncCreateSequencesForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+		// TODO : revisar
+		this.addQuery(queries, this.builder(dataSource).createSequence(entityChanged.new))
 	}
 
-	private _syncCreatePkForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (changed.name === 'primaryKey' && changed.delta) {
-			for (const newItem of changed.delta.new) {
-				const newPrimaryKey = newItem.new as string[]
-				this.addQuery(queries, this.builder(dataSource).addPk(entityChanged.new, newPrimaryKey))
-			}
-			for (const changedItem of changed.delta.changed) {
-				const changePrimaryKey = changedItem.new as string[]
-				this.addQuery(queries, this.builder(dataSource).addPk(entityChanged.new, changePrimaryKey))
-			}
-		}
-	}
-
-	private _syncCreateUkForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (changed.name === 'uniqueKey' && changed.delta) {
-			for (const newItem of changed.delta.new) {
-				const newUniqueKey = newItem.new as string[]
-				this.addQuery(queries, this.builder(dataSource).addUk(entityChanged.new, newUniqueKey))
-			}
-			for (const changedItem of changed.delta.changed) {
-				const changeUniqueKey = changedItem.new as string[]
-				this.addQuery(queries, this.builder(dataSource).addUk(entityChanged.new, changeUniqueKey))
-			}
-		}
-	}
-
-	private _syncCreateIndexesAndFksForChangesInEntities (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
-		for (const entityChanged of delta.changed) {
-			// if entity is view is excluded
-			// evaluate if entity apply in dataSource
-			if ((!entityChanged.delta) || (entityChanged.new as EntityMapping).view || (!this.evalDataSource(ruleDataSource, entityChanged.name))) continue
-			for (const changed of entityChanged.delta.changed) {
-				this._syncCreateIndexesForChangesInEntity(dataSource, entityChanged, changed, queries)
-				this._syncCreateFksForChangesInEntity(dataSource, ruleDataSource, entityChanged, changed, queries)
-				if (changed.name === 'sequence' && changed.delta) {
-					// TODO : revisar
-					this.addQuery(queries, this.builder(dataSource).createSequence(entityChanged.new))
-				}
-			}
-		}
-	}
-
-	private _syncCreateIndexesForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (changed.name === 'index' && changed.delta) {
-			for (const newItem of changed.delta.new) {
-				const newIndex = newItem.new as Index
-				this.addQuery(queries, this.builder(dataSource).createIndex(entityChanged.new, newIndex))
-			}
-			for (const changedItem of changed.delta.changed) {
-				const changeIndex = changedItem.new as Index
-				this.addQuery(queries, this.builder(dataSource).createIndex(entityChanged.new, changeIndex))
-			}
-		}
-	}
-
-	private _syncCreateFksForChangesInEntity (dataSource: DataSource, ruleDataSource: RuleDataSource, entityChanged:ChangedValue, changed: ChangedValue, queries: Query[]): void {
-		if (changed.name === 'relation' && changed.delta) {
-			for (const newItem of changed.delta.new) {
-				const newRelation = newItem.new as Relation
-				// evaluate if entity relation apply in dataSource
-				if (this.evalDataSource(ruleDataSource, newRelation.entity) && !newRelation.weak) {
-					this.addQuery(queries, this.builder(dataSource).addFk(entityChanged.new, newRelation))
-				}
-			}
-			for (const changedItem of changed.delta.changed) {
-				const newRelation = changedItem.new as Relation
-				const oldRelation = changedItem.old as Relation
-				// evaluate if entity relation apply in dataSource
-				if (this.evalDataSource(ruleDataSource, newRelation.entity) && this.changeRelation(oldRelation, newRelation) && (!newRelation.weak)) {
-					this.addQuery(queries, this.builder(dataSource).addFk(entityChanged.new, newRelation))
-				}
-			}
-		}
-	}
-
-	private _syncCreateIndexesAndFksForNewEntities (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], queries: Query[]): void {
+	private _syncCreateForNewEntities (dataSource: DataSource, ruleDataSource: RuleDataSource, newMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
 		for (const newItem of delta.new) {
 			const newEntity = newItem.new as EntityMapping
 			// if entity is view is excluded
 			// evaluate if entity apply in dataSource
 			if (newEntity.view || (!this.evalDataSource(ruleDataSource, newEntity.name))) continue
-			if (newEntity.indexes) {
-				for (const index of newEntity.indexes) {
-					this.addQuery(queries, this.builder(dataSource).createIndex(newEntity, index))
-				}
-			}
+			this._syncCreateIndexesForNewEntity(dataSource, newEntity, queries)
 			this._syncCreateFksForNewEntity(dataSource, ruleDataSource, newMapping, newEntity, queries)
 		}
 	}
@@ -468,6 +409,14 @@ export class DDLBuilder {
 		}
 	}
 
+	private _syncCreateIndexesForNewEntity (dataSource: DataSource, newEntity: EntityMapping, queries: Query[]): void {
+		if (newEntity.indexes) {
+			for (const index of newEntity.indexes) {
+				this.addQuery(queries, this.builder(dataSource).createIndex(newEntity, index))
+			}
+		}
+	}
+
 	private evalDataSource (dataSource: RuleDataSource, entity: string): boolean {
 		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
 		return this.routing.eval(dataSource, sentenceInfo)
@@ -478,6 +427,10 @@ export class DDLBuilder {
 		const language = this.languages.getByDialect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		return language.ddlBuilder(dataSource, mapping)
+	}
+
+	private addQuery (queries: Query[], query:Query|undefined) {
+		if (query) queries.push(query)
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {
