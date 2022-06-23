@@ -52,7 +52,16 @@ export class DDLBuilder {
 			const currentMapping = this.schema.mapping.mappings.find(p => p.name === dataSource.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
 			const delta = Helper.deltaWithSimpleArrays(currentEntities, oldEntities)
-			this._sync(dataSource, ruleDataSource, delta, currentEntities || [], oldEntities || [], queries)
+			// remove for entities changes
+			this._syncRemoveForEntitiesChanges(dataSource, ruleDataSource, oldEntities || [], delta, queries)
+			// remove for entities removed
+			this._syncRemoveForRemovedEntities(dataSource, ruleDataSource, delta, queries)
+			// create entities
+			this._syncCreateEntities(dataSource, ruleDataSource, delta, queries)
+			// create for entities changes
+			this._syncCreateForEntitiesChanges(dataSource, ruleDataSource, delta, queries)
+			// create for new entities
+			this._syncCreateForNewEntities(dataSource, ruleDataSource, currentEntities || [], delta, queries)
 		}
 		return queries
 	}
@@ -148,19 +157,6 @@ export class DDLBuilder {
 				}
 			}
 		}
-	}
-
-	private _sync (dataSource: DataSource, ruleDataSource: RuleDataSource, delta: Delta, newMapping: EntityMapping[], oldMapping: EntityMapping[], queries: Query[]): void {
-		// remove for entities changes
-		this._syncRemoveForEntitiesChanges(dataSource, ruleDataSource, oldMapping, delta, queries)
-		// remove for entities removed
-		this._syncRemoveForRemovedEntities(dataSource, ruleDataSource, delta, queries)
-		// create entities
-		this._syncCreateEntities(dataSource, ruleDataSource, delta, queries)
-		// create for entities changes
-		this._syncCreateForEntitiesChanges(dataSource, ruleDataSource, delta, queries)
-		// create for new entities
-		this._syncCreateForNewEntities(dataSource, ruleDataSource, newMapping, delta, queries)
 	}
 
 	private _syncRemoveForEntitiesChanges (dataSource: DataSource, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
@@ -297,7 +293,7 @@ export class DDLBuilder {
 					this._syncCreateFksForChangesInEntity(dataSource, ruleDataSource, entityChanged, changed.delta, queries)
 					break
 				case 'sequence':
-					this._syncCreateSequencesForChangesInEntity(dataSource, entityChanged, changed.delta, queries)
+					this._syncCreateSequencesForChangesInEntity(dataSource, entityChanged, queries)
 					break
 				}
 			}
@@ -382,8 +378,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateSequencesForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
-		// TODO : revisar
+	private _syncCreateSequencesForChangesInEntity (dataSource: DataSource, entityChanged:ChangedValue, queries: Query[]): void {
 		this.addQuery(queries, this.builder(dataSource).createSequence(entityChanged.new))
 	}
 
@@ -423,7 +418,6 @@ export class DDLBuilder {
 	}
 
 	private builder (dataSource: DataSource): LanguageDDLBuilder {
-		// TODO agregar cache por dataSource
 		const language = this.languages.getByDialect(dataSource.dialect)
 		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
 		return language.ddlBuilder(dataSource, mapping)

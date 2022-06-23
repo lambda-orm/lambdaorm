@@ -114,14 +114,10 @@ export class ExpressionNormalizer {
 			clauses.map = mainNode.children[0]
 			this.completeMapNode(entity, clauses.map)
 		}
-
 		if (clauses.sort) {
 			this.completeSortNode(clauses)
 		}
 		if (clauses.include) {
-			if (!compeleInclude) {
-				throw new SchemaError('Include not implemented!!!')
-			}
 			this.completeIncludeNode(clauses, compeleInclude, entity)
 		}
 	}
@@ -206,6 +202,9 @@ export class ExpressionNormalizer {
 	}
 
 	private completeIncludeNode (clauses: any, compeleInclude:any, entity: Entity): void {
+		if (!compeleInclude) {
+			throw new SchemaError('Include not implemented!!!')
+		}
 		const clauseInclude = clauses.include
 		const arrowVar = clauseInclude.children[1].name
 		const body = clauseInclude.children[2]

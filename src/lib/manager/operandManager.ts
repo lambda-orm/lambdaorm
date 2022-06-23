@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, Constant, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import * as exp from 'js-expressions'
@@ -678,6 +678,12 @@ export class OperandManager {
 			return []
 		}
 		const constraints: Constraint[] = []
+		this.addEntityConstraints(entity, queryProperties, constraints)
+		this.addPropertiesConstraints(entityName, queryProperties, constraints)
+		return constraints
+	}
+
+	private addEntityConstraints (entity: Entity, queryProperties: Property[], constraints:Constraint[]): void {
 		if (entity.constraints) {
 			for (const constraint of entity.constraints) {
 				const conditionProperties = this.expressions.parameters(constraint.condition)
@@ -693,6 +699,9 @@ export class OperandManager {
 				}
 			}
 		}
+	}
+
+	private addPropertiesConstraints (entityName: string, queryProperties: Property[], constraints:Constraint[]): void {
 		for (const property of queryProperties) {
 			if (property.nullable === false && property.default === undefined && property.key === undefined) {
 				const constraint: Constraint = {
@@ -713,7 +722,6 @@ export class OperandManager {
 				}
 			}
 		}
-		return constraints
 	}
 
 	private createClause (clause: Node, expressionContext: ExpressionContext): Operand {
@@ -991,13 +999,29 @@ export class OperandManager {
 	}
 
 	private solveTypesFunction (operand: Operand, expressionContext: ExpressionContext):void {
-		let tType = 'any'
 		// get metadata of operand
 		const metadata = operand instanceof Operator
 			? this.expressionConfig.getOperator(operand.name, operand.children.length)
 			: this.expressionConfig.getFunction(operand.name)
-
 		// recorre todos los parámetros
+		const tType = this.solveTypesParameters(operand, expressionContext, metadata)
+		// en el caso que se haya podido resolver T
+		if (tType !== 'any') {
+			// en el caso que el operando sea T asigna el tipo correspondiente al operando
+			if (metadata.return === 'T' && operand.type === 'any') { operand.type = tType }
+			// busca los parámetros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
+			for (let i = 0; i < metadata.params.length; i++) {
+				const param = metadata.params[i]
+				const child = operand.children[i]
+				if (param.type === 'T' && child.type === 'any') {
+					child.type = tType
+				}
+			}
+		}
+	}
+
+	private solveTypesParameters (operand: Operand, expressionContext: ExpressionContext, metadata:exp.OperatorMetadata):string {
+		let tType = 'any'
 		for (let i = 0; i < metadata.params.length; i++) {
 			const param = metadata.params[i]
 			const child = operand.children[i]
@@ -1017,18 +1041,6 @@ export class OperandManager {
 				}
 			}
 		}
-		// en el caso que se haya podido resolver T
-		if (tType !== 'any') {
-			// en el caso que el operando sea T asigna el tipo correspondiente al operando
-			if (metadata.return === 'T' && operand.type === 'any') { operand.type = tType }
-			// busca los parámetros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
-			for (let i = 0; i < metadata.params.length; i++) {
-				const param = metadata.params[i]
-				const child = operand.children[i]
-				if (param.type === 'T' && child.type === 'any') {
-					child.type = tType
-				}
-			}
-		}
+		return tType
 	}
 }
