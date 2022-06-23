@@ -1,7 +1,10 @@
 {
+	"eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 	"eslint.alwaysShowStatus": true,
 	"editor.formatOnSave": true,
-	"eslint.format.enable": true,
 	"eslint.run": "onSave",
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
