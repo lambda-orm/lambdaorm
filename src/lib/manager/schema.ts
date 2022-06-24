@@ -14,6 +14,14 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 		return this.entities.find(p => p.name === name)
 	}
 
+	public getForcedEntity (name: string): TEntity {
+		const entity = this.getEntity(name)
+		if (entity === undefined) {
+			throw new SchemaError(`entity ${name} not found`)
+		}
+		return entity
+	}
+
 	public getEnum (name: string): Enum | undefined {
 		return this.enums.find(p => p.name === name)
 	}

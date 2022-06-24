@@ -65,10 +65,7 @@ export class ExpressionNormalizer {
 	private completeSentence (mainNode: Node, entityName?: string): void {
 		let compeleInclude: any
 		const clauses: any = this.getClauses(mainNode)
-		const entity = this.schema.model.getEntity(entityName || clauses.from.name)
-		if (entity === undefined) {
-			throw new SchemaError(`entity ${entityName} not found`)
-		}
+		const entity = this.schema.model.getForcedEntity(entityName || clauses.from.name)
 		if (clauses.insert) {
 			compeleInclude = this.completeInsertInclude
 			this.completeInsertNode(entity, clauses.insert)
@@ -78,7 +75,7 @@ export class ExpressionNormalizer {
 		} else if (clauses.update) {
 			compeleInclude = this.completeUpdateInclude
 			this.completeUpdateNode(entity, clauses.update)
-			if (!clauses.filter) { this.createClauseFilter(entity, clauses.update) }
+			this.completeFilterNode(entity, clauses, clauses.update)
 		} else if (clauses.updateAll) {
 			compeleInclude = this.completeUpdateInclude
 			clauses.updateAll.name = 'update'
@@ -86,7 +83,7 @@ export class ExpressionNormalizer {
 			// Example: Entity.update({name:'test'})
 		} else if (clauses.delete) {
 			compeleInclude = this.completeDeleteInclude
-			if (!clauses.filter) { this.createClauseFilter(entity, clauses.delete) }
+			this.completeFilterNode(entity, clauses, clauses.delete)
 		} else if (clauses.deleteAll) {
 			compeleInclude = this.completeDeleteInclude
 			clauses.deleteAll.name = 'delete'
@@ -119,6 +116,12 @@ export class ExpressionNormalizer {
 		}
 		if (clauses.include) {
 			this.completeIncludeNode(clauses, compeleInclude, entity)
+		}
+	}
+
+	private completeFilterNode (entity: Entity, clauses: any, clause:any): void {
+		if (!clauses.filter) {
+			this.createClauseFilter(entity, clause)
 		}
 	}
 

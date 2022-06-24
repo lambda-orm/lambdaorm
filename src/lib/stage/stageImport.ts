@@ -70,32 +70,36 @@ export class StageImport extends StageActionDML {
 		}
 		for (const relation of entity.relations) {
 			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
-				const relationEntity = this.model.getEntity(relation.entity)
-				if (relationEntity === undefined) {
-					throw new SchemaError(`Relation Entity ${relation.entity} not found`)
-				}
-				const relationProperty = relationEntity.properties.find(q => q.name === relation.to)
-				if (relationProperty !== undefined && relationProperty.autoIncrement) {
-					this.solveInternalsIdsRows(mappingData, entity, relation, pending, rows)
-				}
+				this.solveInternalsIdsOne(mappingData, entity, relation, pending, rows)
 			} else if (relation.type === 'manyToOne') {
-				for (const row of rows) {
-					const children = row[relation.name]
-					if (children && children.length > 1) {
-						this.solveInternalsIds(relation.entity, children, mappingData, pending, entityName)
-					}
-				}
+				this.solveInternalsIdsMany(mappingData, entityName, relation, pending, rows)
 			}
 		}
 	}
 
-	private solveInternalsIdsRows (mappingData:any, entity:Entity, relation:Relation, pending:any[], rows:any[]) {
-		const pendingRows:any[] = []
+	private solveInternalsIdsMany (mappingData:any, entityName:string, relation:Relation, pending:any[], rows:any[]) {
 		for (const row of rows) {
-			this.solveInternalsIdsRow(mappingData, entity, relation, pendingRows, row)
+			const children = row[relation.name]
+			if (children && children.length > 1) {
+				this.solveInternalsIds(relation.entity, children, mappingData, pending, entityName)
+			}
 		}
-		if (pendingRows.length > 0) {
-			pending.push({ entity: entity.name, relation: relation.name, rows: pendingRows })
+	}
+
+	private solveInternalsIdsOne (mappingData:any, entity:Entity, relation:Relation, pending:any[], rows:any[]) {
+		const relationEntity = this.model.getEntity(relation.entity)
+		if (relationEntity === undefined) {
+			throw new SchemaError(`Relation Entity ${relation.entity} not found`)
+		}
+		const relationProperty = relationEntity.properties.find(q => q.name === relation.to)
+		if (relationProperty !== undefined && relationProperty.autoIncrement) {
+			const pendingRows:any[] = []
+			for (const row of rows) {
+				this.solveInternalsIdsRow(mappingData, entity, relation, pendingRows, row)
+			}
+			if (pendingRows.length > 0) {
+				pending.push({ entity: entity.name, relation: relation.name, rows: pendingRows })
+			}
 		}
 	}
 
