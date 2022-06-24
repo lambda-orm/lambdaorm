@@ -21,8 +21,8 @@ const BIT = 16
 const NEWDECIMAL = 246
 
 export class MySQLConnectionPool extends ConnectionPool {
-	private static lib: any
-	private pool: any
+	protected static lib: any
+	protected pool: any
 	constructor (config: ConnectionConfig) {
 		super(config)
 		if (!MySQLConnectionPool.lib) {

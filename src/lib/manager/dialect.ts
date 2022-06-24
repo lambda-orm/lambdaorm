@@ -76,7 +76,12 @@ export class Dialect {
 
 	private addOperators (dialect: any) {
 		for (const type in dialect.operators) {
-			const operands = type === 'ternary' ? 3 : type === 'binary' ? 2 : 1
+			let operands:number
+			if (type === 'ternary') {
+				operands = 3
+			} else {
+				operands = type === 'binary' ? 2 : 1
+			}
 			for (const name in dialect.operators[type]) {
 				const template = dialect.operators[type][name]
 				if (!this._operators[name]) this._operators[name] = {}

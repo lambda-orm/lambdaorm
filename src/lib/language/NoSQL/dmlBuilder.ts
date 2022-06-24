@@ -432,11 +432,14 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	protected override buildField (operand: Field): string {
 		if (this.mapping.existsProperty(operand.entity, operand.name)) {
 			const property = this.mapping.getProperty(operand.entity, operand.name)
-			const templateKey = operand.alias === undefined
-				? 'column'
-				: operand.isRoot
-					? 'field'
-					: operand.prefix ? 'projectJoinField' : 'joinField'
+			let templateKey:string
+			if (operand.alias === undefined) {
+				templateKey = 'column'
+			} else if (operand.isRoot) {
+				templateKey = 'field'
+			} else {
+				templateKey = operand.prefix ? 'projectJoinField' : 'joinField'
+			}
 			let text = this.dialect.other(templateKey)
 			text = text.replace('{entityAlias}', operand.alias || '')
 			text = text.replace('{prefix}', operand.prefix || '')

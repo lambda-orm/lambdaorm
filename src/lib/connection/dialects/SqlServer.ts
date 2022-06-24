@@ -193,12 +193,7 @@ export class SqlServerConnection extends Connection {
 	private async _execute (mapping: MappingConfig, query: Query, data: Data) {
 		const me = this
 		return new Promise<any>((resolve, reject) => {
-			const request = new SqlServerConnectionPool.lib.Request(query.sentence, (err: any, rowCount: any) => {
-				if (err) {
-					reject(new Error(`Mssql connection _execute error: ${err}`))
-				}
-				resolve(rowCount)
-			})
+			const request = this.createRequest(query.sentence, reject, resolve)
 			const params = this.dataToParameters(query, mapping, data)
 			if (params.length > 0) {
 				me.addParameters(request, params)
@@ -210,13 +205,17 @@ export class SqlServerConnection extends Connection {
 	private async _executeSentence (sentence: string) {
 		const me = this
 		return new Promise<any>((resolve, reject) => {
-			const sqlRequest = new SqlServerConnectionPool.lib.Request(sentence, (err: any, rowCount: any) => {
-				if (err) {
-					reject(new Error(`Mssql connection _execute error: ${err}`))
-				}
-				resolve(rowCount)
-			})
+			const sqlRequest = this.createRequest(sentence, reject, resolve)
 			return me.cnx.execSql(sqlRequest)
+		})
+	}
+
+	private createRequest (sentence: string, reject:any, resolve: any):any {
+		return new SqlServerConnectionPool.lib.Request(sentence, (err: any, rowCount: any) => {
+			if (err) {
+				reject(new Error(`Mssql connection _execute error: ${err}`))
+			}
+			resolve(rowCount)
 		})
 	}
 
