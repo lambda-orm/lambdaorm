@@ -247,10 +247,17 @@ export class Helper {
 	public static getType (value: any):string {
 		if (Array.isArray(value)) return 'array'
 		if (typeof value === 'string') {
-			// TODO determinar si es fecha.
-			return 'string'
+			if (Helper.isDate(value)) {
+				return 'datetime'
+			} else {
+				return 'string'
+			}
 		}
 		return typeof value
+	}
+
+	public static isDate (value:any) {
+		return Date.parse(value) > 0
 	}
 
 	public static tryParse (value:string):any|null {

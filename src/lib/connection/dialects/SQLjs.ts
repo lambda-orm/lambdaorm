@@ -66,7 +66,7 @@ export class SQLjsConnection extends Connection {
 			const rows = this.arrayToRows(query, mapping, array)
 			const result = await this.cnx.query(sql, [rows])
 
-			// TODO: verificar https://github.com/sidorares/node-mysql2/issues/435
+			// https://github.com/sidorares/node-mysql2/issues/435
 			const start = result[0].insertId
 			const end = result[0].insertId + (result[0].affectedRows - 1)
 			const lastInsertedIds: number[] = []
@@ -98,17 +98,14 @@ export class SQLjsConnection extends Connection {
 	}
 
 	public async beginTransaction (): Promise<void> {
-		// TODO:
 		this.inTransaction = true
 	}
 
 	public async commit (): Promise<void> {
-		// TODO:
 		this.inTransaction = false
 	}
 
 	public async rollback (): Promise<void> {
-		// TODO:
 		this.inTransaction = false
 	}
 

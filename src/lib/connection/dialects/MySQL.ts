@@ -84,7 +84,7 @@ export class MySqlConnection extends Connection {
 			const rows: any[] = this.arrayToRows(query, mapping, array)
 			const result = await this.cnx.query(query.sentence, [rows])
 
-			// TODO: verificar https://github.com/sidorares/node-mysql2/issues/435
+			// https://github.com/sidorares/node-mysql2/issues/435
 			const start = result[0].insertId
 			const end = result[0].insertId + (result[0].affectedRows - 1)
 			const lastInsertedIds: number[] = []
@@ -137,9 +137,9 @@ export class MySqlConnection extends Connection {
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
 		const values: any[] = []
-		// en el caso de haber un array con elementos string no se esta pudiendo resolver el IN(,,,) con execute
-		// por este motivo se esta usando query en este caso.
-		// TODO: ver como se puede resolver este caso para usar execute siempre.
+		// in the case of having an array with string elements, it is not possible to resolve the IN(,,,) with execute
+		// for this reason query is being used in this case.
+		// see how this case can be resolved to always use execute.
 		const params = this.dataToParameters(query, mapping, data)
 		for (const param of params) {
 			if (param.type === 'array') {

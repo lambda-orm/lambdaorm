@@ -34,7 +34,6 @@ export class Field extends Operand {
 	}
 
 	public eval (): any {
-		// TODO:implement
 		throw new MethodNotImplemented('Field', 'eval')
 	}
 }

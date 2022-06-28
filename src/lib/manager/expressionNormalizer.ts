@@ -79,7 +79,7 @@ export class ExpressionNormalizer {
 		} else if (clauses.updateAll) {
 			compeleInclude = this.completeUpdateInclude
 			clauses.updateAll.name = 'update'
-			// TODO: validar que tenga un objeto definido
+			// validate that it has an object defined
 			// Example: Entity.update({name:'test'})
 		} else if (clauses.delete) {
 			compeleInclude = this.completeDeleteInclude

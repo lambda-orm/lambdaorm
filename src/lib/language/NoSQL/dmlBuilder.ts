@@ -116,8 +116,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (update === undefined) {
 			throw new SchemaError('update operand not found')
 		}
-		// TODO: tener en cuenta que cuando hay includes el set solo debe estar en el root.
-		// quizás el set debe estar en la conexión
+		// Keep in mind that when there are includes, the set must only be in the root.
+		// maybe the set should be in the connection
 		const data: any = {
 			set: `{ "$set" :{ ${this.buildUpdate(update, entity)} }}`,
 			filter: filter ? this.buildArrowFunction(filter) : {}
@@ -131,7 +131,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
 		}
-		// TODO: tener en cuenta que cuando hay includes
+		// keep in mind that when there are includes
 		const data: any = {
 			filter: filter ? this.buildArrowFunction(filter) : {}
 		}
@@ -223,8 +223,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				if (relationEntity === undefined) {
 					throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
 				}
-				// TODO: ver que pasa cuando la propiedad a relacionar es ya un hijo
-				// ver si debe ir $$This. en vez de $
+				// see what happens when the property to be related is already a child
+				// see if $$This should go. instead of $
 				// const relationProperty = `"$\\\"${relationEntity.mapping}\\\""`
 				const relationProperty = `"$\\"${relationEntity.mapping}\\""`
 				const relationMap = this.getChildrenMap(include.children[0] as Sentence)

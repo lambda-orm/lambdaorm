@@ -418,7 +418,7 @@ export class OperandManager {
 				if (relationInfo) {
 					const relation = this.addJoins(parts, parts.length, expressionContext)
 					const relationAlias = expressionContext.current.joins[relation]
-					// TODO, aquí se debería retornar el array de fields
+					// TODO: here the array of fields should be returned
 					return new Field(relation, '*', 'any', relationAlias + '.*', true)
 				} else {
 					throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
@@ -440,7 +440,7 @@ export class OperandManager {
 			if (childRelation) {
 				const relation2 = this.addJoins(parts, parts.length, expressionContext)
 				const relationAlias2 = expressionContext.current.joins[relation2]
-				// TODO, aquí se debería retornar el array de fields
+				// TODO: here the array of fields should be returned
 				return new Field(relation2, '*', 'any', relationAlias2 + '.*', false)
 			} else {
 				throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
@@ -459,8 +459,8 @@ export class OperandManager {
 		let operand:Operand| undefined
 
 		if (clauses.filter) {
-			// TODO: Si la sentencia es Select, Update o Delete y la entidad tienen una o mas propiedades con key.
-			// Se debe agregar el filtro por esta key
+			// TODO: If the statement is Select, Update or Delete and the entity has one or more properties with key.
+			// The filter must be added by this key
 			const clause = clauses.filter
 			operand = this.createClause(clause, expressionContext)
 			children.push(operand)
@@ -474,11 +474,11 @@ export class OperandManager {
 		if (clauses.map) {
 			sentence = this.createSentenceSelect(clauses, expressionContext, children)
 		} else if (clauses.insert) {
-			sentence = this.createSentenceInsert(clauses, expressionContext, children)
+			sentence = this.createSentenceModify('insert', clauses, expressionContext, children)
 		} else if (clauses.bulkInsert) {
-			sentence = this.createSentenceBulkInsert(clauses, expressionContext, children)
+			sentence = this.createSentenceModify('bulkInsert', clauses, expressionContext, children)
 		} else if (clauses.update) {
-			sentence = this.createSentenceUpdate(clauses, expressionContext, children)
+			sentence = this.createSentenceModify('update', clauses, expressionContext, children)
 		} else if (clauses.delete) {
 			sentence = this.createSentenceDelete(clauses, expressionContext, children)
 		}
@@ -539,9 +539,9 @@ export class OperandManager {
 		})
 	}
 
-	private createSentenceInsert (clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
-		// TODO: Si la entidad tienen una o mas propiedades con key.
-		// Se debe agregar estas propiedades usando el key
+	private createSentenceModify (name:string, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
+		// TODO: If the entity has one or more properties with key.
+		// These properties must be added using the key
 		const clause = clauses.insert as Node
 		const operand = this.createInsertClause(clause, expressionContext)
 		expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
@@ -555,7 +555,7 @@ export class OperandManager {
 		}
 		const parameters = this.parametersInSentence(children)
 		return new Sentence({
-			name: 'insert',
+			name: name,
 			children: children,
 			entity: expressionContext.current.entityName,
 			alias: expressionContext.current.alias,
@@ -563,59 +563,7 @@ export class OperandManager {
 			parameters: parameters,
 			constraints: this.getConstraints(expressionContext.current.entityName, parameters),
 			values: this.getBehaviorWriteValues(expressionContext.current.entityName, parameters),
-			defaults: this.getBehaviorDefaults(expressionContext.current.entityName)
-		})
-	}
-
-	private createSentenceBulkInsert (clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
-		const clause = clauses.bulkInsert as Node
-		const operand = this.createInsertClause(clause, expressionContext)
-		expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
-		children.push(operand)
-
-		if (clauses.include) {
-			this.createSentenceAddIncludes(expressionContext, clauses, this.createInclude, children)
-		}
-		for (const child of children) {
-			this.solveTypes(child, expressionContext)
-		}
-		const parameters = this.parametersInSentence(children)
-		return new Sentence({
-			name: 'bulkInsert',
-			children: children,
-			entity: expressionContext.current.entityName,
-			alias: expressionContext.current.alias,
-			columns: expressionContext.current.fields,
-			parameters: parameters,
-			constraints: this.getConstraints(expressionContext.current.entityName, parameters),
-			values: this.getBehaviorWriteValues(expressionContext.current.entityName, parameters),
-			defaults: this.getBehaviorDefaults(expressionContext.current.entityName)
-		})
-	}
-
-	private createSentenceUpdate (clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
-		const clause = clauses.update as Node
-		const operand = this.createUpdateClause(clause, expressionContext)
-		expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
-		children.push(operand)
-
-		if (clauses.include) {
-			this.createSentenceAddIncludes(expressionContext, clauses, this.createInclude, children)
-		}
-		for (const child of children) {
-			this.solveTypes(child, expressionContext)
-		}
-		const parameters = this.parametersInSentence(children)
-		return new Sentence({
-			name: 'update',
-			children: children,
-			entity: expressionContext.current.entityName,
-			alias: expressionContext.current.alias,
-			columns: expressionContext.current.fields,
-			parameters: parameters,
-			constraints: this.getConstraints(expressionContext.current.entityName, parameters),
-			values: this.getBehaviorWriteValues(expressionContext.current.entityName, parameters),
-			defaults: []
+			defaults: name === 'update' ? [] : this.getBehaviorDefaults(expressionContext.current.entityName)
 		})
 	}
 
@@ -669,8 +617,8 @@ export class OperandManager {
 			const relationAlias = expressionContext.current.joins[key]
 			const relationProperty = info.entity.properties.find(p => p.name === info.relation.to) as Property
 
-			// TODO: Aquí usar el key para agregar el filtro que corresponda
-			// si una entidad tiene uno o mas propiedades con key, se debe agregar un filtro por el key
+			// TODO: Here use the key to add the corresponding filter
+			// if an entity has one or more properties with a key, a filter must be added by the key
 			const relatedField = new Field(relatedEntity, info.relation.from, relatedProperty.type, relatedAlias)
 			const relationField = new Field(relationEntity, info.relation.to, relationProperty.type, relationAlias)
 			const equal = new Operator('==', [relationField, relatedField])
@@ -1040,9 +988,9 @@ export class OperandManager {
 		}
 	}
 
-	// TODO: determinar el tipo de la variable de acuerdo a la expression.
-	// si se usa en un operador con que se esta comparando.
-	// si se usa en una función que tipo corresponde de acuerdo en la posición que esta ocupando.
+	// determine the type of the variable according to the expression.
+	// if used in an operator that is being compared to.
+	// if it is used in a function, which type corresponds according to the position it is occupying.
 	// let type = this.solveType(operand,childNumber)
 	private solveTypes (operand: Operand, expressionContext: ExpressionContext): string {
 		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) return operand.type

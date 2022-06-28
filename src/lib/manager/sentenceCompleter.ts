@@ -67,7 +67,7 @@ export class SentenceCompleter {
 				} else if (update) {
 					this.solveKey(property, update)
 				}
-				// TODO: ver como resolver en los casos que el parámetro no tiene el mismo nombre que el campo
+				// TODO: see how to solve in cases where the parameter does not have the same name as the field
 				const index = sentence.parameters.findIndex(q => q.name === property.name)
 				if (index >= 0) {
 					sentence.parameters.splice(index, 1)
