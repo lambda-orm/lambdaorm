@@ -4,6 +4,7 @@
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../model'
 import { MappingConfig, Dialect } from '../../manager'
+import { Helper } from 'js-expressions'
 
 const DECIMAL = 0
 const TINY = 1
@@ -154,6 +155,10 @@ export class MySqlConnection extends Connection {
 		const result = (useExecute)
 			?	await this.cnx.execute(query.sentence, values)
 			: await this.cnx.query(query.sentence, values)
+
+		if (!Array.isArray(result[0])) {
+			return result[0]
+		}
 
 		const rows = result[0]
 		const cols = result[1]
