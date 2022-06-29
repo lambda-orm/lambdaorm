@@ -474,11 +474,11 @@ export class OperandManager {
 		if (clauses.map) {
 			sentence = this.createSentenceSelect(clauses, expressionContext, children)
 		} else if (clauses.insert) {
-			sentence = this.createSentenceModify('insert', clauses, expressionContext, children)
+			sentence = this.createSentenceModify('insert', clauses.insert as Node, clauses, expressionContext, children)
 		} else if (clauses.bulkInsert) {
-			sentence = this.createSentenceModify('bulkInsert', clauses, expressionContext, children)
+			sentence = this.createSentenceModify('bulkInsert', clauses.bulkInsert as Node, clauses, expressionContext, children)
 		} else if (clauses.update) {
-			sentence = this.createSentenceModify('update', clauses, expressionContext, children)
+			sentence = this.createSentenceModify('update', clauses.update as Node, clauses, expressionContext, children)
 		} else if (clauses.delete) {
 			sentence = this.createSentenceDelete(clauses, expressionContext, children)
 		}
@@ -539,10 +539,9 @@ export class OperandManager {
 		})
 	}
 
-	private createSentenceModify (name:string, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
+	private createSentenceModify (name:string, clause:Node, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
 		// TODO: If the entity has one or more properties with key.
 		// These properties must be added using the key
-		const clause = clauses.insert as Node
 		const operand = this.createInsertClause(clause, expressionContext)
 		expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
 		children.push(operand)

@@ -502,15 +502,43 @@ class SchemaExtender {
 	}
 
 	private extendEntities (schema: Schema) {
-		if (schema.entities) {
-			for (const entity of schema.entities) {
-				if (entity && entity.extends) {
-					this.extendEntity(entity, schema.entities)
-				}
+		if (schema.entities === undefined) {
+			schema.entities = []
+		}
+		for (const entity of schema.entities) {
+			this.entitySecureArrays(entity)
+		}
+		for (const entity of schema.entities) {
+			if (entity && entity.extends) {
+				this.extendEntity(entity, schema.entities)
 			}
 		}
 		schema.entities = this.clearEntities(schema.entities)
 		this.complete(schema)
+	}
+
+	private entitySecureArrays (entity:Entity) {
+		if (entity.uniqueKey === undefined) {
+			entity.uniqueKey = []
+		}
+		if (entity.primaryKey === undefined) {
+			entity.primaryKey = []
+		}
+		if (entity.indexes === undefined) {
+			entity.indexes = []
+		}
+		if (entity.properties === undefined) {
+			entity.properties = []
+		}
+		if (entity.relations === undefined) {
+			entity.relations = []
+		}
+		if (entity.dependents === undefined) {
+			entity.dependents = []
+		}
+		if (entity.constraints === undefined) {
+			entity.constraints = []
+		}
 	}
 
 	private extendMappings (schema: Schema) {
@@ -648,27 +676,19 @@ class SchemaExtender {
 
 	private completeRelations (entities: Entity[]): void {
 		for (const source of entities) {
-			if (source.relations !== undefined) {
-				for (const sourceRelation of source.relations) {
-					if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
-						this.completeRelation(sourceRelation, entities)
-					}
+			for (const sourceRelation of source.relations) {
+				if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
+					this.completeRelation(source, sourceRelation, entities)
 				}
 			}
 		}
 	}
 
-	private completeRelation (sourceRelation: Relation, entities: Entity[]) {
+	private completeRelation (source:Entity, sourceRelation: Relation, entities: Entity[]) {
 		const targetEntity = entities.find(p => p.name === sourceRelation.entity)
 		if (targetEntity) {
-			let exists = false
-			if (targetEntity.relations) {
-				exists = targetEntity.relations.find(p => p.name === sourceRelation.target) !== undefined
-			}
+			const exists = targetEntity.relations.find(p => p.name === sourceRelation.target) !== undefined
 			if (!exists) {
-				if (targetEntity.relations === undefined) {
-					targetEntity.relations = []
-				}
 				targetEntity.relations.push({
 					name: sourceRelation.target as string,
 					type: sourceRelation.type === RelationType.oneToOne ? RelationType.oneToOne : RelationType.manyToOne,
@@ -687,9 +707,6 @@ class SchemaExtender {
 		for (const entity of entities) {
 			entity.dependents = []
 			for (const related of entities) {
-				if (related.relations === undefined) {
-					continue
-				}
 				for (const relation of related.relations) {
 					if (relation.entity === entity.name && !relation.weak) {
 						const dependent = { entity: related.name, relation: relation }
@@ -705,7 +722,9 @@ class SchemaExtender {
 		if (base === undefined) {
 			throw new SchemaError(`${entity.extends} not found`)
 		}
-		this.extendEntity(base, entities)
+		if (base.extends) {
+			this.extendEntity(base, entities)
+		}
 		if (entity.primaryKey === undefined && base.primaryKey !== undefined) entity.primaryKey = base.primaryKey
 		// extend properties
 		if (base.properties !== undefined && base.properties.length > 0) {
@@ -715,10 +734,7 @@ class SchemaExtender {
 			this.extendObject(entity.properties, base.properties)
 		}
 		// extend relations
-		if (base.relations !== undefined && base.relations.length > 0) {
-			if (entity.relations === undefined) {
-				entity.relations = []
-			}
+		if (base.relations.length > 0) {
 			this.extendObject(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido

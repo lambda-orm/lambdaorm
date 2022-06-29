@@ -150,14 +150,14 @@ export class Helper {
 		for (const name in source) {
 			const child = source[name]
 			if (typeof child === 'string' && child.indexOf('${') >= 0) {
-				Helper.replaceEnvironmentVariable(child)
+				source[name] = Helper.replaceEnvironmentVariable(child)
 			} else if (typeof child === 'object') {
 				Helper.solveEnvironmentVariables(child)
 			}
 		}
 	}
 
-	private static replaceEnvironmentVariable (text:any): void {
+	private static replaceEnvironmentVariable (text:any): any {
 		// there can be more than one environment variable in text
 		while (text.indexOf('${') >= 0) {
 			const environmentVariable = Helper.getEnvironmentVariable(text)
@@ -173,6 +173,7 @@ export class Helper {
 				text = Helper.replace(text, '${' + environmentVariable + '}', value)
 			}
 		}
+		return text
 	}
 
 	public static deltaWithSimpleArrays (current:any, old?:any):Delta {
