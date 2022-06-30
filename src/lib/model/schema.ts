@@ -145,10 +145,24 @@ export interface Schema {
 	dataSources: DataSource[]
 	stages: Stage[]
 }
-export interface SchemaState {
+export interface SchemaModel {
 	mappings: Mapping[]
-	mappingData: any
-	pendingData: any[]
+}
+
+export interface SchemaMapping {
+	mapping: any
+	pending: any[]
+	inconsistency: any[]
+}
+
+export interface SchemaDataEntity
+{
+	entity:string
+	rows:any[]
+}
+export interface SchemaData
+{
+	entities:SchemaDataEntity[]
 }
 
 export interface Behavior {

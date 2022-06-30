@@ -1,15 +1,15 @@
 import { Query, Entity, OrmOptions } from '../model'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
-import { StageState } from './stageState'
+import { StageMapping } from './stageState'
 
 export abstract class StageActionDML {
-	protected state: StageState
+	protected state: StageMapping
 	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
 	protected options: OrmOptions
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, options: OrmOptions) {
+	constructor (state: StageMapping, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, options: OrmOptions) {
 		this.state = state
 		this.model = model
 		this.expressionManager = expressionManager

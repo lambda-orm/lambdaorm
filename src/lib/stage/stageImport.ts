@@ -1,6 +1,6 @@
 
 import { StageActionDML } from './stageActionDML'
-import { Query, SchemaData, Entity, SchemaError, SchemaState, Relation } from '../model'
+import { Query, SchemaData, SchemaMapping, Entity, SchemaError, Relation } from '../model'
 import { Transaction } from 'lib/manager'
 
 export class StageImport extends StageActionDML {
@@ -15,12 +15,12 @@ export class StageImport extends StageActionDML {
 				if (entityData) {
 					const aux:any = {}
 					this.loadExternalIds(entityData.entity, entityData.rows || [], aux)
-					this.solveInternalsIds(entityData.entity, entityData.rows, state.mappingData, state.pendingData)
+					this.solveInternalsIds(entityData.entity, entityData.rows, state)
 					await tr.execute(query, entityData.rows)
-					this.completeMapping(entityData.entity, entityData.rows || [], aux, state.mappingData)
+					this.completeMapping(entityData.entity, entityData.rows || [], aux, state)
 				}
 			}
-			for (const pending of state.pendingData) {
+			for (const pending of state.pending) {
 				const entity = this.model.getEntity(pending.entity)
 				if (entity === undefined) {
 					throw new SchemaError(`Entity ${pending.entity} not found`)
@@ -30,17 +30,16 @@ export class StageImport extends StageActionDML {
 					throw new SchemaError(`Relation ${pending.relation} not found`)
 				}
 				if (!entity.uniqueKey || entity.uniqueKey.length === 0) {
-					// TODO: reemplazar por un archivo de salida de inconsistencias
-					console.error(`${entity.name} had not unique Key`)
+					state.inconsistency.push(`${entity.name} had not unique Key`)
 					continue
 				}
 				pending.rows = await this.executePendingRows(state, entity, relation, tr, pending.rows)
 			}
 		})
-		await this.state.updateData(this.options.stage as string, state.mappingData, state.pendingData)
+		await this.state.update(this.options.stage as string, state)
 	}
 
-	private async executePendingRows (state:SchemaState, entity:Entity, relation:Relation, tr:Transaction, rows:any[]):Promise<any[]> {
+	private async executePendingRows (state:SchemaMapping, entity:Entity, relation:Relation, tr:Transaction, rows:any[]):Promise<any[]> {
 		const stillPending:any[] = []
 		let filter = ''
 		for (const p in entity.uniqueKey) {
@@ -48,9 +47,9 @@ export class StageImport extends StageActionDML {
 		}
 		const expression = `${entity.name}.update({${relation.from}:${relation.from}}).filter(p=> ${filter})`
 		for (const row of rows) {
-			if (state.mappingData[relation.entity] && state.mappingData[relation.entity][relation.to] && state.mappingData[relation.entity][relation.to][row.externalId]) {
+			if (state.mapping[relation.entity] && state.mapping[relation.entity][relation.to] && state.mapping[relation.entity][relation.to][row.externalId]) {
 				const values:any = {}
-				const internalId = state.mappingData[relation.entity][relation.to][row.externalId]
+				const internalId = state.mapping[relation.entity][relation.to][row.externalId]
 				values[relation.from] = internalId
 				for (const p in entity.uniqueKey) {
 					values[entity.uniqueKey[p]] = row.keys[p]
@@ -63,30 +62,30 @@ export class StageImport extends StageActionDML {
 		return stillPending
 	}
 
-	protected solveInternalsIds (entityName:string, rows:any[], mappingData:any, pending:any[], parentEntity?:string):void {
+	protected solveInternalsIds (entityName:string, rows:any[], state:SchemaMapping, parentEntity?:string):void {
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
 		for (const relation of entity.relations) {
 			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
-				this.solveInternalsIdsOne(mappingData, entity, relation, pending, rows)
+				this.solveInternalsIdsOne(entity, relation, state, rows)
 			} else if (relation.type === 'manyToOne') {
-				this.solveInternalsIdsMany(mappingData, entityName, relation, pending, rows)
+				this.solveInternalsIdsMany(entityName, relation, state, rows)
 			}
 		}
 	}
 
-	private solveInternalsIdsMany (mappingData:any, entityName:string, relation:Relation, pending:any[], rows:any[]) {
+	private solveInternalsIdsMany (entityName:string, relation:Relation, state:SchemaMapping, rows:any[]) {
 		for (const row of rows) {
 			const children = row[relation.name]
 			if (children && children.length > 1) {
-				this.solveInternalsIds(relation.entity, children, mappingData, pending, entityName)
+				this.solveInternalsIds(relation.entity, children, state, entityName)
 			}
 		}
 	}
 
-	private solveInternalsIdsOne (mappingData:any, entity:Entity, relation:Relation, pending:any[], rows:any[]) {
+	private solveInternalsIdsOne (entity:Entity, relation:Relation, state:SchemaMapping, rows:any[]) {
 		const relationEntity = this.model.getEntity(relation.entity)
 		if (relationEntity === undefined) {
 			throw new SchemaError(`Relation Entity ${relation.entity} not found`)
@@ -95,31 +94,29 @@ export class StageImport extends StageActionDML {
 		if (relationProperty !== undefined && relationProperty.autoIncrement) {
 			const pendingRows:any[] = []
 			for (const row of rows) {
-				this.solveInternalsIdsRow(mappingData, entity, relation, pendingRows, row)
+				this.solveInternalsIdsRow(entity, relation, state, pendingRows, row)
 			}
 			if (pendingRows.length > 0) {
-				pending.push({ entity: entity.name, relation: relation.name, rows: pendingRows })
+				state.pending.push({ entity: entity.name, relation: relation.name, rows: pendingRows })
 			}
 		}
 	}
 
-	private solveInternalsIdsRow (mappingData:any, entity:Entity, relation:Relation, pendingRows:any[], row:any) {
+	private solveInternalsIdsRow (entity:Entity, relation:Relation, state:SchemaMapping, pendingRows:any[], row:any) {
 		const externalId = row[relation.from]
-		if (mappingData[relation.entity] && mappingData[relation.entity][relation.to] && mappingData[relation.entity][relation.to][externalId]) {
-			row[relation.from] = mappingData[relation.entity][relation.to][externalId]
+		if (state.mapping[relation.entity] && state.mapping[relation.entity][relation.to] && state.mapping[relation.entity][relation.to][externalId]) {
+			row[relation.from] = state.mapping[relation.entity][relation.to][externalId]
 		} else if (entity.uniqueKey !== undefined) {
 			const keys: any[] = []
 			for (const ukProperty of entity.uniqueKey) {
 				const value = row[ukProperty]
 				if (value == null) {
-					// TODO: reemplazar por un archivo de salida de inconsistencias
-					console.error(`for entity ${entity.name} unique ${ukProperty} is null`)
+					state.inconsistency.push(`for entity ${entity.name} unique ${ukProperty} is null`)
 				}
 				keys.push(value)
 			}
 			if (keys.length === 0) {
-				// TODO: reemplazar por un archivo de salida de inconsistencias
-				console.error(`for entity ${entity.name} had not unique key`)
+				state.inconsistency.push(`for entity ${entity.name} had not unique key`)
 			}
 			pendingRows.push({ keys: keys, externalId: externalId })
 			row[relation.from] = null
@@ -154,9 +151,9 @@ export class StageImport extends StageActionDML {
 		}
 	}
 
-	protected completeMapping (entityName:string, rows:any[], aux:any, mappingData:any):void {
-		if (mappingData[entityName] === undefined) {
-			mappingData[entityName] = {}
+	protected completeMapping (entityName:string, rows:any[], aux:any, state:SchemaMapping):void {
+		if (state.mapping[entityName] === undefined) {
+			state.mapping[entityName] = {}
 		}
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
@@ -164,13 +161,13 @@ export class StageImport extends StageActionDML {
 		}
 		const autoIncrement = entity.properties.find(p => p.autoIncrement)
 		if (autoIncrement) {
-			if (mappingData[entityName][autoIncrement.name] === undefined) {
-				mappingData[entityName][autoIncrement.name] = {}
+			if (state.mapping[entityName][autoIncrement.name] === undefined) {
+				state.mapping[entityName][autoIncrement.name] = {}
 			}
 			for (let i = 0; i < rows.length; i++) {
 				const row = rows[i]
 				const externalId = aux[entityName][autoIncrement.name][i]
-				mappingData[entityName][autoIncrement.name][externalId] = row[autoIncrement.name]
+				state.mapping[entityName][autoIncrement.name][externalId] = row[autoIncrement.name]
 			}
 		}
 		for (const relation of entity.relations) {
@@ -179,7 +176,7 @@ export class StageImport extends StageActionDML {
 			}
 			for (const row of rows) {
 				const children = row[relation.name]
-				this.completeMapping(relation.entity, children || [], aux, mappingData)
+				this.completeMapping(relation.entity, children || [], aux, state)
 			}
 		}
 	}

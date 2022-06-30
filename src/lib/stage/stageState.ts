@@ -1,15 +1,16 @@
-import { Mapping, SchemaState, Query } from '../model'
+import { SchemaModel, SchemaMapping, Query } from '../model'
 import { SchemaManager } from '../manager'
 import { Helper } from '../manager/helper'
 const path = require('path')
 
-export class StageState {
-	private schema: SchemaManager
+abstract class StageState<T> {
+	protected schema: SchemaManager
+
 	constructor (schema:SchemaManager) {
 		this.schema = schema
 	}
 
-	public async get (name:string):Promise<SchemaState> {
+	public async get (name:string):Promise<T> {
 		const file = this.getFile(name)
 		const exists = await Helper.existsPath(file)
 		if (exists) {
@@ -18,14 +19,41 @@ export class StageState {
 				return JSON.parse(content)
 			}
 		}
-		return { mappings: [], mappingData: {}, pendingData: [] }
+		return this.empty()
 	}
 
-	public async updateModel (name:string, mappings:Mapping[]):Promise<void> {
-		const stateFile = this.getFile(name)
-		const state = await this.get(name)
-		state.mappings = mappings
-		await Helper.writeFile(stateFile, JSON.stringify(state))
+	public async update (name:string, data:T):Promise<void> {
+		const file = this.getFile(name)
+		await Helper.writeFile(file, JSON.stringify(data))
+	}
+
+	public async remove (name:string):Promise<any> {
+		const file = this.getFile(name)
+		await Helper.removeFile(file)
+	}
+
+	protected abstract empty():T
+
+	public abstract getFile (name: string)
+}
+
+export class StageMapping extends StageState<SchemaMapping> {
+	protected override empty ():SchemaMapping {
+		return { mapping: [], pending: [], inconsistency: [] }
+	}
+
+	public override getFile (name: string) {
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-data.json`)
+	}
+}
+
+export class StageModel extends StageState<SchemaModel> {
+	protected override empty ():SchemaModel {
+		return { mappings: [] }
+	}
+
+	public override getFile (name: string) {
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -45,23 +73,6 @@ export class StageState {
 			const data = dataSource.queries.map((p: Query) => p.sentence).join(';\n') + ';'
 			await Helper.writeFile(logFile, data)
 		}
-	}
-
-	public async updateData (name:string, mappingData:any, pendingData:any[]):Promise<void> {
-		const stateFile = this.getFile(name)
-		const state = await this.get(name)
-		state.mappingData = mappingData
-		state.pendingData = pendingData
-		await Helper.writeFile(stateFile, JSON.stringify(state))
-	}
-
-	public async remove (name:string):Promise<any> {
-		const file = this.getFile(name)
-		await Helper.removeFile(file)
-	}
-
-	public getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-state.json`)
 	}
 
 	private ddlFile (stage: string, action:string, dataSource:string) {

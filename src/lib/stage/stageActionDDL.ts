@@ -1,15 +1,15 @@
 import { Query, OrmOptions } from '../model'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
-import { StageState } from './stageState'
+import { StageModel } from './stageState'
 
 export abstract class StageActionDDL {
-	protected state: StageState
+	protected state: StageModel
 	protected schema: SchemaManager
 	protected routing: Routing
 	protected languages: Languages
 	protected executor: Executor
 	protected options: OrmOptions
-	constructor (state:StageState, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:OrmOptions) {
+	constructor (state:StageModel, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:OrmOptions) {
 		this.state = state
 		this.schema = schema
 		this.routing = routing
