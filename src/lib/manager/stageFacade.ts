@@ -57,10 +57,10 @@ export class StageFacade {
 
 	public clean (options?:OrmOptions):StageClean {
 		const _options = this.schemaManager.solveOptions(options)
-		return new StageClean(this.stageModel, this.schemaManager, this.routing, this.languages, this.executor, _options)
+		return new StageClean(this.stageModel, this.stageMapping, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public truncate (options?:OrmOptions):StageClean {
+	public truncate (options?:OrmOptions):StageTruncate {
 		const _options = this.schemaManager.solveOptions(options)
 		return new StageTruncate(this.stageModel, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
