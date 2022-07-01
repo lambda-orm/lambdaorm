@@ -98,6 +98,7 @@ services:
       #  por este motivo se crea el volume oradata:
       # info: https://github.com/oracle/docker-images/issues/439
       - oradata:/opt/oracle/oradata # persistent oracle database data
+      - ./oracle:/home/oracle/setup/custom_scripts
     ports:
       - 1521:1521
       - 5500:5500
