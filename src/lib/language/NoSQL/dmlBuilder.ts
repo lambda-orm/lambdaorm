@@ -351,7 +351,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	}
 
 	protected buildFilter (operand: Filter): string {
-		// TODO: falta resolver si los campos a filtrar corresponden a un include composite.
+		// TODO: It remains to be resolved if the fields to filter correspond to an include composite.
 		// this.setPrefixToField(operand, '$')
 		const template = this.dialect.dml('rootFilter')
 		return template.replace('{0}', this.buildArrowFunction(operand))

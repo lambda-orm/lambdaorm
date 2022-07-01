@@ -393,7 +393,7 @@ export class OperandManager {
 		const parts = node.name.split('.')
 		if (parts[0] === expressionContext.current.arrowVar) {
 			if (parts.length === 1) {
-				// TODO, aquí se debería retornar el array de fields
+				// TODO: here the array of fields should be returned
 				return new Field(expressionContext.current.entityName, '*', 'any', expressionContext.current.alias, true)
 			} else if (parts.length === 2) {
 				return this.createSimpleField(parts, expressionContext)
