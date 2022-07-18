@@ -6,15 +6,15 @@ test:
   - name: function abs
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", (p.UnitPrice * -1) AS "source",
-            ROUND(ABS((p.UnitPrice * -1)),10) AS "result" FROM Products p  WHERE
-            p.ProductID = :id 
+            SELECT p.ProductName AS [name], (p.UnitPrice * -1) AS [source],
+            ROUND(ABS((p.UnitPrice * -1)),10) AS [result] FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -146,7 +146,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: -18
@@ -154,15 +154,15 @@ test:
   - name: function acos
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 0.25 AS "source",
-            ROUND(ACOS(0.25),10) AS "result" FROM Products p  WHERE p.ProductID
-            = :id 
+            SELECT p.ProductName AS [name], 0.25 AS [source],
+            ROUND(ACOS(0.25),10) AS [result] FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
     errors: 0
     expression: >-
@@ -272,7 +272,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 0.25
@@ -280,15 +280,15 @@ test:
   - name: function asin
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 0.25 AS "source",
-            ROUND(ASIN(0.25),10) AS "result" FROM Products p  WHERE p.ProductID
-            = :id 
+            SELECT p.ProductName AS [name], 0.25 AS [source],
+            ROUND(ASIN(0.25),10) AS [result] FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
     errors: 0
     expression: >-
@@ -398,7 +398,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 0.25
@@ -406,15 +406,15 @@ test:
   - name: function atan
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 0.25 AS "source",
-            ROUND(ATAN(0.25),10) AS "result" FROM Products p  WHERE p.ProductID
-            = :id 
+            SELECT p.ProductName AS [name], 0.25 AS [source],
+            ROUND(ATAN(0.25),10) AS [result] FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
     errors: 0
     expression: >-
@@ -524,7 +524,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 0.25
@@ -532,17 +532,17 @@ test:
   - name: function atan2
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 0.5 AS "source",
-            ROUND(ATAN2(0.25,1),10) AS "result" FROM Products p  WHERE
-            p.ProductID = :id 
+            SELECT p.ProductName AS [name], 0.5 AS [source],
+            ROUND(ATAN2(0.25,1),10) AS [result] FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:0.5,result:round(atan2(0.25,1),10)})
     normalizeExpression: >-
@@ -654,25 +654,24 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
-    result:
-      - name: Chai
-        source: 0.5
-        result: 0.2449786631
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: 'ATAN2' is not a
+          recognized built-in function name.
   - name: function ceil
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 25.75 AS "source",
-            ROUND(CEIL(25.75),10) AS "result" FROM Products p  WHERE p.ProductID
-            = :id 
+            SELECT p.ProductName AS [name], 25.75 AS [source],
+            ROUND(CEIL(25.75),10) AS [result] FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:25.75,result:round(ceil(25.75),10)})
     normalizeExpression: >-
@@ -780,22 +779,21 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
-    result:
-      - name: Chai
-        source: 25.75
-        result: 26
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: 'CEIL' is not a
+          recognized built-in function name.
   - name: function cos
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 2 AS "source", ROUND(COS(2),10) AS
-            "result" FROM Products p  WHERE p.ProductID = :id 
+            SELECT p.ProductName AS [name], 2 AS [source], ROUND(COS(2),10) AS
+            [result] FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -905,7 +903,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 2
@@ -913,14 +911,14 @@ test:
   - name: function exp
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 1 AS "source", ROUND(EXP(1),10) AS
-            "result" FROM Products p  WHERE p.ProductID = :id 
+            SELECT p.ProductName AS [name], 1 AS [source], ROUND(EXP(1),10) AS
+            [result] FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1030,7 +1028,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 1
@@ -1038,15 +1036,15 @@ test:
   - name: function floor
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 25.75 AS "source",
-            ROUND(FLOOR(25.75),10) AS "result" FROM Products p  WHERE
-            p.ProductID = :id 
+            SELECT p.ProductName AS [name], 25.75 AS [source],
+            ROUND(FLOOR(25.75),10) AS [result] FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1156,7 +1154,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 25.75
@@ -1164,16 +1162,16 @@ test:
   - name: function ln
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 2 AS "source", ROUND(LN(2),10) AS
-            "result" FROM Products p  WHERE p.ProductID = :id 
+            SELECT p.ProductName AS [name], 2 AS [source], ROUND(LN(2),10) AS
+            [result] FROM Products p  WHERE p.ProductID = @id 
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:2,result:round(ln(2),10)})
     normalizeExpression: >-
@@ -1281,23 +1279,22 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
-    result:
-      - name: Chai
-        source: 2
-        result: 0.6931471806
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: 'LN' is not a recognized
+          built-in function name.
   - name: function log
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 10 AS "m", 20 AS "n",
-            ROUND(LOG(10,20),10) AS "result" FROM Products p  WHERE p.ProductID
-            = :id 
+            SELECT p.ProductName AS [name], 10 AS [m], 20 AS [n],
+            ROUND(LOG(10,20),10) AS [result] FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
     errors: 0
     expression: >-
@@ -1423,24 +1420,24 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         m: 10
         'n': 20
-        result: 1.3010299957
+        result: 0.7686217868
   - name: function round
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 135.375 AS "source",
-            ROUND(135.375,2) AS "result" FROM Products p  WHERE p.ProductID =
-            :id 
+            SELECT p.ProductName AS [name], 135.375 AS [source],
+            ROUND(135.375,2) AS [result] FROM Products p  WHERE p.ProductID =
+            @id 
           children: []
     errors: 0
     expression: >-
@@ -1546,7 +1543,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 135.375
@@ -1554,15 +1551,15 @@ test:
   - name: function sign
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 255.5 AS "source",
-            ROUND(SIGN(255.5),10) AS "result" FROM Products p  WHERE p.ProductID
-            = :id 
+            SELECT p.ProductName AS [name], 255.5 AS [source],
+            ROUND(SIGN(255.5),10) AS [result] FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
     errors: 0
     expression: >-
@@ -1672,7 +1669,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 255.5
@@ -1680,15 +1677,15 @@ test:
   - name: function tan
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 1.75 AS "source",
-            ROUND(TAN(1.75),10) AS "result" FROM Products p  WHERE p.ProductID =
-            :id 
+            SELECT p.ProductName AS [name], 1.75 AS [source],
+            ROUND(TAN(1.75),10) AS [result] FROM Products p  WHERE p.ProductID =
+            @id 
           children: []
     errors: 0
     expression: >-
@@ -1798,7 +1795,7 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - name: Chai
         source: 1.75
@@ -1806,17 +1803,17 @@ test:
   - name: function trunc
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT p.ProductName AS "name", 135.375 AS "source",
-            ROUND(TRUNC(135.375,2),10) AS "result" FROM Products p  WHERE
-            p.ProductID = :id 
+            SELECT p.ProductName AS [name], 135.375 AS [source],
+            ROUND(TRUNC(135.375,2),10) AS [result] FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:135.375,result:round(trunc(135.375,2),10)})
     normalizeExpression: >-
@@ -1928,9 +1925,8 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
-    result:
-      - name: Chai
-        source: 135.375
-        result: 135.37
-errors: 0
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: 'TRUNC' is not a
+          recognized built-in function name.
+errors: 4

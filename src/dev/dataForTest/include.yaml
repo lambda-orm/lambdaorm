@@ -6,31 +6,31 @@ test:
   - name: include 1
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.CustomerID AS "__customerId" FROM Orders o  WHERE
-            o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.CustomerID AS [__customerId] FROM Orders o  WHERE
+            o.OrderID = @id 
           children:
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
-                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
-                AS "address", c.City AS "city", c.Region AS "region",
-                c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
-                c.CustomerID IN (:LambdaOrmParentId) 
+                SELECT c.CustomerID AS [id], c.CompanyName AS [name],
+                c.ContactName AS [contact], c.ContactTitle AS [phone], c.Address
+                AS [address], c.City AS [city], c.Region AS [region],
+                c.PostalCode AS [postalCode], c.Country AS [country],
+                c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
+                c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
@@ -527,34 +527,36 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
   - name: include 2
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.OrderID AS [__id] FROM Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
-                FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+                o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity],
+                o1.Discount AS [discount], o1.OrderID AS [LambdaOrmParentId]
+                FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
               children: []
     errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
@@ -992,14 +994,14 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -1010,58 +1012,53 @@ test:
         country: France
         details:
           - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
+            productId: 2
+            unitPrice: 19
+            quantity: 15
             discount: 0
           - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.800000000000004
-            quantity: 5
+            productId: 29
+            unitPrice: 123.79
+            quantity: 20
             discount: 0
   - name: include 3
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
-            Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+            Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
-                FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+                o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity],
+                o1.Discount AS [discount], o1.OrderID AS [LambdaOrmParentId]
+                FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
               children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
-                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
-                AS "address", c.City AS "city", c.Region AS "region",
-                c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
-                c.CustomerID IN (:LambdaOrmParentId) 
+                SELECT c.CustomerID AS [id], c.CompanyName AS [name],
+                c.ContactName AS [contact], c.ContactTitle AS [phone], c.Address
+                AS [address], c.City AS [city], c.Region AS [region],
+                c.PostalCode AS [postalCode], c.Country AS [country],
+                c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
+                c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
@@ -1727,58 +1724,60 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
   - name: include 4
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
-            Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+            Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.ProductID AS "__productId",
-                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+                SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+                o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity],
+                o1.Discount AS [discount], o1.ProductID AS [__productId],
+                o1.OrderID AS [LambdaOrmParentId] FROM [Order Details] o1 
+                WHERE  o1.OrderID IN (@LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: SqlServer
+                  dataSource: SqlServer
                   sentence: >-
-                    SELECT p.ProductID AS "id", p.ProductName AS "name",
-                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
-                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                    SELECT p.ProductID AS [id], p.ProductName AS [name],
+                    p.SupplierID AS [supplierId], p.CategoryID AS [categoryId],
+                    p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price],
+                    p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder],
+                    p.ReorderLevel AS [reorderLevel], p.Discontinued AS
+                    [discontinued], p.ProductID AS [LambdaOrmParentId] FROM
+                    Products p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
                   children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
-                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
-                AS "address", c.City AS "city", c.Region AS "region",
-                c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
-                c.CustomerID IN (:LambdaOrmParentId) 
+                SELECT c.CustomerID AS [id], c.CompanyName AS [name],
+                c.ContactName AS [contact], c.ContactTitle AS [phone], c.Address
+                AS [address], c.City AS [city], c.Region AS [region],
+                c.PostalCode AS [postalCode], c.Country AS [country],
+                c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
+                c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: >-
@@ -2689,68 +2688,70 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
   - name: include 5
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
-            Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+            Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.ProductID AS "__productId",
-                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+                SELECT o1.OrderID AS [orderId], o1.ProductID AS [productId],
+                o1.UnitPrice AS [unitPrice], o1.Quantity AS [quantity],
+                o1.Discount AS [discount], o1.ProductID AS [__productId],
+                o1.OrderID AS [LambdaOrmParentId] FROM [Order Details] o1 
+                WHERE  o1.OrderID IN (@LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: SqlServer
+                  dataSource: SqlServer
                   sentence: >-
-                    SELECT p.ProductID AS "id", p.ProductName AS "name",
-                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.CategoryID AS "__categoryId", p.ProductID
-                    AS "LambdaOrmParentId" FROM Products p  WHERE  p.ProductID
-                    IN (:LambdaOrmParentId) 
+                    SELECT p.ProductID AS [id], p.ProductName AS [name],
+                    p.SupplierID AS [supplierId], p.CategoryID AS [categoryId],
+                    p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price],
+                    p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder],
+                    p.ReorderLevel AS [reorderLevel], p.Discontinued AS
+                    [discontinued], p.CategoryID AS [__categoryId], p.ProductID
+                    AS [LambdaOrmParentId] FROM Products p  WHERE  p.ProductID
+                    IN (@LambdaOrmParentId) 
                   children:
                     - entity: Categories
-                      dialect: Oracle
-                      dataSource: Oracle
+                      dialect: SqlServer
+                      dataSource: SqlServer
                       sentence: >-
-                        SELECT c.CategoryID AS "id", c.CategoryName AS "name",
-                        c.Description AS "description", c.CategoryID AS
-                        "LambdaOrmParentId" FROM Categories c  WHERE 
-                        c.CategoryID IN (:LambdaOrmParentId) 
+                        SELECT c.CategoryID AS [id], c.CategoryName AS [name],
+                        c.Description AS [description], c.CategoryID AS
+                        [LambdaOrmParentId] FROM Categories c  WHERE 
+                        c.CategoryID IN (@LambdaOrmParentId) 
                       children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c1.CustomerID AS "id", c1.CompanyName AS "name",
-                c1.ContactName AS "contact", c1.ContactTitle AS "phone",
-                c1.Address AS "address", c1.City AS "city", c1.Region AS
-                "region", c1.PostalCode AS "postalCode", c1.Country AS
-                "country", c1.CustomerID AS "LambdaOrmParentId" FROM Customers
-                c1  WHERE  c1.CustomerID IN (:LambdaOrmParentId) 
+                SELECT c1.CustomerID AS [id], c1.CompanyName AS [name],
+                c1.ContactName AS [contact], c1.ContactTitle AS [phone],
+                c1.Address AS [address], c1.City AS [city], c1.Region AS
+                [region], c1.PostalCode AS [postalCode], c1.Country AS
+                [country], c1.CustomerID AS [LambdaOrmParentId] FROM Customers
+                c1  WHERE  c1.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: >-
@@ -3800,45 +3801,47 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
   - name: include 6
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
-            Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+            Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
-                FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
+                o1.ProductID AS [productId], o1.OrderID AS [LambdaOrmParentId]
+                FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
               children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
-                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
-                AS "address", c.City AS "city", c.Region AS "region",
-                c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
-                c.CustomerID IN (:LambdaOrmParentId) 
+                SELECT c.CustomerID AS [id], c.CompanyName AS [name],
+                c.ContactName AS [contact], c.ContactTitle AS [phone], c.Address
+                AS [address], c.City AS [city], c.Region AS [region],
+                c.PostalCode AS [postalCode], c.Country AS [country],
+                c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
+                c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: >-
@@ -4475,57 +4478,59 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
   - name: include 7
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
-            Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.OrderID AS [__id], o.CustomerID AS [__customerId] FROM
+            Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "productId", o1.ProductID AS "__productId",
-                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+                SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
+                o1.ProductID AS [productId], o1.ProductID AS [__productId],
+                o1.OrderID AS [LambdaOrmParentId] FROM [Order Details] o1 
+                WHERE  o1.OrderID IN (@LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: SqlServer
+                  dataSource: SqlServer
                   sentence: >-
-                    SELECT p.ProductID AS "id", p.ProductName AS "name",
-                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
-                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                    SELECT p.ProductID AS [id], p.ProductName AS [name],
+                    p.SupplierID AS [supplierId], p.CategoryID AS [categoryId],
+                    p.QuantityPerUnit AS [quantity], p.UnitPrice AS [price],
+                    p.UnitsInStock AS [inStock], p.UnitsOnOrder AS [onOrder],
+                    p.ReorderLevel AS [reorderLevel], p.Discontinued AS
+                    [discontinued], p.ProductID AS [LambdaOrmParentId] FROM
+                    Products p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
                   children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
-                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
-                AS "address", c.City AS "city", c.Region AS "region",
-                c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
-                c.CustomerID IN (:LambdaOrmParentId) 
+                SELECT c.CustomerID AS [id], c.CompanyName AS [name],
+                c.ContactName AS [contact], c.ContactTitle AS [phone], c.Address
+                AS [address], c.City AS [city], c.Region AS [region],
+                c.PostalCode AS [postalCode], c.Country AS [country],
+                c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
+                c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: >-
@@ -5406,58 +5411,60 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
   - name: include 8
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.CustomerID AS "__customerId", o.OrderID AS "__id" FROM
-            Orders o  WHERE o.OrderID = :id 
+            SELECT o.OrderID AS [id], o.CustomerID AS [customerId], o.EmployeeID
+            AS [employeeId], o.OrderDate AS [orderDate], o.RequiredDate AS
+            [requiredDate], o.ShippedDate AS [shippedDate], o.ShipVia AS
+            [shipViaId], o.Freight AS [freight], o.ShipName AS [name],
+            o.ShipAddress AS [address], o.ShipCity AS [city], o.ShipRegion AS
+            [region], o.ShipPostalCode AS [postalCode], o.ShipCountry AS
+            [country], o.CustomerID AS [__customerId], o.OrderID AS [__id] FROM
+            Orders o  WHERE o.OrderID = @id 
           children:
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT c.CompanyName AS "name", c.CustomerID AS
-                "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
-                (:LambdaOrmParentId) 
+                SELECT c.CompanyName AS [name], c.CustomerID AS
+                [LambdaOrmParentId] FROM Customers c  WHERE  c.CustomerID IN
+                (@LambdaOrmParentId) 
               children: []
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "__productId", o1.OrderID AS "LambdaOrmParentId"
-                FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                SELECT o1.Quantity AS [quantity], o1.UnitPrice AS [unitPrice],
+                o1.ProductID AS [__productId], o1.OrderID AS [LambdaOrmParentId]
+                FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: SqlServer
+                  dataSource: SqlServer
                   sentence: >-
-                    SELECT p.ProductName AS "name", p.CategoryID AS
-                    "__categoryId", p.ProductID AS "LambdaOrmParentId" FROM
-                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                    SELECT p.ProductName AS [name], p.CategoryID AS
+                    [__categoryId], p.ProductID AS [LambdaOrmParentId] FROM
+                    Products p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
                   children:
                     - entity: Categories
-                      dialect: Oracle
-                      dataSource: Oracle
+                      dialect: SqlServer
+                      dataSource: SqlServer
                       sentence: >-
-                        SELECT c1.CategoryName AS "name", c1.CategoryID AS
-                        "LambdaOrmParentId" FROM Categories c1  WHERE 
-                        c1.CategoryID IN (:LambdaOrmParentId) 
+                        SELECT c1.CategoryName AS [name], c1.CategoryID AS
+                        [LambdaOrmParentId] FROM Categories c1  WHERE 
+                        c1.CategoryID IN (@LambdaOrmParentId) 
                       children: []
     errors: 1
     expression: >-
@@ -6177,6 +6184,8 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01008: not all variables bound'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _query error: Error: Incorrect syntax near
+          'VINET'.
 errors: 7

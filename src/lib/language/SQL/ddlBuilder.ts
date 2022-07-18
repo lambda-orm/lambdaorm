@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PropertyMapping, Property, Relation, Index, Query, EntityMapping, SchemaError } from '../../model'
-import { LanguageDDLBuilder } from '../../manager'
+import { LanguageDDLBuilder, Helper } from '../../manager'
 
 export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
@@ -208,7 +208,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		assign = assign.replace('{1}', _null)
 		let text = this.dialect.dml('update')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
-		text = text.replace('{alias}', alias)
+		text = Helper.replace(text, '{alias}', alias)
 		text = text.replace('{assigns}', assign)
 		return new Query({ name: 'update', dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
 	}

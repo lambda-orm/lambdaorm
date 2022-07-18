@@ -79,19 +79,20 @@ export class SqlServerConnection extends Connection {
 			const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 			const sql = query.sentence
 			const rows = this.arrayToRows(query, mapping, array)
-			const _query = fieldId
-				? `${sql} OUTPUT inserted.${fieldId} VALUES ${rows.join(',')};`
-				: `${sql} VALUES ${rows.join(',')};`
-
-			const result = await this._executeSentence(_query)
-			const ids: any[] = []
 			if (fieldId) {
+				const sentence = `${sql} OUTPUT inserted.${fieldId} VALUES ${rows.join(',')};`
+				const result = await this._query(mapping, query, sentence, undefined)
+				const ids: any[] = []
 				for (const p in result) {
 					const id = result[p][fieldId]
 					ids.push(id)
 				}
+				return ids
+			} else {
+				const sentence = `${sql} VALUES ${rows.join(',')};`
+				await this._executeSentence(sentence)
+				return []
 			}
-			return ids
 		} catch (error) {
 			throw new Error(`Error to execute bulkInsert \nerror: ${error} \nquery:\n${query}`)
 		}
@@ -160,12 +161,14 @@ export class SqlServerConnection extends Connection {
 		}
 	}
 
-	private async _query (mapping: MappingConfig, query: Query, sentence: string, data: Data): Promise<any> {
+	private async _query (mapping: MappingConfig, query: Query, sentence: string, data: Data|undefined): Promise<any> {
 		const me = this
 		return new Promise<any[]>((resolve, reject) => {
 			try {
 				const rows: any[] = []
-				const request = new SqlServerConnectionPool.lib.Request(sentence, (error: any) => {
+				// https://github.com/tediousjs/tedious/issues/130
+				const _sentence = data ? this.solveArrayParameters(query, mapping, data, sentence) : sentence
+				const request = new SqlServerConnectionPool.lib.Request(_sentence, (error: any) => {
 					if (error) {
 						reject(new Error(`Mssql connection _query error: ${error}`))
 					}
@@ -179,9 +182,11 @@ export class SqlServerConnection extends Connection {
 					}
 					rows.push(row)
 				})
-				const params = this.dataToParameters(query, mapping, data)
-				if (params.length > 0) {
-					me.addParameters(request, params)
+				if (data) {
+					const params = this.dataToParameters(query, mapping, data)
+					if (params.length > 0) {
+						me.addParameters(request, params)
+					}
 				}
 				return me.cnx.execSql(request)
 			} catch (error) {
@@ -193,7 +198,7 @@ export class SqlServerConnection extends Connection {
 	private async _execute (mapping: MappingConfig, query: Query, data: Data) {
 		const me = this
 		return new Promise<any>((resolve, reject) => {
-			const request = this.createRequest(query.sentence, reject, resolve)
+			const request = this.createNonQueryRequest(query.sentence, reject, resolve)
 			const params = this.dataToParameters(query, mapping, data)
 			if (params.length > 0) {
 				me.addParameters(request, params)
@@ -205,12 +210,12 @@ export class SqlServerConnection extends Connection {
 	private async _executeSentence (sentence: string) {
 		const me = this
 		return new Promise<any>((resolve, reject) => {
-			const sqlRequest = this.createRequest(sentence, reject, resolve)
+			const sqlRequest = this.createNonQueryRequest(sentence, reject, resolve)
 			return me.cnx.execSql(sqlRequest)
 		})
 	}
 
-	private createRequest (sentence: string, reject:any, resolve: any):any {
+	private createNonQueryRequest (sentence: string, reject:any, resolve: any):any {
 		return new SqlServerConnectionPool.lib.Request(sentence, (err: any, rowCount: any) => {
 			if (err) {
 				reject(new Error(`Mssql connection _execute error: ${err}`))
@@ -219,10 +224,38 @@ export class SqlServerConnection extends Connection {
 		})
 	}
 
+	protected solveArrayParameters (query: Query, mapping: MappingConfig, data: Data, sentence: string): string {
+		let _sentence = sentence
+		for (const parameter of query.parameters) {
+			if (parameter.type === 'array') {
+				let list:any
+				const value = data.get(parameter.name)
+				if (value.length > 0) {
+					const type = typeof value[0]
+					if (type === 'string') {
+						const values: string[] = []
+						for (const item of value) {
+							let _item = item
+							_item = Helper.escape(_item)
+							_item = Helper.replace(_item, '\\\'', '\\\'\'')
+							values.push(`'${_item}'`)
+						}
+						list = values.join(',')
+					} else {
+						list = value.join(',')
+					}
+				} else {
+					list = ''
+				}
+				_sentence = Helper.replace(_sentence, '@' + parameter.name, list)
+			}
+		}
+		return _sentence
+	}
+
 	private addParameters (request: any, params: Parameter[] = []) {
 		for (const param of params) {
 			switch (param.type) {
-			case 'array': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value.join(',')); break
 			case 'string': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value); break
 			case 'number': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Numeric, param.value); break
 			case 'integer': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Int, param.value); break

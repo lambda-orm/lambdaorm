@@ -225,18 +225,19 @@ test:
   - name: update 1
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
-            :employeeId,OrderDate = :orderDate,RequiredDate =
-            :requiredDate,ShippedDate = :shippedDate,ShipVia =
-            :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
-            :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
-            :postalCode,ShipCountry = :country WHERE o.OrderID = :obj.id 
+            UPDATE o SET CustomerID = @customerId,EmployeeID =
+            @employeeId,OrderDate = @orderDate,RequiredDate =
+            @requiredDate,ShippedDate = @shippedDate,ShipVia =
+            @shipViaId,Freight = @freight,ShipName = @name,ShipAddress =
+            @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
+            @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID =
+            @obj.id 
           children: []
     errors: 1
     expression: Orders.update()
@@ -537,25 +538,27 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@requiredDate".
   - name: update 2
     data: b
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET CustomerID = :entity.customerId,EmployeeID =
-            :entity.employeeId,OrderDate = :entity.orderDate,RequiredDate =
-            :entity.requiredDate,ShippedDate = :entity.shippedDate,ShipVia =
-            :entity.shipViaId,Freight = :entity.freight,ShipName =
-            :entity.name,ShipAddress = :entity.address,ShipCity =
-            :entity.city,ShipRegion = :entity.region,ShipPostalCode =
-            :entity.postalCode,ShipCountry = :entity.country WHERE o.OrderID =
-            :obj.id 
+            UPDATE o SET CustomerID = @entity.customerId,EmployeeID =
+            @entity.employeeId,OrderDate = @entity.orderDate,RequiredDate =
+            @entity.requiredDate,ShippedDate = @entity.shippedDate,ShipVia =
+            @entity.shipViaId,Freight = @entity.freight,ShipName =
+            @entity.name,ShipAddress = @entity.address,ShipCity =
+            @entity.city,ShipRegion = @entity.region,ShipPostalCode =
+            @entity.postalCode,ShipCountry = @entity.country FROM Orders o WHERE
+            o.OrderID = @obj.id 
           children: []
     errors: 1
     expression: Orders.update(entity)
@@ -848,17 +851,19 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@entity".
   - name: update 3
     data: c
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
-          sentence: 'UPDATE Orders o SET ShipPostalCode = :postalCode '
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
           children: []
     errors: 0
     expression: Orders.updateAll(=>{postalCode:postalCode})
@@ -910,21 +915,21 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: SqlServer
     result:
       data:
         postalCode: xxx
   - name: update 4
     data: b
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-            :entity.id 
+            UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+            @entity.id 
           children: []
     errors: 1
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
@@ -1000,28 +1005,30 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@entity".
   - name: update 5
     data: b
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-            :entity.id 
+            UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+            @entity.id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
-                :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
-                = :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID =
-                :obj.productId) 
+                UPDATE o1 SET OrderID = @orderId,ProductID =
+                @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
+                = @discount FROM [Order Details] o1 WHERE (o1.OrderID =
+                @obj.orderId AND o1.ProductID = @obj.productId) 
               children: []
     errors: 1
     expression: >-
@@ -1289,27 +1296,29 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@entity".
   - name: update 6
     data: b
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-            :entity.id 
+            UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+            @entity.id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
-                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID =
-                :orderId AND o1.ProductID = :productId) 
+                UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity =
+                o1.Quantity,Discount = o1.Discount FROM [Order Details] o1 WHERE
+                (o1.OrderID = @orderId AND o1.ProductID = @productId) 
               children: []
     errors: 1
     expression: >-
@@ -1535,27 +1544,29 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@entity".
   - name: update 7
     data: b
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET ShipName = :entity.name WHERE o.OrderID =
-            :entity.id 
+            UPDATE o SET ShipName = @entity.name FROM Orders o WHERE o.OrderID =
+            @entity.id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
-                = o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
-                :productId) 
+                UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID
+                FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+                o1.ProductID = @productId) 
               children: []
     errors: 1
     expression: >-
@@ -1765,32 +1776,35 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@entity".
   - name: update 8
     data: a
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
-            :employeeId,OrderDate = :orderDate,RequiredDate =
-            :requiredDate,ShippedDate = :shippedDate,ShipVia =
-            :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
-            :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
-            :postalCode,ShipCountry = :country WHERE o.OrderID = :obj.id 
+            UPDATE o SET CustomerID = @customerId,EmployeeID =
+            @employeeId,OrderDate = @orderDate,RequiredDate =
+            @requiredDate,ShippedDate = @shippedDate,ShipVia =
+            @shipViaId,Freight = @freight,ShipName = @name,ShipAddress =
+            @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
+            @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID =
+            @obj.id 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
-                :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
-                = :discount WHERE (o1.OrderID = :obj.orderId AND o1.ProductID =
-                :obj.productId) 
+                UPDATE o1 SET OrderID = @orderId,ProductID =
+                @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
+                = @discount FROM [Order Details] o1 WHERE (o1.OrderID =
+                @obj.orderId AND o1.ProductID = @obj.productId) 
               children: []
     errors: 1
     expression: Orders.update().include(p=>p.details)
@@ -2281,41 +2295,45 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@requiredDate".
   - name: update 9
     data: d
     sentences:
-      - stage: Oracle
+      - stage: SqlServer
         sentence:
           entity: Customers
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
-            UPDATE Customers c SET CustomerID = :id,CompanyName =
-            :name,ContactName = :contact,ContactTitle = :phone,Address =
-            :address,City = :city,Region = :region,PostalCode =
-            :postalCode,Country = :country WHERE c.CustomerID = :obj.id 
+            UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName =
+            @contact,ContactTitle = @phone,Address = @address,City =
+            @city,Region = @region,PostalCode = @postalCode,Country = @country
+            FROM Customers c WHERE c.CustomerID = @obj.id 
           children:
             - entity: Orders
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
-                :employeeId,OrderDate = :orderDate,RequiredDate =
-                :requiredDate,ShippedDate = :shippedDate,ShipVia =
-                :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
-                :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
-                :postalCode,ShipCountry = :country WHERE o.OrderID = :obj.id 
+                UPDATE o SET CustomerID = @customerId,EmployeeID =
+                @employeeId,OrderDate = @orderDate,RequiredDate =
+                @requiredDate,ShippedDate = @shippedDate,ShipVia =
+                @shipViaId,Freight = @freight,ShipName = @name,ShipAddress =
+                @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
+                @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID
+                = @obj.id 
               children:
                 - entity: Orders.details
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: SqlServer
+                  dataSource: SqlServer
                   sentence: >-
-                    UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
-                    :productId,UnitPrice = :unitPrice,Quantity =
-                    :quantity,Discount = :discount WHERE (o1.OrderID =
-                    :obj.orderId AND o1.ProductID = :obj.productId) 
+                    UPDATE o1 SET OrderID = @orderId,ProductID =
+                    @productId,UnitPrice = @unitPrice,Quantity =
+                    @quantity,Discount = @discount FROM [Order Details] o1 WHERE
+                    (o1.OrderID = @obj.orderId AND o1.ProductID =
+                    @obj.productId) 
                   children: []
     errors: 1
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
@@ -3048,6 +3066,8 @@ test:
         - message: Cannot be null property name in entity Customers
           condition: isNotNull(name)
     executions:
-      - stage: Oracle
-        error: 'Error: ORA-01036: illegal variable name/number'
+      - stage: SqlServer
+        error: >-
+          Error: Mssql connection _execute error: Error: Must declare the scalar
+          variable "@obj".
 errors: 8
