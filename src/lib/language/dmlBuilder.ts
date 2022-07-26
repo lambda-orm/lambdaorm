@@ -214,8 +214,8 @@ export abstract class DmlBuilder {
 
 	protected buildPage (sentence: string, operand: Page): string {
 		let template = this.dialect.dml('page')
-		let page = parseInt(operand.children[1].name)
-		const records = parseInt(operand.children[2].name)
+		let page = parseInt(operand.children[0].name)
+		const records = parseInt(operand.children[1].name)
 		if (page < 1) page = 1
 		template = template.replace('{sentence}', sentence)
 		template = template.replace('{offset}', ((page - 1) * records).toString())

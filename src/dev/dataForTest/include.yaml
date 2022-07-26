@@ -32,7 +32,7 @@ test:
                 c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
                 c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}))
@@ -528,9 +528,31 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l\'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 2
     data: a
     sentences:
@@ -1060,7 +1082,7 @@ test:
                 c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
                 c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
@@ -1725,9 +1747,42 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 2
+            unitPrice: 19
+            quantity: 15
+            discount: 0
+          - orderId: 1
+            productId: 29
+            unitPrice: 123.79
+            quantity: 20
+            discount: 0
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l\'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 4
     data: a
     sentences:
@@ -1779,7 +1834,7 @@ test:
                 c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
                 c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     normalizeExpression: >-
@@ -2689,9 +2744,64 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 2
+            unitPrice: 19
+            quantity: 15
+            discount: 0
+            product:
+              id: 2
+              name: Chang
+              supplierId: 1
+              categoryId: 1
+              quantity: 24 - 12 oz bottles
+              price: 19
+              inStock: 17
+              onOrder: 40
+              reorderLevel: 25
+              discontinued: false
+          - orderId: 1
+            productId: 29
+            unitPrice: 123.79
+            quantity: 20
+            discount: 0
+            product:
+              id: 29
+              name: Thringer Rostbratwurst
+              supplierId: 12
+              categoryId: 6
+              quantity: 50 bags x 30 sausgs.
+              price: 123.79
+              inStock: 0
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l\'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 5
     data: a
     sentences:
@@ -2753,7 +2863,7 @@ test:
                 [country], c1.CustomerID AS [LambdaOrmParentId] FROM Customers
                 c1  WHERE  c1.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     normalizeExpression: >-
@@ -3802,9 +3912,72 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 2
+            unitPrice: 19
+            quantity: 15
+            discount: 0
+            product:
+              id: 2
+              name: Chang
+              supplierId: 1
+              categoryId: 1
+              quantity: 24 - 12 oz bottles
+              price: 19
+              inStock: 17
+              onOrder: 40
+              reorderLevel: 25
+              discontinued: false
+              category:
+                id: 1
+                name: Beverages
+                description: Soft drinks, coffees, teas, beers, and ales
+          - orderId: 1
+            productId: 29
+            unitPrice: 123.79
+            quantity: 20
+            discount: 0
+            product:
+              id: 29
+              name: Thringer Rostbratwurst
+              supplierId: 12
+              categoryId: 6
+              quantity: 50 bags x 30 sausgs.
+              price: 123.79
+              inStock: 0
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+              category:
+                id: 6
+                name: Meat/Poultry
+                description: Prepared meats
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l\'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 6
     data: a
     sentences:
@@ -3843,7 +4016,7 @@ test:
                 c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
                 c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -4479,9 +4652,38 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - quantity: 15
+            unitPrice: 19
+            productId: 2
+          - quantity: 20
+            unitPrice: 123.79
+            productId: 29
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l\'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 7
     data: a
     sentences:
@@ -4532,7 +4734,7 @@ test:
                 c.CustomerID AS [LambdaOrmParentId] FROM Customers c  WHERE 
                 c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -5412,9 +5614,60 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - quantity: 15
+            unitPrice: 19
+            productId: 2
+            product:
+              id: 2
+              name: Chang
+              supplierId: 1
+              categoryId: 1
+              quantity: 24 - 12 oz bottles
+              price: 19
+              inStock: 17
+              onOrder: 40
+              reorderLevel: 25
+              discontinued: false
+          - quantity: 20
+            unitPrice: 123.79
+            productId: 29
+            product:
+              id: 29
+              name: Thringer Rostbratwurst
+              supplierId: 12
+              categoryId: 6
+              quantity: 50 bags x 30 sausgs.
+              price: 123.79
+              inStock: 0
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l\'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 8
     data: a
     sentences:
@@ -5466,7 +5719,7 @@ test:
                         [LambdaOrmParentId] FROM Categories c1  WHERE 
                         c1.CategoryID IN (@LambdaOrmParentId) 
                       children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     normalizeExpression: >-
@@ -6185,7 +6438,34 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Incorrect syntax near
-          'VINET'.
-errors: 7
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000Z'
+        requiredDate: '1996-08-01T00:00:00.000Z'
+        shippedDate: '1996-07-16T00:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        customer:
+          name: Vins et alcools Chevalier
+        details:
+          - quantity: 15
+            unitPrice: 19
+            product:
+              name: Chang
+              category:
+                name: Beverages
+          - quantity: 20
+            unitPrice: 123.79
+            product:
+              name: Thringer Rostbratwurst
+              category:
+                name: Meat/Poultry
+errors: 0

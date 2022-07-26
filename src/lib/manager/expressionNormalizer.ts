@@ -99,9 +99,6 @@ export class ExpressionNormalizer {
 		} else if (clauses.last) {
 			compeleInclude = this.completeMapInclude
 			this.completeLastNode(clauses, mainNode, entity)
-		} else if (clauses.take) {
-			compeleInclude = this.completeMapInclude
-			this.completeTakeNode(clauses, mainNode, entity)
 		} else {
 			// Solve expresión without map example: Products.filter(p=> id==1)
 			compeleInclude = this.completeMapInclude
@@ -170,19 +167,6 @@ export class ExpressionNormalizer {
 				mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcDesc])
 			}
 		}
-		if (!clauses.page) {
-			const constPage = new Node('1', 'const', [])
-			const constRecords = new Node('1', 'const', [])
-			mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
-		}
-	}
-
-	private completeTakeNode (clauses: any, mainNode: Node, entity: Entity): void {
-		// Add limit , replace take for map
-		// example: SELECT * FROM Orders  LIMIT 0,1
-		clauses.map = clauses.take
-		clauses.map.name = 'map'
-		this.completeMapNode(entity, clauses.map)
 		if (!clauses.page) {
 			const constPage = new Node('1', 'const', [])
 			const constRecords = new Node('1', 'const', [])

@@ -24,7 +24,7 @@ import { CategoryRepository, Category, ProductRepository } from '../../model'
 		category.description = 'general products 2'
 		const id = await categoryRepository.insert(category)
 
-		category = await categoryRepository.take({ id: id }, p => p.id === id)
+		category = await categoryRepository.first({ id: id }, p => p.id === id)
 		console.log(JSON.stringify(category, null, 2))
 
 		if (category !== null) {

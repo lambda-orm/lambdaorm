@@ -123,7 +123,7 @@ export class SqlServerConnection extends Connection {
 		await new Promise<void>((resolve, reject) => {
 			me.cnx.beginTransaction((error: any) => {
 				if (error) {
-					reject(new Error(`Mssql connection beginTransaction error: ${error}`))
+					reject(new Error(`SqlServer connection beginTransaction error: ${error}`))
 				}
 				me.inTransaction = true
 				resolve()
@@ -137,7 +137,7 @@ export class SqlServerConnection extends Connection {
 			await new Promise<void>((resolve, reject) => {
 				me.cnx.commitTransaction((error: any) => {
 					if (error) {
-						reject(new Error(`Mssql connection commit error: ${error}`))
+						reject(new Error(`SqlServer connection commit error: ${error}`))
 					}
 					me.inTransaction = false
 					resolve()
@@ -152,7 +152,7 @@ export class SqlServerConnection extends Connection {
 			await new Promise<void>((resolve, reject) => {
 				me.cnx.rollbackTransaction((error: any) => {
 					if (error) {
-						reject(new Error(`Mssql connection rollback error: ${error}`))
+						reject(new Error(`SqlServer connection rollback error: ${error}`))
 					}
 					me.inTransaction = false
 					resolve()
@@ -167,10 +167,10 @@ export class SqlServerConnection extends Connection {
 			try {
 				const rows: any[] = []
 				// https://github.com/tediousjs/tedious/issues/130
-				const _sentence = data ? this.solveArrayParameters(query, mapping, data, sentence) : sentence
+				const _sentence = data ? this.solveArrayParameters(query, data, sentence) : sentence
 				const request = new SqlServerConnectionPool.lib.Request(_sentence, (error: any) => {
 					if (error) {
-						reject(new Error(`Mssql connection _query error: ${error}`))
+						reject(new Error(`SqlServer connection _query error: ${error}`))
 					}
 					resolve(rows)
 				})
@@ -190,7 +190,7 @@ export class SqlServerConnection extends Connection {
 				}
 				return me.cnx.execSql(request)
 			} catch (error) {
-				reject(new Error(`Mssql connection _query error: ${error}`))
+				reject(new Error(`SqlServer connection _query error: ${error}`))
 			}
 		})
 	}
@@ -218,13 +218,13 @@ export class SqlServerConnection extends Connection {
 	private createNonQueryRequest (sentence: string, reject:any, resolve: any):any {
 		return new SqlServerConnectionPool.lib.Request(sentence, (err: any, rowCount: any) => {
 			if (err) {
-				reject(new Error(`Mssql connection _execute error: ${err}`))
+				reject(new Error(`SqlServer connection _execute error: ${err}`))
 			}
 			resolve(rowCount)
 		})
 	}
 
-	protected solveArrayParameters (query: Query, mapping: MappingConfig, data: Data, sentence: string): string {
+	protected solveArrayParameters (query: Query, data: Data, sentence: string): string {
 		let _sentence = sentence
 		for (const parameter of query.parameters) {
 			if (parameter.type === 'array') {
@@ -238,7 +238,7 @@ export class SqlServerConnection extends Connection {
 							let _item = item
 							_item = Helper.escape(_item)
 							_item = Helper.replace(_item, '\\\'', '\\\'\'')
-							values.push(`'${_item}'`)
+							values.push(_item)
 						}
 						list = values.join(',')
 					} else {
@@ -262,6 +262,8 @@ export class SqlServerConnection extends Connection {
 			case 'decimal': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Decimal, param.value); break
 			case 'boolean': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Bit, param.value); break
 			case 'datetime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
+			case 'date': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Date, param.value); break
+			case 'time': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Time, param.value); break
 			}
 		}
 	}

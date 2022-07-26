@@ -125,18 +125,6 @@ export class Repository<TEntity, TQuery> {
 		}
 	}
 
-	public async take (data: any,
-		filter?: (value: TQuery, index: number, array: TQuery[]) => unknown,
-		include?: (value: TQuery, index: number, array: TQuery[]) => unknown
-	): Promise<TEntity|null> {
-		const result = await this._execute(`${this.name}.take()`, filter, include, data)
-		if (result.length >= 1) {
-			return result[0] as TEntity
-		} else {
-			return null
-		}
-	}
-
 	public query (): Queryable<TQuery> {
 		return new Queryable<TQuery>(new ExpressionActions(this.name, this.orm, this.stage), '')
 	}

@@ -540,8 +540,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@requiredDate".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@obj".
   - name: update 2
     data: b
     sentences:
@@ -853,8 +853,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@entity".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@entity".
   - name: update 3
     data: c
     sentences:
@@ -1007,8 +1007,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@entity".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@entity".
   - name: update 5
     data: b
     sentences:
@@ -1298,8 +1298,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@entity".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@entity".
   - name: update 6
     data: b
     sentences:
@@ -1546,8 +1546,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@entity".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@entity".
   - name: update 7
     data: b
     sentences:
@@ -1778,8 +1778,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@entity".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@entity".
   - name: update 8
     data: a
     sentences:
@@ -2297,8 +2297,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@requiredDate".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@obj".
   - name: update 9
     data: d
     sentences:
@@ -3068,6 +3068,6 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _execute error: Error: Must declare the scalar
-          variable "@obj".
+          Error: SqlServer connection _execute error: Error: Must declare the
+          scalar variable "@obj".
 errors: 8

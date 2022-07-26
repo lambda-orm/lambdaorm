@@ -40,8 +40,6 @@ interface HavingClauses<T> extends MapClauses<T> {
 	/**  */
 	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
-	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
 	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
 }
 interface FilterIncludeClauses<T> extends HavingClauses<T> {
@@ -71,8 +69,6 @@ interface Queryable<T> extends MapClauses<T> {
 	first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
 	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-	/**  */
-	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
 	/**  */
 	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
 	/**  */
@@ -106,8 +102,6 @@ interface RelationIncludeClauses<T> {
 	/**  */
 	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
-	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
 	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 }
 interface Relation<T> {
@@ -117,8 +111,6 @@ interface Relation<T> {
 	first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
 	last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
-	/**  */
-	take<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */
 	distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): RelationMapClauses<T>
 	/**  */

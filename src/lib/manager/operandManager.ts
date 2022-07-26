@@ -514,7 +514,10 @@ export class OperandManager {
 			children.push(this.createClause(clauses.sort, expressionContext))
 		}
 		if (clauses.page) {
-			const pageChildren = clauses.page.children.map((p: Node) => this.nodeToOperand(p, expressionContext))
+			if (!clauses.sort) {
+				throw new SintaxisError('Sort clause is required when using Page clause')
+			}
+			const pageChildren = clauses.page.children.filter((p: Node) => p.type !== 'arrow').map((q: Node) => this.nodeToOperand(q, expressionContext))
 			children.push(new Page(clauses.page.name, pageChildren))
 		}
 

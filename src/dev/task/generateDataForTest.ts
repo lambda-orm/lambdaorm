@@ -136,17 +136,16 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
 			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
-			{ name: 'query 11', lambda: () => Products.page(1, 1) },
+			{ name: 'query 11', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 12', lambda: () => Products.first(p => p) },
 			{ name: 'query 13', lambda: () => Products.last(p => p) },
-			{ name: 'query 14', lambda: () => Products.take(p => p) },
-			{ name: 'query 15', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
-			{ name: 'query 16', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
-			{ name: 'query 17', lambda: () => Products.distinct(p => p).sort(p => p.id) },
-			{ name: 'query 18', lambda: () => Products.distinct(p => p.categoryId) },
-			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 14', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
+			{ name: 'query 15', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
+			{ name: 'query 16', lambda: () => Products.distinct(p => p).sort(p => p.id) },
+			{ name: 'query 17', lambda: () => Products.distinct(p => p.categoryId) },
+			{ name: 'query 18', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
+			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
 		]
 	})
 }

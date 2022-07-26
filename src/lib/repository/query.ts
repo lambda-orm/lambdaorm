@@ -73,11 +73,6 @@ export class HavingClauses<T> extends MapClauses<T> {
 	}
 
 	/**  */
-	take<U> (predicate: (value: T, index: number, array: T[]) => U): Map2Clauses<U> {
-		return new Map2Clauses(this.actions, `${this.expression}.take(${predicate.toString()})`)
-	}
-
-	/**  */
 	distinct<U> (predicate: (value: T, index: number, array: T[]) => U): MapClauses<U> {
 		return new MapClauses(this.actions, `${this.expression}.distinct(${predicate.toString()})`)
 	}

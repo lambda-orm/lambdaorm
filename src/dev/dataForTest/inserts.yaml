@@ -29,6 +29,7 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
+        orderId: null
       - productId: 42
         unitPrice: 9.8
         quantity: 10
@@ -298,8 +299,8 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _query error: Error: Must declare the scalar
-          variable "@entity".
+          Error: SqlServer connection _query error: Error: Must declare the
+          scalar variable "@entity".
   - name: insert 4
     data: order
     sentences:
@@ -314,7 +315,7 @@ test:
             OUTPUT INSERTED.OrderID
             VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
           children: []
-    errors: 1
+    errors: 0
     expression: Orders.insert()
     normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
@@ -590,9 +591,35 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: SqlServer
-        error: >-
-          Error: Mssql connection _query error: Error: Must declare the scalar
-          variable "@requiredDate".
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: null
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
   - name: insert 5
     data: order
     sentences:
@@ -1035,8 +1062,13 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _query error: Error: Must declare the scalar
-          variable "@requiredDate".
+          ValidationError: ERROR: Cannot be null property orderId in entity
+          Orders.details DATA_SOURCE: SqlServer ENTITY: Orders.details SENTENCE:
+          "INSERT INTO [Order
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
+          INSERTED.0
+          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)" 
+          DATA:{"productId":11,"unitPrice":14,"quantity":12,"discount":10,"orderId":null}
   - name: insert 6
     data: order
     sentences:
@@ -1700,6 +1732,11 @@ test:
     executions:
       - stage: SqlServer
         error: >-
-          Error: Mssql connection _query error: Error: Must declare the scalar
-          variable "@requiredDate".
-errors: 4
+          ValidationError: ERROR: Cannot be null property orderId in entity
+          Orders.details DATA_SOURCE: SqlServer ENTITY: Orders.details SENTENCE:
+          "INSERT INTO [Order
+          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
+          INSERTED.0
+          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)" 
+          DATA:{"productId":11,"unitPrice":14,"quantity":12,"discount":10,"orderId":null}
+errors: 3
