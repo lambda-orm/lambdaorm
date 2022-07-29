@@ -62,11 +62,11 @@ export class SqlServerConnection extends Connection {
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 		const sentence = fieldId
-			? query.sentence.replace('OUTPUT inserted.0', '')
-			: query.sentence
+			? query.sentence
+			: query.sentence.replace('OUTPUT INSERTED.0', '')
 		const result = await this._query(mapping, query, sentence, data)
-		if (fieldId) {
-			return result[fieldId]
+		if (fieldId && result.length === 1) {
+			return result[0][fieldId]
 		} else {
 			return 0
 		}

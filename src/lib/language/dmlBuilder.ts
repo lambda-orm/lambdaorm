@@ -340,7 +340,7 @@ export abstract class DmlBuilder {
 	protected buildVariable (operand: Variable): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = text.replace('{name}', operand.name)
+		text = text.replace('{name}', Helper.transformParameter(operand.name))
 		text = text.replace('{number}', number.toString())
 		return text
 	}

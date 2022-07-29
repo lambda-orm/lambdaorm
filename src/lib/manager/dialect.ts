@@ -47,7 +47,9 @@ export class Dialect {
 	}
 
 	public delimiter (name: string, force = false): string {
-		if (name.indexOf(' ') === -1 && !force) return name
+		if (name.indexOf(' ') === -1 && name.indexOf('.') === -1 && !force) {
+			return name
+		}
 		const template = this._others.delimiter
 		return template.replace('{name}', name)
 	}

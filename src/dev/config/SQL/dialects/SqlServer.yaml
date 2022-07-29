@@ -10,6 +10,7 @@ ddl:
   dropIndex: "DROP INDEX {name} ON {table}"
 dml:
   insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})
+  # insert: INSERT INTO {name}({fields}) VALUES({values})
   update: UPDATE {alias} SET {assigns} FROM {name} {alias}
   delete: DELETE FROM {name} {alias}
   bulkInsert: INSERT INTO {name}({fields})

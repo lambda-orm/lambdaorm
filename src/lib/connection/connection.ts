@@ -77,7 +77,7 @@ export abstract class Connection {
 			} else {
 				value = null
 			}
-			parameters.push({ name: parameter.name, type: parameter.type, value: value })
+			parameters.push({ name: Helper.transformParameter(parameter.name), type: parameter.type, value: value })
 		}
 		return parameters
 	}

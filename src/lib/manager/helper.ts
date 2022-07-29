@@ -13,6 +13,12 @@ export class Helper {
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
 
+	public static transformParameter (name:string) {
+		return Helper.replace(name, '.', '_')
+		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		// return string.replace(new RegExp(search, 'g'), replace)
+	}
+
 	public static clone (obj:any):any {
 		return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj
 	}

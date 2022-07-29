@@ -74,8 +74,8 @@ export class ExpressionNormalizer {
 			this.completeInsertNode(entity, clauses.bulkInsert)
 		} else if (clauses.update) {
 			compeleInclude = this.completeUpdateInclude
-			this.completeUpdateNode(entity, clauses.update)
 			this.completeFilterNode(entity, clauses, clauses.update)
+			this.completeUpdateNode(entity, clauses.update)
 		} else if (clauses.updateAll) {
 			compeleInclude = this.completeUpdateInclude
 			clauses.updateAll.name = 'update'
@@ -321,9 +321,11 @@ export class ExpressionNormalizer {
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		} else if (node.children.length === 2 && (node.children[1].type === 'var' || node.children[1].type === 'obj')) {
-			// Example Entity.update(entity) ,Entity.delete(entity)
-			// Example Entity.update({unitPrice:unitPrice,productId:productId)
-			const condition = this.createFilter(entity, 'p', node.children[1].name)
+			// Example node.children[1].type === 'var': Entity.update(entity) ,Entity.delete(entity)
+			// Example node.children[1].type === 'obj': Entity.update({unitPrice:unitPrice,productId:productId})
+			// const condition = this.createFilter(entity, 'p', node.children[1].name)
+			const parentVariable = node.children[1].type === 'var' ? node.children[1].name : undefined
+			const condition = this.createFilter(entity, 'p', parentVariable)
 			const arrowVar = new Node('p', 'var', [])
 			node.children[0] = new Node('filter', 'arrow', [node.children[0], arrowVar, condition])
 		}

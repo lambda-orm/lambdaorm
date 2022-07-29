@@ -3,13 +3,16 @@ data:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
+    id: 9
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
+    id: 10
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
+    id: 11
   order:
     customerId: VINET
     employeeId: 5
@@ -29,15 +32,18 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: null
+        orderId: 833
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
+        orderId: 833
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
+        orderId: 833
+    id: 833
 test:
   - name: insert 1
     data: a
@@ -128,6 +134,7 @@ test:
       data:
         name: Beverages20
         description: Soft drinks, coffees, teas, beers, and ales
+        id: 9
   - name: insert 2
     data: b
     sentences:
@@ -217,6 +224,7 @@ test:
       data:
         name: Beverages21
         description: Soft drinks, coffees, teas, beers, and ales
+        id: 10
   - name: insert 3
     data: c
     sentences:
@@ -227,9 +235,9 @@ test:
           dataSource: SqlServer
           sentence: >-
             INSERT INTO Categories(CategoryName,Description) OUTPUT
-            INSERTED.CategoryID VALUES(@entity.name,@entity.description)
+            INSERTED.CategoryID VALUES(@entity_name,@entity_description)
           children: []
-    errors: 1
+    errors: 0
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
@@ -298,9 +306,12 @@ test:
       constraints: []
     executions:
       - stage: SqlServer
-        error: >-
-          Error: SqlServer connection _query error: Error: Must declare the
-          scalar variable "@entity".
+    result:
+      data:
+        entity:
+          name: Beverages22
+          description: Soft drinks, coffees, teas, beers, and ales
+        id: 11
   - name: insert 4
     data: order
     sentences:
@@ -611,15 +622,18 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: null
+            orderId: 833
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
+            orderId: 833
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
+            orderId: 833
+        id: 833
   - name: insert 5
     data: order
     sentences:
@@ -643,7 +657,7 @@ test:
                 INSERTED.0
                 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
               children: []
-    errors: 1
+    errors: 0
     expression: Orders.insert().include(p=>p.details)
     normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
@@ -1061,14 +1075,38 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: SqlServer
-        error: >-
-          ValidationError: ERROR: Cannot be null property orderId in entity
-          Orders.details DATA_SOURCE: SqlServer ENTITY: Orders.details SENTENCE:
-          "INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
-          INSERTED.0
-          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)" 
-          DATA:{"productId":11,"unitPrice":14,"quantity":12,"discount":10,"orderId":null}
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
   - name: insert 6
     data: order
     sentences:
@@ -1101,7 +1139,7 @@ test:
                 OUTPUT INSERTED.0
                 VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
               children: []
-    errors: 1
+    errors: 0
     expression: Orders.insert().include(p=>[p.details,p.customer])
     normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>[p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}),p.customer.insert({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country})])
@@ -1731,12 +1769,36 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: SqlServer
-        error: >-
-          ValidationError: ERROR: Cannot be null property orderId in entity
-          Orders.details DATA_SOURCE: SqlServer ENTITY: Orders.details SENTENCE:
-          "INSERT INTO [Order
-          Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
-          INSERTED.0
-          VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)" 
-          DATA:{"productId":11,"unitPrice":14,"quantity":12,"discount":10,"orderId":null}
-errors: 3
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
+errors: 0
