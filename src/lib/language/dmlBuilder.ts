@@ -301,7 +301,7 @@ export abstract class DmlBuilder {
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
 			const value = this.buildOperand(operand.children[i])
-			const alias = this.dialect.delimiter(operand.children[i].name, true)
+			const alias = this.dialect.delimiter(operand.children[i].name)
 			let fieldText = template.replace('{value}', value)
 			fieldText = fieldText.replace('{alias}', alias)
 			text += (i > 0 ? ', ' : '') + fieldText

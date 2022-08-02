@@ -10,7 +10,7 @@ test:
           entity: Products
           dialect: Oracle
           dataSource: Oracle
-          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
+          sentence: 'SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
@@ -64,7 +64,7 @@ test:
     executions:
       - stage: Oracle
     result:
-      - maxPrice: 263.5
+      - MAXPRICE: 263.5
   - name: groupBy 2
     sentences:
       - stage: Oracle
@@ -72,7 +72,7 @@ test:
           entity: Products
           dialect: Oracle
           dataSource: Oracle
-          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
+          sentence: 'SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
@@ -126,7 +126,7 @@ test:
     executions:
       - stage: Oracle
     result:
-      - minPrice: 2.5
+      - MINPRICE: 2.5
   - name: groupBy 3
     sentences:
       - stage: Oracle
@@ -134,7 +134,7 @@ test:
           entity: Products
           dialect: Oracle
           dataSource: Oracle
-          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
+          sentence: 'SELECT SUM(p.UnitPrice) AS total FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
@@ -188,7 +188,7 @@ test:
     executions:
       - stage: Oracle
     result:
-      - total: 2222.71
+      - TOTAL: 2222.71
   - name: groupBy 4
     sentences:
       - stage: Oracle
@@ -196,7 +196,7 @@ test:
           entity: Products
           dialect: Oracle
           dataSource: Oracle
-          sentence: 'SELECT AVG(p.UnitPrice) AS "average" FROM Products p  '
+          sentence: 'SELECT AVG(p.UnitPrice) AS average FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{average:avg(p.price)})
@@ -250,7 +250,7 @@ test:
     executions:
       - stage: Oracle
     result:
-      - average: 28.86636363636363
+      - AVERAGE: 28.86636363636363
   - name: groupBy 5
     sentences:
       - stage: Oracle
@@ -258,7 +258,7 @@ test:
           entity: Products
           dialect: Oracle
           dataSource: Oracle
-          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
+          sentence: 'SELECT COUNT(1) AS count FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{count:count(1)})
@@ -309,7 +309,7 @@ test:
     executions:
       - stage: Oracle
     result:
-      - count: 77
+      - COUNT: 77
   - name: groupBy 6
     sentences:
       - stage: Oracle
@@ -318,8 +318,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
+            SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p  GROUP BY p.CategoryID 
           children: []
     errors: 0
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
@@ -399,22 +399,22 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category: 6
-        largestPrice: 123.79
-      - category: 1
-        largestPrice: 263.5
-      - category: 7
-        largestPrice: 53
-      - category: 2
-        largestPrice: 43.9
-      - category: 8
-        largestPrice: 62.5
-      - category: 4
-        largestPrice: 55
-      - category: 5
-        largestPrice: 38
-      - category: 3
-        largestPrice: 81
+      - CATEGORY: 6
+        LARGESTPRICE: 123.79
+      - CATEGORY: 1
+        LARGESTPRICE: 263.5
+      - CATEGORY: 7
+        LARGESTPRICE: 53
+      - CATEGORY: 2
+        LARGESTPRICE: 43.9
+      - CATEGORY: 8
+        LARGESTPRICE: 62.5
+      - CATEGORY: 4
+        LARGESTPRICE: 55
+      - CATEGORY: 5
+        LARGESTPRICE: 38
+      - CATEGORY: 3
+        LARGESTPRICE: 81
   - name: groupBy 7
     sentences:
       - stage: Oracle
@@ -423,9 +423,9 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName 
           children: []
     errors: 0
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
@@ -527,22 +527,22 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category: Confections
-        largestPrice: 81
-      - category: Produce
-        largestPrice: 53
-      - category: Seafood
-        largestPrice: 62.5
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Grains/Cereals
-        largestPrice: 38
-      - category: Condiments
-        largestPrice: 43.9
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Dairy Products
-        largestPrice: 55
+      - CATEGORY: Confections
+        LARGESTPRICE: 81
+      - CATEGORY: Produce
+        LARGESTPRICE: 53
+      - CATEGORY: Seafood
+        LARGESTPRICE: 62.5
+      - CATEGORY: Beverages
+        LARGESTPRICE: 263.5
+      - CATEGORY: Grains/Cereals
+        LARGESTPRICE: 38
+      - CATEGORY: Condiments
+        LARGESTPRICE: 43.9
+      - CATEGORY: Meat/Poultry
+        LARGESTPRICE: 123.79
+      - CATEGORY: Dairy Products
+        LARGESTPRICE: 55
   - name: groupBy 8
     data: a
     sentences:
@@ -552,9 +552,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
-            :id 
+            SELECT p.ProductName AS name, p.UnitPrice AS source,
+            ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = :id 
           children: []
     errors: 0
     expression: >-
@@ -664,9 +663,9 @@ test:
     executions:
       - stage: Oracle
     result:
-      - name: Chai
-        source: 18
-        result: 18
+      - NAME: Chai
+        SOURCE: 18
+        RESULT: 18
   - name: groupBy 9
     sentences:
       - stage: Oracle
@@ -675,10 +674,9 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
-            "largestPrice" FROM Products p INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
-            MAX(p.UnitPrice) > 100 
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
           children: []
     errors: 0
     expression: >-
@@ -805,10 +803,10 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Meat/Poultry
-        largestPrice: 123.79
+      - CATEGORY: Beverages
+        LARGESTPRICE: 263.5
+      - CATEGORY: Meat/Poultry
+        LARGESTPRICE: 123.79
   - name: query 10
     sentences:
       - stage: Oracle
@@ -817,8 +815,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT o.OrderID AS "orderId", SUM((((o.UnitPrice * o.Quantity) * (1
-            - (o.Discount / 100))) * 100)) AS "subTotal" FROM "Order Details" o 
+            SELECT o.OrderID AS orderId, SUM((((o.UnitPrice * o.Quantity) * (1 -
+            (o.Discount / 100))) * 100)) AS subTotal FROM "Order Details" o 
             GROUP BY o.OrderID ORDER BY o.OrderID asc 
           children: []
     errors: 0
@@ -962,1664 +960,1664 @@ test:
     executions:
       - stage: Oracle
     result:
-      - orderId: 1
-        subTotal: 44000
-      - orderId: 2
-        subTotal: 186340
-      - orderId: 3
-        subTotal: 181300
-      - orderId: 4
-        subTotal: 67080
-      - orderId: 5
-        subTotal: 373000
-      - orderId: 6
-        subTotal: 144480
-      - orderId: 7
-        subTotal: 62520
-      - orderId: 8
-        subTotal: 249050
-      - orderId: 9
-        subTotal: 51780
-      - orderId: 10
-        subTotal: 111990
-      - orderId: 11
-        subTotal: 201860
-      - orderId: 12
-        subTotal: 10080
-      - orderId: 13
-        subTotal: 174620
-      - orderId: 14
-        subTotal: 44800
-      - orderId: 15
-        subTotal: 62480
-      - orderId: 16
-        subTotal: 246480
-      - orderId: 17
-        subTotal: 72450
-      - orderId: 18
-        subTotal: 117600
-      - orderId: 19
-        subTotal: 36480
-      - orderId: 20
-        subTotal: 403100
-      - orderId: 21
-        subTotal: 110120
-      - orderId: 22
-        subTotal: 67600
-      - orderId: 23
-        subTotal: 137600
-      - orderId: 24
-        subTotal: 4800
-      - orderId: 25
-        subTotal: 145600
-      - orderId: 26
-        subTotal: 214240
-      - orderId: 27
-        subTotal: 53860
-      - orderId: 28
-        subTotal: 30720
-      - orderId: 29
-        subTotal: 42000
-      - orderId: 30
-        subTotal: 120080
-      - orderId: 31
-        subTotal: 148880
-      - orderId: 32
-        subTotal: 46800
-      - orderId: 33
-        subTotal: 61320
-      - orderId: 34
-        subTotal: 8650
-      - orderId: 35
-        subTotal: 15540
-      - orderId: 36
-        subTotal: 141480
-      - orderId: 37
-        subTotal: 145200
-      - orderId: 38
-        subTotal: 217920
-      - orderId: 39
-        subTotal: 301600
-      - orderId: 40
-        subTotal: 92400
-      - orderId: 41
-        subTotal: 8900
-      - orderId: 42
-        subTotal: 47940
-      - orderId: 43
-        subTotal: 216900
-      - orderId: 44
-        subTotal: 55280
-      - orderId: 45
-        subTotal: 129600
-      - orderId: 46
-        subTotal: 84870
-      - orderId: 47
-        subTotal: 188760
-      - orderId: 48
-        subTotal: 12160
-      - orderId: 49
-        subTotal: 105060
-      - orderId: 50
-        subTotal: 142000
-      - orderId: 51
-        subTotal: 312700
-      - orderId: 52
-        subTotal: 34950
-      - orderId: 53
-        subTotal: 60800
-      - orderId: 54
-        subTotal: 75500
-      - orderId: 55
-        subTotal: 270880
-      - orderId: 56
-        subTotal: 124200
-      - orderId: 57
-        subTotal: 95440
-      - orderId: 58
-        subTotal: 415700
-      - orderId: 59
-        subTotal: 49850
-      - orderId: 60
-        subTotal: 42400
-      - orderId: 61
-        subTotal: 8880
-      - orderId: 62
-        subTotal: 176200
-      - orderId: 63
-        subTotal: 33600
-      - orderId: 64
-        subTotal: 26880
-      - orderId: 65
-        subTotal: 161480
-      - orderId: 66
-        subTotal: 18240
-      - orderId: 67
-        subTotal: 232700
-      - orderId: 68
-        subTotal: 51680
-      - orderId: 69
-        subTotal: 283500
-      - orderId: 70
-        subTotal: 28800
-      - orderId: 71
-        subTotal: 24040
-      - orderId: 72
-        subTotal: 119120
-      - orderId: 73
-        subTotal: 51600
-      - orderId: 74
-        subTotal: 14400
-      - orderId: 75
-        subTotal: 11200
-      - orderId: 76
-        subTotal: 16440
-      - orderId: 77
-        subTotal: 615590
-      - orderId: 78
-        subTotal: 149700
-      - orderId: 79
-        subTotal: 98200
-      - orderId: 80
-        subTotal: 226250
-      - orderId: 81
-        subTotal: 116800
-      - orderId: 82
-        subTotal: 481940
-      - orderId: 83
-        subTotal: 194000
-      - orderId: 84
-        subTotal: 8850
-      - orderId: 85
-        subTotal: 223360
-      - orderId: 86
-        subTotal: 95400
-      - orderId: 87
-        subTotal: 14480
-      - orderId: 88
-        subTotal: 254520
-      - orderId: 89
-        subTotal: 31680
-      - orderId: 90
-        subTotal: 246700
-      - orderId: 91
-        subTotal: 93450
-      - orderId: 92
-        subTotal: 346320
-      - orderId: 93
-        subTotal: 256440
-      - orderId: 94
-        subTotal: 41200
-      - orderId: 95
-        subTotal: 230080
-      - orderId: 96
-        subTotal: 158600
-      - orderId: 97
-        subTotal: 285600
-      - orderId: 98
-        subTotal: 292480
-      - orderId: 99
-        subTotal: 173120
-      - orderId: 100
-        subTotal: 92800
-      - orderId: 101
-        subTotal: 39600
-      - orderId: 102
-        subTotal: 14160
-      - orderId: 103
-        subTotal: 71340
-      - orderId: 104
-        subTotal: 567760
-      - orderId: 105
-        subTotal: 15400
-      - orderId: 106
-        subTotal: 1074160
-      - orderId: 107
-        subTotal: 56880
-      - orderId: 108
-        subTotal: 48000
-      - orderId: 109
-        subTotal: 110640
-      - orderId: 110
-        subTotal: 136000
-      - orderId: 111
-        subTotal: 45200
-      - orderId: 112
-        subTotal: 365440
-      - orderId: 113
-        subTotal: 739020
-      - orderId: 114
-        subTotal: 227360
-      - orderId: 115
-        subTotal: 154960
-      - orderId: 116
-        subTotal: 44720
-      - orderId: 117
-        subTotal: 95000
-      - orderId: 118
-        subTotal: 40320
-      - orderId: 119
-        subTotal: 13600
-      - orderId: 120
-        subTotal: 83420
-      - orderId: 121
-        subTotal: 183420
-      - orderId: 122
-        subTotal: 252720
-      - orderId: 123
-        subTotal: 117400
-      - orderId: 124
-        subTotal: 9120
-      - orderId: 125
-        subTotal: 1228120
-      - orderId: 126
-        subTotal: 170800
-      - orderId: 127
-        subTotal: 45900
-      - orderId: 128
-        subTotal: 33800
-      - orderId: 129
-        subTotal: 42000
-      - orderId: 130
-        subTotal: 101600
-      - orderId: 131
-        subTotal: 10320
-      - orderId: 132
-        subTotal: 95920
-      - orderId: 133
-        subTotal: 141980
-      - orderId: 134
-        subTotal: 11200
-      - orderId: 135
-        subTotal: 290000
-      - orderId: 136
-        subTotal: 89900
-      - orderId: 137
-        subTotal: 222240
-      - orderId: 138
-        subTotal: 86400
-      - orderId: 139
-        subTotal: 16600
-      - orderId: 140
-        subTotal: 105840
-      - orderId: 141
-        subTotal: 127400
-      - orderId: 142
-        subTotal: 183280
-      - orderId: 143
-        subTotal: 227520
-      - orderId: 144
-        subTotal: 8640
-      - orderId: 145
-        subTotal: 144000
-      - orderId: 146
-        subTotal: 330260
-      - orderId: 147
-        subTotal: 44200
-      - orderId: 148
-        subTotal: 233320
-      - orderId: 149
-        subTotal: 190380
-      - orderId: 150
-        subTotal: 84320
-      - orderId: 151
-        subTotal: 273600
-      - orderId: 152
-        subTotal: 176560
-      - orderId: 153
-        subTotal: 306300
-      - orderId: 154
-        subTotal: 386860
-      - orderId: 155
-        subTotal: 271350
-      - orderId: 156
-        subTotal: 100590
-      - orderId: 157
-        subTotal: 167500
-      - orderId: 158
-        subTotal: 40000
-      - orderId: 159
-        subTotal: 201820
-      - orderId: 160
-        subTotal: 119400
-      - orderId: 161
-        subTotal: 162240
-      - orderId: 162
-        subTotal: 31920
-      - orderId: 163
-        subTotal: 80200
-      - orderId: 164
-        subTotal: 120850
-      - orderId: 165
-        subTotal: 37200
-      - orderId: 166
-        subTotal: 212320
-      - orderId: 167
-        subTotal: 23140
-      - orderId: 168
-        subTotal: 10240
-      - orderId: 169
-        subTotal: 72000
-      - orderId: 170
-        subTotal: 1128320
-      - orderId: 171
-        subTotal: 181480
-      - orderId: 172
-        subTotal: 220800
-      - orderId: 173
-        subTotal: 189760
-      - orderId: 174
-        subTotal: 127320
-      - orderId: 175
-        subTotal: 4980
-      - orderId: 176
-        subTotal: 102000
-      - orderId: 177
-        subTotal: 1149320
-      - orderId: 178
-        subTotal: 48000
-      - orderId: 179
-        subTotal: 33820
-      - orderId: 180
-        subTotal: 65100
-      - orderId: 181
-        subTotal: 19200
-      - orderId: 182
-        subTotal: 174850
-      - orderId: 183
-        subTotal: 579600
-      - orderId: 184
-        subTotal: 252300
-      - orderId: 185
-        subTotal: 48500
-      - orderId: 186
-        subTotal: 85120
-      - orderId: 187
-        subTotal: 36000
-      - orderId: 188
-        subTotal: 63160
-      - orderId: 189
-        subTotal: 221080
-      - orderId: 190
-        subTotal: 39300
-      - orderId: 191
-        subTotal: 56750
-      - orderId: 192
-        subTotal: 107800
-      - orderId: 193
-        subTotal: 579310
-      - orderId: 194
-        subTotal: 175500
-      - orderId: 195
-        subTotal: 179200
-      - orderId: 196
-        subTotal: 53760
-      - orderId: 197
-        subTotal: 103170
-      - orderId: 198
-        subTotal: 17490
-      - orderId: 199
-        subTotal: 27360
-      - orderId: 200
-        subTotal: 91440
-      - orderId: 201
-        subTotal: 44340
-      - orderId: 202
-        subTotal: 183820
-      - orderId: 203
-        subTotal: 53140
-      - orderId: 204
-        subTotal: 427740
-      - orderId: 205
-        subTotal: 209600
-      - orderId: 206
-        subTotal: 45300
-      - orderId: 207
-        subTotal: 41400
-      - orderId: 208
-        subTotal: 268400
-      - orderId: 209
-        subTotal: 65600
-      - orderId: 210
-        subTotal: 158400
-      - orderId: 211
-        subTotal: 389100
-      - orderId: 212
-        subTotal: 168800
-      - orderId: 213
-        subTotal: 23480
-      - orderId: 214
-        subTotal: 205160
-      - orderId: 215
-        subTotal: 15600
-      - orderId: 216
-        subTotal: 71330
-      - orderId: 217
-        subTotal: 184800
-      - orderId: 218
-        subTotal: 271900
-      - orderId: 219
-        subTotal: 21600
-      - orderId: 220
-        subTotal: 23520
-      - orderId: 221
-        subTotal: 71760
-      - orderId: 222
-        subTotal: 112550
-      - orderId: 223
-        subTotal: 182080
-      - orderId: 224
-        subTotal: 132800
-      - orderId: 225
-        subTotal: 105120
-      - orderId: 226
-        subTotal: 23040
-      - orderId: 227
-        subTotal: 124910
-      - orderId: 228
-        subTotal: 177080
-      - orderId: 229
-        subTotal: 18240
-      - orderId: 230
-        subTotal: 67200
-      - orderId: 231
-        subTotal: 49600
-      - orderId: 232
-        subTotal: 1049560
-      - orderId: 233
-        subTotal: 75600
-      - orderId: 234
-        subTotal: 147200
-      - orderId: 235
-        subTotal: 14700
-      - orderId: 236
-        subTotal: 70400
-      - orderId: 237
-        subTotal: 38620
-      - orderId: 238
-        subTotal: 176000
-      - orderId: 239
-        subTotal: 127200
-      - orderId: 240
-        subTotal: 92510
-      - orderId: 241
-        subTotal: 156000
-      - orderId: 242
-        subTotal: 50220
-      - orderId: 243
-        subTotal: 316320
-      - orderId: 244
-        subTotal: 30530
-      - orderId: 245
-        subTotal: 89600
-      - orderId: 246
-        subTotal: 67600
-      - orderId: 247
-        subTotal: 91200
-      - orderId: 248
-        subTotal: 27800
-      - orderId: 249
-        subTotal: 20000
-      - orderId: 250
-        subTotal: 138060
-      - orderId: 251
-        subTotal: 57500
-      - orderId: 252
-        subTotal: 141200
-      - orderId: 253
-        subTotal: 55080
-      - orderId: 254
-        subTotal: 14900
-      - orderId: 255
-        subTotal: 81630
-      - orderId: 256
-        subTotal: 204850
-      - orderId: 257
-        subTotal: 138850
-      - orderId: 258
-        subTotal: 14790
-      - orderId: 259
-        subTotal: 46200
-      - orderId: 260
-        subTotal: 88125
-      - orderId: 261
-        subTotal: 24000
-      - orderId: 262
-        subTotal: 13680
-      - orderId: 263
-        subTotal: 473544
-      - orderId: 264
-        subTotal: 300000
-      - orderId: 265
-        subTotal: 61800
-      - orderId: 266
-        subTotal: 242750
-      - orderId: 267
-        subTotal: 862345
-      - orderId: 268
-        subTotal: 1058850
-      - orderId: 269
-        subTotal: 261450
-      - orderId: 270
-        subTotal: 35200
-      - orderId: 271
-        subTotal: 415005
-      - orderId: 272
-        subTotal: 235600
-      - orderId: 273
-        subTotal: 20000
-      - orderId: 274
-        subTotal: 22550
-      - orderId: 275
-        subTotal: 265780
-      - orderId: 276
-        subTotal: 271590
-      - orderId: 277
-        subTotal: 319265
-      - orderId: 278
-        subTotal: 84600
-      - orderId: 279
-        subTotal: 134400
-      - orderId: 280
-        subTotal: 167000
-      - orderId: 281
-        subTotal: 39620
-      - orderId: 282
-        subTotal: 94600
-      - orderId: 283
-        subTotal: 418000
-      - orderId: 284
-        subTotal: 11000
-      - orderId: 285
-        subTotal: 79635
-      - orderId: 286
-        subTotal: 229520
-      - orderId: 287
-        subTotal: 51740
-      - orderId: 288
-        subTotal: 215650
-      - orderId: 289
-        subTotal: 208500
-      - orderId: 290
-        subTotal: 182380
-      - orderId: 291
-        subTotal: 13980
-      - orderId: 292
-        subTotal: 35550
-      - orderId: 293
-        subTotal: 1019170
-      - orderId: 294
-        subTotal: 216280
-      - orderId: 295
-        subTotal: 49380
-      - orderId: 296
-        subTotal: 177000
-      - orderId: 297
-        subTotal: 41720
-      - orderId: 298
-        subTotal: 21000
-      - orderId: 299
-        subTotal: 281200
-      - orderId: 300
-        subTotal: 190800
-      - orderId: 301
-        subTotal: 27510
-      - orderId: 302
-        subTotal: 418150
-      - orderId: 303
-        subTotal: 74900
-      - orderId: 304
-        subTotal: 183600
-      - orderId: 305
-        subTotal: 88050
-      - orderId: 306
-        subTotal: 154630
-      - orderId: 307
-        subTotal: 181950
-      - orderId: 308
-        subTotal: 368050
-      - orderId: 309
-        subTotal: 83520
-      - orderId: 310
-        subTotal: 115250
-      - orderId: 311
-        subTotal: 214290
-      - orderId: 312
-        subTotal: 54780
-      - orderId: 313
-        subTotal: 125730
-      - orderId: 314
-        subTotal: 284450
-      - orderId: 315
-        subTotal: 54300
-      - orderId: 316
-        subTotal: 96500
-      - orderId: 317
-        subTotal: 129900
-      - orderId: 318
-        subTotal: 71100
-      - orderId: 319
-        subTotal: 204000
-      - orderId: 320
-        subTotal: 310900
-      - orderId: 321
-        subTotal: 15500
-      - orderId: 322
-        subTotal: 97750
-      - orderId: 323
-        subTotal: 259500
-      - orderId: 324
-        subTotal: 64775
-      - orderId: 325
-        subTotal: 156565
-      - orderId: 326
-        subTotal: 208200
-      - orderId: 327
-        subTotal: 76430
-      - orderId: 328
-        subTotal: 214740
-      - orderId: 329
-        subTotal: 83845
-      - orderId: 330
-        subTotal: 56900
-      - orderId: 331
-        subTotal: 47700
-      - orderId: 332
-        subTotal: 31775
-      - orderId: 333
-        subTotal: 106710
-      - orderId: 334
-        subTotal: 38750
-      - orderId: 335
-        subTotal: 33000
-      - orderId: 336
-        subTotal: 241390
-      - orderId: 337
-        subTotal: 62500
-      - orderId: 338
-        subTotal: 14250
-      - orderId: 339
-        subTotal: 2800
-      - orderId: 340
-        subTotal: 80738
-      - orderId: 341
-        subTotal: 390000
-      - orderId: 342
-        subTotal: 7200
-      - orderId: 343
-        subTotal: 114000
-      - orderId: 344
-        subTotal: 81250
-      - orderId: 345
-        subTotal: 54365
-      - orderId: 346
-        subTotal: 249300
-      - orderId: 347
-        subTotal: 56550
-      - orderId: 348
-        subTotal: 630000
-      - orderId: 349
-        subTotal: 147610
-      - orderId: 350
-        subTotal: 80010
-      - orderId: 351
-        subTotal: 238850
-      - orderId: 352
-        subTotal: 49300
-      - orderId: 353
-        subTotal: 47980
-      - orderId: 354
-        subTotal: 228500
-      - orderId: 355
-        subTotal: 6500
-      - orderId: 356
-        subTotal: 150800
-      - orderId: 357
-        subTotal: 25650
-      - orderId: 358
-        subTotal: 432600
-      - orderId: 359
-        subTotal: 141300
-      - orderId: 360
-        subTotal: 647540
-      - orderId: 361
-        subTotal: 106400
-      - orderId: 362
-        subTotal: 42400
-      - orderId: 363
-        subTotal: 39900
-      - orderId: 364
-        subTotal: 80800
-      - orderId: 365
-        subTotal: 637500
-      - orderId: 366
-        subTotal: 35800
-      - orderId: 367
-        subTotal: 46400
-      - orderId: 368
-        subTotal: 12000
-      - orderId: 369
-        subTotal: 503200
-      - orderId: 370
-        subTotal: 165000
-      - orderId: 371
-        subTotal: 269750
-      - orderId: 372
-        subTotal: 126000
-      - orderId: 373
-        subTotal: 5750
-      - orderId: 374
-        subTotal: 75850
-      - orderId: 375
-        subTotal: 60500
-      - orderId: 376
-        subTotal: 142975
-      - orderId: 377
-        subTotal: 139324
-      - orderId: 378
-        subTotal: 47975
-      - orderId: 379
-        subTotal: 150360
-      - orderId: 380
-        subTotal: 126450
-      - orderId: 381
-        subTotal: 45000
-      - orderId: 382
-        subTotal: 277505
-      - orderId: 383
-        subTotal: 91800
-      - orderId: 384
-        subTotal: 6200
-      - orderId: 385
-        subTotal: 62000
-      - orderId: 386
-        subTotal: 648305
-      - orderId: 387
-        subTotal: 498550
-      - orderId: 388
-        subTotal: 138025
-      - orderId: 389
-        subTotal: 62950
-      - orderId: 390
-        subTotal: 289625
-      - orderId: 391
-        subTotal: 272005
-      - orderId: 392
-        subTotal: 50000
-      - orderId: 393
-        subTotal: 94500
-      - orderId: 394
-        subTotal: 205400
-      - orderId: 395
-        subTotal: 87000
-      - orderId: 396
-        subTotal: 108600
-      - orderId: 397
-        subTotal: 142200
-      - orderId: 398
-        subTotal: 153500
-      - orderId: 399
-        subTotal: 192800
-      - orderId: 400
-        subTotal: 63600
-      - orderId: 401
-        subTotal: 38250
-      - orderId: 402
-        subTotal: 143400
-      - orderId: 403
-        subTotal: 182020
-      - orderId: 404
-        subTotal: 53040
-      - orderId: 405
-        subTotal: 33178
-      - orderId: 406
-        subTotal: 120350
-      - orderId: 407
-        subTotal: 66870
-      - orderId: 408
-        subTotal: 19300
-      - orderId: 409
-        subTotal: 67135
-      - orderId: 410
-        subTotal: 437160
-      - orderId: 411
-        subTotal: 466800
-      - orderId: 412
-        subTotal: 129160
-      - orderId: 413
-        subTotal: 170100
-      - orderId: 414
-        subTotal: 70325
-      - orderId: 415
-        subTotal: 12500
-      - orderId: 416
-        subTotal: 203200
-      - orderId: 417
-        subTotal: 151575
-      - orderId: 418
-        subTotal: 129500
-      - orderId: 419
-        subTotal: 466694
-      - orderId: 420
-        subTotal: 192100
-      - orderId: 421
-        subTotal: 69475
-      - orderId: 422
-        subTotal: 57000
-      - orderId: 423
-        subTotal: 230175
-      - orderId: 424
-        subTotal: 92010
-      - orderId: 425
-        subTotal: 421050
-      - orderId: 426
-        subTotal: 41235
-      - orderId: 427
-        subTotal: 4500
-      - orderId: 428
-        subTotal: 142300
-      - orderId: 429
-        subTotal: 53485
-      - orderId: 430
-        subTotal: 95690
-      - orderId: 431
-        subTotal: 525650
-      - orderId: 432
-        subTotal: 66000
-      - orderId: 433
-        subTotal: 168250
-      - orderId: 434
-        subTotal: 132700
-      - orderId: 435
-        subTotal: 37550
-      - orderId: 436
-        subTotal: 6300
-      - orderId: 437
-        subTotal: 176800
-      - orderId: 438
-        subTotal: 80110
-      - orderId: 439
-        subTotal: 163845
-      - orderId: 440
-        subTotal: 620190
-      - orderId: 441
-        subTotal: 349000
-      - orderId: 442
-        subTotal: 63000
-      - orderId: 443
-        subTotal: 115000
-      - orderId: 444
-        subTotal: 1016480
-      - orderId: 445
-        subTotal: 87800
-      - orderId: 446
-        subTotal: 233400
-      - orderId: 447
-        subTotal: 482500
-      - orderId: 448
-        subTotal: 64200
-      - orderId: 449
-        subTotal: 99600
-      - orderId: 450
-        subTotal: 107390
-      - orderId: 451
-        subTotal: 360073
-      - orderId: 452
-        subTotal: 11400
-      - orderId: 453
-        subTotal: 204800
-      - orderId: 454
-        subTotal: 337000
-      - orderId: 455
-        subTotal: 33000
-      - orderId: 456
-        subTotal: 254500
-      - orderId: 457
-        subTotal: 59550
-      - orderId: 458
-        subTotal: 37800
-      - orderId: 459
-        subTotal: 189300
-      - orderId: 460
-        subTotal: 170400
-      - orderId: 461
-        subTotal: 18040
-      - orderId: 462
-        subTotal: 342400
-      - orderId: 463
-        subTotal: 9350
-      - orderId: 464
-        subTotal: 445170
-      - orderId: 465
-        subTotal: 123840
-      - orderId: 466
-        subTotal: 282790
-      - orderId: 467
-        subTotal: 294100
-      - orderId: 468
-        subTotal: 129600
-      - orderId: 469
-        subTotal: 70600
-      - orderId: 470
-        subTotal: 133175
-      - orderId: 471
-        subTotal: 346300
-      - orderId: 472
-        subTotal: 112567
-      - orderId: 473
-        subTotal: 55000
-      - orderId: 474
-        subTotal: 97250
-      - orderId: 475
-        subTotal: 157000
-      - orderId: 476
-        subTotal: 46845
-      - orderId: 477
-        subTotal: 63850
-      - orderId: 478
-        subTotal: 28780
-      - orderId: 479
-        subTotal: 65500
-      - orderId: 480
-        subTotal: 171000
-      - orderId: 481
-        subTotal: 129675
-      - orderId: 482
-        subTotal: 185000
-      - orderId: 483
-        subTotal: 50975
-      - orderId: 484
-        subTotal: 199000
-      - orderId: 485
-        subTotal: 36000
-      - orderId: 486
-        subTotal: 145900
-      - orderId: 487
-        subTotal: 149835
-      - orderId: 488
-        subTotal: 59600
-      - orderId: 489
-        subTotal: 99700
-      - orderId: 490
-        subTotal: 13980
-      - orderId: 491
-        subTotal: 5235
-      - orderId: 492
-        subTotal: 24000
-      - orderId: 493
-        subTotal: 177000
-      - orderId: 494
-        subTotal: 28500
-      - orderId: 495
-        subTotal: 311800
-      - orderId: 496
-        subTotal: 33600
-      - orderId: 497
-        subTotal: 92000
-      - orderId: 498
-        subTotal: 452980
-      - orderId: 499
-        subTotal: 231170
-      - orderId: 500
-        subTotal: 191285
-      - orderId: 501
-        subTotal: 219600
-      - orderId: 502
-        subTotal: 108000
-      - orderId: 503
-        subTotal: 187125
-      - orderId: 504
-        subTotal: 170146
-      - orderId: 505
-        subTotal: 25200
-      - orderId: 506
-        subTotal: 8800
-      - orderId: 507
-        subTotal: 5520
-      - orderId: 508
-        subTotal: 259800
-      - orderId: 509
-        subTotal: 248750
-      - orderId: 510
-        subTotal: 308200
-      - orderId: 511
-        subTotal: 164460
-      - orderId: 512
-        subTotal: 32000
-      - orderId: 513
-        subTotal: 330400
-      - orderId: 514
-        subTotal: 62950
-      - orderId: 515
-        subTotal: 433700
-      - orderId: 516
-        subTotal: 61600
-      - orderId: 517
-        subTotal: 254000
-      - orderId: 518
-        subTotal: 168400
-      - orderId: 519
-        subTotal: 231000
-      - orderId: 520
-        subTotal: 2800
-      - orderId: 521
-        subTotal: 147700
-      - orderId: 522
-        subTotal: 170400
-      - orderId: 523
-        subTotal: 31500
-      - orderId: 524
-        subTotal: 34400
-      - orderId: 525
-        subTotal: 360322
-      - orderId: 526
-        subTotal: 221625
-      - orderId: 527
-        subTotal: 87500
-      - orderId: 528
-        subTotal: 22800
-      - orderId: 529
-        subTotal: 698450
-      - orderId: 530
-        subTotal: 28000
-      - orderId: 531
-        subTotal: 9650
-      - orderId: 532
-        subTotal: 133500
-      - orderId: 533
-        subTotal: 72000
-      - orderId: 534
-        subTotal: 113235
-      - orderId: 535
-        subTotal: 1250
-      - orderId: 536
-        subTotal: 144250
-      - orderId: 537
-        subTotal: 165000
-      - orderId: 538
-        subTotal: 38750
-      - orderId: 539
-        subTotal: 191385
-      - orderId: 540
-        subTotal: 276080
-      - orderId: 541
-        subTotal: 77000
-      - orderId: 542
-        subTotal: 368700
-      - orderId: 543
-        subTotal: 85000
-      - orderId: 544
-        subTotal: 192606
-      - orderId: 545
-        subTotal: 39985
-      - orderId: 546
-        subTotal: 19110
-      - orderId: 547
-        subTotal: 39345
-      - orderId: 548
-        subTotal: 249925
-      - orderId: 549
-        subTotal: 287808
-      - orderId: 550
-        subTotal: 42000
-      - orderId: 551
-        subTotal: 44660
-      - orderId: 552
-        subTotal: 158500
-      - orderId: 553
-        subTotal: 163215
-      - orderId: 554
-        subTotal: 403580
-      - orderId: 555
-        subTotal: 392375
-      - orderId: 556
-        subTotal: 125580
-      - orderId: 557
-        subTotal: 229040
-      - orderId: 558
-        subTotal: 277500
-      - orderId: 559
-        subTotal: 57210
-      - orderId: 560
-        subTotal: 1840
-      - orderId: 561
-        subTotal: 166000
-      - orderId: 562
-        subTotal: 14000
-      - orderId: 563
-        subTotal: 18700
-      - orderId: 564
-        subTotal: 85200
-      - orderId: 565
-        subTotal: 185200
-      - orderId: 566
-        subTotal: 64800
-      - orderId: 567
-        subTotal: 207000
-      - orderId: 568
-        subTotal: 4000
-      - orderId: 569
-        subTotal: 889100
-      - orderId: 570
-        subTotal: 1149070
-      - orderId: 571
-        subTotal: 83300
-      - orderId: 572
-        subTotal: 47700
-      - orderId: 573
-        subTotal: 114000
-      - orderId: 574
-        subTotal: 67800
-      - orderId: 575
-        subTotal: 23790
-      - orderId: 576
-        subTotal: 310750
-      - orderId: 577
-        subTotal: 25080
-      - orderId: 578
-        subTotal: 103076
-      - orderId: 579
-        subTotal: 73000
-      - orderId: 580
-        subTotal: 84300
-      - orderId: 581
-        subTotal: 93200
-      - orderId: 582
-        subTotal: 176400
-      - orderId: 583
-        subTotal: 197400
-      - orderId: 584
-        subTotal: 268440
-      - orderId: 585
-        subTotal: 56895
-      - orderId: 586
-        subTotal: 100770
-      - orderId: 587
-        subTotal: 150812
-      - orderId: 588
-        subTotal: 85100
-      - orderId: 589
-        subTotal: 470550
-      - orderId: 590
-        subTotal: 125400
-      - orderId: 591
-        subTotal: 258450
-      - orderId: 592
-        subTotal: 91950
-      - orderId: 593
-        subTotal: 26400
-      - orderId: 594
-        subTotal: 458100
-      - orderId: 595
-        subTotal: 97500
-      - orderId: 596
-        subTotal: 21200
-      - orderId: 597
-        subTotal: 73500
-      - orderId: 598
-        subTotal: 405900
-      - orderId: 599
-        subTotal: 111200
-      - orderId: 600
-        subTotal: 616490
-      - orderId: 601
-        subTotal: 93150
-      - orderId: 602
-        subTotal: 105214
-      - orderId: 603
-        subTotal: 74000
-      - orderId: 604
-        subTotal: 274000
-      - orderId: 605
-        subTotal: 298400
-      - orderId: 606
-        subTotal: 62500
-      - orderId: 607
-        subTotal: 349000
-      - orderId: 608
-        subTotal: 227525
-      - orderId: 609
-        subTotal: 66000
-      - orderId: 610
-        subTotal: 263095
-      - orderId: 611
-        subTotal: 64900
-      - orderId: 612
-        subTotal: 143825
-      - orderId: 613
-        subTotal: 51900
-      - orderId: 614
-        subTotal: 352340
-      - orderId: 615
-        subTotal: 58100
-      - orderId: 616
-        subTotal: 51900
-      - orderId: 617
-        subTotal: 28200
-      - orderId: 618
-        subTotal: 1725000
-      - orderId: 619
-        subTotal: 146160
-      - orderId: 620
-        subTotal: 9840
-      - orderId: 621
-        subTotal: 200460
-      - orderId: 622
-        subTotal: 163000
-      - orderId: 623
-        subTotal: 16000
-      - orderId: 624
-        subTotal: 208340
-      - orderId: 625
-        subTotal: 216680
-      - orderId: 626
-        subTotal: 33680
-      - orderId: 627
-        subTotal: 31000
-      - orderId: 628
-        subTotal: 72950
-      - orderId: 629
-        subTotal: 91700
-      - orderId: 630
-        subTotal: 208600
-      - orderId: 631
-        subTotal: 162000
-      - orderId: 632
-        subTotal: 61130
-      - orderId: 633
-        subTotal: 187500
-      - orderId: 634
-        subTotal: 15000
-      - orderId: 635
-        subTotal: 98840
-      - orderId: 636
-        subTotal: 3600
-      - orderId: 637
-        subTotal: 145060
-      - orderId: 638
-        subTotal: 120900
-      - orderId: 639
-        subTotal: 312750
-      - orderId: 640
-        subTotal: 7000
-      - orderId: 641
-        subTotal: 60500
-      - orderId: 642
-        subTotal: 1138000
-      - orderId: 643
-        subTotal: 86010
-      - orderId: 644
-        subTotal: 38835
-      - orderId: 645
-        subTotal: 220000
-      - orderId: 646
-        subTotal: 550211
-      - orderId: 647
-        subTotal: 289800
-      - orderId: 648
-        subTotal: 637940
-      - orderId: 649
-        subTotal: 75050
-      - orderId: 650
-        subTotal: 1083524
-      - orderId: 651
-        subTotal: 3000
-      - orderId: 652
-        subTotal: 14400
-      - orderId: 653
-        subTotal: 4500
-      - orderId: 654
-        subTotal: 93450
-      - orderId: 655
-        subTotal: 101580
-      - orderId: 656
-        subTotal: 93205
-      - orderId: 657
-        subTotal: 192425
-      - orderId: 658
-        subTotal: 36000
-      - orderId: 659
-        subTotal: 42750
-      - orderId: 660
-        subTotal: 10850
-      - orderId: 661
-        subTotal: 69800
-      - orderId: 662
-        subTotal: 67000
-      - orderId: 663
-        subTotal: 45290
-      - orderId: 664
-        subTotal: 85800
-      - orderId: 665
-        subTotal: 826740
-      - orderId: 666
-        subTotal: 95875
-      - orderId: 667
-        subTotal: 53750
-      - orderId: 668
-        subTotal: 53950
-      - orderId: 669
-        subTotal: 68670
-      - orderId: 670
-        subTotal: 36589
-      - orderId: 671
-        subTotal: 193000
-      - orderId: 672
-        subTotal: 112280
-      - orderId: 673
-        subTotal: 39000
-      - orderId: 674
-        subTotal: 193600
-      - orderId: 675
-        subTotal: 74250
-      - orderId: 676
-        subTotal: 93600
-      - orderId: 677
-        subTotal: 203450
-      - orderId: 678
-        subTotal: 55900
-      - orderId: 679
-        subTotal: 51440
-      - orderId: 680
-        subTotal: 80000
-      - orderId: 681
-        subTotal: 13750
-      - orderId: 682
-        subTotal: 117475
-      - orderId: 683
-        subTotal: 245500
-      - orderId: 684
-        subTotal: 83700
-      - orderId: 685
-        subTotal: 192550
-      - orderId: 686
-        subTotal: 92060
-      - orderId: 687
-        subTotal: 50000
-      - orderId: 688
-        subTotal: 70000
-      - orderId: 689
-        subTotal: 57000
-      - orderId: 690
-        subTotal: 64480
-      - orderId: 691
-        subTotal: 364250
-      - orderId: 692
-        subTotal: 75000
-      - orderId: 693
-        subTotal: 36000
-      - orderId: 694
-        subTotal: 476900
-      - orderId: 695
-        subTotal: 56000
-      - orderId: 696
-        subTotal: 71100
-      - orderId: 697
-        subTotal: 113910
-      - orderId: 698
-        subTotal: 24500
-      - orderId: 699
-        subTotal: 140750
-      - orderId: 700
-        subTotal: 22000
-      - orderId: 701
-        subTotal: 236225
-      - orderId: 702
-        subTotal: 442200
-      - orderId: 703
-        subTotal: 11000
-      - orderId: 704
-        subTotal: 48290
-      - orderId: 705
-        subTotal: 49120
-      - orderId: 706
-        subTotal: 467500
-      - orderId: 707
-        subTotal: 190210
-      - orderId: 708
-        subTotal: 9300
-      - orderId: 709
-        subTotal: 67700
-      - orderId: 710
-        subTotal: 176270
-      - orderId: 711
-        subTotal: 78100
-      - orderId: 712
-        subTotal: 15500
-      - orderId: 713
-        subTotal: 27660
-      - orderId: 714
-        subTotal: 112200
-      - orderId: 715
-        subTotal: 358400
-      - orderId: 716
-        subTotal: 6800
-      - orderId: 717
-        subTotal: 205250
-      - orderId: 718
-        subTotal: 84800
-      - orderId: 719
-        subTotal: 125560
-      - orderId: 720
-        subTotal: 91040
-      - orderId: 721
-        subTotal: 140800
-      - orderId: 722
-        subTotal: 10800
-      - orderId: 723
-        subTotal: 28000
-      - orderId: 724
-        subTotal: 173306
-      - orderId: 725
-        subTotal: 25150
-      - orderId: 726
-        subTotal: 29155
-      - orderId: 727
-        subTotal: 43900
-      - orderId: 728
-        subTotal: 71750
-      - orderId: 729
-        subTotal: 91200
-      - orderId: 730
-        subTotal: 223300
-      - orderId: 731
-        subTotal: 150070
-      - orderId: 732
-        subTotal: 481350
-      - orderId: 733
-        subTotal: 31000
-      - orderId: 734
-        subTotal: 1581000
-      - orderId: 735
-        subTotal: 101400
-      - orderId: 736
-        subTotal: 79650
-      - orderId: 737
-        subTotal: 180975
-      - orderId: 738
-        subTotal: 224820
-      - orderId: 739
-        subTotal: 222000
-      - orderId: 740
-        subTotal: 277200
-      - orderId: 741
-        subTotal: 377200
-      - orderId: 742
-        subTotal: 135360
-      - orderId: 743
-        subTotal: 493100
-      - orderId: 744
-        subTotal: 287000
-      - orderId: 745
-        subTotal: 6960
-      - orderId: 746
-        subTotal: 652725
-      - orderId: 747
-        subTotal: 99000
-      - orderId: 748
-        subTotal: 119600
-      - orderId: 749
-        subTotal: 56000
-      - orderId: 750
-        subTotal: 198000
-      - orderId: 751
-        subTotal: 68600
-      - orderId: 752
-        subTotal: 126100
-      - orderId: 753
-        subTotal: 107500
-      - orderId: 754
-        subTotal: 276900
-      - orderId: 755
-        subTotal: 190200
-      - orderId: 756
-        subTotal: 32600
-      - orderId: 757
-        subTotal: 29538
-      - orderId: 758
-        subTotal: 58600
-      - orderId: 759
-        subTotal: 39158
-      - orderId: 760
-        subTotal: 263390
-      - orderId: 761
-        subTotal: 490350
-      - orderId: 762
-        subTotal: 70200
-      - orderId: 763
-        subTotal: 64500
-      - orderId: 764
-        subTotal: 96000
-      - orderId: 765
-        subTotal: 297400
-      - orderId: 766
-        subTotal: 36100
-      - orderId: 767
-        subTotal: 27020
-      - orderId: 768
-        subTotal: 62235
-      - orderId: 769
-        subTotal: 49150
-      - orderId: 770
-        subTotal: 675000
-      - orderId: 771
-        subTotal: 157500
-      - orderId: 772
-        subTotal: 7600
-      - orderId: 773
-        subTotal: 74400
-      - orderId: 774
-        subTotal: 694149
-      - orderId: 775
-        subTotal: 140200
-      - orderId: 776
-        subTotal: 150000
-      - orderId: 777
-        subTotal: 196681
-      - orderId: 778
-        subTotal: 30000
-      - orderId: 779
-        subTotal: 103000
-      - orderId: 780
-        subTotal: 117030
-      - orderId: 781
-        subTotal: 216000
-      - orderId: 782
-        subTotal: 128680
-      - orderId: 783
-        subTotal: 1632190
-      - orderId: 784
-        subTotal: 239350
-      - orderId: 785
-        subTotal: 890250
-      - orderId: 786
-        subTotal: 359200
-      - orderId: 787
-        subTotal: 55440
-      - orderId: 788
-        subTotal: 175450
-      - orderId: 789
-        subTotal: 169200
-      - orderId: 790
-        subTotal: 6000
-      - orderId: 791
-        subTotal: 75100
-      - orderId: 792
-        subTotal: 309000
-      - orderId: 793
-        subTotal: 20000
-      - orderId: 794
-        subTotal: 188700
-      - orderId: 795
-        subTotal: 40575
-      - orderId: 796
-        subTotal: 21000
-      - orderId: 797
-        subTotal: 59160
-      - orderId: 798
-        subTotal: 130950
-      - orderId: 799
-        subTotal: 156400
-      - orderId: 800
-        subTotal: 109050
-      - orderId: 801
-        subTotal: 52500
-      - orderId: 802
-        subTotal: 34200
-      - orderId: 803
-        subTotal: 90000
-      - orderId: 804
-        subTotal: 4500
-      - orderId: 805
-        subTotal: 166500
-      - orderId: 806
-        subTotal: 365875
-      - orderId: 807
-        subTotal: 30500
-      - orderId: 808
-        subTotal: 172750
-      - orderId: 809
-        subTotal: 374000
-      - orderId: 810
-        subTotal: 4500
-      - orderId: 811
-        subTotal: 85800
-      - orderId: 812
-        subTotal: 183800
-      - orderId: 813
-        subTotal: 26600
-      - orderId: 814
-        subTotal: 51000
-      - orderId: 815
-        subTotal: 50800
-      - orderId: 816
-        subTotal: 144550
-      - orderId: 817
-        subTotal: 472230
-      - orderId: 818
-        subTotal: 25256
-      - orderId: 819
-        subTotal: 92875
-      - orderId: 820
-        subTotal: 8685
-      - orderId: 821
-        subTotal: 238480
-      - orderId: 822
-        subTotal: 36000
-      - orderId: 823
-        subTotal: 187350
-      - orderId: 824
-        subTotal: 51000
-      - orderId: 825
-        subTotal: 521800
-      - orderId: 826
-        subTotal: 30000
-      - orderId: 827
-        subTotal: 24430
-      - orderId: 828
-        subTotal: 58600
-      - orderId: 829
-        subTotal: 105700
-      - orderId: 830
-        subTotal: 137460
+      - ORDERID: 1
+        SUBTOTAL: 44000
+      - ORDERID: 2
+        SUBTOTAL: 186340
+      - ORDERID: 3
+        SUBTOTAL: 181300
+      - ORDERID: 4
+        SUBTOTAL: 67080
+      - ORDERID: 5
+        SUBTOTAL: 373000
+      - ORDERID: 6
+        SUBTOTAL: 144480
+      - ORDERID: 7
+        SUBTOTAL: 62520
+      - ORDERID: 8
+        SUBTOTAL: 249050
+      - ORDERID: 9
+        SUBTOTAL: 51780
+      - ORDERID: 10
+        SUBTOTAL: 111990
+      - ORDERID: 11
+        SUBTOTAL: 201860
+      - ORDERID: 12
+        SUBTOTAL: 10080
+      - ORDERID: 13
+        SUBTOTAL: 174620
+      - ORDERID: 14
+        SUBTOTAL: 44800
+      - ORDERID: 15
+        SUBTOTAL: 62480
+      - ORDERID: 16
+        SUBTOTAL: 246480
+      - ORDERID: 17
+        SUBTOTAL: 72450
+      - ORDERID: 18
+        SUBTOTAL: 117600
+      - ORDERID: 19
+        SUBTOTAL: 36480
+      - ORDERID: 20
+        SUBTOTAL: 403100
+      - ORDERID: 21
+        SUBTOTAL: 110120
+      - ORDERID: 22
+        SUBTOTAL: 67600
+      - ORDERID: 23
+        SUBTOTAL: 137600
+      - ORDERID: 24
+        SUBTOTAL: 4800
+      - ORDERID: 25
+        SUBTOTAL: 145600
+      - ORDERID: 26
+        SUBTOTAL: 214240
+      - ORDERID: 27
+        SUBTOTAL: 53860
+      - ORDERID: 28
+        SUBTOTAL: 30720
+      - ORDERID: 29
+        SUBTOTAL: 42000
+      - ORDERID: 30
+        SUBTOTAL: 120080
+      - ORDERID: 31
+        SUBTOTAL: 148880
+      - ORDERID: 32
+        SUBTOTAL: 46800
+      - ORDERID: 33
+        SUBTOTAL: 61320
+      - ORDERID: 34
+        SUBTOTAL: 8650
+      - ORDERID: 35
+        SUBTOTAL: 15540
+      - ORDERID: 36
+        SUBTOTAL: 141480
+      - ORDERID: 37
+        SUBTOTAL: 145200
+      - ORDERID: 38
+        SUBTOTAL: 217920
+      - ORDERID: 39
+        SUBTOTAL: 301600
+      - ORDERID: 40
+        SUBTOTAL: 92400
+      - ORDERID: 41
+        SUBTOTAL: 8900
+      - ORDERID: 42
+        SUBTOTAL: 47940
+      - ORDERID: 43
+        SUBTOTAL: 216900
+      - ORDERID: 44
+        SUBTOTAL: 55280
+      - ORDERID: 45
+        SUBTOTAL: 129600
+      - ORDERID: 46
+        SUBTOTAL: 84870
+      - ORDERID: 47
+        SUBTOTAL: 188760
+      - ORDERID: 48
+        SUBTOTAL: 12160
+      - ORDERID: 49
+        SUBTOTAL: 105060
+      - ORDERID: 50
+        SUBTOTAL: 142000
+      - ORDERID: 51
+        SUBTOTAL: 312700
+      - ORDERID: 52
+        SUBTOTAL: 34950
+      - ORDERID: 53
+        SUBTOTAL: 60800
+      - ORDERID: 54
+        SUBTOTAL: 75500
+      - ORDERID: 55
+        SUBTOTAL: 270880
+      - ORDERID: 56
+        SUBTOTAL: 124200
+      - ORDERID: 57
+        SUBTOTAL: 95440
+      - ORDERID: 58
+        SUBTOTAL: 415700
+      - ORDERID: 59
+        SUBTOTAL: 49850
+      - ORDERID: 60
+        SUBTOTAL: 42400
+      - ORDERID: 61
+        SUBTOTAL: 8880
+      - ORDERID: 62
+        SUBTOTAL: 176200
+      - ORDERID: 63
+        SUBTOTAL: 33600
+      - ORDERID: 64
+        SUBTOTAL: 26880
+      - ORDERID: 65
+        SUBTOTAL: 161480
+      - ORDERID: 66
+        SUBTOTAL: 18240
+      - ORDERID: 67
+        SUBTOTAL: 232700
+      - ORDERID: 68
+        SUBTOTAL: 51680
+      - ORDERID: 69
+        SUBTOTAL: 283500
+      - ORDERID: 70
+        SUBTOTAL: 28800
+      - ORDERID: 71
+        SUBTOTAL: 24040
+      - ORDERID: 72
+        SUBTOTAL: 119120
+      - ORDERID: 73
+        SUBTOTAL: 51600
+      - ORDERID: 74
+        SUBTOTAL: 14400
+      - ORDERID: 75
+        SUBTOTAL: 11200
+      - ORDERID: 76
+        SUBTOTAL: 16440
+      - ORDERID: 77
+        SUBTOTAL: 615590
+      - ORDERID: 78
+        SUBTOTAL: 149700
+      - ORDERID: 79
+        SUBTOTAL: 98200
+      - ORDERID: 80
+        SUBTOTAL: 226250
+      - ORDERID: 81
+        SUBTOTAL: 116800
+      - ORDERID: 82
+        SUBTOTAL: 481940
+      - ORDERID: 83
+        SUBTOTAL: 194000
+      - ORDERID: 84
+        SUBTOTAL: 8850
+      - ORDERID: 85
+        SUBTOTAL: 223360
+      - ORDERID: 86
+        SUBTOTAL: 95400
+      - ORDERID: 87
+        SUBTOTAL: 14480
+      - ORDERID: 88
+        SUBTOTAL: 254520
+      - ORDERID: 89
+        SUBTOTAL: 31680
+      - ORDERID: 90
+        SUBTOTAL: 246700
+      - ORDERID: 91
+        SUBTOTAL: 93450
+      - ORDERID: 92
+        SUBTOTAL: 346320
+      - ORDERID: 93
+        SUBTOTAL: 256440
+      - ORDERID: 94
+        SUBTOTAL: 41200
+      - ORDERID: 95
+        SUBTOTAL: 230080
+      - ORDERID: 96
+        SUBTOTAL: 158600
+      - ORDERID: 97
+        SUBTOTAL: 285600
+      - ORDERID: 98
+        SUBTOTAL: 292480
+      - ORDERID: 99
+        SUBTOTAL: 173120
+      - ORDERID: 100
+        SUBTOTAL: 92800
+      - ORDERID: 101
+        SUBTOTAL: 39600
+      - ORDERID: 102
+        SUBTOTAL: 14160
+      - ORDERID: 103
+        SUBTOTAL: 71340
+      - ORDERID: 104
+        SUBTOTAL: 567760
+      - ORDERID: 105
+        SUBTOTAL: 15400
+      - ORDERID: 106
+        SUBTOTAL: 1074160
+      - ORDERID: 107
+        SUBTOTAL: 56880
+      - ORDERID: 108
+        SUBTOTAL: 48000
+      - ORDERID: 109
+        SUBTOTAL: 110640
+      - ORDERID: 110
+        SUBTOTAL: 136000
+      - ORDERID: 111
+        SUBTOTAL: 45200
+      - ORDERID: 112
+        SUBTOTAL: 365440
+      - ORDERID: 113
+        SUBTOTAL: 739020
+      - ORDERID: 114
+        SUBTOTAL: 227360
+      - ORDERID: 115
+        SUBTOTAL: 154960
+      - ORDERID: 116
+        SUBTOTAL: 44720
+      - ORDERID: 117
+        SUBTOTAL: 95000
+      - ORDERID: 118
+        SUBTOTAL: 40320
+      - ORDERID: 119
+        SUBTOTAL: 13600
+      - ORDERID: 120
+        SUBTOTAL: 83420
+      - ORDERID: 121
+        SUBTOTAL: 183420
+      - ORDERID: 122
+        SUBTOTAL: 252720
+      - ORDERID: 123
+        SUBTOTAL: 117400
+      - ORDERID: 124
+        SUBTOTAL: 9120
+      - ORDERID: 125
+        SUBTOTAL: 1228120
+      - ORDERID: 126
+        SUBTOTAL: 170800
+      - ORDERID: 127
+        SUBTOTAL: 45900
+      - ORDERID: 128
+        SUBTOTAL: 33800
+      - ORDERID: 129
+        SUBTOTAL: 42000
+      - ORDERID: 130
+        SUBTOTAL: 101600
+      - ORDERID: 131
+        SUBTOTAL: 10320
+      - ORDERID: 132
+        SUBTOTAL: 95920
+      - ORDERID: 133
+        SUBTOTAL: 141980
+      - ORDERID: 134
+        SUBTOTAL: 11200
+      - ORDERID: 135
+        SUBTOTAL: 290000
+      - ORDERID: 136
+        SUBTOTAL: 89900
+      - ORDERID: 137
+        SUBTOTAL: 222240
+      - ORDERID: 138
+        SUBTOTAL: 86400
+      - ORDERID: 139
+        SUBTOTAL: 16600
+      - ORDERID: 140
+        SUBTOTAL: 105840
+      - ORDERID: 141
+        SUBTOTAL: 127400
+      - ORDERID: 142
+        SUBTOTAL: 183280
+      - ORDERID: 143
+        SUBTOTAL: 227520
+      - ORDERID: 144
+        SUBTOTAL: 8640
+      - ORDERID: 145
+        SUBTOTAL: 144000
+      - ORDERID: 146
+        SUBTOTAL: 330260
+      - ORDERID: 147
+        SUBTOTAL: 44200
+      - ORDERID: 148
+        SUBTOTAL: 233320
+      - ORDERID: 149
+        SUBTOTAL: 190380
+      - ORDERID: 150
+        SUBTOTAL: 84320
+      - ORDERID: 151
+        SUBTOTAL: 273600
+      - ORDERID: 152
+        SUBTOTAL: 176560
+      - ORDERID: 153
+        SUBTOTAL: 306300
+      - ORDERID: 154
+        SUBTOTAL: 386860
+      - ORDERID: 155
+        SUBTOTAL: 271350
+      - ORDERID: 156
+        SUBTOTAL: 100590
+      - ORDERID: 157
+        SUBTOTAL: 167500
+      - ORDERID: 158
+        SUBTOTAL: 40000
+      - ORDERID: 159
+        SUBTOTAL: 201820
+      - ORDERID: 160
+        SUBTOTAL: 119400
+      - ORDERID: 161
+        SUBTOTAL: 162240
+      - ORDERID: 162
+        SUBTOTAL: 31920
+      - ORDERID: 163
+        SUBTOTAL: 80200
+      - ORDERID: 164
+        SUBTOTAL: 120850
+      - ORDERID: 165
+        SUBTOTAL: 37200
+      - ORDERID: 166
+        SUBTOTAL: 212320
+      - ORDERID: 167
+        SUBTOTAL: 23140
+      - ORDERID: 168
+        SUBTOTAL: 10240
+      - ORDERID: 169
+        SUBTOTAL: 72000
+      - ORDERID: 170
+        SUBTOTAL: 1128320
+      - ORDERID: 171
+        SUBTOTAL: 181480
+      - ORDERID: 172
+        SUBTOTAL: 220800
+      - ORDERID: 173
+        SUBTOTAL: 189760
+      - ORDERID: 174
+        SUBTOTAL: 127320
+      - ORDERID: 175
+        SUBTOTAL: 4980
+      - ORDERID: 176
+        SUBTOTAL: 102000
+      - ORDERID: 177
+        SUBTOTAL: 1149320
+      - ORDERID: 178
+        SUBTOTAL: 48000
+      - ORDERID: 179
+        SUBTOTAL: 33820
+      - ORDERID: 180
+        SUBTOTAL: 65100
+      - ORDERID: 181
+        SUBTOTAL: 19200
+      - ORDERID: 182
+        SUBTOTAL: 174850
+      - ORDERID: 183
+        SUBTOTAL: 579600
+      - ORDERID: 184
+        SUBTOTAL: 252300
+      - ORDERID: 185
+        SUBTOTAL: 48500
+      - ORDERID: 186
+        SUBTOTAL: 85120
+      - ORDERID: 187
+        SUBTOTAL: 36000
+      - ORDERID: 188
+        SUBTOTAL: 63160
+      - ORDERID: 189
+        SUBTOTAL: 221080
+      - ORDERID: 190
+        SUBTOTAL: 39300
+      - ORDERID: 191
+        SUBTOTAL: 56750
+      - ORDERID: 192
+        SUBTOTAL: 107800
+      - ORDERID: 193
+        SUBTOTAL: 579310
+      - ORDERID: 194
+        SUBTOTAL: 175500
+      - ORDERID: 195
+        SUBTOTAL: 179200
+      - ORDERID: 196
+        SUBTOTAL: 53760
+      - ORDERID: 197
+        SUBTOTAL: 103170
+      - ORDERID: 198
+        SUBTOTAL: 17490
+      - ORDERID: 199
+        SUBTOTAL: 27360
+      - ORDERID: 200
+        SUBTOTAL: 91440
+      - ORDERID: 201
+        SUBTOTAL: 44340
+      - ORDERID: 202
+        SUBTOTAL: 183820
+      - ORDERID: 203
+        SUBTOTAL: 53140
+      - ORDERID: 204
+        SUBTOTAL: 427740
+      - ORDERID: 205
+        SUBTOTAL: 209600
+      - ORDERID: 206
+        SUBTOTAL: 45300
+      - ORDERID: 207
+        SUBTOTAL: 41400
+      - ORDERID: 208
+        SUBTOTAL: 268400
+      - ORDERID: 209
+        SUBTOTAL: 65600
+      - ORDERID: 210
+        SUBTOTAL: 158400
+      - ORDERID: 211
+        SUBTOTAL: 389100
+      - ORDERID: 212
+        SUBTOTAL: 168800
+      - ORDERID: 213
+        SUBTOTAL: 23480
+      - ORDERID: 214
+        SUBTOTAL: 205160
+      - ORDERID: 215
+        SUBTOTAL: 15600
+      - ORDERID: 216
+        SUBTOTAL: 71330
+      - ORDERID: 217
+        SUBTOTAL: 184800
+      - ORDERID: 218
+        SUBTOTAL: 271900
+      - ORDERID: 219
+        SUBTOTAL: 21600
+      - ORDERID: 220
+        SUBTOTAL: 23520
+      - ORDERID: 221
+        SUBTOTAL: 71760
+      - ORDERID: 222
+        SUBTOTAL: 112550
+      - ORDERID: 223
+        SUBTOTAL: 182080
+      - ORDERID: 224
+        SUBTOTAL: 132800
+      - ORDERID: 225
+        SUBTOTAL: 105120
+      - ORDERID: 226
+        SUBTOTAL: 23040
+      - ORDERID: 227
+        SUBTOTAL: 124910
+      - ORDERID: 228
+        SUBTOTAL: 177080
+      - ORDERID: 229
+        SUBTOTAL: 18240
+      - ORDERID: 230
+        SUBTOTAL: 67200
+      - ORDERID: 231
+        SUBTOTAL: 49600
+      - ORDERID: 232
+        SUBTOTAL: 1049560
+      - ORDERID: 233
+        SUBTOTAL: 75600
+      - ORDERID: 234
+        SUBTOTAL: 147200
+      - ORDERID: 235
+        SUBTOTAL: 14700
+      - ORDERID: 236
+        SUBTOTAL: 70400
+      - ORDERID: 237
+        SUBTOTAL: 38620
+      - ORDERID: 238
+        SUBTOTAL: 176000
+      - ORDERID: 239
+        SUBTOTAL: 127200
+      - ORDERID: 240
+        SUBTOTAL: 92510
+      - ORDERID: 241
+        SUBTOTAL: 156000
+      - ORDERID: 242
+        SUBTOTAL: 50220
+      - ORDERID: 243
+        SUBTOTAL: 316320
+      - ORDERID: 244
+        SUBTOTAL: 30530
+      - ORDERID: 245
+        SUBTOTAL: 89600
+      - ORDERID: 246
+        SUBTOTAL: 67600
+      - ORDERID: 247
+        SUBTOTAL: 91200
+      - ORDERID: 248
+        SUBTOTAL: 27800
+      - ORDERID: 249
+        SUBTOTAL: 20000
+      - ORDERID: 250
+        SUBTOTAL: 138060
+      - ORDERID: 251
+        SUBTOTAL: 57500
+      - ORDERID: 252
+        SUBTOTAL: 141200
+      - ORDERID: 253
+        SUBTOTAL: 55080
+      - ORDERID: 254
+        SUBTOTAL: 14900
+      - ORDERID: 255
+        SUBTOTAL: 81630
+      - ORDERID: 256
+        SUBTOTAL: 204850
+      - ORDERID: 257
+        SUBTOTAL: 138850
+      - ORDERID: 258
+        SUBTOTAL: 14790
+      - ORDERID: 259
+        SUBTOTAL: 46200
+      - ORDERID: 260
+        SUBTOTAL: 88125
+      - ORDERID: 261
+        SUBTOTAL: 24000
+      - ORDERID: 262
+        SUBTOTAL: 13680
+      - ORDERID: 263
+        SUBTOTAL: 473544
+      - ORDERID: 264
+        SUBTOTAL: 300000
+      - ORDERID: 265
+        SUBTOTAL: 61800
+      - ORDERID: 266
+        SUBTOTAL: 242750
+      - ORDERID: 267
+        SUBTOTAL: 862345
+      - ORDERID: 268
+        SUBTOTAL: 1058850
+      - ORDERID: 269
+        SUBTOTAL: 261450
+      - ORDERID: 270
+        SUBTOTAL: 35200
+      - ORDERID: 271
+        SUBTOTAL: 415005
+      - ORDERID: 272
+        SUBTOTAL: 235600
+      - ORDERID: 273
+        SUBTOTAL: 20000
+      - ORDERID: 274
+        SUBTOTAL: 22550
+      - ORDERID: 275
+        SUBTOTAL: 265780
+      - ORDERID: 276
+        SUBTOTAL: 271590
+      - ORDERID: 277
+        SUBTOTAL: 319265
+      - ORDERID: 278
+        SUBTOTAL: 84600
+      - ORDERID: 279
+        SUBTOTAL: 134400
+      - ORDERID: 280
+        SUBTOTAL: 167000
+      - ORDERID: 281
+        SUBTOTAL: 39620
+      - ORDERID: 282
+        SUBTOTAL: 94600
+      - ORDERID: 283
+        SUBTOTAL: 418000
+      - ORDERID: 284
+        SUBTOTAL: 11000
+      - ORDERID: 285
+        SUBTOTAL: 79635
+      - ORDERID: 286
+        SUBTOTAL: 229520
+      - ORDERID: 287
+        SUBTOTAL: 51740
+      - ORDERID: 288
+        SUBTOTAL: 215650
+      - ORDERID: 289
+        SUBTOTAL: 208500
+      - ORDERID: 290
+        SUBTOTAL: 182380
+      - ORDERID: 291
+        SUBTOTAL: 13980
+      - ORDERID: 292
+        SUBTOTAL: 35550
+      - ORDERID: 293
+        SUBTOTAL: 1019170
+      - ORDERID: 294
+        SUBTOTAL: 216280
+      - ORDERID: 295
+        SUBTOTAL: 49380
+      - ORDERID: 296
+        SUBTOTAL: 177000
+      - ORDERID: 297
+        SUBTOTAL: 41720
+      - ORDERID: 298
+        SUBTOTAL: 21000
+      - ORDERID: 299
+        SUBTOTAL: 281200
+      - ORDERID: 300
+        SUBTOTAL: 190800
+      - ORDERID: 301
+        SUBTOTAL: 27510
+      - ORDERID: 302
+        SUBTOTAL: 418150
+      - ORDERID: 303
+        SUBTOTAL: 74900
+      - ORDERID: 304
+        SUBTOTAL: 183600
+      - ORDERID: 305
+        SUBTOTAL: 88050
+      - ORDERID: 306
+        SUBTOTAL: 154630
+      - ORDERID: 307
+        SUBTOTAL: 181950
+      - ORDERID: 308
+        SUBTOTAL: 368050
+      - ORDERID: 309
+        SUBTOTAL: 83520
+      - ORDERID: 310
+        SUBTOTAL: 115250
+      - ORDERID: 311
+        SUBTOTAL: 214290
+      - ORDERID: 312
+        SUBTOTAL: 54780
+      - ORDERID: 313
+        SUBTOTAL: 125730
+      - ORDERID: 314
+        SUBTOTAL: 284450
+      - ORDERID: 315
+        SUBTOTAL: 54300
+      - ORDERID: 316
+        SUBTOTAL: 96500
+      - ORDERID: 317
+        SUBTOTAL: 129900
+      - ORDERID: 318
+        SUBTOTAL: 71100
+      - ORDERID: 319
+        SUBTOTAL: 204000
+      - ORDERID: 320
+        SUBTOTAL: 310900
+      - ORDERID: 321
+        SUBTOTAL: 15500
+      - ORDERID: 322
+        SUBTOTAL: 97750
+      - ORDERID: 323
+        SUBTOTAL: 259500
+      - ORDERID: 324
+        SUBTOTAL: 64775
+      - ORDERID: 325
+        SUBTOTAL: 156565
+      - ORDERID: 326
+        SUBTOTAL: 208200
+      - ORDERID: 327
+        SUBTOTAL: 76430
+      - ORDERID: 328
+        SUBTOTAL: 214740
+      - ORDERID: 329
+        SUBTOTAL: 83845
+      - ORDERID: 330
+        SUBTOTAL: 56900
+      - ORDERID: 331
+        SUBTOTAL: 47700
+      - ORDERID: 332
+        SUBTOTAL: 31775
+      - ORDERID: 333
+        SUBTOTAL: 106710
+      - ORDERID: 334
+        SUBTOTAL: 38750
+      - ORDERID: 335
+        SUBTOTAL: 33000
+      - ORDERID: 336
+        SUBTOTAL: 241390
+      - ORDERID: 337
+        SUBTOTAL: 62500
+      - ORDERID: 338
+        SUBTOTAL: 14250
+      - ORDERID: 339
+        SUBTOTAL: 2800
+      - ORDERID: 340
+        SUBTOTAL: 80738
+      - ORDERID: 341
+        SUBTOTAL: 390000
+      - ORDERID: 342
+        SUBTOTAL: 7200
+      - ORDERID: 343
+        SUBTOTAL: 114000
+      - ORDERID: 344
+        SUBTOTAL: 81250
+      - ORDERID: 345
+        SUBTOTAL: 54365
+      - ORDERID: 346
+        SUBTOTAL: 249300
+      - ORDERID: 347
+        SUBTOTAL: 56550
+      - ORDERID: 348
+        SUBTOTAL: 630000
+      - ORDERID: 349
+        SUBTOTAL: 147610
+      - ORDERID: 350
+        SUBTOTAL: 80010
+      - ORDERID: 351
+        SUBTOTAL: 238850
+      - ORDERID: 352
+        SUBTOTAL: 49300
+      - ORDERID: 353
+        SUBTOTAL: 47980
+      - ORDERID: 354
+        SUBTOTAL: 228500
+      - ORDERID: 355
+        SUBTOTAL: 6500
+      - ORDERID: 356
+        SUBTOTAL: 150800
+      - ORDERID: 357
+        SUBTOTAL: 25650
+      - ORDERID: 358
+        SUBTOTAL: 432600
+      - ORDERID: 359
+        SUBTOTAL: 141300
+      - ORDERID: 360
+        SUBTOTAL: 647540
+      - ORDERID: 361
+        SUBTOTAL: 106400
+      - ORDERID: 362
+        SUBTOTAL: 42400
+      - ORDERID: 363
+        SUBTOTAL: 39900
+      - ORDERID: 364
+        SUBTOTAL: 80800
+      - ORDERID: 365
+        SUBTOTAL: 637500
+      - ORDERID: 366
+        SUBTOTAL: 35800
+      - ORDERID: 367
+        SUBTOTAL: 46400
+      - ORDERID: 368
+        SUBTOTAL: 12000
+      - ORDERID: 369
+        SUBTOTAL: 503200
+      - ORDERID: 370
+        SUBTOTAL: 165000
+      - ORDERID: 371
+        SUBTOTAL: 269750
+      - ORDERID: 372
+        SUBTOTAL: 126000
+      - ORDERID: 373
+        SUBTOTAL: 5750
+      - ORDERID: 374
+        SUBTOTAL: 75850
+      - ORDERID: 375
+        SUBTOTAL: 60500
+      - ORDERID: 376
+        SUBTOTAL: 142975
+      - ORDERID: 377
+        SUBTOTAL: 139324
+      - ORDERID: 378
+        SUBTOTAL: 47975
+      - ORDERID: 379
+        SUBTOTAL: 150360
+      - ORDERID: 380
+        SUBTOTAL: 126450
+      - ORDERID: 381
+        SUBTOTAL: 45000
+      - ORDERID: 382
+        SUBTOTAL: 277505
+      - ORDERID: 383
+        SUBTOTAL: 91800
+      - ORDERID: 384
+        SUBTOTAL: 6200
+      - ORDERID: 385
+        SUBTOTAL: 62000
+      - ORDERID: 386
+        SUBTOTAL: 648305
+      - ORDERID: 387
+        SUBTOTAL: 498550
+      - ORDERID: 388
+        SUBTOTAL: 138025
+      - ORDERID: 389
+        SUBTOTAL: 62950
+      - ORDERID: 390
+        SUBTOTAL: 289625
+      - ORDERID: 391
+        SUBTOTAL: 272005
+      - ORDERID: 392
+        SUBTOTAL: 50000
+      - ORDERID: 393
+        SUBTOTAL: 94500
+      - ORDERID: 394
+        SUBTOTAL: 205400
+      - ORDERID: 395
+        SUBTOTAL: 87000
+      - ORDERID: 396
+        SUBTOTAL: 108600
+      - ORDERID: 397
+        SUBTOTAL: 142200
+      - ORDERID: 398
+        SUBTOTAL: 153500
+      - ORDERID: 399
+        SUBTOTAL: 192800
+      - ORDERID: 400
+        SUBTOTAL: 63600
+      - ORDERID: 401
+        SUBTOTAL: 38250
+      - ORDERID: 402
+        SUBTOTAL: 143400
+      - ORDERID: 403
+        SUBTOTAL: 182020
+      - ORDERID: 404
+        SUBTOTAL: 53040
+      - ORDERID: 405
+        SUBTOTAL: 33178
+      - ORDERID: 406
+        SUBTOTAL: 120350
+      - ORDERID: 407
+        SUBTOTAL: 66870
+      - ORDERID: 408
+        SUBTOTAL: 19300
+      - ORDERID: 409
+        SUBTOTAL: 67135
+      - ORDERID: 410
+        SUBTOTAL: 437160
+      - ORDERID: 411
+        SUBTOTAL: 466800
+      - ORDERID: 412
+        SUBTOTAL: 129160
+      - ORDERID: 413
+        SUBTOTAL: 170100
+      - ORDERID: 414
+        SUBTOTAL: 70325
+      - ORDERID: 415
+        SUBTOTAL: 12500
+      - ORDERID: 416
+        SUBTOTAL: 203200
+      - ORDERID: 417
+        SUBTOTAL: 151575
+      - ORDERID: 418
+        SUBTOTAL: 129500
+      - ORDERID: 419
+        SUBTOTAL: 466694
+      - ORDERID: 420
+        SUBTOTAL: 192100
+      - ORDERID: 421
+        SUBTOTAL: 69475
+      - ORDERID: 422
+        SUBTOTAL: 57000
+      - ORDERID: 423
+        SUBTOTAL: 230175
+      - ORDERID: 424
+        SUBTOTAL: 92010
+      - ORDERID: 425
+        SUBTOTAL: 421050
+      - ORDERID: 426
+        SUBTOTAL: 41235
+      - ORDERID: 427
+        SUBTOTAL: 4500
+      - ORDERID: 428
+        SUBTOTAL: 142300
+      - ORDERID: 429
+        SUBTOTAL: 53485
+      - ORDERID: 430
+        SUBTOTAL: 95690
+      - ORDERID: 431
+        SUBTOTAL: 525650
+      - ORDERID: 432
+        SUBTOTAL: 66000
+      - ORDERID: 433
+        SUBTOTAL: 168250
+      - ORDERID: 434
+        SUBTOTAL: 132700
+      - ORDERID: 435
+        SUBTOTAL: 37550
+      - ORDERID: 436
+        SUBTOTAL: 6300
+      - ORDERID: 437
+        SUBTOTAL: 176800
+      - ORDERID: 438
+        SUBTOTAL: 80110
+      - ORDERID: 439
+        SUBTOTAL: 163845
+      - ORDERID: 440
+        SUBTOTAL: 620190
+      - ORDERID: 441
+        SUBTOTAL: 349000
+      - ORDERID: 442
+        SUBTOTAL: 63000
+      - ORDERID: 443
+        SUBTOTAL: 115000
+      - ORDERID: 444
+        SUBTOTAL: 1016480
+      - ORDERID: 445
+        SUBTOTAL: 87800
+      - ORDERID: 446
+        SUBTOTAL: 233400
+      - ORDERID: 447
+        SUBTOTAL: 482500
+      - ORDERID: 448
+        SUBTOTAL: 64200
+      - ORDERID: 449
+        SUBTOTAL: 99600
+      - ORDERID: 450
+        SUBTOTAL: 107390
+      - ORDERID: 451
+        SUBTOTAL: 360073
+      - ORDERID: 452
+        SUBTOTAL: 11400
+      - ORDERID: 453
+        SUBTOTAL: 204800
+      - ORDERID: 454
+        SUBTOTAL: 337000
+      - ORDERID: 455
+        SUBTOTAL: 33000
+      - ORDERID: 456
+        SUBTOTAL: 254500
+      - ORDERID: 457
+        SUBTOTAL: 59550
+      - ORDERID: 458
+        SUBTOTAL: 37800
+      - ORDERID: 459
+        SUBTOTAL: 189300
+      - ORDERID: 460
+        SUBTOTAL: 170400
+      - ORDERID: 461
+        SUBTOTAL: 18040
+      - ORDERID: 462
+        SUBTOTAL: 342400
+      - ORDERID: 463
+        SUBTOTAL: 9350
+      - ORDERID: 464
+        SUBTOTAL: 445170
+      - ORDERID: 465
+        SUBTOTAL: 123840
+      - ORDERID: 466
+        SUBTOTAL: 282790
+      - ORDERID: 467
+        SUBTOTAL: 294100
+      - ORDERID: 468
+        SUBTOTAL: 129600
+      - ORDERID: 469
+        SUBTOTAL: 70600
+      - ORDERID: 470
+        SUBTOTAL: 133175
+      - ORDERID: 471
+        SUBTOTAL: 346300
+      - ORDERID: 472
+        SUBTOTAL: 112567
+      - ORDERID: 473
+        SUBTOTAL: 55000
+      - ORDERID: 474
+        SUBTOTAL: 97250
+      - ORDERID: 475
+        SUBTOTAL: 157000
+      - ORDERID: 476
+        SUBTOTAL: 46845
+      - ORDERID: 477
+        SUBTOTAL: 63850
+      - ORDERID: 478
+        SUBTOTAL: 28780
+      - ORDERID: 479
+        SUBTOTAL: 65500
+      - ORDERID: 480
+        SUBTOTAL: 171000
+      - ORDERID: 481
+        SUBTOTAL: 129675
+      - ORDERID: 482
+        SUBTOTAL: 185000
+      - ORDERID: 483
+        SUBTOTAL: 50975
+      - ORDERID: 484
+        SUBTOTAL: 199000
+      - ORDERID: 485
+        SUBTOTAL: 36000
+      - ORDERID: 486
+        SUBTOTAL: 145900
+      - ORDERID: 487
+        SUBTOTAL: 149835
+      - ORDERID: 488
+        SUBTOTAL: 59600
+      - ORDERID: 489
+        SUBTOTAL: 99700
+      - ORDERID: 490
+        SUBTOTAL: 13980
+      - ORDERID: 491
+        SUBTOTAL: 5235
+      - ORDERID: 492
+        SUBTOTAL: 24000
+      - ORDERID: 493
+        SUBTOTAL: 177000
+      - ORDERID: 494
+        SUBTOTAL: 28500
+      - ORDERID: 495
+        SUBTOTAL: 311800
+      - ORDERID: 496
+        SUBTOTAL: 33600
+      - ORDERID: 497
+        SUBTOTAL: 92000
+      - ORDERID: 498
+        SUBTOTAL: 452980
+      - ORDERID: 499
+        SUBTOTAL: 231170
+      - ORDERID: 500
+        SUBTOTAL: 191285
+      - ORDERID: 501
+        SUBTOTAL: 219600
+      - ORDERID: 502
+        SUBTOTAL: 108000
+      - ORDERID: 503
+        SUBTOTAL: 187125
+      - ORDERID: 504
+        SUBTOTAL: 170146
+      - ORDERID: 505
+        SUBTOTAL: 25200
+      - ORDERID: 506
+        SUBTOTAL: 8800
+      - ORDERID: 507
+        SUBTOTAL: 5520
+      - ORDERID: 508
+        SUBTOTAL: 259800
+      - ORDERID: 509
+        SUBTOTAL: 248750
+      - ORDERID: 510
+        SUBTOTAL: 308200
+      - ORDERID: 511
+        SUBTOTAL: 164460
+      - ORDERID: 512
+        SUBTOTAL: 32000
+      - ORDERID: 513
+        SUBTOTAL: 330400
+      - ORDERID: 514
+        SUBTOTAL: 62950
+      - ORDERID: 515
+        SUBTOTAL: 433700
+      - ORDERID: 516
+        SUBTOTAL: 61600
+      - ORDERID: 517
+        SUBTOTAL: 254000
+      - ORDERID: 518
+        SUBTOTAL: 168400
+      - ORDERID: 519
+        SUBTOTAL: 231000
+      - ORDERID: 520
+        SUBTOTAL: 2800
+      - ORDERID: 521
+        SUBTOTAL: 147700
+      - ORDERID: 522
+        SUBTOTAL: 170400
+      - ORDERID: 523
+        SUBTOTAL: 31500
+      - ORDERID: 524
+        SUBTOTAL: 34400
+      - ORDERID: 525
+        SUBTOTAL: 360322
+      - ORDERID: 526
+        SUBTOTAL: 221625
+      - ORDERID: 527
+        SUBTOTAL: 87500
+      - ORDERID: 528
+        SUBTOTAL: 22800
+      - ORDERID: 529
+        SUBTOTAL: 698450
+      - ORDERID: 530
+        SUBTOTAL: 28000
+      - ORDERID: 531
+        SUBTOTAL: 9650
+      - ORDERID: 532
+        SUBTOTAL: 133500
+      - ORDERID: 533
+        SUBTOTAL: 72000
+      - ORDERID: 534
+        SUBTOTAL: 113235
+      - ORDERID: 535
+        SUBTOTAL: 1250
+      - ORDERID: 536
+        SUBTOTAL: 144250
+      - ORDERID: 537
+        SUBTOTAL: 165000
+      - ORDERID: 538
+        SUBTOTAL: 38750
+      - ORDERID: 539
+        SUBTOTAL: 191385
+      - ORDERID: 540
+        SUBTOTAL: 276080
+      - ORDERID: 541
+        SUBTOTAL: 77000
+      - ORDERID: 542
+        SUBTOTAL: 368700
+      - ORDERID: 543
+        SUBTOTAL: 85000
+      - ORDERID: 544
+        SUBTOTAL: 192606
+      - ORDERID: 545
+        SUBTOTAL: 39985
+      - ORDERID: 546
+        SUBTOTAL: 19110
+      - ORDERID: 547
+        SUBTOTAL: 39345
+      - ORDERID: 548
+        SUBTOTAL: 249925
+      - ORDERID: 549
+        SUBTOTAL: 287808
+      - ORDERID: 550
+        SUBTOTAL: 42000
+      - ORDERID: 551
+        SUBTOTAL: 44660
+      - ORDERID: 552
+        SUBTOTAL: 158500
+      - ORDERID: 553
+        SUBTOTAL: 163215
+      - ORDERID: 554
+        SUBTOTAL: 403580
+      - ORDERID: 555
+        SUBTOTAL: 392375
+      - ORDERID: 556
+        SUBTOTAL: 125580
+      - ORDERID: 557
+        SUBTOTAL: 229040
+      - ORDERID: 558
+        SUBTOTAL: 277500
+      - ORDERID: 559
+        SUBTOTAL: 57210
+      - ORDERID: 560
+        SUBTOTAL: 1840
+      - ORDERID: 561
+        SUBTOTAL: 166000
+      - ORDERID: 562
+        SUBTOTAL: 14000
+      - ORDERID: 563
+        SUBTOTAL: 18700
+      - ORDERID: 564
+        SUBTOTAL: 85200
+      - ORDERID: 565
+        SUBTOTAL: 185200
+      - ORDERID: 566
+        SUBTOTAL: 64800
+      - ORDERID: 567
+        SUBTOTAL: 207000
+      - ORDERID: 568
+        SUBTOTAL: 4000
+      - ORDERID: 569
+        SUBTOTAL: 889100
+      - ORDERID: 570
+        SUBTOTAL: 1149070
+      - ORDERID: 571
+        SUBTOTAL: 83300
+      - ORDERID: 572
+        SUBTOTAL: 47700
+      - ORDERID: 573
+        SUBTOTAL: 114000
+      - ORDERID: 574
+        SUBTOTAL: 67800
+      - ORDERID: 575
+        SUBTOTAL: 23790
+      - ORDERID: 576
+        SUBTOTAL: 310750
+      - ORDERID: 577
+        SUBTOTAL: 25080
+      - ORDERID: 578
+        SUBTOTAL: 103076
+      - ORDERID: 579
+        SUBTOTAL: 73000
+      - ORDERID: 580
+        SUBTOTAL: 84300
+      - ORDERID: 581
+        SUBTOTAL: 93200
+      - ORDERID: 582
+        SUBTOTAL: 176400
+      - ORDERID: 583
+        SUBTOTAL: 197400
+      - ORDERID: 584
+        SUBTOTAL: 268440
+      - ORDERID: 585
+        SUBTOTAL: 56895
+      - ORDERID: 586
+        SUBTOTAL: 100770
+      - ORDERID: 587
+        SUBTOTAL: 150812
+      - ORDERID: 588
+        SUBTOTAL: 85100
+      - ORDERID: 589
+        SUBTOTAL: 470550
+      - ORDERID: 590
+        SUBTOTAL: 125400
+      - ORDERID: 591
+        SUBTOTAL: 258450
+      - ORDERID: 592
+        SUBTOTAL: 91950
+      - ORDERID: 593
+        SUBTOTAL: 26400
+      - ORDERID: 594
+        SUBTOTAL: 458100
+      - ORDERID: 595
+        SUBTOTAL: 97500
+      - ORDERID: 596
+        SUBTOTAL: 21200
+      - ORDERID: 597
+        SUBTOTAL: 73500
+      - ORDERID: 598
+        SUBTOTAL: 405900
+      - ORDERID: 599
+        SUBTOTAL: 111200
+      - ORDERID: 600
+        SUBTOTAL: 616490
+      - ORDERID: 601
+        SUBTOTAL: 93150
+      - ORDERID: 602
+        SUBTOTAL: 105214
+      - ORDERID: 603
+        SUBTOTAL: 74000
+      - ORDERID: 604
+        SUBTOTAL: 274000
+      - ORDERID: 605
+        SUBTOTAL: 298400
+      - ORDERID: 606
+        SUBTOTAL: 62500
+      - ORDERID: 607
+        SUBTOTAL: 349000
+      - ORDERID: 608
+        SUBTOTAL: 227525
+      - ORDERID: 609
+        SUBTOTAL: 66000
+      - ORDERID: 610
+        SUBTOTAL: 263095
+      - ORDERID: 611
+        SUBTOTAL: 64900
+      - ORDERID: 612
+        SUBTOTAL: 143825
+      - ORDERID: 613
+        SUBTOTAL: 51900
+      - ORDERID: 614
+        SUBTOTAL: 352340
+      - ORDERID: 615
+        SUBTOTAL: 58100
+      - ORDERID: 616
+        SUBTOTAL: 51900
+      - ORDERID: 617
+        SUBTOTAL: 28200
+      - ORDERID: 618
+        SUBTOTAL: 1725000
+      - ORDERID: 619
+        SUBTOTAL: 146160
+      - ORDERID: 620
+        SUBTOTAL: 9840
+      - ORDERID: 621
+        SUBTOTAL: 200460
+      - ORDERID: 622
+        SUBTOTAL: 163000
+      - ORDERID: 623
+        SUBTOTAL: 16000
+      - ORDERID: 624
+        SUBTOTAL: 208340
+      - ORDERID: 625
+        SUBTOTAL: 216680
+      - ORDERID: 626
+        SUBTOTAL: 33680
+      - ORDERID: 627
+        SUBTOTAL: 31000
+      - ORDERID: 628
+        SUBTOTAL: 72950
+      - ORDERID: 629
+        SUBTOTAL: 91700
+      - ORDERID: 630
+        SUBTOTAL: 208600
+      - ORDERID: 631
+        SUBTOTAL: 162000
+      - ORDERID: 632
+        SUBTOTAL: 61130
+      - ORDERID: 633
+        SUBTOTAL: 187500
+      - ORDERID: 634
+        SUBTOTAL: 15000
+      - ORDERID: 635
+        SUBTOTAL: 98840
+      - ORDERID: 636
+        SUBTOTAL: 3600
+      - ORDERID: 637
+        SUBTOTAL: 145060
+      - ORDERID: 638
+        SUBTOTAL: 120900
+      - ORDERID: 639
+        SUBTOTAL: 312750
+      - ORDERID: 640
+        SUBTOTAL: 7000
+      - ORDERID: 641
+        SUBTOTAL: 60500
+      - ORDERID: 642
+        SUBTOTAL: 1138000
+      - ORDERID: 643
+        SUBTOTAL: 86010
+      - ORDERID: 644
+        SUBTOTAL: 38835
+      - ORDERID: 645
+        SUBTOTAL: 220000
+      - ORDERID: 646
+        SUBTOTAL: 550211
+      - ORDERID: 647
+        SUBTOTAL: 289800
+      - ORDERID: 648
+        SUBTOTAL: 637940
+      - ORDERID: 649
+        SUBTOTAL: 75050
+      - ORDERID: 650
+        SUBTOTAL: 1083524
+      - ORDERID: 651
+        SUBTOTAL: 3000
+      - ORDERID: 652
+        SUBTOTAL: 14400
+      - ORDERID: 653
+        SUBTOTAL: 4500
+      - ORDERID: 654
+        SUBTOTAL: 93450
+      - ORDERID: 655
+        SUBTOTAL: 101580
+      - ORDERID: 656
+        SUBTOTAL: 93205
+      - ORDERID: 657
+        SUBTOTAL: 192425
+      - ORDERID: 658
+        SUBTOTAL: 36000
+      - ORDERID: 659
+        SUBTOTAL: 42750
+      - ORDERID: 660
+        SUBTOTAL: 10850
+      - ORDERID: 661
+        SUBTOTAL: 69800
+      - ORDERID: 662
+        SUBTOTAL: 67000
+      - ORDERID: 663
+        SUBTOTAL: 45290
+      - ORDERID: 664
+        SUBTOTAL: 85800
+      - ORDERID: 665
+        SUBTOTAL: 826740
+      - ORDERID: 666
+        SUBTOTAL: 95875
+      - ORDERID: 667
+        SUBTOTAL: 53750
+      - ORDERID: 668
+        SUBTOTAL: 53950
+      - ORDERID: 669
+        SUBTOTAL: 68670
+      - ORDERID: 670
+        SUBTOTAL: 36589
+      - ORDERID: 671
+        SUBTOTAL: 193000
+      - ORDERID: 672
+        SUBTOTAL: 112280
+      - ORDERID: 673
+        SUBTOTAL: 39000
+      - ORDERID: 674
+        SUBTOTAL: 193600
+      - ORDERID: 675
+        SUBTOTAL: 74250
+      - ORDERID: 676
+        SUBTOTAL: 93600
+      - ORDERID: 677
+        SUBTOTAL: 203450
+      - ORDERID: 678
+        SUBTOTAL: 55900
+      - ORDERID: 679
+        SUBTOTAL: 51440
+      - ORDERID: 680
+        SUBTOTAL: 80000
+      - ORDERID: 681
+        SUBTOTAL: 13750
+      - ORDERID: 682
+        SUBTOTAL: 117475
+      - ORDERID: 683
+        SUBTOTAL: 245500
+      - ORDERID: 684
+        SUBTOTAL: 83700
+      - ORDERID: 685
+        SUBTOTAL: 192550
+      - ORDERID: 686
+        SUBTOTAL: 92060
+      - ORDERID: 687
+        SUBTOTAL: 50000
+      - ORDERID: 688
+        SUBTOTAL: 70000
+      - ORDERID: 689
+        SUBTOTAL: 57000
+      - ORDERID: 690
+        SUBTOTAL: 64480
+      - ORDERID: 691
+        SUBTOTAL: 364250
+      - ORDERID: 692
+        SUBTOTAL: 75000
+      - ORDERID: 693
+        SUBTOTAL: 36000
+      - ORDERID: 694
+        SUBTOTAL: 476900
+      - ORDERID: 695
+        SUBTOTAL: 56000
+      - ORDERID: 696
+        SUBTOTAL: 71100
+      - ORDERID: 697
+        SUBTOTAL: 113910
+      - ORDERID: 698
+        SUBTOTAL: 24500
+      - ORDERID: 699
+        SUBTOTAL: 140750
+      - ORDERID: 700
+        SUBTOTAL: 22000
+      - ORDERID: 701
+        SUBTOTAL: 236225
+      - ORDERID: 702
+        SUBTOTAL: 442200
+      - ORDERID: 703
+        SUBTOTAL: 11000
+      - ORDERID: 704
+        SUBTOTAL: 48290
+      - ORDERID: 705
+        SUBTOTAL: 49120
+      - ORDERID: 706
+        SUBTOTAL: 467500
+      - ORDERID: 707
+        SUBTOTAL: 190210
+      - ORDERID: 708
+        SUBTOTAL: 9300
+      - ORDERID: 709
+        SUBTOTAL: 67700
+      - ORDERID: 710
+        SUBTOTAL: 176270
+      - ORDERID: 711
+        SUBTOTAL: 78100
+      - ORDERID: 712
+        SUBTOTAL: 15500
+      - ORDERID: 713
+        SUBTOTAL: 27660
+      - ORDERID: 714
+        SUBTOTAL: 112200
+      - ORDERID: 715
+        SUBTOTAL: 358400
+      - ORDERID: 716
+        SUBTOTAL: 6800
+      - ORDERID: 717
+        SUBTOTAL: 205250
+      - ORDERID: 718
+        SUBTOTAL: 84800
+      - ORDERID: 719
+        SUBTOTAL: 125560
+      - ORDERID: 720
+        SUBTOTAL: 91040
+      - ORDERID: 721
+        SUBTOTAL: 140800
+      - ORDERID: 722
+        SUBTOTAL: 10800
+      - ORDERID: 723
+        SUBTOTAL: 28000
+      - ORDERID: 724
+        SUBTOTAL: 173306
+      - ORDERID: 725
+        SUBTOTAL: 25150
+      - ORDERID: 726
+        SUBTOTAL: 29155
+      - ORDERID: 727
+        SUBTOTAL: 43900
+      - ORDERID: 728
+        SUBTOTAL: 71750
+      - ORDERID: 729
+        SUBTOTAL: 91200
+      - ORDERID: 730
+        SUBTOTAL: 223300
+      - ORDERID: 731
+        SUBTOTAL: 150070
+      - ORDERID: 732
+        SUBTOTAL: 481350
+      - ORDERID: 733
+        SUBTOTAL: 31000
+      - ORDERID: 734
+        SUBTOTAL: 1581000
+      - ORDERID: 735
+        SUBTOTAL: 101400
+      - ORDERID: 736
+        SUBTOTAL: 79650
+      - ORDERID: 737
+        SUBTOTAL: 180975
+      - ORDERID: 738
+        SUBTOTAL: 224820
+      - ORDERID: 739
+        SUBTOTAL: 222000
+      - ORDERID: 740
+        SUBTOTAL: 277200
+      - ORDERID: 741
+        SUBTOTAL: 377200
+      - ORDERID: 742
+        SUBTOTAL: 135360
+      - ORDERID: 743
+        SUBTOTAL: 493100
+      - ORDERID: 744
+        SUBTOTAL: 287000
+      - ORDERID: 745
+        SUBTOTAL: 6960
+      - ORDERID: 746
+        SUBTOTAL: 652725
+      - ORDERID: 747
+        SUBTOTAL: 99000
+      - ORDERID: 748
+        SUBTOTAL: 119600
+      - ORDERID: 749
+        SUBTOTAL: 56000
+      - ORDERID: 750
+        SUBTOTAL: 198000
+      - ORDERID: 751
+        SUBTOTAL: 68600
+      - ORDERID: 752
+        SUBTOTAL: 126100
+      - ORDERID: 753
+        SUBTOTAL: 107500
+      - ORDERID: 754
+        SUBTOTAL: 276900
+      - ORDERID: 755
+        SUBTOTAL: 190200
+      - ORDERID: 756
+        SUBTOTAL: 32600
+      - ORDERID: 757
+        SUBTOTAL: 29538
+      - ORDERID: 758
+        SUBTOTAL: 58600
+      - ORDERID: 759
+        SUBTOTAL: 39158
+      - ORDERID: 760
+        SUBTOTAL: 263390
+      - ORDERID: 761
+        SUBTOTAL: 490350
+      - ORDERID: 762
+        SUBTOTAL: 70200
+      - ORDERID: 763
+        SUBTOTAL: 64500
+      - ORDERID: 764
+        SUBTOTAL: 96000
+      - ORDERID: 765
+        SUBTOTAL: 297400
+      - ORDERID: 766
+        SUBTOTAL: 36100
+      - ORDERID: 767
+        SUBTOTAL: 27020
+      - ORDERID: 768
+        SUBTOTAL: 62235
+      - ORDERID: 769
+        SUBTOTAL: 49150
+      - ORDERID: 770
+        SUBTOTAL: 675000
+      - ORDERID: 771
+        SUBTOTAL: 157500
+      - ORDERID: 772
+        SUBTOTAL: 7600
+      - ORDERID: 773
+        SUBTOTAL: 74400
+      - ORDERID: 774
+        SUBTOTAL: 694149
+      - ORDERID: 775
+        SUBTOTAL: 140200
+      - ORDERID: 776
+        SUBTOTAL: 150000
+      - ORDERID: 777
+        SUBTOTAL: 196681
+      - ORDERID: 778
+        SUBTOTAL: 30000
+      - ORDERID: 779
+        SUBTOTAL: 103000
+      - ORDERID: 780
+        SUBTOTAL: 117030
+      - ORDERID: 781
+        SUBTOTAL: 216000
+      - ORDERID: 782
+        SUBTOTAL: 128680
+      - ORDERID: 783
+        SUBTOTAL: 1632190
+      - ORDERID: 784
+        SUBTOTAL: 239350
+      - ORDERID: 785
+        SUBTOTAL: 890250
+      - ORDERID: 786
+        SUBTOTAL: 359200
+      - ORDERID: 787
+        SUBTOTAL: 55440
+      - ORDERID: 788
+        SUBTOTAL: 175450
+      - ORDERID: 789
+        SUBTOTAL: 169200
+      - ORDERID: 790
+        SUBTOTAL: 6000
+      - ORDERID: 791
+        SUBTOTAL: 75100
+      - ORDERID: 792
+        SUBTOTAL: 309000
+      - ORDERID: 793
+        SUBTOTAL: 20000
+      - ORDERID: 794
+        SUBTOTAL: 188700
+      - ORDERID: 795
+        SUBTOTAL: 40575
+      - ORDERID: 796
+        SUBTOTAL: 21000
+      - ORDERID: 797
+        SUBTOTAL: 59160
+      - ORDERID: 798
+        SUBTOTAL: 130950
+      - ORDERID: 799
+        SUBTOTAL: 156400
+      - ORDERID: 800
+        SUBTOTAL: 109050
+      - ORDERID: 801
+        SUBTOTAL: 52500
+      - ORDERID: 802
+        SUBTOTAL: 34200
+      - ORDERID: 803
+        SUBTOTAL: 90000
+      - ORDERID: 804
+        SUBTOTAL: 4500
+      - ORDERID: 805
+        SUBTOTAL: 166500
+      - ORDERID: 806
+        SUBTOTAL: 365875
+      - ORDERID: 807
+        SUBTOTAL: 30500
+      - ORDERID: 808
+        SUBTOTAL: 172750
+      - ORDERID: 809
+        SUBTOTAL: 374000
+      - ORDERID: 810
+        SUBTOTAL: 4500
+      - ORDERID: 811
+        SUBTOTAL: 85800
+      - ORDERID: 812
+        SUBTOTAL: 183800
+      - ORDERID: 813
+        SUBTOTAL: 26600
+      - ORDERID: 814
+        SUBTOTAL: 51000
+      - ORDERID: 815
+        SUBTOTAL: 50800
+      - ORDERID: 816
+        SUBTOTAL: 144550
+      - ORDERID: 817
+        SUBTOTAL: 472230
+      - ORDERID: 818
+        SUBTOTAL: 25256
+      - ORDERID: 819
+        SUBTOTAL: 92875
+      - ORDERID: 820
+        SUBTOTAL: 8685
+      - ORDERID: 821
+        SUBTOTAL: 238480
+      - ORDERID: 822
+        SUBTOTAL: 36000
+      - ORDERID: 823
+        SUBTOTAL: 187350
+      - ORDERID: 824
+        SUBTOTAL: 51000
+      - ORDERID: 825
+        SUBTOTAL: 521800
+      - ORDERID: 826
+        SUBTOTAL: 30000
+      - ORDERID: 827
+        SUBTOTAL: 24430
+      - ORDERID: 828
+        SUBTOTAL: 58600
+      - ORDERID: 829
+        SUBTOTAL: 105700
+      - ORDERID: 830
+        SUBTOTAL: 137460
 errors: 0

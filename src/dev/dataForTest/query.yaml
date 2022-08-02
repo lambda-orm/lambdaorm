@@ -15,11 +15,11 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  ORDER BY
             p.ProductName asc 
           children: []
     errors: 0
@@ -221,776 +221,776 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 17
-        name: Alice Mutton
-        supplierId: 7
-        categoryId: 6
-        quantity: 20 - 1 kg tins
-        price: 39
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 3
-        name: Aniseed Syrup
-        supplierId: 1
-        categoryId: 2
-        quantity: 12 - 550 ml bottles
-        price: 10
-        inStock: 13
-        onOrder: 70
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 40
-        name: Boston Crab Meat
-        supplierId: 19
-        categoryId: 8
-        quantity: 24 - 4 oz tins
-        price: 18.400000000000002
-        inStock: 123
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 60
-        name: Camembert Pierrot
-        supplierId: 28
-        categoryId: 4
-        quantity: 15 - 300 g rounds
-        price: 34
-        inStock: 19
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 18
-        name: Carnarvon Tigers
-        supplierId: 7
-        categoryId: 8
-        quantity: 16 kg pkg.
-        price: 62.5
-        inStock: 42
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 2
-        name: Chang
-        supplierId: 1
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 19
-        inStock: 17
-        onOrder: 40
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 39
-        name: Chartreuse verte
-        supplierId: 18
-        categoryId: 1
-        quantity: 750 cc per bottle
-        price: 18
-        inStock: 69
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 4
-        name: Chef Anton's Cajun Seasoning
-        supplierId: 2
-        categoryId: 2
-        quantity: 48 - 6 oz jars
-        price: 22
-        inStock: 53
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 5
-        name: Chef Anton's Gumbo Mix
-        supplierId: 2
-        categoryId: 2
-        quantity: 36 boxes
-        price: 21.35
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 48
-        name: Chocolade
-        supplierId: 22
-        categoryId: 3
-        quantity: 10 pkgs.
-        price: 12.75
-        inStock: 15
-        onOrder: 70
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 38
-        name: Cte de Blaye
-        supplierId: 18
-        categoryId: 1
-        quantity: 12 - 75 cl bottles
-        price: 263.5
-        inStock: 17
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 58
-        name: Escargots de Bourgogne
-        supplierId: 27
-        categoryId: 8
-        quantity: 24 pieces
-        price: 13.25
-        inStock: 62
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 52
-        name: Filo Mix
-        supplierId: 24
-        categoryId: 5
-        quantity: 16 - 2 kg boxes
-        price: 7
-        inStock: 38
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 71
-        name: Flotemysost
-        supplierId: 15
-        categoryId: 4
-        quantity: 10 - 500 g pkgs.
-        price: 21.5
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 33
-        name: Geitost
-        supplierId: 15
-        categoryId: 4
-        quantity: 500 g
-        price: 2.5
-        inStock: 112
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 15
-        name: Genen Shouyu
-        supplierId: 6
-        categoryId: 2
-        quantity: 24 - 250 ml bottles
-        price: 15.5
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 56
-        name: Gnocchi di nonna Alice
-        supplierId: 26
-        categoryId: 5
-        quantity: 24 - 250 g pkgs.
-        price: 38
-        inStock: 21
-        onOrder: 10
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 31
-        name: Gorgonzola Telino
-        supplierId: 14
-        categoryId: 4
-        quantity: 12 - 100 g pkgs
-        price: 12.5
-        inStock: 0
-        onOrder: 70
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 6
-        name: Grandma's Boysenberry Spread
-        supplierId: 3
-        categoryId: 2
-        quantity: 12 - 8 oz jars
-        price: 25
-        inStock: 120
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 37
-        name: Gravad lax
-        supplierId: 17
-        categoryId: 8
-        quantity: 12 - 500 g pkgs.
-        price: 26
-        inStock: 11
-        onOrder: 50
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 24
-        name: Guaran Fantstica
-        supplierId: 10
-        categoryId: 1
-        quantity: 12 - 355 ml cans
-        price: 4.5
-        inStock: 20
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 69
-        name: Gudbrandsdalsost
-        supplierId: 15
-        categoryId: 4
-        quantity: 10 kg pkg.
-        price: 36
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 44
-        name: Gula Malacca
-        supplierId: 20
-        categoryId: 2
-        quantity: 20 - 2 kg bags
-        price: 19.45
-        inStock: 27
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 26
-        name: Gumbr Gummibrchen
-        supplierId: 11
-        categoryId: 3
-        quantity: 100 - 250 g bags
-        price: 31.23
-        inStock: 15
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 22
-        name: Gustaf's Knckebrd
-        supplierId: 9
-        categoryId: 5
-        quantity: 24 - 500 g pkgs.
-        price: 21
-        inStock: 104
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 10
-        name: Ikura
-        supplierId: 4
-        categoryId: 8
-        quantity: 12 - 200 ml jars
-        price: 31
-        inStock: 31
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 36
-        name: Inlagd Sill
-        supplierId: 17
-        categoryId: 8
-        quantity: 24 - 250 g  jars
-        price: 19
-        inStock: 112
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 43
-        name: Ipoh Coffee
-        supplierId: 20
-        categoryId: 1
-        quantity: 16 - 500 g tins
-        price: 46
-        inStock: 17
-        onOrder: 10
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 41
-        name: Jack's New England Clam Chowder
-        supplierId: 19
-        categoryId: 8
-        quantity: 12 - 12 oz cans
-        price: 9.65
-        inStock: 85
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 13
-        name: Konbu
-        supplierId: 6
-        categoryId: 8
-        quantity: 2 kg box
-        price: 6
-        inStock: 24
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 76
-        name: Lakkalikri
-        supplierId: 23
-        categoryId: 1
-        quantity: 500 ml
-        price: 18
-        inStock: 57
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 67
-        name: Laughing Lumberjack Lager
-        supplierId: 16
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 14
-        inStock: 52
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 74
-        name: Longlife Tofu
-        supplierId: 4
-        categoryId: 7
-        quantity: 5 kg pkg.
-        price: 10
-        inStock: 4
-        onOrder: 20
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 65
-        name: Louisiana Fiery Hot Pepper Sauce
-        supplierId: 2
-        categoryId: 2
-        quantity: 32 - 8 oz bottles
-        price: 21.05
-        inStock: 76
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 66
-        name: Louisiana Hot Spiced Okra
-        supplierId: 2
-        categoryId: 2
-        quantity: 24 - 8 oz jars
-        price: 17
-        inStock: 4
-        onOrder: 100
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 51
-        name: Manjimup Dried Apples
-        supplierId: 24
-        categoryId: 7
-        quantity: 50 - 300 g pkgs.
-        price: 53
-        inStock: 20
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 32
-        name: Mascarpone Fabioli
-        supplierId: 14
-        categoryId: 4
-        quantity: 24 - 200 g pkgs.
-        price: 32
-        inStock: 9
-        onOrder: 40
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 49
-        name: Maxilaku
-        supplierId: 23
-        categoryId: 3
-        quantity: 24 - 50 g pkgs.
-        price: 20
-        inStock: 10
-        onOrder: 60
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 9
-        name: Mishi Kobe Niku
-        supplierId: 4
-        categoryId: 6
-        quantity: 18 - 500 g pkgs.
-        price: 97
-        inStock: 29
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 72
-        name: Mozzarella di Giovanni
-        supplierId: 14
-        categoryId: 4
-        quantity: 24 - 200 g pkgs.
-        price: 34.800000000000004
-        inStock: 14
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 30
-        name: Nord-Ost Matjeshering
-        supplierId: 13
-        categoryId: 8
-        quantity: 10 - 200 g glasses
-        price: 25.89
-        inStock: 10
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 8
-        name: Northwoods Cranberry Sauce
-        supplierId: 3
-        categoryId: 2
-        quantity: 12 - 12 oz jars
-        price: 40
-        inStock: 6
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 25
-        name: NuNuCa Nu-Nougat-Creme
-        supplierId: 11
-        categoryId: 3
-        quantity: 20 - 450 g glasses
-        price: 14
-        inStock: 76
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 77
-        name: Original Frankfurter grne Soe
-        supplierId: 12
-        categoryId: 2
-        quantity: 12 boxes
-        price: 13
-        inStock: 32
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 70
-        name: Outback Lager
-        supplierId: 7
-        categoryId: 1
-        quantity: 24 - 355 ml bottles
-        price: 15
-        inStock: 15
-        onOrder: 10
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 16
-        name: Pavlova
-        supplierId: 7
-        categoryId: 3
-        quantity: 32 - 500 g boxes
-        price: 17.45
-        inStock: 29
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 53
-        name: Perth Pasties
-        supplierId: 24
-        categoryId: 6
-        quantity: 48 pieces
-        price: 32.8
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 55
-        name: Pt chinois
-        supplierId: 25
-        categoryId: 6
-        quantity: 24 boxes x 2 pies
-        price: 24
-        inStock: 115
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 11
-        name: Queso Cabrales
-        supplierId: 5
-        categoryId: 4
-        quantity: 1 kg pkg.
-        price: 21
-        inStock: 22
-        onOrder: 30
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 12
-        name: Queso Manchego La Pastora
-        supplierId: 5
-        categoryId: 4
-        quantity: 10 - 500 g pkgs.
-        price: 38
-        inStock: 86
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 59
-        name: Raclette Courdavault
-        supplierId: 28
-        categoryId: 4
-        quantity: 5 kg pkg.
-        price: 55
-        inStock: 79
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 57
-        name: Ravioli Angelo
-        supplierId: 26
-        categoryId: 5
-        quantity: 24 - 250 g pkgs.
-        price: 19.5
-        inStock: 36
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 73
-        name: Rd Kaviar
-        supplierId: 17
-        categoryId: 8
-        quantity: 24 - 150 g jars
-        price: 15
-        inStock: 101
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 75
-        name: Rhnbru Klosterbier
-        supplierId: 12
-        categoryId: 1
-        quantity: 24 - 0.5 l bottles
-        price: 7.75
-        inStock: 125
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 45
-        name: Rogede sild
-        supplierId: 21
-        categoryId: 8
-        quantity: 1k pkg.
-        price: 9.5
-        inStock: 5
-        onOrder: 70
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 28
-        name: Rssle Sauerkraut
-        supplierId: 12
-        categoryId: 7
-        quantity: 25 - 825 g cans
-        price: 45.6
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 34
-        name: Sasquatch Ale
-        supplierId: 16
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 14
-        inStock: 111
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 27
-        name: Schoggi Schokolade
-        supplierId: 11
-        categoryId: 3
-        quantity: 100 - 100 g pieces
-        price: 43.9
-        inStock: 49
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 68
-        name: Scottish Longbreads
-        supplierId: 8
-        categoryId: 3
-        quantity: 10 boxes x 8 pieces
-        price: 12.5
-        inStock: 6
-        onOrder: 10
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 42
-        name: Singaporean Hokkien Fried Mee
-        supplierId: 20
-        categoryId: 5
-        quantity: 32 - 1 kg pkgs.
-        price: 14
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 20
-        name: Sir Rodney's Marmalade
-        supplierId: 8
-        categoryId: 3
-        quantity: 30 gift boxes
-        price: 81
-        inStock: 40
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 21
-        name: Sir Rodney's Scones
-        supplierId: 8
-        categoryId: 3
-        quantity: 24 pkgs. x 4 pieces
-        price: 10
-        inStock: 3
-        onOrder: 40
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 61
-        name: Sirop d'rable
-        supplierId: 29
-        categoryId: 2
-        quantity: 24 - 500 ml bottles
-        price: 28.5
-        inStock: 113
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 46
-        name: Spegesild
-        supplierId: 21
-        categoryId: 8
-        quantity: 4 - 450 g glasses
-        price: 12
-        inStock: 95
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 35
-        name: Steeleye Stout
-        supplierId: 16
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 18
-        inStock: 20
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 62
-        name: Tarte au sucre
-        supplierId: 29
-        categoryId: 3
-        quantity: 48 pies
-        price: 49.300000000000004
-        inStock: 17
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 19
-        name: Teatime Chocolate Biscuits
-        supplierId: 8
-        categoryId: 3
-        quantity: 10 boxes x 12 pieces
-        price: 9.200000000000001
-        inStock: 25
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 29
-        name: Thringer Rostbratwurst
-        supplierId: 12
-        categoryId: 6
-        quantity: 50 bags x 30 sausgs.
-        price: 123.79
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 14
-        name: Tofu
-        supplierId: 6
-        categoryId: 7
-        quantity: 40 - 100 g pkgs.
-        price: 23.25
-        inStock: 35
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 54
-        name: Tourtire
-        supplierId: 25
-        categoryId: 6
-        quantity: 16 pies
-        price: 7.45
-        inStock: 21
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 23
-        name: Tunnbrd
-        supplierId: 9
-        categoryId: 5
-        quantity: 12 - 250 g pkgs.
-        price: 9
-        inStock: 61
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 7
-        name: Uncle Bob's Organic Dried Pears
-        supplierId: 3
-        categoryId: 7
-        quantity: 12 - 1 lb pkgs.
-        price: 30
-        inStock: 15
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 50
-        name: Valkoinen suklaa
-        supplierId: 23
-        categoryId: 3
-        quantity: 12 - 100 g bars
-        price: 16.25
-        inStock: 65
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 63
-        name: Vegie-spread
-        supplierId: 7
-        categoryId: 2
-        quantity: 15 - 625 g jars
-        price: 43.9
-        inStock: 24
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 64
-        name: Wimmers gute Semmelkndel
-        supplierId: 12
-        categoryId: 5
-        quantity: 20 bags x 4 pieces
-        price: 33.25
-        inStock: 22
-        onOrder: 80
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 47
-        name: Zaanse koeken
-        supplierId: 22
-        categoryId: 3
-        quantity: 10 - 4 oz boxes
-        price: 9.5
-        inStock: 36
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
+      - ID: 17
+        NAME: Alice Mutton
+        SUPPLIERID: 7
+        CATEGORYID: 6
+        QUANTITY: 20 - 1 kg tins
+        PRICE: 39
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 3
+        NAME: Aniseed Syrup
+        SUPPLIERID: 1
+        CATEGORYID: 2
+        QUANTITY: 12 - 550 ml bottles
+        PRICE: 10
+        INSTOCK: 13
+        ONORDER: 70
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 40
+        NAME: Boston Crab Meat
+        SUPPLIERID: 19
+        CATEGORYID: 8
+        QUANTITY: 24 - 4 oz tins
+        PRICE: 18.400000000000002
+        INSTOCK: 123
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 60
+        NAME: Camembert Pierrot
+        SUPPLIERID: 28
+        CATEGORYID: 4
+        QUANTITY: 15 - 300 g rounds
+        PRICE: 34
+        INSTOCK: 19
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 18
+        NAME: Carnarvon Tigers
+        SUPPLIERID: 7
+        CATEGORYID: 8
+        QUANTITY: 16 kg pkg.
+        PRICE: 62.5
+        INSTOCK: 42
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 2
+        NAME: Chang
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 19
+        INSTOCK: 17
+        ONORDER: 40
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 39
+        NAME: Chartreuse verte
+        SUPPLIERID: 18
+        CATEGORYID: 1
+        QUANTITY: 750 cc per bottle
+        PRICE: 18
+        INSTOCK: 69
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 4
+        NAME: Chef Anton's Cajun Seasoning
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 48 - 6 oz jars
+        PRICE: 22
+        INSTOCK: 53
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 5
+        NAME: Chef Anton's Gumbo Mix
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 36 boxes
+        PRICE: 21.35
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 48
+        NAME: Chocolade
+        SUPPLIERID: 22
+        CATEGORYID: 3
+        QUANTITY: 10 pkgs.
+        PRICE: 12.75
+        INSTOCK: 15
+        ONORDER: 70
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 38
+        NAME: Cte de Blaye
+        SUPPLIERID: 18
+        CATEGORYID: 1
+        QUANTITY: 12 - 75 cl bottles
+        PRICE: 263.5
+        INSTOCK: 17
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 58
+        NAME: Escargots de Bourgogne
+        SUPPLIERID: 27
+        CATEGORYID: 8
+        QUANTITY: 24 pieces
+        PRICE: 13.25
+        INSTOCK: 62
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 52
+        NAME: Filo Mix
+        SUPPLIERID: 24
+        CATEGORYID: 5
+        QUANTITY: 16 - 2 kg boxes
+        PRICE: 7
+        INSTOCK: 38
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 71
+        NAME: Flotemysost
+        SUPPLIERID: 15
+        CATEGORYID: 4
+        QUANTITY: 10 - 500 g pkgs.
+        PRICE: 21.5
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 33
+        NAME: Geitost
+        SUPPLIERID: 15
+        CATEGORYID: 4
+        QUANTITY: 500 g
+        PRICE: 2.5
+        INSTOCK: 112
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 15
+        NAME: Genen Shouyu
+        SUPPLIERID: 6
+        CATEGORYID: 2
+        QUANTITY: 24 - 250 ml bottles
+        PRICE: 15.5
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 56
+        NAME: Gnocchi di nonna Alice
+        SUPPLIERID: 26
+        CATEGORYID: 5
+        QUANTITY: 24 - 250 g pkgs.
+        PRICE: 38
+        INSTOCK: 21
+        ONORDER: 10
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 31
+        NAME: Gorgonzola Telino
+        SUPPLIERID: 14
+        CATEGORYID: 4
+        QUANTITY: 12 - 100 g pkgs
+        PRICE: 12.5
+        INSTOCK: 0
+        ONORDER: 70
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 6
+        NAME: Grandma's Boysenberry Spread
+        SUPPLIERID: 3
+        CATEGORYID: 2
+        QUANTITY: 12 - 8 oz jars
+        PRICE: 25
+        INSTOCK: 120
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 37
+        NAME: Gravad lax
+        SUPPLIERID: 17
+        CATEGORYID: 8
+        QUANTITY: 12 - 500 g pkgs.
+        PRICE: 26
+        INSTOCK: 11
+        ONORDER: 50
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 24
+        NAME: Guaran Fantstica
+        SUPPLIERID: 10
+        CATEGORYID: 1
+        QUANTITY: 12 - 355 ml cans
+        PRICE: 4.5
+        INSTOCK: 20
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 69
+        NAME: Gudbrandsdalsost
+        SUPPLIERID: 15
+        CATEGORYID: 4
+        QUANTITY: 10 kg pkg.
+        PRICE: 36
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 44
+        NAME: Gula Malacca
+        SUPPLIERID: 20
+        CATEGORYID: 2
+        QUANTITY: 20 - 2 kg bags
+        PRICE: 19.45
+        INSTOCK: 27
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 26
+        NAME: Gumbr Gummibrchen
+        SUPPLIERID: 11
+        CATEGORYID: 3
+        QUANTITY: 100 - 250 g bags
+        PRICE: 31.23
+        INSTOCK: 15
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 22
+        NAME: Gustaf's Knckebrd
+        SUPPLIERID: 9
+        CATEGORYID: 5
+        QUANTITY: 24 - 500 g pkgs.
+        PRICE: 21
+        INSTOCK: 104
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 10
+        NAME: Ikura
+        SUPPLIERID: 4
+        CATEGORYID: 8
+        QUANTITY: 12 - 200 ml jars
+        PRICE: 31
+        INSTOCK: 31
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 36
+        NAME: Inlagd Sill
+        SUPPLIERID: 17
+        CATEGORYID: 8
+        QUANTITY: 24 - 250 g  jars
+        PRICE: 19
+        INSTOCK: 112
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 43
+        NAME: Ipoh Coffee
+        SUPPLIERID: 20
+        CATEGORYID: 1
+        QUANTITY: 16 - 500 g tins
+        PRICE: 46
+        INSTOCK: 17
+        ONORDER: 10
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 41
+        NAME: Jack's New England Clam Chowder
+        SUPPLIERID: 19
+        CATEGORYID: 8
+        QUANTITY: 12 - 12 oz cans
+        PRICE: 9.65
+        INSTOCK: 85
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 13
+        NAME: Konbu
+        SUPPLIERID: 6
+        CATEGORYID: 8
+        QUANTITY: 2 kg box
+        PRICE: 6
+        INSTOCK: 24
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 76
+        NAME: Lakkalikri
+        SUPPLIERID: 23
+        CATEGORYID: 1
+        QUANTITY: 500 ml
+        PRICE: 18
+        INSTOCK: 57
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 67
+        NAME: Laughing Lumberjack Lager
+        SUPPLIERID: 16
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 14
+        INSTOCK: 52
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 74
+        NAME: Longlife Tofu
+        SUPPLIERID: 4
+        CATEGORYID: 7
+        QUANTITY: 5 kg pkg.
+        PRICE: 10
+        INSTOCK: 4
+        ONORDER: 20
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 65
+        NAME: Louisiana Fiery Hot Pepper Sauce
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 32 - 8 oz bottles
+        PRICE: 21.05
+        INSTOCK: 76
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 66
+        NAME: Louisiana Hot Spiced Okra
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 24 - 8 oz jars
+        PRICE: 17
+        INSTOCK: 4
+        ONORDER: 100
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 51
+        NAME: Manjimup Dried Apples
+        SUPPLIERID: 24
+        CATEGORYID: 7
+        QUANTITY: 50 - 300 g pkgs.
+        PRICE: 53
+        INSTOCK: 20
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 32
+        NAME: Mascarpone Fabioli
+        SUPPLIERID: 14
+        CATEGORYID: 4
+        QUANTITY: 24 - 200 g pkgs.
+        PRICE: 32
+        INSTOCK: 9
+        ONORDER: 40
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 49
+        NAME: Maxilaku
+        SUPPLIERID: 23
+        CATEGORYID: 3
+        QUANTITY: 24 - 50 g pkgs.
+        PRICE: 20
+        INSTOCK: 10
+        ONORDER: 60
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 9
+        NAME: Mishi Kobe Niku
+        SUPPLIERID: 4
+        CATEGORYID: 6
+        QUANTITY: 18 - 500 g pkgs.
+        PRICE: 97
+        INSTOCK: 29
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 72
+        NAME: Mozzarella di Giovanni
+        SUPPLIERID: 14
+        CATEGORYID: 4
+        QUANTITY: 24 - 200 g pkgs.
+        PRICE: 34.800000000000004
+        INSTOCK: 14
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 30
+        NAME: Nord-Ost Matjeshering
+        SUPPLIERID: 13
+        CATEGORYID: 8
+        QUANTITY: 10 - 200 g glasses
+        PRICE: 25.89
+        INSTOCK: 10
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 8
+        NAME: Northwoods Cranberry Sauce
+        SUPPLIERID: 3
+        CATEGORYID: 2
+        QUANTITY: 12 - 12 oz jars
+        PRICE: 40
+        INSTOCK: 6
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 25
+        NAME: NuNuCa Nu-Nougat-Creme
+        SUPPLIERID: 11
+        CATEGORYID: 3
+        QUANTITY: 20 - 450 g glasses
+        PRICE: 14
+        INSTOCK: 76
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 77
+        NAME: Original Frankfurter grne Soe
+        SUPPLIERID: 12
+        CATEGORYID: 2
+        QUANTITY: 12 boxes
+        PRICE: 13
+        INSTOCK: 32
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 70
+        NAME: Outback Lager
+        SUPPLIERID: 7
+        CATEGORYID: 1
+        QUANTITY: 24 - 355 ml bottles
+        PRICE: 15
+        INSTOCK: 15
+        ONORDER: 10
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 16
+        NAME: Pavlova
+        SUPPLIERID: 7
+        CATEGORYID: 3
+        QUANTITY: 32 - 500 g boxes
+        PRICE: 17.45
+        INSTOCK: 29
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 53
+        NAME: Perth Pasties
+        SUPPLIERID: 24
+        CATEGORYID: 6
+        QUANTITY: 48 pieces
+        PRICE: 32.8
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 55
+        NAME: Pt chinois
+        SUPPLIERID: 25
+        CATEGORYID: 6
+        QUANTITY: 24 boxes x 2 pies
+        PRICE: 24
+        INSTOCK: 115
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 11
+        NAME: Queso Cabrales
+        SUPPLIERID: 5
+        CATEGORYID: 4
+        QUANTITY: 1 kg pkg.
+        PRICE: 21
+        INSTOCK: 22
+        ONORDER: 30
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 12
+        NAME: Queso Manchego La Pastora
+        SUPPLIERID: 5
+        CATEGORYID: 4
+        QUANTITY: 10 - 500 g pkgs.
+        PRICE: 38
+        INSTOCK: 86
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 59
+        NAME: Raclette Courdavault
+        SUPPLIERID: 28
+        CATEGORYID: 4
+        QUANTITY: 5 kg pkg.
+        PRICE: 55
+        INSTOCK: 79
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 57
+        NAME: Ravioli Angelo
+        SUPPLIERID: 26
+        CATEGORYID: 5
+        QUANTITY: 24 - 250 g pkgs.
+        PRICE: 19.5
+        INSTOCK: 36
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 73
+        NAME: Rd Kaviar
+        SUPPLIERID: 17
+        CATEGORYID: 8
+        QUANTITY: 24 - 150 g jars
+        PRICE: 15
+        INSTOCK: 101
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 75
+        NAME: Rhnbru Klosterbier
+        SUPPLIERID: 12
+        CATEGORYID: 1
+        QUANTITY: 24 - 0.5 l bottles
+        PRICE: 7.75
+        INSTOCK: 125
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 45
+        NAME: Rogede sild
+        SUPPLIERID: 21
+        CATEGORYID: 8
+        QUANTITY: 1k pkg.
+        PRICE: 9.5
+        INSTOCK: 5
+        ONORDER: 70
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 28
+        NAME: Rssle Sauerkraut
+        SUPPLIERID: 12
+        CATEGORYID: 7
+        QUANTITY: 25 - 825 g cans
+        PRICE: 45.6
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 34
+        NAME: Sasquatch Ale
+        SUPPLIERID: 16
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 14
+        INSTOCK: 111
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 27
+        NAME: Schoggi Schokolade
+        SUPPLIERID: 11
+        CATEGORYID: 3
+        QUANTITY: 100 - 100 g pieces
+        PRICE: 43.9
+        INSTOCK: 49
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 68
+        NAME: Scottish Longbreads
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 10 boxes x 8 pieces
+        PRICE: 12.5
+        INSTOCK: 6
+        ONORDER: 10
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 42
+        NAME: Singaporean Hokkien Fried Mee
+        SUPPLIERID: 20
+        CATEGORYID: 5
+        QUANTITY: 32 - 1 kg pkgs.
+        PRICE: 14
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 20
+        NAME: Sir Rodney's Marmalade
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 30 gift boxes
+        PRICE: 81
+        INSTOCK: 40
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 21
+        NAME: Sir Rodney's Scones
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 24 pkgs. x 4 pieces
+        PRICE: 10
+        INSTOCK: 3
+        ONORDER: 40
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 61
+        NAME: Sirop d'rable
+        SUPPLIERID: 29
+        CATEGORYID: 2
+        QUANTITY: 24 - 500 ml bottles
+        PRICE: 28.5
+        INSTOCK: 113
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 46
+        NAME: Spegesild
+        SUPPLIERID: 21
+        CATEGORYID: 8
+        QUANTITY: 4 - 450 g glasses
+        PRICE: 12
+        INSTOCK: 95
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 35
+        NAME: Steeleye Stout
+        SUPPLIERID: 16
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 18
+        INSTOCK: 20
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 62
+        NAME: Tarte au sucre
+        SUPPLIERID: 29
+        CATEGORYID: 3
+        QUANTITY: 48 pies
+        PRICE: 49.300000000000004
+        INSTOCK: 17
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 19
+        NAME: Teatime Chocolate Biscuits
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 10 boxes x 12 pieces
+        PRICE: 9.200000000000001
+        INSTOCK: 25
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 29
+        NAME: Thringer Rostbratwurst
+        SUPPLIERID: 12
+        CATEGORYID: 6
+        QUANTITY: 50 bags x 30 sausgs.
+        PRICE: 123.79
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 14
+        NAME: Tofu
+        SUPPLIERID: 6
+        CATEGORYID: 7
+        QUANTITY: 40 - 100 g pkgs.
+        PRICE: 23.25
+        INSTOCK: 35
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 54
+        NAME: Tourtire
+        SUPPLIERID: 25
+        CATEGORYID: 6
+        QUANTITY: 16 pies
+        PRICE: 7.45
+        INSTOCK: 21
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 23
+        NAME: Tunnbrd
+        SUPPLIERID: 9
+        CATEGORYID: 5
+        QUANTITY: 12 - 250 g pkgs.
+        PRICE: 9
+        INSTOCK: 61
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 7
+        NAME: Uncle Bob's Organic Dried Pears
+        SUPPLIERID: 3
+        CATEGORYID: 7
+        QUANTITY: 12 - 1 lb pkgs.
+        PRICE: 30
+        INSTOCK: 15
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 50
+        NAME: Valkoinen suklaa
+        SUPPLIERID: 23
+        CATEGORYID: 3
+        QUANTITY: 12 - 100 g bars
+        PRICE: 16.25
+        INSTOCK: 65
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 63
+        NAME: Vegie-spread
+        SUPPLIERID: 7
+        CATEGORYID: 2
+        QUANTITY: 15 - 625 g jars
+        PRICE: 43.9
+        INSTOCK: 24
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 64
+        NAME: Wimmers gute Semmelkndel
+        SUPPLIERID: 12
+        CATEGORYID: 5
+        QUANTITY: 20 bags x 4 pieces
+        PRICE: 33.25
+        INSTOCK: 22
+        ONORDER: 80
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 47
+        NAME: Zaanse koeken
+        SUPPLIERID: 22
+        CATEGORYID: 3
+        QUANTITY: 10 - 4 oz boxes
+        PRICE: 9.5
+        INSTOCK: 36
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
   - name: query 2
     sentences:
       - stage: Oracle
@@ -999,12 +999,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
-            p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
+            asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
     errors: 0
     expression: Products.map(p=>p).sort(p=>p.id).page(1,1)
@@ -1217,16 +1217,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
   - name: query 3
     sentences:
       - stage: Oracle
@@ -1235,12 +1235,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
-            p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
+            asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
     errors: 0
     expression: Products.sort(p=>p.id).page(1,1)
@@ -1453,16 +1453,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
   - name: query 4
     data: a
     sentences:
@@ -1472,12 +1472,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID
-            = :id ORDER BY p.ProductID asc 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID =
+            :id ORDER BY p.ProductID asc 
           children: []
     errors: 0
     expression: Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)
@@ -1702,16 +1702,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
   - name: query 5
     data: a
     sentences:
@@ -1721,12 +1721,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID
-            = :id ORDER BY p.ProductID asc 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID =
+            :id ORDER BY p.ProductID asc 
           children: []
     errors: 0
     expression: Products.filter(p=>(p.id===id)).sort(p=>p.id)
@@ -1951,16 +1951,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
   - name: query 6
     data: a
     sentences:
@@ -1970,7 +1970,7 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category_name" FROM Products p INNER JOIN
+            SELECT c.CategoryName AS category_name FROM Products p INNER JOIN
             Categories c ON c.CategoryID = p.CategoryID 
           children: []
     errors: 0
@@ -2043,83 +2043,83 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category_name: Beverages
-      - category_name: Beverages
-      - category_name: Condiments
-      - category_name: Condiments
-      - category_name: Condiments
-      - category_name: Condiments
-      - category_name: Produce
-      - category_name: Condiments
-      - category_name: Meat/Poultry
-      - category_name: Seafood
-      - category_name: Dairy Products
-      - category_name: Dairy Products
-      - category_name: Seafood
-      - category_name: Produce
-      - category_name: Condiments
-      - category_name: Confections
-      - category_name: Meat/Poultry
-      - category_name: Seafood
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Grains/Cereals
-      - category_name: Grains/Cereals
-      - category_name: Beverages
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Produce
-      - category_name: Meat/Poultry
-      - category_name: Seafood
-      - category_name: Dairy Products
-      - category_name: Dairy Products
-      - category_name: Dairy Products
-      - category_name: Beverages
-      - category_name: Beverages
-      - category_name: Seafood
-      - category_name: Seafood
-      - category_name: Beverages
-      - category_name: Beverages
-      - category_name: Seafood
-      - category_name: Seafood
-      - category_name: Grains/Cereals
-      - category_name: Beverages
-      - category_name: Condiments
-      - category_name: Seafood
-      - category_name: Seafood
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Confections
-      - category_name: Produce
-      - category_name: Grains/Cereals
-      - category_name: Meat/Poultry
-      - category_name: Meat/Poultry
-      - category_name: Meat/Poultry
-      - category_name: Grains/Cereals
-      - category_name: Grains/Cereals
-      - category_name: Seafood
-      - category_name: Dairy Products
-      - category_name: Dairy Products
-      - category_name: Condiments
-      - category_name: Confections
-      - category_name: Condiments
-      - category_name: Grains/Cereals
-      - category_name: Condiments
-      - category_name: Condiments
-      - category_name: Beverages
-      - category_name: Confections
-      - category_name: Dairy Products
-      - category_name: Beverages
-      - category_name: Dairy Products
-      - category_name: Dairy Products
-      - category_name: Seafood
-      - category_name: Produce
-      - category_name: Beverages
-      - category_name: Beverages
-      - category_name: Condiments
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Produce
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Produce
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Produce
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Produce
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Dairy Products
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Produce
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Condiments
   - name: query 7
     data: a
     sentences:
@@ -2129,9 +2129,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductName AS "name", c.CategoryName AS "category_name"
-            FROM Products p INNER JOIN Categories c ON c.CategoryID =
-            p.CategoryID 
+            SELECT p.ProductName AS name, c.CategoryName AS category_name FROM
+            Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
           children: []
     errors: 0
     expression: Products.map(p=>[p.name,p.category.name])
@@ -2218,160 +2217,160 @@ test:
     executions:
       - stage: Oracle
     result:
-      - name: Chai
-        category_name: Beverages
-      - name: Chang
-        category_name: Beverages
-      - name: Aniseed Syrup
-        category_name: Condiments
-      - name: Chef Anton's Cajun Seasoning
-        category_name: Condiments
-      - name: Chef Anton's Gumbo Mix
-        category_name: Condiments
-      - name: Grandma's Boysenberry Spread
-        category_name: Condiments
-      - name: Uncle Bob's Organic Dried Pears
-        category_name: Produce
-      - name: Northwoods Cranberry Sauce
-        category_name: Condiments
-      - name: Mishi Kobe Niku
-        category_name: Meat/Poultry
-      - name: Ikura
-        category_name: Seafood
-      - name: Queso Cabrales
-        category_name: Dairy Products
-      - name: Queso Manchego La Pastora
-        category_name: Dairy Products
-      - name: Konbu
-        category_name: Seafood
-      - name: Tofu
-        category_name: Produce
-      - name: Genen Shouyu
-        category_name: Condiments
-      - name: Pavlova
-        category_name: Confections
-      - name: Alice Mutton
-        category_name: Meat/Poultry
-      - name: Carnarvon Tigers
-        category_name: Seafood
-      - name: Teatime Chocolate Biscuits
-        category_name: Confections
-      - name: Sir Rodney's Marmalade
-        category_name: Confections
-      - name: Sir Rodney's Scones
-        category_name: Confections
-      - name: Gustaf's Knckebrd
-        category_name: Grains/Cereals
-      - name: Tunnbrd
-        category_name: Grains/Cereals
-      - name: Guaran Fantstica
-        category_name: Beverages
-      - name: NuNuCa Nu-Nougat-Creme
-        category_name: Confections
-      - name: Gumbr Gummibrchen
-        category_name: Confections
-      - name: Schoggi Schokolade
-        category_name: Confections
-      - name: Rssle Sauerkraut
-        category_name: Produce
-      - name: Thringer Rostbratwurst
-        category_name: Meat/Poultry
-      - name: Nord-Ost Matjeshering
-        category_name: Seafood
-      - name: Gorgonzola Telino
-        category_name: Dairy Products
-      - name: Mascarpone Fabioli
-        category_name: Dairy Products
-      - name: Geitost
-        category_name: Dairy Products
-      - name: Sasquatch Ale
-        category_name: Beverages
-      - name: Steeleye Stout
-        category_name: Beverages
-      - name: Inlagd Sill
-        category_name: Seafood
-      - name: Gravad lax
-        category_name: Seafood
-      - name: Cte de Blaye
-        category_name: Beverages
-      - name: Chartreuse verte
-        category_name: Beverages
-      - name: Boston Crab Meat
-        category_name: Seafood
-      - name: Jack's New England Clam Chowder
-        category_name: Seafood
-      - name: Singaporean Hokkien Fried Mee
-        category_name: Grains/Cereals
-      - name: Ipoh Coffee
-        category_name: Beverages
-      - name: Gula Malacca
-        category_name: Condiments
-      - name: Rogede sild
-        category_name: Seafood
-      - name: Spegesild
-        category_name: Seafood
-      - name: Zaanse koeken
-        category_name: Confections
-      - name: Chocolade
-        category_name: Confections
-      - name: Maxilaku
-        category_name: Confections
-      - name: Valkoinen suklaa
-        category_name: Confections
-      - name: Manjimup Dried Apples
-        category_name: Produce
-      - name: Filo Mix
-        category_name: Grains/Cereals
-      - name: Perth Pasties
-        category_name: Meat/Poultry
-      - name: Tourtire
-        category_name: Meat/Poultry
-      - name: Pt chinois
-        category_name: Meat/Poultry
-      - name: Gnocchi di nonna Alice
-        category_name: Grains/Cereals
-      - name: Ravioli Angelo
-        category_name: Grains/Cereals
-      - name: Escargots de Bourgogne
-        category_name: Seafood
-      - name: Raclette Courdavault
-        category_name: Dairy Products
-      - name: Camembert Pierrot
-        category_name: Dairy Products
-      - name: Sirop d'rable
-        category_name: Condiments
-      - name: Tarte au sucre
-        category_name: Confections
-      - name: Vegie-spread
-        category_name: Condiments
-      - name: Wimmers gute Semmelkndel
-        category_name: Grains/Cereals
-      - name: Louisiana Fiery Hot Pepper Sauce
-        category_name: Condiments
-      - name: Louisiana Hot Spiced Okra
-        category_name: Condiments
-      - name: Laughing Lumberjack Lager
-        category_name: Beverages
-      - name: Scottish Longbreads
-        category_name: Confections
-      - name: Gudbrandsdalsost
-        category_name: Dairy Products
-      - name: Outback Lager
-        category_name: Beverages
-      - name: Flotemysost
-        category_name: Dairy Products
-      - name: Mozzarella di Giovanni
-        category_name: Dairy Products
-      - name: Rd Kaviar
-        category_name: Seafood
-      - name: Longlife Tofu
-        category_name: Produce
-      - name: Rhnbru Klosterbier
-        category_name: Beverages
-      - name: Lakkalikri
-        category_name: Beverages
-      - name: Original Frankfurter grne Soe
-        category_name: Condiments
+      - NAME: Chai
+        CATEGORY_NAME: Beverages
+      - NAME: Chang
+        CATEGORY_NAME: Beverages
+      - NAME: Aniseed Syrup
+        CATEGORY_NAME: Condiments
+      - NAME: Chef Anton's Cajun Seasoning
+        CATEGORY_NAME: Condiments
+      - NAME: Chef Anton's Gumbo Mix
+        CATEGORY_NAME: Condiments
+      - NAME: Grandma's Boysenberry Spread
+        CATEGORY_NAME: Condiments
+      - NAME: Uncle Bob's Organic Dried Pears
+        CATEGORY_NAME: Produce
+      - NAME: Northwoods Cranberry Sauce
+        CATEGORY_NAME: Condiments
+      - NAME: Mishi Kobe Niku
+        CATEGORY_NAME: Meat/Poultry
+      - NAME: Ikura
+        CATEGORY_NAME: Seafood
+      - NAME: Queso Cabrales
+        CATEGORY_NAME: Dairy Products
+      - NAME: Queso Manchego La Pastora
+        CATEGORY_NAME: Dairy Products
+      - NAME: Konbu
+        CATEGORY_NAME: Seafood
+      - NAME: Tofu
+        CATEGORY_NAME: Produce
+      - NAME: Genen Shouyu
+        CATEGORY_NAME: Condiments
+      - NAME: Pavlova
+        CATEGORY_NAME: Confections
+      - NAME: Alice Mutton
+        CATEGORY_NAME: Meat/Poultry
+      - NAME: Carnarvon Tigers
+        CATEGORY_NAME: Seafood
+      - NAME: Teatime Chocolate Biscuits
+        CATEGORY_NAME: Confections
+      - NAME: Sir Rodney's Marmalade
+        CATEGORY_NAME: Confections
+      - NAME: Sir Rodney's Scones
+        CATEGORY_NAME: Confections
+      - NAME: Gustaf's Knckebrd
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Tunnbrd
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Guaran Fantstica
+        CATEGORY_NAME: Beverages
+      - NAME: NuNuCa Nu-Nougat-Creme
+        CATEGORY_NAME: Confections
+      - NAME: Gumbr Gummibrchen
+        CATEGORY_NAME: Confections
+      - NAME: Schoggi Schokolade
+        CATEGORY_NAME: Confections
+      - NAME: Rssle Sauerkraut
+        CATEGORY_NAME: Produce
+      - NAME: Thringer Rostbratwurst
+        CATEGORY_NAME: Meat/Poultry
+      - NAME: Nord-Ost Matjeshering
+        CATEGORY_NAME: Seafood
+      - NAME: Gorgonzola Telino
+        CATEGORY_NAME: Dairy Products
+      - NAME: Mascarpone Fabioli
+        CATEGORY_NAME: Dairy Products
+      - NAME: Geitost
+        CATEGORY_NAME: Dairy Products
+      - NAME: Sasquatch Ale
+        CATEGORY_NAME: Beverages
+      - NAME: Steeleye Stout
+        CATEGORY_NAME: Beverages
+      - NAME: Inlagd Sill
+        CATEGORY_NAME: Seafood
+      - NAME: Gravad lax
+        CATEGORY_NAME: Seafood
+      - NAME: Cte de Blaye
+        CATEGORY_NAME: Beverages
+      - NAME: Chartreuse verte
+        CATEGORY_NAME: Beverages
+      - NAME: Boston Crab Meat
+        CATEGORY_NAME: Seafood
+      - NAME: Jack's New England Clam Chowder
+        CATEGORY_NAME: Seafood
+      - NAME: Singaporean Hokkien Fried Mee
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Ipoh Coffee
+        CATEGORY_NAME: Beverages
+      - NAME: Gula Malacca
+        CATEGORY_NAME: Condiments
+      - NAME: Rogede sild
+        CATEGORY_NAME: Seafood
+      - NAME: Spegesild
+        CATEGORY_NAME: Seafood
+      - NAME: Zaanse koeken
+        CATEGORY_NAME: Confections
+      - NAME: Chocolade
+        CATEGORY_NAME: Confections
+      - NAME: Maxilaku
+        CATEGORY_NAME: Confections
+      - NAME: Valkoinen suklaa
+        CATEGORY_NAME: Confections
+      - NAME: Manjimup Dried Apples
+        CATEGORY_NAME: Produce
+      - NAME: Filo Mix
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Perth Pasties
+        CATEGORY_NAME: Meat/Poultry
+      - NAME: Tourtire
+        CATEGORY_NAME: Meat/Poultry
+      - NAME: Pt chinois
+        CATEGORY_NAME: Meat/Poultry
+      - NAME: Gnocchi di nonna Alice
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Ravioli Angelo
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Escargots de Bourgogne
+        CATEGORY_NAME: Seafood
+      - NAME: Raclette Courdavault
+        CATEGORY_NAME: Dairy Products
+      - NAME: Camembert Pierrot
+        CATEGORY_NAME: Dairy Products
+      - NAME: Sirop d'rable
+        CATEGORY_NAME: Condiments
+      - NAME: Tarte au sucre
+        CATEGORY_NAME: Confections
+      - NAME: Vegie-spread
+        CATEGORY_NAME: Condiments
+      - NAME: Wimmers gute Semmelkndel
+        CATEGORY_NAME: Grains/Cereals
+      - NAME: Louisiana Fiery Hot Pepper Sauce
+        CATEGORY_NAME: Condiments
+      - NAME: Louisiana Hot Spiced Okra
+        CATEGORY_NAME: Condiments
+      - NAME: Laughing Lumberjack Lager
+        CATEGORY_NAME: Beverages
+      - NAME: Scottish Longbreads
+        CATEGORY_NAME: Confections
+      - NAME: Gudbrandsdalsost
+        CATEGORY_NAME: Dairy Products
+      - NAME: Outback Lager
+        CATEGORY_NAME: Beverages
+      - NAME: Flotemysost
+        CATEGORY_NAME: Dairy Products
+      - NAME: Mozzarella di Giovanni
+        CATEGORY_NAME: Dairy Products
+      - NAME: Rd Kaviar
+        CATEGORY_NAME: Seafood
+      - NAME: Longlife Tofu
+        CATEGORY_NAME: Produce
+      - NAME: Rhnbru Klosterbier
+        CATEGORY_NAME: Beverages
+      - NAME: Lakkalikri
+        CATEGORY_NAME: Beverages
+      - NAME: Original Frankfurter grne Soe
+        CATEGORY_NAME: Condiments
   - name: query 8
     sentences:
       - stage: Oracle
@@ -2380,8 +2379,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category", p.ProductName AS "name",
-            p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+            SELECT c.CategoryName AS category, p.ProductName AS name,
+            p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
             ORDER BY p.ProductName asc 
           children: []
@@ -2517,314 +2516,314 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category: Meat/Poultry
-        name: Alice Mutton
-        quantity: 20 - 1 kg tins
-        inStock: 0
-      - category: Condiments
-        name: Aniseed Syrup
-        quantity: 12 - 550 ml bottles
-        inStock: 13
-      - category: Seafood
-        name: Boston Crab Meat
-        quantity: 24 - 4 oz tins
-        inStock: 123
-      - category: Dairy Products
-        name: Camembert Pierrot
-        quantity: 15 - 300 g rounds
-        inStock: 19
-      - category: Seafood
-        name: Carnarvon Tigers
-        quantity: 16 kg pkg.
-        inStock: 42
-      - category: Beverages
-        name: Chai
-        quantity: 10 boxes x 20 bags
-        inStock: 39
-      - category: Beverages
-        name: Chang
-        quantity: 24 - 12 oz bottles
-        inStock: 17
-      - category: Beverages
-        name: Chartreuse verte
-        quantity: 750 cc per bottle
-        inStock: 69
-      - category: Condiments
-        name: Chef Anton's Cajun Seasoning
-        quantity: 48 - 6 oz jars
-        inStock: 53
-      - category: Condiments
-        name: Chef Anton's Gumbo Mix
-        quantity: 36 boxes
-        inStock: 0
-      - category: Confections
-        name: Chocolade
-        quantity: 10 pkgs.
-        inStock: 15
-      - category: Beverages
-        name: Cte de Blaye
-        quantity: 12 - 75 cl bottles
-        inStock: 17
-      - category: Seafood
-        name: Escargots de Bourgogne
-        quantity: 24 pieces
-        inStock: 62
-      - category: Grains/Cereals
-        name: Filo Mix
-        quantity: 16 - 2 kg boxes
-        inStock: 38
-      - category: Dairy Products
-        name: Flotemysost
-        quantity: 10 - 500 g pkgs.
-        inStock: 26
-      - category: Dairy Products
-        name: Geitost
-        quantity: 500 g
-        inStock: 112
-      - category: Condiments
-        name: Genen Shouyu
-        quantity: 24 - 250 ml bottles
-        inStock: 39
-      - category: Grains/Cereals
-        name: Gnocchi di nonna Alice
-        quantity: 24 - 250 g pkgs.
-        inStock: 21
-      - category: Dairy Products
-        name: Gorgonzola Telino
-        quantity: 12 - 100 g pkgs
-        inStock: 0
-      - category: Condiments
-        name: Grandma's Boysenberry Spread
-        quantity: 12 - 8 oz jars
-        inStock: 120
-      - category: Seafood
-        name: Gravad lax
-        quantity: 12 - 500 g pkgs.
-        inStock: 11
-      - category: Beverages
-        name: Guaran Fantstica
-        quantity: 12 - 355 ml cans
-        inStock: 20
-      - category: Dairy Products
-        name: Gudbrandsdalsost
-        quantity: 10 kg pkg.
-        inStock: 26
-      - category: Condiments
-        name: Gula Malacca
-        quantity: 20 - 2 kg bags
-        inStock: 27
-      - category: Confections
-        name: Gumbr Gummibrchen
-        quantity: 100 - 250 g bags
-        inStock: 15
-      - category: Grains/Cereals
-        name: Gustaf's Knckebrd
-        quantity: 24 - 500 g pkgs.
-        inStock: 104
-      - category: Seafood
-        name: Ikura
-        quantity: 12 - 200 ml jars
-        inStock: 31
-      - category: Seafood
-        name: Inlagd Sill
-        quantity: 24 - 250 g  jars
-        inStock: 112
-      - category: Beverages
-        name: Ipoh Coffee
-        quantity: 16 - 500 g tins
-        inStock: 17
-      - category: Seafood
-        name: Jack's New England Clam Chowder
-        quantity: 12 - 12 oz cans
-        inStock: 85
-      - category: Seafood
-        name: Konbu
-        quantity: 2 kg box
-        inStock: 24
-      - category: Beverages
-        name: Lakkalikri
-        quantity: 500 ml
-        inStock: 57
-      - category: Beverages
-        name: Laughing Lumberjack Lager
-        quantity: 24 - 12 oz bottles
-        inStock: 52
-      - category: Produce
-        name: Longlife Tofu
-        quantity: 5 kg pkg.
-        inStock: 4
-      - category: Condiments
-        name: Louisiana Fiery Hot Pepper Sauce
-        quantity: 32 - 8 oz bottles
-        inStock: 76
-      - category: Condiments
-        name: Louisiana Hot Spiced Okra
-        quantity: 24 - 8 oz jars
-        inStock: 4
-      - category: Produce
-        name: Manjimup Dried Apples
-        quantity: 50 - 300 g pkgs.
-        inStock: 20
-      - category: Dairy Products
-        name: Mascarpone Fabioli
-        quantity: 24 - 200 g pkgs.
-        inStock: 9
-      - category: Confections
-        name: Maxilaku
-        quantity: 24 - 50 g pkgs.
-        inStock: 10
-      - category: Meat/Poultry
-        name: Mishi Kobe Niku
-        quantity: 18 - 500 g pkgs.
-        inStock: 29
-      - category: Dairy Products
-        name: Mozzarella di Giovanni
-        quantity: 24 - 200 g pkgs.
-        inStock: 14
-      - category: Seafood
-        name: Nord-Ost Matjeshering
-        quantity: 10 - 200 g glasses
-        inStock: 10
-      - category: Condiments
-        name: Northwoods Cranberry Sauce
-        quantity: 12 - 12 oz jars
-        inStock: 6
-      - category: Confections
-        name: NuNuCa Nu-Nougat-Creme
-        quantity: 20 - 450 g glasses
-        inStock: 76
-      - category: Condiments
-        name: Original Frankfurter grne Soe
-        quantity: 12 boxes
-        inStock: 32
-      - category: Beverages
-        name: Outback Lager
-        quantity: 24 - 355 ml bottles
-        inStock: 15
-      - category: Confections
-        name: Pavlova
-        quantity: 32 - 500 g boxes
-        inStock: 29
-      - category: Meat/Poultry
-        name: Perth Pasties
-        quantity: 48 pieces
-        inStock: 0
-      - category: Meat/Poultry
-        name: Pt chinois
-        quantity: 24 boxes x 2 pies
-        inStock: 115
-      - category: Dairy Products
-        name: Queso Cabrales
-        quantity: 1 kg pkg.
-        inStock: 22
-      - category: Dairy Products
-        name: Queso Manchego La Pastora
-        quantity: 10 - 500 g pkgs.
-        inStock: 86
-      - category: Dairy Products
-        name: Raclette Courdavault
-        quantity: 5 kg pkg.
-        inStock: 79
-      - category: Grains/Cereals
-        name: Ravioli Angelo
-        quantity: 24 - 250 g pkgs.
-        inStock: 36
-      - category: Seafood
-        name: Rd Kaviar
-        quantity: 24 - 150 g jars
-        inStock: 101
-      - category: Beverages
-        name: Rhnbru Klosterbier
-        quantity: 24 - 0.5 l bottles
-        inStock: 125
-      - category: Seafood
-        name: Rogede sild
-        quantity: 1k pkg.
-        inStock: 5
-      - category: Produce
-        name: Rssle Sauerkraut
-        quantity: 25 - 825 g cans
-        inStock: 26
-      - category: Beverages
-        name: Sasquatch Ale
-        quantity: 24 - 12 oz bottles
-        inStock: 111
-      - category: Confections
-        name: Schoggi Schokolade
-        quantity: 100 - 100 g pieces
-        inStock: 49
-      - category: Confections
-        name: Scottish Longbreads
-        quantity: 10 boxes x 8 pieces
-        inStock: 6
-      - category: Grains/Cereals
-        name: Singaporean Hokkien Fried Mee
-        quantity: 32 - 1 kg pkgs.
-        inStock: 26
-      - category: Confections
-        name: Sir Rodney's Marmalade
-        quantity: 30 gift boxes
-        inStock: 40
-      - category: Confections
-        name: Sir Rodney's Scones
-        quantity: 24 pkgs. x 4 pieces
-        inStock: 3
-      - category: Condiments
-        name: Sirop d'rable
-        quantity: 24 - 500 ml bottles
-        inStock: 113
-      - category: Seafood
-        name: Spegesild
-        quantity: 4 - 450 g glasses
-        inStock: 95
-      - category: Beverages
-        name: Steeleye Stout
-        quantity: 24 - 12 oz bottles
-        inStock: 20
-      - category: Confections
-        name: Tarte au sucre
-        quantity: 48 pies
-        inStock: 17
-      - category: Confections
-        name: Teatime Chocolate Biscuits
-        quantity: 10 boxes x 12 pieces
-        inStock: 25
-      - category: Meat/Poultry
-        name: Thringer Rostbratwurst
-        quantity: 50 bags x 30 sausgs.
-        inStock: 0
-      - category: Produce
-        name: Tofu
-        quantity: 40 - 100 g pkgs.
-        inStock: 35
-      - category: Meat/Poultry
-        name: Tourtire
-        quantity: 16 pies
-        inStock: 21
-      - category: Grains/Cereals
-        name: Tunnbrd
-        quantity: 12 - 250 g pkgs.
-        inStock: 61
-      - category: Produce
-        name: Uncle Bob's Organic Dried Pears
-        quantity: 12 - 1 lb pkgs.
-        inStock: 15
-      - category: Confections
-        name: Valkoinen suklaa
-        quantity: 12 - 100 g bars
-        inStock: 65
-      - category: Condiments
-        name: Vegie-spread
-        quantity: 15 - 625 g jars
-        inStock: 24
-      - category: Grains/Cereals
-        name: Wimmers gute Semmelkndel
-        quantity: 20 bags x 4 pieces
-        inStock: 22
-      - category: Confections
-        name: Zaanse koeken
-        quantity: 10 - 4 oz boxes
-        inStock: 36
+      - CATEGORY: Meat/Poultry
+        NAME: Alice Mutton
+        QUANTITY: 20 - 1 kg tins
+        INSTOCK: 0
+      - CATEGORY: Condiments
+        NAME: Aniseed Syrup
+        QUANTITY: 12 - 550 ml bottles
+        INSTOCK: 13
+      - CATEGORY: Seafood
+        NAME: Boston Crab Meat
+        QUANTITY: 24 - 4 oz tins
+        INSTOCK: 123
+      - CATEGORY: Dairy Products
+        NAME: Camembert Pierrot
+        QUANTITY: 15 - 300 g rounds
+        INSTOCK: 19
+      - CATEGORY: Seafood
+        NAME: Carnarvon Tigers
+        QUANTITY: 16 kg pkg.
+        INSTOCK: 42
+      - CATEGORY: Beverages
+        NAME: Chai
+        QUANTITY: 10 boxes x 20 bags
+        INSTOCK: 39
+      - CATEGORY: Beverages
+        NAME: Chang
+        QUANTITY: 24 - 12 oz bottles
+        INSTOCK: 17
+      - CATEGORY: Beverages
+        NAME: Chartreuse verte
+        QUANTITY: 750 cc per bottle
+        INSTOCK: 69
+      - CATEGORY: Condiments
+        NAME: Chef Anton's Cajun Seasoning
+        QUANTITY: 48 - 6 oz jars
+        INSTOCK: 53
+      - CATEGORY: Condiments
+        NAME: Chef Anton's Gumbo Mix
+        QUANTITY: 36 boxes
+        INSTOCK: 0
+      - CATEGORY: Confections
+        NAME: Chocolade
+        QUANTITY: 10 pkgs.
+        INSTOCK: 15
+      - CATEGORY: Beverages
+        NAME: Cte de Blaye
+        QUANTITY: 12 - 75 cl bottles
+        INSTOCK: 17
+      - CATEGORY: Seafood
+        NAME: Escargots de Bourgogne
+        QUANTITY: 24 pieces
+        INSTOCK: 62
+      - CATEGORY: Grains/Cereals
+        NAME: Filo Mix
+        QUANTITY: 16 - 2 kg boxes
+        INSTOCK: 38
+      - CATEGORY: Dairy Products
+        NAME: Flotemysost
+        QUANTITY: 10 - 500 g pkgs.
+        INSTOCK: 26
+      - CATEGORY: Dairy Products
+        NAME: Geitost
+        QUANTITY: 500 g
+        INSTOCK: 112
+      - CATEGORY: Condiments
+        NAME: Genen Shouyu
+        QUANTITY: 24 - 250 ml bottles
+        INSTOCK: 39
+      - CATEGORY: Grains/Cereals
+        NAME: Gnocchi di nonna Alice
+        QUANTITY: 24 - 250 g pkgs.
+        INSTOCK: 21
+      - CATEGORY: Dairy Products
+        NAME: Gorgonzola Telino
+        QUANTITY: 12 - 100 g pkgs
+        INSTOCK: 0
+      - CATEGORY: Condiments
+        NAME: Grandma's Boysenberry Spread
+        QUANTITY: 12 - 8 oz jars
+        INSTOCK: 120
+      - CATEGORY: Seafood
+        NAME: Gravad lax
+        QUANTITY: 12 - 500 g pkgs.
+        INSTOCK: 11
+      - CATEGORY: Beverages
+        NAME: Guaran Fantstica
+        QUANTITY: 12 - 355 ml cans
+        INSTOCK: 20
+      - CATEGORY: Dairy Products
+        NAME: Gudbrandsdalsost
+        QUANTITY: 10 kg pkg.
+        INSTOCK: 26
+      - CATEGORY: Condiments
+        NAME: Gula Malacca
+        QUANTITY: 20 - 2 kg bags
+        INSTOCK: 27
+      - CATEGORY: Confections
+        NAME: Gumbr Gummibrchen
+        QUANTITY: 100 - 250 g bags
+        INSTOCK: 15
+      - CATEGORY: Grains/Cereals
+        NAME: Gustaf's Knckebrd
+        QUANTITY: 24 - 500 g pkgs.
+        INSTOCK: 104
+      - CATEGORY: Seafood
+        NAME: Ikura
+        QUANTITY: 12 - 200 ml jars
+        INSTOCK: 31
+      - CATEGORY: Seafood
+        NAME: Inlagd Sill
+        QUANTITY: 24 - 250 g  jars
+        INSTOCK: 112
+      - CATEGORY: Beverages
+        NAME: Ipoh Coffee
+        QUANTITY: 16 - 500 g tins
+        INSTOCK: 17
+      - CATEGORY: Seafood
+        NAME: Jack's New England Clam Chowder
+        QUANTITY: 12 - 12 oz cans
+        INSTOCK: 85
+      - CATEGORY: Seafood
+        NAME: Konbu
+        QUANTITY: 2 kg box
+        INSTOCK: 24
+      - CATEGORY: Beverages
+        NAME: Lakkalikri
+        QUANTITY: 500 ml
+        INSTOCK: 57
+      - CATEGORY: Beverages
+        NAME: Laughing Lumberjack Lager
+        QUANTITY: 24 - 12 oz bottles
+        INSTOCK: 52
+      - CATEGORY: Produce
+        NAME: Longlife Tofu
+        QUANTITY: 5 kg pkg.
+        INSTOCK: 4
+      - CATEGORY: Condiments
+        NAME: Louisiana Fiery Hot Pepper Sauce
+        QUANTITY: 32 - 8 oz bottles
+        INSTOCK: 76
+      - CATEGORY: Condiments
+        NAME: Louisiana Hot Spiced Okra
+        QUANTITY: 24 - 8 oz jars
+        INSTOCK: 4
+      - CATEGORY: Produce
+        NAME: Manjimup Dried Apples
+        QUANTITY: 50 - 300 g pkgs.
+        INSTOCK: 20
+      - CATEGORY: Dairy Products
+        NAME: Mascarpone Fabioli
+        QUANTITY: 24 - 200 g pkgs.
+        INSTOCK: 9
+      - CATEGORY: Confections
+        NAME: Maxilaku
+        QUANTITY: 24 - 50 g pkgs.
+        INSTOCK: 10
+      - CATEGORY: Meat/Poultry
+        NAME: Mishi Kobe Niku
+        QUANTITY: 18 - 500 g pkgs.
+        INSTOCK: 29
+      - CATEGORY: Dairy Products
+        NAME: Mozzarella di Giovanni
+        QUANTITY: 24 - 200 g pkgs.
+        INSTOCK: 14
+      - CATEGORY: Seafood
+        NAME: Nord-Ost Matjeshering
+        QUANTITY: 10 - 200 g glasses
+        INSTOCK: 10
+      - CATEGORY: Condiments
+        NAME: Northwoods Cranberry Sauce
+        QUANTITY: 12 - 12 oz jars
+        INSTOCK: 6
+      - CATEGORY: Confections
+        NAME: NuNuCa Nu-Nougat-Creme
+        QUANTITY: 20 - 450 g glasses
+        INSTOCK: 76
+      - CATEGORY: Condiments
+        NAME: Original Frankfurter grne Soe
+        QUANTITY: 12 boxes
+        INSTOCK: 32
+      - CATEGORY: Beverages
+        NAME: Outback Lager
+        QUANTITY: 24 - 355 ml bottles
+        INSTOCK: 15
+      - CATEGORY: Confections
+        NAME: Pavlova
+        QUANTITY: 32 - 500 g boxes
+        INSTOCK: 29
+      - CATEGORY: Meat/Poultry
+        NAME: Perth Pasties
+        QUANTITY: 48 pieces
+        INSTOCK: 0
+      - CATEGORY: Meat/Poultry
+        NAME: Pt chinois
+        QUANTITY: 24 boxes x 2 pies
+        INSTOCK: 115
+      - CATEGORY: Dairy Products
+        NAME: Queso Cabrales
+        QUANTITY: 1 kg pkg.
+        INSTOCK: 22
+      - CATEGORY: Dairy Products
+        NAME: Queso Manchego La Pastora
+        QUANTITY: 10 - 500 g pkgs.
+        INSTOCK: 86
+      - CATEGORY: Dairy Products
+        NAME: Raclette Courdavault
+        QUANTITY: 5 kg pkg.
+        INSTOCK: 79
+      - CATEGORY: Grains/Cereals
+        NAME: Ravioli Angelo
+        QUANTITY: 24 - 250 g pkgs.
+        INSTOCK: 36
+      - CATEGORY: Seafood
+        NAME: Rd Kaviar
+        QUANTITY: 24 - 150 g jars
+        INSTOCK: 101
+      - CATEGORY: Beverages
+        NAME: Rhnbru Klosterbier
+        QUANTITY: 24 - 0.5 l bottles
+        INSTOCK: 125
+      - CATEGORY: Seafood
+        NAME: Rogede sild
+        QUANTITY: 1k pkg.
+        INSTOCK: 5
+      - CATEGORY: Produce
+        NAME: Rssle Sauerkraut
+        QUANTITY: 25 - 825 g cans
+        INSTOCK: 26
+      - CATEGORY: Beverages
+        NAME: Sasquatch Ale
+        QUANTITY: 24 - 12 oz bottles
+        INSTOCK: 111
+      - CATEGORY: Confections
+        NAME: Schoggi Schokolade
+        QUANTITY: 100 - 100 g pieces
+        INSTOCK: 49
+      - CATEGORY: Confections
+        NAME: Scottish Longbreads
+        QUANTITY: 10 boxes x 8 pieces
+        INSTOCK: 6
+      - CATEGORY: Grains/Cereals
+        NAME: Singaporean Hokkien Fried Mee
+        QUANTITY: 32 - 1 kg pkgs.
+        INSTOCK: 26
+      - CATEGORY: Confections
+        NAME: Sir Rodney's Marmalade
+        QUANTITY: 30 gift boxes
+        INSTOCK: 40
+      - CATEGORY: Confections
+        NAME: Sir Rodney's Scones
+        QUANTITY: 24 pkgs. x 4 pieces
+        INSTOCK: 3
+      - CATEGORY: Condiments
+        NAME: Sirop d'rable
+        QUANTITY: 24 - 500 ml bottles
+        INSTOCK: 113
+      - CATEGORY: Seafood
+        NAME: Spegesild
+        QUANTITY: 4 - 450 g glasses
+        INSTOCK: 95
+      - CATEGORY: Beverages
+        NAME: Steeleye Stout
+        QUANTITY: 24 - 12 oz bottles
+        INSTOCK: 20
+      - CATEGORY: Confections
+        NAME: Tarte au sucre
+        QUANTITY: 48 pies
+        INSTOCK: 17
+      - CATEGORY: Confections
+        NAME: Teatime Chocolate Biscuits
+        QUANTITY: 10 boxes x 12 pieces
+        INSTOCK: 25
+      - CATEGORY: Meat/Poultry
+        NAME: Thringer Rostbratwurst
+        QUANTITY: 50 bags x 30 sausgs.
+        INSTOCK: 0
+      - CATEGORY: Produce
+        NAME: Tofu
+        QUANTITY: 40 - 100 g pkgs.
+        INSTOCK: 35
+      - CATEGORY: Meat/Poultry
+        NAME: Tourtire
+        QUANTITY: 16 pies
+        INSTOCK: 21
+      - CATEGORY: Grains/Cereals
+        NAME: Tunnbrd
+        QUANTITY: 12 - 250 g pkgs.
+        INSTOCK: 61
+      - CATEGORY: Produce
+        NAME: Uncle Bob's Organic Dried Pears
+        QUANTITY: 12 - 1 lb pkgs.
+        INSTOCK: 15
+      - CATEGORY: Confections
+        NAME: Valkoinen suklaa
+        QUANTITY: 12 - 100 g bars
+        INSTOCK: 65
+      - CATEGORY: Condiments
+        NAME: Vegie-spread
+        QUANTITY: 15 - 625 g jars
+        INSTOCK: 24
+      - CATEGORY: Grains/Cereals
+        NAME: Wimmers gute Semmelkndel
+        QUANTITY: 20 bags x 4 pieces
+        INSTOCK: 22
+      - CATEGORY: Confections
+        NAME: Zaanse koeken
+        QUANTITY: 10 - 4 oz boxes
+        INSTOCK: 36
   - name: query 9
     sentences:
       - stage: Oracle
@@ -2833,8 +2832,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category", p.ProductName AS "name",
-            p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+            SELECT c.CategoryName AS category, p.ProductName AS name,
+            p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
             WHERE p.Discontinued <> N ORDER BY category asc, p.ProductName desc 
           children: []
@@ -3003,7 +3002,7 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'Error: ORA-00904: "CATEGORY": invalid identifier'
+        error: 'TypeError: Cannot read property ''length'' of undefined'
   - name: query 10
     data: b
     sentences:
@@ -3013,8 +3012,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category", p.ProductName AS "product",
-            o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
+            SELECT c.CategoryName AS category, p.ProductName AS product,
+            o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM "Order
             Details" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
             Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
             c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :from AND
@@ -3267,7 +3266,7 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01745: invalid host/bind variable name'
+        error: 'TypeError: Cannot read property ''length'' of undefined'
   - name: query 11
     sentences:
       - stage: Oracle
@@ -3276,12 +3275,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
-            p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
+            asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
     errors: 0
     expression: Products.sort(p=>p.id).page(1,1)
@@ -3494,16 +3493,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
   - name: query 12
     sentences:
       - stage: Oracle
@@ -3512,12 +3511,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
-            p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
+            asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
     errors: 0
     expression: Products.first(p=>p)
@@ -3730,16 +3729,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
   - name: query 13
     sentences:
       - stage: Oracle
@@ -3748,12 +3747,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
-            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
-            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
-            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
-            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
-            p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
+            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
+            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
+            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
+            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
+            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
+            desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
     errors: 0
     expression: Products.last(p=>p)
@@ -3966,16 +3965,16 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 77
-        name: Original Frankfurter grne Soe
-        supplierId: 12
-        categoryId: 2
-        quantity: 12 boxes
-        price: 13
-        inStock: 32
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
+      - ID: 77
+        NAME: Original Frankfurter grne Soe
+        SUPPLIERID: 12
+        CATEGORYID: 2
+        QUANTITY: 12 boxes
+        PRICE: 13
+        INSTOCK: 32
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
   - name: query 14
     sentences:
       - stage: Oracle
@@ -3984,8 +3983,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT c.CategoryName AS "category", p.ProductName AS "name",
-            p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
+            SELECT c.CategoryName AS category, p.ProductName AS name,
+            p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
             ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
@@ -4133,10 +4132,10 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category: Beverages
-        name: Chai
-        quantity: 10 boxes x 20 bags
-        inStock: 39
+      - CATEGORY: Beverages
+        NAME: Chai
+        QUANTITY: 10 boxes x 20 bags
+        INSTOCK: 39
   - name: query 15
     sentences:
       - stage: Oracle
@@ -4145,8 +4144,8 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT p.ProductID AS "id" FROM Products p  WHERE p.Discontinued <>
-            N ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
+            SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> N
+            ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
           children: []
     errors: 1
     expression: Products.filter(p=>(p.discontinued!==false)).last(p=>p.id)
@@ -4242,7 +4241,7 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'Error: ORA-00904: "N": invalid identifier'
+        error: 'TypeError: Cannot read property ''length'' of undefined'
   - name: query 16
     sentences:
       - stage: Oracle
@@ -4251,12 +4250,12 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
-            p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-            p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-            p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-            p.ReorderLevel AS "reorderLevel", p.Discontinued AS "discontinued"
-            FROM Products p  ORDER BY p.ProductID asc 
+            SELECT DISTINCT p.ProductID AS id, p.ProductName AS name,
+            p.SupplierID AS supplierId, p.CategoryID AS categoryId,
+            p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock
+            AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS
+            reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER
+            BY p.ProductID asc 
           children: []
     errors: 0
     expression: Products.distinct(p=>p).sort(p=>p.id)
@@ -4461,776 +4460,776 @@ test:
     executions:
       - stage: Oracle
     result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 2
-        name: Chang
-        supplierId: 1
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 19
-        inStock: 17
-        onOrder: 40
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 3
-        name: Aniseed Syrup
-        supplierId: 1
-        categoryId: 2
-        quantity: 12 - 550 ml bottles
-        price: 10
-        inStock: 13
-        onOrder: 70
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 4
-        name: Chef Anton's Cajun Seasoning
-        supplierId: 2
-        categoryId: 2
-        quantity: 48 - 6 oz jars
-        price: 22
-        inStock: 53
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 5
-        name: Chef Anton's Gumbo Mix
-        supplierId: 2
-        categoryId: 2
-        quantity: 36 boxes
-        price: 21.35
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 6
-        name: Grandma's Boysenberry Spread
-        supplierId: 3
-        categoryId: 2
-        quantity: 12 - 8 oz jars
-        price: 25
-        inStock: 120
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 7
-        name: Uncle Bob's Organic Dried Pears
-        supplierId: 3
-        categoryId: 7
-        quantity: 12 - 1 lb pkgs.
-        price: 30
-        inStock: 15
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 8
-        name: Northwoods Cranberry Sauce
-        supplierId: 3
-        categoryId: 2
-        quantity: 12 - 12 oz jars
-        price: 40
-        inStock: 6
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 9
-        name: Mishi Kobe Niku
-        supplierId: 4
-        categoryId: 6
-        quantity: 18 - 500 g pkgs.
-        price: 97
-        inStock: 29
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 10
-        name: Ikura
-        supplierId: 4
-        categoryId: 8
-        quantity: 12 - 200 ml jars
-        price: 31
-        inStock: 31
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 11
-        name: Queso Cabrales
-        supplierId: 5
-        categoryId: 4
-        quantity: 1 kg pkg.
-        price: 21
-        inStock: 22
-        onOrder: 30
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 12
-        name: Queso Manchego La Pastora
-        supplierId: 5
-        categoryId: 4
-        quantity: 10 - 500 g pkgs.
-        price: 38
-        inStock: 86
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 13
-        name: Konbu
-        supplierId: 6
-        categoryId: 8
-        quantity: 2 kg box
-        price: 6
-        inStock: 24
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 14
-        name: Tofu
-        supplierId: 6
-        categoryId: 7
-        quantity: 40 - 100 g pkgs.
-        price: 23.25
-        inStock: 35
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 15
-        name: Genen Shouyu
-        supplierId: 6
-        categoryId: 2
-        quantity: 24 - 250 ml bottles
-        price: 15.5
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 16
-        name: Pavlova
-        supplierId: 7
-        categoryId: 3
-        quantity: 32 - 500 g boxes
-        price: 17.45
-        inStock: 29
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 17
-        name: Alice Mutton
-        supplierId: 7
-        categoryId: 6
-        quantity: 20 - 1 kg tins
-        price: 39
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 18
-        name: Carnarvon Tigers
-        supplierId: 7
-        categoryId: 8
-        quantity: 16 kg pkg.
-        price: 62.5
-        inStock: 42
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 19
-        name: Teatime Chocolate Biscuits
-        supplierId: 8
-        categoryId: 3
-        quantity: 10 boxes x 12 pieces
-        price: 9.200000000000001
-        inStock: 25
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 20
-        name: Sir Rodney's Marmalade
-        supplierId: 8
-        categoryId: 3
-        quantity: 30 gift boxes
-        price: 81
-        inStock: 40
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 21
-        name: Sir Rodney's Scones
-        supplierId: 8
-        categoryId: 3
-        quantity: 24 pkgs. x 4 pieces
-        price: 10
-        inStock: 3
-        onOrder: 40
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 22
-        name: Gustaf's Knckebrd
-        supplierId: 9
-        categoryId: 5
-        quantity: 24 - 500 g pkgs.
-        price: 21
-        inStock: 104
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 23
-        name: Tunnbrd
-        supplierId: 9
-        categoryId: 5
-        quantity: 12 - 250 g pkgs.
-        price: 9
-        inStock: 61
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 24
-        name: Guaran Fantstica
-        supplierId: 10
-        categoryId: 1
-        quantity: 12 - 355 ml cans
-        price: 4.5
-        inStock: 20
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 25
-        name: NuNuCa Nu-Nougat-Creme
-        supplierId: 11
-        categoryId: 3
-        quantity: 20 - 450 g glasses
-        price: 14
-        inStock: 76
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 26
-        name: Gumbr Gummibrchen
-        supplierId: 11
-        categoryId: 3
-        quantity: 100 - 250 g bags
-        price: 31.23
-        inStock: 15
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 27
-        name: Schoggi Schokolade
-        supplierId: 11
-        categoryId: 3
-        quantity: 100 - 100 g pieces
-        price: 43.9
-        inStock: 49
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 28
-        name: Rssle Sauerkraut
-        supplierId: 12
-        categoryId: 7
-        quantity: 25 - 825 g cans
-        price: 45.6
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 29
-        name: Thringer Rostbratwurst
-        supplierId: 12
-        categoryId: 6
-        quantity: 50 bags x 30 sausgs.
-        price: 123.79
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 30
-        name: Nord-Ost Matjeshering
-        supplierId: 13
-        categoryId: 8
-        quantity: 10 - 200 g glasses
-        price: 25.89
-        inStock: 10
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 31
-        name: Gorgonzola Telino
-        supplierId: 14
-        categoryId: 4
-        quantity: 12 - 100 g pkgs
-        price: 12.5
-        inStock: 0
-        onOrder: 70
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 32
-        name: Mascarpone Fabioli
-        supplierId: 14
-        categoryId: 4
-        quantity: 24 - 200 g pkgs.
-        price: 32
-        inStock: 9
-        onOrder: 40
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 33
-        name: Geitost
-        supplierId: 15
-        categoryId: 4
-        quantity: 500 g
-        price: 2.5
-        inStock: 112
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 34
-        name: Sasquatch Ale
-        supplierId: 16
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 14
-        inStock: 111
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 35
-        name: Steeleye Stout
-        supplierId: 16
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 18
-        inStock: 20
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 36
-        name: Inlagd Sill
-        supplierId: 17
-        categoryId: 8
-        quantity: 24 - 250 g  jars
-        price: 19
-        inStock: 112
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 37
-        name: Gravad lax
-        supplierId: 17
-        categoryId: 8
-        quantity: 12 - 500 g pkgs.
-        price: 26
-        inStock: 11
-        onOrder: 50
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 38
-        name: Cte de Blaye
-        supplierId: 18
-        categoryId: 1
-        quantity: 12 - 75 cl bottles
-        price: 263.5
-        inStock: 17
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 39
-        name: Chartreuse verte
-        supplierId: 18
-        categoryId: 1
-        quantity: 750 cc per bottle
-        price: 18
-        inStock: 69
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 40
-        name: Boston Crab Meat
-        supplierId: 19
-        categoryId: 8
-        quantity: 24 - 4 oz tins
-        price: 18.400000000000002
-        inStock: 123
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 41
-        name: Jack's New England Clam Chowder
-        supplierId: 19
-        categoryId: 8
-        quantity: 12 - 12 oz cans
-        price: 9.65
-        inStock: 85
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 42
-        name: Singaporean Hokkien Fried Mee
-        supplierId: 20
-        categoryId: 5
-        quantity: 32 - 1 kg pkgs.
-        price: 14
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 43
-        name: Ipoh Coffee
-        supplierId: 20
-        categoryId: 1
-        quantity: 16 - 500 g tins
-        price: 46
-        inStock: 17
-        onOrder: 10
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 44
-        name: Gula Malacca
-        supplierId: 20
-        categoryId: 2
-        quantity: 20 - 2 kg bags
-        price: 19.45
-        inStock: 27
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 45
-        name: Rogede sild
-        supplierId: 21
-        categoryId: 8
-        quantity: 1k pkg.
-        price: 9.5
-        inStock: 5
-        onOrder: 70
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 46
-        name: Spegesild
-        supplierId: 21
-        categoryId: 8
-        quantity: 4 - 450 g glasses
-        price: 12
-        inStock: 95
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 47
-        name: Zaanse koeken
-        supplierId: 22
-        categoryId: 3
-        quantity: 10 - 4 oz boxes
-        price: 9.5
-        inStock: 36
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 48
-        name: Chocolade
-        supplierId: 22
-        categoryId: 3
-        quantity: 10 pkgs.
-        price: 12.75
-        inStock: 15
-        onOrder: 70
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 49
-        name: Maxilaku
-        supplierId: 23
-        categoryId: 3
-        quantity: 24 - 50 g pkgs.
-        price: 20
-        inStock: 10
-        onOrder: 60
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 50
-        name: Valkoinen suklaa
-        supplierId: 23
-        categoryId: 3
-        quantity: 12 - 100 g bars
-        price: 16.25
-        inStock: 65
-        onOrder: 0
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 51
-        name: Manjimup Dried Apples
-        supplierId: 24
-        categoryId: 7
-        quantity: 50 - 300 g pkgs.
-        price: 53
-        inStock: 20
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 52
-        name: Filo Mix
-        supplierId: 24
-        categoryId: 5
-        quantity: 16 - 2 kg boxes
-        price: 7
-        inStock: 38
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 53
-        name: Perth Pasties
-        supplierId: 24
-        categoryId: 6
-        quantity: 48 pieces
-        price: 32.8
-        inStock: 0
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'Y'
-      - id: 54
-        name: Tourtire
-        supplierId: 25
-        categoryId: 6
-        quantity: 16 pies
-        price: 7.45
-        inStock: 21
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 55
-        name: Pt chinois
-        supplierId: 25
-        categoryId: 6
-        quantity: 24 boxes x 2 pies
-        price: 24
-        inStock: 115
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 56
-        name: Gnocchi di nonna Alice
-        supplierId: 26
-        categoryId: 5
-        quantity: 24 - 250 g pkgs.
-        price: 38
-        inStock: 21
-        onOrder: 10
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 57
-        name: Ravioli Angelo
-        supplierId: 26
-        categoryId: 5
-        quantity: 24 - 250 g pkgs.
-        price: 19.5
-        inStock: 36
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 58
-        name: Escargots de Bourgogne
-        supplierId: 27
-        categoryId: 8
-        quantity: 24 pieces
-        price: 13.25
-        inStock: 62
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 59
-        name: Raclette Courdavault
-        supplierId: 28
-        categoryId: 4
-        quantity: 5 kg pkg.
-        price: 55
-        inStock: 79
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 60
-        name: Camembert Pierrot
-        supplierId: 28
-        categoryId: 4
-        quantity: 15 - 300 g rounds
-        price: 34
-        inStock: 19
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 61
-        name: Sirop d'rable
-        supplierId: 29
-        categoryId: 2
-        quantity: 24 - 500 ml bottles
-        price: 28.5
-        inStock: 113
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 62
-        name: Tarte au sucre
-        supplierId: 29
-        categoryId: 3
-        quantity: 48 pies
-        price: 49.300000000000004
-        inStock: 17
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 63
-        name: Vegie-spread
-        supplierId: 7
-        categoryId: 2
-        quantity: 15 - 625 g jars
-        price: 43.9
-        inStock: 24
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 64
-        name: Wimmers gute Semmelkndel
-        supplierId: 12
-        categoryId: 5
-        quantity: 20 bags x 4 pieces
-        price: 33.25
-        inStock: 22
-        onOrder: 80
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 65
-        name: Louisiana Fiery Hot Pepper Sauce
-        supplierId: 2
-        categoryId: 2
-        quantity: 32 - 8 oz bottles
-        price: 21.05
-        inStock: 76
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 66
-        name: Louisiana Hot Spiced Okra
-        supplierId: 2
-        categoryId: 2
-        quantity: 24 - 8 oz jars
-        price: 17
-        inStock: 4
-        onOrder: 100
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 67
-        name: Laughing Lumberjack Lager
-        supplierId: 16
-        categoryId: 1
-        quantity: 24 - 12 oz bottles
-        price: 14
-        inStock: 52
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: 'N'
-      - id: 68
-        name: Scottish Longbreads
-        supplierId: 8
-        categoryId: 3
-        quantity: 10 boxes x 8 pieces
-        price: 12.5
-        inStock: 6
-        onOrder: 10
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 69
-        name: Gudbrandsdalsost
-        supplierId: 15
-        categoryId: 4
-        quantity: 10 kg pkg.
-        price: 36
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
-      - id: 70
-        name: Outback Lager
-        supplierId: 7
-        categoryId: 1
-        quantity: 24 - 355 ml bottles
-        price: 15
-        inStock: 15
-        onOrder: 10
-        reorderLevel: 30
-        discontinued: 'N'
-      - id: 71
-        name: Flotemysost
-        supplierId: 15
-        categoryId: 4
-        quantity: 10 - 500 g pkgs.
-        price: 21.5
-        inStock: 26
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 72
-        name: Mozzarella di Giovanni
-        supplierId: 14
-        categoryId: 4
-        quantity: 24 - 200 g pkgs.
-        price: 34.800000000000004
-        inStock: 14
-        onOrder: 0
-        reorderLevel: 0
-        discontinued: 'N'
-      - id: 73
-        name: Rd Kaviar
-        supplierId: 17
-        categoryId: 8
-        quantity: 24 - 150 g jars
-        price: 15
-        inStock: 101
-        onOrder: 0
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 74
-        name: Longlife Tofu
-        supplierId: 4
-        categoryId: 7
-        quantity: 5 kg pkg.
-        price: 10
-        inStock: 4
-        onOrder: 20
-        reorderLevel: 5
-        discontinued: 'N'
-      - id: 75
-        name: Rhnbru Klosterbier
-        supplierId: 12
-        categoryId: 1
-        quantity: 24 - 0.5 l bottles
-        price: 7.75
-        inStock: 125
-        onOrder: 0
-        reorderLevel: 25
-        discontinued: 'N'
-      - id: 76
-        name: Lakkalikri
-        supplierId: 23
-        categoryId: 1
-        quantity: 500 ml
-        price: 18
-        inStock: 57
-        onOrder: 0
-        reorderLevel: 20
-        discontinued: 'N'
-      - id: 77
-        name: Original Frankfurter grne Soe
-        supplierId: 12
-        categoryId: 2
-        quantity: 12 boxes
-        price: 13
-        inStock: 32
-        onOrder: 0
-        reorderLevel: 15
-        discontinued: 'N'
+      - ID: 1
+        NAME: Chai
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 10 boxes x 20 bags
+        PRICE: 18
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 2
+        NAME: Chang
+        SUPPLIERID: 1
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 19
+        INSTOCK: 17
+        ONORDER: 40
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 3
+        NAME: Aniseed Syrup
+        SUPPLIERID: 1
+        CATEGORYID: 2
+        QUANTITY: 12 - 550 ml bottles
+        PRICE: 10
+        INSTOCK: 13
+        ONORDER: 70
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 4
+        NAME: Chef Anton's Cajun Seasoning
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 48 - 6 oz jars
+        PRICE: 22
+        INSTOCK: 53
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 5
+        NAME: Chef Anton's Gumbo Mix
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 36 boxes
+        PRICE: 21.35
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 6
+        NAME: Grandma's Boysenberry Spread
+        SUPPLIERID: 3
+        CATEGORYID: 2
+        QUANTITY: 12 - 8 oz jars
+        PRICE: 25
+        INSTOCK: 120
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 7
+        NAME: Uncle Bob's Organic Dried Pears
+        SUPPLIERID: 3
+        CATEGORYID: 7
+        QUANTITY: 12 - 1 lb pkgs.
+        PRICE: 30
+        INSTOCK: 15
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 8
+        NAME: Northwoods Cranberry Sauce
+        SUPPLIERID: 3
+        CATEGORYID: 2
+        QUANTITY: 12 - 12 oz jars
+        PRICE: 40
+        INSTOCK: 6
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 9
+        NAME: Mishi Kobe Niku
+        SUPPLIERID: 4
+        CATEGORYID: 6
+        QUANTITY: 18 - 500 g pkgs.
+        PRICE: 97
+        INSTOCK: 29
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 10
+        NAME: Ikura
+        SUPPLIERID: 4
+        CATEGORYID: 8
+        QUANTITY: 12 - 200 ml jars
+        PRICE: 31
+        INSTOCK: 31
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 11
+        NAME: Queso Cabrales
+        SUPPLIERID: 5
+        CATEGORYID: 4
+        QUANTITY: 1 kg pkg.
+        PRICE: 21
+        INSTOCK: 22
+        ONORDER: 30
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 12
+        NAME: Queso Manchego La Pastora
+        SUPPLIERID: 5
+        CATEGORYID: 4
+        QUANTITY: 10 - 500 g pkgs.
+        PRICE: 38
+        INSTOCK: 86
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 13
+        NAME: Konbu
+        SUPPLIERID: 6
+        CATEGORYID: 8
+        QUANTITY: 2 kg box
+        PRICE: 6
+        INSTOCK: 24
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 14
+        NAME: Tofu
+        SUPPLIERID: 6
+        CATEGORYID: 7
+        QUANTITY: 40 - 100 g pkgs.
+        PRICE: 23.25
+        INSTOCK: 35
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 15
+        NAME: Genen Shouyu
+        SUPPLIERID: 6
+        CATEGORYID: 2
+        QUANTITY: 24 - 250 ml bottles
+        PRICE: 15.5
+        INSTOCK: 39
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 16
+        NAME: Pavlova
+        SUPPLIERID: 7
+        CATEGORYID: 3
+        QUANTITY: 32 - 500 g boxes
+        PRICE: 17.45
+        INSTOCK: 29
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 17
+        NAME: Alice Mutton
+        SUPPLIERID: 7
+        CATEGORYID: 6
+        QUANTITY: 20 - 1 kg tins
+        PRICE: 39
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 18
+        NAME: Carnarvon Tigers
+        SUPPLIERID: 7
+        CATEGORYID: 8
+        QUANTITY: 16 kg pkg.
+        PRICE: 62.5
+        INSTOCK: 42
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 19
+        NAME: Teatime Chocolate Biscuits
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 10 boxes x 12 pieces
+        PRICE: 9.200000000000001
+        INSTOCK: 25
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 20
+        NAME: Sir Rodney's Marmalade
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 30 gift boxes
+        PRICE: 81
+        INSTOCK: 40
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 21
+        NAME: Sir Rodney's Scones
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 24 pkgs. x 4 pieces
+        PRICE: 10
+        INSTOCK: 3
+        ONORDER: 40
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 22
+        NAME: Gustaf's Knckebrd
+        SUPPLIERID: 9
+        CATEGORYID: 5
+        QUANTITY: 24 - 500 g pkgs.
+        PRICE: 21
+        INSTOCK: 104
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 23
+        NAME: Tunnbrd
+        SUPPLIERID: 9
+        CATEGORYID: 5
+        QUANTITY: 12 - 250 g pkgs.
+        PRICE: 9
+        INSTOCK: 61
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 24
+        NAME: Guaran Fantstica
+        SUPPLIERID: 10
+        CATEGORYID: 1
+        QUANTITY: 12 - 355 ml cans
+        PRICE: 4.5
+        INSTOCK: 20
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 25
+        NAME: NuNuCa Nu-Nougat-Creme
+        SUPPLIERID: 11
+        CATEGORYID: 3
+        QUANTITY: 20 - 450 g glasses
+        PRICE: 14
+        INSTOCK: 76
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 26
+        NAME: Gumbr Gummibrchen
+        SUPPLIERID: 11
+        CATEGORYID: 3
+        QUANTITY: 100 - 250 g bags
+        PRICE: 31.23
+        INSTOCK: 15
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 27
+        NAME: Schoggi Schokolade
+        SUPPLIERID: 11
+        CATEGORYID: 3
+        QUANTITY: 100 - 100 g pieces
+        PRICE: 43.9
+        INSTOCK: 49
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 28
+        NAME: Rssle Sauerkraut
+        SUPPLIERID: 12
+        CATEGORYID: 7
+        QUANTITY: 25 - 825 g cans
+        PRICE: 45.6
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 29
+        NAME: Thringer Rostbratwurst
+        SUPPLIERID: 12
+        CATEGORYID: 6
+        QUANTITY: 50 bags x 30 sausgs.
+        PRICE: 123.79
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 30
+        NAME: Nord-Ost Matjeshering
+        SUPPLIERID: 13
+        CATEGORYID: 8
+        QUANTITY: 10 - 200 g glasses
+        PRICE: 25.89
+        INSTOCK: 10
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 31
+        NAME: Gorgonzola Telino
+        SUPPLIERID: 14
+        CATEGORYID: 4
+        QUANTITY: 12 - 100 g pkgs
+        PRICE: 12.5
+        INSTOCK: 0
+        ONORDER: 70
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 32
+        NAME: Mascarpone Fabioli
+        SUPPLIERID: 14
+        CATEGORYID: 4
+        QUANTITY: 24 - 200 g pkgs.
+        PRICE: 32
+        INSTOCK: 9
+        ONORDER: 40
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 33
+        NAME: Geitost
+        SUPPLIERID: 15
+        CATEGORYID: 4
+        QUANTITY: 500 g
+        PRICE: 2.5
+        INSTOCK: 112
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 34
+        NAME: Sasquatch Ale
+        SUPPLIERID: 16
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 14
+        INSTOCK: 111
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 35
+        NAME: Steeleye Stout
+        SUPPLIERID: 16
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 18
+        INSTOCK: 20
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 36
+        NAME: Inlagd Sill
+        SUPPLIERID: 17
+        CATEGORYID: 8
+        QUANTITY: 24 - 250 g  jars
+        PRICE: 19
+        INSTOCK: 112
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 37
+        NAME: Gravad lax
+        SUPPLIERID: 17
+        CATEGORYID: 8
+        QUANTITY: 12 - 500 g pkgs.
+        PRICE: 26
+        INSTOCK: 11
+        ONORDER: 50
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 38
+        NAME: Cte de Blaye
+        SUPPLIERID: 18
+        CATEGORYID: 1
+        QUANTITY: 12 - 75 cl bottles
+        PRICE: 263.5
+        INSTOCK: 17
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 39
+        NAME: Chartreuse verte
+        SUPPLIERID: 18
+        CATEGORYID: 1
+        QUANTITY: 750 cc per bottle
+        PRICE: 18
+        INSTOCK: 69
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 40
+        NAME: Boston Crab Meat
+        SUPPLIERID: 19
+        CATEGORYID: 8
+        QUANTITY: 24 - 4 oz tins
+        PRICE: 18.400000000000002
+        INSTOCK: 123
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 41
+        NAME: Jack's New England Clam Chowder
+        SUPPLIERID: 19
+        CATEGORYID: 8
+        QUANTITY: 12 - 12 oz cans
+        PRICE: 9.65
+        INSTOCK: 85
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 42
+        NAME: Singaporean Hokkien Fried Mee
+        SUPPLIERID: 20
+        CATEGORYID: 5
+        QUANTITY: 32 - 1 kg pkgs.
+        PRICE: 14
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 43
+        NAME: Ipoh Coffee
+        SUPPLIERID: 20
+        CATEGORYID: 1
+        QUANTITY: 16 - 500 g tins
+        PRICE: 46
+        INSTOCK: 17
+        ONORDER: 10
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 44
+        NAME: Gula Malacca
+        SUPPLIERID: 20
+        CATEGORYID: 2
+        QUANTITY: 20 - 2 kg bags
+        PRICE: 19.45
+        INSTOCK: 27
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 45
+        NAME: Rogede sild
+        SUPPLIERID: 21
+        CATEGORYID: 8
+        QUANTITY: 1k pkg.
+        PRICE: 9.5
+        INSTOCK: 5
+        ONORDER: 70
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 46
+        NAME: Spegesild
+        SUPPLIERID: 21
+        CATEGORYID: 8
+        QUANTITY: 4 - 450 g glasses
+        PRICE: 12
+        INSTOCK: 95
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 47
+        NAME: Zaanse koeken
+        SUPPLIERID: 22
+        CATEGORYID: 3
+        QUANTITY: 10 - 4 oz boxes
+        PRICE: 9.5
+        INSTOCK: 36
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 48
+        NAME: Chocolade
+        SUPPLIERID: 22
+        CATEGORYID: 3
+        QUANTITY: 10 pkgs.
+        PRICE: 12.75
+        INSTOCK: 15
+        ONORDER: 70
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 49
+        NAME: Maxilaku
+        SUPPLIERID: 23
+        CATEGORYID: 3
+        QUANTITY: 24 - 50 g pkgs.
+        PRICE: 20
+        INSTOCK: 10
+        ONORDER: 60
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 50
+        NAME: Valkoinen suklaa
+        SUPPLIERID: 23
+        CATEGORYID: 3
+        QUANTITY: 12 - 100 g bars
+        PRICE: 16.25
+        INSTOCK: 65
+        ONORDER: 0
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 51
+        NAME: Manjimup Dried Apples
+        SUPPLIERID: 24
+        CATEGORYID: 7
+        QUANTITY: 50 - 300 g pkgs.
+        PRICE: 53
+        INSTOCK: 20
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 52
+        NAME: Filo Mix
+        SUPPLIERID: 24
+        CATEGORYID: 5
+        QUANTITY: 16 - 2 kg boxes
+        PRICE: 7
+        INSTOCK: 38
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 53
+        NAME: Perth Pasties
+        SUPPLIERID: 24
+        CATEGORYID: 6
+        QUANTITY: 48 pieces
+        PRICE: 32.8
+        INSTOCK: 0
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'Y'
+      - ID: 54
+        NAME: Tourtire
+        SUPPLIERID: 25
+        CATEGORYID: 6
+        QUANTITY: 16 pies
+        PRICE: 7.45
+        INSTOCK: 21
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 55
+        NAME: Pt chinois
+        SUPPLIERID: 25
+        CATEGORYID: 6
+        QUANTITY: 24 boxes x 2 pies
+        PRICE: 24
+        INSTOCK: 115
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 56
+        NAME: Gnocchi di nonna Alice
+        SUPPLIERID: 26
+        CATEGORYID: 5
+        QUANTITY: 24 - 250 g pkgs.
+        PRICE: 38
+        INSTOCK: 21
+        ONORDER: 10
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 57
+        NAME: Ravioli Angelo
+        SUPPLIERID: 26
+        CATEGORYID: 5
+        QUANTITY: 24 - 250 g pkgs.
+        PRICE: 19.5
+        INSTOCK: 36
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 58
+        NAME: Escargots de Bourgogne
+        SUPPLIERID: 27
+        CATEGORYID: 8
+        QUANTITY: 24 pieces
+        PRICE: 13.25
+        INSTOCK: 62
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 59
+        NAME: Raclette Courdavault
+        SUPPLIERID: 28
+        CATEGORYID: 4
+        QUANTITY: 5 kg pkg.
+        PRICE: 55
+        INSTOCK: 79
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 60
+        NAME: Camembert Pierrot
+        SUPPLIERID: 28
+        CATEGORYID: 4
+        QUANTITY: 15 - 300 g rounds
+        PRICE: 34
+        INSTOCK: 19
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 61
+        NAME: Sirop d'rable
+        SUPPLIERID: 29
+        CATEGORYID: 2
+        QUANTITY: 24 - 500 ml bottles
+        PRICE: 28.5
+        INSTOCK: 113
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 62
+        NAME: Tarte au sucre
+        SUPPLIERID: 29
+        CATEGORYID: 3
+        QUANTITY: 48 pies
+        PRICE: 49.300000000000004
+        INSTOCK: 17
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 63
+        NAME: Vegie-spread
+        SUPPLIERID: 7
+        CATEGORYID: 2
+        QUANTITY: 15 - 625 g jars
+        PRICE: 43.9
+        INSTOCK: 24
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 64
+        NAME: Wimmers gute Semmelkndel
+        SUPPLIERID: 12
+        CATEGORYID: 5
+        QUANTITY: 20 bags x 4 pieces
+        PRICE: 33.25
+        INSTOCK: 22
+        ONORDER: 80
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 65
+        NAME: Louisiana Fiery Hot Pepper Sauce
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 32 - 8 oz bottles
+        PRICE: 21.05
+        INSTOCK: 76
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 66
+        NAME: Louisiana Hot Spiced Okra
+        SUPPLIERID: 2
+        CATEGORYID: 2
+        QUANTITY: 24 - 8 oz jars
+        PRICE: 17
+        INSTOCK: 4
+        ONORDER: 100
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 67
+        NAME: Laughing Lumberjack Lager
+        SUPPLIERID: 16
+        CATEGORYID: 1
+        QUANTITY: 24 - 12 oz bottles
+        PRICE: 14
+        INSTOCK: 52
+        ONORDER: 0
+        REORDERLEVEL: 10
+        DISCONTINUED: 'N'
+      - ID: 68
+        NAME: Scottish Longbreads
+        SUPPLIERID: 8
+        CATEGORYID: 3
+        QUANTITY: 10 boxes x 8 pieces
+        PRICE: 12.5
+        INSTOCK: 6
+        ONORDER: 10
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 69
+        NAME: Gudbrandsdalsost
+        SUPPLIERID: 15
+        CATEGORYID: 4
+        QUANTITY: 10 kg pkg.
+        PRICE: 36
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
+      - ID: 70
+        NAME: Outback Lager
+        SUPPLIERID: 7
+        CATEGORYID: 1
+        QUANTITY: 24 - 355 ml bottles
+        PRICE: 15
+        INSTOCK: 15
+        ONORDER: 10
+        REORDERLEVEL: 30
+        DISCONTINUED: 'N'
+      - ID: 71
+        NAME: Flotemysost
+        SUPPLIERID: 15
+        CATEGORYID: 4
+        QUANTITY: 10 - 500 g pkgs.
+        PRICE: 21.5
+        INSTOCK: 26
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 72
+        NAME: Mozzarella di Giovanni
+        SUPPLIERID: 14
+        CATEGORYID: 4
+        QUANTITY: 24 - 200 g pkgs.
+        PRICE: 34.800000000000004
+        INSTOCK: 14
+        ONORDER: 0
+        REORDERLEVEL: 0
+        DISCONTINUED: 'N'
+      - ID: 73
+        NAME: Rd Kaviar
+        SUPPLIERID: 17
+        CATEGORYID: 8
+        QUANTITY: 24 - 150 g jars
+        PRICE: 15
+        INSTOCK: 101
+        ONORDER: 0
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 74
+        NAME: Longlife Tofu
+        SUPPLIERID: 4
+        CATEGORYID: 7
+        QUANTITY: 5 kg pkg.
+        PRICE: 10
+        INSTOCK: 4
+        ONORDER: 20
+        REORDERLEVEL: 5
+        DISCONTINUED: 'N'
+      - ID: 75
+        NAME: Rhnbru Klosterbier
+        SUPPLIERID: 12
+        CATEGORYID: 1
+        QUANTITY: 24 - 0.5 l bottles
+        PRICE: 7.75
+        INSTOCK: 125
+        ONORDER: 0
+        REORDERLEVEL: 25
+        DISCONTINUED: 'N'
+      - ID: 76
+        NAME: Lakkalikri
+        SUPPLIERID: 23
+        CATEGORYID: 1
+        QUANTITY: 500 ml
+        PRICE: 18
+        INSTOCK: 57
+        ONORDER: 0
+        REORDERLEVEL: 20
+        DISCONTINUED: 'N'
+      - ID: 77
+        NAME: Original Frankfurter grne Soe
+        SUPPLIERID: 12
+        CATEGORYID: 2
+        QUANTITY: 12 boxes
+        PRICE: 13
+        INSTOCK: 32
+        ONORDER: 0
+        REORDERLEVEL: 15
+        DISCONTINUED: 'N'
   - name: query 17
     sentences:
       - stage: Oracle
@@ -5238,7 +5237,7 @@ test:
           entity: Products
           dialect: Oracle
           dataSource: Oracle
-          sentence: 'SELECT DISTINCT p.CategoryID AS "categoryId" FROM Products p  '
+          sentence: 'SELECT DISTINCT p.CategoryID AS categoryId FROM Products p  '
           children: []
     errors: 0
     expression: Products.distinct(p=>p.categoryId)
@@ -5292,14 +5291,14 @@ test:
     executions:
       - stage: Oracle
     result:
-      - categoryId: 6
-      - categoryId: 1
-      - categoryId: 7
-      - categoryId: 2
-      - categoryId: 8
-      - categoryId: 4
-      - categoryId: 5
-      - categoryId: 3
+      - CATEGORYID: 6
+      - CATEGORYID: 1
+      - CATEGORYID: 7
+      - CATEGORYID: 2
+      - CATEGORYID: 8
+      - CATEGORYID: 4
+      - CATEGORYID: 5
+      - CATEGORYID: 3
   - name: query 18
     data: a
     sentences:
@@ -5309,7 +5308,7 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT DISTINCT c.CategoryName AS "category_name" FROM Products p
+            SELECT DISTINCT c.CategoryName AS category_name FROM Products p
             INNER JOIN Categories c ON c.CategoryID = p.CategoryID 
           children: []
     errors: 0
@@ -5386,14 +5385,14 @@ test:
     executions:
       - stage: Oracle
     result:
-      - category_name: Confections
-      - category_name: Produce
-      - category_name: Seafood
-      - category_name: Beverages
-      - category_name: Grains/Cereals
-      - category_name: Condiments
-      - category_name: Meat/Poultry
-      - category_name: Dairy Products
+      - CATEGORY_NAME: Confections
+      - CATEGORY_NAME: Produce
+      - CATEGORY_NAME: Seafood
+      - CATEGORY_NAME: Beverages
+      - CATEGORY_NAME: Grains/Cereals
+      - CATEGORY_NAME: Condiments
+      - CATEGORY_NAME: Meat/Poultry
+      - CATEGORY_NAME: Dairy Products
   - name: query 19
     data: a
     sentences:
@@ -5403,11 +5402,11 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
-            "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS
+            category FROM Products p INNER JOIN Categories c ON c.CategoryID =
             p.CategoryID ORDER BY category asc 
           children: []
-    errors: 1
+    errors: 0
     expression: >-
       Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>p.category)
     normalizeExpression: >-
@@ -5512,7 +5511,149 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'Error: ORA-00904: "CATEGORY": invalid identifier'
+    result:
+      - QUANTITY: 10 boxes x 20 bags
+        CATEGORY: Beverages
+      - QUANTITY: 12 - 355 ml cans
+        CATEGORY: Beverages
+      - QUANTITY: 12 - 75 cl bottles
+        CATEGORY: Beverages
+      - QUANTITY: 16 - 500 g tins
+        CATEGORY: Beverages
+      - QUANTITY: 24 - 0.5 l bottles
+        CATEGORY: Beverages
+      - QUANTITY: 24 - 12 oz bottles
+        CATEGORY: Beverages
+      - QUANTITY: 24 - 355 ml bottles
+        CATEGORY: Beverages
+      - QUANTITY: 500 ml
+        CATEGORY: Beverages
+      - QUANTITY: 750 cc per bottle
+        CATEGORY: Beverages
+      - QUANTITY: 12 - 12 oz jars
+        CATEGORY: Condiments
+      - QUANTITY: 12 - 550 ml bottles
+        CATEGORY: Condiments
+      - QUANTITY: 12 - 8 oz jars
+        CATEGORY: Condiments
+      - QUANTITY: 12 boxes
+        CATEGORY: Condiments
+      - QUANTITY: 15 - 625 g jars
+        CATEGORY: Condiments
+      - QUANTITY: 20 - 2 kg bags
+        CATEGORY: Condiments
+      - QUANTITY: 24 - 250 ml bottles
+        CATEGORY: Condiments
+      - QUANTITY: 24 - 500 ml bottles
+        CATEGORY: Condiments
+      - QUANTITY: 24 - 8 oz jars
+        CATEGORY: Condiments
+      - QUANTITY: 32 - 8 oz bottles
+        CATEGORY: Condiments
+      - QUANTITY: 36 boxes
+        CATEGORY: Condiments
+      - QUANTITY: 48 - 6 oz jars
+        CATEGORY: Condiments
+      - QUANTITY: 10 - 4 oz boxes
+        CATEGORY: Confections
+      - QUANTITY: 10 boxes x 12 pieces
+        CATEGORY: Confections
+      - QUANTITY: 10 boxes x 8 pieces
+        CATEGORY: Confections
+      - QUANTITY: 10 pkgs.
+        CATEGORY: Confections
+      - QUANTITY: 100 - 100 g pieces
+        CATEGORY: Confections
+      - QUANTITY: 100 - 250 g bags
+        CATEGORY: Confections
+      - QUANTITY: 12 - 100 g bars
+        CATEGORY: Confections
+      - QUANTITY: 20 - 450 g glasses
+        CATEGORY: Confections
+      - QUANTITY: 24 - 50 g pkgs.
+        CATEGORY: Confections
+      - QUANTITY: 24 pkgs. x 4 pieces
+        CATEGORY: Confections
+      - QUANTITY: 30 gift boxes
+        CATEGORY: Confections
+      - QUANTITY: 32 - 500 g boxes
+        CATEGORY: Confections
+      - QUANTITY: 48 pies
+        CATEGORY: Confections
+      - QUANTITY: 1 kg pkg.
+        CATEGORY: Dairy Products
+      - QUANTITY: 10 - 500 g pkgs.
+        CATEGORY: Dairy Products
+      - QUANTITY: 10 kg pkg.
+        CATEGORY: Dairy Products
+      - QUANTITY: 12 - 100 g pkgs
+        CATEGORY: Dairy Products
+      - QUANTITY: 15 - 300 g rounds
+        CATEGORY: Dairy Products
+      - QUANTITY: 24 - 200 g pkgs.
+        CATEGORY: Dairy Products
+      - QUANTITY: 5 kg pkg.
+        CATEGORY: Dairy Products
+      - QUANTITY: 500 g
+        CATEGORY: Dairy Products
+      - QUANTITY: 12 - 250 g pkgs.
+        CATEGORY: Grains/Cereals
+      - QUANTITY: 16 - 2 kg boxes
+        CATEGORY: Grains/Cereals
+      - QUANTITY: 20 bags x 4 pieces
+        CATEGORY: Grains/Cereals
+      - QUANTITY: 24 - 250 g pkgs.
+        CATEGORY: Grains/Cereals
+      - QUANTITY: 24 - 500 g pkgs.
+        CATEGORY: Grains/Cereals
+      - QUANTITY: 32 - 1 kg pkgs.
+        CATEGORY: Grains/Cereals
+      - QUANTITY: 16 pies
+        CATEGORY: Meat/Poultry
+      - QUANTITY: 18 - 500 g pkgs.
+        CATEGORY: Meat/Poultry
+      - QUANTITY: 20 - 1 kg tins
+        CATEGORY: Meat/Poultry
+      - QUANTITY: 24 boxes x 2 pies
+        CATEGORY: Meat/Poultry
+      - QUANTITY: 48 pieces
+        CATEGORY: Meat/Poultry
+      - QUANTITY: 50 bags x 30 sausgs.
+        CATEGORY: Meat/Poultry
+      - QUANTITY: 12 - 1 lb pkgs.
+        CATEGORY: Produce
+      - QUANTITY: 25 - 825 g cans
+        CATEGORY: Produce
+      - QUANTITY: 40 - 100 g pkgs.
+        CATEGORY: Produce
+      - QUANTITY: 5 kg pkg.
+        CATEGORY: Produce
+      - QUANTITY: 50 - 300 g pkgs.
+        CATEGORY: Produce
+      - QUANTITY: 10 - 200 g glasses
+        CATEGORY: Seafood
+      - QUANTITY: 12 - 12 oz cans
+        CATEGORY: Seafood
+      - QUANTITY: 12 - 200 ml jars
+        CATEGORY: Seafood
+      - QUANTITY: 12 - 500 g pkgs.
+        CATEGORY: Seafood
+      - QUANTITY: 16 kg pkg.
+        CATEGORY: Seafood
+      - QUANTITY: 1k pkg.
+        CATEGORY: Seafood
+      - QUANTITY: 2 kg box
+        CATEGORY: Seafood
+      - QUANTITY: 24 - 150 g jars
+        CATEGORY: Seafood
+      - QUANTITY: 24 - 250 g  jars
+        CATEGORY: Seafood
+      - QUANTITY: 24 - 4 oz tins
+        CATEGORY: Seafood
+      - QUANTITY: 24 pieces
+        CATEGORY: Seafood
+      - QUANTITY: 4 - 450 g glasses
+        CATEGORY: Seafood
   - name: query 20
     data: a
     sentences:
@@ -5522,11 +5663,11 @@ test:
           dialect: Oracle
           dataSource: Oracle
           sentence: >-
-            SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
+            SELECT DISTINCT c.CategoryName AS category FROM Products p INNER
             JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category
             asc 
           children: []
-    errors: 1
+    errors: 0
     expression: Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)
     normalizeExpression: >-
       Products.map(p=>distinct({category:p.category.name})).sort(p=>asc(p.category))
@@ -5615,5 +5756,13 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'Error: ORA-00904: "CATEGORY": invalid identifier'
-errors: 5
+    result:
+      - CATEGORY: Beverages
+      - CATEGORY: Condiments
+      - CATEGORY: Confections
+      - CATEGORY: Dairy Products
+      - CATEGORY: Grains/Cereals
+      - CATEGORY: Meat/Poultry
+      - CATEGORY: Produce
+      - CATEGORY: Seafood
+errors: 3

@@ -59,18 +59,22 @@ export class OracleConnection extends Connection {
 	}
 
 	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		const result = await this._execute(mapping, query, data)
-		const list: any[] = []
-		for (const i in result.rows) {
-			const row = result.rows[i]
-			const item: any = {}
-			for (const j in result.metaData) {
-				const col = result.metaData[j]
-				item[col.name] = row[j]
+		try {
+			const result = await this._execute(mapping, query, data)
+			const list: any[] = []
+			for (const i in result.rows) {
+				const row = result.rows[i]
+				const item: any = {}
+				for (const j in result.metaData) {
+					const col = result.metaData[j]
+					item[col.name] = row[j]
+				}
+				list.push(item)
 			}
-			list.push(item)
+			return list
+		} catch (e) {
+			console.log(e)
 		}
-		return list
 	}
 
 	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {

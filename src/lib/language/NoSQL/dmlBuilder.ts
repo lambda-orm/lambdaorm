@@ -450,6 +450,19 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 	}
 
+	protected override buildObject (operand: Obj): string {
+		let text = ''
+		const template = this.dialect.function('as').template
+		for (let i = 0; i < operand.children.length; i++) {
+			const value = this.buildOperand(operand.children[i])
+			const alias = this.dialect.delimiter(operand.children[i].name, true)
+			let fieldText = template.replace('{value}', value)
+			fieldText = fieldText.replace('{alias}', alias)
+			text += (i > 0 ? ', ' : '') + fieldText
+		}
+		return text
+	}
+
 	protected setPrefixToField (operand: Operand, prefix: string) {
 		if (operand instanceof Field) {
 			operand.prefix = prefix
