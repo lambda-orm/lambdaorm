@@ -991,13 +991,13 @@ export class OperandManager {
 
 	private loadParameters (operand: Operand, parameters: Parameter[]) {
 		if (operand instanceof Variable) {
-			if (parameters.find(p => p.name === operand.name) === undefined) {
-				let type: string
-				if (operand.type === '') type = 'any'
-				else if (operand.type === 'T[]') type = 'array'
-				else type = operand.type
-				parameters.push({ name: operand.name, type: type })
-			}
+			// if (parameters.find(p => p.name === operand.name) === undefined) {
+			let type: string
+			if (operand.type === '') type = 'any'
+			else if (operand.type === 'T[]') type = 'array'
+			else type = operand.type
+			parameters.push({ name: operand.name, type: type })
+			// }
 		}
 		for (const child of operand.children) {
 			this.loadParameters(child, parameters)

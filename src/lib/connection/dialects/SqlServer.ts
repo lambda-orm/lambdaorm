@@ -255,6 +255,9 @@ export class SqlServerConnection extends Connection {
 
 	private addParameters (request: any, params: Parameter[] = []) {
 		for (const param of params) {
+			if (request.parameters.find(p => p.name === param.name) !== undefined) {
+				continue
+			}
 			switch (param.type) {
 			case 'string': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value); break
 			case 'number': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Numeric, param.value); break

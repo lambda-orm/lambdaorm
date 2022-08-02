@@ -62,6 +62,17 @@ Conexión:
 alter session set "_ORACLE_SCRIPT"=true;
 create user northwind identified by northwind;
 GRANT create session,create table,create view,create sequence TO northwind;
+ALTER USER northwind quota unlimited on USERS;
+```
+
+#### Error ORA-12637
+
+- [description](https://franckpachot.medium.com/19c-instant-client-and-docker-1566630ab20e)
+- [solution](https://github.com/oracle/docker-images/issues/2338)
+
+```sh
+docker exec lambdaORM-Oracle-19 "/bin/sh" -c "echo DISABLE_OOB=ON>>/opt/oracle/oradata/dbconfig/ORCLCDB/sqlnet.ora"
+docker restart lambdaORM-Oracle-19
 ```
 
 Test

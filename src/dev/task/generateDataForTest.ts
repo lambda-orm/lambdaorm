@@ -1035,5 +1035,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['SqlServer'], function () { console.log('end') })
+apply(['Oracle'], function () { console.log('end') })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
