@@ -58,14 +58,14 @@ export class PostgreSQLConnectionPool extends ConnectionPool {
 	}
 }
 export class PostgreSQLConnection extends Connection {
-	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		const result = await this._execute(mapping, query, data)
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result.rows
 	}
 
-	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		try {
-			const result = await this._execute(mapping, query, data)
+			const result = await this._execute(mapping, dialect, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
 		} catch (error) {
 			console.error(error)
@@ -73,13 +73,13 @@ export class PostgreSQLConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		const sql = query.sentence
 		let _query = ''
 		try {
-			const rows = this.arrayToRows(query, mapping, array)
+			const rows = this.arrayToRows(mapping, dialect, query, array)
 			const returning = fieldId ? 'RETURNING ' + fieldId.mapping + ' AS "' + fieldId.name + '"' : ''
 			_query = `${sql} ${rows.join(',')} ${returning};`
 			const result = await this.cnx.query(_query)
@@ -98,12 +98,12 @@ export class PostgreSQLConnection extends Connection {
 		}
 	}
 
-	protected override arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected override arrayToRows (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): any[] {
 		const rows: any[] = []
 		for (const item of array) {
 			const row: any[] = []
 			for (const parameter of query.parameters) {
-				const value = this.getItemValue(item, parameter, mapping)
+				const value = this.getItemValue(mapping, dialect, item, parameter)
 				row.push(value)
 			}
 			rows.push(`(${row.join(',')})`)
@@ -111,7 +111,7 @@ export class PostgreSQLConnection extends Connection {
 		return rows
 	}
 
-	private getItemValue (item:any, parameter:Parameter, mapping: MappingConfig):any {
+	private getItemValue (mapping: MappingConfig, dialect: Dialect, item:any, parameter:Parameter):any {
 		let value = item[parameter.name]
 		if (value == null || value === undefined) {
 			value = 'null'
@@ -124,26 +124,26 @@ export class PostgreSQLConnection extends Connection {
 				value = Helper.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
-				value = Helper.escape(this.writeDateTime(value, mapping))
+				value = Helper.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = Helper.escape(this.writeDate(value, mapping))
+				value = Helper.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = Helper.escape(this.writeTime(value, mapping))
+				value = Helper.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}
 		return value
 	}
 
-	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result.rowCount
 	}
 
-	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result.rowCount
 	}
 
@@ -174,10 +174,10 @@ export class PostgreSQLConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (mapping: MappingConfig, query: Query, data: Data): Promise<any> {
+	protected async _execute (mapping: MappingConfig, dialect:Dialect, query: Query, data: Data): Promise<any> {
 		const values: any[] = []
 		let sql = query.sentence
-		const params = this.dataToParameters(query, mapping, data)
+		const params = this.dataToParameters(mapping, dialect, query, data)
 
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]

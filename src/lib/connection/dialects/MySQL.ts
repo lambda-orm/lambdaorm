@@ -65,23 +65,23 @@ export class MySQLConnectionPool extends ConnectionPool {
 }
 
 export class MySqlConnection extends Connection {
-	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		return this._execute(mapping, query, data)
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		const result = await this._execute(mapping, query, data)
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result.insertId
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		try {
 			if (!array || array.length === 0) {
 				return []
 			}
 			// https://github.com/sidorares/node-mysql2/issues/830
-			const rows: any[] = this.arrayToRows(query, mapping, array)
+			const rows: any[] = this.arrayToRows(mapping, dialect, query, array)
 			const result = await this.cnx.query(query.sentence, [rows])
 
 			// https://github.com/sidorares/node-mysql2/issues/435
@@ -95,13 +95,13 @@ export class MySqlConnection extends Connection {
 		}
 	}
 
-	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result.affectedRows
 	}
 
-	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result.affectedRows
 	}
 
@@ -132,7 +132,7 @@ export class MySqlConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (mapping: MappingConfig, query: Query, data: Data) {
+	protected async _execute (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data) {
 		// Solve array parameters , example IN(?) where ? is array[]
 		// https://github.com/sidorares/node-mysql2/issues/476
 		let useExecute = true
@@ -140,7 +140,7 @@ export class MySqlConnection extends Connection {
 		// in the case of having an array with string elements, it is not possible to resolve the IN(,,,) with execute
 		// for this reason query is being used in this case.
 		// see how this case can be resolved to always use execute.
-		const params = this.dataToParameters(query, mapping, data)
+		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
 			if (param.type === 'array') {
 				useExecute = false

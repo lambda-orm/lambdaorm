@@ -1,12 +1,11 @@
 import { orm } from '../../lib'
-// import { Categories } from '../../model'
 
 export async function apply (callback: any) {
 	try {
 		await orm.init()
 		const stage = 'Oracle'		
-		const query = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
-		const context = {}
+		const query = 'Categories.insert()'
+		const context = { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' }
 
 		const sentence = orm.sentence(query,{stage: stage})
 		console.log(sentence)

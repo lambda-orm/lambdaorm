@@ -38,19 +38,14 @@ export class MongoDBConnectionPool extends ConnectionPool {
 export class MongodbConnection extends Connection {
 	private session?: any
 
-	constructor (cnx: any, pool: any) {
-		super(cnx, pool)
-		this.formatDateTime = 'ISO'
-	}
-
-	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-MongoDB-2910ff5e272b
 		// https://www.MongoDB.com/docs/manual/reference/operator/aggregation-pipeline/
 
 		const collectionName = query.entity.includes('.') ? query.entity.split('.')[0] : query.entity
 		const collection = mapping.entityMapping(collectionName)
-		const params = this.dataToParameters(query, mapping, data)
-		const aggregate = this.parseTemplate(query.sentence, params, mapping)
+		const params = this.dataToParameters(mapping, dialect, query, data)
+		const aggregate = this.parseTemplate(mapping, dialect, query.sentence, params)
 
 		// TODO:solve transaction
 		// const result = this.session
@@ -106,7 +101,7 @@ export class MongodbConnection extends Connection {
 	}
 
 	private async getInsertList (mapping: MappingConfig, dialect: Dialect, query: Query, entity:EntityMapping, array: any[]): Promise<any[]> {
-		const list = this.arrayToList(query, query.sentence, mapping, array)
+		const list = this.arrayToList(mapping, dialect, query, query.sentence, array)
 		if (entity.sequence && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
 			const mappingPk = entity.properties.find(p => p.name === propertyPk)
@@ -162,9 +157,9 @@ export class MongodbConnection extends Connection {
 	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = JSON.parse(query.sentence)
-		const params = this.dataToParameters(query, mapping, data)
+		const params = this.dataToParameters(mapping, dialect, query, data)
 		const obj = this.getObject(mapping, dialect, query, data)
-		const filter = this.parseTemplate(sentence.filter, params, mapping)
+		const filter = this.parseTemplate(mapping, dialect, sentence.filter, params)
 		const result = this.session
 			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
 			: await this.cnx.db.collection(collection).updateMany(filter, obj)
@@ -177,8 +172,8 @@ export class MongodbConnection extends Connection {
 
 	private getObject (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): any {
 		const sentence = JSON.parse(query.sentence)
-		const params = this.dataToParameters(query, mapping, data)
-		const obj = this.parseTemplate(sentence.set, params, mapping)
+		const params = this.dataToParameters(mapping, dialect, query, data)
+		const obj = this.parseTemplate(mapping, dialect, sentence.set, params)
 		for (const include of query.includes) {
 			const children = data.get(include.relation.name)
 			if (!children || !include.relation.composite) {
@@ -206,11 +201,11 @@ export class MongodbConnection extends Connection {
 		return obj
 	}
 
-	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = JSON.parse(query.sentence)
-		const params = this.dataToParameters(query, mapping, data)
-		const filter = this.parseTemplate(sentence.filter, params, mapping)
+		const params = this.dataToParameters(mapping, dialect, query, data)
+		const filter = this.parseTemplate(mapping, dialect, sentence.filter, params)
 		const result = this.session
 			? await this.cnx.db.collection(collection).deleteMany(filter, this.session)
 			: await this.cnx.db.collection(collection).deleteMany(filter)
@@ -254,13 +249,13 @@ export class MongodbConnection extends Connection {
 		this.session = null
 	}
 
-	private arrayToList (query: Query, template: string, mapping: MappingConfig, array: any[]): any[] {
+	private arrayToList (mapping: MappingConfig, dialect: Dialect, query: Query, template: string, array: any[]): any[] {
 		const list: any[] = []
 		for (const item of array) {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const value = this.getValue(item[param.name], param.type, mapping)
+					const value = this.getValue(mapping, dialect, item[param.name], param.type)
 					strObj = Helper.replace(strObj || template, `{{${param.name}}}`, value)
 				}
 			} else {
@@ -272,12 +267,12 @@ export class MongodbConnection extends Connection {
 		return list
 	}
 
-	private parseTemplate (template: string, params: Parameter[], mapping: MappingConfig): any | undefined {
+	private parseTemplate (mapping: MappingConfig, dialect: Dialect, template: string, params: Parameter[]): any | undefined {
 		let result: string | undefined
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const value = this.getValue(param.value, param.type, mapping)
+				const value = this.getValue(mapping, dialect, param.value, param.type)
 				result = Helper.replace(result || template, `{{${param.name}}}`, value)
 			}
 		} else {
@@ -286,7 +281,7 @@ export class MongodbConnection extends Connection {
 		return result ? JSON.parse(result) : undefined
 	}
 
-	private getValue (source: any, type: string, mapping: MappingConfig) {
+	private getValue (mapping: MappingConfig, dialect: Dialect, source: any, type: string) {
 		let value: any
 		if (source === undefined || source === null) {
 			return 'null'
@@ -309,11 +304,11 @@ export class MongodbConnection extends Connection {
 			value = Helper.replace(value, '"', '\\"')
 			return `"${value}"`
 		case 'datetime':
-			return `"${this.writeDateTime(source, mapping)}"`
+			return `"${this.writeDateTime(source, mapping, dialect)}"`
 		case 'date':
-			return `"${this.writeDate(source, mapping)}"`
+			return `"${this.writeDate(source, mapping, dialect)}"`
 		case 'time':
-			return `"${this.writeTime(source, mapping)}"`
+			return `"${this.writeTime(source, mapping, dialect)}"`
 		default:
 			if (typeof source === 'string') {
 				value = Helper.replace(source, '\n', '\\n')

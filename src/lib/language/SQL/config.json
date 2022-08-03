@@ -9,6 +9,11 @@
       "date": "DATE",
       "time": "TIME"
     },
+    "format": {
+      "datetime": "yyyy-LL-dd HH:mm:ss",
+      "date": "yyyy-LL-dd",
+      "time": "HH:mm:ss"
+    },
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
       "createEntity": "CREATE TABLE {name} ({define})",
@@ -416,6 +421,11 @@
         "date": "DATE",
         "time": "TIME"
       },
+      "format": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -653,6 +663,11 @@
         "date": "DATE",
         "time": "TIME"
       },
+      "format": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -713,8 +728,8 @@
         "time": "DATE"
       },
       "others": {
-        "false": "N",
-        "true": "Y",
+        "false": "'N'",
+        "true": "'Y'",
         "variable": ":{name}",
         "delimiter": "\"{name}\"",
         "separatorSql": ";",
@@ -880,6 +895,11 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
+      },
+      "format": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "operators": {
         "unary": {
@@ -1108,6 +1128,11 @@
           "sum": "SUM({0})"
         }
       },
+      "format": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "operators": {
         "unary": {
           "-": "- {0}",
@@ -1166,6 +1191,11 @@
         "datetime": "DATETIME",
         "date": "DATE",
         "time": "TIME"
+      },
+      "format": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "ddl": {
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -1563,6 +1593,11 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
+      },
+      "format": {
+        "datetime": "yyyy-LL-dd HH:mm:ss",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
       },
       "operators": {
         "unary": {

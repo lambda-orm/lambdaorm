@@ -1,6 +1,11 @@
 {
   "NoSQL": {
     "types": null,
+    "format": {
+      "datetime": "ISO",
+      "date": "yyyy-LL-dd",
+      "time": "HH:mm:ss"
+    },
     "ddl": null,
     "dml": {
       "rootMap": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
@@ -159,6 +164,11 @@
   "dialects": {
     "MongoDB": {
       "types": null,
+      "format": {
+        "datetime": "ISO",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "ddl": null,
       "dml": {
         "rootMap": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",

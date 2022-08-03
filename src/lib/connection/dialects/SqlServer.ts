@@ -54,17 +54,17 @@ export class SqlServerConnection extends Connection {
 		this.maxChunkSizeOnBulkInsert = 1000
 	}
 
-	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		return this._query(mapping, query, query.sentence, data)
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		return this._query(mapping, dialect, query, query.sentence, data)
 	}
 
-	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 		const sentence = fieldId
 			? query.sentence
 			: query.sentence.replace('OUTPUT INSERTED.0', '')
-		const result = await this._query(mapping, query, sentence, data)
+		const result = await this._query(mapping, dialect, query, sentence, data)
 		if (fieldId && result.length === 1) {
 			return result[0][fieldId]
 		} else {
@@ -72,16 +72,16 @@ export class SqlServerConnection extends Connection {
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
 		try {
 			const autoIncrement = mapping.getAutoIncrement(query.entity)
 			const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 			const sql = query.sentence
-			const rows = this.arrayToRows(query, mapping, array)
+			const rows = this.arrayToRows(mapping, dialect, query, array)
 			if (fieldId) {
 				const sentence = `${sql} OUTPUT inserted.${fieldId} VALUES ${rows.join(',')};`
-				const result = await this._query(mapping, query, sentence, undefined)
+				const result = await this._query(mapping, dialect, query, sentence, undefined)
 				const ids: any[] = []
 				for (const p in result) {
 					const id = result[p][fieldId]
@@ -98,12 +98,12 @@ export class SqlServerConnection extends Connection {
 		}
 	}
 
-	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		return this._execute(mapping, query, data)
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		return this._execute(mapping, query, data)
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		return this._execute(mapping, dialect, query, data)
 	}
 
 	public async execute (query: Query): Promise<any> {
@@ -161,7 +161,7 @@ export class SqlServerConnection extends Connection {
 		}
 	}
 
-	private async _query (mapping: MappingConfig, query: Query, sentence: string, data: Data|undefined): Promise<any> {
+	private async _query (mapping: MappingConfig, dialect: Dialect, query: Query, sentence: string, data: Data|undefined): Promise<any> {
 		const me = this
 		return new Promise<any[]>((resolve, reject) => {
 			try {
@@ -183,7 +183,7 @@ export class SqlServerConnection extends Connection {
 					rows.push(row)
 				})
 				if (data) {
-					const params = this.dataToParameters(query, mapping, data)
+					const params = this.dataToParameters(mapping, dialect, query, data)
 					if (params.length > 0) {
 						me.addParameters(request, params)
 					}
@@ -195,11 +195,11 @@ export class SqlServerConnection extends Connection {
 		})
 	}
 
-	private async _execute (mapping: MappingConfig, query: Query, data: Data) {
+	private async _execute (mapping: MappingConfig, dialect:Dialect, query: Query, data: Data) {
 		const me = this
 		return new Promise<any>((resolve, reject) => {
 			const request = this.createNonQueryRequest(query.sentence, reject, resolve)
-			const params = this.dataToParameters(query, mapping, data)
+			const params = this.dataToParameters(mapping, dialect, query, data)
 			if (params.length > 0) {
 				me.addParameters(request, params)
 			}
@@ -271,12 +271,12 @@ export class SqlServerConnection extends Connection {
 		}
 	}
 
-	protected override arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected override arrayToRows (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): any[] {
 		const rows: any[] = []
 		for (const item of array) {
 			const row: any[] = []
 			for (const parameter of query.parameters) {
-				const value = this.getItemValue(item, parameter, mapping)
+				const value = this.getItemValue(mapping, dialect, item, parameter)
 				row.push(value)
 			}
 			rows.push(`(${row.join(',')})`)
@@ -284,7 +284,7 @@ export class SqlServerConnection extends Connection {
 		return rows
 	}
 
-	private getItemValue (item:any, parameter:Parameter, mapping: MappingConfig):any {
+	private getItemValue (mapping: MappingConfig, dialect: Dialect, item:any, parameter:Parameter):any {
 		let value = item[parameter.name]
 		if (value == null || value === undefined) {
 			value = 'null'
@@ -297,13 +297,13 @@ export class SqlServerConnection extends Connection {
 				value = Helper.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
-				value = Helper.escape(this.writeDateTime(value, mapping))
+				value = Helper.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = Helper.escape(this.writeDate(value, mapping))
+				value = Helper.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = Helper.escape(this.writeTime(value, mapping))
+				value = Helper.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

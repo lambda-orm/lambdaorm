@@ -123,7 +123,7 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 		// stage: 'source',
 		data: {
 			a: { id: 1 },
-			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
+			b: { minValue: 10, fromDate: '1997-01-01', toDate: '1997-12-31' }
 		},
 		test: [
 			{ name: 'query 1', lambda: () => Products.sort(p => p.name) },
@@ -135,7 +135,7 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => [p.name, p.category.name]) },
 			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 10', data: 'b', lambda: (minValue: number, from: Date, to: Date) => Orders.details.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
+			{ name: 'query 10', data: 'b', lambda: (minValue: number, fromDate: Date, toDate: Date) => Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
 			{ name: 'query 11', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 12', lambda: () => Products.first(p => p) },
 			{ name: 'query 13', lambda: () => Products.last(p => p) },

@@ -12,17 +12,10 @@ export abstract class Connection {
 	public maxChunkSizeIdsOnSelect: number
 	public maxChunkSizeOnBulkInsert: number
 
-	protected formatDateTime?: string
-	protected formatDate?: string
-	protected formatTime?: string
-
 	constructor (cnx: any, pool: any) {
 		this.cnx = cnx
 		this.pool = pool
 		this.inTransaction = false
-		this.formatDateTime = 'yyyy-LL-dd HH:mm:ss'
-		this.formatDate = 'yyyy-LL-dd'
-		this.formatTime = 'HH:mm:ss'
 		this.maxChunkSizeOnSelect = 10000
 		this.maxChunkSizeIdsOnSelect = 7000
 		this.maxChunkSizeOnBulkInsert = 100000
@@ -32,7 +25,7 @@ export abstract class Connection {
 		return this.pool.config
 	}
 
-	protected arrayToRows (query: Query, mapping: MappingConfig, array: any[]): any[] {
+	protected arrayToRows (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): any[] {
 		const rows: any[] = []
 		for (const item of array) {
 			const row: any[] = []
@@ -41,13 +34,13 @@ export abstract class Connection {
 				if (value) {
 					switch (parameter.type) {
 					case 'datetime':
-						value = this.writeDateTime(value, mapping)
+						value = this.writeDateTime(value, mapping, dialect)
 						break
 					case 'date':
-						value = this.writeDate(value, mapping)
+						value = this.writeDate(value, mapping, dialect)
 						break
 					case 'time':
-						value = this.writeTime(value, mapping)
+						value = this.writeTime(value, mapping, dialect)
 						break
 					}
 				}
@@ -58,20 +51,20 @@ export abstract class Connection {
 		return rows
 	}
 
-	protected dataToParameters (query: Query, mapping: MappingConfig, data: Data): Parameter[] {
+	protected dataToParameters (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Parameter[] {
 		const parameters: Parameter[] = []
 		for (const parameter of query.parameters) {
 			let value = data.get(parameter.name)
 			if (value) {
 				switch (parameter.type) {
 				case 'datetime':
-					value = this.writeDateTime(value, mapping)
+					value = this.writeDateTime(value, mapping, dialect)
 					break
 				case 'date':
-					value = this.writeDate(value, mapping)
+					value = this.writeDate(value, mapping, dialect)
 					break
 				case 'time':
-					value = this.writeTime(value, mapping)
+					value = this.writeTime(value, mapping, dialect)
 					break
 				}
 			} else {
@@ -82,18 +75,18 @@ export abstract class Connection {
 		return parameters
 	}
 
-	protected writeDateTime (value: any, mapping: MappingConfig): any {
-		const format = mapping.format?.datetime || this.formatDateTime
+	protected writeDateTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
+		const format = mapping.format?.datetime || dialect.format.datetime
 		return format ? Helper.dateFormat(value, format) : value
 	}
 
-	public writeDate (value: any, mapping: MappingConfig): any {
-		const format = mapping.format?.datetime || this.formatDate
+	public writeDate (value: any, mapping: MappingConfig, dialect: Dialect): any {
+		const format = mapping.format?.date || dialect.format.date
 		return format ? Helper.dateFormat(value, format) : value
 	}
 
-	public writeTime (value: any, mapping: MappingConfig): any {
-		const format = mapping.format?.datetime || this.formatTime
+	public writeTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
+		const format = mapping.format?.time || dialect.format.time
 		return format ? Helper.dateFormat(value, format) : value
 	}
 

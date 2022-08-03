@@ -46,24 +46,24 @@ export class SQLjsConnectionPool extends ConnectionPool {
 }
 
 export class SQLjsConnection extends Connection {
-	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		return this._execute(mapping, query, data)
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const result = await this._execute(mapping, dialect, query, data)
 		return result as number
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<number[]> {
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<number[]> {
 		const sql = query.sentence
 		try {
 			if (!array || array.length === 0) {
 				return []
 			}
 			// https://github.com/sidorares/node-mysql2/issues/830
-			const rows = this.arrayToRows(query, mapping, array)
+			const rows = this.arrayToRows(mapping, dialect, query, array)
 			const result = await this.cnx.query(sql, [rows])
 
 			// https://github.com/sidorares/node-mysql2/issues/435
@@ -77,12 +77,12 @@ export class SQLjsConnection extends Connection {
 		}
 	}
 
-	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		return this._execute(mapping, query, data)
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		return this._execute(mapping, query, data)
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		return this._execute(mapping, dialect, query, data)
 	}
 
 	public async execute (query: Query): Promise<any> {
@@ -109,9 +109,9 @@ export class SQLjsConnection extends Connection {
 		this.inTransaction = false
 	}
 
-	protected async _execute (mapping: MappingConfig, query: Query, data: Data): Promise<any> {
+	protected async _execute (mapping: MappingConfig, dialect:Dialect, query: Query, data: Data): Promise<any> {
 		const sql = query.sentence
-		const params = this.dataToParameters(query, mapping, data)
+		const params = this.dataToParameters(mapping, dialect, query, data)
 		const values: any[] = []
 		for (const param of params) {
 			values.push(param.value)
@@ -119,9 +119,9 @@ export class SQLjsConnection extends Connection {
 		return this.cnx.db.run(sql, values)
 	}
 
-	protected async _query (mapping: MappingConfig, query: Query, data: Data): Promise<any[]> {
+	protected async _query (mapping: MappingConfig, dialect:Dialect, query: Query, data: Data): Promise<any[]> {
 		const sql = query.sentence
-		const params = this.dataToParameters(query, mapping, data)
+		const params = this.dataToParameters(mapping, dialect, query, data)
 		const values: any[] = []
 		for (const param of params) {
 			values.push(param.value)

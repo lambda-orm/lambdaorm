@@ -6,10 +6,10 @@ types:
   string: VARCHAR2({0})
   datetime: DATE
   date: DATE
-  time: DATE
+  time: DATE   
 others:
-  false: "N"
-  true: "Y"
+  false: "'N'"
+  true: "'Y'"
   variable: ":{name}"
 ddl:
   createEntity: "CREATE TABLE {name} ({define})"

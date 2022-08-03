@@ -123,7 +123,7 @@ test:
           condition: isNotNull(name)
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+        error: 'Error: ORA-01008: not all variables bound'
   - name: insert 2
     data: b
     sentences:
@@ -209,7 +209,7 @@ test:
           condition: isNotNull(name)
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+        error: 'Error: ORA-01008: not all variables bound'
   - name: insert 3
     data: c
     sentences:
@@ -291,7 +291,7 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+        error: 'SchemaError: Not exists property: entity.name in entity: Categories'
   - name: insert 4
     data: order
     sentences:
@@ -581,7 +581,7 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+        error: 'Error: ORA-01008: not all variables bound'
   - name: insert 5
     data: order
     sentences:
@@ -1021,7 +1021,7 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+        error: 'Error: ORA-01008: not all variables bound'
   - name: insert 6
     data: order
     sentences:
@@ -1681,5 +1681,5 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+        error: 'Error: ORA-01008: not all variables bound'
 errors: 6

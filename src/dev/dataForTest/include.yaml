@@ -30,7 +30,7 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}))
@@ -526,7 +526,22 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        customer: null
   - name: include 2
     data: a
     sentences:
@@ -1042,7 +1057,7 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
@@ -1707,7 +1722,23 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        details: []
+        customer: null
   - name: include 4
     data: a
     sentences:
@@ -1757,7 +1788,7 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     normalizeExpression: >-
@@ -2667,7 +2698,23 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        details: []
+        customer: null
   - name: include 5
     data: a
     sentences:
@@ -2728,7 +2775,7 @@ test:
                 LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
                 (:LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     normalizeExpression: >-
@@ -3777,7 +3824,23 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        details: []
+        customer: null
   - name: include 6
     data: a
     sentences:
@@ -3813,7 +3876,7 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -4449,7 +4512,23 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        details: []
+        customer: null
   - name: include 7
     data: a
     sentences:
@@ -4498,7 +4577,7 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -5378,7 +5457,23 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        details: []
+        customer: null
   - name: include 8
     data: a
     sentences:
@@ -5429,7 +5524,7 @@ test:
                         LambdaOrmParentId FROM Categories c1  WHERE 
                         c1.CategoryID IN (:LambdaOrmParentId) 
                       children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     normalizeExpression: >-
@@ -6148,5 +6243,21 @@ test:
       constraints: []
     executions:
       - stage: Oracle
-        error: 'TypeError: Cannot read property ''length'' of undefined'
-errors: 7
+    result:
+      - ID: 1
+        CUSTOMERID: VINET
+        EMPLOYEEID: 5
+        ORDERDATE: '1996-07-03T22:00:00.000Z'
+        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
+        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
+        SHIPVIAID: 3
+        FREIGHT: 32.38
+        NAME: Vins et alcools Chevalier
+        ADDRESS: 59 rue de l-Abbaye
+        CITY: Reims
+        REGION: null
+        POSTALCODE: '51100'
+        COUNTRY: France
+        customer: null
+        details: []
+errors: 0

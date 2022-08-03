@@ -7,6 +7,16 @@ import { MappingConfig, Dialect, Helper } from '../../manager'
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
 
+interface OracleQueryInfo{
+	sql:string
+	values:any
+}
+interface OracleAutoIncrementInfo{
+	key:string
+	returning:string
+	bindDef:any
+}
+
 export class OracleConnectionPool extends ConnectionPool {
 	private static lib: any
 	private pool: any = undefined
@@ -58,79 +68,87 @@ export class OracleConnection extends Connection {
 		this.maxChunkSizeIdsOnSelect = 999
 	}
 
-	public async select (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
-		try {
-			const result = await this._execute(mapping, query, data)
-			const list: any[] = []
-			for (const i in result.rows) {
-				const row = result.rows[i]
-				const item: any = {}
-				for (const j in result.metaData) {
-					const col = result.metaData[j]
-					item[col.name] = row[j]
-				}
-				list.push(item)
+	public async select (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
+		const list: any[] = []
+		for (const i in result.rows) {
+			const row = result.rows[i]
+			const item: any = {}
+			for (const j in result.metaData) {
+				const col = result.metaData[j]
+				item[col.name] = row[j]
 			}
-			return list
-		} catch (e) {
-			console.log(e)
+			list.push(item)
 		}
+		return list
 	}
 
-	public async insert (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
 		try {
-			const result = await this._execute(mapping, query, data)
-			return result.rows.length > 0 ? result.rows[0].id : null
+			let sql:string
+			const bindDefs: any = {}
+			// const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+			const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
+			if (autoIncrementInfo) {
+				const bindDefs: any = {}
+				bindDefs[autoIncrementInfo.key] = autoIncrementInfo.bindDef
+				sql = `${query.sentence} ${autoIncrementInfo.returning}`
+			} else {
+				sql = query.sentence
+			}
+			for (const param of query.parameters) {
+				const property = mapping.getProperty(query.entity, param.name)
+				bindDefs[param.name] = this.getOracleType(param.type, property)
+			}
+			const options = {
+				autoCommit: !this.inTransaction,
+				bindDefs: bindDefs
+			}
+
+			const result = await this.cnx.execute(sql, {}, options)
+			if (autoIncrementInfo) {
+				return result.outBinds[0][autoIncrementInfo.key]
+			}
+			return null
 		} catch (error) {
 			console.error(error)
 			throw error
 		}
 	}
 
-	public async bulkInsert (mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
-		const fieldIds = mapping.getFieldIds(query.entity)
-		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
-		const fieldIdKey = fieldId ? 'lbdOrm_' + fieldId.name : null
-		let options = {}
+	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {
 		let sql = ''
+		const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
 		const bindDefs: any = {}
-		if (fieldId && fieldIdKey) {
-			// oracledb.BIND_OUT 3003
-			const oracleType = this.oracleType(fieldId.type)
-			if (fieldId.type === 'string') {
-				const property = mapping.getProperty(query.entity, fieldId.name)
-				bindDefs[fieldIdKey] = { dir: 3003, type: oracleType, maxSize: property.length }
-			} else {
-				bindDefs[fieldIdKey] = { dir: 3003, type: oracleType }
-			}
-		}
 		for (const param of query.parameters) {
 			const property = mapping.getProperty(query.entity, param.name)
 			bindDefs[param.name] = this.getOracleType(param.type, property)
 		}
-		options = {
+		if (autoIncrementInfo) {
+			bindDefs[autoIncrementInfo.key] = autoIncrementInfo.bindDef
+		}
+		const options = {
 			autoCommit: !this.inTransaction,
 			batchErrors: true,
 			bindDefs: bindDefs
 		}
-		const binds: any[] = this.arrayToRows(query, mapping, array)
-		const returning = fieldId && fieldIdKey ? `RETURNING ${fieldId.mapping} INTO :${fieldIdKey} ` : ''
-		sql = `${query.sentence} ${returning}`
+		const binds: any[] = this.arrayToRows(mapping, dialect, query, array)
+		sql = autoIncrementInfo ? `${query.sentence} ${autoIncrementInfo.returning}` : query.sentence
 		const result = await this.cnx.executeMany(sql, binds, options)
 
 		if (result.rowsAffected !== binds.length) {
 			throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
 		}
-
-		if (!fieldId || !fieldIdKey) {
+		if (autoIncrementInfo) {
+			const ids: any[] = []
+			for (const i in result.outBinds) {
+				ids.push(result.outBinds[i][autoIncrementInfo.key][0])
+			}
+			return ids
+		} else {
 			return []
 		}
-
-		const ids: any[] = []
-		for (const i in result.outBinds) {
-			ids.push(result.outBinds[i][fieldIdKey][0])
-		}
-		return ids
 
 		// Info
 		// https://stackoverflow.com/questions/46964852/node-oracledb-bulk-insert-using-associative-array
@@ -140,6 +158,152 @@ export class OracleConnection extends Connection {
 		// [use sequence](https://stackoverflow.com/questions/57201595/how-to-use-column-nextval-with-oracledb)
 		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
+
+	public async update (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
+		return result.rowsAffected
+	}
+
+	public async delete (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<number> {
+		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
+		return result.rowsAffected
+	}
+
+	public async execute (query: Query): Promise<any> {
+		const sql = query.sentence
+		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
+		return this.cnx.execute(sql, {}, options)
+	}
+
+	public async executeDDL (query: Query): Promise<any> {
+		return this.cnx.execute(query.sentence)
+	}
+
+	public async executeSentence (sentence: any): Promise<any> {
+		return this.cnx.execute(sentence)
+	}
+
+	public async beginTransaction (): Promise<void> {
+		this.inTransaction = true
+	}
+
+	public async commit (): Promise<void> {
+		await this.cnx.commit()
+		this.inTransaction = false
+	}
+
+	public async rollback (): Promise<void> {
+		await this.cnx.rollback()
+		this.inTransaction = false
+	}
+
+	protected override arrayToRows (_mapping: MappingConfig, _dialect: Dialect, query: Query, array: any[]): any[] {
+		const rows: any[] = []
+		for (const item of array) {
+			const row: any = {}
+			for (const parameter of query.parameters) {
+				const value = item[parameter.name]
+				row[parameter.name] = this.getItemValue(parameter.type, value)
+			}
+			rows.push(row)
+		}
+		return rows
+	}
+
+	private getQueryInfo (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): OracleQueryInfo {
+		const values: any = {}
+		let sql = query.sentence
+		const params = this.dataToParameters(mapping, dialect, query, data)
+		for (const param of params) {
+			if (param.type !== 'array') {
+				if (param.type === 'datetime' || param.type === 'date' || param.type === 'time') {
+					values[param.name] = new Date(param.value)
+				} else {
+					values[param.name] = param.value
+				}
+				continue
+			}
+			// if array
+			if (param.value.length > 0) {
+				const type = typeof param.value[0]
+				if (type === 'string') {
+					const list:string[] = []
+					for (const _item of param.value) {
+						let item = _item
+						item = Helper.escape(item)
+						item = Helper.replace(item, '\\\'', '\\\'\'')
+						list.push(item)
+					}
+					sql = Helper.replace(sql, `:${param.name}`, list.join(','))
+				} else {
+					sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
+				}
+			} else {
+				// if empty array
+				sql = Helper.replace(sql, `:${param.name}`, '')
+			}
+		}
+		return { sql: sql, values: values }
+	}
+
+	private getAutoIncrementInfo (mapping: MappingConfig, query: Query): OracleAutoIncrementInfo|undefined {
+		const fieldIds = mapping.getFieldIds(query.entity)
+		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
+		if (!fieldId) {
+			return undefined
+		}
+		const key = 'lbdOrm_' + fieldId.name
+		// oracledb.BIND_OUT 3003
+		let bindDef:any
+		const oracleType = this.oracleType(fieldId.type)
+		if (fieldId.type === 'string') {
+			const property = mapping.getProperty(query.entity, fieldId.name)
+			bindDef = { dir: 3003, type: oracleType, maxSize: property.length }
+		} else {
+			bindDef = { dir: 3003, type: oracleType }
+		}
+		const returning = `RETURNING ${fieldId.mapping} INTO :${key} `
+		return { key: key, bindDef: bindDef, returning: returning }
+	}
+
+	// private async _execute (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
+	// const values: any = {}
+	// let sql = query.sentence
+	// const params = this.dataToParameters(mapping, dialect, query, data)
+	// for (const param of params) {
+	// if (param.type !== 'array') {
+	// if (param.type === 'datetime' || param.type === 'date' || param.type === 'time') {
+	// values[param.name] = new Date(param.value)
+	// } else {
+	// values[param.name] = param.value
+	// }
+	// continue
+	// }
+	// // if array
+	// if (param.value.length > 0) {
+	// const type = typeof param.value[0]
+	// if (type === 'string') {
+	// const list:string[] = []
+	// for (const _item of param.value) {
+	// let item = _item
+	// item = Helper.escape(item)
+	// item = Helper.replace(item, '\\\'', '\\\'\'')
+	// list.push(item)
+	// }
+	// sql = Helper.replace(sql, `:${param.name}`, list.join(','))
+	// } else {
+	// sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
+	// }
+	// } else {
+	// // if empty array
+	// sql = Helper.replace(sql, `:${param.name}`, '')
+	// }
+	// }
+	// const options = { autoCommit: !this.inTransaction }
+	// return this.cnx.execute(sql, values, options)
+	// }
 
 	private oracleType (type: string): number {
 		switch (type) {
@@ -181,19 +345,6 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	protected override arrayToRows (query: Query, _mapping: MappingConfig, array: any[]): any[] {
-		const rows: any[] = []
-		for (const item of array) {
-			const row: any = {}
-			for (const parameter of query.parameters) {
-				const value = item[parameter.name]
-				row[parameter.name] = this.getItemValue(parameter.type, value)
-			}
-			rows.push(row)
-		}
-		return rows
-	}
-
 	private getItemValue (type:string, value:any):any {
 		switch (type) {
 		case 'boolean':
@@ -207,73 +358,5 @@ export class OracleConnection extends Connection {
 		default:
 			return value
 		}
-	}
-
-	public async update (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.rowsAffected
-	}
-
-	public async delete (mapping: MappingConfig, _dialect: Dialect, query: Query, data: Data): Promise<number> {
-		const result = await this._execute(mapping, query, data)
-		return result.rowsAffected
-	}
-
-	public async execute (query: Query): Promise<any> {
-		const sql = query.sentence
-		const options = this.inTransaction ? { autoCommit: false } : { autoCommit: true }
-		return this.cnx.execute(sql, {}, options)
-	}
-
-	public async executeDDL (query: Query): Promise<any> {
-		return this.cnx.execute(query.sentence)
-	}
-
-	public async executeSentence (sentence: any): Promise<any> {
-		return this.cnx.execute(sentence)
-	}
-
-	public async beginTransaction (): Promise<void> {
-		this.inTransaction = true
-	}
-
-	public async commit (): Promise<void> {
-		await this.cnx.commit()
-		this.inTransaction = false
-	}
-
-	public async rollback (): Promise<void> {
-		await this.cnx.rollback()
-		this.inTransaction = false
-	}
-
-	protected async _execute (mapping: MappingConfig, query: Query, data: Data): Promise<any> {
-		const values: any = {}
-		let sql = query.sentence
-		const params = this.dataToParameters(query, mapping, data)
-		for (const param of params) {
-			if (param.type !== 'array') {
-				values[param.name] = param.value
-				continue
-			}
-			if (param.value.length > 0) {
-				const type = typeof param.value[0]
-				if (type === 'string') {
-					for (const _value of param.value) {
-						let value = _value
-						value = Helper.escape(value)
-						value = Helper.replace(value, '\\\'', '\\\'\'')
-						values.push(`'${value}'`)
-					}
-					Helper.replace(sql, `:${param.name}`, param.value.join(','))
-				} else {
-					sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
-				}
-			} else {
-				sql = Helper.replace(sql, `:${param.name}`, '')
-			}
-		}
-		const options = { autoCommit: !this.inTransaction }
-		return this.cnx.execute(sql, values, options)
 	}
 }
