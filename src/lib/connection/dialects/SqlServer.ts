@@ -293,8 +293,13 @@ export class SqlServerConnection extends Connection {
 			case 'boolean':
 				value = value ? 1 : 0; break
 			case 'string':
-				value = Helper.escape(value)
-				value = Helper.replace(value, '\\\'', '\\\'\'')
+				if (value.includes('\'')) {
+					value = `'${Helper.replace(value, '\'', '\'\'')}'`
+				} else {
+					value = `'${value}'`
+				}
+				// value = Helper.escape(value)
+				// value = Helper.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
 				value = Helper.escape(this.writeDateTime(value, mapping, dialect))

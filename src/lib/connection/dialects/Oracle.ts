@@ -85,36 +85,21 @@ export class OracleConnection extends Connection {
 	}
 
 	public async insert (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
-		try {
-			let sql:string
-			const bindDefs: any = {}
-			// const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
-			const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
-			if (autoIncrementInfo) {
-				const bindDefs: any = {}
-				bindDefs[autoIncrementInfo.key] = autoIncrementInfo.bindDef
-				sql = `${query.sentence} ${autoIncrementInfo.returning}`
-			} else {
-				sql = query.sentence
-			}
-			for (const param of query.parameters) {
-				const property = mapping.getProperty(query.entity, param.name)
-				bindDefs[param.name] = this.getOracleType(param.type, property)
-			}
-			const options = {
-				autoCommit: !this.inTransaction,
-				bindDefs: bindDefs
-			}
-
-			const result = await this.cnx.execute(sql, {}, options)
-			if (autoIncrementInfo) {
-				return result.outBinds[0][autoIncrementInfo.key]
-			}
-			return null
-		} catch (error) {
-			console.error(error)
-			throw error
+		let sql:string
+		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
+		if (autoIncrementInfo) {
+			qryInfo.values[autoIncrementInfo.key] = autoIncrementInfo.bindDef
+			sql = `${query.sentence} ${autoIncrementInfo.returning}`
+		} else {
+			sql = query.sentence
 		}
+		const result = await this.cnx.execute(sql, qryInfo.values, { autoCommit: !this.inTransaction })
+		if (autoIncrementInfo) {
+			return result.outBinds[autoIncrementInfo.key][0]
+		}
+		return null
+		// https://oracle.github.io/node-oracledb/doc/api.html#dmlreturn
 	}
 
 	public async bulkInsert (mapping: MappingConfig, dialect: Dialect, query: Query, array: any[]): Promise<any[]> {

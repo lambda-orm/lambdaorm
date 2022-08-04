@@ -131,8 +131,8 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 3', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 4', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
 			{ name: 'query 5', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
-			{ name: 'query 6', data: 'a', lambda: () => Products.map(p => p.category.name) },
-			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => [p.name, p.category.name]) },
+			{ name: 'query 6', data: 'a', lambda: () => Products.map(p => ({ category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name]) },
 			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
 			{ name: 'query 10', data: 'b', lambda: (minValue: number, fromDate: Date, toDate: Date) => Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
@@ -1035,5 +1035,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['Oracle'], function () { console.log('end') })
+apply(['MySQL', 'SqlServer'], function () { console.log('end') })
 // apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })

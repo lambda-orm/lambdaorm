@@ -6,31 +6,55 @@ test:
   - name: include 1
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.CustomerID AS "__customerId"
-            FROM Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.CustomerID AS `__customerId`
+            FROM Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
-                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.CustomerID AS [__customerId]
+            FROM Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.customer)
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).include(p=>p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}))
@@ -525,50 +549,109 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        customer: null
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 2
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.OrderID AS "__id" FROM
-            Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.OrderID AS `__id` FROM
+            Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
-                AS discount, o1.OrderID AS LambdaOrmParentId FROM "Order
-                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+                AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
+                Details` o1  WHERE  o1.OrderID IN (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.OrderID AS [__id] FROM
+            Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+                o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
+                AS discount, o1.OrderID AS LambdaOrmParentId FROM [Order
+                Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>p.details)
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}))
@@ -1004,60 +1087,136 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 2
+                unitPrice: 19
+                quantity: 15
+                discount: 0
+              - orderId: 1
+                productId: 29
+                unitPrice: 123.79
+                quantity: 20
+                discount: 0
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        details: []
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 0
+          - orderId: 1
+            productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 0
+          - orderId: 1
+            productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 0
   - name: include 3
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.OrderID AS `__id`,
+            o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
-                AS discount, o1.OrderID AS LambdaOrmParentId FROM "Order
-                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+                AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
+                Details` o1  WHERE  o1.OrderID IN (?) 
               children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
-                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.OrderID AS [__id],
+            o.CustomerID AS [__customerId] FROM Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+                o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
+                AS discount, o1.OrderID AS LambdaOrmParentId FROM [Order
+                Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
+              children: []
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: Orders.filter(p=>(p.id===id)).include(p=>[p.details,p.customer])
     normalizeExpression: >-
       Orders.filter(p=>(p.id===id)).map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>[p.details.filter(p=>includes(p.orderId,LambdaOrmParentId)).map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}),p.customer.filter(p=>includes(p.id,LambdaOrmParentId)).map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id})])
@@ -1721,54 +1880,116 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 2
+                unitPrice: 19
+                quantity: 15
+                discount: 0
+              - orderId: 1
+                productId: 29
+                unitPrice: 123.79
+                quantity: 20
+                discount: 0
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        details: []
-        customer: null
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 0
+          - orderId: 1
+            productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 0
+          - orderId: 1
+            productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 0
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 4
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.OrderID AS `__id`,
+            o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
-                AS discount, o1.ProductID AS "__productId", o1.OrderID AS
-                LambdaOrmParentId FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                AS discount, o1.ProductID AS `__productId`, o1.OrderID AS
+                LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN
+                (?) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: MySQL
+                  dataSource: MySQL
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -1776,19 +1997,65 @@ test:
                     p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder,
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
-                    p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                    p  WHERE  p.ProductID IN (?) 
                   children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
-                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.OrderID AS [__id],
+            o.CustomerID AS [__customerId] FROM Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+                o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
+                AS discount, o1.ProductID AS [__productId], o1.OrderID AS
+                LambdaOrmParentId FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: SqlServer
+                  dataSource: SqlServer
+                  sentence: >-
+                    SELECT p.ProductID AS id, p.ProductName AS name,
+                    p.SupplierID AS supplierId, p.CategoryID AS categoryId,
+                    p.QuantityPerUnit AS quantity, p.UnitPrice AS price,
+                    p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder,
+                    p.ReorderLevel AS reorderLevel, p.Discontinued AS
+                    discontinued, p.ProductID AS LambdaOrmParentId FROM Products
+                    p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
+                  children: []
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product),p.customer])
     normalizeExpression: >-
@@ -2697,85 +2964,259 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 2
+                unitPrice: 19
+                quantity: 15
+                discount: 0
+                product:
+                  id: 2
+                  name: Chang
+                  supplierId: 1
+                  categoryId: 1
+                  quantity: 24 - 12 oz bottles
+                  price: 19
+                  inStock: 17
+                  onOrder: 40
+                  reorderLevel: 25
+                  discontinued: false
+              - orderId: 1
+                productId: 29
+                unitPrice: 123.79
+                quantity: 20
+                discount: 0
+                product:
+                  id: 29
+                  name: Thringer Rostbratwurst
+                  supplierId: 12
+                  categoryId: 6
+                  quantity: 50 bags x 30 sausgs.
+                  price: 123.79
+                  inStock: 0
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        details: []
-        customer: null
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 0
+            product:
+              id: 11
+              name: Queso Cabrales
+              supplierId: 5
+              categoryId: 4
+              quantity: 1 kg pkg.
+              price: 21
+              inStock: 22
+              onOrder: 30
+              reorderLevel: 30
+              discontinued: false
+          - orderId: 1
+            productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 0
+            product:
+              id: 42
+              name: Singaporean Hokkien Fried Mee
+              supplierId: 20
+              categoryId: 5
+              quantity: 32 - 1 kg pkgs.
+              price: 14
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+          - orderId: 1
+            productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 0
+            product:
+              id: 72
+              name: Mozzarella di Giovanni
+              supplierId: 14
+              categoryId: 4
+              quantity: 24 - 200 g pkgs.
+              price: 34.8
+              inStock: 14
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 5
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.OrderID AS `__id`,
+            o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
-                AS discount, o1.ProductID AS "__productId", o1.OrderID AS
-                LambdaOrmParentId FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                AS discount, o1.ProductID AS `__productId`, o1.OrderID AS
+                LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN
+                (?) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: MySQL
+                  dataSource: MySQL
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
                     p.QuantityPerUnit AS quantity, p.UnitPrice AS price,
                     p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder,
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
-                    discontinued, p.CategoryID AS "__categoryId", p.ProductID AS
+                    discontinued, p.CategoryID AS `__categoryId`, p.ProductID AS
                     LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN
-                    (:LambdaOrmParentId) 
+                    (?) 
                   children:
                     - entity: Categories
-                      dialect: Oracle
-                      dataSource: Oracle
+                      dialect: MySQL
+                      dataSource: MySQL
                       sentence: >-
                         SELECT c.CategoryID AS id, c.CategoryName AS name,
                         c.Description AS description, c.CategoryID AS
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
-                        IN (:LambdaOrmParentId) 
+                        IN (?) 
                       children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c1.CustomerID AS id, c1.CompanyName AS name,
                 c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
                 AS address, c1.City AS city, c1.Region AS region, c1.PostalCode
                 AS postalCode, c1.Country AS country, c1.CustomerID AS
                 LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
-                (:LambdaOrmParentId) 
+                (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.OrderID AS [__id],
+            o.CustomerID AS [__customerId] FROM Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
+                o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
+                AS discount, o1.ProductID AS [__productId], o1.OrderID AS
+                LambdaOrmParentId FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: SqlServer
+                  dataSource: SqlServer
+                  sentence: >-
+                    SELECT p.ProductID AS id, p.ProductName AS name,
+                    p.SupplierID AS supplierId, p.CategoryID AS categoryId,
+                    p.QuantityPerUnit AS quantity, p.UnitPrice AS price,
+                    p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder,
+                    p.ReorderLevel AS reorderLevel, p.Discontinued AS
+                    discontinued, p.CategoryID AS [__categoryId], p.ProductID AS
+                    LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN
+                    (@LambdaOrmParentId) 
+                  children:
+                    - entity: Categories
+                      dialect: SqlServer
+                      dataSource: SqlServer
+                      sentence: >-
+                        SELECT c.CategoryID AS id, c.CategoryName AS name,
+                        c.Description AS description, c.CategoryID AS
+                        LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
+                        IN (@LambdaOrmParentId) 
+                      children: []
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c1.CustomerID AS id, c1.CompanyName AS name,
+                c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
+                AS address, c1.City AS city, c1.Region AS region, c1.PostalCode
+                AS postalCode, c1.Country AS country, c1.CustomerID AS
+                LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
+                (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product.include(p=>p.category)),p.customer])
     normalizeExpression: >-
@@ -3823,60 +4264,229 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 2
+                unitPrice: 19
+                quantity: 15
+                discount: 0
+                product:
+                  id: 2
+                  name: Chang
+                  supplierId: 1
+                  categoryId: 1
+                  quantity: 24 - 12 oz bottles
+                  price: 19
+                  inStock: 17
+                  onOrder: 40
+                  reorderLevel: 25
+                  discontinued: false
+                  category:
+                    id: 1
+                    name: Beverages
+                    description: Soft drinks, coffees, teas, beers, and ales
+              - orderId: 1
+                productId: 29
+                unitPrice: 123.79
+                quantity: 20
+                discount: 0
+                product:
+                  id: 29
+                  name: Thringer Rostbratwurst
+                  supplierId: 12
+                  categoryId: 6
+                  quantity: 50 bags x 30 sausgs.
+                  price: 123.79
+                  inStock: 0
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+                  category:
+                    id: 6
+                    name: Meat/Poultry
+                    description: Prepared meats
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        details: []
-        customer: null
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - orderId: 1
+            productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 0
+            product:
+              id: 11
+              name: Queso Cabrales
+              supplierId: 5
+              categoryId: 4
+              quantity: 1 kg pkg.
+              price: 21
+              inStock: 22
+              onOrder: 30
+              reorderLevel: 30
+              discontinued: false
+              category:
+                id: 4
+                name: Dairy Products
+                description: Cheeses
+          - orderId: 1
+            productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 0
+            product:
+              id: 42
+              name: Singaporean Hokkien Fried Mee
+              supplierId: 20
+              categoryId: 5
+              quantity: 32 - 1 kg pkgs.
+              price: 14
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+              category:
+                id: 5
+                name: Grains/Cereals
+                description: Breads, crackers, pasta, and cereal
+          - orderId: 1
+            productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 0
+            product:
+              id: 72
+              name: Mozzarella di Giovanni
+              supplierId: 14
+              categoryId: 4
+              quantity: 24 - 200 g pkgs.
+              price: 34.8
+              inStock: 14
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
+              category:
+                id: 4
+                name: Dairy Products
+                description: Cheeses
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 6
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.OrderID AS `__id`,
+            o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
-                "Order Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+                `Order Details` o1  WHERE  o1.OrderID IN (?) 
               children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
-                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.OrderID AS [__id],
+            o.CustomerID AS [__customerId] FROM Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+                o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
+                [Order Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
+              children: []
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -4511,53 +5121,105 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 15
+                unitPrice: 19
+                productId: 2
+              - quantity: 20
+                unitPrice: 123.79
+                productId: 29
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        details: []
-        customer: null
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - quantity: 12
+            unitPrice: 14
+            productId: 11
+          - quantity: 10
+            unitPrice: 9.8
+            productId: 42
+          - quantity: 5
+            unitPrice: 34.8
+            productId: 72
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 7
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
             requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
-            postalCode, o.ShipCountry AS country, o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
+            postalCode, o.ShipCountry AS country, o.OrderID AS `__id`,
+            o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? 
           children:
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-                o1.ProductID AS productId, o1.ProductID AS "__productId",
-                o1.OrderID AS LambdaOrmParentId FROM "Order Details" o1  WHERE 
-                o1.OrderID IN (:LambdaOrmParentId) 
+                o1.ProductID AS productId, o1.ProductID AS `__productId`,
+                o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE 
+                o1.OrderID IN (?) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: MySQL
+                  dataSource: MySQL
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -4565,19 +5227,64 @@ test:
                     p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder,
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
-                    p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                    p  WHERE  p.ProductID IN (?) 
                   children: []
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
-                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.OrderID AS [__id],
+            o.CustomerID AS [__customerId] FROM Orders o  WHERE o.OrderID = @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+                o1.ProductID AS productId, o1.ProductID AS [__productId],
+                o1.OrderID AS LambdaOrmParentId FROM [Order Details] o1  WHERE 
+                o1.OrderID IN (@LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: SqlServer
+                  dataSource: SqlServer
+                  sentence: >-
+                    SELECT p.ProductID AS id, p.ProductName AS name,
+                    p.SupplierID AS supplierId, p.CategoryID AS categoryId,
+                    p.QuantityPerUnit AS quantity, p.UnitPrice AS price,
+                    p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder,
+                    p.ReorderLevel AS reorderLevel, p.Discontinued AS
+                    discontinued, p.ProductID AS LambdaOrmParentId FROM Products
+                    p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
+                  children: []
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.details.include(q=>q.product).map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId}),p.customer])
     normalizeExpression: >-
@@ -5456,32 +6163,139 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 15
+                unitPrice: 19
+                productId: 2
+                product:
+                  id: 2
+                  name: Chang
+                  supplierId: 1
+                  categoryId: 1
+                  quantity: 24 - 12 oz bottles
+                  price: 19
+                  inStock: 17
+                  onOrder: 40
+                  reorderLevel: 25
+                  discontinued: false
+              - quantity: 20
+                unitPrice: 123.79
+                productId: 29
+                product:
+                  id: 29
+                  name: Thringer Rostbratwurst
+                  supplierId: 12
+                  categoryId: 6
+                  quantity: 50 bags x 30 sausgs.
+                  price: 123.79
+                  inStock: 0
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        details: []
-        customer: null
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - quantity: 12
+            unitPrice: 14
+            productId: 11
+            product:
+              id: 11
+              name: Queso Cabrales
+              supplierId: 5
+              categoryId: 4
+              quantity: 1 kg pkg.
+              price: 21
+              inStock: 22
+              onOrder: 30
+              reorderLevel: 30
+              discontinued: false
+          - quantity: 10
+            unitPrice: 9.8
+            productId: 42
+            product:
+              id: 42
+              name: Singaporean Hokkien Fried Mee
+              supplierId: 20
+              categoryId: 5
+              quantity: 32 - 1 kg pkgs.
+              price: 14
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
+          - quantity: 5
+            unitPrice: 34.8
+            productId: 72
+            product:
+              id: 72
+              name: Mozzarella di Giovanni
+              supplierId: 14
+              categoryId: 4
+              quantity: 24 - 200 g pkgs.
+              price: 34.8
+              inStock: 14
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: false
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 8
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -5489,42 +6303,88 @@ test:
             o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
             o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
             postalCode, o.ShipCountry AS country, o.CustomerID AS
-            "__customerId", o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID =
-            :id 
+            `__customerId`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID =
+            ? 
           children:
             - entity: Customers
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
-                FROM Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
+                FROM Customers c  WHERE  c.CustomerID IN (?) 
               children: []
             - entity: Orders.details
-              dialect: Oracle
-              dataSource: Oracle
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
-                o1.ProductID AS "__productId", o1.OrderID AS LambdaOrmParentId
-                FROM "Order Details" o1  WHERE  o1.OrderID IN
-                (:LambdaOrmParentId) 
+                o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
               children:
                 - entity: Products
-                  dialect: Oracle
-                  dataSource: Oracle
+                  dialect: MySQL
+                  dataSource: MySQL
                   sentence: >-
                     SELECT p.ProductName AS name, p.CategoryID AS
-                    "__categoryId", p.ProductID AS LambdaOrmParentId FROM
-                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                    `__categoryId`, p.ProductID AS LambdaOrmParentId FROM
+                    Products p  WHERE  p.ProductID IN (?) 
                   children:
                     - entity: Categories
-                      dialect: Oracle
-                      dataSource: Oracle
+                      dialect: MySQL
+                      dataSource: MySQL
                       sentence: >-
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
-                        c1.CategoryID IN (:LambdaOrmParentId) 
+                        c1.CategoryID IN (?) 
                       children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
+            employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
+            requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId,
+            o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address,
+            o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS
+            postalCode, o.ShipCountry AS country, o.CustomerID AS
+            [__customerId], o.OrderID AS [__id] FROM Orders o  WHERE o.OrderID =
+            @id 
+          children:
+            - entity: Customers
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
+                FROM Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
+              sentence: >-
+                SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+                o1.ProductID AS [__productId], o1.OrderID AS LambdaOrmParentId
+                FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: SqlServer
+                  dataSource: SqlServer
+                  sentence: >-
+                    SELECT p.ProductName AS name, p.CategoryID AS
+                    [__categoryId], p.ProductID AS LambdaOrmParentId FROM
+                    Products p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
+                  children:
+                    - entity: Categories
+                      dialect: SqlServer
+                      dataSource: SqlServer
+                      sentence: >-
+                        SELECT c1.CategoryName AS name, c1.CategoryID AS
+                        LambdaOrmParentId FROM Categories c1  WHERE 
+                        c1.CategoryID IN (@LambdaOrmParentId) 
+                      children: []
+    errors: 1
     expression: >-
       Orders.filter(p=>(p.id===id)).include(p=>[p.customer.map(p=>p.name),p.details.include(p=>p.product.include(p=>p.category.map(p=>p.name)).map(p=>p.name)).map(p=>[p.quantity,p.unitPrice])])
     normalizeExpression: >-
@@ -6242,22 +7102,73 @@ test:
       entity: Orders
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000Z'
+            requiredDate: '1996-08-01T00:00:00.000Z'
+            shippedDate: '1996-07-16T00:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            customer:
+              name: Vins et alcools Chevalier
+            details:
+              - quantity: 15
+                unitPrice: 19
+                product:
+                  name: Chang
+                  category:
+                    name: Beverages
+              - quantity: 20
+                unitPrice: 123.79
+                product:
+                  name: Thringer Rostbratwurst
+                  category:
+                    name: Meat/Poultry
     result:
-      - ID: 1
-        CUSTOMERID: VINET
-        EMPLOYEEID: 5
-        ORDERDATE: '1996-07-03T22:00:00.000Z'
-        REQUIREDDATE: '1996-07-31T22:00:00.000Z'
-        SHIPPEDDATE: '1996-07-15T22:00:00.000Z'
-        SHIPVIAID: 3
-        FREIGHT: 32.38
-        NAME: Vins et alcools Chevalier
-        ADDRESS: 59 rue de l-Abbaye
-        CITY: Reims
-        REGION: null
-        POSTALCODE: '51100'
-        COUNTRY: France
-        customer: null
-        details: []
-errors: 0
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        customer:
+          name: Vins et alcools Chevalier
+        details:
+          - quantity: 12
+            unitPrice: 14
+            product:
+              name: Queso Cabrales
+              category:
+                name: Dairy Products
+          - quantity: 10
+            unitPrice: 9.8
+            product:
+              name: Singaporean Hokkien Fried Mee
+              category:
+                name: Grains/Cereals
+          - quantity: 5
+            unitPrice: 34.8
+            product:
+              name: Mozzarella di Giovanni
+              category:
+                name: Dairy Products
+errors: 8

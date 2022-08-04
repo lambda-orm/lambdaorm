@@ -120,8 +120,13 @@ export class PostgreSQLConnection extends Connection {
 			case 'boolean':
 				value = value ? 'true' : 'false'; break
 			case 'string':
-				value = Helper.escape(value)
-				value = Helper.replace(value, '\\\'', '\\\'\'')
+				if (value.includes('\'')) {
+					// value = Helper.escape(value)
+					value = `'${Helper.replace(value, '\'', '\'\'')}'`
+				} else {
+				// value = Helper.escape(value)
+					value = `'${value}'`
+				}
 				break
 			case 'datetime':
 				value = Helper.escape(this.writeDateTime(value, mapping, dialect))

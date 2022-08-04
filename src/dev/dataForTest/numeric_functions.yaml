@@ -6,15 +6,25 @@ test:
   - name: function abs
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
             ROUND(ABS((p.UnitPrice * -1)),10) AS result FROM Products p  WHERE
-            p.ProductID = :id 
+            p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source,
+            ROUND(ABS((p.UnitPrice * -1)),10) AS result FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -146,22 +156,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: -18
-        RESULT: 18
+      - name: Chai
+        source: -18
+        result: 18
   - name: function acos
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 0.25 AS source, ROUND(ACOS(0.25),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 0.25 AS source, ROUND(ACOS(0.25),10)
+            AS result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -271,22 +291,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 0.25
-        RESULT: 1.3181160717
+      - name: Chai
+        source: 0.25
+        result: 1.3181160717
   - name: function asin
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 0.25 AS source, ROUND(ASIN(0.25),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 0.25 AS source, ROUND(ASIN(0.25),10)
+            AS result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -396,22 +426,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 0.25
-        RESULT: 0.2526802551
+      - name: Chai
+        source: 0.25
+        result: 0.2526802551
   - name: function atan
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 0.25 AS source, ROUND(ATAN(0.25),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 0.25 AS source, ROUND(ATAN(0.25),10)
+            AS result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -521,22 +561,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 0.25
-        RESULT: 0.2449786631
+      - name: Chai
+        source: 0.25
+        result: 0.2449786631
   - name: function atan2
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
-            SELECT p.ProductName AS name, 0.5 AS source, ROUND(ATAN2(0.25,1),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            SELECT p.ProductName AS name, 0.5 AS source, ROUND(ATAN(0.25,1),10)
+            AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 0.5 AS source, ROUND(ATN2(0.25,1),10)
+            AS result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -650,22 +700,33 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 0.5
-        RESULT: 0.2449786631
+      - name: Chai
+        source: 0.5
+        result: 0.2449786631
   - name: function ceil
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 25.75 AS source, ROUND(CEIL(25.75),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 25.75 AS source,
+            ROUND(CEILING(25.75),10) AS result FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -775,22 +836,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 25.75
-        RESULT: 26
+      - name: Chai
+        source: 25.75
+        result: 26
   - name: function cos
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 2 AS source, ROUND(COS(2),10) AS
-            result FROM Products p  WHERE p.ProductID = :id 
+            result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 2 AS source, ROUND(COS(2),10) AS
+            result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -900,22 +971,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 2
-        RESULT: -0.4161468365
+      - name: Chai
+        source: 2
+        result: -0.4161468365
   - name: function exp
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 1 AS source, ROUND(EXP(1),10) AS
-            result FROM Products p  WHERE p.ProductID = :id 
+            result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 1 AS source, ROUND(EXP(1),10) AS
+            result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1025,23 +1106,34 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 1
-        RESULT: 2.7182818285
+      - name: Chai
+        source: 1
+        result: 2.7182818285
   - name: function floor
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 25.75 AS source,
             ROUND(FLOOR(25.75),10) AS result FROM Products p  WHERE p.ProductID
-            = :id 
+            = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 25.75 AS source,
+            ROUND(FLOOR(25.75),10) AS result FROM Products p  WHERE p.ProductID
+            = @id 
           children: []
     errors: 0
     expression: >-
@@ -1151,22 +1243,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 25.75
-        RESULT: 25
+      - name: Chai
+        source: 25.75
+        result: 25
   - name: function ln
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 2 AS source, ROUND(LN(2),10) AS result
-            FROM Products p  WHERE p.ProductID = :id 
+            FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 2 AS source, ROUND(LOG(2),10) AS
+            result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1276,24 +1378,34 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 2
-        RESULT: 0.6931471806
+      - name: Chai
+        source: 2
+        result: 0.6931471806
   - name: function log
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 10 AS m, 20 AS n, ROUND(LOG(10,20),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            AS result FROM Products p  WHERE p.ProductID = ? 
           children: []
-    errors: 0
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 10 AS m, 20 AS n, ROUND(LOG(10,20),10)
+            AS result FROM Products p  WHERE p.ProductID = @id 
+          children: []
+    errors: 1
     expression: >-
       Products.filter(p=>(p.id===id)).map(p=>{name:p.name,m:10,n:20,result:round(log(10,20),10)})
     normalizeExpression: >-
@@ -1417,23 +1529,39 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
+        error: not equal MySQL
+        result:
+          - name: Chai
+            m: 10
+            'n': 20
+            result: 0.7686217868
     result:
-      - NAME: Chai
-        M: 10
-        'N': 20
-        RESULT: 1.3010299957
+      - name: Chai
+        m: 10
+        'n': 20
+        result: 1.3010299957
   - name: function round
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
-            result FROM Products p  WHERE p.ProductID = :id 
+            result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS
+            result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1539,22 +1667,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 135.375
-        RESULT: 135.38
+      - name: Chai
+        source: 135.375
+        result: 135.38
   - name: function sign
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 255.5 AS source, ROUND(SIGN(255.5),10)
-            AS result FROM Products p  WHERE p.ProductID = :id 
+            AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 255.5 AS source, ROUND(SIGN(255.5),10)
+            AS result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1664,22 +1802,32 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 255.5
-        RESULT: 1
+      - name: Chai
+        source: 255.5
+        result: 1
   - name: function tan
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 1.75 AS source, ROUND(TAN(1.75),10) AS
-            result FROM Products p  WHERE p.ProductID = :id 
+            result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 1.75 AS source, ROUND(TAN(1.75),10) AS
+            result FROM Products p  WHERE p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1789,23 +1937,34 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 1.75
-        RESULT: -5.5203799225
+      - name: Chai
+        source: 1.75
+        result: -5.5203799225
   - name: function trunc
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MySQL
         sentence:
           entity: Products
-          dialect: Oracle
-          dataSource: Oracle
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             SELECT p.ProductName AS name, 135.375 AS source,
-            ROUND(TRUNC(135.375,2),10) AS result FROM Products p  WHERE
-            p.ProductID = :id 
+            ROUND(TRUNCATE(135.375,2),10) AS result FROM Products p  WHERE
+            p.ProductID = ? 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, 135.375 AS source,
+            ROUND(ROUND(135.375,2,1),10) AS result FROM Products p  WHERE
+            p.ProductID = @id 
           children: []
     errors: 0
     expression: >-
@@ -1919,9 +2078,10 @@ test:
       entity: Products
       constraints: []
     executions:
-      - stage: Oracle
+      - stage: MySQL
+      - stage: SqlServer
     result:
-      - NAME: Chai
-        SOURCE: 135.375
-        RESULT: 135.37
-errors: 0
+      - name: Chai
+        source: 135.375
+        result: 135.37
+errors: 1
