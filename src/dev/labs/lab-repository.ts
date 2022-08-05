@@ -1,5 +1,5 @@
 import { orm } from '../../lib'
-import { CategoryRepository, Category, ProductRepository } from '../../model'
+import { CategoryRepository, Category, ProductRepository } from '../model'
 
 (async () => {
 	try {

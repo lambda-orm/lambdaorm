@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/lib/manager/sentenceCompleter.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/sentenceCompleter.ts#L8)
+[src/lib/manager/sentenceCompleter.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/sentenceCompleter.ts#L8)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/manager/sentenceCompleter.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/sentenceCompleter.ts#L12)
+[src/lib/manager/sentenceCompleter.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/sentenceCompleter.ts#L12)

@@ -47,7 +47,7 @@ Error.constructor
 
 #### Defined in
 
-[src/lib/model/error.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/error.ts#L10)
+[src/lib/model/error.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/error.ts#L10)
 
 ## Properties
 

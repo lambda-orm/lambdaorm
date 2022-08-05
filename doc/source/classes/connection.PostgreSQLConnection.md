@@ -83,7 +83,7 @@
 
 #### Defined in
 
-[src/lib/connection/connection.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L15)
+[src/lib/connection/connection.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L15)
 
 ## Properties
 
@@ -97,7 +97,7 @@
 
 #### Defined in
 
-[src/lib/connection/connection.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L7)
+[src/lib/connection/connection.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L7)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L9)
+[src/lib/connection/connection.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L9)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L12)
+[src/lib/connection/connection.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L12)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L13)
+[src/lib/connection/connection.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L13)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L11)
+[src/lib/connection/connection.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L11)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L8)
+[src/lib/connection/connection.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -185,7 +185,7 @@ Connection.config
 
 #### Defined in
 
-[src/lib/connection/connection.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L24)
+[src/lib/connection/connection.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L24)
 
 ## Methods
 
@@ -210,7 +210,7 @@ Connection.config
 
 #### Defined in
 
-[src/lib/connection/connection.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L149)
+[src/lib/connection/connection.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L149)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:141](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L141)
+[src/lib/connection/connection.ts:141](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L141)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:137](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L137)
+[src/lib/connection/connection.ts:137](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L137)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L145)
+[src/lib/connection/connection.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L145)
 
 ___
 
@@ -310,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:133](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L133)
+[src/lib/connection/connection.ts:133](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L133)
 
 ___
 
@@ -328,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:167](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L167)
+[src/lib/connection/dialects/PostgreSQL.ts:167](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L167)
 
 ___
 
@@ -355,7 +355,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:105](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L105)
+[src/lib/connection/connection.ts:105](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L105)
 
 ___
 
@@ -382,7 +382,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L76)
+[src/lib/connection/dialects/PostgreSQL.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L76)
 
 ___
 
@@ -409,7 +409,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L109)
+[src/lib/connection/connection.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L109)
 
 ___
 
@@ -427,7 +427,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:172](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L172)
+[src/lib/connection/dialects/PostgreSQL.ts:172](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L172)
 
 ___
 
@@ -452,7 +452,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:117](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L117)
+[src/lib/connection/connection.ts:117](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L117)
 
 ___
 
@@ -477,7 +477,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L125)
+[src/lib/connection/connection.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L125)
 
 ___
 
@@ -502,7 +502,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:129](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L129)
+[src/lib/connection/connection.ts:129](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L129)
 
 ___
 
@@ -527,7 +527,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:121](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L121)
+[src/lib/connection/connection.ts:121](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L121)
 
 ___
 
@@ -554,7 +554,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:150](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L150)
+[src/lib/connection/dialects/PostgreSQL.ts:150](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L150)
 
 ___
 
@@ -579,7 +579,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:157](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L157)
+[src/lib/connection/connection.ts:157](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L157)
 
 ___
 
@@ -604,7 +604,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:173](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L173)
+[src/lib/connection/connection.ts:173](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L173)
 
 ___
 
@@ -629,7 +629,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L177)
+[src/lib/connection/connection.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L177)
 
 ___
 
@@ -654,7 +654,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L165)
+[src/lib/connection/connection.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L165)
 
 ___
 
@@ -679,7 +679,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L161)
+[src/lib/connection/connection.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L161)
 
 ___
 
@@ -704,7 +704,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:153](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L153)
+[src/lib/connection/connection.ts:153](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L153)
 
 ___
 
@@ -729,7 +729,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:169](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L169)
+[src/lib/connection/connection.ts:169](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L169)
 
 ___
 
@@ -753,7 +753,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L155)
+[src/lib/connection/dialects/PostgreSQL.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L155)
 
 ___
 
@@ -777,7 +777,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L159)
+[src/lib/connection/dialects/PostgreSQL.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L159)
 
 ___
 
@@ -801,7 +801,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:163](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L163)
+[src/lib/connection/dialects/PostgreSQL.ts:163](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L163)
 
 ___
 
@@ -828,7 +828,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L66)
+[src/lib/connection/dialects/PostgreSQL.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L66)
 
 ___
 
@@ -846,7 +846,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L177)
+[src/lib/connection/dialects/PostgreSQL.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L177)
 
 ___
 
@@ -873,7 +873,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L61)
+[src/lib/connection/dialects/PostgreSQL.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L61)
 
 ___
 
@@ -898,7 +898,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L113)
+[src/lib/connection/connection.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L113)
 
 ___
 
@@ -925,7 +925,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/PostgreSQL.ts#L145)
+[src/lib/connection/dialects/PostgreSQL.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/PostgreSQL.ts#L145)
 
 ___
 
@@ -951,7 +951,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L83)
+[src/lib/connection/connection.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L83)
 
 ___
 
@@ -977,4 +977,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:88](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L88)
+[src/lib/connection/connection.ts:88](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connection.ts#L88)

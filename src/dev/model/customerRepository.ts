@@ -1,4 +1,4 @@
-import { Repository, IOrm } from '../lib'
+import { Repository, IOrm } from '../../lib'
 import { Customer } from './__model'
 
 export class CustomerRepository extends Repository<Customer, QryCustomer> {

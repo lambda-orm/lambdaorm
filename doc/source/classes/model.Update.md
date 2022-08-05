@@ -55,7 +55,7 @@ ArrowFunction.constructor
 
 #### Defined in
 
-[src/lib/model/operands.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/operands.ts#L79)
+[src/lib/model/operands.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L79)
 
 ## Properties
 
@@ -65,7 +65,7 @@ ArrowFunction.constructor
 
 #### Defined in
 
-[src/lib/model/operands.ts:78](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/operands.ts#L78)
+[src/lib/model/operands.ts:78](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L78)
 
 ___
 

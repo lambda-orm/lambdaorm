@@ -45,7 +45,7 @@ StageActionDDL.constructor
 
 #### Defined in
 
-[src/lib/stage/stageActionDDL.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/stage/stageActionDDL.ts#L12)
+[src/lib/stage/stageActionDDL.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageActionDDL.ts#L12)
 
 ## Methods
 
@@ -59,7 +59,7 @@ StageActionDDL.constructor
 
 #### Defined in
 
-[src/lib/stage/stageSync.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/stage/stageSync.ts#L11)
+[src/lib/stage/stageSync.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageSync.ts#L11)
 
 ___
 
@@ -77,7 +77,7 @@ StageActionDDL.queries
 
 #### Defined in
 
-[src/lib/stage/stageSync.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/stage/stageSync.ts#L6)
+[src/lib/stage/stageSync.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageSync.ts#L6)
 
 ___
 
@@ -95,4 +95,4 @@ StageActionDDL.sentence
 
 #### Defined in
 
-[src/lib/stage/stageActionDDL.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/stage/stageActionDDL.ts#L22)
+[src/lib/stage/stageActionDDL.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageActionDDL.ts#L22)

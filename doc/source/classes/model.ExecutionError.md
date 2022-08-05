@@ -50,7 +50,7 @@ Error.constructor
 
 #### Defined in
 
-[src/lib/model/error.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/error.ts#L44)
+[src/lib/model/error.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/error.ts#L44)
 
 ## Properties
 

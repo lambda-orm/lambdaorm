@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L7)
+[src/lib/connection/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connectionPool.ts#L7)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/Oracle.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/Oracle.ts#L49)
+[src/lib/connection/dialects/Oracle.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/Oracle.ts#L49)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/Oracle.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/Oracle.ts#L61)
+[src/lib/connection/dialects/Oracle.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/Oracle.ts#L61)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/Oracle.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/Oracle.ts#L24)
+[src/lib/connection/dialects/Oracle.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/Oracle.ts#L24)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/Oracle.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/Oracle.ts#L57)
+[src/lib/connection/dialects/Oracle.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/Oracle.ts#L57)

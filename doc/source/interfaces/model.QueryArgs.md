@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)
 
 ___
 
@@ -117,4 +117,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L4)
+[src/lib/model/query.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L4)

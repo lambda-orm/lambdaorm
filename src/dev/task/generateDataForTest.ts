@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { orm, Helper, MetadataSentence } from '../../lib'
-import { Categories, Customers, Products, Orders } from '../../model/__model'
+import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')

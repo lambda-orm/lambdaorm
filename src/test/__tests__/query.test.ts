@@ -397,12 +397,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductName asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductName asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductName asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductName asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"ProductName\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 2', async () => {
 		const expression = 'Products.map(p=>p).sort(p=>p.id).page(1,1)'
@@ -415,12 +418,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 3', async () => {
 		const expression = 'Products.sort(p=>p.id).page(1,1)'
@@ -433,12 +439,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 4', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)'
@@ -451,12 +460,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  WHERE p.ProductID = $1 ORDER BY p.ProductID asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  WHERE p.ProductID = :id ORDER BY p.ProductID asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID = @id ORDER BY p.ProductID asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  WHERE p.ProductID = :id ORDER BY p.ProductID asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 5', async () => {
 		const expression = 'Products.filter(p=>(p.id===id)).sort(p=>p.id)'
@@ -469,12 +481,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  WHERE p.ProductID = $1 ORDER BY p.ProductID asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  WHERE p.ProductID = :id ORDER BY p.ProductID asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID = @id ORDER BY p.ProductID asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  WHERE p.ProductID = :id ORDER BY p.ProductID asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 6', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name}).sort(p=>p.category)'
@@ -487,12 +502,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$project\" :{ \"_id\": 0 , \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }} , { \"$sort\" :{ \"category\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 7', async () => {
 		const expression = 'Products.map(p=>{name:p.name,category:p.category.name}).sort(p=>[p.category,p.name])'
@@ -505,12 +523,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductName AS \"name\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc, p.ProductName asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductName AS \"name\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc, p.ProductName asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductName AS name, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc, p.ProductName asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductName AS \"name\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc, p.ProductName asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }} , { \"$sort\" :{ \"category\":1, \"ProductName\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 8', async () => {
 		const expression = 'Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)'
@@ -523,12 +544,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductName asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductName asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductName asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductName asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$project\" :{ \"_id\": 0 , \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] }, \"name\":\"$ProductName\", \"quantity\":\"$QuantityPerUnit\", \"inStock\":\"$UnitsInStock\" }} , { \"$sort\" :{ \"ProductName\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 9', async () => {
 		const expression = 'Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])'
@@ -541,12 +565,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> FALSE ORDER BY \"category\" asc, p.ProductName desc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> 'N' ORDER BY \"category\" asc, p.ProductName desc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> 0 ORDER BY category asc, p.ProductName desc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> 'N' ORDER BY \"category\" asc, p.ProductName desc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$match\" : { \"Discontinued\": { \"$ne\": false } } }, { \"$project\" :{ \"_id\": 0 , \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] }, \"name\":\"$ProductName\", \"quantity\":\"$QuantityPerUnit\", \"inStock\":\"$UnitsInStock\" }} , { \"$sort\" :{ \"category\":1, \"ProductName\":-1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 10', async () => {
 		const expression = 'Orders.details.filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product,p.unitPrice,p.quantity])'
@@ -559,12 +586,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Orders.details","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"product\", o.UnitPrice AS \"unitPrice\", o.Quantity AS \"quantity\" FROM \"Order Details\" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN $1 AND $2 AND o.UnitPrice > $3) ORDER BY \"category\" asc, \"product\" asc, o.UnitPrice asc, o.Quantity asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Orders.details","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"product\", o.UnitPrice AS \"unitPrice\", o.Quantity AS \"quantity\" FROM \"Order Details\" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :fromDate AND :toDate AND o.UnitPrice > :minValue) ORDER BY \"category\" asc, \"product\" asc, o.UnitPrice asc, o.Quantity asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Orders.details","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM [Order Details] o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN @fromDate AND @toDate AND o.UnitPrice > @minValue) ORDER BY category asc, product asc, o.UnitPrice asc, o.Quantity asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Orders.details","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"product\", o.UnitPrice AS \"unitPrice\", o.Quantity AS \"quantity\" FROM \"Order Details\" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN :fromDate AND :toDate AND o.UnitPrice > :minValue) ORDER BY \"category\" asc, \"product\" asc, o.UnitPrice asc, o.Quantity asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Orders.details","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$unwind\" : \"$\\\"Order Details\\\"\" }, { \"$replaceRoot\": { \"newRoot\": \"$\\\"Order Details\\\"\" } }, { \"$lookup\" :{ \"from\": \"Orders\", \"localField\": \"OrderID\" , \"foreignField\": \"_id\", \"as\": \"o1\" }}, { \"$lookup\" :{ \"from\": \"Products\", \"localField\": \"ProductID\" , \"foreignField\": \"_id\", \"as\": \"p\" }}, { \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"p._id\", \"as\": \"c\" }}, { \"$match\" : { \"$and\" :[{ \"o1.ShippedDate\": { \"$gte\": {{fromDate}} , \"$lt\": {{toDate}} } },{ \"UnitPrice\": { \"$gt\": {{minValue}} } }] } }, { \"$project\" :{ \"_id\": 0 , \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] }, \"product\":{ \"$arrayElemAt\": [\"$p.ProductName\", 0] }, \"unitPrice\":\"$UnitPrice\", \"quantity\":\"$Quantity\" }} , { \"$sort\" :{ \"category\":1, \"product\":1, \"UnitPrice\":1, \"Quantity\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 11', async () => {
 		const expression = 'Products.sort(p=>p.id).page(1,1)'
@@ -577,12 +607,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 12', async () => {
 		const expression = 'Products.first(p=>p)'
@@ -595,12 +628,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 13', async () => {
 		const expression = 'Products.last(p=>p)'
@@ -613,12 +649,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID desc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} , { \"$sort\" :{ \"_id\":-1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 14', async () => {
 		const expression = 'Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})'
@@ -631,12 +670,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID asc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID asc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$project\" :{ \"_id\": 0 , \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] }, \"name\":\"$ProductName\", \"quantity\":\"$QuantityPerUnit\", \"inStock\":\"$UnitsInStock\" }} , { \"$sort\" :{ \"_id\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 15', async () => {
 		const expression = 'Products.filter(p=>(p.discontinued!==false)).last(p=>p.id)'
@@ -649,12 +691,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT p.ProductID AS \"id\" FROM Products p  WHERE p.Discontinued <> FALSE ORDER BY p.ProductID desc  OFFSET 0 LIMIT 1 ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\" FROM Products p  WHERE p.Discontinued <> 'N' ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> 0 ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT p.ProductID AS \"id\" FROM Products p  WHERE p.Discontinued <> 'N' ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$match\" : { \"Discontinued\": { \"$ne\": false } } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\" }} , { \"$sort\" :{ \"_id\":-1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } ]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 16', async () => {
 		const expression = 'Products.distinct(p=>p).sort(p=>p.id)'
@@ -667,12 +712,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }}}}, { \"$sort\" :{ \"_id\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 17', async () => {
 		const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
@@ -685,12 +733,15 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }}}}, { \"$sort\" :{ \"category\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 	test('query 18', async () => {
 		const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>[p.quantity,p.category])'
@@ -703,11 +754,14 @@ describe('Sentences', () => {
 		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","dataSource":"PostgreSQL","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
 		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","dataSource":"SqlServer","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
 		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
+		const OracleExpected = {"entity":"Products","dialect":"Oracle","dataSource":"Oracle","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
+		let Oracle = orm.sentence(expression,{stage:'Oracle'})
+		expect(OracleExpected).toStrictEqual(Oracle)
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","dataSource":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"quantity\":\"$QuantityPerUnit\", \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }}}}, { \"$sort\" :{ \"QuantityPerUnit\":1, \"category\":1 } }]","children":[]}
+		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
 })

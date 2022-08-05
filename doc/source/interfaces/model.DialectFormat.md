@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/lib/model/dialect.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/dialect.ts#L3)
+[src/lib/model/dialect.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/dialect.ts#L3)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/dialect.ts#L2)
+[src/lib/model/dialect.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/dialect.ts#L2)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/dialect.ts#L4)
+[src/lib/model/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/dialect.ts#L4)

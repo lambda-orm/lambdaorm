@@ -68,7 +68,7 @@
 
 #### Defined in
 
-[src/lib/manager/helper.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L51)
+[src/lib/manager/helper.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L51)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L134)
+[src/lib/manager/helper.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L134)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L22)
+[src/lib/manager/helper.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L22)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L26)
+[src/lib/manager/helper.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L26)
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L100)
+[src/lib/manager/helper.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L100)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L79)
+[src/lib/manager/helper.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L79)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:278](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L278)
+[src/lib/manager/helper.ts:278](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L278)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L42)
+[src/lib/manager/helper.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L42)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:185](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L185)
+[src/lib/manager/helper.ts:185](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L185)
 
 ___
 
@@ -253,7 +253,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L38)
+[src/lib/manager/helper.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L38)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:287](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L287)
+[src/lib/manager/helper.ts:287](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L287)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L67)
+[src/lib/manager/helper.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L67)
 
 ___
 
@@ -313,7 +313,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L140)
+[src/lib/manager/helper.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L140)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:254](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L254)
+[src/lib/manager/helper.ts:254](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L254)
 
 ___
 
@@ -353,7 +353,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:266](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L266)
+[src/lib/manager/helper.ts:266](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L266)
 
 ___
 
@@ -373,7 +373,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L59)
+[src/lib/manager/helper.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L59)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L55)
+[src/lib/manager/helper.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L55)
 
 ___
 
@@ -413,7 +413,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L125)
+[src/lib/manager/helper.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L125)
 
 ___
 
@@ -433,7 +433,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:119](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L119)
+[src/lib/manager/helper.ts:119](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L119)
 
 ___
 
@@ -454,7 +454,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L63)
+[src/lib/manager/helper.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L63)
 
 ___
 
@@ -479,7 +479,7 @@ Returns the plural of an English word.
 
 #### Defined in
 
-[src/lib/manager/helper.ts:314](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L314)
+[src/lib/manager/helper.ts:314](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L314)
 
 ___
 
@@ -499,7 +499,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:86](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L86)
+[src/lib/manager/helper.ts:86](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L86)
 
 ___
 
@@ -519,7 +519,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L93)
+[src/lib/manager/helper.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L93)
 
 ___
 
@@ -541,7 +541,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L10)
+[src/lib/manager/helper.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L10)
 
 ___
 
@@ -566,7 +566,7 @@ Returns the singular of an English word.
 
 #### Defined in
 
-[src/lib/manager/helper.ts:440](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L440)
+[src/lib/manager/helper.ts:440](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L440)
 
 ___
 
@@ -586,7 +586,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:152](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L152)
+[src/lib/manager/helper.ts:152](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L152)
 
 ___
 
@@ -606,7 +606,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L47)
+[src/lib/manager/helper.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L47)
 
 ___
 
@@ -626,7 +626,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L16)
+[src/lib/manager/helper.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L16)
 
 ___
 
@@ -646,7 +646,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:270](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L270)
+[src/lib/manager/helper.ts:270](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L270)
 
 ___
 
@@ -666,7 +666,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:291](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L291)
+[src/lib/manager/helper.ts:291](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L291)
 
 ___
 
@@ -687,4 +687,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/helper.ts#L109)
+[src/lib/manager/helper.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L109)

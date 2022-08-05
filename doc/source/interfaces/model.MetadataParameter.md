@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/lib/model/metadata.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/metadata.ts#L7)
+[src/lib/model/metadata.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L7)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/metadata.ts#L5)
+[src/lib/model/metadata.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L5)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/metadata.ts#L6)
+[src/lib/model/metadata.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L6)

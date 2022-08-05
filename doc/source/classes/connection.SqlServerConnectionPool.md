@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/SqlServer.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/SqlServer.ts#L9)
+[src/lib/connection/dialects/SqlServer.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/SqlServer.ts#L9)
 
 ## Properties
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/connectionPool.ts#L6)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/SqlServer.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/SqlServer.ts#L8)
+[src/lib/connection/dialects/SqlServer.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/SqlServer.ts#L8)
 
 ## Methods
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/SqlServer.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/SqlServer.ts#L20)
+[src/lib/connection/dialects/SqlServer.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/SqlServer.ts#L20)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/SqlServer.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/SqlServer.ts#L46)
+[src/lib/connection/dialects/SqlServer.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/SqlServer.ts#L46)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/SqlServer.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/SqlServer.ts#L16)
+[src/lib/connection/dialects/SqlServer.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/SqlServer.ts#L16)
 
 ___
 
@@ -148,4 +148,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/SqlServer.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/SqlServer.ts#L39)
+[src/lib/connection/dialects/SqlServer.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/connection/dialects/SqlServer.ts#L39)

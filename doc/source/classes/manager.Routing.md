@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/manager/routing.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/routing.ts#L10)
+[src/lib/manager/routing.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/routing.ts#L10)
 
 ## Methods
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/manager/routing.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/routing.ts#L15)
+[src/lib/manager/routing.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/routing.ts#L15)
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/routing.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/routing.ts#L32)
+[src/lib/manager/routing.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/routing.ts#L32)
