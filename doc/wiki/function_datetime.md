@@ -3,6 +3,7 @@
 |curtime|Get the current time|
 |today|Get the current date|
 |now|Get the current datetime|
+|dateToString|Convert date to string with ISO 8601 format|
 |time|Convert string to time|
 |date|Convert string to date|
 |datetime|Convert string to datetime|
@@ -10,18 +11,27 @@
 |month|Get month from date|
 |day|Get day of month from date|
 |weekday|get date of week from date|
-|hours|get hour from date|
-|minutes|Get minutes from date|
-|seconds|Get seconds from date|
+|hour|get hour from date|
+|minute|Get minute from date|
+|second|Get second from date|
+|millisecond|Get millisecond from date|
 |addYear|Add years to a date|
 |addMonth|Add months to a date|
 |addDay|Add days to a date|
-|addHours|Add hours to a date|
-|addMinutes|Add minutes to a date|
-|addSeconds|Add seconds to a date|
+|addHour|Add hours to a date|
+|addMinute|Add minutes to a date|
+|addSecond|Add seconds to a date|
+|addMillisecond|Add milliseconds to a date|
 |addTime|Add time to a date|
-|dateDiff|difference between two dates|
-|timeDiff|difference between two times|
+|subtractTime|subtract time to a date|
+|dayDiff|difference between two dates in days|
+|hourDiff|difference between two dates in hours|
+|secondDiff|difference between two dates in seconds|
+|millisecondDiff|difference between two dates in milliseconds|
+|dayToDate|days to  Date|
+|hourToDate|hours to  Date|
+|secondToDate|seconds to  Date|
+|millisecondToDate|milliseconds to Date|
 
 ## Definition
 
@@ -45,6 +55,14 @@
 - deterministic: true
 - return: Date
 - params:
+
+### dateToString
+
+- description: Convert date to string with ISO 8601 format
+- deterministic: true
+- return: string
+- params:
+	- value: Date
 
 ### time
 
@@ -102,7 +120,7 @@
 - params:
 	- value: Date
 
-### hours
+### hour
 
 - description: get hour from date
 - deterministic: true
@@ -110,17 +128,25 @@
 - params:
 	- value: Date
 
-### minutes
+### minute
 
-- description: Get minutes from date
+- description: Get minute from date
 - deterministic: true
 - return: number
 - params:
 	- value: Date
 
-### seconds
+### second
 
-- description: Get seconds from date
+- description: Get second from date
+- deterministic: true
+- return: number
+- params:
+	- value: Date
+
+### millisecond
+
+- description: Get millisecond from date
 - deterministic: true
 - return: number
 - params:
@@ -153,7 +179,7 @@
 	- date: Date
 	- value: number
 
-### addHours
+### addHour
 
 - description: Add hours to a date
 - deterministic: true
@@ -162,7 +188,7 @@
 	- date: Date
 	- value: number
 
-### addMinutes
+### addMinute
 
 - description: Add minutes to a date
 - deterministic: true
@@ -171,9 +197,18 @@
 	- date: Date
 	- value: number
 
-### addSeconds
+### addSecond
 
 - description: Add seconds to a date
+- deterministic: true
+- return: Date
+- params:
+	- date: Date
+	- value: number
+
+### addMillisecond
+
+- description: Add milliseconds to a date
 - deterministic: true
 - return: Date
 - params:
@@ -187,22 +222,81 @@
 - return: Date
 - params:
 	- date: Date
-	- value: Date
+	- time: Date
 
-### dateDiff
+### subtractTime
 
-- description: difference between two dates
+- description: subtract time to a date
+- deterministic: true
+- return: Date
+- params:
+	- date: Date
+	- time: Date
+
+### dayDiff
+
+- description: difference between two dates in days
 - deterministic: true
 - return: Date
 - params:
 	- date: Date
 	- date2: Date
 
-### timeDiff
+### hourDiff
 
-- description: difference between two times
+- description: difference between two dates in hours
 - deterministic: true
 - return: Date
 - params:
 	- time: Date
 	- time2: Date
+
+### secondDiff
+
+- description: difference between two dates in seconds
+- deterministic: true
+- return: Date
+- params:
+	- time: Date
+	- time2: Date
+
+### millisecondDiff
+
+- description: difference between two dates in milliseconds
+- deterministic: true
+- return: Date
+- params:
+	- time: Date
+	- time2: Date
+
+### dayToDate
+
+- description: days to  Date
+- deterministic: true
+- return: Date
+- params:
+	- value: number
+
+### hourToDate
+
+- description: hours to  Date
+- deterministic: true
+- return: Date
+- params:
+	- value: number
+
+### secondToDate
+
+- description: seconds to  Date
+- deterministic: true
+- return: Date
+- params:
+	- value: number
+
+### millisecondToDate
+
+- description: milliseconds to Date
+- deterministic: true
+- return: Date
+- params:
+	- value: number

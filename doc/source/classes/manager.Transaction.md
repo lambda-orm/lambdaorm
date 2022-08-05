@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/transaction.ts#L7)
+[src/lib/manager/transaction.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/transaction.ts#L7)
 
 ## Methods
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/transaction.ts#L23)
+[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/transaction.ts#L23)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/transaction.ts#L18)
+[src/lib/manager/transaction.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/transaction.ts#L18)
 
 ___
 
@@ -94,4 +94,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/transaction.ts#L13)
+[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/manager/transaction.ts#L13)

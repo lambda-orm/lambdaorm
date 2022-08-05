@@ -12,48 +12,35 @@
 
 ### Properties
 
-- [children](model.Query.md#children)
 - [columns](model.Query.md#columns)
+- [constraints](model.Query.md#constraints)
 - [dataSource](model.Query.md#datasource)
+- [defaults](model.Query.md#defaults)
 - [dialect](model.Query.md#dialect)
 - [entity](model.Query.md#entity)
+- [includes](model.Query.md#includes)
 - [name](model.Query.md#name)
 - [parameters](model.Query.md#parameters)
 - [sentence](model.Query.md#sentence)
+- [values](model.Query.md#values)
 
 ## Constructors
 
 ### constructor
 
-• **new Query**(`name`, `dialect`, `dataSource`, `sentence`, `entity`, `columns?`, `parameters?`)
+• **new Query**(`args`)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `name` | `string` | `undefined` |
-| `dialect` | `string` | `undefined` |
-| `dataSource` | `string` | `undefined` |
-| `sentence` | `string` | `undefined` |
-| `entity` | `string` | `undefined` |
-| `columns` | [`Property`](../interfaces/model.Property.md)[] | `[]` |
-| `parameters` | [`Parameter`](../interfaces/model.Parameter.md)[] | `[]` |
+| Name | Type |
+| :------ | :------ |
+| `args` | [`QueryArgs`](../interfaces/model.QueryArgs.md) |
 
 #### Defined in
 
-[src/lib/model/query.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L15)
+[src/lib/model/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L20)
 
 ## Properties
-
-### children
-
-• **children**: [`Include`](model.Include.md)[]
-
-#### Defined in
-
-[src/lib/model/query.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L7)
-
-___
 
 ### columns
 
@@ -61,7 +48,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L13)
+[src/lib/model/query.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L15)
+
+___
+
+### constraints
+
+• **constraints**: [`Constraint`](../interfaces/model.Constraint.md)[]
+
+#### Defined in
+
+[src/lib/model/query.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L17)
 
 ___
 
@@ -71,7 +68,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L10)
+[src/lib/model/query.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L13)
+
+___
+
+### defaults
+
+• **defaults**: [`Behavior`](../interfaces/model.Behavior.md)[]
+
+#### Defined in
+
+[src/lib/model/query.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L19)
 
 ___
 
@@ -81,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L9)
+[src/lib/model/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L12)
 
 ___
 
@@ -91,7 +98,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L11)
+[src/lib/model/query.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L14)
+
+___
+
+### includes
+
+• **includes**: [`Include`](model.Include.md)[]
+
+#### Defined in
+
+[src/lib/model/query.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L10)
 
 ___
 
@@ -101,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:5](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L5)
+[src/lib/model/query.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L8)
 
 ___
 
@@ -111,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L14)
+[src/lib/model/query.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L16)
 
 ___
 
@@ -121,4 +138,14 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/query.ts#L8)
+[src/lib/model/query.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L11)
+
+___
+
+### values
+
+• **values**: [`Behavior`](../interfaces/model.Behavior.md)[]
+
+#### Defined in
+
+[src/lib/model/query.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/query.ts#L18)

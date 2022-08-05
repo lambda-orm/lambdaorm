@@ -10,10 +10,14 @@
 |rpad|Pad the right-side of string|
 |rtrim|Remove trailing spaces|
 |substr|Get a substring of string|
+|substring|Get a substring of string|
 |trim|Remove characters|
 |upper|Uppercase string|
 |concat|String concatenation|
 |capitalize|Make the first character have upper case and the rest lower case|
+|test|Try a match on a string. Returns true or false.|
+|match|Returns an array containing all matches, including capturing groups, or null if no matches are found.|
+|mask|General-purpose function that mask parts of arbitrary strings based on position within the string|
 
 ## Definition
 
@@ -106,6 +110,16 @@
 	- from: number
 	- count: number
 
+### substring
+
+- description: Get a substring of string
+- deterministic: true
+- return: string
+- params:
+	- value: string
+	- from: number
+	- count: number
+
 ### trim
 
 - description: Remove characters
@@ -133,6 +147,32 @@
 ### capitalize
 
 - description: Make the first character have upper case and the rest lower case
+- deterministic: true
+- return: string
+- params:
+	- value: string
+
+### test
+
+- description: Try a match on a string. Returns true or false.
+- deterministic: true
+- return: boolean
+- params:
+	- value: any
+	- regexp: string
+
+### match
+
+- description: Returns an array containing all matches, including capturing groups, or null if no matches are found.
+- deterministic: true
+- return: boolean
+- params:
+	- value: string
+	- regexp: string
+
+### mask
+
+- description: General-purpose function that mask parts of arbitrary strings based on position within the string
 - deterministic: true
 - return: string
 - params:

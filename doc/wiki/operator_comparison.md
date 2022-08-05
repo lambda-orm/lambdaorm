@@ -4,6 +4,7 @@
 |===|equal|
 |!=|notEqual|
 |!==|notEqual|
+|<>|notEqual|
 |>|greaterThan|
 |<|lessThan|
 |>=|greaterThanOrEqual|
@@ -36,6 +37,14 @@
 	- b: T
 
 ### Operator !==
+
+- description: notEqual
+- return: boolean
+- params:
+	- a: T
+	- b: T
+
+### Operator <>
 
 - description: notEqual
 - return: boolean

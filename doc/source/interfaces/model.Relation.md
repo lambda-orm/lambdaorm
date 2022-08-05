@@ -12,8 +12,10 @@
 - [entity](model.Relation.md#entity)
 - [from](model.Relation.md#from)
 - [name](model.Relation.md#name)
+- [target](model.Relation.md#target)
 - [to](model.Relation.md#to)
 - [type](model.Relation.md#type)
+- [weak](model.Relation.md#weak)
 
 ## Properties
 
@@ -23,7 +25,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L20)
+[src/lib/model/schema.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L38)
 
 ___
 
@@ -33,7 +35,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L22)
+[src/lib/model/schema.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L40)
 
 ___
 
@@ -43,7 +45,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L21)
+[src/lib/model/schema.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L39)
 
 ___
 
@@ -53,7 +55,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:18](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L18)
+[src/lib/model/schema.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L36)
+
+___
+
+### target
+
+• `Optional` **target**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L43)
 
 ___
 
@@ -63,14 +75,24 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L23)
+[src/lib/model/schema.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L41)
 
 ___
 
 ### type
 
-• **type**: `string`
+• **type**: [`RelationType`](../enums/model.RelationType.md)
 
 #### Defined in
 
-[src/lib/model/schema.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L19)
+[src/lib/model/schema.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L37)
+
+___
+
+### weak
+
+• `Optional` **weak**: `boolean`
+
+#### Defined in
+
+[src/lib/model/schema.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L42)

@@ -20,6 +20,9 @@
 
 - [cnx](connection.MySqlConnection.md#cnx)
 - [inTransaction](connection.MySqlConnection.md#intransaction)
+- [maxChunkSizeIdsOnSelect](connection.MySqlConnection.md#maxchunksizeidsonselect)
+- [maxChunkSizeOnBulkInsert](connection.MySqlConnection.md#maxchunksizeonbulkinsert)
+- [maxChunkSizeOnSelect](connection.MySqlConnection.md#maxchunksizeonselect)
 - [pool](connection.MySqlConnection.md#pool)
 
 ### Accessors
@@ -28,16 +31,38 @@
 
 ### Methods
 
+- [addFk](connection.MySqlConnection.md#addfk)
+- [addPk](connection.MySqlConnection.md#addpk)
+- [addProperty](connection.MySqlConnection.md#addproperty)
+- [addUk](connection.MySqlConnection.md#adduk)
+- [alterProperty](connection.MySqlConnection.md#alterproperty)
 - [beginTransaction](connection.MySqlConnection.md#begintransaction)
+- [bulkDelete](connection.MySqlConnection.md#bulkdelete)
 - [bulkInsert](connection.MySqlConnection.md#bulkinsert)
+- [bulkUpdate](connection.MySqlConnection.md#bulkupdate)
 - [commit](connection.MySqlConnection.md#commit)
+- [createEntity](connection.MySqlConnection.md#createentity)
+- [createFk](connection.MySqlConnection.md#createfk)
+- [createIndex](connection.MySqlConnection.md#createindex)
+- [createSequence](connection.MySqlConnection.md#createsequence)
 - [delete](connection.MySqlConnection.md#delete)
+- [dropEntity](connection.MySqlConnection.md#dropentity)
+- [dropFK](connection.MySqlConnection.md#dropfk)
+- [dropIndex](connection.MySqlConnection.md#dropindex)
+- [dropPk](connection.MySqlConnection.md#droppk)
+- [dropProperty](connection.MySqlConnection.md#dropproperty)
+- [dropSequence](connection.MySqlConnection.md#dropsequence)
+- [dropUk](connection.MySqlConnection.md#dropuk)
 - [execute](connection.MySqlConnection.md#execute)
+- [executeDDL](connection.MySqlConnection.md#executeddl)
 - [executeSentence](connection.MySqlConnection.md#executesentence)
 - [insert](connection.MySqlConnection.md#insert)
 - [rollback](connection.MySqlConnection.md#rollback)
 - [select](connection.MySqlConnection.md#select)
+- [truncateEntity](connection.MySqlConnection.md#truncateentity)
 - [update](connection.MySqlConnection.md#update)
+- [writeDate](connection.MySqlConnection.md#writedate)
+- [writeTime](connection.MySqlConnection.md#writetime)
 
 ## Constructors
 
@@ -58,7 +83,7 @@
 
 #### Defined in
 
-[src/lib/connection/connection.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L10)
+[src/lib/connection/connection.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L15)
 
 ## Properties
 
@@ -72,7 +97,7 @@
 
 #### Defined in
 
-[src/lib/connection/connection.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L7)
+[src/lib/connection/connection.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L7)
 
 ___
 
@@ -86,7 +111,49 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L9)
+[src/lib/connection/connection.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L9)
+
+___
+
+### maxChunkSizeIdsOnSelect
+
+• **maxChunkSizeIdsOnSelect**: `number`
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[maxChunkSizeIdsOnSelect](connection.Connection.md#maxchunksizeidsonselect)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L12)
+
+___
+
+### maxChunkSizeOnBulkInsert
+
+• **maxChunkSizeOnBulkInsert**: `number`
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[maxChunkSizeOnBulkInsert](connection.Connection.md#maxchunksizeonbulkinsert)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L13)
+
+___
+
+### maxChunkSizeOnSelect
+
+• **maxChunkSizeOnSelect**: `number`
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[maxChunkSizeOnSelect](connection.Connection.md#maxchunksizeonselect)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L11)
 
 ___
 
@@ -100,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connection.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L8)
+[src/lib/connection/connection.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L8)
 
 ## Accessors
 
@@ -118,9 +185,134 @@ Connection.config
 
 #### Defined in
 
-[src/lib/connection/connection.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connection.ts#L16)
+[src/lib/connection/connection.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L24)
 
 ## Methods
+
+### addFk
+
+▸ **addFk**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[addFk](connection.Connection.md#addfk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L149)
+
+___
+
+### addPk
+
+▸ **addPk**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[addPk](connection.Connection.md#addpk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:141](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L141)
+
+___
+
+### addProperty
+
+▸ **addProperty**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[addProperty](connection.Connection.md#addproperty)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:137](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L137)
+
+___
+
+### addUk
+
+▸ **addUk**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[addUk](connection.Connection.md#adduk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L145)
+
+___
+
+### alterProperty
+
+▸ **alterProperty**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[alterProperty](connection.Connection.md#alterproperty)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:133](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L133)
+
+___
 
 ### beginTransaction
 
@@ -136,26 +328,53 @@ Connection.config
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:146](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L146)
+[src/lib/connection/dialects/MySQL.ts:120](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L120)
+
+___
+
+### bulkDelete
+
+▸ **bulkDelete**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `_dialect` | [`Dialect`](manager.Dialect.md) |
+| `_query` | [`Query`](model.Query.md) |
+| `_array` | `any`[] |
+
+#### Returns
+
+`Promise`<`number`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[bulkDelete](connection.Connection.md#bulkdelete)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:105](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L105)
 
 ___
 
 ### bulkInsert
 
-▸ **bulkInsert**(`mapping`, `query`, `array`, `params`): `Promise`<`number`[]\>
+▸ **bulkInsert**(`mapping`, `dialect`, `query`, `array`): `Promise`<`any`[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
 | `query` | [`Query`](model.Query.md) |
 | `array` | `any`[] |
-| `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
 
 #### Returns
 
-`Promise`<`number`[]\>
+`Promise`<`any`[]\>
 
 #### Overrides
 
@@ -163,7 +382,34 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L109)
+[src/lib/connection/dialects/MySQL.ts:78](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L78)
+
+___
+
+### bulkUpdate
+
+▸ **bulkUpdate**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `_dialect` | [`Dialect`](manager.Dialect.md) |
+| `_query` | [`Query`](model.Query.md) |
+| `_array` | `any`[] |
+
+#### Returns
+
+`Promise`<`number`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[bulkUpdate](connection.Connection.md#bulkupdate)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L109)
 
 ___
 
@@ -181,21 +427,122 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:151](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L151)
+[src/lib/connection/dialects/MySQL.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L125)
+
+___
+
+### createEntity
+
+▸ **createEntity**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[createEntity](connection.Connection.md#createentity)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:117](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L117)
+
+___
+
+### createFk
+
+▸ **createFk**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[createFk](connection.Connection.md#createfk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L125)
+
+___
+
+### createIndex
+
+▸ **createIndex**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[createIndex](connection.Connection.md#createindex)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:129](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L129)
+
+___
+
+### createSequence
+
+▸ **createSequence**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[createSequence](connection.Connection.md#createsequence)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:121](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L121)
 
 ___
 
 ### delete
 
-▸ **delete**(`mapping`, `query`, `params`): `Promise`<`number`\>
+▸ **delete**(`mapping`, `dialect`, `query`, `data`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
 | `query` | [`Query`](model.Query.md) |
-| `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
+| `data` | [`Data`](model.Data.md) |
 
 #### Returns
 
@@ -207,7 +554,182 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:133](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L133)
+[src/lib/connection/dialects/MySQL.ts:103](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L103)
+
+___
+
+### dropEntity
+
+▸ **dropEntity**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropEntity](connection.Connection.md#dropentity)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:157](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L157)
+
+___
+
+### dropFK
+
+▸ **dropFK**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropFK](connection.Connection.md#dropfk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:173](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L173)
+
+___
+
+### dropIndex
+
+▸ **dropIndex**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropIndex](connection.Connection.md#dropindex)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L177)
+
+___
+
+### dropPk
+
+▸ **dropPk**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropPk](connection.Connection.md#droppk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L165)
+
+___
+
+### dropProperty
+
+▸ **dropProperty**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropProperty](connection.Connection.md#dropproperty)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L161)
+
+___
+
+### dropSequence
+
+▸ **dropSequence**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropSequence](connection.Connection.md#dropsequence)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:153](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L153)
+
+___
+
+### dropUk
+
+▸ **dropUk**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[dropUk](connection.Connection.md#dropuk)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:169](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L169)
 
 ___
 
@@ -231,7 +753,31 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:138](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L138)
+[src/lib/connection/dialects/MySQL.ts:108](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L108)
+
+___
+
+### executeDDL
+
+▸ **executeDDL**(`query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Overrides
+
+[Connection](connection.Connection.md).[executeDDL](connection.Connection.md#executeddl)
+
+#### Defined in
+
+[src/lib/connection/dialects/MySQL.ts:112](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L112)
 
 ___
 
@@ -255,25 +801,26 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:142](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L142)
+[src/lib/connection/dialects/MySQL.ts:116](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L116)
 
 ___
 
 ### insert
 
-▸ **insert**(`mapping`, `query`, `params`): `Promise`<`number`\>
+▸ **insert**(`mapping`, `dialect`, `query`, `data`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
 | `query` | [`Query`](model.Query.md) |
-| `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
+| `data` | [`Data`](model.Data.md) |
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`<`any`\>
 
 #### Overrides
 
@@ -281,7 +828,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:103](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L103)
+[src/lib/connection/dialects/MySQL.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L72)
 
 ___
 
@@ -299,21 +846,22 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:156](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L156)
+[src/lib/connection/dialects/MySQL.ts:130](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L130)
 
 ___
 
 ### select
 
-▸ **select**(`mapping`, `query`, `params`): `Promise`<`any`\>
+▸ **select**(`mapping`, `dialect`, `query`, `data`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
 | `query` | [`Query`](model.Query.md) |
-| `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
+| `data` | [`Data`](model.Data.md) |
 
 #### Returns
 
@@ -325,21 +873,47 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:99](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L99)
+[src/lib/connection/dialects/MySQL.ts:68](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L68)
+
+___
+
+### truncateEntity
+
+▸ **truncateEntity**(`_mapping`, `query`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `query` | [`Query`](model.Query.md) |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[truncateEntity](connection.Connection.md#truncateentity)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L113)
 
 ___
 
 ### update
 
-▸ **update**(`mapping`, `query`, `params`): `Promise`<`number`\>
+▸ **update**(`mapping`, `dialect`, `query`, `data`): `Promise`<`number`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
 | `query` | [`Query`](model.Query.md) |
-| `params` | [`Parameter`](../interfaces/model.Parameter.md)[] |
+| `data` | [`Data`](model.Data.md) |
 
 #### Returns
 
@@ -351,4 +925,56 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/mysql.ts:128](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/dialects/mysql.ts#L128)
+[src/lib/connection/dialects/MySQL.ts:98](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/dialects/MySQL.ts#L98)
+
+___
+
+### writeDate
+
+▸ **writeDate**(`value`, `mapping`, `dialect`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `any` |
+| `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[writeDate](connection.Connection.md#writedate)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L83)
+
+___
+
+### writeTime
+
+▸ **writeTime**(`value`, `mapping`, `dialect`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `any` |
+| `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
+| `dialect` | [`Dialect`](manager.Dialect.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Connection](connection.Connection.md).[writeTime](connection.Connection.md#writetime)
+
+#### Defined in
+
+[src/lib/connection/connection.ts:88](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connection.ts#L88)

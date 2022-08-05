@@ -8,17 +8,17 @@
 
 - **`ConnectionPool`**
 
-  ↳ [`MySqlConnectionPool`](connection.MySqlConnectionPool.md)
+  ↳ [`MySQLConnectionPool`](connection.MySQLConnectionPool.md)
 
-  ↳ [`MariadbConnectionPool`](connection.MariadbConnectionPool.md)
+  ↳ [`PostgreSQLConnectionPool`](connection.PostgreSQLConnectionPool.md)
 
-  ↳ [`PostgresConnectionPool`](connection.PostgresConnectionPool.md)
+  ↳ [`SqlServerConnectionPool`](connection.SqlServerConnectionPool.md)
 
-  ↳ [`MssqlConnectionPool`](connection.MssqlConnectionPool.md)
+  ↳ [`OracleConnectionPool`](connection.OracleConnectionPool.md)
 
-  ↳ [`SqlJsConnectionPool`](connection.SqlJsConnectionPool.md)
+  ↳ [`SQLjsConnectionPool`](connection.SQLjsConnectionPool.md)
 
-  ↳ [`MongodbConnectionPool`](connection.MongodbConnectionPool.md)
+  ↳ [`MongoDBConnectionPool`](connection.MongoDBConnectionPool.md)
 
 ## Table of contents
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L7)
+[src/lib/connection/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L7)
 
 ## Properties
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -75,7 +75,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L12)
+[src/lib/connection/connectionPool.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L12)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L14)
+[src/lib/connection/connectionPool.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L14)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L11)
+[src/lib/connection/connectionPool.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L11)
 
 ___
 
@@ -123,4 +123,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/connection/connectionPool.ts#L13)
+[src/lib/connection/connectionPool.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/connection/connectionPool.ts#L13)

@@ -16,13 +16,10 @@ Facade through which you can access all the functionalities of the library.
 
 - [constructor](orm.Orm.md#constructor)
 
-### Properties
-
-- [expressions](orm.Orm.md#expressions)
-
 ### Accessors
 
 - [defaultStage](orm.Orm.md#defaultstage)
+- [expressions](orm.Orm.md#expressions)
 - [schema](orm.Orm.md#schema)
 - [stage](orm.Orm.md#stage)
 - [workspace](orm.Orm.md#workspace)
@@ -30,14 +27,14 @@ Facade through which you can access all the functionalities of the library.
 
 ### Methods
 
-- [complete](orm.Orm.md#complete)
+- [constraints](orm.Orm.md#constraints)
 - [dialect](orm.Orm.md#dialect)
 - [end](orm.Orm.md#end)
-- [eval](orm.Orm.md#eval)
 - [execute](orm.Orm.md#execute)
 - [init](orm.Orm.md#init)
 - [metadata](orm.Orm.md#metadata)
 - [model](orm.Orm.md#model)
+- [normalize](orm.Orm.md#normalize)
 - [parameters](orm.Orm.md#parameters)
 - [sentence](orm.Orm.md#sentence)
 - [setCache](orm.Orm.md#setcache)
@@ -58,17 +55,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-src/lib/orm.ts:42
-
-## Properties
-
-### expressions
-
-• **expressions**: `Expressions`
-
-#### Defined in
-
-src/lib/orm.ts:23
+[src/lib/orm.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L38)
 
 ## Accessors
 
@@ -82,7 +69,27 @@ src/lib/orm.ts:23
 
 #### Defined in
 
-src/lib/orm.ts:65
+[src/lib/orm.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L64)
+
+___
+
+### expressions
+
+• `get` **expressions**(): `Expressions`
+
+Get reference to SchemaConfig
+
+#### Returns
+
+`Expressions`
+
+#### Implementation of
+
+IOrm.expressions
+
+#### Defined in
+
+[src/lib/orm.ts:130](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L130)
 
 ___
 
@@ -102,7 +109,7 @@ IOrm.schema
 
 #### Defined in
 
-src/lib/orm.ts:110
+[src/lib/orm.ts:123](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L123)
 
 ___
 
@@ -122,7 +129,7 @@ IOrm.stage
 
 #### Defined in
 
-src/lib/orm.ts:103
+[src/lib/orm.ts:116](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L116)
 
 ___
 
@@ -140,7 +147,7 @@ IOrm.workspace
 
 #### Defined in
 
-src/lib/orm.ts:92
+[src/lib/orm.ts:105](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L105)
 
 ___
 
@@ -156,15 +163,15 @@ Singleton
 
 #### Defined in
 
-src/lib/orm.ts:35
+[src/lib/orm.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L31)
 
 ## Methods
 
-### complete
+### constraints
 
-▸ **complete**(`expression`): `string`
+▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
 
-Complete expression
+Get constraints of expression
 
 #### Parameters
 
@@ -174,19 +181,19 @@ Complete expression
 
 #### Returns
 
-`string`
+[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
 
-Expression complete
+Constraints of expression
 
 #### Implementation of
 
-[IOrm](../interfaces/model.IOrm.md).[complete](../interfaces/model.IOrm.md#complete)
+[IOrm](../interfaces/model.IOrm.md).[constraints](../interfaces/model.IOrm.md#constraints)
 
 #### Defined in
 
-src/lib/orm.ts:134
+[src/lib/orm.ts:193](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L193)
 
-▸ **complete**(`expression`): `string`
+▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
 
 #### Parameters
 
@@ -196,15 +203,15 @@ src/lib/orm.ts:134
 
 #### Returns
 
-`string`
+[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
 
 #### Implementation of
 
-[IOrm](../interfaces/model.IOrm.md).[complete](../interfaces/model.IOrm.md#complete)
+[IOrm](../interfaces/model.IOrm.md).[constraints](../interfaces/model.IOrm.md#constraints)
 
 #### Defined in
 
-src/lib/orm.ts:135
+[src/lib/orm.ts:194](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L194)
 
 ___
 
@@ -228,7 +235,7 @@ ___
 
 #### Defined in
 
-src/lib/orm.ts:96
+[src/lib/orm.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L109)
 
 ___
 
@@ -248,42 +255,13 @@ Frees the resources used, for example the connection pools
 
 #### Defined in
 
-src/lib/orm.ts:88
-
-___
-
-### eval
-
-▸ **eval**(`expression`, `data`): `Promise`<`any`\>
-
-Evaluate and solve expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `data` | `any` | Data with variables |
-
-#### Returns
-
-`Promise`<`any`\>
-
-Result of the evaluale expression
-
-#### Implementation of
-
-[IOrm](../interfaces/model.IOrm.md).[eval](../interfaces/model.IOrm.md#eval)
-
-#### Defined in
-
-src/lib/orm.ts:188
+[src/lib/orm.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L101)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `options?`): `Promise`<`any`\>
 
 Execute expression
 
@@ -293,7 +271,7 @@ Execute expression
 | :------ | :------ | :------ |
 | `expression` | `Function` | - |
 | `data?` | `any` | Data with variables |
-| `stage?` | `string` | - |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | - |
 
 #### Returns
 
@@ -307,9 +285,9 @@ Result of execution
 
 #### Defined in
 
-src/lib/orm.ts:213
+[src/lib/orm.ts:236](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L236)
 
-▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `options?`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -317,7 +295,7 @@ src/lib/orm.ts:213
 | :------ | :------ |
 | `expression` | `string` |
 | `data?` | `any` |
-| `stage?` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
@@ -329,7 +307,7 @@ src/lib/orm.ts:213
 
 #### Defined in
 
-src/lib/orm.ts:214
+[src/lib/orm.ts:237](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L237)
 
 ___
 
@@ -337,13 +315,13 @@ ___
 
 ▸ **init**(`source?`, `connect?`): `Promise`<[`Schema`](../interfaces/model.Schema.md)\>
 
-metodo para incializar la libreria de orm
+initialize the orm library
 
 #### Parameters
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `source?` | `string` \| [`Schema`](../interfaces/model.Schema.md) | `undefined` | optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project |
+| `source?` | `string` \| [`Schema`](../interfaces/model.Schema.md) | `undefined` | optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaORM.yaml" in the root of the project |
 | `connect` | `boolean` | `true` | - |
 
 #### Returns
@@ -358,13 +336,13 @@ promise void
 
 #### Defined in
 
-src/lib/orm.ts:74
+[src/lib/orm.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L73)
 
 ___
 
 ### metadata
 
-▸ **metadata**(`expression`): `Promise`<`any`\>
+▸ **metadata**(`expression`): [`Metadata`](../interfaces/model.Metadata.md)
 
 Get metadata of expression
 
@@ -376,7 +354,7 @@ Get metadata of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`Metadata`](../interfaces/model.Metadata.md)
 
 metadata of expression
 
@@ -386,9 +364,9 @@ metadata of expression
 
 #### Defined in
 
-src/lib/orm.ts:173
+[src/lib/orm.ts:206](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L206)
 
-▸ **metadata**(`expression`): `Promise`<`any`\>
+▸ **metadata**(`expression`): [`Metadata`](../interfaces/model.Metadata.md)
 
 #### Parameters
 
@@ -398,7 +376,7 @@ src/lib/orm.ts:173
 
 #### Returns
 
-`Promise`<`any`\>
+[`Metadata`](../interfaces/model.Metadata.md)
 
 #### Implementation of
 
@@ -406,13 +384,13 @@ src/lib/orm.ts:173
 
 #### Defined in
 
-src/lib/orm.ts:174
+[src/lib/orm.ts:207](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L207)
 
 ___
 
 ### model
 
-▸ **model**(`expression`): `Promise`<`any`\>
+▸ **model**(`expression`): [`MetadataModel`](../interfaces/model.MetadataModel.md)[]
 
 Get model of expression
 
@@ -424,7 +402,7 @@ Get model of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataModel`](../interfaces/model.MetadataModel.md)[]
 
 Model of expression
 
@@ -434,9 +412,9 @@ Model of expression
 
 #### Defined in
 
-src/lib/orm.ts:147
+[src/lib/orm.ts:167](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L167)
 
-▸ **model**(`expression`): `Promise`<`any`\>
+▸ **model**(`expression`): [`MetadataModel`](../interfaces/model.MetadataModel.md)[]
 
 #### Parameters
 
@@ -446,7 +424,7 @@ src/lib/orm.ts:147
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataModel`](../interfaces/model.MetadataModel.md)[]
 
 #### Implementation of
 
@@ -454,13 +432,61 @@ src/lib/orm.ts:147
 
 #### Defined in
 
-src/lib/orm.ts:148
+[src/lib/orm.ts:168](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L168)
+
+___
+
+### normalize
+
+▸ **normalize**(`expression`): `string`
+
+Normalize expression
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `Function` |
+
+#### Returns
+
+`string`
+
+Expression normalized
+
+#### Implementation of
+
+[IOrm](../interfaces/model.IOrm.md).[normalize](../interfaces/model.IOrm.md#normalize)
+
+#### Defined in
+
+[src/lib/orm.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L154)
+
+▸ **normalize**(`expression`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `string` |
+
+#### Returns
+
+`string`
+
+#### Implementation of
+
+[IOrm](../interfaces/model.IOrm.md).[normalize](../interfaces/model.IOrm.md#normalize)
+
+#### Defined in
+
+[src/lib/orm.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L155)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expression`): `Promise`<`any`\>
+▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
 Get parameters of expression
 
@@ -472,7 +498,7 @@ Get parameters of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
 Parameters of expression
 
@@ -482,9 +508,9 @@ Parameters of expression
 
 #### Defined in
 
-src/lib/orm.ts:160
+[src/lib/orm.ts:180](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L180)
 
-▸ **parameters**(`expression`): `Promise`<`any`\>
+▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
 #### Parameters
 
@@ -494,7 +520,7 @@ src/lib/orm.ts:160
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
 #### Implementation of
 
@@ -502,13 +528,13 @@ src/lib/orm.ts:160
 
 #### Defined in
 
-src/lib/orm.ts:161
+[src/lib/orm.ts:181](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L181)
 
 ___
 
 ### sentence
 
-▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `options?`): [`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
 Get sentence of expression
 
@@ -517,11 +543,11 @@ Get sentence of expression
 | Name | Type |
 | :------ | :------ |
 | `expression` | `Function` |
-| `stage?` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
-`Promise`<`string`\>
+[`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
 #### Implementation of
 
@@ -529,20 +555,20 @@ Get sentence of expression
 
 #### Defined in
 
-src/lib/orm.ts:197
+[src/lib/orm.ts:220](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L220)
 
-▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `options?`): [`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `stage?` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
-`Promise`<`string`\>
+[`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
 #### Implementation of
 
@@ -550,7 +576,7 @@ src/lib/orm.ts:197
 
 #### Defined in
 
-src/lib/orm.ts:198
+[src/lib/orm.ts:221](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L221)
 
 ___
 
@@ -576,7 +602,7 @@ set to cache manager
 
 #### Defined in
 
-src/lib/orm.ts:117
+[src/lib/orm.ts:137](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L137)
 
 ___
 
@@ -600,22 +626,22 @@ Expression manager
 
 #### Defined in
 
-src/lib/orm.ts:126
+[src/lib/orm.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L146)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`stage`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options`, `callback`): `Promise`<`void`\>
 
-Crea una transaccion
+Create a transaction
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stage` | `string` | Database name |
-| `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Codigo que se ejecutara en transaccion |
+| `options` | `undefined` \| [`OrmOptions`](../interfaces/model.OrmOptions.md) | - |
+| `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Code to be executed in transaction |
 
 #### Returns
 
@@ -627,4 +653,4 @@ Crea una transaccion
 
 #### Defined in
 
-src/lib/orm.ts:229
+[src/lib/orm.ts:253](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/orm.ts#L253)

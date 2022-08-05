@@ -14,12 +14,20 @@
 
 ### Properties
 
-- [autoIncrement](model.Property.md#autoIncrement)
+- [autoIncrement](model.Property.md#autoincrement)
+- [default](model.Property.md#default)
+- [enum](model.Property.md#enum)
+- [key](model.Property.md#key)
 - [length](model.Property.md#length)
 - [name](model.Property.md#name)
 - [nullable](model.Property.md#nullable)
 - [primaryKey](model.Property.md#primarykey)
+- [readExp](model.Property.md#readexp)
+- [readValue](model.Property.md#readvalue)
 - [type](model.Property.md#type)
+- [view](model.Property.md#view)
+- [writeExp](model.Property.md#writeexp)
+- [writeValue](model.Property.md#writevalue)
 
 ## Properties
 
@@ -29,7 +37,37 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:15](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L15)
+[src/lib/model/schema.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L25)
+
+___
+
+### default
+
+• `Optional` **default**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L29)
+
+___
+
+### enum
+
+• `Optional` **enum**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L32)
+
+___
+
+### key
+
+• `Optional` **key**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L33)
 
 ___
 
@@ -39,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L12)
+[src/lib/model/schema.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L22)
 
 ___
 
@@ -49,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L10)
+[src/lib/model/schema.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L20)
 
 ___
 
@@ -59,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L13)
+[src/lib/model/schema.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L23)
 
 ___
 
@@ -69,7 +107,27 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L14)
+[src/lib/model/schema.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L24)
+
+___
+
+### readExp
+
+• `Optional` **readExp**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L27)
+
+___
+
+### readValue
+
+• `Optional` **readValue**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L30)
 
 ___
 
@@ -79,4 +137,34 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/schema.ts#L11)
+[src/lib/model/schema.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L21)
+
+___
+
+### view
+
+• `Optional` **view**: `boolean`
+
+#### Defined in
+
+[src/lib/model/schema.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L26)
+
+___
+
+### writeExp
+
+• `Optional` **writeExp**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L28)
+
+___
+
+### writeValue
+
+• `Optional` **writeValue**: `string`
+
+#### Defined in
+
+[src/lib/model/schema.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/model/schema.ts#L31)

@@ -1,20 +1,20 @@
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|user|get username|
-|source|get source|
+|user|undefined|
+|source|undefined|
 
 ## Definition
 
 ### user
 
-- description: get username
+- description: undefined
 - deterministic: true
 - return: string
 - params:
 
 ### source
 
-- description: get source
+- description: undefined
 - deterministic: true
 - return: string
 - params:

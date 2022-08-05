@@ -20,10 +20,11 @@
 
 ### Methods
 
-- [complete](repository.QueryAction.md#complete)
+- [constraints](repository.QueryAction.md#constraints)
 - [execute](repository.QueryAction.md#execute)
 - [metadata](repository.QueryAction.md#metadata)
 - [model](repository.QueryAction.md#model)
+- [normalize](repository.QueryAction.md#normalize)
 - [parameters](repository.QueryAction.md#parameters)
 - [sentence](repository.QueryAction.md#sentence)
 
@@ -42,21 +43,21 @@
 
 #### Defined in
 
-[src/lib/repository/query.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L7)
+[src/lib/repository/query.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L7)
 
 ## Methods
 
-### complete
+### constraints
 
-▸ **complete**(): `string`
+▸ **constraints**(): `Promise`<[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)\>
 
 #### Returns
 
-`string`
+`Promise`<[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)\>
 
 #### Defined in
 
-[src/lib/repository/query.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L16)
+[src/lib/repository/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L24)
 
 ___
 
@@ -76,60 +77,74 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L12)
+[src/lib/repository/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L12)
 
 ___
 
 ### metadata
 
-▸ **metadata**(): `Promise`<`any`\>
+▸ **metadata**(): `Promise`<[`Metadata`](../interfaces/model.Metadata.md)\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`Metadata`](../interfaces/model.Metadata.md)\>
 
 #### Defined in
 
-[src/lib/repository/query.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L32)
+[src/lib/repository/query.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L36)
 
 ___
 
 ### model
 
-▸ **model**(): `Promise`<`any`\>
+▸ **model**(): `Promise`<[`MetadataModel`](../interfaces/model.MetadataModel.md)[]\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`MetadataModel`](../interfaces/model.MetadataModel.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/query.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L20)
+[src/lib/repository/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L20)
+
+___
+
+### normalize
+
+▸ **normalize**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/lib/repository/query.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L16)
 
 ___
 
 ### parameters
 
-▸ **parameters**(): `Promise`<`any`\>
+▸ **parameters**(): `Promise`<[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/query.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L24)
+[src/lib/repository/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L28)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`string`\>
+▸ **sentence**(): `Promise`<[`MetadataSentence`](../interfaces/model.MetadataSentence.md)\>
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<[`MetadataSentence`](../interfaces/model.MetadataSentence.md)\>
 
 #### Defined in
 
-[src/lib/repository/query.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/query.ts#L28)
+[src/lib/repository/query.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/baac5cd/src/lib/repository/query.ts#L32)
