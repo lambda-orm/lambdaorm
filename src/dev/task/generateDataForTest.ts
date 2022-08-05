@@ -135,17 +135,15 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name]) },
 			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
 			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 10', data: 'b', lambda: (minValue: number, fromDate: Date, toDate: Date) => Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
+			{ name: 'query 10', data: 'b', lambda: (minValue: number, fromDate: Date, toDate: Date) => Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) },
 			{ name: 'query 11', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 12', lambda: () => Products.first(p => p) },
 			{ name: 'query 13', lambda: () => Products.last(p => p) },
 			{ name: 'query 14', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
 			{ name: 'query 15', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
 			{ name: 'query 16', lambda: () => Products.distinct(p => p).sort(p => p.id) },
-			{ name: 'query 17', lambda: () => Products.distinct(p => p.categoryId) },
-			{ name: 'query 18', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 17', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 18', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category]) }
 		]
 	})
 }
@@ -182,13 +180,13 @@ async function writeGroupByTest (stages: string[]): Promise<number> {
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
 				{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
 				{ name: 'groupBy 3', lambda: () => Products.map(p => ({ total: sum(p.price) })) },
-				{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: avg(p.price) })) },
+				{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: round(avg(p.price), 4) })) },
 				{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
 				{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 8', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
 				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
-				{ name: 'query 10', lambda: () => Orders.details.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) }
+				{ name: 'query 10', lambda: () => Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal) }
 				// { name: 'groupBy 11', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
 				// { name: 'groupBy 12', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
 			]
@@ -1035,5 +1033,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL', 'SqlServer'], function () { console.log('end') })
-// apply(['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
+apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle'], function () { console.log('end') })
+// apply(['MySQL','MariaDB','PostgreSQL','SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })

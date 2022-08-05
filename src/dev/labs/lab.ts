@@ -3,8 +3,8 @@ import { orm } from '../../lib'
 export async function apply (callback: any) {
 	try {
 		await orm.init()
-		const stage = 'PostgreSQL'		
-		const query = 'Products.sort(p=>p.name)'
+		const stage = 'Oracle'		
+		const query = 'Products.sort(p=>p.id).page(1,1)'
 		const context = { }
 
 		const sentence = orm.sentence(query,{stage: stage})

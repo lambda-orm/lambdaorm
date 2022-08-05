@@ -236,6 +236,28 @@ test:
             = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
             ?,ShipCountry = ? WHERE o.OrderID = ? 
           children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -249,6 +271,19 @@ test:
             @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
             @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID =
             @id 
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+            :employeeId,OrderDate = :orderDate,RequiredDate =
+            :requiredDate,ShippedDate = :shippedDate,ShipVia =
+            :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+            :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+            :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
           children: []
     errors: 0
     expression: Orders.update()
@@ -554,7 +589,10 @@ test:
           condition: isNotNull(id)
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         id: 7
@@ -596,6 +634,28 @@ test:
             = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
             ?,ShipCountry = ? WHERE o.OrderID = ? 
           children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -610,6 +670,21 @@ test:
             @entity_city,ShipRegion = @entity_region,ShipPostalCode =
             @entity_postalCode,ShipCountry = @entity_country FROM Orders o WHERE
             o.OrderID = @entity_id 
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET CustomerID = :entity_customerId,EmployeeID =
+            :entity_employeeId,OrderDate = :entity_orderDate,RequiredDate =
+            :entity_requiredDate,ShippedDate = :entity_shippedDate,ShipVia =
+            :entity_shipViaId,Freight = :entity_freight,ShipName =
+            :entity_name,ShipAddress = :entity_address,ShipCity =
+            :entity_city,ShipRegion = :entity_region,ShipPostalCode =
+            :entity_postalCode,ShipCountry = :entity_country WHERE o.OrderID =
+            :entity_id 
           children: []
     errors: 0
     expression: Orders.update(entity)
@@ -903,7 +978,10 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         entity:
@@ -947,12 +1025,33 @@ test:
           dataSource: MySQL
           sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
           children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
+          children: []
       - stage: SqlServer
         sentence:
           entity: Orders
           dialect: SqlServer
           dataSource: SqlServer
           sentence: 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: 'UPDATE Orders o SET ShipPostalCode = :postalCode '
           children: []
     errors: 0
     expression: Orders.updateAll(=>{postalCode:postalCode})
@@ -1005,7 +1104,10 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         postalCode: xxx
@@ -1019,6 +1121,20 @@ test:
           dataSource: MySQL
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -1027,6 +1143,15 @@ test:
           sentence: >-
             UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
             @entity_id 
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
           children: []
     errors: 0
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
@@ -1103,7 +1228,10 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         entity:
@@ -1155,6 +1283,36 @@ test:
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
                 AND o1.ProductID = ?) 
               children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
+              children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -1172,6 +1330,24 @@ test:
                 @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
                 = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId
                 AND o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+                :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
+                = :discount WHERE (o1.OrderID = :orderId AND o1.ProductID =
+                :productId) 
               children: []
     errors: 0
     expression: >-
@@ -1448,7 +1624,10 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         entity:
@@ -1500,6 +1679,36 @@ test:
                 = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
                 o1.ProductID = ?) 
               children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
+                o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
+                o1.ProductID = $2) 
+              children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -1516,6 +1725,23 @@ test:
                 UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity =
                 o1.Quantity,Discount = o1.Discount FROM [Order Details] o1 WHERE
                 (o1.OrderID = @orderId AND o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID =
+                :orderId AND o1.ProductID = :productId) 
               children: []
     errors: 0
     expression: >-
@@ -1742,7 +1968,10 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         entity:
@@ -1793,6 +2022,34 @@ test:
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
                 = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
               children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
+              children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -1809,6 +2066,23 @@ test:
                 UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID
                 FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
                 o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
+                :productId) 
               children: []
     errors: 0
     expression: >-
@@ -2019,7 +2293,10 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         entity:
@@ -2075,6 +2352,44 @@ test:
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
                 AND o1.ProductID = ?) 
               children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
+              children: []
       - stage: SqlServer
         sentence:
           entity: Orders
@@ -2097,6 +2412,28 @@ test:
                 @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
                 = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId
                 AND o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+            :employeeId,OrderDate = :orderDate,RequiredDate =
+            :requiredDate,ShippedDate = :shippedDate,ShipVia =
+            :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+            :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+            :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+                :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
+                = :discount WHERE (o1.OrderID = :orderId AND o1.ProductID =
+                :productId) 
               children: []
     errors: 0
     expression: Orders.update().include(p=>p.details)
@@ -2600,7 +2937,10 @@ test:
           condition: isNotNull(id)
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         id: 7
@@ -2658,6 +2998,61 @@ test:
                     ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
                     = ? AND o1.ProductID = ?) 
                   children: []
+      - stage: MariaDB
+        sentence:
+          entity: Customers
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
+            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+            ?,Country = ? WHERE c.CustomerID = ? 
+          children:
+            - entity: Orders
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
+              children:
+                - entity: Orders.details
+                  dialect: MariaDB
+                  dataSource: MariaDB
+                  sentence: >-
+                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
+                    = ? AND o1.ProductID = ?) 
+                  children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Customers
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
+          sentence: >-
+            UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName
+            = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode
+            = $8,Country = $9 WHERE c.CustomerID = $10 
+          children:
+            - entity: Orders
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
+              sentence: >-
+                UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+                $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+                $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+                $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID =
+                $14 
+              children:
+                - entity: Orders.details
+                  dialect: PostgreSQL
+                  dataSource: PostgreSQL
+                  sentence: >-
+                    UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                    $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE
+                    (o1.OrderID = $6 AND o1.ProductID = $7) 
+                  children: []
       - stage: SqlServer
         sentence:
           entity: Customers
@@ -2689,6 +3084,37 @@ test:
                     @productId,UnitPrice = @unitPrice,Quantity =
                     @quantity,Discount = @discount FROM [Order Details] o1 WHERE
                     (o1.OrderID = @orderId AND o1.ProductID = @productId) 
+                  children: []
+      - stage: Oracle
+        sentence:
+          entity: Customers
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            UPDATE Customers c SET CustomerID = :id,CompanyName =
+            :name,ContactName = :contact,ContactTitle = :phone,Address =
+            :address,City = :city,Region = :region,PostalCode =
+            :postalCode,Country = :country WHERE c.CustomerID = :id 
+          children:
+            - entity: Orders
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+                :employeeId,OrderDate = :orderDate,RequiredDate =
+                :requiredDate,ShippedDate = :shippedDate,ShipVia =
+                :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+                :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+                :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
+              children:
+                - entity: Orders.details
+                  dialect: Oracle
+                  dataSource: Oracle
+                  sentence: >-
+                    UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+                    :productId,UnitPrice = :unitPrice,Quantity =
+                    :quantity,Discount = :discount WHERE (o1.OrderID = :orderId
+                    AND o1.ProductID = :productId) 
                   children: []
     errors: 0
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
@@ -3442,7 +3868,10 @@ test:
           condition: isNotNull(id)
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         id: ALFKI

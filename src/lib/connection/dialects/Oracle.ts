@@ -77,7 +77,12 @@ export class OracleConnection extends Connection {
 			const item: any = {}
 			for (const j in result.metaData) {
 				const col = result.metaData[j]
-				item[col.name] = row[j]
+				const colInfo = query.columns.find(p => p.name === col.name)
+				if (colInfo && colInfo.type === 'boolean') {
+					item[col.name] = row[j] === 'Y'
+				} else {
+					item[col.name] = row[j]
+				}
 			}
 			list.push(item)
 		}
@@ -252,43 +257,6 @@ export class OracleConnection extends Connection {
 		const returning = `RETURNING ${fieldId.mapping} INTO :${key} `
 		return { key: key, bindDef: bindDef, returning: returning }
 	}
-
-	// private async _execute (mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any> {
-	// const values: any = {}
-	// let sql = query.sentence
-	// const params = this.dataToParameters(mapping, dialect, query, data)
-	// for (const param of params) {
-	// if (param.type !== 'array') {
-	// if (param.type === 'datetime' || param.type === 'date' || param.type === 'time') {
-	// values[param.name] = new Date(param.value)
-	// } else {
-	// values[param.name] = param.value
-	// }
-	// continue
-	// }
-	// // if array
-	// if (param.value.length > 0) {
-	// const type = typeof param.value[0]
-	// if (type === 'string') {
-	// const list:string[] = []
-	// for (const _item of param.value) {
-	// let item = _item
-	// item = Helper.escape(item)
-	// item = Helper.replace(item, '\\\'', '\\\'\'')
-	// list.push(item)
-	// }
-	// sql = Helper.replace(sql, `:${param.name}`, list.join(','))
-	// } else {
-	// sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
-	// }
-	// } else {
-	// // if empty array
-	// sql = Helper.replace(sql, `:${param.name}`, '')
-	// }
-	// }
-	// const options = { autoCommit: !this.inTransaction }
-	// return this.cnx.execute(sql, values, options)
-	// }
 
 	private oracleType (type: string): number {
 		switch (type) {

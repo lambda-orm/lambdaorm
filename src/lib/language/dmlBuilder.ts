@@ -301,7 +301,7 @@ export abstract class DmlBuilder {
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
 			const value = this.buildOperand(operand.children[i])
-			const forceDelimiter = this.dialect.name === 'PostgreSQL'
+			const forceDelimiter = ['PostgreSQL', 'Oracle'].includes(this.dialect.name)
 			const alias = this.dialect.delimiter(operand.children[i].name, forceDelimiter)
 			let fieldText = template.replace('{value}', value)
 			fieldText = fieldText.replace('{alias}', alias)
@@ -334,7 +334,8 @@ export abstract class DmlBuilder {
 				return text
 			}
 		} else {
-			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name))
+			const forceDelimiter = ['PostgreSQL', 'Oracle'].includes(this.dialect.name)
+			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name, forceDelimiter))
 		}
 	}
 

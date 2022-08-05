@@ -27,3 +27,4 @@ functions:
     ceil: 'CEILING({0})'
     trunc: 'ROUND({0},{1},1)'
     ln: 'LOG({0})'
+    log: 'LOG({1},{0})' # en SqlServer la función LOG tiene los parámetros en diferente orden que en otros bases de datos
