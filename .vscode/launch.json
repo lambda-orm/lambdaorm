@@ -204,13 +204,13 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{
-			"name": "lab-strings",
+			"name": "lab-string",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-strings.ts",
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-string.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{

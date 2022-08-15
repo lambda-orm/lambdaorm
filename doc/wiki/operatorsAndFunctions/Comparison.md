@@ -14,40 +14,55 @@
 
 ## Examples
 
-Context:
+| Example         																																									| Result 						|
+|---------------------------------------------------------------------------------------------------|-------------------|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> p.name)																							|[{"name":"Brazil"}]|
+|Countries.filter(p=> p.iso3 === "BRA").map(p=> p.name)																							|[{"name":"Brazil"}]|
+|Countries.filter(p=> p.latitude < -9 && p.latitude > -11 && p.longitude == -55 ).first(p=> p.name)	|[{"name":"Brazil"}]|
+|Countries.filter(p=> between(p.latitude,-11,-9) && p.longitude == -55 ).first(p=> p.name)					|[{"name":"Brazil"}]|
+|Countries.filter(p=> in(p.iso3,["BRA","ARG"])).map(p=> p.name)																			|[{"name":"Argentina"},{"name":"Brazil"}]|
+
+## Sentences
 
 ```js
-const context = { 
-	a: '1', b: 2, c: { a: 4, b: 5 }, 
-	d: 'house', e: 'car',
-	devices: ['phone', 'computer', 'robot'],
-	pi: 3.141516 }	
+Countries.filter(p=> p.iso3 == "BRA").map(p=> p.name)
 ```
 
-| Example         						| Result 			|
-|-----------------------------|-------------|
-|3>2													|true					|
-|a+b													|'12'					|
-|-3>2*2												|false				|
-|a*3==b+1											|true					|
-|a*3===b+1										|true					|
-|-4==-(2*2)										|true					|
-|4!=2*2												|false				|
-|4!==2*2											|false				|
-|4<>2*2												|false				|
-|c.a>b*2											|false				|
-|c.a>=b*2											|true					|
-|c.a<=b*2											|true					|
-|c.a<b*2											|false				|
-|d<e													|false				|
-|d>e													|true					|
-|d<>e													|true					|
-|includes("phone",devices)		|true					|
-|includes("other",devices)		|false				|
-|in("other",devices)					|false				|
-|between(12,10,20)						|true					|
-|between(2,10,20)							|false				|
-|between(pi,1,5)							|true					|
+```sql
+SELECT c.name AS name FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 === "BRA").map(p=> p.name)
+```
+
+```sql
+SELECT c.name AS name FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.latitude < -9 && p.latitude > -11 && p.longitude == -55 ).first(p=> p.name)
+```
+
+```sql
+SELECT c.name AS name FROM Countries c  WHERE (c.latitude < -9 AND (c.latitude > -11 AND c.longitude = -55)) ORDER BY c.name asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> between(p.latitude,-11,-9) && p.longitude == -55 ).first(p=> p.name)
+```
+
+```sql
+SELECT c.name AS name FROM Countries c  WHERE (c.latitude BETWEEN -11 AND -9 AND c.longitude = -55) ORDER BY c.name asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> in(p.iso3,["BRA","ARG"])).map(p=> p.name)
+```
+
+```sql
+SELECT c.name AS name FROM Countries c  WHERE  c.iso3 IN ('BRA', 'ARG') 
+```
 
 ## Definition
 

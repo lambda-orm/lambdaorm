@@ -1,12 +1,11 @@
 import { show } from './util'
 
 (async () => {
-	const context = { a: '1', b: 2, c: { a: 4, b: 5 }, d: 'house', e: 'car' }
+	const context = {}
 	const list = [
-		'a=="1" && b==2',
-		'a=="1" && b>2',
-		'a=="1" || b>2',
-		'!(a=="1" || b>2)'
+		'Countries.filter(p=> p.subregion == "South America" &&  p.longitude < -30 ).map(p=> {result:count(1)})',
+		'Countries.filter(p=> p.subregion == "South America" || p.subregion == "Central America" ).map(p=> {result:count(1)})',
+		'Countries.filter(p=> p.region == "Americas" &&  p.subregion != "Northern America" ).map(p=> {result:count(1)})'
 	]
 	show(list, context)
 })()

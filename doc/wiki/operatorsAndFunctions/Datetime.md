@@ -35,40 +35,298 @@
 
 ## Examples
 
-| Example                                   										| Result 										|
-|---------------------------------------------------------------|---------------------------|
-|	curTime() 																										| 18:14:13 									|
-|	today()																												| 2022-8-5 									|
-|	now()																													| 2022-08-05T16:13:13.510Z 	|
-|	dateToString(datetime("2021-09-06T14:39:11.444Z")) 						| 2021-09-06T14:39:11.444Z 	|
-|	time("2021-09-06T14:39:11.444Z")															| 16:39:11 									|
-|	date("2021-09-06T14:39:11.444Z")															| 2021-9-6									|
-|	datetime("2021-09-06T14:39:11.444Z")													| 2021-09-06T14:39:11.444Z 	|
-|	year("2021-09-06T14:39:11.444Z")															| 2021											|
-|	month("2021-09-06T14:39:11.444Z") 														| 9 												|
-|	day("2021-09-06T14:39:11.444Z")																| 6 												|
-|	weekday("2021-09-06T14:39:11.444Z") 													| 1 												|
-|	hour("2021-09-06T14:39:11.444Z") 															| 16 												|
-|	minute("2021-09-06T14:39:11.444Z")														| 39 												|
-| second("2021-09-06T14:39:11.444Z") 														| 11												|
-|	millisecond("2021-09-06T14:39:11.444Z")												| 444 											|
-|	addYear("2021-09-06T14:39:11.444Z",2)													| 2023-09-06T14:39:11.444Z 	|
-|	addMonth("2021-09-06T14:39:11.444Z",2)												| 2021-11-06T15:39:11.444Z 	|
-|	addDay("2021-09-06T14:39:11.444Z",2)													| 2021-09-08T14:39:11.444Z 	|
-|	addHour("2021-09-06T14:39:11.444Z",2) 												| 2021-09-06T16:39:11.444Z 	|
-|	addMinute("2021-09-06T14:39:11.444Z",2)												| 2021-09-06T14:41:11.444Z 	|
-|	addSecond("2021-09-06T14:39:11.444Z",2)												| 2021-09-06T14:39:13.444Z 	|
-| addMillisecond("2021-09-06T14:39:11.444Z",2)									| 2021-09-06T14:39:11.446Z 	|
-| addTime("2021-09-06T14:39:11.444Z","08:22:12")								| 2021-09-06T23:01:23.023Z 	|
-|	subtractTime("2021-09-06T14:39:11.444Z","08:22:12")						| 2021-09-06T06:16:59.059Z 	|
-|	dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10") 					| 4 												|
-|	hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")					| 98 												|
-|	secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10") 			| 353341										|
-|	millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10") 	| 353341000 								|
-|	dayToDate(2000) 																							| 1975-06-24T00:00:00.000Z 	|
-|	hourToDate(2000)																							| 1970-03-25T08:00:00.000Z 	|
-|	secondToDate(2000)																						| 1970-01-01T00:33:20.000Z 	|
-|	millisecondToDate(2000) 																			| 1970-01-01T00:00:02.000Z 	|
+| Example                                   																																					| Result 																	|
+|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:today()})																											|[{"result":"2022-08-14T22:00:00.000Z"}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:now()})																												|[{"result":"2022-08-15T09:54:22.000Z"}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:curTime()})																										|[{"result":"11:54:22"}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:time("2021-09-06T14:39:11.444Z")})															|[{"result":"00:20:21"}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:date("2021-09-06T14:39:11.444Z")})															|[{"result":"2021-09-05T22:00:00.000Z"}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:datetime("2021-09-06T14:39:11.444Z")})													|[{"result":"2021-09-06T12:39:11.000Z"}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(datetime("2021-09-06T14:39:11.444Z"))})						|[{"result":"2021-09-06T14:39:11Z"}]			|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:year("2021-09-06T14:39:11.444Z")})															|[{"result":2021}]												|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:month("2021-09-06T14:39:11.444Z")})														|[{"result":9}]														|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:day("2021-09-06T14:39:11.444Z")})															|[{"result":6}]														|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:weekday("2021-09-06T14:39:11.444Z")})													|[{"result":2}]														|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hour("2021-09-06T14:39:11.444Z")})															|[{"result":0}]														|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:minute("2021-09-06T14:39:11.444Z")})														|[{"result":20}]													|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:second("2021-09-06T14:39:11.444Z")})														|[{"result":21}]													|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecond("2021-09-06T14:39:11.444Z")})											|[{"result":0}]														|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addYear("2021-09-06T14:39:11.444Z",2)})												|[{"result":"2023-09-06 14:39:11.444000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMonth("2021-09-06T14:39:11.444Z",2)})												|[{"result":"2021-11-06 14:39:11.444000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addDay("2021-09-06T14:39:11.444Z",2)})													|[{"result":"2021-09-08 14:39:11.444000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addHour("2021-09-06T14:39:11.444Z",2)})												|[{"result":"2021-09-06 16:39:11.444000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMinute("2021-09-06T14:39:11.444Z",2)})											|[{"result":"2021-09-06 14:41:11.444000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addSecond("2021-09-06T14:39:11.444Z",2)})											|[{"result":"2021-09-06 14:39:13.444000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMillisecond("2021-09-06T14:39:11.444Z",2)})									|[{"result":"2021-09-06 14:39:11.446000"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addTime("2021-09-06T14:39:11.444Z","08:22:12")})								|[{"result":"08:42:33"}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:subtractTime("2021-09-06T14:39:11.444Z","08:22:12")})					|[{"result":"-08:01:51"}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})					|[{"result":4}]														|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})				|[{"result":98}]													|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})			|[{"result":353341}]											|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})	|[{"result":353341000}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dayToDate(2000)})																							|[{"result":"1975-06-24T00:00:00Z"}]			|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hourToDate(2000)})																							|[{"result":"1970-03-25T08:00:00Z"}]			|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:secondToDate(2000)})																						|[{"result":"1970-01-01T00:33:20Z"}]			|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecondToDate(2000)})																			|[{"result":"1970-01-01T00:00:02Z"}]			|
+
+## Sentences
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:today()})
+```
+
+```sql
+SELECT CURDATE() AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:now()})
+```
+
+```sql
+SELECT NOW() AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:curTime()})
+```
+
+```sql
+SELECT CURTIME() AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:time("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT CONVERT('2021-09-06T14:39:11.444Z', TIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:date("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT CONVERT('2021-09-06T14:39:11.444Z', DATE) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:datetime("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT CONVERT('2021-09-06T14:39:11.444Z', DATETIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(datetime("2021-09-06T14:39:11.444Z"))})
+```
+
+```sql
+SELECT DATE_FORMAT(CONVERT('2021-09-06T14:39:11.444Z', DATETIME), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:year("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT EXTRACT(YEAR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:month("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT EXTRACT(MONTH FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:day("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT DAYOFMONTH('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:weekday("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT DAYOFWEEK('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hour("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT EXTRACT(HOUR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:minute("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT EXTRACT(MINUTE FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:second("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT EXTRACT(SECOND FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecond("2021-09-06T14:39:11.444Z")})
+```
+
+```sql
+SELECT ROUND(EXTRACT(MICROSECOND FROM '2021-09-06T14:39:11.444Z')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addYear("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 YEAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMonth("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 MONTH) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addDay("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 DAY) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addHour("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT '2021-09-06T14:39:11.444Z' + interval '2' HOUR AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMinute("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT '2021-09-06T14:39:11.444Z' + interval '2' MINUTE AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addSecond("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT '2021-09-06T14:39:11.444Z' + interval '2' SECOND AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMillisecond("2021-09-06T14:39:11.444Z",2)})
+```
+
+```sql
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL (2 * 1000) MICROSECOND) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addTime("2021-09-06T14:39:11.444Z","08:22:12")})
+```
+
+```sql
+SELECT ADDTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:subtractTime("2021-09-06T14:39:11.444Z","08:22:12")})
+```
+
+```sql
+SELECT SUBTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
+```
+
+```sql
+SELECT DATEDIFF('2021-09-06T14:39:11','2021-09-02T12:30:10') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
+```
+
+```sql
+SELECT TIMESTAMPDIFF(HOUR, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
+```
+
+```sql
+SELECT TIMESTAMPDIFF(SECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
+```
+
+```sql
+SELECT ROUND(TIMESTAMPDIFF(MICROSECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dayToDate(2000)})
+```
+
+```sql
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000*24*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hourToDate(2000)})
+```
+
+```sql
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:secondToDate(2000)})
+```
+
+```sql
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecondToDate(2000)})
+```
+
+```sql
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
 
 ## Definition
 

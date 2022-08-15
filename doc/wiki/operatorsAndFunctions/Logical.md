@@ -6,18 +6,37 @@
 
 ## Examples
 
-Context:
+| Example           																																																	| Result 				|
+|---------------------------------------------------------------------------------------------------------------------|---------------|
+|Countries.filter(p=> p.subregion == "South America" &&  p.longitude < -30 ).map(p=> {result:count(1)})								|[{"result":15}]|
+|Countries.filter(p=> p.subregion == "South America" || p.subregion == "Central America" ).map(p=> {result:count(1)})	|[{"result":23}]|
+|Countries.filter(p=> p.region == "Americas" &&  p.subregion != "Northern America" ).map(p=> {result:count(1)})				|[{"result":51}]|
+
+## Sentences
 
 ```js
-const context = { a: '1', b: 2, c: { a: 4, b: 5 }, d: 'house', e: 'car' }
+Countries.filter(p=> p.subregion == "South America" &&  p.longitude < -30 ).map(p=> {result:count(1)})
 ```
 
-| Example           | Result 		|
-|-------------------|-----------|
-|a=="1" && b==2			|true				|
-|a=="1" && b>2			|false			|
-|a=="1" || b>2			|true				|
-|!(a=="1" || b>2)		|false			|
+```sql
+SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' AND c.longitude < -30) 
+```
+
+```js
+Countries.filter(p=> p.subregion == "South America" || p.subregion == "Central America" ).map(p=> {result:count(1)})
+```
+
+```sql
+SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' OR c.subregion = 'Central America') 
+```
+
+```js
+Countries.filter(p=> p.region == "Americas" &&  p.subregion != "Northern America" ).map(p=> {result:count(1)})
+```
+
+```sql
+SELECT COUNT(1) AS result FROM Countries c  WHERE (c.region = 'Americas' AND c.subregion <> 'Northern America') 
+```
 
 ## Definition
 

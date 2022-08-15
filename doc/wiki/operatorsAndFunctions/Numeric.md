@@ -35,47 +35,280 @@
 
 ## Examples
 
-Context:
+| Example           																														| Result 													|
+|-------------------------------------------------------------------------------|---------------------------------|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 3+2-1 })								|[{"result":4}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 3*4-1})									|[{"result":11}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1-2-5})									|[{"result":-6}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: (2+3)*2})								|[{"result":10}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 2*(3+2)})								|[{"result":10}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1+2*3*4})								|[{"result":25}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: (1+(2**3)*4)})					|[{"result":33}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1+2**(3*4)})						|[{"result":4097}]								|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: abs(-9)})								|[{"result":9}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: acos(0.434)})						|[{"result":1.121868332427735}]		|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: asin(0.434)})						|[{"result":0.44892799436716174}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: atan(2)})								|[{"result":1.1071487177940904}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: atan2(90, 15)})					|[{"result":1.4056476493802699}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ceil(2)})								|[{"result":2}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: cos(2)})								|[{"result":-0.4161468365471424}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: cosh(2)})								|[{"result":3.7621956910836314}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: exp(7)})								|[{"result":1096.6331584284585}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: floor(7)})							|[{"result":7}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ln(7)})									|[{"result":1.9459101490553132}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: log(7,10)})							|[{"result":1.1832946624549385}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: log10(7)})							|[{"result":0.8450980400142568}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: remainder(7,2)})				|[{"result":-1}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: round(7.984938,2)})			|[{"result":7.98}]								|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sign(-7)})							|[{"result":-1}]									|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sin(7)})								|[{"result":0.6569865987187891}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sinh(7)})								|[{"result":548.3161232732465}]		|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: tan(7)})								|[{"result":0.8714479827243188}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: tanh(7)})								|[{"result":0.9999983369439447}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: trunc(7.984938,2)})			|[{"result":7.98}]								|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: toNumber("3.141516")})	|[{"result":3}]										|
+
+## Sentences
 
 ```js
-const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 3+2-1 })
 ```
 
-| Example           | Result 							|
-|-------------------|---------------------|
-|3+2-1							|4										|
-|3*4-1							|11										|
-|1-2-5							|-6										|
-|(2+3)*2						|10										|
-|2*(3+2)						|10										|
-|1+2*3*4						|25										|
-|(1+(2**3)*4				|33										|
-|1+2**(3*4)					|4097									|
-|(a*b)+(2*a+2*b)		|8										|
-|2**b+a							|'41'									|
-|c.b								|5										|
-|abs(-9)						|9										|
-|acos(0.434)				|1.1218683324277348		|
-|asin(0.434)				|0.44892799436716174	|
-|atan(2)						|1.1071487177940904		|
-|atan2(90, 15)			|1.4056476493802699		|
-|ceil(2)						|2										|
-|cos(2)							|-0.4161468365471424	|
-|cosh(2)						|3.7621956910836314		|
-|exp(7)							|1096.6331584284585		|
-|floor(7)						|7										|
-|ln(7)							|1.9459101490553132		|
-|log(7,10)					|1.9459101490553132		|
-|log10(7)						|0.8450980400142568		|
-|remainder(7,2)			|1										|
-|round(7.984938,2)	|8										|
-|sign(-7)						|-1										|
-|sin(7)							|0.6569865987187891		|
-|sinh(7)						|548.3161232732465		|
-|tan(7)							|0.8714479827243187		|
-|tanh(7)						|0.9999983369439447		|
-|trunc(7.984938,2)	|7										|
-toNumber("3.141516")|3.141516							|
+```sql
+SELECT ((3 + 2) - 1) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 3*4-1})
+```
+
+```sql
+SELECT ((3 * 4) - 1) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1-2-5})
+```
+
+```sql
+SELECT ((1 - 2) - 5) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: (2+3)*2})
+```
+
+```sql
+SELECT ((2 + 3) * 2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 2*(3+2)})
+```
+
+```sql
+SELECT (2 * (3 + 2)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1+2*3*4})
+```
+
+```sql
+SELECT (1 + ((2 * 3) * 4)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: (1+(2**3)*4)})
+```
+
+```sql
+SELECT (1 + (POWER(2,3) * 4)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1+2**(3*4)})
+```
+
+```sql
+SELECT (1 + POWER(2,(3 * 4))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: abs(-9)})
+```
+
+```sql
+SELECT ABS(-9) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: acos(0.434)})
+```
+
+```sql
+SELECT ACOS(0.434) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: asin(0.434)})
+```
+
+```sql
+SELECT ASIN(0.434) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: atan(2)})
+```
+
+```sql
+SELECT ATAN(2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: atan2(90, 15)})
+```
+
+```sql
+SELECT ATAN(90,15) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ceil(2)})
+```
+
+```sql
+SELECT CEIL(2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: cos(2)})
+```
+
+```sql
+SELECT COS(2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: cosh(2)})
+```
+
+```sql
+SELECT ((EXP(2) + EXP(-2)) / 2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: exp(7)})
+```
+
+```sql
+SELECT EXP(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: floor(7)})
+```
+
+```sql
+SELECT FLOOR(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ln(7)})
+```
+
+```sql
+SELECT LN(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: log(7,10)})
+```
+
+```sql
+SELECT LOG(7,10) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: log10(7)})
+```
+
+```sql
+SELECT LOG10(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: remainder(7,2)})
+```
+
+```sql
+SELECT (7 - 2*ROUND(7/2)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: round(7.984938,2)})
+```
+
+```sql
+SELECT ROUND(7.984938,2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sign(-7)})
+```
+
+```sql
+SELECT SIGN(-7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sin(7)})
+```
+
+```sql
+SELECT SIN(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sinh(7)})
+```
+
+```sql
+SELECT ((EXP(7) - EXP(-7)) / 2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: tan(7)})
+```
+
+```sql
+SELECT TAN(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: tanh(7)})
+```
+
+```sql
+SELECT (EXP(2*7) - 1)/(EXP(2*7) + 1) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: trunc(7.984938,2)})
+```
+
+```sql
+SELECT TRUNCATE(7.984938,2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: toNumber("3.141516")})
+```
+
+```sql
+SELECT CONVERT('3.141516', DECIMAL) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
 
 ## Definition
 

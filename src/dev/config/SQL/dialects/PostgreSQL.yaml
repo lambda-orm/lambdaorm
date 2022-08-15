@@ -22,6 +22,7 @@ functions:
     round: "ROUND(CAST({0} AS DECIMAL),{1})"
     remainder: "MOD({0},{1})"
     toNumber: "CAST({0} AS INTEGER)"
+    log10: 'LOG({0})'
   datetime:
     # https://www.postgresql.org/docs/8.4/datatype-datetime.html
     # https://www.postgresql.org/docs/9.1/functions-formatting.html
@@ -117,4 +118,6 @@ functions:
     # select to_char(TO_TIMESTAMP(2*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
     # -- millisecondToDate
     # select to_char(TO_TIMESTAMP(2)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-    
+  null:
+    nvl: "(CASE WHEN {0} IS NOT NULL THEN {0} ELSE {1} END)"
+    nvl2: "(CASE WHEN {0} IS NOT NULL THEN {1} ELSE {2} END)"   

@@ -16,6 +16,7 @@ entities:
       - name: iso3
         length: 3
         nullable: false
+      - name: native  
       - name: region
       - name: subregion
     relations:

@@ -1,77 +1,154 @@
 |Function   			|Description                                   																														|
 |-----------------|---------------------------------------------------------------------------------------------------------|
-|capitalize				|Make the first character have upper case and the rest lower case																					|
 |chr							|Get character from ASCII code																																						|
 |concat						|String concatenation																																											|
-|initcap					|Capitalize words																																													|
 |lower						|Lowercase string																																													|
 |lpad							|Pad the left-side of string																																							|
 |ltrim						|Remove leading chars																																											|
 |replace					|Searches a string for a specified value and returns a new string where the specified values are replaced	|
 |match						|Returns an array containing all matches, including capturing groups, or null if no matches are found			|
 |mask							|General-purpose function that mask parts of arbitrary strings based on position within the string				|
-|parse						|Parses a text string as JSON, optionally transforming the value produced by the parse.										|
 |rpad							|Pad the right-side of string																																							|
 |rtrim						|Remove trailing spaces																																										|
 |substr substring	|Get a substring of string																																								|
 |trim							|Remove characters																																												|
 |upper						|Uppercase string																																													|
 |strCount					|Count value in source																																										|
-|stringify				|Convert a JavaScript object or value to a JSON text string.																							|
-|template					|Are literal strings that enable the use of embedded expression																						|
-|test							|Try a match on a string. Returns true or false																														|
 |isEmpty					|Evaluate if it is empty																																									|
 |toString					|Convert to string																																												|
-|$ ${}					  |Get environment variable																																									|
 
 ## Examples
 
-Context:
+| Example                                   																								| Result 															|
+|-------------------------------------------------------------------------------------------|-------------------------------------|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: lower(p.subregion) })								|[{"result":"south america"}]					|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: upper(p.subregion) })								|[{"result":"SOUTH AMERICA"}]					|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: concat(p.region," ",p.subregion) })	|[{"result":"Americas South America"}]|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: lpad(p.region,12,"_") })						|[{"result":"____Americas"}]					|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: rpad(p.region,12,"_") })						|[{"result":"Americas____"}]					|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: chr(68)})														|[{"result":"D"}]											|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ltrim("  a  ")})										|[{"result":"a  "}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: rtrim("  a  ")})										|[{"result":"  a"}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: replace(p.region,"a","*")})					|[{"result":"Americ*s"}]							|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: mask(p.subregion)})									|[{"result":"Sou***ica"}]							|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: substr(p.subregion,1,3)})						|[{"result":"Sou"}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: substring(p.subregion,1,3)})				|[{"result":"Sou"}]										|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: strCount(p.subregion,"a")})					|[{"result":1}]												|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: toString(p.latitude)})							|[{"result":"-10.0000"}]							|
+
+## Sentences
 
 ```js
-const context = { firstName: 'Juan'
-								, lastName: 'Lopez'
-								, email: 'jlopez@email.com'
-								, age: 44
-								, food: 'pizza'
-								, film: 'Estación central'
-								, data: '{"b":1}'
-								, coordinate: { lat: 48.87, long: 2.29 } 
-								}
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: lower(p.subregion) })
 ```
 
-| Example                                   					| Result 																	|
-|-----------------------------------------------------|-----------------------------------------|
-|capitalize(food)																			|'Pizza'																	|
-|chr(68)																							|'D'																			|
-|concat(lastName,", ",firstName)											|'Lopez, Juan'														|
-|initcap(film)																				|'Estación Central'												|
-|lower(film)																					|'estación central'												|
-|lpad(firstName,10,"_")																|'______Juan'															|
-|ltrim("  a  ")																				|'a  '																		|
-|replace(film,"a","*")																|'Est*ción centr*l'												|
-|mask(email)																					|'jlo*****com'														|
-|parse(data).b																				|1																				|
-|rpad(firstName,10,"_")																|'Juan______'															|
-|rtrim("  a  ")																				|'  a'																		|
-|substr(film,1,3)																			|'st'																			|
-|substring(film,1,3)																	|'st'																			|
-|upper(film)																					|'ESTACIÓN CENTRAL'												|
-|strCount(film,"a")																		|2																				|
-|stringify(coordinate)																|'{"lat":48.87,"long":2.29}'							|
-|toString(age)																				|'44'																			|
-|`${firstName} is ${age} years old and likes ${food}`	|'Juan is 44 years old and likes pizza'		|
-|test("5","[a-zA-Z0-9_.]+$")													|true																			|
-|test("%","[a-zA-Z0-9_.]+$")													|false																		|
-|isEmpty(a)																						|true																			|
-|isEmpty(b)																						|true																			|
-|isEmpty(c)																						|true																			|
-|isEmpty(food)																				|false																		|
-|$HOME																								|'/home/flavio'														|
-|${USER}																							|'flavio'																	|
-|concat($HOME,$USER)																	|'/home/flavioflavio'											|
-|concat(${HOME},$USER)																|'/home/flavioflavio'											|
-|`value of home: $HOME`																|'value of home: /home/flavio'						|
+```sql
+SELECT LOWER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: upper(p.subregion) })
+```
+
+```sql
+SELECT UPPER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: concat(p.region," ",p.subregion) })
+```
+
+```sql
+SELECT CONCAT(CONCAT(c.region,' '),c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: lpad(p.region,12,"_") })
+```
+
+```sql
+SELECT LPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: rpad(p.region,12,"_") })
+```
+
+```sql
+SELECT RPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: chr(68)})
+```
+
+```sql
+SELECT CHAR(68 USING ASCII) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ltrim("  a  ")})
+```
+
+```sql
+SELECT LTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: rtrim("  a  ")})
+```
+
+```sql
+SELECT RTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: replace(p.region,"a","*")})
+```
+
+```sql
+SELECT REPLACE(c.region,'a','*') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: mask(p.subregion)})
+```
+
+```sql
+SELECT Concat(LEFT(c.subregion,3),'***',RIGHT(c.subregion,3)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: substr(p.subregion,1,3)})
+```
+
+```sql
+SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: substring(p.subregion,1,3)})
+```
+
+```sql
+SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: strCount(p.subregion,"a")})
+```
+
+```sql
+SELECT (LENGTH(c.subregion)-LENGTH(REPLACE(c.subregion,'a',''))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: toString(p.latitude)})
+```
+
+```sql
+SELECT CONVERT(c.latitude, CHAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+```
 
 ## Definition
 
@@ -90,14 +167,6 @@ const context = { firstName: 'Juan'
 - return: number
 - params:
 	- source: string
-	- value: string
-
-### initcap
-
-- description: Capitalize words
-- deterministic: true
-- return: string
-- params:
 	- value: string
 
 ### lower
@@ -198,53 +267,11 @@ const context = { firstName: 'Juan'
 - params:
 	- values: string
 
-### capitalize
-
-- description: Make the first character have upper case and the rest lower case
-- deterministic: true
-- return: string
-- params:
-	- value: string
-
-### test
-
-- description: Try a match on a string. Returns true or false.
-- deterministic: true
-- return: boolean
-- params:
-	- value: any
-	- regexp: string
-
-### match
-
-- description: Returns an array containing all matches, including capturing groups, or null if no matches are found.
-- deterministic: true
-- return: boolean
-- params:
-	- value: string
-	- regexp: string
-
 ### mask
 
 - description: General-purpose function that mask parts of arbitrary strings based on position within the string
 - deterministic: true
 - return: string
-- params:
-	- value: string
-
-### stringify
-
-- description: Convert a JavaScript object or value to a JSON text string.
-- deterministic: true
-- return: string
-- params:
-	- value: any
-
-### parse
-
-- description: Parses a text string as JSON, optionally transforming the value produced by the parse.
-- deterministic: true
-- return: any
 - params:
 	- value: string
 

@@ -3,15 +3,16 @@ import { orm, Helper } from '../../../../lib'
 export async function show (list:string[], data:any) {
 	const tests:string[] = []
 	const examples:string[] = []
+	const sentences:string[] = []
 	for(let i=0;i<list.length;i++){
 		const expression = list[i]
+		let sentence = ''
 		try {
 			await orm.init('./src/dev/labs/countries/country.yaml')
-			const sentence = orm.sentence(expression)
-			const sentences =Helper.sentenceToArray(sentence).join('\n')
+			const _sentence = orm.sentence(expression)
+			sentence =Helper.sentenceToArray(_sentence).join('\n')
 			const result = await orm.execute(expression, data)
 			let expect:any
-			let testCompare = 'toBe'
 			if (result === null) {
 				expect = 'null'
 			} else if (result === undefined) {
@@ -19,7 +20,6 @@ export async function show (list:string[], data:any) {
 			} else if (typeof result === 'string') {
 				expect = `'${result}'`
 			} else if (Array.isArray(result)) {
-				testCompare = 'toStrictEqual'
 				if (result.length === 0) {
 					expect = '[]'
 				} else {
@@ -37,15 +37,17 @@ export async function show (list:string[], data:any) {
 				expect = result
 			}
 			tests.push(`{ name: 'query ${i+1}', lambda: () => ${expression} },`)
+			sentences.push(`\`\`\`js\n${expression}\n\`\`\`\n\n\`\`\`sql\n${sentence}\n\`\`\`\n`)
 			if (expression.includes('\n')) {				
-				examples.push(`|\`${expression}\`|${sentences}|${expect}|`)
+				examples.push(`|\`${expression}\`|${expect}|`)
 			} else {				
-				examples.push(`|${expression}|${sentences}|${expect}|`)
+				examples.push(`|${expression}|${expect}|`)				
 			}
 		} catch (error) {
-			console.log(`exp: ${expression} error: ${error}`)
+			console.log(`exp: ${expression} sentence: ${sentence} error: ${error}`)
 		}
 	}
 	console.log(examples.join('\n'))
+	console.log(sentences.join('\n'))
 	console.log(tests.join('\n'))
 }

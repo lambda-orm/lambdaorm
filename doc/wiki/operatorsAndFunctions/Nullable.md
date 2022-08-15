@@ -7,24 +7,55 @@
 
 ## Examples
 
-Context:
+| Example                             																														| Result 								|
+|-------------------------------------------------------------------------------------------------|-----------------------|
+|States.filter(p=> isNull(p.latitude)).map(p=> count(1))																					|[{"count":68}]					|
+|States.filter(p=> isNotNull(p.latitude)).map(p=> count(1))																				|[{"count":4813}]				|
+|States.filter(p=> nvl(p.latitude,-100)== -100).map(p=> count(1))																	|[{"count":68}]					|
+|Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl(p.native,"???")})										|[{"native":"???"}]			|
+|Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl2(p.native,"is not null","is null")})	|[{"native":"is null"}]	|
+
+## Sentences
 
 ```js
-const context = { a: 1, b: null, c: '', e: 'hello' }
-
+States.filter(p=> isNull(p.latitude)).map(p=> count(1))
 ```
 
-| Example                             | Result 					|
-|-------------------------------------|-----------------|
-|nvl(a,2)															|1								|
-|nvl(b,2)															|2								|
-|nvl2(b,"is not null","is null")			|'is null'				|
-|nvl2(c,"is not null","is null")			|'is not null'		|
-|nvl2(d,"is not null","is null")			|'is null'				|
-|isNull(b)														|true							|
-|isNull(c)														|false						|
-|isNotNull(b)													|false						|
-|isNotNull(c)													|true							|
+```sql
+SELECT COUNT(1) FROM TBL_STATES s  WHERE (s.LATITUDE IS NULL) 
+```
+
+```js
+States.filter(p=> isNotNull(p.latitude)).map(p=> count(1))
+```
+
+```sql
+SELECT COUNT(1) FROM TBL_STATES s  WHERE (s.LATITUDE IS NOT NULL) 
+```
+
+```js
+States.filter(p=> nvl(p.latitude,-100)== -100).map(p=> count(1))
+```
+
+```sql
+SELECT COUNT(1) FROM TBL_STATES s  WHERE (CASE WHEN s.LATITUDE IS NOT NULL THEN s.LATITUDE ELSE -100 END) = -100 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl(p.native,"???")})
+```
+
+```sql
+SELECT IFNULL(c.native,'???') AS native FROM Countries c  WHERE c.iso3 = 'CIV' 
+```
+
+```js
+Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl2(p.native,"is not null","is null")})
+```
+
+```sql
+SELECT (CASE WHEN c.native IS NOT NULL THEN 'is not null' ELSE 'is null' END) AS native FROM Countries c  WHERE c.iso3 = 'CIV' 
+```
 
 ## Definition
 

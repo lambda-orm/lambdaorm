@@ -9,20 +9,64 @@
 
 ## Examples
 
-Context:
+| Example   																																| Result 													|
+|---------------------------------------------------------------------------|---------------------------------|
+|Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude & 1 })	|[{"result":1}]										|
+|Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude | 1 })	|[{"result":18446744073709552000}]|
+|Countries.filter(p=> p.iso3=="BRA").first(p=> {result: ~ p.longitude })		|[{"result":54}]									|
+|Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude << 1 })	|[{"result":18446744073709552000}]|
+|Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude ^ 1 })	|[{"result":18446744073709552000}]|
+|Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude >> 1 })	|[{"result":9223372036854776000}]	|
+
+## Sentences
 
 ```js
-const context = { }
+Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude & 1 })
 ```
 
-| Example   | Result 		|
-|-----------|-----------|
-|5 & 1			|1					|
-|5 \| 1			|5					|
-|~ 5				|-6					|
-|5 << 1			|10					|
-|5 ^ 1			|4					|
-|5 >> 1			|2					|
+```sql
+SELECT c.longitude & 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude | 1 })
+```
+
+```sql
+SELECT c.longitude | 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> p.iso3=="BRA").first(p=> {result: ~ p.longitude })
+```
+
+```sql
+SELECT ~ c.longitude AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude << 1 })
+```
+
+```sql
+SELECT c.longitude << 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude ^ 1 })
+```
+
+```sql
+SELECT c.longitude ^ 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 
+```
+
+```js
+Countries.filter(p=> p.iso3=="BRA").first(p=> {result: p.longitude >> 1 })
+```
+
+```sql
+SELECT c.longitude >> 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 
+```
 
 ## Definition
 

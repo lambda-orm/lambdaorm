@@ -143,6 +143,7 @@
         "exp": "EXP({0})",
         "floor": "FLOOR({0})",
         "ln": "LN({0})",
+        "log10": "LOG10({0})",
         "log": "LOG({0},{1})",
         "remainder": "REMAINDER({0},{1})",
         "round": "ROUND({0},{1})",
@@ -166,6 +167,8 @@
         "rpad": "RPAD({0},{1},{2})",
         "rtrim": "RTRIM({0})",
         "substr": "SUBSTR({0},{1},{2})",
+        "substring": "SUBSTR({0},{1},{2})",
+        "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
         "trim": "TRIM({0})",
         "upper": "UPPER({0})",
         "length": "LENGTH({0})",
@@ -310,6 +313,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
+          "log10": "LOG10({0})",
           "log": "LOG({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -331,6 +335,8 @@
           "rpad": "RPAD({0},{1},{2})",
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
+          "substring": "SUBSTR({0},{1},{2})",
+          "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
@@ -384,12 +390,12 @@
         },
         "null": {
           "nvl": "IFNULL({0},{1})",
-          "nvl2": "CASE WHEN {0} NOT NULL THEN {1} ELSE {2} END",
+          "nvl2": "(CASE WHEN {0} IS NOT NULL THEN {1} ELSE {2} END)",
           "isNull": "({0} IS NULL)",
           "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
-          "concat": "CONCAT({acumulated},{value})"
+          "concat": "CONCAT({accumulated},{value})"
         },
         "general": {
           "as": "{value} AS {alias}",
@@ -551,6 +557,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
+          "log10": "LOG10({0})",
           "log": "LOG({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -572,6 +579,8 @@
           "rpad": "RPAD({0},{1},{2})",
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
+          "substring": "SUBSTR({0},{1},{2})",
+          "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
@@ -625,12 +634,12 @@
         },
         "null": {
           "nvl": "IFNULL({0},{1})",
-          "nvl2": "CASE WHEN {0} NOT NULL THEN {1} ELSE {2} END",
+          "nvl2": "(CASE WHEN {0} IS NOT NULL THEN {1} ELSE {2} END)",
           "isNull": "({0} IS NULL)",
           "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
-          "concat": "CONCAT({acumulated},{value})"
+          "concat": "CONCAT({accumulated},{value})"
         },
         "general": {
           "as": "{value} AS {alias}",
@@ -887,6 +896,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
+          "log10": "LOG10({0})",
           "log": "LOG({0},{1})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
@@ -910,6 +920,8 @@
           "rpad": "RPAD({0},{1},{2})",
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
+          "substring": "SUBSTR({0},{1},{2})",
+          "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
@@ -1068,6 +1080,7 @@
           "round": "ROUND(CAST({0} AS DECIMAL),{1})",
           "remainder": "MOD({0},{1})",
           "toNumber": "CAST({0} AS INTEGER)",
+          "log10": "LOG({0})",
           "abs": "ABS({0})",
           "acos": "ACOS({0})",
           "asin": "ASIN({0})",
@@ -1121,6 +1134,12 @@
           "millisecondToDate": "to_char(TO_TIMESTAMP({0})::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
           "dateToString": "to_char ({0}::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
         },
+        "null": {
+          "nvl": "(CASE WHEN {0} IS NOT NULL THEN {0} ELSE {1} END)",
+          "nvl2": "(CASE WHEN {0} IS NOT NULL THEN {1} ELSE {2} END)",
+          "isNull": "({0} IS NULL)",
+          "isNotNull": "({0} IS NOT NULL)"
+        },
         "general": {
           "as": "{value} AS {alias}",
           "desc": "{0} desc",
@@ -1142,6 +1161,8 @@
           "rpad": "RPAD({0},{1},{2})",
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
+          "substring": "SUBSTR({0},{1},{2})",
+          "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
@@ -1152,12 +1173,6 @@
         "metadata": {
           "user": "USER",
           "source": "SYS_CONTEXT('USERENV','DB_NAME')"
-        },
-        "null": {
-          "nvl": "NVL({0},{1})",
-          "nvl2": "NVL2({0},{1},{2})",
-          "isNull": "({0} IS NULL)",
-          "isNotNull": "({0} IS NOT NULL)"
         },
         "multiple": {
           "concat": "{accumulated} || {value}"
@@ -1322,6 +1337,7 @@
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
           "ln": "LN({0})",
+          "log10": "LOG10({0})",
           "log": "LOG({0},{1})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
@@ -1345,6 +1361,8 @@
           "rpad": "RPAD({0},{1},{2})",
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
+          "substring": "SUBSTR({0},{1},{2})",
+          "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
@@ -1494,6 +1512,7 @@
           "cosh": "COSH({0})",
           "exp": "EXP({0})",
           "floor": "FLOOR({0})",
+          "log10": "LOG10({0})",
           "remainder": "REMAINDER({0},{1})",
           "round": "ROUND({0},{1})",
           "sign": "SIGN({0})",
@@ -1524,6 +1543,8 @@
           "rpad": "RPAD({0},{1},{2})",
           "rtrim": "RTRIM({0})",
           "substr": "SUBSTR({0},{1},{2})",
+          "substring": "SUBSTR({0},{1},{2})",
+          "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",

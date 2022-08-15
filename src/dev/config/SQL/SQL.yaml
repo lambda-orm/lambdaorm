@@ -132,6 +132,7 @@ functions:
     exp: 'EXP({0})'
     floor: 'FLOOR({0})'
     ln: 'LN({0})'
+    log10: 'LOG10({0})'
     log: 'LOG({0},{1})'
     remainder: 'REMAINDER({0},{1})'
     round: 'ROUND({0},{1})'
@@ -154,11 +155,14 @@ functions:
     rpad: 'RPAD({0},{1},{2})'
     rtrim: 'RTRIM({0})'
     substr: 'SUBSTR({0},{1},{2})'
+    substring: 'SUBSTR({0},{1},{2})'
+    strCount: "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))"
     trim: 'TRIM({0})'
     upper: 'UPPER({0})'
     length: 'LENGTH({0})'
     mask: "Concat(LEFT({0},3),'***',RIGHT({0},3))"
     parse: 'json_value({0})'
+    # stringify: 'JSON_OBJECT({0})'
     toString: 'CAST({0} AS VARCHAR2)'
   datetime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp

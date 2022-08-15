@@ -1,17 +1,13 @@
 import { show } from './util'
 
 (async () => {
-	const context = { a: 1, b: null, c: '', e: 'hello' }
+	const context = {}
 	const list = [
-		'nvl(a,2)',
-		'nvl(b,2)',
-		'nvl2(b,"is not null","is null")',
-		'nvl2(c,"is not null","is null")',
-		'nvl2(d,"is not null","is null")',
-		'isNull(b)',
-		'isNull(c)',
-		'isNotNull(b)',
-		'isNotNull(c)'
+		'States.filter(p=> isNull(p.latitude)).map(p=> count(1))',
+		'States.filter(p=> isNotNull(p.latitude)).map(p=> count(1))',
+		'States.filter(p=> nvl(p.latitude,-100)== -100).map(p=> count(1))',
+		'Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl(p.native,"???")})',
+		'Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl2(p.native,"is not null","is null")})'
 	]
 	show(list, context)
 })()
