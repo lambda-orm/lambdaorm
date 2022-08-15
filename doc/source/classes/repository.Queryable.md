@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`MapClauses`](repository.MapClauses.md)<`T`\>
+- [`HavingClauses`](repository.HavingClauses.md)<`T`\>
 
   ↳ **`Queryable`**
 
@@ -24,7 +24,7 @@
 
 ### Methods
 
-- [complete](repository.Queryable.md#complete)
+- [constraints](repository.Queryable.md#constraints)
 - [distinct](repository.Queryable.md#distinct)
 - [execute](repository.Queryable.md#execute)
 - [filter](repository.Queryable.md#filter)
@@ -35,11 +35,11 @@
 - [map](repository.Queryable.md#map)
 - [metadata](repository.Queryable.md#metadata)
 - [model](repository.Queryable.md#model)
+- [normalize](repository.Queryable.md#normalize)
 - [page](repository.Queryable.md#page)
 - [parameters](repository.Queryable.md#parameters)
 - [sentence](repository.Queryable.md#sentence)
 - [sort](repository.Queryable.md#sort)
-- [take](repository.Queryable.md#take)
 
 ## Constructors
 
@@ -62,29 +62,29 @@
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[constructor](repository.MapClauses.md#constructor)
+[HavingClauses](repository.HavingClauses.md).[constructor](repository.HavingClauses.md#constructor)
 
 #### Defined in
 
-[src/lib/repository/query.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L7)
+[src/lib/repository/query.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L7)
 
 ## Methods
 
-### complete
+### constraints
 
-▸ **complete**(): `string`
+▸ **constraints**(): `Promise`<[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)\>
 
 #### Returns
 
-`string`
+`Promise`<[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)\>
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[complete](repository.MapClauses.md#complete)
+[HavingClauses](repository.HavingClauses.md).[constraints](repository.HavingClauses.md#constraints)
 
 #### Defined in
 
-[src/lib/repository/query.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L16)
+[src/lib/repository/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L24)
 
 ___
 
@@ -108,22 +108,25 @@ ___
 
 [`MapClauses`](repository.MapClauses.md)<`U`\>
 
+#### Inherited from
+
+[HavingClauses](repository.HavingClauses.md).[distinct](repository.HavingClauses.md#distinct)
+
 #### Defined in
 
-[src/lib/repository/query.ts:172](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L172)
+[src/lib/repository/query.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L76)
 
 ___
 
 ### execute
 
-▸ **execute**(`data`, `context`): `Promise`<`any`\>
+▸ **execute**(`data`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `data` | `any` |
-| `context` | `any` |
 
 #### Returns
 
@@ -131,11 +134,11 @@ ___
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[execute](repository.MapClauses.md#execute)
+[HavingClauses](repository.HavingClauses.md).[execute](repository.HavingClauses.md#execute)
 
 #### Defined in
 
-[src/lib/repository/query.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L12)
+[src/lib/repository/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L12)
 
 ___
 
@@ -155,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:142](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L142)
+[src/lib/repository/query.ts:110](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L110)
 
 ___
 
@@ -179,9 +182,13 @@ ___
 
 [`Map2Clauses`](repository.Map2Clauses.md)<`U`\>
 
+#### Inherited from
+
+[HavingClauses](repository.HavingClauses.md).[first](repository.HavingClauses.md#first)
+
 #### Defined in
 
-[src/lib/repository/query.ts:157](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L157)
+[src/lib/repository/query.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L66)
 
 ___
 
@@ -201,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:177](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L177)
+[src/lib/repository/query.ts:120](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L120)
 
 ___
 
@@ -221,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:147](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L147)
+[src/lib/repository/query.ts:115](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L115)
 
 ___
 
@@ -245,9 +252,13 @@ ___
 
 [`Map2Clauses`](repository.Map2Clauses.md)<`U`\>
 
+#### Inherited from
+
+[HavingClauses](repository.HavingClauses.md).[last](repository.HavingClauses.md#last)
+
 #### Defined in
 
-[src/lib/repository/query.ts:162](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L162)
+[src/lib/repository/query.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L71)
 
 ___
 
@@ -271,45 +282,67 @@ ___
 
 [`MapClauses`](repository.MapClauses.md)<`U`\>
 
+#### Inherited from
+
+[HavingClauses](repository.HavingClauses.md).[map](repository.HavingClauses.md#map)
+
 #### Defined in
 
-[src/lib/repository/query.ts:152](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L152)
+[src/lib/repository/query.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L61)
 
 ___
 
 ### metadata
 
-▸ **metadata**(): `Promise`<`any`\>
+▸ **metadata**(): `Promise`<[`Metadata`](../interfaces/model.Metadata.md)\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`Metadata`](../interfaces/model.Metadata.md)\>
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[metadata](repository.MapClauses.md#metadata)
+[HavingClauses](repository.HavingClauses.md).[metadata](repository.HavingClauses.md#metadata)
 
 #### Defined in
 
-[src/lib/repository/query.ts:32](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L32)
+[src/lib/repository/query.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L36)
 
 ___
 
 ### model
 
-▸ **model**(): `Promise`<`any`\>
+▸ **model**(): `Promise`<[`MetadataModel`](../interfaces/model.MetadataModel.md)[]\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`MetadataModel`](../interfaces/model.MetadataModel.md)[]\>
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[model](repository.MapClauses.md#model)
+[HavingClauses](repository.HavingClauses.md).[model](repository.HavingClauses.md#model)
 
 #### Defined in
 
-[src/lib/repository/query.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L20)
+[src/lib/repository/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L20)
+
+___
+
+### normalize
+
+▸ **normalize**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[HavingClauses](repository.HavingClauses.md).[normalize](repository.HavingClauses.md#normalize)
+
+#### Defined in
+
+[src/lib/repository/query.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L16)
 
 ___
 
@@ -330,47 +363,47 @@ ___
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[page](repository.MapClauses.md#page)
+[HavingClauses](repository.HavingClauses.md).[page](repository.HavingClauses.md#page)
 
 #### Defined in
 
-[src/lib/repository/query.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L39)
+[src/lib/repository/query.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L43)
 
 ___
 
 ### parameters
 
-▸ **parameters**(): `Promise`<`any`\>
+▸ **parameters**(): `Promise`<[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]\>
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[parameters](repository.MapClauses.md#parameters)
+[HavingClauses](repository.HavingClauses.md).[parameters](repository.HavingClauses.md#parameters)
 
 #### Defined in
 
-[src/lib/repository/query.ts:24](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L24)
+[src/lib/repository/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L28)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`string`\>
+▸ **sentence**(): `Promise`<[`MetadataSentence`](../interfaces/model.MetadataSentence.md)\>
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<[`MetadataSentence`](../interfaces/model.MetadataSentence.md)\>
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[sentence](repository.MapClauses.md#sentence)
+[HavingClauses](repository.HavingClauses.md).[sentence](repository.HavingClauses.md#sentence)
 
 #### Defined in
 
-[src/lib/repository/query.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L28)
+[src/lib/repository/query.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L32)
 
 ___
 
@@ -390,34 +423,8 @@ ___
 
 #### Inherited from
 
-[MapClauses](repository.MapClauses.md).[sort](repository.MapClauses.md#sort)
+[HavingClauses](repository.HavingClauses.md).[sort](repository.HavingClauses.md#sort)
 
 #### Defined in
 
-[src/lib/repository/query.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L45)
-
-___
-
-### take
-
-▸ **take**<`U`\>(`predicate`): [`Map2Clauses`](repository.Map2Clauses.md)<`U`\>
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `U` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `predicate` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `U` |
-
-#### Returns
-
-[`Map2Clauses`](repository.Map2Clauses.md)<`U`\>
-
-#### Defined in
-
-[src/lib/repository/query.ts:167](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/repository/query.ts#L167)
+[src/lib/repository/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L49)

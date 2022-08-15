@@ -13,6 +13,7 @@
 ### Methods
 
 - [clean](manager.StageFacade.md#clean)
+- [delete](manager.StageFacade.md#delete)
 - [exists](manager.StageFacade.md#exists)
 - [export](manager.StageFacade.md#export)
 - [import](manager.StageFacade.md#import)
@@ -23,33 +24,33 @@
 
 ### constructor
 
-• **new StageFacade**(`schemaConfig`, `routing`, `expressionManager`, `languageManager`, `executor`)
+• **new StageFacade**(`schemaManager`, `routing`, `expressionManager`, `languages`, `executor`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `schemaConfig` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) |
 | `routing` | [`Routing`](manager.Routing.md) |
 | `expressionManager` | [`ExpressionManager`](manager.ExpressionManager.md) |
-| `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
+| `languages` | [`Languages`](manager.Languages.md) |
 | `executor` | [`Executor`](manager.Executor.md) |
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L20)
+[src/lib/manager/stageFacade.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L22)
 
 ## Methods
 
 ### clean
 
-▸ **clean**(`name`): [`StageClean`](stage.StageClean.md)
+▸ **clean**(`options?`): [`StageClean`](stage.StageClean.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
@@ -57,7 +58,27 @@
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L47)
+[src/lib/manager/stageFacade.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L58)
+
+___
+
+### delete
+
+▸ **delete**(`options?`): [`StageDelete`](stage.StageDelete.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
+
+#### Returns
+
+[`StageDelete`](stage.StageDelete.md)
+
+#### Defined in
+
+[src/lib/manager/stageFacade.ts:68](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L68)
 
 ___
 
@@ -77,19 +98,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:37](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L37)
+[src/lib/manager/stageFacade.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L48)
 
 ___
 
 ### export
 
-▸ **export**(`name`): [`StageExport`](stage.StageExport.md)
+▸ **export**(`options?`): [`StageExport`](stage.StageExport.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
@@ -97,19 +118,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L57)
+[src/lib/manager/stageFacade.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L73)
 
 ___
 
 ### import
 
-▸ **import**(`name`): [`StageImport`](stage.StageImport.md)
+▸ **import**(`options?`): [`StageImport`](stage.StageImport.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
@@ -117,19 +138,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L62)
+[src/lib/manager/stageFacade.ts:78](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L78)
 
 ___
 
 ### sync
 
-▸ **sync**(`name`): [`StageSync`](stage.StageSync.md)
+▸ **sync**(`options?`): [`StageSync`](stage.StageSync.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
@@ -137,24 +158,24 @@ ___
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:42](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L42)
+[src/lib/manager/stageFacade.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L53)
 
 ___
 
 ### truncate
 
-▸ **truncate**(`name`): [`StageClean`](stage.StageClean.md)
+▸ **truncate**(`options?`): [`StageTruncate`](stage.StageTruncate.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
-[`StageClean`](stage.StageClean.md)
+[`StageTruncate`](stage.StageTruncate.md)
 
 #### Defined in
 
-[src/lib/manager/stageFacade.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/stageFacade.ts#L52)
+[src/lib/manager/stageFacade.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/stageFacade.ts#L63)

@@ -1,39 +1,48 @@
-import { Property, Parameter, Relation } from './index'
+import { Property, Parameter, Relation, Behavior, Constraint } from './index'
 
-// export class Query extends Operand {
+export interface QueryArgs{
+	name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns?: Property[], parameters?: Parameter[], constraints?: Constraint[], values?: Behavior[], defaults?: Behavior[]
+}
+
 export class Query {
 	public name: string
 	// eslint-disable-next-line no-use-before-define
-	public children: Include[]
+	public includes: Include[]
 	public sentence: string
 	public dialect: string
 	public dataSource: string
 	public entity: string
-	// public autoincrement?: Property
 	public columns: Property[]
 	public parameters: Parameter[]
-	constructor (name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns: Property[] = [], parameters: Parameter[] = []) {
-		this.name = name
-		this.dialect = dialect
-		this.sentence = sentence
-		this.entity = entity
-		// this.autoincrement = autoincrement
-		this.columns = columns
-		this.parameters = parameters
-		this.dataSource = dataSource
-		this.children = []
+	public constraints: Constraint[]
+	public values: Behavior[]
+	public defaults: Behavior[]
+	constructor (args:QueryArgs) {
+		this.name = args.name
+		this.dialect = args.dialect
+		this.sentence = args.sentence
+		this.entity = args.entity
+		this.dataSource = args.dataSource
+		this.columns = args.columns || []
+		this.parameters = args.parameters || []
+		this.constraints = args.constraints || []
+		this.values = args.values || []
+		this.defaults = args.defaults || []
+		this.includes = []
 	}
 }
 export class Include {
-		public name: string
-		public children: Query[]
-		public relation: Relation
-		// public variable: string
-		// constructor(name: string, children: Operand[] = [], relation: any, variable: string) {
-		constructor (name: string, children: Query[] = [], relation: Relation) {
-			this.name = name
-			this.children = children
-			this.relation = relation
-			// this.variable = variable
-		}
+	public name: string
+	public query: Query
+	public relation: Relation
+	constructor (name: string, query: Query, relation: Relation) {
+		this.name = name
+		this.query = query
+		this.relation = relation
+	}
+}
+
+export interface ExecuteResult {
+	result?: any
+	error?: Error
 }

@@ -1,17 +1,18 @@
-import { Query } from '../model/index'
+import { Query, ExecuteResult } from '../model'
 import { DDLBuilder } from '../manager/ddlBuilder'
 import { StageActionDDL } from './stageActionDDL'
 
 export class StageSync extends StageActionDDL {
 	public async queries (): Promise<Query[]> {
-		const state = await this.state.get(this.stage)
-		return new DDLBuilder(this.schema, this.routing, this.languageManager, this.stage).sync(state.mappings)
+		const state = await this.state.get(this.options.stage as string)
+		return new DDLBuilder(this.schema, this.routing, this.languages, this.options.stage as string).sync(state.mappings)
 	}
 
-	public async execute (tryAllCan = false): Promise<any[]> {
+	public async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
-		const result = await this.executor.executeList(this.stage, queries, tryAllCan)
-		await this.state.updateModel(this.stage, this.schema.mapping.mappings)
+		const result = await this.executor.executeList(this.options, queries)
+		await this.state.update(this.options.stage as string, { mappings: this.schema.mapping.mappings })
+		await this.state.ddl(this.options.stage as string, 'sync', queries)
 		return result
 	}
 }

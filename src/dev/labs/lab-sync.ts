@@ -8,7 +8,7 @@ import path from 'path'
 		let result:any
 		const schema = await orm.schema.get(workspace)
 		await orm.init(schema)
-		await orm.stage.sync(orm.defaultStage.name).execute()
+		await orm.stage.sync({stage:orm.defaultStage.name}).execute()
 
 		result = await orm.execute('Countries.deleteAll()')
 		result = await orm.execute('States.deleteAll()')

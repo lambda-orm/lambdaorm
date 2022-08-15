@@ -4,14 +4,20 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('./src/dev/labs/countries/country.yaml')
 
-		await orm.stage.clean().execute(true)
+		await orm.stage.clean().execute()
 		await orm.stage.sync().execute()
-
 		const content = await Helper.readFile('./src/dev/labs/countries/data.json')
 		const data = JSON.parse(content as string)
-		await orm.execute('Countries.bulkInsert().include(p => p.states)', data)
+		await orm.execute(`Countries.bulkInsert().include(p => p.states)`, data)
 
-		const query = 'Countries.filter(p=> p.region == region).page(1,3).map(p=> [p.name,p.subregion,p.latitude,p.longitude]).include(p => p.states.filter(p=> substr(p.name,1,1)=="F").map(p=> [p.name,p.latitude,p.longitude]))'
+		const query = `Countries.filter(p=> p.region == region)
+														.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
+														.include(p => p.states
+																					 .filter(p=> substr(p.name,1,1)=="F")
+																					 .map(p=> [p.name,p.latitude,p.longitude])
+																		)
+														.sort(p=> p.name)
+														.page(1,3)`
 
 		const sentence = await orm.sentence(query)
 		console.log(sentence)

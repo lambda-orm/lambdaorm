@@ -15,11 +15,11 @@
 
 ### condition
 
-• **condition**: `string`
+• `Optional` **condition**: `string`
 
 #### Defined in
 
-[src/lib/model/schema.ts:73](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L73)
+[src/lib/model/schema.ts:128](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L128)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:72](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L72)
+[src/lib/model/schema.ts:127](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L127)

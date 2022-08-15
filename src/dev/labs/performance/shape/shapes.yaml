@@ -1,0 +1,94 @@
+entities:
+  - name: Geometries
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoIncrement: true
+      - name: shapeId
+        type: integer
+        nullable: false
+      - name: type
+        nullable: false
+    relations:
+      - name: shape
+        type: oneToOne
+        from: shapeId
+        entity: Shapes
+        to: id
+        target: geometry
+  - name: Geometries.Coordinates
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoIncrement: true
+      - name: geometryId
+        type: integer
+        nullable: false
+      - name: lat
+        nullable: false
+      - name: long
+        nullable: false
+      - name: alt
+    relations:
+      - name: geometry
+        from: geometryId
+        entity: Geometries
+        to: id
+        target: coordinates
+  - name: Shapes
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoIncrement: true
+      - name: type
+        nullable: false
+  - name: Shapes.Properties
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoIncrement: true
+      - name: shapeId
+        type: integer
+        nullable: false
+      - name: MAPBLKLOT
+      - name: BLKLOT
+      - name: BLOCK_NUM
+      - name: LOT_NUM
+      - name: FROM_ST
+      - name: TO_ST
+      - name: STREET
+      - name: ST_TYPE
+      - name: ODD_EVEN
+    relations:
+      - name: shape
+        type: oneToOne
+        from: shapeId
+        entity: Shapes
+        to: id
+        target: properties
+views:
+  -name: default
+mappings:
+  - name: default
+dataSources:
+  - name: postgres
+    mapping: default
+    dialect: postgres
+    connection:
+      host: "0.0.0.0"
+      port: 5432
+      user: "shapes"
+      password: "shapes"
+      database: "shapes"
+stages:
+  - name: default
+    dataSources:
+      - name: postgres

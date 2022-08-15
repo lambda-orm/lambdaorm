@@ -15,6 +15,46 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab performance northwind",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/northwind.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab performance shapes",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/shape/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/shape/.env"
+		},
+		{
+			"name": "lab CCLP beesion to local",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/beesionToLocal.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
+		},
+		{
+			"name": "lab CCLP file to local",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/fileToLocal.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
+		},
+		{
 			"name": "lab config",
 			"type": "node",
 			"request": "launch",
@@ -22,6 +62,16 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-config.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab config 2",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-config02.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
@@ -41,7 +91,27 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/labs/mongo/lab.js"
+			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
+		},
+		{
+			"name": "lab mongo queries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
+			"name": "lab mongo stage queries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/stage.ts",
+			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
 			"name": "lab sync",
@@ -54,6 +124,16 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab devicenet sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/devicenet-sync/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/devicenet-sync/.env"
+		},
+		{
 			"name": "lab countries",
 			"type": "node",
 			"request": "launch",
@@ -61,6 +141,96 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/countries/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-bitwise",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-bitwise.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-comparison",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-comparison.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-datetime",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-datetime.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-logical",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-logical.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-nullable",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-nullable.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-numeric",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-numeric.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-string",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-string.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-group",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-group.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-sort",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-sort.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{

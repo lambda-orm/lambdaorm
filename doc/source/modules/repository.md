@@ -16,4 +16,4 @@
 - [PageClauses](../classes/repository.PageClauses.md)
 - [QueryAction](../classes/repository.QueryAction.md)
 - [Queryable](../classes/repository.Queryable.md)
-- [Respository](../classes/repository.Respository.md)
+- [Repository](../classes/repository.Repository.md)

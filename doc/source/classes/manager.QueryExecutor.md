@@ -12,7 +12,7 @@
 
 ### Properties
 
-- [stage](manager.QueryExecutor.md#stage)
+- [options](manager.QueryExecutor.md#options)
 
 ### Methods
 
@@ -25,32 +25,32 @@
 
 ### constructor
 
-• **new QueryExecutor**(`connectionManager`, `languageManager`, `routing`, `schemaConfig`, `stage`, `transactionable?`)
+• **new QueryExecutor**(`connectionManager`, `languages`, `schemaManager`, `expressions`, `options`, `transactional?`)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `connectionManager` | [`ConnectionManager`](connection.ConnectionManager.md) | `undefined` |
-| `languageManager` | [`LanguageManager`](language.LanguageManager.md) | `undefined` |
-| `routing` | [`Routing`](manager.Routing.md) | `undefined` |
-| `schemaConfig` | [`SchemaConfig`](manager.SchemaConfig.md) | `undefined` |
-| `stage` | `string` | `undefined` |
-| `transactionable` | `boolean` | `false` |
+| `languages` | [`Languages`](manager.Languages.md) | `undefined` |
+| `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) | `undefined` |
+| `expressions` | `Expressions` | `undefined` |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | `undefined` |
+| `transactional` | `boolean` | `false` |
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L17)
+[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L17)
 
 ## Properties
 
-### stage
+### options
 
-• **stage**: `string`
+• **options**: [`OrmOptions`](../interfaces/model.OrmOptions.md)
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L10)
+[src/lib/manager/queryExecutor.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L9)
 
 ## Methods
 
@@ -64,13 +64,13 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:39](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L39)
+[src/lib/manager/queryExecutor.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L39)
 
 ___
 
 ### execute
 
-▸ **execute**(`query`, `data`, `context`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -78,7 +78,6 @@ ___
 | :------ | :------ |
 | `query` | [`Query`](model.Query.md) |
 | `data` | `any` |
-| `context` | `any` |
 
 #### Returns
 
@@ -86,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L79)
+[src/lib/manager/queryExecutor.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L61)
 
 ___
 
@@ -100,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L53)
+[src/lib/manager/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L53)
 
 ___
 
@@ -114,4 +113,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:46](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/queryExecutor.ts#L46)
+[src/lib/manager/queryExecutor.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L46)

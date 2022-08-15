@@ -9,7 +9,6 @@
 ### Properties
 
 - [dataSources](model.Stage.md#datasources)
-- [defaultDataSource](model.Stage.md#defaultdatasource)
 - [name](model.Stage.md#name)
 
 ## Properties
@@ -20,17 +19,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:79](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L79)
-
-___
-
-### defaultDataSource
-
-• **defaultDataSource**: `string`
-
-#### Defined in
-
-[src/lib/model/schema.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L78)
+[src/lib/model/schema.ts:132](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L132)
 
 ___
 
@@ -40,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:77](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L77)
+[src/lib/model/schema.ts:131](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L131)

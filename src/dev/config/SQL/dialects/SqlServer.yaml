@@ -1,0 +1,30 @@
+_extends: [SQL]
+types:
+  boolean: BIT
+ddl:
+  createPk: "PRIMARY KEY ({columns})"
+  incrementalColumDefine: "{name} {type} {nullable} IDENTITY (1, 1)"
+  dropPk: "DROP CONSTRAINT {name}"
+  dropUk: "DROP CONSTRAINT {name}"
+  dropFk: "DROP CONSTRAINT {name}"
+  dropIndex: "DROP INDEX {name} ON {table}"
+dml:
+  insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})
+  # insert: INSERT INTO {name}({fields}) VALUES({values})
+  update: UPDATE {alias} SET {assigns} FROM {name} {alias}
+  delete: DELETE FROM {name} {alias}
+  bulkInsert: INSERT INTO {name}({fields})
+  page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
+others:
+  delimiter: "[{name}]"
+  separatorSql: ' \nGO'
+  variable: "@{name}"
+  false: 0
+  true: 1
+functions:
+  numeric:
+    atan2: 'ATN2({0},{1})'
+    ceil: 'CEILING({0})'
+    trunc: 'ROUND({0},{1},1)'
+    ln: 'LOG({0})'
+    log: 'LOG({1},{0})' # en SqlServer la función LOG tiene los parámetros en diferente orden que en otros bases de datos

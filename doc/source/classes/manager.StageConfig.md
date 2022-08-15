@@ -12,7 +12,6 @@
 
 ### Properties
 
-- [default](manager.StageConfig.md#default)
 - [stages](manager.StageConfig.md#stages)
 
 ### Methods
@@ -28,19 +27,9 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:268](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L268)
+[src/lib/manager/schema.ts:451](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L451)
 
 ## Properties
-
-### default
-
-• `Optional` **default**: `string`
-
-#### Defined in
-
-[src/lib/manager/schema.ts:266](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L266)
-
-___
 
 ### stages
 
@@ -48,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:265](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L265)
+[src/lib/manager/schema.ts:449](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L449)
 
 ## Methods
 
@@ -68,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:283](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L283)
+[src/lib/manager/schema.ts:466](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L466)
 
 ___
 
@@ -88,4 +77,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:272](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/schema.ts#L272)
+[src/lib/manager/schema.ts:455](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L455)

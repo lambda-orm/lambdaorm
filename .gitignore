@@ -9,10 +9,13 @@ yarn-error.log*
 
 build
 dist
+volume
 
 # Dependency directories
 node_modules/
 
+# Confidentional data
+confidentional_data/
 
 # TypeScript v1 declaration files
 typings/

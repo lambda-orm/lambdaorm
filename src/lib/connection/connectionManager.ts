@@ -1,11 +1,8 @@
 
 import { Connection } from './connection'
 import { ConnectionPool } from './connectionPool'
-// import { Executor } from './executor'
-// import { Transaction } from './transaction'
+import { ConnectionError } from './../model'
 import { ConnectionConfig } from './connectionConfig'
-
-// const genericPool = require('generic-pool')
 
 export class ConnectionManager {
 	private dialectsPool:any
@@ -22,7 +19,7 @@ export class ConnectionManager {
 	public load (config:ConnectionConfig):void {
 		const DialectPool = this.dialectsPool[config.dialect]
 		if (DialectPool === undefined) {
-			throw new Error(`Connection to ${config.dialect} not supported`)
+			throw new ConnectionError(`Connection to ${config.name} whit dialect ${config.dialect} not supported`)
 		}
 		const pool = new DialectPool(config) as ConnectionPool
 		this.pools[config.name] = pool
@@ -31,7 +28,7 @@ export class ConnectionManager {
 	protected pool (name:string):ConnectionPool {
 		const pool = this.pools[name] as ConnectionPool
 		if (!pool) {
-			throw new Error(`connection ${name} not found`)
+			throw new ConnectionError(`connection ${name} not found`)
 		}
 		return pool
 	}
@@ -49,20 +46,12 @@ export class ConnectionManager {
 
 	public async acquire (name:string):Promise<Connection> {
 		const pool = this.pools[name] as ConnectionPool
-		if (!pool) { throw new Error(`connection ${name} not found`) }
+		if (!pool) { throw new ConnectionError(`connection ${name} not found`) }
 
-		return await this.pool(name).acquire()
+		return this.pool(name).acquire()
 	}
 
 	public async release (connection:Connection):Promise<void> {
 		await this.pool(connection.config.name).release(connection)
 	}
-
-	// public createExecutor (connectionName:string):Executor {
-	// return new Executor(this, connectionName)
-	// }
-
-// public createTransaction (connectionName:string):Transaction {
-// return new Transaction(this, connectionName)
-// }
 }

@@ -1,5 +1,6 @@
 {
 	"entryPoints": [
+		"src/lib/orm.ts",
 		"src/lib/connection",
 		"src/lib/language",
 		"src/lib/manager",

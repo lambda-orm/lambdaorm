@@ -3,12 +3,11 @@ import { Query, SchemaData, Entity } from '../model'
 
 export class StageExport extends StageActionDML {
 	public async execute (): Promise<SchemaData> {
-		const queries = await this.build()
+		const queries = this.queries()
 		const data = {}
 		const schemaExport: SchemaData = { entities: [] }
-		await this.executor.transaction(this.stage, async (tr) => {
-			for (let i = 0; i < queries.length; i++) {
-				const query = queries[i]
+		await this.executor.transaction(this.options, async (tr) => {
+			for (const query of queries) {
 				const rows = await tr.execute(query, data)
 				schemaExport.entities.push({ entity: query.entity, rows: rows })
 			}
@@ -16,7 +15,7 @@ export class StageExport extends StageActionDML {
 		return schemaExport
 	}
 
-	protected async createQuery (entity:Entity):Promise<Query> {
+	protected createQuery (entity:Entity):Query {
 		let expression = `${entity.name}.map(p=>{`
 		let first = true
 		for (const i in entity.properties) {
@@ -25,6 +24,6 @@ export class StageExport extends StageActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(entity)
-		return await this.expressionManager.toQuery(expression, this.stage)
+		return this.expressionManager.toQuery(expression, this.options)
 	}
 }

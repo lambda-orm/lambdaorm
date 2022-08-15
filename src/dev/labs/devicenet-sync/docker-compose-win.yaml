@@ -1,0 +1,57 @@
+version: "3"
+networks:
+  devicenet:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: devicenet-svc-lab-postgres
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_DB: devicenet
+      POSTGRES_USER: devicenet
+      POSTGRES_PASSWORD: devicenet
+      # POSTGRES_DB: keycloak
+      # POSTGRES_USER: keycloak
+      # POSTGRES_PASSWORD: keycloak
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "test" ]
+      interval: 3s
+      timeout: 1s
+      retries: 10
+    networks:
+      - devicenet
+  keycloak:
+    depends_on:
+      - postgres
+    image: quay.io/keycloak/keycloak:legacy
+    container_name: devicenet-svc-lab-keycloak
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_SCHEMA: public
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8180:8080
+    expose:
+      - 8180
+    networks:
+      - devicenet
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: C:\volumes\devicenet\postgres

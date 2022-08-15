@@ -1,0 +1,356 @@
+enums:
+  - name: DeviceType
+    values:
+      - name: phone
+        value: phone
+      - name: computer
+        value: computer
+      - name: robot
+        value: robot
+  - name: ComponentType
+    values:
+      - name: camera
+        value: camera
+      - name: microphone
+        value: microphone
+      - name: speaker
+        value: speaker
+      - name: gps
+        value: gps
+  - name: FileType
+    values:
+      - name: video
+        value: video
+      - name: audio
+        value: audio
+  - name: Role
+    values:
+      - name: admin
+        value: admin
+      - name: auditor
+        value: auditor
+      - name: operator
+        value: operator
+      - name: guest
+        value: guest
+entities:
+  # abtracts
+  - name: Basics
+    abstract: true
+    properties:
+      - name: created
+        type: datetime
+        default: now()
+  - name: Positions
+    abstract: true
+    properties:
+      - name: latitude
+        type: decimal
+      - name: longitude
+        type: decimal
+      - name: altitude
+        type: decimal
+  - name: Products
+    extends: Basics
+    abstract: true
+    properties:
+      - name: brand
+        length: 32
+      - name: model
+        length: 32
+      - name: serialNumber
+        length: 32
+  # model strcuture define
+  - name: Users
+    view: true
+    extends: Basics
+    primaryKey: ["username"]
+    uniqueKey: ["email"]
+    properties:
+      - name: username
+        length: 32
+        nullable: false
+      - name: firstname
+        nullable: false
+      - name: lastname
+        nullable: false
+      - name: fullmane
+        view: true
+        readExp: concat(lastname,", ",firstname)
+      - name: email
+        nullable: false
+        length: 255
+        readExp: mask(email)
+        # writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
+        # readValue: decrypt(email,"$$USERS_SECRET_KEY")
+    constraints:
+      - message: invalid email
+        condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+  - name: Groups
+    extends: Basics
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        length: 32
+        default: lower(substring(replace(name," ","-"),0,32))
+        nullable: false
+      - name: name
+        length: 32
+        nullable: false
+  - name: Groups.Users
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "username"]
+    properties:
+      - name: id
+        default: "`${groupId}-${username}`"
+        length: 64
+        nullable: false
+      - name: username
+        length: 32
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+      - name: role
+        length: 32
+        nullable: false
+        enum: Role
+    relations:
+      - name: group
+        from: groupId
+        entity: Groups
+        to: id
+        target: members
+      - name: user
+        from: username
+        entity: Users
+        to: username
+        target: members
+  - name: Devices
+    extends: Products
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      # tipo + identificador (el identificador es de acuerdo al tipo , en un telefono es el imei, en una pc la mac)
+      - name: id
+        length: 32
+        nullable: false
+        default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
+      - name: type
+        length: 16
+        nullable: false
+        enum: DeviceType
+      - name: name
+        length: 32
+        nullable: false
+      - name: ownerId
+        length: 32
+        nullable: false
+      - name: so
+        length: 32
+      - name: imei
+        length: 16
+      - name: imei2
+        length: 16
+      - name: mac
+        length: 24
+      - name: macBluetooth
+        length: 24
+      - name: ip
+        length: 24
+      - name: apiKey
+        length: 255
+    relations:
+      - name: owner
+        from: ownerId
+        entity: Users
+        to: username
+        target: devices
+  - name: Devices.Components
+    extends: Products
+    primaryKey: ["id"]
+    uniqueKey: ["deviceId", "name"]
+    properties:
+      - name: id
+        length: 50
+        nullable: false
+        # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
+        default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: name
+        length: 16
+        nullable: false
+      - name: type
+        length: 16
+        nullable: false
+        enum: ComponentType
+    relations:
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+        target: components
+  # model status
+  - name: DeviceStatuses
+    extends: Basics
+    primaryKey: ["id"]
+    indexes:
+      - name: time
+        fields: ["time"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoIncrement: true
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: time
+        type: datetime
+    relations:
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+        target: statuses
+  - name: DevicePositionStatuses
+    extends: Positions
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+    relations:
+      - name: status
+        type: oneToOne
+        from: id
+        entity: DevicePerformanceStatuses
+        to: id
+        target: performance
+  - name: DevicePerformanceStatuses
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: cpu
+        type: decimal
+      - name: gpu
+        type: decimal
+      - name: memory
+        type: decimal
+      - name: wifiSignal
+        type: decimal
+      - name: batery
+        type: decimal
+      - name: temperature
+        type: decimal
+    relations:
+      - name: status
+        type: oneToOne
+        from: id
+        entity: DevicePerformanceStatuses
+        to: id
+        target: position
+  - name: Files
+    #  use MinIO for save files, field file is path
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      #  el id es el fullpath del file, ejemplo: /deviceId/componentId/202202100922.mp3
+      - name: id
+        length: 255
+        nullable: false
+      - name: type
+        length: 16
+        nullable: false
+        enum: FileType
+      - name: deviceId
+        length: 32
+        nullable: false
+      - name: componentId
+        length: 50
+      - name: startDate
+        type: datetime
+        nullable: false
+      - name: endDate
+        type: datetime
+        nullable: false
+    relations:
+      - name: device
+        from: deviceId
+        entity: Devices
+        to: id
+        target: files
+      - name: component
+        from: componentId
+        entity: Components
+        to: id
+        target: files
+    constraints:
+      - message: endDate cannot be less than startDate
+        condition: startDate<=endDate
+  # TODO: crear solo la relacion en la entidad source y agregar la info para crear luego la relacion en la entidad target
+  # TODO: Definir Task, Activity, ProgramedTask, etc
+views:
+  - name: default
+    entities:
+      - name: Devices
+        properties:
+          - name: apiKey
+            readExp: '"***"'
+      - name: Users
+        properties:
+          - name: created
+            readExp: date(created)
+  - name: collector
+    entities:
+      - name: Users
+        exclude: true
+      - name: Groups
+        exclude: true
+      - name: GroupUsers
+        exclude: true
+  - name: admin
+    entities: []
+mappings:
+  - name: default
+  - name: keycloak
+    entities:
+      - name: Users
+        mapping: user_entity
+        filter: realmId == "$$REALM_ID"
+        properties:
+          - name: username
+            mapping: username
+          - name: firstname
+            mapping: first_name
+          - name: lastname
+            mapping: last_name
+          - name: email
+            mapping: email
+          - name: created
+            mapping: created_timestamp
+            readMappingExp: millisecondToDate(created/1000)
+          - name: realmId
+            length: 255
+            mapping: realm_id
+dataSources:
+  - name: main
+    mapping: default
+    dialect: postgres
+    connection: $$CNN_POSTGRES
+  - name: keycloak
+    mapping: keycloak
+    dialect: postgres
+    connection: $$CNN_KEYCLOAK
+stages:
+  - name: default
+    dataSources:
+      - name: main
+        condition: entity != "Users"
+      - name: keycloak
+        condition: entity == "Users"

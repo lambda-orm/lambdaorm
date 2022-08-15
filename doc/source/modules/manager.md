@@ -4,53 +4,28 @@
 
 ## Table of contents
 
-### References
-
-- [DDLBuilder](manager.md#ddlbuilder)
-- [DMLBuilder](manager.md#dmlbuilder)
-- [LanguageDDLBuilder](manager.md#languageddlbuilder)
-- [LanguageDMLBuilder](manager.md#languagedmlbuilder)
-
 ### Classes
 
+- [DDLBuilder](../classes/manager.DDLBuilder.md)
 - [DataSourceConfig](../classes/manager.DataSourceConfig.md)
+- [Dialect](../classes/manager.Dialect.md)
 - [Executor](../classes/manager.Executor.md)
-- [ExpressionCompleter](../classes/manager.ExpressionCompleter.md)
 - [ExpressionManager](../classes/manager.ExpressionManager.md)
+- [ExpressionNormalizer](../classes/manager.ExpressionNormalizer.md)
 - [Helper](../classes/manager.Helper.md)
-- [LibManager](../classes/manager.LibManager.md)
+- [Language](../classes/manager.Language.md)
+- [LanguageDDLBuilder](../classes/manager.LanguageDDLBuilder.md)
+- [Languages](../classes/manager.Languages.md)
 - [MappingConfig](../classes/manager.MappingConfig.md)
 - [MappingsConfig](../classes/manager.MappingsConfig.md)
 - [ModelConfig](../classes/manager.ModelConfig.md)
-- [Orm](../classes/manager.Orm.md)
+- [OperandManager](../classes/manager.OperandManager.md)
 - [QueryExecutor](../classes/manager.QueryExecutor.md)
 - [Routing](../classes/manager.Routing.md)
-- [SchemaConfig](../classes/manager.SchemaConfig.md)
-- [SchemaExtender](../classes/manager.SchemaExtender.md)
+- [SchemaManager](../classes/manager.SchemaManager.md)
+- [SentenceCompleter](../classes/manager.SentenceCompleter.md)
 - [StageConfig](../classes/manager.StageConfig.md)
 - [StageFacade](../classes/manager.StageFacade.md)
 - [Transaction](../classes/manager.Transaction.md)
-
-## References
-
-### DDLBuilder
-
-Re-exports [DDLBuilder](../classes/language.DDLBuilder.md)
-
-___
-
-### DMLBuilder
-
-Re-exports [DMLBuilder](../classes/language.DMLBuilder.md)
-
-___
-
-### LanguageDDLBuilder
-
-Re-exports [LanguageDDLBuilder](../classes/language.LanguageDDLBuilder.md)
-
-___
-
-### LanguageDMLBuilder
-
-Re-exports [LanguageDMLBuilder](../classes/language.LanguageDMLBuilder.md)
+- [ViewConfig](../classes/manager.ViewConfig.md)
+- [ViewsConfig](../classes/manager.ViewsConfig.md)

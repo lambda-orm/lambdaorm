@@ -1,4 +1,4 @@
-import { IOrm } from '../index'
+import { IOrm, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../index'
 
 export class ExpressionActions {
 	private orm
@@ -10,27 +10,31 @@ export class ExpressionActions {
 		this.orm = orm
 	}
 
-	public async execute (expresion: string, data:any): Promise<any> {
-		return await this.orm.execute(`${this.name}${expresion}`, data, this.stage)
+	public async execute (expression: string, data:any): Promise<any> {
+		return this.orm.execute(`${this.name}${expression}`, data, this.stage)
 	}
 
-	public complete (expresion: string): string {
-		return this.orm.complete(`${this.name}${expresion}`)
+	public normalize (expression: string): string {
+		return this.orm.normalize(`${this.name}${expression}`)
 	}
 
-	public async model (expresion: string): Promise<any> {
-		return await this.orm.model(`${this.name}${expresion}`)
+	public async model (expression: string): Promise<MetadataModel[]> {
+		return this.orm.model(`${this.name}${expression}`)
 	}
 
-	public async parameters (expresion: string): Promise<any> {
-		return await this.orm.parameters(`${this.name}${expresion}`)
+	public async parameters (expression: string): Promise<MetadataParameter[]> {
+		return this.orm.parameters(`${this.name}${expression}`)
 	}
 
-	public async metadata (expresion: string): Promise<any> {
-		return await this.orm.metadata(`${this.name}${expresion}`)
+	public async constraints (expression: string): Promise<MetadataConstraint> {
+		return this.orm.constraints(`${this.name}${expression}`)
 	}
 
-	public async sentence (expresion: string): Promise<string> {
-		return await this.orm.sentence(`${this.name}${expresion}`, this.stage)
+	public async metadata (expression: string): Promise<Metadata> {
+		return this.orm.metadata(`${this.name}${expression}`)
+	}
+
+	public async sentence (expression: string): Promise<MetadataSentence> {
+		return this.orm.sentence(`${this.name}${expression}`, this.stage)
 	}
 }

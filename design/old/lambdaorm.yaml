@@ -69,7 +69,7 @@ schemas:
             mapping: CategoryID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: name
             mapping: CategoryName
             nullable: false
@@ -112,7 +112,7 @@ schemas:
             mapping: EmployeeID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: lastName
             mapping: LastName
             nullable: false
@@ -148,7 +148,7 @@ schemas:
             mapping: ShipperID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: name
             mapping: CompanyName
             nullable: false
@@ -165,7 +165,7 @@ schemas:
             mapping: SupplierID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: name
             mapping: CompanyName
             nullable: false
@@ -186,7 +186,7 @@ schemas:
             mapping: ProductID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: name
             mapping: ProductName
             nullable: false
@@ -241,7 +241,7 @@ schemas:
             mapping: OrderID
             type: integer
             nullable: false
-            autoincrement: true
+            autoIncrement: true
           - name: customerId
             mapping: CustomerID
             nullable: false
@@ -333,7 +333,7 @@ schemas:
         properties:
           - name: id
             type: integer
-            autoincrement: true
+            autoIncrement: true
           - name: parentId
             type: integer
           - name: name

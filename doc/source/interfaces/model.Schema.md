@@ -10,9 +10,11 @@
 
 - [app](model.Schema.md#app)
 - [dataSources](model.Schema.md#datasources)
+- [entities](model.Schema.md#entities)
+- [enums](model.Schema.md#enums)
 - [mappings](model.Schema.md#mappings)
-- [model](model.Schema.md#model)
 - [stages](model.Schema.md#stages)
+- [views](model.Schema.md#views)
 
 ## Properties
 
@@ -22,7 +24,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:90](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L90)
+[src/lib/model/schema.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L140)
 
 ___
 
@@ -32,7 +34,27 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:93](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L93)
+[src/lib/model/schema.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L145)
+
+___
+
+### entities
+
+• **entities**: [`Entity`](model.Entity.md)[]
+
+#### Defined in
+
+[src/lib/model/schema.ts:141](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L141)
+
+___
+
+### enums
+
+• **enums**: [`Enum`](model.Enum.md)[]
+
+#### Defined in
+
+[src/lib/model/schema.ts:142](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L142)
 
 ___
 
@@ -42,17 +64,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:92](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L92)
-
-___
-
-### model
-
-• **model**: [`Model`](model.Model.md)
-
-#### Defined in
-
-[src/lib/model/schema.ts:91](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L91)
+[src/lib/model/schema.ts:144](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L144)
 
 ___
 
@@ -62,4 +74,14 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:94](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L94)
+[src/lib/model/schema.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L146)
+
+___
+
+### views
+
+• **views**: [`View`](model.View.md)[]
+
+#### Defined in
+
+[src/lib/model/schema.ts:143](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L143)

@@ -1,66 +1,82 @@
 import { SchemaManager, Executor, Routing, ExpressionManager } from '.'
-import { LanguageManager } from '../language'
-import { StageState } from '../stage/stageState'
+import { Languages } from '../manager'
+import { StageMapping, StageModel } from '../stage/stageState'
 import { StageSync } from '../stage/stageSync'
 import { StageClean } from '../stage/stageClean'
 import { StageExport } from '../stage/stageExport'
 import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
+import { StageDelete } from '../stage/stageDelete'
 import { Helper } from './helper'
-import { Stage } from 'lib'
+import { SchemaError, Stage, View, OrmOptions } from './../model'
 
 export class StageFacade {
-	private state: StageState
+	private stageModel: StageModel
+	private stageMapping: StageMapping
 	private schemaManager: SchemaManager
 	private routing: Routing
-	protected languageManager: LanguageManager
+	protected languages: Languages
 	private expressionManager: ExpressionManager
 	private executor: Executor
 
-	constructor (schemaManager: SchemaManager, routing: Routing, expressionManager: ExpressionManager, languageManager: LanguageManager, executor: Executor) {
+	constructor (schemaManager: SchemaManager, routing: Routing, expressionManager: ExpressionManager, languages: Languages, executor: Executor) {
 		this.schemaManager = schemaManager
 		this.routing = routing
-		this.languageManager = languageManager
+		this.languages = languages
 		this.expressionManager = expressionManager
 		this.executor = executor
-		this.state = new StageState(schemaManager)
+		this.stageMapping = new StageMapping(schemaManager)
+		this.stageModel = new StageModel(schemaManager)
 	}
 
 	private getStage (name?: string): Stage {
 		const stage = this.schemaManager.stage.get(name)
 		if (stage === undefined) {
-			throw new Error(`not exists ${name} stage`)
+			throw new SchemaError(`not exists ${name} stage`)
 		}
 		return stage
 	}
 
+	private getView (name?: string): View {
+		const view = this.schemaManager.view.get(name)
+		if (view === undefined) {
+			throw new SchemaError(`not exists ${name} stage`)
+		}
+		return view
+	}
+
 	public async exists (name:string) {
-		const file = this.state.getFile(name)
-		return await Helper.existsPath(file)
+		const file = this.stageModel.getFile(name)
+		return Helper.existsPath(file)
 	}
 
-	public sync (name?:string):StageSync {
-		const stage = this.getStage(name)
-		return new StageSync(this.state, this.schemaManager, this.routing, this.languageManager, this.executor, stage.name)
+	public sync (options?:OrmOptions):StageSync {
+		const _options = this.schemaManager.solveOptions(options)
+		return new StageSync(this.stageModel, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public clean (name?:string):StageClean {
-		const stage = this.getStage(name)
-		return new StageClean(this.state, this.schemaManager, this.routing, this.languageManager, this.executor, stage.name)
+	public clean (options?:OrmOptions):StageClean {
+		const _options = this.schemaManager.solveOptions(options)
+		return new StageClean(this.stageModel, this.stageMapping, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public truncate (name?:string):StageClean {
-		const stage = this.getStage(name)
-		return new StageTruncate(this.state, this.schemaManager, this.routing, this.languageManager, this.executor, stage.name)
+	public truncate (options?:OrmOptions):StageTruncate {
+		const _options = this.schemaManager.solveOptions(options)
+		return new StageTruncate(this.stageModel, this.schemaManager, this.routing, this.languages, this.executor, _options)
 	}
 
-	public export (name?:string):StageExport {
-		const stage = this.getStage(name)
-		return new StageExport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name)
+	public delete (options?:OrmOptions):StageDelete {
+		const _options = this.schemaManager.solveOptions(options)
+		return new StageDelete(this.stageMapping, this.schemaManager.model, this.expressionManager, this.executor, _options)
 	}
 
-	public import (name?:string):StageImport {
-		const stage = this.getStage(name)
-		return new StageImport(this.state, this.schemaManager.model, this.expressionManager, this.executor, stage.name)
+	public export (options?:OrmOptions):StageExport {
+		const _options = this.schemaManager.solveOptions(options)
+		return new StageExport(this.stageMapping, this.schemaManager.model, this.expressionManager, this.executor, _options)
+	}
+
+	public import (options?:OrmOptions):StageImport {
+		const _options = this.schemaManager.solveOptions(options)
+		return new StageImport(this.stageMapping, this.schemaManager.model, this.expressionManager, this.executor, _options)
 	}
 }

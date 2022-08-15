@@ -1,0 +1,35 @@
+_extends: [SQL]
+types:
+  boolean: CHAR(1)
+  integer: NUMBER(10)
+  decimal: NUMBER(19,4)
+  string: VARCHAR2({0})
+  datetime: DATE
+  date: DATE
+  time: DATE   
+others:
+  false: "'N'"
+  true: "'Y'"
+  variable: ":{name}"
+ddl:
+  createEntity: "CREATE TABLE {name} ({define})"
+  incrementalColumDefine: "{name} {type} {nullable}"
+  dropEntity: "DROP TABLE {name}"
+  dropPk: "DROP CONSTRAINT {name}"
+  dropUk: "DROP CONSTRAINT {name}"
+  dropFk: "DROP CONSTRAINT {name}"
+  dropIndex: "DROP INDEX {name} ON {table}"
+dml:
+  page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
+  bulkInsert: INSERT INTO {name}({fields}) VALUES({values})
+operators:
+  binary:  
+    '&': 'BITAND({0},{1})'
+    '|': 'BITOR({0},{1})'
+    '^': 'BITXOR({0},{1})'
+    '&=': '{0} = BITAND({0},{1})'
+    '|=': '{0} = BITOR({0},{1})'
+    '^=': '{0} = BITXOR({0},{1})'  
+functions:
+  datetime:
+    datetime: TO_CHAR({0},'YYYY-MM-DD"T"hh24:mi:ss')

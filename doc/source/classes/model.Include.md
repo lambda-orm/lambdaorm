@@ -12,39 +12,29 @@
 
 ### Properties
 
-- [children](model.Include.md#children)
 - [name](model.Include.md#name)
+- [query](model.Include.md#query)
 - [relation](model.Include.md#relation)
 
 ## Constructors
 
 ### constructor
 
-• **new Include**(`name`, `children?`, `relation`)
+• **new Include**(`name`, `query`, `relation`)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `name` | `string` | `undefined` |
-| `children` | [`Query`](model.Query.md)[] | `[]` |
-| `relation` | [`Relation`](../interfaces/model.Relation.md) | `undefined` |
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+| `query` | [`Query`](model.Query.md) |
+| `relation` | [`Relation`](../interfaces/model.Relation.md) |
 
 #### Defined in
 
-[src/lib/model/query.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L33)
+[src/lib/model/query.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L38)
 
 ## Properties
-
-### children
-
-• **children**: [`Query`](model.Query.md)[]
-
-#### Defined in
-
-[src/lib/model/query.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L29)
-
-___
 
 ### name
 
@@ -52,7 +42,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:28](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L28)
+[src/lib/model/query.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L35)
+
+___
+
+### query
+
+• **query**: [`Query`](model.Query.md)
+
+#### Defined in
+
+[src/lib/model/query.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L36)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/query.ts#L30)
+[src/lib/model/query.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L37)

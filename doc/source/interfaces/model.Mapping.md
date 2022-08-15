@@ -10,6 +10,7 @@
 
 - [entities](model.Mapping.md#entities)
 - [extends](model.Mapping.md#extends)
+- [format](model.Mapping.md#format)
 - [mapping](model.Mapping.md#mapping)
 - [name](model.Mapping.md#name)
 
@@ -21,7 +22,7 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L62)
+[src/lib/model/schema.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L101)
 
 ___
 
@@ -31,7 +32,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:59](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L59)
+[src/lib/model/schema.ts:98](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L98)
+
+___
+
+### format
+
+• `Optional` **format**: [`FormatMapping`](model.FormatMapping.md)
+
+#### Defined in
+
+[src/lib/model/schema.ts:102](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L102)
 
 ___
 
@@ -41,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L60)
+[src/lib/model/schema.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L99)
 
 ___
 
@@ -51,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/schema.ts:61](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/model/schema.ts#L61)
+[src/lib/model/schema.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L100)

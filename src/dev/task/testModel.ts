@@ -19,9 +19,10 @@ export interface ExpressionTest {
 	lambda: any
 	data?: string
 	expression?: string
-	completeExpression?: string
+	normalizeExpression?: string
 	model?: any
-	fields?: any
+	metadata?: any
+	constraints?: any
 	parameters?: Parameter[]
 	sentences?: SentenceTest[]
 	executions?: ExecutionTest[]

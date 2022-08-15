@@ -12,10 +12,10 @@
 
 ### Methods
 
-- [complete](manager.ExpressionManager.md#complete)
-- [eval](manager.ExpressionManager.md#eval)
+- [constraints](manager.ExpressionManager.md#constraints)
 - [metadata](manager.ExpressionManager.md#metadata)
 - [model](manager.ExpressionManager.md#model)
+- [normalize](manager.ExpressionManager.md#normalize)
 - [parameters](manager.ExpressionManager.md#parameters)
 - [sentence](manager.ExpressionManager.md#sentence)
 - [toExpression](manager.ExpressionManager.md#toexpression)
@@ -26,29 +26,101 @@
 
 ### constructor
 
-• **new ExpressionManager**(`cache`, `schema`, `languageManager`, `expressions`, `routing`)
+• **new ExpressionManager**(`cache`, `schema`, `languages`, `expressions`, `routing`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `cache` | `Cache` |
-| `schema` | [`SchemaConfig`](manager.SchemaConfig.md) |
-| `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
+| `schema` | [`SchemaManager`](manager.SchemaManager.md) |
+| `languages` | [`Languages`](manager.Languages.md) |
 | `expressions` | `Expressions` |
 | `routing` | [`Routing`](manager.Routing.md) |
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:16](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L16)
+[src/lib/manager/expressionManager.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L16)
 
 ## Methods
 
-### complete
+### constraints
 
-▸ **complete**(`expression`): `string`
+▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
 
-complete the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a complete expression from a simplified expression.
+Get constraints of expression
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `string` | expression |
+
+#### Returns
+
+[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
+
+constraints
+
+#### Defined in
+
+[src/lib/manager/expressionManager.ts:162](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L162)
+
+___
+
+### metadata
+
+▸ **metadata**(`expression`): [`Metadata`](../interfaces/model.Metadata.md)
+
+Get metadata of expression
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `string` | expression |
+
+#### Returns
+
+[`Metadata`](../interfaces/model.Metadata.md)
+
+metadata of expression
+
+#### Defined in
+
+[src/lib/manager/expressionManager.ts:197](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L197)
+
+___
+
+### model
+
+▸ **model**(`expression`): [`MetadataModel`](../interfaces/model.MetadataModel.md)[]
+
+Get model of expression
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `string` | expression |
+
+#### Returns
+
+[`MetadataModel`](../interfaces/model.MetadataModel.md)[]
+
+Model of expression
+
+#### Defined in
+
+[src/lib/manager/expressionManager.ts:152](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L152)
+
+___
+
+### normalize
+
+▸ **normalize**(`expression`): `string`
+
+normalize the expression. Since in some cases the expressions use simplifications, this method is in charge of returning a normalized expression from a expression.
 
 #### Parameters
 
@@ -64,86 +136,13 @@ full expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:30](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L30)
-
-___
-
-### eval
-
-▸ **eval**(`expression`, `data`): `Promise`<`any`\>
-
-Evaluate and solve expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `data` | `any` | Data with variables |
-
-#### Returns
-
-`Promise`<`any`\>
-
-Result of the evaluale expression
-
-#### Defined in
-
-[src/lib/manager/expressionManager.ts:111](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L111)
-
-___
-
-### metadata
-
-▸ **metadata**(`expression`): `Promise`<`any`\>
-
-Get metadata of expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
-
-#### Returns
-
-`Promise`<`any`\>
-
-metadata of expression
-
-#### Defined in
-
-[src/lib/manager/expressionManager.ts:147](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L147)
-
-___
-
-### model
-
-▸ **model**(`expression`): `Promise`<`any`\>
-
-Get model of expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
-
-#### Returns
-
-`Promise`<`any`\>
-
-Model of expression
-
-#### Defined in
-
-[src/lib/manager/expressionManager.ts:122](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L122)
+[src/lib/manager/expressionManager.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L32)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expression`): `Promise`<`any`\>
+▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
 Get parameters of expression
 
@@ -155,34 +154,34 @@ Get parameters of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
 Parameters of expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:132](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L132)
+[src/lib/manager/expressionManager.ts:172](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L172)
 
 ___
 
 ### sentence
 
-▸ **sentence**(`expression`, `stage`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `options`): [`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `stage` | `string` |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
-`Promise`<`string`\>
+[`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L137)
+[src/lib/manager/expressionManager.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L177)
 
 ___
 
@@ -206,13 +205,13 @@ String expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:86](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L86)
+[src/lib/manager/expressionManager.ts:124](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L124)
 
 ___
 
 ### toOperand
 
-▸ **toOperand**(`expression`): `Promise`<`Operand`\>
+▸ **toOperand**(`expression`): `Operand`
 
 Build expression
 
@@ -224,31 +223,31 @@ Build expression
 
 #### Returns
 
-`Promise`<`Operand`\>
+`Operand`
 
 Operand
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:47](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L47)
+[src/lib/manager/expressionManager.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L48)
 
 ___
 
 ### toQuery
 
-▸ **toQuery**(`expression`, `stage`): `Promise`<[`Query`](model.Query.md)\>
+▸ **toQuery**(`expression`, `options`): [`Query`](model.Query.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `stage` | `string` |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
-`Promise`<[`Query`](model.Query.md)\>
+[`Query`](model.Query.md)
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/expressionManager.ts#L65)
+[src/lib/manager/expressionManager.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionManager.ts#L64)

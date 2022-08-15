@@ -20,27 +20,27 @@
 
 ### constructor
 
-• **new Executor**(`connectionManager`, `languageManager`, `routing`, `schemaConfig`, `expressionManager`)
+• **new Executor**(`connectionManager`, `languages`, `schemaManager`, `expressionManager`, `expressions`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `connectionManager` | [`ConnectionManager`](connection.ConnectionManager.md) |
-| `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
-| `routing` | [`Routing`](manager.Routing.md) |
-| `schemaConfig` | [`SchemaConfig`](manager.SchemaConfig.md) |
+| `languages` | [`Languages`](manager.Languages.md) |
+| `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) |
 | `expressionManager` | [`ExpressionManager`](manager.ExpressionManager.md) |
+| `expressions` | `Expressions` |
 
 #### Defined in
 
-[src/lib/manager/executor.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L14)
+[src/lib/manager/executor.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/executor.ts#L15)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`query`, `data`, `context`, `stage`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`, `options`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -48,8 +48,7 @@
 | :------ | :------ |
 | `query` | [`Query`](model.Query.md) |
 | `data` | `any` |
-| `context` | `any` |
-| `stage` | `string` |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Returns
 
@@ -57,46 +56,43 @@
 
 #### Defined in
 
-[src/lib/manager/executor.ts:22](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L22)
+[src/lib/manager/executor.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/executor.ts#L23)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`stage`, `queries`, `context`, `tryAllCan?`): `Promise`<`any`\>
+▸ **executeList**(`options`, `queries`): `Promise`<[`ExecuteResult`](../interfaces/model.ExecuteResult.md)[]\>
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `stage` | `string` | `undefined` |
-| `queries` | [`Query`](model.Query.md)[] | `undefined` |
-| `context` | `any` | `undefined` |
-| `tryAllCan` | `boolean` | `false` |
+| Name | Type |
+| :------ | :------ |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
+| `queries` | [`Query`](model.Query.md)[] |
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`ExecuteResult`](../interfaces/model.ExecuteResult.md)[]\>
 
 #### Defined in
 
-[src/lib/manager/executor.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L45)
+[src/lib/manager/executor.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/executor.ts#L46)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`stage`, `context`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options`, `callback`): `Promise`<`void`\>
 
-Crea una transaccion
+Create a transaction
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stage` | `string` | - |
-| `context` | `any` | - |
-| `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Codigo que se ejecutara en transaccion |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | - |
+| `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Code to be executed in transaction |
 
 #### Returns
 
@@ -104,4 +100,4 @@ Crea una transaccion
 
 #### Defined in
 
-[src/lib/manager/executor.ts:78](https://github.com/FlavioLionelRita/lambda-orm/blob/36f1fb3/src/lib/manager/executor.ts#L78)
+[src/lib/manager/executor.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/executor.ts#L77)
