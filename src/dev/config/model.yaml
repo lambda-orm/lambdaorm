@@ -1,7 +1,7 @@
 functions:
   # general:---------------------------------------------------------
   as:
-    desc: Is used to assign a new name temporarily to a table column or even a table
+    description: Is used to assign a new name temporarily to a table column or even a table
     category: general
     return: T
     params:
@@ -10,7 +10,7 @@ functions:
       - name: name
         type: string
   distinct:
-    desc: Is used with SELECT key word to retrieve only distinct or unique data.
+    description: Is used with SELECT key word to retrieve only distinct or unique data.
     category: general
     return: T
     params:
@@ -18,14 +18,14 @@ functions:
         type: T
   # sort:---------------------------------------------------------
   desc:
-    desc: This statement is used to sort data in descending order
+    description: This statement is used to sort data in descending order
     category: sort
     return: void
     params:
       - name: value
         type: any
   asc:
-    desc: This statement is used to sort data in ascending order.
+    description: This statement is used to sort data in ascending order.
     category: sort
     return: void
     params:
@@ -34,58 +34,58 @@ functions:
 
   # metadata :---------------------------------------------------------
   user:
-    desc: get username
+    description: get username
     category: metadata
     return: string
   source:
-    desc: get source
+    description: get source
     category: metadata
     return: string
   # group: ---------------------------------------------------------
   avg:
-    desc: Calculates the average of the specified columns in a set of rows
+    description: Calculates the average of the specified columns in a set of rows
     category: group
     return: number
     params:
       - name: value
         type: number
   count:
-    desc: Calculating the number of rows in a set.
+    description: Calculating the number of rows in a set.
     category: group
     return: number
     params:
       - name: value
         type: any
   first:
-    desc: Returns the first value of the selected column
+    description: Returns the first value of the selected column
     category: group
     return: T
     params:
       - name: value
         type: T
   last:
-    desc: Returns the last value of the selected column.
+    description: Returns the last value of the selected column.
     category: group
     return: T
     params:
       - name: value
         type: T
   max:
-    desc: Calculating the maximum.
+    description: Calculating the maximum.
     category: group
     return: T
     params:
       - name: value
         type: T
   min:
-    desc: Calculating the minimum.
+    description: Calculating the minimum.
     category: group
     return: T
     params:
       - name: value
         type: T
   sum:
-    desc: Calculating the sum.
+    description: Calculating the sum.
     category: group
     return: number
     params:
